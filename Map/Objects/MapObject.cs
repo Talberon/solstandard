@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Utility;
 
 namespace SolStandard.Map.Objects
 {
-    class MapObject
+    public class MapObject
     {
+        protected TileCell tileCell;
+        protected Vector2 mapCoordinates;
+
+        public TileCell GetTileCell()
+        {
+            return tileCell;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            tileCell.Draw(spriteBatch, mapCoordinates * GameDriver.CELL_SIZE);
+        }
     }
 }

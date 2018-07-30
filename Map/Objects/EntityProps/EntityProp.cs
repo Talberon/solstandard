@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolStandard.Map.Objects.EntityProps
 {
-    abstract class EntityProp
+    public abstract class EntityProp
     {
 
     }

@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -44,14 +44,17 @@
     <Compile Include="GameDriver.cs" />
     <Compile Include="Map\Objects\MapEntity.cs" />
     <Compile Include="Map\Objects\MapTile.cs" />
-    <Compile Include="Map\Map.cs" />
+    <Compile Include="Map\MapContainer.cs" />
     <Compile Include="Map\Objects\MapObject.cs" />
-    <Compile Include="Map\TileProperty.cs" />
+    <Compile Include="Map\Objects\EntityProps\EntityProp.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Exception\CellNotFoundException.cs" />
     <Compile Include="Utility\IRenderable.cs" />
+    <Compile Include="Utility\Load\ContentLoader.cs" />
+    <Compile Include="Utility\Monogame\ITexture2D.cs" />
+    <Compile Include="Utility\Monogame\Texture2DWrapper.cs" />
     <Compile Include="Utility\TileCell.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +73,9 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="Content\TmxMaps\Arena.tmx" />
+    <None Include="Content\TmxMaps\Arena.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

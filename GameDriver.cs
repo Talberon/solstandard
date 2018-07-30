@@ -1,16 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SolStandard.Map;
+using SolStandard.Map.Objects;
+using SolStandard.Utility.Load;
+using SolStandard.Utility.Monogame;
+using System.Collections.Generic;
+using TiledSharp;
 
 namespace SolStandard
 {
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class GameDriver : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        //Tile Size of Sprites
+        public const int CELL_SIZE = 32;
+
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+
+
+        private MapContainer gameMap;
+        private Texture2D terrainTextures;
 
         public GameDriver()
         {
@@ -26,9 +40,15 @@ namespace SolStandard
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            // TODO: Add your initialization logic here
+            string mapPath = "Content/TmxMaps/Arena.tmx";
+            TmxMap tmxMap = new TmxMap(mapPath);
+            ITexture2D texture = new Texture2DWrapper(terrainTextures);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap, texture);
+
+            gameMap = mapParser.LoadMap();
+
         }
 
         /// <summary>
@@ -41,6 +61,7 @@ namespace SolStandard
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
         }
 
         /// <summary>
@@ -77,7 +98,23 @@ namespace SolStandard
 
             // TODO: Add your drawing code here
 
+            spriteBatch.Begin(SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+
+
+            foreach (MapObject[,] layer in gameMap.GetGameGrid())
+            {
+                foreach (MapObject tile in layer)
+                {
+                    if (tile != null)
+                        tile.Draw(spriteBatch);
+                }
+
+            }
+
             base.Draw(gameTime);
+
+            spriteBatch.End();
         }
     }
 }

@@ -1,28 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Utility.Monogame;
 using System;
 
 namespace SolStandard.Utility
 {
-    class TileCell : IRenderable
+    public class TileCell : IRenderable
     {
-        private Texture2D image;
+        private ITexture2D image;
         private int cellSize;
         private int cellIndex;
 
-        public TileCell(Texture2D image, int cellSize, int cellIndex)
+        public TileCell(ITexture2D image, int cellSize, int cellIndex)
         {
             this.image = image;
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
         }
 
-
-
-        private Rectangle renderCell()
+        private Rectangle RenderCell()
         {
-            int Columns = image.Width / cellSize;
-            int Rows = image.Height / cellSize;
+            int Columns = image.GetWidth() / cellSize;
+            int Rows = image.GetHeight() / cellSize;
 
             int cellSearcher = 0;
 
@@ -44,15 +43,19 @@ namespace SolStandard.Utility
             throw new CellNotFoundException();
         }
 
-        private Rectangle drawRectangle(int x, int y)
+        private Rectangle DrawRectangle(int x, int y)
         {
             return new Rectangle(x, y, cellSize, cellSize);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(image, drawRectangle((int)position.X, (int)position.Y), renderCell(), Color.White);
+            spriteBatch.Draw(image.GetTexture2D(), DrawRectangle((int)position.X, (int)position.Y), RenderCell(), Color.White);
         }
 
+        public override string ToString()
+        {
+            return "TileCell: <CellIndex," + cellIndex + "><CellSize," + cellSize + ">";
+        }
     }
 }
