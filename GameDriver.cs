@@ -10,7 +10,6 @@ using TiledSharp;
 
 namespace SolStandard
 {
-
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -24,7 +23,8 @@ namespace SolStandard
 
 
         private MapContainer gameMap;
-        private Texture2D terrainTextures;
+        private ITexture2D terrainTextures;
+        private List<ITexture2D> unitSprites;
 
         public GameDriver()
         {
@@ -42,13 +42,12 @@ namespace SolStandard
         {
             base.Initialize();
             // TODO: Add your initialization logic here
-            string mapPath = "Content/TmxMaps/Arena.tmx";
+            string mapPath = "Content/TmxMaps/Arena_2.tmx";
             TmxMap tmxMap = new TmxMap(mapPath);
-            ITexture2D texture = new Texture2DWrapper(terrainTextures);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, texture);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
 
+            
             gameMap = mapParser.LoadMap();
-
         }
 
         /// <summary>
@@ -62,6 +61,7 @@ namespace SolStandard
 
             // TODO: use this.Content to load your game content here
             terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
         }
 
         /// <summary>
@@ -80,7 +80,8 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
@@ -98,7 +99,8 @@ namespace SolStandard
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
 
@@ -109,7 +111,6 @@ namespace SolStandard
                     if (tile != null)
                         tile.Draw(spriteBatch);
                 }
-
             }
 
             base.Draw(gameTime);

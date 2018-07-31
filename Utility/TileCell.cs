@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility.Monogame;
-using System;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
+    
     public class TileCell : IRenderable
     {
-        private ITexture2D image;
-        private int cellSize;
-        private int cellIndex;
+        private readonly ITexture2D image;
+        private readonly int cellSize;
+        private readonly int cellIndex;
 
         public TileCell(ITexture2D image, int cellSize, int cellIndex)
         {
@@ -20,15 +21,15 @@ namespace SolStandard.Utility
 
         private Rectangle RenderCell()
         {
-            int Columns = image.GetWidth() / cellSize;
-            int Rows = image.GetHeight() / cellSize;
+            int columns = image.GetWidth() / cellSize;
+            int rows = image.GetHeight() / cellSize;
 
             int cellSearcher = 0;
 
             //Run through the tiles in the TileSet until you hit the index of the given celll
-            for (int row = 0; row < Rows; row++)
+            for (int row = 0; row < rows; row++)
             {
-                for (int col = 0; col < Columns; col++)
+                for (int col = 0; col < columns; col++)
                 {
                     cellSearcher++;
 

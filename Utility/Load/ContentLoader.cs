@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace SolStandard.Utility.Load
 {
+    using Monogame;
+
     /**
      * ContentLoader
      * Holds a series of loader methods that are used for the game
@@ -23,16 +25,16 @@ namespace SolStandard.Utility.Load
             return fonts;
         }
 
-        public static Texture2D LoadTerrainSpriteTexture(ContentManager content)
+        public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/Tiles");
 
-            return spriteTextures;
+            return new Texture2DWrapper(spriteTextures);
         }
 
-        public static List<Texture2D> LoadGuiTextures(ContentManager content)
+        public static List<ITexture2D> LoadGuiTextures(ContentManager content)
         {
-            List<Texture2D> guiTextures = new List<Texture2D>
+            List<Texture2D> loadGuiTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("GUI/Cursor"),
                 content.Load<Texture2D>("GUI/UnitCursorBlue"),
@@ -52,44 +54,51 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("GUI/PipGrey")
             };
 
+            List<ITexture2D> guiTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadGuiTextures)
+            {
+                guiTextures.Add(new Texture2DWrapper(texture));
+            }
+
             return guiTextures;
         }
         
-        public static List<Texture2D> LoadUnitSpriteTextures(ContentManager content)
+        public static List<ITexture2D> LoadUnitSpriteTextures(ContentManager content)
         {
-            List<Texture2D> spriteTextures = new List<Texture2D>
+            List<Texture2D> loadSpriteTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Units/BlueMarauder"),
-                content.Load<Texture2D>("Units/BlueFencer"),
-                content.Load<Texture2D>("Units/BlueLancer"),
-                content.Load<Texture2D>("Units/BlueArcher"),
-                content.Load<Texture2D>("Units/BlueMage"),
-                content.Load<Texture2D>("Units/BlueCleric"),
-                content.Load<Texture2D>("Units/BlueChampion"),
-                content.Load<Texture2D>("Units/BlueRogue"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueArcher"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMage"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueChampion"),
 
-                content.Load<Texture2D>("Units/RedMarauder"),
-                content.Load<Texture2D>("Units/RedFencer"),
-                content.Load<Texture2D>("Units/RedLancer"),
-                content.Load<Texture2D>("Units/RedArcher"),
-                content.Load<Texture2D>("Units/RedMage"),
-                content.Load<Texture2D>("Units/RedCleric"),
-                content.Load<Texture2D>("Units/RedChampion"),
-                content.Load<Texture2D>("Units/RedRogue")
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion")
             };
+            
+            List<ITexture2D> spriteTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadSpriteTextures)
+            {
+                spriteTextures.Add(new Texture2DWrapper(texture));
+            }
 
             return spriteTextures;
         }
         
-        public static List<Texture2D> LoadUnitPortraitTextures(ContentManager content)
+        public static List<ITexture2D> LoadUnitPortraitTextures(ContentManager content)
         {
-            List<Texture2D> portraitTextures = new List<Texture2D>
+            List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Images/PortraitsMain"),
                 content.Load<Texture2D>("Images/PortraitsMedium"),
                 content.Load<Texture2D>("Images/PortraitsSmall"),
                 content.Load<Texture2D>("Images/PortraitsFull")
             };
+            
+            List<ITexture2D> portraitTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadPortraitTextures)
+            {
+                portraitTextures.Add(new Texture2DWrapper(texture));
+            }
 
             return portraitTextures;
         }
