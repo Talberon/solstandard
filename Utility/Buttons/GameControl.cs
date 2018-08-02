@@ -10,7 +10,8 @@
         protected GameControl()
         {
             inputCounter = 0;
-        }        
+        }
+
         public void IncrementInputCounter()
         {
             inputCounter++;

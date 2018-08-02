@@ -39,7 +39,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Cursor/Cursor"),
                 content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorBlue"),
                 content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorRed")
-                /* TODO Readd these eventuall
+                /* TODO Re-add these eventually
                 content.Load<Texture2D>("GUI/MoveGrid"),
                 content.Load<Texture2D>("GUI/AttackGrid"),
                 content.Load<Texture2D>("GUI/ActionMenuTileBlue"),

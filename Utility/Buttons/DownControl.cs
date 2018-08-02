@@ -11,7 +11,7 @@ namespace SolStandard.Utility.Buttons
                    GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < (-GameControlMapper.StickThreshold) ||
                    Keyboard.GetState().IsKeyDown(Keys.S);
         }
-        
+
         public override bool Released()
         {
             return GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Released &&

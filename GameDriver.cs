@@ -7,6 +7,7 @@ using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
 using SolStandard.Map.Objects.Cursor;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Camera;
 using TiledSharp;
 
@@ -22,7 +23,7 @@ namespace SolStandard
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
+        private GameControlMapper controlMapper;
 
         private MapContainer gameMap;
         private ITexture2D terrainTextures;
@@ -35,10 +36,10 @@ namespace SolStandard
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            
+
             //Move the window away from the top-left corner
             this.Window.Position = new Point(0, 50);
-            
+
             Content.RootDirectory = "Content";
         }
 
@@ -51,17 +52,20 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
+
             // TODO: Add your initialization logic here
-            string mapPath = "Content/TmxMaps/Arena_2.tmx";
+
+            const string mapPath = "Content/TmxMaps/Arena_2.tmx";
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
-            
+            controlMapper = new GameControlMapper();
+
             mapCamera = new MapCamera(10);
             //FIXME remove me
-            mapCamera.SetCameraZoom(1.4f);
+            mapCamera.SetCameraZoom(1.8f);
 
             ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
-            
+
             gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
         }
 
@@ -96,40 +100,65 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (controlMapper.Select())
+            {
                 Exit();
+            }
 
             // TODO: Add your update logic here
-            
+
             //TODO Temporary; remove this after implementing proper controls
-            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            if (controlMapper.Start())
             {
                 mapCamera.SetTargetCameraPosition(new Vector2(0));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+
+            if (controlMapper.Down())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Down);
                 gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+
+            if (controlMapper.Left())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Left);
                 gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+
+            if (controlMapper.Right())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Right);
                 gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+
+            if (controlMapper.Up())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Up);
                 gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
             }
 
-            mapCamera.PanCameraToTarget();
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Down);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Left);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Right);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Up);
+            }
+
+            Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            Vector2 mapSize = gameMap.MapSize();
             
+            mapCamera.CorrectCameraToCursor(gameMap.GetMapCursor(), screenSize, mapSize);
+            mapCamera.PanCameraToTarget();
+
             base.Update(gameTime);
         }
 
@@ -156,7 +185,7 @@ namespace SolStandard
                         tile.Draw(spriteBatch);
                 }
             }
-            
+
             //Draw map cursor
             gameMap.GetMapCursor().Draw(spriteBatch);
 

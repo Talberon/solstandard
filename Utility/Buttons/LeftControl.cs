@@ -11,12 +11,12 @@ namespace SolStandard.Utility.Buttons
                    GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < (-GameControlMapper.StickThreshold) ||
                    Keyboard.GetState().IsKeyDown(Keys.A);
         }
-        
+
         public override bool Released()
         {
-            return  GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Released &&
-                    GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > (-GameControlMapper.StickThreshold) &&
-                    Keyboard.GetState().IsKeyUp(Keys.A);
+            return GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Released &&
+                   GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > (-GameControlMapper.StickThreshold) &&
+                   Keyboard.GetState().IsKeyUp(Keys.A);
         }
     }
 }

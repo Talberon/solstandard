@@ -19,23 +19,26 @@ namespace SolStandard.Map
             this.mapCursor = BuildMapCursor(cursorTexture);
         }
 
-        private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
+        private MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
             TileCell cursorCell = new TileCell(cursorTexture, GameDriver.CELL_SIZE, 1);
             Vector2 cursorStartPosition = new Vector2(0);
-            MapCursor mapCursor = new MapCursor(cursorCell, cursorStartPosition);
-
-            return mapCursor;
+            return new MapCursor(cursorCell, cursorStartPosition, MapSize());
         }
 
         public MapCursor GetMapCursor()
         {
             return mapCursor;
         }
-        
+
         public ReadOnlyCollection<MapObject[,]> GetGameGrid()
         {
             return gameGrid.AsReadOnly();
+        }
+
+        public Vector2 MapSize()
+        {
+            return new Vector2(gameGrid[0].GetLength(0), gameGrid[0].GetLength(1));
         }
     }
 }
