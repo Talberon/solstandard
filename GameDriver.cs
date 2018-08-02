@@ -6,6 +6,8 @@ using SolStandard.Map.Objects;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
+using SolStandard.Map.Objects.Cursor;
+using SolStandard.Utility.Camera;
 using TiledSharp;
 
 namespace SolStandard
@@ -25,10 +27,18 @@ namespace SolStandard
         private MapContainer gameMap;
         private ITexture2D terrainTextures;
         private List<ITexture2D> unitSprites;
+        private List<ITexture2D> guiTextures;
+        private MapCamera mapCamera;
 
         public GameDriver()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
+            
+            //Move the window away from the top-left corner
+            this.Window.Position = new Point(0, 50);
+            
             Content.RootDirectory = "Content";
         }
 
@@ -45,9 +55,14 @@ namespace SolStandard
             string mapPath = "Content/TmxMaps/Arena_2.tmx";
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
-
             
-            gameMap = mapParser.LoadMap();
+            mapCamera = new MapCamera(10);
+            //FIXME remove me
+            mapCamera.SetCameraZoom(1.4f);
+
+            ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
+            
+            gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
         }
 
         /// <summary>
@@ -62,6 +77,7 @@ namespace SolStandard
             // TODO: use this.Content to load your game content here
             terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
             unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
+            guiTextures = ContentLoader.LoadGuiTextures(Content);
         }
 
         /// <summary>
@@ -85,7 +101,35 @@ namespace SolStandard
                 Exit();
 
             // TODO: Add your update logic here
+            
+            //TODO Temporary; remove this after implementing proper controls
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                mapCamera.SetTargetCameraPosition(new Vector2(0));
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Down);
+                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Left);
+                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Right);
+                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                mapCamera.MoveCameraInDirection(CameraDirection.Up);
+                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
+            }
 
+            mapCamera.PanCameraToTarget();
+            
             base.Update(gameTime);
         }
 
@@ -95,15 +139,15 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp, null, null, null, mapCamera.GetCameraMatrix());
 
-
+            //Draw tiles in Map Grid
             foreach (MapObject[,] layer in gameMap.GetGameGrid())
             {
                 foreach (MapObject tile in layer)
@@ -112,6 +156,9 @@ namespace SolStandard
                         tile.Draw(spriteBatch);
                 }
             }
+            
+            //Draw map cursor
+            gameMap.GetMapCursor().Draw(spriteBatch);
 
             base.Draw(gameTime);
 

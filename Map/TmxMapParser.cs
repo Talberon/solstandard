@@ -119,7 +119,7 @@ namespace SolStandard.Map
                         if (objectTileId != 0)
                         {
                             string unitTeamAndClass = currentObject.Type + currentObject.Name;
-                            ITexture2D unitSprite = fetchUnitGraphic(unitTeamAndClass);
+                            ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
                             
                             TileCell tileCell = new TileCell(unitSprite, GameDriver.CELL_SIZE, 1);
 
@@ -132,20 +132,12 @@ namespace SolStandard.Map
             return entityGrid;
         }
 
-        private ITexture2D fetchUnitGraphic(string unitName)
+        private ITexture2D FetchUnitGraphic(string unitName)
         {
-            foreach (ITexture2D texture in unitSprites)
-            {
-                if (texture.GetTexture2D().Name.Contains(unitName))
-                {
-                    return texture;
-                }
-            }
-
-            throw new TextureNotFoundException();
+            return unitSprites.Find(texture => texture.GetTexture2D().Name.Contains(unitName));
         }
         
-        public MapContainer LoadMap()
+        public List<MapObject[,]> LoadMapGrid()
         {
             gameTileLayers = new List<MapObject[,]>();
             gameTileLayers.Add(ObtainTilesFromLayer(Layer.Terrain));
@@ -153,8 +145,8 @@ namespace SolStandard.Map
             gameTileLayers.Add(ObtainEntitiesFromLayer("Entities"));
             //TODO implement this properly
             gameTileLayers.Add(ObtainUnitsFromLayer("Units"));
-            
-            return new MapContainer(gameTileLayers);
+
+            return gameTileLayers;
         }
     }
 }

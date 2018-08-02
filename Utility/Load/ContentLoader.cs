@@ -36,9 +36,10 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadGuiTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("GUI/Cursor"),
-                content.Load<Texture2D>("GUI/UnitCursorBlue"),
-                content.Load<Texture2D>("GUI/UnitCursorRed"),
+                content.Load<Texture2D>("Graphics/Map/Cursor/Cursor"),
+                content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorBlue"),
+                content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorRed")
+                /* TODO Readd these eventuall
                 content.Load<Texture2D>("GUI/MoveGrid"),
                 content.Load<Texture2D>("GUI/AttackGrid"),
                 content.Load<Texture2D>("GUI/ActionMenuTileBlue"),
@@ -51,7 +52,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("GUI/WhitePixel"),
                 content.Load<Texture2D>("GUI/Pointer"),
                 content.Load<Texture2D>("GUI/PipGreen"),
-                content.Load<Texture2D>("GUI/PipGrey")
+                content.Load<Texture2D>("GUI/PipGrey")*/
             };
 
             List<ITexture2D> guiTextures = new List<ITexture2D>();
