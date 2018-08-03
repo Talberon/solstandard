@@ -1,4 +1,4 @@
-﻿namespace SolStandard.Units
+﻿namespace SolStandard.Map.Objects.Units
 {
     public enum UnitClass
     {

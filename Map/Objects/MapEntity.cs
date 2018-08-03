@@ -11,16 +11,16 @@ namespace SolStandard.Map.Objects
      */
     public class MapEntity : MapObject
     {
-        private List<EntityProp> entityProps;
-        private string name;
+        private readonly List<EntityProp> entityProps;
+        private readonly string name;
 
 
         public MapEntity(string name, TileCell tileCell, List<EntityProp> entityProps, Vector2 mapCoordinates)
         {
             this.name = name;
-            this.tileCell = tileCell;
+            TileCell = tileCell;
             this.entityProps = entityProps;
-            this.mapCoordinates = mapCoordinates;
+            MapCoordinates = mapCoordinates;
         }
         
         public override string ToString()
@@ -28,9 +28,9 @@ namespace SolStandard.Map.Objects
             string output = "";
 
             output += "(" + name + "):{";
-            output += "TileCell," + tileCell.ToString();
+            output += "TileCell," + TileCell;
             output += " | ";
-            output += "EntityProps," + entityProps.ToString();
+            output += "EntityProps," + entityProps;
             output += "}";
 
             return output;

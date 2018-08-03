@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace SolStandard.Utility.Buttons
 {
@@ -23,16 +21,16 @@ namespace SolStandard.Utility.Buttons
             leftControl = new LeftControl();
             rightControl = new RightControl();
 
-            this.startControl = new StartControl();
-            this.selectControl = new SelectControl();
+            startControl = new StartControl();
+            selectControl = new SelectControl();
 
-            this.aControl = new AControl();
-            this.bControl = new BControl();
-            this.xControl = new XControl();
-            this.yControl = new YControl();
+            aControl = new AControl();
+            bControl = new BControl();
+            xControl = new XControl();
+            yControl = new YControl();
 
-            this.ltControl = new LeftTriggerControl();
-            this.rtControl = new RightTriggerControl();
+            ltControl = new LeftTriggerControl();
+            rtControl = new RightTriggerControl();
         }
 
         public override string ToString()

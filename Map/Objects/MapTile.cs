@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SolStandard.Map.Objects
 {
@@ -17,13 +12,13 @@ namespace SolStandard.Map.Objects
 
         public MapTile(TileCell tileCell, Vector2 mapCoordinates)
         {
-            this.tileCell = tileCell;
-            this.mapCoordinates = mapCoordinates;
+            TileCell = tileCell;
+            MapCoordinates = mapCoordinates;
         }
 
         public override string ToString()
         {
-            return "Tile: {" + tileCell.ToString() + "}";
+            return "Tile: {" + TileCell + "}";
         }
     }
 }

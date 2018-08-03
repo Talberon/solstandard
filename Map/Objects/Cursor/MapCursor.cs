@@ -18,8 +18,8 @@ namespace SolStandard.Map.Objects.Cursor
 
         public MapCursor(TileCell tileCell, Vector2 mapCoordinates, Vector2 mapSize)
         {
-            this.tileCell = tileCell;
-            this.mapCoordinates = mapCoordinates;
+            TileCell = tileCell;
+            MapCoordinates = mapCoordinates;
             this.mapSize = mapSize;
         }
 
@@ -28,16 +28,16 @@ namespace SolStandard.Map.Objects.Cursor
             switch (direction)
             {
                 case CursorDirection.Down:
-                    mapCoordinates.Y++;
+                    MapCoordinates.Y++;
                     break;
                 case CursorDirection.Right:
-                    mapCoordinates.X++;
+                    MapCoordinates.X++;
                     break;
                 case CursorDirection.Up:
-                    mapCoordinates.Y--;
+                    MapCoordinates.Y--;
                     break;
                 case CursorDirection.Left:
-                    mapCoordinates.X--;
+                    MapCoordinates.X--;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -48,35 +48,35 @@ namespace SolStandard.Map.Objects.Cursor
 
         public Vector2 GetMapCoordinates()
         {
-            return mapCoordinates;
+            return MapCoordinates;
         }
 
         private void PreventCursorLeavingMapBounds()
         {
-            if (mapCoordinates.X < 0)
+            if (MapCoordinates.X < 0)
             {
-                mapCoordinates.X = 0;
+                MapCoordinates.X = 0;
             }
 
-            if (mapCoordinates.X >= mapSize.X)
+            if (MapCoordinates.X >= mapSize.X)
             {
-                mapCoordinates.X = mapSize.X - 1;
+                MapCoordinates.X = mapSize.X - 1;
             }
 
-            if (mapCoordinates.Y < 0)
+            if (MapCoordinates.Y < 0)
             {
-                mapCoordinates.Y = 0;
+                MapCoordinates.Y = 0;
             }
 
-            if (mapCoordinates.Y >= mapSize.Y)
+            if (MapCoordinates.Y >= mapSize.Y)
             {
-                mapCoordinates.Y = mapSize.Y - 1;
+                MapCoordinates.Y = mapSize.Y - 1;
             }
         }
 
         public override string ToString()
         {
-            return "Cursor: {" + tileCell.ToString() + "}";
+            return "Cursor: {" + TileCell + "}";
         }
     }
 }

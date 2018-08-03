@@ -16,12 +16,12 @@ namespace SolStandard.Map
         public MapContainer(List<MapObject[,]> gameGrid, ITexture2D cursorTexture)
         {
             this.gameGrid = gameGrid;
-            this.mapCursor = BuildMapCursor(cursorTexture);
+            mapCursor = BuildMapCursor(cursorTexture);
         }
 
         private MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
-            TileCell cursorCell = new TileCell(cursorTexture, GameDriver.CELL_SIZE, 1);
+            TileCell cursorCell = new TileCell(cursorTexture, GameDriver.CellSize, 1);
             Vector2 cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorCell, cursorStartPosition, MapSize());
         }

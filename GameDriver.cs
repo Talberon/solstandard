@@ -19,7 +19,7 @@ namespace SolStandard
     public class GameDriver : Game
     {
         //Tile Size of Sprites
-        public const int CELL_SIZE = 32;
+        public const int CellSize = 32;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -38,7 +38,7 @@ namespace SolStandard
             graphics.PreferredBackBufferHeight = 900;
 
             //Move the window away from the top-left corner
-            this.Window.Position = new Point(0, 50);
+            Window.Position = new Point(0, 50);
 
             Content.RootDirectory = "Content";
         }

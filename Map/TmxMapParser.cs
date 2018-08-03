@@ -4,7 +4,6 @@ using SolStandard.Map.Objects.EntityProps;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
-using SolStandard.Utility.Exceptions;
 using TiledSharp;
 
 namespace SolStandard.Map
@@ -40,7 +39,7 @@ namespace SolStandard.Map
 
         private MapObject[,] ObtainTilesFromLayer(Layer tileLayer)
         {
-            MapTile[,] tileGrid = new MapTile[tmxMap.Width, tmxMap.Height];
+            MapObject[,] tileGrid = new MapObject[tmxMap.Width, tmxMap.Height];
 
             int tileCounter = 0;
 
@@ -53,7 +52,7 @@ namespace SolStandard.Map
                     //public GameTile(Texture2D tileSet, string layer, string name, string type, int tileIndex)
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CELL_SIZE, tileId), new Vector2(col, row));
+                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId), new Vector2(col, row));
                     }
 
                     tileCounter++;
@@ -76,8 +75,8 @@ namespace SolStandard.Map
                     for (int col = 0; col < tmxMap.Width; col++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
-                        if ((col * GameDriver.CELL_SIZE) == (int)currentObject.X &&
-                            (row * GameDriver.CELL_SIZE) == ((int)currentObject.Y - GameDriver.CELL_SIZE))
+                        if ((col * GameDriver.CellSize) == (int)currentObject.X &&
+                            (row * GameDriver.CellSize) == ((int)currentObject.Y - GameDriver.CellSize))
                         {
                             List<EntityProp> entityProps = new List<EntityProp>();
                             //TODO Add any appropriate properties to the entityProps list
@@ -85,7 +84,7 @@ namespace SolStandard.Map
                             int objectTileId = currentObject.Tile.Gid;
                             if (objectTileId != 0)
                             {
-                                TileCell tileCell = new TileCell(mapSprite, GameDriver.CELL_SIZE, objectTileId);
+                                TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
 
                                 entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps, new Vector2(col, row));
                             }
@@ -110,8 +109,8 @@ namespace SolStandard.Map
                     for (int col = 0; col < tmxMap.Width; col++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
-                        if ((col * GameDriver.CELL_SIZE) != (int) currentObject.X || (row * GameDriver.CELL_SIZE) !=
-                            ((int) currentObject.Y - GameDriver.CELL_SIZE)) continue;
+                        if ((col * GameDriver.CellSize) != (int) currentObject.X || (row * GameDriver.CellSize) !=
+                            ((int) currentObject.Y - GameDriver.CellSize)) continue;
                         List<EntityProp> entityProps = new List<EntityProp>();
                         //TODO Add any appropriate properties to the entityProps list
 
@@ -121,7 +120,7 @@ namespace SolStandard.Map
                             string unitTeamAndClass = currentObject.Type + currentObject.Name;
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
                             
-                            TileCell tileCell = new TileCell(unitSprite, GameDriver.CELL_SIZE, 1);
+                            TileCell tileCell = new TileCell(unitSprite, GameDriver.CellSize, 1);
 
                             entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps, new Vector2(col, row));
                         }
