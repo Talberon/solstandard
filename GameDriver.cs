@@ -21,7 +21,7 @@ namespace SolStandard
         //Tile Size of Sprites
         public const int CellSize = 32;
 
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper controlMapper;
 
@@ -33,11 +33,13 @@ namespace SolStandard
 
         public GameDriver()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1600,
+                PreferredBackBufferHeight = 900
+            };
 
-            //Move the window away from the top-left corner
+            //HACK Move the window away from the top-left corner
             Window.Position = new Point(0, 50);
 
             Content.RootDirectory = "Content";
@@ -53,15 +55,12 @@ namespace SolStandard
         {
             base.Initialize();
 
-            // TODO: Add your initialization logic here
-
-            const string mapPath = "Content/TmxMaps/Arena_2.tmx";
+            const string mapPath = "Content/TmxMaps/Arena_2.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(10);
-            //FIXME remove me
             mapCamera.SetCameraZoom(1.8f);
 
             ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
@@ -78,7 +77,6 @@ namespace SolStandard
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
             unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             guiTextures = ContentLoader.LoadGuiTextures(Content);
@@ -105,9 +103,6 @@ namespace SolStandard
                 Exit();
             }
 
-            // TODO: Add your update logic here
-
-            //TODO Temporary; remove this after implementing proper controls
             if (controlMapper.Start())
             {
                 mapCamera.SetTargetCameraPosition(new Vector2(0));
@@ -155,7 +150,7 @@ namespace SolStandard
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             Vector2 mapSize = gameMap.MapSize();
-            
+
             mapCamera.CorrectCameraToCursor(gameMap.GetMapCursor(), screenSize, mapSize);
             mapCamera.PanCameraToTarget();
 
@@ -169,8 +164,6 @@ namespace SolStandard
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
 
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
