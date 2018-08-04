@@ -55,7 +55,9 @@ namespace SolStandard
         {
             base.Initialize();
 
-            const string mapPath = "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
+            const string
+                mapPath =
+                    "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
             controlMapper = new GameControlMapper();

@@ -41,6 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entity\GameEntity.cs" />
+    <Compile Include="Entity\Unit\GameUnit.cs" />
+    <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="Map\Objects\Cursor\MapCursor.cs" />
     <Compile Include="Map\Objects\MapEntity.cs" />
@@ -48,7 +51,6 @@
     <Compile Include="Map\MapContainer.cs" />
     <Compile Include="Map\Objects\MapObject.cs" />
     <Compile Include="Map\Objects\EntityProps\EntityProp.cs" />
-    <Compile Include="Map\Objects\Units\MapUnit.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

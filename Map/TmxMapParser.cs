@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit;
 using SolStandard.Map.Objects;
 using SolStandard.Map.Objects.EntityProps;
 using SolStandard.Utility;
-using SolStandard.Utility.Monogame;
-using System.Collections.Generic;
-using SolStandard.Map.Objects.Units;
 using SolStandard.Utility.Exceptions;
+using SolStandard.Utility.Monogame;
 using TiledSharp;
 
 namespace SolStandard.Map
@@ -127,7 +127,7 @@ namespace SolStandard.Map
                             AnimatedSprite animatedSprite =
                                 new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
 
-                            entityGrid[col, row] = new MapUnit(unitClass, unitTeam, currentObject.Name, animatedSprite,
+                            entityGrid[col, row] = new MapEntity(currentObject.Name, animatedSprite,
                                 entityProps, new Vector2(col, row));
                         }
                     }
