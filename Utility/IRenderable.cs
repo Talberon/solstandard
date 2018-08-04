@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SolStandard.Utility
 {
-    interface IRenderable
+    public interface IRenderable
     {
         void Draw(SpriteBatch spriteBatch, Vector2 position);
     }

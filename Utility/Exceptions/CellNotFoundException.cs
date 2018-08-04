@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
-namespace SolStandard.Utility
+namespace SolStandard.Utility.Exceptions
 {
+
     [Serializable]
     internal class CellNotFoundException : Exception
     {

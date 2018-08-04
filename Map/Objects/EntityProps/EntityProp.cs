@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SolStandard.Map.Objects.EntityProps
+﻿namespace SolStandard.Map.Objects.EntityProps
 {
-    abstract class EntityProp
+    public abstract class EntityProp
     {
 
     }

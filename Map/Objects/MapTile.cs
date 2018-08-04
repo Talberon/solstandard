@@ -1,24 +1,24 @@
-﻿using SolStandard.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility;
 
 namespace SolStandard.Map.Objects
 {
-    class MapTile : MapObject
+    public class MapTile : MapObject
     {
         /**
          * GameTile
          * Holds a texture to be rendered on the map.
          */
-        private TileCell tileCell;
 
-        public MapTile(TileCell tileCell)
+        public MapTile(TileCell sprite, Vector2 mapCoordinates)
         {
-            this.tileCell = tileCell;
+            Sprite = sprite;
+            MapCoordinates = mapCoordinates;
         }
 
+        public override string ToString()
+        {
+            return "Tile: {" + Sprite + "}";
+        }
     }
 }

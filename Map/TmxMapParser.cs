@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using Microsoft.Xna.Framework;
 using SolStandard.Map.Objects;
 using SolStandard.Map.Objects.EntityProps;
 using SolStandard.Utility;
-using System;
+using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SolStandard.Map.Objects.Units;
+using SolStandard.Utility.Exceptions;
 using TiledSharp;
 
 namespace SolStandard.Map
@@ -23,24 +23,24 @@ namespace SolStandard.Map
      * TmxMapBuilder
      * Responsible for parsing game maps to a Map object that we can use in the game.
      */
-    class TmxMapParser
+    public class TmxMapParser
     {
-        private const int CELL_SIZE = 64;
-
-        private TmxMap tmxMap;
-        private Texture2D mapSprite;
+        private readonly TmxMap tmxMap;
+        private readonly ITexture2D mapSprite;
+        private readonly List<ITexture2D> unitSprites;
 
         private List<MapObject[,]> gameTileLayers;
 
-        public TmxMapParser(String tmxFilePath)
+        public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites)
         {
-            this.tmxMap = new TmxMap(tmxFilePath);
-
+            this.tmxMap = tmxMap;
+            this.mapSprite = mapSprite;
+            this.unitSprites = unitSprites;
         }
 
-        private MapTile[,] ObtainTilesFromLayer(Layer tileLayer)
+        private MapObject[,] ObtainTilesFromLayer(Layer tileLayer)
         {
-            MapTile[,] tileGrid = new MapTile[tmxMap.Width, tmxMap.Height];
+            MapObject[,] tileGrid = new MapObject[tmxMap.Width, tmxMap.Height];
 
             int tileCounter = 0;
 
@@ -48,12 +48,12 @@ namespace SolStandard.Map
             {
                 for (int col = 0; col < tmxMap.Width; col++)
                 {
-                    int tileId = tmxMap.Layers[(int)tileLayer].Tiles[tileCounter].Gid;
+                    int tileId = tmxMap.Layers[(int) tileLayer].Tiles[tileCounter].Gid;
 
-                    //public GameTile(Texture2D tileSet, string layer, string name, string type, int tileIndex)
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, CELL_SIZE, tileId));
+                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId),
+                            new Vector2(col, row));
                     }
 
                     tileCounter++;
@@ -64,32 +64,32 @@ namespace SolStandard.Map
         }
 
 
-        private MapEntity[,] ObtainEntitiesFromLayer(string objectGroupName)
+        private MapObject[,] ObtainEntitiesFromLayer(string objectGroupName)
         {
-            MapEntity[,] entityGrid = new MapEntity[tmxMap.Width, tmxMap.Height];
+            MapObject[,] entityGrid = new MapObject[tmxMap.Width, tmxMap.Height];
 
-            for (int row = 0; row < tmxMap.Height; row+= CELL_SIZE)
+            //Handle the Entities Layer
+            foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
             {
-                for (int col = 0; col < tmxMap.Width; col+= CELL_SIZE)
+                for (int row = 0; row < tmxMap.Height; row++)
                 {
-                    //Handle the Entities Layer
-                    foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
+                    for (int col = 0; col < tmxMap.Width; col++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
-                        if ((col == currentObject.X) && (row == currentObject.Y - CELL_SIZE))
+                        if ((col * GameDriver.CellSize) == (int) currentObject.X &&
+                            (row * GameDriver.CellSize) == ((int) currentObject.Y - GameDriver.CellSize))
                         {
                             List<EntityProp> entityProps = new List<EntityProp>();
                             //TODO Add any appropriate properties to the entityProps list
-                            
+
                             int objectTileId = currentObject.Tile.Gid;
                             if (objectTileId != 0)
                             {
-                                //FIXME Pick a value other than 0 here or refactor TileCell to not need it
-                                TileCell tileCell = new TileCell(mapSprite, CELL_SIZE, 0);
+                                TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps);
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps,
+                                    new Vector2(col, row));
                             }
-
                         }
                     }
                 }
@@ -98,17 +98,85 @@ namespace SolStandard.Map
             return entityGrid;
         }
 
-        public Map LoadMap(String pathToTmxMap)
+        private MapObject[,] ObtainUnitsFromLayer(string objectGroupName)
         {
-            gameTileLayers = new List<MapObject[,]>();
-            gameTileLayers.Add(ObtainTilesFromLayer(Layer.Terrain));
-            gameTileLayers.Add(ObtainTilesFromLayer(Layer.Collide));
-            gameTileLayers.Add(ObtainEntitiesFromLayer("Entities"));
-            gameTileLayers.Add(ObtainEntitiesFromLayer("Units"));
+            MapObject[,] entityGrid = new MapObject[tmxMap.Width, tmxMap.Height];
 
-            //TODO FIXME add Map constructor that takes a set of tileLayers
-            return null;
-            //return new Map(gameTileLayers);
+            //Handle the Units Layer
+            foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
+            {
+                for (int row = 0; row < tmxMap.Height; row++)
+                {
+                    for (int col = 0; col < tmxMap.Width; col++)
+                    {
+                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
+                        if ((col * GameDriver.CellSize) != (int) currentObject.X || (row * GameDriver.CellSize) !=
+                            ((int) currentObject.Y - GameDriver.CellSize)) continue;
+                        List<EntityProp> entityProps = new List<EntityProp>();
+                        //TODO Add any appropriate properties to the entityProps list
+
+                        int objectTileId = currentObject.Tile.Gid;
+                        if (objectTileId != 0)
+                        {
+                            string unitTeamAndClass = currentObject.Type + currentObject.Name;
+                            ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
+
+                            AnimatedSprite animatedSprite = new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
+
+                            entityGrid[col, row] = new MapUnit(ObtainUnitClass(currentObject.Name),
+                                ObtainUnitTeam(currentObject.Type), currentObject.Name, animatedSprite, entityProps,
+                                new Vector2(col, row));
+                        }
+                    }
+                }
+            }
+
+            return entityGrid;
+        }
+
+
+        private UnitClass ObtainUnitClass(string unitClassName)
+        {
+            foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
+            {
+                if (unitClassName.Equals(unitClass.ToString()))
+                {
+                    return unitClass;
+                }
+            }
+
+            throw new UnitClassNotFoundException();
+        }
+
+        private Team ObtainUnitTeam(string unitTeamName)
+        {
+            foreach (Team unitTeam in Enum.GetValues(typeof(Team)))
+            {
+                if (unitTeamName.Equals(unitTeam.ToString()))
+                {
+                    return unitTeam;
+                }
+            }
+
+            throw new TeamNotFoundException();
+        }
+
+        private ITexture2D FetchUnitGraphic(string unitName)
+        {
+            return unitSprites.Find(texture => texture.GetTexture2D().Name.Contains(unitName));
+        }
+
+        public List<MapObject[,]> LoadMapGrid()
+        {
+            gameTileLayers = new List<MapObject[,]>
+            {
+                ObtainTilesFromLayer(Layer.Terrain),
+                ObtainTilesFromLayer(Layer.Collide),
+                ObtainEntitiesFromLayer("Entities"),
+                ObtainUnitsFromLayer("Units")
+            };
+
+            return gameTileLayers;
         }
     }
 }
