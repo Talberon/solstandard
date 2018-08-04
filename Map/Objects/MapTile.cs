@@ -10,15 +10,15 @@ namespace SolStandard.Map.Objects
          * Holds a texture to be rendered on the map.
          */
 
-        public MapTile(TileCell tileCell, Vector2 mapCoordinates)
+        public MapTile(TileCell sprite, Vector2 mapCoordinates)
         {
-            TileCell = tileCell;
+            Sprite = sprite;
             MapCoordinates = mapCoordinates;
         }
 
         public override string ToString()
         {
-            return "Tile: {" + TileCell + "}";
+            return "Tile: {" + Sprite + "}";
         }
     }
 }

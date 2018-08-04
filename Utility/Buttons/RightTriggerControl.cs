@@ -12,7 +12,7 @@ namespace SolStandard.Utility.Buttons
 
         public override bool Released()
         {
-            return GamePad.GetState(PlayerIndex.One).Triggers.Right == 0f && Keyboard.GetState().IsKeyUp(Keys.E);
+            return GamePad.GetState(PlayerIndex.One).Triggers.Right < 0.01f && Keyboard.GetState().IsKeyUp(Keys.E);
         }
     }
 }

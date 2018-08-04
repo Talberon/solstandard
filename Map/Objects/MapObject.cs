@@ -6,17 +6,12 @@ namespace SolStandard.Map.Objects
 {
     public class MapObject
     {
-        protected TileCell TileCell;
+        protected IRenderable Sprite;
         protected Vector2 MapCoordinates;
-
-        public TileCell GetTileCell()
-        {
-            return TileCell;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            TileCell.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
+            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
         }
     }
 }

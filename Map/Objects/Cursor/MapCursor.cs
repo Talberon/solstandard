@@ -16,9 +16,9 @@ namespace SolStandard.Map.Objects.Cursor
 
         private readonly Vector2 mapSize;
 
-        public MapCursor(TileCell tileCell, Vector2 mapCoordinates, Vector2 mapSize)
+        public MapCursor(TileCell sprite, Vector2 mapCoordinates, Vector2 mapSize)
         {
-            TileCell = tileCell;
+            Sprite = sprite;
             MapCoordinates = mapCoordinates;
             this.mapSize = mapSize;
         }
@@ -76,7 +76,7 @@ namespace SolStandard.Map.Objects.Cursor
 
         public override string ToString()
         {
-            return "Cursor: {" + TileCell + "}";
+            return "Cursor: {" + Sprite + "}";
         }
     }
 }

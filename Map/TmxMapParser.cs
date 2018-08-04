@@ -1,14 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using SolStandard.Map.Objects;
 using SolStandard.Map.Objects.EntityProps;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
+using SolStandard.Map.Objects.Units;
+using SolStandard.Utility.Exceptions;
 using TiledSharp;
 
 namespace SolStandard.Map
 {
-
     enum Layer
     {
         Terrain = 0,
@@ -23,10 +25,9 @@ namespace SolStandard.Map
      */
     public class TmxMapParser
     {
-
-        private TmxMap tmxMap;
-        private ITexture2D mapSprite;
-        private List<ITexture2D> unitSprites;
+        private readonly TmxMap tmxMap;
+        private readonly ITexture2D mapSprite;
+        private readonly List<ITexture2D> unitSprites;
 
         private List<MapObject[,]> gameTileLayers;
 
@@ -47,12 +48,12 @@ namespace SolStandard.Map
             {
                 for (int col = 0; col < tmxMap.Width; col++)
                 {
-                    int tileId = tmxMap.Layers[(int)tileLayer].Tiles[tileCounter].Gid;
+                    int tileId = tmxMap.Layers[(int) tileLayer].Tiles[tileCounter].Gid;
 
-                    //public GameTile(Texture2D tileSet, string layer, string name, string type, int tileIndex)
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId), new Vector2(col, row));
+                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId),
+                            new Vector2(col, row));
                     }
 
                     tileCounter++;
@@ -75,8 +76,8 @@ namespace SolStandard.Map
                     for (int col = 0; col < tmxMap.Width; col++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
-                        if ((col * GameDriver.CellSize) == (int)currentObject.X &&
-                            (row * GameDriver.CellSize) == ((int)currentObject.Y - GameDriver.CellSize))
+                        if ((col * GameDriver.CellSize) == (int) currentObject.X &&
+                            (row * GameDriver.CellSize) == ((int) currentObject.Y - GameDriver.CellSize))
                         {
                             List<EntityProp> entityProps = new List<EntityProp>();
                             //TODO Add any appropriate properties to the entityProps list
@@ -86,9 +87,9 @@ namespace SolStandard.Map
                             {
                                 TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps, new Vector2(col, row));
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps,
+                                    new Vector2(col, row));
                             }
-
                         }
                     }
                 }
@@ -119,10 +120,12 @@ namespace SolStandard.Map
                         {
                             string unitTeamAndClass = currentObject.Type + currentObject.Name;
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
-                            
-                            TileCell tileCell = new TileCell(unitSprite, GameDriver.CellSize, 1);
 
-                            entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell, entityProps, new Vector2(col, row));
+                            AnimatedSprite animatedSprite = new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
+
+                            entityGrid[col, row] = new MapUnit(ObtainUnitClass(currentObject.Name),
+                                ObtainUnitTeam(currentObject.Type), currentObject.Name, animatedSprite, entityProps,
+                                new Vector2(col, row));
                         }
                     }
                 }
@@ -131,19 +134,47 @@ namespace SolStandard.Map
             return entityGrid;
         }
 
+
+        private UnitClass ObtainUnitClass(string unitClassName)
+        {
+            foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
+            {
+                if (unitClassName.Equals(unitClass.ToString()))
+                {
+                    return unitClass;
+                }
+            }
+
+            throw new UnitClassNotFoundException();
+        }
+
+        private Team ObtainUnitTeam(string unitTeamName)
+        {
+            foreach (Team unitTeam in Enum.GetValues(typeof(Team)))
+            {
+                if (unitTeamName.Equals(unitTeam.ToString()))
+                {
+                    return unitTeam;
+                }
+            }
+
+            throw new TeamNotFoundException();
+        }
+
         private ITexture2D FetchUnitGraphic(string unitName)
         {
             return unitSprites.Find(texture => texture.GetTexture2D().Name.Contains(unitName));
         }
-        
+
         public List<MapObject[,]> LoadMapGrid()
         {
-            gameTileLayers = new List<MapObject[,]>();
-            gameTileLayers.Add(ObtainTilesFromLayer(Layer.Terrain));
-            gameTileLayers.Add(ObtainTilesFromLayer(Layer.Collide));
-            gameTileLayers.Add(ObtainEntitiesFromLayer("Entities"));
-            //TODO implement this properly
-            gameTileLayers.Add(ObtainUnitsFromLayer("Units"));
+            gameTileLayers = new List<MapObject[,]>
+            {
+                ObtainTilesFromLayer(Layer.Terrain),
+                ObtainTilesFromLayer(Layer.Collide),
+                ObtainEntitiesFromLayer("Entities"),
+                ObtainUnitsFromLayer("Units")
+            };
 
             return gameTileLayers;
         }
