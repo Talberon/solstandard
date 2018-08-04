@@ -118,14 +118,17 @@ namespace SolStandard.Map
                         int objectTileId = currentObject.Tile.Gid;
                         if (objectTileId != 0)
                         {
-                            string unitTeamAndClass = currentObject.Type + currentObject.Name;
+                            Team unitTeam = ObtainUnitTeam(currentObject.Properties["Team"]);
+                            UnitClass unitClass = ObtainUnitClass(currentObject.Properties["Class"]);
+
+                            string unitTeamAndClass = unitTeam.ToString() + unitClass.ToString();
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
-                            AnimatedSprite animatedSprite = new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
+                            AnimatedSprite animatedSprite =
+                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
 
-                            entityGrid[col, row] = new MapUnit(ObtainUnitClass(currentObject.Name),
-                                ObtainUnitTeam(currentObject.Type), currentObject.Name, animatedSprite, entityProps,
-                                new Vector2(col, row));
+                            entityGrid[col, row] = new MapUnit(unitClass, unitTeam, currentObject.Name, animatedSprite,
+                                entityProps, new Vector2(col, row));
                         }
                     }
                 }

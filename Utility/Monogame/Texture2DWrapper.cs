@@ -24,7 +24,7 @@ namespace SolStandard.Utility.Monogame
 
         public int GetHeight()
         {
-            return texture.Width;
+            return texture.Height;
         }
 
         public Texture2D GetTexture2D()
