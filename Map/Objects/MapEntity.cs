@@ -15,11 +15,11 @@ namespace SolStandard.Map.Objects
         private readonly string name;
 
 
-        public MapEntity(string name, TileCell tileCell, List<EntityProp> entityProps, Vector2 mapCoordinates)
+        public MapEntity(string name, IRenderable sprite, List<EntityProp> entityProps, Vector2 mapCoordinates)
         {
             this.name = name;
-            TileCell = tileCell;
             this.entityProps = entityProps;
+            Sprite = sprite;
             MapCoordinates = mapCoordinates;
         }
         
@@ -28,7 +28,7 @@ namespace SolStandard.Map.Objects
             string output = "";
 
             output += "(" + name + "):{";
-            output += "TileCell," + TileCell;
+            output += "TileCell," + Sprite;
             output += " | ";
             output += "EntityProps," + entityProps;
             output += "}";
