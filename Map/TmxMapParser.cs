@@ -25,9 +25,9 @@ namespace SolStandard.Map
      */
     public class TmxMapParser
     {
-        private TmxMap tmxMap;
-        private ITexture2D mapSprite;
-        private List<ITexture2D> unitSprites;
+        private readonly TmxMap tmxMap;
+        private readonly ITexture2D mapSprite;
+        private readonly List<ITexture2D> unitSprites;
 
         private List<MapObject[,]> gameTileLayers;
 
@@ -50,7 +50,6 @@ namespace SolStandard.Map
                 {
                     int tileId = tmxMap.Layers[(int) tileLayer].Tiles[tileCounter].Gid;
 
-                    //public GameTile(Texture2D tileSet, string layer, string name, string type, int tileIndex)
                     if (tileId != 0)
                     {
                         tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId),
@@ -176,7 +175,6 @@ namespace SolStandard.Map
                 ObtainEntitiesFromLayer("Entities"),
                 ObtainUnitsFromLayer("Units")
             };
-            //TODO implement this properly
 
             return gameTileLayers;
         }
