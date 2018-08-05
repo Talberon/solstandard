@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Channels;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.XPath;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Objects;
@@ -36,7 +32,8 @@ namespace SolStandard.Map
 
         private List<MapObject[,]> gameTileLayers;
 
-        public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites, string objectTypesDefaultXmlPath)
+        public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
+            string objectTypesDefaultXmlPath)
         {
             this.tmxMap = tmxMap;
             this.mapSprite = mapSprite;
@@ -101,7 +98,8 @@ namespace SolStandard.Map
                             int objectTileId = currentObject.Tile.Gid;
                             if (objectTileId != 0)
                             {
-                                Dictionary<string, string> currentProperties = GetDefaultPropertiesAndOverrides(currentObject);
+                                Dictionary<string, string> currentProperties =
+                                    GetDefaultPropertiesAndOverrides(currentObject);
                                 TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
 
                                 entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell,
@@ -133,7 +131,8 @@ namespace SolStandard.Map
                         int objectTileId = currentObject.Tile.Gid;
                         if (objectTileId != 0)
                         {
-                            Dictionary<string, string> currentProperties = GetDefaultPropertiesAndOverrides(currentObject);
+                            Dictionary<string, string> currentProperties =
+                                GetDefaultPropertiesAndOverrides(currentObject);
                             Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
                             UnitClass unitClass = ObtainUnitClass(currentProperties["Class"]);
 
@@ -168,10 +167,11 @@ namespace SolStandard.Map
 
             return combinedProperties;
         }
-        
+
         private Dictionary<string, string> GetDefaultPropertiesForType(string parameterObjectType)
         {
-            Dictionary<string, Dictionary<string, string>> objectTypesInFile = ObjectTypesXmlParser.ParseObjectTypesXml(objectTypesDefaultXmlPath);
+            Dictionary<string, Dictionary<string, string>> objectTypesInFile =
+                ObjectTypesXmlParser.ParseObjectTypesXml(objectTypesDefaultXmlPath);
 
             return objectTypesInFile[parameterObjectType];
         }
