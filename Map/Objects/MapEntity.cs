@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using SolStandard.Map.Objects.EntityProps;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Utility;
-using System.Collections.Generic;
+using TiledSharp;
 
 namespace SolStandard.Map.Objects
 {
@@ -11,26 +11,33 @@ namespace SolStandard.Map.Objects
      */
     public class MapEntity : MapObject
     {
-        private readonly List<EntityProp> entityProps;
         private readonly string name;
+        private readonly Dictionary<string,string> tiledProperties;
 
-
-        public MapEntity(string name, IRenderable sprite, List<EntityProp> entityProps, Vector2 mapCoordinates)
+        public MapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, Dictionary<string,string> tiledProperties)
         {
             this.name = name;
-            this.entityProps = entityProps;
+            this.tiledProperties = tiledProperties;
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
         }
-        
+
+        public string Name
+        {
+            get { return name; }
+        }
+
+        public Dictionary<string,string> TiledProperties
+        {
+            get { return tiledProperties; }
+        }
+
         public override string ToString()
         {
             string output = "";
 
             output += "(" + name + "):{";
             output += "TileCell," + Sprite;
-            output += " | ";
-            output += "EntityProps," + entityProps;
             output += "}";
 
             return output;

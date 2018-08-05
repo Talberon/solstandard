@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SolStandard.Map.Objects;
-using SolStandard.Map.Objects.EntityProps;
+﻿using SolStandard.Map.Objects;
 
 namespace SolStandard.Entity.Unit
 {
@@ -26,9 +23,7 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         //private List<Object> statusEffects; //TODO Add Buffs/Debuffs lists
         
-        //TODO Implement Bonuses
-        
-        public GameUnit(string id, Team team, UnitClass unitClass, MapEntity mapEntity, List<EntityProp> properties, UnitStatistics stats) : base(id, mapEntity, properties)
+        public GameUnit(string id, Team team, UnitClass unitClass, MapEntity mapEntity, UnitStatistics stats) : base(id, mapEntity)
         {
             this.team = team;
             this.unitClass = unitClass;

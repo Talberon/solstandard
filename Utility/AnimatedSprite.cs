@@ -37,8 +37,8 @@ namespace SolStandard.Utility
 
         private Vector2 CalculateSpriteFrameCount()
         {
-            float columns = spriteMap.GetTexture2D().Width / cellSize;
-            float rows = spriteMap.GetTexture2D().Height / cellSize;
+            float columns = spriteMap.GetWidth() / cellSize;
+            float rows = spriteMap.GetWidth() / cellSize;
 
             return new Vector2(columns, rows);
         }

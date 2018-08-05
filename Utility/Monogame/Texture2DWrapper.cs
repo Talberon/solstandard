@@ -5,7 +5,7 @@ namespace SolStandard.Utility.Monogame
 {
     public class Texture2DWrapper : ITexture2D
     {
-        Texture2D texture;
+        private readonly Texture2D texture;
 
         public Texture2DWrapper(Texture2D texture)
         {
@@ -25,6 +25,11 @@ namespace SolStandard.Utility.Monogame
         public int GetHeight()
         {
             return texture.Height;
+        }
+
+        public string GetName()
+        {
+            return texture.Name;
         }
 
         public Texture2D GetTexture2D()
