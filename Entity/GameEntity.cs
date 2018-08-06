@@ -1,23 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using SolStandard.Map.Objects;
+﻿using SolStandard.Map.Objects;
 
 namespace SolStandard.Entity
 {
     public abstract class GameEntity
     {
-        private string id;
-        private MapEntity mapEntity;
+        private readonly string id;
+        private readonly MapEntity mapInfo;
 
-        protected GameEntity(string id, MapEntity mapEntity)
+        protected GameEntity(string id, MapEntity mapInfo)
         {
             this.id = id;
-            this.mapEntity = mapEntity;
+            this.mapInfo = mapInfo;
         }
 
-        public string GetId()
+        public string Id
         {
-            return id;
+            get { return id; }
+        }
+
+        public MapEntity MapInfo
+        {
+            get { return mapInfo; }
         }
     }
 }

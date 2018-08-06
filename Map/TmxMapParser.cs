@@ -91,7 +91,7 @@ namespace SolStandard.Map
                 {
                     for (int col = 0; col < tmxMap.Width; col++)
                     {
-                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
+                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile.c Compensate in the calculation here.
                         if ((col * GameDriver.CellSize) == (int) currentObject.X &&
                             (row * GameDriver.CellSize) == ((int) currentObject.Y - GameDriver.CellSize))
                         {
@@ -102,7 +102,7 @@ namespace SolStandard.Map
                                     GetDefaultPropertiesAndOverrides(currentObject);
                                 TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, tileCell,
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, tileCell,
                                     new Vector2(col, row), currentProperties);
                             }
                         }
@@ -142,7 +142,7 @@ namespace SolStandard.Map
                             AnimatedSprite animatedSprite =
                                 new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
 
-                            entityGrid[col, row] = new MapEntity(unitTeamAndClass, animatedSprite,
+                            entityGrid[col, row] = new MapEntity(unitTeamAndClass, currentObject.Type, animatedSprite,
                                 new Vector2(col, row), currentProperties);
                         }
                     }
