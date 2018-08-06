@@ -43,6 +43,9 @@ namespace SolStandard
         private List<ITexture2D> unitSprites;
         private List<ITexture2D> guiTextures;
         private List<ITexture2D> windowTextures;
+        private List<ITexture2D> largePortraitTextures;
+        private List<ITexture2D> mediumPortraitTextures;
+        private List<ITexture2D> smallPortraitTextures;
         private ISpriteFont windowFont;
         private MapCamera mapCamera;
 
@@ -87,7 +90,6 @@ namespace SolStandard
             //TODO put this window stuff somewhere more useful
             ITexture2D windowTexture =
                 windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
-            List<IRenderable> windowContents = new List<IRenderable>();
             const string windowText =
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                 + "\n"
@@ -97,13 +99,29 @@ namespace SolStandard
                 + "\n"
                 + "\n"
                 + "Mauris non laoreet metus, condimentum commodo augue. Phasellus ac fringilla purus.";
-            windowContents.Add(new RenderText(windowFont, windowText));
-            Window testWindow = new Window(windowTexture, windowContents, new Vector2(20, 30));
-
+            IRenderable windowContents = new RenderText(windowFont, windowText);
+            
+            //Portrait and text
+            IRenderable unitWindowText = new RenderText(windowFont, "This is a unit frame\nThis should be next to a portrait.");
+            IRenderable unitWindowText2 = new RenderText(windowFont, "This is a unit frame\nThis should be next to a portrait. I am a longer message.\n\n\nI am also taller.");
+            ITexture2D portraitTexture = smallPortraitTextures.Find(texture => texture.GetTexture2D().Name.Contains("Small/Blue/Mage"));
+            IRenderable mediumPortrait = new WindowContent(new TileCell(portraitTexture, portraitTexture.GetHeight(), 1));
+            ITexture2D portraitTexture2 = smallPortraitTextures.Find(texture => texture.GetTexture2D().Name.Contains("Small/Red/Mage"));
+            IRenderable mediumPortrait2 = new WindowContent(new TileCell(portraitTexture2, portraitTexture2.GetHeight(), 1));
+            IRenderable[,] exampleUnitWindow = new IRenderable[,] { {mediumPortrait, mediumPortrait2, unitWindowText2}, 
+                                                                    {mediumPortrait2, unitWindowText, mediumPortrait}
+                                                                };
+            WindowContentGrid windowContentGrid = new WindowContentGrid(exampleUnitWindow);
+            
             List<Window> windowList = new List<Window>
             {
-                testWindow
+                new Window(windowTexture, windowContents, new Vector2(20, 30), 4),
+                new Window(windowTexture, windowContentGrid, new Vector2(150, 650), 5)
             };
+            
+            
+            
+            
 
             container = new GameContainer(gameMap, new WindowLayer(windowList));
         }
@@ -122,6 +140,9 @@ namespace SolStandard
             guiTextures = ContentLoader.LoadCursorTextures(Content);
             windowTextures = ContentLoader.LoadWindowTextures(Content);
             windowFont = ContentLoader.LoadWindowFont(Content);
+            largePortraitTextures = ContentLoader.LoadLargePortraits(Content);
+            mediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
+            smallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
         }
 
         /// <summary>

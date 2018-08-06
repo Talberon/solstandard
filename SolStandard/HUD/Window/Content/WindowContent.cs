@@ -1,33 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window.Content
 {
-    public abstract class WindowContent : IRenderable
+    public class WindowContent : IRenderable
     {
         //TODO extend this for healthbar, images or text (with font)
 
-        private readonly IRenderable content;
+        private readonly IRenderable image;
 
-        protected WindowContent(IRenderable content)
+        public WindowContent(IRenderable image)
         {
-            this.content = content;
+            this.image = image;
         }
 
         public int GetHeight()
         {
-            return content.GetHeight();
+            return image.GetHeight();
         }
 
         public int GetWidth()
         {
-            return content.GetWidth();
+            return image.GetWidth();
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            content.Draw(spriteBatch, position);
+            image.Draw(spriteBatch, position);
         }
     }
 }

@@ -80,13 +80,46 @@ namespace SolStandard.Utility.Load
             return spriteTextures;
         }
 
-        public static List<ITexture2D> LoadUnitPortraitTextures(ContentManager content)
+        public static List<ITexture2D> LoadLargePortraits(ContentManager content)
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Images/PortraitsMedium"),
-                content.Load<Texture2D>("Images/PortraitsSmall"),
-                content.Load<Texture2D>("Images/PortraitsFull")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage")
+            };
+
+            List<ITexture2D> portraitTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadPortraitTextures)
+            {
+                portraitTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return portraitTextures;
+        }
+        
+        public static List<ITexture2D> LoadMediumPortraits(ContentManager content)
+        {
+            List<Texture2D> loadPortraitTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage")
+            };
+
+            List<ITexture2D> portraitTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadPortraitTextures)
+            {
+                portraitTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return portraitTextures;
+        }
+        
+        public static List<ITexture2D> LoadSmallPortraits(ContentManager content)
+        {
+            List<Texture2D> loadPortraitTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();

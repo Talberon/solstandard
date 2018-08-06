@@ -12,21 +12,34 @@ namespace SolStandard.HUD.Window
     {
         private readonly ITexture2D windowTexture;
         private readonly int windowCellSize;
-        private readonly List<IRenderable> windowContents;
+        private readonly WindowContentGrid windowContents;
         private readonly Vector2 windowPixelSize;
         private readonly WindowCell[,] windowCells;
 
         private readonly Vector2 windowPosition;
-        //TODO add padding?
+        private readonly int padding;
 
-        //Derived Size
-        public Window(ITexture2D windowTexture, List<IRenderable> windowContents, Vector2 windowPosition)
+        //Single Content
+        public Window(ITexture2D windowTexture, IRenderable windowContent, Vector2 windowPosition, int padding)
+        {
+            this.windowTexture = windowTexture;
+            this.windowPosition = windowPosition;
+            this.padding = padding;
+            windowContents = new WindowContentGrid(new IRenderable[,] {{windowContent}});
+            windowCellSize = CalculateCellSize(windowTexture);
+            windowPixelSize = DeriveSizeFromContent(windowContents.ContentGrid);
+            windowCells = ConstructWindowCells(WindowPixelSize);
+        }
+
+        //Grid of Content
+        public Window(ITexture2D windowTexture, WindowContentGrid windowContents, Vector2 windowPosition, int padding)
         {
             this.windowTexture = windowTexture;
             this.windowContents = windowContents;
             this.windowPosition = windowPosition;
+            this.padding = padding;
             windowCellSize = CalculateCellSize(windowTexture);
-            windowPixelSize = DeriveSizeFromContent(windowContents);
+            windowPixelSize = DeriveSizeFromContent(this.windowContents.ContentGrid);
             windowCells = ConstructWindowCells(WindowPixelSize);
         }
 
@@ -124,21 +137,19 @@ namespace SolStandard.HUD.Window
             return windowCellsToConstruct;
         }
 
-        private Vector2 DeriveSizeFromContent(IEnumerable<IRenderable> contents)
+        private Vector2 DeriveSizeFromContent(IRenderable[,] contentGrid)
         {
             Vector2 calculatedSize = new Vector2();
 
+            Vector2 contentGridSize = DetermineGridSizeInPixels();
+            calculatedSize.X = contentGridSize.X;
+            calculatedSize.Y = contentGridSize.Y;
+
+            //Adjust for border
             int borderSize = windowCellSize * 2;
             calculatedSize.X += borderSize;
             calculatedSize.Y += borderSize;
-            
-            foreach (IRenderable content in contents)
-            {
-                //TODO adjust this depending on content layout (possibly a table/grid layout)
-                calculatedSize.X += content.GetWidth();
-                calculatedSize.Y += content.GetHeight();
-            }
-            
+
             return calculatedSize;
         }
 
@@ -149,12 +160,81 @@ namespace SolStandard.HUD.Window
                 windowCell.Draw(spriteBatch, WindowPosition);
             }
 
+            RenderGrid(spriteBatch);
+        }
+
+        private void RenderGrid(SpriteBatch spriteBatch)
+        {
             Vector2 borderOffset = new Vector2(windowCellSize);
-            
-            foreach (IRenderable content in windowContents)
+            Vector2 renderPosition = WindowPosition + borderOffset;
+
+            float highestRowHeight = 0f;
+
+            float horizontalOffset = 0f;
+            float verticalOffset = 0f;
+
+            for (int column = 0; column < windowContents.ContentGrid.GetLength(0); column++)
             {
-                content.Draw(spriteBatch, WindowPosition + borderOffset);
+                for (int row = 0; row < windowContents.ContentGrid.GetLength(1); row++)
+                {
+                    //Draw with offset
+                    windowContents.ContentGrid[column, row].Draw(spriteBatch,
+                        new Vector2(renderPosition.X + horizontalOffset, renderPosition.Y + verticalOffset));
+
+                    //Adjust offset
+                    float contentWidth = windowContents.ContentGrid[column, row].GetWidth();
+                    horizontalOffset += contentWidth + padding;
+
+                    float contentHeight = windowContents.ContentGrid[column, row].GetHeight();
+                    if (highestRowHeight < contentHeight)
+                    {
+                        highestRowHeight = contentHeight + padding;
+                    }
+                }
+
+                verticalOffset = highestRowHeight;
+                horizontalOffset = 0;
             }
+        }
+
+        private Vector2 DetermineGridSizeInPixels()
+        {
+            Vector2 borderOffset = new Vector2(windowCellSize);
+            Vector2 renderPosition = WindowPosition + borderOffset;
+
+            float totalWidth = 0f;
+            float totalHeight = 0;
+
+            float highestRowHeight = 0f;
+            float horizontalOffset = 0f;
+
+            for (int column = 0; column < windowContents.ContentGrid.GetLength(0); column++)
+            {
+                for (int row = 0; row < windowContents.ContentGrid.GetLength(1); row++)
+                {
+                    float contentWidth = windowContents.ContentGrid[column, row].GetWidth();
+                    horizontalOffset += contentWidth + padding;
+
+                    float contentHeight = windowContents.ContentGrid[column, row].GetHeight();
+                    if (highestRowHeight < contentHeight)
+                    {
+                        highestRowHeight = contentHeight + padding;
+                    }
+                }
+
+                //Combination of highest heights determines the height
+                totalHeight += highestRowHeight;
+
+                //Widest set of items determines the width
+                if (totalWidth < horizontalOffset)
+                {
+                    totalWidth = horizontalOffset;
+                }
+
+                horizontalOffset = 0;
+            }
+
+            return new Vector2(totalWidth, totalHeight);
         }
     }
 }
