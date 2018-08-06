@@ -4,3 +4,4 @@ bin/
 obj/
 app.manifest/
 packages/
+.idea/
