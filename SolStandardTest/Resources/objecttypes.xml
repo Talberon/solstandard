@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="BreakableObstacle" color="#640000">
+  <property name="HP" type="int" default="0"/>
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isBroken" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="BuffTile" color="#2ca42a">
+  <property name="Modifier" type="int" default="0"/>
+  <property name="Stat" type="string"/>
+  <property name="canMove" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="Chest" color="#a4a13b">
+  <property name="isLocked" type="bool" default="false"/>
+  <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Decoration" color="#ffaaff"/>
+ <objecttype name="Door" color="#625232">
+  <property name="isLocked" type="bool" default="false"/>
+  <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Movable" color="#0000ff">
+  <property name="canMove" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="Unit" color="#8500aa">
+  <property name="AC" type="int" default="0"/>
+  <property name="AP" type="int" default="0"/>
+  <property name="ATK" type="int" default="0"/>
+  <property name="Class" type="string"/>
+  <property name="DEF" type="int" default="0"/>
+  <property name="HP" type="int" default="0"/>
+  <property name="MV" type="int" default="0"/>
+  <property name="Team" type="string"/>
+ </objecttype>
+</objecttypes>

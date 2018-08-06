@@ -1,6 +1,4 @@
-Content/
-bin/
 .vs/
-obj/
-app.manifest/
+.idea/
 packages/
+TestResults/

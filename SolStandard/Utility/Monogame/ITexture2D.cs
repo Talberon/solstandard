@@ -12,6 +12,7 @@ namespace SolStandard.Utility.Monogame
         Rectangle GetBounds();
         int GetWidth();
         int GetHeight();
+        string GetName();
         Texture2D GetTexture2D();
     }
 }

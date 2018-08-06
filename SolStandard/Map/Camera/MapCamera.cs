@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Map.Objects.Cursor;
 
-namespace SolStandard.Utility.Camera
+namespace SolStandard.Map.Camera
 {
     public enum CameraDirection
     {

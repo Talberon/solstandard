@@ -6,9 +6,9 @@ using SolStandard.Map.Objects;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
+using SolStandard.Map.Camera;
 using SolStandard.Map.Objects.Cursor;
 using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Camera;
 using TiledSharp;
 
 namespace SolStandard
@@ -55,9 +55,12 @@ namespace SolStandard
         {
             base.Initialize();
 
-            const string mapPath = "Content/TmxMaps/Arena_2.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
+            const string
+                mapPath =
+                    "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
+            const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(10);
