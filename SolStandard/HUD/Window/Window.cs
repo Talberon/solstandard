@@ -192,16 +192,15 @@ namespace SolStandard.HUD.Window
                     }
                 }
 
-                verticalOffset = highestRowHeight;
+                verticalOffset = highestRowHeight;//Once I start drawing the next row I should reset the height
+                highestRowHeight = 0;
                 horizontalOffset = 0;
             }
         }
 
+        //TODO clean this so I'm not duplicating so much of the RenderGrid logic
         private Vector2 DetermineGridSizeInPixels()
         {
-            Vector2 borderOffset = new Vector2(windowCellSize);
-            Vector2 renderPosition = WindowPosition + borderOffset;
-
             float totalWidth = 0f;
             float totalHeight = 0;
 
@@ -232,6 +231,7 @@ namespace SolStandard.HUD.Window
                 }
 
                 horizontalOffset = 0;
+                highestRowHeight = 0;
             }
 
             return new Vector2(totalWidth, totalHeight);
