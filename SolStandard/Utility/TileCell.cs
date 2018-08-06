@@ -5,7 +5,6 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
-    
     public class TileCell : IRenderable
     {
         private readonly ITexture2D image;
@@ -49,9 +48,20 @@ namespace SolStandard.Utility
             return new Rectangle(x, y, cellSize, cellSize);
         }
 
+        public int GetHeight()
+        {
+            return cellSize;
+        }
+
+        public int GetWidth()
+        {
+            return cellSize;
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(image.GetTexture2D(), DrawRectangle((int)position.X, (int)position.Y), RenderCell(), Color.White);
+            spriteBatch.Draw(image.GetTexture2D(), DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
+                Color.White);
         }
 
         public override string ToString()

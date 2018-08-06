@@ -32,13 +32,13 @@
 
         public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int rng)
         {
-            this.Hp = hp;
-            this.Atk = atk;
-            this.Def = def;
-            this.Sp = sp;
-            this.Ap = ap;
-            this.Mv = mv;
-            this.Rng = rng;
+            Hp = hp;
+            Atk = atk;
+            Def = def;
+            Sp = sp;
+            Ap = ap;
+            Mv = mv;
+            Rng = rng;
 
             maxHp = hp;
             baseAtk = atk;

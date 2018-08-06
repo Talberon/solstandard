@@ -12,19 +12,11 @@ namespace SolStandard.Utility.Load
      */
     public class ContentLoader
     {
-        public static List<SpriteFont> LoadFonts(ContentManager content)
+        public static ISpriteFont LoadWindowFont(ContentManager content)
         {
-            List<SpriteFont> fonts = new List<SpriteFont>
-            {
-                content.Load<SpriteFont>("Fonts/GUIFont"),
-                content.Load<SpriteFont>("Fonts/MapFont"),
-                content.Load<SpriteFont>("Fonts/NotificationFont"),
-                content.Load<SpriteFont>("Fonts/WindowFont")
-            };
-
-            return fonts;
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
         }
-
+        
         public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/Tiles");
@@ -32,38 +24,40 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(spriteTextures);
         }
 
-        public static List<ITexture2D> LoadGuiTextures(ContentManager content)
+        public static List<ITexture2D> LoadCursorTextures(ContentManager content)
         {
-            List<Texture2D> loadGuiTextures = new List<Texture2D>
+            List<Texture2D> loadCursorTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/Cursor/Cursor"),
                 content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorBlue"),
                 content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorRed")
-                /* TODO Re-add these eventually
-                content.Load<Texture2D>("GUI/MoveGrid"),
-                content.Load<Texture2D>("GUI/AttackGrid"),
-                content.Load<Texture2D>("GUI/ActionMenuTileBlue"),
-                content.Load<Texture2D>("GUI/ActionMenuTileRed"),
-                content.Load<Texture2D>("GUI/ActionMenuTileGray"),
-                content.Load<Texture2D>("GUI/ActionMenuTileBlueCarbon"),
-                content.Load<Texture2D>("GUI/ActionMenuTileRedCarbon"),
-                content.Load<Texture2D>("GUI/ActionMenuTileGrayCarbon"),
-                content.Load<Texture2D>("GUI/NotificationTile"),
-                content.Load<Texture2D>("GUI/WhitePixel"),
-                content.Load<Texture2D>("GUI/Pointer"),
-                content.Load<Texture2D>("GUI/PipGreen"),
-                content.Load<Texture2D>("GUI/PipGrey")*/
             };
 
-            List<ITexture2D> guiTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadGuiTextures)
+            List<ITexture2D> cursorTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadCursorTextures)
             {
-                guiTextures.Add(new Texture2DWrapper(texture));
+                cursorTextures.Add(new Texture2DWrapper(texture));
             }
 
-            return guiTextures;
+            return cursorTextures;
         }
-        
+
+        public static List<ITexture2D> LoadWindowTextures(ContentManager content)
+        {
+            List<Texture2D> loadWindowTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/HUD/Window/GreyWindow")
+            };
+
+            List<ITexture2D> windowTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadWindowTextures)
+            {
+                windowTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return windowTextures;
+        }
+
         public static List<ITexture2D> LoadUnitSpriteTextures(ContentManager content)
         {
             List<Texture2D> loadSpriteTextures = new List<Texture2D>
@@ -76,7 +70,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion")
             };
-            
+
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
             foreach (Texture2D texture in loadSpriteTextures)
             {
@@ -85,7 +79,7 @@ namespace SolStandard.Utility.Load
 
             return spriteTextures;
         }
-        
+
         public static List<ITexture2D> LoadUnitPortraitTextures(ContentManager content)
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
@@ -94,7 +88,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Images/PortraitsSmall"),
                 content.Load<Texture2D>("Images/PortraitsFull")
             };
-            
+
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
             foreach (Texture2D texture in loadPortraitTextures)
             {
@@ -103,7 +97,6 @@ namespace SolStandard.Utility.Load
 
             return portraitTextures;
         }
-
 
     }
 }

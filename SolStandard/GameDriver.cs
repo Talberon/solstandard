@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Map;
@@ -6,13 +7,24 @@ using SolStandard.Map.Objects;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using SolStandard.Containers;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Objects.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Buttons;
 using TiledSharp;
 
 namespace SolStandard
 {
+    enum GameLayer
+    {
+        Window,
+        Map
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -25,10 +37,13 @@ namespace SolStandard
         private SpriteBatch spriteBatch;
         private GameControlMapper controlMapper;
 
-        private MapContainer gameMap;
+        private GameContainer container;
+
         private ITexture2D terrainTextures;
         private List<ITexture2D> unitSprites;
         private List<ITexture2D> guiTextures;
+        private List<ITexture2D> windowTextures;
+        private ISpriteFont windowFont;
         private MapCamera mapCamera;
 
         public GameDriver()
@@ -67,8 +82,30 @@ namespace SolStandard
             mapCamera.SetCameraZoom(1.8f);
 
             ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
+            MapLayer gameMap = new MapLayer(mapParser.LoadMapGrid(), cursorTexture);
 
-            gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
+            //TODO put this window stuff somewhere more useful
+            ITexture2D windowTexture =
+                windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
+            List<IRenderable> windowContents = new List<IRenderable>();
+            const string windowText =
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                + "\n"
+                + "Nam facilisis odio nec molestie suscipit. Aliquam erat volutpat. Vivamus nec nibh luctus, sagittis purus placerat, imperdiet neque."
+                + "\n"
+                + " Suspendisse pretium blandit purus at blandit. Aliquam consequat leo ante, ut dictum mi cursus in. "
+                + "\n"
+                + "\n"
+                + "Mauris non laoreet metus, condimentum commodo augue. Phasellus ac fringilla purus.";
+            windowContents.Add(new RenderText(windowFont, windowText));
+            Window testWindow = new Window(windowTexture, windowContents, new Vector2(20, 30));
+
+            List<Window> windowList = new List<Window>
+            {
+                testWindow
+            };
+
+            container = new GameContainer(gameMap, new WindowLayer(windowList));
         }
 
         /// <summary>
@@ -82,7 +119,9 @@ namespace SolStandard
 
             terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
             unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
-            guiTextures = ContentLoader.LoadGuiTextures(Content);
+            guiTextures = ContentLoader.LoadCursorTextures(Content);
+            windowTextures = ContentLoader.LoadWindowTextures(Content);
+            windowFont = ContentLoader.LoadWindowFont(Content);
         }
 
         /// <summary>
@@ -113,22 +152,22 @@ namespace SolStandard
 
             if (controlMapper.Down())
             {
-                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
+                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
             }
 
             if (controlMapper.Left())
             {
-                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
+                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
             }
 
             if (controlMapper.Right())
             {
-                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
+                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
             }
 
             if (controlMapper.Up())
             {
-                gameMap.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
+                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -152,9 +191,9 @@ namespace SolStandard
             }
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 mapSize = gameMap.MapSize();
+            Vector2 mapSize = container.Map.MapSize();
 
-            mapCamera.CorrectCameraToCursor(gameMap.GetMapCursor(), screenSize, mapSize);
+            mapCamera.CorrectCameraToCursor(container.Map.GetMapCursor(), screenSize, mapSize);
             mapCamera.PanCameraToTarget();
 
             base.Update(gameTime);
@@ -172,20 +211,19 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, mapCamera.GetCameraMatrix());
 
-            //Draw tiles in Map Grid
-            foreach (MapObject[,] layer in gameMap.GetGameGrid())
-            {
-                foreach (MapObject tile in layer)
-                {
-                    if (tile != null)
-                        tile.Draw(spriteBatch);
-                }
-            }
-
-            //Draw map cursor
-            gameMap.GetMapCursor().Draw(spriteBatch);
+            container.Map.Draw(spriteBatch);
 
             base.Draw(gameTime);
+
+            spriteBatch.End();
+
+
+            //WINDOW LAYER
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+
+            container.Windows.Draw(spriteBatch);
 
             spriteBatch.End();
         }
