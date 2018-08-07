@@ -84,7 +84,11 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage")
             };
 
@@ -101,7 +105,11 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage")
             };
 
@@ -118,7 +126,11 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage")
             };
 

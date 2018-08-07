@@ -153,15 +153,6 @@ namespace SolStandard.HUD.Window
             return calculatedSize;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (WindowCell windowCell in windowCells)
-            {
-                windowCell.Draw(spriteBatch, WindowPosition);
-            }
-
-            RenderGrid(spriteBatch);
-        }
 
         private void RenderGrid(SpriteBatch spriteBatch)
         {
@@ -192,7 +183,7 @@ namespace SolStandard.HUD.Window
                     }
                 }
 
-                verticalOffset = highestRowHeight;//Once I start drawing the next row I should reset the height
+                verticalOffset = highestRowHeight; //Once I start drawing the next row I should reset the height
                 highestRowHeight = 0;
                 horizontalOffset = 0;
             }
@@ -235,6 +226,16 @@ namespace SolStandard.HUD.Window
             }
 
             return new Vector2(totalWidth, totalHeight);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (WindowCell windowCell in windowCells)
+            {
+                windowCell.Draw(spriteBatch, WindowPosition);
+            }
+
+            RenderGrid(spriteBatch);
         }
     }
 }

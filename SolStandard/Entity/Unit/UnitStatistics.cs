@@ -1,4 +1,7 @@
-﻿namespace SolStandard.Entity.Unit
+﻿using System;
+using System.IO;
+
+namespace SolStandard.Entity.Unit
 {
     public enum UnitParameters
     {
@@ -19,7 +22,7 @@
         private int sp;
         private int ap;
         private int mv;
-        private int rng;
+        private int[] rng;
 
         private readonly int maxHp;
         private readonly int baseAtk;
@@ -27,10 +30,10 @@
         private readonly int maxSp;
         private readonly int maxAp;
         private readonly int maxMv;
-        private readonly int baseRng;
+        private readonly int[] baseRng;
 
 
-        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int rng)
+        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] rng)
         {
             Hp = hp;
             Atk = atk;
@@ -79,7 +82,7 @@
             get { return maxMv; }
         }
 
-        public int BaseRng
+        public int[] BaseRng
         {
             get { return baseRng; }
         }
@@ -120,10 +123,33 @@
             set { mv = value; }
         }
 
-        public int Rng
+        public int[] Rng
         {
             get { return rng; }
             set { rng = value; }
+        }
+
+        public override string ToString()
+        {
+            string output = "";
+
+            output += "HP: " + Hp.ToString() + "/" + maxHp;
+            output += Environment.NewLine;
+            output += "ATK: " + Atk.ToString() + "/" + baseAtk;
+            output += Environment.NewLine;
+            output += "DEF: " + Def.ToString() + "/" + baseDef;
+            output += Environment.NewLine;
+            output += "SP: " + Sp.ToString() + "/" + maxSp;
+            output += Environment.NewLine;
+            output += "AP: " + Ap.ToString() + "/" + maxAp;
+            output += Environment.NewLine;
+            output += "MV: " + Mv.ToString() + "/" + maxMv;
+            output += Environment.NewLine;
+            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", Rng), string.Join(",", baseRng));
+            output += Environment.NewLine;
+
+            return output;
+
         }
     }
 }

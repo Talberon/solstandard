@@ -6,16 +6,16 @@ namespace SolStandard.Containers
 {
     public class WindowLayer : IGameLayer
     {
-        private List<Window> windows;
-
+        public List<Window> Windows { get; set; }
+        
         public WindowLayer(List<Window> windows)
         {
-            this.windows = windows;
+            this.Windows = windows;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Window window in windows)
+            foreach (Window window in Windows)
             {
                 window.Draw(spriteBatch);
             }
