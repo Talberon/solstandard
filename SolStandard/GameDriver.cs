@@ -241,14 +241,14 @@ namespace SolStandard
                         */
 
                         container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitPortrait, 4, windowColour);
+                            selectedUnitPortrait, windowColour);
                         container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitPortrait, 4, windowColour);
+                            selectedUnitPortrait, windowColour);
 
                         container.GetWindowLayer().LeftUnitDetailWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitInfo, 4, windowColour);
+                            selectedUnitInfo, windowColour);
                         container.GetWindowLayer().RightUnitDetailWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitInfo, 4, windowColour);
+                            selectedUnitInfo, windowColour);
                     }
                 }
                 else
@@ -258,11 +258,18 @@ namespace SolStandard
                 }
 
                 container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
-                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), 0,
-                    Color.Green);
+                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), Color.Green);
+
+
+                const int maxInitiativeSize = 10;
+                int initiativeListLength = (container.GetUnits().Count > maxInitiativeSize)
+                    ? maxInitiativeSize
+                    : container.GetUnits().Count;
 
                 //Storing contents in a grid
-                IRenderable[,] unitListGrid = new IRenderable[1, container.GetUnits().Count];
+                IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+
+
                 for (int i = 0; i < unitListGrid.GetLength(1); i++)
                 {
                     IRenderable unitPortraitWindow = new WindowContent(new TileCell(
@@ -271,10 +278,10 @@ namespace SolStandard
                     unitListGrid[0, i] = unitPortraitWindow;
                 }
 
-                WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid);
+                WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
 
                 container.GetWindowLayer().InitiativeWindow =
-                    new Window("Initiative", windowTexture, unitListContentGrid, 4, Color.Green);
+                    new Window("Initiative", windowTexture, unitListContentGrid, Color.Green);
             }
 
 

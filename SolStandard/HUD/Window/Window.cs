@@ -17,18 +17,15 @@ namespace SolStandard.HUD.Window
         private readonly WindowCell[,] windowCells;
         private readonly Color windowColor;
 
-        private readonly int padding;
         public bool Visible { get; set; }
 
         //Single Content
-        public Window(string windowLabel, ITexture2D windowTexture, IRenderable windowContent, int padding,
-            Color windowColor)
+        public Window(string windowLabel, ITexture2D windowTexture, IRenderable windowContent, Color windowColor)
         {
             this.windowTexture = windowTexture;
-            this.padding = padding;
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
-            windowContents = new WindowContentGrid(new[,] {{windowContent}});
+            windowContents = new WindowContentGrid(new[,] {{windowContent}}, 1);
             windowCellSize = CalculateCellSize(windowTexture);
             windowPixelSize = DeriveSizeFromContent();
             windowCells = ConstructWindowCells(WindowPixelSize);
@@ -36,12 +33,10 @@ namespace SolStandard.HUD.Window
         }
 
         //Grid of Content
-        public Window(string windowLabel, ITexture2D windowTexture, WindowContentGrid windowContents, int padding,
-            Color windowColor)
+        public Window(string windowLabel, ITexture2D windowTexture, WindowContentGrid windowContents, Color windowColor)
         {
             this.windowTexture = windowTexture;
             this.windowContents = windowContents;
-            this.padding = padding;
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
             windowCellSize = CalculateCellSize(windowTexture);
@@ -155,7 +150,7 @@ namespace SolStandard.HUD.Window
         {
             Vector2 calculatedSize = new Vector2();
 
-            Vector2 contentGridSize = DetermineGridSizeInPixels();
+            Vector2 contentGridSize = windowContents.GridSizeInPixels();
             calculatedSize.X = contentGridSize.X;
             calculatedSize.Y = contentGridSize.Y;
 
@@ -167,80 +162,7 @@ namespace SolStandard.HUD.Window
             return calculatedSize;
         }
 
-
-        private void RenderContentGrid(SpriteBatch spriteBatch, Vector2 coordinates)
-        {
-            Vector2 borderOffset = new Vector2(windowCellSize);
-            Vector2 renderPosition = coordinates + borderOffset;
-
-            float highestRowHeight = 0f;
-
-            float horizontalOffset = 0f;
-            float verticalOffset = 0f;
-
-            for (int column = 0; column < windowContents.ContentGrid.GetLength(0); column++)
-            {
-                for (int row = 0; row < windowContents.ContentGrid.GetLength(1); row++)
-                {
-                    //Draw with offset
-                    windowContents.ContentGrid[column, row].Draw(spriteBatch,
-                        new Vector2(renderPosition.X + horizontalOffset, renderPosition.Y + verticalOffset));
-
-                    //Adjust offset
-                    float contentWidth = windowContents.ContentGrid[column, row].GetWidth();
-                    horizontalOffset += contentWidth + padding;
-
-                    float contentHeight = windowContents.ContentGrid[column, row].GetHeight();
-                    if (highestRowHeight < contentHeight)
-                    {
-                        highestRowHeight = contentHeight + padding;
-                    }
-                }
-
-                verticalOffset = highestRowHeight; //Once I start drawing the next row I should reset the height
-                highestRowHeight = 0;
-                horizontalOffset = 0;
-            }
-        }
-
-        //TODO clean this so I'm not duplicating so much of the RenderGrid logic
-        private Vector2 DetermineGridSizeInPixels()
-        {
-            float totalWidth = 0f;
-            float totalHeight = 0;
-
-            float highestRowHeight = 0f;
-            float horizontalOffset = 0f;
-
-            for (int column = 0; column < windowContents.ContentGrid.GetLength(0); column++)
-            {
-                for (int row = 0; row < windowContents.ContentGrid.GetLength(1); row++)
-                {
-                    float contentWidth = windowContents.ContentGrid[column, row].GetWidth();
-                    horizontalOffset += contentWidth + padding;
-
-                    float contentHeight = windowContents.ContentGrid[column, row].GetHeight();
-                    if (highestRowHeight < contentHeight)
-                    {
-                        highestRowHeight = contentHeight + padding;
-                    }
-                }
-
-                //Combination of highest heights determines the height
-                totalHeight += highestRowHeight;
-
-                //Widest set of items determines the width
-                if (totalWidth < horizontalOffset)
-                {
-                    totalWidth = horizontalOffset;
-                }
-
-                horizontalOffset = 0;
-                highestRowHeight = 0;
-            }
-
-            return new Vector2(totalWidth, totalHeight);
-        }
+        
 
         public int GetHeight()
         {
@@ -261,7 +183,7 @@ namespace SolStandard.HUD.Window
                     windowCell.Draw(spriteBatch, ref windowTexture, coordinates);
                 }
 
-                RenderContentGrid(spriteBatch, coordinates);
+                windowContents.Draw(spriteBatch, coordinates + new Vector2(windowCellSize));
             }
         }
     }
