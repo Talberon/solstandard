@@ -1,22 +1,20 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Map;
-using SolStandard.Map.Objects;
-using SolStandard.Utility.Load;
-using SolStandard.Utility.Monogame;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using SolStandard.Containers;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Logic;
+using SolStandard.Map;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Objects;
 using SolStandard.Map.Objects.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Load;
+using SolStandard.Utility.Monogame;
 using TiledSharp;
 
 namespace SolStandard
@@ -192,7 +190,7 @@ namespace SolStandard
             {
                 //TODO move to its own method :: Selected Unit Windows
                 ITexture2D windowTexture =
-                    windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
+                    windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("LightWindow"));
 
                 GameUnit selectedUnit = UnitSelector.SelectUnit(container.GetUnits(),
                     (MapEntity[,]) container.GetMapLayer().GetGameGrid()[(int) Layer.Units],
@@ -226,11 +224,11 @@ namespace SolStandard
 
                         if (selectedUnit.UnitTeam == Team.Blue)
                         {
-                            windowColour = Color.LightBlue;
+                            windowColour = new Color(75, 75, 150, 200);
                         }
                         else if (selectedUnit.UnitTeam == Team.Red)
                         {
-                            windowColour = Color.Pink;
+                            windowColour = new Color(150, 75, 75, 200);
                         }
 
                         container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
@@ -251,7 +249,8 @@ namespace SolStandard
                 }
 
                 container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
-                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), Color.Green);
+                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)),
+                    new Color(0, 100, 0, 200));
 
 
                 {
@@ -278,7 +277,7 @@ namespace SolStandard
                     WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
 
                     container.GetWindowLayer().InitiativeWindow =
-                        new Window("Initiative", windowTexture, unitListContentGrid, Color.Green);
+                        new Window("Initiative", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225));
                 }
 
                 {
@@ -287,28 +286,87 @@ namespace SolStandard
                         new IRenderable[,]
                         {
                             {
-                                new RenderText(windowFont, "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
+                                new RenderText(windowFont,
+                                    "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
                             },
                             {
-                                new RenderText(windowFont, "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
+                                new RenderText(windowFont,
+                                    "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
                             },
                             {
-                                new RenderText(windowFont, "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
+                                new RenderText(windowFont,
+                                    "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
                             },
                             {
                                 new RenderText(windowFont, "EXAMPLE//Time: Day") //TODO make dynamic; not hard-coded
                             },
                             {
-                                new RenderText(windowFont, "EXAMPLE//Weather: Clear") //TODO make dynamic; not hard-coded
+                                new RenderText(windowFont,
+                                    "EXAMPLE//Weather: Clear") //TODO make dynamic; not hard-coded
                             },
                             {
-                                new RenderText(windowFont, "EXAMPLE//Units Remaining: X") //TODO make dynamic; not hard-coded
+                                new RenderText(windowFont,
+                                    "EXAMPLE//Units Remaining: X") //TODO make dynamic; not hard-coded
                             }
                         },
                         1);
 
                     container.GetWindowLayer().TurnWindow =
-                        new Window("Turn Counter", windowTexture, unitListContentGrid, Color.White);
+                        new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225));
+                }
+
+                {
+                    //TODO move to its own method :: Terrain Window
+                    Vector2 cursorCoordinates = container.GetMapLayer().GetMapCursor().GetMapCoordinates();
+                    MapEntity selectedTerrain =
+                        (MapEntity) container.GetMapLayer().GetGameGrid()[(int) Layer.Entities][
+                            (int) cursorCoordinates.X, (int) cursorCoordinates.Y];
+
+                    WindowContentGrid terrainContentGrid;
+
+                    if (selectedTerrain != null)
+                    {
+                        IRenderable terrainSprite = selectedTerrain.GetSprite();
+
+                        string terrainInfo = "Terrain: " + selectedTerrain.Name
+                                                         + "\n"
+                                                         + "Properties:\n" + string.Join("\n",
+                                                             selectedTerrain.TiledProperties);
+
+                        terrainContentGrid = new WindowContentGrid(
+                            new[,]
+                            {
+                                {
+                                    terrainSprite,
+                                    new RenderText(windowFont, terrainInfo)
+                                }
+                            },
+                            1);
+                    }
+                    else
+                    {
+                        terrainContentGrid = new WindowContentGrid(
+                            new IRenderable[,]
+                            {
+                                {
+                                    new RenderText(windowFont, "None ")
+                                }
+                            },
+                            1);
+                    }
+
+                    container.GetWindowLayer().TerrainWindow =
+                        new Window("Terrain Info", windowTexture, terrainContentGrid, new Color(100, 150, 100, 220));
+                }
+
+                {
+                    //TODO move to its own method :: Help Text Window
+
+                    IRenderable helpText = new RenderText(windowFont,
+                        "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
+                        + "\nAdditional information will appear here to help you play the game.");
+                    container.GetWindowLayer().HelpTextWindow =
+                        new Window("Help Text", windowTexture, helpText, new Color(30, 30, 30, 150));
                 }
             }
 

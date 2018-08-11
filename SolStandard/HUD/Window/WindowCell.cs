@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Utility;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 

@@ -17,7 +17,7 @@ namespace SolStandard.Utility
             this.image = image;
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
-            this.color = Color.White;
+            color = Color.White;
         }
         
         public TileCell(ITexture2D image, int cellSize, int cellIndex, Color color)

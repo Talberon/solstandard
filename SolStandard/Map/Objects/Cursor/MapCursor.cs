@@ -16,7 +16,7 @@ namespace SolStandard.Map.Objects.Cursor
 
         private readonly Vector2 mapSize;
 
-        public MapCursor(TileCell sprite, Vector2 mapCoordinates, Vector2 mapSize)
+        public MapCursor(IRenderable sprite, Vector2 mapCoordinates, Vector2 mapSize)
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;

@@ -46,7 +46,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadWindowTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/HUD/Window/GreyWindow")
+                content.Load<Texture2D>("Graphics/HUD/Window/GreyWindow"),
+                content.Load<Texture2D>("Graphics/HUD/Window/LightWindow")
             };
 
             List<ITexture2D> windowTextures = new List<ITexture2D>();

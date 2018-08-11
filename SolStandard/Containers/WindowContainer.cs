@@ -8,7 +8,7 @@ namespace SolStandard.Containers
     public class WindowLayer : IGameLayer
     {
         private readonly Vector2 screenSize;
-        private const int WindowEdgeBuffer = 20;
+        private const int WindowEdgeBuffer = 5;
 
         public Window DebugWindow { get; set; }
 
@@ -20,6 +20,8 @@ namespace SolStandard.Containers
 
         public Window TurnWindow { get; set; }
         public Window InitiativeWindow { get; set; }
+        public Window TerrainWindow { get; set; }
+        public Window HelpTextWindow { get; set; }
 
         public List<Window> ExtraWindows { get; set; }
 
@@ -32,7 +34,8 @@ namespace SolStandard.Containers
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
         {
             //Bottom-left, above initiative window
-            return new Vector2(WindowEdgeBuffer, screenSize.Y - portraitWindowHeight - initiativeWindowHeight);
+            return new Vector2(WindowEdgeBuffer,
+                screenSize.Y - portraitWindowHeight - initiativeWindowHeight);
         }
 
         private Vector2 LeftUnitDetailWindowPosition(int detailWindowHeight, int leftPortraitWindowWidth,
@@ -62,13 +65,26 @@ namespace SolStandard.Containers
         private Vector2 InitiativeWindowPosition(int windowWidth, int windowHeight)
         {
             //Bottom-right
-            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer, screenSize.Y - windowHeight);
+            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer,
+                screenSize.Y - windowHeight);
         }
 
         private Vector2 TurnWindowPosition(int windowHeight)
         {
             //Bottom-right
             return new Vector2(WindowEdgeBuffer, screenSize.Y - windowHeight);
+        }
+
+        private Vector2 TerrainWindowPosition(int windowWidth)
+        {
+            //Top-right
+            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer, WindowEdgeBuffer);
+        }
+
+        private Vector2 HelpTextWindowPosition()
+        {
+            //Top-left
+            return new Vector2(WindowEdgeBuffer);
         }
 
 
@@ -83,6 +99,15 @@ namespace SolStandard.Containers
             //TODO Turn this off eventually or add a debug mode flag
             DebugWindow.Draw(spriteBatch, new Vector2(0));
 
+            if (HelpTextWindow != null)
+            {
+                HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
+            }
+
+            if (TerrainWindow != null)
+            {
+                TerrainWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainWindow.GetWidth()));
+            }
 
             if (TurnWindow != null)
             {
@@ -91,7 +116,8 @@ namespace SolStandard.Containers
 
             if (InitiativeWindow != null)
             {
-                InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition(InitiativeWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                InitiativeWindow.Draw(spriteBatch,
+                    InitiativeWindowPosition(InitiativeWindow.GetWidth(), InitiativeWindow.GetHeight()));
 
                 if (LeftUnitPortraitWindow != null)
                 {

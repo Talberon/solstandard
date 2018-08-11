@@ -15,7 +15,8 @@ namespace SolStandard.Map.Camera
     public class MapCamera
     {
         private const int HorizontalThreshold = (7 * GameDriver.CellSize);
-        private const int VerticalThreshold = (5 * GameDriver.CellSize);
+        private const int TopThreshold = (4 * GameDriver.CellSize);
+        private const int BottomThreshold = (6 * GameDriver.CellSize);
         private float currentZoom;
 
         private Vector2 currentCamPosition;
@@ -161,12 +162,12 @@ namespace SolStandard.Map.Camera
 
         private float GetNorthBound(float cursorY)
         {
-            return (0 + (VerticalThreshold + GameDriver.CellSize)) / currentZoom - cursorY;
+            return (0 + (TopThreshold + GameDriver.CellSize)) / currentZoom - cursorY;
         }
 
         private float GetSouthBound(float borderY, float cursorY)
         {
-            return (borderY - VerticalThreshold) / currentZoom - cursorY;
+            return (borderY - BottomThreshold) / currentZoom - cursorY;
         }
 
         private void CorrectCameraToMap(Vector2 screenSize, Vector2 mapSize)
