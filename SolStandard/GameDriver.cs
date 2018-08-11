@@ -94,7 +94,9 @@ namespace SolStandard
                 largePortraitTextures, mediumPortraitTextures, smallPortraitTextures);
 
 
-            container = new GameContainer(gameMap, new WindowLayer(new List<Window>()), unitsFromMap);
+            container = new GameContainer(gameMap,
+                new WindowLayer(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
+                unitsFromMap);
         }
 
         /// <summary>
@@ -243,12 +245,12 @@ namespace SolStandard
                         {
                             windowColour = Color.Pink;
                         }
-                        
-                        
+
+
                         container.GetWindowLayer().LeftUnitSelectionWindow = new Window(windowLabel, windowTexture,
-                            windowContentGrid, new Vector2(20, 550), 4, windowColour);
+                            windowContentGrid, 4, windowColour);
                         container.GetWindowLayer().RightUnitSelectionWindow = new Window(windowLabel, windowTexture,
-                            windowContentGrid, new Vector2(1430, 550), 4, windowColour);
+                            windowContentGrid, 4, windowColour);
                     }
                 }
                 else
@@ -258,8 +260,8 @@ namespace SolStandard
                 }
 
                 container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
-                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)),
-                    new Vector2(0), 0, Color.Green);
+                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), 0,
+                    Color.Green);
             }
 
 

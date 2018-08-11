@@ -6,7 +6,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window
 {
-    public class WindowCell// : IRenderable
+    public class WindowCell
     {
         private readonly int cellSize;
         private readonly int cellIndex;
@@ -38,7 +38,7 @@ namespace SolStandard.HUD.Window
 
             int cellSearcher = 0;
 
-            //Run through the tiles in the TileSet until you hit the index of the given celll
+            //Run through the tiles in the TileSet until you hit the index of the given cell
             for (int row = 0; row < rows; row++)
             {
                 for (int col = 0; col < columns; col++)

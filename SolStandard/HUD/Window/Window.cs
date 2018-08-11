@@ -7,7 +7,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window
 {
-    public class Window
+    public class Window : IRenderable
     {
         private readonly string windowLabel;
         private ITexture2D windowTexture;
@@ -16,39 +16,36 @@ namespace SolStandard.HUD.Window
         private readonly Vector2 windowPixelSize;
         private readonly WindowCell[,] windowCells;
         private readonly Color windowColor;
-        private bool visible;
 
-        private readonly Vector2 windowPosition;
         private readonly int padding;
+        public bool Visible { get; set; }
 
         //Single Content
-        public Window(string windowLabel, ITexture2D windowTexture, IRenderable windowContent, Vector2 windowPosition,
-            int padding, Color windowColor)
+        public Window(string windowLabel, ITexture2D windowTexture, IRenderable windowContent, int padding,
+            Color windowColor)
         {
             this.windowTexture = windowTexture;
-            this.windowPosition = windowPosition;
             this.padding = padding;
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
             windowContents = new WindowContentGrid(new[,] {{windowContent}});
             windowCellSize = CalculateCellSize(windowTexture);
-            windowPixelSize = DeriveSizeFromContent(windowContents.ContentGrid);
+            windowPixelSize = DeriveSizeFromContent();
             windowCells = ConstructWindowCells(WindowPixelSize);
             Visible = true;
         }
 
         //Grid of Content
-        public Window(string windowLabel, ITexture2D windowTexture, WindowContentGrid windowContents,
-            Vector2 windowPosition, int padding, Color windowColor)
+        public Window(string windowLabel, ITexture2D windowTexture, WindowContentGrid windowContents, int padding,
+            Color windowColor)
         {
             this.windowTexture = windowTexture;
             this.windowContents = windowContents;
-            this.windowPosition = windowPosition;
             this.padding = padding;
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
             windowCellSize = CalculateCellSize(windowTexture);
-            windowPixelSize = DeriveSizeFromContent(this.windowContents.ContentGrid);
+            windowPixelSize = DeriveSizeFromContent();
             windowCells = ConstructWindowCells(WindowPixelSize);
             Visible = true;
         }
@@ -58,21 +55,11 @@ namespace SolStandard.HUD.Window
             get { return windowPixelSize; }
         }
 
-        public Vector2 WindowPosition
-        {
-            get { return windowPosition; }
-        }
-
         public string WindowLabel
         {
             get { return windowLabel; }
         }
 
-        public bool Visible
-        {
-            get { return visible; }
-            set { visible = value; }
-        }
 
         private int CalculateCellSize(ITexture2D windowTextureTemplate)
         {
@@ -85,9 +72,16 @@ namespace SolStandard.HUD.Window
             throw new InvalidWindowTextureException();
         }
 
+        /*
+         * Window Cells
+         * [1][2][3]
+         * [4][5][6]
+         * [7][8][9]
+         */
         private WindowCell[,] ConstructWindowCells(Vector2 pixelSize)
         {
-            WindowCell[,] windowCellsToConstruct = new WindowCell[(int) pixelSize.X / windowCellSize, (int) pixelSize.Y / windowCellSize];
+            WindowCell[,] windowCellsToConstruct =
+                new WindowCell[(int) pixelSize.X / windowCellSize, (int) pixelSize.Y / windowCellSize];
 
             //Build the GameTile list
             for (int row = 0; row < windowCellsToConstruct.GetLength(1); row++)
@@ -149,14 +143,15 @@ namespace SolStandard.HUD.Window
                         cellIndex = 5;
                     }
 
-                    windowCellsToConstruct[column, row] = new WindowCell(windowCellSize, cellIndex, windowColor, new Vector2(column*windowCellSize, row*windowCellSize));
+                    windowCellsToConstruct[column, row] = new WindowCell(windowCellSize, cellIndex, windowColor,
+                        new Vector2(column * windowCellSize, row * windowCellSize));
                 }
             }
 
             return windowCellsToConstruct;
         }
 
-        private Vector2 DeriveSizeFromContent(IRenderable[,] contentGrid)
+        private Vector2 DeriveSizeFromContent()
         {
             Vector2 calculatedSize = new Vector2();
 
@@ -173,10 +168,10 @@ namespace SolStandard.HUD.Window
         }
 
 
-        private void RenderContentGrid(SpriteBatch spriteBatch)
+        private void RenderContentGrid(SpriteBatch spriteBatch, Vector2 coordinates)
         {
             Vector2 borderOffset = new Vector2(windowCellSize);
-            Vector2 renderPosition = WindowPosition + borderOffset;
+            Vector2 renderPosition = coordinates + borderOffset;
 
             float highestRowHeight = 0f;
 
@@ -247,16 +242,26 @@ namespace SolStandard.HUD.Window
             return new Vector2(totalWidth, totalHeight);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public int GetHeight()
         {
-            if (visible)
+            return (int) windowPixelSize.Y;
+        }
+
+        public int GetWidth()
+        {
+            return (int) windowPixelSize.X;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
+        {
+            if (Visible)
             {
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, ref windowTexture, WindowPosition);
+                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates);
                 }
 
-                RenderContentGrid(spriteBatch);
+                RenderContentGrid(spriteBatch, coordinates);
             }
         }
     }
