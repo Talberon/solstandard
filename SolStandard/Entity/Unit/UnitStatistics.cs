@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace SolStandard.Entity.Unit
 {
@@ -23,6 +22,7 @@ namespace SolStandard.Entity.Unit
         private int ap;
         private int mv;
         private int[] rng;
+        private int itv;
 
         private readonly int maxHp;
         private readonly int baseAtk;
@@ -31,9 +31,10 @@ namespace SolStandard.Entity.Unit
         private readonly int maxAp;
         private readonly int maxMv;
         private readonly int[] baseRng;
+        private readonly int baseItv;
 
 
-        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] rng)
+        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] rng, int itv)
         {
             Hp = hp;
             Atk = atk;
@@ -42,6 +43,7 @@ namespace SolStandard.Entity.Unit
             Ap = ap;
             Mv = mv;
             Rng = rng;
+            Itv = itv;
 
             maxHp = hp;
             baseAtk = atk;
@@ -50,6 +52,7 @@ namespace SolStandard.Entity.Unit
             maxAp = ap;
             maxMv = mv;
             baseRng = rng;
+            baseItv = itv;
         }
 
         public int MaxHp
@@ -129,6 +132,17 @@ namespace SolStandard.Entity.Unit
             set { rng = value; }
         }
 
+        public int Itv
+        {
+            get { return itv; }
+            set { itv = value; }
+        }
+
+        public int BaseItv
+        {
+            get { return baseItv; }
+        }
+
         public override string ToString()
         {
             string output = "";
@@ -146,9 +160,10 @@ namespace SolStandard.Entity.Unit
             output += "MV: " + Mv.ToString() + "/" + maxMv;
             output += Environment.NewLine;
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", Rng), string.Join(",", baseRng));
+            output += Environment.NewLine;
+            output += "ITV: " + Itv.ToString() + "/" + baseItv;
 
             return output;
-
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Map;
+using System.Collections.ObjectModel;
 using SolStandard.Map.Objects;
 using SolStandard.Utility.Monogame;
 
@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit
                         throw new ArgumentOutOfRangeException("unitClass", unit.TiledProperties["Class"], null);
                 }
 
-                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, unitClass, unit);
+                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, unitClass, unit, 0);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit
         }
 
         private GameUnit BuildUnitFromProperties(string id, Team unitTeam, UnitClass unitJobClass,
-            MapEntity mapEntity)
+            MapEntity mapEntity, int initiative)
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
 
@@ -85,13 +85,13 @@ namespace SolStandard.Entity.Unit
             switch (unitJobClass)
             {
                 case UnitClass.Archer:
-                    unitStats = SelectArcherStats();
+                    unitStats = SelectArcherStats(initiative);
                     break;
                 case UnitClass.Champion:
-                    unitStats = SelectChampionStats();
+                    unitStats = SelectChampionStats(initiative);
                     break;
                 case UnitClass.Mage:
-                    unitStats = SelectMageStats();
+                    unitStats = SelectMageStats(initiative);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
@@ -101,19 +101,19 @@ namespace SolStandard.Entity.Unit
                 smallPortrait);
         }
 
-        private static UnitStatistics SelectArcherStats()
+        private static UnitStatistics SelectArcherStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 5, 3, 1, 7, new[] {2});
+            return new UnitStatistics(100, 20, 5, 3, 1, 7, new[] {2}, initiative);
         }
 
-        private static UnitStatistics SelectChampionStats()
+        private static UnitStatistics SelectChampionStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 10, 5, 1, 6, new[] {1});
+            return new UnitStatistics(100, 20, 10, 5, 1, 6, new[] {1}, initiative);
         }
 
-        private static UnitStatistics SelectMageStats()
+        private static UnitStatistics SelectMageStats(int initiative)
         {
-            return new UnitStatistics(100, 30, 0, 5, 1, 5, new[] {1, 2});
+            return new UnitStatistics(100, 30, 0, 5, 1, 5, new[] {1, 2}, initiative);
         }
 
         private ITexture2D GetLargePortrait(string textureName)

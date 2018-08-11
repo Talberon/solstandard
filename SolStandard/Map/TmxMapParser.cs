@@ -87,9 +87,9 @@ namespace SolStandard.Map
             //Handle the Entities Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
             {
-                for (int row = 0; row < tmxMap.Height; row++)
+                for (int col = 0; col < tmxMap.Width; col++)
                 {
-                    for (int col = 0; col < tmxMap.Width; col++)
+                    for (int row = 0; row < tmxMap.Height; row++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile.c Compensate in the calculation here.
                         if ((col * GameDriver.CellSize) == (int) currentObject.X &&
@@ -120,9 +120,9 @@ namespace SolStandard.Map
             //Handle the Units Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
             {
-                for (int row = 0; row < tmxMap.Height; row++)
+                for (int col = 0; col < tmxMap.Width; col++)
                 {
-                    for (int col = 0; col < tmxMap.Width; col++)
+                    for (int row = 0; row < tmxMap.Height; row++)
                     {
                         //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
                         if ((col * GameDriver.CellSize) != (int) currentObject.X || (row * GameDriver.CellSize) !=

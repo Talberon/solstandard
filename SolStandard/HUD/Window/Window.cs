@@ -84,9 +84,9 @@ namespace SolStandard.HUD.Window
                 new WindowCell[(int) pixelSize.X / windowCellSize, (int) pixelSize.Y / windowCellSize];
 
             //Build the GameTile list
-            for (int row = 0; row < windowCellsToConstruct.GetLength(1); row++)
+            for (int column = 0; column < windowCellsToConstruct.GetLength(0); column++)
             {
-                for (int column = 0; column < windowCellsToConstruct.GetLength(0); column++)
+                for (int row = 0; row < windowCellsToConstruct.GetLength(1); row++)
                 {
                     //Top Border
                     int cellIndex;

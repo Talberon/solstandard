@@ -207,19 +207,6 @@ namespace SolStandard
                     IRenderable selectedUnitInfo =
                         new RenderText(windowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
 
-                    //Storing contents in a grid
-                    IRenderable[,] selectedUnitGrid =
-                    {
-                        {
-                            selectedUnitPortrait
-                        },
-                        {
-                            selectedUnitInfo
-                        }
-                    };
-
-                    WindowContentGrid windowContentGrid = new WindowContentGrid(selectedUnitGrid);
-
 
                     string windowLabel = "Selected Unit: " + selectedUnit.Id;
 
@@ -252,17 +239,16 @@ namespace SolStandard
                         container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             windowContentGrid, 4, windowColour);
                         */
-                        
+
                         container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             selectedUnitPortrait, 4, windowColour);
                         container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             selectedUnitPortrait, 4, windowColour);
-                        
+
                         container.GetWindowLayer().LeftUnitDetailWindow = new Window(windowLabel, windowTexture,
                             selectedUnitInfo, 4, windowColour);
                         container.GetWindowLayer().RightUnitDetailWindow = new Window(windowLabel, windowTexture,
                             selectedUnitInfo, 4, windowColour);
-                        
                     }
                 }
                 else
@@ -274,6 +260,21 @@ namespace SolStandard
                 container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
                     new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), 0,
                     Color.Green);
+
+                //Storing contents in a grid
+                IRenderable[,] unitListGrid = new IRenderable[1, container.GetUnits().Count];
+                for (int i = 0; i < unitListGrid.GetLength(1); i++)
+                {
+                    IRenderable unitPortraitWindow = new WindowContent(new TileCell(
+                        container.GetUnits()[i].MediumPortrait,
+                        container.GetUnits()[i].MediumPortrait.GetHeight(), 1));
+                    unitListGrid[0, i] = unitPortraitWindow;
+                }
+
+                WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid);
+
+                container.GetWindowLayer().InitiativeWindow =
+                    new Window("Initiative", windowTexture, unitListContentGrid, 4, Color.Green);
             }
 
 
