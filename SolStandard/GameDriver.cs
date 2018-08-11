@@ -201,8 +201,8 @@ namespace SolStandard
                 if (selectedUnit != null)
                 {
                     //Create Unit Window Content
-                    IRenderable selectedUnitPortrait = new WindowContent(new TileCell(selectedUnit.MediumPortrait,
-                        selectedUnit.MediumPortrait.GetHeight(), 1));
+                    IRenderable selectedUnitPortrait = new WindowContent(new TileCell(selectedUnit.LargePortrait,
+                        selectedUnit.LargePortrait.GetHeight(), 1));
 
                     IRenderable selectedUnitInfo =
                         new RenderText(windowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
@@ -246,17 +246,29 @@ namespace SolStandard
                             windowColour = Color.Pink;
                         }
 
-
-                        container.GetWindowLayer().LeftUnitSelectionWindow = new Window(windowLabel, windowTexture,
+                        /* TODO figure out what to do with this
+                        container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             windowContentGrid, 4, windowColour);
-                        container.GetWindowLayer().RightUnitSelectionWindow = new Window(windowLabel, windowTexture,
+                        container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             windowContentGrid, 4, windowColour);
+                        */
+                        
+                        container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
+                            selectedUnitPortrait, 4, windowColour);
+                        container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
+                            selectedUnitPortrait, 4, windowColour);
+                        
+                        container.GetWindowLayer().LeftUnitDetailWindow = new Window(windowLabel, windowTexture,
+                            selectedUnitInfo, 4, windowColour);
+                        container.GetWindowLayer().RightUnitDetailWindow = new Window(windowLabel, windowTexture,
+                            selectedUnitInfo, 4, windowColour);
+                        
                     }
                 }
                 else
                 {
-                    container.GetWindowLayer().LeftUnitSelectionWindow = null;
-                    container.GetWindowLayer().RightUnitSelectionWindow = null;
+                    container.GetWindowLayer().LeftUnitPortraitWindow = null;
+                    container.GetWindowLayer().RightUnitPortraitWindow = null;
                 }
 
                 container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,

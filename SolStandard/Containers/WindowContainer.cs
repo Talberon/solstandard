@@ -12,8 +12,12 @@ namespace SolStandard.Containers
 
         public Window DebugWindow { get; set; }
 
-        public Window LeftUnitSelectionWindow { get; set; }
-        public Window RightUnitSelectionWindow { get; set; }
+        public Window LeftUnitPortraitWindow { get; set; }
+        public Window LeftUnitDetailWindow { get; set; }
+
+        public Window RightUnitPortraitWindow { get; set; }
+        public Window RightUnitDetailWindow { get; set; }
+
         public List<Window> ExtraWindows { get; set; }
 
         public WindowLayer(Vector2 screenSize)
@@ -22,15 +26,29 @@ namespace SolStandard.Containers
             ExtraWindows = new List<Window>();
         }
 
-        private Vector2 LeftUnitSelectionWindowPosition(int windowHeight)
+        private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight)
         {
-            return new Vector2(WindowEdgeBuffer, screenSize.Y - windowHeight);
+            return new Vector2(WindowEdgeBuffer, screenSize.Y - portraitWindowHeight);
         }
 
-        private Vector2 RightUnitSelectionWindowPosition(int windowHeight, int windowWidth)
+        private Vector2 LeftUnitDetailWindowPosition(int detailWindowHeight, int leftPortraitWindowWidth)
         {
-            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer, screenSize.Y - windowHeight);
+            return new Vector2(WindowEdgeBuffer + leftPortraitWindowWidth, screenSize.Y - detailWindowHeight);
         }
+
+        private Vector2 RightUnitPortraitWindowPosition(int detailWindowHeight, int portraitWindowWidth)
+        {
+            return new Vector2(screenSize.X - portraitWindowWidth - WindowEdgeBuffer,
+                screenSize.Y - detailWindowHeight);
+        }
+
+        private Vector2 RightUnitDetailWindowPosition(int detailWindowHeight, int detailWindowWidth,
+            int rightPortraitWidth)
+        {
+            return new Vector2(screenSize.X - detailWindowWidth - rightPortraitWidth - WindowEdgeBuffer,
+                screenSize.Y - detailWindowHeight);
+        }
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -43,14 +61,31 @@ namespace SolStandard.Containers
             //TODO Turn this off eventually or add a debug mode flag
             DebugWindow.Draw(spriteBatch, new Vector2(0));
 
-            if (LeftUnitSelectionWindow != null)
-                LeftUnitSelectionWindow.Draw(spriteBatch,
-                    LeftUnitSelectionWindowPosition(LeftUnitSelectionWindow.GetHeight()));
+            if (LeftUnitPortraitWindow != null)
+            {
+                LeftUnitPortraitWindow.Draw(spriteBatch,
+                    LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.GetHeight()));
 
-            if (RightUnitSelectionWindow != null)
-                RightUnitSelectionWindow.Draw(spriteBatch,
-                    RightUnitSelectionWindowPosition(RightUnitSelectionWindow.GetHeight(),
-                        RightUnitSelectionWindow.GetWidth()));
+                if (LeftUnitDetailWindow != null)
+                {
+                    LeftUnitDetailWindow.Draw(spriteBatch,
+                        LeftUnitDetailWindowPosition(LeftUnitDetailWindow.GetHeight(),
+                            LeftUnitPortraitWindow.GetWidth()));
+                }
+            }
+
+            if (RightUnitPortraitWindow != null)
+            {
+                RightUnitPortraitWindow.Draw(spriteBatch, RightUnitPortraitWindowPosition(RightUnitPortraitWindow.GetHeight(),
+                    RightUnitPortraitWindow.GetWidth()));
+
+                if (RightUnitDetailWindow != null)
+                {
+                    RightUnitDetailWindow.Draw(spriteBatch,
+                        RightUnitDetailWindowPosition(RightUnitDetailWindow.GetHeight(),
+                            RightUnitDetailWindow.GetWidth(), RightUnitPortraitWindow.GetWidth()));
+                }
+            }
         }
     }
 }
