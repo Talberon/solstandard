@@ -25,7 +25,7 @@ namespace SolStandard.HUD.Window
             this.windowTexture = windowTexture;
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
-            windowContents = new WindowContentGrid(new[,] {{windowContent}}, 1);
+            windowContents = new WindowContentGrid(new[,] {{windowContent}}, 0);
             windowCellSize = CalculateCellSize(windowTexture);
             windowPixelSize = DeriveSizeFromContent();
             windowCells = ConstructWindowCells(WindowPixelSize);
@@ -67,6 +67,22 @@ namespace SolStandard.HUD.Window
             throw new InvalidWindowTextureException();
         }
 
+        private Vector2 DeriveSizeFromContent()
+        {
+            Vector2 calculatedSize = new Vector2();
+
+            Vector2 contentGridSize = windowContents.GridSizeInPixels();
+            calculatedSize.X = contentGridSize.X;
+            calculatedSize.Y = contentGridSize.Y;
+
+            //Adjust for border
+            int borderSize = windowCellSize * 2;
+            calculatedSize.X += borderSize;
+            calculatedSize.Y += borderSize;
+
+            return calculatedSize;
+        }
+        
         /*
          * Window Cells
          * [1][2][3]
@@ -145,24 +161,6 @@ namespace SolStandard.HUD.Window
 
             return windowCellsToConstruct;
         }
-
-        private Vector2 DeriveSizeFromContent()
-        {
-            Vector2 calculatedSize = new Vector2();
-
-            Vector2 contentGridSize = windowContents.GridSizeInPixels();
-            calculatedSize.X = contentGridSize.X;
-            calculatedSize.Y = contentGridSize.Y;
-
-            //Adjust for border
-            int borderSize = windowCellSize * 2;
-            calculatedSize.X += borderSize;
-            calculatedSize.Y += borderSize;
-
-            return calculatedSize;
-        }
-
-        
 
         public int GetHeight()
         {

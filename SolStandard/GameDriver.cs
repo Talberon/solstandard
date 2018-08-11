@@ -189,8 +189,8 @@ namespace SolStandard
             mapCamera.PanCameraToTarget();
 
 
-            //TODO Do something more sensible with this window stuff
             {
+                //TODO move to its own method :: Selected Unit Windows
                 ITexture2D windowTexture =
                     windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
 
@@ -233,13 +233,6 @@ namespace SolStandard
                             windowColour = Color.Pink;
                         }
 
-                        /* TODO figure out what to do with this
-                        container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            windowContentGrid, 4, windowColour);
-                        container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            windowContentGrid, 4, windowColour);
-                        */
-
                         container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
                             selectedUnitPortrait, windowColour);
                         container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
@@ -261,27 +254,62 @@ namespace SolStandard
                     new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)), Color.Green);
 
 
-                const int maxInitiativeSize = 10;
-                int initiativeListLength = (container.GetUnits().Count > maxInitiativeSize)
-                    ? maxInitiativeSize
-                    : container.GetUnits().Count;
-
-                //Storing contents in a grid
-                IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
-
-
-                for (int i = 0; i < unitListGrid.GetLength(1); i++)
                 {
-                    IRenderable unitPortraitWindow = new WindowContent(new TileCell(
-                        container.GetUnits()[i].MediumPortrait,
-                        container.GetUnits()[i].MediumPortrait.GetHeight(), 1));
-                    unitListGrid[0, i] = unitPortraitWindow;
+                    //TODO move to its own method :: Initiative Window
+                    const int maxInitiativeSize = 10;
+                    int initiativeListLength = (container.GetUnits().Count > maxInitiativeSize)
+                        ? maxInitiativeSize
+                        : container.GetUnits().Count;
+
+                    IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+
+
+                    for (int i = 0; i < unitListGrid.GetLength(1); i++)
+                    {
+                        IRenderable unitPortraitWindow = new WindowContent(
+                            new TileCell(
+                                container.GetUnits()[i].MediumPortrait,
+                                container.GetUnits()[i].MediumPortrait.GetHeight(), 1
+                            )
+                        );
+                        unitListGrid[0, i] = unitPortraitWindow;
+                    }
+
+                    WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+
+                    container.GetWindowLayer().InitiativeWindow =
+                        new Window("Initiative", windowTexture, unitListContentGrid, Color.Green);
                 }
 
-                WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+                {
+                    //TODO move to its own method :: Turn Window
+                    WindowContentGrid unitListContentGrid = new WindowContentGrid(
+                        new IRenderable[,]
+                        {
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
+                            },
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
+                            },
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
+                            },
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Time: Day") //TODO make dynamic; not hard-coded
+                            },
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Weather: Clear") //TODO make dynamic; not hard-coded
+                            },
+                            {
+                                new RenderText(windowFont, "EXAMPLE//Units Remaining: X") //TODO make dynamic; not hard-coded
+                            }
+                        },
+                        1);
 
-                container.GetWindowLayer().InitiativeWindow =
-                    new Window("Initiative", windowTexture, unitListContentGrid, Color.Green);
+                    container.GetWindowLayer().TurnWindow =
+                        new Window("Turn Counter", windowTexture, unitListContentGrid, Color.White);
+                }
             }
 
 

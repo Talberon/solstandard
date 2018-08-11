@@ -85,7 +85,7 @@ namespace SolStandard.HUD.Window.Content
                     }
                 }
 
-                verticalOffset = highestRowHeight; //Once I start drawing the next row I should reset the height
+                verticalOffset += highestRowHeight; //Once I start drawing the next row I should reset the height
                 highestRowHeight = 0;
                 horizontalOffset = 0;
             }
