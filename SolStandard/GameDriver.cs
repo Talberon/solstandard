@@ -12,6 +12,7 @@ using SolStandard.Containers;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Logic;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Objects.Cursor;
 using SolStandard.Utility;
@@ -92,36 +93,8 @@ namespace SolStandard
                 (MapEntity[,]) gameMap.GetGameGrid()[(int) Layer.Units],
                 largePortraitTextures, mediumPortraitTextures, smallPortraitTextures);
 
-            //TODO put this window stuff somewhere more useful
-            ITexture2D windowTexture =
-                windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
-            //Portrait and text
-            IRenderable unitWindowText = new RenderText(windowFont,
-                "This is a unit frame\nThis should be next to a portrait.\nThe quick brown fox jumped over the lazy dog.");
-            IRenderable unitWindowTextEmpty = new RenderText(windowFont, "");
-            IRenderable unitWindowTextStats = new RenderText(windowFont, unitsFromMap[0].Id + ":\n" + unitsFromMap[0].Stats);
-            ITexture2D portraitTexture =
-                mediumPortraitTextures.Find(texture => texture.GetTexture2D().Name.Contains("Medium/Blue/Mage"));
-            IRenderable mediumPortraitBlue =
-                new WindowContent(new TileCell(portraitTexture, portraitTexture.GetHeight(), 1));
-            ITexture2D portraitTexture2 =
-                mediumPortraitTextures.Find(texture => texture.GetTexture2D().Name.Contains("Medium/Red/Mage"));
-            IRenderable mediumPortraitRed =
-                new WindowContent(new TileCell(portraitTexture2, portraitTexture2.GetHeight(), 1));
-            IRenderable[,] exampleUnitWindow = new IRenderable[,]
-            {
-                {mediumPortraitBlue, mediumPortraitRed, unitWindowText},
-                {unitWindowTextStats, unitWindowTextEmpty, unitWindowTextEmpty}
-            };
-            WindowContentGrid windowContentGrid = new WindowContentGrid(exampleUnitWindow);
 
-            List<Window> windowList = new List<Window>
-            {
-                new Window(windowTexture, windowContentGrid, new Vector2(20, 30), 4),
-            };
-            
-
-            container = new GameContainer(gameMap, new WindowLayer(windowList), unitsFromMap);
+            container = new GameContainer(gameMap, new WindowLayer(new List<Window>()), unitsFromMap);
         }
 
         /// <summary>
@@ -170,22 +143,22 @@ namespace SolStandard
 
             if (controlMapper.Down())
             {
-                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
+                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
             }
 
             if (controlMapper.Left())
             {
-                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
+                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
             }
 
             if (controlMapper.Right())
             {
-                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
+                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
             }
 
             if (controlMapper.Up())
             {
-                container.Map.GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
+                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -209,9 +182,87 @@ namespace SolStandard
             }
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 mapSize = container.Map.MapSize();
-            mapCamera.CorrectCameraToCursor(container.Map.GetMapCursor(), screenSize, mapSize);
+            Vector2 mapSize = container.GetMapLayer().MapSize();
+            mapCamera.CorrectCameraToCursor(container.GetMapLayer().GetMapCursor(), screenSize, mapSize);
             mapCamera.PanCameraToTarget();
+
+
+            //TODO Do something more sensible with this window stuff
+            {
+                ITexture2D windowTexture =
+                    windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("GreyWindow"));
+
+                GameUnit selectedUnit = UnitSelector.SelectUnit(container.GetUnits(),
+                    (MapEntity[,]) container.GetMapLayer().GetGameGrid()[(int) Layer.Units],
+                    container.GetMapLayer().GetMapCursor().GetMapCoordinates());
+
+                if (selectedUnit != null)
+                {
+                    //Create Unit Window Content
+                    IRenderable selectedUnitPortrait = new WindowContent(new TileCell(selectedUnit.MediumPortrait,
+                        selectedUnit.MediumPortrait.GetHeight(), 1));
+
+                    IRenderable selectedUnitInfo =
+                        new RenderText(windowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
+
+                    //Storing contents in a grid
+                    IRenderable[,] selectedUnitGrid =
+                    {
+                        {
+                            selectedUnitPortrait
+                        },
+                        {
+                            selectedUnitInfo
+                        }
+                    };
+
+                    WindowContentGrid windowContentGrid = new WindowContentGrid(selectedUnitGrid);
+
+
+                    string windowLabel = "Selected Unit: " + selectedUnit.Id;
+
+
+                    bool windowExists = false;
+                    foreach (Window window in container.GetWindowLayer().ExtraWindows)
+                    {
+                        if (window.WindowLabel.Equals(windowLabel))
+                        {
+                            windowExists = true;
+                        }
+                    }
+
+                    if (!windowExists)
+                    {
+                        Color windowColour = Color.Gray;
+
+                        if (selectedUnit.UnitTeam == Team.Blue)
+                        {
+                            windowColour = Color.LightBlue;
+                        }
+                        else if (selectedUnit.UnitTeam == Team.Red)
+                        {
+                            windowColour = Color.Pink;
+                        }
+                        
+                        
+                        container.GetWindowLayer().LeftUnitSelectionWindow = new Window(windowLabel, windowTexture,
+                            windowContentGrid, new Vector2(20, 550), 4, windowColour);
+                        container.GetWindowLayer().RightUnitSelectionWindow = new Window(windowLabel, windowTexture,
+                            windowContentGrid, new Vector2(1430, 550), 4, windowColour);
+                    }
+                }
+                else
+                {
+                    container.GetWindowLayer().LeftUnitSelectionWindow = null;
+                    container.GetWindowLayer().RightUnitSelectionWindow = null;
+                }
+
+                container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
+                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)),
+                    new Vector2(0), 0, Color.Green);
+            }
+
+
             base.Update(gameTime);
         }
 
@@ -225,7 +276,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, mapCamera.GetCameraMatrix());
-            container.Map.Draw(spriteBatch);
+            container.GetMapLayer().Draw(spriteBatch);
             base.Draw(gameTime);
             spriteBatch.End();
 
@@ -233,7 +284,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            container.Windows.Draw(spriteBatch);
+            container.GetWindowLayer().Draw(spriteBatch);
             spriteBatch.End();
         }
     }

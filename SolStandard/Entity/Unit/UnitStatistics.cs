@@ -146,7 +146,6 @@ namespace SolStandard.Entity.Unit
             output += "MV: " + Mv.ToString() + "/" + maxMv;
             output += Environment.NewLine;
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", Rng), string.Join(",", baseRng));
-            output += Environment.NewLine;
 
             return output;
 

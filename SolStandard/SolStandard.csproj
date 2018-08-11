@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="Containers\GameContainer.cs" />
     <Compile Include="Containers\IGameLayer.cs" />
-    <Compile Include="Containers\MapLayer.cs" />
-    <Compile Include="Containers\WindowLayer.cs" />
+    <Compile Include="Containers\MapContainer.cs" />
+    <Compile Include="Containers\WindowContainer.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
@@ -84,6 +84,7 @@
     <Compile Include="Utility\Exceptions\TeamNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TextureNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\UnitClassNotFoundException.cs" />
+    <Compile Include="Utility\Exceptions\UnitNotFoundInGridException.cs" />
     <Compile Include="Utility\IRenderable.cs" />
     <Compile Include="Utility\Load\ContentLoader.cs" />
     <Compile Include="Utility\Monogame\ISpriteFont.cs" />

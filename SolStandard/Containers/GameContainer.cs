@@ -5,30 +5,30 @@ namespace SolStandard.Containers
 {
     public class GameContainer
     {
-        private List<GameUnit> units;
-        private readonly MapLayer map;
-        private readonly WindowLayer windows;
+        private readonly List<GameUnit> units;
+        private readonly MapLayer mapLayer;
+        private readonly WindowLayer windowLayer;
 
-        public GameContainer(MapLayer map, WindowLayer windows, List<GameUnit> units)
+        public GameContainer(MapLayer mapLayer, WindowLayer windowLayer, List<GameUnit> units)
         {
-            this.map = map;
-            this.windows = windows;
+            this.mapLayer = mapLayer;
+            this.windowLayer = windowLayer;
             this.units = units;
         }
 
-        public MapLayer Map
+        public MapLayer GetMapLayer()
         {
-            get { return map; }
+            return mapLayer;
         }
 
-        public WindowLayer Windows
+        public WindowLayer GetWindowLayer()
         {
-            get { return windows; }
+            return windowLayer;
         }
 
-        public List<GameUnit> Units
+        public List<GameUnit> GetUnits()
         {
-            get { return units; }
+            return units;
         }
     }
 }

@@ -1,7 +1,20 @@
-﻿namespace SolStandard.Logic
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit;
+using SolStandard.Map.Objects;
+using SolStandard.Utility.Exceptions;
+
+namespace SolStandard.Logic
 {
-    public class UnitSelector
+    public static class UnitSelector
     {
-        
+        public static GameUnit SelectUnit(IEnumerable<GameUnit> units, MapEntity[,] unitGrid, Vector2 cursorCoordinates)
+        {
+            MapEntity unit = unitGrid[(int) cursorCoordinates.X, (int) cursorCoordinates.Y];
+
+            return units.FirstOrDefault(gameUnit => gameUnit.MapInfo == unit);
+        }
     }
 }
