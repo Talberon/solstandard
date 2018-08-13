@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -45,6 +46,34 @@ namespace SolStandard.HUD.Window
             Visible = true;
         }
 
+        //Single Content TODO Figure out a shorter way to express this
+        public Window(string windowLabel, ITexture2D windowTexture, IRenderable windowContent, Color windowColor,
+            Vector2 windowPixelSize)
+        {
+            this.windowTexture = windowTexture;
+            this.windowColor = windowColor;
+            this.windowLabel = windowLabel;
+            windowContents = new WindowContentGrid(new[,] {{windowContent}}, 0);
+            windowCellSize = CalculateCellSize(windowTexture);
+            this.windowPixelSize = windowPixelSize;
+            windowCells = ConstructWindowCells(WindowPixelSize);
+            Visible = true;
+        }
+
+        //Grid of Content TODO Figure out a shorter way to express this
+        public Window(string windowLabel, ITexture2D windowTexture, WindowContentGrid windowContents, Color windowColor,
+            Vector2 windowPixelSize)
+        {
+            this.windowTexture = windowTexture;
+            this.windowContents = windowContents;
+            this.windowColor = windowColor;
+            this.windowLabel = windowLabel;
+            windowCellSize = CalculateCellSize(windowTexture);
+            this.windowPixelSize = windowPixelSize;
+            windowCells = ConstructWindowCells(WindowPixelSize);
+            Visible = true;
+        }
+
         public Vector2 WindowPixelSize
         {
             get { return windowPixelSize; }
@@ -82,7 +111,7 @@ namespace SolStandard.HUD.Window
 
             return calculatedSize;
         }
-        
+
         /*
          * Window Cells
          * [1][2][3]
@@ -172,6 +201,20 @@ namespace SolStandard.HUD.Window
             return (int) windowPixelSize.X;
         }
 
+        private Vector2 CenteredContentCoordinates(Vector2 windowCoordinates)
+        {
+            Vector2 contentRenderCoordinates = windowCoordinates;
+
+            contentRenderCoordinates.X += ((float) GetWidth() / 2) - (windowContents.GridSizeInPixels().X / 2);
+            contentRenderCoordinates.Y += ((float) GetHeight() / 2) - (windowContents.GridSizeInPixels().Y / 2);
+
+            contentRenderCoordinates.X = (float) Math.Round(contentRenderCoordinates.X);
+            contentRenderCoordinates.Y = (float) Math.Round(contentRenderCoordinates.Y);
+
+            return contentRenderCoordinates;
+        }
+
+
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
             if (Visible)
@@ -181,7 +224,7 @@ namespace SolStandard.HUD.Window
                     windowCell.Draw(spriteBatch, ref windowTexture, coordinates);
                 }
 
-                windowContents.Draw(spriteBatch, coordinates + new Vector2(windowCellSize));
+                windowContents.Draw(spriteBatch, CenteredContentCoordinates(coordinates));
             }
         }
     }
