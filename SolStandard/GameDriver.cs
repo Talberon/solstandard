@@ -296,23 +296,13 @@ namespace SolStandard
                             {
                                 new RenderText(windowFont,
                                     "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
-                            },
-                            {
-                                new RenderText(windowFont, "EXAMPLE//Time: Day") //TODO make dynamic; not hard-coded
-                            },
-                            {
-                                new RenderText(windowFont,
-                                    "EXAMPLE//Weather: Clear") //TODO make dynamic; not hard-coded
-                            },
-                            {
-                                new RenderText(windowFont,
-                                    "EXAMPLE//Units Remaining: X") //TODO make dynamic; not hard-coded
                             }
                         },
                         1);
 
                     container.GetWindowLayer().TurnWindow =
-                        new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225));
+                        new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225),
+                            new Vector2(265, container.GetWindowLayer().InitiativeWindow.GetHeight()));
                 }
 
                 {
@@ -329,6 +319,8 @@ namespace SolStandard
                         IRenderable terrainSprite = selectedTerrain.GetSprite();
 
                         string terrainInfo = "Terrain: " + selectedTerrain.Name
+                                                         + "\n"
+                                                         + "Type: " + selectedTerrain.Type
                                                          + "\n"
                                                          + "Properties:\n" + string.Join("\n",
                                                              selectedTerrain.TiledProperties);
