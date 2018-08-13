@@ -13,5 +13,12 @@ namespace SolStandard.Map.Objects
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
         }
+
+        //TODO Decide if this really should be exposed
+        public IRenderable GetSprite()
+        {
+            return Sprite;
+        }
+
     }
 }

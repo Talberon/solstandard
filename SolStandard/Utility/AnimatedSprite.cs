@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility
@@ -91,6 +90,16 @@ namespace SolStandard.Utility
             }
 
             frameDelayCounter++;
+        }
+
+        public int GetHeight()
+        {
+            return cellSize;
+        }
+
+        public int GetWidth()
+        {
+            return cellSize;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

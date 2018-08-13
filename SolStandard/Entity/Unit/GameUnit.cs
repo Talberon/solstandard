@@ -21,19 +21,19 @@ namespace SolStandard.Entity.Unit
         private readonly Team unitTeam;
         private readonly UnitClass unitJobClass;
 
-        private readonly ITexture2D fullPortrait;
+        private readonly ITexture2D largePortrait;
         private readonly ITexture2D mediumPortrait;
         private readonly ITexture2D smallPortrait;
 
         private readonly UnitStatistics stats;
 
         public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, MapEntity mapInfo, UnitStatistics stats,
-            ITexture2D fullPortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapInfo)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapInfo)
         {
             this.unitTeam = unitTeam;
             this.unitJobClass = unitJobClass;
             this.stats = stats;
-            this.fullPortrait = fullPortrait;
+            this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
         }
@@ -53,9 +53,9 @@ namespace SolStandard.Entity.Unit
             get { return unitJobClass; }
         }
 
-        public ITexture2D FullPortrait
+        public ITexture2D LargePortrait
         {
-            get { return fullPortrait; }
+            get { return largePortrait; }
         }
 
         public ITexture2D MediumPortrait
