@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 
 namespace SolStandard.Containers
 {
-    public class WindowLayer : IGameLayer
+    public class MapScene : IScene
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -23,12 +22,12 @@ namespace SolStandard.Containers
         public Window TerrainWindow { get; set; }
         public Window HelpTextWindow { get; set; }
 
-        public List<Window> ExtraWindows { get; set; }
-
-        public WindowLayer(Vector2 screenSize)
+        private bool visible;
+        
+        public MapScene(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            ExtraWindows = new List<Window>();
+            this.visible = true;
         }
 
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
@@ -87,17 +86,20 @@ namespace SolStandard.Containers
             return new Vector2(WindowEdgeBuffer);
         }
 
+        public void ToggleVisible()
+        {
+            visible = !visible;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Window window in ExtraWindows)
-            {
-                //TODO Figure out where to draw these
-                window.Draw(spriteBatch, new Vector2(0));
-            }
-
+            if (!visible) return;
+            
             //TODO Turn this off eventually or add a debug mode flag
-            DebugWindow.Draw(spriteBatch, new Vector2(0));
+            if (DebugWindow != null)
+            {
+                DebugWindow.Draw(spriteBatch, new Vector2(0));
+            }
 
             if (HelpTextWindow != null)
             {

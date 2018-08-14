@@ -7,12 +7,12 @@ namespace SolStandard.Containers
     {
         private readonly List<GameUnit> units;
         private readonly MapLayer mapLayer;
-        private readonly WindowLayer windowLayer;
+        private readonly MapScene mapScene;
 
-        public GameContainer(MapLayer mapLayer, WindowLayer windowLayer, List<GameUnit> units)
+        public GameContainer(MapLayer mapLayer, MapScene mapScene, List<GameUnit> units)
         {
             this.mapLayer = mapLayer;
-            this.windowLayer = windowLayer;
+            this.mapScene = mapScene;
             this.units = units;
         }
 
@@ -21,9 +21,9 @@ namespace SolStandard.Containers
             return mapLayer;
         }
 
-        public WindowLayer GetWindowLayer()
+        public MapScene GetMapScene()
         {
-            return windowLayer;
+            return mapScene;
         }
 
         public List<GameUnit> GetUnits()

@@ -9,7 +9,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers
 {
-    public class MapLayer : IGameLayer
+    public class MapLayer
     {
         private readonly List<MapObject[,]> gameGrid;
         private readonly MapCursor mapCursor;

@@ -2,8 +2,9 @@
 
 namespace SolStandard.Containers
 {
-    public interface IGameLayer
+    public interface IScene
     {
+        void ToggleVisible();
         void Draw(SpriteBatch spriteBatch);
     }
 }
