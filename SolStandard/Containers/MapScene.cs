@@ -19,7 +19,7 @@ namespace SolStandard.Containers
 
         public Window TurnWindow { get; set; }
         public Window InitiativeWindow { get; set; }
-        public Window TerrainWindow { get; set; }
+        public Window TerrainEntityWindow { get; set; }
         public Window HelpTextWindow { get; set; }
 
         private bool visible;
@@ -106,9 +106,9 @@ namespace SolStandard.Containers
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
             }
 
-            if (TerrainWindow != null)
+            if (TerrainEntityWindow != null)
             {
-                TerrainWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainWindow.GetWidth()));
+                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainEntityWindow.GetWidth()));
             }
 
             if (TurnWindow != null)

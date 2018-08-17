@@ -4,7 +4,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.Map.Objects
 {
-    public class MapObject
+    public abstract class MapObject
     {
         protected IRenderable Sprite;
         protected Vector2 MapCoordinates;

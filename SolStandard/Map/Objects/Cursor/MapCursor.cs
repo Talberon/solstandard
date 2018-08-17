@@ -78,5 +78,6 @@ namespace SolStandard.Map.Objects.Cursor
         {
             return "Cursor: {" + Sprite + "}";
         }
+        
     }
 }

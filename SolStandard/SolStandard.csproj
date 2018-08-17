@@ -58,6 +58,7 @@
     <Compile Include="Logic\UnitSelector.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
     <Compile Include="Map\Objects\Cursor\MapCursor.cs" />
+    <Compile Include="Map\Objects\Cursor\MapSlice.cs" />
     <Compile Include="Map\Objects\MapEntity.cs" />
     <Compile Include="Map\Objects\MapTile.cs" />
     <Compile Include="Map\Objects\MapObject.cs" />

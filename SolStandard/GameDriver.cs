@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
 using SolStandard.Entity.Unit;
-using SolStandard.Logic;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Objects;
+using SolStandard.Map.Objects.Cursor;
 using SolStandard.Rules;
 using SolStandard.Rules.Controls;
 using SolStandard.Utility.Buttons;
@@ -138,43 +138,21 @@ namespace SolStandard
             {
                 Exit();
             }
-            
+
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(controlMapper, mapCamera, container.GetMapLayer().GetMapCursor(), container.GetMapScene());
-            
-            
+            MapSceneControls.ListenForInputs(controlMapper, mapCamera, container.GetMapLayer().GetMapCursor(),
+                container.GetMapScene());
+
+
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             Vector2 mapSize = container.GetMapLayer().MapSize();
             mapCamera.CorrectCameraToCursor(container.GetMapLayer().GetMapCursor(), screenSize, mapSize);
             mapCamera.PanCameraToTarget();
 
-            {
-                //TODO move shared logic that requires MapCursor to its own place
-                
-                GameUnit selectedMapUnit = UnitSelector.SelectUnit(container.GetUnits(),
-                    (MapEntity[,]) container.GetMapLayer().GetGameGrid()[(int) Layer.Units],
-                    container.GetMapLayer().GetMapCursor().GetMapCoordinates());
 
-                //FirstUnit Window
-                container.GetMapScene().LeftUnitPortraitWindow =
-                    mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
-                container.GetMapScene().LeftUnitDetailWindow =
-                    mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
-
-                //SecondUnit Window
-                container.GetMapScene().RightUnitPortraitWindow =
-                    mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
-                container.GetMapScene().RightUnitDetailWindow =
-                    mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
-
-                //Terrain Window
-                Vector2 cursorCoordinates = container.GetMapLayer().GetMapCursor().GetMapCoordinates();
-                MapEntity selectedTerrain = (MapEntity) container.GetMapLayer().GetGameGrid()[(int) Layer.Entities][
-                    (int) cursorCoordinates.X, (int) cursorCoordinates.Y];
-
-                container.GetMapScene().TerrainWindow = mapStaticHud.GenerateTerrainWindow(cursorCoordinates,
-                    selectedTerrain);
-            }
+            //Map Cursor Hover Logic
+            MapSlice hoverTiles = container.GetMapLayer().GetMapSliceAtCursor();
+            MapCursorHover.Hover(container.GetMapScene(), hoverTiles, container.GetUnits(), mapStaticHud);
 
             //Initiative Window
             container.GetMapScene().InitiativeWindow =
@@ -185,7 +163,7 @@ namespace SolStandard
             container.GetMapScene().TurnWindow = mapStaticHud.GenerateTurnWindow(turnWindowSize);
 
 
-            //Help Window
+            //Help Window TODO make this context-sensitive
             string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
                               + "\nAdditional information will appear here to help you play the game.";
 

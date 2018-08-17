@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Map;
 using SolStandard.Map.Objects;
 using SolStandard.Map.Objects.Cursor;
 using SolStandard.Utility;
@@ -32,6 +33,19 @@ namespace SolStandard.Containers
             return mapCursor;
         }
 
+        public MapSlice GetMapSliceAtCursor()
+        {
+            int column = (int) mapCursor.GetMapCoordinates().X;
+            int row = (int) mapCursor.GetMapCoordinates().Y;
+
+            MapEntity unit = (MapEntity) gameGrid[(int)Layer.Units][column, row];
+            MapEntity entity = (MapEntity) gameGrid[(int)Layer.Entities][column, row];
+            MapTile collide = (MapTile) gameGrid[(int)Layer.Collide][column, row];
+            MapTile terrain = (MapTile) gameGrid[(int)Layer.Terrain][column, row];
+            
+            return new MapSlice(unit,entity,collide,terrain);
+        }
+        
         public ReadOnlyCollection<MapObject[,]> GetGameGrid()
         {
             return gameGrid.AsReadOnly();

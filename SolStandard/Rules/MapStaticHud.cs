@@ -45,7 +45,7 @@ namespace SolStandard.Rules
                 windowSize);
         }
 
-        public Window GenerateTerrainWindow(Vector2 cursorCoordinates, MapEntity selectedTerrain)
+        public Window GenerateTerrainWindow(MapEntity selectedTerrain)
         {
             WindowContentGrid terrainContentGrid;
 
