@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Map;
-using SolStandard.Map.Objects;
-using SolStandard.Map.Objects.Cursor;
+using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
@@ -12,10 +12,10 @@ namespace SolStandard.Containers
 {
     public class MapLayer
     {
-        private readonly List<MapObject[,]> gameGrid;
+        private readonly List<MapElement[,]> gameGrid;
         private readonly MapCursor mapCursor;
 
-        public MapLayer(List<MapObject[,]> gameGrid, ITexture2D cursorTexture)
+        public MapLayer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             this.gameGrid = gameGrid;
             mapCursor = BuildMapCursor(cursorTexture);
@@ -33,7 +33,7 @@ namespace SolStandard.Containers
             get { return mapCursor; }
         }
 
-        public ReadOnlyCollection<MapObject[,]> GameGrid
+        public ReadOnlyCollection<MapElement[,]> GameGrid
         {
             get { return gameGrid.AsReadOnly(); }
         }
@@ -60,9 +60,9 @@ namespace SolStandard.Containers
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draw tiles in Map Grid
-            foreach (MapObject[,] layer in gameGrid)
+            foreach (MapElement[,] layer in gameGrid)
             {
-                foreach (MapObject tile in layer)
+                foreach (MapElement tile in layer)
                 {
                     if (tile != null)
                         tile.Draw(spriteBatch);

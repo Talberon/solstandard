@@ -4,6 +4,10 @@ using SolStandard.HUD.Window;
 
 namespace SolStandard.Containers.UI
 {
+    /*
+     * MapUI is where the HUD elements for the Map Scene are handled.
+     * HUD Elements in this case includes various map-screen windows.
+     */
     public class MapUI : IUserInterface
     {
         private readonly Vector2 screenSize;

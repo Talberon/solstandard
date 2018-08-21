@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects.Cursor
+namespace SolStandard.Map.Elements.Cursor
 {
-    public class MapCursor : MapObject
+    public class MapCursor : MapElement
     {
         public enum CursorDirection
         {

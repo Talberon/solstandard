@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Map.Objects.Cursor;
+using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Map.Camera
 {

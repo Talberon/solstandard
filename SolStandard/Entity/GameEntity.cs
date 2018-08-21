@@ -1,4 +1,4 @@
-﻿using SolStandard.Map.Objects;
+﻿using SolStandard.Map.Elements;
 
 namespace SolStandard.Entity
 {

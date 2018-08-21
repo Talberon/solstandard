@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Objects;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 

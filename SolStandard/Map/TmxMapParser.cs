@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
-using SolStandard.Map.Objects;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
@@ -30,7 +30,7 @@ namespace SolStandard.Map
         private readonly ITexture2D mapSprite;
         private readonly List<ITexture2D> unitSprites;
 
-        private List<MapObject[,]> gameTileLayers;
+        private List<MapElement[,]> gameTileLayers;
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
             string objectTypesDefaultXmlPath)
@@ -41,9 +41,9 @@ namespace SolStandard.Map
             this.objectTypesDefaultXmlPath = objectTypesDefaultXmlPath;
         }
 
-        public List<MapObject[,]> LoadMapGrid()
+        public List<MapElement[,]> LoadMapGrid()
         {
-            gameTileLayers = new List<MapObject[,]>
+            gameTileLayers = new List<MapElement[,]>
             {
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.Collide),
@@ -54,9 +54,9 @@ namespace SolStandard.Map
             return gameTileLayers;
         }
 
-        private MapObject[,] ObtainTilesFromLayer(Layer tileLayer)
+        private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
         {
-            MapObject[,] tileGrid = new MapObject[tmxMap.Width, tmxMap.Height];
+            MapElement[,] tileGrid = new MapElement[tmxMap.Width, tmxMap.Height];
 
             int tileCounter = 0;
 

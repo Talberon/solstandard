@@ -2,13 +2,13 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects
+namespace SolStandard.Map.Elements
 {
     /**
      * GameObject
      * Holds a texture and certain attributes that impact how the tile can be interacted with on the game map
      */
-    public class MapEntity : MapObject
+    public class MapEntity : MapElement
     {
         private readonly string name;
         private readonly string type;

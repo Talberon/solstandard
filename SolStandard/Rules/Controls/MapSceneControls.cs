@@ -5,7 +5,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Logic;
 using SolStandard.Map.Camera;
-using SolStandard.Map.Objects.Cursor;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Rules.Controls

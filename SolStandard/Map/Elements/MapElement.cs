@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects
+namespace SolStandard.Map.Elements
 {
-    public abstract class MapObject
+    public abstract class MapElement
     {
         protected IRenderable Sprite;
         protected Vector2 MapCoordinates;

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects
+namespace SolStandard.Map.Elements
 {
-    public class MapTile : MapObject
+    public class MapTile : MapElement
     {
         /**
          * GameTile

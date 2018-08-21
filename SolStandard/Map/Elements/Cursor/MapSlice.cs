@@ -1,4 +1,4 @@
-﻿namespace SolStandard.Map.Objects.Cursor
+﻿namespace SolStandard.Map.Elements.Cursor
 {
     public class MapSlice
     {
