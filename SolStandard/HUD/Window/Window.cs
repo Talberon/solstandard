@@ -88,9 +88,9 @@ namespace SolStandard.HUD.Window
         private int CalculateCellSize(ITexture2D windowTextureTemplate)
         {
             //Window Texture must be a square
-            if (windowTextureTemplate.GetWidth() == windowTextureTemplate.GetHeight())
+            if (windowTextureTemplate.Width == windowTextureTemplate.Height)
             {
-                return windowTexture.GetHeight() / 3;
+                return windowTexture.Height / 3;
             }
 
             throw new InvalidWindowTextureException();
@@ -191,22 +191,22 @@ namespace SolStandard.HUD.Window
             return windowCellsToConstruct;
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return (int) windowPixelSize.Y;
+            get { return (int) windowPixelSize.Y; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return (int) windowPixelSize.X;
+            get { return (int) windowPixelSize.X; }
         }
 
         private Vector2 CenteredContentCoordinates(Vector2 windowCoordinates)
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X += ((float) GetWidth() / 2) - (windowContents.GridSizeInPixels().X / 2);
-            contentRenderCoordinates.Y += ((float) GetHeight() / 2) - (windowContents.GridSizeInPixels().Y / 2);
+            contentRenderCoordinates.X += ((float) Width / 2) - (windowContents.GridSizeInPixels().X / 2);
+            contentRenderCoordinates.Y += ((float) Height / 2) - (windowContents.GridSizeInPixels().Y / 2);
 
             contentRenderCoordinates.X = (float) Math.Round(contentRenderCoordinates.X);
             contentRenderCoordinates.Y = (float) Math.Round(contentRenderCoordinates.Y);

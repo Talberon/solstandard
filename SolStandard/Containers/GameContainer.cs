@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 
 namespace SolStandard.Containers
@@ -7,28 +8,29 @@ namespace SolStandard.Containers
     {
         private readonly List<GameUnit> units;
         private readonly MapLayer mapLayer;
-        private readonly MapScene mapScene;
+        private readonly MapUI mapUi;
 
-        public GameContainer(MapLayer mapLayer, MapScene mapScene, List<GameUnit> units)
+        public GameContainer(MapLayer mapLayer, MapUI mapUi, List<GameUnit> units)
         {
             this.mapLayer = mapLayer;
-            this.mapScene = mapScene;
+            this.mapUi = mapUi;
             this.units = units;
         }
 
-        public MapLayer GetMapLayer()
+        public MapLayer MapLayer
         {
-            return mapLayer;
+            get { return mapLayer; }
         }
 
-        public MapScene GetMapScene()
+        public MapUI MapUI
         {
-            return mapScene;
+            get { return mapUi; }
         }
 
-        public List<GameUnit> GetUnits()
+
+        public List<GameUnit> Units
         {
-            return units;
+            get { return units; }
         }
     }
 }

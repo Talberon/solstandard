@@ -114,33 +114,36 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public Matrix GetCameraMatrix()
+        public Matrix CameraMatrix
         {
-            return Matrix.CreateTranslation(currentCamPosition.X, currentCamPosition.Y, 0) *
-                   Matrix.CreateScale(new Vector3(currentZoom, currentZoom, 1));
+            get
+            {
+                return Matrix.CreateTranslation(currentCamPosition.X, currentCamPosition.Y, 0) *
+                       Matrix.CreateScale(new Vector3(currentZoom, currentZoom, 1));
+            }
         }
 
         public void CorrectCameraToCursor(MapCursor cursor, Vector2 screenDimensions, Vector2 mapSize)
         {
             if (currentCamPosition != targetCamPosition) return;
 
-            if (cursor.GetMapCoordinates().X * GameDriver.CellSize < GetWestBound(currentCamPosition.X))
+            if (cursor.MapCoordinates.X * GameDriver.CellSize < GetWestBound(currentCamPosition.X))
             {
                 MoveCameraInDirection(CameraDirection.Left);
             }
 
-            if (cursor.GetMapCoordinates().X * GameDriver.CellSize >
+            if (cursor.MapCoordinates.X * GameDriver.CellSize >
                 GetEastBound(screenDimensions.X, currentCamPosition.X))
             {
                 MoveCameraInDirection(CameraDirection.Right);
             }
 
-            if (cursor.GetMapCoordinates().Y * GameDriver.CellSize < GetNorthBound(currentCamPosition.Y))
+            if (cursor.MapCoordinates.Y * GameDriver.CellSize < GetNorthBound(currentCamPosition.Y))
             {
                 MoveCameraInDirection(CameraDirection.Up);
             }
 
-            if (cursor.GetMapCoordinates().Y * GameDriver.CellSize >
+            if (cursor.MapCoordinates.Y * GameDriver.CellSize >
                 GetSouthBound(screenDimensions.Y, currentCamPosition.Y))
             {
                 MoveCameraInDirection(CameraDirection.Down);
@@ -179,11 +182,15 @@ namespace SolStandard.Map.Camera
             if (targetCamPosition.Y > 0)
                 targetCamPosition.Y = 0;
             //Right Edge
-            if (targetCamPosition.X * currentZoom < ((-1) * mapSize.X * GameDriver.CellSize) * currentZoom + screenSize.X)
-                targetCamPosition.X = (((-1) * mapSize.X * GameDriver.CellSize) * currentZoom + screenSize.X) / currentZoom;
+            if (targetCamPosition.X * currentZoom <
+                ((-1) * mapSize.X * GameDriver.CellSize) * currentZoom + screenSize.X)
+                targetCamPosition.X = (((-1) * mapSize.X * GameDriver.CellSize) * currentZoom + screenSize.X) /
+                                      currentZoom;
             //Bottom Edge
-            if (targetCamPosition.Y * currentZoom < ((-1) * mapSize.Y * GameDriver.CellSize) * currentZoom + screenSize.Y)
-                targetCamPosition.Y = (((-1) * mapSize.Y * GameDriver.CellSize) * currentZoom + screenSize.Y) / currentZoom;
+            if (targetCamPosition.Y * currentZoom <
+                ((-1) * mapSize.Y * GameDriver.CellSize) * currentZoom + screenSize.Y)
+                targetCamPosition.Y = (((-1) * mapSize.Y * GameDriver.CellSize) * currentZoom + screenSize.Y) /
+                                      currentZoom;
         }
     }
 }

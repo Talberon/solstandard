@@ -204,7 +204,7 @@ namespace SolStandard.Map
 
         private ITexture2D FetchUnitGraphic(string unitName)
         {
-            return unitSprites.Find(texture => texture.GetName().Contains(unitName));
+            return unitSprites.Find(texture => texture.Name.Contains(unitName));
         }
     }
 }

@@ -7,35 +7,35 @@ namespace SolStandardTest.Utility.Monogame
     public class FakeTexture2D : ITexture2D
     {
         private readonly string name;
-        
+
         public FakeTexture2D(string name)
         {
             this.name = name;
         }
-        
-        public Rectangle GetBounds()
+
+        public Rectangle Bounds
         {
-            return new Rectangle(0,0,0,0);
+            get { return new Rectangle(0, 0, 0, 0); }
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return 0;
+            get { return 0; }
         }
 
-        public string GetName()
+        public int Width
         {
-            return name;
+            get { return 0; }
         }
 
-        public Texture2D GetTexture2D()
+        public string Name
         {
-            return null;
+            get { return name; }
         }
 
-        public int GetWidth()
+        public Texture2D MonoGameTexture
         {
-            return 0;
+            get { return null; }
         }
     }
 }

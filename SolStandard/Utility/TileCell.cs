@@ -19,7 +19,7 @@ namespace SolStandard.Utility
             this.cellIndex = cellIndex;
             color = Color.White;
         }
-        
+
         public TileCell(ITexture2D image, int cellSize, int cellIndex, Color color)
         {
             this.image = image;
@@ -30,8 +30,8 @@ namespace SolStandard.Utility
 
         private Rectangle RenderCell()
         {
-            int columns = image.GetWidth() / cellSize;
-            int rows = image.GetHeight() / cellSize;
+            int columns = image.Width / cellSize;
+            int rows = image.Height / cellSize;
 
             int cellSearcher = 0;
 
@@ -58,19 +58,19 @@ namespace SolStandard.Utility
             return new Rectangle(x, y, cellSize, cellSize);
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(image.GetTexture2D(), DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
+            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
                 color);
         }
 

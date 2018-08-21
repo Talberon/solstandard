@@ -2,7 +2,7 @@
 
 namespace SolStandard.Containers
 {
-    public interface IScene
+    public interface IUserInterface
     {
         void ToggleVisible();
         void Draw(SpriteBatch spriteBatch);

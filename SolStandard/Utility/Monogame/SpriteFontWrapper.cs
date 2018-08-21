@@ -17,9 +17,9 @@ namespace SolStandard.Utility.Monogame
             return font.MeasureString(text);
         }
 
-        public SpriteFont GetSpriteFont()
+        public SpriteFont MonoGameSpriteFont
         {
-            return font;
+            get { return font; }
         }
     }
 }

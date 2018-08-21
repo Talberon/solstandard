@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 
-namespace SolStandard.Containers
+namespace SolStandard.Containers.UI
 {
-    public class MapScene : IScene
+    public class MapUI : IUserInterface
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -24,10 +24,10 @@ namespace SolStandard.Containers
 
         private bool visible;
         
-        public MapScene(Vector2 screenSize)
+        public MapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            this.visible = true;
+            visible = true;
         }
 
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
@@ -108,45 +108,45 @@ namespace SolStandard.Containers
 
             if (TerrainEntityWindow != null)
             {
-                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainEntityWindow.GetWidth()));
+                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainEntityWindow.Width));
             }
 
             if (TurnWindow != null)
             {
-                TurnWindow.Draw(spriteBatch, TurnWindowPosition(TurnWindow.GetHeight()));
+                TurnWindow.Draw(spriteBatch, TurnWindowPosition(TurnWindow.Height));
             }
 
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch,
-                    InitiativeWindowPosition(InitiativeWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                    InitiativeWindowPosition(InitiativeWindow.Width, InitiativeWindow.Height));
 
                 if (LeftUnitPortraitWindow != null)
                 {
                     LeftUnitPortraitWindow.Draw(spriteBatch,
-                        LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.GetHeight(),
-                            InitiativeWindow.GetHeight()));
+                        LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.Height,
+                            InitiativeWindow.Height));
 
                     if (LeftUnitDetailWindow != null)
                     {
                         LeftUnitDetailWindow.Draw(spriteBatch,
-                            LeftUnitDetailWindowPosition(LeftUnitDetailWindow.GetHeight(),
-                                LeftUnitPortraitWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                            LeftUnitDetailWindowPosition(LeftUnitDetailWindow.Height,
+                                LeftUnitPortraitWindow.Width, InitiativeWindow.Height));
                     }
                 }
 
                 if (RightUnitPortraitWindow != null)
                 {
                     RightUnitPortraitWindow.Draw(spriteBatch,
-                        RightUnitPortraitWindowPosition(RightUnitPortraitWindow.GetHeight(),
-                            RightUnitPortraitWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                        RightUnitPortraitWindowPosition(RightUnitPortraitWindow.Height,
+                            RightUnitPortraitWindow.Width, InitiativeWindow.Height));
 
                     if (RightUnitDetailWindow != null)
                     {
                         RightUnitDetailWindow.Draw(spriteBatch,
-                            RightUnitDetailWindowPosition(RightUnitDetailWindow.GetHeight(),
-                                RightUnitDetailWindow.GetWidth(), RightUnitPortraitWindow.GetWidth(),
-                                InitiativeWindow.GetHeight()));
+                            RightUnitDetailWindowPosition(RightUnitDetailWindow.Height,
+                                RightUnitDetailWindow.Width, RightUnitPortraitWindow.Width,
+                                InitiativeWindow.Height));
                     }
                 }
             }

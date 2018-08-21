@@ -33,10 +33,10 @@ namespace SolStandard.HUD.Window.Content
             {
                 for (int row = 0; row < ContentGrid.GetLength(1); row++)
                 {
-                    float contentWidth = ContentGrid[column, row].GetWidth();
+                    float contentWidth = ContentGrid[column, row].Width;
                     horizontalOffset += contentWidth + padding;
 
-                    float contentHeight = ContentGrid[column, row].GetHeight();
+                    float contentHeight = ContentGrid[column, row].Height;
                     if (highestRowHeight < contentHeight)
                     {
                         highestRowHeight = contentHeight + padding;
@@ -75,10 +75,10 @@ namespace SolStandard.HUD.Window.Content
                         new Vector2(coordinates.X + horizontalOffset, coordinates.Y + verticalOffset));
 
                     //Adjust offset
-                    float contentWidth = ContentGrid[column, row].GetWidth();
+                    float contentWidth = ContentGrid[column, row].Width;
                     horizontalOffset += contentWidth + padding;
 
-                    float contentHeight = ContentGrid[column, row].GetHeight();
+                    float contentHeight = ContentGrid[column, row].Height;
                     if (highestRowHeight < contentHeight)
                     {
                         highestRowHeight = contentHeight + padding;

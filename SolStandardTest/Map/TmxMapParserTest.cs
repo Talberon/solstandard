@@ -47,8 +47,9 @@ namespace SolStandardTest.Map
         {
             MapObject[,] unitGrid = mapGrid[(int) Layer.Units];
 
-            foreach (MapEntity mapUnit in unitGrid)
+            foreach (MapObject o in unitGrid)
             {
+                MapEntity mapUnit = (MapEntity) o;
                 if (mapUnit != null)
                     Assert.IsNotNull(unitTextureNames.Find(texture => texture.Contains(mapUnit.Name)));
             }

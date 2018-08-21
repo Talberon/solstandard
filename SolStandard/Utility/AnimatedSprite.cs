@@ -36,8 +36,8 @@ namespace SolStandard.Utility
 
         private Vector2 CalculateSpriteFrameCount()
         {
-            float columns = spriteMap.GetWidth() / cellSize;
-            float rows = spriteMap.GetWidth() / cellSize;
+            float columns = (float) spriteMap.Width / cellSize;
+            float rows = (float) spriteMap.Width / cellSize;
 
             return new Vector2(columns, rows);
         }
@@ -92,14 +92,14 @@ namespace SolStandard.Utility
             frameDelayCounter++;
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -113,7 +113,7 @@ namespace SolStandard.Utility
                 UpdateFrame();
             }
 
-            spriteBatch.Draw(spriteMap.GetTexture2D(),
+            spriteBatch.Draw(spriteMap.MonoGameTexture,
                 new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), Color.White);
         }
     }

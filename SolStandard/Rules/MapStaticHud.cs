@@ -106,7 +106,7 @@ namespace SolStandard.Rules
                 IRenderable unitPortraitWindow = new WindowContent(
                     new TileCell(
                         unitList[i].MediumPortrait,
-                        unitList[i].MediumPortrait.GetHeight(),
+                        unitList[i].MediumPortrait.Height,
                         1
                     )
                 );
@@ -123,7 +123,7 @@ namespace SolStandard.Rules
             if (selectedUnit == null) return null;
 
             IRenderable selectedUnitPortrait =
-                new WindowContent(new TileCell(selectedUnit.LargePortrait, selectedUnit.LargePortrait.GetHeight(), 1));
+                new WindowContent(new TileCell(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1));
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
 

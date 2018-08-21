@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
@@ -83,20 +84,20 @@ namespace SolStandard
             mapCamera = new MapCamera(10);
             mapCamera.SetCameraZoom(1.8f);
 
-            ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
+            ITexture2D cursorTexture = guiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
             MapLayer gameMap = new MapLayer(mapParser.LoadMapGrid(), cursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
-                (MapEntity[,]) gameMap.GetGameGrid()[(int) Layer.Units],
-                largePortraitTextures, mediumPortraitTextures, smallPortraitTextures);
+                (MapEntity[,]) gameMap.GameGrid[(int) Layer.Units], largePortraitTextures, mediumPortraitTextures,
+                smallPortraitTextures);
 
 
             container = new GameContainer(gameMap,
-                new MapScene(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
+                new MapUI(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
                 unitsFromMap);
 
             ITexture2D windowTexture =
-                windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("LightWindow"));
+                windowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
             mapStaticHud = new MapStaticHud(windowFont, windowTexture);
         }
 
@@ -140,34 +141,34 @@ namespace SolStandard
             }
 
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(controlMapper, mapCamera, container.GetMapLayer().GetMapCursor(),
-                container.GetMapScene());
+            MapSceneControls.ListenForInputs(controlMapper, mapCamera, container.MapLayer.MapCursor,
+                container.MapUI, container.MapLayer.GetMapSliceAtCursor(), container.Units);
 
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 mapSize = container.GetMapLayer().MapSize();
-            mapCamera.CorrectCameraToCursor(container.GetMapLayer().GetMapCursor(), screenSize, mapSize);
+            Vector2 mapSize = container.MapLayer.MapGridSize;
+            mapCamera.CorrectCameraToCursor(container.MapLayer.MapCursor, screenSize, mapSize);
             mapCamera.PanCameraToTarget();
 
 
             //Map Cursor Hover Logic
-            MapSlice hoverTiles = container.GetMapLayer().GetMapSliceAtCursor();
-            MapCursorHover.Hover(container.GetMapScene(), hoverTiles, container.GetUnits(), mapStaticHud);
+            MapSlice hoverTiles = container.MapLayer.GetMapSliceAtCursor();
+            MapCursorHover.Hover(container.MapUI, hoverTiles, container.Units, mapStaticHud);
 
             //Initiative Window
-            container.GetMapScene().InitiativeWindow =
-                mapStaticHud.GenerateInitiativeWindow(container.GetUnits());
+            container.MapUI.InitiativeWindow =
+                mapStaticHud.GenerateInitiativeWindow(container.Units);
 
             //Turn Window
-            Vector2 turnWindowSize = new Vector2(265, container.GetMapScene().InitiativeWindow.GetHeight());
-            container.GetMapScene().TurnWindow = mapStaticHud.GenerateTurnWindow(turnWindowSize);
+            Vector2 turnWindowSize = new Vector2(265, container.MapUI.InitiativeWindow.Height);
+            container.MapUI.TurnWindow = mapStaticHud.GenerateTurnWindow(turnWindowSize);
 
 
             //Help Window TODO make this context-sensitive
             string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
                               + "\nAdditional information will appear here to help you play the game.";
 
-            container.GetMapScene().HelpTextWindow = mapStaticHud.GenerateHelpWindow(helpText);
+            container.MapUI.HelpTextWindow = mapStaticHud.GenerateHelpWindow(helpText);
 
 
             base.Update(gameTime);
@@ -182,8 +183,8 @@ namespace SolStandard
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, mapCamera.GetCameraMatrix());
-            container.GetMapLayer().Draw(spriteBatch);
+                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+            container.MapLayer.Draw(spriteBatch);
             base.Draw(gameTime);
             spriteBatch.End();
 
@@ -191,7 +192,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            container.GetMapScene().Draw(spriteBatch);
+            container.MapUI.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

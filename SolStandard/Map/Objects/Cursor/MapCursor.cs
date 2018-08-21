@@ -19,7 +19,7 @@ namespace SolStandard.Map.Objects.Cursor
         public MapCursor(IRenderable sprite, Vector2 mapCoordinates, Vector2 mapSize)
         {
             Sprite = sprite;
-            MapCoordinates = mapCoordinates;
+            base.MapCoordinates = mapCoordinates;
             this.mapSize = mapSize;
         }
 
@@ -28,16 +28,16 @@ namespace SolStandard.Map.Objects.Cursor
             switch (direction)
             {
                 case CursorDirection.Down:
-                    MapCoordinates.Y++;
+                    base.MapCoordinates.Y++;
                     break;
                 case CursorDirection.Right:
-                    MapCoordinates.X++;
+                    base.MapCoordinates.X++;
                     break;
                 case CursorDirection.Up:
-                    MapCoordinates.Y--;
+                    base.MapCoordinates.Y--;
                     break;
                 case CursorDirection.Left:
-                    MapCoordinates.X--;
+                    base.MapCoordinates.X--;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -46,31 +46,31 @@ namespace SolStandard.Map.Objects.Cursor
             PreventCursorLeavingMapBounds();
         }
 
-        public Vector2 GetMapCoordinates()
+        public Vector2 MapCoordinates
         {
-            return MapCoordinates;
+            get { return base.MapCoordinates; }
         }
 
         private void PreventCursorLeavingMapBounds()
         {
-            if (MapCoordinates.X < 0)
+            if (base.MapCoordinates.X < 0)
             {
-                MapCoordinates.X = 0;
+                base.MapCoordinates.X = 0;
             }
 
-            if (MapCoordinates.X >= mapSize.X)
+            if (base.MapCoordinates.X >= mapSize.X)
             {
-                MapCoordinates.X = mapSize.X - 1;
+                base.MapCoordinates.X = mapSize.X - 1;
             }
 
-            if (MapCoordinates.Y < 0)
+            if (base.MapCoordinates.Y < 0)
             {
-                MapCoordinates.Y = 0;
+                base.MapCoordinates.Y = 0;
             }
 
-            if (MapCoordinates.Y >= mapSize.Y)
+            if (base.MapCoordinates.Y >= mapSize.Y)
             {
-                MapCoordinates.Y = mapSize.Y - 1;
+                base.MapCoordinates.Y = mapSize.Y - 1;
             }
         }
 
