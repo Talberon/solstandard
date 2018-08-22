@@ -30,5 +30,10 @@ namespace SolStandard.HUD.Window.Content
         {
             spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, Color.White);
         }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, color);
+        }
     }
 }

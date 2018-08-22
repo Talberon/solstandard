@@ -10,7 +10,7 @@ namespace SolStandard.Map.Elements
          * Holds a texture to be rendered on the map.
          */
 
-        public MapTile(TileCell sprite, Vector2 mapCoordinates)
+        public MapTile(TextureCell sprite, Vector2 mapCoordinates)
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
@@ -18,7 +18,7 @@ namespace SolStandard.Map.Elements
 
         public override string ToString()
         {
-            return "Tile: {" + Sprite + "}";
+            return "MapTile: {" + Sprite + "}";
         }
     }
 }

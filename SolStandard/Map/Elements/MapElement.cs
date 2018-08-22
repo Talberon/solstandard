@@ -6,19 +6,17 @@ namespace SolStandard.Map.Elements
 {
     public abstract class MapElement
     {
-        protected IRenderable Sprite;
+        public IRenderable Sprite { get; protected set; }
         protected Vector2 MapCoordinates;
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
         }
-
-        //TODO Decide if this really should be exposed
-        public IRenderable GetSprite()
+        
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            return Sprite;
+            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, color);
         }
-
     }
 }

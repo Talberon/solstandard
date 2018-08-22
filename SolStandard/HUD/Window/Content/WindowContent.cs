@@ -29,5 +29,10 @@ namespace SolStandard.HUD.Window.Content
         {
             content.Draw(spriteBatch, position);
         }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            content.Draw(spriteBatch, position, color);
+        }
     }
 }

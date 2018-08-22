@@ -9,14 +9,12 @@ namespace SolStandard.HUD.Window
     {
         private readonly int cellSize;
         private readonly int cellIndex;
-        private readonly Color color;
         private readonly Vector2 coordinates;
 
-        public WindowCell(int cellSize, int cellIndex, Color color, Vector2 coordinates)
+        public WindowCell(int cellSize, int cellIndex, Vector2 coordinates)
         {
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
-            this.color = color;
             this.coordinates = coordinates;
         }
 
@@ -65,7 +63,7 @@ namespace SolStandard.HUD.Window
             return "WindowCell: <CellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
 
-        public void Draw(SpriteBatch spriteBatch, ref ITexture2D image, Vector2 offset)
+        public void Draw(SpriteBatch spriteBatch, ref ITexture2D image, Vector2 offset, Color color)
         {
             Vector2 relativePosition = new Vector2(coordinates.X + offset.X, coordinates.Y + offset.Y);
             spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) relativePosition.X, (int) relativePosition.Y),

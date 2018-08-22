@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Containers\Contexts\MapContextTest.cs" />
     <Compile Include="Map\TmxMapParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Monogame\FakeTexture2D.cs" />

@@ -63,6 +63,7 @@
     <Compile Include="Map\Camera\MapCamera.cs" />
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
+    <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />
     <Compile Include="Map\Elements\MapElement.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="Utility\Monogame\SpriteFontWrapper.cs" />
     <Compile Include="Utility\Monogame\Texture2DWrapper.cs" />
     <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
-    <Compile Include="Utility\TileCell.cs" />
+    <Compile Include="Utility\TextureCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

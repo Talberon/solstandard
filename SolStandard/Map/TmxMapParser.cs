@@ -16,7 +16,8 @@ namespace SolStandard.Map
         Terrain = 0,
         Collide = 1,
         Entities = 2,
-        Units = 3
+        Dynamic = 3,
+        Units = 4
     }
 
     /**
@@ -48,6 +49,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.Collide),
                 ObtainEntitiesFromLayer("Entities"),
+                new MapElement[tmxMap.Width, tmxMap.Height],
                 ObtainUnitsFromLayer("Units")
             };
 
@@ -68,7 +70,7 @@ namespace SolStandard.Map
 
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new TileCell(mapSprite, GameDriver.CellSize, tileId),
+                        tileGrid[col, row] = new MapTile(new TextureCell(mapSprite, GameDriver.CellSize, tileId),
                             new Vector2(col, row));
                     }
 
@@ -100,9 +102,9 @@ namespace SolStandard.Map
                             {
                                 Dictionary<string, string> currentProperties =
                                     GetDefaultPropertiesAndOverrides(currentObject);
-                                TileCell tileCell = new TileCell(mapSprite, GameDriver.CellSize, objectTileId);
+                                TextureCell textureCell = new TextureCell(mapSprite, GameDriver.CellSize, objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, tileCell,
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, textureCell,
                                     new Vector2(col, row), currentProperties);
                             }
                         }

@@ -183,7 +183,7 @@ namespace SolStandard.HUD.Window
                         cellIndex = 5;
                     }
 
-                    windowCellsToConstruct[column, row] = new WindowCell(windowCellSize, cellIndex, windowColor,
+                    windowCellsToConstruct[column, row] = new WindowCell(windowCellSize, cellIndex,
                         new Vector2(column * windowCellSize, row * windowCellSize));
                 }
             }
@@ -221,7 +221,20 @@ namespace SolStandard.HUD.Window
             {
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates);
+                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, windowColor);
+                }
+
+                windowContents.Draw(spriteBatch, CenteredContentCoordinates(coordinates));
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color color)
+        {
+            if (Visible)
+            {
+                foreach (WindowCell windowCell in windowCells)
+                {
+                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, color);
                 }
 
                 windowContents.Draw(spriteBatch, CenteredContentCoordinates(coordinates));

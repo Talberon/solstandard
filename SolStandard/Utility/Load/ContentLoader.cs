@@ -16,6 +16,10 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
         }
+        public static ISpriteFont LoadMapFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
+        }
         
         public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
         {

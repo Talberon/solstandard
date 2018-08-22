@@ -380,3 +380,10 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Window/LightWindow.png
 
+#begin Fonts/MapText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/MapText.spritefont
+

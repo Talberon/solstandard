@@ -51,7 +51,7 @@ namespace SolStandard.Rules
 
             if (selectedTerrain != null)
             {
-                IRenderable terrainSprite = selectedTerrain.GetSprite();
+                IRenderable terrainSprite = selectedTerrain.Sprite;
 
                 string terrainInfo = "Terrain: " + selectedTerrain.Name
                                                  + "\n"
@@ -104,7 +104,7 @@ namespace SolStandard.Rules
             for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
                 IRenderable unitPortraitWindow = new WindowContent(
-                    new TileCell(
+                    new TextureCell(
                         unitList[i].MediumPortrait,
                         unitList[i].MediumPortrait.Height,
                         1
@@ -123,7 +123,7 @@ namespace SolStandard.Rules
             if (selectedUnit == null) return null;
 
             IRenderable selectedUnitPortrait =
-                new WindowContent(new TileCell(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1));
+                new WindowContent(new TextureCell(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1));
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
 

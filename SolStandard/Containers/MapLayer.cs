@@ -23,7 +23,7 @@ namespace SolStandard.Containers
 
         private MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
-            TileCell cursorCell = new TileCell(cursorTexture, GameDriver.CellSize, 1);
+            TextureCell cursorCell = new TextureCell(cursorTexture, GameDriver.CellSize, 1);
             Vector2 cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorCell, cursorStartPosition, MapGridSize);
         }
@@ -56,17 +56,49 @@ namespace SolStandard.Containers
             return new MapSlice(unit, entity, collide, terrain);
         }
 
+        public MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
+        {
+            int column = (int) coordinates.X;
+            int row = (int) coordinates.Y;
+
+            MapEntity unit = (MapEntity) gameGrid[(int) Layer.Units][column, row];
+            MapEntity entity = (MapEntity) gameGrid[(int) Layer.Entities][column, row];
+            MapTile collide = (MapTile) gameGrid[(int) Layer.Collide][column, row];
+            MapTile terrain = (MapTile) gameGrid[(int) Layer.Terrain][column, row];
+
+            return new MapSlice(unit, entity, collide, terrain);
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //Draw tiles in Map Grid
-            foreach (MapElement[,] layer in gameGrid)
+            foreach (MapElement tile in gameGrid[(int) Layer.Terrain])
             {
-                foreach (MapElement tile in layer)
-                {
-                    if (tile != null)
-                        tile.Draw(spriteBatch);
-                }
+                if (tile != null)
+                    tile.Draw(spriteBatch);
+            }
+            
+            foreach (MapElement tile in gameGrid[(int) Layer.Collide])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
+            }
+            
+            foreach (MapElement tile in gameGrid[(int) Layer.Entities])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
+            }
+            
+            foreach (MapElement tile in gameGrid[(int) Layer.Dynamic])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch, new Color(255,255,255,180));
+            }
+            
+            foreach (MapElement tile in gameGrid[(int) Layer.Units])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
             }
 
             //Draw map cursor

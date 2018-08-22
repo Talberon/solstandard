@@ -5,27 +5,17 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
-    public class TileCell : IRenderable
+    public class TextureCell : IRenderable
     {
         private readonly ITexture2D image;
         private readonly int cellSize;
         private readonly int cellIndex;
-        private readonly Color color;
 
-        public TileCell(ITexture2D image, int cellSize, int cellIndex)
+        public TextureCell(ITexture2D image, int cellSize, int cellIndex)
         {
             this.image = image;
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
-            color = Color.White;
-        }
-
-        public TileCell(ITexture2D image, int cellSize, int cellIndex, Color color)
-        {
-            this.image = image;
-            this.cellSize = cellSize;
-            this.cellIndex = cellIndex;
-            this.color = color;
         }
 
         private Rectangle RenderCell()
@@ -69,6 +59,12 @@ namespace SolStandard.Utility
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
+            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
+                Color.White);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
             spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
                 color);
