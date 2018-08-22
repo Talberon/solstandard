@@ -2,22 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Map.Elements
 {
     public class MapDistanceTile : MapTile
     {
         private readonly int distance;
-        private readonly ISpriteFont font;
         private readonly RenderText renderText;
 
-        public MapDistanceTile(TextureCell sprite, Vector2 mapCoordinates, int distance, ISpriteFont font) : base(
+        public MapDistanceTile(TextureCell sprite, Vector2 mapCoordinates, int distance) : base(
             sprite, mapCoordinates)
         {
             this.distance = distance;
-            this.font = font;
-            renderText = new RenderText(font, distance.ToString());
+            renderText = new RenderText(GameDriver.MapFont, distance.ToString());
         }
 
         public int Distance
@@ -33,11 +30,6 @@ namespace SolStandard.Map.Elements
         public TextureCell TextureCell
         {
             get { return (TextureCell) Sprite; }
-        }
-
-        public ISpriteFont Font
-        {
-            get { return font; }
         }
 
         public override string ToString()

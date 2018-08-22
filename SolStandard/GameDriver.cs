@@ -38,15 +38,15 @@ namespace SolStandard
 
         private GameContainer container;
 
-        private ITexture2D terrainTextures;
-        private List<ITexture2D> unitSprites;
-        private List<ITexture2D> guiTextures;
-        private List<ITexture2D> windowTextures;
-        private List<ITexture2D> largePortraitTextures;
-        private List<ITexture2D> mediumPortraitTextures;
-        private List<ITexture2D> smallPortraitTextures;
-        private ISpriteFont windowFont;
-        private ISpriteFont mapFont;
+        private static ITexture2D TerrainTextures { get; set; }
+        private static List<ITexture2D> UnitSprites { get; set; }
+        private static List<ITexture2D> GuiTextures { get; set; }
+        private static List<ITexture2D> WindowTextures { get; set; }
+        private static List<ITexture2D> LargePortraitTextures { get; set; }
+        private static List<ITexture2D> MediumPortraitTextures { get; set; }
+        private static List<ITexture2D> SmallPortraitTextures { get; set; }
+        public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont MapFont { get; private set; }
         private MapCamera mapCamera;
 
         private MapStaticHud mapStaticHud;
@@ -80,18 +80,18 @@ namespace SolStandard
                     "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites, objectTypeDefaults);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(10);
             mapCamera.SetCameraZoom(1.8f);
 
-            ITexture2D cursorTexture = guiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
+            ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
             MapLayer gameMap = new MapLayer(mapParser.LoadMapGrid(), cursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
-                (MapEntity[,]) gameMap.GameGrid[(int) Layer.Units], largePortraitTextures, mediumPortraitTextures,
-                smallPortraitTextures);
+                (MapEntity[,]) gameMap.GameGrid[(int) Layer.Units], LargePortraitTextures, MediumPortraitTextures,
+                SmallPortraitTextures);
 
 
             container = new GameContainer(new MapContext(gameMap),
@@ -99,8 +99,8 @@ namespace SolStandard
                 unitsFromMap);
 
             ITexture2D windowTexture =
-                windowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            mapStaticHud = new MapStaticHud(windowFont, windowTexture);
+                WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+            mapStaticHud = new MapStaticHud(WindowFont, windowTexture);
         }
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace SolStandard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
-            unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
-            guiTextures = ContentLoader.LoadCursorTextures(Content);
-            windowTextures = ContentLoader.LoadWindowTextures(Content);
-            windowFont = ContentLoader.LoadWindowFont(Content);
-            mapFont = ContentLoader.LoadMapFont(Content);
-            largePortraitTextures = ContentLoader.LoadLargePortraits(Content);
-            mediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
-            smallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
+            TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
+            GuiTextures = ContentLoader.LoadCursorTextures(Content);
+            WindowTextures = ContentLoader.LoadWindowTextures(Content);
+            WindowFont = ContentLoader.LoadWindowFont(Content);
+            MapFont = ContentLoader.LoadMapFont(Content);
+            LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
+            MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
+            SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace SolStandard
 
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
             MapSceneControls.ListenForInputs(container.MapContext, controlMapper, mapCamera, container.MapContext.MapLayer.MapCursor,
-                container.MapUI, container.MapContext.MapLayer.GetMapSliceAtCursor(), container.Units, terrainTextures, mapFont);
+                container.MapUI, container.MapContext.MapLayer.GetMapSliceAtCursor(), container.Units, TerrainTextures, MapFont);
 
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
