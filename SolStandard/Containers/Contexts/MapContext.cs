@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
-using SolStandard.Logic;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -70,12 +69,14 @@ namespace SolStandard.Containers.Contexts
 
                 if (currentTile.Distance >= maximumDistance) continue;
 
-                foreach (MapDistanceTile neighbor in GetNeighbours(currentTile, visited))
-                {
-                    if (visited.Contains(neighbor)) continue;
+                List<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited);
 
-                    frontier.Enqueue(neighbor);
-                    visited.Add(neighbor);
+                foreach (MapDistanceTile neighbour in neighbours)
+                {
+                    if (visited.Contains(neighbour)) continue;
+
+                    frontier.Enqueue(neighbour);
+                    visited.Add(neighbour);
                 }
             }
 
@@ -118,26 +119,17 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice slice = MapLayer.GetMapSliceAtCoordinates(coordinates);
 
-            if (slice.GeneralEntity != null && slice.GeneralEntity.TiledProperties["canMove"] == "false") return false;
+            if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 
-            if (slice.CollideTile != null)
+            if (slice.GeneralEntity != null && slice.GeneralEntity.Type != "Decoration")
             {
-                if (slice.GeneralEntity != null && slice.GeneralEntity.TiledProperties["canMove"] == "true")
-                {
-                    return true;
-                }
-
-                return false;
+                if (slice.GeneralEntity.TiledProperties["canMove"] == "true") return true;
+                if (slice.GeneralEntity.TiledProperties["canMove"] == "false") return false;
             }
 
-            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != SelectedUnit.UnitTeam.ToString()
-            ) return false; //TODO figure out a better way to check this that's type-safe
-
-            //TODO Make sure we can't create a move tile where one already exists
-            foreach (MapDistanceTile tile in visitedTiles)
-            {
-                if (tile.Coordinates == coordinates) return false;
-            }
+            if (slice.CollideTile != null) return false;
+            if (slice.UnitEntity != null &&
+                slice.UnitEntity.TiledProperties["Team"] != SelectedUnit.UnitTeam.ToString()) return false;
 
             return true;
         }

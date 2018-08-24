@@ -46,7 +46,7 @@ namespace SolStandard.Map.Elements.Cursor
             PreventCursorLeavingMapBounds();
         }
 
-        public Vector2 MapCoordinates
+        public new Vector2 MapCoordinates
         {
             get { return base.MapCoordinates; }
         }
