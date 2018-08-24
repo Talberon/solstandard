@@ -7,7 +7,7 @@ namespace SolStandard.Map.Elements
     public abstract class MapElement
     {
         public IRenderable Sprite { get; protected set; }
-        protected Vector2 MapCoordinates;
+        public Vector2 MapCoordinates { get; set; } //TODO Consider whether set should really be public here
 
         public void Draw(SpriteBatch spriteBatch)
         {

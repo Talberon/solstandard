@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -26,12 +23,14 @@ namespace SolStandard.Containers.Contexts
 
         public TurnState CurrentTurnState { get; private set; }
         public GameUnit SelectedUnit { get; set; }
+        private Vector2 selectedUnitOriginalPosition;
         private readonly MapLayer mapLayer;
 
         public MapContext(MapLayer mapLayer)
         {
             this.mapLayer = mapLayer;
             CurrentTurnState = TurnState.SelectUnit;
+            selectedUnitOriginalPosition = new Vector2();
         }
 
         public void ProceedToNextState()
@@ -53,93 +52,70 @@ namespace SolStandard.Containers.Contexts
             get { return mapLayer; }
         }
 
-        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, TextureCell textureCell, ISpriteFont font)
+        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, TextureCell textureCell)
         {
-            //Breadth First Search Algorithm (with limit)
-            Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
-
-            MapDistanceTile startTile = new MapDistanceTile(textureCell, origin, 0);
-            frontier.Enqueue(startTile);
-
-            List<MapDistanceTile> visited = new List<MapDistanceTile> {startTile};
-
-            while (frontier.Count > 0)
-            {
-                MapDistanceTile currentTile = frontier.Dequeue();
-
-                if (currentTile.Distance >= maximumDistance) continue;
-
-                List<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited);
-
-                foreach (MapDistanceTile neighbour in neighbours)
-                {
-                    if (visited.Contains(neighbour)) continue;
-
-                    frontier.Enqueue(neighbour);
-                    visited.Add(neighbour);
-                }
-            }
-
-            AddVisitedTilesToGameGrid(visited);
+            selectedUnitOriginalPosition = origin;
+            UnitMovingContext unitMovingContext = new UnitMovingContext(mapLayer, textureCell);
+            unitMovingContext.GenerateMoveGrid(origin, maximumDistance, SelectedUnit);
         }
 
-        private List<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile, List<MapDistanceTile> visitedTiles)
+        public void MoveCursorAndSelectedUnitWithinMoveGrid(Direction direction)
         {
-            List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
-
-            Vector2 north = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
-            Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
-
-            if (CanMoveAtCoordinates(north, visitedTiles))
+            if (TargetTileHasADynamicTile(direction))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, north, currentTile.Distance + 1));
+                SelectedUnit.MoveUnitInDirection(direction, mapLayer.MapGridSize);
+                mapLayer.MapCursor.MoveCursorInDirection(direction);
             }
-
-            if (CanMoveAtCoordinates(south, visitedTiles))
-            {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, south, currentTile.Distance + 1));
-            }
-
-            if (CanMoveAtCoordinates(east, visitedTiles))
-            {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, east, currentTile.Distance + 1));
-            }
-
-            if (CanMoveAtCoordinates(west, visitedTiles))
-            {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, west, currentTile.Distance + 1));
-            }
-
-            return neighbours;
         }
 
-        private bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
+        private bool TargetTileHasADynamicTile(Direction direction)
         {
-            MapSlice slice = MapLayer.GetMapSliceAtCoordinates(coordinates);
-
-            if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
-
-            if (slice.GeneralEntity != null && slice.GeneralEntity.Type != "Decoration")
+            Vector2 targetPosition = MapLayer.MapCursor.MapCoordinates;
+            
+            switch (direction)
             {
-                if (slice.GeneralEntity.TiledProperties["canMove"] == "true") return true;
-                if (slice.GeneralEntity.TiledProperties["canMove"] == "false") return false;
+                case Direction.Down:
+                    targetPosition = new Vector2(targetPosition.X, targetPosition.Y + 1);
+                    break;
+                case Direction.Right:
+                    targetPosition = new Vector2(targetPosition.X + 1, targetPosition.Y);
+                    break;
+                case Direction.Up:
+                    targetPosition = new Vector2(targetPosition.X, targetPosition.Y - 1);
+                    break;
+                case Direction.Left:
+                    targetPosition = new Vector2(targetPosition.X - 1, targetPosition.Y);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("direction", direction, null);
             }
 
-            if (slice.CollideTile != null) return false;
-            if (slice.UnitEntity != null &&
-                slice.UnitEntity.TiledProperties["Team"] != SelectedUnit.UnitTeam.ToString()) return false;
-
-            return true;
+            return MapLayer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
-
-        private void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles)
+        
+        public bool UnitExistsAtCursor()
         {
-            foreach (MapDistanceTile tile in visitedTiles)
-            {
-                MapLayer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
-            }
+            return UnitExistsAtCoordinates(mapLayer.MapCursor.MapCoordinates);
         }
+        
+        public bool UnitExistsAtCoordinates(Vector2 coordinates)
+        {
+            return MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] != null;
+        }
+
+        public void MoveUnitOnMapGrid()
+        {
+            MapLayer.GameGrid[(int) Layer.Units][(int) selectedUnitOriginalPosition.X,
+                (int) selectedUnitOriginalPosition.Y] = null;
+            MapLayer.GameGrid[(int) Layer.Units][(int) SelectedUnit.MapEntity.MapCoordinates.X,
+                (int) SelectedUnit.MapEntity.MapCoordinates.Y] = SelectedUnit.MapEntity;
+        }
+
+        public void ReturnUnitToOriginalPosition()
+        {
+            SelectedUnit.MapEntity.MapCoordinates = selectedUnitOriginalPosition;
+            mapLayer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+        }
+        
     }
 }

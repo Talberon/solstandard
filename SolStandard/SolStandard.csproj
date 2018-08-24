@@ -44,6 +44,7 @@
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\MainMenuContext.cs" />
+    <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\GameContainer.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapLayer.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Map\Camera\MapCamera.cs" />
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
+    <Compile Include="Map\Elements\Direction.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />

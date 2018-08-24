@@ -96,23 +96,23 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
-            return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
+            return new GameUnit(id, unitTeam, unitJobClass, ref mapEntity, unitStats, largePortrait, mediumPortrait,
                 smallPortrait);
         }
 
         private static UnitStatistics SelectArcherStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 5, 3, 1, 7, new[] {2}, initiative);
+            return new UnitStatistics(5, 4, 2, 1, 1, 3, new[] {2}, initiative);
         }
 
         private static UnitStatistics SelectChampionStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 10, 5, 1, 6, new[] {1}, initiative);
+            return new UnitStatistics(7, 4, 3, 1, 1, 4, new[] {1}, initiative);
         }
 
         private static UnitStatistics SelectMageStats(int initiative)
         {
-            return new UnitStatistics(100, 30, 0, 5, 1, 5, new[] {1, 2}, initiative);
+            return new UnitStatistics(3, 5, 1, 1, 1, 3, new[] {1, 2}, initiative);
         }
 
         private ITexture2D FindLargePortrait(string textureName)

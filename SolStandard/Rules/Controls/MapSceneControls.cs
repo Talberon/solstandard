@@ -7,6 +7,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Logic;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Buttons;
@@ -27,22 +28,94 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Down())
             {
-                mapCursor.MoveCursorInDirection((MapCursor.CursorDirection.Down));
+                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Down));
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
+                {
+                    //TODO Restrict movement to move grid
+                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+                    //TODO Move the unit with the cursor
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Down));
+                    return;
+                }
             }
 
             if (controlMapper.Left())
             {
-                mapCursor.MoveCursorInDirection((MapCursor.CursorDirection.Left));
+                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Left));
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
+                {
+                    //TODO Restrict movement to move grid
+                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+                    //TODO Move the unit with the cursor
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Left));
+                    return;
+                }
             }
 
             if (controlMapper.Right())
             {
-                mapCursor.MoveCursorInDirection((MapCursor.CursorDirection.Right));
+                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Right));
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
+                {
+                    //TODO Restrict movement to move grid
+                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+                    //TODO Move the unit with the cursor
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Right));
+                    return;
+                }
             }
 
             if (controlMapper.Up())
             {
-                mapCursor.MoveCursorInDirection((MapCursor.CursorDirection.Up));
+                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Up));
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
+                {
+                    //TODO Restrict movement to move grid
+                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+                    //TODO Move the unit with the cursor
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                {
+                    mapCursor.MoveCursorInDirection((Direction.Up));
+                    return;
+                }
             }
 
             if (controlMapper.A())
@@ -64,10 +137,8 @@ namespace SolStandard.Rules.Controls
                         mapContext.GenerateMoveGrid(mapContext.MapLayer.MapCursor.MapCoordinates,
                             mapContext.SelectedUnit.Stats.MaxMv,
                             new TextureCell(new Texture2DWrapper(terrainTextures.MonoGameTexture), GameDriver.CellSize,
-                                69), mapFont);
+                                69));
 
-                        //TODO Pin the Left Portrait + Info to the HUD
-                        //TODO Generate the movement grid
                         //TODO Remember where the unit originated
                         //TODO Allow the unit to move within the movement grid
                         //TODO Set the current GameState to UNIT_MOVEMENT
@@ -78,6 +149,50 @@ namespace SolStandard.Rules.Controls
                     {
                         Trace.WriteLine("No unit to select.");
                     }
+
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
+                {
+                    if (!mapContext.UnitExistsAtCursor())
+                    {
+                        mapContext.MapLayer.ClearDynamicGrid();
+                        mapContext.MoveUnitOnMapGrid();
+                        mapContext.ProceedToNextState();
+                    }
+
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitDecidingAction)
+                {
+                    mapContext.ProceedToNextState();
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                {
+                    mapContext.ProceedToNextState();
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+                {
+                    mapContext.ProceedToNextState();
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitFinishedActing)
+                {
+                    mapContext.ProceedToNextState();
+                    return;
+                }
+
+                if (mapContext.CurrentTurnState == MapContext.TurnState.ResolvingTurn)
+                {
+                    mapContext.ProceedToNextState();
+                    return;
                 }
             }
 

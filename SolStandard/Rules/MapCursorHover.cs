@@ -15,19 +15,22 @@ namespace SolStandard.Rules
         {
             GameUnit selectedMapUnit = UnitSelector.SelectUnit(units, hoverTiles.UnitEntity);
 
-            if (turnState == MapContext.TurnState.SelectUnit)
+            
+            if (turnState != MapContext.TurnState.SelectUnit)
+            {
+                //SecondUnit Window
+                mapUi.RightUnitPortraitWindow = mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
+                mapUi.RightUnitDetailWindow = mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
+            }
+            else
             {
                 //FirstUnit Window
                 mapUi.LeftUnitPortraitWindow = mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
                 mapUi.LeftUnitDetailWindow = mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
-            }
-
-            if (turnState > MapContext.TurnState.SelectUnit)
-            {
+                
                 //SecondUnit Window
-                //TODO only show when a unit is currently pinned to left portrait window and hoving over another unit
-                mapUi.RightUnitPortraitWindow = mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
-                mapUi.RightUnitDetailWindow = mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
+                mapUi.RightUnitPortraitWindow = null;
+                mapUi.RightUnitDetailWindow = null;
             }
 
             //Terrain (Entity) Window

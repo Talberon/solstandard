@@ -9,7 +9,7 @@ namespace SolStandard.Logic
     {
         public static GameUnit SelectUnit(IEnumerable<GameUnit> units, MapEntity unit)
         {
-            return units.FirstOrDefault(gameUnit => gameUnit.MapInfo == unit);
+            return units.FirstOrDefault(gameUnit => gameUnit.MapEntity == unit);
         }
     }
 }
