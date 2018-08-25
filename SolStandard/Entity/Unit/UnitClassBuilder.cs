@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Map.Objects;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit
                         unitTeam = Team.Blue;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException("unitTeam", unit.TiledProperties["Team"], null);
+                        throw new ArgumentOutOfRangeException("", unit.TiledProperties["Team"], null);
                 }
 
                 UnitClass unitClass;
@@ -59,8 +59,11 @@ namespace SolStandard.Entity.Unit
                     case "Mage":
                         unitClass = UnitClass.Mage;
                         break;
+                    case "Monarch":
+                        unitClass = UnitClass.Monarch;
+                        break;
                     default:
-                        throw new ArgumentOutOfRangeException("unitClass", unit.TiledProperties["Class"], null);
+                        throw new ArgumentOutOfRangeException("", unit.TiledProperties["Class"], null);
                 }
 
                 GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, unitClass, unit, 0);
@@ -75,9 +78,9 @@ namespace SolStandard.Entity.Unit
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
 
-            ITexture2D smallPortrait = GetSmallPortrait(unitTeamAndClass);
-            ITexture2D mediumPortrait = GetMediumPortrait(unitTeamAndClass);
-            ITexture2D largePortrait = GetLargePortrait(unitTeamAndClass);
+            ITexture2D smallPortrait = FindSmallPortrait(unitTeamAndClass);
+            ITexture2D mediumPortrait = FindMediumPortrait(unitTeamAndClass);
+            ITexture2D largePortrait = FindLargePortrait(unitTeamAndClass);
 
             UnitStatistics unitStats;
 
@@ -92,42 +95,50 @@ namespace SolStandard.Entity.Unit
                 case UnitClass.Mage:
                     unitStats = SelectMageStats(initiative);
                     break;
+                case UnitClass.Monarch:
+                    unitStats = SelectMonarchStats(initiative);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
-            return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
+            return new GameUnit(id, unitTeam, unitJobClass, ref mapEntity, unitStats, largePortrait, mediumPortrait,
                 smallPortrait);
         }
 
         private static UnitStatistics SelectArcherStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 5, 3, 1, 7, new[] {2}, initiative);
+            return new UnitStatistics(5, 4, 2, 1, 1, 3, new[] {2}, initiative);
         }
 
         private static UnitStatistics SelectChampionStats(int initiative)
         {
-            return new UnitStatistics(100, 20, 10, 5, 1, 6, new[] {1}, initiative);
+            return new UnitStatistics(7, 4, 3, 1, 1, 4, new[] {1}, initiative);
         }
 
         private static UnitStatistics SelectMageStats(int initiative)
         {
-            return new UnitStatistics(100, 30, 0, 5, 1, 5, new[] {1, 2}, initiative);
+            return new UnitStatistics(3, 5, 1, 1, 1, 3, new[] {1, 2}, initiative);
         }
 
-        private ITexture2D GetLargePortrait(string textureName)
+        private static UnitStatistics SelectMonarchStats(int initiative)
         {
-            return largePortraits.Find(texture => texture.GetTexture2D().Name.Contains(textureName));
+            return new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, initiative);
         }
 
-        private ITexture2D GetMediumPortrait(string textureName)
+        private ITexture2D FindLargePortrait(string textureName)
         {
-            return mediumPortraits.Find(texture => texture.GetTexture2D().Name.Contains(textureName));
+            return largePortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
         }
 
-        private ITexture2D GetSmallPortrait(string textureName)
+        private ITexture2D FindMediumPortrait(string textureName)
         {
-            return smallPortraits.Find(texture => texture.GetTexture2D().Name.Contains(textureName));
+            return mediumPortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
+        }
+
+        private ITexture2D FindSmallPortrait(string textureName)
+        {
+            return smallPortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
         }
     }
 }

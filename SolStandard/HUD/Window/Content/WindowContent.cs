@@ -8,26 +8,31 @@ namespace SolStandard.HUD.Window.Content
     {
         //TODO extend this for healthbar, images or text (with font)
 
-        private readonly IRenderable image;
+        private readonly IRenderable content;
 
-        public WindowContent(IRenderable image)
+        public WindowContent(IRenderable content)
         {
-            this.image = image;
+            this.content = content;
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return image.GetHeight();
+            get { return content.Height; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return image.GetWidth();
+            get { return content.Width; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            image.Draw(spriteBatch, position);
+            content.Draw(spriteBatch, position);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            content.Draw(spriteBatch, position, color);
         }
     }
 }

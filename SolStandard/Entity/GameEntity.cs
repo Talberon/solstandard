@@ -1,16 +1,16 @@
-﻿using SolStandard.Map.Objects;
+﻿using SolStandard.Map.Elements;
 
 namespace SolStandard.Entity
 {
     public abstract class GameEntity
     {
         private readonly string id;
-        private readonly MapEntity mapInfo;
+        private readonly MapEntity mapEntity;
 
-        protected GameEntity(string id, MapEntity mapInfo)
+        protected GameEntity(string id, ref MapEntity mapEntity)
         {
             this.id = id;
-            this.mapInfo = mapInfo;
+            this.mapEntity = mapEntity;
         }
 
         public string Id
@@ -18,9 +18,9 @@ namespace SolStandard.Entity
             get { return id; }
         }
 
-        public MapEntity MapInfo
+        public MapEntity MapEntity
         {
-            get { return mapInfo; }
+            get { return mapEntity; }
         }
     }
 }

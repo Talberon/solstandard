@@ -5,8 +5,9 @@ namespace SolStandard.Utility
 {
     public interface IRenderable
     {
-        int GetHeight();
-        int GetWidth();
+        int Height { get; }
+        int Width { get; }
         void Draw(SpriteBatch spriteBatch, Vector2 position);
+        void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
     }
 }

@@ -41,10 +41,15 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Containers\Contexts\BattleContext.cs" />
+    <Compile Include="Containers\Contexts\DraftContext.cs" />
+    <Compile Include="Containers\Contexts\MainMenuContext.cs" />
+    <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\GameContainer.cs" />
-    <Compile Include="Containers\IGameLayer.cs" />
-    <Compile Include="Containers\MapContainer.cs" />
-    <Compile Include="Containers\WindowContainer.cs" />
+    <Compile Include="Containers\IUserInterface.cs" />
+    <Compile Include="Containers\MapLayer.cs" />
+    <Compile Include="Containers\Contexts\MapContext.cs" />
+    <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
@@ -57,13 +62,20 @@
     <Compile Include="HUD\Window\WindowCell.cs" />
     <Compile Include="Logic\UnitSelector.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
-    <Compile Include="Map\Objects\Cursor\MapCursor.cs" />
-    <Compile Include="Map\Objects\MapEntity.cs" />
-    <Compile Include="Map\Objects\MapTile.cs" />
-    <Compile Include="Map\Objects\MapObject.cs" />
+    <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
+    <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
+    <Compile Include="Map\Elements\Direction.cs" />
+    <Compile Include="Map\Elements\MapDistanceTile.cs" />
+    <Compile Include="Map\Elements\MapEntity.cs" />
+    <Compile Include="Map\Elements\MapTile.cs" />
+    <Compile Include="Map\Elements\MapElement.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\Controls\MapSceneControls.cs" />
+    <Compile Include="Rules\MapCursorHover.cs" />
+    <Compile Include="Rules\MapCursorSelect.cs" />
+    <Compile Include="Rules\MapHudGenerator.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\BControl.cs" />
@@ -92,7 +104,7 @@
     <Compile Include="Utility\Monogame\SpriteFontWrapper.cs" />
     <Compile Include="Utility\Monogame\Texture2DWrapper.cs" />
     <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
-    <Compile Include="Utility\TileCell.cs" />
+    <Compile Include="Utility\TextureCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

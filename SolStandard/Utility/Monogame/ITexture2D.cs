@@ -9,10 +9,10 @@ namespace SolStandard.Utility.Monogame
      */
     public interface ITexture2D
     {
-        Rectangle GetBounds();
-        int GetWidth();
-        int GetHeight();
-        string GetName();
-        Texture2D GetTexture2D();
+        Rectangle Bounds { get; }
+        int Width { get; }
+        int Height { get; }
+        string Name { get; }
+        Texture2D MonoGameTexture { get; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolStandard.Map;
-using SolStandard.Map.Objects;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 using SolStandardTest.Utility.Monogame;
 using TiledSharp;
@@ -12,7 +12,7 @@ namespace SolStandardTest.Map
     public class TmxMapParserTest
     {
         private TmxMapParser objectUnderTest;
-        private List<MapObject[,]> mapGrid;
+        private List<MapElement[,]> mapGrid;
         private List<string> unitTextureNames;
         private string tileTextureName;
 
@@ -27,9 +27,11 @@ namespace SolStandardTest.Map
                 "RedMage",
                 "RedArcher",
                 "RedChampion",
+                "RedMonarch",
                 "BlueMage",
                 "BlueArcher",
-                "BlueChampion"
+                "BlueChampion",
+                "BlueMonarch"
             };
 
             List<ITexture2D> unitSprites = new List<ITexture2D>();
@@ -45,10 +47,11 @@ namespace SolStandardTest.Map
         [TestMethod]
         public void TestUnits()
         {
-            MapObject[,] unitGrid = mapGrid[(int) Layer.Units];
+            MapElement[,] unitGrid = mapGrid[(int) Layer.Units];
 
-            foreach (MapEntity mapUnit in unitGrid)
+            foreach (MapElement o in unitGrid)
             {
+                MapEntity mapUnit = (MapEntity) o;
                 if (mapUnit != null)
                     Assert.IsNotNull(unitTextureNames.Find(texture => texture.Contains(mapUnit.Name)));
             }

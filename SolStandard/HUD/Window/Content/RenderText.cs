@@ -16,19 +16,24 @@ namespace SolStandard.HUD.Window.Content
             this.message = message;
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return (int) font.MeasureString(message).Y;
+            get { return (int) font.MeasureString(message).Y; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return (int) font.MeasureString(message).X;
+            get { return (int) font.MeasureString(message).X; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.DrawString(font.GetSpriteFont(), message, position, Color.White);
+            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, Color.White);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, color);
         }
     }
 }

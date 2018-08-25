@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects
+namespace SolStandard.Map.Elements
 {
-    public class MapTile : MapObject
+    public class MapTile : MapElement
     {
         /**
          * GameTile
          * Holds a texture to be rendered on the map.
          */
 
-        public MapTile(TileCell sprite, Vector2 mapCoordinates)
+        public MapTile(TextureCell sprite, Vector2 mapCoordinates)
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
@@ -18,7 +18,7 @@ namespace SolStandard.Map.Objects
 
         public override string ToString()
         {
-            return "Tile: {" + Sprite + "}";
+            return "MapTile: {" + Sprite + "}";
         }
     }
 }

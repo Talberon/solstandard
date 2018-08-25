@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace SolStandard.Utility.Parsing
 {
-    public class ObjectTypesXmlParser
+    public static class ObjectTypesXmlParser
     {
         public static Dictionary<string, Dictionary<string, string>> ParseObjectTypesXml(string filePath)
         {

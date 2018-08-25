@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 
-namespace SolStandard.Containers
+namespace SolStandard.Containers.UI
 {
-    public class WindowLayer : IGameLayer
+    /*
+     * MapUI is where the HUD elements for the Map Scene are handled.
+     * HUD Elements in this case includes various map-screen windows.
+     */
+    public class MapUI : IUserInterface
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -20,15 +23,15 @@ namespace SolStandard.Containers
 
         public Window TurnWindow { get; set; }
         public Window InitiativeWindow { get; set; }
-        public Window TerrainWindow { get; set; }
+        public Window TerrainEntityWindow { get; set; }
         public Window HelpTextWindow { get; set; }
 
-        public List<Window> ExtraWindows { get; set; }
-
-        public WindowLayer(Vector2 screenSize)
+        private bool visible;
+        
+        public MapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            ExtraWindows = new List<Window>();
+            visible = true;
         }
 
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
@@ -87,64 +90,67 @@ namespace SolStandard.Containers
             return new Vector2(WindowEdgeBuffer);
         }
 
+        public void ToggleVisible()
+        {
+            visible = !visible;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Window window in ExtraWindows)
-            {
-                //TODO Figure out where to draw these
-                window.Draw(spriteBatch, new Vector2(0));
-            }
-
+            if (!visible) return;
+            
             //TODO Turn this off eventually or add a debug mode flag
-            DebugWindow.Draw(spriteBatch, new Vector2(0));
+            if (DebugWindow != null)
+            {
+                DebugWindow.Draw(spriteBatch, new Vector2(0));
+            }
 
             if (HelpTextWindow != null)
             {
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
             }
 
-            if (TerrainWindow != null)
+            if (TerrainEntityWindow != null)
             {
-                TerrainWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainWindow.GetWidth()));
+                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainEntityWindow.Width));
             }
 
             if (TurnWindow != null)
             {
-                TurnWindow.Draw(spriteBatch, TurnWindowPosition(TurnWindow.GetHeight()));
+                TurnWindow.Draw(spriteBatch, TurnWindowPosition(TurnWindow.Height));
             }
 
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch,
-                    InitiativeWindowPosition(InitiativeWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                    InitiativeWindowPosition(InitiativeWindow.Width, InitiativeWindow.Height));
 
                 if (LeftUnitPortraitWindow != null)
                 {
                     LeftUnitPortraitWindow.Draw(spriteBatch,
-                        LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.GetHeight(),
-                            InitiativeWindow.GetHeight()));
+                        LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.Height,
+                            InitiativeWindow.Height));
 
                     if (LeftUnitDetailWindow != null)
                     {
                         LeftUnitDetailWindow.Draw(spriteBatch,
-                            LeftUnitDetailWindowPosition(LeftUnitDetailWindow.GetHeight(),
-                                LeftUnitPortraitWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                            LeftUnitDetailWindowPosition(LeftUnitDetailWindow.Height,
+                                LeftUnitPortraitWindow.Width, InitiativeWindow.Height));
                     }
                 }
 
                 if (RightUnitPortraitWindow != null)
                 {
                     RightUnitPortraitWindow.Draw(spriteBatch,
-                        RightUnitPortraitWindowPosition(RightUnitPortraitWindow.GetHeight(),
-                            RightUnitPortraitWindow.GetWidth(), InitiativeWindow.GetHeight()));
+                        RightUnitPortraitWindowPosition(RightUnitPortraitWindow.Height,
+                            RightUnitPortraitWindow.Width, InitiativeWindow.Height));
 
                     if (RightUnitDetailWindow != null)
                     {
                         RightUnitDetailWindow.Draw(spriteBatch,
-                            RightUnitDetailWindowPosition(RightUnitDetailWindow.GetHeight(),
-                                RightUnitDetailWindow.GetWidth(), RightUnitPortraitWindow.GetWidth(),
-                                InitiativeWindow.GetHeight()));
+                            RightUnitDetailWindowPosition(RightUnitDetailWindow.Height,
+                                RightUnitDetailWindow.Width, RightUnitPortraitWindow.Width,
+                                InitiativeWindow.Height));
                     }
                 }
             }

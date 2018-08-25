@@ -9,31 +9,29 @@ namespace SolStandard.HUD.Window
     {
         private readonly int cellSize;
         private readonly int cellIndex;
-        private readonly Color color;
         private readonly Vector2 coordinates;
 
-        public WindowCell(int cellSize, int cellIndex, Color color, Vector2 coordinates)
+        public WindowCell(int cellSize, int cellIndex, Vector2 coordinates)
         {
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
-            this.color = color;
             this.coordinates = coordinates;
         }
-        
-        public int GetHeight()
+
+        public int Height
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return cellSize;
+            get { return cellSize; }
         }
 
         private Rectangle RenderCell(ref ITexture2D image)
         {
-            int columns = image.GetWidth() / cellSize;
-            int rows = image.GetHeight() / cellSize;
+            int columns = image.Width / cellSize;
+            int rows = image.Height / cellSize;
 
             int cellSearcher = 0;
 
@@ -64,11 +62,12 @@ namespace SolStandard.HUD.Window
         {
             return "WindowCell: <CellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
-        
-        public void Draw(SpriteBatch spriteBatch, ref ITexture2D image, Vector2 offset)
+
+        public void Draw(SpriteBatch spriteBatch, ref ITexture2D image, Vector2 offset, Color color)
         {
             Vector2 relativePosition = new Vector2(coordinates.X + offset.X, coordinates.Y + offset.Y);
-            spriteBatch.Draw(image.GetTexture2D(), DrawRectangle((int) relativePosition.X, (int) relativePosition.Y), RenderCell(ref image),
+            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) relativePosition.X, (int) relativePosition.Y),
+                RenderCell(ref image),
                 color);
         }
     }

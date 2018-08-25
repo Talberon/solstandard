@@ -2,18 +2,10 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
-namespace SolStandard.Map.Objects.Cursor
+namespace SolStandard.Map.Elements.Cursor
 {
-    public class MapCursor : MapObject
+    public class MapCursor : MapElement
     {
-        public enum CursorDirection
-        {
-            Up,
-            Right,
-            Down,
-            Left
-        }
-
         private readonly Vector2 mapSize;
 
         public MapCursor(IRenderable sprite, Vector2 mapCoordinates, Vector2 mapSize)
@@ -23,21 +15,21 @@ namespace SolStandard.Map.Objects.Cursor
             this.mapSize = mapSize;
         }
 
-        public void MoveCursorInDirection(CursorDirection direction)
+        public void MoveCursorInDirection(Direction direction)
         {
             switch (direction)
             {
-                case CursorDirection.Down:
-                    MapCoordinates.Y++;
+                case Direction.Down:
+                    MapCoordinates = new Vector2(MapCoordinates.X, MapCoordinates.Y + 1);
                     break;
-                case CursorDirection.Right:
-                    MapCoordinates.X++;
+                case Direction.Right:
+                    MapCoordinates = new Vector2(MapCoordinates.X + 1, MapCoordinates.Y);
                     break;
-                case CursorDirection.Up:
-                    MapCoordinates.Y--;
+                case Direction.Up:
+                    MapCoordinates = new Vector2(MapCoordinates.X, MapCoordinates.Y - 1);
                     break;
-                case CursorDirection.Left:
-                    MapCoordinates.X--;
+                case Direction.Left:
+                    MapCoordinates = new Vector2(MapCoordinates.X - 1, MapCoordinates.Y);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -46,31 +38,26 @@ namespace SolStandard.Map.Objects.Cursor
             PreventCursorLeavingMapBounds();
         }
 
-        public Vector2 GetMapCoordinates()
-        {
-            return MapCoordinates;
-        }
-
         private void PreventCursorLeavingMapBounds()
         {
             if (MapCoordinates.X < 0)
             {
-                MapCoordinates.X = 0;
+                MapCoordinates = new Vector2(0, MapCoordinates.Y);
             }
 
             if (MapCoordinates.X >= mapSize.X)
             {
-                MapCoordinates.X = mapSize.X - 1;
+                MapCoordinates = new Vector2(mapSize.X - 1, MapCoordinates.Y);
             }
 
             if (MapCoordinates.Y < 0)
             {
-                MapCoordinates.Y = 0;
+                MapCoordinates = new Vector2(MapCoordinates.X, 0);
             }
 
             if (MapCoordinates.Y >= mapSize.Y)
             {
-                MapCoordinates.Y = mapSize.Y - 1;
+                MapCoordinates = new Vector2(MapCoordinates.X, mapSize.Y - 1);
             }
         }
 

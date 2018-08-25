@@ -12,29 +12,29 @@ namespace SolStandard.Utility.Monogame
             this.texture = texture;
         }
 
-        public Rectangle GetBounds()
+        public Rectangle Bounds
         {
-            return texture.Bounds;
+            get { return texture.Bounds; }
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return texture.Width;
+            get { return texture.Width; }
         }
 
-        public int GetHeight()
+        public int Height
         {
-            return texture.Height;
+            get { return texture.Height; }
         }
 
-        public string GetName()
+        public string Name
         {
-            return texture.Name;
+            get { return texture.Name; }
         }
 
-        public Texture2D GetTexture2D()
+        public Texture2D MonoGameTexture
         {
-            return texture;
+            get { return texture; }
         }
     }
 }

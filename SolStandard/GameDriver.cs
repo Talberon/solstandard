@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window;
-using SolStandard.HUD.Window.Content;
-using SolStandard.Logic;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
-using SolStandard.Map.Objects;
-using SolStandard.Map.Objects.Cursor;
-using SolStandard.Utility;
+using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
+using SolStandard.Rules;
+using SolStandard.Rules.Controls;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
@@ -39,15 +38,18 @@ namespace SolStandard
 
         private GameContainer container;
 
-        private ITexture2D terrainTextures;
-        private List<ITexture2D> unitSprites;
-        private List<ITexture2D> guiTextures;
-        private List<ITexture2D> windowTextures;
-        private List<ITexture2D> largePortraitTextures;
-        private List<ITexture2D> mediumPortraitTextures;
-        private List<ITexture2D> smallPortraitTextures;
-        private ISpriteFont windowFont;
+        private static ITexture2D TerrainTextures { get; set; }
+        private static List<ITexture2D> UnitSprites { get; set; }
+        private static List<ITexture2D> GuiTextures { get; set; }
+        private static List<ITexture2D> WindowTextures { get; set; }
+        private static List<ITexture2D> LargePortraitTextures { get; set; }
+        private static List<ITexture2D> MediumPortraitTextures { get; set; }
+        private static List<ITexture2D> SmallPortraitTextures { get; set; }
+        public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont MapFont { get; private set; }
         private MapCamera mapCamera;
+
+        private MapHudGenerator mapHudGenerator;
 
         public GameDriver()
         {
@@ -78,23 +80,27 @@ namespace SolStandard
                     "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, terrainTextures, unitSprites, objectTypeDefaults);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(10);
             mapCamera.SetCameraZoom(1.8f);
 
-            ITexture2D cursorTexture = guiTextures.Find(texture => texture.GetTexture2D().Name.Contains("Cursor"));
+            ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
             MapLayer gameMap = new MapLayer(mapParser.LoadMapGrid(), cursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
-                (MapEntity[,]) gameMap.GetGameGrid()[(int) Layer.Units],
-                largePortraitTextures, mediumPortraitTextures, smallPortraitTextures);
+                (MapEntity[,]) gameMap.GameGrid[(int) Layer.Units], LargePortraitTextures, MediumPortraitTextures,
+                SmallPortraitTextures);
 
 
-            container = new GameContainer(gameMap,
-                new WindowLayer(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
+            container = new GameContainer(new MapContext(gameMap),
+                new MapUI(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
                 unitsFromMap);
+
+            ITexture2D windowTexture =
+                WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+            mapHudGenerator = new MapHudGenerator(WindowFont, windowTexture);
         }
 
         /// <summary>
@@ -105,14 +111,15 @@ namespace SolStandard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            terrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
-            unitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
-            guiTextures = ContentLoader.LoadCursorTextures(Content);
-            windowTextures = ContentLoader.LoadWindowTextures(Content);
-            windowFont = ContentLoader.LoadWindowFont(Content);
-            largePortraitTextures = ContentLoader.LoadLargePortraits(Content);
-            mediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
-            smallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
+            TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
+            GuiTextures = ContentLoader.LoadCursorTextures(Content);
+            WindowTextures = ContentLoader.LoadWindowTextures(Content);
+            WindowFont = ContentLoader.LoadWindowFont(Content);
+            MapFont = ContentLoader.LoadMapFont(Content);
+            LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
+            MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
+            SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
         }
 
         /// <summary>
@@ -136,231 +143,35 @@ namespace SolStandard
                 Exit();
             }
 
-            if (controlMapper.Start())
-            {
-                mapCamera.SetTargetCameraPosition(new Vector2(0));
-            }
+            //TODO Introduce enum to represent game state before choosing which Control set to listen for
+            MapSceneControls.ListenForInputs(container.MapContext, controlMapper, mapCamera, container.MapContext.MapLayer.MapCursor,
+                container.MapUI, container.MapContext.MapLayer.GetMapSliceAtCursor(), container.Units, TerrainTextures, MapFont);
 
-            if (controlMapper.Down())
-            {
-                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Down));
-            }
-
-            if (controlMapper.Left())
-            {
-                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Left));
-            }
-
-            if (controlMapper.Right())
-            {
-                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Right));
-            }
-
-            if (controlMapper.Up())
-            {
-                container.GetMapLayer().GetMapCursor().MoveCursorInDirection((MapCursor.CursorDirection.Up));
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                mapCamera.MoveCameraInDirection(CameraDirection.Down);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                mapCamera.MoveCameraInDirection(CameraDirection.Left);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                mapCamera.MoveCameraInDirection(CameraDirection.Right);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                mapCamera.MoveCameraInDirection(CameraDirection.Up);
-            }
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 mapSize = container.GetMapLayer().MapSize();
-            mapCamera.CorrectCameraToCursor(container.GetMapLayer().GetMapCursor(), screenSize, mapSize);
+            Vector2 mapSize = container.MapContext.MapLayer.MapGridSize;
+            mapCamera.CorrectCameraToCursor(container.MapContext.MapLayer.MapCursor, screenSize, mapSize);
             mapCamera.PanCameraToTarget();
 
 
-            {
-                //TODO move to its own method :: Selected Unit Windows
-                ITexture2D windowTexture =
-                    windowTextures.Find(texture => texture.GetTexture2D().Name.Contains("LightWindow"));
+            //Map Cursor Hover Logic
+            MapSlice hoverTiles = container.MapContext.MapLayer.GetMapSliceAtCursor();
+            MapCursorHover.Hover(container.MapContext.CurrentTurnState, container.MapUI, hoverTiles, container.Units, mapHudGenerator);
 
-                GameUnit selectedUnit = UnitSelector.SelectUnit(container.GetUnits(),
-                    (MapEntity[,]) container.GetMapLayer().GetGameGrid()[(int) Layer.Units],
-                    container.GetMapLayer().GetMapCursor().GetMapCoordinates());
+            //Initiative Window
+            container.MapUI.InitiativeWindow =
+                mapHudGenerator.GenerateInitiativeWindow(container.Units);
 
-                if (selectedUnit != null)
-                {
-                    //Create Unit Window Content
-                    IRenderable selectedUnitPortrait = new WindowContent(new TileCell(selectedUnit.LargePortrait,
-                        selectedUnit.LargePortrait.GetHeight(), 1));
-
-                    IRenderable selectedUnitInfo =
-                        new RenderText(windowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
+            //Turn Window
+            Vector2 turnWindowSize = new Vector2(265, container.MapUI.InitiativeWindow.Height);
+            container.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
 
 
-                    string windowLabel = "Selected Unit: " + selectedUnit.Id;
+            //Help Window TODO make this context-sensitive
+            string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
+                              + "\nAdditional information will appear here to help you play the game.";
 
-
-                    bool windowExists = false;
-                    foreach (Window window in container.GetWindowLayer().ExtraWindows)
-                    {
-                        if (window.WindowLabel.Equals(windowLabel))
-                        {
-                            windowExists = true;
-                        }
-                    }
-
-                    if (!windowExists)
-                    {
-                        Color windowColour = Color.Gray;
-
-                        if (selectedUnit.UnitTeam == Team.Blue)
-                        {
-                            windowColour = new Color(75, 75, 150, 200);
-                        }
-                        else if (selectedUnit.UnitTeam == Team.Red)
-                        {
-                            windowColour = new Color(150, 75, 75, 200);
-                        }
-
-                        container.GetWindowLayer().LeftUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitPortrait, windowColour);
-                        container.GetWindowLayer().RightUnitPortraitWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitPortrait, windowColour);
-
-                        container.GetWindowLayer().LeftUnitDetailWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitInfo, windowColour);
-                        container.GetWindowLayer().RightUnitDetailWindow = new Window(windowLabel, windowTexture,
-                            selectedUnitInfo, windowColour);
-                    }
-                }
-                else
-                {
-                    container.GetWindowLayer().LeftUnitPortraitWindow = null;
-                    container.GetWindowLayer().RightUnitPortraitWindow = null;
-                }
-
-                container.GetWindowLayer().DebugWindow = new Window("Debug", windowTexture,
-                    new RenderText(windowFont, string.Join(",", container.GetWindowLayer().ExtraWindows)),
-                    new Color(0, 100, 0, 200));
-
-
-                {
-                    //TODO move to its own method :: Initiative Window
-                    const int maxInitiativeSize = 10;
-                    int initiativeListLength = (container.GetUnits().Count > maxInitiativeSize)
-                        ? maxInitiativeSize
-                        : container.GetUnits().Count;
-
-                    IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
-
-
-                    for (int i = 0; i < unitListGrid.GetLength(1); i++)
-                    {
-                        IRenderable unitPortraitWindow = new WindowContent(
-                            new TileCell(
-                                container.GetUnits()[i].MediumPortrait,
-                                container.GetUnits()[i].MediumPortrait.GetHeight(), 1
-                            )
-                        );
-                        unitListGrid[0, i] = unitPortraitWindow;
-                    }
-
-                    WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
-
-                    container.GetWindowLayer().InitiativeWindow =
-                        new Window("Initiative", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225));
-                }
-
-                {
-                    //TODO move to its own method :: Turn Window
-                    WindowContentGrid unitListContentGrid = new WindowContentGrid(
-                        new IRenderable[,]
-                        {
-                            {
-                                new RenderText(windowFont,
-                                    "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
-                            },
-                            {
-                                new RenderText(windowFont,
-                                    "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
-                            },
-                            {
-                                new RenderText(windowFont,
-                                    "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
-                            }
-                        },
-                        1);
-
-                    container.GetWindowLayer().TurnWindow =
-                        new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225),
-                            new Vector2(265, container.GetWindowLayer().InitiativeWindow.GetHeight()));
-                }
-
-                {
-                    //TODO move to its own method :: Terrain Window
-                    Vector2 cursorCoordinates = container.GetMapLayer().GetMapCursor().GetMapCoordinates();
-                    MapEntity selectedTerrain =
-                        (MapEntity) container.GetMapLayer().GetGameGrid()[(int) Layer.Entities][
-                            (int) cursorCoordinates.X, (int) cursorCoordinates.Y];
-
-                    WindowContentGrid terrainContentGrid;
-
-                    if (selectedTerrain != null)
-                    {
-                        IRenderable terrainSprite = selectedTerrain.GetSprite();
-
-                        string terrainInfo = "Terrain: " + selectedTerrain.Name
-                                                         + "\n"
-                                                         + "Type: " + selectedTerrain.Type
-                                                         + "\n"
-                                                         + "Properties:\n" + string.Join("\n",
-                                                             selectedTerrain.TiledProperties);
-
-                        terrainContentGrid = new WindowContentGrid(
-                            new[,]
-                            {
-                                {
-                                    terrainSprite,
-                                    new RenderText(windowFont, terrainInfo)
-                                }
-                            },
-                            1);
-                    }
-                    else
-                    {
-                        terrainContentGrid = new WindowContentGrid(
-                            new IRenderable[,]
-                            {
-                                {
-                                    new RenderText(windowFont, "None ")
-                                }
-                            },
-                            1);
-                    }
-
-                    container.GetWindowLayer().TerrainWindow =
-                        new Window("Terrain Info", windowTexture, terrainContentGrid, new Color(100, 150, 100, 220));
-                }
-
-                {
-                    //TODO move to its own method :: Help Text Window
-
-                    IRenderable helpText = new RenderText(windowFont,
-                        "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
-                        + "\nAdditional information will appear here to help you play the game.");
-                    container.GetWindowLayer().HelpTextWindow =
-                        new Window("Help Text", windowTexture, helpText, new Color(30, 30, 30, 150));
-                }
-            }
+            container.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
 
 
             base.Update(gameTime);
@@ -375,8 +186,9 @@ namespace SolStandard
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, mapCamera.GetCameraMatrix());
-            container.GetMapLayer().Draw(spriteBatch);
+                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+            container.MapContext.MapLayer.Draw(spriteBatch);
+            
             base.Draw(gameTime);
             spriteBatch.End();
 
@@ -384,7 +196,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            container.GetWindowLayer().Draw(spriteBatch);
+            container.MapUI.Draw(spriteBatch);
             spriteBatch.End();
         }
     }
