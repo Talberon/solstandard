@@ -15,7 +15,7 @@ namespace SolStandard.Containers.Contexts
             SelectUnit,
             UnitMoving,
             UnitDecidingAction,
-            UnitTargetting,
+            UnitTargeting,
             UnitActing,
             UnitFinishedActing,
             ResolvingTurn
@@ -93,6 +93,7 @@ namespace SolStandard.Containers.Contexts
             return MapLayer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
         
+        
         public bool OtherUnitExistsAtCursor()
         {
             return OtherUnitExistsAtCoordinates(mapLayer.MapCursor.MapCoordinates);
@@ -108,6 +109,7 @@ namespace SolStandard.Containers.Contexts
             return MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] != null;
         }
 
+        
         public void MoveUnitOnMapGrid()
         {
             MapLayer.GameGrid[(int) Layer.Units][(int) selectedUnitOriginalPosition.X,
@@ -121,6 +123,11 @@ namespace SolStandard.Containers.Contexts
             SelectedUnit.MapEntity.MapCoordinates = selectedUnitOriginalPosition;
             mapLayer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
-        
+
+
+        public void GenerateTargetingGrid(Vector2 origin, int[] range, TextureCell textureCell)
+        {
+            //TODO implement me
+        }
     }
 }

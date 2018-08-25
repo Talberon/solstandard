@@ -36,13 +36,11 @@ namespace SolStandard.Rules.Controls
 
                 if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
                 {
-                    //TODO Restrict movement to move grid
                     mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
-                    //TODO Move the unit with the cursor
                     return;
                 }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
                 {
                     mapCursor.MoveCursorInDirection((Direction.Down));
                     return;
@@ -59,13 +57,11 @@ namespace SolStandard.Rules.Controls
 
                 if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
                 {
-                    //TODO Restrict movement to move grid
                     mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
-                    //TODO Move the unit with the cursor
                     return;
                 }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
                 {
                     mapCursor.MoveCursorInDirection((Direction.Left));
                     return;
@@ -82,13 +78,11 @@ namespace SolStandard.Rules.Controls
 
                 if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
                 {
-                    //TODO Restrict movement to move grid
                     mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
-                    //TODO Move the unit with the cursor
                     return;
                 }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
                 {
                     mapCursor.MoveCursorInDirection((Direction.Right));
                     return;
@@ -105,13 +99,11 @@ namespace SolStandard.Rules.Controls
 
                 if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
                 {
-                    //TODO Restrict movement to move grid
                     mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
-                    //TODO Move the unit with the cursor
                     return;
                 }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
                 {
                     mapCursor.MoveCursorInDirection((Direction.Up));
                     return;
@@ -171,7 +163,7 @@ namespace SolStandard.Rules.Controls
                     return;
                 }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargetting)
+                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
                 {
                     mapContext.ProceedToNextState();
                     return;
