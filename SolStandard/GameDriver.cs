@@ -38,7 +38,7 @@ namespace SolStandard
 
         private GameContainer container;
 
-        private static ITexture2D TerrainTextures { get; set; }
+        public static ITexture2D TerrainTextures { get; private set; }
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
         private static List<ITexture2D> WindowTextures { get; set; }
@@ -145,7 +145,7 @@ namespace SolStandard
 
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
             MapSceneControls.ListenForInputs(container.MapContext, controlMapper, mapCamera, container.MapContext.MapLayer.MapCursor,
-                container.MapUI, container.MapContext.MapLayer.GetMapSliceAtCursor(), container.Units, TerrainTextures, MapFont);
+                container.MapUI, container.Units);
 
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);

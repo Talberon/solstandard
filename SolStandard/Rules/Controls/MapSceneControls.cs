@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +20,7 @@ namespace SolStandard.Rules.Controls
     {
         public static void ListenForInputs(MapContext mapContext, GameControlMapper controlMapper, MapCamera mapCamera,
             MapCursor mapCursor,
-            MapUI mapUi, MapSlice mapSlice, List<GameUnit> units, ITexture2D terrainTextures, ISpriteFont mapFont)
+            MapUI mapUi, IEnumerable<GameUnit> units)
         {
             if (controlMapper.Start())
             {
@@ -28,85 +29,65 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Down())
             {
-                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                switch (mapContext.CurrentTurnState)
                 {
-                    mapCursor.MoveCursorInDirection((Direction.Down));
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
-                {
-                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
-                {
-                    mapCursor.MoveCursorInDirection((Direction.Down));
-                    return;
+                    case MapContext.TurnState.SelectUnit:
+                        mapCursor.MoveCursorInDirection((Direction.Down));
+                        return;
+                    case MapContext.TurnState.UnitMoving:
+                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+                        return;
+                    case MapContext.TurnState.UnitTargeting:
+                        mapCursor.MoveCursorInDirection((Direction.Down));
+                        return;
                 }
             }
 
             if (controlMapper.Left())
             {
-                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                switch (mapContext.CurrentTurnState)
                 {
-                    mapCursor.MoveCursorInDirection((Direction.Left));
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
-                {
-                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
-                {
-                    mapCursor.MoveCursorInDirection((Direction.Left));
-                    return;
+                    case MapContext.TurnState.SelectUnit:
+                        mapCursor.MoveCursorInDirection((Direction.Left));
+                        return;
+                    case MapContext.TurnState.UnitMoving:
+                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+                        return;
+                    case MapContext.TurnState.UnitTargeting:
+                        mapCursor.MoveCursorInDirection((Direction.Left));
+                        return;
                 }
             }
 
             if (controlMapper.Right())
             {
-                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                switch (mapContext.CurrentTurnState)
                 {
-                    mapCursor.MoveCursorInDirection((Direction.Right));
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
-                {
-                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
-                {
-                    mapCursor.MoveCursorInDirection((Direction.Right));
-                    return;
+                    case MapContext.TurnState.SelectUnit:
+                        mapCursor.MoveCursorInDirection((Direction.Right));
+                        return;
+                    case MapContext.TurnState.UnitMoving:
+                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+                        return;
+                    case MapContext.TurnState.UnitTargeting:
+                        mapCursor.MoveCursorInDirection((Direction.Right));
+                        return;
                 }
             }
 
             if (controlMapper.Up())
             {
-                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                switch (mapContext.CurrentTurnState)
                 {
-                    mapCursor.MoveCursorInDirection((Direction.Up));
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
-                {
-                    mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
-                    return;
-                }
-
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
-                {
-                    mapCursor.MoveCursorInDirection((Direction.Up));
-                    return;
+                    case MapContext.TurnState.SelectUnit:
+                        mapCursor.MoveCursorInDirection((Direction.Up));
+                        return;
+                    case MapContext.TurnState.UnitMoving:
+                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+                        return;
+                    case MapContext.TurnState.UnitTargeting:
+                        mapCursor.MoveCursorInDirection((Direction.Up));
+                        return;
                 }
             }
 
@@ -114,77 +95,83 @@ namespace SolStandard.Rules.Controls
             {
                 Trace.WriteLine("Current Turn State: " + mapContext.CurrentTurnState);
 
-                //TODO If the cursor is currently hovering over a VALID unit.
-                //TODO A VALID unit is a unit that is first in the initiative list 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.SelectUnit)
+                switch (mapContext.CurrentTurnState)
                 {
-                    //Select the unit. Store it somewhere.
-                    mapContext.SelectedUnit = UnitSelector.SelectUnit(units, mapSlice.UnitEntity);
+                    //TODO If the cursor is currently hovering over a VALID unit.
+                    //TODO A VALID unit is a unit that is first in the initiative list 
+                    case MapContext.TurnState.SelectUnit:
+                        //Select the unit. Store it somewhere.
 
-                    if (mapContext.SelectedUnit != null)
-                    {
-                        Trace.WriteLine("Selecting unit: " + mapContext.SelectedUnit.UnitTeam + " " +
-                                        mapContext.SelectedUnit.UnitJobClass);
-                        mapContext.ProceedToNextState();
-                        mapContext.GenerateMoveGrid(mapContext.MapLayer.MapCursor.MapCoordinates,
-                            mapContext.SelectedUnit.Stats.MaxMv,
-                            new TextureCell(new Texture2DWrapper(terrainTextures.MonoGameTexture), GameDriver.CellSize,
-                                69));
+                        mapContext.SelectedUnit =
+                            UnitSelector.SelectUnit(units, mapContext.MapLayer.GetMapSliceAtCursor().UnitEntity);
 
-                        //TODO Remember where the unit originated
-                        //TODO Allow the unit to move within the movement grid
-                        //TODO Set the current GameState to UNIT_MOVEMENT
-                        //TODO On a B-press, remove the movement grid and return the unit to its original position; revert the GameState.
-                        //TODO On a second A-press, remove the movement grid and prevent unit from moving again.
-                    }
-                    else
-                    {
-                        Trace.WriteLine("No unit to select.");
-                    }
+                        if (mapContext.SelectedUnit != null)
+                        {
+                            Trace.WriteLine("Selecting unit: " + mapContext.SelectedUnit.UnitTeam + " " +
+                                            mapContext.SelectedUnit.UnitJobClass);
+                            mapContext.ProceedToNextState();
+                            mapContext.GenerateMoveGrid(mapContext.MapLayer.MapCursor.MapCoordinates,
+                                mapContext.SelectedUnit.Stats.MaxMv,
+                                new TextureCell(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
+                                    GameDriver.CellSize,
+                                    69));
 
-                    return;
-                }
+                            //TODO Remember where the unit originated
+                            //TODO Allow the unit to move within the movement grid
+                            //TODO Set the current GameState to UNIT_MOVEMENT
+                            //TODO On a B-press, remove the movement grid and return the unit to its original position; revert the GameState.
+                            //TODO On a second A-press, remove the movement grid and prevent unit from moving again.
+                        }
+                        else
+                        {
+                            Trace.WriteLine("No unit to select.");
+                        }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
-                {
-                    if (!mapContext.OtherUnitExistsAtCursor())
-                    {
+                        return;
+
+                    case MapContext.TurnState.UnitMoving:
+                        if (mapContext.OtherUnitExistsAtCursor()) return;
                         mapContext.MapLayer.ClearDynamicGrid();
                         mapContext.MoveUnitOnMapGrid();
+
+                        //TODO Open the menu
                         mapContext.ProceedToNextState();
-                    }
+                        return;
 
-                    return;
-                }
+                    case MapContext.TurnState.UnitDecidingAction:
+                        //TODO Select option in the menu
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitDecidingAction)
-                {
-                    mapContext.ProceedToNextState();
-                    return;
-                }
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitTargeting)
-                {
-                    mapContext.ProceedToNextState();
-                    return;
-                }
+                        //Open the targeting grid
+                        mapContext.SelectedUnit =
+                            UnitSelector.SelectUnit(units, mapContext.MapLayer.GetMapSliceAtCursor().UnitEntity);
+                        mapContext.GenerateTargetingGridAtUnit(new TextureCell(
+                            new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
+                        mapContext.ProceedToNextState();
+                        return;
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
-                {
-                    mapContext.ProceedToNextState();
-                    return;
-                }
+                    case MapContext.TurnState.UnitTargeting:
+                        //TODO Start Combat
+                        mapContext.MapLayer.ClearDynamicGrid();
+                        mapContext.ProceedToNextState();
+                        return;
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.UnitFinishedActing)
-                {
-                    mapContext.ProceedToNextState();
-                    return;
-                }
+                    case MapContext.TurnState.UnitActing:
+                        //TODO Resolve Combat
+                        mapContext.ProceedToNextState();
+                        return;
 
-                if (mapContext.CurrentTurnState == MapContext.TurnState.ResolvingTurn)
-                {
-                    mapContext.ProceedToNextState();
-                    return;
+                    case MapContext.TurnState.UnitFinishedActing:
+                        //TODO Resolve any additional actions
+                        mapContext.ProceedToNextState();
+                        return;
+
+                    case MapContext.TurnState.ResolvingTurn:
+                        //TODO Do various turn check resolution (win state, etc.)
+                        mapContext.ProceedToNextState();
+                        return;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -192,7 +179,6 @@ namespace SolStandard.Rules.Controls
             {
                 mapUi.ToggleVisible();
             }
-
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

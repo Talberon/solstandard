@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
@@ -71,7 +72,7 @@ namespace SolStandard.Containers.Contexts
         private bool TargetTileHasADynamicTile(Direction direction)
         {
             Vector2 targetPosition = MapLayer.MapCursor.MapCoordinates;
-            
+
             switch (direction)
             {
                 case Direction.Down:
@@ -92,24 +93,25 @@ namespace SolStandard.Containers.Contexts
 
             return MapLayer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
-        
-        
+
+
         public bool OtherUnitExistsAtCursor()
         {
             return OtherUnitExistsAtCoordinates(mapLayer.MapCursor.MapCoordinates);
         }
-        
+
         public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
         {
-            if (MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] == SelectedUnit.MapEntity)
+            if (MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] ==
+                SelectedUnit.MapEntity)
             {
                 return false;
             }
-            
+
             return MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] != null;
         }
 
-        
+
         public void MoveUnitOnMapGrid()
         {
             MapLayer.GameGrid[(int) Layer.Units][(int) selectedUnitOriginalPosition.X,
@@ -124,10 +126,17 @@ namespace SolStandard.Containers.Contexts
             mapLayer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
-
-        public void GenerateTargetingGrid(Vector2 origin, int[] range, TextureCell textureCell)
+        public void GenerateTargetingGridAtUnit(TextureCell textureCell)
         {
-            //TODO implement me
+            selectedUnitOriginalPosition = SelectedUnit.MapEntity.MapCoordinates;
+            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.Rng, textureCell);
+        }
+
+        public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, TextureCell textureCell)
+        {
+            selectedUnitOriginalPosition = origin;
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(mapLayer, textureCell);
+            unitTargetingContext.GenerateTargetingGrid(origin, range);
         }
     }
 }
