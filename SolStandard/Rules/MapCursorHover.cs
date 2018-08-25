@@ -9,24 +9,23 @@ namespace SolStandard.Rules
 {
     public static class MapCursorHover
     {
-        //FIXME TODO Figure out some way to reduce the number of necessary parameters here
         public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles, List<GameUnit> units,
-            MapStaticHud mapStaticHud)
+            MapHudGenerator mapHudGenerator)
         {
-            GameUnit selectedMapUnit = UnitSelector.SelectUnit(units, hoverTiles.UnitEntity);
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(units, hoverTiles.UnitEntity);
 
             
             if (turnState != MapContext.TurnState.SelectUnit)
             {
                 //SecondUnit Window
-                mapUi.RightUnitPortraitWindow = mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
-                mapUi.RightUnitDetailWindow = mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
+                mapUi.RightUnitPortraitWindow = mapHudGenerator.GenerateUnitPortraitWindow(hoverMapUnit);
+                mapUi.RightUnitDetailWindow = mapHudGenerator.GenerateUnitDetailWindow(hoverMapUnit);
             }
             else
             {
                 //FirstUnit Window
-                mapUi.LeftUnitPortraitWindow = mapStaticHud.GenerateUnitPortraitWindow(selectedMapUnit);
-                mapUi.LeftUnitDetailWindow = mapStaticHud.GenerateUnitDetailWindow(selectedMapUnit);
+                mapUi.LeftUnitPortraitWindow = mapHudGenerator.GenerateUnitPortraitWindow(hoverMapUnit);
+                mapUi.LeftUnitDetailWindow = mapHudGenerator.GenerateUnitDetailWindow(hoverMapUnit);
                 
                 //SecondUnit Window
                 mapUi.RightUnitPortraitWindow = null;
@@ -34,7 +33,7 @@ namespace SolStandard.Rules
             }
 
             //Terrain (Entity) Window
-            mapUi.TerrainEntityWindow = mapStaticHud.GenerateTerrainWindow(hoverTiles.GeneralEntity);
+            mapUi.TerrainEntityWindow = mapHudGenerator.GenerateTerrainWindow(hoverTiles.GeneralEntity);
         }
     }
 }

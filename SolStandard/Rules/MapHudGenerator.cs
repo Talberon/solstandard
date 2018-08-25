@@ -9,12 +9,12 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Rules
 {
-    public class MapStaticHud
+    public class MapHudGenerator
     {
         private readonly ISpriteFont windowFont;
         private readonly ITexture2D windowTexture;
 
-        public MapStaticHud(ISpriteFont windowFont, ITexture2D windowTexture)
+        public MapHudGenerator(ISpriteFont windowFont, ITexture2D windowTexture)
         {
             this.windowFont = windowFont;
             this.windowTexture = windowTexture;

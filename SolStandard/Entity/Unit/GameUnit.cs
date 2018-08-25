@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -74,7 +73,6 @@ namespace SolStandard.Entity.Unit
         
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
-            //FIXME Figure out how to make sure that this movement is reflected on the GameGrid after confirming position.
             switch (direction)
             {
                 case Direction.Down:

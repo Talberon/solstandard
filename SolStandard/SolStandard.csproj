@@ -75,7 +75,7 @@
     <Compile Include="Rules\Controls\MapSceneControls.cs" />
     <Compile Include="Rules\MapCursorHover.cs" />
     <Compile Include="Rules\MapCursorSelect.cs" />
-    <Compile Include="Rules\MapStaticHud.cs" />
+    <Compile Include="Rules\MapHudGenerator.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\BControl.cs" />

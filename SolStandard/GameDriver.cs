@@ -49,7 +49,7 @@ namespace SolStandard
         public static ISpriteFont MapFont { get; private set; }
         private MapCamera mapCamera;
 
-        private MapStaticHud mapStaticHud;
+        private MapHudGenerator mapHudGenerator;
 
         public GameDriver()
         {
@@ -100,7 +100,7 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            mapStaticHud = new MapStaticHud(WindowFont, windowTexture);
+            mapHudGenerator = new MapHudGenerator(WindowFont, windowTexture);
         }
 
         /// <summary>
@@ -156,22 +156,22 @@ namespace SolStandard
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = container.MapContext.MapLayer.GetMapSliceAtCursor();
-            MapCursorHover.Hover(container.MapContext.CurrentTurnState, container.MapUI, hoverTiles, container.Units, mapStaticHud);
+            MapCursorHover.Hover(container.MapContext.CurrentTurnState, container.MapUI, hoverTiles, container.Units, mapHudGenerator);
 
             //Initiative Window
             container.MapUI.InitiativeWindow =
-                mapStaticHud.GenerateInitiativeWindow(container.Units);
+                mapHudGenerator.GenerateInitiativeWindow(container.Units);
 
             //Turn Window
             Vector2 turnWindowSize = new Vector2(265, container.MapUI.InitiativeWindow.Height);
-            container.MapUI.TurnWindow = mapStaticHud.GenerateTurnWindow(turnWindowSize);
+            container.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
 
 
             //Help Window TODO make this context-sensitive
             string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
                               + "\nAdditional information will appear here to help you play the game.";
 
-            container.MapUI.HelpTextWindow = mapStaticHud.GenerateHelpWindow(helpText);
+            container.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
 
 
             base.Update(gameTime);
