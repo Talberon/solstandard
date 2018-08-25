@@ -70,10 +70,12 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMage"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueChampion"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMonarch"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
-                content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion")
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedMonarch")
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -92,9 +94,12 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Monarch"),
+                
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -113,9 +118,12 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Monarch"),
+                
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -134,9 +142,12 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Monarch"),
+                
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();

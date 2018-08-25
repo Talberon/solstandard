@@ -16,7 +16,7 @@ namespace SolStandard.Map.Camera
     {
         private const int HorizontalThreshold = (7 * GameDriver.CellSize);
         private const int TopThreshold = (4 * GameDriver.CellSize);
-        private const int BottomThreshold = (6 * GameDriver.CellSize);
+        private const int BottomThreshold = (7 * GameDriver.CellSize);
         private float currentZoom;
 
         private Vector2 currentCamPosition;

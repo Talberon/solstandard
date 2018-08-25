@@ -88,6 +88,8 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice slice = mapLayer.GetMapSliceAtCoordinates(coordinates);
 
+            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != selectedUnit.UnitTeam.ToString()) return false;
+            
             if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 
             if (slice.GeneralEntity != null && slice.GeneralEntity.Type != "Decoration")
@@ -97,8 +99,6 @@ namespace SolStandard.Containers.Contexts
             }
 
             if (slice.CollideTile != null) return false;
-            if (slice.UnitEntity != null &&
-                slice.UnitEntity.TiledProperties["Team"] != selectedUnit.UnitTeam.ToString()) return false;
 
             return true;
         }

@@ -155,7 +155,7 @@ namespace SolStandard.Rules.Controls
 
                 if (mapContext.CurrentTurnState == MapContext.TurnState.UnitMoving)
                 {
-                    if (!mapContext.UnitExistsAtCursor())
+                    if (!mapContext.OtherUnitExistsAtCursor())
                     {
                         mapContext.MapLayer.ClearDynamicGrid();
                         mapContext.MoveUnitOnMapGrid();

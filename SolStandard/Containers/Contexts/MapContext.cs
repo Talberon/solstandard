@@ -93,13 +93,18 @@ namespace SolStandard.Containers.Contexts
             return MapLayer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
         
-        public bool UnitExistsAtCursor()
+        public bool OtherUnitExistsAtCursor()
         {
-            return UnitExistsAtCoordinates(mapLayer.MapCursor.MapCoordinates);
+            return OtherUnitExistsAtCoordinates(mapLayer.MapCursor.MapCoordinates);
         }
         
-        public bool UnitExistsAtCoordinates(Vector2 coordinates)
+        public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
         {
+            if (MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] == SelectedUnit.MapEntity)
+            {
+                return false;
+            }
+            
             return MapLayer.GameGrid[(int) Layer.Units][(int) coordinates.X, (int) coordinates.Y] != null;
         }
 

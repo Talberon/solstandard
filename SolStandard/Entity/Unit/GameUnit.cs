@@ -10,7 +10,8 @@ namespace SolStandard.Entity.Unit
     {
         Champion,
         Archer,
-        Mage
+        Mage,
+        Monarch
     }
 
     public enum Team

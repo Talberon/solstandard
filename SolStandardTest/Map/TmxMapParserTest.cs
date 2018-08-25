@@ -27,9 +27,11 @@ namespace SolStandardTest.Map
                 "RedMage",
                 "RedArcher",
                 "RedChampion",
+                "RedMonarch",
                 "BlueMage",
                 "BlueArcher",
-                "BlueChampion"
+                "BlueChampion",
+                "BlueMonarch"
             };
 
             List<ITexture2D> unitSprites = new List<ITexture2D>();

@@ -59,6 +59,9 @@ namespace SolStandard.Entity.Unit
                     case "Mage":
                         unitClass = UnitClass.Mage;
                         break;
+                    case "Monarch":
+                        unitClass = UnitClass.Monarch;
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException("", unit.TiledProperties["Class"], null);
                 }
@@ -92,6 +95,9 @@ namespace SolStandard.Entity.Unit
                 case UnitClass.Mage:
                     unitStats = SelectMageStats(initiative);
                     break;
+                case UnitClass.Monarch:
+                    unitStats = SelectMonarchStats(initiative);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
@@ -113,6 +119,11 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectMageStats(int initiative)
         {
             return new UnitStatistics(3, 5, 1, 1, 1, 3, new[] {1, 2}, initiative);
+        }
+
+        private static UnitStatistics SelectMonarchStats(int initiative)
+        {
+            return new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, initiative);
         }
 
         private ITexture2D FindLargePortrait(string textureName)
