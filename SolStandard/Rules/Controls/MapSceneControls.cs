@@ -142,6 +142,7 @@ namespace SolStandard.Rules.Controls
                         //TODO Select option in the menu
 
 
+                        //If the selection is Basic Attack
                         //Open the targeting grid
                         mapContext.SelectedUnit =
                             UnitSelector.SelectUnit(units, mapContext.MapLayer.GetMapSliceAtCursor().UnitEntity);

@@ -20,7 +20,7 @@ namespace SolStandard.HUD.Window.Content
             get { return contentGrid; }
         }
         
-        //TODO clean this so I'm not duplicating so much of the Draw logic
+        //TODO clean this so I'm not duplicating so much of the Draw logic (maybe use Delegates)
         public Vector2 GridSizeInPixels()
         {
             float totalWidth = 0f;

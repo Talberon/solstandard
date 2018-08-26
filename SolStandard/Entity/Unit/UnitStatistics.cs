@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit
         private int sp;
         private int ap;
         private int mv;
-        private int[] rng;
+        private int[] atkRange;
         private int itv;
 
         private readonly int maxHp;
@@ -30,11 +30,11 @@ namespace SolStandard.Entity.Unit
         private readonly int maxSp;
         private readonly int maxAp;
         private readonly int maxMv;
-        private readonly int[] baseRng;
+        private readonly int[] baseAtkRange;
         private readonly int baseItv;
 
 
-        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] rng, int itv)
+        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] atkRange, int itv)
         {
             Hp = hp;
             Atk = atk;
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit
             Sp = sp;
             Ap = ap;
             Mv = mv;
-            Rng = rng;
+            AtkRange = atkRange;
             Itv = itv;
 
             maxHp = hp;
@@ -51,7 +51,7 @@ namespace SolStandard.Entity.Unit
             maxSp = sp;
             maxAp = ap;
             maxMv = mv;
-            baseRng = rng;
+            baseAtkRange = atkRange;
             baseItv = itv;
         }
 
@@ -85,9 +85,9 @@ namespace SolStandard.Entity.Unit
             get { return maxMv; }
         }
 
-        public int[] BaseRng
+        public int[] BaseAtkRange
         {
-            get { return baseRng; }
+            get { return baseAtkRange; }
         }
 
         public int Hp
@@ -126,10 +126,10 @@ namespace SolStandard.Entity.Unit
             set { mv = value; }
         }
 
-        public int[] Rng
+        public int[] AtkRange
         {
-            get { return rng; }
-            set { rng = value; }
+            get { return atkRange; }
+            set { atkRange = value; }
         }
 
         public int Itv
@@ -159,7 +159,7 @@ namespace SolStandard.Entity.Unit
             output += Environment.NewLine;
             output += "MV: " + Mv.ToString() + "/" + maxMv;
             output += Environment.NewLine;
-            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", Rng), string.Join(",", baseRng));
+            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
             output += Environment.NewLine;
             output += "ITV: " + Itv.ToString() + "/" + baseItv;
 

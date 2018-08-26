@@ -129,7 +129,7 @@ namespace SolStandard.Containers.Contexts
         public void GenerateTargetingGridAtUnit(TextureCell textureCell)
         {
             selectedUnitOriginalPosition = SelectedUnit.MapEntity.MapCoordinates;
-            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.Rng, textureCell);
+            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, textureCell);
         }
 
         public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, TextureCell textureCell)

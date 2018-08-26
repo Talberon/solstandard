@@ -18,14 +18,14 @@ namespace SolStandard.Utility
             this.cellIndex = cellIndex;
         }
 
-        private Rectangle RenderCell()
+        private Rectangle SourceRectangle()
         {
             int columns = image.Width / cellSize;
             int rows = image.Height / cellSize;
 
             int cellSearcher = 0;
 
-            //Run through the tiles in the TileSet until you hit the index of the given celll
+            //Run through the tiles in the TileSet until you hit the index of the given cell
             for (int row = 0; row < rows; row++)
             {
                 for (int col = 0; col < columns; col++)
@@ -43,7 +43,7 @@ namespace SolStandard.Utility
             throw new CellNotFoundException();
         }
 
-        private Rectangle DrawRectangle(int x, int y)
+        private Rectangle DestinationRectangle(int x, int y)
         {
             return new Rectangle(x, y, cellSize, cellSize);
         }
@@ -60,14 +60,14 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
-                Color.White);
+            spriteBatch.Draw(image.MonoGameTexture, DestinationRectangle((int) position.X, (int) position.Y),
+                SourceRectangle(), Color.White);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) position.X, (int) position.Y), RenderCell(),
-                color);
+            spriteBatch.Draw(image.MonoGameTexture, DestinationRectangle((int) position.X, (int) position.Y),
+                SourceRectangle(), color);
         }
 
         public override string ToString()
