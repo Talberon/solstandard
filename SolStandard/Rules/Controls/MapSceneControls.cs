@@ -19,8 +19,7 @@ namespace SolStandard.Rules.Controls
     public static class MapSceneControls
     {
         public static void ListenForInputs(MapContext mapContext, GameControlMapper controlMapper, MapCamera mapCamera,
-            MapCursor mapCursor,
-            MapUI mapUi, IEnumerable<GameUnit> units)
+            MapCursor mapCursor, MapUI mapUi, IEnumerable<GameUnit> units)
         {
             if (controlMapper.Start())
             {
@@ -179,6 +178,15 @@ namespace SolStandard.Rules.Controls
             if (controlMapper.LeftTrigger())
             {
                 mapUi.ToggleVisible();
+            }
+
+            if (controlMapper.RightTrigger())
+            {
+                //FIXME Remove this after debugging use is no longer needed
+                foreach (GameUnit unit in units)
+                {
+                    unit.MediumPortraitHealthBar.DealDamage(1);
+                }
             }
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging

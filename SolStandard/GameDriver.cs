@@ -39,6 +39,8 @@ namespace SolStandard
         private GameContainer container;
 
         public static ITexture2D TerrainTextures { get; private set; }
+        public static ITexture2D WhitePixel { get; private set; }
+        
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
         private static List<ITexture2D> WindowTextures { get; set; }
@@ -111,7 +113,10 @@ namespace SolStandard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            WhitePixel = ContentLoader.LoadWhitePixel(Content);
+            
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
@@ -158,6 +163,8 @@ namespace SolStandard
             MapSlice hoverTiles = container.MapContext.MapLayer.GetMapSliceAtCursor();
             MapCursorHover.Hover(container.MapContext.CurrentTurnState, container.MapUI, hoverTiles, container.Units, mapHudGenerator);
 
+            
+            
             //Initiative Window
             container.MapUI.InitiativeWindow =
                 mapHudGenerator.GenerateInitiativeWindow(container.Units);

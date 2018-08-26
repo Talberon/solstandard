@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content.HealthBar;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
@@ -28,10 +29,15 @@ namespace SolStandard.Entity.Unit
         private readonly ITexture2D mediumPortrait;
         private readonly ITexture2D smallPortrait;
 
+        //TODO Decide if this is the right place to store this healthbar or if it might deserver a better name
+        private readonly HealthBar mediumPortraitHealthBar;
+        private const int HealthBarHeight = 5;
+
         private readonly UnitStatistics stats;
 
         public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, ref MapEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, ref mapEntity)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, ITexture2D whitePixel) :
+            base(id, ref mapEntity)
         {
             this.unitTeam = unitTeam;
             this.unitJobClass = unitJobClass;
@@ -39,6 +45,8 @@ namespace SolStandard.Entity.Unit
             this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
+            mediumPortraitHealthBar = new HealthBar(whitePixel, stats.MaxHp, stats.Hp,
+                new Vector2(mediumPortrait.Width, HealthBarHeight));
         }
 
         public UnitStatistics Stats
@@ -70,7 +78,12 @@ namespace SolStandard.Entity.Unit
         {
             get { return smallPortrait; }
         }
-        
+
+        public HealthBar MediumPortraitHealthBar
+        {
+            get { return mediumPortraitHealthBar; }
+        }
+
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
             switch (direction)

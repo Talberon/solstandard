@@ -99,18 +99,23 @@ namespace SolStandard.Rules
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
-            IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+            IRenderable[,] unitListGrid = new IRenderable[2, initiativeListLength];
 
             for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
-                IRenderable unitPortraitWindow = new WindowContent(
+                IRenderable unitInfoPortrait = new WindowContent(
                     new TextureCell(
                         unitList[i].MediumPortrait,
                         unitList[i].MediumPortrait.Height,
                         1
                     )
                 );
-                unitListGrid[0, i] = unitPortraitWindow;
+                
+                IRenderable unitInfoHealthBar = new WindowContent(
+                    unitList[i].MediumPortraitHealthBar
+                );
+                unitListGrid[0, i] = unitInfoPortrait;
+                unitListGrid[1, i] = unitInfoHealthBar;
             }
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);

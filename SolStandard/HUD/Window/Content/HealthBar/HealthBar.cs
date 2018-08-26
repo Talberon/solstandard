@@ -6,6 +6,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window.Content.HealthBar
 {
+    //TODO Use this class as part of the battle UI, also the initiative list (maybe board?)
     public class HealthBar : IRenderable
     {
         private HealthPip[] pips;
@@ -15,6 +16,8 @@ namespace SolStandard.HUD.Window.Content.HealthBar
 
         private readonly int maxHp;
         private int currentHp;
+        private static readonly Color ActiveColor = new Color(0, 200, 0);
+        private static readonly Color InactiveColor = new Color(140, 20, 20, 200);
 
         public int Height { get; private set; }
         public int Width { get; private set; }
@@ -52,16 +55,16 @@ namespace SolStandard.HUD.Window.Content.HealthBar
 
             for (int i = 0; i < pips.Length; i++)
             {
-                pips[i] = new HealthPip(whitePixel, new Color(0, 200, 0), new Color(40, 40, 40, 200));
+                pips[i] = new HealthPip(whitePixel, ActiveColor, InactiveColor);
             }
         }
 
         public void DealDamage(int damage)
         {
             //TODO Animation might drive this sort of thing, so keep that in mind
-            for (int i = 0; (i < damage) && (i >= 0); i--)
+            for (int i = 0; (i < damage) && (i >= 0) && (currentHp > 0); i--)
             {
-                pips[currentHp - i].Active = false;
+                pips[(currentHp - 1) - i].Active = false;
             }
 
             currentHp -= damage;
@@ -74,7 +77,7 @@ namespace SolStandard.HUD.Window.Content.HealthBar
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            Vector2 pipOffset = new Vector2(0);
+            Vector2 pipOffset = new Vector2(position.X, position.Y);
             foreach (HealthPip pip in pips)
             {
                 pip.Draw(spriteBatch, pipOffset, new Vector2(pipWidth, barSize.Y));

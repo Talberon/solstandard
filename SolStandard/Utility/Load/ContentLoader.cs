@@ -16,9 +16,17 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
         }
+
         public static ISpriteFont LoadMapFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
+        }
+
+        public static ITexture2D LoadWhitePixel(ContentManager content)
+        {
+            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
+
+            return new Texture2DWrapper(spriteTextures);
         }
         
         public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
@@ -95,7 +103,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Monarch"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage"),
@@ -110,7 +118,7 @@ namespace SolStandard.Utility.Load
 
             return portraitTextures;
         }
-        
+
         public static List<ITexture2D> LoadMediumPortraits(ContentManager content)
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
@@ -119,7 +127,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Monarch"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage"),
@@ -134,7 +142,7 @@ namespace SolStandard.Utility.Load
 
             return portraitTextures;
         }
-        
+
         public static List<ITexture2D> LoadSmallPortraits(ContentManager content)
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
@@ -143,7 +151,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Monarch"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage"),
@@ -158,6 +166,5 @@ namespace SolStandard.Utility.Load
 
             return portraitTextures;
         }
-
     }
 }
