@@ -2,7 +2,7 @@
 
 namespace SolStandard.Utility.Exceptions
 {
-    public class UnitNotFoundInGridException : Exception
+    public class UnitNotFoundOnMapException : Exception
     {
     }
 }

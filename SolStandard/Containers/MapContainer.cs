@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
+using SolStandard.Logic;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -10,12 +13,12 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers
 {
-    public class MapLayer
+    public class MapContainer
     {
         private readonly List<MapElement[,]> gameGrid;
         private readonly MapCursor mapCursor;
 
-        public MapLayer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
+        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             this.gameGrid = gameGrid;
             mapCursor = BuildMapCursor(cursorTexture);
@@ -59,7 +62,7 @@ namespace SolStandard.Containers
             int column = (int) coordinates.X;
             int row = (int) coordinates.Y;
 
-            MapEntity unit = (MapEntity) gameGrid[(int) Layer.Units][column, row];
+            MapEntity unit = UnitSelector.FindUnitEntityAtCoordinates(coordinates);
             MapElement dynamic = gameGrid[(int) Layer.Dynamic][column, row];
             MapEntity entity = (MapEntity) gameGrid[(int) Layer.Entities][column, row];
             MapTile collide = (MapTile) gameGrid[(int) Layer.Collide][column, row];
@@ -94,10 +97,9 @@ namespace SolStandard.Containers
                     tile.Draw(spriteBatch, new Color(255, 255, 255, 180));
             }
 
-            foreach (MapElement tile in gameGrid[(int) Layer.Units])
+            foreach (GameUnit unit in GameContext.Units)
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                unit.MapEntity.Draw(spriteBatch);
             }
 
             //Draw map cursor

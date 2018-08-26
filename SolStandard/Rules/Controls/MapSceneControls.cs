@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +18,7 @@ namespace SolStandard.Rules.Controls
     public static class MapSceneControls
     {
         public static void ListenForInputs(MapContext mapContext, GameControlMapper controlMapper, MapCamera mapCamera,
-            MapCursor mapCursor, MapUI mapUi, IEnumerable<GameUnit> units)
+            MapCursor mapCursor, MapUI mapUi)
         {
             if (controlMapper.Start())
             {
@@ -102,14 +101,14 @@ namespace SolStandard.Rules.Controls
                         //Select the unit. Store it somewhere.
 
                         mapContext.SelectedUnit =
-                            UnitSelector.SelectUnit(units, mapContext.MapLayer.GetMapSliceAtCursor().UnitEntity);
+                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
 
                         if (mapContext.SelectedUnit != null)
                         {
                             Trace.WriteLine("Selecting unit: " + mapContext.SelectedUnit.UnitTeam + " " +
                                             mapContext.SelectedUnit.UnitJobClass);
                             mapContext.ProceedToNextState();
-                            mapContext.GenerateMoveGrid(mapContext.MapLayer.MapCursor.MapCoordinates,
+                            mapContext.GenerateMoveGrid(mapContext.MapContainer.MapCursor.MapCoordinates,
                                 mapContext.SelectedUnit.Stats.MaxMv,
                                 new TextureCell(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
                                     GameDriver.CellSize,
@@ -130,8 +129,7 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitMoving:
                         if (mapContext.OtherUnitExistsAtCursor()) return;
-                        mapContext.MapLayer.ClearDynamicGrid();
-                        mapContext.MoveUnitOnMapGrid();
+                        mapContext.MapContainer.ClearDynamicGrid();
 
                         //TODO Open the menu
                         mapContext.ProceedToNextState();
@@ -144,7 +142,7 @@ namespace SolStandard.Rules.Controls
                         //If the selection is Basic Attack
                         //Open the targeting grid
                         mapContext.SelectedUnit =
-                            UnitSelector.SelectUnit(units, mapContext.MapLayer.GetMapSliceAtCursor().UnitEntity);
+                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         mapContext.GenerateTargetingGridAtUnit(new TextureCell(
                             new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
                         mapContext.ProceedToNextState();
@@ -152,7 +150,7 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitTargeting:
                         //TODO Start Combat
-                        mapContext.MapLayer.ClearDynamicGrid();
+                        mapContext.MapContainer.ClearDynamicGrid();
                         mapContext.ProceedToNextState();
                         return;
 
@@ -183,7 +181,7 @@ namespace SolStandard.Rules.Controls
             if (controlMapper.RightTrigger())
             {
                 //FIXME Remove this after debugging use is no longer needed
-                foreach (GameUnit unit in units)
+                foreach (GameUnit unit in GameContext.Units)
                 {
                     unit.MediumPortraitHealthBar.DealDamage(1);
                 }

@@ -43,12 +43,12 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
+    <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\MainMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
-    <Compile Include="Containers\GameContainer.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
-    <Compile Include="Containers\MapLayer.cs" />
+    <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\MapContext.cs" />
     <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Utility\Exceptions\TeamNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TextureNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\UnitClassNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\UnitNotFoundInGridException.cs" />
+    <Compile Include="Utility\Exceptions\UnitNotFoundOnMapException.cs" />
     <Compile Include="Utility\IRenderable.cs" />
     <Compile Include="Utility\Load\ContentLoader.cs" />
     <Compile Include="Utility\Monogame\ISpriteFont.cs" />

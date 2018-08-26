@@ -19,13 +19,13 @@ namespace SolStandard.Entity.Unit
             this.smallPortraits = smallPortraits;
         }
 
-        public static List<GameUnit> GenerateUnitsFromMap(MapEntity[,] unitLayer,
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<MapEntity> units,
             List<ITexture2D> largePortraitTextures,
             List<ITexture2D> mediumPortraitTextures, List<ITexture2D> smallPortraitTextures)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
-            foreach (MapEntity unit in unitLayer)
+            foreach (MapEntity unit in units)
             {
                 if (unit == null) continue;
                 

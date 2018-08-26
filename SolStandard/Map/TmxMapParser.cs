@@ -16,8 +16,7 @@ namespace SolStandard.Map
         Terrain = 0,
         Collide = 1,
         Entities = 2,
-        Dynamic = 3,
-        Units = 4
+        Dynamic = 3
     }
 
     /**
@@ -32,6 +31,7 @@ namespace SolStandard.Map
         private readonly List<ITexture2D> unitSprites;
 
         private List<MapElement[,]> gameTileLayers;
+        private List<MapEntity> unitLayer;
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
             string objectTypesDefaultXmlPath)
@@ -49,11 +49,21 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.Collide),
                 ObtainEntitiesFromLayer("Entities"),
-                new MapElement[tmxMap.Width, tmxMap.Height],
-                ObtainUnitsFromLayer("Units")
+                new MapElement[tmxMap.Width, tmxMap.Height]
             };
 
             return gameTileLayers;
+        }
+
+        public List<MapEntity> LoadUnits()
+        {
+            unitLayer = new List<MapEntity>();
+            foreach (MapEntity unit in ObtainUnitsFromLayer("Units"))
+            {
+                unitLayer.Add(unit);
+            }
+
+            return unitLayer;
         }
 
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)

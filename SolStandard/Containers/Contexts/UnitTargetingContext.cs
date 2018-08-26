@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Contexts
 {
     public class UnitTargetingContext
     {
-        private readonly MapLayer mapLayer;
+        private readonly MapContainer mapContainer;
         private readonly TextureCell textureCell;
 
-        public UnitTargetingContext(MapLayer mapLayer, TextureCell textureCell)
+        public UnitTargetingContext(MapContainer mapContainer, TextureCell textureCell)
         {
-            this.mapLayer = mapLayer;
+            this.mapContainer = mapContainer;
             this.textureCell = textureCell;
         }
 
@@ -53,7 +50,7 @@ namespace SolStandard.Containers.Contexts
         {
             foreach (MapDistanceTile tile in targetingTiles)
             {
-                mapLayer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                mapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
     }

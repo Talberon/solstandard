@@ -1,33 +1,25 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 
-namespace SolStandard.Containers
+namespace SolStandard.Containers.Contexts
 {
-    public class GameContainer
+    public class GameContext
     {
-        private readonly List<GameUnit> units;
         private readonly MapContext mapMapContext;
         private readonly MapUI mapUi;
+        public static List<GameUnit> Units { get; private set; }
 
-        public GameContainer(MapContext mapMapContext, MapUI mapUi, List<GameUnit> units)
+        public GameContext(MapContext mapMapContext, MapUI mapUi, List<GameUnit> units)
         {
             this.mapMapContext = mapMapContext;
             this.mapUi = mapUi;
-            this.units = units;
+            Units = units;
         }
-
 
         public MapUI MapUI
         {
             get { return mapUi; }
-        }
-
-
-        public List<GameUnit> Units
-        {
-            get { return units; }
         }
 
         public MapContext MapContext

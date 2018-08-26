@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Logic;
@@ -9,12 +8,12 @@ namespace SolStandard.Rules
 {
     public static class MapCursorHover
     {
-        public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles, List<GameUnit> units,
+        public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles,
             MapHudGenerator mapHudGenerator)
         {
-            GameUnit hoverMapUnit = UnitSelector.SelectUnit(units, hoverTiles.UnitEntity);
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
 
-            
+
             if (turnState != MapContext.TurnState.SelectUnit)
             {
                 //SecondUnit Window
@@ -26,7 +25,7 @@ namespace SolStandard.Rules
                 //FirstUnit Window
                 mapUi.LeftUnitPortraitWindow = mapHudGenerator.GenerateUnitPortraitWindow(hoverMapUnit);
                 mapUi.LeftUnitDetailWindow = mapHudGenerator.GenerateUnitDetailWindow(hoverMapUnit);
-                
+
                 //SecondUnit Window
                 mapUi.RightUnitPortraitWindow = null;
                 mapUi.RightUnitDetailWindow = null;

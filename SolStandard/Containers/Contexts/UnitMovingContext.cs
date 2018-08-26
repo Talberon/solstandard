@@ -11,12 +11,12 @@ namespace SolStandard.Containers.Contexts
 {
     public class UnitMovingContext
     {
-        private readonly MapLayer mapLayer;
+        private readonly MapContainer mapContainer;
         private readonly TextureCell textureCell;
 
-        public UnitMovingContext(MapLayer mapLayer, TextureCell textureCell)
+        public UnitMovingContext(MapContainer mapContainer, TextureCell textureCell)
         {
-            this.mapLayer = mapLayer;
+            this.mapContainer = mapContainer;
             this.textureCell = textureCell;
         }
 
@@ -86,7 +86,7 @@ namespace SolStandard.Containers.Contexts
         private bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles,
             GameUnit selectedUnit)
         {
-            MapSlice slice = mapLayer.GetMapSliceAtCoordinates(coordinates);
+            MapSlice slice = mapContainer.GetMapSliceAtCoordinates(coordinates);
 
             if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != selectedUnit.UnitTeam.ToString()) return false;
             
@@ -107,7 +107,7 @@ namespace SolStandard.Containers.Contexts
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                mapLayer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                mapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
     }
