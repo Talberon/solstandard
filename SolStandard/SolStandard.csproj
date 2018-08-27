@@ -51,6 +51,7 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\MapContext.cs" />
     <Compile Include="Containers\UI\CombatUI.cs" />
+    <Compile Include="Containers\UI\MapHudGenerator.cs" />
     <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Rules\Controls\MapSceneControls.cs" />
     <Compile Include="Rules\MapCursorHover.cs" />
     <Compile Include="Rules\MapCursorSelect.cs" />
-    <Compile Include="Rules\MapHudGenerator.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\BControl.cs" />

@@ -7,7 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
-namespace SolStandard.Rules
+namespace SolStandard.Containers.UI
 {
     public class MapHudGenerator
     {
@@ -110,11 +110,11 @@ namespace SolStandard.Rules
                         1
                     )
                 );
-                
+                unitListGrid[0, i] = unitInfoPortrait;
+
                 IRenderable unitInfoHealthBar = new WindowContent(
                     unitList[i].MediumPortraitHealthBar
                 );
-                unitListGrid[0, i] = unitInfoPortrait;
                 unitListGrid[1, i] = unitInfoHealthBar;
             }
 
@@ -150,7 +150,7 @@ namespace SolStandard.Rules
             return new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
         }
 
-        private static Color DetermineTeamColor(Team team)
+        public static Color DetermineTeamColor(Team team)
         {
             switch (team)
             {

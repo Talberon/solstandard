@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
@@ -95,8 +96,9 @@ namespace SolStandard
                 mapParser.LoadUnits(), LargePortraitTextures, MediumPortraitTextures,
                 SmallPortraitTextures);
 
-            gameContext = new GameContext(new MapContext(gameMap),
-                new MapUI(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
+            Vector2 screenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
+            gameContext = new GameContext(new MapContext(gameMap), new MapUI(screenSize), new CombatUI(screenSize),
                 unitsFromMap);
 
             ITexture2D windowTexture =
@@ -161,7 +163,8 @@ namespace SolStandard
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
-            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapUI, hoverTiles, mapHudGenerator);
+            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapUI, hoverTiles,
+                mapHudGenerator);
 
 
             //Initiative Window
@@ -202,7 +205,17 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            gameContext.MapUI.Draw(spriteBatch);
+
+            if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+            {
+                gameContext.CombatUi.Draw(spriteBatch);
+            }
+            else
+            {
+                gameContext.MapUI.Draw(spriteBatch);
+            }
+            
+            
             spriteBatch.End();
         }
     }
