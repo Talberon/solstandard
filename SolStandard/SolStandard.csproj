@@ -50,6 +50,7 @@
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\MapContext.cs" />
+    <Compile Include="Containers\UI\CombatUI.cs" />
     <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />

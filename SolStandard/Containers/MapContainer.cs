@@ -99,7 +99,10 @@ namespace SolStandard.Containers
 
             foreach (GameUnit unit in GameContext.Units)
             {
-                unit.MapEntity.Draw(spriteBatch);
+                if (unit.MapEntity != null)
+                {
+                    unit.MapEntity.Draw(spriteBatch);
+                }
             }
 
             //Draw map cursor

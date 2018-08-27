@@ -27,7 +27,7 @@ namespace SolStandard.Containers.UI
         public Window HelpTextWindow { get; set; }
 
         private bool visible;
-        
+
         public MapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
@@ -37,8 +37,7 @@ namespace SolStandard.Containers.UI
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
         {
             //Bottom-left, above initiative window
-            return new Vector2(WindowEdgeBuffer,
-                screenSize.Y - portraitWindowHeight - initiativeWindowHeight);
+            return new Vector2(WindowEdgeBuffer, screenSize.Y - portraitWindowHeight - initiativeWindowHeight);
         }
 
         private Vector2 LeftUnitDetailWindowPosition(int detailWindowHeight, int leftPortraitWindowWidth,
@@ -98,7 +97,7 @@ namespace SolStandard.Containers.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-            
+
             //TODO Turn this off eventually or add a debug mode flag
             if (DebugWindow != null)
             {

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window.Content.HealthBar
 {
@@ -10,7 +9,6 @@ namespace SolStandard.HUD.Window.Content.HealthBar
     public class HealthBar : IRenderable
     {
         private HealthPip[] pips;
-        private readonly ITexture2D whitePixel;
         private readonly int pipWidth;
         private readonly Vector2 barSize;
 
@@ -22,9 +20,8 @@ namespace SolStandard.HUD.Window.Content.HealthBar
         public int Height { get; private set; }
         public int Width { get; private set; }
 
-        public HealthBar(ITexture2D whitePixel, int maxHp, int currentHp, Vector2 barSize)
+        public HealthBar(int maxHp, int currentHp, Vector2 barSize)
         {
-            this.whitePixel = whitePixel;
             this.maxHp = maxHp;
             this.currentHp = currentHp;
             this.barSize = barSize;
@@ -51,11 +48,11 @@ namespace SolStandard.HUD.Window.Content.HealthBar
 
         private void PopulatePips()
         {
-            pips = new HealthPip[this.maxHp];
+            pips = new HealthPip[maxHp];
 
             for (int i = 0; i < pips.Length; i++)
             {
-                pips[i] = new HealthPip(whitePixel, ActiveColor, InactiveColor);
+                pips[i] = new HealthPip(GameDriver.WhitePixel, ActiveColor, InactiveColor);
             }
         }
 

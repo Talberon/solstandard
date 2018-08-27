@@ -152,7 +152,7 @@ namespace SolStandard.Map
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
                             AnimatedSprite animatedSprite =
-                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
+                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 12, true);
 
                             entityGrid[col, row] = new MapEntity(unitTeamAndClass, currentObject.Type, animatedSprite,
                                 new Vector2(col, row), currentProperties);

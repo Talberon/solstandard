@@ -103,7 +103,7 @@ namespace SolStandard.Entity.Unit
             }
 
             return new GameUnit(id, unitTeam, unitJobClass, ref mapEntity, unitStats, largePortrait, mediumPortrait,
-                smallPortrait, GameDriver.WhitePixel);
+                smallPortrait);
         }
 
         private static UnitStatistics SelectArcherStats(int initiative)

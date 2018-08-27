@@ -183,7 +183,7 @@ namespace SolStandard.Rules.Controls
                 //FIXME Remove this after debugging use is no longer needed
                 foreach (GameUnit unit in GameContext.Units)
                 {
-                    unit.MediumPortraitHealthBar.DealDamage(1);
+                    unit.DamageUnit(1);
                 }
             }
 

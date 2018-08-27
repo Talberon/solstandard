@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
 
         public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, ref MapEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, ITexture2D whitePixel) :
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) :
             base(id, ref mapEntity)
         {
             this.unitTeam = unitTeam;
@@ -45,8 +45,8 @@ namespace SolStandard.Entity.Unit
             this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
-            mediumPortraitHealthBar = new HealthBar(whitePixel, stats.MaxHp, stats.Hp,
-                new Vector2(mediumPortrait.Width, HealthBarHeight));
+            mediumPortraitHealthBar =
+                new HealthBar(stats.MaxHp, stats.Hp, new Vector2(mediumPortrait.Width, HealthBarHeight));
         }
 
         public UnitStatistics Stats
@@ -106,6 +106,22 @@ namespace SolStandard.Entity.Unit
 
             PreventCursorLeavingMapBounds(mapSize);
         }
+
+        public void DamageUnit(int damage)
+        {
+            stats.Hp -= damage;
+            mediumPortraitHealthBar.DealDamage(damage);
+            KillIfDead();
+        }
+
+        private void KillIfDead()
+        {
+            if (stats.Hp <= 0)
+            {
+                MapEntity = null;
+            }
+        }
+
 
         private void PreventCursorLeavingMapBounds(Vector2 mapSize)
         {
