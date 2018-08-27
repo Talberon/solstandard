@@ -123,7 +123,7 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void CorrectCameraToCursor(MapCursor cursor, Vector2 screenDimensions, Vector2 mapSize)
+        public void CorrectCameraToCursor(MapCursor cursor, Vector2 mapSize)
         {
             if (currentCamPosition != targetCamPosition) return;
 
@@ -133,7 +133,7 @@ namespace SolStandard.Map.Camera
             }
 
             if (cursor.MapCoordinates.X * GameDriver.CellSize >
-                GetEastBound(screenDimensions.X, currentCamPosition.X))
+                GetEastBound(GameDriver.ScreenSize.X, currentCamPosition.X))
             {
                 MoveCameraInDirection(CameraDirection.Right);
             }
@@ -144,13 +144,13 @@ namespace SolStandard.Map.Camera
             }
 
             if (cursor.MapCoordinates.Y * GameDriver.CellSize >
-                GetSouthBound(screenDimensions.Y, currentCamPosition.Y))
+                GetSouthBound(GameDriver.ScreenSize.Y, currentCamPosition.Y))
             {
                 MoveCameraInDirection(CameraDirection.Down);
             }
 
 
-            CorrectCameraToMap(screenDimensions, mapSize);
+            CorrectCameraToMap(GameDriver.ScreenSize, mapSize);
         }
 
         private float GetWestBound(float cursorX)

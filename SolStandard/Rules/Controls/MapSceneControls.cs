@@ -150,10 +150,13 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitTargeting:
                         //TODO Start Combat
-                        mapContext.SelectedUnit =
+                        GameUnit targetUnit =
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         battleContext.SetupCombatUI(mapContext.SelectedUnit,
-                            mapContext.MapContainer.GetMapSliceAtCursor(), null, null);
+                            mapContext.MapContainer.GetMapSliceAtCoordinates(mapContext.SelectedUnit.MapEntity
+                                .MapCoordinates),
+                            targetUnit, mapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit.MapEntity
+                                .MapCoordinates));
 
                         mapContext.MapContainer.ClearDynamicGrid();
                         mapContext.ProceedToNextState();

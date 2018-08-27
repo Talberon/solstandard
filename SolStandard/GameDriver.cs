@@ -35,6 +35,7 @@ namespace SolStandard
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper controlMapper;
+        public static Vector2 ScreenSize { get; private set; }
 
         private GameContext gameContext;
 
@@ -42,14 +43,14 @@ namespace SolStandard
         public static ITexture2D WhitePixel { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
-        
+
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> LargePortraitTextures { get; set; }
         private static List<ITexture2D> MediumPortraitTextures { get; set; }
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
-        
+
 
         private MapCamera mapCamera;
 
@@ -79,6 +80,8 @@ namespace SolStandard
         {
             base.Initialize();
 
+            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
             const string
                 mapPath =
                     "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
@@ -99,8 +102,9 @@ namespace SolStandard
 
             Vector2 screenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            gameContext = new GameContext(new MapContext(gameMap), new BattleContext(new BattleUI(screenSize), WindowTextures.First()),
-                new MapUI(screenSize), unitsFromMap);
+            gameContext = new GameContext(new MapContext(gameMap),
+                new BattleContext(new BattleUI(screenSize), WindowTextures.First()), new MapUI(screenSize),
+                unitsFromMap);
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
@@ -155,9 +159,8 @@ namespace SolStandard
                 mapCamera, gameContext.MapContext.MapContainer.MapCursor, gameContext.MapUI);
 
 
-            Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             Vector2 mapSize = gameContext.MapContext.MapContainer.MapGridSize;
-            mapCamera.CorrectCameraToCursor(gameContext.MapContext.MapContainer.MapCursor, screenSize, mapSize);
+            mapCamera.CorrectCameraToCursor(gameContext.MapContext.MapContainer.MapCursor, mapSize);
             mapCamera.PanCameraToTarget();
 
 

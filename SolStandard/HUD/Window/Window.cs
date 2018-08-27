@@ -111,7 +111,7 @@ namespace SolStandard.HUD.Window
 
             return calculatedSize;
         }
-        
+
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
             Vector2 calculatedSize = new Vector2();
@@ -120,6 +120,7 @@ namespace SolStandard.HUD.Window
             //Adjust for border
             int borderSize = windowCellSize * 2;
 
+            //Default to content size if size is set to 0
             if (Math.Abs(sizeOverride.X) < .001)
             {
                 calculatedSize.X = contentGridSize.X;
@@ -129,7 +130,7 @@ namespace SolStandard.HUD.Window
             {
                 calculatedSize.X = sizeOverride.X;
             }
-            
+
             if (Math.Abs(sizeOverride.Y) < .001)
             {
                 calculatedSize.Y = contentGridSize.Y;
@@ -139,7 +140,7 @@ namespace SolStandard.HUD.Window
             {
                 calculatedSize.Y = sizeOverride.Y;
             }
-            
+
             return calculatedSize;
         }
 

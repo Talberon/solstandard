@@ -7,7 +7,7 @@ namespace SolStandard.Containers.UI
     public class BattleUI : IUserInterface
     {
         private readonly Vector2 screenSize;
-        private const int WindowEdgeBuffer = 5;
+        private static readonly Vector2 WindowEdgeBuffer = new Vector2(275, 200); //TODO Make this scale properly with resolution
         private const int WindowSpacing = 5;
 
         //TODO decide if this should stay or be removed
@@ -44,7 +44,7 @@ namespace SolStandard.Containers.UI
         private Vector2 HelpTextWindowPosition()
         {
             //Top-left
-            return new Vector2(WindowEdgeBuffer);
+            return WindowEdgeBuffer;
         }
 
         #region Attacker
@@ -52,7 +52,7 @@ namespace SolStandard.Containers.UI
         private Vector2 AttackerLabelWindowPosition()
         {
             //Top-left, below help window
-            return new Vector2(WindowEdgeBuffer, HelpTextWindowPosition().Y + HelpTextWindow.Height + WindowSpacing);
+            return new Vector2(WindowEdgeBuffer.X, HelpTextWindowPosition().Y + HelpTextWindow.Height + WindowSpacing);
         }
 
         private Vector2 AttackerPortraitWindowPosition()
@@ -125,7 +125,7 @@ namespace SolStandard.Containers.UI
         private Vector2 DefenderLabelWindowPosition()
         {
             //Top-left, below help window
-            return new Vector2(screenSize.X - DefenderLabelWindow.Width - WindowEdgeBuffer,
+            return new Vector2(screenSize.X - DefenderLabelWindow.Width - WindowEdgeBuffer.X,
                 HelpTextWindowPosition().Y + HelpTextWindow.Height + WindowSpacing);
         }
 
@@ -134,7 +134,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath below label window
             Vector2 defenderLabelWindowPosition = DefenderLabelWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderPortraitWindow.Width - defenderLabelWindowPosition.X,
+            return new Vector2(screenSize.X - DefenderPortraitWindow.Width - WindowEdgeBuffer.X,
                 defenderLabelWindowPosition.Y + DefenderLabelWindow.Height + WindowSpacing);
         }
 
@@ -143,7 +143,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath portrait window
             Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderHpWindow.Width - defenderPortraitWindowPosition.X,
+            return new Vector2(screenSize.X - DefenderHpWindow.Width - WindowEdgeBuffer.X,
                 defenderPortraitWindowPosition.Y + DefenderPortraitWindow.Height + WindowSpacing);
         }
 
@@ -152,7 +152,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath HP window
             Vector2 defenderHpWindowPosition = DefenderHpWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderAtkWindow.Width - defenderHpWindowPosition.X,
+            return new Vector2(screenSize.X - DefenderAtkWindow.Width - WindowEdgeBuffer.X,
                 defenderHpWindowPosition.Y + DefenderHpWindow.Height + WindowSpacing);
         }
 
@@ -161,7 +161,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath ATK window
             Vector2 defenderAtkWindowPosition = DefenderAtkWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderBonusWindow.Width - defenderAtkWindowPosition.X,
+            return new Vector2(screenSize.X - DefenderBonusWindow.Width - WindowEdgeBuffer.X,
                 defenderAtkWindowPosition.Y + DefenderHpWindow.Height + WindowSpacing);
         }
 
@@ -170,7 +170,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath Bonus window
             Vector2 defenderBonusWindowPosition = DefenderBonusWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderRangeWindow.Width - defenderBonusWindowPosition.X,
+            return new Vector2(screenSize.X - DefenderRangeWindow.Width - WindowEdgeBuffer.X,
                 defenderBonusWindowPosition.Y + DefenderBonusWindow.Height + WindowSpacing);
         }
 
@@ -180,9 +180,8 @@ namespace SolStandard.Containers.UI
             Vector2 defenderLabelWindowPosition = DefenderLabelWindowPosition();
 
             return new Vector2(
-                screenSize.X - DefenderDiceLabelWindow.Width - defenderLabelWindowPosition.X -
-                DefenderLabelWindow.Width - WindowSpacing,
-                defenderLabelWindowPosition.Y);
+                screenSize.X - DefenderDiceLabelWindow.Width - DefenderLabelWindow.Width - WindowSpacing -
+                WindowEdgeBuffer.X, defenderLabelWindowPosition.Y);
         }
 
         private Vector2 DefenderDicePosition()
@@ -191,9 +190,8 @@ namespace SolStandard.Containers.UI
             Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
 
             return new Vector2(
-                screenSize.X - DefenderDiceWindow.Width - defenderPortraitWindowPosition.X - DefenderLabelWindow.Width -
-                WindowSpacing,
-                defenderPortraitWindowPosition.Y);
+                screenSize.X - DefenderDiceWindow.Width - DefenderPortraitWindow.Width - WindowSpacing -
+                WindowEdgeBuffer.X, defenderPortraitWindowPosition.Y);
         }
 
         #endregion Defender
