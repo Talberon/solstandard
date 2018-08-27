@@ -111,7 +111,7 @@ namespace SolStandard.Containers.UI
                 unitListGrid[0, i] = unitInfoPortrait;
 
                 IRenderable unitInfoHealthBar = new WindowContent(
-                    unitList[i].MediumPortraitHealthBar
+                    unitList[i].DefaultHealthBar
                 );
                 unitListGrid[1, i] = unitInfoHealthBar;
             }

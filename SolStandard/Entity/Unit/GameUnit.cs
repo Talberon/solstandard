@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using SolStandard.HUD.Window.Content.HealthBar;
+using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
+using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -29,9 +30,9 @@ namespace SolStandard.Entity.Unit
         private readonly ITexture2D mediumPortrait;
         private readonly ITexture2D smallPortrait;
 
-        //TODO Decide if this is the right place to store this healthbar or if it might deserver a better name
-        private readonly HealthBar mediumPortraitHealthBar;
-        private const int HealthBarHeight = 5;
+        //TODO Decide how to handle this bar since any copies will not auto-update
+        private readonly HealthBar defaultHealthBar;
+        private const int InitiativeHpBarSize = 5;
 
         private readonly UnitStatistics stats;
 
@@ -45,8 +46,7 @@ namespace SolStandard.Entity.Unit
             this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
-            mediumPortraitHealthBar =
-                new HealthBar(stats.MaxHp, stats.Hp, new Vector2(mediumPortrait.Width, HealthBarHeight));
+            defaultHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, new Vector2(mediumPortrait.Width, InitiativeHpBarSize));
         }
 
         public UnitStatistics Stats
@@ -79,9 +79,14 @@ namespace SolStandard.Entity.Unit
             get { return smallPortrait; }
         }
 
-        public HealthBar MediumPortraitHealthBar
+        public IRenderable DefaultHealthBar
         {
-            get { return mediumPortraitHealthBar; }
+            get { return defaultHealthBar; }
+        }
+
+        public IRenderable GetCustomHealthBar(Vector2 barSize)
+        {
+            return new HealthBar(stats.MaxHp, stats.Hp, barSize);
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
@@ -110,7 +115,7 @@ namespace SolStandard.Entity.Unit
         public void DamageUnit(int damage)
         {
             stats.Hp -= damage;
-            mediumPortraitHealthBar.DealDamage(damage);
+            defaultHealthBar.DealDamage(damage);
             KillIfDead();
         }
 

@@ -4,7 +4,6 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.HUD.Window.Content.HealthBar;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
@@ -57,7 +56,7 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] attackerHpContent = new IRenderable[1, 2];
             IRenderable hpLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "HP:"));
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, 15);
-            IRenderable hpBar = new HealthBar(attacker.Stats.MaxHp, attacker.Stats.Hp, hpBarSize);
+            IRenderable hpBar = attacker.GetCustomHealthBar(hpBarSize); //TODO reconcile the attacker's health bar to make it resizable
             attackerHpContent[0, 0] = hpLabel;
             attackerHpContent[0, 1] = hpBar;
             WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);

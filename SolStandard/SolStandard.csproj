@@ -58,8 +58,8 @@
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
-    <Compile Include="HUD\Window\Content\HealthBar\HealthBar.cs" />
-    <Compile Include="HUD\Window\Content\HealthBar\HealthPip.cs" />
+    <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
+    <Compile Include="HUD\Window\Content\Health\HealthPip.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContent.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />

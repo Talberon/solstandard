@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility.Monogame;
 
-namespace SolStandard.HUD.Window.Content.HealthBar
+namespace SolStandard.HUD.Window.Content.Health
 {
     public class HealthPip
     {
@@ -30,6 +30,11 @@ namespace SolStandard.HUD.Window.Content.HealthBar
             spriteBatch.Draw(whitePixel.MonoGameTexture,
                 new Rectangle((int) position.X + 1, (int) position.Y + 1, (int) size.X - 1, (int) size.Y - 1),
                 new Rectangle(0, 0, whitePixel.Width - 2, whitePixel.Height - 2), Active ? activeColor : inactiveColor);
+        }
+
+        public override string ToString()
+        {
+            return "Health Pip: { Active=" + Active + "}";
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.Remoting.Contexts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
@@ -151,6 +150,8 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitTargeting:
                         //TODO Start Combat
+                        mapContext.SelectedUnit =
+                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         battleContext.SetupCombatUI(mapContext.SelectedUnit,
                             mapContext.MapContainer.GetMapSliceAtCursor(), null, null);
 

@@ -78,6 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HUD\Window\Content\Health\FakeHealthBar.cs" />
+    <Compile Include="HUD\Window\Content\Health\HealthBarTest.cs" />
     <Compile Include="Map\TmxMapParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Monogame\FakeTexture2D.cs" />
