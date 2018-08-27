@@ -11,12 +11,10 @@ namespace SolStandard.Containers.UI
 {
     public class MapHudGenerator
     {
-        private readonly ISpriteFont windowFont;
         private readonly ITexture2D windowTexture;
 
-        public MapHudGenerator(ISpriteFont windowFont, ITexture2D windowTexture)
+        public MapHudGenerator(ITexture2D windowTexture)
         {
-            this.windowFont = windowFont;
             this.windowTexture = windowTexture;
         }
 
@@ -27,15 +25,15 @@ namespace SolStandard.Containers.UI
                 new IRenderable[,]
                 {
                     {
-                        new RenderText(windowFont,
+                        new RenderText(GameDriver.WindowFont,
                             "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
                     },
                     {
-                        new RenderText(windowFont,
+                        new RenderText(GameDriver.WindowFont,
                             "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
                     },
                     {
-                        new RenderText(windowFont,
+                        new RenderText(GameDriver.WindowFont,
                             "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
                     }
                 },
@@ -65,7 +63,7 @@ namespace SolStandard.Containers.UI
                     {
                         {
                             terrainSprite,
-                            new RenderText(windowFont, terrainInfo)
+                            new RenderText(GameDriver.WindowFont, terrainInfo)
                         }
                     },
                     1);
@@ -76,7 +74,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(windowFont, "None ")
+                            new RenderText(GameDriver.WindowFont, "None ")
                         }
                     },
                     1);
@@ -87,7 +85,7 @@ namespace SolStandard.Containers.UI
 
         public Window GenerateHelpWindow(string helpText)
         {
-            IRenderable textToRender = new RenderText(windowFont, helpText);
+            IRenderable textToRender = new RenderText(GameDriver.WindowFont, helpText);
             return new Window("Help Text", windowTexture, textToRender, new Color(30, 30, 30, 150));
         }
 
@@ -141,7 +139,8 @@ namespace SolStandard.Containers.UI
         {
             if (selectedUnit == null) return null;
 
-            IRenderable selectedUnitInfo = new RenderText(windowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
+            IRenderable selectedUnitInfo =
+                new RenderText(GameDriver.WindowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
 

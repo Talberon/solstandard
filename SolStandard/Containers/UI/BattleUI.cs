@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
-using SolStandard.HUD.Window.Content;
-using SolStandard.HUD.Window.Content.HealthBar;
-using SolStandard.Map.Elements.Cursor;
-using SolStandard.Rules;
-using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
-    public class CombatUI : IUserInterface
+    public class BattleUI : IUserInterface
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -42,86 +36,11 @@ namespace SolStandard.Containers.UI
 
         private bool visible;
 
-        public CombatUI(Vector2 screenSize)
+        public BattleUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
             visible = true;
         }
-
-        public void SetupCombatUI(ITexture2D windowTexture, GameUnit attacker, MapSlice attackerSlice,
-            GameUnit defender, MapSlice defenderSlice)
-        {
-            SetupAttackerWindows(windowTexture, attacker, attackerSlice);
-            //TODO SetupDefenderWindows(windowTexture, attacker, attackerSlice);
-        }
-
-        private void SetupAttackerWindows(ITexture2D windowTexture, GameUnit attacker, MapSlice attackerSlice)
-        {
-            Color attackerWindowColor = MapHudGenerator.DetermineTeamColor(attacker.UnitTeam);
-
-            //Name Label Window
-            AttackerLabelWindow = new Window("AttackerLabel", windowTexture,
-                new RenderText(GameDriver.MapFont, attacker.Id), MapHudGenerator.DetermineTeamColor(attacker.UnitTeam));
-
-            //Portrait Window
-            IRenderable attackerPortrait =
-                new WindowContent(new TextureCell(attacker.LargePortrait, attacker.LargePortrait.Height, 1));
-            AttackerPortraitWindow = new Window("AttackerLabel", windowTexture, attackerPortrait, attackerWindowColor);
-
-            //HP Window
-            IRenderable[,] attackerHpContent = new IRenderable[1, 2];
-            IRenderable hpLabel = new WindowContent(new RenderText(GameDriver.MapFont, "HP"));
-            Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, 5);
-            IRenderable hpBar = new HealthBar(attacker.Stats.MaxHp, attacker.Stats.Hp, hpBarSize);
-            attackerHpContent[0, 0] = hpLabel;
-            attackerHpContent[0, 1] = hpBar;
-            WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);
-            AttackerHpWindow = new Window("Attacker HP Bar", windowTexture, attackerHpContentGrid, attackerWindowColor);
-
-            //ATK Window
-            IRenderable[,] attackerAtkContent = new IRenderable[1, 2];
-            IRenderable atkLabel = new WindowContent(new RenderText(GameDriver.MapFont, "HP"));
-            IRenderable atkValue =
-                new WindowContent(new RenderText(GameDriver.MapFont, attacker.Stats.Atk.ToString()));
-            attackerAtkContent[0, 0] = atkLabel;
-            attackerAtkContent[0, 1] = atkValue;
-            WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
-            AttackerAtkWindow = new Window("Attacker ATK Info", windowTexture, attackerAtkContentGrid,
-                attackerWindowColor);
-
-            //Bonus Window
-            string terrainAttackBonus = "0";
-            if (attackerSlice.GeneralEntity != null)
-            {
-                if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
-                    attackerSlice.GeneralEntity.TiledProperties["Stat"] == "ATK")
-                {
-                    if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
-                    {
-                        terrainAttackBonus = attackerSlice.GeneralEntity.TiledProperties["Modifier"];
-                    }
-                }
-            }
-
-            IRenderable[,] attackerBonusContent = new IRenderable[1, 2];
-            IRenderable bonusLabel = new WindowContent(new RenderText(GameDriver.MapFont, "HP"));
-            IRenderable bonusValue =
-                new WindowContent(new RenderText(GameDriver.MapFont, terrainAttackBonus.ToString()));
-            attackerBonusContent[0, 0] = bonusLabel;
-            attackerBonusContent[0, 1] = bonusValue;
-            WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
-            AttackerBonusWindow = new Window("Attacker Bonus Info", windowTexture, attackerBonusContentGrid,
-                attackerWindowColor);
-
-            
-
-            /* TODO
-                AttackerRangeWindow
-                AttackerDiceLabelWindow
-                AttackerDiceWindow
-             */
-        }
-
 
         private Vector2 HelpTextWindowPosition()
         {
@@ -170,7 +89,7 @@ namespace SolStandard.Containers.UI
             Vector2 attackerAtkWindowPosition = AttackerAtkWindowPosition();
 
             return new Vector2(attackerAtkWindowPosition.X,
-                attackerAtkWindowPosition.Y + AttackerHpWindow.Height + WindowSpacing);
+                attackerAtkWindowPosition.Y + AttackerAtkWindow.Height + WindowSpacing);
         }
 
         private Vector2 AttackerRangeWindowPosition()
@@ -196,7 +115,7 @@ namespace SolStandard.Containers.UI
             //Anchored right of class portrait window
             Vector2 attackerPortraitWindowPosition = AttackerPortraitWindowPosition();
 
-            return new Vector2(attackerPortraitWindowPosition.X + AttackerLabelWindow.Width + WindowSpacing,
+            return new Vector2(attackerPortraitWindowPosition.X + AttackerPortraitWindow.Width + WindowSpacing,
                 attackerPortraitWindowPosition.Y);
         }
 
@@ -290,30 +209,30 @@ namespace SolStandard.Containers.UI
             if (HelpTextWindow != null)
             {
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
-            }
 
-            if (AttackerPortraitWindow != null)
-            {
-                AttackerLabelWindow.Draw(spriteBatch, AttackerLabelWindowPosition());
-                AttackerPortraitWindow.Draw(spriteBatch, AttackerPortraitWindowPosition());
-                AttackerHpWindow.Draw(spriteBatch, AttackerHpWindowPosition());
-                AttackerAtkWindow.Draw(spriteBatch, AttackerAtkWindowPosition());
-                AttackerBonusWindow.Draw(spriteBatch, AttackerBonusWindowPosition());
-                AttackerRangeWindow.Draw(spriteBatch, AttackerRangeWindowPosition());
-                AttackerDiceLabelWindow.Draw(spriteBatch, AttackerDiceLabelPosition());
-                AttackerDiceWindow.Draw(spriteBatch, AttackerDicePosition());
-            }
+                if (AttackerPortraitWindow != null)
+                {
+                    AttackerLabelWindow.Draw(spriteBatch, AttackerLabelWindowPosition());
+                    AttackerPortraitWindow.Draw(spriteBatch, AttackerPortraitWindowPosition());
+                    AttackerHpWindow.Draw(spriteBatch, AttackerHpWindowPosition());
+                    AttackerAtkWindow.Draw(spriteBatch, AttackerAtkWindowPosition());
+                    AttackerBonusWindow.Draw(spriteBatch, AttackerBonusWindowPosition());
+                    AttackerRangeWindow.Draw(spriteBatch, AttackerRangeWindowPosition());
+                    AttackerDiceLabelWindow.Draw(spriteBatch, AttackerDiceLabelPosition());
+                    AttackerDiceWindow.Draw(spriteBatch, AttackerDicePosition());
+                }
 
-            if (DefenderPortraitWindow != null)
-            {
-                DefenderLabelWindow.Draw(spriteBatch, DefenderLabelWindowPosition());
-                DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
-                DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
-                DefenderAtkWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
-                DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());
-                DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
-                DefenderDiceLabelWindow.Draw(spriteBatch, DefenderDiceLabelPosition());
-                DefenderDiceWindow.Draw(spriteBatch, DefenderDicePosition());
+                if (DefenderPortraitWindow != null)
+                {
+                    DefenderLabelWindow.Draw(spriteBatch, DefenderLabelWindowPosition());
+                    DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
+                    DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
+                    DefenderAtkWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
+                    DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());
+                    DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
+                    DefenderDiceLabelWindow.Draw(spriteBatch, DefenderDiceLabelPosition());
+                    DefenderDiceWindow.Draw(spriteBatch, DefenderDicePosition());
+                }
             }
         }
     }

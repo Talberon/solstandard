@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Remoting.Contexts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
@@ -17,8 +18,8 @@ namespace SolStandard.Rules.Controls
 {
     public static class MapSceneControls
     {
-        public static void ListenForInputs(MapContext mapContext, GameControlMapper controlMapper, MapCamera mapCamera,
-            MapCursor mapCursor, MapUI mapUi)
+        public static void ListenForInputs(MapContext mapContext, BattleContext battleContext,
+            GameControlMapper controlMapper, MapCamera mapCamera, MapCursor mapCursor, MapUI mapUi)
         {
             if (controlMapper.Start())
             {
@@ -150,6 +151,9 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitTargeting:
                         //TODO Start Combat
+                        battleContext.SetupCombatUI(mapContext.SelectedUnit,
+                            mapContext.MapContainer.GetMapSliceAtCursor(), null, null);
+
                         mapContext.MapContainer.ClearDynamicGrid();
                         mapContext.ProceedToNextState();
                         return;

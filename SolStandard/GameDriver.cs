@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Contexts;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
@@ -40,15 +40,16 @@ namespace SolStandard
 
         public static ITexture2D TerrainTextures { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
+        public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
-
+        
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> LargePortraitTextures { get; set; }
         private static List<ITexture2D> MediumPortraitTextures { get; set; }
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
-        private static ISpriteFont WindowFont { get; set; }
+        
 
         private MapCamera mapCamera;
 
@@ -98,12 +99,12 @@ namespace SolStandard
 
             Vector2 screenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            gameContext = new GameContext(new MapContext(gameMap), new MapUI(screenSize), new CombatUI(screenSize),
-                unitsFromMap);
+            gameContext = new GameContext(new MapContext(gameMap), new BattleContext(new BattleUI(screenSize), WindowTextures.First()),
+                new MapUI(screenSize), unitsFromMap);
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            mapHudGenerator = new MapHudGenerator(WindowFont, windowTexture);
+            mapHudGenerator = new MapHudGenerator(windowTexture);
         }
 
         /// <summary>
@@ -150,9 +151,8 @@ namespace SolStandard
             }
 
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(gameContext.MapContext, controlMapper, mapCamera,
-                gameContext.MapContext.MapContainer.MapCursor,
-                gameContext.MapUI);
+            MapSceneControls.ListenForInputs(gameContext.MapContext, gameContext.BattleContext, controlMapper,
+                mapCamera, gameContext.MapContext.MapContainer.MapCursor, gameContext.MapUI);
 
 
             Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -208,14 +208,14 @@ namespace SolStandard
 
             if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
             {
-                gameContext.CombatUi.Draw(spriteBatch);
+                gameContext.BattleContext.Draw(spriteBatch);
             }
             else
             {
                 gameContext.MapUI.Draw(spriteBatch);
             }
-            
-            
+
+
             spriteBatch.End();
         }
     }
