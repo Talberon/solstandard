@@ -4,6 +4,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
@@ -15,6 +16,9 @@ namespace SolStandard.Containers.Contexts
         private readonly BattleUI battleUI;
         private readonly ITexture2D windowTexture;
         private const int HpBarHeight = 20;
+
+        private RenderDice attackerDice;
+        private RenderDice defenderDice;
 
         public BattleContext(BattleUI battleUI, ITexture2D windowTexture)
         {
@@ -39,9 +43,10 @@ namespace SolStandard.Containers.Contexts
         {
             Color attackerWindowColor = MapHudGenerator.DetermineTeamColor(attacker.UnitTeam);
 
+
             //Portrait Window
             IRenderable attackerPortrait =
-                new WindowContent(new TextureCell(attacker.LargePortrait, attacker.LargePortrait.Height, 1));
+                new SpriteAtlas(attacker.LargePortrait, attacker.LargePortrait.Height, 1);
             battleUI.AttackerPortraitWindow =
                 new Window("Attacker Portrait", windowTexture, attackerPortrait, attackerWindowColor);
 
@@ -53,9 +58,10 @@ namespace SolStandard.Containers.Contexts
             battleUI.AttackerLabelWindow = new Window("Attacker Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
 
+            //FIXME clean up these arrays to just initialize the collection during declaration
             //HP Window
             IRenderable[,] attackerHpContent = new IRenderable[1, 2];
-            IRenderable hpLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "HP:"));
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, HpBarHeight);
             IRenderable hpBar = attacker.GetCustomHealthBar(hpBarSize);
             attackerHpContent[0, 0] = hpLabel;
@@ -67,9 +73,9 @@ namespace SolStandard.Containers.Contexts
 
             //ATK Window
             IRenderable[,] attackerAtkContent = new IRenderable[1, 2];
-            IRenderable atkLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "ATK:"));
+            IRenderable atkLabel = new RenderText(GameDriver.WindowFont, "ATK:");
             IRenderable atkValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, attacker.Stats.Atk.ToString()));
+                new RenderText(GameDriver.WindowFont, attacker.Stats.Atk.ToString());
             attackerAtkContent[0, 0] = atkLabel;
             attackerAtkContent[0, 1] = atkValue;
             WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
@@ -91,9 +97,9 @@ namespace SolStandard.Containers.Contexts
             }
 
             IRenderable[,] attackerBonusContent = new IRenderable[1, 2];
-            IRenderable bonusLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "Bonus:"));
+            IRenderable bonusLabel = new RenderText(GameDriver.WindowFont, "Bonus:");
             IRenderable bonusValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, terrainAttackBonus));
+                new RenderText(GameDriver.WindowFont, terrainAttackBonus);
             attackerBonusContent[0, 0] = bonusLabel;
             attackerBonusContent[0, 1] = bonusValue;
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
@@ -103,9 +109,9 @@ namespace SolStandard.Containers.Contexts
             //AttackerRangeWindow
             string attackerInRange = true.ToString();
             IRenderable[,] attackerRangeContent = new IRenderable[1, 2];
-            IRenderable rangeLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "In Range:"));
+            IRenderable rangeLabel = new RenderText(GameDriver.WindowFont, "In Range:");
             IRenderable rangeValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, attackerInRange));
+                new RenderText(GameDriver.WindowFont, attackerInRange);
             attackerRangeContent[0, 0] = rangeLabel;
             attackerRangeContent[0, 1] = rangeValue;
             WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
@@ -116,8 +122,16 @@ namespace SolStandard.Containers.Contexts
             battleUI.AttackerDiceLabelWindow = new Window("Dice Label", windowTexture,
                 new RenderText(GameDriver.WindowFont, "Attacking"), attackerWindowColor);
 
-            battleUI.AttackerDiceWindow = new Window("Dice Rolling Window", windowTexture,
-                new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE"), attackerWindowColor);
+            //Dice Content Window
+            attackerDice = new RenderDice(attacker.Stats.Atk + int.Parse(terrainAttackBonus), 3);
+            IRenderable[,] diceWindowContent =
+            {
+                {new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE")},
+                {attackerDice}
+            };
+            WindowContentGrid attackerDiceContentGrid = new WindowContentGrid(diceWindowContent, 1);
+            battleUI.AttackerDiceWindow = new Window("Dice Rolling Window", windowTexture, attackerDiceContentGrid,
+                attackerWindowColor);
         }
 
         //FIXME This is almost entirely duplicated logic and it's ugly; figure out how to DRY this
@@ -125,9 +139,10 @@ namespace SolStandard.Containers.Contexts
         {
             Color defenderWindowColor = MapHudGenerator.DetermineTeamColor(defender.UnitTeam);
 
+
             //Portrait Window
             IRenderable defenderPortrait =
-                new WindowContent(new TextureCell(defender.LargePortrait, defender.LargePortrait.Height, 1));
+                new SpriteAtlas(defender.LargePortrait, defender.LargePortrait.Height, 1);
             battleUI.DefenderPortraitWindow =
                 new Window("Defender Portrait", windowTexture, defenderPortrait, defenderWindowColor);
 
@@ -141,7 +156,7 @@ namespace SolStandard.Containers.Contexts
 
             //HP Window
             IRenderable[,] defenderHpContent = new IRenderable[1, 2];
-            IRenderable hpLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "HP:"));
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
             Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width, HpBarHeight);
             IRenderable hpBar = defender.GetCustomHealthBar(hpBarSize);
             defenderHpContent[0, 0] = hpLabel;
@@ -153,9 +168,9 @@ namespace SolStandard.Containers.Contexts
 
             //DEF Window
             IRenderable[,] defenderAtkContent = new IRenderable[1, 2];
-            IRenderable atkLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "DEF:"));
+            IRenderable atkLabel = new RenderText(GameDriver.WindowFont, "DEF:");
             IRenderable atkValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, defender.Stats.Def.ToString()));
+                new RenderText(GameDriver.WindowFont, defender.Stats.Def.ToString());
             defenderAtkContent[0, 0] = atkLabel;
             defenderAtkContent[0, 1] = atkValue;
             WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
@@ -163,7 +178,7 @@ namespace SolStandard.Containers.Contexts
                 defenderWindowColor, portraitWidthOverride);
 
             //Bonus Window
-            string terrainAttackBonus = "0";
+            string terrainDefenseBonus = "0";
             if (defenderSlice.GeneralEntity != null)
             {
                 if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
@@ -171,15 +186,14 @@ namespace SolStandard.Containers.Contexts
                 {
                     if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
                     {
-                        terrainAttackBonus = defenderSlice.GeneralEntity.TiledProperties["Modifier"];
+                        terrainDefenseBonus = defenderSlice.GeneralEntity.TiledProperties["Modifier"];
                     }
                 }
             }
 
             IRenderable[,] defenderBonusContent = new IRenderable[1, 2];
-            IRenderable bonusLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "Bonus:"));
-            IRenderable bonusValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, terrainAttackBonus));
+            IRenderable bonusLabel = new RenderText(GameDriver.WindowFont, "Bonus:");
+            IRenderable bonusValue = new RenderText(GameDriver.WindowFont, terrainDefenseBonus);
             defenderBonusContent[0, 0] = bonusLabel;
             defenderBonusContent[0, 1] = bonusValue;
             WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
@@ -188,12 +202,13 @@ namespace SolStandard.Containers.Contexts
 
             //DefenderRangeWindow
             string defenderInRange = true.ToString(); //TODO For defender, check range
-            IRenderable[,] defenderRangeContent = new IRenderable[1, 2];
-            IRenderable rangeLabel = new WindowContent(new RenderText(GameDriver.WindowFont, "In Range:"));
-            IRenderable rangeValue =
-                new WindowContent(new RenderText(GameDriver.WindowFont, defenderInRange));
-            defenderRangeContent[0, 0] = rangeLabel;
-            defenderRangeContent[0, 1] = rangeValue;
+            IRenderable[,] defenderRangeContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "In Range:"),
+                    new RenderText(GameDriver.WindowFont, defenderInRange)
+                }
+            };
             WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent, 1);
             battleUI.DefenderRangeWindow = new Window("Defender Range Info", windowTexture, defenderRangeContentGrid,
                 defenderWindowColor, portraitWidthOverride);
@@ -202,8 +217,23 @@ namespace SolStandard.Containers.Contexts
             battleUI.DefenderDiceLabelWindow = new Window("Dice Label", windowTexture,
                 new RenderText(GameDriver.WindowFont, "Defending"), defenderWindowColor);
 
-            battleUI.DefenderDiceWindow = new Window("Dice Rolling Window", windowTexture,
-                new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE"), defenderWindowColor);
+            //Dice Content Window
+            defenderDice = new RenderDice(defender.Stats.Def + int.Parse(terrainDefenseBonus), 3);
+            IRenderable[,] diceWindowContent =
+            {
+                {new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE")},
+                {defenderDice}
+            };
+            WindowContentGrid defenderDiceContentGrid = new WindowContentGrid(diceWindowContent, 1);
+            battleUI.DefenderDiceWindow = new Window("Dice Rolling Window", windowTexture, defenderDiceContentGrid,
+                defenderWindowColor);
+        }
+
+        //FIXME Find a more appropriate way to roll the dice and actually track the values
+        public void RollDice()
+        {
+            attackerDice.RollDice();
+            defenderDice.RollDice();
         }
 
         //TODO Figure out if this is where the draw should sit

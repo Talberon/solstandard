@@ -7,7 +7,7 @@ namespace SolStandard.Containers.UI
     public class BattleUI : IUserInterface
     {
         private readonly Vector2 screenSize;
-        private static readonly Vector2 WindowEdgeBuffer = new Vector2(275, 200); //TODO Make this scale properly with resolution
+        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 200); //TODO Make this scale properly with resolution
         private const int WindowSpacing = 5;
 
         //TODO decide if this should stay or be removed

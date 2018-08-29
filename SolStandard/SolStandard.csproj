@@ -58,10 +58,11 @@
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
+    <Compile Include="HUD\Window\Content\Combat\RenderDice.cs" />
+    <Compile Include="HUD\Window\Content\Combat\Die.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthPip.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
-    <Compile Include="HUD\Window\Content\WindowContent.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
     <Compile Include="HUD\Window\Window.cs" />
     <Compile Include="HUD\Window\WindowCell.cs" />
@@ -108,7 +109,7 @@
     <Compile Include="Utility\Monogame\SpriteFontWrapper.cs" />
     <Compile Include="Utility\Monogame\Texture2DWrapper.cs" />
     <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
-    <Compile Include="Utility\TextureCell.cs" />
+    <Compile Include="Utility\SpriteAtlas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

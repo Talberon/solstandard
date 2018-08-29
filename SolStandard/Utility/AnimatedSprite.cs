@@ -29,8 +29,9 @@ namespace SolStandard.Utility
             spriteFrameCount = CalculateSpriteFrameCount();
         }
 
-        public void SetSpriteAnimation(int spriteMapRow)
+        public void SetSpriteCell(int spriteMapColumn, int spriteMapRow)
         {
+            currentColumn = spriteMapColumn;
             currentRow = spriteMapRow;
         }
 

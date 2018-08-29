@@ -101,18 +101,15 @@ namespace SolStandard.Containers.UI
 
             for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
-                IRenderable unitInfoPortrait = new WindowContent(
-                    new TextureCell(
+                IRenderable unitInfoPortrait =
+                    new SpriteAtlas(
                         unitList[i].MediumPortrait,
                         unitList[i].MediumPortrait.Height,
                         1
-                    )
-                );
+                    );
                 unitListGrid[0, i] = unitInfoPortrait;
 
-                IRenderable unitInfoHealthBar = new WindowContent(
-                    unitList[i].DefaultHealthBar
-                );
+                IRenderable unitInfoHealthBar = unitList[i].DefaultHealthBar;
                 unitListGrid[1, i] = unitInfoHealthBar;
             }
 
@@ -126,7 +123,7 @@ namespace SolStandard.Containers.UI
             if (selectedUnit == null) return null;
 
             IRenderable selectedUnitPortrait =
-                new WindowContent(new TextureCell(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1));
+                new SpriteAtlas(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1);
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
 

@@ -28,7 +28,7 @@ namespace SolStandard.Utility.Load
 
             return new Texture2DWrapper(spriteTextures);
         }
-        
+
         public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/Tiles");
@@ -165,6 +165,15 @@ namespace SolStandard.Utility.Load
             }
 
             return portraitTextures;
+        }
+
+        public static ITexture2D LoadDiceAtlas(ContentManager content)
+        {
+            Texture2D diceAtlasTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
+
+            ITexture2D diceAtlas = new Texture2DWrapper(diceAtlasTexture);
+
+            return diceAtlas;
         }
     }
 }

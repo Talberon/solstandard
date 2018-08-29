@@ -5,7 +5,6 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
-    //TODO Use this class as part of the battle UI, also the initiative list (maybe board?)
     public class HealthBar : IRenderable
     {
         protected HealthPip[] Pips;

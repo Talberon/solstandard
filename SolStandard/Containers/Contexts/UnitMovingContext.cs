@@ -12,12 +12,12 @@ namespace SolStandard.Containers.Contexts
     public class UnitMovingContext
     {
         private readonly MapContainer mapContainer;
-        private readonly TextureCell textureCell;
+        private readonly SpriteAtlas spriteAtlas;
 
-        public UnitMovingContext(MapContainer mapContainer, TextureCell textureCell)
+        public UnitMovingContext(MapContainer mapContainer, SpriteAtlas spriteAtlas)
         {
             this.mapContainer = mapContainer;
-            this.textureCell = textureCell;
+            this.spriteAtlas = spriteAtlas;
         }
 
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, GameUnit selectedUnit)
@@ -25,7 +25,7 @@ namespace SolStandard.Containers.Contexts
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(textureCell, origin, 0);
+            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited = new List<MapDistanceTile> {startTile};
@@ -62,22 +62,22 @@ namespace SolStandard.Containers.Contexts
 
             if (CanMoveAtCoordinates(north, visitedTiles, selectedUnit))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, north, currentTile.Distance + 1));
+                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1));
             }
 
             if (CanMoveAtCoordinates(south, visitedTiles, selectedUnit))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, south, currentTile.Distance + 1));
+                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1));
             }
 
             if (CanMoveAtCoordinates(east, visitedTiles, selectedUnit))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, east, currentTile.Distance + 1));
+                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1));
             }
 
             if (CanMoveAtCoordinates(west, visitedTiles, selectedUnit))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.TextureCell, west, currentTile.Distance + 1));
+                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1));
             }
 
             return neighbours;

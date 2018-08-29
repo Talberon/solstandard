@@ -52,10 +52,10 @@ namespace SolStandard.Containers.Contexts
             get { return mapContainer; }
         }
 
-        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, TextureCell textureCell)
+        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitMovingContext unitMovingContext = new UnitMovingContext(mapContainer, textureCell);
+            UnitMovingContext unitMovingContext = new UnitMovingContext(mapContainer, spriteAtlas);
             unitMovingContext.GenerateMoveGrid(origin, maximumDistance, SelectedUnit);
         }
 
@@ -116,16 +116,16 @@ namespace SolStandard.Containers.Contexts
             mapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
-        public void GenerateTargetingGridAtUnit(TextureCell textureCell)
+        public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = SelectedUnit.MapEntity.MapCoordinates;
-            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, textureCell);
+            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 
-        public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, TextureCell textureCell)
+        public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(mapContainer, textureCell);
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(mapContainer, spriteAtlas);
             unitTargetingContext.GenerateTargetingGrid(origin, range);
         }
     }

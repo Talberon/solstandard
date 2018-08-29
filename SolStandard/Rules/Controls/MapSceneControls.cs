@@ -110,7 +110,7 @@ namespace SolStandard.Rules.Controls
                             mapContext.ProceedToNextState();
                             mapContext.GenerateMoveGrid(mapContext.MapContainer.MapCursor.MapCoordinates,
                                 mapContext.SelectedUnit.Stats.MaxMv,
-                                new TextureCell(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
+                                new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
                                     GameDriver.CellSize,
                                     69));
 
@@ -143,7 +143,7 @@ namespace SolStandard.Rules.Controls
                         //Open the targeting grid
                         mapContext.SelectedUnit =
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
-                        mapContext.GenerateTargetingGridAtUnit(new TextureCell(
+                        mapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
                             new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
                         mapContext.ProceedToNextState();
                         return;
@@ -193,6 +193,12 @@ namespace SolStandard.Rules.Controls
                 {
                     unit.DamageUnit(1);
                 }
+            }
+
+            if (controlMapper.X())
+            {
+                //FIXME Remove this eventually after debugging is done
+                battleContext.RollDice();
             }
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging

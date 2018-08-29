@@ -5,17 +5,18 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
-    public class TextureCell : IRenderable
+    public class SpriteAtlas : IRenderable
     {
         private readonly ITexture2D image;
         private readonly int cellSize;
-        private readonly int cellIndex;
+        public int CellIndex { get; set; }
 
-        public TextureCell(ITexture2D image, int cellSize, int cellIndex)
+        //TODO Decide if cellSize should continue to assume a square or take two dimensions
+        public SpriteAtlas(ITexture2D image, int cellSize, int cellIndex)
         {
             this.image = image;
             this.cellSize = cellSize;
-            this.cellIndex = cellIndex;
+            CellIndex = cellIndex;
         }
 
         private Rectangle SourceRectangle()
@@ -32,7 +33,7 @@ namespace SolStandard.Utility
                 {
                     cellSearcher++;
 
-                    if (cellSearcher == cellIndex)
+                    if (cellSearcher == CellIndex)
                     {
                         Rectangle rendercell = new Rectangle(cellSize * col, cellSize * row, cellSize, cellSize);
                         return rendercell;
@@ -72,7 +73,7 @@ namespace SolStandard.Utility
 
         public override string ToString()
         {
-            return "TileCell: <CellIndex," + cellIndex + "><CellSize," + cellSize + ">";
+            return "SpriteAtlas: <Name," + image.Name + "><CellIndex," + CellIndex + "><CellSize," + cellSize + ">";
         }
     }
 }

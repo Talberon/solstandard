@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,6 +30,8 @@ namespace SolStandard
     /// </summary>
     public class GameDriver : Game
     {
+        public static readonly Random Random = new Random();
+
         //Tile Size of Sprites
         public const int CellSize = 32;
 
@@ -43,6 +46,7 @@ namespace SolStandard
         public static ITexture2D WhitePixel { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
+        public static ITexture2D DiceTexture { get; private set; }
 
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
@@ -131,6 +135,7 @@ namespace SolStandard
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
+            DiceTexture = ContentLoader.LoadDiceAtlas(Content);
         }
 
         /// <summary>

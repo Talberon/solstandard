@@ -9,12 +9,12 @@ namespace SolStandard.Containers.Contexts
     public class UnitTargetingContext
     {
         private readonly MapContainer mapContainer;
-        private readonly TextureCell textureCell;
+        private readonly SpriteAtlas spriteAtlas;
 
-        public UnitTargetingContext(MapContainer mapContainer, TextureCell textureCell)
+        public UnitTargetingContext(MapContainer mapContainer, SpriteAtlas spriteAtlas)
         {
             this.mapContainer = mapContainer;
-            this.textureCell = textureCell;
+            this.spriteAtlas = spriteAtlas;
         }
 
         public void GenerateTargetingGrid(Vector2 origin, int[] range)
@@ -23,22 +23,22 @@ namespace SolStandard.Containers.Contexts
 
             foreach (int distance in range)
             {
-                targetingTiles.Add(new MapDistanceTile(textureCell, new Vector2(origin.X + distance, origin.Y), distance));
-                targetingTiles.Add(new MapDistanceTile(textureCell, new Vector2(origin.X - distance, origin.Y), distance));
-                targetingTiles.Add(new MapDistanceTile(textureCell, new Vector2(origin.X, origin.Y + distance), distance));
-                targetingTiles.Add(new MapDistanceTile(textureCell, new Vector2(origin.X, origin.Y - distance), distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X + distance, origin.Y), distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X - distance, origin.Y), distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y + distance), distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y - distance), distance));
 
                 if (distance > 1)
                 {
                     int subdistance = distance - 1; 
                     
-                    targetingTiles.Add(new MapDistanceTile(textureCell,
+                    targetingTiles.Add(new MapDistanceTile(spriteAtlas,
                         new Vector2(origin.X + subdistance, origin.Y + subdistance), distance));
-                    targetingTiles.Add(new MapDistanceTile(textureCell,
+                    targetingTiles.Add(new MapDistanceTile(spriteAtlas,
                         new Vector2(origin.X + subdistance, origin.Y - subdistance), distance));
-                    targetingTiles.Add(new MapDistanceTile(textureCell,
+                    targetingTiles.Add(new MapDistanceTile(spriteAtlas,
                         new Vector2(origin.X - subdistance, origin.Y - subdistance), distance));
-                    targetingTiles.Add(new MapDistanceTile(textureCell,
+                    targetingTiles.Add(new MapDistanceTile(spriteAtlas,
                         new Vector2(origin.X - subdistance, origin.Y + subdistance), distance));
                 }
             }
