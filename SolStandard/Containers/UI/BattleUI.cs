@@ -1,13 +1,23 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.HUD.Window.Content.Combat;
+using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
     public class BattleUI : IUserInterface
     {
         private readonly Vector2 screenSize;
-        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 200); //TODO Make this scale properly with resolution
+
+        private static readonly Vector2
+            WindowEdgeBuffer = new Vector2(200, 200); //TODO Make this scale properly with resolution
+
         private const int WindowSpacing = 5;
 
         //TODO decide if this should stay or be removed
@@ -25,33 +35,266 @@ namespace SolStandard.Containers.UI
         public Window DefenderLabelWindow { get; set; }
         public Window DefenderPortraitWindow { get; set; }
         public Window DefenderHpWindow { get; set; }
-        public Window DefenderAtkWindow { get; set; }
+        public Window DefenderDefWindow { get; set; }
         public Window DefenderBonusWindow { get; set; }
         public Window DefenderRangeWindow { get; set; }
         public Window DefenderDiceLabelWindow { get; set; }
         public Window DefenderDiceWindow { get; set; }
 
         public Window HelpTextWindow { get; set; }
-        
+
         public Window UserPromptWindow { get; set; }
 
         private bool visible;
 
-        public BattleUI(Vector2 screenSize)
+        private ITexture2D windowTexture;
+
+        public BattleUI(Vector2 screenSize, ITexture2D windowTexture)
         {
             this.screenSize = screenSize;
+            this.windowTexture = windowTexture;
             visible = true;
         }
+
+        internal void GenerateHelpTextWindow(string helpText)
+        {
+            IRenderable textToRender = new RenderText(GameDriver.WindowFont, helpText);
+            HelpTextWindow =
+                new Window("Help Window", windowTexture, textToRender, new Color(30, 30, 30, 150));
+        }
+
+
+        internal void GenerateAttackerDiceWindow(Color attackerWindowColor,
+            ref CombatDice attackerDice)
+        {
+            IRenderable[,] diceWindowContent =
+            {
+                {attackerDice}
+            };
+            WindowContentGrid attackerDiceContentGrid = new WindowContentGrid(diceWindowContent, 1);
+            AttackerDiceWindow = new Window("Dice Rolling Window", windowTexture, attackerDiceContentGrid,
+                attackerWindowColor);
+        }
+
+        internal void GenerateAttackerDiceLabelWindow(Color attackerWindowColor)
+        {
+            AttackerDiceLabelWindow = new Window("Dice Label", windowTexture,
+                new RenderText(GameDriver.WindowFont, "Attacking"), attackerWindowColor);
+        }
+
+        internal void GenerateAttackerInRangeWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            bool inRange)
+        {
+            IRenderable[,] attackerRangeContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "In Range:"),
+                    new RenderText(GameDriver.WindowFont, inRange.ToString())
+                }
+            };
+            WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
+            AttackerRangeWindow = new Window("Attacker Range Info", windowTexture, attackerRangeContentGrid,
+                attackerWindowColor, portraitWidthOverride);
+        }
+
+        internal int GenerateAttackerBonusWindow(MapSlice attackerSlice, Color attackerWindowColor,
+            Vector2 portraitWidthOverride)
+        {
+            string terrainAttackBonus = "0";
+            if (attackerSlice.GeneralEntity != null)
+            {
+                if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
+                    attackerSlice.GeneralEntity.TiledProperties["Stat"] == "ATK")
+                {
+                    if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
+                    {
+                        terrainAttackBonus = attackerSlice.GeneralEntity.TiledProperties["Modifier"];
+                    }
+                }
+            }
+
+            IRenderable[,] attackerBonusContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "Bonus:"),
+                    new RenderText(GameDriver.WindowFont, terrainAttackBonus)
+                }
+            };
+            WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
+            AttackerBonusWindow = new Window("Attacker Bonus Info", windowTexture, attackerBonusContentGrid,
+                attackerWindowColor, portraitWidthOverride);
+
+            return Convert.ToInt32(terrainAttackBonus);
+        }
+
+        internal void GenerateAttackerAtkWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            int atkValue)
+        {
+            IRenderable[,] attackerAtkContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "ATK:"),
+                    new RenderText(GameDriver.WindowFont, atkValue.ToString())
+                }
+            };
+            WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
+            AttackerAtkWindow = new Window("Attacker ATK Info", windowTexture, attackerAtkContentGrid,
+                attackerWindowColor, portraitWidthOverride);
+        }
+
+        internal void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            GameUnit attacker, int hpBarHeight)
+        {
+            IRenderable[,] attackerHpContent = new IRenderable[1, 2];
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
+            Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, hpBarHeight);
+            IRenderable hpBar = attacker.GetCustomHealthBar(hpBarSize);
+            attackerHpContent[0, 0] = hpLabel;
+            attackerHpContent[0, 1] = hpBar;
+            WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);
+            AttackerHpWindow =
+                new Window("Attacker HP Bar", windowTexture, attackerHpContentGrid, attackerWindowColor,
+                    portraitWidthOverride);
+        }
+
+        internal void GenerateAttackerLabelWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            string attackerName)
+        {
+            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, attackerName);
+            AttackerLabelWindow = new Window("Attacker Label", windowTexture, attackerLabelText,
+                attackerWindowColor, portraitWidthOverride);
+        }
+
+        internal void GenerateAttackerPortraitWindow(Color attackerWindowColor, ITexture2D attackerPortrait)
+        {
+            IRenderable attackerPortraitContent =
+                new SpriteAtlas(attackerPortrait, attackerPortrait.Height, 1);
+            AttackerPortraitWindow =
+                new Window("Attacker Portrait", windowTexture, attackerPortraitContent, attackerWindowColor);
+        }
+
+
+        internal void GenerateDefenderDiceWindow(Color defenderWindowColor, ref CombatDice defenderDice)
+        {
+            IRenderable[,] diceWindowContent =
+            {
+                {defenderDice}
+            };
+
+            WindowContentGrid defenderDiceContentGrid = new WindowContentGrid(diceWindowContent, 1);
+            DefenderDiceWindow = new Window("Dice Rolling Window", windowTexture, defenderDiceContentGrid,
+                defenderWindowColor);
+        }
+
+        internal void GenerateDefenderDiceLabelWindow(Color defenderWindowColor)
+        {
+            DefenderDiceLabelWindow = new Window("Dice Label", windowTexture,
+                new RenderText(GameDriver.WindowFont, "Defending"), defenderWindowColor);
+        }
+
+        internal void GenerateDefenderRangeWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+            bool inRange)
+        {
+            IRenderable[,] defenderRangeContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "In Range:"),
+                    new RenderText(GameDriver.WindowFont, inRange.ToString())
+                }
+            };
+
+            WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent, 1);
+            DefenderRangeWindow = new Window("Defender Range Info", windowTexture, defenderRangeContentGrid,
+                defenderWindowColor, portraitWidthOverride);
+        }
+
+        internal int GenerateDefenderBonusWindow(MapSlice defenderSlice, Color defenderWindowColor,
+            Vector2 portraitWidthOverride)
+        {
+            string terrainDefenseBonus = "0";
+            if (defenderSlice.GeneralEntity != null)
+            {
+                if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
+                    defenderSlice.GeneralEntity.TiledProperties["Stat"] == "DEF")
+                {
+                    if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
+                    {
+                        terrainDefenseBonus = defenderSlice.GeneralEntity.TiledProperties["Modifier"];
+                    }
+                }
+            }
+
+            IRenderable[,] defenderBonusContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "Bonus:"),
+                    new RenderText(GameDriver.WindowFont, terrainDefenseBonus)
+                }
+            };
+            WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
+            DefenderBonusWindow = new Window("Defender Bonus Info", windowTexture, defenderBonusContentGrid,
+                defenderWindowColor, portraitWidthOverride);
+
+            return Convert.ToInt32(terrainDefenseBonus);
+        }
+
+        internal void GenerateDefenderDefWindow(Color defenderWindowColor, Vector2 portraitWidthOverride, int defValue)
+        {
+            IRenderable[,] defenderAtkContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "DEF:"),
+                    new RenderText(GameDriver.WindowFont, defValue.ToString())
+                }
+            };
+            WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
+            DefenderDefWindow = new Window("Defender DEF Info", windowTexture, defenderAtkContentGrid,
+                defenderWindowColor, portraitWidthOverride);
+        }
+
+        internal void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+            GameUnit defender, int hpBarHeight)
+        {
+            IRenderable[,] defenderHpContent = new IRenderable[1, 2];
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
+            Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width, hpBarHeight);
+            IRenderable hpBar = defender.GetCustomHealthBar(hpBarSize);
+            defenderHpContent[0, 0] = hpLabel;
+            defenderHpContent[0, 1] = hpBar;
+            WindowContentGrid defenderHpContentGrid = new WindowContentGrid(defenderHpContent, 1);
+            DefenderHpWindow =
+                new Window("Defender HP Bar", windowTexture, defenderHpContentGrid, defenderWindowColor,
+                    portraitWidthOverride);
+        }
+
+        internal void GenerateDefenderLabelWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+            string defenderName)
+        {
+            IRenderable defenderLabelText = new RenderText(GameDriver.WindowFont, defenderName);
+            DefenderLabelWindow = new Window("Defender Label", windowTexture, defenderLabelText,
+                defenderWindowColor, portraitWidthOverride);
+        }
+
+        internal void GenerateDefenderPortraitWindow(Color defenderWindowColor, ITexture2D defenderPortrait)
+        {
+            IRenderable defenderPortraitContent =
+                new SpriteAtlas(defenderPortrait, defenderPortrait.Height, 1);
+            DefenderPortraitWindow =
+                new Window("Defender Portrait", windowTexture, defenderPortraitContent, defenderWindowColor);
+        }
+
+
+        //Window Render Positions
 
         private Vector2 HelpTextWindowPosition()
         {
             //Top-left
             return WindowEdgeBuffer;
         }
-        
+
         private Vector2 UserPromptWindowPosition()
         {
-            //TODO Middle of the screen beneat the dice windows
+            //TODO Middle of the screen beneath the dice windows
             throw new System.NotImplementedException();
         }
 
@@ -160,7 +403,7 @@ namespace SolStandard.Containers.UI
             //Anchored beneath HP window
             Vector2 defenderHpWindowPosition = DefenderHpWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderAtkWindow.Width - WindowEdgeBuffer.X,
+            return new Vector2(screenSize.X - DefenderDefWindow.Width - WindowEdgeBuffer.X,
                 defenderHpWindowPosition.Y + DefenderHpWindow.Height + WindowSpacing);
         }
 
@@ -232,7 +475,7 @@ namespace SolStandard.Containers.UI
                     DefenderLabelWindow.Draw(spriteBatch, DefenderLabelWindowPosition());
                     DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
                     DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
-                    DefenderAtkWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
+                    DefenderDefWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
                     DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());
                     DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
                     DefenderDiceLabelWindow.Draw(spriteBatch, DefenderDiceLabelPosition());
@@ -245,6 +488,5 @@ namespace SolStandard.Containers.UI
                 UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
             }
         }
-
     }
 }

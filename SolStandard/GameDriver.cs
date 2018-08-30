@@ -106,12 +106,12 @@ namespace SolStandard
 
             Vector2 screenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            gameContext = new GameContext(new MapContext(gameMap),
-                new BattleContext(new BattleUI(screenSize), WindowTextures.First()), new MapUI(screenSize),
-                unitsFromMap);
-
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+            gameContext = new GameContext(new MapContext(gameMap),
+                new BattleContext(new BattleUI(screenSize, windowTexture)), new MapUI(screenSize),
+                unitsFromMap);
+
             mapHudGenerator = new MapHudGenerator(windowTexture);
         }
 

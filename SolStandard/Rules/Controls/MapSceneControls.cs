@@ -128,14 +128,16 @@ namespace SolStandard.Rules.Controls
                         return;
 
                     case MapContext.TurnState.UnitMoving:
+                        mapContext.ProceedToNextState();
+                        
                         if (mapContext.OtherUnitExistsAtCursor()) return;
                         mapContext.MapContainer.ClearDynamicGrid();
 
                         //TODO Open the menu
-                        mapContext.ProceedToNextState();
                         return;
 
                     case MapContext.TurnState.UnitDecidingAction:
+                        mapContext.ProceedToNextState();
                         //TODO Select option in the menu
 
 
@@ -145,11 +147,11 @@ namespace SolStandard.Rules.Controls
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         mapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
                             new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
-                        mapContext.ProceedToNextState();
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
-                        //TODO Start Combat
+                        mapContext.ProceedToNextState();
+                        //Start Combat
                         GameUnit targetUnit =
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         battleContext.StartNewCombat(mapContext.SelectedUnit,
@@ -159,12 +161,37 @@ namespace SolStandard.Rules.Controls
                                 .MapCoordinates));
 
                         mapContext.MapContainer.ClearDynamicGrid();
-                        mapContext.ProceedToNextState();
                         return;
 
                     case MapContext.TurnState.UnitActing:
-                        //TODO Resolve Combat
-                        mapContext.ProceedToNextState();
+
+                        switch (battleContext.CurrentState)
+                        {
+                            case BattleContext.BattleState.Start:
+                                battleContext.ProceedToNextState();
+                                
+                                //TODO make sure calculation can't start before dice have finished rolling
+                                battleContext.RollDice();
+                                break;
+                            case BattleContext.BattleState.RollDice:
+                                battleContext.ProceedToNextState();
+                                break;
+                            case BattleContext.BattleState.CalculateDamage:
+                                battleContext.ProceedToNextState();
+                                break;
+                            case BattleContext.BattleState.DealDamage:
+                                battleContext.ProceedToNextState();
+                                break;
+                            case BattleContext.BattleState.End:
+                                battleContext.ProceedToNextState();
+                                mapContext.ProceedToNextState();
+                                break;
+                            default:
+                                //TODO Resolve Combat
+                                mapContext.ProceedToNextState();
+                                return;
+                        }
+                        
                         return;
 
                     case MapContext.TurnState.UnitFinishedActing:
