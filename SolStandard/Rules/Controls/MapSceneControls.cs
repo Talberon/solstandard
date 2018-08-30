@@ -152,7 +152,7 @@ namespace SolStandard.Rules.Controls
                         //TODO Start Combat
                         GameUnit targetUnit =
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
-                        battleContext.SetupCombatUI(mapContext.SelectedUnit,
+                        battleContext.StartNewCombat(mapContext.SelectedUnit,
                             mapContext.MapContainer.GetMapSliceAtCoordinates(mapContext.SelectedUnit.MapEntity
                                 .MapCoordinates),
                             targetUnit, mapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit.MapEntity

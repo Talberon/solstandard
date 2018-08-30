@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
@@ -13,33 +16,60 @@ namespace SolStandard.Containers.Contexts
 {
     public class BattleContext
     {
+        //TODO Implement procedure through steps via button presses in response to Window prompts from BattleUI
+        public enum BattleState
+        {
+            Start,
+            RollDice,
+            CalculateDamage,
+            DealDamage,
+            End
+        }
+
         private readonly BattleUI battleUI;
         private readonly ITexture2D windowTexture;
         private const int HpBarHeight = 20;
 
-        private RenderDice attackerDice;
-        private RenderDice defenderDice;
+        private CombatDice attackerDice;
+        private CombatDice defenderDice;
+
+        private int frameCounter;
+        private bool currentlyRolling;
+        private int rollingCounter;
+
+        public BattleState CurrentState { get; private set; }
+
+        private GameUnit attacker;
+        private GameUnit defender;
 
         public BattleContext(BattleUI battleUI, ITexture2D windowTexture)
         {
             this.battleUI = battleUI;
             this.windowTexture = windowTexture;
+            frameCounter = 0;
+            currentlyRolling = false;
+            rollingCounter = 0;
+            CurrentState = BattleState.Start;
             //TODO determine CombatFlow
         }
 
-        public void SetupCombatUI(GameUnit attacker, MapSlice attackerSlice,
+        public void StartNewCombat(GameUnit attacker, MapSlice attackerSlice,
             GameUnit defender, MapSlice defenderSlice)
         {
+            this.attacker = attacker;
+            this.defender = defender;
+
             //Help Window
-            IRenderable textToRender = new RenderText(GameDriver.WindowFont, "Sample Combat Help Text");
+            IRenderable textToRender = new RenderText(GameDriver.WindowFont,
+                "INFO: Swords deal 1 damage. Shields block swords. Blanks are ignored.");
             battleUI.HelpTextWindow =
                 new Window("Help Window", windowTexture, textToRender, new Color(30, 30, 30, 150));
 
-            SetupAttackerWindows(attacker, attackerSlice);
-            SetupDefenderWindows(defender, defenderSlice);
+            SetupAttackerWindows(attackerSlice);
+            SetupDefenderWindows(defenderSlice);
         }
 
-        private void SetupAttackerWindows(GameUnit attacker, MapSlice attackerSlice)
+        private void SetupAttackerWindows(MapSlice attackerSlice)
         {
             Color attackerWindowColor = MapHudGenerator.DetermineTeamColor(attacker.UnitTeam);
 
@@ -123,7 +153,7 @@ namespace SolStandard.Containers.Contexts
                 new RenderText(GameDriver.WindowFont, "Attacking"), attackerWindowColor);
 
             //Dice Content Window
-            attackerDice = new RenderDice(attacker.Stats.Atk + int.Parse(terrainAttackBonus), 3);
+            attackerDice = new CombatDice(attacker.Stats.Atk, int.Parse(terrainAttackBonus), 3);
             IRenderable[,] diceWindowContent =
             {
                 {new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE")},
@@ -135,7 +165,7 @@ namespace SolStandard.Containers.Contexts
         }
 
         //FIXME This is almost entirely duplicated logic and it's ugly; figure out how to DRY this
-        private void SetupDefenderWindows(GameUnit defender, MapSlice defenderSlice)
+        private void SetupDefenderWindows(MapSlice defenderSlice)
         {
             Color defenderWindowColor = MapHudGenerator.DetermineTeamColor(defender.UnitTeam);
 
@@ -201,7 +231,7 @@ namespace SolStandard.Containers.Contexts
                 defenderWindowColor, portraitWidthOverride);
 
             //DefenderRangeWindow
-            string defenderInRange = true.ToString(); //TODO For defender, check range
+            string defenderInRange = DefenderIsInCounterAttackRange().ToString();
             IRenderable[,] defenderRangeContent =
             {
                 {
@@ -218,7 +248,7 @@ namespace SolStandard.Containers.Contexts
                 new RenderText(GameDriver.WindowFont, "Defending"), defenderWindowColor);
 
             //Dice Content Window
-            defenderDice = new RenderDice(defender.Stats.Def + int.Parse(terrainDefenseBonus), 3);
+            defenderDice = new CombatDice(defender.Stats.Def, int.Parse(terrainDefenseBonus), 3);
             IRenderable[,] diceWindowContent =
             {
                 {new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE")},
@@ -229,16 +259,68 @@ namespace SolStandard.Containers.Contexts
                 defenderWindowColor);
         }
 
+        private void ProceedToNextState()
+        {
+            if (CurrentState == BattleState.End)
+            {
+                CurrentState = 0;
+                Trace.WriteLine("Resetting to initial state: " + CurrentState);
+            }
+            else
+            {
+                CurrentState++;
+                Trace.WriteLine("Changing state: " + CurrentState);
+            }
+        }
+
+        private bool DefenderIsInCounterAttackRange()
+        {
+            //TODO Write unit tests for this
+            //Since distance is measured in horizontal and vertical steps,
+            //the absolute value of the difference of absolute positions should add up to the appropriate range. 
+            int horizontalDistance = Math.Abs(Math.Abs((int) attacker.MapEntity.MapCoordinates.X) -
+                                              Math.Abs((int) defender.MapEntity.MapCoordinates.X));
+            int verticalDistance = Math.Abs(Math.Abs((int) attacker.MapEntity.MapCoordinates.Y) -
+                                            Math.Abs((int) defender.MapEntity.MapCoordinates.Y));
+            
+            return defender.Stats.AtkRange.Any(range => horizontalDistance + verticalDistance == range);
+        }
+
         //FIXME Find a more appropriate way to roll the dice and actually track the values
         public void RollDice()
         {
-            attackerDice.RollDice();
-            defenderDice.RollDice();
+            if (!currentlyRolling)
+            {
+                currentlyRolling = true;
+            }
         }
 
-        //TODO Figure out if this is where the draw should sit
+        private void UpdateDice()
+        {
+            if (currentlyRolling)
+            {
+                rollingCounter++;
+
+                const int rollingFrames = 60;
+                if (rollingCounter >= rollingFrames)
+                {
+                    rollingCounter = 0;
+                    currentlyRolling = false;
+                }
+
+                const int renderDelay = 3;
+                if (frameCounter % renderDelay == 0)
+                {
+                    attackerDice.RollDice();
+                    defenderDice.RollDice();
+                }
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
+            frameCounter++;
+            UpdateDice();
             battleUI.Draw(spriteBatch);
         }
     }

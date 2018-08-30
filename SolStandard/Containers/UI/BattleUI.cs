@@ -32,6 +32,8 @@ namespace SolStandard.Containers.UI
         public Window DefenderDiceWindow { get; set; }
 
         public Window HelpTextWindow { get; set; }
+        
+        public Window UserPromptWindow { get; set; }
 
         private bool visible;
 
@@ -45,6 +47,12 @@ namespace SolStandard.Containers.UI
         {
             //Top-left
             return WindowEdgeBuffer;
+        }
+        
+        private Vector2 UserPromptWindowPosition()
+        {
+            //TODO Middle of the screen beneat the dice windows
+            throw new System.NotImplementedException();
         }
 
         #region Attacker
@@ -231,6 +239,12 @@ namespace SolStandard.Containers.UI
                     DefenderDiceWindow.Draw(spriteBatch, DefenderDicePosition());
                 }
             }
+
+            if (UserPromptWindow != null)
+            {
+                UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
+            }
         }
+
     }
 }

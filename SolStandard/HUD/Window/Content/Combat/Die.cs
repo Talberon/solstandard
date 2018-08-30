@@ -37,16 +37,23 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private readonly SpriteAtlas dieAtlas;
         private DieFaces currentFace;
+        private readonly Color color;
 
         public int Height { get; private set; }
         public int Width { get; private set; }
 
-        public Die(DieFaces initialFace)
+        public Die(DieFaces initialFace, Color color)
         {
             currentFace = initialFace;
+            this.color = color;
             dieAtlas = new SpriteAtlas(GameDriver.DiceTexture, GameDriver.DiceTexture.Height, 1);
             Height = dieAtlas.Height;
             Width = dieAtlas.Width;
+        }
+
+        public Die(DieFaces initialFace) : this(initialFace, Color.White)
+        {
+            //Intentionally left blank
         }
 
         public FaceValue Roll()
@@ -59,12 +66,12 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, color);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            dieAtlas.Draw(spriteBatch, position, color);
+            dieAtlas.Draw(spriteBatch, position, colorOverride);
         }
 
         public override string ToString()
