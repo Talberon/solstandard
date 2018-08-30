@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -88,7 +89,6 @@ namespace SolStandard.Containers.Contexts
             battleUI.AttackerLabelWindow = new Window("Attacker Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
 
-            //FIXME clean up these arrays to just initialize the collection during declaration
             //HP Window
             IRenderable[,] attackerHpContent = new IRenderable[1, 2];
             IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
@@ -102,12 +102,13 @@ namespace SolStandard.Containers.Contexts
                     portraitWidthOverride);
 
             //ATK Window
-            IRenderable[,] attackerAtkContent = new IRenderable[1, 2];
-            IRenderable atkLabel = new RenderText(GameDriver.WindowFont, "ATK:");
-            IRenderable atkValue =
-                new RenderText(GameDriver.WindowFont, attacker.Stats.Atk.ToString());
-            attackerAtkContent[0, 0] = atkLabel;
-            attackerAtkContent[0, 1] = atkValue;
+            IRenderable[,] attackerAtkContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "ATK:"),
+                    new RenderText(GameDriver.WindowFont, attacker.Stats.Atk.ToString())
+                }
+            };
             WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
             battleUI.AttackerAtkWindow = new Window("Attacker ATK Info", windowTexture, attackerAtkContentGrid,
                 attackerWindowColor, portraitWidthOverride);
@@ -126,24 +127,27 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            IRenderable[,] attackerBonusContent = new IRenderable[1, 2];
-            IRenderable bonusLabel = new RenderText(GameDriver.WindowFont, "Bonus:");
-            IRenderable bonusValue =
-                new RenderText(GameDriver.WindowFont, terrainAttackBonus);
-            attackerBonusContent[0, 0] = bonusLabel;
-            attackerBonusContent[0, 1] = bonusValue;
+            IRenderable[,] attackerBonusContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "Bonus:"),
+                    new RenderText(GameDriver.WindowFont, terrainAttackBonus)
+                }
+            };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
             battleUI.AttackerBonusWindow = new Window("Attacker Bonus Info", windowTexture, attackerBonusContentGrid,
                 attackerWindowColor, portraitWidthOverride);
 
             //AttackerRangeWindow
-            string attackerInRange = true.ToString();
-            IRenderable[,] attackerRangeContent = new IRenderable[1, 2];
-            IRenderable rangeLabel = new RenderText(GameDriver.WindowFont, "In Range:");
-            IRenderable rangeValue =
-                new RenderText(GameDriver.WindowFont, attackerInRange);
-            attackerRangeContent[0, 0] = rangeLabel;
-            attackerRangeContent[0, 1] = rangeValue;
+            string attackerInRange = CoordinatesAreInRange(attacker.MapEntity.MapCoordinates,
+                defender.MapEntity.MapCoordinates, attacker.Stats.AtkRange).ToString();
+            IRenderable[,] attackerRangeContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "In Range:"),
+                    new RenderText(GameDriver.WindowFont, attackerInRange)
+                }
+            };
             WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
             battleUI.AttackerRangeWindow = new Window("Attacker Range Info", windowTexture, attackerRangeContentGrid,
                 attackerWindowColor, portraitWidthOverride);
@@ -197,12 +201,13 @@ namespace SolStandard.Containers.Contexts
                     portraitWidthOverride);
 
             //DEF Window
-            IRenderable[,] defenderAtkContent = new IRenderable[1, 2];
-            IRenderable atkLabel = new RenderText(GameDriver.WindowFont, "DEF:");
-            IRenderable atkValue =
-                new RenderText(GameDriver.WindowFont, defender.Stats.Def.ToString());
-            defenderAtkContent[0, 0] = atkLabel;
-            defenderAtkContent[0, 1] = atkValue;
+            IRenderable[,] defenderAtkContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "DEF:"),
+                    new RenderText(GameDriver.WindowFont, defender.Stats.Def.ToString())
+                }
+            };
             WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
             battleUI.DefenderAtkWindow = new Window("Defender DEF Info", windowTexture, defenderAtkContentGrid,
                 defenderWindowColor, portraitWidthOverride);
@@ -221,17 +226,21 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            IRenderable[,] defenderBonusContent = new IRenderable[1, 2];
-            IRenderable bonusLabel = new RenderText(GameDriver.WindowFont, "Bonus:");
-            IRenderable bonusValue = new RenderText(GameDriver.WindowFont, terrainDefenseBonus);
-            defenderBonusContent[0, 0] = bonusLabel;
-            defenderBonusContent[0, 1] = bonusValue;
+            IRenderable[,] defenderBonusContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, "Bonus:"),
+                    new RenderText(GameDriver.WindowFont, terrainDefenseBonus)
+                }
+            };
             WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
             battleUI.DefenderBonusWindow = new Window("Defender Bonus Info", windowTexture, defenderBonusContentGrid,
                 defenderWindowColor, portraitWidthOverride);
 
             //DefenderRangeWindow
-            string defenderInRange = DefenderIsInCounterAttackRange().ToString();
+            string defenderInRange = CoordinatesAreInRange(defender.MapEntity.MapCoordinates,
+                attacker.MapEntity.MapCoordinates, defender.Stats.AtkRange).ToString();
+
             IRenderable[,] defenderRangeContent =
             {
                 {
@@ -239,6 +248,7 @@ namespace SolStandard.Containers.Contexts
                     new RenderText(GameDriver.WindowFont, defenderInRange)
                 }
             };
+
             WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent, 1);
             battleUI.DefenderRangeWindow = new Window("Defender Range Info", windowTexture, defenderRangeContentGrid,
                 defenderWindowColor, portraitWidthOverride);
@@ -249,16 +259,19 @@ namespace SolStandard.Containers.Contexts
 
             //Dice Content Window
             defenderDice = new CombatDice(defender.Stats.Def, int.Parse(terrainDefenseBonus), 3);
+
             IRenderable[,] diceWindowContent =
             {
                 {new RenderText(GameDriver.WindowFont, "PLACEHOLDER\nDICE WILL GO HERE")},
                 {defenderDice}
             };
+
             WindowContentGrid defenderDiceContentGrid = new WindowContentGrid(diceWindowContent, 1);
             battleUI.DefenderDiceWindow = new Window("Dice Rolling Window", windowTexture, defenderDiceContentGrid,
                 defenderWindowColor);
         }
 
+        //TODO use this to step through the combat steps
         private void ProceedToNextState()
         {
             if (CurrentState == BattleState.End)
@@ -273,20 +286,20 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private bool DefenderIsInCounterAttackRange()
+        private bool CoordinatesAreInRange(Vector2 sourcePosition, Vector2 targetPosition, IEnumerable<int> sourceRange)
         {
-            //TODO Write unit tests for this
-            //Since distance is measured in horizontal and vertical steps,
-            //the absolute value of the difference of absolute positions should add up to the appropriate range. 
-            int horizontalDistance = Math.Abs(Math.Abs((int) attacker.MapEntity.MapCoordinates.X) -
-                                              Math.Abs((int) defender.MapEntity.MapCoordinates.X));
-            int verticalDistance = Math.Abs(Math.Abs((int) attacker.MapEntity.MapCoordinates.Y) -
-                                            Math.Abs((int) defender.MapEntity.MapCoordinates.Y));
-            
-            return defender.Stats.AtkRange.Any(range => horizontalDistance + verticalDistance == range);
+//TODO Write unit tests for this
+//Since distance is measured in horizontal and vertical steps,
+//the absolute value of the difference of absolute positions should add up to the appropriate range. 
+            int horizontalDistance = Math.Abs(Math.Abs((int) targetPosition.X) -
+                                              Math.Abs((int) sourcePosition.X));
+
+            int verticalDistance = Math.Abs(Math.Abs((int) targetPosition.Y) -
+                                            Math.Abs((int) sourcePosition.Y));
+            return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
-        //FIXME Find a more appropriate way to roll the dice and actually track the values
+//FIXME Find a more appropriate way to roll the dice and actually track the values
         public void RollDice()
         {
             if (!currentlyRolling)
@@ -300,7 +313,6 @@ namespace SolStandard.Containers.Contexts
             if (currentlyRolling)
             {
                 rollingCounter++;
-
                 const int rollingFrames = 60;
                 if (rollingCounter >= rollingFrames)
                 {
