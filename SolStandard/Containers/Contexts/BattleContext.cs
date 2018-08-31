@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Elements.Cursor;
@@ -59,8 +58,32 @@ namespace SolStandard.Containers.Contexts
             this.attacker = attacker;
             this.defender = defender;
 
+            SetupHelpWindow();
+            SetupAttackerWindows(attackerSlice);
+            SetupDefenderWindows(defenderSlice);
+            SetupPromptWindow();
+        }
+
+        private void SetupPromptWindow()
+        {
+            const string promptText = "Start Combat! Press ";
+            const string buttonText = "(A)";
+            IRenderable[,] promptTextContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, promptText),
+                    new RenderText(GameDriver.WindowFont, buttonText, Color.Green)
+                }
+            };
+            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 1);
+            battleUI.GenerateUserPromptWindow(promptWindowContentGrid,
+                new Vector2(battleUI.AttackerBonusWindow.Width, battleUI.AttackerBonusWindow.Height * 3));
+        }
+
+        private void SetupHelpWindow()
+        {
             const string helpText =
-                "INFO: Swords deal 1 damage. Shields block swords. Blanks are ignored. Swords are ignored if not in range";
+                "INFO: Swords deal 1 damage. Shields block swords. Blanks are ignored. Swords are ignored if not in range.";
             const string legendNormal = "White=Normal ";
             const string legendBonus = "Green=Bonus ";
             const string legendDamage = "Red=Damage ";
@@ -77,17 +100,14 @@ namespace SolStandard.Containers.Contexts
                 },
                 {
                     new RenderText(GameDriver.WindowFont, legendNormal, Color.White),
-                    new RenderText(GameDriver.WindowFont, legendBonus, new Color(100,250,100)),
-                    new RenderText(GameDriver.WindowFont, legendDamage, new Color(250,100,100)),
-                    new RenderText(GameDriver.WindowFont, legendBlocked, new Color(100,100,250)),
+                    new RenderText(GameDriver.WindowFont, legendBonus, new Color(100, 250, 100)),
+                    new RenderText(GameDriver.WindowFont, legendDamage, new Color(250, 100, 100)),
+                    new RenderText(GameDriver.WindowFont, legendBlocked, new Color(100, 100, 250)),
                     new RenderText(GameDriver.WindowFont, legendIgnored, Color.Gray)
                 }
             };
             WindowContentGrid helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);
             battleUI.GenerateHelpTextWindow(helpTextWindowContentGrid);
-
-            SetupAttackerWindows(attackerSlice);
-            SetupDefenderWindows(defenderSlice);
         }
 
         private void SetupAttackerWindows(MapSlice attackerSlice)
@@ -147,7 +167,8 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static bool CoordinatesAreInRange(Vector2 sourcePosition, Vector2 targetPosition, IEnumerable<int> sourceRange)
+        public static bool CoordinatesAreInRange(Vector2 sourcePosition, Vector2 targetPosition,
+            IEnumerable<int> sourceRange)
         {
             /*Since distance is measured in horizontal and vertical steps, the absolute value of the difference of
              absolute positions should add up to the appropriate range.*/
@@ -221,7 +242,17 @@ namespace SolStandard.Containers.Contexts
 
         private void ResolveDamage()
         {
-            //TODO Calculate damage and reduce attacker and defender's HP bars point-by-point
+            //Treat the unit as off-screen if null
+            Vector2 attackerCoordinates =
+                (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
+            Vector2 defenderCoordinates =
+                (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
+
+            bool attackerInRange =
+                CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
+            bool defenderInRange =
+                CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
+
             int attackerDamage = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
             int defenderDamage = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
 
@@ -237,16 +268,15 @@ namespace SolStandard.Containers.Contexts
                     attackerDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     defenderDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
                 }
-                else if (attackerDamage > 0)
+                else if (attackerDamage > 0 && attackerInRange)
                 {
                     attackerDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
                     defender.DamageUnit(1);
                 }
-                else if (defenderDamage > 0)
+                else if (defenderDamage > 0 && defenderInRange)
                 {
                     defenderDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
                     attacker.DamageUnit(1);
-                    
                 }
                 else
                 {

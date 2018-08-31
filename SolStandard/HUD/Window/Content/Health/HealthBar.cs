@@ -13,8 +13,8 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private readonly int maxHp;
         private int currentHp;
-        private static readonly Color ActiveColor = new Color(0, 200, 0);
-        private static readonly Color InactiveColor = new Color(140, 20, 20, 200);
+        private static readonly Color ActiveColor = new Color(30, 200, 30);
+        private static readonly Color InactiveColor = new Color(140, 10, 10, 150);
 
         public int Height { get; private set; }
         public int Width { get; private set; }

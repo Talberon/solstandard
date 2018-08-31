@@ -150,17 +150,33 @@ namespace SolStandard.Rules.Controls
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
-                        mapContext.ProceedToNextState();
                         //Start Combat
                         GameUnit targetUnit =
                             UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
-                        battleContext.StartNewCombat(mapContext.SelectedUnit,
-                            mapContext.MapContainer.GetMapSliceAtCoordinates(mapContext.SelectedUnit.MapEntity
-                                .MapCoordinates),
-                            targetUnit, mapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit.MapEntity
-                                .MapCoordinates));
 
-                        mapContext.MapContainer.ClearDynamicGrid();
+                        //TODO clean up this gigantic if statement
+                        if (targetUnit != null && mapContext.SelectedUnit != targetUnit &&
+                            BattleContext.CoordinatesAreInRange(mapContext.SelectedUnit.MapEntity.MapCoordinates,
+                                targetUnit.MapEntity.MapCoordinates, mapContext.SelectedUnit.Stats.AtkRange) &&
+                            mapContext.SelectedUnit.UnitTeam != targetUnit.UnitTeam)
+                        {
+                            mapContext.ProceedToNextState();
+
+                            mapContext.MapContainer.ClearDynamicGrid();
+                            battleContext.StartNewCombat(mapContext.SelectedUnit,
+                                mapContext.MapContainer.GetMapSliceAtCoordinates(mapContext.SelectedUnit.MapEntity
+                                    .MapCoordinates),
+                                targetUnit, mapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit.MapEntity
+                                    .MapCoordinates));
+                        }
+                        else if (mapContext.SelectedUnit == targetUnit)
+                        {
+                            //Skip the combat state if player selects the same unit
+                            mapContext.MapContainer.ClearDynamicGrid();
+                            mapContext.ProceedToNextState();
+                            mapContext.ProceedToNextState();
+                        }
+
                         return;
 
                     case MapContext.TurnState.UnitActing:
@@ -193,6 +209,8 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.ResolvingTurn:
                         //TODO Do various turn check resolution (win state, etc.)
+                        //TODO Confirm turn end
+                        //TODO Disable unit
                         mapContext.ProceedToNextState();
                         return;
                     default:

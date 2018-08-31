@@ -23,23 +23,23 @@ namespace SolStandard.Containers.UI
         //TODO decide if this should stay or be removed
         public Window DebugWindow { get; set; }
 
-        public Window AttackerLabelWindow { get; set; }
-        public Window AttackerPortraitWindow { get; set; }
-        public Window AttackerHpWindow { get; set; }
-        public Window AttackerAtkWindow { get; set; }
-        public Window AttackerBonusWindow { get; set; }
-        public Window AttackerRangeWindow { get; set; }
-        public Window AttackerDiceLabelWindow { get; set; }
-        public Window AttackerDiceWindow { get; set; }
+        public Window AttackerLabelWindow { get; private set; }
+        public Window AttackerPortraitWindow { get; private set; }
+        public Window AttackerHpWindow { get; private set; }
+        public Window AttackerAtkWindow { get; private set; }
+        public Window AttackerBonusWindow { get; private set; }
+        public Window AttackerRangeWindow { get; private set; }
+        public Window AttackerDiceLabelWindow { get; private set; }
+        public Window AttackerDiceWindow { get; private set; }
 
-        public Window DefenderLabelWindow { get; set; }
-        public Window DefenderPortraitWindow { get; set; }
-        public Window DefenderHpWindow { get; set; }
-        public Window DefenderDefWindow { get; set; }
-        public Window DefenderBonusWindow { get; set; }
-        public Window DefenderRangeWindow { get; set; }
-        public Window DefenderDiceLabelWindow { get; set; }
-        public Window DefenderDiceWindow { get; set; }
+        public Window DefenderLabelWindow { get; private set; }
+        public Window DefenderPortraitWindow { get; private set; }
+        public Window DefenderHpWindow { get; private set; }
+        public Window DefenderDefWindow { get; private set; }
+        public Window DefenderBonusWindow { get; private set; }
+        public Window DefenderRangeWindow { get; private set; }
+        public Window DefenderDiceLabelWindow { get; private set; }
+        public Window DefenderDiceWindow { get; private set; }
 
         public Window HelpTextWindow { get; set; }
 
@@ -60,6 +60,12 @@ namespace SolStandard.Containers.UI
         {
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
             HelpTextWindow = new Window("Help Window", windowTexture, helpTextContent, helpTextWindowColor);
+        }
+        
+        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        {
+            Color promptWindowColor = new Color(20, 20, 20, 200);
+            UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor, sizeOverride);
         }
 
 
@@ -294,7 +300,8 @@ namespace SolStandard.Containers.UI
         private Vector2 UserPromptWindowPosition()
         {
             //TODO Middle of the screen beneath the dice windows
-            throw new System.NotImplementedException();
+            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
+                AttackerAtkWindowPosition().Y);
         }
 
         #region Attacker
