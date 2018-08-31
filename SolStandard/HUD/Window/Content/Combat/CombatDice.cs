@@ -9,8 +9,12 @@ namespace SolStandard.HUD.Window.Content.Combat
 {
     public class CombatDice : IRenderable
     {
-        private static readonly Color BonusDieColor = new Color(20,180,20);
-        
+        public static readonly Color DefaultDieColor = Color.White;
+        public static readonly Color BonusDieColor = new Color(80, 200, 80);
+        public static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
+        public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
+        public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
+
         private readonly List<Die> dice;
         private readonly int rowSize;
         public int Height { get; private set; }
@@ -33,12 +37,12 @@ namespace SolStandard.HUD.Window.Content.Combat
 
             for (int i = 0; i < baseDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieFaces.One));
+                diceToGenerate.Add(new Die(Die.DieSides.One, DefaultDieColor));
             }
 
             for (int i = 0; i < bonusDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieFaces.One, BonusDieColor));
+                diceToGenerate.Add(new Die(Die.DieSides.One, BonusDieColor));
             }
 
             return diceToGenerate;
@@ -60,6 +64,74 @@ namespace SolStandard.HUD.Window.Content.Combat
             foreach (Die die in dice)
             {
                 die.Roll();
+            }
+        }
+
+        public int CountFaceValue(Die.FaceValue faceValue, bool enabledOnly)
+        {
+            int faceCount = 0;
+            foreach (Die die in dice)
+            {
+                if (die.GetFaceValue() == faceValue)
+                {
+                    if (enabledOnly)
+                    {
+                        if (die.Enabled)
+                        {
+                            faceCount++;
+                        }
+                    }
+                    else
+                    {
+                        faceCount++;
+                    }
+                }
+            }
+
+            return faceCount;
+        }
+
+        public void DisableNextDieWithValue(Die.FaceValue faceValue)
+        {
+            foreach (Die die in dice)
+            {
+                if (die.GetFaceValue() != faceValue) continue;
+                if (!die.Enabled) continue;
+                die.Disable(IgnoredDieColor);
+                return;
+            }
+        }
+
+        public void DisableAllDiceWithValue(Die.FaceValue faceValue)
+        {
+            int totalFaceValues = CountFaceValue(faceValue, true);
+            for (int i = 0; i < totalFaceValues; i++)
+            {
+                DisableNextDieWithValue(faceValue);
+            }
+        }
+
+        //FIXME the logic is almost identical to Disable. Make these generic and don't repeat logic.
+        public void ResolveNextDieWithValue(Die.FaceValue faceValue)
+        {
+            foreach (Die die in dice)
+            {
+                if (die.GetFaceValue() != faceValue) continue;
+                if (!die.Enabled) continue;
+                die.Disable(DamageDieColor);
+                return;
+            }
+        }
+        
+        //FIXME the logic is almost identical to Disable and Resolve. Make these generic and don't repeat logic.
+        public void BlockNextDieWithValue(Die.FaceValue faceValue)
+        {
+            foreach (Die die in dice)
+            {
+                if (die.GetFaceValue() != faceValue) continue;
+                if (!die.Enabled) continue;
+                die.Disable(BlockedDieColor);
+                return;
             }
         }
 

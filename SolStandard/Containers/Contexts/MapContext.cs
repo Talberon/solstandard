@@ -17,7 +17,6 @@ namespace SolStandard.Containers.Contexts
             UnitDecidingAction,
             UnitTargeting,
             UnitActing,
-            UnitFinishedActing,
             ResolvingTurn
         }
 

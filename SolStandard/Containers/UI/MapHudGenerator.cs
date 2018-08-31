@@ -109,7 +109,9 @@ namespace SolStandard.Containers.UI
                     );
                 unitListGrid[0, i] = unitInfoPortrait;
 
-                IRenderable unitInfoHealthBar = unitList[i].DefaultHealthBar;
+                const int initiativeHealthBarHeight = 10;
+                IRenderable unitInfoHealthBar = unitList[i]
+                    .GetInitiativeHealthBar(new Vector2(unitInfoPortrait.Width, initiativeHealthBarHeight));
                 unitListGrid[1, i] = unitInfoHealthBar;
             }
 
@@ -122,14 +124,21 @@ namespace SolStandard.Containers.UI
         {
             if (selectedUnit == null) return null;
 
-            IRenderable selectedUnitPortrait =
-                new SpriteAtlas(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1);
+            const int hoverWindowHealthBarHeight = 15;
+            IRenderable[,] selectedUnitPortrait =
+            {
+                {new SpriteAtlas(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1)},
+                {
+                    selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,
+                        hoverWindowHealthBarHeight))
+                }
+            };
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
 
             Color windowColour = DetermineTeamColor(selectedUnit.UnitTeam);
 
-            return new Window(windowLabel, windowTexture, selectedUnitPortrait, windowColour);
+            return new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1), windowColour);
         }
 
         public Window GenerateUnitDetailWindow(GameUnit selectedUnit)

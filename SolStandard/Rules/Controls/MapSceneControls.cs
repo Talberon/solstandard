@@ -129,7 +129,7 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitMoving:
                         mapContext.ProceedToNextState();
-                        
+
                         if (mapContext.OtherUnitExistsAtCursor()) return;
                         mapContext.MapContainer.ClearDynamicGrid();
 
@@ -169,34 +169,26 @@ namespace SolStandard.Rules.Controls
                         {
                             case BattleContext.BattleState.Start:
                                 battleContext.ProceedToNextState();
-                                
                                 //TODO make sure calculation can't start before dice have finished rolling
                                 battleContext.RollDice();
                                 break;
                             case BattleContext.BattleState.RollDice:
                                 battleContext.ProceedToNextState();
+                                battleContext.StartCountingDice();
                                 break;
-                            case BattleContext.BattleState.CalculateDamage:
+                            case BattleContext.BattleState.CountDice:
                                 battleContext.ProceedToNextState();
+                                battleContext.StartResolvingDamage();
                                 break;
-                            case BattleContext.BattleState.DealDamage:
-                                battleContext.ProceedToNextState();
-                                break;
-                            case BattleContext.BattleState.End:
+                            case BattleContext.BattleState.ResolveCombat:
                                 battleContext.ProceedToNextState();
                                 mapContext.ProceedToNextState();
                                 break;
                             default:
-                                //TODO Resolve Combat
                                 mapContext.ProceedToNextState();
                                 return;
                         }
-                        
-                        return;
 
-                    case MapContext.TurnState.UnitFinishedActing:
-                        //TODO Resolve any additional actions
-                        mapContext.ProceedToNextState();
                         return;
 
                     case MapContext.TurnState.ResolvingTurn:

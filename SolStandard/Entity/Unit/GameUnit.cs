@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
@@ -31,8 +32,10 @@ namespace SolStandard.Entity.Unit
         private readonly ITexture2D smallPortrait;
 
         //TODO Decide how to handle this bar since any copies will not auto-update
-        private readonly HealthBar defaultHealthBar;
-        private const int InitiativeHpBarSize = 5;
+        private readonly HealthBar hoverWindowHealthBar;
+        private readonly HealthBar combatHealthBar;
+        private readonly HealthBar initiativeHealthBar;
+        private readonly List<HealthBar> healthbars;
 
         private readonly UnitStatistics stats;
 
@@ -46,7 +49,16 @@ namespace SolStandard.Entity.Unit
             this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
-            defaultHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, new Vector2(mediumPortrait.Width, InitiativeHpBarSize));
+            initiativeHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            combatHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+
+            healthbars = new List<HealthBar>
+            {
+                initiativeHealthBar,
+                combatHealthBar,
+                hoverWindowHealthBar
+            };
         }
 
         public UnitStatistics Stats
@@ -79,14 +91,22 @@ namespace SolStandard.Entity.Unit
             get { return smallPortrait; }
         }
 
-        public IRenderable DefaultHealthBar
+        public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
-            get { return defaultHealthBar; }
+            initiativeHealthBar.SetSize(barSize);
+            return initiativeHealthBar;
         }
 
-        public IRenderable GetCustomHealthBar(Vector2 barSize)
+        public IRenderable GetHoverWindowHealthBar(Vector2 barSize)
         {
-            return new HealthBar(stats.MaxHp, stats.Hp, barSize);
+            hoverWindowHealthBar.SetSize(barSize);
+            return hoverWindowHealthBar;
+        }
+
+        public IRenderable GetCombatHealthBar(Vector2 barSize)
+        {
+            combatHealthBar.SetSize(barSize);
+            return combatHealthBar;
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
@@ -115,7 +135,7 @@ namespace SolStandard.Entity.Unit
         public void DamageUnit(int damage)
         {
             stats.Hp -= damage;
-            defaultHealthBar.DealDamage(damage);
+            healthbars.ForEach(healthbar => healthbar.DealDamage(damage));
             KillIfDead();
         }
 

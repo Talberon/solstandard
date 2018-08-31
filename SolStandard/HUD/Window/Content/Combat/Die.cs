@@ -14,7 +14,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             Sword
         }
 
-        public enum DieFaces
+        public enum DieSides
         {
             One,
             Two,
@@ -24,44 +24,56 @@ namespace SolStandard.HUD.Window.Content.Combat
             Six
         }
 
-        private static readonly Dictionary<DieFaces, FaceValue> DieValues =
-            new Dictionary<DieFaces, FaceValue>
+        private static readonly Dictionary<DieSides, FaceValue> DieValues =
+            new Dictionary<DieSides, FaceValue>
             {
-                {DieFaces.One, FaceValue.Blank},
-                {DieFaces.Two, FaceValue.Shield},
-                {DieFaces.Three, FaceValue.Shield},
-                {DieFaces.Four, FaceValue.Sword},
-                {DieFaces.Five, FaceValue.Sword},
-                {DieFaces.Six, FaceValue.Sword}
+                {DieSides.One, FaceValue.Blank},
+                {DieSides.Two, FaceValue.Shield},
+                {DieSides.Three, FaceValue.Shield},
+                {DieSides.Four, FaceValue.Sword},
+                {DieSides.Five, FaceValue.Sword},
+                {DieSides.Six, FaceValue.Sword}
             };
 
         private readonly SpriteAtlas dieAtlas;
-        private DieFaces currentFace;
-        private readonly Color color;
+        private DieSides currentSide;
+        private Color color;
 
         public int Height { get; private set; }
         public int Width { get; private set; }
+        public bool Enabled { get; private set; }
 
-        public Die(DieFaces initialFace, Color color)
+        public Die(DieSides initialSide, Color color)
         {
-            currentFace = initialFace;
+            currentSide = initialSide;
             this.color = color;
             dieAtlas = new SpriteAtlas(GameDriver.DiceTexture, GameDriver.DiceTexture.Height, 1);
             Height = dieAtlas.Height;
             Width = dieAtlas.Width;
+            Enabled = true;
         }
 
-        public Die(DieFaces initialFace) : this(initialFace, Color.White)
+        public Die(DieSides initialSide) : this(initialSide, Color.White)
         {
             //Intentionally left blank
         }
 
-        public FaceValue Roll()
+        public void Roll()
         {
             int randomValue = GameDriver.Random.Next(0, 5);
-            currentFace = (DieFaces) randomValue;
-            dieAtlas.CellIndex = (int) currentFace + 1;
-            return DieValues[currentFace];
+            currentSide = (DieSides) randomValue;
+            dieAtlas.CellIndex = (int) currentSide + 1;
+        }
+
+        public FaceValue GetFaceValue()
+        {
+            return DieValues[currentSide];
+        }
+
+        public void Disable(Color disabledColor)
+        {
+            Enabled = false;
+            color = disabledColor;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -76,7 +88,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public override string ToString()
         {
-            return "Die: {Value=" + currentFace + ", Atlas=" + dieAtlas + "}";
+            return "Die: {Value=" + currentSide + ", Atlas=" + dieAtlas + "}";
         }
     }
 }

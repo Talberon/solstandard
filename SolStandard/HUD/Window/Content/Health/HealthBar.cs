@@ -26,7 +26,7 @@ namespace SolStandard.HUD.Window.Content.Health
             SetSize(barSize);
         }
 
-        private void SetSize(Vector2 size)
+        public void SetSize(Vector2 size)
         {
             barSize = size;
             PopulatePips();

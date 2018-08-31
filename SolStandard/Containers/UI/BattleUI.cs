@@ -15,8 +15,8 @@ namespace SolStandard.Containers.UI
     {
         private readonly Vector2 screenSize;
 
-        private static readonly Vector2
-            WindowEdgeBuffer = new Vector2(200, 200); //TODO Make this scale properly with resolution
+        //TODO Make this scale properly with resolution
+        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 200);
 
         private const int WindowSpacing = 5;
 
@@ -47,7 +47,7 @@ namespace SolStandard.Containers.UI
 
         private bool visible;
 
-        private ITexture2D windowTexture;
+        private readonly ITexture2D windowTexture;
 
         public BattleUI(Vector2 screenSize, ITexture2D windowTexture)
         {
@@ -56,11 +56,10 @@ namespace SolStandard.Containers.UI
             visible = true;
         }
 
-        internal void GenerateHelpTextWindow(string helpText)
+        internal void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
-            IRenderable textToRender = new RenderText(GameDriver.WindowFont, helpText);
-            HelpTextWindow =
-                new Window("Help Window", windowTexture, textToRender, new Color(30, 30, 30, 150));
+            Color helpTextWindowColor = new Color(20, 20, 20, 200);
+            HelpTextWindow = new Window("Help Window", windowTexture, helpTextContent, helpTextWindowColor);
         }
 
 
@@ -148,7 +147,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerHpContent = new IRenderable[1, 2];
             IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, hpBarHeight);
-            IRenderable hpBar = attacker.GetCustomHealthBar(hpBarSize);
+            IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
             attackerHpContent[0, 0] = hpLabel;
             attackerHpContent[0, 1] = hpBar;
             WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);
@@ -258,7 +257,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderHpContent = new IRenderable[1, 2];
             IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
             Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width, hpBarHeight);
-            IRenderable hpBar = defender.GetCustomHealthBar(hpBarSize);
+            IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
             defenderHpContent[0, 0] = hpLabel;
             defenderHpContent[0, 1] = hpBar;
             WindowContentGrid defenderHpContentGrid = new WindowContentGrid(defenderHpContent, 1);
