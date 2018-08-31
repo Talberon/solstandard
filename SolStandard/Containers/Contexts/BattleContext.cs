@@ -61,21 +61,24 @@ namespace SolStandard.Containers.Contexts
             SetupHelpWindow();
             SetupAttackerWindows(attackerSlice);
             SetupDefenderWindows(defenderSlice);
-            SetupPromptWindow();
+            SetPromptWindowText("Start Combat!");
         }
 
-        private void SetupPromptWindow()
+        private void SetPromptWindowText(string promptText)
         {
-            const string promptText = "Start Combat! Press ";
+            const string pressText = "Press ";
             const string buttonText = "(A)";
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, promptText),
-                    new RenderText(GameDriver.WindowFont, buttonText, Color.Green)
+                    new RenderText(GameDriver.WindowFont, promptText + " "),
+                    new RenderText(GameDriver.WindowFont, "["),
+                    new RenderText(GameDriver.WindowFont, pressText),
+                    new RenderText(GameDriver.WindowFont, buttonText, Color.Green),
+                    new RenderText(GameDriver.WindowFont, "]")
                 }
             };
-            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 1);
+            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
             battleUI.GenerateUserPromptWindow(promptWindowContentGrid,
                 new Vector2(battleUI.AttackerBonusWindow.Width, battleUI.AttackerBonusWindow.Height * 3));
         }
@@ -152,7 +155,6 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
         }
 
-        //TODO use this to step through the combat steps
         public void ProceedToNextState()
         {
             if (CurrentState == BattleState.ResolveCombat)
@@ -180,19 +182,43 @@ namespace SolStandard.Containers.Contexts
             return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
-        public void RollDice()
+        public void StartRollingDice()
         {
             if (!currentlyRolling)
             {
                 currentlyRolling = true;
+                battleUI.UserPromptWindow.Visible = false;
             }
         }
+
+        private void RollDice()
+        {
+            rollingCounter++;
+            const int rollingFrames = 60;
+            if (rollingCounter >= rollingFrames)
+            {
+                rollingCounter = 0;
+                currentlyRolling = false;
+                
+                SetPromptWindowText("Resolve Blocks.");
+            }
+
+            const int renderDelay = 3;
+            if (frameCounter % renderDelay == 0)
+            {
+                attackerDice.RollDice();
+                defenderDice.RollDice();
+            }
+        }
+        
+        
 
         public void StartCountingDice()
         {
             if (!currentlyCountingDice)
             {
                 currentlyCountingDice = true;
+                battleUI.UserPromptWindow.Visible = false;
             }
         }
 
@@ -228,6 +254,8 @@ namespace SolStandard.Containers.Contexts
                     if (!defenderInRange) defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
 
                     currentlyCountingDice = false;
+                    
+                    SetPromptWindowText("Resolve Damage.");
                 }
             }
         }
@@ -237,6 +265,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyResolvingDamage)
             {
                 currentlyResolvingDamage = true;
+                battleUI.UserPromptWindow.Visible = false;
             }
         }
 
@@ -281,6 +310,8 @@ namespace SolStandard.Containers.Contexts
                 else
                 {
                     currentlyResolvingDamage = false;
+                    
+                    SetPromptWindowText("End Combat.");
                 }
             }
         }
@@ -299,20 +330,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (currentlyRolling)
             {
-                rollingCounter++;
-                const int rollingFrames = 60;
-                if (rollingCounter >= rollingFrames)
-                {
-                    rollingCounter = 0;
-                    currentlyRolling = false;
-                }
-
-                const int renderDelay = 3;
-                if (frameCounter % renderDelay == 0)
-                {
-                    attackerDice.RollDice();
-                    defenderDice.RollDice();
-                }
+                RollDice();
             }
             else if (currentlyCountingDice)
             {

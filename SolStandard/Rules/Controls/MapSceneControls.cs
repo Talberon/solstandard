@@ -185,8 +185,7 @@ namespace SolStandard.Rules.Controls
                         {
                             case BattleContext.BattleState.Start:
                                 battleContext.ProceedToNextState();
-                                //TODO make sure calculation can't start before dice have finished rolling
-                                battleContext.RollDice();
+                                battleContext.StartRollingDice();
                                 break;
                             case BattleContext.BattleState.RollDice:
                                 battleContext.ProceedToNextState();
@@ -235,7 +234,7 @@ namespace SolStandard.Rules.Controls
             if (controlMapper.X())
             {
                 //FIXME Remove this eventually after debugging is done
-                battleContext.RollDice();
+                battleContext.StartRollingDice();
             }
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging

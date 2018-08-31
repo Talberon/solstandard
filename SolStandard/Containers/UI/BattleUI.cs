@@ -64,7 +64,7 @@ namespace SolStandard.Containers.UI
         
         internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
-            Color promptWindowColor = new Color(20, 20, 20, 200);
+            Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor, sizeOverride);
         }
 
