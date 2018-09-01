@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Logic;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -113,14 +112,7 @@ namespace SolStandard.Rules.Controls
                                 gameContext.MapContext.MapContainer.MapCursor.MapCoordinates,
                                 gameContext.MapContext.SelectedUnit.Stats.MaxMv,
                                 new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
-                                    GameDriver.CellSize,
-                                    69));
-
-                            //TODO Remember where the unit originated
-                            //TODO Allow the unit to move within the movement grid
-                            //TODO Set the current GameState to UNIT_MOVEMENT
-                            //TODO On a B-press, remove the movement grid and return the unit to its original position; revert the GameState.
-                            //TODO On a second A-press, remove the movement grid and prevent unit from moving again.
+                                    GameDriver.CellSize, 69));
                         }
                         else
                         {
@@ -130,18 +122,17 @@ namespace SolStandard.Rules.Controls
                         return;
 
                     case MapContext.TurnState.UnitMoving:
+                        if (gameContext.MapContext.OtherUnitExistsAtCursor()) return;
                         gameContext.MapContext.ProceedToNextState();
 
-                        if (gameContext.MapContext.OtherUnitExistsAtCursor()) return;
                         gameContext.MapContext.MapContainer.ClearDynamicGrid();
 
-                        //TODO Open the menu
+                        //TODO Open the action menu
                         return;
 
                     case MapContext.TurnState.UnitDecidingAction:
                         gameContext.MapContext.ProceedToNextState();
-                        //TODO Select option in the menu
-
+                        //TODO Select option in the action menu
 
                         //If the selection is Basic Attack
                         //Open the targeting grid
@@ -158,7 +149,6 @@ namespace SolStandard.Rules.Controls
                             UnitSelector.SelectUnit(
                                 gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
 
-                        //TODO clean up this gigantic if statement
                         if (targetUnit != null && gameContext.MapContext.SelectedUnit != targetUnit &&
                             BattleContext.CoordinatesAreInRange(
                                 gameContext.MapContext.SelectedUnit.MapEntity.MapCoordinates,
@@ -167,6 +157,7 @@ namespace SolStandard.Rules.Controls
                             gameContext.MapContext.SelectedUnit.UnitTeam != targetUnit.UnitTeam)
                         {
                             gameContext.MapContext.ProceedToNextState();
+                            gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
 
                             gameContext.MapContext.MapContainer.ClearDynamicGrid();
                             gameContext.BattleContext.StartNewCombat(gameContext.MapContext.SelectedUnit,
@@ -182,10 +173,10 @@ namespace SolStandard.Rules.Controls
                             //Skip the combat state if player selects the same unit
                             gameContext.MapContext.MapContainer.ClearDynamicGrid();
                             gameContext.MapContext.ProceedToNextState();
+                            gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
                             gameContext.MapContext.ProceedToNextState();
                         }
 
-                        gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
                         return;
 
                     case MapContext.TurnState.UnitActing:
@@ -193,20 +184,20 @@ namespace SolStandard.Rules.Controls
                         switch (gameContext.BattleContext.CurrentState)
                         {
                             case BattleContext.BattleState.Start:
-                                gameContext.BattleContext.ProceedToNextState();
-                                gameContext.BattleContext.StartRollingDice();
+                                if (gameContext.BattleContext.TryProceedToNextState())
+                                    gameContext.BattleContext.StartRollingDice();
                                 break;
                             case BattleContext.BattleState.RollDice:
-                                gameContext.BattleContext.ProceedToNextState();
-                                gameContext.BattleContext.StartCountingDice();
+                                if (gameContext.BattleContext.TryProceedToNextState())
+                                    gameContext.BattleContext.StartCountingDice();
                                 break;
                             case BattleContext.BattleState.CountDice:
-                                gameContext.BattleContext.ProceedToNextState();
-                                gameContext.BattleContext.StartResolvingDamage();
+                                if (gameContext.BattleContext.TryProceedToNextState())
+                                    gameContext.BattleContext.StartResolvingDamage();
                                 break;
                             case BattleContext.BattleState.ResolveCombat:
-                                gameContext.BattleContext.ProceedToNextState();
-                                gameContext.MapContext.ProceedToNextState();
+                                if (gameContext.BattleContext.TryProceedToNextState())
+                                    gameContext.MapContext.ProceedToNextState();
                                 break;
                             default:
                                 gameContext.MapContext.ProceedToNextState();
@@ -217,7 +208,6 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.ResolvingTurn:
                         //TODO Do various turn check resolution (win state, etc.)
-                        //TODO Confirm turn end
                         gameContext.MapContext.ConfirmPromptWindow();
                         //TODO Disable unit
                         gameContext.MapContext.ProceedToNextState();

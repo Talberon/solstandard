@@ -154,7 +154,7 @@ namespace SolStandard.Map
                             AnimatedSprite animatedSprite =
                                 new AnimatedSprite(unitSprite, GameDriver.CellSize, 12, true);
 
-                            entityGrid[col, row] = new MapEntity(unitTeamAndClass, currentObject.Type, animatedSprite,
+                            entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, animatedSprite,
                                 new Vector2(col, row), currentProperties);
                         }
                     }

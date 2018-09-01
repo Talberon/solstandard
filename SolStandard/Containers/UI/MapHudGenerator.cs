@@ -146,7 +146,9 @@ namespace SolStandard.Containers.UI
             if (selectedUnit == null) return null;
 
             IRenderable selectedUnitInfo =
-                new RenderText(GameDriver.WindowFont, selectedUnit.Id + ":\n" + selectedUnit.Stats);
+                new RenderText(GameDriver.WindowFont,
+                    selectedUnit.Id + "\n" + selectedUnit.UnitTeam + " " + selectedUnit.UnitJobClass + "\n" +
+                    selectedUnit.Stats);
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
 

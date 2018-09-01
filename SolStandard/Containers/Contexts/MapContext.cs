@@ -130,13 +130,7 @@ namespace SolStandard.Containers.Contexts
 
         public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
         {
-            
-            if (UnitSelector.FindUnitEntityAtCoordinates(coordinates) == SelectedUnit.MapEntity)
-            {
-                return false;
-            }
-
-            return UnitSelector.FindUnitEntityAtCoordinates(coordinates) != null;
+            return UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, SelectedUnit.MapEntity) != null;
         }
 
         public void ReturnUnitToOriginalPosition()

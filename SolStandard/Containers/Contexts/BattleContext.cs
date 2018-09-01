@@ -125,6 +125,7 @@ namespace SolStandard.Containers.Contexts
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.AttackerPortraitWindow.Width, 0);
             battleUI.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
+            battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride, attacker.UnitJobClass.ToString());
             battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
             battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats.Atk);
 
@@ -146,6 +147,7 @@ namespace SolStandard.Containers.Contexts
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.DefenderPortraitWindow.Width, 0);
             battleUI.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
+            battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride, defender.UnitJobClass.ToString());
             battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
             battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats.Def);
 
@@ -160,17 +162,21 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
         }
 
-        public void ProceedToNextState()
+        public bool TryProceedToNextState()
         {
+            if (currentlyCountingDice || currentlyResolvingDamage || currentlyRolling) return false;
+            
             if (CurrentState == BattleState.ResolveCombat)
             {
                 CurrentState = 0;
                 Trace.WriteLine("Resetting to initial combat state: " + CurrentState);
+                return true;
             }
             else
             {
                 CurrentState++;
                 Trace.WriteLine("Changing combat state: " + CurrentState);
+                return true;
             }
         }
 

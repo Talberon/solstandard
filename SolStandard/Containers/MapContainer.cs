@@ -62,7 +62,7 @@ namespace SolStandard.Containers
             int column = (int) coordinates.X;
             int row = (int) coordinates.Y;
 
-            MapEntity unit = UnitSelector.FindUnitEntityAtCoordinates(coordinates);
+            MapEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
             MapElement dynamic = gameGrid[(int) Layer.Dynamic][column, row];
             MapEntity entity = (MapEntity) gameGrid[(int) Layer.Entities][column, row];
             MapTile collide = (MapTile) gameGrid[(int) Layer.Collide][column, row];

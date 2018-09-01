@@ -29,6 +29,7 @@ namespace SolStandard.Containers.UI
 
         public Window AttackerLabelWindow { get; private set; }
         public Window AttackerPortraitWindow { get; private set; }
+        public Window AttackerClassWindow { get; private set; }
         public Window AttackerHpWindow { get; private set; }
         public Window AttackerAtkWindow { get; private set; }
         public Window AttackerBonusWindow { get; private set; }
@@ -38,6 +39,7 @@ namespace SolStandard.Containers.UI
 
         public Window DefenderLabelWindow { get; private set; }
         public Window DefenderPortraitWindow { get; private set; }
+        public Window DefenderClassWindow { get; private set; }
         public Window DefenderHpWindow { get; private set; }
         public Window DefenderDefWindow { get; private set; }
         public Window DefenderBonusWindow { get; private set; }
@@ -171,7 +173,15 @@ namespace SolStandard.Containers.UI
             string attackerName)
         {
             IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, attackerName);
-            AttackerLabelWindow = new Window("Attacker Label", windowTexture, attackerLabelText,
+            AttackerLabelWindow = new Window("Attacker Name Label", windowTexture, attackerLabelText,
+                attackerWindowColor, portraitWidthOverride);
+        }
+        
+        internal void GenerateAttackerClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            string attackerClass)
+        {
+            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, "Class: " + attackerClass);
+            AttackerClassWindow = new Window("Attacker Class Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
         }
 
@@ -282,8 +292,16 @@ namespace SolStandard.Containers.UI
             string defenderName)
         {
             IRenderable defenderLabelText = new RenderText(GameDriver.WindowFont, defenderName);
-            DefenderLabelWindow = new Window("Defender Label", windowTexture, defenderLabelText,
+            DefenderLabelWindow = new Window("Defender Name Label", windowTexture, defenderLabelText,
                 defenderWindowColor, portraitWidthOverride);
+        }
+        
+        internal void GenerateDefenderClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+            string defenderClass)
+        {
+            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, "Class: " + defenderClass);
+            DefenderClassWindow = new Window("Defender Class Label", windowTexture, attackerLabelText,
+                attackerWindowColor, portraitWidthOverride);
         }
 
         internal void GenerateDefenderPortraitWindow(Color defenderWindowColor, ITexture2D defenderPortrait)
@@ -326,13 +344,22 @@ namespace SolStandard.Containers.UI
                 attackerLabelWindowPosition.Y + AttackerLabelWindow.Height + WindowSpacing);
         }
 
-        private Vector2 AttackerHpWindowPosition()
+        private Vector2 AttackerClassWindowPosition()
         {
             //Anchored beneath portrait window
             Vector2 attackerPortraitWindowPosition = AttackerPortraitWindowPosition();
 
             return new Vector2(attackerPortraitWindowPosition.X,
                 attackerPortraitWindowPosition.Y + AttackerPortraitWindow.Height + WindowSpacing);
+        }
+
+        private Vector2 AttackerHpWindowPosition()
+        {
+            //Anchored beneath class window
+            Vector2 attackerClassWindowPosition = AttackerClassWindowPosition();
+
+            return new Vector2(attackerClassWindowPosition.X,
+                attackerClassWindowPosition.Y + AttackerClassWindow.Height + WindowSpacing);
         }
 
         private Vector2 AttackerAtkWindowPosition()
@@ -400,13 +427,23 @@ namespace SolStandard.Containers.UI
                 defenderLabelWindowPosition.Y + DefenderLabelWindow.Height + WindowSpacing);
         }
 
-        private Vector2 DefenderHpWindowPosition()
+
+        private Vector2 DefenderClassWindowPosition()
         {
             //Anchored beneath portrait window
             Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
 
-            return new Vector2(screenSize.X - DefenderHpWindow.Width - WindowEdgeBuffer.X,
+            return new Vector2(defenderPortraitWindowPosition.X,
                 defenderPortraitWindowPosition.Y + DefenderPortraitWindow.Height + WindowSpacing);
+        }
+
+        private Vector2 DefenderHpWindowPosition()
+        {
+            //Anchored beneath class window
+            Vector2 defenderClassWindowPosition = DefenderClassWindowPosition();
+
+            return new Vector2(defenderClassWindowPosition.X,
+                defenderClassWindowPosition.Y + DefenderClassWindow.Height + WindowSpacing);
         }
 
         private Vector2 DefenderAtkWindowPosition()
@@ -473,6 +510,7 @@ namespace SolStandard.Containers.UI
                 {
                     AttackerLabelWindow.Draw(spriteBatch, AttackerLabelWindowPosition());
                     AttackerPortraitWindow.Draw(spriteBatch, AttackerPortraitWindowPosition());
+                    AttackerClassWindow.Draw(spriteBatch, AttackerClassWindowPosition());
                     AttackerHpWindow.Draw(spriteBatch, AttackerHpWindowPosition());
                     AttackerAtkWindow.Draw(spriteBatch, AttackerAtkWindowPosition());
                     AttackerBonusWindow.Draw(spriteBatch, AttackerBonusWindowPosition());
@@ -485,6 +523,7 @@ namespace SolStandard.Containers.UI
                 {
                     DefenderLabelWindow.Draw(spriteBatch, DefenderLabelWindowPosition());
                     DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
+                    DefenderClassWindow.Draw(spriteBatch, DefenderClassWindowPosition());
                     DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
                     DefenderDefWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
                     DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());

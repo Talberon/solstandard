@@ -15,11 +15,11 @@ namespace SolStandard.Logic
             return GameContext.Units.First(gameUnit => gameUnit.MapEntity == unit);
         }
 
-        public static MapEntity FindUnitEntityAtCoordinates(Vector2 coordinates)
+        public static MapEntity FindOtherUnitEntityAtCoordinates(Vector2 coordinates, MapEntity excludedEntity)
         {
             foreach (GameUnit unit in GameContext.Units)
             {
-                if (unit.MapEntity != null)
+                if (unit.MapEntity != null && unit.MapEntity != excludedEntity)
                 {
                     if (unit.MapEntity.MapCoordinates == coordinates) return unit.MapEntity;
                 }
