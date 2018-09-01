@@ -56,6 +56,8 @@
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
+    <Compile Include="Entity\Unit\UnitEntity.cs" />
+    <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />

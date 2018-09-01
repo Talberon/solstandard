@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
@@ -13,7 +14,7 @@ namespace SolStandardTest.Map
     {
         private TmxMapParser objectUnderTest;
         private List<MapElement[,]> mapGrid;
-        private List<MapEntity> unitsFromMap;
+        private List<UnitEntity> unitsFromMap;
         private List<string> unitTextureNames;
         private string tileTextureName;
 

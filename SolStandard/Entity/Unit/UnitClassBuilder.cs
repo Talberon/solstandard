@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -19,13 +18,13 @@ namespace SolStandard.Entity.Unit
             this.smallPortraits = smallPortraits;
         }
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<MapEntity> units,
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units,
             List<ITexture2D> largePortraitTextures,
             List<ITexture2D> mediumPortraitTextures, List<ITexture2D> smallPortraitTextures)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
-            foreach (MapEntity unit in units)
+            foreach (UnitEntity unit in units)
             {
                 if (unit == null) continue;
                 
@@ -74,7 +73,7 @@ namespace SolStandard.Entity.Unit
         }
 
         private GameUnit BuildUnitFromProperties(string id, Team unitTeam, UnitClass unitJobClass,
-            MapEntity mapEntity, int initiative)
+            UnitEntity mapEntity, int initiative)
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
 
@@ -102,7 +101,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
-            return new GameUnit(id, unitTeam, unitJobClass, ref mapEntity, unitStats, largePortrait, mediumPortrait,
+            return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
                 smallPortrait);
         }
 

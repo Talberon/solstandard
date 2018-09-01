@@ -5,9 +5,9 @@ namespace SolStandard.Entity
     public abstract class GameEntity
     {
         private readonly string id;
-        public MapEntity MapEntity { get; protected set; }
-
-        protected GameEntity(string id, ref MapEntity mapEntity)
+        protected MapEntity MapEntity;
+        
+        protected GameEntity(string id, MapEntity mapEntity)
         {
             this.id = id;
             MapEntity = mapEntity;

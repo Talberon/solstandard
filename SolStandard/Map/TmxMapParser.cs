@@ -31,7 +31,7 @@ namespace SolStandard.Map
         private readonly List<ITexture2D> unitSprites;
 
         private List<MapElement[,]> gameTileLayers;
-        private List<MapEntity> unitLayer;
+        private List<UnitEntity> unitLayer;
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
             string objectTypesDefaultXmlPath)
@@ -56,10 +56,10 @@ namespace SolStandard.Map
             return gameTileLayers;
         }
 
-        public List<MapEntity> LoadUnits()
+        public List<UnitEntity> LoadUnits()
         {
-            unitLayer = new List<MapEntity>();
-            foreach (MapEntity unit in ObtainUnitsFromLayer("Units"))
+            unitLayer = new List<UnitEntity>();
+            foreach (UnitEntity unit in ObtainUnitsFromLayer("Units"))
             {
                 unitLayer.Add(unit);
             }
@@ -126,9 +126,9 @@ namespace SolStandard.Map
             return entityGrid;
         }
 
-        private MapEntity[,] ObtainUnitsFromLayer(string objectGroupName)
+        private UnitEntity[,] ObtainUnitsFromLayer(string objectGroupName)
         {
-            MapEntity[,] entityGrid = new MapEntity[tmxMap.Width, tmxMap.Height];
+            UnitEntity[,] entityGrid = new UnitEntity[tmxMap.Width, tmxMap.Height];
 
             //Handle the Units Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
@@ -152,10 +152,10 @@ namespace SolStandard.Map
                             string unitTeamAndClass = unitTeam.ToString() + unitClass.ToString();
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
-                            AnimatedSprite animatedSprite =
-                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 12, true);
+                            UnitSprite animatedSprite =
+                                new UnitSprite(unitSprite, GameDriver.CellSize, 15, false);
 
-                            entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, animatedSprite,
+                            entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type, animatedSprite,
                                 new Vector2(col, row), currentProperties);
                         }
                     }

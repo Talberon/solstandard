@@ -6,9 +6,14 @@ namespace SolStandard.Map.Elements
 {
     public abstract class MapElement
     {
-        public IRenderable Sprite { get; protected set; }
+        protected IRenderable Sprite;
         public Vector2 MapCoordinates { get; set; } //TODO Consider whether set should really be public here
 
+        public IRenderable RenderSprite
+        {
+            get { return Sprite; }
+        }
+        
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
