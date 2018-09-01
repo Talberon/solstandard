@@ -1,6 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements;
+using SolStandard.Utility;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
@@ -12,76 +18,288 @@ namespace SolStandard.Containers.UI
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
+        private const int UnitDetailVerticalAdjustment = 3;
 
-        public Window DebugWindow { get; set; }
+        private Window leftUnitPortraitWindow;
+        private Window leftUnitDetailWindow;
 
-        public Window LeftUnitPortraitWindow { get; set; }
-        public Window LeftUnitDetailWindow { get; set; }
+        private Window rightUnitPortraitWindow;
+        private Window rightUnitDetailWindow;
 
-        public Window RightUnitPortraitWindow { get; set; }
-        public Window RightUnitDetailWindow { get; set; }
+        public Window TurnWindow { get; private set; }
+        public Window InitiativeWindow { get; private set; }
+        public Window TerrainEntityWindow { get; private set; }
+        public Window HelpTextWindow { get; private set; }
 
-        public Window TurnWindow { get; set; }
-        public Window InitiativeWindow { get; set; }
-        public Window TerrainEntityWindow { get; set; }
-        public Window HelpTextWindow { get; set; }
+        public Window UserPromptWindow { get; private set; }
 
         private bool visible;
-        
-        public MapUI(Vector2 screenSize)
+
+        private readonly ITexture2D windowTexture;
+
+        public MapUI(Vector2 screenSize, ITexture2D windowTexture)
         {
             this.screenSize = screenSize;
+            this.windowTexture = windowTexture;
             visible = true;
         }
 
-        private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
+        public Window LeftUnitPortraitWindow
+        {
+            get { return leftUnitPortraitWindow; }
+        }
+
+        public Window LeftUnitDetailWindow
+        {
+            get { return leftUnitDetailWindow; }
+        }
+
+        public Window RightUnitPortraitWindow
+        {
+            get { return rightUnitPortraitWindow; }
+        }
+
+        public Window RightUnitDetailWindow
+        {
+            get { return rightUnitDetailWindow; }
+        }
+
+        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        {
+            Color promptWindowColor = new Color(40, 30, 40, 200);
+            UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor,
+                sizeOverride);
+        }
+
+        public void GenerateTurnWindow(Vector2 windowSize)
+        {
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        new RenderText(GameDriver.WindowFont,
+                            "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
+                    },
+                    {
+                        new RenderText(GameDriver.WindowFont,
+                            "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
+                    },
+                    {
+                        new RenderText(GameDriver.WindowFont,
+                            "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
+                    }
+                },
+                1);
+
+            TurnWindow = new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225),
+                windowSize);
+        }
+
+        public void GenerateTerrainWindow(MapEntity selectedTerrain)
+        {
+            WindowContentGrid terrainContentGrid;
+
+            if (selectedTerrain != null)
+            {
+                IRenderable terrainSprite = selectedTerrain.Sprite;
+
+                string terrainInfo = "Terrain: " + selectedTerrain.Name
+                                                 + "\n"
+                                                 + "Type: " + selectedTerrain.Type
+                                                 + "\n"
+                                                 + "Properties:\n" + string.Join("\n",
+                                                     selectedTerrain.TiledProperties);
+
+                terrainContentGrid = new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            terrainSprite,
+                            new RenderText(GameDriver.WindowFont, terrainInfo)
+                        }
+                    },
+                    1);
+            }
+            else
+            {
+                terrainContentGrid = new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new RenderText(GameDriver.WindowFont, "None ")
+                        }
+                    },
+                    1);
+            }
+
+            TerrainEntityWindow = new Window("Terrain Info", windowTexture, terrainContentGrid,
+                new Color(100, 150, 100, 220));
+        }
+
+        public void GenerateHelpWindow(string helpText)
+        {
+            IRenderable textToRender = new RenderText(GameDriver.WindowFont, helpText);
+            HelpTextWindow = new Window("Help Text", windowTexture, textToRender, new Color(30, 30, 30, 150));
+        }
+
+        public void GenerateInitiativeWindow(List<GameUnit> unitList)
+        {
+            const int
+                maxInitiativeSize =
+                    10; //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+
+            int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
+
+            IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+
+            for (int i = 0; i < unitListGrid.GetLength(1); i++)
+            {
+                const int initiativeHealthBarHeight = 10;
+                IRenderable[,] unitContent =
+                {
+                    {
+                        new RenderText(GameDriver.MapFont, unitList[i].Id)
+                    },
+                    {
+                        new SpriteAtlas(
+                            unitList[i].MediumPortrait,
+                            new Vector2(unitList[i].MediumPortrait.Width, unitList[i].MediumPortrait.Height),
+                            1
+                        )
+                    },
+                    {
+                        unitList[i]
+                            .GetInitiativeHealthBar(new Vector2(unitList[i].MediumPortrait.Width,
+                                initiativeHealthBarHeight))
+                    }
+                };
+
+                IRenderable singleUnitContent = new WindowContentGrid(unitContent, 1);
+                unitListGrid[0, i] = singleUnitContent;
+            }
+
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+
+            InitiativeWindow = new Window("Initiative", windowTexture, unitListContentGrid,
+                new Color(100, 100, 100, 225));
+        }
+
+        public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
+        {
+            GenerateUnitPortraitWindow(hoverMapUnit, ref leftUnitPortraitWindow);
+            GenerateUnitDetailWindow(hoverMapUnit, ref leftUnitDetailWindow);
+        }
+
+        public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
+        {
+            GenerateUnitPortraitWindow(hoverMapUnit, ref rightUnitPortraitWindow);
+            GenerateUnitDetailWindow(hoverMapUnit, ref rightUnitDetailWindow);
+        }
+
+        // ReSharper disable once RedundantAssignment
+        private void GenerateUnitPortraitWindow(GameUnit selectedUnit, ref Window windowToUpdate)
+        {
+            if (selectedUnit == null)
+            {
+                windowToUpdate = null;
+                return;
+            }
+
+            const int hoverWindowHealthBarHeight = 15;
+            IRenderable[,] selectedUnitPortrait =
+            {
+                {
+                    new SpriteAtlas(selectedUnit.LargePortrait,
+                        new Vector2(selectedUnit.LargePortrait.Width, selectedUnit.LargePortrait.Height), 1)
+                },
+                {
+                    selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,
+                        hoverWindowHealthBarHeight))
+                }
+            };
+
+            string windowLabel = "Selected Portrait: " + selectedUnit.Id;
+
+            Color windowColour = ColorMapper.DetermineTeamColor(selectedUnit.UnitTeam);
+
+            windowToUpdate = new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1),
+                windowColour);
+        }
+
+        // ReSharper disable once RedundantAssignment
+        private void GenerateUnitDetailWindow(GameUnit selectedUnit, ref Window windowToUpdate)
+        {
+            if (selectedUnit == null)
+            {
+                windowToUpdate = null;
+                return;
+            }
+
+            IRenderable selectedUnitInfo =
+                new RenderText(GameDriver.WindowFont,
+                    selectedUnit.Id + "\n" + selectedUnit.UnitTeam + " " + selectedUnit.UnitJobClass + "\n" +
+                    selectedUnit.Stats);
+
+            string windowLabel = "Selected Info: " + selectedUnit.Id;
+
+            Color windowColour = ColorMapper.DetermineTeamColor(selectedUnit.UnitTeam);
+
+            windowToUpdate = new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
+        }
+
+
+        #region Window Positions
+
+        private Vector2 LeftUnitPortraitWindowPosition()
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                screenSize.Y - portraitWindowHeight - initiativeWindowHeight);
+                screenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height);
         }
 
-        private Vector2 LeftUnitDetailWindowPosition(int detailWindowHeight, int leftPortraitWindowWidth,
-            int initiativeWindowHeight)
+        private Vector2 LeftUnitDetailWindowPosition()
         {
             //Bottom-left, right of portrait, above initiative window
-            return new Vector2(WindowEdgeBuffer + leftPortraitWindowWidth,
-                screenSize.Y - detailWindowHeight - initiativeWindowHeight);
+            return new Vector2(WindowEdgeBuffer + LeftUnitPortraitWindow.Width,
+                LeftUnitPortraitWindowPosition().Y + LeftUnitPortraitWindow.Height - LeftUnitDetailWindow.Height -
+                UnitDetailVerticalAdjustment
+            );
         }
 
-        private Vector2 RightUnitPortraitWindowPosition(int detailWindowHeight, int portraitWindowWidth,
-            int initiativeWindowHeight)
+        private Vector2 RightUnitPortraitWindowPosition()
         {
             //Bottom-right, above intiative window
-            return new Vector2(screenSize.X - portraitWindowWidth - WindowEdgeBuffer,
-                screenSize.Y - detailWindowHeight - initiativeWindowHeight);
+            return new Vector2(screenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height);
         }
 
-        private Vector2 RightUnitDetailWindowPosition(int detailWindowHeight, int detailWindowWidth,
-            int rightPortraitWidth, int initiativeWindowHeight)
+        private Vector2 RightUnitDetailWindowPosition()
         {
             //Bottom-right, left of portrait, above intiative window
-            return new Vector2(screenSize.X - detailWindowWidth - rightPortraitWidth - WindowEdgeBuffer,
-                screenSize.Y - detailWindowHeight - initiativeWindowHeight);
+            return new Vector2(
+                screenSize.X - RightUnitDetailWindow.Width - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
+                RightUnitPortraitWindowPosition().Y + RightUnitPortraitWindow.Height - RightUnitDetailWindow.Height -
+                UnitDetailVerticalAdjustment
+            );
         }
 
-        private Vector2 InitiativeWindowPosition(int windowWidth, int windowHeight)
+        private Vector2 InitiativeWindowPosition()
         {
             //Bottom-right
-            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer,
-                screenSize.Y - windowHeight);
+            return new Vector2(screenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - InitiativeWindow.Height);
         }
 
-        private Vector2 TurnWindowPosition(int windowHeight)
+        private Vector2 TurnWindowPosition()
         {
             //Bottom-right
-            return new Vector2(WindowEdgeBuffer, screenSize.Y - windowHeight);
+            return new Vector2(WindowEdgeBuffer, screenSize.Y - TurnWindow.Height);
         }
 
-        private Vector2 TerrainWindowPosition(int windowWidth)
+        private Vector2 TerrainWindowPosition()
         {
             //Top-right
-            return new Vector2(screenSize.X - windowWidth - WindowEdgeBuffer, WindowEdgeBuffer);
+            return new Vector2(screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer, WindowEdgeBuffer);
         }
 
         private Vector2 HelpTextWindowPosition()
@@ -89,6 +307,15 @@ namespace SolStandard.Containers.UI
             //Top-left
             return new Vector2(WindowEdgeBuffer);
         }
+
+        private Vector2 UserPromptWindowPosition()
+        {
+            //Middle of the screen
+            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2);
+        }
+
+        #endregion Window Positions
 
         public void ToggleVisible()
         {
@@ -98,12 +325,6 @@ namespace SolStandard.Containers.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-            
-            //TODO Turn this off eventually or add a debug mode flag
-            if (DebugWindow != null)
-            {
-                DebugWindow.Draw(spriteBatch, new Vector2(0));
-            }
 
             if (HelpTextWindow != null)
             {
@@ -112,46 +333,41 @@ namespace SolStandard.Containers.UI
 
             if (TerrainEntityWindow != null)
             {
-                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition(TerrainEntityWindow.Width));
+                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition());
             }
 
             if (TurnWindow != null)
             {
-                TurnWindow.Draw(spriteBatch, TurnWindowPosition(TurnWindow.Height));
+                TurnWindow.Draw(spriteBatch, TurnWindowPosition());
             }
 
             if (InitiativeWindow != null)
             {
-                InitiativeWindow.Draw(spriteBatch,
-                    InitiativeWindowPosition(InitiativeWindow.Width, InitiativeWindow.Height));
+                InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
 
                 if (LeftUnitPortraitWindow != null)
                 {
-                    LeftUnitPortraitWindow.Draw(spriteBatch,
-                        LeftUnitPortraitWindowPosition(LeftUnitPortraitWindow.Height,
-                            InitiativeWindow.Height));
+                    LeftUnitPortraitWindow.Draw(spriteBatch, LeftUnitPortraitWindowPosition());
 
                     if (LeftUnitDetailWindow != null)
                     {
-                        LeftUnitDetailWindow.Draw(spriteBatch,
-                            LeftUnitDetailWindowPosition(LeftUnitDetailWindow.Height,
-                                LeftUnitPortraitWindow.Width, InitiativeWindow.Height));
+                        LeftUnitDetailWindow.Draw(spriteBatch, LeftUnitDetailWindowPosition());
                     }
                 }
 
                 if (RightUnitPortraitWindow != null)
                 {
-                    RightUnitPortraitWindow.Draw(spriteBatch,
-                        RightUnitPortraitWindowPosition(RightUnitPortraitWindow.Height,
-                            RightUnitPortraitWindow.Width, InitiativeWindow.Height));
+                    RightUnitPortraitWindow.Draw(spriteBatch, RightUnitPortraitWindowPosition());
 
                     if (RightUnitDetailWindow != null)
                     {
-                        RightUnitDetailWindow.Draw(spriteBatch,
-                            RightUnitDetailWindowPosition(RightUnitDetailWindow.Height,
-                                RightUnitDetailWindow.Width, RightUnitPortraitWindow.Width,
-                                InitiativeWindow.Height));
+                        RightUnitDetailWindow.Draw(spriteBatch, RightUnitDetailWindowPosition());
                     }
+                }
+
+                if (UserPromptWindow != null)
+                {
+                    UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
@@ -7,7 +8,6 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
-using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Rules;
 using SolStandard.Rules.Controls;
@@ -29,34 +29,40 @@ namespace SolStandard
     /// </summary>
     public class GameDriver : Game
     {
+        public static readonly Random Random = new Random();
+
         //Tile Size of Sprites
         public const int CellSize = 32;
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper controlMapper;
+        public static Vector2 ScreenSize { get; private set; }
 
-        private GameContainer container;
+        private GameContext gameContext;
 
-        private static ITexture2D TerrainTextures { get; set; }
+        public static ITexture2D TerrainTextures { get; private set; }
+        public static ITexture2D WhitePixel { get; private set; }
+        public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont MapFont { get; private set; }
+        public static ITexture2D DiceTexture { get; private set; }
+
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> LargePortraitTextures { get; set; }
         private static List<ITexture2D> MediumPortraitTextures { get; set; }
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
-        public static ISpriteFont WindowFont { get; private set; }
-        public static ISpriteFont MapFont { get; private set; }
-        private MapCamera mapCamera;
 
-        private MapHudGenerator mapHudGenerator;
+
+        private MapCamera mapCamera;
 
         public GameDriver()
         {
             graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 1600,
-                PreferredBackBufferHeight = 900
+                PreferredBackBufferWidth = 1920,//1600
+                PreferredBackBufferHeight = 1080//900
             };
 
             //HACK Move the window away from the top-left corner
@@ -75,6 +81,8 @@ namespace SolStandard
         {
             base.Initialize();
 
+            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
             const string
                 mapPath =
                     "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
@@ -87,20 +95,18 @@ namespace SolStandard
             mapCamera.SetCameraZoom(1.8f);
 
             ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
-            MapLayer gameMap = new MapLayer(mapParser.LoadMapGrid(), cursorTexture);
+            MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
-                (MapEntity[,]) gameMap.GameGrid[(int) Layer.Units], LargePortraitTextures, MediumPortraitTextures,
+                mapParser.LoadUnits(), LargePortraitTextures, MediumPortraitTextures,
                 SmallPortraitTextures);
 
-
-            container = new GameContainer(new MapContext(gameMap),
-                new MapUI(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height)),
-                unitsFromMap);
+            Vector2 screenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            mapHudGenerator = new MapHudGenerator(WindowFont, windowTexture);
+            gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
+                new BattleContext(new BattleUI(screenSize, windowTexture)), unitsFromMap);
         }
 
         /// <summary>
@@ -111,7 +117,10 @@ namespace SolStandard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            WhitePixel = ContentLoader.LoadWhitePixel(Content);
+
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
@@ -120,6 +129,7 @@ namespace SolStandard
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
+            DiceTexture = ContentLoader.LoadDiceAtlas(Content);
         }
 
         /// <summary>
@@ -143,35 +153,22 @@ namespace SolStandard
                 Exit();
             }
 
-            //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(container.MapContext, controlMapper, mapCamera, container.MapContext.MapLayer.MapCursor,
-                container.MapUI, container.MapContext.MapLayer.GetMapSliceAtCursor(), container.Units, TerrainTextures, MapFont);
+            GameControls.ListenForInputs(gameContext, controlMapper, mapCamera,
+                gameContext.MapContext.MapContainer.MapCursor);
 
 
-            Vector2 screenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 mapSize = container.MapContext.MapLayer.MapGridSize;
-            mapCamera.CorrectCameraToCursor(container.MapContext.MapLayer.MapCursor, screenSize, mapSize);
+            Vector2 mapSize = gameContext.MapContext.MapContainer.MapGridSize;
+            mapCamera.CorrectCameraToCursor(gameContext.MapContext.MapContainer.MapCursor, mapSize);
             mapCamera.PanCameraToTarget();
 
 
             //Map Cursor Hover Logic
-            MapSlice hoverTiles = container.MapContext.MapLayer.GetMapSliceAtCursor();
-            MapCursorHover.Hover(container.MapContext.CurrentTurnState, container.MapUI, hoverTiles, container.Units, mapHudGenerator);
-
-            //Initiative Window
-            container.MapUI.InitiativeWindow =
-                mapHudGenerator.GenerateInitiativeWindow(container.Units);
-
-            //Turn Window
-            Vector2 turnWindowSize = new Vector2(265, container.MapUI.InitiativeWindow.Height);
-            container.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
+            MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
+            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapContext.MapUI, hoverTiles,
+                gameContext.MapContext.MapUI);
 
 
-            //Help Window TODO make this context-sensitive
-            string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
-                              + "\nAdditional information will appear here to help you play the game.";
-
-            container.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
+            gameContext.MapContext.UpdateWindows();
 
 
             base.Update(gameTime);
@@ -187,8 +184,8 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
-            container.MapContext.MapLayer.Draw(spriteBatch);
-            
+            gameContext.MapContext.MapContainer.Draw(spriteBatch);
+
             base.Draw(gameTime);
             spriteBatch.End();
 
@@ -196,7 +193,17 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            container.MapUI.Draw(spriteBatch);
+
+            if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+            {
+                gameContext.BattleContext.Draw(spriteBatch);
+            }
+            else
+            {
+                gameContext.MapContext.MapUI.Draw(spriteBatch);
+            }
+
+
             spriteBatch.End();
         }
     }

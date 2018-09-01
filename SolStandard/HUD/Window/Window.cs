@@ -55,7 +55,7 @@ namespace SolStandard.HUD.Window
             this.windowLabel = windowLabel;
             windowContents = new WindowContentGrid(new[,] {{windowContent}}, 0);
             windowCellSize = CalculateCellSize(windowTexture);
-            this.windowPixelSize = windowPixelSize;
+            this.windowPixelSize = DeriveSizeFromContent(windowPixelSize);
             windowCells = ConstructWindowCells(WindowPixelSize);
             Visible = true;
         }
@@ -69,7 +69,7 @@ namespace SolStandard.HUD.Window
             this.windowColor = windowColor;
             this.windowLabel = windowLabel;
             windowCellSize = CalculateCellSize(windowTexture);
-            this.windowPixelSize = windowPixelSize;
+            this.windowPixelSize = DeriveSizeFromContent(windowPixelSize);
             windowCells = ConstructWindowCells(WindowPixelSize);
             Visible = true;
         }
@@ -108,6 +108,38 @@ namespace SolStandard.HUD.Window
             int borderSize = windowCellSize * 2;
             calculatedSize.X += borderSize;
             calculatedSize.Y += borderSize;
+
+            return calculatedSize;
+        }
+
+        private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
+        {
+            Vector2 calculatedSize = new Vector2();
+            Vector2 contentGridSize = windowContents.GridSizeInPixels();
+
+            //Adjust for border
+            int borderSize = windowCellSize * 2;
+
+            //Default to content size if size is set to 0
+            if (Math.Abs(sizeOverride.X) < .001)
+            {
+                calculatedSize.X = contentGridSize.X;
+                calculatedSize.X += borderSize;
+            }
+            else
+            {
+                calculatedSize.X = sizeOverride.X;
+            }
+
+            if (Math.Abs(sizeOverride.Y) < .001)
+            {
+                calculatedSize.Y = contentGridSize.Y;
+                calculatedSize.Y += borderSize;
+            }
+            else
+            {
+                calculatedSize.Y = sizeOverride.Y;
+            }
 
             return calculatedSize;
         }

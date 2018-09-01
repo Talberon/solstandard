@@ -16,8 +16,7 @@ namespace SolStandard.Map
         Terrain = 0,
         Collide = 1,
         Entities = 2,
-        Dynamic = 3,
-        Units = 4
+        Dynamic = 3
     }
 
     /**
@@ -32,6 +31,7 @@ namespace SolStandard.Map
         private readonly List<ITexture2D> unitSprites;
 
         private List<MapElement[,]> gameTileLayers;
+        private List<MapEntity> unitLayer;
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
             string objectTypesDefaultXmlPath)
@@ -48,12 +48,23 @@ namespace SolStandard.Map
             {
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.Collide),
+                // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
-                new MapElement[tmxMap.Width, tmxMap.Height],
-                ObtainUnitsFromLayer("Units")
+                new MapElement[tmxMap.Width, tmxMap.Height]
             };
 
             return gameTileLayers;
+        }
+
+        public List<MapEntity> LoadUnits()
+        {
+            unitLayer = new List<MapEntity>();
+            foreach (MapEntity unit in ObtainUnitsFromLayer("Units"))
+            {
+                unitLayer.Add(unit);
+            }
+
+            return unitLayer;
         }
 
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
@@ -70,7 +81,7 @@ namespace SolStandard.Map
 
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new TextureCell(mapSprite, GameDriver.CellSize, tileId),
+                        tileGrid[col, row] = new MapTile(new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), tileId),
                             new Vector2(col, row));
                     }
 
@@ -102,9 +113,9 @@ namespace SolStandard.Map
                             {
                                 Dictionary<string, string> currentProperties =
                                     GetDefaultPropertiesAndOverrides(currentObject);
-                                TextureCell textureCell = new TextureCell(mapSprite, GameDriver.CellSize, objectTileId);
+                                SpriteAtlas spriteAtlas = new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, textureCell,
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, spriteAtlas,
                                     new Vector2(col, row), currentProperties);
                             }
                         }
@@ -142,9 +153,9 @@ namespace SolStandard.Map
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
                             AnimatedSprite animatedSprite =
-                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 15, true);
+                                new AnimatedSprite(unitSprite, GameDriver.CellSize, 12, true);
 
-                            entityGrid[col, row] = new MapEntity(unitTeamAndClass, currentObject.Type, animatedSprite,
+                            entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, animatedSprite,
                                 new Vector2(col, row), currentProperties);
                         }
                     }

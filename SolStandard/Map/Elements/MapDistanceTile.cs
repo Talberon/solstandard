@@ -10,7 +10,7 @@ namespace SolStandard.Map.Elements
         private readonly int distance;
         private readonly RenderText renderText;
 
-        public MapDistanceTile(TextureCell sprite, Vector2 mapCoordinates, int distance) : base(
+        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance) : base(
             sprite, mapCoordinates)
         {
             this.distance = distance;
@@ -27,9 +27,9 @@ namespace SolStandard.Map.Elements
             get { return MapCoordinates; }
         }
 
-        public TextureCell TextureCell
+        public SpriteAtlas SpriteAtlas
         {
-            get { return (TextureCell) Sprite; }
+            get { return (SpriteAtlas) Sprite; }
         }
 
         public override string ToString()

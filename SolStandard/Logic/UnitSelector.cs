@@ -1,15 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 
 namespace SolStandard.Logic
 {
-    public static class UnitSelector
+    public class UnitSelector
     {
-        public static GameUnit SelectUnit(IEnumerable<GameUnit> units, MapEntity unit)
+        public static GameUnit SelectUnit(MapEntity unit)
         {
-            return units.FirstOrDefault(gameUnit => gameUnit.MapEntity == unit);
+            if (unit == null) return null;
+            
+            return GameContext.Units.First(gameUnit => gameUnit.MapEntity == unit);
+        }
+
+        public static MapEntity FindOtherUnitEntityAtCoordinates(Vector2 coordinates, MapEntity excludedEntity)
+        {
+            foreach (GameUnit unit in GameContext.Units)
+            {
+                if (unit.MapEntity != null && unit.MapEntity != excludedEntity)
+                {
+                    if (unit.MapEntity.MapCoordinates == coordinates) return unit.MapEntity;
+                }
+            }
+
+            return null;
         }
     }
 }

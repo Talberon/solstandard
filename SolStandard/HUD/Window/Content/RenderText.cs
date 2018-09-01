@@ -9,11 +9,18 @@ namespace SolStandard.HUD.Window.Content
     {
         private readonly ISpriteFont font;
         private readonly string message;
+        private readonly Color defaultColor;
 
-        public RenderText(ISpriteFont font, string message)
+        public RenderText(ISpriteFont font, string message, Color defaultColor)
         {
             this.font = font;
             this.message = message;
+            this.defaultColor = defaultColor;
+        }
+
+        public RenderText(ISpriteFont font, string message) : this(font, message, Color.White)
+        {
+            //Intentionally left blank
         }
 
         public int Height
@@ -28,7 +35,7 @@ namespace SolStandard.HUD.Window.Content
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, Color.White);
+            Draw(spriteBatch, position, defaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)

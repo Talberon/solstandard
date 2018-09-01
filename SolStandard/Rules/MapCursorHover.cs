@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Logic;
@@ -9,31 +8,25 @@ namespace SolStandard.Rules
 {
     public static class MapCursorHover
     {
-        public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles, List<GameUnit> units,
-            MapHudGenerator mapHudGenerator)
+        public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles,
+            MapUI mapUI)
         {
-            GameUnit hoverMapUnit = UnitSelector.SelectUnit(units, hoverTiles.UnitEntity);
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
 
-            
+
             if (turnState != MapContext.TurnState.SelectUnit)
             {
                 //SecondUnit Window
-                mapUi.RightUnitPortraitWindow = mapHudGenerator.GenerateUnitPortraitWindow(hoverMapUnit);
-                mapUi.RightUnitDetailWindow = mapHudGenerator.GenerateUnitDetailWindow(hoverMapUnit);
+                mapUI.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
             }
             else
             {
-                //FirstUnit Window
-                mapUi.LeftUnitPortraitWindow = mapHudGenerator.GenerateUnitPortraitWindow(hoverMapUnit);
-                mapUi.LeftUnitDetailWindow = mapHudGenerator.GenerateUnitDetailWindow(hoverMapUnit);
-                
-                //SecondUnit Window
-                mapUi.RightUnitPortraitWindow = null;
-                mapUi.RightUnitDetailWindow = null;
+                mapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                mapUI.UpdateRightPortraitAndDetailWindows(null);
             }
 
             //Terrain (Entity) Window
-            mapUi.TerrainEntityWindow = mapHudGenerator.GenerateTerrainWindow(hoverTiles.GeneralEntity);
+            mapUI.GenerateTerrainWindow(hoverTiles.GeneralEntity);
         }
     }
 }

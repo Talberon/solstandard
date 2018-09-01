@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
+using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -28,10 +31,16 @@ namespace SolStandard.Entity.Unit
         private readonly ITexture2D mediumPortrait;
         private readonly ITexture2D smallPortrait;
 
+        private readonly HealthBar hoverWindowHealthBar;
+        private readonly HealthBar combatHealthBar;
+        private readonly HealthBar initiativeHealthBar;
+        private readonly List<HealthBar> healthbars;
+
         private readonly UnitStatistics stats;
 
         public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, ref MapEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, ref mapEntity)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) :
+            base(id, ref mapEntity)
         {
             this.unitTeam = unitTeam;
             this.unitJobClass = unitJobClass;
@@ -39,6 +48,16 @@ namespace SolStandard.Entity.Unit
             this.largePortrait = largePortrait;
             this.mediumPortrait = mediumPortrait;
             this.smallPortrait = smallPortrait;
+            initiativeHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            combatHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+
+            healthbars = new List<HealthBar>
+            {
+                initiativeHealthBar,
+                combatHealthBar,
+                hoverWindowHealthBar
+            };
         }
 
         public UnitStatistics Stats
@@ -70,7 +89,25 @@ namespace SolStandard.Entity.Unit
         {
             get { return smallPortrait; }
         }
-        
+
+        public IRenderable GetInitiativeHealthBar(Vector2 barSize)
+        {
+            initiativeHealthBar.SetSize(barSize);
+            return initiativeHealthBar;
+        }
+
+        public IRenderable GetHoverWindowHealthBar(Vector2 barSize)
+        {
+            hoverWindowHealthBar.SetSize(barSize);
+            return hoverWindowHealthBar;
+        }
+
+        public IRenderable GetCombatHealthBar(Vector2 barSize)
+        {
+            combatHealthBar.SetSize(barSize);
+            return combatHealthBar;
+        }
+
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
             switch (direction)
@@ -93,6 +130,22 @@ namespace SolStandard.Entity.Unit
 
             PreventCursorLeavingMapBounds(mapSize);
         }
+
+        public void DamageUnit(int damage)
+        {
+            stats.Hp -= damage;
+            healthbars.ForEach(healthbar => healthbar.DealDamage(damage));
+            KillIfDead();
+        }
+
+        private void KillIfDead()
+        {
+            if (stats.Hp <= 0)
+            {
+                MapEntity = null;
+            }
+        }
+
 
         private void PreventCursorLeavingMapBounds(Vector2 mapSize)
         {

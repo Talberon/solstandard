@@ -5,22 +5,17 @@ namespace SolStandard.Entity
     public abstract class GameEntity
     {
         private readonly string id;
-        private readonly MapEntity mapEntity;
+        public MapEntity MapEntity { get; protected set; }
 
         protected GameEntity(string id, ref MapEntity mapEntity)
         {
             this.id = id;
-            this.mapEntity = mapEntity;
+            MapEntity = mapEntity;
         }
 
         public string Id
         {
             get { return id; }
-        }
-
-        public MapEntity MapEntity
-        {
-            get { return mapEntity; }
         }
     }
 }
