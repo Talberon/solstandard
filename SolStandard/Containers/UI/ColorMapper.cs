@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
