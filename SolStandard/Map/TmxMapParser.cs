@@ -81,7 +81,7 @@ namespace SolStandard.Map
 
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new SpriteAtlas(mapSprite, GameDriver.CellSize, tileId),
+                        tileGrid[col, row] = new MapTile(new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), tileId),
                             new Vector2(col, row));
                     }
 
@@ -113,7 +113,7 @@ namespace SolStandard.Map
                             {
                                 Dictionary<string, string> currentProperties =
                                     GetDefaultPropertiesAndOverrides(currentObject);
-                                SpriteAtlas spriteAtlas = new SpriteAtlas(mapSprite, GameDriver.CellSize, objectTileId);
+                                SpriteAtlas spriteAtlas = new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), objectTileId);
 
                                 entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, spriteAtlas,
                                     new Vector2(col, row), currentProperties);

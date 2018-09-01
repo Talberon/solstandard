@@ -8,11 +8,11 @@ namespace SolStandard.Utility
     public class SpriteAtlas : IRenderable
     {
         private readonly ITexture2D image;
-        private readonly int cellSize;
+        private readonly Vector2 cellSize;
         public int CellIndex { get; set; }
 
         //TODO Decide if cellSize should continue to assume a square or take two dimensions
-        public SpriteAtlas(ITexture2D image, int cellSize, int cellIndex)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex)
         {
             this.image = image;
             this.cellSize = cellSize;
@@ -21,8 +21,8 @@ namespace SolStandard.Utility
 
         private Rectangle SourceRectangle()
         {
-            int columns = image.Width / cellSize;
-            int rows = image.Height / cellSize;
+            int columns = image.Width / (int) cellSize.X;
+            int rows = image.Height / (int) cellSize.Y;
 
             int cellSearcher = 0;
 
@@ -35,7 +35,8 @@ namespace SolStandard.Utility
 
                     if (cellSearcher == CellIndex)
                     {
-                        Rectangle rendercell = new Rectangle(cellSize * col, cellSize * row, cellSize, cellSize);
+                        Rectangle rendercell = new Rectangle((int) (cellSize.X * col), (int) (cellSize.Y * row),
+                            (int) cellSize.X, (int) cellSize.Y);
                         return rendercell;
                     }
                 }
@@ -46,17 +47,17 @@ namespace SolStandard.Utility
 
         private Rectangle DestinationRectangle(int x, int y)
         {
-            return new Rectangle(x, y, cellSize, cellSize);
+            return new Rectangle(x, y, (int) cellSize.X, (int) cellSize.Y);
         }
 
         public int Height
         {
-            get { return cellSize; }
+            get { return (int) cellSize.Y; }
         }
 
         public int Width
         {
-            get { return cellSize; }
+            get { return (int) cellSize.X; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

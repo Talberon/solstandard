@@ -91,48 +91,34 @@ namespace SolStandard.HUD.Window.Content.Combat
             return faceCount;
         }
 
-        public void DisableNextDieWithValue(Die.FaceValue faceValue)
-        {
-            foreach (Die die in dice)
-            {
-                if (die.GetFaceValue() != faceValue) continue;
-                if (!die.Enabled) continue;
-                die.Disable(IgnoredDieColor);
-                return;
-            }
-        }
-
         public void DisableAllDiceWithValue(Die.FaceValue faceValue)
         {
             int totalFaceValues = CountFaceValue(faceValue, true);
             for (int i = 0; i < totalFaceValues; i++)
             {
-                DisableNextDieWithValue(faceValue);
+                DisableNextDieWithValue(faceValue, IgnoredDieColor);
             }
         }
 
-        //FIXME the logic is almost identical to Disable. Make these generic and don't repeat logic.
-        public void ResolveNextDieWithValue(Die.FaceValue faceValue)
+        public void DisableNextDieWithValue(Die.FaceValue faceValue, Color dieColor)
         {
             foreach (Die die in dice)
             {
                 if (die.GetFaceValue() != faceValue) continue;
                 if (!die.Enabled) continue;
-                die.Disable(DamageDieColor);
+                die.Disable(dieColor);
                 return;
             }
         }
-        
-        //FIXME the logic is almost identical to Disable and Resolve. Make these generic and don't repeat logic.
+
+        public void ResolveDamageNextDieWithValue(Die.FaceValue faceValue)
+        {
+            DisableNextDieWithValue(faceValue, DamageDieColor);
+        }
+
         public void BlockNextDieWithValue(Die.FaceValue faceValue)
         {
-            foreach (Die die in dice)
-            {
-                if (die.GetFaceValue() != faceValue) continue;
-                if (!die.Enabled) continue;
-                die.Disable(BlockedDieColor);
-                return;
-            }
+            DisableNextDieWithValue(faceValue, BlockedDieColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

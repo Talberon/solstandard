@@ -61,8 +61,8 @@ namespace SolStandard
         {
             graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferWidth = 1600,
-                PreferredBackBufferHeight = 900
+                PreferredBackBufferWidth = 1920,//1600
+                PreferredBackBufferHeight = 1080//900
             };
 
             //HACK Move the window away from the top-left corner

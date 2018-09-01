@@ -163,7 +163,7 @@ namespace SolStandard.Containers.UI
                     {
                         new SpriteAtlas(
                             unitList[i].MediumPortrait,
-                            unitList[i].MediumPortrait.Height,
+                            new Vector2(unitList[i].MediumPortrait.Width, unitList[i].MediumPortrait.Height),
                             1
                         )
                     },
@@ -208,7 +208,10 @@ namespace SolStandard.Containers.UI
             const int hoverWindowHealthBarHeight = 15;
             IRenderable[,] selectedUnitPortrait =
             {
-                {new SpriteAtlas(selectedUnit.LargePortrait, selectedUnit.LargePortrait.Height, 1)},
+                {
+                    new SpriteAtlas(selectedUnit.LargePortrait,
+                        new Vector2(selectedUnit.LargePortrait.Width, selectedUnit.LargePortrait.Height), 1)
+                },
                 {
                     selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,
                         hoverWindowHealthBarHeight))

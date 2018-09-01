@@ -112,7 +112,7 @@ namespace SolStandard.Rules.Controls
                                 gameContext.MapContext.MapContainer.MapCursor.MapCoordinates,
                                 gameContext.MapContext.SelectedUnit.Stats.MaxMv,
                                 new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
-                                    GameDriver.CellSize, 69));
+                                    new Vector2(GameDriver.CellSize), 69));
                         }
                         else
                         {
@@ -140,7 +140,8 @@ namespace SolStandard.Rules.Controls
                             UnitSelector.SelectUnit(
                                 gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
                         gameContext.MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
-                            new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
+                            new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
+                            new Vector2(GameDriver.CellSize), 68));
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
@@ -217,6 +218,29 @@ namespace SolStandard.Rules.Controls
                 }
             }
 
+            if (controlMapper.B())
+            {
+                switch (gameContext.MapContext.CurrentTurnState)
+                {
+                    case MapContext.TurnState.SelectUnit:
+                        return;
+                    case MapContext.TurnState.UnitMoving:
+                        gameContext.MapContext.CancelMovement();
+                        return;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        return;
+                    case MapContext.TurnState.UnitTargeting:
+                        return;
+                    case MapContext.TurnState.UnitActing:
+                        return;
+                    case MapContext.TurnState.ResolvingTurn:
+                        return;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+            }
+
             if (controlMapper.LeftTrigger())
             {
                 gameContext.MapContext.MapUI.ToggleVisible();
@@ -235,6 +259,7 @@ namespace SolStandard.Rules.Controls
             {
                 //FIXME Remove this eventually after debugging is done
                 gameContext.BattleContext.StartRollingDice();
+                gameContext.MapContext.MapContainer.ClearDynamicGrid();
             }
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging

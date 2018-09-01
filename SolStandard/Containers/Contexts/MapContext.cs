@@ -65,6 +65,16 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        public void CancelMovement()
+        {
+            if (CurrentTurnState == TurnState.UnitMoving)
+            {
+                ReturnUnitToOriginalPosition();
+                MapContainer.ClearDynamicGrid();
+                CurrentTurnState--;
+            }
+        }
+
         public MapContainer MapContainer
         {
             get { return mapContainer; }

@@ -56,7 +56,6 @@ namespace SolStandard.Containers.Contexts
             CurrentState = BattleState.Start;
             attackerDamageCounter = 0;
             defenderDamageCounter = 0;
-            //TODO determine CombatFlow
         }
 
         public void StartNewCombat(GameUnit newAttacker, MapSlice attackerSlice, GameUnit newDefender,
@@ -305,13 +304,13 @@ namespace SolStandard.Containers.Contexts
                 }
                 else if (attackerDamage > 0 && attackerInRange)
                 {
-                    attackerDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
+                    attackerDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
                     defender.DamageUnit(1);
                     attackerDamageCounter++;
                 }
                 else if (defenderDamage > 0 && defenderInRange)
                 {
-                    defenderDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
+                    defenderDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
                     attacker.DamageUnit(1);
                     defenderDamageCounter++;
                 }
