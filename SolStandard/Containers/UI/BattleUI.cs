@@ -23,10 +23,6 @@ namespace SolStandard.Containers.UI
         private static readonly Color NegativeColor = new Color(250, 10, 10);
         private static readonly Color NeutralColor = new Color(200, 200, 200);
 
-
-        //TODO decide if this should stay or be removed
-        public Window DebugWindow { get; set; }
-
         public Window AttackerLabelWindow { get; private set; }
         public Window AttackerPortraitWindow { get; private set; }
         public Window AttackerClassWindow { get; private set; }

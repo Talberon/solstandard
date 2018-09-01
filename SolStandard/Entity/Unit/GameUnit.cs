@@ -31,7 +31,6 @@ namespace SolStandard.Entity.Unit
         private readonly ITexture2D mediumPortrait;
         private readonly ITexture2D smallPortrait;
 
-        //TODO Decide how to handle this bar since any copies will not auto-update
         private readonly HealthBar hoverWindowHealthBar;
         private readonly HealthBar combatHealthBar;
         private readonly HealthBar initiativeHealthBar;

@@ -11,7 +11,6 @@ namespace SolStandard.Utility
         private readonly Vector2 cellSize;
         public int CellIndex { get; set; }
 
-        //TODO Decide if cellSize should continue to assume a square or take two dimensions
         public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex)
         {
             this.image = image;
