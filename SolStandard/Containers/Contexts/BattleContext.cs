@@ -64,18 +64,20 @@ namespace SolStandard.Containers.Contexts
             attacker = newAttacker;
             defender = newDefender;
 
-            SetupHelpWindow();
-            SetupAttackerWindows(attackerSlice);
-            SetupDefenderWindows(defenderSlice);
-            SetPromptWindowText("Start Combat!");
-
             //Treat the unit as off-screen if null
             Vector2 attackerCoordinates =
                 (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
             Vector2 defenderCoordinates =
                 (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
+            
             attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
             defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
+            
+            SetupHelpWindow();
+            SetupAttackerWindows(attackerSlice);
+            SetupDefenderWindows(defenderSlice);
+            SetPromptWindowText("Start Combat!");
+
         }
 
         private void SetPromptWindowText(string promptText)

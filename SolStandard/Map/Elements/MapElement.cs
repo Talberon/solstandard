@@ -9,7 +9,7 @@ namespace SolStandard.Map.Elements
         public IRenderable Sprite { get; protected set; }
         public Vector2 MapCoordinates { get; set; } //TODO Consider whether set should really be public here
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
         }
