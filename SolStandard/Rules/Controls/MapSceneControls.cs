@@ -189,7 +189,7 @@ namespace SolStandard.Rules.Controls
                                 break;
                             case BattleContext.BattleState.RollDice:
                                 if (gameContext.BattleContext.TryProceedToNextState())
-                                    gameContext.BattleContext.StartCountingDice();
+                                    gameContext.BattleContext.StartResolvingBlocks();
                                 break;
                             case BattleContext.BattleState.CountDice:
                                 if (gameContext.BattleContext.TryProceedToNextState())

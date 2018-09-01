@@ -15,7 +15,6 @@ namespace SolStandard.Containers.Contexts
 {
     public class BattleContext
     {
-        //TODO Implement procedure through steps via button presses in response to Window prompts from BattleUI
         public enum BattleState
         {
             Start,
@@ -33,7 +32,7 @@ namespace SolStandard.Containers.Contexts
         private int frameCounter;
         private bool currentlyRolling;
         private int rollingCounter;
-        private bool currentlyCountingDice;
+        private bool currentlyResolvingBlocks;
         private bool currentlyResolvingDamage;
 
         public BattleState CurrentState { get; private set; }
@@ -43,6 +42,8 @@ namespace SolStandard.Containers.Contexts
 
         private int attackerDamageCounter;
         private int defenderDamageCounter;
+        private bool attackerInRange;
+        private bool defenderInRange;
 
         public BattleContext(BattleUI battleUI)
         {
@@ -50,7 +51,7 @@ namespace SolStandard.Containers.Contexts
             frameCounter = 0;
             currentlyRolling = false;
             rollingCounter = 0;
-            currentlyCountingDice = false;
+            currentlyResolvingBlocks = false;
             currentlyResolvingDamage = false;
             CurrentState = BattleState.Start;
             attackerDamageCounter = 0;
@@ -67,6 +68,12 @@ namespace SolStandard.Containers.Contexts
             SetupAttackerWindows(attackerSlice);
             SetupDefenderWindows(defenderSlice);
             SetPromptWindowText("Start Combat!");
+            
+            //Treat the unit as off-screen if null
+            Vector2 attackerCoordinates = (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
+            Vector2 defenderCoordinates = (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
+            attackerInRange =CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
+            defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
         }
 
         private void SetPromptWindowText(string promptText)
@@ -128,9 +135,6 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride, attacker.UnitJobClass.ToString());
             battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
             battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats.Atk);
-
-            bool attackerInRange = CoordinatesAreInRange(attacker.MapEntity.MapCoordinates,
-                defender.MapEntity.MapCoordinates, attacker.Stats.AtkRange);
             battleUI.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
             battleUI.GenerateAttackerDiceLabelWindow(attackerWindowColor);
 
@@ -150,9 +154,6 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride, defender.UnitJobClass.ToString());
             battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
             battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats.Def);
-
-            bool defenderInRange = CoordinatesAreInRange(defender.MapEntity.MapCoordinates,
-                attacker.MapEntity.MapCoordinates, defender.Stats.AtkRange);
             battleUI.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
             battleUI.GenerateDefenderDiceLabelWindow(defenderWindowColor);
 
@@ -164,7 +165,7 @@ namespace SolStandard.Containers.Contexts
 
         public bool TryProceedToNextState()
         {
-            if (currentlyCountingDice || currentlyResolvingDamage || currentlyRolling) return false;
+            if (currentlyResolvingBlocks || currentlyResolvingDamage || currentlyRolling) return false;
             
             if (CurrentState == BattleState.ResolveCombat)
             {
@@ -223,22 +224,17 @@ namespace SolStandard.Containers.Contexts
         }
 
 
-        public void StartCountingDice()
+        public void StartResolvingBlocks()
         {
-            if (!currentlyCountingDice)
+            if (!currentlyResolvingBlocks)
             {
-                currentlyCountingDice = true;
+                currentlyResolvingBlocks = true;
                 battleUI.UserPromptWindow.Visible = false;
             }
         }
 
-        private void CountDice()
+        private void ResolveBlocks()
         {
-            bool attackerInRange = CoordinatesAreInRange(attacker.MapEntity.MapCoordinates,
-                defender.MapEntity.MapCoordinates, attacker.Stats.AtkRange);
-            bool defenderInRange = CoordinatesAreInRange(defender.MapEntity.MapCoordinates,
-                attacker.MapEntity.MapCoordinates, defender.Stats.AtkRange);
-
             int attackerSwords = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
             int defenderSwords = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
             int attackerShields = attackerDice.CountFaceValue(Die.FaceValue.Shield, true);
@@ -263,7 +259,7 @@ namespace SolStandard.Containers.Contexts
                     //Don't count defender's attack dice if out of range
                     if (!defenderInRange) defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
 
-                    currentlyCountingDice = false;
+                    currentlyResolvingBlocks = false;
 
                     SetPromptWindowText("Resolve Damage.");
                 }
@@ -281,16 +277,7 @@ namespace SolStandard.Containers.Contexts
 
         private void ResolveDamage()
         {
-            //Treat the unit as off-screen if null
-            Vector2 attackerCoordinates =
-                (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
-            Vector2 defenderCoordinates =
-                (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
 
-            bool attackerInRange =
-                CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
-            bool defenderInRange =
-                CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
 
             int attackerDamage = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
             int defenderDamage = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
@@ -359,9 +346,9 @@ namespace SolStandard.Containers.Contexts
             {
                 RollDice();
             }
-            else if (currentlyCountingDice)
+            else if (currentlyResolvingBlocks)
             {
-                CountDice();
+                ResolveBlocks();
             }
             else if (currentlyResolvingDamage)
             {
