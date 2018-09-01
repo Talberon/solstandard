@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
@@ -108,9 +107,8 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            gameContext = new GameContext(new MapContext(gameMap),
-                new BattleContext(new BattleUI(screenSize, windowTexture)), new MapUI(screenSize),
-                unitsFromMap);
+            gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
+                new BattleContext(new BattleUI(screenSize, windowTexture)), unitsFromMap);
 
             mapHudGenerator = new MapHudGenerator(windowTexture);
         }
@@ -160,8 +158,8 @@ namespace SolStandard
             }
 
             //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(gameContext.MapContext, gameContext.BattleContext, controlMapper,
-                mapCamera, gameContext.MapContext.MapContainer.MapCursor, gameContext.MapUI);
+            MapSceneControls.ListenForInputs(gameContext, controlMapper, mapCamera,
+                gameContext.MapContext.MapContainer.MapCursor);
 
 
             Vector2 mapSize = gameContext.MapContext.MapContainer.MapGridSize;
@@ -171,24 +169,24 @@ namespace SolStandard
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
-            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapUI, hoverTiles,
+            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapContext.MapUI, hoverTiles,
                 mapHudGenerator);
 
 
             //Initiative Window
-            gameContext.MapUI.InitiativeWindow =
+            gameContext.MapContext.MapUI.InitiativeWindow =
                 mapHudGenerator.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            Vector2 turnWindowSize = new Vector2(265, gameContext.MapUI.InitiativeWindow.Height);
-            gameContext.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
+            Vector2 turnWindowSize = new Vector2(265, gameContext.MapContext.MapUI.InitiativeWindow.Height);
+            gameContext.MapContext.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
 
 
             //Help Window TODO make this context-sensitive
             string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
                               + "\nAdditional information will appear here to help you play the game.";
 
-            gameContext.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
+            gameContext.MapContext.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
 
 
             base.Update(gameTime);
@@ -220,7 +218,7 @@ namespace SolStandard
             }
             else
             {
-                gameContext.MapUI.Draw(spriteBatch);
+                gameContext.MapContext.MapUI.Draw(spriteBatch);
             }
 
 

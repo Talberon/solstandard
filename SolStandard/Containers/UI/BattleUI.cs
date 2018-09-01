@@ -19,6 +19,10 @@ namespace SolStandard.Containers.UI
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 200);
 
         private const int WindowSpacing = 5;
+        private static readonly Color PositiveColor = new Color(30, 200, 30);
+        private static readonly Color NegativeColor = new Color(250, 10, 10);
+        private static readonly Color NeutralColor = new Color(200, 200, 200);
+
 
         //TODO decide if this should stay or be removed
         public Window DebugWindow { get; set; }
@@ -42,7 +46,6 @@ namespace SolStandard.Containers.UI
         public Window DefenderDiceWindow { get; private set; }
 
         public Window HelpTextWindow { get; set; }
-
         public Window UserPromptWindow { get; set; }
 
         private bool visible;
@@ -61,11 +64,12 @@ namespace SolStandard.Containers.UI
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
             HelpTextWindow = new Window("Help Window", windowTexture, helpTextContent, helpTextWindowColor);
         }
-        
+
         internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
-            UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor, sizeOverride);
+            UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor,
+                sizeOverride);
         }
 
 
@@ -93,8 +97,8 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerRangeContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "In Range:"),
-                    new RenderText(GameDriver.WindowFont, inRange.ToString())
+                    new RenderText(GameDriver.WindowFont, "In Range: "),
+                    new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
             };
             WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
@@ -121,8 +125,9 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "Bonus:"),
-                    new RenderText(GameDriver.WindowFont, terrainAttackBonus)
+                    new RenderText(GameDriver.WindowFont, "Bonus: "),
+                    new RenderText(GameDriver.WindowFont, terrainAttackBonus,
+                        (Convert.ToInt32(terrainAttackBonus) > 0) ? PositiveColor : NeutralColor)
                 }
             };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
@@ -138,7 +143,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerAtkContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "ATK:"),
+                    new RenderText(GameDriver.WindowFont, "ATK: "),
                     new RenderText(GameDriver.WindowFont, atkValue.ToString())
                 }
             };
@@ -151,7 +156,7 @@ namespace SolStandard.Containers.UI
             GameUnit attacker, int hpBarHeight)
         {
             IRenderable[,] attackerHpContent = new IRenderable[1, 2];
-            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, hpBarHeight);
             IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
             attackerHpContent[0, 0] = hpLabel;
@@ -203,8 +208,8 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderRangeContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "In Range:"),
-                    new RenderText(GameDriver.WindowFont, inRange.ToString())
+                    new RenderText(GameDriver.WindowFont, "In Range: "),
+                    new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
             };
 
@@ -232,8 +237,9 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderBonusContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "Bonus:"),
-                    new RenderText(GameDriver.WindowFont, terrainDefenseBonus)
+                    new RenderText(GameDriver.WindowFont, "Bonus: "),
+                    new RenderText(GameDriver.WindowFont, terrainDefenseBonus,
+                        (Convert.ToInt32(terrainDefenseBonus) > 0) ? PositiveColor : NeutralColor)
                 }
             };
             WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
@@ -248,7 +254,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderAtkContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, "DEF:"),
+                    new RenderText(GameDriver.WindowFont, "DEF: "),
                     new RenderText(GameDriver.WindowFont, defValue.ToString())
                 }
             };
@@ -261,7 +267,7 @@ namespace SolStandard.Containers.UI
             GameUnit defender, int hpBarHeight)
         {
             IRenderable[,] defenderHpContent = new IRenderable[1, 2];
-            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP:");
+            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width, hpBarHeight);
             IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
             defenderHpContent[0, 0] = hpLabel;
@@ -299,7 +305,6 @@ namespace SolStandard.Containers.UI
 
         private Vector2 UserPromptWindowPosition()
         {
-            //TODO Middle of the screen beneath the dice windows
             return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
                 AttackerAtkWindowPosition().Y);
         }

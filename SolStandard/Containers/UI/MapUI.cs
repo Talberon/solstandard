@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
@@ -13,8 +15,6 @@ namespace SolStandard.Containers.UI
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
 
-        public Window DebugWindow { get; set; }
-
         public Window LeftUnitPortraitWindow { get; set; }
         public Window LeftUnitDetailWindow { get; set; }
 
@@ -25,13 +25,25 @@ namespace SolStandard.Containers.UI
         public Window InitiativeWindow { get; set; }
         public Window TerrainEntityWindow { get; set; }
         public Window HelpTextWindow { get; set; }
+        
+        public Window UserPromptWindow { get; private set; }
 
         private bool visible;
 
-        public MapUI(Vector2 screenSize)
+        private readonly ITexture2D windowTexture;
+        
+        public MapUI(Vector2 screenSize, ITexture2D windowTexture)
         {
             this.screenSize = screenSize;
+            this.windowTexture = windowTexture;
             visible = true;
+        }
+        
+        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        {
+            Color promptWindowColor = new Color(40, 30, 40, 200);
+            UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor,
+                sizeOverride);
         }
 
         private Vector2 LeftUnitPortraitWindowPosition(int portraitWindowHeight, int initiativeWindowHeight)
@@ -89,6 +101,13 @@ namespace SolStandard.Containers.UI
             return new Vector2(WindowEdgeBuffer);
         }
 
+        private Vector2 UserPromptWindowPosition()
+        {
+            //Middle of the screen
+            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2);
+        }
+        
         public void ToggleVisible()
         {
             visible = !visible;
@@ -97,12 +116,6 @@ namespace SolStandard.Containers.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-
-            //TODO Turn this off eventually or add a debug mode flag
-            if (DebugWindow != null)
-            {
-                DebugWindow.Draw(spriteBatch, new Vector2(0));
-            }
 
             if (HelpTextWindow != null)
             {
@@ -152,7 +165,13 @@ namespace SolStandard.Containers.UI
                                 InitiativeWindow.Height));
                     }
                 }
+
+                if (UserPromptWindow != null)
+                {
+                    UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
+                }
             }
         }
+
     }
 }

@@ -60,7 +60,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void Roll()
         {
-            int randomValue = GameDriver.Random.Next(0, 5);
+            int randomValue = GameDriver.Random.Next(0, 6);
             currentSide = (DieSides) randomValue;
             dieAtlas.CellIndex = (int) currentSide + 1;
         }

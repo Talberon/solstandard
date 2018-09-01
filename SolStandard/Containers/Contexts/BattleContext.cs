@@ -41,6 +41,9 @@ namespace SolStandard.Containers.Contexts
         private GameUnit attacker;
         private GameUnit defender;
 
+        private int attackerDamageCounter;
+        private int defenderDamageCounter;
+
         public BattleContext(BattleUI battleUI)
         {
             this.battleUI = battleUI;
@@ -50,6 +53,8 @@ namespace SolStandard.Containers.Contexts
             currentlyCountingDice = false;
             currentlyResolvingDamage = false;
             CurrentState = BattleState.Start;
+            attackerDamageCounter = 0;
+            defenderDamageCounter = 0;
             //TODO determine CombatFlow
         }
 
@@ -66,32 +71,30 @@ namespace SolStandard.Containers.Contexts
 
         private void SetPromptWindowText(string promptText)
         {
-            const string pressText = "Press ";
-            const string buttonText = "(A)";
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, promptText + " "),
+                    new RenderText(GameDriver.WindowFont, promptText),
+                    new RenderBlank(),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
                     new RenderText(GameDriver.WindowFont, "["),
-                    new RenderText(GameDriver.WindowFont, pressText),
-                    new RenderText(GameDriver.WindowFont, buttonText, Color.Green),
+                    new RenderText(GameDriver.WindowFont, "Press "),
+                    new RenderText(GameDriver.WindowFont, "(A)", Color.Green),
                     new RenderText(GameDriver.WindowFont, "]")
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
             battleUI.GenerateUserPromptWindow(promptWindowContentGrid,
-                new Vector2(battleUI.AttackerBonusWindow.Width, battleUI.AttackerBonusWindow.Height * 3));
+                new Vector2(0, battleUI.AttackerBonusWindow.Height * 3));
         }
 
         private void SetupHelpWindow()
         {
             const string helpText =
                 "INFO: Swords deal 1 damage. Shields block swords. Blanks are ignored. Swords are ignored if not in range.";
-            const string legendNormal = "White=Normal ";
-            const string legendBonus = "Green=Bonus ";
-            const string legendDamage = "Red=Damage ";
-            const string legendBlocked = "Blue=Blocked ";
-            const string legendIgnored = "Grey=Ignored";
             IRenderable[,] textToRender =
             {
                 {
@@ -99,14 +102,16 @@ namespace SolStandard.Containers.Contexts
                     new RenderBlank(),
                     new RenderBlank(),
                     new RenderBlank(),
+                    new RenderBlank(),
                     new RenderBlank()
                 },
                 {
-                    new RenderText(GameDriver.WindowFont, legendNormal, Color.White),
-                    new RenderText(GameDriver.WindowFont, legendBonus, new Color(100, 250, 100)),
-                    new RenderText(GameDriver.WindowFont, legendDamage, new Color(250, 100, 100)),
-                    new RenderText(GameDriver.WindowFont, legendBlocked, new Color(100, 100, 250)),
-                    new RenderText(GameDriver.WindowFont, legendIgnored, Color.Gray)
+                    new RenderText(GameDriver.WindowFont, "Dice Legend: ", Color.White),
+                    new RenderText(GameDriver.WindowFont, "[Unresolved] ", Color.White),
+                    new RenderText(GameDriver.WindowFont, "[Bonus] ", new Color(100, 250, 100)),
+                    new RenderText(GameDriver.WindowFont, "[Damage] ", new Color(250, 100, 100)),
+                    new RenderText(GameDriver.WindowFont, "[Blocked] ", new Color(100, 100, 250)),
+                    new RenderText(GameDriver.WindowFont, "[Ignored]", Color.Gray)
                 }
             };
             WindowContentGrid helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);
@@ -199,7 +204,7 @@ namespace SolStandard.Containers.Contexts
             {
                 rollingCounter = 0;
                 currentlyRolling = false;
-                
+
                 SetPromptWindowText("Resolve Blocks.");
             }
 
@@ -210,8 +215,7 @@ namespace SolStandard.Containers.Contexts
                 defenderDice.RollDice();
             }
         }
-        
-        
+
 
         public void StartCountingDice()
         {
@@ -254,7 +258,7 @@ namespace SolStandard.Containers.Contexts
                     if (!defenderInRange) defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
 
                     currentlyCountingDice = false;
-                    
+
                     SetPromptWindowText("Resolve Damage.");
                 }
             }
@@ -301,19 +305,36 @@ namespace SolStandard.Containers.Contexts
                 {
                     attackerDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
                     defender.DamageUnit(1);
+                    attackerDamageCounter++;
                 }
                 else if (defenderDamage > 0 && defenderInRange)
                 {
                     defenderDice.ResolveNextDieWithValue(Die.FaceValue.Sword);
                     attacker.DamageUnit(1);
+                    defenderDamageCounter++;
                 }
                 else
                 {
                     currentlyResolvingDamage = false;
-                    
-                    SetPromptWindowText("End Combat.");
+
+                    SetPromptWindowDamageReport();
+                    ResetDamageCounters();
                 }
             }
+        }
+
+        private void SetPromptWindowDamageReport()
+        {
+            string damageReport = "Attacker " + attacker.Id + " deals " + attackerDamageCounter + " damage!\n";
+            damageReport += "Defender " + defender.Id + " deals " + defenderDamageCounter + " damage!\n";
+            damageReport += "End Combat.";
+            SetPromptWindowText(damageReport);
+        }
+
+        private void ResetDamageCounters()
+        {
+            attackerDamageCounter = 0;
+            defenderDamageCounter = 0;
         }
 
         private bool NonSwordDiceRemain()

@@ -6,27 +6,20 @@ namespace SolStandard.Containers.Contexts
 {
     public class GameContext
     {
-        private readonly MapContext mapMapContext;
+        private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
-        private readonly MapUI mapUi;
         public static List<GameUnit> Units { get; private set; }
 
-        public GameContext(MapContext mapMapContext, BattleContext battleContext, MapUI mapUi, List<GameUnit> units)
+        public GameContext(MapContext mapContext, BattleContext battleContext, List<GameUnit> units)
         {
-            this.mapMapContext = mapMapContext;
+            this.mapContext = mapContext;
             this.battleContext = battleContext;
-            this.mapUi = mapUi;
             Units = units;
-        }
-
-        public MapUI MapUI
-        {
-            get { return mapUi; }
         }
 
         public MapContext MapContext
         {
-            get { return mapMapContext; }
+            get { return mapContext; }
         }
 
         public BattleContext BattleContext

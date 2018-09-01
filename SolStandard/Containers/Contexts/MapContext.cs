@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Logic;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -25,9 +27,12 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
 
-        public MapContext(MapContainer mapContainer)
+        public MapUI MapUI { get; private set; }
+
+        public MapContext(MapContainer mapContainer, MapUI mapUI)
         {
             this.mapContainer = mapContainer;
+            MapUI = mapUI;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
         }
@@ -49,6 +54,32 @@ namespace SolStandard.Containers.Contexts
         public MapContainer MapContainer
         {
             get { return mapContainer; }
+        }
+        
+        public void SetPromptWindowText(string promptText)
+        {
+            IRenderable[,] promptTextContent =
+            {
+                {
+                    new RenderText(GameDriver.WindowFont, promptText),
+                    new RenderBlank(),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(GameDriver.WindowFont, "["),
+                    new RenderText(GameDriver.WindowFont, "Press "),
+                    new RenderText(GameDriver.WindowFont, "(A)", Color.Green),
+                    new RenderText(GameDriver.WindowFont, "]")
+                }
+            };
+            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+            MapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(300, 100));
+        }
+
+        public void ConfirmPromptWindow()
+        {
+            MapUI.UserPromptWindow.Visible = false;
         }
 
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)
@@ -91,7 +122,6 @@ namespace SolStandard.Containers.Contexts
 
             return MapContainer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
-
 
         public bool OtherUnitExistsAtCursor()
         {

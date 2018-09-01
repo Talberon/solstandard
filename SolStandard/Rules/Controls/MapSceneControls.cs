@@ -3,8 +3,8 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
-using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Logic;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -17,8 +17,8 @@ namespace SolStandard.Rules.Controls
 {
     public static class MapSceneControls
     {
-        public static void ListenForInputs(MapContext mapContext, BattleContext battleContext,
-            GameControlMapper controlMapper, MapCamera mapCamera, MapCursor mapCursor, MapUI mapUi)
+        public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
+            MapCamera mapCamera, MapCursor mapCursor)
         {
             if (controlMapper.Start())
             {
@@ -27,13 +27,13 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Down())
             {
-                switch (mapContext.CurrentTurnState)
+                switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
                         mapCursor.MoveCursorInDirection((Direction.Down));
                         return;
                     case MapContext.TurnState.UnitMoving:
-                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
                         return;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Down));
@@ -43,13 +43,13 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Left())
             {
-                switch (mapContext.CurrentTurnState)
+                switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
                         mapCursor.MoveCursorInDirection((Direction.Left));
                         return;
                     case MapContext.TurnState.UnitMoving:
-                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
                         return;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Left));
@@ -59,13 +59,13 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Right())
             {
-                switch (mapContext.CurrentTurnState)
+                switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
                         mapCursor.MoveCursorInDirection((Direction.Right));
                         return;
                     case MapContext.TurnState.UnitMoving:
-                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
                         return;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Right));
@@ -75,13 +75,13 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.Up())
             {
-                switch (mapContext.CurrentTurnState)
+                switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
                         mapCursor.MoveCursorInDirection((Direction.Up));
                         return;
                     case MapContext.TurnState.UnitMoving:
-                        mapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
                         return;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Up));
@@ -91,25 +91,27 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.A())
             {
-                Trace.WriteLine("Current Turn State: " + mapContext.CurrentTurnState);
+                Trace.WriteLine("Current Turn State: " + gameContext.MapContext.CurrentTurnState);
 
-                switch (mapContext.CurrentTurnState)
+                switch (gameContext.MapContext.CurrentTurnState)
                 {
                     //TODO If the cursor is currently hovering over a VALID unit.
                     //TODO A VALID unit is a unit that is first in the initiative list 
                     case MapContext.TurnState.SelectUnit:
                         //Select the unit. Store it somewhere.
 
-                        mapContext.SelectedUnit =
-                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                        gameContext.MapContext.SelectedUnit =
+                            UnitSelector.SelectUnit(
+                                gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
 
-                        if (mapContext.SelectedUnit != null)
+                        if (gameContext.MapContext.SelectedUnit != null)
                         {
-                            Trace.WriteLine("Selecting unit: " + mapContext.SelectedUnit.UnitTeam + " " +
-                                            mapContext.SelectedUnit.UnitJobClass);
-                            mapContext.ProceedToNextState();
-                            mapContext.GenerateMoveGrid(mapContext.MapContainer.MapCursor.MapCoordinates,
-                                mapContext.SelectedUnit.Stats.MaxMv,
+                            Trace.WriteLine("Selecting unit: " + gameContext.MapContext.SelectedUnit.UnitTeam + " " +
+                                            gameContext.MapContext.SelectedUnit.UnitJobClass);
+                            gameContext.MapContext.ProceedToNextState();
+                            gameContext.MapContext.GenerateMoveGrid(
+                                gameContext.MapContext.MapContainer.MapCursor.MapCoordinates,
+                                gameContext.MapContext.SelectedUnit.Stats.MaxMv,
                                 new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
                                     GameDriver.CellSize,
                                     69));
@@ -128,79 +130,86 @@ namespace SolStandard.Rules.Controls
                         return;
 
                     case MapContext.TurnState.UnitMoving:
-                        mapContext.ProceedToNextState();
+                        gameContext.MapContext.ProceedToNextState();
 
-                        if (mapContext.OtherUnitExistsAtCursor()) return;
-                        mapContext.MapContainer.ClearDynamicGrid();
+                        if (gameContext.MapContext.OtherUnitExistsAtCursor()) return;
+                        gameContext.MapContext.MapContainer.ClearDynamicGrid();
 
                         //TODO Open the menu
                         return;
 
                     case MapContext.TurnState.UnitDecidingAction:
-                        mapContext.ProceedToNextState();
+                        gameContext.MapContext.ProceedToNextState();
                         //TODO Select option in the menu
 
 
                         //If the selection is Basic Attack
                         //Open the targeting grid
-                        mapContext.SelectedUnit =
-                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
-                        mapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
+                        gameContext.MapContext.SelectedUnit =
+                            UnitSelector.SelectUnit(
+                                gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                        gameContext.MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
                             new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture), GameDriver.CellSize, 68));
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
                         //Start Combat
                         GameUnit targetUnit =
-                            UnitSelector.SelectUnit(mapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                            UnitSelector.SelectUnit(
+                                gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
 
                         //TODO clean up this gigantic if statement
-                        if (targetUnit != null && mapContext.SelectedUnit != targetUnit &&
-                            BattleContext.CoordinatesAreInRange(mapContext.SelectedUnit.MapEntity.MapCoordinates,
-                                targetUnit.MapEntity.MapCoordinates, mapContext.SelectedUnit.Stats.AtkRange) &&
-                            mapContext.SelectedUnit.UnitTeam != targetUnit.UnitTeam)
+                        if (targetUnit != null && gameContext.MapContext.SelectedUnit != targetUnit &&
+                            BattleContext.CoordinatesAreInRange(
+                                gameContext.MapContext.SelectedUnit.MapEntity.MapCoordinates,
+                                targetUnit.MapEntity.MapCoordinates,
+                                gameContext.MapContext.SelectedUnit.Stats.AtkRange) &&
+                            gameContext.MapContext.SelectedUnit.UnitTeam != targetUnit.UnitTeam)
                         {
-                            mapContext.ProceedToNextState();
+                            gameContext.MapContext.ProceedToNextState();
 
-                            mapContext.MapContainer.ClearDynamicGrid();
-                            battleContext.StartNewCombat(mapContext.SelectedUnit,
-                                mapContext.MapContainer.GetMapSliceAtCoordinates(mapContext.SelectedUnit.MapEntity
+                            gameContext.MapContext.MapContainer.ClearDynamicGrid();
+                            gameContext.BattleContext.StartNewCombat(gameContext.MapContext.SelectedUnit,
+                                gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(gameContext.MapContext
+                                    .SelectedUnit.MapEntity
                                     .MapCoordinates),
-                                targetUnit, mapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit.MapEntity
+                                targetUnit, gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit
+                                    .MapEntity
                                     .MapCoordinates));
                         }
-                        else if (mapContext.SelectedUnit == targetUnit)
+                        else if (gameContext.MapContext.SelectedUnit == targetUnit)
                         {
                             //Skip the combat state if player selects the same unit
-                            mapContext.MapContainer.ClearDynamicGrid();
-                            mapContext.ProceedToNextState();
-                            mapContext.ProceedToNextState();
+                            gameContext.MapContext.MapContainer.ClearDynamicGrid();
+                            gameContext.MapContext.ProceedToNextState();
+                            gameContext.MapContext.ProceedToNextState();
                         }
 
+                        gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
                         return;
 
                     case MapContext.TurnState.UnitActing:
 
-                        switch (battleContext.CurrentState)
+                        switch (gameContext.BattleContext.CurrentState)
                         {
                             case BattleContext.BattleState.Start:
-                                battleContext.ProceedToNextState();
-                                battleContext.StartRollingDice();
+                                gameContext.BattleContext.ProceedToNextState();
+                                gameContext.BattleContext.StartRollingDice();
                                 break;
                             case BattleContext.BattleState.RollDice:
-                                battleContext.ProceedToNextState();
-                                battleContext.StartCountingDice();
+                                gameContext.BattleContext.ProceedToNextState();
+                                gameContext.BattleContext.StartCountingDice();
                                 break;
                             case BattleContext.BattleState.CountDice:
-                                battleContext.ProceedToNextState();
-                                battleContext.StartResolvingDamage();
+                                gameContext.BattleContext.ProceedToNextState();
+                                gameContext.BattleContext.StartResolvingDamage();
                                 break;
                             case BattleContext.BattleState.ResolveCombat:
-                                battleContext.ProceedToNextState();
-                                mapContext.ProceedToNextState();
+                                gameContext.BattleContext.ProceedToNextState();
+                                gameContext.MapContext.ProceedToNextState();
                                 break;
                             default:
-                                mapContext.ProceedToNextState();
+                                gameContext.MapContext.ProceedToNextState();
                                 return;
                         }
 
@@ -209,8 +218,9 @@ namespace SolStandard.Rules.Controls
                     case MapContext.TurnState.ResolvingTurn:
                         //TODO Do various turn check resolution (win state, etc.)
                         //TODO Confirm turn end
+                        gameContext.MapContext.ConfirmPromptWindow();
                         //TODO Disable unit
-                        mapContext.ProceedToNextState();
+                        gameContext.MapContext.ProceedToNextState();
                         return;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -219,7 +229,7 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.LeftTrigger())
             {
-                mapUi.ToggleVisible();
+                gameContext.MapContext.MapUI.ToggleVisible();
             }
 
             if (controlMapper.RightTrigger())
@@ -234,7 +244,7 @@ namespace SolStandard.Rules.Controls
             if (controlMapper.X())
             {
                 //FIXME Remove this eventually after debugging is done
-                battleContext.StartRollingDice();
+                gameContext.BattleContext.StartRollingDice();
             }
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
