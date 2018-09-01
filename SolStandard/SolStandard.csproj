@@ -51,7 +51,7 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\MapContext.cs" />
     <Compile Include="Containers\UI\BattleUI.cs" />
-    <Compile Include="Containers\UI\MapHudGenerator.cs" />
+    <Compile Include="Containers\UI\ColorMapper.cs" />
     <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rules\Controls\MapSceneControls.cs" />
+    <Compile Include="Rules\Controls\GameControls.cs" />
     <Compile Include="Rules\MapCursorHover.cs" />
     <Compile Include="Rules\MapCursorSelect.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />

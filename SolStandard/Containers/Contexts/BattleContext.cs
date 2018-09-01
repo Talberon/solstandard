@@ -59,20 +59,23 @@ namespace SolStandard.Containers.Contexts
             //TODO determine CombatFlow
         }
 
-        public void StartNewCombat(GameUnit attacker, MapSlice attackerSlice, GameUnit defender, MapSlice defenderSlice)
+        public void StartNewCombat(GameUnit newAttacker, MapSlice attackerSlice, GameUnit newDefender,
+            MapSlice defenderSlice)
         {
-            this.attacker = attacker;
-            this.defender = defender;
+            attacker = newAttacker;
+            defender = newDefender;
 
             SetupHelpWindow();
             SetupAttackerWindows(attackerSlice);
             SetupDefenderWindows(defenderSlice);
             SetPromptWindowText("Start Combat!");
-            
+
             //Treat the unit as off-screen if null
-            Vector2 attackerCoordinates = (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
-            Vector2 defenderCoordinates = (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
-            attackerInRange =CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
+            Vector2 attackerCoordinates =
+                (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
+            Vector2 defenderCoordinates =
+                (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
+            attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
             defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
         }
 
@@ -94,8 +97,14 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            battleUI.GenerateUserPromptWindow(promptWindowContentGrid,
-                new Vector2(0, battleUI.AttackerBonusWindow.Height * 3));
+
+            Vector2 threeBarsHighOrTaller = new Vector2(0, battleUI.AttackerBonusWindow.Height * 3);
+            if (threeBarsHighOrTaller.Y < promptWindowContentGrid.Height)
+            {
+                threeBarsHighOrTaller.Y = 0;
+            }
+
+            battleUI.GenerateUserPromptWindow(promptWindowContentGrid, threeBarsHighOrTaller);
         }
 
         private void SetupHelpWindow()
@@ -127,12 +136,13 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupAttackerWindows(MapSlice attackerSlice)
         {
-            Color attackerWindowColor = MapHudGenerator.DetermineTeamColor(attacker.UnitTeam);
+            Color attackerWindowColor = ColorMapper.DetermineTeamColor(attacker.UnitTeam);
             battleUI.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.LargePortrait);
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.AttackerPortraitWindow.Width, 0);
             battleUI.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
-            battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride, attacker.UnitJobClass.ToString());
+            battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
+                attacker.UnitJobClass.ToString());
             battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
             battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats.Atk);
             battleUI.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
@@ -146,12 +156,13 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
         {
-            Color defenderWindowColor = MapHudGenerator.DetermineTeamColor(defender.UnitTeam);
+            Color defenderWindowColor = ColorMapper.DetermineTeamColor(defender.UnitTeam);
             battleUI.GenerateDefenderPortraitWindow(defenderWindowColor, defender.LargePortrait);
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.DefenderPortraitWindow.Width, 0);
             battleUI.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
-            battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride, defender.UnitJobClass.ToString());
+            battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
+                defender.UnitJobClass.ToString());
             battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
             battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats.Def);
             battleUI.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
@@ -166,7 +177,7 @@ namespace SolStandard.Containers.Contexts
         public bool TryProceedToNextState()
         {
             if (currentlyResolvingBlocks || currentlyResolvingDamage || currentlyRolling) return false;
-            
+
             if (CurrentState == BattleState.ResolveCombat)
             {
                 CurrentState = 0;
@@ -277,8 +288,6 @@ namespace SolStandard.Containers.Contexts
 
         private void ResolveDamage()
         {
-
-
             int attackerDamage = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
             int defenderDamage = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
 
@@ -320,6 +329,8 @@ namespace SolStandard.Containers.Contexts
         {
             string damageReport = "Attacker " + attacker.Id + " deals " + attackerDamageCounter + " damage!\n";
             damageReport += "Defender " + defender.Id + " deals " + defenderDamageCounter + " damage!\n";
+            if (defender.Stats.Hp <= 0) damageReport += defender.Id + " is defeated!\n";
+            if (attacker.Stats.Hp <= 0) damageReport += attacker.Id + " is defeated!\n";
             damageReport += "End Combat.";
             SetPromptWindowText(damageReport);
         }

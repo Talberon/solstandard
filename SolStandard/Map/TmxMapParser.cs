@@ -48,6 +48,7 @@ namespace SolStandard.Map
             {
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.Collide),
+                // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };

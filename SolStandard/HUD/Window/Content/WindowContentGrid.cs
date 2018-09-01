@@ -4,7 +4,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content
 {
-    public class WindowContentGrid
+    public class WindowContentGrid : IRenderable
     {
         private readonly IRenderable[,] contentGrid;
         private readonly int padding;
@@ -19,7 +19,17 @@ namespace SolStandard.HUD.Window.Content
         {
             get { return contentGrid; }
         }
-        
+
+        public int Height
+        {
+            get { return (int) GridSizeInPixels().Y; }
+        }
+
+        public int Width
+        {
+            get { return (int) GridSizeInPixels().X; }
+        }
+
         //TODO clean this so I'm not duplicating so much of the Draw logic (maybe use Delegates)
         public Vector2 GridSizeInPixels()
         {
@@ -58,8 +68,13 @@ namespace SolStandard.HUD.Window.Content
 
             return new Vector2(totalWidth, totalHeight);
         }
-        
+
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
+        {
+            Draw(spriteBatch, coordinates, Color.White);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color color)
         {
             float highestRowHeight = 0f;
 

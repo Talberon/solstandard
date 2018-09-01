@@ -14,7 +14,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Rules.Controls
 {
-    public static class MapSceneControls
+    public static class GameControls
     {
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)

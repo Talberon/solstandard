@@ -57,8 +57,6 @@ namespace SolStandard
 
         private MapCamera mapCamera;
 
-        private MapHudGenerator mapHudGenerator;
-
         public GameDriver()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -109,8 +107,6 @@ namespace SolStandard
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
             gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
                 new BattleContext(new BattleUI(screenSize, windowTexture)), unitsFromMap);
-
-            mapHudGenerator = new MapHudGenerator(windowTexture);
         }
 
         /// <summary>
@@ -157,8 +153,7 @@ namespace SolStandard
                 Exit();
             }
 
-            //TODO Introduce enum to represent game state before choosing which Control set to listen for
-            MapSceneControls.ListenForInputs(gameContext, controlMapper, mapCamera,
+            GameControls.ListenForInputs(gameContext, controlMapper, mapCamera,
                 gameContext.MapContext.MapContainer.MapCursor);
 
 
@@ -170,23 +165,10 @@ namespace SolStandard
             //Map Cursor Hover Logic
             MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
             MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapContext.MapUI, hoverTiles,
-                mapHudGenerator);
+                gameContext.MapContext.MapUI);
 
 
-            //Initiative Window
-            gameContext.MapContext.MapUI.InitiativeWindow =
-                mapHudGenerator.GenerateInitiativeWindow(GameContext.Units);
-
-            //Turn Window
-            Vector2 turnWindowSize = new Vector2(265, gameContext.MapContext.MapUI.InitiativeWindow.Height);
-            gameContext.MapContext.MapUI.TurnWindow = mapHudGenerator.GenerateTurnWindow(turnWindowSize);
-
-
-            //Help Window TODO make this context-sensitive
-            string helpText = "HELP: Lorem ipsum dolor sit amet conseceteur novus halonus."
-                              + "\nAdditional information will appear here to help you play the game.";
-
-            gameContext.MapContext.MapUI.HelpTextWindow = mapHudGenerator.GenerateHelpWindow(helpText);
+            gameContext.MapContext.UpdateWindows();
 
 
             base.Update(gameTime);

@@ -37,6 +37,20 @@ namespace SolStandard.Containers.Contexts
             selectedUnitOriginalPosition = new Vector2();
         }
 
+        public void UpdateWindows()
+        {
+            //Initiative Window
+            MapUI.GenerateInitiativeWindow(GameContext.Units);
+
+            //Turn Window
+            Vector2 turnWindowSize = new Vector2(245, MapUI.InitiativeWindow.Height);
+            MapUI.GenerateTurnWindow(turnWindowSize);
+
+            //Help Window TODO make this context-sensitive
+            string helpText = "HELP: Select a unit. Defeat the enemy!";
+            MapUI.GenerateHelpWindow(helpText);
+        }
+
         public void ProceedToNextState()
         {
             if (CurrentTurnState == TurnState.ResolvingTurn)
@@ -55,7 +69,7 @@ namespace SolStandard.Containers.Contexts
         {
             get { return mapContainer; }
         }
-        
+
         public void SetPromptWindowText(string promptText)
         {
             IRenderable[,] promptTextContent =

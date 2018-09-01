@@ -26,13 +26,16 @@ namespace SolStandard.Utility.Parsing
 
                 foreach (XElement property in objectType.Elements())
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     string key = property.Attribute("name").Value;
 
+                    // ReSharper disable once PossibleNullReferenceException
                     string value = (property.Attribute("default") != null) ? property.Attribute("default").Value : "";
 
                     objectTypeProperties.Add(key, value);
                 }
 
+                // ReSharper disable once PossibleNullReferenceException
                 string objectTypeName = objectType.Attribute("name").Value;
                 objectTypesInFile.Add(objectTypeName, objectTypeProperties);
             }
