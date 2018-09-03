@@ -14,6 +14,7 @@ namespace SolStandard
         [STAThread]
         static void Main()
         {
+            // ReSharper disable once SuggestVarOrType_SimpleTypes
             using (var game = new GameDriver())
                 game.Run();
         }
