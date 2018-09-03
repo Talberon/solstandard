@@ -21,7 +21,7 @@ namespace SolStandard.Rules.Controls
         {
             if (controlMapper.Start())
             {
-                mapCamera.SetTargetCameraPosition(new Vector2(0));
+                gameContext.MapContext.MapUI.ToggleVisible();
             }
 
             if (controlMapper.Down())
@@ -242,16 +242,12 @@ namespace SolStandard.Rules.Controls
 
             if (controlMapper.LeftTrigger())
             {
-                gameContext.MapContext.MapUI.ToggleVisible();
+                mapCamera.DecreaseZoom(0.1f);
             }
 
             if (controlMapper.RightTrigger())
             {
-                //FIXME Remove this after debugging use is no longer needed
-                foreach (GameUnit unit in GameContext.Units)
-                {
-                    unit.DamageUnit(1);
-                }
+                mapCamera.IncreaseZoom(0.1f);
             }
 
             if (controlMapper.X())
@@ -260,6 +256,7 @@ namespace SolStandard.Rules.Controls
                 gameContext.BattleContext.StartRollingDice();
                 gameContext.MapContext.MapContainer.ClearDynamicGrid();
             }
+            
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

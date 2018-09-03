@@ -42,6 +42,18 @@ namespace SolStandard.Map.Camera
             currentZoom = zoom;
         }
 
+        public void IncreaseZoom(float zoomRate)
+        {
+            const float maximumZoom = 3.0f;
+            if (currentZoom < maximumZoom) currentZoom += zoomRate;
+        }
+
+        public void DecreaseZoom(float zoomRate)
+        {
+            const float minimumZoom = 1.0f;
+            if (currentZoom > minimumZoom) currentZoom -= zoomRate;
+        }
+
         public void MoveCameraInDirection(CameraDirection direction)
         {
             switch (direction)
