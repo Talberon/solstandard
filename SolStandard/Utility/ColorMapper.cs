@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Utility
 {
     public static class ColorMapper
     {

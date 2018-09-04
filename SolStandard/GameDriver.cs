@@ -9,8 +9,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Rules;
-using SolStandard.Rules.Controls;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
@@ -154,7 +152,7 @@ namespace SolStandard
             }
 
 
-            GameControls.ListenForInputs(gameContext, controlMapper, mapCamera,
+            ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera,
                 gameContext.MapContext.MapContainer.MapCursor);
 
 
@@ -165,8 +163,7 @@ namespace SolStandard
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
-            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, gameContext.MapContext.MapUI, hoverTiles,
-                gameContext.MapContext.MapUI);
+            MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, hoverTiles, gameContext.MapContext.MapUI);
 
 
             gameContext.MapContext.UpdateWindows();

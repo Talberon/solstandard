@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Logic;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -12,9 +10,9 @@ using SolStandard.Utility;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Monogame;
 
-namespace SolStandard.Rules.Controls
+namespace SolStandard.Containers.Contexts
 {
-    public static class GameControls
+    public static class ControlContext
     {
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)

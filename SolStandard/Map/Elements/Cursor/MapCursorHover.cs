@@ -1,15 +1,13 @@
 ﻿using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
-using SolStandard.Logic;
-using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 
-namespace SolStandard.Rules
+namespace SolStandard.Map.Elements.Cursor
 {
     public static class MapCursorHover
     {
-        public static void Hover(MapContext.TurnState turnState, MapUI mapUi, MapSlice hoverTiles,
-            MapUI mapUI)
+        public static void Hover(MapContext.TurnState turnState, MapSlice hoverTiles, MapUI mapUI)
         {
             GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
 

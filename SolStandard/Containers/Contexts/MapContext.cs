@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Logic;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 
