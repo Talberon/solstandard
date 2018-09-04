@@ -99,9 +99,9 @@ namespace SolStandard.Containers
 
             foreach (GameUnit unit in GameContext.Units)
             {
-                if (unit.MapEntity != null)
+                if (unit.UnitEntity != null)
                 {
-                    unit.MapEntity.Draw(spriteBatch);
+                    unit.UnitEntity.Draw(spriteBatch);
                 }
             }
 

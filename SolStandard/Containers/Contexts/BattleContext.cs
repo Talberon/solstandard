@@ -63,19 +63,24 @@ namespace SolStandard.Containers.Contexts
         {
             attacker = newAttacker;
             defender = newDefender;
+            
+            attacker.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            defender.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
 
+            //Treat the unit as off-screen if null
+            Vector2 attackerCoordinates =
+                (attacker.UnitEntity != null) ? attacker.UnitEntity.MapCoordinates : new Vector2(-1);
+            Vector2 defenderCoordinates =
+                (defender.UnitEntity != null) ? defender.UnitEntity.MapCoordinates : new Vector2(-1);
+            
+            attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
+            defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
+            
             SetupHelpWindow();
             SetupAttackerWindows(attackerSlice);
             SetupDefenderWindows(defenderSlice);
             SetPromptWindowText("Start Combat!");
 
-            //Treat the unit as off-screen if null
-            Vector2 attackerCoordinates =
-                (attacker.MapEntity != null) ? attacker.MapEntity.MapCoordinates : new Vector2(-1);
-            Vector2 defenderCoordinates =
-                (defender.MapEntity != null) ? defender.MapEntity.MapCoordinates : new Vector2(-1);
-            attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
-            defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
         }
 
         private void SetPromptWindowText(string promptText)
@@ -319,6 +324,8 @@ namespace SolStandard.Containers.Contexts
                     currentlyResolvingDamage = false;
 
                     SetPromptWindowDamageReport();
+                    attacker.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                    defender.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                     ResetDamageCounters();
                 }
             }

@@ -38,9 +38,8 @@ namespace SolStandard.Entity.Unit
 
         private readonly UnitStatistics stats;
 
-        public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, ref MapEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) :
-            base(id, ref mapEntity)
+        public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, UnitEntity mapEntity, UnitStatistics stats,
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapEntity)
         {
             this.unitTeam = unitTeam;
             this.unitJobClass = unitJobClass;
@@ -58,6 +57,11 @@ namespace SolStandard.Entity.Unit
                 combatHealthBar,
                 hoverWindowHealthBar
             };
+        }
+
+        public UnitEntity UnitEntity
+        {
+            get { return (UnitEntity) MapEntity; }
         }
 
         public UnitStatistics Stats
@@ -128,7 +132,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
 
-            PreventCursorLeavingMapBounds(mapSize);
+            PreventUnitLeavingMapBounds(mapSize);
         }
 
         public void DamageUnit(int damage)
@@ -146,8 +150,15 @@ namespace SolStandard.Entity.Unit
             }
         }
 
+        public void SetUnitAnimation(UnitSprite.UnitAnimationState state)
+        {
+            if (UnitEntity != null)
+            {
+                UnitEntity.UnitSprite.SetAnimation(state);
+            }
+        }
 
-        private void PreventCursorLeavingMapBounds(Vector2 mapSize)
+        private void PreventUnitLeavingMapBounds(Vector2 mapSize)
         {
             if (MapEntity.MapCoordinates.X < 0)
             {

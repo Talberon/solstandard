@@ -6,22 +6,22 @@ using SolStandard.Map.Elements;
 
 namespace SolStandard.Logic
 {
-    public class UnitSelector
+    public static class UnitSelector
     {
         public static GameUnit SelectUnit(MapEntity unit)
         {
             if (unit == null) return null;
             
-            return GameContext.Units.First(gameUnit => gameUnit.MapEntity == unit);
+            return GameContext.Units.First(gameUnit => gameUnit.UnitEntity == unit);
         }
 
         public static MapEntity FindOtherUnitEntityAtCoordinates(Vector2 coordinates, MapEntity excludedEntity)
         {
             foreach (GameUnit unit in GameContext.Units)
             {
-                if (unit.MapEntity != null && unit.MapEntity != excludedEntity)
+                if (unit.UnitEntity != null && unit.UnitEntity != excludedEntity)
                 {
-                    if (unit.MapEntity.MapCoordinates == coordinates) return unit.MapEntity;
+                    if (unit.UnitEntity.MapCoordinates == coordinates) return unit.UnitEntity;
                 }
             }
 

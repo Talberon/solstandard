@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
@@ -26,6 +27,15 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
+
+        private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
+            new Dictionary<Direction, UnitSprite.UnitAnimationState>
+            {
+                {Direction.Down, UnitSprite.UnitAnimationState.WalkDown},
+                {Direction.Up, UnitSprite.UnitAnimationState.WalkUp},
+                {Direction.Right, UnitSprite.UnitAnimationState.WalkRight},
+                {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
+            };
 
         public MapUI MapUI { get; private set; }
 
@@ -69,6 +79,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.UnitMoving)
             {
+                SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                 ReturnUnitToOriginalPosition();
                 MapContainer.ClearDynamicGrid();
                 CurrentTurnState--;
@@ -118,6 +129,7 @@ namespace SolStandard.Containers.Contexts
             if (TargetTileHasADynamicTile(direction))
             {
                 SelectedUnit.MoveUnitInDirection(direction, mapContainer.MapGridSize);
+                SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 mapContainer.MapCursor.MoveCursorInDirection(direction);
             }
         }
@@ -154,18 +166,27 @@ namespace SolStandard.Containers.Contexts
 
         public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
         {
-            return UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, SelectedUnit.MapEntity) != null;
+            return UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, SelectedUnit.UnitEntity) != null;
         }
 
         public void ReturnUnitToOriginalPosition()
         {
-            SelectedUnit.MapEntity.MapCoordinates = selectedUnitOriginalPosition;
+            SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
             mapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+        }
+
+        public bool TargetUnitIsLegal(GameUnit targetUnit)
+        {
+            return targetUnit != null
+                   && SelectedUnit != targetUnit
+                   && BattleContext.CoordinatesAreInRange(SelectedUnit.UnitEntity.MapCoordinates,
+                       targetUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange)
+                   && SelectedUnit.UnitTeam != targetUnit.UnitTeam;
         }
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-            selectedUnitOriginalPosition = SelectedUnit.MapEntity.MapCoordinates;
+            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 

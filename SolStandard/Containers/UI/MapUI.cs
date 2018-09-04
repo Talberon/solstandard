@@ -101,7 +101,7 @@ namespace SolStandard.Containers.UI
 
             if (selectedTerrain != null)
             {
-                IRenderable terrainSprite = selectedTerrain.Sprite;
+                IRenderable terrainSprite = selectedTerrain.RenderSprite;
 
                 string terrainInfo = "Terrain: " + selectedTerrain.Name
                                                  + "\n"

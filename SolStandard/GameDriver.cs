@@ -153,6 +153,7 @@ namespace SolStandard
                 Exit();
             }
 
+
             GameControls.ListenForInputs(gameContext, controlMapper, mapCamera,
                 gameContext.MapContext.MapContainer.MapCursor);
 

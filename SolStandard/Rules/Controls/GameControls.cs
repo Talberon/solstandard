@@ -21,7 +21,7 @@ namespace SolStandard.Rules.Controls
         {
             if (controlMapper.Start())
             {
-                mapCamera.SetTargetCameraPosition(new Vector2(0));
+                gameContext.MapContext.MapUI.ToggleVisible();
             }
 
             if (controlMapper.Down())
@@ -126,12 +126,14 @@ namespace SolStandard.Rules.Controls
                         gameContext.MapContext.ProceedToNextState();
 
                         gameContext.MapContext.MapContainer.ClearDynamicGrid();
+                        gameContext.MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
 
                         //TODO Open the action menu
                         return;
 
                     case MapContext.TurnState.UnitDecidingAction:
                         gameContext.MapContext.ProceedToNextState();
+                        gameContext.MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
                         //TODO Select option in the action menu
 
                         //If the selection is Basic Attack
@@ -146,33 +148,28 @@ namespace SolStandard.Rules.Controls
 
                     case MapContext.TurnState.UnitTargeting:
                         //Start Combat
-                        GameUnit targetUnit =
-                            UnitSelector.SelectUnit(
-                                gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                        GameUnit attackingUnit = gameContext.MapContext.SelectedUnit;
+                        GameUnit defendingUnit = UnitSelector.SelectUnit(
+                            gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity
+                        );
 
-                        if (targetUnit != null && gameContext.MapContext.SelectedUnit != targetUnit &&
-                            BattleContext.CoordinatesAreInRange(
-                                gameContext.MapContext.SelectedUnit.MapEntity.MapCoordinates,
-                                targetUnit.MapEntity.MapCoordinates,
-                                gameContext.MapContext.SelectedUnit.Stats.AtkRange) &&
-                            gameContext.MapContext.SelectedUnit.UnitTeam != targetUnit.UnitTeam)
+                        if (gameContext.MapContext.TargetUnitIsLegal(defendingUnit))
                         {
-                            gameContext.MapContext.ProceedToNextState();
-                            gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
-
                             gameContext.MapContext.MapContainer.ClearDynamicGrid();
-                            gameContext.BattleContext.StartNewCombat(gameContext.MapContext.SelectedUnit,
-                                gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(gameContext.MapContext
-                                    .SelectedUnit.MapEntity
+                            gameContext.BattleContext.StartNewCombat(attackingUnit,
+                                gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity
                                     .MapCoordinates),
-                                targetUnit, gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(targetUnit
-                                    .MapEntity
-                                    .MapCoordinates));
+                                defendingUnit, gameContext.MapContext.MapContainer.GetMapSliceAtCoordinates(
+                                    defendingUnit.UnitEntity.MapCoordinates));
+                            
+                            gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
+                            gameContext.MapContext.ProceedToNextState();
                         }
-                        else if (gameContext.MapContext.SelectedUnit == targetUnit)
+                        else if (attackingUnit == defendingUnit)
                         {
                             //Skip the combat state if player selects the same unit
                             gameContext.MapContext.MapContainer.ClearDynamicGrid();
+                            gameContext.MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                             gameContext.MapContext.ProceedToNextState();
                             gameContext.MapContext.SetPromptWindowText("Confirm End Turn");
                             gameContext.MapContext.ProceedToNextState();
@@ -198,7 +195,10 @@ namespace SolStandard.Rules.Controls
                                 break;
                             case BattleContext.BattleState.ResolveCombat:
                                 if (gameContext.BattleContext.TryProceedToNextState())
+                                {
                                     gameContext.MapContext.ProceedToNextState();
+                                }
+
                                 break;
                             default:
                                 gameContext.MapContext.ProceedToNextState();
@@ -238,21 +238,16 @@ namespace SolStandard.Rules.Controls
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
             }
 
             if (controlMapper.LeftTrigger())
             {
-                gameContext.MapContext.MapUI.ToggleVisible();
+                mapCamera.DecreaseZoom(0.1f);
             }
 
             if (controlMapper.RightTrigger())
             {
-                //FIXME Remove this after debugging use is no longer needed
-                foreach (GameUnit unit in GameContext.Units)
-                {
-                    unit.DamageUnit(1);
-                }
+                mapCamera.IncreaseZoom(0.1f);
             }
 
             if (controlMapper.X())
@@ -261,6 +256,7 @@ namespace SolStandard.Rules.Controls
                 gameContext.BattleContext.StartRollingDice();
                 gameContext.MapContext.MapContainer.ClearDynamicGrid();
             }
+            
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

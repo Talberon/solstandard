@@ -12,9 +12,10 @@ namespace SolStandard.Map.Elements
     {
         private readonly string name;
         private readonly string type;
-        private readonly Dictionary<string,string> tiledProperties;
+        private readonly Dictionary<string, string> tiledProperties;
 
-        public MapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates, Dictionary<string,string> tiledProperties)
+        public MapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties)
         {
             this.name = name;
             this.type = type;
@@ -33,7 +34,7 @@ namespace SolStandard.Map.Elements
             get { return type; }
         }
 
-        public Dictionary<string,string> TiledProperties
+        public Dictionary<string, string> TiledProperties
         {
             get { return tiledProperties; }
         }
