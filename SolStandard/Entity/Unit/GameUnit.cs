@@ -180,5 +180,10 @@ namespace SolStandard.Entity.Unit
                 MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1);
             }
         }
+
+        public override string ToString()
+        {
+            return "GameUnit: " + Id + ", " + UnitTeam + ", " + UnitJobClass;
+        }
     }
 }

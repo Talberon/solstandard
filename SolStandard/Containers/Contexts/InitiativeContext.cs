@@ -8,17 +8,21 @@ namespace SolStandard.Containers.Contexts
     public class InitiativeContext
     {
         //TODO Handle the initiative list updates, manage turn order and unit selectability
+        
         private readonly List<GameUnit> initiativeList;
+        public GameUnit CurrentActiveUnit { get; private set; }
 
         public InitiativeContext(List<GameUnit> unitList, Team firstTurnIfTie)
         {
             initiativeList = RandomizeTeamOrder(unitList, firstTurnIfTie);
+            CurrentActiveUnit = initiativeList[0];
         }
 
         public List<GameUnit> InitiativeList
         {
             get { return initiativeList; }
         }
+
 
         private static List<GameUnit> RandomizeTeamOrder(List<GameUnit> unitList, Team firstTurnIfTie)
         {
@@ -60,21 +64,21 @@ namespace SolStandard.Containers.Contexts
             blueTeam.Shuffle();
 
             //Determine which team has more units and by how much 
-            Queue<GameUnit> minorityTeam = new Queue<GameUnit>();
-            Queue<GameUnit> majorityTeam = new Queue<GameUnit>();
-            int majorityTurnsForEveryMinorityTurn = 1;
+            Queue<GameUnit> minorityTeam;
+            Queue<GameUnit> majorityTeam;
+            int majorityTurnsForEveryMinorityTurn;
 
             if (redTeam.Count > blueTeam.Count)
             {
                 minorityTeam = new Queue<GameUnit>(blueTeam);
                 majorityTeam = new Queue<GameUnit>(redTeam);
-                majorityTurnsForEveryMinorityTurn = FindLowestMultiple(redTeam.Count, blueTeam.Count);
+                majorityTurnsForEveryMinorityTurn = FindLowestMultiplier(redTeam.Count, blueTeam.Count);
             }
             else if (redTeam.Count < blueTeam.Count)
             {
                 minorityTeam = new Queue<GameUnit>(redTeam);
                 majorityTeam = new Queue<GameUnit>(blueTeam);
-                majorityTurnsForEveryMinorityTurn = FindLowestMultiple(blueTeam.Count, redTeam.Count);
+                majorityTurnsForEveryMinorityTurn = FindLowestMultiplier(blueTeam.Count, redTeam.Count);
             }
             else
             {
@@ -93,7 +97,7 @@ namespace SolStandard.Containers.Contexts
                         throw new ArgumentOutOfRangeException("firstTurnIfTie", firstTurnIfTie, null);
                 }
 
-                majorityTurnsForEveryMinorityTurn = FindLowestMultiple(blueTeam.Count, redTeam.Count);
+                majorityTurnsForEveryMinorityTurn = FindLowestMultiplier(majorityTeam.Count, minorityTeam.Count);
             }
 
             //Build the final initiative list
@@ -101,7 +105,11 @@ namespace SolStandard.Containers.Contexts
             for (int i = 1; i < unitList.Count + 1; i++)
             {
                 //Majority has priority
-                if (i % majorityTurnsForEveryMinorityTurn == 0)
+                if (minorityTeam.Count < 1)
+                {
+                    initiativeList.Add(majorityTeam.Dequeue());
+                }
+                else if (i % (majorityTurnsForEveryMinorityTurn + 1) == 0)
                 {
                     //Add minority team
                     initiativeList.Add(minorityTeam.Dequeue());
@@ -116,11 +124,9 @@ namespace SolStandard.Containers.Contexts
             return initiativeList;
         }
 
-        private static int FindLowestMultiple(int value, int factor)
+        private static int FindLowestMultiplier(int value, int factor)
         {
-            //FIXME Figure out how to make sure the algorithm works here
-            //TODO Fix and write more unit tests for this
-            return (int) Math.Floor((value / (double) factor)) * factor;
+            return (int) (value / (double) factor);
         }
     }
 }
