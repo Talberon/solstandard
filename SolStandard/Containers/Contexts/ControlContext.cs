@@ -92,15 +92,19 @@ namespace SolStandard.Containers.Contexts
 
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
-                    //TODO If the cursor is currently hovering over a VALID unit.
-                    //TODO A VALID unit is a unit that is first in the initiative list 
                     case MapContext.TurnState.SelectUnit:
                         //Select the unit. Store it somewhere.
-
                         gameContext.MapContext.SelectedUnit =
                             UnitSelector.SelectUnit(
                                 gameContext.MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
 
+                        if (gameContext.MapContext.SelectedUnit != GameContext.ActiveUnit)
+                        {
+                            gameContext.MapContext.SelectedUnit = null;
+                            //TODO Notify the player the selected unit is not legal
+                            return;
+                        }
+                        
                         if (gameContext.MapContext.SelectedUnit != null)
                         {
                             Trace.WriteLine("Selecting unit: " + gameContext.MapContext.SelectedUnit.UnitTeam + " " +
@@ -208,7 +212,9 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.ResolvingTurn:
                         //TODO Do various turn check resolution (win state, etc.)
                         gameContext.MapContext.ConfirmPromptWindow();
-                        //TODO Disable unit
+                        gameContext.InitiativeContext.PassTurnToNextUnit();
+                        gameContext.MapContext.ResetCursorToActiveUnit();
+                        //TODO Animate unit if currently-active
                         gameContext.MapContext.ProceedToNextState();
                         return;
                     default:
@@ -246,6 +252,11 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.RightTrigger())
             {
                 mapCamera.IncreaseZoom(0.1f);
+            }
+
+            if (controlMapper.Y())
+            {
+                gameContext.MapContext.ResetCursorToActiveUnit();
             }
 
             if (controlMapper.X())

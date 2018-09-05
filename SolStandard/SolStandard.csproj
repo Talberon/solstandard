@@ -168,6 +168,9 @@
     <Content Include="Content\TmxMaps\Arena_3.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Collosseum_1.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

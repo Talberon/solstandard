@@ -83,14 +83,13 @@ namespace SolStandard
 
             const string
                 mapPath =
-                    "Content/TmxMaps/Arena_3.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
+                    "Content/TmxMaps/Collosseum_1.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(10);
-            mapCamera.SetCameraZoom(1.8f);
 
             ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
             MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
@@ -104,7 +103,9 @@ namespace SolStandard
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
             gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
-                new BattleContext(new BattleUI(screenSize, windowTexture)), unitsFromMap);
+                new BattleContext(new BattleUI(screenSize, windowTexture)),
+                new InitiativeContext(unitsFromMap,
+                    (Random.Next(2) == 0) ? Team.Blue : Team.Red));
         }
 
         /// <summary>
@@ -151,7 +152,12 @@ namespace SolStandard
                 Exit();
             }
 
-
+            if (GameContext.ActiveUnit.UnitEntity == null)
+            {
+                //FIXME Add new MapContext.EndTurn(); method for when a unit is dead
+                gameContext.MapContext.ProceedToNextState();
+            }
+            
             ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera,
                 gameContext.MapContext.MapContainer.MapCursor);
 

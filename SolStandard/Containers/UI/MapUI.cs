@@ -146,15 +146,28 @@ namespace SolStandard.Containers.UI
         {
             const int
                 maxInitiativeSize =
-                    10; //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+                    9; //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
             IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+            const int initiativeHealthBarHeight = 10;
 
-            for (int i = 0; i < unitListGrid.GetLength(1); i++)
+            GenerateFirstUnitInInitiativeList(unitList, initiativeHealthBarHeight, unitListGrid);
+            GenerateRestOfInitiativeList(unitList, unitListGrid, initiativeHealthBarHeight);
+
+
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+
+            InitiativeWindow = new Window("Initiative List", windowTexture, unitListContentGrid,
+                new Color(100, 100, 100, 225));
+        }
+
+        private void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
+            int initiativeHealthBarHeight)
+        {
+            for (int i = 1; i < unitListGrid.GetLength(1); i++)
             {
-                const int initiativeHealthBarHeight = 10;
                 IRenderable[,] unitContent =
                 {
                     {
@@ -174,14 +187,39 @@ namespace SolStandard.Containers.UI
                     }
                 };
 
-                IRenderable singleUnitContent = new WindowContentGrid(unitContent, 1);
+                IRenderable singleUnitContent = new Window("Unit", windowTexture,
+                    new WindowContentGrid(unitContent, 2),
+                    ColorMapper.DetermineTeamColor(unitList[i].UnitTeam));
                 unitListGrid[0, i] = singleUnitContent;
             }
+        }
 
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+        private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
+            IRenderable[,] unitListGrid)
+        {
+            IRenderable[,] firstUnitContent =
+            {
+                {
+                    new RenderText(GameDriver.MapFont, unitList[0].Id)
+                },
+                {
+                    new SpriteAtlas(
+                        unitList[0].MediumPortrait,
+                        new Vector2(unitList[0].MediumPortrait.Width, unitList[0].MediumPortrait.Height),
+                        1
+                    )
+                },
+                {
+                    unitList[0]
+                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
+                            initiativeHealthBarHeight))
+                }
+            };
 
-            InitiativeWindow = new Window("Initiative", windowTexture, unitListContentGrid,
-                new Color(100, 100, 100, 225));
+            IRenderable firstSingleUnitContent = new Window("Unit", windowTexture,
+                new WindowContentGrid(firstUnitContent, 2),
+                new Color(100, 200, 100, 225));
+            unitListGrid[0, 0] = firstSingleUnitContent;
         }
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)

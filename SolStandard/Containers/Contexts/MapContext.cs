@@ -85,6 +85,14 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        public void ResetCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                mapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            }
+        }
+
         public MapContainer MapContainer
         {
             get { return mapContainer; }

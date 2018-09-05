@@ -8,19 +8,41 @@ namespace SolStandard.Containers.Contexts
     public class InitiativeContext
     {
         //TODO Handle the initiative list updates, manage turn order and unit selectability
-        
-        private readonly List<GameUnit> initiativeList;
+
+        public List<GameUnit> InitiativeList { get; private set; }
         public GameUnit CurrentActiveUnit { get; private set; }
 
         public InitiativeContext(List<GameUnit> unitList, Team firstTurnIfTie)
         {
-            initiativeList = RandomizeTeamOrder(unitList, firstTurnIfTie);
-            CurrentActiveUnit = initiativeList[0];
+            InitiativeList = RandomizeTeamOrder(unitList, firstTurnIfTie);
+            CurrentActiveUnit = InitiativeList[0];
         }
 
-        public List<GameUnit> InitiativeList
+        public void PassTurnToNextUnit()
         {
-            get { return initiativeList; }
+            SetNextUnitInList();
+            RotateUnitList();
+        }
+
+        private void SetNextUnitInList()
+        {
+            int currentIndex = InitiativeList.FindIndex(unit => unit == CurrentActiveUnit);
+
+            if (currentIndex < InitiativeList.Count)
+            {
+                CurrentActiveUnit = InitiativeList[currentIndex + 1];
+            }
+            else
+            {
+                CurrentActiveUnit = InitiativeList[0];
+            }
+        }
+
+        private void RotateUnitList()
+        {
+            GameUnit firstUnit = InitiativeList[0];
+            InitiativeList.RemoveAt(0);
+            InitiativeList.Add(firstUnit);
         }
 
 
@@ -101,27 +123,27 @@ namespace SolStandard.Containers.Contexts
             }
 
             //Build the final initiative list
-            List<GameUnit> initiativeList = new List<GameUnit>();
+            List<GameUnit> newInitiativeList = new List<GameUnit>();
             for (int i = 1; i < unitList.Count + 1; i++)
             {
                 //Majority has priority
                 if (minorityTeam.Count < 1)
                 {
-                    initiativeList.Add(majorityTeam.Dequeue());
+                    newInitiativeList.Add(majorityTeam.Dequeue());
                 }
                 else if (i % (majorityTurnsForEveryMinorityTurn + 1) == 0)
                 {
                     //Add minority team
-                    initiativeList.Add(minorityTeam.Dequeue());
+                    newInitiativeList.Add(minorityTeam.Dequeue());
                 }
                 else
                 {
                     //Add majority team
-                    initiativeList.Add(majorityTeam.Dequeue());
+                    newInitiativeList.Add(majorityTeam.Dequeue());
                 }
             }
 
-            return initiativeList;
+            return newInitiativeList;
         }
 
         private static int FindLowestMultiplier(int value, int factor)

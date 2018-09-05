@@ -7,13 +7,23 @@ namespace SolStandard.Containers.Contexts
     {
         private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
-        public static List<GameUnit> Units { get; private set; }
+        private static InitiativeContext _initiativeContext;
 
-        public GameContext(MapContext mapContext, BattleContext battleContext, List<GameUnit> units)
+        public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext)
         {
             this.mapContext = mapContext;
             this.battleContext = battleContext;
-            Units = units;
+            _initiativeContext = initiativeContext;
+        }
+
+        public static List<GameUnit> Units
+        {
+            get { return _initiativeContext.InitiativeList; }
+        }
+
+        public static GameUnit ActiveUnit
+        {
+            get { return _initiativeContext.CurrentActiveUnit; }
         }
 
         public MapContext MapContext
@@ -24,6 +34,11 @@ namespace SolStandard.Containers.Contexts
         public BattleContext BattleContext
         {
             get { return battleContext; }
+        }
+
+        public InitiativeContext InitiativeContext
+        {
+            get { return _initiativeContext; }
         }
     }
 }

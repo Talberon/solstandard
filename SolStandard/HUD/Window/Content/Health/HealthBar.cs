@@ -38,7 +38,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private int CalculatePipWidth()
         {
-            return (int) Math.Round(barSize.X / maxHp, MidpointRounding.AwayFromZero);
+            return (int) Math.Floor(barSize.X / maxHp);
         }
 
         private int CalculateHeight()
