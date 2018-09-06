@@ -118,7 +118,7 @@ namespace SolStandard.Utility
                 new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             if (reversible)
             {
@@ -130,7 +130,7 @@ namespace SolStandard.Utility
             }
 
             spriteBatch.Draw(spriteMap.MonoGameTexture,
-                new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), color);
+                new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), colorOverride);
         }
     }
 }

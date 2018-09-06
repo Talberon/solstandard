@@ -20,7 +20,7 @@ namespace SolStandard.HUD.Window.Content
             //Do nothing
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             //Do nothing
         }

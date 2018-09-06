@@ -136,9 +136,20 @@ namespace SolStandard.Containers.Contexts
         {
             //TODO Do various turn check resolution (win state, etc.)
             MapContext.ConfirmPromptWindow();
+            ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
+            ActiveUnit.ActivateUnit();
+            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.ResetCursorToActiveUnit();
-            //TODO Animate unit if currently-active
+            MapContext.EndTurn();
+        }
+
+
+        public void StartGame()
+        {
+            ActiveUnit.ActivateUnit();
+            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            MapContext.ResetCursorToActiveUnit();
             MapContext.EndTurn();
         }
 

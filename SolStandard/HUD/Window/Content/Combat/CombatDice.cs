@@ -140,7 +140,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             Vector2 dieOffset = new Vector2();
 
@@ -153,7 +153,7 @@ namespace SolStandard.HUD.Window.Content.Combat
                     dieOffset.Y += dice[i].Height;
                 }
 
-                dice[i].Draw(spriteBatch, position + dieOffset, color);
+                dice[i].Draw(spriteBatch, position + dieOffset, colorOverride);
 
                 dieOffset.X += dice[i].Width;
             }

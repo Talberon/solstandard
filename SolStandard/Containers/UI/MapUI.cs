@@ -163,6 +163,30 @@ namespace SolStandard.Containers.UI
                 new Color(100, 100, 100, 225));
         }
 
+        private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
+            IRenderable[,] unitListGrid)
+        {
+            IRenderable[,] firstUnitContent =
+            {
+                {
+                    new RenderText(GameDriver.MapFont, unitList[0].Id)
+                },
+                {
+                    unitList[0].MediumPortrait
+                },
+                {
+                    unitList[0]
+                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
+                            initiativeHealthBarHeight))
+                }
+            };
+
+            IRenderable firstSingleUnitContent = new Window("Unit", windowTexture,
+                new WindowContentGrid(firstUnitContent, 2),
+                new Color(100, 200, 100, 225));
+            unitListGrid[0, 0] = firstSingleUnitContent;
+        }
+
         private void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
             int initiativeHealthBarHeight)
         {
@@ -174,11 +198,7 @@ namespace SolStandard.Containers.UI
                         new RenderText(GameDriver.MapFont, unitList[i].Id)
                     },
                     {
-                        new SpriteAtlas(
-                            unitList[i].MediumPortrait,
-                            new Vector2(unitList[i].MediumPortrait.Width, unitList[i].MediumPortrait.Height),
-                            1
-                        )
+                        unitList[i].MediumPortrait
                     },
                     {
                         unitList[i]
@@ -192,34 +212,6 @@ namespace SolStandard.Containers.UI
                     ColorMapper.DetermineTeamColor(unitList[i].UnitTeam));
                 unitListGrid[0, i] = singleUnitContent;
             }
-        }
-
-        private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
-            IRenderable[,] unitListGrid)
-        {
-            IRenderable[,] firstUnitContent =
-            {
-                {
-                    new RenderText(GameDriver.MapFont, unitList[0].Id)
-                },
-                {
-                    new SpriteAtlas(
-                        unitList[0].MediumPortrait,
-                        new Vector2(unitList[0].MediumPortrait.Width, unitList[0].MediumPortrait.Height),
-                        1
-                    )
-                },
-                {
-                    unitList[0]
-                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
-                            initiativeHealthBarHeight))
-                }
-            };
-
-            IRenderable firstSingleUnitContent = new Window("Unit", windowTexture,
-                new WindowContentGrid(firstUnitContent, 2),
-                new Color(100, 200, 100, 225));
-            unitListGrid[0, 0] = firstSingleUnitContent;
         }
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
@@ -247,8 +239,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] selectedUnitPortrait =
             {
                 {
-                    new SpriteAtlas(selectedUnit.LargePortrait,
-                        new Vector2(selectedUnit.LargePortrait.Width, selectedUnit.LargePortrait.Height), 1)
+                    selectedUnit.LargePortrait
                 },
                 {
                     selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,

@@ -7,6 +7,7 @@ namespace SolStandard.Map.Elements
     public abstract class MapElement
     {
         protected IRenderable Sprite;
+        protected Color ElementColor = Color.White;
         public Vector2 MapCoordinates { get; set; } //TODO Consider whether set should really be public here
 
         public IRenderable RenderSprite
@@ -16,12 +17,12 @@ namespace SolStandard.Map.Elements
         
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
+            Draw(spriteBatch, ElementColor);
         }
         
-        public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        public virtual void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
-            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, color);
+            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
         }
     }
 }

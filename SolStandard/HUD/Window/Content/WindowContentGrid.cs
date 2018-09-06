@@ -74,7 +74,7 @@ namespace SolStandard.HUD.Window.Content
             Draw(spriteBatch, coordinates, Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)
         {
             float highestRowHeight = 0f;
 

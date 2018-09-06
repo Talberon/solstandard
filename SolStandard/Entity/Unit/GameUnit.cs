@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
@@ -27,16 +28,19 @@ namespace SolStandard.Entity.Unit
         private readonly Team unitTeam;
         private readonly UnitClass unitJobClass;
 
-        private readonly ITexture2D largePortrait;
-        private readonly ITexture2D mediumPortrait;
-        private readonly ITexture2D smallPortrait;
+        private readonly SpriteAtlas largePortrait;
+        private readonly SpriteAtlas mediumPortrait;
+        private readonly SpriteAtlas smallPortrait;
 
         private readonly HealthBar hoverWindowHealthBar;
         private readonly HealthBar combatHealthBar;
         private readonly HealthBar initiativeHealthBar;
         private readonly List<HealthBar> healthbars;
 
+        private static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
+
         private readonly UnitStatistics stats;
+        public bool Enabled { get; private set; }
 
         public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, UnitEntity mapEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapEntity)
@@ -44,9 +48,12 @@ namespace SolStandard.Entity.Unit
             this.unitTeam = unitTeam;
             this.unitJobClass = unitJobClass;
             this.stats = stats;
-            this.largePortrait = largePortrait;
-            this.mediumPortrait = mediumPortrait;
-            this.smallPortrait = smallPortrait;
+            this.largePortrait =
+                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
+            this.mediumPortrait =
+                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height), 1);
+            this.smallPortrait =
+                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height), 1);
             initiativeHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
             combatHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
@@ -79,17 +86,17 @@ namespace SolStandard.Entity.Unit
             get { return unitJobClass; }
         }
 
-        public ITexture2D LargePortrait
+        public IRenderable LargePortrait
         {
             get { return largePortrait; }
         }
 
-        public ITexture2D MediumPortrait
+        public IRenderable MediumPortrait
         {
             get { return mediumPortrait; }
         }
 
-        public ITexture2D SmallPortrait
+        public IRenderable SmallPortrait
         {
             get { return smallPortrait; }
         }
@@ -142,12 +149,20 @@ namespace SolStandard.Entity.Unit
             KillIfDead();
         }
 
-        private void KillIfDead()
+        public void ActivateUnit()
         {
-            if (stats.Hp <= 0)
-            {
-                MapEntity = null;
-            }
+            if (UnitEntity == null) return;
+
+            Enabled = true;
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
+        }
+
+        public void DisableExhaustedUnit()
+        {
+            if (UnitEntity == null) return;
+
+            Enabled = false;
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
         }
 
         public void SetUnitAnimation(UnitSprite.UnitAnimationState state)
@@ -157,6 +172,19 @@ namespace SolStandard.Entity.Unit
                 UnitEntity.UnitSprite.SetAnimation(state);
             }
         }
+
+        private void KillIfDead()
+        {
+            if (stats.Hp <= 0)
+            {
+                MapEntity = null;
+                largePortrait.RenderColor = DeadPortraitColor;
+                mediumPortrait.RenderColor = DeadPortraitColor;
+                smallPortrait.RenderColor = DeadPortraitColor;
+                Trace.WriteLine("Unit " + Id + " is dead!");
+            }
+        }
+
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)
         {

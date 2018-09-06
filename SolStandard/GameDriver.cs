@@ -106,6 +106,8 @@ namespace SolStandard
                 new BattleContext(new BattleUI(screenSize, windowTexture)),
                 new InitiativeContext(unitsFromMap,
                     (Random.Next(2) == 0) ? Team.Blue : Team.Red));
+            
+            gameContext.StartGame();
         }
 
         /// <summary>

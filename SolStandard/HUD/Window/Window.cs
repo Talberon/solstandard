@@ -260,13 +260,13 @@ namespace SolStandard.HUD.Window
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)
         {
             if (Visible)
             {
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, color);
+                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, colorOverride);
                 }
 
                 windowContents.Draw(spriteBatch, CenteredContentCoordinates(coordinates));

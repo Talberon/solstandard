@@ -52,7 +52,8 @@ namespace SolStandard.Containers.Contexts
             MapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            Vector2 turnWindowSize = new Vector2(245, MapUI.InitiativeWindow.Height);
+            //TODO Stop hardcoding the X-Value of the Turn Window
+            Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
             MapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window TODO make this context-sensitive
@@ -72,7 +73,7 @@ namespace SolStandard.Containers.Contexts
                 Trace.WriteLine("Changing state: " + CurrentTurnState);
             }
         }
-        
+
         public void EndTurn()
         {
             CurrentTurnState = TurnState.SelectUnit;
@@ -127,7 +128,10 @@ namespace SolStandard.Containers.Contexts
 
         public void ConfirmPromptWindow()
         {
-            MapUI.UserPromptWindow.Visible = false;
+            if (MapUI.UserPromptWindow != null)
+            {
+                MapUI.UserPromptWindow.Visible = false;
+            }
         }
 
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)

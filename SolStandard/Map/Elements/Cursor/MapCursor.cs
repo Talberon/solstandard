@@ -103,10 +103,10 @@ namespace SolStandard.Map.Elements.Cursor
             Sprite.Draw(spriteBatch, renderCoordinates, Color.White);
         }
         
-        public override void Draw(SpriteBatch spriteBatch, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, renderCoordinates, color);
+            Sprite.Draw(spriteBatch, renderCoordinates, colorOverride);
         }
 
         public override string ToString()
