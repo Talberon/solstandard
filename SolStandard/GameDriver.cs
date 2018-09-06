@@ -152,12 +152,8 @@ namespace SolStandard
                 Exit();
             }
 
-            if (GameContext.ActiveUnit.UnitEntity == null)
-            {
-                //FIXME Add new MapContext.EndTurn(); method for when a unit is dead
-                gameContext.MapContext.ProceedToNextState();
-            }
-            
+            gameContext.EndTurnIfUnitIsDead();
+
             ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera,
                 gameContext.MapContext.MapContainer.MapCursor);
 

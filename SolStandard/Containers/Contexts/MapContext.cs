@@ -64,14 +64,19 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.ResolvingTurn)
             {
-                CurrentTurnState = 0;
-                Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
+                EndTurn();
             }
             else
             {
                 CurrentTurnState++;
                 Trace.WriteLine("Changing state: " + CurrentTurnState);
             }
+        }
+        
+        public void EndTurn()
+        {
+            CurrentTurnState = TurnState.SelectUnit;
+            Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
         }
 
         public void CancelMovement()
@@ -92,6 +97,7 @@ namespace SolStandard.Containers.Contexts
                 mapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             }
         }
+
 
         public MapContainer MapContainer
         {
