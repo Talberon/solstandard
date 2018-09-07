@@ -99,6 +99,7 @@
     <Compile Include="Utility\Buttons\YControl.cs" />
     <Compile Include="Utility\ColorMapper.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
+    <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
     <Compile Include="Utility\Exceptions\InvalidWindowTextureException.cs" />
     <Compile Include="Utility\Exceptions\TeamNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TextureNotFoundException.cs" />

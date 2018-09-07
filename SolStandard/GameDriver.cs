@@ -80,10 +80,10 @@ namespace SolStandard
             base.Initialize();
 
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-
-            const string
-                mapPath =
-                    "Content/TmxMaps/Collosseum_1.tmx"; //TODO Hard-coded for now; remove me once map selector implemented
+            
+            //TODO Map Path Hard-coded for now; remove me once map selector implemented
+            const string mapPath = "Content/TmxMaps/Collosseum_1.tmx";
+            
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
@@ -91,7 +91,7 @@ namespace SolStandard
 
             mapCamera = new MapCamera(10);
 
-            ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursor"));
+            ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursors"));
             MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
@@ -102,11 +102,12 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+            
             gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
                 new BattleContext(new BattleUI(screenSize, windowTexture)),
                 new InitiativeContext(unitsFromMap,
                     (Random.Next(2) == 0) ? Team.Blue : Team.Red));
-            
+
             gameContext.StartGame();
         }
 
@@ -186,6 +187,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+            
             gameContext.MapContext.MapContainer.Draw(spriteBatch);
 
             base.Draw(gameTime);

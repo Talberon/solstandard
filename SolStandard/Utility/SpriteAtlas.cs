@@ -14,6 +14,8 @@ namespace SolStandard.Utility
 
         public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex, Color renderColor)
         {
+            if (cellIndex < 1) throw new InvalidCellIndexException();
+            
             this.image = image;
             this.cellSize = cellSize;
             CellIndex = cellIndex;

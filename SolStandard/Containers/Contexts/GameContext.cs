@@ -147,6 +147,11 @@ namespace SolStandard.Containers.Contexts
 
         public void StartGame()
         {
+            foreach (GameUnit unit in Units)
+            {
+                unit.DisableExhaustedUnit();
+            }
+            
             ActiveUnit.ActivateUnit();
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.ResetCursorToActiveUnit();
