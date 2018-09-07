@@ -4,7 +4,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 
-namespace SolStandard.Logic
+namespace SolStandard.Utility
 {
     public static class UnitSelector
     {

@@ -59,9 +59,9 @@ namespace SolStandard.Map.Elements
             return textTarget;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
-            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, color);
+            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
 
             Vector2 centeredText = CenterTextToTile();
             //Black outline
@@ -71,7 +71,7 @@ namespace SolStandard.Map.Elements
             renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y-offset), Color.Black);
             renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y+offset), Color.Black);
             
-            renderText.Draw(spriteBatch, centeredText, color);
+            renderText.Draw(spriteBatch, centeredText, colorOverride);
         }
     }
 }

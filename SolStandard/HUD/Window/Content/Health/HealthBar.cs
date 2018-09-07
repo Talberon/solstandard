@@ -38,7 +38,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private int CalculatePipWidth()
         {
-            return (int) Math.Round(barSize.X / maxHp, MidpointRounding.AwayFromZero);
+            return (int) Math.Floor(barSize.X / maxHp);
         }
 
         private int CalculateHeight()
@@ -80,7 +80,7 @@ namespace SolStandard.HUD.Window.Content.Health
             Draw(spriteBatch, position, Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             Vector2 pipOffset = new Vector2(position.X, position.Y);
             foreach (HealthPip pip in Pips)

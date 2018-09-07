@@ -181,12 +181,10 @@ namespace SolStandard.Containers.UI
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateAttackerPortraitWindow(Color attackerWindowColor, ITexture2D attackerPortrait)
+        internal void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
         {
-            IRenderable attackerPortraitContent =
-                new SpriteAtlas(attackerPortrait, new Vector2(attackerPortrait.Width, attackerPortrait.Height), 1);
             AttackerPortraitWindow =
-                new Window("Attacker Portrait", windowTexture, attackerPortraitContent, attackerWindowColor);
+                new Window("Attacker Portrait", windowTexture, attackerPortrait, attackerWindowColor);
         }
 
 
@@ -300,12 +298,10 @@ namespace SolStandard.Containers.UI
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateDefenderPortraitWindow(Color defenderWindowColor, ITexture2D defenderPortrait)
+        internal void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
         {
-            IRenderable defenderPortraitContent =
-                new SpriteAtlas(defenderPortrait, new Vector2(defenderPortrait.Width, defenderPortrait.Height), 1);
             DefenderPortraitWindow =
-                new Window("Defender Portrait", windowTexture, defenderPortraitContent, defenderWindowColor);
+                new Window("Defender Portrait", windowTexture, defenderPortrait, defenderWindowColor);
         }
 
 

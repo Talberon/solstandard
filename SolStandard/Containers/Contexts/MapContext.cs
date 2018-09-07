@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Logic;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 
@@ -53,7 +52,8 @@ namespace SolStandard.Containers.Contexts
             MapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            Vector2 turnWindowSize = new Vector2(245, MapUI.InitiativeWindow.Height);
+            //TODO Stop hardcoding the X-Value of the Turn Window
+            Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
             MapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window TODO make this context-sensitive
@@ -65,14 +65,19 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.ResolvingTurn)
             {
-                CurrentTurnState = 0;
-                Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
+                EndTurn();
             }
             else
             {
                 CurrentTurnState++;
                 Trace.WriteLine("Changing state: " + CurrentTurnState);
             }
+        }
+
+        public void EndTurn()
+        {
+            CurrentTurnState = TurnState.SelectUnit;
+            Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
         }
 
         public void CancelMovement()
@@ -85,6 +90,15 @@ namespace SolStandard.Containers.Contexts
                 CurrentTurnState--;
             }
         }
+
+        public void ResetCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                mapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            }
+        }
+
 
         public MapContainer MapContainer
         {
@@ -114,7 +128,10 @@ namespace SolStandard.Containers.Contexts
 
         public void ConfirmPromptWindow()
         {
-            MapUI.UserPromptWindow.Visible = false;
+            if (MapUI.UserPromptWindow != null)
+            {
+                MapUI.UserPromptWindow.Visible = false;
+            }
         }
 
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)

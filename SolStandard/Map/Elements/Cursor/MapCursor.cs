@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 
 namespace SolStandard.Map.Elements.Cursor
@@ -10,12 +12,25 @@ namespace SolStandard.Map.Elements.Cursor
         private readonly Vector2 mapSize;
         private Vector2 renderCoordinates;
 
-        public MapCursor(IRenderable sprite, Vector2 mapCoordinates, Vector2 mapSize)
+        private enum CursorColor
+        {
+            None,
+            White,
+            Blue,
+            Red
+        }
+
+        public MapCursor(SpriteAtlas sprite, Vector2 mapCoordinates, Vector2 mapSize)
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
             renderCoordinates = mapCoordinates;
             this.mapSize = mapSize;
+        }
+
+        private SpriteAtlas SpriteAtlas
+        {
+            get { return (SpriteAtlas) Sprite; }
         }
 
         public void MoveCursorInDirection(Direction direction)
@@ -96,17 +111,32 @@ namespace SolStandard.Map.Elements.Cursor
             if (slidingUpWouldPassMapCoordinates) renderCoordinates.Y = mapPixelCoordinates.Y;
         }
 
+        private void UpdateCursorTeam()
+        {
+            switch (GameContext.ActiveUnit.UnitTeam)
+            {
+                case Team.Red:
+                    SpriteAtlas.CellIndex = (int) CursorColor.Red;
+                    break;
+                case Team.Blue:
+                    SpriteAtlas.CellIndex = (int) CursorColor.Blue;
+                    break;
+                default:
+                    SpriteAtlas.CellIndex = (int) CursorColor.White;
+                    break;
+            }
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, renderCoordinates, Color.White);
+            Draw(spriteBatch, Color.White);
         }
-        
-        public override void Draw(SpriteBatch spriteBatch, Color color)
+
+        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
+            UpdateCursorTeam();
             UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, renderCoordinates, color);
+            Sprite.Draw(spriteBatch, renderCoordinates, colorOverride);
         }
 
         public override string ToString()

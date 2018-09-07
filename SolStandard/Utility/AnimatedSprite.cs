@@ -8,6 +8,7 @@ namespace SolStandard.Utility
     {
         private readonly ITexture2D spriteMap;
         private readonly int cellSize;
+        private Vector2 renderSize;
         private readonly Vector2 spriteFrameCount;
         private int currentRow;
         private int currentColumn;
@@ -27,6 +28,7 @@ namespace SolStandard.Utility
             currentColumn = 0;
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
+            renderSize = new Vector2(cellSize);
         }
 
         public void SetSpriteCell(int spriteMapColumn, int spriteMapRow)
@@ -41,12 +43,6 @@ namespace SolStandard.Utility
             float rows = (float) spriteMap.Width / cellSize;
 
             return new Vector2(columns, rows);
-        }
-
-        private Rectangle RenderCell()
-        {
-            Rectangle rendercell = new Rectangle(cellSize * currentColumn, cellSize * currentRow, cellSize, cellSize);
-            return rendercell;
         }
 
 
@@ -95,30 +91,25 @@ namespace SolStandard.Utility
 
         public int Height
         {
-            get { return cellSize; }
+            get { return (int) renderSize.Y; }
         }
 
         public int Width
         {
-            get { return cellSize; }
+            get { return (int) renderSize.X; }
+        }
+
+        public void Resize(Vector2 newSize)
+        {
+            renderSize = newSize;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            if (reversible)
-            {
-                UpdateFrameReversible();
-            }
-            else
-            {
-                UpdateFrame();
-            }
-
-            spriteBatch.Draw(spriteMap.MonoGameTexture,
-                new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), Color.White);
+            Draw(spriteBatch, position, Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             if (reversible)
             {
@@ -130,7 +121,23 @@ namespace SolStandard.Utility
             }
 
             spriteBatch.Draw(spriteMap.MonoGameTexture,
-                new Rectangle((int) position.X, (int) position.Y, cellSize, cellSize), RenderCell(), color);
+                RenderRectangle(position), CurrentCell(), colorOverride);
+        }
+
+        private Rectangle RenderRectangle(Vector2 position)
+        {
+            return new Rectangle((int) position.X, (int) position.Y, (int) renderSize.X, (int) renderSize.Y);
+        }
+
+        private Rectangle CurrentCell()
+        {
+            Rectangle rendercell = new Rectangle(cellSize * currentColumn, cellSize * currentRow, cellSize, cellSize);
+            return rendercell;
+        }
+
+        public AnimatedSprite Clone()
+        {
+            return new AnimatedSprite(spriteMap, cellSize, frameDelay, reversible);
         }
     }
 }

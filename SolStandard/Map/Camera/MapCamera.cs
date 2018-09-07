@@ -28,7 +28,7 @@ namespace SolStandard.Map.Camera
         {
             currentCamPosition = new Vector2(0);
             targetCamPosition = new Vector2(0);
-            currentZoom = 1;
+            currentZoom = 2;
             this.cameraPanRate = cameraPanRate;
         }
 

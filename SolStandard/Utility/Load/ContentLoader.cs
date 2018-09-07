@@ -40,9 +40,7 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadCursorTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/Cursor/Cursor"),
-                content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorBlue"),
-                content.Load<Texture2D>("Graphics/Map/Cursor/UnitCursorRed")
+                content.Load<Texture2D>("Graphics/Map/Cursor/Cursors")
             };
 
             List<ITexture2D> cursorTextures = new List<ITexture2D>();

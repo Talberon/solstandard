@@ -38,9 +38,9 @@ namespace SolStandard.HUD.Window.Content
             Draw(spriteBatch, position, defaultColor);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, color);
+            spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, colorOverride);
         }
     }
 }

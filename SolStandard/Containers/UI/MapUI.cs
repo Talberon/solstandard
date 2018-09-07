@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -73,23 +74,22 @@ namespace SolStandard.Containers.UI
 
         public void GenerateTurnWindow(Vector2 windowSize)
         {
+            string turnInfo = "Turn: " + GameContext.TurnNumber;
+            turnInfo += "\n";
+            turnInfo += "Active Team: " + GameContext.ActiveUnit.UnitTeam;
+            turnInfo += "\n";
+            turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
+
             WindowContentGrid unitListContentGrid = new WindowContentGrid(
-                new IRenderable[,]
+                new [,]
                 {
                     {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
-                    },
-                    {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
-                    },
-                    {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
+                        GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
+                        new RenderText(GameDriver.WindowFont, turnInfo)
                     }
                 },
-                1);
+                1
+            );
 
             TurnWindow = new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225),
                 windowSize);
@@ -144,28 +144,60 @@ namespace SolStandard.Containers.UI
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
-            const int
-                maxInitiativeSize =
-                    10; //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+            //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+            const int maxInitiativeSize = 9;
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
             IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+            const int initiativeHealthBarHeight = 10;
 
-            for (int i = 0; i < unitListGrid.GetLength(1); i++)
+            GenerateFirstUnitInInitiativeList(unitList, initiativeHealthBarHeight, unitListGrid);
+            GenerateRestOfInitiativeList(unitList, unitListGrid, initiativeHealthBarHeight);
+
+
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+
+            InitiativeWindow = new Window("Initiative List", windowTexture, unitListContentGrid,
+                new Color(100, 100, 100, 225));
+        }
+
+        private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
+            IRenderable[,] unitListGrid)
+        {
+            IRenderable[,] firstUnitContent =
             {
-                const int initiativeHealthBarHeight = 10;
+                {
+                    new RenderText(GameDriver.MapFont, unitList[0].Id)
+                },
+                {
+                    unitList[0].MediumPortrait
+                },
+                {
+                    unitList[0]
+                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
+                            initiativeHealthBarHeight))
+                }
+            };
+
+            IRenderable firstSingleUnitContent = new Window("Unit", windowTexture,
+                new WindowContentGrid(firstUnitContent, 2),
+                new Color(100, 200, 100, 225));
+            unitListGrid[0, 0] = firstSingleUnitContent;
+        }
+
+        private void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
+            int initiativeHealthBarHeight)
+        {
+            for (int i = 1; i < unitListGrid.GetLength(1); i++)
+            {
                 IRenderable[,] unitContent =
                 {
                     {
                         new RenderText(GameDriver.MapFont, unitList[i].Id)
                     },
                     {
-                        new SpriteAtlas(
-                            unitList[i].MediumPortrait,
-                            new Vector2(unitList[i].MediumPortrait.Width, unitList[i].MediumPortrait.Height),
-                            1
-                        )
+                        unitList[i].MediumPortrait
                     },
                     {
                         unitList[i]
@@ -174,14 +206,11 @@ namespace SolStandard.Containers.UI
                     }
                 };
 
-                IRenderable singleUnitContent = new WindowContentGrid(unitContent, 1);
+                IRenderable singleUnitContent = new Window("Unit", windowTexture,
+                    new WindowContentGrid(unitContent, 2),
+                    ColorMapper.DetermineTeamColor(unitList[i].UnitTeam));
                 unitListGrid[0, i] = singleUnitContent;
             }
-
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
-
-            InitiativeWindow = new Window("Initiative", windowTexture, unitListContentGrid,
-                new Color(100, 100, 100, 225));
         }
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
@@ -209,8 +238,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] selectedUnitPortrait =
             {
                 {
-                    new SpriteAtlas(selectedUnit.LargePortrait,
-                        new Vector2(selectedUnit.LargePortrait.Width, selectedUnit.LargePortrait.Height), 1)
+                    selectedUnit.LargePortrait
                 },
                 {
                     selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,

@@ -10,12 +10,20 @@ namespace SolStandard.Utility
         private readonly ITexture2D image;
         private readonly Vector2 cellSize;
         public int CellIndex { get; set; }
+        public Color RenderColor { get; set; }
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex, Color renderColor)
         {
+            if (cellIndex < 1) throw new InvalidCellIndexException();
+            
             this.image = image;
             this.cellSize = cellSize;
             CellIndex = cellIndex;
+            RenderColor = renderColor;
+        }
+        
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex) : this(image,cellSize,cellIndex, Color.White)
+        {
         }
 
         private Rectangle SourceRectangle()
@@ -61,14 +69,13 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(image.MonoGameTexture, DestinationRectangle((int) position.X, (int) position.Y),
-                SourceRectangle(), Color.White);
+            Draw(spriteBatch, position, RenderColor);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             spriteBatch.Draw(image.MonoGameTexture, DestinationRectangle((int) position.X, (int) position.Y),
-                SourceRectangle(), color);
+                SourceRectangle(), colorOverride);
         }
 
         public override string ToString()
