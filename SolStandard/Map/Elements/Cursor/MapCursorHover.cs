@@ -14,8 +14,14 @@ namespace SolStandard.Map.Elements.Cursor
 
             if (turnState != MapContext.TurnState.SelectUnit)
             {
-                //SecondUnit Window
-                mapUI.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                if (hoverMapUnit != GameContext.ActiveUnit)
+                {
+                    mapUI.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                }
+                else
+                {
+                    mapUI.UpdateRightPortraitAndDetailWindows(null);
+                }
             }
             else
             {

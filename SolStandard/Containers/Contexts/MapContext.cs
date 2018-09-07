@@ -52,12 +52,12 @@ namespace SolStandard.Containers.Contexts
             MapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            //TODO Stop hardcoding the X-Value of the Turn Window
+            //FIXME Stop hardcoding the X-Value of the Turn Window
             Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
             MapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window TODO make this context-sensitive
-            string helpText = "HELP: Select a unit. Defeat the enemy!";
+            const string helpText = "HELP: Select a unit. Defeat the enemy!";
             MapUI.GenerateHelpWindow(helpText);
         }
 
