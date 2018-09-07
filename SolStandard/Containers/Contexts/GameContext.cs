@@ -12,6 +12,7 @@ namespace SolStandard.Containers.Contexts
         private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
         private static InitiativeContext _initiativeContext;
+        public static int TurnNumber { get; private set; }
 
         public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext)
         {
@@ -142,11 +143,14 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.ResetCursorToActiveUnit();
             MapContext.EndTurn();
+            TurnNumber++;
         }
 
 
         public void StartGame()
         {
+            TurnNumber = 1;
+            
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();

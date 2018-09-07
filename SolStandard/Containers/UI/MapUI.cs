@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -73,23 +74,22 @@ namespace SolStandard.Containers.UI
 
         public void GenerateTurnWindow(Vector2 windowSize)
         {
+            string turnInfo = "Turn: " + GameContext.TurnNumber;
+            turnInfo += "\n";
+            turnInfo += "Active Team: " + GameContext.ActiveUnit.UnitTeam;
+            turnInfo += "\n";
+            turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
+
             WindowContentGrid unitListContentGrid = new WindowContentGrid(
-                new IRenderable[,]
+                new [,]
                 {
                     {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Current Turn: 0") //TODO make dynamic; not hard-coded
-                    },
-                    {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Active Team: Blue") //TODO make dynamic; not hard-coded
-                    },
-                    {
-                        new RenderText(GameDriver.WindowFont,
-                            "EXAMPLE//Active Unit: Knight") //TODO make dynamic; not hard-coded
+                        GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
+                        new RenderText(GameDriver.WindowFont, turnInfo)
                     }
                 },
-                1);
+                1
+            );
 
             TurnWindow = new Window("Turn Counter", windowTexture, unitListContentGrid, new Color(100, 100, 100, 225),
                 windowSize);
@@ -144,9 +144,8 @@ namespace SolStandard.Containers.UI
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
-            const int
-                maxInitiativeSize =
-                    9; //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+            //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
+            const int maxInitiativeSize = 9;
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -117,6 +118,18 @@ namespace SolStandard.Entity.Unit
         {
             combatHealthBar.SetSize(barSize);
             return combatHealthBar;
+        }
+
+        public IRenderable GetMapSprite(Vector2 size)
+        {
+            if (UnitEntity == null)
+            {
+                return new RenderBlank();
+            }
+
+            AnimatedSprite mapSprite = UnitEntity.UnitSprite.Clone();
+            mapSprite.Resize(size);
+            return mapSprite;
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
