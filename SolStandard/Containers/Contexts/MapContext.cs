@@ -145,7 +145,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (TargetTileHasADynamicTile(direction))
             {
-                SelectedUnit.MoveUnitInDirection(direction, mapContainer.MapGridSize);
+                SelectedUnit.MoveUnitInDirection(direction, MapContainer.MapGridSize);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
             }

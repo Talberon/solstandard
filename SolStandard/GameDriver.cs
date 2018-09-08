@@ -159,6 +159,10 @@ namespace SolStandard
             {
                 mapCamera.ZoomToCursor(4);
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
+            {
+                mapCamera.ZoomToCursor(2);
+            }
 
 
             gameContext.EndTurnIfUnitIsDead();
@@ -167,10 +171,8 @@ namespace SolStandard
 
             mapCamera.UpdateEveryFrame();
 
-            mapCamera.CorrectCameraToCursor(MapContainer.MapCursor, gameContext.MapContext.MapContainer.MapGridSize);
-
             //Map Cursor Hover Logic
-            MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
+            MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
             MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, hoverTiles, gameContext.MapContext.MapUI);
 
 

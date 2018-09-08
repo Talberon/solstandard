@@ -57,7 +57,7 @@ namespace SolStandard.Containers.Contexts
             if (MapContext.OtherUnitExistsAtCursor()) return;
             MapContext.ProceedToNextState();
 
-            MapContext.MapContainer.ClearDynamicGrid();
+            MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             //TODO Open the action menu
         }
@@ -71,7 +71,7 @@ namespace SolStandard.Containers.Contexts
             //Open the targeting grid
             MapContext.SelectedUnit =
                 UnitSelector.SelectUnit(
-                    MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                    MapContainer.GetMapSliceAtCursor().UnitEntity);
             MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
                 new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
                 new Vector2(GameDriver.CellSize), 68));
@@ -80,15 +80,15 @@ namespace SolStandard.Containers.Contexts
         public void StartCombat()
         {
             GameUnit attackingUnit = MapContext.SelectedUnit;
-            GameUnit defendingUnit = UnitSelector.SelectUnit(MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+            GameUnit defendingUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
             if (MapContext.TargetUnitIsLegal(defendingUnit))
             {
-                MapContext.MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicGrid();
                 BattleContext.StartNewCombat(attackingUnit,
-                    MapContext.MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
+                    MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
                     defendingUnit,
-                    MapContext.MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
+                    MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
 
                 MapContext.SetPromptWindowText("Confirm End Turn");
                 MapContext.ProceedToNextState();
@@ -96,7 +96,7 @@ namespace SolStandard.Containers.Contexts
             //Skip the combat state if player selects the same unit
             else if (attackingUnit == defendingUnit)
             {
-                MapContext.MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicGrid();
                 MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                 MapContext.ProceedToNextState();
                 MapContext.SetPromptWindowText("Confirm End Turn");
@@ -199,7 +199,7 @@ namespace SolStandard.Containers.Contexts
             //Select the unit. Store it somewhere.
             MapContext.SelectedUnit =
                 UnitSelector.SelectUnit(
-                    MapContext.MapContainer.GetMapSliceAtCursor().UnitEntity);
+                    MapContainer.GetMapSliceAtCursor().UnitEntity);
 
             //If the entity selected isn't the active unit, don't select it.
             if (MapContext.SelectedUnit != ActiveUnit)

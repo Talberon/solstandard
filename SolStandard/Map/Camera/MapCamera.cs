@@ -32,12 +32,15 @@ namespace SolStandard.Map.Camera
         private Vector2 targetCamPosition;
         private readonly float cameraPanRate;
 
+        private bool centeringOnCursor;
+
         public MapCamera(float cameraPanRate, float zoomTransitionRate)
         {
             currentCamPosition = new Vector2(0);
             targetCamPosition = new Vector2(0);
             currentZoom = DefaultZoomLevel;
             targetZoom = currentZoom;
+            centeringOnCursor = false;
             this.cameraPanRate = cameraPanRate;
             this.zoomTransitionRate = zoomTransitionRate;
         }
@@ -66,8 +69,7 @@ namespace SolStandard.Map.Camera
         public void ZoomToCursor(float zoomLevel)
         {
             targetZoom = zoomLevel;
-            currentZoom = targetZoom;
-            CenterCursor();
+            centeringOnCursor = true;
         }
 
         public void CenterCursor()
@@ -81,7 +83,8 @@ namespace SolStandard.Map.Camera
             targetCamPosition = Vector2.Negate(cursorCenter);
             targetCamPosition += screenCenter / targetZoom;
 
-            currentCamPosition = targetCamPosition;
+            //TODO see if you can zoom and pan at the same time
+            //currentCamPosition = targetCamPosition;
 
             Trace.WriteLine("Camera:" + targetCamPosition);
             Trace.WriteLine("Cursor:" + CursorScreenCoordinates);
@@ -122,8 +125,20 @@ namespace SolStandard.Map.Camera
 
         public void UpdateEveryFrame()
         {
+            if (centeringOnCursor)
+            {
+                CenterCursor();
+            }
+            
+            if (targetCamPosition == currentCamPosition && Math.Abs(targetZoom - currentZoom) < 0.01)
+            {
+                centeringOnCursor = false;
+            }
+            
+            CorrectCameraToCursor(MapContainer.MapCursor, MapContainer.MapGridSize);
             UpdateZoomLevel();
             PanCameraToTarget();
+
         }
 
         private void UpdateZoomLevel()
