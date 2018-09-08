@@ -32,7 +32,7 @@ namespace SolStandard.Map.Camera
         private Vector2 targetCamPosition;
         private readonly float cameraPanRate;
 
-        private bool centeringOnCursor;
+        private bool centeringOnPoint;
 
         public MapCamera(float cameraPanRate, float zoomTransitionRate)
         {
@@ -40,9 +40,18 @@ namespace SolStandard.Map.Camera
             targetCamPosition = new Vector2(0);
             currentZoom = DefaultZoomLevel;
             targetZoom = currentZoom;
-            centeringOnCursor = false;
+            centeringOnPoint = false;
             this.cameraPanRate = cameraPanRate;
             this.zoomTransitionRate = zoomTransitionRate;
+        }
+
+        public Matrix CameraMatrix
+        {
+            get
+            {
+                return Matrix.CreateTranslation(currentCamPosition.X, currentCamPosition.Y, 0) *
+                       Matrix.CreateScale(new Vector3(currentZoom, currentZoom, 1));
+            }
         }
 
         private Vector2 CursorScreenCoordinates
@@ -50,9 +59,29 @@ namespace SolStandard.Map.Camera
             get { return ((MapContainer.MapCursor.PixelCoordinates + targetCamPosition) * targetZoom); }
         }
 
+        private static Vector2 MapCursorCenterPoint
+        {
+            get
+            {
+                return MapContainer.MapCursor.PixelCoordinates +
+                       (new Vector2(MapContainer.MapCursor.RenderSprite.Width,
+                            MapContainer.MapCursor.RenderSprite.Height) / 2);
+            }
+        }
+
         public void SetTargetCameraPosition(Vector2 targetPosition)
         {
             targetCamPosition = targetPosition;
+        }
+
+        public void IncreaseZoom(float zoomChange)
+        {
+            if (targetZoom < MaximumZoom) targetZoom += zoomChange;
+        }
+
+        public void DecreaseZoom(float zoomChange)
+        {
+            if (targetZoom > MinimumZoom) targetZoom -= zoomChange;
         }
 
         public float CurrentZoom
@@ -69,19 +98,19 @@ namespace SolStandard.Map.Camera
         public void ZoomToCursor(float zoomLevel)
         {
             targetZoom = zoomLevel;
-            centeringOnCursor = true;
+            //currentZoom = targetZoom;
+            centeringOnPoint = true;
         }
 
         public void CenterCursor()
         {
             Vector2 screenCenter = GameDriver.ScreenSize / 2;
 
-            Vector2 cursorCenter = MapContainer.MapCursor.PixelCoordinates +
-                                   (new Vector2(MapContainer.MapCursor.RenderSprite.Width,
-                                        MapContainer.MapCursor.RenderSprite.Height) / 2);
+
+            Vector2 cursorCenter = MapCursorCenterPoint;
 
             targetCamPosition = Vector2.Negate(cursorCenter);
-            targetCamPosition += screenCenter / targetZoom;
+            targetCamPosition += screenCenter / currentZoom;
 
             //TODO see if you can zoom and pan at the same time
             //currentCamPosition = targetCamPosition;
@@ -91,54 +120,21 @@ namespace SolStandard.Map.Camera
             Trace.WriteLine("Cursor:" + MapContainer.MapCursor.PixelCoordinates);
         }
 
-
-        public void IncreaseZoom(float zoomChange)
-        {
-            if (targetZoom < MaximumZoom) targetZoom += zoomChange;
-        }
-
-        public void DecreaseZoom(float zoomChange)
-        {
-            if (targetZoom > MinimumZoom) targetZoom -= zoomChange;
-        }
-
-        public void MoveCameraInDirection(CameraDirection direction)
-        {
-            switch (direction)
-            {
-                case CameraDirection.Down:
-                    targetCamPosition.Y -= cameraPanRate;
-                    break;
-                case CameraDirection.Right:
-                    targetCamPosition.X -= cameraPanRate;
-                    break;
-                case CameraDirection.Up:
-                    targetCamPosition.Y += cameraPanRate;
-                    break;
-                case CameraDirection.Left:
-                    targetCamPosition.X += cameraPanRate;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
-            }
-        }
-
         public void UpdateEveryFrame()
         {
-            if (centeringOnCursor)
+            if (centeringOnPoint)
             {
                 CenterCursor();
             }
-            
+
             if (targetCamPosition == currentCamPosition && Math.Abs(targetZoom - currentZoom) < 0.01)
             {
-                centeringOnCursor = false;
+                centeringOnPoint = false;
             }
-            
-            CorrectCameraToCursor(MapContainer.MapCursor, MapContainer.MapGridSize);
+
             UpdateZoomLevel();
             PanCameraToTarget();
-
+            CorrectCameraToCursor(MapContainer.MapCursor, MapContainer.MapGridSize);
         }
 
         private void UpdateZoomLevel()
@@ -209,12 +205,25 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public Matrix CameraMatrix
+
+        public void MoveCameraInDirection(CameraDirection direction)
         {
-            get
+            switch (direction)
             {
-                return Matrix.CreateTranslation(currentCamPosition.X, currentCamPosition.Y, 0) *
-                       Matrix.CreateScale(new Vector3(currentZoom, currentZoom, 1));
+                case CameraDirection.Down:
+                    targetCamPosition.Y -= cameraPanRate;
+                    break;
+                case CameraDirection.Right:
+                    targetCamPosition.X -= cameraPanRate;
+                    break;
+                case CameraDirection.Up:
+                    targetCamPosition.Y += cameraPanRate;
+                    break;
+                case CameraDirection.Left:
+                    targetCamPosition.X += cameraPanRate;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("direction", direction, null);
             }
         }
 

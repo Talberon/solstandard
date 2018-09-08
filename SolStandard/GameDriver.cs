@@ -89,7 +89,7 @@ namespace SolStandard
             TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
-            mapCamera = new MapCamera(10, 0.01f);
+            mapCamera = new MapCamera(10, 0.05f);
 
             ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursors"));
             MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
