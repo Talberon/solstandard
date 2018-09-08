@@ -15,15 +15,20 @@ namespace SolStandard.Containers.UI
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
 
+        private static readonly Color BackgroundColor = new Color(0, 0, 0, 100);
+
         private Window BlueTeamLeaderPortrait { get; set; }
         private Window BlueTeamUnitRoster { get; set; }
         private Window BlueTeamResult { get; set; }
 
-        private Window VersusWindow { get; set; }
+        private Window ResultsLabelWindow { get; set; }
 
         private Window RedTeamLeaderPortrait { get; set; }
         private Window RedTeamUnitRoster { get; set; }
         private Window RedTeamResult { get; set; }
+
+        public string BlueTeamResultText { private get; set; }
+        public string RedTeamResultText { private get; set; }
 
         private readonly ITexture2D windowTexture;
 
@@ -32,38 +37,40 @@ namespace SolStandard.Containers.UI
         public ResultsUI(ITexture2D windowTexture)
         {
             this.windowTexture = windowTexture;
+            BlueTeamResultText = "FIGHT!";
+            RedTeamResultText = "FIGHT!";
         }
 
         public void UpdateWindows()
         {
             GenerateBlueTeamLeaderPortraitWindow();
             GenerateBlueTeamUnitRosterWindow();
-            GenerateBlueTeamResultWindow("FIGHT!"); //TODO Make this dynamic
+            GenerateBlueTeamResultWindow(BlueTeamResultText);
 
             GenerateRedTeamLeaderPortraitWindow();
             GenerateRedTeamUnitRosterWindow();
-            GenerateRedTeamResultWindow("FIGHT!"); //TODO Make this dynamic
+            GenerateRedTeamResultWindow(RedTeamResultText);
 
-            GenerateVersusWindow();
+            GenerateResultsLabelWindow();
         }
 
         #region Generation
 
-        private void GenerateVersusWindow()
+        private void GenerateResultsLabelWindow()
         {
-            VersusWindow = new Window(
+            ResultsLabelWindow = new Window(
                 "Versus Window",
                 windowTexture,
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.ResultsFont, "VS")
+                            new RenderText(GameDriver.ResultsFont, "-RESULTS-")
                         }
                     },
                     1
                 ),
-                new Color(0, 0, 0, 0)
+                BackgroundColor
             );
         }
 
@@ -75,7 +82,7 @@ namespace SolStandard.Containers.UI
                 "Blue Leader Portrait Window",
                 windowTexture,
                 new WindowContentGrid(blueLeaderContent, 1),
-                new Color(0, 0, 0, 0)
+                BackgroundColor
             );
         }
 
@@ -103,7 +110,7 @@ namespace SolStandard.Containers.UI
                     },
                     1
                 ),
-                new Color(0, 0, 0, 0)
+                BackgroundColor
             );
         }
 
@@ -115,7 +122,7 @@ namespace SolStandard.Containers.UI
                 "Red Leader Portrait Window",
                 windowTexture,
                 new WindowContentGrid(blueLeaderContent, 1),
-                new Color(0, 0, 0, 0)
+                BackgroundColor
             );
         }
 
@@ -143,7 +150,7 @@ namespace SolStandard.Containers.UI
                     },
                     1
                 ),
-                new Color(0, 0, 0, 0)
+                BackgroundColor
             );
         }
 
@@ -223,12 +230,12 @@ namespace SolStandard.Containers.UI
 
 
         //Versus Window
-        private Vector2 VersusWindowPosition()
+        private Vector2 ResultsLabelWindowPosition()
         {
             //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 2 - (float) VersusWindow.Width / 2,
-                GameDriver.ScreenSize.Y / 2 - (float) VersusWindow.Height / 2
+                GameDriver.ScreenSize.X / 2 - (float) ResultsLabelWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) ResultsLabelWindow.Height / 2
             );
         }
 
@@ -285,8 +292,10 @@ namespace SolStandard.Containers.UI
             if (BlueTeamResult != null)
                 BlueTeamResult.Draw(spriteBatch, BlueTeamResultPosition());
 
-            if (VersusWindow != null)
-                VersusWindow.Draw(spriteBatch, VersusWindowPosition());
+            if (ResultsLabelWindow != null)
+            {
+                ResultsLabelWindow.Draw(spriteBatch, ResultsLabelWindowPosition());
+            }
 
             if (RedTeamLeaderPortrait != null)
                 RedTeamLeaderPortrait.Draw(spriteBatch, RedTeamLeaderPortraitPosition());

@@ -12,28 +12,23 @@ namespace SolStandard.Containers.Contexts
 
             if (TeamMonarchsAreAllDead(blueTeam))
             {
-                //TODO Red Team Wins!
-                string winText = "RED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                winText += "\nRED TEAM WINS!";
-                gameContext.MapContext.HelpText = winText;
+                gameContext.ResultsUI.RedTeamResultText = "RED TEAM WINS!";
+                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
             if (TeamMonarchsAreAllDead(redTeam))
             {
-                //TODO Blue Team Wins!
-                string winText = "BLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                winText += "\nBLUE TEAM WINS!";
-                gameContext.MapContext.HelpText = winText;
+                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM WINS!";
+                gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GameContext.CurrentGameState = GameContext.GameState.Results;
+            }
+
+            if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
+            {
+                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GameContext.CurrentGameState = GameContext.GameState.Results;
             }
         }
 

@@ -211,23 +211,22 @@ namespace SolStandard
         {
             GraphicsDevice.Clear(new Color(50,50,50));
 
+            //MAP LAYER
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+
+            gameContext.MapContext.MapContainer.Draw(spriteBatch);
+
+
+            spriteBatch.End();
+            
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
                     //TODO Render Main Menu
                     break;
                 case GameContext.GameState.InGame:
-
-                    //MAP LAYER
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
-
-                    gameContext.MapContext.MapContainer.Draw(spriteBatch);
-
-
-                    spriteBatch.End();
-
 
                     //WINDOW LAYER
                     spriteBatch.Begin(

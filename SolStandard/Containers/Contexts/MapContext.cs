@@ -57,7 +57,7 @@ namespace SolStandard.Containers.Contexts
             Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
             MapUI.GenerateTurnWindow(turnWindowSize);
 
-            //Help Window TODO make this context-sensitive
+            //Help Window
             MapUI.GenerateHelpWindow(HelpText);
         }
 
