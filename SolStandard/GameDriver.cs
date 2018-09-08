@@ -44,6 +44,7 @@ namespace SolStandard
         public static ITexture2D WhitePixel { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
+        public static ISpriteFont ResultsFont { get; private set; }
         public static ITexture2D DiceTexture { get; private set; }
 
         private static List<ITexture2D> UnitSprites { get; set; }
@@ -103,10 +104,12 @@ namespace SolStandard
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
 
-            gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
+            gameContext = new GameContext(
+                new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
                 new BattleContext(new BattleUI(windowTexture)),
-                new InitiativeContext(unitsFromMap,
-                    (Random.Next(2) == 0) ? Team.Blue : Team.Red));
+                new InitiativeContext(unitsFromMap, (Random.Next(2) == 0) ? Team.Blue : Team.Red),
+                new ResultsUI(windowTexture)
+            );
 
             gameContext.StartGame();
         }
@@ -128,6 +131,7 @@ namespace SolStandard
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
             WindowFont = ContentLoader.LoadWindowFont(Content);
             MapFont = ContentLoader.LoadMapFont(Content);
+            ResultsFont = ContentLoader.LoadResultsFont(Content);
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
@@ -159,14 +163,28 @@ namespace SolStandard
             {
                 mapCamera.ZoomToCursor(4);
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.X))
             {
                 mapCamera.ZoomToCursor(2);
             }
-
+            
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D3))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.Results;
+            }
 
             gameContext.EndTurnIfUnitIsDead();
-            
+
 
             ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera, MapContainer.MapCursor);
 
@@ -179,6 +197,7 @@ namespace SolStandard
 
 
             gameContext.MapContext.UpdateWindows();
+            gameContext.ResultsUI.UpdateWindows();
 
 
             base.Update(gameTime);
@@ -190,37 +209,57 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(50,50,50));
 
+            switch (GameContext.CurrentGameState)
             {
-                //MAP LAYER
-                spriteBatch.Begin(
-                    SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                    null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+                case GameContext.GameState.MainMenu:
+                    //TODO Render Main Menu
+                    break;
+                case GameContext.GameState.InGame:
 
-                gameContext.MapContext.MapContainer.Draw(spriteBatch);
+                    //MAP LAYER
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
 
-                base.Draw(gameTime);
-                spriteBatch.End();
+                    gameContext.MapContext.MapContainer.Draw(spriteBatch);
+
+
+                    spriteBatch.End();
+
+
+                    //WINDOW LAYER
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, null);
+
+                    if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+                    {
+                        gameContext.BattleContext.Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        gameContext.MapContext.MapUI.Draw(spriteBatch);
+                    }
+
+                    spriteBatch.End();
+                    break;
+                case GameContext.GameState.Results:
+
+                    //Render Results
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, null);
+
+                    gameContext.ResultsUI.Draw(spriteBatch);
+
+                    spriteBatch.End();
+                    break;
+                default:
+                    base.Draw(gameTime);
+                    throw new ArgumentOutOfRangeException();
             }
-
-            {
-                //WINDOW LAYER
-                spriteBatch.Begin(
-                    SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                    null, SamplerState.PointClamp, null, null, null, null);
-
-                if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
-                {
-                    gameContext.BattleContext.Draw(spriteBatch);
-                }
-                else
-                {
-                    gameContext.MapContext.MapUI.Draw(spriteBatch);
-                }
-            }
-
-            spriteBatch.End();
         }
     }
 }

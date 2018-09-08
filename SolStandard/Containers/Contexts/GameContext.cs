@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Camera;
 using SolStandard.Utility;
@@ -11,17 +12,32 @@ namespace SolStandard.Containers.Contexts
 {
     public class GameContext
     {
+        public enum GameState
+        {
+            MainMenu,
+            InGame,
+            Results
+        }
+
         private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
         private static InitiativeContext _initiativeContext;
+        public ResultsUI ResultsUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
 
-        public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext)
+        public static GameState CurrentGameState;
+
+        public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext,
+            ResultsUI resultsUI)
         {
             this.mapContext = mapContext;
             this.battleContext = battleContext;
             _initiativeContext = initiativeContext;
+            ResultsUI = resultsUI;
+
+            //TODO Update to MainMenu once menu is implemented.
+            CurrentGameState = GameState.InGame;
         }
 
         public static List<GameUnit> Units
@@ -48,6 +64,7 @@ namespace SolStandard.Containers.Contexts
         {
             get { return _initiativeContext; }
         }
+
 
         public void SelectUnitAndStartMoving()
         {
@@ -116,24 +133,28 @@ namespace SolStandard.Containers.Contexts
                     {
                         BattleContext.StartRollingDice();
                     }
+
                     break;
                 case BattleContext.BattleState.RollDice:
                     if (BattleContext.TryProceedToNextState())
                     {
                         BattleContext.StartResolvingBlocks();
                     }
+
                     break;
                 case BattleContext.BattleState.CountDice:
                     if (BattleContext.TryProceedToNextState())
                     {
                         BattleContext.StartResolvingDamage();
                     }
+
                     break;
                 case BattleContext.BattleState.ResolveCombat:
                     if (BattleContext.TryProceedToNextState())
                     {
                         MapContext.ProceedToNextState();
                     }
+
                     break;
                 default:
                     MapContext.ProceedToNextState();
@@ -143,7 +164,6 @@ namespace SolStandard.Containers.Contexts
 
         public void UpdateCamera(MapCamera mapCamera)
         {
-
             switch (MapContext.CurrentTurnState)
             {
                 case MapContext.TurnState.SelectUnit:
@@ -170,7 +190,7 @@ namespace SolStandard.Containers.Contexts
         public void ResolveTurn()
         {
             GameScenario.CheckForWinState(this);
-            
+
             MapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
@@ -185,12 +205,12 @@ namespace SolStandard.Containers.Contexts
         public void StartGame()
         {
             TurnNumber = 1;
-            
+
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
             }
-            
+
             ActiveUnit.ActivateUnit();
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.ResetCursorToActiveUnit();
