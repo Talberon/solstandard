@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
@@ -51,7 +52,6 @@ namespace SolStandard
         private static List<ITexture2D> LargePortraitTextures { get; set; }
         private static List<ITexture2D> MediumPortraitTextures { get; set; }
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
-
 
         private MapCamera mapCamera;
 
@@ -154,6 +154,12 @@ namespace SolStandard
             {
                 Exit();
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                mapCamera.ZoomToCursor(4);
+            }
+
 
             gameContext.EndTurnIfUnitIsDead();
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Map.Camera
@@ -18,6 +20,8 @@ namespace SolStandard.Map.Camera
         private const int TopThreshold = (4 * GameDriver.CellSize);
         private const int BottomThreshold = (7 * GameDriver.CellSize);
         private const int DefaultZoomLevel = 2;
+        private const float MaximumZoom = 4.0f;
+        private const float MinimumZoom = 2.0f;
 
         private float currentZoom;
         private float targetZoom;
@@ -38,28 +42,61 @@ namespace SolStandard.Map.Camera
             this.zoomTransitionRate = zoomTransitionRate;
         }
 
-        
+        private Vector2 CursorScreenCoordinates
+        {
+            get { return ((MapContainer.MapCursor.PixelCoordinates + targetCamPosition) * targetZoom); }
+        }
 
         public void SetTargetCameraPosition(Vector2 targetPosition)
         {
             targetCamPosition = targetPosition;
         }
 
+        public float CurrentZoom
+        {
+            get { return currentZoom; }
+        }
+
         public void SetCameraZoom(float zoom)
         {
             targetZoom = zoom;
+            currentZoom = targetZoom;
         }
+
+        public void ZoomToCursor(float zoomLevel)
+        {
+            targetZoom = zoomLevel;
+            currentZoom = targetZoom;
+            CenterCursor();
+        }
+
+        public void CenterCursor()
+        {
+            Vector2 screenCenter = GameDriver.ScreenSize / 2;
+
+            Vector2 cursorCenter = MapContainer.MapCursor.PixelCoordinates +
+                                   (new Vector2(MapContainer.MapCursor.RenderSprite.Width,
+                                        MapContainer.MapCursor.RenderSprite.Height) / 2);
+
+            targetCamPosition = Vector2.Negate(cursorCenter);
+            targetCamPosition += screenCenter / targetZoom;
+
+            currentCamPosition = targetCamPosition;
+
+            Trace.WriteLine("Camera:" + targetCamPosition);
+            Trace.WriteLine("Cursor:" + CursorScreenCoordinates);
+            Trace.WriteLine("Cursor:" + MapContainer.MapCursor.PixelCoordinates);
+        }
+
 
         public void IncreaseZoom(float zoomChange)
         {
-            const float maximumZoom = 3.0f;
-            if (targetZoom < maximumZoom) targetZoom += zoomChange;
+            if (targetZoom < MaximumZoom) targetZoom += zoomChange;
         }
 
         public void DecreaseZoom(float zoomChange)
         {
-            const float minimumZoom = 1.0f;
-            if (targetZoom > minimumZoom) targetZoom -= zoomChange;
+            if (targetZoom > MinimumZoom) targetZoom -= zoomChange;
         }
 
         public void MoveCameraInDirection(CameraDirection direction)

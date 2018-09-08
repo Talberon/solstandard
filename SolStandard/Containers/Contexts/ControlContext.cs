@@ -11,6 +11,8 @@ namespace SolStandard.Containers.Contexts
 {
     public static class ControlContext
     {
+        private static float _oldZoom;
+        
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)
         {
@@ -102,6 +104,9 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
+                        _oldZoom = mapCamera.CurrentZoom;
+                        const float combatZoom = 4;
+                        mapCamera.ZoomToCursor(combatZoom);
                         gameContext.StartCombat();
                         return;
 
@@ -110,6 +115,7 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.ResolvingTurn:
+                        mapCamera.SetCameraZoom(_oldZoom);
                         gameContext.ResolveTurn();
                         return;
                     default:
@@ -157,16 +163,15 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.X())
             {
                 //FIXME Remove this eventually after debugging is done
-                
+
                 foreach (GameUnit unit in GameContext.Units)
                 {
                     unit.DamageUnit(1);
                 }
-                
+
                 //gameContext.BattleContext.StartRollingDice();
             }
 
-            
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
