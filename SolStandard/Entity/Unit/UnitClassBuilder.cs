@@ -45,34 +45,34 @@ namespace SolStandard.Entity.Unit
                         throw new ArgumentOutOfRangeException("", unit.TiledProperties["Team"], null);
                 }
 
-                UnitClass unitClass;
+                Role role;
 
                 switch (unit.TiledProperties["Class"])
                 {
                     case "Archer":
-                        unitClass = UnitClass.Archer;
+                        role = Role.Archer;
                         break;
                     case "Champion":
-                        unitClass = UnitClass.Champion;
+                        role = Role.Champion;
                         break;
                     case "Mage":
-                        unitClass = UnitClass.Mage;
+                        role = Role.Mage;
                         break;
                     case "Monarch":
-                        unitClass = UnitClass.Monarch;
+                        role = Role.Monarch;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("", unit.TiledProperties["Class"], null);
                 }
 
-                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, unitClass, unit, 0);
+                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, role, unit, 0);
                 unitsFromMap.Add(unitToBuild);
             }
 
             return unitsFromMap;
         }
 
-        private GameUnit BuildUnitFromProperties(string id, Team unitTeam, UnitClass unitJobClass,
+        private GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass,
             UnitEntity mapEntity, int initiative)
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
@@ -85,16 +85,16 @@ namespace SolStandard.Entity.Unit
 
             switch (unitJobClass)
             {
-                case UnitClass.Archer:
+                case Role.Archer:
                     unitStats = SelectArcherStats(initiative);
                     break;
-                case UnitClass.Champion:
+                case Role.Champion:
                     unitStats = SelectChampionStats(initiative);
                     break;
-                case UnitClass.Mage:
+                case Role.Mage:
                     unitStats = SelectMageStats(initiative);
                     break;
-                case UnitClass.Monarch:
+                case Role.Monarch:
                     unitStats = SelectMonarchStats(initiative);
                     break;
                 default:

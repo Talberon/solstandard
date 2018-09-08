@@ -147,9 +147,9 @@ namespace SolStandard.Map
                             Dictionary<string, string> currentProperties =
                                 GetDefaultPropertiesAndOverrides(currentObject);
                             Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
-                            UnitClass unitClass = ObtainUnitClass(currentProperties["Class"]);
+                            Role role = ObtainUnitClass(currentProperties["Class"]);
 
-                            string unitTeamAndClass = unitTeam.ToString() + unitClass.ToString();
+                            string unitTeamAndClass = unitTeam.ToString() + role.ToString();
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
                             UnitSprite animatedSprite = new UnitSprite(unitSprite, GameDriver.CellSize, 15, false);
@@ -188,13 +188,13 @@ namespace SolStandard.Map
             return objectTypesInFile[parameterObjectType];
         }
 
-        private UnitClass ObtainUnitClass(string unitClassName)
+        private Role ObtainUnitClass(string unitClassName)
         {
-            foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
+            foreach (Role unitRole in Enum.GetValues(typeof(Role)))
             {
-                if (unitClassName.Equals(unitClass.ToString()))
+                if (unitClassName.Equals(unitRole.ToString()))
                 {
-                    return unitClass;
+                    return unitRole;
                 }
             }
 

@@ -86,7 +86,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
-            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != selectedUnit.UnitTeam.ToString()) return false;
+            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != selectedUnit.Team.ToString()) return false;
             
             if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 

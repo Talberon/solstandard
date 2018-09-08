@@ -3,7 +3,7 @@ using SolStandard.Entity.Unit;
 
 namespace SolStandard.Utility
 {
-    public static class ColorMapper
+    public static class TeamUtility
     {
         public static Color DetermineTeamColor(Team team)
         {

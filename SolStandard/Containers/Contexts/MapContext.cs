@@ -198,7 +198,7 @@ namespace SolStandard.Containers.Contexts
                    && SelectedUnit != targetUnit
                    && BattleContext.CoordinatesAreInRange(SelectedUnit.UnitEntity.MapCoordinates,
                        targetUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange)
-                   && SelectedUnit.UnitTeam != targetUnit.UnitTeam;
+                   && SelectedUnit.Team != targetUnit.Team;
         }
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)

@@ -214,8 +214,8 @@ namespace SolStandard.Containers.Contexts
         {
             if (MapContext.SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + MapContext.SelectedUnit.UnitTeam + " " +
-                                MapContext.SelectedUnit.UnitJobClass);
+                Trace.WriteLine("Selecting unit: " + MapContext.SelectedUnit.Team + " " +
+                                MapContext.SelectedUnit.Role);
                 MapContext.ProceedToNextState();
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,

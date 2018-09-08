@@ -7,8 +7,8 @@ namespace SolStandard.Containers.Contexts
     {
         public static void CheckForWinState(GameContext gameContext)
         {
-            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.UnitTeam == Team.Blue);
-            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.UnitTeam == Team.Red);
+            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
+            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
 
             if (TeamMonarchsAreAllDead(blueTeam))
             {
@@ -39,7 +39,7 @@ namespace SolStandard.Containers.Contexts
 
         private static bool TeamMonarchsAreAllDead(List<GameUnit> team)
         {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.UnitJobClass == UnitClass.Monarch);
+            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role == Role.Monarch);
 
             foreach (GameUnit monarch in teamMonarchs)
             {

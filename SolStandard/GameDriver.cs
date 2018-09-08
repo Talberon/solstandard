@@ -104,7 +104,7 @@ namespace SolStandard
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
 
             gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
-                new BattleContext(new BattleUI(screenSize, windowTexture)),
+                new BattleContext(new BattleUI(windowTexture)),
                 new InitiativeContext(unitsFromMap,
                     (Random.Next(2) == 0) ? Team.Blue : Team.Red));
 
