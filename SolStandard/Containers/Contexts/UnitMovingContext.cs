@@ -11,12 +11,10 @@ namespace SolStandard.Containers.Contexts
 {
     public class UnitMovingContext
     {
-        private readonly MapContainer mapContainer;
         private readonly SpriteAtlas spriteAtlas;
 
-        public UnitMovingContext(MapContainer mapContainer, SpriteAtlas spriteAtlas)
+        public UnitMovingContext(SpriteAtlas spriteAtlas)
         {
-            this.mapContainer = mapContainer;
             this.spriteAtlas = spriteAtlas;
         }
 

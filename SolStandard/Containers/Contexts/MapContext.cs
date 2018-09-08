@@ -137,7 +137,7 @@ namespace SolStandard.Containers.Contexts
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitMovingContext unitMovingContext = new UnitMovingContext(mapContainer, spriteAtlas);
+            UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
             unitMovingContext.GenerateMoveGrid(origin, maximumDistance, SelectedUnit);
         }
 
@@ -210,7 +210,7 @@ namespace SolStandard.Containers.Contexts
         public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(mapContainer, spriteAtlas);
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(spriteAtlas);
             unitTargetingContext.GenerateTargetingGrid(origin, range);
         }
     }

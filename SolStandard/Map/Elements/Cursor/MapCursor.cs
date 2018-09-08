@@ -11,6 +11,7 @@ namespace SolStandard.Map.Elements.Cursor
     {
         private readonly Vector2 mapSize;
         private Vector2 pixelCoordinates;
+        public const int SlideSpeed = 10;
 
         private enum CursorColor
         {
@@ -93,27 +94,28 @@ namespace SolStandard.Map.Elements.Cursor
         {
             Vector2 mapPixelCoordinates = MapCoordinates * GameDriver.CellSize;
 
-            const int slideSpeed = 10;
+            
+            
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
-            bool leftOfDestination = pixelCoordinates.X - slideSpeed < mapPixelCoordinates.X;
-            bool rightOfDestination = pixelCoordinates.X + slideSpeed > mapPixelCoordinates.X;
-            bool aboveDestination = pixelCoordinates.Y - slideSpeed < mapPixelCoordinates.Y;
-            bool belowDestionation = pixelCoordinates.Y + slideSpeed > mapPixelCoordinates.Y;
+            bool leftOfDestination = pixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;
+            bool rightOfDestination = pixelCoordinates.X + SlideSpeed > mapPixelCoordinates.X;
+            bool aboveDestination = pixelCoordinates.Y - SlideSpeed < mapPixelCoordinates.Y;
+            bool belowDestionation = pixelCoordinates.Y + SlideSpeed > mapPixelCoordinates.Y;
 
-            if (leftOfDestination) pixelCoordinates.X += slideSpeed;
-            if (rightOfDestination) pixelCoordinates.X -= slideSpeed;
-            if (aboveDestination) pixelCoordinates.Y += slideSpeed;
-            if (belowDestionation) pixelCoordinates.Y -= slideSpeed;
+            if (leftOfDestination) pixelCoordinates.X += SlideSpeed;
+            if (rightOfDestination) pixelCoordinates.X -= SlideSpeed;
+            if (aboveDestination) pixelCoordinates.Y += SlideSpeed;
+            if (belowDestionation) pixelCoordinates.Y -= SlideSpeed;
 
             //Don't slide past the cursor's actual coordinates
             bool slidingRightWouldPassMapCoordinates =
-                leftOfDestination && (pixelCoordinates.X + slideSpeed) > mapPixelCoordinates.X;
+                leftOfDestination && (pixelCoordinates.X + SlideSpeed) > mapPixelCoordinates.X;
             bool slidingLeftWouldPassMapCoordinates =
-                rightOfDestination && (pixelCoordinates.X - slideSpeed) < mapPixelCoordinates.X;
+                rightOfDestination && (pixelCoordinates.X - SlideSpeed) < mapPixelCoordinates.X;
             bool slidingDownWouldPassMapCoordinates =
-                aboveDestination && (pixelCoordinates.Y + slideSpeed) > mapPixelCoordinates.Y;
+                aboveDestination && (pixelCoordinates.Y + SlideSpeed) > mapPixelCoordinates.Y;
             bool slidingUpWouldPassMapCoordinates =
-                belowDestionation && (pixelCoordinates.Y - slideSpeed) < mapPixelCoordinates.Y;
+                belowDestionation && (pixelCoordinates.Y - SlideSpeed) < mapPixelCoordinates.Y;
 
             if (slidingRightWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;
             if (slidingLeftWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;

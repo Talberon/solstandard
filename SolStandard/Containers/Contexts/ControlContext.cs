@@ -115,7 +115,7 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.ResolvingTurn:
-                        mapCamera.SetCameraZoom(_oldZoom);
+                        mapCamera.ZoomToCursor(_oldZoom);
                         gameContext.ResolveTurn();
                         return;
                     default:
