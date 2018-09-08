@@ -11,8 +11,6 @@ namespace SolStandard.Containers.Contexts
 {
     public static class ControlContext
     {
-        private static float _oldZoom;
-        
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)
         {
@@ -104,9 +102,6 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
-                        _oldZoom = mapCamera.CurrentZoom;
-                        const float combatZoom = 4;
-                        mapCamera.ZoomToCursor(combatZoom);
                         gameContext.StartCombat();
                         return;
 
@@ -115,7 +110,6 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.ResolvingTurn:
-                        mapCamera.ZoomToCursor(_oldZoom);
                         gameContext.ResolveTurn();
                         return;
                     default:

@@ -166,10 +166,12 @@ namespace SolStandard
 
 
             gameContext.EndTurnIfUnitIsDead();
+            
 
             ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera, MapContainer.MapCursor);
 
             mapCamera.UpdateEveryFrame();
+            gameContext.UpdateCamera(mapCamera);
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.Map.Camera;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
@@ -13,6 +15,7 @@ namespace SolStandard.Containers.Contexts
         private readonly BattleContext battleContext;
         private static InitiativeContext _initiativeContext;
         public static int TurnNumber { get; private set; }
+        private float oldZoom;
 
         public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext)
         {
@@ -110,26 +113,57 @@ namespace SolStandard.Containers.Contexts
             {
                 case BattleContext.BattleState.Start:
                     if (BattleContext.TryProceedToNextState())
+                    {
                         BattleContext.StartRollingDice();
+                    }
                     break;
                 case BattleContext.BattleState.RollDice:
                     if (BattleContext.TryProceedToNextState())
+                    {
                         BattleContext.StartResolvingBlocks();
+                    }
                     break;
                 case BattleContext.BattleState.CountDice:
                     if (BattleContext.TryProceedToNextState())
+                    {
                         BattleContext.StartResolvingDamage();
+                    }
                     break;
                 case BattleContext.BattleState.ResolveCombat:
                     if (BattleContext.TryProceedToNextState())
                     {
                         MapContext.ProceedToNextState();
                     }
-
                     break;
                 default:
                     MapContext.ProceedToNextState();
                     return;
+            }
+        }
+
+        public void UpdateCamera(MapCamera mapCamera)
+        {
+
+            switch (MapContext.CurrentTurnState)
+            {
+                case MapContext.TurnState.SelectUnit:
+                    break;
+                case MapContext.TurnState.UnitMoving:
+                    break;
+                case MapContext.TurnState.UnitDecidingAction:
+                    break;
+                case MapContext.TurnState.UnitTargeting:
+                    oldZoom = mapCamera.CurrentZoom;
+                    break;
+                case MapContext.TurnState.UnitActing:
+                    const float combatZoom = 4;
+                    mapCamera.ZoomToCursor(combatZoom);
+                    break;
+                case MapContext.TurnState.ResolvingTurn:
+                    mapCamera.ZoomToCursor(oldZoom);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
