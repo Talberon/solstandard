@@ -169,7 +169,8 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
-            //TODO Do various turn check resolution (win state, etc.)
+            GameScenario.CheckForWinState(this);
+            
             MapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();

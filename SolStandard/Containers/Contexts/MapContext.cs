@@ -26,6 +26,7 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
+        public string HelpText = "HELP: Select a unit. Defeat the enemy!";
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -57,8 +58,7 @@ namespace SolStandard.Containers.Contexts
             MapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window TODO make this context-sensitive
-            const string helpText = "HELP: Select a unit. Defeat the enemy!";
-            MapUI.GenerateHelpWindow(helpText);
+            MapUI.GenerateHelpWindow(HelpText);
         }
 
         public void ProceedToNextState()
