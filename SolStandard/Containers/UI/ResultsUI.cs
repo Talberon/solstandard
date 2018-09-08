@@ -82,7 +82,7 @@ namespace SolStandard.Containers.UI
                 "Blue Leader Portrait Window",
                 windowTexture,
                 new WindowContentGrid(blueLeaderContent, 1),
-                BackgroundColor
+                TeamUtility.DetermineTeamColor(Team.Blue)
             );
         }
 
@@ -92,7 +92,7 @@ namespace SolStandard.Containers.UI
                 "Blue Team Roster",
                 windowTexture,
                 new WindowContentGrid(GenerateUnitRoster(Team.Blue), 2),
-                TeamUtility.DetermineTeamColor(Team.Blue)
+                BackgroundColor
             );
         }
 
@@ -110,7 +110,7 @@ namespace SolStandard.Containers.UI
                     },
                     1
                 ),
-                BackgroundColor
+                TeamUtility.DetermineTeamColor(Team.Blue)
             );
         }
 
@@ -122,7 +122,7 @@ namespace SolStandard.Containers.UI
                 "Red Leader Portrait Window",
                 windowTexture,
                 new WindowContentGrid(blueLeaderContent, 1),
-                BackgroundColor
+                TeamUtility.DetermineTeamColor(Team.Red)
             );
         }
 
@@ -132,7 +132,7 @@ namespace SolStandard.Containers.UI
                 "Red Team Roster",
                 windowTexture,
                 new WindowContentGrid(GenerateUnitRoster(Team.Red), 2),
-                TeamUtility.DetermineTeamColor(Team.Red)
+                BackgroundColor
             );
         }
 
@@ -150,7 +150,7 @@ namespace SolStandard.Containers.UI
                     },
                     1
                 ),
-                BackgroundColor
+                TeamUtility.DetermineTeamColor(Team.Red)
             );
         }
 
