@@ -15,12 +15,12 @@ namespace SolStandard.Containers
     public class MapContainer
     {
         private readonly List<MapElement[,]> gameGrid;
-        private readonly MapCursor mapCursor;
+        public static MapCursor MapCursor { get; private set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             this.gameGrid = gameGrid;
-            mapCursor = BuildMapCursor(cursorTexture);
+            MapCursor = BuildMapCursor(cursorTexture);
         }
 
         private MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -30,10 +30,6 @@ namespace SolStandard.Containers
             return new MapCursor(cursorSprite, cursorStartPosition, MapGridSize);
         }
 
-        public MapCursor MapCursor
-        {
-            get { return mapCursor; }
-        }
 
         public ReadOnlyCollection<MapElement[,]> GameGrid
         {
@@ -53,7 +49,7 @@ namespace SolStandard.Containers
 
         public MapSlice GetMapSliceAtCursor()
         {
-            return GetMapSliceAtCoordinates(mapCursor.MapCoordinates);
+            return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }
 
         public MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
@@ -104,7 +100,7 @@ namespace SolStandard.Containers
                 }
             }
 
-            mapCursor.Draw(spriteBatch);
+            MapCursor.Draw(spriteBatch);
         }
     }
 }

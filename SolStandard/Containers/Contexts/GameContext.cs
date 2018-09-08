@@ -183,7 +183,7 @@ namespace SolStandard.Containers.Contexts
                                 MapContext.SelectedUnit.UnitJobClass);
                 MapContext.ProceedToNextState();
                 MapContext.GenerateMoveGrid(
-                    MapContext.MapContainer.MapCursor.MapCoordinates,
+                    MapContainer.MapCursor.MapCoordinates,
                     MapContext.SelectedUnit.Stats.MaxMv,
                     new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
                         new Vector2(GameDriver.CellSize), 69));

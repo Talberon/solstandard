@@ -10,7 +10,7 @@ namespace SolStandard.Map.Elements.Cursor
     public class MapCursor : MapElement
     {
         private readonly Vector2 mapSize;
-        private Vector2 renderCoordinates;
+        private Vector2 pixelCoordinates;
 
         private enum CursorColor
         {
@@ -24,8 +24,13 @@ namespace SolStandard.Map.Elements.Cursor
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
-            renderCoordinates = mapCoordinates;
+            pixelCoordinates = mapCoordinates * GameDriver.CellSize;
             this.mapSize = mapSize;
+        }
+
+        public Vector2 PixelCoordinates
+        {
+            get { return pixelCoordinates; }
         }
 
         private SpriteAtlas SpriteAtlas
@@ -85,30 +90,30 @@ namespace SolStandard.Map.Elements.Cursor
 
             const int slideSpeed = 10;
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
-            bool leftOfDestination = renderCoordinates.X - slideSpeed < mapPixelCoordinates.X;
-            bool rightOfDestination = renderCoordinates.X + slideSpeed > mapPixelCoordinates.X;
-            bool aboveDestination = renderCoordinates.Y - slideSpeed < mapPixelCoordinates.Y;
-            bool belowDestionation = renderCoordinates.Y + slideSpeed > mapPixelCoordinates.Y;
+            bool leftOfDestination = pixelCoordinates.X - slideSpeed < mapPixelCoordinates.X;
+            bool rightOfDestination = pixelCoordinates.X + slideSpeed > mapPixelCoordinates.X;
+            bool aboveDestination = pixelCoordinates.Y - slideSpeed < mapPixelCoordinates.Y;
+            bool belowDestionation = pixelCoordinates.Y + slideSpeed > mapPixelCoordinates.Y;
 
-            if (leftOfDestination) renderCoordinates.X += slideSpeed;
-            if (rightOfDestination) renderCoordinates.X -= slideSpeed;
-            if (aboveDestination) renderCoordinates.Y += slideSpeed;
-            if (belowDestionation) renderCoordinates.Y -= slideSpeed;
+            if (leftOfDestination) pixelCoordinates.X += slideSpeed;
+            if (rightOfDestination) pixelCoordinates.X -= slideSpeed;
+            if (aboveDestination) pixelCoordinates.Y += slideSpeed;
+            if (belowDestionation) pixelCoordinates.Y -= slideSpeed;
 
             //Don't slide past the cursor's actual coordinates
             bool slidingRightWouldPassMapCoordinates =
-                leftOfDestination && (renderCoordinates.X + slideSpeed) > mapPixelCoordinates.X;
+                leftOfDestination && (pixelCoordinates.X + slideSpeed) > mapPixelCoordinates.X;
             bool slidingLeftWouldPassMapCoordinates =
-                rightOfDestination && (renderCoordinates.X - slideSpeed) < mapPixelCoordinates.X;
+                rightOfDestination && (pixelCoordinates.X - slideSpeed) < mapPixelCoordinates.X;
             bool slidingDownWouldPassMapCoordinates =
-                aboveDestination && (renderCoordinates.Y + slideSpeed) > mapPixelCoordinates.Y;
+                aboveDestination && (pixelCoordinates.Y + slideSpeed) > mapPixelCoordinates.Y;
             bool slidingUpWouldPassMapCoordinates =
-                belowDestionation && (renderCoordinates.Y - slideSpeed) < mapPixelCoordinates.Y;
+                belowDestionation && (pixelCoordinates.Y - slideSpeed) < mapPixelCoordinates.Y;
 
-            if (slidingRightWouldPassMapCoordinates) renderCoordinates.X = mapPixelCoordinates.X;
-            if (slidingLeftWouldPassMapCoordinates) renderCoordinates.X = mapPixelCoordinates.X;
-            if (slidingDownWouldPassMapCoordinates) renderCoordinates.Y = mapPixelCoordinates.Y;
-            if (slidingUpWouldPassMapCoordinates) renderCoordinates.Y = mapPixelCoordinates.Y;
+            if (slidingRightWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;
+            if (slidingLeftWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;
+            if (slidingDownWouldPassMapCoordinates) pixelCoordinates.Y = mapPixelCoordinates.Y;
+            if (slidingUpWouldPassMapCoordinates) pixelCoordinates.Y = mapPixelCoordinates.Y;
         }
 
         private void UpdateCursorTeam()
@@ -136,12 +141,12 @@ namespace SolStandard.Map.Elements.Cursor
         {
             UpdateCursorTeam();
             UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, renderCoordinates, colorOverride);
+            Sprite.Draw(spriteBatch, pixelCoordinates, colorOverride);
         }
 
         public override string ToString()
         {
-            return "Cursor: {RenderCoordnates:" + renderCoordinates + ", Sprite:{" + Sprite + "}}";
+            return "Cursor: {RenderCoordnates:" + pixelCoordinates + ", Sprite:{" + Sprite + "}}";
         }
     }
 }

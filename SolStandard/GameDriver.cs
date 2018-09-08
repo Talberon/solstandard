@@ -80,16 +80,16 @@ namespace SolStandard
             base.Initialize();
 
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            
+
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
             const string mapPath = "Content/TmxMaps/Collosseum_1.tmx";
-            
+
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
             TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
-            mapCamera = new MapCamera(10);
+            mapCamera = new MapCamera(10, 0.01f);
 
             ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursors"));
             MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
@@ -102,7 +102,7 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            
+
             gameContext = new GameContext(new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
                 new BattleContext(new BattleUI(screenSize, windowTexture)),
                 new InitiativeContext(unitsFromMap,
@@ -157,14 +157,11 @@ namespace SolStandard
 
             gameContext.EndTurnIfUnitIsDead();
 
-            ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera,
-                gameContext.MapContext.MapContainer.MapCursor);
+            ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera, MapContainer.MapCursor);
 
+            mapCamera.UpdateEveryFrame();
 
-            Vector2 mapSize = gameContext.MapContext.MapContainer.MapGridSize;
-            mapCamera.CorrectCameraToCursor(gameContext.MapContext.MapContainer.MapCursor, mapSize);
-            mapCamera.PanCameraToTarget();
-
+            mapCamera.CorrectCameraToCursor(MapContainer.MapCursor, gameContext.MapContext.MapContainer.MapGridSize);
 
             //Map Cursor Hover Logic
             MapSlice hoverTiles = gameContext.MapContext.MapContainer.GetMapSliceAtCursor();
@@ -184,29 +181,34 @@ namespace SolStandard
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
-            
-            gameContext.MapContext.MapContainer.Draw(spriteBatch);
 
-            base.Draw(gameTime);
-            spriteBatch.End();
-
-            //WINDOW LAYER
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
-
-            if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
             {
-                gameContext.BattleContext.Draw(spriteBatch);
-            }
-            else
-            {
-                gameContext.MapContext.MapUI.Draw(spriteBatch);
+                //MAP LAYER
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                    null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+
+                gameContext.MapContext.MapContainer.Draw(spriteBatch);
+
+                base.Draw(gameTime);
+                spriteBatch.End();
             }
 
+            {
+                //WINDOW LAYER
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                    null, SamplerState.PointClamp, null, null, null, null);
+
+                if (gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+                {
+                    gameContext.BattleContext.Draw(spriteBatch);
+                }
+                else
+                {
+                    gameContext.MapContext.MapUI.Draw(spriteBatch);
+                }
+            }
 
             spriteBatch.End();
         }

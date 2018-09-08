@@ -95,7 +95,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                mapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+                MapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             }
         }
 
@@ -147,7 +147,7 @@ namespace SolStandard.Containers.Contexts
             {
                 SelectedUnit.MoveUnitInDirection(direction, mapContainer.MapGridSize);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
-                mapContainer.MapCursor.MoveCursorInDirection(direction);
+                MapContainer.MapCursor.MoveCursorInDirection(direction);
             }
         }
 
@@ -178,7 +178,7 @@ namespace SolStandard.Containers.Contexts
 
         public bool OtherUnitExistsAtCursor()
         {
-            return OtherUnitExistsAtCoordinates(mapContainer.MapCursor.MapCoordinates);
+            return OtherUnitExistsAtCoordinates(MapContainer.MapCursor.MapCoordinates);
         }
 
         public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
         public void ReturnUnitToOriginalPosition()
         {
             SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
-            mapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+            MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
         public bool TargetUnitIsLegal(GameUnit targetUnit)

@@ -17,20 +17,28 @@ namespace SolStandard.Map.Camera
         private const int HorizontalThreshold = (7 * GameDriver.CellSize);
         private const int TopThreshold = (4 * GameDriver.CellSize);
         private const int BottomThreshold = (7 * GameDriver.CellSize);
+        private const int DefaultZoomLevel = 2;
+
         private float currentZoom;
+        private float targetZoom;
+        private readonly float zoomTransitionRate;
+
 
         private Vector2 currentCamPosition;
-
         private Vector2 targetCamPosition;
         private readonly float cameraPanRate;
 
-        public MapCamera(float cameraPanRate)
+        public MapCamera(float cameraPanRate, float zoomTransitionRate)
         {
             currentCamPosition = new Vector2(0);
             targetCamPosition = new Vector2(0);
-            currentZoom = 2;
+            currentZoom = DefaultZoomLevel;
+            targetZoom = currentZoom;
             this.cameraPanRate = cameraPanRate;
+            this.zoomTransitionRate = zoomTransitionRate;
         }
+
+        
 
         public void SetTargetCameraPosition(Vector2 targetPosition)
         {
@@ -39,19 +47,19 @@ namespace SolStandard.Map.Camera
 
         public void SetCameraZoom(float zoom)
         {
-            currentZoom = zoom;
+            targetZoom = zoom;
         }
 
-        public void IncreaseZoom(float zoomRate)
+        public void IncreaseZoom(float zoomChange)
         {
             const float maximumZoom = 3.0f;
-            if (currentZoom < maximumZoom) currentZoom += zoomRate;
+            if (targetZoom < maximumZoom) targetZoom += zoomChange;
         }
 
-        public void DecreaseZoom(float zoomRate)
+        public void DecreaseZoom(float zoomChange)
         {
             const float minimumZoom = 1.0f;
-            if (currentZoom > minimumZoom) currentZoom -= zoomRate;
+            if (targetZoom > minimumZoom) targetZoom -= zoomChange;
         }
 
         public void MoveCameraInDirection(CameraDirection direction)
@@ -75,7 +83,30 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void PanCameraToTarget()
+        public void UpdateEveryFrame()
+        {
+            UpdateZoomLevel();
+            PanCameraToTarget();
+        }
+
+        private void UpdateZoomLevel()
+        {
+            //Too big; zoom out
+            if (currentZoom > targetZoom)
+            {
+                if (currentZoom - zoomTransitionRate < targetZoom) return;
+                currentZoom -= zoomTransitionRate;
+            }
+
+            //Too small; zoom in
+            if (currentZoom < targetZoom)
+            {
+                if (currentZoom + zoomTransitionRate > targetZoom) return;
+                currentZoom += zoomTransitionRate;
+            }
+        }
+
+        private void PanCameraToTarget()
         {
             if (currentCamPosition.X < targetCamPosition.X)
             {
