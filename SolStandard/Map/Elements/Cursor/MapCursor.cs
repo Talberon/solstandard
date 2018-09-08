@@ -33,6 +33,11 @@ namespace SolStandard.Map.Elements.Cursor
             get { return pixelCoordinates; }
         }
 
+        public Vector2 CenterPixelPoint
+        {
+            get { return PixelCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2); }
+        }
+
         private SpriteAtlas SpriteAtlas
         {
             get { return (SpriteAtlas) Sprite; }
