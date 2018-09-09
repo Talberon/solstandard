@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
         }
-        
+
         public static ISpriteFont LoadResultsFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/ResultsText"));
@@ -34,11 +34,22 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(spriteTextures);
         }
 
-        public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
+        public static List<ITexture2D> LoadTerrainSpriteTexture(ContentManager content)
         {
-            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/Tiles");
+            List<Texture2D> loadTerrainTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Map/Tiles/Tiles"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet")
+            };
 
-            return new Texture2DWrapper(spriteTextures);
+            List<ITexture2D> terrainTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadTerrainTextures)
+            {
+                terrainTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return terrainTextures;
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)
@@ -178,6 +189,5 @@ namespace SolStandard.Utility.Load
 
             return diceAtlas;
         }
-
     }
 }

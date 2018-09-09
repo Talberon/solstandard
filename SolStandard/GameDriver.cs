@@ -40,7 +40,7 @@ namespace SolStandard
 
         private GameContext gameContext;
 
-        public static ITexture2D TerrainTextures { get; private set; }
+        public static List<ITexture2D> TerrainTextures { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
@@ -87,7 +87,8 @@ namespace SolStandard
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
+            TmxMapParser mapParser = new TmxMapParser(tmxMap,
+                TerrainTextures.Find(texture => texture.Name.Contains("Tiles/Tiles")), UnitSprites, objectTypeDefaults);
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(5, 0.05f);
@@ -168,16 +169,18 @@ namespace SolStandard
             {
                 mapCamera.ZoomToCursor(2);
             }
-            
-            
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D3))
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
@@ -209,7 +212,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(50,50,50));
+            GraphicsDevice.Clear(new Color(50, 50, 50));
 
             //MAP LAYER
             spriteBatch.Begin(
@@ -220,7 +223,7 @@ namespace SolStandard
 
 
             spriteBatch.End();
-            
+
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
