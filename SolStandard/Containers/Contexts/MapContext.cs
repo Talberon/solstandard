@@ -175,6 +175,16 @@ namespace SolStandard.Containers.Contexts
 
             return MapContainer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
+        
+        public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
+        {
+            if (coordinates.X > MapContainer.GameGrid[0].GetLength(0)) return false;
+            if (coordinates.X < 0) return false;
+            if (coordinates.Y > MapContainer.GameGrid[0].GetLength(1)) return false;
+            if (coordinates.Y < 0) return false;
+
+            return true;
+        }
 
         public bool OtherUnitExistsAtCursor()
         {

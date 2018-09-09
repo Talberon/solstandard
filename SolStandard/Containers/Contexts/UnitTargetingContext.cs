@@ -21,15 +21,19 @@ namespace SolStandard.Containers.Contexts
 
             foreach (int distance in range)
             {
-                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X + distance, origin.Y), distance));
-                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X - distance, origin.Y), distance));
-                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y + distance), distance));
-                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y - distance), distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X + distance, origin.Y),
+                    distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X - distance, origin.Y),
+                    distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y + distance),
+                    distance));
+                targetingTiles.Add(new MapDistanceTile(spriteAtlas, new Vector2(origin.X, origin.Y - distance),
+                    distance));
 
                 if (distance > 1)
                 {
-                    int subdistance = distance - 1; 
-                    
+                    int subdistance = distance - 1;
+
                     targetingTiles.Add(new MapDistanceTile(spriteAtlas,
                         new Vector2(origin.X + subdistance, origin.Y + subdistance), distance));
                     targetingTiles.Add(new MapDistanceTile(spriteAtlas,
@@ -40,15 +44,19 @@ namespace SolStandard.Containers.Contexts
                         new Vector2(origin.X - subdistance, origin.Y + subdistance), distance));
                 }
             }
-            
+
             AddTargetingTilesToGameGrid(targetingTiles);
         }
-        
+
         private void AddTargetingTilesToGameGrid(IEnumerable<MapDistanceTile> targetingTiles)
         {
             foreach (MapDistanceTile tile in targetingTiles)
             {
-                MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                if (MapContext.CoordinatesWithinMapBounds(tile.Coordinates))
+                {
+                    MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] =
+                        tile;
+                }
             }
         }
     }

@@ -48,7 +48,8 @@ namespace SolStandard.Containers.Contexts
             AddVisitedTilesToGameGrid(visited);
         }
 
-        private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile, List<MapDistanceTile> visitedTiles,
+        private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
+            List<MapDistanceTile> visitedTiles,
             GameUnit selectedUnit)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
@@ -81,13 +82,16 @@ namespace SolStandard.Containers.Contexts
             return neighbours;
         }
 
-        private bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles,
+        private static bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles,
             GameUnit selectedUnit)
         {
+            
+            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
-            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != selectedUnit.Team.ToString()) return false;
-            
+            if (slice.UnitEntity != null &&
+                slice.UnitEntity.TiledProperties["Team"] != selectedUnit.Team.ToString()) return false;
+
             if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 
             if (slice.GeneralEntity != null && slice.GeneralEntity.Type != "Decoration")
