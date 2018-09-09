@@ -21,6 +21,11 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
         }
+        
+        public static ISpriteFont LoadResultsFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/ResultsText"));
+        }
 
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {
@@ -173,5 +178,6 @@ namespace SolStandard.Utility.Load
 
             return diceAtlas;
         }
+
     }
 }

@@ -26,6 +26,7 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
+        public string HelpText = "HELP: Select a unit. Defeat the enemy!";
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -52,13 +53,12 @@ namespace SolStandard.Containers.Contexts
             MapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            //TODO Stop hardcoding the X-Value of the Turn Window
+            //FIXME Stop hardcoding the X-Value of the Turn Window
             Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
             MapUI.GenerateTurnWindow(turnWindowSize);
 
-            //Help Window TODO make this context-sensitive
-            string helpText = "HELP: Select a unit. Defeat the enemy!";
-            MapUI.GenerateHelpWindow(helpText);
+            //Help Window
+            MapUI.GenerateHelpWindow(HelpText);
         }
 
         public void ProceedToNextState()
@@ -95,7 +95,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                mapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+                MapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             }
         }
 
@@ -137,7 +137,7 @@ namespace SolStandard.Containers.Contexts
         public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitMovingContext unitMovingContext = new UnitMovingContext(mapContainer, spriteAtlas);
+            UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
             unitMovingContext.GenerateMoveGrid(origin, maximumDistance, SelectedUnit);
         }
 
@@ -145,9 +145,9 @@ namespace SolStandard.Containers.Contexts
         {
             if (TargetTileHasADynamicTile(direction))
             {
-                SelectedUnit.MoveUnitInDirection(direction, mapContainer.MapGridSize);
+                SelectedUnit.MoveUnitInDirection(direction, MapContainer.MapGridSize);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
-                mapContainer.MapCursor.MoveCursorInDirection(direction);
+                MapContainer.MapCursor.MoveCursorInDirection(direction);
             }
         }
 
@@ -178,7 +178,7 @@ namespace SolStandard.Containers.Contexts
 
         public bool OtherUnitExistsAtCursor()
         {
-            return OtherUnitExistsAtCoordinates(mapContainer.MapCursor.MapCoordinates);
+            return OtherUnitExistsAtCoordinates(MapContainer.MapCursor.MapCoordinates);
         }
 
         public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
         public void ReturnUnitToOriginalPosition()
         {
             SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
-            mapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+            MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
         public bool TargetUnitIsLegal(GameUnit targetUnit)
@@ -198,19 +198,19 @@ namespace SolStandard.Containers.Contexts
                    && SelectedUnit != targetUnit
                    && BattleContext.CoordinatesAreInRange(SelectedUnit.UnitEntity.MapCoordinates,
                        targetUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange)
-                   && SelectedUnit.UnitTeam != targetUnit.UnitTeam;
+                   && SelectedUnit.Team != targetUnit.Team;
         }
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
+             selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 
         public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(mapContainer, spriteAtlas);
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(spriteAtlas);
             unitTargetingContext.GenerateTargetingGrid(origin, range);
         }
     }

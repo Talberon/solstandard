@@ -65,6 +65,8 @@ namespace SolStandard.Containers.UI
             get { return rightUnitDetailWindow; }
         }
 
+        #region Generation
+        
         internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
@@ -76,12 +78,12 @@ namespace SolStandard.Containers.UI
         {
             string turnInfo = "Turn: " + GameContext.TurnNumber;
             turnInfo += "\n";
-            turnInfo += "Active Team: " + GameContext.ActiveUnit.UnitTeam;
+            turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
             turnInfo += "\n";
             turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(
-                new [,]
+                new[,]
                 {
                     {
                         GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
@@ -158,8 +160,12 @@ namespace SolStandard.Containers.UI
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
 
-            InitiativeWindow = new Window("Initiative List", windowTexture, unitListContentGrid,
-                new Color(100, 100, 100, 225));
+            InitiativeWindow = new Window(
+                "Initiative List",
+                windowTexture,
+                unitListContentGrid,
+                new Color(100, 100, 100, 225)
+            );
         }
 
         private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
@@ -180,9 +186,12 @@ namespace SolStandard.Containers.UI
                 }
             };
 
-            IRenderable firstSingleUnitContent = new Window("Unit", windowTexture,
+            IRenderable firstSingleUnitContent = new Window(
+                "First Unit " + unitList[0].Id + " Window",
+                windowTexture,
                 new WindowContentGrid(firstUnitContent, 2),
-                new Color(100, 200, 100, 225));
+                new Color(100, 200, 100, 225)
+            );
             unitListGrid[0, 0] = firstSingleUnitContent;
         }
 
@@ -206,9 +215,12 @@ namespace SolStandard.Containers.UI
                     }
                 };
 
-                IRenderable singleUnitContent = new Window("Unit", windowTexture,
+                IRenderable singleUnitContent = new Window(
+                    "Unit " + unitList[i].Id + " Window",
+                    windowTexture,
                     new WindowContentGrid(unitContent, 2),
-                    ColorMapper.DetermineTeamColor(unitList[i].UnitTeam));
+                    TeamUtility.DetermineTeamColor(unitList[i].Team)
+                );
                 unitListGrid[0, i] = singleUnitContent;
             }
         }
@@ -248,7 +260,7 @@ namespace SolStandard.Containers.UI
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
 
-            Color windowColour = ColorMapper.DetermineTeamColor(selectedUnit.UnitTeam);
+            Color windowColour = TeamUtility.DetermineTeamColor(selectedUnit.Team);
 
             windowToUpdate = new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1),
                 windowColour);
@@ -265,15 +277,17 @@ namespace SolStandard.Containers.UI
 
             IRenderable selectedUnitInfo =
                 new RenderText(GameDriver.WindowFont,
-                    selectedUnit.Id + "\n" + selectedUnit.UnitTeam + " " + selectedUnit.UnitJobClass + "\n" +
+                    selectedUnit.Id + "\n" + selectedUnit.Team + " " + selectedUnit.Role + "\n" +
                     selectedUnit.Stats);
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
 
-            Color windowColour = ColorMapper.DetermineTeamColor(selectedUnit.UnitTeam);
+            Color windowColour = TeamUtility.DetermineTeamColor(selectedUnit.Team);
 
             windowToUpdate = new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
         }
+        
+        #endregion Generation
 
 
         #region Window Positions

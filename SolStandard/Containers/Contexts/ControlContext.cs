@@ -14,6 +14,24 @@ namespace SolStandard.Containers.Contexts
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)
         {
+            switch (GameContext.CurrentGameState)
+            {
+                case GameContext.GameState.MainMenu:
+                    break;
+                case GameContext.GameState.InGame:
+                    MapControls(gameContext, controlMapper, mapCamera, mapCursor);
+                    break;
+                case GameContext.GameState.Results:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+        }
+
+        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
+            MapCursor mapCursor)
+        {
             if (controlMapper.Start())
             {
                 gameContext.MapContext.MapUI.ToggleVisible();
@@ -157,16 +175,15 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.X())
             {
                 //FIXME Remove this eventually after debugging is done
-                
+
                 foreach (GameUnit unit in GameContext.Units)
                 {
                     unit.DamageUnit(1);
                 }
-                
+
                 //gameContext.BattleContext.StartRollingDice();
             }
 
-            
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (Keyboard.GetState().IsKeyDown(Keys.Down))

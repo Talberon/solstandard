@@ -483,3 +483,10 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Cursor/Cursors.png
 
+#begin Fonts/ResultsText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/ResultsText.spritefont
+

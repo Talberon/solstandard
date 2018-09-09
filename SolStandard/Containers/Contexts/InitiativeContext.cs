@@ -68,7 +68,7 @@ namespace SolStandard.Containers.Contexts
 
             foreach (GameUnit unit in unitList)
             {
-                switch (unit.UnitTeam)
+                switch (unit.Team)
                 {
                     case Team.Red:
                         redTeam.Add(unit);

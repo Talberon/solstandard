@@ -9,11 +9,11 @@ namespace SolStandardTest.Containers.Contexts
     public class InitiativeContextTest
     {
         private static readonly GameUnit BlueUnit =
-            new GameUnit("BlueGuy", Team.Blue, UnitClass.Monarch, null,
+            new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null,
                 new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0), null, null, null);
 
         private static readonly GameUnit RedUnit =
-            new GameUnit("RedGuy", Team.Red, UnitClass.Monarch, null,
+            new GameUnit("RedGuy", Team.Red, Role.Monarch, null,
                 new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0), null, null, null);
 
         [TestMethod]
@@ -23,12 +23,12 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Blue);
 
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[5].Team);
         }
 
         [TestMethod]
@@ -38,12 +38,12 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Red);
 
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[5].Team);
         }
 
         [TestMethod]
@@ -53,14 +53,14 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Blue);
 
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[6].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[7].UnitTeam);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[5].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[6].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[7].Team);
         }
         [TestMethod]
         public void testInitiativeListRandomizer_3v5_RedMajority()
@@ -69,14 +69,14 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Blue);
 
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[6].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[7].UnitTeam);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[5].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[6].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[7].Team);
         }
 
         [TestMethod]
@@ -86,17 +86,17 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Blue);
 
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[6].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[7].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[8].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[9].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[10].UnitTeam);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[5].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[6].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[7].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[8].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[9].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[10].Team);
         }
 
         [TestMethod]
@@ -106,20 +106,20 @@ namespace SolStandardTest.Containers.Contexts
 
             InitiativeContext initiativeContext = new InitiativeContext(unitList, Team.Blue);
 
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[0].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[1].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[2].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[3].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[4].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[5].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[6].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[7].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[8].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[9].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[10].UnitTeam);
-            Assert.AreEqual(BlueUnit.UnitTeam, initiativeContext.InitiativeList[11].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[12].UnitTeam);
-            Assert.AreEqual(RedUnit.UnitTeam, initiativeContext.InitiativeList[13].UnitTeam);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[0].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[1].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[2].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[3].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[4].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[5].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[6].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[7].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[8].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[9].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[10].Team);
+            Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[11].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[12].Team);
+            Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[13].Team);
         }
 
 

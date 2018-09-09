@@ -45,6 +45,7 @@
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
+    <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MainMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Containers\Contexts\MapContext.cs" />
     <Compile Include="Containers\UI\BattleUI.cs" />
     <Compile Include="Containers\UI\MapUI.cs" />
+    <Compile Include="Containers\UI\ResultsUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="Utility\Buttons\UpControl.cs" />
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
-    <Compile Include="Utility\ColorMapper.cs" />
+    <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
     <Compile Include="Utility\Exceptions\InvalidWindowTextureException.cs" />
@@ -170,6 +172,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Collosseum_1.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Collosseum_2.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

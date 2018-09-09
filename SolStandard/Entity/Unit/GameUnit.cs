@@ -10,7 +10,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
-    public enum UnitClass
+    public enum Role
     {
         Champion,
         Archer,
@@ -26,8 +26,8 @@ namespace SolStandard.Entity.Unit
 
     public class GameUnit : GameEntity
     {
-        private readonly Team unitTeam;
-        private readonly UnitClass unitJobClass;
+        private readonly Team team;
+        private readonly Role role;
 
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
@@ -43,11 +43,11 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
 
-        public GameUnit(string id, Team unitTeam, UnitClass unitJobClass, UnitEntity mapEntity, UnitStatistics stats,
+        public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapEntity)
         {
-            this.unitTeam = unitTeam;
-            this.unitJobClass = unitJobClass;
+            this.team = team;
+            this.role = role;
             this.stats = stats;
             this.largePortrait =
                 new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
@@ -77,14 +77,14 @@ namespace SolStandard.Entity.Unit
             get { return stats; }
         }
 
-        public Team UnitTeam
+        public Team Team
         {
-            get { return unitTeam; }
+            get { return team; }
         }
 
-        public UnitClass UnitJobClass
+        public Role Role
         {
-            get { return unitJobClass; }
+            get { return role; }
         }
 
         public IRenderable LargePortrait
@@ -224,7 +224,7 @@ namespace SolStandard.Entity.Unit
 
         public override string ToString()
         {
-            return "GameUnit: " + Id + ", " + UnitTeam + ", " + UnitJobClass;
+            return "GameUnit: " + Id + ", " + Team + ", " + Role;
         }
     }
 }

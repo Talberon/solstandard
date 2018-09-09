@@ -8,18 +8,18 @@ namespace SolStandard.Map.Elements
     {
         protected IRenderable Sprite;
         protected Color ElementColor = Color.White;
-        public Vector2 MapCoordinates { get; set; } //TODO Consider whether set should really be public here
+        public Vector2 MapCoordinates { get; set; }
 
         public IRenderable RenderSprite
         {
             get { return Sprite; }
         }
-        
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             Draw(spriteBatch, ElementColor);
         }
-        
+
         public virtual void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);

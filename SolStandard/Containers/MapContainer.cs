@@ -14,83 +14,79 @@ namespace SolStandard.Containers
 {
     public class MapContainer
     {
-        private readonly List<MapElement[,]> gameGrid;
-        private readonly MapCursor mapCursor;
+        private static List<MapElement[,]> _gameGrid;
+        public static MapCursor MapCursor { get; private set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
-            this.gameGrid = gameGrid;
-            mapCursor = BuildMapCursor(cursorTexture);
+            _gameGrid = gameGrid;
+            MapCursor = BuildMapCursor(cursorTexture);
         }
 
-        private MapCursor BuildMapCursor(ITexture2D cursorTexture)
+        private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, new Vector2(GameDriver.CellSize), 1);
             Vector2 cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorSprite, cursorStartPosition, MapGridSize);
         }
 
-        public MapCursor MapCursor
+
+        public static ReadOnlyCollection<MapElement[,]> GameGrid
         {
-            get { return mapCursor; }
+            get { return _gameGrid.AsReadOnly(); }
         }
 
-        public ReadOnlyCollection<MapElement[,]> GameGrid
+        public static Vector2 MapGridSize
         {
-            get { return gameGrid.AsReadOnly(); }
+            get { return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)); }
         }
 
-        public Vector2 MapGridSize
+        public static void ClearDynamicGrid()
         {
-            get { return new Vector2(gameGrid[0].GetLength(0), gameGrid[0].GetLength(1)); }
+            _gameGrid[(int) Layer.Dynamic] = new MapElement[_gameGrid[(int) Layer.Dynamic].GetLength(0),
+                _gameGrid[(int) Layer.Dynamic].GetLength(1)];
         }
 
-        public void ClearDynamicGrid()
+        public static MapSlice GetMapSliceAtCursor()
         {
-            gameGrid[(int) Layer.Dynamic] = new MapElement[gameGrid[(int) Layer.Dynamic].GetLength(0),
-                gameGrid[(int) Layer.Dynamic].GetLength(1)];
+            return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }
 
-        public MapSlice GetMapSliceAtCursor()
-        {
-            return GetMapSliceAtCoordinates(mapCursor.MapCoordinates);
-        }
-
-        public MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
+        public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
             int column = (int) coordinates.X;
             int row = (int) coordinates.Y;
 
             MapEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
-            MapElement dynamic = gameGrid[(int) Layer.Dynamic][column, row];
-            MapEntity entity = (MapEntity) gameGrid[(int) Layer.Entities][column, row];
-            MapTile collide = (MapTile) gameGrid[(int) Layer.Collide][column, row];
-            MapTile terrain = (MapTile) gameGrid[(int) Layer.Terrain][column, row];
+            MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
+            MapEntity entity = (MapEntity) _gameGrid[(int) Layer.Entities][column, row];
+            MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
+            MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
             return new MapSlice(unit, dynamic, entity, collide, terrain);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (MapElement tile in gameGrid[(int) Layer.Terrain])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Terrain])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
 
-            foreach (MapElement tile in gameGrid[(int) Layer.Collide])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Collide])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
 
-            foreach (MapElement tile in gameGrid[(int) Layer.Entities])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Entities])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
 
-            foreach (MapElement tile in gameGrid[(int) Layer.Dynamic])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch, new Color(255, 255, 255, 180));
@@ -104,7 +100,7 @@ namespace SolStandard.Containers
                 }
             }
 
-            mapCursor.Draw(spriteBatch);
+            MapCursor.Draw(spriteBatch);
         }
     }
 }

@@ -8,12 +8,10 @@ namespace SolStandard.Containers.Contexts
 {
     public class UnitTargetingContext
     {
-        private readonly MapContainer mapContainer;
         private readonly SpriteAtlas spriteAtlas;
 
-        public UnitTargetingContext(MapContainer mapContainer, SpriteAtlas spriteAtlas)
+        public UnitTargetingContext(SpriteAtlas spriteAtlas)
         {
-            this.mapContainer = mapContainer;
             this.spriteAtlas = spriteAtlas;
         }
 
@@ -50,7 +48,7 @@ namespace SolStandard.Containers.Contexts
         {
             foreach (MapDistanceTile tile in targetingTiles)
             {
-                mapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
     }

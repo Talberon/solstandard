@@ -140,13 +140,13 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupAttackerWindows(MapSlice attackerSlice)
         {
-            Color attackerWindowColor = ColorMapper.DetermineTeamColor(attacker.UnitTeam);
+            Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
             battleUI.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.LargePortrait);
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.AttackerPortraitWindow.Width, 0);
             battleUI.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
             battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
-                attacker.UnitJobClass.ToString());
+                attacker.Role.ToString());
             battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
             battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats.Atk);
             battleUI.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
@@ -160,13 +160,13 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
         {
-            Color defenderWindowColor = ColorMapper.DetermineTeamColor(defender.UnitTeam);
+            Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
             battleUI.GenerateDefenderPortraitWindow(defenderWindowColor, defender.LargePortrait);
 
             Vector2 portraitWidthOverride = new Vector2(battleUI.DefenderPortraitWindow.Width, 0);
             battleUI.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
             battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
-                defender.UnitJobClass.ToString());
+                defender.Role.ToString());
             battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
             battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats.Def);
             battleUI.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
