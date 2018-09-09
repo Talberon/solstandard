@@ -83,7 +83,7 @@ namespace SolStandard
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            const string mapPath = "Content/TmxMaps/Arena_3.tmx";
+            const string mapPath = "Content/TmxMaps/Collosseum_1.tmx";
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMap tmxMap = new TmxMap(mapPath);
