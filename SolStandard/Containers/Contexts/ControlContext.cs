@@ -14,6 +14,24 @@ namespace SolStandard.Containers.Contexts
         public static void ListenForInputs(GameContext gameContext, GameControlMapper controlMapper,
             MapCamera mapCamera, MapCursor mapCursor)
         {
+            switch (GameContext.CurrentGameState)
+            {
+                case GameContext.GameState.MainMenu:
+                    break;
+                case GameContext.GameState.InGame:
+                    MapControls(gameContext, controlMapper, mapCamera, mapCursor);
+                    break;
+                case GameContext.GameState.Results:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+        }
+
+        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
+            MapCursor mapCursor)
+        {
             if (controlMapper.Start())
             {
                 gameContext.MapContext.MapUI.ToggleVisible();
