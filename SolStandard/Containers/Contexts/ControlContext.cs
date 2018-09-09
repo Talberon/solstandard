@@ -172,17 +172,17 @@ namespace SolStandard.Containers.Contexts
                 gameContext.MapContext.ResetCursorToActiveUnit();
             }
 
-            if (controlMapper.X())
-            {
-                //FIXME Remove this eventually after debugging is done
-
-                foreach (GameUnit unit in GameContext.Units)
-                {
-                    unit.DamageUnit(1);
-                }
-
-                //gameContext.BattleContext.StartRollingDice();
-            }
+//            if (controlMapper.X())
+//            {
+//                //FIXME Remove this eventually after debugging is done
+//
+//                foreach (GameUnit unit in GameContext.Units)
+//                {
+//                    unit.DamageUnit(1);
+//                }
+//
+//                //gameContext.BattleContext.StartRollingDice();
+//            }
 
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
