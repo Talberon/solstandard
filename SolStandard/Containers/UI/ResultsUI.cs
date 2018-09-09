@@ -14,6 +14,7 @@ namespace SolStandard.Containers.UI
     {
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
+        private const int MaxMediumPortraits = 9;
 
         private static readonly Color BackgroundColor = new Color(0, 0, 0, 100);
 
@@ -170,18 +171,22 @@ namespace SolStandard.Containers.UI
             const int unitListHealthBarHeight = 10;
             int listPosition = 0;
 
+
             foreach (GameUnit unit in teamUnits)
             {
+                IRenderable portraitToUse =
+                    (teamUnits.Count > MaxMediumPortraits) ? unit.SmallPortrait : unit.MediumPortrait;
+
                 IRenderable[,] unitContent =
                 {
                     {
                         new RenderText(GameDriver.MapFont, unit.Id)
                     },
                     {
-                        unit.MediumPortrait
+                        portraitToUse
                     },
                     {
-                        unit.GetInitiativeHealthBar(new Vector2(unit.MediumPortrait.Width, unitListHealthBarHeight))
+                        unit.GetInitiativeHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     }
                 };
 
