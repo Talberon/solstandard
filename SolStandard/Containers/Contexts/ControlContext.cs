@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using Microsoft.Xna.Framework.Input;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -172,38 +171,51 @@ namespace SolStandard.Containers.Contexts
                 gameContext.MapContext.ResetCursorToActiveUnit();
             }
 
-//            if (controlMapper.X())
-//            {
-//                //FIXME Remove this eventually after debugging is done
-//
-//                foreach (GameUnit unit in GameContext.Units)
-//                {
-//                    unit.DamageUnit(1);
-//                }
-//
-//                //gameContext.BattleContext.StartRollingDice();
-//            }
+            if (controlMapper.X())
+            {
+                //FIXME Remove this eventually after debugging is done
 
+                foreach (GameUnit unit in GameContext.Units)
+                {
+                    unit.DamageUnit(1);
+                }
+            }
+
+
+            const float cameraPanRateOverride = 64;
 
             //TODO Figure out how to handle the free camera or decide if this is only for debugging
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (controlMapper.RightStickDown())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Down);
+                mapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (controlMapper.RightStickLeft())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Left);
+                mapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (controlMapper.RightStickRight())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Right);
+                mapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (controlMapper.RightStickUp())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Up);
+                mapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
+            }
+            
+            
+            if (controlMapper.RightBumper())
+            {
+                //Zoom in
+                mapCamera.ZoomToCursor(4);
+            }
+
+            if (controlMapper.LeftBumper())
+            {
+                //Zoom out
+                mapCamera.ZoomToCursor(2);
             }
         }
     }

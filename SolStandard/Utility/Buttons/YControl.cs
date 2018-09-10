@@ -5,15 +5,20 @@ namespace SolStandard.Utility.Buttons
 {
     public class YControl : GameControl
     {
+        public YControl(PlayerIndex playerIndex) : base(playerIndex)
+        {
+        }
+
+
         public override bool Pressed()
         {
-            return GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed ||
+            return GamePad.GetState(PlayerIndex).Buttons.Y == ButtonState.Pressed ||
                    Keyboard.GetState().IsKeyDown(Keys.OemTilde);
         }
 
         public override bool Released()
         {
-            return GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released &&
+            return GamePad.GetState(PlayerIndex).Buttons.Y == ButtonState.Released &&
                    Keyboard.GetState().IsKeyUp(Keys.OemTilde);
         }
     }

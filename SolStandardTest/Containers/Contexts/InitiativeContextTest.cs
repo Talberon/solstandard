@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.Containers.Contexts
 {
@@ -9,12 +10,12 @@ namespace SolStandardTest.Containers.Contexts
     public class InitiativeContextTest
     {
         private static readonly GameUnit BlueUnit =
-            new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null,
-                new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0), null, null, null);
+            new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null, new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0),
+                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""));
 
         private static readonly GameUnit RedUnit =
-            new GameUnit("RedGuy", Team.Red, Role.Monarch, null,
-                new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0), null, null, null);
+            new GameUnit("RedGuy", Team.Red, Role.Monarch, null, new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, 0),
+                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""));
 
         [TestMethod]
         public void testInitiativeListRandomizer_3v3_BlueFirst()
@@ -62,6 +63,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[6].Team);
             Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[7].Team);
         }
+
         [TestMethod]
         public void testInitiativeListRandomizer_3v5_RedMajority()
         {

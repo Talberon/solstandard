@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
         }
-        
+
         public static ISpriteFont LoadResultsFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/ResultsText"));
@@ -34,11 +34,39 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(spriteTextures);
         }
 
-        public static ITexture2D LoadTerrainSpriteTexture(ContentManager content)
+        public static ITexture2D LoadWhiteGridOutline(ContentManager content)
         {
-            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/Tiles");
+            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/GridOutline");
 
             return new Texture2DWrapper(spriteTextures);
+        }
+
+        public static List<ITexture2D> LoadTerrainSpriteTexture(ContentManager content)
+        {
+            List<Texture2D> loadTerrainTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Map/Tiles/Tiles"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet")
+            };
+
+            List<ITexture2D> terrainTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in loadTerrainTextures)
+            {
+                terrainTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return terrainTextures;
+        }
+
+        public static ITexture2D LoadActionTiles(ContentManager content)
+        {
+            Texture2D actionTilesTexture = content.Load<Texture2D>("Graphics/Map/Tiles/ActionTiles");
+
+            ITexture2D actionTiles = new Texture2DWrapper(actionTilesTexture);
+
+            return actionTiles;
+            
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)
@@ -178,6 +206,5 @@ namespace SolStandard.Utility.Load
 
             return diceAtlas;
         }
-
     }
 }

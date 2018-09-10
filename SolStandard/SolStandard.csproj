@@ -86,6 +86,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
+    <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
+    <Compile Include="Utility\Buttons\RightBumperControl.cs" />
+    <Compile Include="Utility\Buttons\RsDownControl.cs" />
+    <Compile Include="Utility\Buttons\RsLeftControl.cs" />
+    <Compile Include="Utility\Buttons\RsUpControl.cs" />
     <Compile Include="Utility\Buttons\BControl.cs" />
     <Compile Include="Utility\Buttons\DownControl.cs" />
     <Compile Include="Utility\Buttons\GameControl.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="Utility\Buttons\LeftTriggerControl.cs" />
     <Compile Include="Utility\Buttons\RightControl.cs" />
     <Compile Include="Utility\Buttons\RightTriggerControl.cs" />
+    <Compile Include="Utility\Buttons\RsRightControl.cs" />
     <Compile Include="Utility\Buttons\SelectControl.cs" />
     <Compile Include="Utility\Buttons\StartControl.cs" />
     <Compile Include="Utility\Buttons\UpControl.cs" />
@@ -175,6 +181,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Collosseum_2.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\NewFormat\Continent_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\NewFormat\Continent_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\NewFormat\Snow_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

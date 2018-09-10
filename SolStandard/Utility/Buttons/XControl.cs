@@ -5,15 +5,19 @@ namespace SolStandard.Utility.Buttons
 {
     public class XControl : GameControl
     {
+        public XControl(PlayerIndex playerIndex) : base(playerIndex)
+        {
+        }
+
         public override bool Pressed()
         {
-            return GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed ||
+            return GamePad.GetState(PlayerIndex).Buttons.X == ButtonState.Pressed ||
                    Keyboard.GetState().IsKeyDown(Keys.Tab);
         }
 
         public override bool Released()
         {
-            return GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Released &&
+            return GamePad.GetState(PlayerIndex).Buttons.X == ButtonState.Released &&
                    Keyboard.GetState().IsKeyUp(Keys.Tab);
         }
     }

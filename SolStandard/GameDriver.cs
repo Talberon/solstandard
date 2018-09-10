@@ -35,13 +35,16 @@ namespace SolStandard
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameControlMapper controlMapper;
+        private GameControlMapper p1ControlMapper;
+        private GameControlMapper p2ControlMapper;
         public static Vector2 ScreenSize { get; private set; }
 
         private GameContext gameContext;
 
-        public static ITexture2D TerrainTextures { get; private set; }
+        public static List<ITexture2D> TerrainTextures { get; private set; }
+        public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
+        public static ITexture2D WhiteGrid { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
         public static ISpriteFont ResultsFont { get; private set; }
@@ -55,6 +58,8 @@ namespace SolStandard
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
 
         private MapCamera mapCamera;
+
+        private static PlayerIndex ActivePlayer { get; set; }
 
         public GameDriver()
         {
@@ -83,12 +88,19 @@ namespace SolStandard
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            const string mapPath = "Content/TmxMaps/Collosseum_1.tmx";
+            const string mapPath = "Content/TmxMaps/NewFormat/Continent_02.tmx";
+            TmxMap tmxMap = new TmxMap(mapPath);
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
-            TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap, TerrainTextures, UnitSprites, objectTypeDefaults);
-            controlMapper = new GameControlMapper();
+
+            TmxMapParser mapParser = new TmxMapParser(
+                tmxMap,
+                TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")),
+                TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")),
+                UnitSprites,
+                objectTypeDefaults
+            );
+
 
             mapCamera = new MapCamera(5, 0.05f);
 
@@ -103,6 +115,11 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+
+            p1ControlMapper = new GameControlMapper(PlayerIndex.One);
+            p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
+
+            ActivePlayer = PlayerIndex.One;
 
             gameContext = new GameContext(
                 new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
@@ -124,7 +141,10 @@ namespace SolStandard
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            ActionTiles = ContentLoader.LoadActionTiles(Content);
+
             WhitePixel = ContentLoader.LoadWhitePixel(Content);
+            WhiteGrid = ContentLoader.LoadWhiteGridOutline(Content);
 
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
@@ -154,30 +174,21 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (controlMapper.Select())
+            if (p1ControlMapper.Select())
             {
                 Exit();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
-            {
-                mapCamera.ZoomToCursor(4);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.X))
-            {
-                mapCamera.ZoomToCursor(2);
-            }
-            
-            
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D3))
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
@@ -185,8 +196,34 @@ namespace SolStandard
 
             gameContext.EndTurnIfUnitIsDead();
 
+            //Set the controller based on the active team
+            switch (GameContext.ActiveUnit.Team)
+            {
+                case Team.Red:
+                    ActivePlayer = PlayerIndex.One;
+                    break;
+                case Team.Blue:
+                    ActivePlayer = PlayerIndex.Two;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-            ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera, MapContainer.MapCursor);
+            switch (ActivePlayer)
+            {
+                case PlayerIndex.One:
+                    ControlContext.ListenForInputs(gameContext, p1ControlMapper, mapCamera, MapContainer.MapCursor);
+                    break;
+                case PlayerIndex.Two:
+                    ControlContext.ListenForInputs(gameContext, p2ControlMapper, mapCamera, MapContainer.MapCursor);
+                    break;
+                case PlayerIndex.Three:
+                    break;
+                case PlayerIndex.Four:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             mapCamera.UpdateEveryFrame();
             gameContext.UpdateCamera(mapCamera);
@@ -209,7 +246,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(50,50,50));
+            GraphicsDevice.Clear(new Color(50, 50, 50));
 
             //MAP LAYER
             spriteBatch.Begin(
@@ -220,7 +257,7 @@ namespace SolStandard
 
 
             spriteBatch.End();
-            
+
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:

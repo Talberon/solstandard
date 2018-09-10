@@ -21,19 +21,20 @@ namespace SolStandard.Containers.Contexts
 
         private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
-        private static InitiativeContext _initiativeContext;
         public ResultsUI ResultsUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
 
         public static GameState CurrentGameState;
 
+        private static InitiativeContext InitiativeContext { get; set; }
+
         public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext,
             ResultsUI resultsUI)
         {
             this.mapContext = mapContext;
             this.battleContext = battleContext;
-            _initiativeContext = initiativeContext;
+            InitiativeContext = initiativeContext;
             ResultsUI = resultsUI;
 
             //TODO Update to MainMenu once menu is implemented.
@@ -42,12 +43,12 @@ namespace SolStandard.Containers.Contexts
 
         public static List<GameUnit> Units
         {
-            get { return _initiativeContext.InitiativeList; }
+            get { return InitiativeContext.InitiativeList; }
         }
 
         public static GameUnit ActiveUnit
         {
-            get { return _initiativeContext.CurrentActiveUnit; }
+            get { return InitiativeContext.CurrentActiveUnit; }
         }
 
         public MapContext MapContext
@@ -58,11 +59,6 @@ namespace SolStandard.Containers.Contexts
         public BattleContext BattleContext
         {
             get { return battleContext; }
-        }
-
-        public InitiativeContext InitiativeContext
-        {
-            get { return _initiativeContext; }
         }
 
 
@@ -89,12 +85,10 @@ namespace SolStandard.Containers.Contexts
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             //If the selection is Basic Attack
             //Open the targeting grid
-            MapContext.SelectedUnit =
-                UnitSelector.SelectUnit(
-                    MapContainer.GetMapSliceAtCursor().UnitEntity);
+            MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
             MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
-                new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
-                new Vector2(GameDriver.CellSize), 68));
+                new Texture2DWrapper(GameDriver.ActionTiles.MonoGameTexture),
+                new Vector2(GameDriver.CellSize), 3));
         }
 
         public void StartCombat()
@@ -240,8 +234,8 @@ namespace SolStandard.Containers.Contexts
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     MapContext.SelectedUnit.Stats.MaxMv,
-                    new SpriteAtlas(new Texture2DWrapper(GameDriver.TerrainTextures.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize), 69));
+                    new SpriteAtlas(new Texture2DWrapper(GameDriver.ActionTiles.MonoGameTexture),
+                        new Vector2(GameDriver.CellSize), 2));
             }
             else
             {
