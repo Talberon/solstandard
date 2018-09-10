@@ -10,8 +10,9 @@ namespace SolStandard.Utility.Buttons
         private const int RepeatInputDelay = 5;
 
         private readonly GameControl upControl, downControl, leftControl, rightControl;
+        private readonly GameControl rsUpControl, rsDownControl, rsLeftControl, rsRightControl;
         private readonly GameControl aControl, bControl, xControl, yControl;
-        private readonly GameControl ltControl, rtControl;
+        private readonly GameControl lbControl, rbControl, ltControl, rtControl;
         private readonly GameControl startControl, selectControl;
 
         public GameControlMapper()
@@ -20,6 +21,11 @@ namespace SolStandard.Utility.Buttons
             downControl = new DownControl();
             leftControl = new LeftControl();
             rightControl = new RightControl();
+            
+            rsUpControl = new RsUpControl();
+            rsDownControl = new RsDownControl();
+            rsLeftControl = new RsLeftControl();
+            rsRightControl = new RsRightControl();
 
             startControl = new StartControl();
             selectControl = new SelectControl();
@@ -29,6 +35,8 @@ namespace SolStandard.Utility.Buttons
             xControl = new XControl();
             yControl = new YControl();
 
+            lbControl = new LeftBumperControl();
+            rbControl = new RightBumperControl();
             ltControl = new LeftTriggerControl();
             rtControl = new RightTriggerControl();
         }
@@ -89,6 +97,26 @@ namespace SolStandard.Utility.Buttons
             return CheckInputDelay(rightControl);
         }
 
+        public bool RightStickUp()
+        {
+            return CheckInputDelay(rsUpControl);
+        }
+
+        public bool RightStickDown()
+        {
+            return CheckInputDelay(rsDownControl);
+        }
+
+        public bool RightStickLeft()
+        {
+            return CheckInputDelay(rsLeftControl);
+        }
+
+        public bool RightStickRight()
+        {
+            return CheckInputDelay(rsRightControl);
+        }
+
         public bool A()
         {
             return CheckInputDelay(aControl);
@@ -109,6 +137,16 @@ namespace SolStandard.Utility.Buttons
             return CheckInputDelay(yControl);
         }
 
+        public bool LeftBumper()
+        {
+            return CheckInputDelay(lbControl);
+        }
+        
+        public bool RightBumper()
+        {
+            return CheckInputDelay(rbControl);
+        }
+        
         public bool LeftTrigger()
         {
             return CheckInputDelay(ltControl);

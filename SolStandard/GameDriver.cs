@@ -172,17 +172,6 @@ namespace SolStandard
                 Exit();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
-            {
-                mapCamera.ZoomToCursor(4);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.X))
-            {
-                mapCamera.ZoomToCursor(2);
-            }
-
-
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;

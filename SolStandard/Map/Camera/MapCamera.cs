@@ -207,19 +207,24 @@ namespace SolStandard.Map.Camera
 
         public void MoveCameraInDirection(CameraDirection direction)
         {
+            MoveCameraInDirection(direction, panRate);
+        }
+
+        public void MoveCameraInDirection(CameraDirection direction, float panRateOverride)
+        {
             switch (direction)
             {
                 case CameraDirection.Down:
-                    targetPosition.Y -= panRate;
+                    targetPosition.Y -= panRateOverride;
                     break;
                 case CameraDirection.Right:
-                    targetPosition.X -= panRate;
+                    targetPosition.X -= panRateOverride;
                     break;
                 case CameraDirection.Up:
-                    targetPosition.Y += panRate;
+                    targetPosition.Y += panRateOverride;
                     break;
                 case CameraDirection.Left:
-                    targetPosition.X += panRate;
+                    targetPosition.X += panRateOverride;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
