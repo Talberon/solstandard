@@ -14,9 +14,10 @@ namespace SolStandard.Map
     public enum Layer
     {
         Terrain = 0,
-        Collide = 1,
-        Entities = 2,
-        Dynamic = 3
+        TerrainDecoration = 1,
+        Collide = 2,
+        Entities = 3,
+        Dynamic = 4
     }
 
     /**
@@ -27,26 +28,86 @@ namespace SolStandard.Map
     {
         private readonly string objectTypesDefaultXmlPath;
         private readonly TmxMap tmxMap;
-        private readonly ITexture2D mapSprite;
+        private readonly ITexture2D worldTileSetSprite;
+        private readonly ITexture2D terrainSprite;
         private readonly List<ITexture2D> unitSprites;
 
         private List<MapElement[,]> gameTileLayers;
         private List<UnitEntity> unitLayer;
 
-        public TmxMapParser(TmxMap tmxMap, ITexture2D mapSprite, List<ITexture2D> unitSprites,
-            string objectTypesDefaultXmlPath)
+        public TmxMapParser(TmxMap tmxMap, ITexture2D worldTileSetSprite, ITexture2D terrainSprite,
+            List<ITexture2D> unitSprites, string objectTypesDefaultXmlPath)
         {
             this.tmxMap = tmxMap;
-            this.mapSprite = mapSprite;
+            this.worldTileSetSprite = worldTileSetSprite;
             this.unitSprites = unitSprites;
             this.objectTypesDefaultXmlPath = objectTypesDefaultXmlPath;
+            this.terrainSprite = terrainSprite;
         }
+
+        //FIXME this currently requires that the tilesets be in a particular order
+        private ITexture2D FindTileSet(int gid)
+        {
+            ITexture2D tileSet = null;
+
+            if (gid >= tmxMap.Tilesets["Terrain"].FirstGid)
+            {
+                tileSet = terrainSprite;
+            }
+
+            if (gid >= tmxMap.Tilesets["Units"].FirstGid)
+            {
+                tileSet = null;
+            }
+
+            if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            {
+                tileSet = worldTileSetSprite;
+            }
+            
+            if (gid >= tmxMap.Tilesets["terrain-v7"].FirstGid)
+            {
+                tileSet = terrainSprite;
+            }
+
+            return tileSet;
+        }
+
+        //FIXME this currently requires that the tilesets be in a particular order
+        private int FindTileId(int gid)
+        {
+            int nextFirstGid = 1;
+
+            if (gid >= tmxMap.Tilesets["Terrain"].FirstGid)
+            {
+                nextFirstGid = tmxMap.Tilesets["Terrain"].FirstGid;
+            }
+
+            if (gid >= tmxMap.Tilesets["Units"].FirstGid)
+            {
+                nextFirstGid = tmxMap.Tilesets["Units"].FirstGid;
+            }
+
+            if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            {
+                nextFirstGid = tmxMap.Tilesets["WorldTileSet"].FirstGid;
+            }
+            
+            if (gid >= tmxMap.Tilesets["terrain-v7"].FirstGid)
+            {
+                nextFirstGid = tmxMap.Tilesets["terrain-v7"].FirstGid;
+            }
+
+            return gid - nextFirstGid + 1;
+        }
+
 
         public List<MapElement[,]> LoadMapGrid()
         {
             gameTileLayers = new List<MapElement[,]>
             {
                 ObtainTilesFromLayer(Layer.Terrain),
+                ObtainTilesFromLayer(Layer.TerrainDecoration),
                 ObtainTilesFromLayer(Layer.Collide),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
@@ -81,7 +142,8 @@ namespace SolStandard.Map
 
                     if (tileId != 0)
                     {
-                        tileGrid[col, row] = new MapTile(new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), tileId),
+                        tileGrid[col, row] = new MapTile(
+                            new SpriteAtlas(FindTileSet(tileId), new Vector2(GameDriver.CellSize), FindTileId(tileId)),
                             new Vector2(col, row));
                     }
 
@@ -113,9 +175,15 @@ namespace SolStandard.Map
                             {
                                 Dictionary<string, string> currentProperties =
                                     GetDefaultPropertiesAndOverrides(currentObject);
-                                SpriteAtlas spriteAtlas = new SpriteAtlas(mapSprite, new Vector2(GameDriver.CellSize), objectTileId);
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type, spriteAtlas,
+                                SpriteAtlas spriteAtlas = new SpriteAtlas(
+                                    FindTileSet(objectTileId),
+                                    new Vector2(GameDriver.CellSize),
+                                    FindTileId(objectTileId)
+                                );
+
+                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type,
+                                    spriteAtlas,
                                     new Vector2(col, row), currentProperties);
                             }
                         }
@@ -154,7 +222,8 @@ namespace SolStandard.Map
 
                             UnitSprite animatedSprite = new UnitSprite(unitSprite, GameDriver.CellSize, 15, false);
 
-                            entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type, animatedSprite,
+                            entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
+                                animatedSprite,
                                 new Vector2(col, row), currentProperties);
                         }
                     }
@@ -188,7 +257,7 @@ namespace SolStandard.Map
             return objectTypesInFile[parameterObjectType];
         }
 
-        private Role ObtainUnitClass(string unitClassName)
+        private static Role ObtainUnitClass(string unitClassName)
         {
             foreach (Role unitRole in Enum.GetValues(typeof(Role)))
             {
@@ -201,7 +270,7 @@ namespace SolStandard.Map
             throw new UnitClassNotFoundException();
         }
 
-        private Team ObtainUnitTeam(string unitTeamName)
+        private static Team ObtainUnitTeam(string unitTeamName)
         {
             foreach (Team unitTeam in Enum.GetValues(typeof(Team)))
             {

@@ -41,7 +41,9 @@ namespace SolStandard
         private GameContext gameContext;
 
         public static List<ITexture2D> TerrainTextures { get; private set; }
+        public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
+        public static ITexture2D WhiteGrid { get; private set; }
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
         public static ISpriteFont ResultsFont { get; private set; }
@@ -83,12 +85,19 @@ namespace SolStandard
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            const string mapPath = "Content/TmxMaps/Collosseum_1.tmx";
+            const string mapPath = "Content/TmxMaps/NewFormat/Continent_02.tmx";
+            TmxMap tmxMap = new TmxMap(mapPath);
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
-            TmxMap tmxMap = new TmxMap(mapPath);
-            TmxMapParser mapParser = new TmxMapParser(tmxMap,
-                TerrainTextures.Find(texture => texture.Name.Contains("Tiles/Tiles")), UnitSprites, objectTypeDefaults);
+
+            TmxMapParser mapParser = new TmxMapParser(
+                tmxMap,
+                TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")),
+                TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")),
+                UnitSprites,
+                objectTypeDefaults
+            );
+            
             controlMapper = new GameControlMapper();
 
             mapCamera = new MapCamera(5, 0.05f);
@@ -125,7 +134,10 @@ namespace SolStandard
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
+            ActionTiles = ContentLoader.LoadActionTiles(Content);
+
             WhitePixel = ContentLoader.LoadWhitePixel(Content);
+            WhiteGrid = ContentLoader.LoadWhiteGridOutline(Content);
 
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);

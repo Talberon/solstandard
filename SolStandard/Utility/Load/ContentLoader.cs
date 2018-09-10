@@ -34,6 +34,13 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(spriteTextures);
         }
 
+        public static ITexture2D LoadWhiteGridOutline(ContentManager content)
+        {
+            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/GridOutline");
+
+            return new Texture2DWrapper(spriteTextures);
+        }
+
         public static List<ITexture2D> LoadTerrainSpriteTexture(ContentManager content)
         {
             List<Texture2D> loadTerrainTextures = new List<Texture2D>
@@ -50,6 +57,16 @@ namespace SolStandard.Utility.Load
             }
 
             return terrainTextures;
+        }
+
+        public static ITexture2D LoadActionTiles(ContentManager content)
+        {
+            Texture2D actionTilesTexture = content.Load<Texture2D>("Graphics/Map/Tiles/ActionTiles");
+
+            ITexture2D actionTiles = new Texture2DWrapper(actionTilesTexture);
+
+            return actionTiles;
+            
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)

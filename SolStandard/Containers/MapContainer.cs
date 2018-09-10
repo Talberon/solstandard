@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1.Effects;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -63,12 +64,25 @@ namespace SolStandard.Containers
                 MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
                 MapEntity entity = (MapEntity) _gameGrid[(int) Layer.Entities][column, row];
                 MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
+                MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
                 MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
-                return new MapSlice(unit, dynamic, entity, collide, terrain);
+                return new MapSlice(unit, dynamic, entity, collide, terrainDecoration, terrain);
             }
 
-            return new MapSlice(null, null, null, null, null);
+            return new MapSlice(null, null, null, null, null, null);
+        }
+
+        private void DrawMapGrid(SpriteBatch spriteBatch)
+        {
+            for (int col = 0; col < _gameGrid[0].GetLength(0); col++)
+            {
+                for (int row = 0; row < _gameGrid[0].GetLength(1); row++)
+                {
+                    spriteBatch.Draw(GameDriver.WhiteGrid.MonoGameTexture, new Vector2(col, row) * GameDriver.CellSize,
+                        new Color(0, 0, 0, 20));
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -79,11 +93,19 @@ namespace SolStandard.Containers
                     tile.Draw(spriteBatch);
             }
 
+            foreach (MapElement tile in _gameGrid[(int) Layer.TerrainDecoration])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
+            }
+
             foreach (MapElement tile in _gameGrid[(int) Layer.Collide])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
+
+            DrawMapGrid(spriteBatch);
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Entities])
             {

@@ -43,7 +43,8 @@ namespace SolStandardTest.Map
             }
 
             objectUnderTest =
-                new TmxMapParser(tmxMap, new FakeTexture2D(tileTextureName), unitSprites, objectTypesXmlPath);
+                new TmxMapParser(tmxMap, new FakeTexture2D(tileTextureName), new FakeTexture2D(tileTextureName),
+                    unitSprites, objectTypesXmlPath);
             mapGrid = objectUnderTest.LoadMapGrid();
             unitsFromMap = objectUnderTest.LoadUnits();
         }
