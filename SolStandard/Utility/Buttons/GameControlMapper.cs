@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace SolStandard.Utility.Buttons
 {
@@ -15,30 +16,30 @@ namespace SolStandard.Utility.Buttons
         private readonly GameControl lbControl, rbControl, ltControl, rtControl;
         private readonly GameControl startControl, selectControl;
 
-        public GameControlMapper()
+        public GameControlMapper(PlayerIndex playerIndex)
         {
-            upControl = new UpControl();
-            downControl = new DownControl();
-            leftControl = new LeftControl();
-            rightControl = new RightControl();
-            
-            rsUpControl = new RsUpControl();
-            rsDownControl = new RsDownControl();
-            rsLeftControl = new RsLeftControl();
-            rsRightControl = new RsRightControl();
+            upControl = new UpControl(playerIndex);
+            downControl = new DownControl(playerIndex);
+            leftControl = new LeftControl(playerIndex);
+            rightControl = new RightControl(playerIndex);
 
-            startControl = new StartControl();
-            selectControl = new SelectControl();
+            rsUpControl = new RsUpControl(playerIndex);
+            rsDownControl = new RsDownControl(playerIndex);
+            rsLeftControl = new RsLeftControl(playerIndex);
+            rsRightControl = new RsRightControl(playerIndex);
 
-            aControl = new AControl();
-            bControl = new BControl();
-            xControl = new XControl();
-            yControl = new YControl();
+            startControl = new StartControl(playerIndex);
+            selectControl = new SelectControl(playerIndex);
 
-            lbControl = new LeftBumperControl();
-            rbControl = new RightBumperControl();
-            ltControl = new LeftTriggerControl();
-            rtControl = new RightTriggerControl();
+            aControl = new AControl(playerIndex);
+            bControl = new BControl(playerIndex);
+            xControl = new XControl(playerIndex);
+            yControl = new YControl(playerIndex);
+
+            lbControl = new LeftBumperControl(playerIndex);
+            rbControl = new RightBumperControl(playerIndex);
+            ltControl = new LeftTriggerControl(playerIndex);
+            rtControl = new RightTriggerControl(playerIndex);
         }
 
         public override string ToString()
@@ -141,12 +142,12 @@ namespace SolStandard.Utility.Buttons
         {
             return CheckInputDelay(lbControl);
         }
-        
+
         public bool RightBumper()
         {
             return CheckInputDelay(rbControl);
         }
-        
+
         public bool LeftTrigger()
         {
             return CheckInputDelay(ltControl);

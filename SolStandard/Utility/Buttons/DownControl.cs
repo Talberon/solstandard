@@ -5,17 +5,21 @@ namespace SolStandard.Utility.Buttons
 {
     public class DownControl : GameControl
     {
+        public DownControl(PlayerIndex playerIndex) : base(playerIndex)
+        {
+        }
+
         public override bool Pressed()
         {
-            return GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed ||
-                   GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < (-GameControlMapper.StickThreshold) ||
+            return GamePad.GetState(PlayerIndex).DPad.Down == ButtonState.Pressed ||
+                   GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y < (-GameControlMapper.StickThreshold) ||
                    Keyboard.GetState().IsKeyDown(Keys.S);
         }
 
         public override bool Released()
         {
-            return GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Released &&
-                   GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > (-GameControlMapper.StickThreshold) &&
+            return GamePad.GetState(PlayerIndex).DPad.Down == ButtonState.Released &&
+                   GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y > (-GameControlMapper.StickThreshold) &&
                    Keyboard.GetState().IsKeyUp(Keys.S);
         }
     }

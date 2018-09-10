@@ -35,7 +35,8 @@ namespace SolStandard
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameControlMapper controlMapper;
+        private GameControlMapper p1ControlMapper;
+        private GameControlMapper p2ControlMapper;
         public static Vector2 ScreenSize { get; private set; }
 
         private GameContext gameContext;
@@ -57,6 +58,8 @@ namespace SolStandard
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
 
         private MapCamera mapCamera;
+
+        private static PlayerIndex ActivePlayer { get; set; }
 
         public GameDriver()
         {
@@ -97,8 +100,7 @@ namespace SolStandard
                 UnitSprites,
                 objectTypeDefaults
             );
-            
-            controlMapper = new GameControlMapper();
+
 
             mapCamera = new MapCamera(5, 0.05f);
 
@@ -113,6 +115,11 @@ namespace SolStandard
 
             ITexture2D windowTexture =
                 WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
+
+            p1ControlMapper = new GameControlMapper(PlayerIndex.One);
+            p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
+
+            ActivePlayer = PlayerIndex.One;
 
             gameContext = new GameContext(
                 new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
@@ -167,7 +174,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (controlMapper.Select())
+            if (p1ControlMapper.Select())
             {
                 Exit();
             }
@@ -189,8 +196,34 @@ namespace SolStandard
 
             gameContext.EndTurnIfUnitIsDead();
 
+            //Set the controller based on the active team
+            switch (GameContext.ActiveUnit.Team)
+            {
+                case Team.Red:
+                    ActivePlayer = PlayerIndex.One;
+                    break;
+                case Team.Blue:
+                    ActivePlayer = PlayerIndex.Two;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-            ControlContext.ListenForInputs(gameContext, controlMapper, mapCamera, MapContainer.MapCursor);
+            switch (ActivePlayer)
+            {
+                case PlayerIndex.One:
+                    ControlContext.ListenForInputs(gameContext, p1ControlMapper, mapCamera, MapContainer.MapCursor);
+                    break;
+                case PlayerIndex.Two:
+                    ControlContext.ListenForInputs(gameContext, p2ControlMapper, mapCamera, MapContainer.MapCursor);
+                    break;
+                case PlayerIndex.Three:
+                    break;
+                case PlayerIndex.Four:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             mapCamera.UpdateEveryFrame();
             gameContext.UpdateCamera(mapCamera);

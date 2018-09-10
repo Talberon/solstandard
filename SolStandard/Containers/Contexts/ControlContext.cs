@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using Microsoft.Xna.Framework.Input;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
