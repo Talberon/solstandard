@@ -73,17 +73,17 @@ namespace SolStandard.Map
         {
             int nextFirstGid = 1;
 
-            if (gid >= tmxMap.Tilesets["Terrain"].FirstGid)
+            if (gid > tmxMap.Tilesets["Terrain"].FirstGid)
             {
                 nextFirstGid = tmxMap.Tilesets["Terrain"].FirstGid;
             }
 
-            if (gid >= tmxMap.Tilesets["Units"].FirstGid)
+            if (gid > tmxMap.Tilesets["Units"].FirstGid)
             {
                 nextFirstGid = tmxMap.Tilesets["Units"].FirstGid;
             }
 
-            if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            if (gid > tmxMap.Tilesets["WorldTileSet"].FirstGid)
             {
                 nextFirstGid = tmxMap.Tilesets["WorldTileSet"].FirstGid;
             }

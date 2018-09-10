@@ -22,7 +22,7 @@ namespace SolStandardTest.Map
         public void Setup()
         {
             const string objectTypesXmlPath = "Resources/objecttypes.xml";
-            TmxMap tmxMap = new TmxMap("Resources/TmxParserSample_01.tmx");
+            TmxMap tmxMap = new TmxMap("Resources/TmxParserSample_Neo_01.tmx");
             tileTextureName = "Tiles";
             unitTextureNames = new List<string>
             {
@@ -109,11 +109,19 @@ namespace SolStandardTest.Map
         [TestMethod]
         public void TestCollideLayer()
         {
+            //TODO Implement this test
+        }
+
+        [TestMethod]
+        public void TestTerrainDecorationLayer()
+        {
+            //TODO Implement this test
         }
 
         [TestMethod]
         public void TestTerrainLayer()
         {
+            //TODO Implement this test
         }
     }
 }
