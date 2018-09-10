@@ -1291,125 +1291,43 @@
   </data>
  </layer>
  <objectgroup name="Entities">
-  <object id="250" name="Forest" type="BuffTile" gid="2080" x="128" y="128" width="32" height="32">
+  <object id="250" name="Forest" type="BuffTile" gid="2080" x="32" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="258" name="Castle" type="BuffTile" gid="2384" x="32" y="160" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="3"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
-  <object id="259" name="Castle Wall" type="Movable" gid="2383" x="0" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="260" name="Castle Wall" type="Movable" gid="2371" x="0" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="261" name="Castle Wall" type="Movable" gid="2372" x="32" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="262" name="Castle Wall" type="Movable" gid="2373" x="64" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="263" name="Castle Wall" type="Movable" gid="2385" x="64" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="264" name="Castle" type="BuffTile" gid="2408" x="224" y="160" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="3"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
-  <object id="265" name="Castle Wall" type="Movable" gid="2407" x="192" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="266" name="Castle Wall" type="Movable" gid="2395" x="192" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="267" name="Castle Wall" type="Movable" gid="2396" x="224" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="268" name="Castle Wall" type="Movable" gid="2397" x="256" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="269" name="Castle Wall" type="Movable" gid="2409" x="256" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="270" name="Mountain" type="BuffTile" gid="2165" x="352" y="160" width="32" height="32">
+  <object id="270" name="Mountain" type="BuffTile" gid="2165" x="128" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="3"/>
     <property name="Stat" value="DEF"/>
     <property name="canMove" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="284" name="Stone" type="BreakableObstacle" gid="2287" x="160" y="128" width="32" height="32">
+  <object id="284" name="Stone" type="BreakableObstacle" gid="2287" x="0" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="287" name="Town B" type="BuffTile" gid="2156" x="128" y="160" width="32" height="32">
+  <object id="287" name="Town B" type="BuffTile" gid="2156" x="64" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="293" name="Hori Bridge" type="Movable" gid="2227" x="96" y="160" width="32" height="32"/>
-  <object id="294" name="Pond" type="Movable" gid="2075" x="352" y="128" width="32" height="32">
+  <object id="293" name="Hori Bridge" type="Movable" gid="2227" x="0" y="160" width="32" height="32"/>
+  <object id="294" name="Pond" type="Movable" gid="2075" x="32" y="160" width="32" height="32">
    <properties>
     <property name="canMove" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="296" name="Scout Tower" type="BuffTile" gid="2240" x="96" y="128" width="32" height="32">
+  <object id="296" name="Scout Tower" type="BuffTile" gid="2240" x="0" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
-  <object id="298" name="Volcano" type="Movable" gid="2119" x="288" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="299" name="Volcano" type="Movable" gid="2120" x="320" y="128" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="300" name="Volcano" type="Movable" gid="2143" x="288" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="301" name="Volcano" type="Movable" gid="2144" x="320" y="160" width="32" height="32">
-   <properties>
-    <property name="canMove" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="307" name="Hill" type="BuffTile" gid="2163" x="160" y="160" width="32" height="32">
+  <object id="307" name="Hill" type="BuffTile" gid="2163" x="96" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="ATK"/>

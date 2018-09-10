@@ -16,14 +16,16 @@ namespace SolStandardTest.Map
         private List<MapElement[,]> mapGrid;
         private List<UnitEntity> unitsFromMap;
         private List<string> unitTextureNames;
-        private string tileTextureName;
+        private string worldTileSetTextureName;
+        private string terrainTextureName;
 
         [TestInitialize]
         public void Setup()
         {
             const string objectTypesXmlPath = "Resources/objecttypes.xml";
             TmxMap tmxMap = new TmxMap("Resources/TmxParserSample_Neo_01.tmx");
-            tileTextureName = "Tiles";
+            worldTileSetTextureName = "WorldTileSet";
+            terrainTextureName = "Terrain";
             unitTextureNames = new List<string>
             {
                 "RedMage",
@@ -43,7 +45,7 @@ namespace SolStandardTest.Map
             }
 
             objectUnderTest =
-                new TmxMapParser(tmxMap, new FakeTexture2D(tileTextureName), new FakeTexture2D(tileTextureName),
+                new TmxMapParser(tmxMap, new FakeTexture2D(worldTileSetTextureName), new FakeTexture2D(terrainTextureName),
                     unitSprites, objectTypesXmlPath);
             mapGrid = objectUnderTest.LoadMapGrid();
             unitsFromMap = objectUnderTest.LoadUnits();
@@ -56,7 +58,8 @@ namespace SolStandardTest.Map
             {
                 MapEntity mapUnit = unit;
                 if (mapUnit != null)
-                    Assert.IsNotNull(unitTextureNames.Find(texture => texture.Contains(mapUnit.Name)));
+                    Assert.IsNotNull(
+                        unitTextureNames.Find(texture => texture.Contains(mapUnit.TiledProperties["Class"])));
             }
         }
 
@@ -66,62 +69,114 @@ namespace SolStandardTest.Map
             MapEntity[,] entitiesGrid = (MapEntity[,]) mapGrid[(int) Layer.Entities];
 
             int xCoord;
-            int yCoord = 2;
+            int yBreakableObstacles = 2;
 
-            //0,2 Trees
+            //0,2 Stone
             xCoord = 0;
-            Assert.AreEqual("Trees", entitiesGrid[xCoord, yCoord].Name);
-            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yCoord].Type);
-            Assert.AreEqual("DEF", entitiesGrid[xCoord, yCoord].TiledProperties["Stat"]);
-            Assert.AreEqual("1", entitiesGrid[xCoord, yCoord].TiledProperties["Modifier"]);
-            Assert.AreEqual("true",
-                entitiesGrid[xCoord, yCoord]
-                    .TiledProperties["canMove"]); //Default value; needs to be picked up from objecttypes.xml
+            Assert.AreEqual("Stone", entitiesGrid[xCoord, yBreakableObstacles].Name);
+            Assert.AreEqual("BreakableObstacle", entitiesGrid[xCoord, yBreakableObstacles].Type);
+            Assert.AreEqual("1", entitiesGrid[xCoord, yBreakableObstacles].TiledProperties["HP"]);
+            Assert.AreEqual("false", entitiesGrid[xCoord, yBreakableObstacles].TiledProperties["canMove"]);
+            Assert.AreEqual("false", entitiesGrid[xCoord, yBreakableObstacles].TiledProperties["isBroken"]);
 
-            //1,2 Tower
+
+            int yBuffTiles = 3;
+
+            //0,3 Scout Tower
+            xCoord = 0;
+            Assert.AreEqual("Scout Tower", entitiesGrid[xCoord, yBuffTiles].Name);
+            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yBuffTiles].Type);
+            Assert.AreEqual("1", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Modifier"]);
+            Assert.AreEqual("ATK", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Stat"]);
+            Assert.AreEqual("true", entitiesGrid[xCoord, yBuffTiles].TiledProperties["canMove"]);
+
+            //1,3 Forest
             xCoord = 1;
-            Assert.AreEqual("Tower", entitiesGrid[xCoord, yCoord].Name);
-            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yCoord].Type);
-            Assert.AreEqual("DEF", entitiesGrid[xCoord, yCoord].TiledProperties["Stat"]);
-            Assert.AreEqual("2", entitiesGrid[xCoord, yCoord].TiledProperties["Modifier"]);
-            Assert.AreEqual("true", entitiesGrid[xCoord, yCoord].TiledProperties["canMove"]);
+            Assert.AreEqual("Forest", entitiesGrid[xCoord, yBuffTiles].Name);
+            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yBuffTiles].Type);
+            Assert.AreEqual("1", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Modifier"]);
+            Assert.AreEqual("DEF", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Stat"]);
+            Assert.AreEqual("true", entitiesGrid[xCoord, yBuffTiles].TiledProperties["canMove"]);
 
-            //5,2 Breakable Tree
-            xCoord = 5;
-            Assert.AreEqual("Tree", entitiesGrid[xCoord, yCoord].Name);
-            Assert.AreEqual("BreakableObstacle", entitiesGrid[xCoord, yCoord].Type);
-            Assert.AreEqual("1", entitiesGrid[xCoord, yCoord].TiledProperties["HP"]);
-            Assert.AreEqual("false", entitiesGrid[xCoord, yCoord].TiledProperties["isBroken"]);
-            Assert.AreEqual("false", entitiesGrid[xCoord, yCoord].TiledProperties["canMove"]);
+            //2,3 Town B
+            xCoord = 2;
+            Assert.AreEqual("Town B", entitiesGrid[xCoord, yBuffTiles].Name);
+            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yBuffTiles].Type);
+            Assert.AreEqual("1", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Modifier"]);
+            Assert.AreEqual("DEF", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Stat"]);
+            Assert.AreEqual("true", entitiesGrid[xCoord, yBuffTiles].TiledProperties["canMove"]);
 
-            //6,2 Bridge
-            xCoord = 6;
-            Assert.AreEqual("Bridge", entitiesGrid[xCoord, yCoord].Name);
-            Assert.AreEqual("Movable", entitiesGrid[xCoord, yCoord].Type);
-            Assert.AreEqual("true", entitiesGrid[xCoord, yCoord].TiledProperties["canMove"]);
+            //3,3 Hill
+            xCoord = 3;
+            Assert.AreEqual("Hill", entitiesGrid[xCoord, yBuffTiles].Name);
+            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yBuffTiles].Type);
+            Assert.AreEqual("1", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Modifier"]);
+            Assert.AreEqual("ATK", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Stat"]);
+            Assert.AreEqual("true", entitiesGrid[xCoord, yBuffTiles].TiledProperties["canMove"]);
 
-            //12,2 Moss Decoration
-            xCoord = 12;
-            Assert.AreEqual("Moss", entitiesGrid[xCoord, yCoord].Name);
-            Assert.AreEqual("Decoration", entitiesGrid[xCoord, yCoord].Type);
+            //4,3 Mountain
+            xCoord = 4;
+            Assert.AreEqual("Mountain", entitiesGrid[xCoord, yBuffTiles].Name);
+            Assert.AreEqual("BuffTile", entitiesGrid[xCoord, yBuffTiles].Type);
+            Assert.AreEqual("3", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Modifier"]);
+            Assert.AreEqual("DEF", entitiesGrid[xCoord, yBuffTiles].TiledProperties["Stat"]);
+            Assert.AreEqual("false", entitiesGrid[xCoord, yBuffTiles].TiledProperties["canMove"]);
+
+            int yMovables = 4;
+
+            //0,4 Hori Bridge
+            xCoord = 0;
+            Assert.AreEqual("Hori Bridge", entitiesGrid[xCoord, yMovables].Name);
+            Assert.AreEqual("Movable", entitiesGrid[xCoord, yMovables].Type);
+            Assert.AreEqual("true", entitiesGrid[xCoord, yMovables].TiledProperties["canMove"]);
+
+            //1,4 Pond
+            xCoord = 1;
+            Assert.AreEqual("Pond", entitiesGrid[xCoord, yMovables].Name);
+            Assert.AreEqual("Movable", entitiesGrid[xCoord, yMovables].Type);
+            Assert.AreEqual("false", entitiesGrid[xCoord, yMovables].TiledProperties["canMove"]);
         }
 
         [TestMethod]
         public void TestCollideLayer()
         {
-            //TODO Implement this test
+            for (int col = 0; col < mapGrid[(int) Layer.Collide].GetLength(0); col++)
+            {
+                //The last two rows of tiles should all exist
+                Assert.IsNull(mapGrid[(int) Layer.Collide][col, 0]);
+                Assert.IsNull(mapGrid[(int) Layer.Collide][col, 1]);
+                Assert.IsNull(mapGrid[(int) Layer.Collide][col, 2]);
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Collide][col, 3], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Collide][col, 4], typeof(MapTile));
+            }
         }
 
         [TestMethod]
         public void TestTerrainDecorationLayer()
         {
-            //TODO Implement this test
+            for (int col = 0; col < mapGrid[(int) Layer.TerrainDecoration].GetLength(0); col++)
+            {
+                //The 2nd, 3rd and 4th rows of tiles should all exist
+                Assert.IsNull(mapGrid[(int) Layer.TerrainDecoration][col, 0]);
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 1], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 2], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 3], typeof(MapTile));
+                Assert.IsNull(mapGrid[(int) Layer.TerrainDecoration][col, 4]);
+            }
         }
 
         [TestMethod]
         public void TestTerrainLayer()
         {
-            //TODO Implement this test
+            for (int col = 0; col < mapGrid[(int) Layer.Terrain].GetLength(0); col++)
+            {
+                //The 1st, 2nd, 3rd and 4th rows of tiles should all exist
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 0], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 1], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 2], typeof(MapTile));
+                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 3], typeof(MapTile));
+                Assert.IsNull(mapGrid[(int) Layer.Terrain][col, 4]);
+            }
         }
     }
 }

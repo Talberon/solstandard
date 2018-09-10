@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1.Effects;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
