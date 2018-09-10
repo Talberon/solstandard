@@ -65,11 +65,6 @@ namespace SolStandard.Map
                 tileSet = worldTileSetSprite;
             }
             
-            if (gid >= tmxMap.Tilesets["terrain-v7"].FirstGid)
-            {
-                tileSet = terrainSprite;
-            }
-
             return tileSet;
         }
 
@@ -91,11 +86,6 @@ namespace SolStandard.Map
             if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
             {
                 nextFirstGid = tmxMap.Tilesets["WorldTileSet"].FirstGid;
-            }
-            
-            if (gid >= tmxMap.Tilesets["terrain-v7"].FirstGid)
-            {
-                nextFirstGid = tmxMap.Tilesets["terrain-v7"].FirstGid;
             }
 
             return gid - nextFirstGid + 1;
