@@ -92,6 +92,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerRangeContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
                     new RenderText(GameDriver.WindowFont, "In Range: "),
                     new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
@@ -138,6 +139,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerAtkContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 2),
                     new RenderText(GameDriver.WindowFont, "ATK: "),
                     new RenderText(GameDriver.WindowFont, atkValue.ToString())
                 }
@@ -165,7 +167,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerLabelWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string attackerName)
         {
-            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, attackerName);
+            IRenderable attackerLabelText = new RenderText(GameDriver.HeaderFont, attackerName);
             AttackerLabelWindow = new Window("Attacker Name Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
         }
@@ -209,6 +211,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderRangeContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
                     new RenderText(GameDriver.WindowFont, "In Range: "),
                     new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
@@ -255,6 +258,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderAtkContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 3),
                     new RenderText(GameDriver.WindowFont, "DEF: "),
                     new RenderText(GameDriver.WindowFont, defValue.ToString())
                 }
@@ -282,7 +286,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderLabelWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             string defenderName)
         {
-            IRenderable defenderLabelText = new RenderText(GameDriver.WindowFont, defenderName);
+            IRenderable defenderLabelText = new RenderText(GameDriver.HeaderFont, defenderName);
             DefenderLabelWindow = new Window("Defender Name Label", windowTexture, defenderLabelText,
                 defenderWindowColor, portraitWidthOverride);
         }
@@ -435,7 +439,7 @@ namespace SolStandard.Containers.UI
                 defenderClassWindowPosition.Y + DefenderClassWindow.Height + WindowSpacing);
         }
 
-        private Vector2 DefenderAtkWindowPosition()
+        private Vector2 DefenderDefWindowPosition()
         {
             //Anchored beneath HP window
             Vector2 defenderHpWindowPosition = DefenderHpWindowPosition();
@@ -447,10 +451,10 @@ namespace SolStandard.Containers.UI
         private Vector2 DefenderBonusWindowPosition()
         {
             //Anchored beneath ATK window
-            Vector2 defenderAtkWindowPosition = DefenderAtkWindowPosition();
+            Vector2 defenderDefWindowPosition = DefenderDefWindowPosition();
 
             return new Vector2(GameDriver.ScreenSize.X - DefenderBonusWindow.Width - WindowEdgeBuffer.X,
-                defenderAtkWindowPosition.Y + DefenderHpWindow.Height + WindowSpacing);
+                defenderDefWindowPosition.Y + DefenderDefWindow.Height + WindowSpacing);
         }
 
         private Vector2 DefenderRangeWindowPosition()
@@ -514,7 +518,7 @@ namespace SolStandard.Containers.UI
                     DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
                     DefenderClassWindow.Draw(spriteBatch, DefenderClassWindowPosition());
                     DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
-                    DefenderDefWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
+                    DefenderDefWindow.Draw(spriteBatch, DefenderDefWindowPosition());
                     DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());
                     DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
                     DefenderDiceLabelWindow.Draw(spriteBatch, DefenderDiceLabelPosition());
