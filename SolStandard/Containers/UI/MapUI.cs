@@ -66,7 +66,7 @@ namespace SolStandard.Containers.UI
         }
 
         #region Generation
-        
+
         internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
@@ -105,12 +105,14 @@ namespace SolStandard.Containers.UI
             {
                 IRenderable terrainSprite = selectedTerrain.RenderSprite;
 
+
+                //TODO: Associate each terrain type with a set of properties that match the TMX file.
+                //TODO: Based on the type of terrain, format the tile window accordingly instead of just showing props
                 string terrainInfo = "Terrain: " + selectedTerrain.Name
                                                  + "\n"
                                                  + "Type: " + selectedTerrain.Type
                                                  + "\n"
-                                                 + "Properties:\n" + string.Join("\n",
-                                                     selectedTerrain.TiledProperties);
+                                                 + "Properties:\n" + string.Join("\n", selectedTerrain.TiledProperties);
 
                 terrainContentGrid = new WindowContentGrid(
                     new[,]
@@ -283,7 +285,7 @@ namespace SolStandard.Containers.UI
 
             windowToUpdate = new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
         }
-        
+
         #endregion Generation
 
 
