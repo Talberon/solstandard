@@ -538,6 +538,13 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/GridOutline.png
 
+#begin Fonts/WindowHeaderText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/WindowHeaderText.spritefont
+
 #begin Graphics/Images/Icons/StatIcons.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -549,11 +556,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatIcons.png
-
-#begin Fonts/WindowHeaderText.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/WindowHeaderText.spritefont
 

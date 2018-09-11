@@ -121,6 +121,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerBonusContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 8),
                     new RenderText(GameDriver.WindowFont, "Bonus: "),
                     new RenderText(GameDriver.WindowFont, terrainAttackBonus,
                         (Convert.ToInt32(terrainAttackBonus) > 0) ? PositiveColor : NeutralColor)
@@ -152,12 +153,14 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             GameUnit attacker, int hpBarHeight)
         {
-            IRenderable[,] attackerHpContent = new IRenderable[1, 2];
+            IRenderable hpIcon = new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1);
             IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
-            Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width, hpBarHeight);
+            Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
-            attackerHpContent[0, 0] = hpLabel;
-            attackerHpContent[0, 1] = hpBar;
+            IRenderable[,] attackerHpContent =
+            {
+                {hpIcon, hpLabel, hpBar}
+            };
             WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);
             AttackerHpWindow =
                 new Window("Attacker HP Bar", windowTexture, attackerHpContentGrid, attackerWindowColor,
@@ -241,6 +244,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderBonusContent =
             {
                 {
+                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 9),
                     new RenderText(GameDriver.WindowFont, "Bonus: "),
                     new RenderText(GameDriver.WindowFont, terrainDefenseBonus,
                         (Convert.ToInt32(terrainDefenseBonus) > 0) ? PositiveColor : NeutralColor)
@@ -271,12 +275,14 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             GameUnit defender, int hpBarHeight)
         {
-            IRenderable[,] defenderHpContent = new IRenderable[1, 2];
+            IRenderable hpIcon = new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1);
             IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
-            Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width, hpBarHeight);
+            Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
-            defenderHpContent[0, 0] = hpLabel;
-            defenderHpContent[0, 1] = hpBar;
+            IRenderable[,] defenderHpContent =
+            {
+                {hpIcon, hpLabel, hpBar}
+            };
             WindowContentGrid defenderHpContentGrid = new WindowContentGrid(defenderHpContent, 1);
             DefenderHpWindow =
                 new Window("Defender HP Bar", windowTexture, defenderHpContentGrid, defenderWindowColor,
