@@ -17,12 +17,6 @@ using TiledSharp;
 
 namespace SolStandard
 {
-    enum GameLayer
-    {
-        Window,
-        Map
-    }
-
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -41,14 +35,17 @@ namespace SolStandard
 
         private GameContext gameContext;
 
+        public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont MapFont { get; private set; }
+        public static ISpriteFont ResultsFont { get; private set; }
+        public static ISpriteFont HeaderFont { get; private set; }
+        
         public static List<ITexture2D> TerrainTextures { get; private set; }
         public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
         public static ITexture2D WhiteGrid { get; private set; }
-        public static ISpriteFont WindowFont { get; private set; }
-        public static ISpriteFont MapFont { get; private set; }
-        public static ISpriteFont ResultsFont { get; private set; }
         public static ITexture2D DiceTexture { get; private set; }
+        public static ITexture2D StatIcons { get; private set; }
 
         private static List<ITexture2D> UnitSprites { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
@@ -146,12 +143,17 @@ namespace SolStandard
             WhitePixel = ContentLoader.LoadWhitePixel(Content);
             WhiteGrid = ContentLoader.LoadWhiteGridOutline(Content);
 
+            StatIcons = ContentLoader.LoadStatIcons(Content);
+
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
+            
             WindowFont = ContentLoader.LoadWindowFont(Content);
             MapFont = ContentLoader.LoadMapFont(Content);
             ResultsFont = ContentLoader.LoadResultsFont(Content);
+            HeaderFont = ContentLoader.LoadHeaderFont(Content);
+            
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);

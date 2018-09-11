@@ -120,6 +120,48 @@ namespace SolStandard.Entity.Unit
             return combatHealthBar;
         }
 
+        public IRenderable DetailPane
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new RenderText(GameDriver.HeaderFont, Id),
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
+                            new RenderText(GameDriver.WindowFont, "HP: " + Stats.Hp)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
+                            new RenderText(GameDriver.WindowFont, "ATK: " + Stats.Atk)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
+                            new RenderText(GameDriver.WindowFont, "DEF: " + Stats.Def)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
+                            new RenderText(GameDriver.WindowFont, "SP: " + Stats.Sp)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            new RenderText(GameDriver.WindowFont, "MV: " + Stats.Mv)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                            new RenderText(GameDriver.WindowFont,
+                                string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
+                        }
+                    },
+                    2
+                );
+            }
+        }
+
         public IRenderable GetMapSprite(Vector2 size)
         {
             if (UnitEntity == null)

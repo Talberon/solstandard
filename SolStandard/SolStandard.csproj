@@ -57,6 +57,13 @@
     <Compile Include="Containers\UI\MapUI.cs" />
     <Compile Include="Containers\UI\ResultsUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
+    <Compile Include="Entity\General\BreakableObstacle.cs" />
+    <Compile Include="Entity\General\BuffTile.cs" />
+    <Compile Include="Entity\General\Chest.cs" />
+    <Compile Include="Entity\General\Decoration.cs" />
+    <Compile Include="Entity\General\Door.cs" />
+    <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />

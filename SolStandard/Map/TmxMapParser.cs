@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -20,12 +21,46 @@ namespace SolStandard.Map
         Dynamic = 4
     }
 
+    public enum EntityTypes
+    {
+        BreakableObstacle,
+        BuffTile,
+        Chest,
+        Decoration,
+        Door,
+        Movable,
+        Unit
+    }
+
+
     /**
      * TmxMapBuilder
      * Responsible for parsing game maps to a Map object that we can use in the game.
      */
     public class TmxMapParser
     {
+        private static readonly Dictionary<string, StatIcons> BonusStatDictionary =
+            new Dictionary<string, StatIcons>
+            {
+                {"HP", StatIcons.Hp},
+                {"ATK", StatIcons.Atk},
+                {"DEF", StatIcons.Def},
+                {"SP", StatIcons.Sp},
+                {"MV", StatIcons.Mv},
+                {"RNG", StatIcons.AtkRange}
+            };
+
+        private static readonly Dictionary<string, EntityTypes> EntityDictionary = new Dictionary<string, EntityTypes>
+        {
+            {"BreakableObstacle", EntityTypes.BreakableObstacle},
+            {"BuffTile", EntityTypes.BuffTile},
+            {"Chest", EntityTypes.Chest},
+            {"Decoration", EntityTypes.Decoration},
+            {"Door", EntityTypes.Door},
+            {"Movable", EntityTypes.Movable},
+            {"Unit", EntityTypes.Unit}
+        };
+
         private readonly string objectTypesDefaultXmlPath;
         private readonly TmxMap tmxMap;
         private readonly ITexture2D worldTileSetSprite;
@@ -64,7 +99,7 @@ namespace SolStandard.Map
             {
                 tileSet = worldTileSetSprite;
             }
-            
+
             return tileSet;
         }
 
@@ -145,9 +180,9 @@ namespace SolStandard.Map
         }
 
 
-        private MapEntity[,] ObtainEntitiesFromLayer(string objectGroupName)
+        private TerrainEntity[,] ObtainEntitiesFromLayer(string objectGroupName)
         {
-            MapEntity[,] entityGrid = new MapEntity[tmxMap.Width, tmxMap.Height];
+            TerrainEntity[,] entityGrid = new TerrainEntity[tmxMap.Width, tmxMap.Height];
 
             //Handle the Entities Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
@@ -172,9 +207,89 @@ namespace SolStandard.Map
                                     FindTileId(objectTileId)
                                 );
 
-                                entityGrid[col, row] = new MapEntity(currentObject.Name, currentObject.Type,
-                                    spriteAtlas,
-                                    new Vector2(col, row), currentProperties);
+                                EntityTypes tileEntityType = EntityDictionary[currentObject.Type];
+
+                                switch (tileEntityType)
+                                {
+                                    case EntityTypes.BreakableObstacle:
+                                        entityGrid[col, row] = new BreakableObstacle(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToInt32(currentProperties["HP"]),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            Convert.ToBoolean(currentProperties["isBroken"])
+                                        );
+                                        break;
+                                    case EntityTypes.BuffTile:
+                                        entityGrid[col, row] = new BuffTile(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToInt32(currentProperties["Modifier"]),
+                                            BonusStatDictionary[currentProperties["Stat"]],
+                                            Convert.ToBoolean(currentProperties["canMove"])
+                                        );
+                                        break;
+                                    case EntityTypes.Chest:
+                                        entityGrid[col, row] = new Chest(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            currentProperties["Contents"],
+                                            Convert.ToBoolean(currentProperties["isLocked"]),
+                                            Convert.ToBoolean(currentProperties["isOpen"])
+                                        );
+                                        break;
+                                    case EntityTypes.Decoration:
+                                        entityGrid[col, row] = new Decoration(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.Door:
+                                        entityGrid[col, row] = new Door(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["isLocked"]),
+                                            Convert.ToBoolean(currentProperties["isOpen"])
+                                        );
+                                        break;
+                                    case EntityTypes.Movable:
+                                        entityGrid[col, row] = new Movable(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["canMove"])
+                                        );
+                                        break;
+                                    case EntityTypes.Unit:
+                                        entityGrid[col, row] = null;
+                                        break;
+                                    default:
+                                        entityGrid[col, row] = new TerrainEntity(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties
+                                        );
+                                        break;
+                                }
                             }
                         }
                     }

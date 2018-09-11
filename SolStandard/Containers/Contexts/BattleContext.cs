@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Contexts
         }
 
         private readonly BattleUI battleUI;
-        private const int HpBarHeight = 20;
+        private const int HpBarHeight = 25;
 
         private CombatDice attackerDice;
         private CombatDice defenderDice;

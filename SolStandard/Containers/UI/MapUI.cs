@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
@@ -66,7 +66,7 @@ namespace SolStandard.Containers.UI
         }
 
         #region Generation
-        
+
         internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
@@ -97,27 +97,17 @@ namespace SolStandard.Containers.UI
                 windowSize);
         }
 
-        public void GenerateTerrainWindow(MapEntity selectedTerrain)
+        public void GenerateTerrainWindow(TerrainEntity selectedTerrain)
         {
             WindowContentGrid terrainContentGrid;
 
             if (selectedTerrain != null)
             {
-                IRenderable terrainSprite = selectedTerrain.RenderSprite;
-
-                string terrainInfo = "Terrain: " + selectedTerrain.Name
-                                                 + "\n"
-                                                 + "Type: " + selectedTerrain.Type
-                                                 + "\n"
-                                                 + "Properties:\n" + string.Join("\n",
-                                                     selectedTerrain.TiledProperties);
-
                 terrainContentGrid = new WindowContentGrid(
                     new[,]
                     {
                         {
-                            terrainSprite,
-                            new RenderText(GameDriver.WindowFont, terrainInfo)
+                            selectedTerrain.TerrainInfo
                         }
                     },
                     1);
@@ -275,10 +265,7 @@ namespace SolStandard.Containers.UI
                 return;
             }
 
-            IRenderable selectedUnitInfo =
-                new RenderText(GameDriver.WindowFont,
-                    selectedUnit.Id + "\n" + selectedUnit.Team + " " + selectedUnit.Role + "\n" +
-                    selectedUnit.Stats);
+            IRenderable selectedUnitInfo = selectedUnit.DetailPane;
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
 
@@ -286,7 +273,7 @@ namespace SolStandard.Containers.UI
 
             windowToUpdate = new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
         }
-        
+
         #endregion Generation
 
 

@@ -1,16 +1,24 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using SolStandard.Utility;
 
 namespace SolStandard.Entity.Unit
 {
-    public enum UnitParameters
+    public enum StatIcons
     {
+        None,
         Hp,
         Atk,
         Def,
         Sp,
-        Ap,
         Mv,
-        Rng
+        AtkRange,
+        BonusHp,
+        BonusAtk,
+        BonusDef,
+        BonusSp,
+        BonusMv,
+        BonusAtkRange
     }
 
     public class UnitStatistics
@@ -19,40 +27,32 @@ namespace SolStandard.Entity.Unit
         private int atk;
         private int def;
         private int sp;
-        private int ap;
         private int mv;
         private int[] atkRange;
-        private int itv;
 
         private readonly int maxHp;
         private readonly int baseAtk;
         private readonly int baseDef;
         private readonly int maxSp;
-        private readonly int maxAp;
         private readonly int maxMv;
         private readonly int[] baseAtkRange;
-        private readonly int baseItv;
 
 
-        public UnitStatistics(int hp, int atk, int def, int sp, int ap, int mv, int[] atkRange, int itv)
+        public UnitStatistics(int hp, int atk, int def, int sp, int mv, int[] atkRange)
         {
             Hp = hp;
             Atk = atk;
             Def = def;
             Sp = sp;
-            Ap = ap;
             Mv = mv;
             AtkRange = atkRange;
-            Itv = itv;
 
             maxHp = hp;
             baseAtk = atk;
             baseDef = def;
             maxSp = sp;
-            maxAp = ap;
             maxMv = mv;
             baseAtkRange = atkRange;
-            baseItv = itv;
         }
 
         public int MaxHp
@@ -73,11 +73,6 @@ namespace SolStandard.Entity.Unit
         public int MaxSp
         {
             get { return maxSp; }
-        }
-
-        public int MaxAp
-        {
-            get { return maxAp; }
         }
 
         public int MaxMv
@@ -114,12 +109,6 @@ namespace SolStandard.Entity.Unit
             set { sp = value; }
         }
 
-        public int Ap
-        {
-            get { return ap; }
-            set { ap = value; }
-        }
-
         public int Mv
         {
             get { return mv; }
@@ -132,15 +121,10 @@ namespace SolStandard.Entity.Unit
             set { atkRange = value; }
         }
 
-        public int Itv
-        {
-            get { return itv; }
-            set { itv = value; }
-        }
 
-        public int BaseItv
+        public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
         {
-            get { return baseItv; }
+            return new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
         }
 
         public override string ToString()
@@ -155,13 +139,9 @@ namespace SolStandard.Entity.Unit
             output += Environment.NewLine;
             output += "SP: " + Sp.ToString() + "/" + maxSp;
             output += Environment.NewLine;
-            output += "AP: " + Ap.ToString() + "/" + maxAp;
-            output += Environment.NewLine;
             output += "MV: " + Mv.ToString() + "/" + maxMv;
             output += Environment.NewLine;
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
-            output += Environment.NewLine;
-            output += "ITV: " + Itv.ToString() + "/" + baseItv;
 
             return output;
         }
