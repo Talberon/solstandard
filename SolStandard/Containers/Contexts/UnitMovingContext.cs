@@ -94,10 +94,10 @@ namespace SolStandard.Containers.Contexts
 
             if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 
-            if (slice.GeneralEntity != null && slice.GeneralEntity.Type != "Decoration")
+            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
             {
-                if (slice.GeneralEntity.TiledProperties["canMove"] == "true") return true;
-                if (slice.GeneralEntity.TiledProperties["canMove"] == "false") return false;
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
             }
 
             if (slice.CollideTile != null) return false;

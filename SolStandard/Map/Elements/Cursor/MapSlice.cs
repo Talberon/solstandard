@@ -1,26 +1,29 @@
-﻿namespace SolStandard.Map.Elements.Cursor
+﻿using SolStandard.Entity.General;
+using SolStandard.Entity.Unit;
+
+namespace SolStandard.Map.Elements.Cursor
 {
     public class MapSlice
     {
-        private readonly MapEntity unitEntity;
+        private readonly UnitEntity unitEntity;
         private readonly MapElement dynamicEntity;
-        private readonly MapEntity generalEntity;
+        private readonly TerrainEntity terrainEntity;
         private readonly MapTile collideTile;
         private readonly MapTile terrainDecorationTile;
         private readonly MapTile terrainTile;
 
-        public MapSlice(MapEntity unitEntity, MapElement dynamicEntity, MapEntity generalEntity, MapTile collideTile,
-            MapTile terrainDecorationTile, MapTile terrainTile)
+        public MapSlice(UnitEntity unitEntity, MapElement dynamicEntity, TerrainEntity terrainEntity,
+            MapTile collideTile, MapTile terrainDecorationTile, MapTile terrainTile)
         {
             this.unitEntity = unitEntity;
             this.dynamicEntity = dynamicEntity;
-            this.generalEntity = generalEntity;
+            this.terrainEntity = terrainEntity;
             this.collideTile = collideTile;
             this.terrainDecorationTile = terrainDecorationTile;
             this.terrainTile = terrainTile;
         }
 
-        public MapEntity UnitEntity
+        public UnitEntity UnitEntity
         {
             get { return unitEntity; }
         }
@@ -30,9 +33,9 @@
             get { return dynamicEntity; }
         }
 
-        public MapEntity GeneralEntity
+        public TerrainEntity TerrainEntity
         {
-            get { return generalEntity; }
+            get { return terrainEntity; }
         }
 
         public MapTile CollideTile

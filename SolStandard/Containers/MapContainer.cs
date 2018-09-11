@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -59,9 +60,9 @@ namespace SolStandard.Containers
                 int column = (int) coordinates.X;
                 int row = (int) coordinates.Y;
 
-                MapEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
+                UnitEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
                 MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
-                MapEntity entity = (MapEntity) _gameGrid[(int) Layer.Entities][column, row];
+                TerrainEntity entity = (TerrainEntity) _gameGrid[(int) Layer.Entities][column, row];
                 MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
                 MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
                 MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];

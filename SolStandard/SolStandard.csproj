@@ -63,6 +63,7 @@
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />

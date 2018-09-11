@@ -30,7 +30,7 @@ namespace SolStandard.Map.Elements.Cursor
             }
 
             //Terrain (Entity) Window
-            mapUI.GenerateTerrainWindow(hoverTiles.GeneralEntity);
+            mapUI.GenerateTerrainWindow(hoverTiles.TerrainEntity);
         }
     }
 }

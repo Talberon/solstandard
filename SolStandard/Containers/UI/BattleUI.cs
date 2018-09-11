@@ -92,7 +92,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerRangeContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
                     new RenderText(GameDriver.WindowFont, "In Range: "),
                     new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
@@ -106,14 +106,14 @@ namespace SolStandard.Containers.UI
             Vector2 portraitWidthOverride)
         {
             string terrainAttackBonus = "0";
-            if (attackerSlice.GeneralEntity != null)
+            if (attackerSlice.TerrainEntity != null)
             {
-                if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
-                    attackerSlice.GeneralEntity.TiledProperties["Stat"] == "ATK")
+                if (attackerSlice.TerrainEntity.TiledProperties.ContainsKey("Stat") &&
+                    attackerSlice.TerrainEntity.TiledProperties["Stat"] == "ATK")
                 {
-                    if (attackerSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
+                    if (attackerSlice.TerrainEntity.TiledProperties.ContainsKey("Modifier"))
                     {
-                        terrainAttackBonus = attackerSlice.GeneralEntity.TiledProperties["Modifier"];
+                        terrainAttackBonus = attackerSlice.TerrainEntity.TiledProperties["Modifier"];
                     }
                 }
             }
@@ -121,7 +121,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 8),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.BonusAtk),
                     new RenderText(GameDriver.WindowFont, "Bonus: "),
                     new RenderText(GameDriver.WindowFont, terrainAttackBonus,
                         (Convert.ToInt32(terrainAttackBonus) > 0) ? PositiveColor : NeutralColor)
@@ -140,7 +140,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] attackerAtkContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 2),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
                     new RenderText(GameDriver.WindowFont, "ATK: "),
                     new RenderText(GameDriver.WindowFont, atkValue.ToString())
                 }
@@ -214,7 +214,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderRangeContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
                     new RenderText(GameDriver.WindowFont, "In Range: "),
                     new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
@@ -229,14 +229,14 @@ namespace SolStandard.Containers.UI
             Vector2 portraitWidthOverride)
         {
             string terrainDefenseBonus = "0";
-            if (defenderSlice.GeneralEntity != null)
+            if (defenderSlice.TerrainEntity != null)
             {
-                if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Stat") &&
-                    defenderSlice.GeneralEntity.TiledProperties["Stat"] == "DEF")
+                if (defenderSlice.TerrainEntity.TiledProperties.ContainsKey("Stat") &&
+                    defenderSlice.TerrainEntity.TiledProperties["Stat"] == "DEF")
                 {
-                    if (defenderSlice.GeneralEntity.TiledProperties.ContainsKey("Modifier"))
+                    if (defenderSlice.TerrainEntity.TiledProperties.ContainsKey("Modifier"))
                     {
-                        terrainDefenseBonus = defenderSlice.GeneralEntity.TiledProperties["Modifier"];
+                        terrainDefenseBonus = defenderSlice.TerrainEntity.TiledProperties["Modifier"];
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderBonusContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 9),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.BonusDef),
                     new RenderText(GameDriver.WindowFont, "Bonus: "),
                     new RenderText(GameDriver.WindowFont, terrainDefenseBonus,
                         (Convert.ToInt32(terrainDefenseBonus) > 0) ? PositiveColor : NeutralColor)

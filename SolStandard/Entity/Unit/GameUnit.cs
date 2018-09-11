@@ -119,7 +119,7 @@ namespace SolStandard.Entity.Unit
             combatHealthBar.SetSize(barSize);
             return combatHealthBar;
         }
-        
+
         public IRenderable DetailPane
         {
             get
@@ -132,27 +132,27 @@ namespace SolStandard.Entity.Unit
                             new RenderBlank()
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
                             new RenderText(GameDriver.WindowFont, "HP: " + Stats.Hp)
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 2),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
                             new RenderText(GameDriver.WindowFont, "ATK: " + Stats.Atk)
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 3),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
                             new RenderText(GameDriver.WindowFont, "DEF: " + Stats.Def)
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 4),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
                             new RenderText(GameDriver.WindowFont, "SP: " + Stats.Sp)
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 5),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
                             new RenderText(GameDriver.WindowFont, "MV: " + Stats.Mv)
                         },
                         {
-                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
                             new RenderText(GameDriver.WindowFont,
                                 string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
                         }

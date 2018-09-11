@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Map.Elements;
+using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.General
 {
-    public class Movable : MapEntity
+    public class Movable : TerrainEntity
     {
         private readonly bool canMove;
 
@@ -14,6 +15,32 @@ namespace SolStandard.Entity.General
             tiledProperties)
         {
             this.canMove = canMove;
+        }
+        
+        public override IRenderable TerrainInfo
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            Sprite,
+                            new RenderText(GameDriver.HeaderFont, Name)
+                        },
+                        {
+                            new RenderText(GameDriver.WindowFont, "~~~~~~~~~~~"), 
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            new RenderText(GameDriver.WindowFont, (canMove) ? "Can Move" : "No Move",
+                                (canMove) ? PositiveColor : NegativeColor)
+                        }
+                    },
+                    3
+                );
+            }
         }
     }
 }

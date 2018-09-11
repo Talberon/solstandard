@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Map.Elements;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : MapEntity
+    public class Door : TerrainEntity
     {
         private bool isLocked;
         private bool isOpen;
@@ -16,6 +16,37 @@ namespace SolStandard.Entity.General
         {
             this.isLocked = isLocked;
             this.isOpen = isOpen;
+        }
+        
+        public override IRenderable TerrainInfo
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            Sprite,
+                            new RenderText(GameDriver.HeaderFont, Name)
+                        },
+                        {
+                            new RenderText(GameDriver.WindowFont, "~~~~~~~~~~~"),
+                            new RenderBlank()
+                        },
+                        {
+                            new RenderText(GameDriver.WindowFont, (isLocked) ? "Locked" : "Unlocked",
+                                (isLocked) ? PositiveColor : NegativeColor),
+                            new RenderBlank()
+                        },
+                        {
+                            new RenderText(GameDriver.WindowFont, (isOpen) ? "Open" : "Closed",
+                                (isOpen) ? PositiveColor : NegativeColor),
+                            new RenderBlank()
+                        }
+                    },
+                    3
+                );
+            }
         }
     }
 }

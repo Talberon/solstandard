@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
@@ -97,29 +97,17 @@ namespace SolStandard.Containers.UI
                 windowSize);
         }
 
-        public void GenerateTerrainWindow(MapEntity selectedTerrain)
+        public void GenerateTerrainWindow(TerrainEntity selectedTerrain)
         {
             WindowContentGrid terrainContentGrid;
 
             if (selectedTerrain != null)
             {
-                IRenderable terrainSprite = selectedTerrain.RenderSprite;
-
-
-                //TODO: Associate each terrain type with a set of properties that match the TMX file.
-                //TODO: Based on the type of terrain, format the tile window accordingly instead of just showing props
-                string terrainInfo = "Terrain: " + selectedTerrain.Name
-                                                 + "\n"
-                                                 + "Type: " + selectedTerrain.Type
-                                                 + "\n"
-                                                 + "Properties:\n" + string.Join("\n", selectedTerrain.TiledProperties);
-
                 terrainContentGrid = new WindowContentGrid(
                     new[,]
                     {
                         {
-                            terrainSprite,
-                            new RenderText(GameDriver.WindowFont, terrainInfo)
+                            selectedTerrain.TerrainInfo
                         }
                     },
                     1);

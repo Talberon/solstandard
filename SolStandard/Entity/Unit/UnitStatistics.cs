@@ -1,7 +1,26 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using SolStandard.Utility;
 
 namespace SolStandard.Entity.Unit
 {
+    public enum StatIcons
+    {
+        None,
+        Hp,
+        Atk,
+        Def,
+        Sp,
+        Mv,
+        AtkRange,
+        BonusHp,
+        BonusAtk,
+        BonusDef,
+        BonusSp,
+        BonusMv,
+        BonusAtkRange
+    }
+
     public class UnitStatistics
     {
         private int hp;
@@ -102,6 +121,11 @@ namespace SolStandard.Entity.Unit
             set { atkRange = value; }
         }
 
+
+        public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
+        {
+            return new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
+        }
 
         public override string ToString()
         {
