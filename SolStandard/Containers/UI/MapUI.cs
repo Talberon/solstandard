@@ -275,10 +275,7 @@ namespace SolStandard.Containers.UI
                 return;
             }
 
-            IRenderable selectedUnitInfo =
-                new RenderText(GameDriver.WindowFont,
-                    selectedUnit.Id + "\n" + selectedUnit.Team + " " + selectedUnit.Role + "\n" +
-                    selectedUnit.Stats);
+            IRenderable selectedUnitInfo = selectedUnit.DetailPane;
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
 

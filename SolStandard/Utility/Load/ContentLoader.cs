@@ -12,6 +12,11 @@ namespace SolStandard.Utility.Load
      */
     public class ContentLoader
     {
+        public static ISpriteFont LoadHeaderFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowHeaderText"));
+        }
+
         public static ISpriteFont LoadWindowFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
@@ -66,7 +71,15 @@ namespace SolStandard.Utility.Load
             ITexture2D actionTiles = new Texture2DWrapper(actionTilesTexture);
 
             return actionTiles;
-            
+        }
+
+        public static ITexture2D LoadStatIcons(ContentManager content)
+        {
+            Texture2D statIconsTexture = content.Load<Texture2D>("Graphics/Images/Icons/StatIcons");
+
+            ITexture2D statIcons = new Texture2DWrapper(statIconsTexture);
+
+            return statIcons;
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)

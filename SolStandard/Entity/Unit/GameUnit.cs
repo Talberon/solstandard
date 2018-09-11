@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
@@ -118,6 +120,48 @@ namespace SolStandard.Entity.Unit
         {
             combatHealthBar.SetSize(barSize);
             return combatHealthBar;
+        }
+        
+        public IRenderable DetailPane
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new RenderText(GameDriver.HeaderFont, Id),
+                            new RenderBlank()
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1),
+                            new RenderText(GameDriver.WindowFont, "HP: " + Stats.Hp)
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 2),
+                            new RenderText(GameDriver.WindowFont, "ATK: " + Stats.Atk)
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 3),
+                            new RenderText(GameDriver.WindowFont, "DEF: " + Stats.Def)
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 4),
+                            new RenderText(GameDriver.WindowFont, "SP: " + Stats.Sp)
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 5),
+                            new RenderText(GameDriver.WindowFont, "MV: " + Stats.Mv)
+                        },
+                        {
+                            new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 6),
+                            new RenderText(GameDriver.WindowFont,
+                                string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
+                        }
+                    },
+                    2
+                );
+            }
         }
 
         public IRenderable GetMapSprite(Vector2 size)

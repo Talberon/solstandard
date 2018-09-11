@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit
             foreach (UnitEntity unit in units)
             {
                 if (unit == null) continue;
-                
+
                 UnitClassBuilder unitBuilder = new UnitClassBuilder(largePortraitTextures, mediumPortraitTextures,
                     smallPortraitTextures);
 
@@ -65,15 +65,14 @@ namespace SolStandard.Entity.Unit
                         throw new ArgumentOutOfRangeException("", unit.TiledProperties["Class"], null);
                 }
 
-                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, role, unit, 0);
+                GameUnit unitToBuild = unitBuilder.BuildUnitFromProperties(unit.Name, unitTeam, role, unit);
                 unitsFromMap.Add(unitToBuild);
             }
 
             return unitsFromMap;
         }
 
-        private GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass,
-            UnitEntity mapEntity, int initiative)
+        private GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, UnitEntity mapEntity)
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
 
@@ -86,16 +85,16 @@ namespace SolStandard.Entity.Unit
             switch (unitJobClass)
             {
                 case Role.Archer:
-                    unitStats = SelectArcherStats(initiative);
+                    unitStats = SelectArcherStats();
                     break;
                 case Role.Champion:
-                    unitStats = SelectChampionStats(initiative);
+                    unitStats = SelectChampionStats();
                     break;
                 case Role.Mage:
-                    unitStats = SelectMageStats(initiative);
+                    unitStats = SelectMageStats();
                     break;
                 case Role.Monarch:
-                    unitStats = SelectMonarchStats(initiative);
+                    unitStats = SelectMonarchStats();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
@@ -105,24 +104,24 @@ namespace SolStandard.Entity.Unit
                 smallPortrait);
         }
 
-        private static UnitStatistics SelectArcherStats(int initiative)
+        private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(5, 4, 2, 1, 1, 3, new[] {2}, initiative);
+            return new UnitStatistics(5, 4, 2, 1, 3, new[] {2});
         }
 
-        private static UnitStatistics SelectChampionStats(int initiative)
+        private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(7, 4, 3, 1, 1, 4, new[] {1}, initiative);
+            return new UnitStatistics(7, 4, 3, 1, 4, new[] {1});
         }
 
-        private static UnitStatistics SelectMageStats(int initiative)
+        private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(3, 5, 1, 1, 1, 3, new[] {1, 2}, initiative);
+            return new UnitStatistics(3, 5, 1, 1, 3, new[] {1, 2});
         }
 
-        private static UnitStatistics SelectMonarchStats(int initiative)
+        private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(10, 2, 2, 1, 1, 2, new[] {1}, initiative);
+            return new UnitStatistics(10, 2, 2, 1, 2, new[] {1});
         }
 
         private ITexture2D FindLargePortrait(string textureName)
