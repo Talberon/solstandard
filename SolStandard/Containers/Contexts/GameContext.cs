@@ -185,14 +185,24 @@ namespace SolStandard.Containers.Contexts
         {
             GameScenario.CheckForWinState(this);
 
+
             MapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.ResetCursorToActiveUnit();
+
             MapContext.EndTurn();
             TurnNumber++;
+
+            if (!Units.TrueForAll(unit => unit.Stats.Hp <= 0))
+            {
+                EndTurnIfUnitIsDead();
+            }
+            
+            MapContext.UpdateWindowsEachTurn();
+            ResultsUI.UpdateWindows();
         }
 
 
@@ -216,7 +226,7 @@ namespace SolStandard.Containers.Contexts
             MapContext.CancelMovement();
         }
 
-        public void EndTurnIfUnitIsDead()
+        private void EndTurnIfUnitIsDead()
         {
             if (MapContext.CurrentTurnState == MapContext.TurnState.SelectUnit && ActiveUnit.UnitEntity == null)
             {

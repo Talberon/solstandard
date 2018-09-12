@@ -181,25 +181,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\TmxMaps\Arena_3.tmx">
+    <Content Include="Content\TmxMaps\Desert_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Collosseum_1.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Collosseum_2.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\NewFormat\Continent_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\NewFormat\Continent_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\NewFormat\Snow_01.tmx">
+    <Content Include="Content\TmxMaps\Grass_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Snow_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

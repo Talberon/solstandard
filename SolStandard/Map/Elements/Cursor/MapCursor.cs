@@ -10,8 +10,9 @@ namespace SolStandard.Map.Elements.Cursor
     public class MapCursor : MapElement
     {
         private readonly Vector2 mapSize;
-        private Vector2 pixelCoordinates;
-        public const int SlideSpeed = 10;
+        private Vector2 currentPixelCoordinates;
+        private const int BaseSlideSpeed = 10;
+        public int SlideSpeed { get; private set; }
 
         private enum CursorColor
         {
@@ -25,18 +26,19 @@ namespace SolStandard.Map.Elements.Cursor
         {
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
-            pixelCoordinates = mapCoordinates * GameDriver.CellSize;
+            currentPixelCoordinates = mapCoordinates * GameDriver.CellSize;
+            SlideSpeed = BaseSlideSpeed;
             this.mapSize = mapSize;
         }
 
-        public Vector2 PixelCoordinates
+        public Vector2 CurrentPixelCoordinates
         {
-            get { return pixelCoordinates; }
+            get { return currentPixelCoordinates; }
         }
 
         public Vector2 CenterPixelPoint
         {
-            get { return PixelCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2); }
+            get { return CurrentPixelCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2); }
         }
 
         private SpriteAtlas SpriteAtlas
@@ -94,33 +96,33 @@ namespace SolStandard.Map.Elements.Cursor
         {
             Vector2 mapPixelCoordinates = MapCoordinates * GameDriver.CellSize;
 
-            
+            //TODO Slide faster the further the cursor is away from its destinationv
             
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
-            bool leftOfDestination = pixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;
-            bool rightOfDestination = pixelCoordinates.X + SlideSpeed > mapPixelCoordinates.X;
-            bool aboveDestination = pixelCoordinates.Y - SlideSpeed < mapPixelCoordinates.Y;
-            bool belowDestionation = pixelCoordinates.Y + SlideSpeed > mapPixelCoordinates.Y;
+            bool leftOfDestination = currentPixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;
+            bool rightOfDestination = currentPixelCoordinates.X + SlideSpeed > mapPixelCoordinates.X;
+            bool aboveDestination = currentPixelCoordinates.Y - SlideSpeed < mapPixelCoordinates.Y;
+            bool belowDestionation = currentPixelCoordinates.Y + SlideSpeed > mapPixelCoordinates.Y;
 
-            if (leftOfDestination) pixelCoordinates.X += SlideSpeed;
-            if (rightOfDestination) pixelCoordinates.X -= SlideSpeed;
-            if (aboveDestination) pixelCoordinates.Y += SlideSpeed;
-            if (belowDestionation) pixelCoordinates.Y -= SlideSpeed;
+            if (leftOfDestination) currentPixelCoordinates.X += SlideSpeed;
+            if (rightOfDestination) currentPixelCoordinates.X -= SlideSpeed;
+            if (aboveDestination) currentPixelCoordinates.Y += SlideSpeed;
+            if (belowDestionation) currentPixelCoordinates.Y -= SlideSpeed;
 
             //Don't slide past the cursor's actual coordinates
             bool slidingRightWouldPassMapCoordinates =
-                leftOfDestination && (pixelCoordinates.X + SlideSpeed) > mapPixelCoordinates.X;
+                leftOfDestination && (currentPixelCoordinates.X + SlideSpeed) > mapPixelCoordinates.X;
             bool slidingLeftWouldPassMapCoordinates =
-                rightOfDestination && (pixelCoordinates.X - SlideSpeed) < mapPixelCoordinates.X;
+                rightOfDestination && (currentPixelCoordinates.X - SlideSpeed) < mapPixelCoordinates.X;
             bool slidingDownWouldPassMapCoordinates =
-                aboveDestination && (pixelCoordinates.Y + SlideSpeed) > mapPixelCoordinates.Y;
+                aboveDestination && (currentPixelCoordinates.Y + SlideSpeed) > mapPixelCoordinates.Y;
             bool slidingUpWouldPassMapCoordinates =
-                belowDestionation && (pixelCoordinates.Y - SlideSpeed) < mapPixelCoordinates.Y;
+                belowDestionation && (currentPixelCoordinates.Y - SlideSpeed) < mapPixelCoordinates.Y;
 
-            if (slidingRightWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;
-            if (slidingLeftWouldPassMapCoordinates) pixelCoordinates.X = mapPixelCoordinates.X;
-            if (slidingDownWouldPassMapCoordinates) pixelCoordinates.Y = mapPixelCoordinates.Y;
-            if (slidingUpWouldPassMapCoordinates) pixelCoordinates.Y = mapPixelCoordinates.Y;
+            if (slidingRightWouldPassMapCoordinates) currentPixelCoordinates.X = mapPixelCoordinates.X;
+            if (slidingLeftWouldPassMapCoordinates) currentPixelCoordinates.X = mapPixelCoordinates.X;
+            if (slidingDownWouldPassMapCoordinates) currentPixelCoordinates.Y = mapPixelCoordinates.Y;
+            if (slidingUpWouldPassMapCoordinates) currentPixelCoordinates.Y = mapPixelCoordinates.Y;
         }
 
         private void UpdateCursorTeam()
@@ -148,12 +150,12 @@ namespace SolStandard.Map.Elements.Cursor
         {
             UpdateCursorTeam();
             UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, pixelCoordinates, colorOverride);
+            Sprite.Draw(spriteBatch, currentPixelCoordinates, colorOverride);
         }
 
         public override string ToString()
         {
-            return "Cursor: {RenderCoordnates:" + pixelCoordinates + ", Sprite:{" + Sprite + "}}";
+            return "Cursor: {RenderCoordnates:" + currentPixelCoordinates + ", Sprite:{" + Sprite + "}}";
         }
     }
 }

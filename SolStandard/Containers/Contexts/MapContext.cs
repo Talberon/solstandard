@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts
             selectedUnitOriginalPosition = new Vector2();
         }
 
-        public void UpdateWindows()
+        public void UpdateWindowsEachTurn()
         {
             //Initiative Window
             MapUI.GenerateInitiativeWindow(GameContext.Units);

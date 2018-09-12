@@ -54,7 +54,7 @@ namespace SolStandard.Map.Camera
 
         private Vector2 MapCursorScreenCoordinates
         {
-            get { return ((MapContainer.MapCursor.PixelCoordinates + targetPosition) * targetZoom); }
+            get { return ((MapContainer.MapCursor.CurrentPixelCoordinates + targetPosition) * targetZoom); }
         }
 
         public void IncreaseZoom(float newTargetZoom)
@@ -124,7 +124,7 @@ namespace SolStandard.Map.Camera
 
             Trace.WriteLine("Camera:" + targetPosition);
             Trace.WriteLine("TargetPoint:" + centerPoint);
-            Trace.WriteLine("Cursor:" + MapContainer.MapCursor.PixelCoordinates);
+            Trace.WriteLine("Cursor:" + MapContainer.MapCursor.CurrentPixelCoordinates);
         }
 
         private void UpdateZoomLevel()

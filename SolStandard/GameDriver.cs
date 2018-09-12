@@ -85,7 +85,7 @@ namespace SolStandard
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            const string mapPath = "Content/TmxMaps/NewFormat/Continent_02.tmx";
+            const string mapPath = "Content/TmxMaps/Snow_01.tmx";
             TmxMap tmxMap = new TmxMap(mapPath);
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
@@ -126,6 +126,8 @@ namespace SolStandard
             );
 
             gameContext.StartGame();
+            gameContext.MapContext.UpdateWindowsEachTurn();
+            gameContext.ResultsUI.UpdateWindows();
         }
 
         /// <summary>
@@ -196,8 +198,12 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
-            gameContext.EndTurnIfUnitIsDead();
-
+            if (p1ControlMapper.Y())
+            {
+                //TODO Remove this once debugging is no longer needed
+                gameContext.ResolveTurn();
+            }
+            
             //Set the controller based on the active team
             switch (GameContext.ActiveUnit.Team)
             {
@@ -233,10 +239,6 @@ namespace SolStandard
             //Map Cursor Hover Logic
             MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
             MapCursorHover.Hover(gameContext.MapContext.CurrentTurnState, hoverTiles, gameContext.MapContext.MapUI);
-
-
-            gameContext.MapContext.UpdateWindows();
-            gameContext.ResultsUI.UpdateWindows();
 
 
             base.Update(gameTime);
