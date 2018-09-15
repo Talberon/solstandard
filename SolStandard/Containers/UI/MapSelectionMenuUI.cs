@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
@@ -35,8 +34,7 @@ namespace SolStandard.Containers.UI
 
             for (int i = 0; i < options.Length; i++)
             {
-                options[i] = new MapSelectOption(GameDriver.AvailableMaps.ElementAt(i).Key,
-                    GameDriver.AvailableMaps.ElementAt(i).Value);
+                options[i] = new MapSelectOption(GameDriver.AvailableMaps[i]);
             }
 
             IRenderable cursorSprite = new SpriteAtlas(GameDriver.MenuCursorTexture,

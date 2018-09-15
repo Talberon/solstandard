@@ -95,6 +95,7 @@
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />
     <Compile Include="Map\Elements\MapElement.cs" />
+    <Compile Include="Map\MapInfo.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

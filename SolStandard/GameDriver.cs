@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +7,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -27,7 +27,7 @@ namespace SolStandard
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
         public static readonly Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
-        public static Dictionary<string, string> AvailableMaps;
+        public static List<MapInfo> AvailableMaps;
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -41,7 +41,10 @@ namespace SolStandard
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
+
         private static ITexture2D MainMenuLogoTexture { get; set; }
+        private static ITexture2D MainMenuSunTexture { get; set; }
+        private static ITexture2D MainMenuBackground { get; set; }
 
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
@@ -59,6 +62,7 @@ namespace SolStandard
         public static List<ITexture2D> LargePortraitTextures { get; private set; }
         public static List<ITexture2D> MediumPortraitTextures { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
+
 
         public static ITexture2D WorldTileSetTexture
         {
@@ -131,16 +135,21 @@ namespace SolStandard
 
             _mapCamera = new MapCamera(5, 0.05f);
 
-            AvailableMaps = new Dictionary<string, string>
+            AvailableMaps = new List<MapInfo>
             {
-                {"Last Harbour", "Void_01.tmx"},
-                {"Atheion Grassland", "Grass_01.tmx"},
-                {"Romjack Mountain", "Snow_01.tmx"},
-                {"Yaruuti Desert", "Desert_01.tmx"}
+                new MapInfo("Last Harbour", "Void_01.tmx", null),
+                new MapInfo("Atheion Grassland", "Grass_01.tmx", null),
+                new MapInfo("Romjack Mountain", "Snow_01.tmx", null),
+                new MapInfo("Yaruuti Desert", "Desert_01.tmx", null)
             };
 
-            SpriteAtlas mainMenuLogoSpriteAtlas = new SpriteAtlas(MainMenuLogoTexture,
+            SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(MainMenuLogoTexture,
                 new Vector2(MainMenuLogoTexture.Width, MainMenuLogoTexture.Height), 1);
+            AnimatedSprite mainMenuLogoSprite =
+                new AnimatedSprite(MainMenuSunTexture, MainMenuSunTexture.Height, 5, false);
+            SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(MainMenuBackground,
+                new Vector2(MainMenuBackground.Width, MainMenuBackground.Height), 1);
+
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
 
@@ -148,7 +157,7 @@ namespace SolStandard
 
 
             _gameContext = new GameContext(
-                new MainMenuUI(mainMenuLogoSpriteAtlas),
+                new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite),
                 new MapSelectionMenuUI()
             );
         }
@@ -180,13 +189,16 @@ namespace SolStandard
             HeaderFont = ContentLoader.LoadHeaderFont(Content);
             MainMenuFont = ContentLoader.LoadMainMenuFont(Content);
 
-            MainMenuLogoTexture = ContentLoader.LoadMainMenuBackground(Content);
+            MainMenuLogoTexture = ContentLoader.LoadGameLogo(Content);
+            MainMenuSunTexture = ContentLoader.LoadSolSpin(Content);
+            MainMenuBackground = ContentLoader.LoadTitleScreenBackground(Content);
 
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
             DiceTexture = ContentLoader.LoadDiceAtlas(Content);
         }
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -206,7 +218,7 @@ namespace SolStandard
         {
             if (p1ControlMapper.Select())
             {
-                NewGame(AvailableMaps.ElementAt(Random.Next(AvailableMaps.Count)).Value);
+                NewGame(AvailableMaps[Random.Next(AvailableMaps.Count)].FileName);
             }
 
             if (_quitting)

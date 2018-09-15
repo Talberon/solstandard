@@ -226,13 +226,31 @@ namespace SolStandard.Utility.Load
             return diceTextureWrapper;
         }
 
-        public static ITexture2D LoadMainMenuBackground(ContentManager content)
+        public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Logo2_500");
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 
             return backgroundTextureWrapper;
+        }
+        
+        public static ITexture2D LoadSolSpin(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static ITexture2D LoadTitleScreenBackground(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerSky");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
         }
     }
 }

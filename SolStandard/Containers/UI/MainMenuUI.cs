@@ -10,11 +10,15 @@ namespace SolStandard.Containers.UI
     public class MainMenuUI : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
+        private readonly SpriteAtlas title;
+        private readonly AnimatedSprite logo;
         private readonly SpriteAtlas background;
         private bool visible;
 
-        public MainMenuUI(SpriteAtlas background)
+        public MainMenuUI(SpriteAtlas title, AnimatedSprite logo, SpriteAtlas background)
         {
+            this.title = title;
+            this.logo = logo;
             this.background = background;
             visible = true;
             mainMenu = GenerateMainMenu();
@@ -48,16 +52,20 @@ namespace SolStandard.Containers.UI
             if (visible)
             {
                 Vector2 centerScreen = GameDriver.ScreenSize / 2;
-                const int titleVertCoordinate = 30;
 
                 Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-                Vector2 backgroundPosition = new Vector2(centerScreen.X - backgroundCenter.X, titleVertCoordinate);
-                background.Draw(spriteBatch, backgroundPosition);
+                background.Draw(spriteBatch, centerScreen - backgroundCenter);
 
-                const int padding = 100;
+                const int titleVertCoordinate = 30;
+                Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
+                Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
+                logo.Draw(spriteBatch, titlePosition);
+                title.Draw(spriteBatch, titlePosition + new Vector2(100));
+
+                const int titlePadding = 200;
                 Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
                 Vector2 mainMenuPosition =
-                    new Vector2(centerScreen.X - mainMenuCenter.X, backgroundPosition.Y + background.Height + padding);
+                    new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
                 mainMenu.Draw(spriteBatch, mainMenuPosition);
             }
         }
