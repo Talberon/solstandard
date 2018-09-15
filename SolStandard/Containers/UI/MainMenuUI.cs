@@ -29,8 +29,8 @@ namespace SolStandard.Containers.UI
         {
             IOption[] options =
             {
-                new NewGameOption(GameDriver.PlainWindowTexture),
-                new QuitGameOption(GameDriver.PlainWindowTexture)
+                new NewGameOption(GameDriver.WindowTexture),
+                new QuitGameOption(GameDriver.WindowTexture)
             };
             IRenderable cursorSprite = new SpriteAtlas(GameDriver.MenuCursorTexture,
                 new Vector2(GameDriver.MenuCursorTexture.Width, GameDriver.MenuCursorTexture.Height), 1);

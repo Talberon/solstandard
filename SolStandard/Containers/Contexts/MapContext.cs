@@ -91,11 +91,19 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void ResetCursorToActiveUnit()
+        public void SnapCursorToActiveUnit()
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                MapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            }
+        }
+        
+        public void SlideCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                MapContainer.MapCursor.MoveCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
 
@@ -175,7 +183,7 @@ namespace SolStandard.Containers.Contexts
 
             return MapContainer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
-        
+
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
         {
             if (coordinates.X > MapContainer.GameGrid[0].GetLength(0)) return false;
@@ -213,7 +221,7 @@ namespace SolStandard.Containers.Contexts
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-             selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
+            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 

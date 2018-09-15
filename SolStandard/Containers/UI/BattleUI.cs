@@ -50,7 +50,7 @@ namespace SolStandard.Containers.UI
 
         public BattleUI()
         {
-            windowTexture = GameDriver.PlainWindowTexture;
+            windowTexture = GameDriver.WindowTexture;
             visible = true;
         }
 

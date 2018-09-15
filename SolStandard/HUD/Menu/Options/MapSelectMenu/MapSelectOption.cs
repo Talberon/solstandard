@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.MapSelectMenu
             LabelText = mapTitle;
             OptionWindow = new Window.Window(
                 "MapSelectOption " + LabelText,
-                GameDriver.PlainWindowTexture,
+                GameDriver.WindowTexture,
                 new RenderText(GameDriver.MainMenuFont, LabelText),
                 Color.White
             );

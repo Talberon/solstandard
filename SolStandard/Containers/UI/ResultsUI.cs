@@ -37,7 +37,7 @@ namespace SolStandard.Containers.UI
 
         public ResultsUI()
         {
-            windowTexture = GameDriver.PlainWindowTexture;
+            windowTexture = GameDriver.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
         }

@@ -15,9 +15,9 @@ namespace SolStandard.Map.Camera
 
     public class MapCamera
     {
-        private const int TopThreshold = 150;
+        private const int TopThreshold = 200;
         private const int HorizontalThreshold = 200;
-        private const int BottomThreshold = 200;
+        private const int BottomThreshold = 300;
         private const int DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
         private const float MinimumZoom = 2.0f;
@@ -98,7 +98,7 @@ namespace SolStandard.Map.Camera
 
             if (centeringOnPoint)
             {
-                CenterCursor();
+                CenterCameraToCursor();
                 PanCameraToTarget(1 / zoomRate);
             }
             else
@@ -110,12 +110,12 @@ namespace SolStandard.Map.Camera
             CorrectCameraToCursor();
         }
 
-        private void CenterCursor()
+        public void CenterCameraToCursor()
         {
-            CenterToPoint(MapContainer.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(MapContainer.MapCursor.CenterPixelPoint);
         }
 
-        private void CenterToPoint(Vector2 centerPoint)
+        private void CenterCameraToPoint(Vector2 centerPoint)
         {
             Vector2 screenCenter = GameDriver.ScreenSize / 2;
 

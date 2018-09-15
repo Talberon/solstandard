@@ -20,7 +20,7 @@ namespace SolStandard.Containers.Contexts
             ModeSelect,
             ArmyDraft,
             MapSelect,
-            LoadScreen,
+            PauseScreen,
             InGame,
             Results
         }
@@ -34,6 +34,7 @@ namespace SolStandard.Containers.Contexts
         private float oldZoom;
 
         public static GameState CurrentGameState;
+        public static PlayerIndex ActivePlayer { get; set; }
 
         private static InitiativeContext InitiativeContext { get; set; }
 
@@ -66,7 +67,7 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MainMenu;
         }
 
-        public void StartGame(string mapPath)
+        public void StartGame(string mapPath, MapCamera mapCamera)
         {
             LoadMap(mapPath);
 
@@ -79,12 +80,14 @@ namespace SolStandard.Containers.Contexts
 
             ActiveUnit.ActivateUnit();
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            MapContext.ResetCursorToActiveUnit();
+            MapContext.SnapCursorToActiveUnit();
             MapContext.EndTurn();
 
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
-
+            
+            mapCamera.CenterCameraToCursor();
+            
             CurrentGameState = GameState.InGame;
         }
 
@@ -118,7 +121,7 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        private void LoadInitiativeContext(TmxMapParser mapParser)
+        private static void LoadInitiativeContext(TmxMapParser mapParser)
         {
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
@@ -146,12 +149,12 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-            //TODO Open the action verticalMenu
+            //TODO Open the action menu
         }
 
         public void StartAction()
         {
-            //TODO Select option in the action verticalMenu
+            //TODO Select option in the action menu
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             //If the selection is Basic Attack
@@ -262,7 +265,7 @@ namespace SolStandard.Containers.Contexts
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
             ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            MapContext.ResetCursorToActiveUnit();
+            MapContext.SlideCursorToActiveUnit();
 
             MapContext.EndTurn();
             TurnNumber++;

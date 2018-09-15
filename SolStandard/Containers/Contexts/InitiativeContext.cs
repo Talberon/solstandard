@@ -7,8 +7,6 @@ namespace SolStandard.Containers.Contexts
 {
     public class InitiativeContext
     {
-        //TODO Handle the initiative list updates, manage turn order and unit selectability
-
         public List<GameUnit> InitiativeList { get; private set; }
         public GameUnit CurrentActiveUnit { get; private set; }
 

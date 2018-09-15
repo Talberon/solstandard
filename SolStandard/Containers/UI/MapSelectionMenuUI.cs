@@ -31,12 +31,12 @@ namespace SolStandard.Containers.UI
 
         private static VerticalMenu GenerateMapSelectionMenu()
         {
-            IOption[] options = new IOption[GameDriver.MapFiles.Count];
+            IOption[] options = new IOption[GameDriver.AvailableMaps.Count];
 
             for (int i = 0; i < options.Length; i++)
             {
-                options[i] = new MapSelectOption(GameDriver.MapFiles.ElementAt(i).Key,
-                    GameDriver.MapFiles.ElementAt(i).Value);
+                options[i] = new MapSelectOption(GameDriver.AvailableMaps.ElementAt(i).Key,
+                    GameDriver.AvailableMaps.ElementAt(i).Value);
             }
 
             IRenderable cursorSprite = new SpriteAtlas(GameDriver.MenuCursorTexture,

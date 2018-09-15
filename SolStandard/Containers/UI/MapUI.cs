@@ -41,7 +41,7 @@ namespace SolStandard.Containers.UI
         public MapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            windowTexture = GameDriver.PlainWindowTexture;
+            windowTexture = GameDriver.WindowTexture;
             visible = true;
         }
 

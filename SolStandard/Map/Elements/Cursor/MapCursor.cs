@@ -46,21 +46,33 @@ namespace SolStandard.Map.Elements.Cursor
             get { return (SpriteAtlas) Sprite; }
         }
 
+
+        public void MoveCursorToCoordinates(Vector2 coordinates)
+        {
+            MapCoordinates = coordinates;
+        }
+
+        public void SnapCursorToCoordinates(Vector2 coordinates)
+        {
+            MapCoordinates = coordinates;
+            currentPixelCoordinates = MapCoordinates * GameDriver.CellSize;
+        }
+
         public void MoveCursorInDirection(Direction direction)
         {
             switch (direction)
             {
                 case Direction.Down:
-                    MapCoordinates = new Vector2(MapCoordinates.X, MapCoordinates.Y + 1);
+                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
                     break;
                 case Direction.Right:
-                    MapCoordinates = new Vector2(MapCoordinates.X + 1, MapCoordinates.Y);
+                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
                     break;
                 case Direction.Up:
-                    MapCoordinates = new Vector2(MapCoordinates.X, MapCoordinates.Y - 1);
+                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
                     break;
                 case Direction.Left:
-                    MapCoordinates = new Vector2(MapCoordinates.X - 1, MapCoordinates.Y);
+                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -97,7 +109,7 @@ namespace SolStandard.Map.Elements.Cursor
             Vector2 mapPixelCoordinates = MapCoordinates * GameDriver.CellSize;
 
             //TODO Slide faster the further the cursor is away from its destination
-            
+
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
             bool leftOfDestination = currentPixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;
             bool rightOfDestination = currentPixelCoordinates.X + SlideSpeed > mapPixelCoordinates.X;
