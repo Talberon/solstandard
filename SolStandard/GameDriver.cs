@@ -10,6 +10,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
@@ -23,6 +24,8 @@ namespace SolStandard
     public class GameDriver : Game
     {
         public static readonly Random Random = new Random();
+
+        public static bool Quitting = false;
 
         //Tile Size of Sprites
         public const int CellSize = 32;
@@ -39,7 +42,8 @@ namespace SolStandard
         public static ISpriteFont MapFont { get; private set; }
         public static ISpriteFont ResultsFont { get; private set; }
         public static ISpriteFont HeaderFont { get; private set; }
-        
+        public static ISpriteFont MainMenuFont { get; private set; }
+
         public static List<ITexture2D> TerrainTextures { get; private set; }
         public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
@@ -53,6 +57,7 @@ namespace SolStandard
         private static List<ITexture2D> LargePortraitTextures { get; set; }
         private static List<ITexture2D> MediumPortraitTextures { get; set; }
         private static List<ITexture2D> SmallPortraitTextures { get; set; }
+        private static ITexture2D MainMenuBackgroundTexture { get; set; }
 
         private MapCamera mapCamera;
 
@@ -101,8 +106,9 @@ namespace SolStandard
 
             mapCamera = new MapCamera(5, 0.05f);
 
-            ITexture2D cursorTexture = GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Cursors"));
-            MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), cursorTexture);
+            ITexture2D mapCursorTexture =
+                GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors"));
+            MapContainer gameMap = new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture);
 
             List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
                 mapParser.LoadUnits(), LargePortraitTextures, MediumPortraitTextures,
@@ -118,11 +124,18 @@ namespace SolStandard
 
             ActivePlayer = PlayerIndex.One;
 
+            ITexture2D menuCursorTexture = GuiTextures.Find(texture =>
+                texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow"));
+
+            SpriteAtlas mainMenuBackground = new SpriteAtlas(MainMenuBackgroundTexture,
+                new Vector2(MainMenuBackgroundTexture.Width, MainMenuBackgroundTexture.Height), 1);
+
             gameContext = new GameContext(
                 new MapContext(gameMap, new MapUI(screenSize, windowTexture)),
                 new BattleContext(new BattleUI(windowTexture)),
                 new InitiativeContext(unitsFromMap, (Random.Next(2) == 0) ? Team.Blue : Team.Red),
-                new ResultsUI(windowTexture)
+                new ResultsUI(windowTexture),
+                new MainMenuUI(menuCursorTexture, windowTexture, mainMenuBackground)
             );
 
             gameContext.StartGame();
@@ -150,12 +163,15 @@ namespace SolStandard
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
-            
+
             WindowFont = ContentLoader.LoadWindowFont(Content);
             MapFont = ContentLoader.LoadMapFont(Content);
             ResultsFont = ContentLoader.LoadResultsFont(Content);
             HeaderFont = ContentLoader.LoadHeaderFont(Content);
-            
+            MainMenuFont = ContentLoader.LoadMainMenuFont(Content);
+
+            MainMenuBackgroundTexture = ContentLoader.LoadMainMenuBackground(Content);
+
             LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
@@ -178,7 +194,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (p1ControlMapper.Select())
+            if (Quitting)
             {
                 Exit();
             }
@@ -203,7 +219,7 @@ namespace SolStandard
                 //TODO Remove this once debugging is no longer needed
                 gameContext.ResolveTurn();
             }
-            
+
             //Set the controller based on the active team
             switch (GameContext.ActiveUnit.Team)
             {
@@ -252,22 +268,26 @@ namespace SolStandard
         {
             GraphicsDevice.Clear(new Color(50, 50, 50));
 
-            //MAP LAYER
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
-
-            gameContext.MapContext.MapContainer.Draw(spriteBatch);
-
-
-            spriteBatch.End();
 
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    //TODO Render Main Menu
+                    //TODO Render Main VerticalMenu
+                    //Render Results
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, null);
+                    gameContext.MainMenuUI.Draw(spriteBatch);
+                    spriteBatch.End();
                     break;
                 case GameContext.GameState.InGame:
+
+                    //MAP LAYER
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+                    gameContext.MapContext.MapContainer.Draw(spriteBatch);
+                    spriteBatch.End();
 
                     //WINDOW LAYER
                     spriteBatch.Begin(

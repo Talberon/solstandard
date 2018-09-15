@@ -32,6 +32,11 @@ namespace SolStandard.Utility.Load
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/ResultsText"));
         }
 
+        public static ISpriteFont LoadMainMenuFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MainMenuText"));
+        }
+
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
@@ -86,7 +91,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadCursorTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/Cursor/Cursors")
+                content.Load<Texture2D>("Graphics/Map/Cursor/Cursors"),
+                content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorArrow_32")
             };
 
             List<ITexture2D> cursorTextures = new List<ITexture2D>();
@@ -213,11 +219,20 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
-            Texture2D diceAtlasTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
+            Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
 
-            ITexture2D diceAtlas = new Texture2DWrapper(diceAtlasTexture);
+            ITexture2D diceTextureWrapper = new Texture2DWrapper(diceTexture);
 
-            return diceAtlas;
+            return diceTextureWrapper;
+        }
+
+        public static ITexture2D LoadMainMenuBackground(ContentManager content)
+        {
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-TitleScreen2");
+
+            ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
+
+            return backgroundTextureWrapper;
         }
     }
 }

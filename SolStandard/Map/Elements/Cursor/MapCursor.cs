@@ -96,7 +96,7 @@ namespace SolStandard.Map.Elements.Cursor
         {
             Vector2 mapPixelCoordinates = MapCoordinates * GameDriver.CellSize;
 
-            //TODO Slide faster the further the cursor is away from its destinationv
+            //TODO Slide faster the further the cursor is away from its destination
             
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
             bool leftOfDestination = currentPixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;

@@ -22,6 +22,7 @@ namespace SolStandard.Containers.Contexts
         private readonly MapContext mapContext;
         private readonly BattleContext battleContext;
         public ResultsUI ResultsUI { get; private set; }
+        public MainMenuUI MainMenuUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
 
@@ -30,15 +31,15 @@ namespace SolStandard.Containers.Contexts
         private static InitiativeContext InitiativeContext { get; set; }
 
         public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext,
-            ResultsUI resultsUI)
+            ResultsUI resultsUI, MainMenuUI mainMenuUI)
         {
             this.mapContext = mapContext;
             this.battleContext = battleContext;
             InitiativeContext = initiativeContext;
             ResultsUI = resultsUI;
-
-            //TODO Update to MainMenu once menu is implemented.
-            CurrentGameState = GameState.InGame;
+            MainMenuUI = mainMenuUI;
+            
+            CurrentGameState = GameState.MainMenu;
         }
 
         public static List<GameUnit> Units
@@ -75,12 +76,12 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-            //TODO Open the action menu
+            //TODO Open the action verticalMenu
         }
 
         public void StartAction()
         {
-            //TODO Select option in the action menu
+            //TODO Select option in the action verticalMenu
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             //If the selection is Basic Attack

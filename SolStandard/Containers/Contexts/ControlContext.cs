@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -16,6 +17,7 @@ namespace SolStandard.Containers.Contexts
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    MenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
                     break;
                 case GameContext.GameState.InGame:
                     MapControls(gameContext, controlMapper, mapCamera, mapCursor);
@@ -26,6 +28,23 @@ namespace SolStandard.Containers.Contexts
                     throw new ArgumentOutOfRangeException();
             }
 
+        }
+
+        private static void MenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
+        {
+            if (controlMapper.Down())
+            {
+                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+            if (controlMapper.Up())
+            {
+                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.A())
+            {
+                verticalMenu.SelectOption();
+            }
         }
 
         private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
