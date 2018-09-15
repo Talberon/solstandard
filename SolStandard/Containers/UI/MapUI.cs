@@ -38,10 +38,10 @@ namespace SolStandard.Containers.UI
 
         private readonly ITexture2D windowTexture;
 
-        public MapUI(Vector2 screenSize, ITexture2D windowTexture)
+        public MapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            this.windowTexture = windowTexture;
+            windowTexture = GameDriver.PlainWindowTexture;
             visible = true;
         }
 

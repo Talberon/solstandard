@@ -35,9 +35,9 @@ namespace SolStandard.Containers.UI
 
         public bool Visible { get; private set; }
 
-        public ResultsUI(ITexture2D windowTexture)
+        public ResultsUI()
         {
-            this.windowTexture = windowTexture;
+            windowTexture = GameDriver.PlainWindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
         }

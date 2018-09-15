@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -25,6 +26,7 @@ namespace SolStandard
 
         //Tile Size of Sprites
         public const int CellSize = 32;
+        public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -41,7 +43,18 @@ namespace SolStandard
         public static ISpriteFont HeaderFont { get; private set; }
         public static ISpriteFont MainMenuFont { get; private set; }
 
-        public static List<ITexture2D> TerrainTextures { get; private set; }
+        private static List<ITexture2D> TerrainTextures { get; set; }
+
+        public static ITexture2D WorldTileSetTexture
+        {
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")); }
+        }
+
+        public static ITexture2D TerrainTexture
+        {
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
+        }
+
         public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
         public static ITexture2D WhiteGrid { get; private set; }
@@ -49,9 +62,24 @@ namespace SolStandard
         public static ITexture2D StatIcons { get; private set; }
         public static ITexture2D MainMenuLogoTexture { get; private set; }
 
-        public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> GuiTextures { get; private set; }
+
+        public static ITexture2D MapCursorTexture
+        {
+            get { return GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors")); }
+        }
+        public static ITexture2D MenuCursorTexture
+        {
+            get { return GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow")); }
+        }
+
+        public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> WindowTextures { get; private set; }
+
+        public static ITexture2D PlainWindowTexture
+        {
+            get { return WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow")); }
+        }
 
         public static List<ITexture2D> LargePortraitTextures { get; private set; }
         public static List<ITexture2D> MediumPortraitTextures { get; private set; }
@@ -59,7 +87,7 @@ namespace SolStandard
 
 
         private MapCamera mapCamera;
-        public static string[] MapFiles;
+        public static Dictionary<string, string> MapFiles;
 
         private static PlayerIndex ActivePlayer { get; set; }
 
@@ -77,13 +105,14 @@ namespace SolStandard
             Content.RootDirectory = "Content";
         }
 
-        
+
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame()
+        public static void NewGame(string mapName)
         {
-            _gameContext.StartGame();
+            string mapPath = "Content/TmxMaps/" + mapName;
+            _gameContext.StartGame(mapPath);
         }
 
         public static void QuitGame()
@@ -106,18 +135,14 @@ namespace SolStandard
             mapCamera = new MapCamera(5, 0.05f);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            MapFiles = new[]
+            MapFiles = new Dictionary<string, string>
             {
-                "Grass_01.tmx",
-                "Snow_01.tmx",
-                "Desert_01.tmx"
+                {"Achrebrook Riverland", "Grass_01.tmx"},
+                {"Snowhorn Mountain", "Snow_01.tmx"},
+                {"Yaruuti Desert", "Desert_01.tmx"}
             };
 
-            ITexture2D windowTexture =
-                WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow"));
-            ITexture2D menuCursorTexture =
-                GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow"));
-            SpriteAtlas mainMenuLogo = new SpriteAtlas(MainMenuLogoTexture,
+            SpriteAtlas mainMenuLogoSpriteAtlas = new SpriteAtlas(MainMenuLogoTexture,
                 new Vector2(MainMenuLogoTexture.Width, MainMenuLogoTexture.Height), 1);
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
@@ -126,8 +151,8 @@ namespace SolStandard
 
 
             _gameContext = new GameContext(
-                new MainMenuUI(menuCursorTexture, windowTexture, mainMenuLogo),
-                windowTexture
+                new MainMenuUI(mainMenuLogoSpriteAtlas),
+                new MapSelectionMenuUI()
             );
         }
 
@@ -184,8 +209,9 @@ namespace SolStandard
         {
             if (p1ControlMapper.Select())
             {
-                _gameContext.StartGame();
+                NewGame(MapFiles.ElementAt(Random.Next(MapFiles.Count)).Value);
             }
+
             if (_quitting)
             {
                 Exit();
@@ -251,7 +277,8 @@ namespace SolStandard
 
                 //Map Cursor Hover Logic
                 MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                MapCursorHover.Hover(_gameContext.MapContext.CurrentTurnState, hoverTiles, _gameContext.MapContext.MapUI);
+                MapCursorHover.Hover(_gameContext.MapContext.CurrentTurnState, hoverTiles,
+                    _gameContext.MapContext.MapUI);
             }
 
             base.Update(gameTime);
@@ -269,13 +296,26 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    //TODO Render Main VerticalMenu
-                    //Render Results
+                    //Render Main Menu
                     spriteBatch.Begin(
                         SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
                         null, SamplerState.PointClamp, null, null, null, null);
                     _gameContext.MainMenuUI.Draw(spriteBatch);
                     spriteBatch.End();
+                    break;
+                case GameContext.GameState.ModeSelect:
+                    break;
+                case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.MapSelect:
+                    //Render Map Select Screen
+                    spriteBatch.Begin(
+                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        null, SamplerState.PointClamp, null, null, null, null);
+                    _gameContext.MapSelectionMenuUI.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameContext.GameState.LoadScreen:
                     break;
                 case GameContext.GameState.InGame:
 

@@ -4,7 +4,6 @@ using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.Utility;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
@@ -14,11 +13,11 @@ namespace SolStandard.Containers.UI
         private readonly SpriteAtlas background;
         private bool visible;
 
-        public MainMenuUI(ITexture2D menuCursorSprite, ITexture2D windowTexture, SpriteAtlas background)
+        public MainMenuUI(SpriteAtlas background)
         {
             this.background = background;
             visible = true;
-            mainMenu = GenerateMainMenu(menuCursorSprite, windowTexture);
+            mainMenu = GenerateMainMenu();
         }
 
         public VerticalMenu MainMenu
@@ -26,15 +25,15 @@ namespace SolStandard.Containers.UI
             get { return mainMenu; }
         }
 
-        private static VerticalMenu GenerateMainMenu(ITexture2D menuCursorSprite, ITexture2D windowTexture)
+        private static VerticalMenu GenerateMainMenu()
         {
             IOption[] options =
             {
-                new NewGameOption(windowTexture),
-                new QuitGameOption(windowTexture)
+                new NewGameOption(GameDriver.PlainWindowTexture),
+                new QuitGameOption(GameDriver.PlainWindowTexture)
             };
-            IRenderable cursorSprite = new SpriteAtlas(menuCursorSprite,
-                new Vector2(menuCursorSprite.Width, menuCursorSprite.Height), 1);
+            IRenderable cursorSprite = new SpriteAtlas(GameDriver.MenuCursorTexture,
+                new Vector2(GameDriver.MenuCursorTexture.Width, GameDriver.MenuCursorTexture.Height), 1);
 
             return new VerticalMenu(options, cursorSprite);
         }

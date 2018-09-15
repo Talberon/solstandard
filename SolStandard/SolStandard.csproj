@@ -47,7 +47,6 @@
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
-    <Compile Include="Containers\Contexts\MapSelectionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
+    <Compile Include="HUD\Menu\Options\MapSelectMenu\MapSelectOption.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\OptionDescription.cs" />
     <Compile Include="HUD\Menu\Options\IOption.cs" />

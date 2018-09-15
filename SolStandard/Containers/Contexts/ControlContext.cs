@@ -19,6 +19,15 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.MainMenu:
                     MenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
                     break;
+                case GameContext.GameState.ModeSelect:
+                    break;
+                case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.MapSelect:
+                    MenuControls(controlMapper, gameContext.MapSelectionMenuUI.MapSelectMenu);
+                    break;
+                case GameContext.GameState.LoadScreen:
+                    break;
                 case GameContext.GameState.InGame:
                     MapControls(gameContext, controlMapper, mapCamera, mapCursor);
                     break;

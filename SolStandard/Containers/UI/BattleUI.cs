@@ -48,9 +48,9 @@ namespace SolStandard.Containers.UI
 
         private readonly ITexture2D windowTexture;
 
-        public BattleUI(ITexture2D windowTexture)
+        public BattleUI()
         {
-            this.windowTexture = windowTexture;
+            windowTexture = GameDriver.PlainWindowTexture;
             visible = true;
         }
 

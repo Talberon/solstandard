@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
@@ -25,7 +26,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public void Execute()
         {
-            GameDriver.NewGame();
+            GameContext.CurrentGameState = GameContext.GameState.MapSelect;
         }
     }
 }

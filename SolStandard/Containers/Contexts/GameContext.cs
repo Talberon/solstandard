@@ -29,29 +29,45 @@ namespace SolStandard.Containers.Contexts
         private readonly BattleContext battleContext;
         public ResultsUI ResultsUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
+        public MapSelectionMenuUI MapSelectionMenuUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
-
-        private readonly ITexture2D windowTexture;
 
         public static GameState CurrentGameState;
 
         private static InitiativeContext InitiativeContext { get; set; }
 
-        public GameContext(MainMenuUI mainMenuUI, ITexture2D windowTexture)
+        public static List<GameUnit> Units
         {
-            this.windowTexture = windowTexture;
-            battleContext = new BattleContext(new BattleUI(windowTexture));
+            get { return InitiativeContext.InitiativeList; }
+        }
+
+        public static GameUnit ActiveUnit
+        {
+            get { return InitiativeContext.CurrentActiveUnit; }
+        }
+
+        public MapContext MapContext
+        {
+            get { return mapContext; }
+        }
+
+        public BattleContext BattleContext
+        {
+            get { return battleContext; }
+        }
+
+        public GameContext(MainMenuUI mainMenuUI, MapSelectionMenuUI mapSelectionMenuUI)
+        {
+            battleContext = new BattleContext(new BattleUI());
             MainMenuUI = mainMenuUI;
+            MapSelectionMenuUI = mapSelectionMenuUI;
 
             CurrentGameState = GameState.MainMenu;
         }
 
-        public void StartGame()
+        public void StartGame(string mapPath)
         {
-            //Randomize the game map
-            string mapPath =
-                "Content/TmxMaps/" + GameDriver.MapFiles[GameDriver.Random.Next(GameDriver.MapFiles.Length)];
             LoadMap(mapPath);
 
             TurnNumber = 1;
@@ -74,14 +90,12 @@ namespace SolStandard.Containers.Contexts
 
         private void LoadMap(string mapPath)
         {
-            TmxMap tmxMap = new TmxMap(mapPath);
-            const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
             TmxMapParser mapParser = new TmxMapParser(
-                tmxMap,
-                GameDriver.TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")),
-                GameDriver.TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")),
+                new TmxMap(mapPath),
+                GameDriver.WorldTileSetTexture,
+                GameDriver.TerrainTexture,
                 GameDriver.UnitSprites,
-                objectTypeDefaults
+                GameDriver.TmxObjectTypeDefaults
             );
 
             LoadMapContainer(mapParser);
@@ -91,17 +105,16 @@ namespace SolStandard.Containers.Contexts
 
         private void LoadResultsUI()
         {
-            ResultsUI = new ResultsUI(windowTexture);
+            ResultsUI = new ResultsUI();
         }
 
         private void LoadMapContainer(TmxMapParser mapParser)
         {
-            ITexture2D mapCursorTexture =
-                GameDriver.GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors"));
+            ITexture2D mapCursorTexture = GameDriver.MapCursorTexture;
 
             mapContext = new MapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
-                new MapUI(GameDriver.ScreenSize, windowTexture)
+                new MapUI(GameDriver.ScreenSize)
             );
         }
 
@@ -114,28 +127,9 @@ namespace SolStandard.Containers.Contexts
                 GameDriver.SmallPortraitTextures
             );
 
+            //Randomize the team that goes first
             InitiativeContext =
                 new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
-        }
-
-        public static List<GameUnit> Units
-        {
-            get { return InitiativeContext.InitiativeList; }
-        }
-
-        public static GameUnit ActiveUnit
-        {
-            get { return InitiativeContext.CurrentActiveUnit; }
-        }
-
-        public MapContext MapContext
-        {
-            get { return mapContext; }
-        }
-
-        public BattleContext BattleContext
-        {
-            get { return battleContext; }
         }
 
 
