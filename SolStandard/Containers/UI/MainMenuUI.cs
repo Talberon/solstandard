@@ -11,7 +11,6 @@ namespace SolStandard.Containers.UI
     public class MainMenuUI : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
-        private readonly Vector2 mainMenuPosition;
         private readonly SpriteAtlas background;
         private bool visible;
 
@@ -20,7 +19,6 @@ namespace SolStandard.Containers.UI
             this.background = background;
             visible = true;
             mainMenu = GenerateMainMenu(menuCursorSprite, windowTexture);
-            mainMenuPosition = (GameDriver.ScreenSize / 2 - new Vector2(mainMenu.Width, mainMenu.Height) / 2);
         }
 
         public VerticalMenu MainMenu
@@ -48,13 +46,19 @@ namespace SolStandard.Containers.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 centerScreen = new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 2);
-            Vector2 backgroundCenter = new Vector2((float) background.Width / 2, (float) background.Height / 2);
-
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
-
             if (visible)
             {
+                Vector2 centerScreen = GameDriver.ScreenSize / 2;
+                const int titleVertCoordinate = 30;
+
+                Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
+                Vector2 backgroundPosition = new Vector2(centerScreen.X - backgroundCenter.X, titleVertCoordinate);
+                background.Draw(spriteBatch, backgroundPosition);
+
+                const int padding = 100;
+                Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
+                Vector2 mainMenuPosition =
+                    new Vector2(centerScreen.X - mainMenuCenter.X, backgroundPosition.Y + background.Height + padding);
                 mainMenu.Draw(spriteBatch, mainMenuPosition);
             }
         }

@@ -29,7 +29,7 @@ namespace SolStandard.HUD.Menu
         {
             this.options = options;
             this.cursorSprite = cursorSprite;
-            optionBackgroundColor = new Color(50, 100, 75, 200);
+            optionBackgroundColor = new Color(127, 148, 217, 200);
             currentOptionIndex = 0;
             cursorPosition = Vector2.Zero;
             optionCoordinates = MapOptionCoordinates();

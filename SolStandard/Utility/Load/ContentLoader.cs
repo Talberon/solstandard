@@ -228,7 +228,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadMainMenuBackground(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-TitleScreen2");
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Logo2_500");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 

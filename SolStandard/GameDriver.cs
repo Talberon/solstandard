@@ -25,7 +25,7 @@ namespace SolStandard
     {
         public static readonly Random Random = new Random();
 
-        public static bool Quitting = false;
+        public static bool Quitting;
 
         //Tile Size of Sprites
         public const int CellSize = 32;
@@ -90,7 +90,15 @@ namespace SolStandard
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
             //TODO Map Path Hard-coded for now; remove me once map selector implemented
-            const string mapPath = "Content/TmxMaps/Snow_01.tmx";
+            string[] mapPaths =
+            {
+                "Grass_01.tmx",
+                "Snow_01.tmx",
+                "Desert_01.tmx"
+            };
+
+            string mapPath = "Content/TmxMaps/" + mapPaths[Random.Next(mapPaths.Length)];
+
             TmxMap tmxMap = new TmxMap(mapPath);
 
             const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
@@ -194,6 +202,11 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (p1ControlMapper.Select())
+            {
+                Quitting = true;
+            }
+
             if (Quitting)
             {
                 Exit();
@@ -266,8 +279,14 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(50, 50, 50));
+            GraphicsDevice.Clear(new Color(38, 43, 64));
 
+            //MAP LAYER
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
+            gameContext.MapContext.MapContainer.Draw(spriteBatch);
+            spriteBatch.End();
 
             switch (GameContext.CurrentGameState)
             {
@@ -281,13 +300,6 @@ namespace SolStandard
                     spriteBatch.End();
                     break;
                 case GameContext.GameState.InGame:
-
-                    //MAP LAYER
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, mapCamera.CameraMatrix);
-                    gameContext.MapContext.MapContainer.Draw(spriteBatch);
-                    spriteBatch.End();
 
                     //WINDOW LAYER
                     spriteBatch.Begin(
