@@ -7,13 +7,13 @@ namespace SolStandard.HUD.Menu.Options.MapSelectMenu
 {
     public class MapSelectOption : IOption
     {
-        private readonly MapInfo mapInfo;
+        public MapInfo MapInfo { get; private set; }
         public string LabelText { get; private set; }
         public IRenderable OptionWindow { get; private set; }
 
         public MapSelectOption(MapInfo mapInfo)
         {
-            this.mapInfo = mapInfo;
+            MapInfo = mapInfo;
             LabelText = mapInfo.Title;
             OptionWindow = new Window.Window(
                 "MapSelectOption " + LabelText,
@@ -25,7 +25,7 @@ namespace SolStandard.HUD.Menu.Options.MapSelectMenu
 
         public void Execute()
         {
-            GameDriver.NewGame(mapInfo.FileName);
+            GameDriver.NewGame(MapInfo.FileName);
         }
     }
 }

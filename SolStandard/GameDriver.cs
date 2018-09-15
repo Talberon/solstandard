@@ -40,6 +40,7 @@ namespace SolStandard
 
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
+        private static List<ITexture2D> MapPreviewTextures { get; set; }
         private static List<ITexture2D> GuiTextures { get; set; }
 
         private static ITexture2D MainMenuLogoTexture { get; set; }
@@ -135,12 +136,25 @@ namespace SolStandard
 
             _mapCamera = new MapCamera(5, 0.05f);
 
+            ITexture2D mapPreviewVoid =
+                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Void_01"));
+            ITexture2D mapPreviewGrass =
+                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_01"));
+            ITexture2D mapPreviewSnow =
+                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
+            ITexture2D mapPreviewDesert =
+                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
+
             AvailableMaps = new List<MapInfo>
             {
-                new MapInfo("Last Harbour", "Void_01.tmx", null),
-                new MapInfo("Atheion Grassland", "Grass_01.tmx", null),
-                new MapInfo("Romjack Mountain", "Snow_01.tmx", null),
-                new MapInfo("Yaruuti Desert", "Desert_01.tmx", null)
+                new MapInfo("Last Harbour", "Void_01.tmx",
+                    new SpriteAtlas(mapPreviewVoid, new Vector2(mapPreviewVoid.Width, mapPreviewVoid.Height), 1)),
+                new MapInfo("Atheion Grassland", "Grass_01.tmx",
+                    new SpriteAtlas(mapPreviewGrass, new Vector2(mapPreviewGrass.Width, mapPreviewGrass.Height), 1)),
+                new MapInfo("Romjack Mountain", "Snow_01.tmx",
+                    new SpriteAtlas(mapPreviewSnow, new Vector2(mapPreviewSnow.Width, mapPreviewSnow.Height), 1)),
+                new MapInfo("Yaruuti Desert", "Desert_01.tmx",
+                    new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1))
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(MainMenuLogoTexture,
@@ -182,6 +196,7 @@ namespace SolStandard
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
             GuiTextures = ContentLoader.LoadCursorTextures(Content);
             WindowTextures = ContentLoader.LoadWindowTextures(Content);
+            MapPreviewTextures = ContentLoader.LoadMapPreviews(Content);
 
             WindowFont = ContentLoader.LoadWindowFont(Content);
             MapFont = ContentLoader.LoadMapFont(Content);

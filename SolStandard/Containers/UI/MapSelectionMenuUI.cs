@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MapSelectMenu;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.UI
@@ -21,6 +23,25 @@ namespace SolStandard.Containers.UI
         {
             mapSelectMenu = GenerateMapSelectionMenu();
             visible = true;
+        }
+
+        private IRenderable MapPreviewWindow
+        {
+            get
+            {
+                IRenderable content = new RenderBlank();
+
+                MapSelectOption option = (MapSelectOption) mapSelectMenu.CurrentOption;
+                if (mapSelectMenu.CurrentOption.GetType() == typeof(MapSelectOption))
+                {
+                    if (option.MapInfo.PreviewImage != null)
+                    {
+                        content = option.MapInfo.PreviewImage;
+                    }
+                }
+
+                return new Window("Map Preview", GameDriver.WindowTexture, content, Color.White);
+            }
         }
 
         public VerticalMenu MapSelectMenu
@@ -54,8 +75,14 @@ namespace SolStandard.Containers.UI
             if (visible)
             {
                 Vector2 centerScreen = GameDriver.ScreenSize / 2;
-                Vector2 mapSelectMenuCenter = new Vector2(mapSelectMenu.Width, mapSelectMenu.Height) / 2;
 
+                if (MapPreviewWindow != null)
+                {
+                    Vector2 mapPreviewCenter = new Vector2(MapPreviewWindow.Width, MapPreviewWindow.Height) / 2;
+                    MapPreviewWindow.Draw(spriteBatch, centerScreen - mapPreviewCenter);
+                }
+
+                Vector2 mapSelectMenuCenter = new Vector2(mapSelectMenu.Width, mapSelectMenu.Height) / 2;
                 Vector2 mapSelectMenuPosition =
                     new Vector2(centerScreen.X - mapSelectMenuCenter.X, centerScreen.Y - mapSelectMenuCenter.Y);
 

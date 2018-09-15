@@ -252,5 +252,24 @@ namespace SolStandard.Utility.Load
 
             return textureWrapper;
         }
+
+        public static List<ITexture2D> LoadMapPreviews(ContentManager content)
+        {
+            List<Texture2D> mapPreviewTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Snow_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
+            };
+
+            List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in mapPreviewTextures)
+            {
+                mapPreviewITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return mapPreviewITextures;
+        }
     }
 }

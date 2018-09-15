@@ -64,6 +64,11 @@ namespace SolStandard.HUD.Menu
         }
 
 
+        public IOption CurrentOption
+        {
+            get { return options[currentOptionIndex]; }
+        }
+
         public void SelectOption()
         {
             options[currentOptionIndex].Execute();
