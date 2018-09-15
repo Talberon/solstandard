@@ -4,9 +4,11 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
+using TiledSharp;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -15,31 +17,105 @@ namespace SolStandard.Containers.Contexts
         public enum GameState
         {
             MainMenu,
+            ModeSelect,
+            ArmyDraft,
+            MapSelect,
+            LoadScreen,
             InGame,
             Results
         }
 
-        private readonly MapContext mapContext;
+        private MapContext mapContext;
         private readonly BattleContext battleContext;
         public ResultsUI ResultsUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
 
+        private readonly ITexture2D windowTexture;
+
         public static GameState CurrentGameState;
 
         private static InitiativeContext InitiativeContext { get; set; }
 
-        public GameContext(MapContext mapContext, BattleContext battleContext, InitiativeContext initiativeContext,
-            ResultsUI resultsUI, MainMenuUI mainMenuUI)
+        public GameContext(MainMenuUI mainMenuUI, ITexture2D windowTexture)
         {
-            this.mapContext = mapContext;
-            this.battleContext = battleContext;
-            InitiativeContext = initiativeContext;
-            ResultsUI = resultsUI;
+            this.windowTexture = windowTexture;
+            battleContext = new BattleContext(new BattleUI(windowTexture));
             MainMenuUI = mainMenuUI;
-            
+
             CurrentGameState = GameState.MainMenu;
+        }
+
+        public void StartGame()
+        {
+            //Randomize the game map
+            string mapPath =
+                "Content/TmxMaps/" + GameDriver.MapFiles[GameDriver.Random.Next(GameDriver.MapFiles.Length)];
+            LoadMap(mapPath);
+
+            TurnNumber = 1;
+
+            foreach (GameUnit unit in Units)
+            {
+                unit.DisableExhaustedUnit();
+            }
+
+            ActiveUnit.ActivateUnit();
+            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            MapContext.ResetCursorToActiveUnit();
+            MapContext.EndTurn();
+
+            MapContext.UpdateWindowsEachTurn();
+            ResultsUI.UpdateWindows();
+
+            CurrentGameState = GameState.InGame;
+        }
+
+        private void LoadMap(string mapPath)
+        {
+            TmxMap tmxMap = new TmxMap(mapPath);
+            const string objectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
+            TmxMapParser mapParser = new TmxMapParser(
+                tmxMap,
+                GameDriver.TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")),
+                GameDriver.TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")),
+                GameDriver.UnitSprites,
+                objectTypeDefaults
+            );
+
+            LoadMapContainer(mapParser);
+            LoadInitiativeContext(mapParser);
+            LoadResultsUI();
+        }
+
+        private void LoadResultsUI()
+        {
+            ResultsUI = new ResultsUI(windowTexture);
+        }
+
+        private void LoadMapContainer(TmxMapParser mapParser)
+        {
+            ITexture2D mapCursorTexture =
+                GameDriver.GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors"));
+
+            mapContext = new MapContext(
+                new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
+                new MapUI(GameDriver.ScreenSize, windowTexture)
+            );
+        }
+
+        private void LoadInitiativeContext(TmxMapParser mapParser)
+        {
+            List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
+                mapParser.LoadUnits(),
+                GameDriver.LargePortraitTextures,
+                GameDriver.MediumPortraitTextures,
+                GameDriver.SmallPortraitTextures
+            );
+
+            InitiativeContext =
+                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
         }
 
         public static List<GameUnit> Units
@@ -201,26 +277,11 @@ namespace SolStandard.Containers.Contexts
             {
                 EndTurnIfUnitIsDead();
             }
-            
+
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
         }
 
-
-        public void StartGame()
-        {
-            TurnNumber = 1;
-
-            foreach (GameUnit unit in Units)
-            {
-                unit.DisableExhaustedUnit();
-            }
-
-            ActiveUnit.ActivateUnit();
-            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            MapContext.ResetCursorToActiveUnit();
-            MapContext.EndTurn();
-        }
 
         public void CancelMove()
         {

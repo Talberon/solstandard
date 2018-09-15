@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
@@ -26,9 +25,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public void Execute()
         {
-            //TODO Maybe initialize game stuff before swapping the state
-            //TODO Maybe go to the loading screen instead of directly to InGame
-            GameContext.CurrentGameState = GameContext.GameState.InGame;
+            GameDriver.NewGame();
         }
     }
 }
