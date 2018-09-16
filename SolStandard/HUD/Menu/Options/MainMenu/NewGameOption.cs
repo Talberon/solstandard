@@ -26,7 +26,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public void Execute()
         {
-            GameContext.CurrentGameState = GameContext.GameState.MapSelect;
+            GameContext.LoadMapSelect();
         }
     }
 }

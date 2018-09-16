@@ -25,6 +25,7 @@ namespace SolStandard
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
+
         public static readonly Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         public static List<MapInfo> AvailableMaps;
@@ -77,7 +78,11 @@ namespace SolStandard
 
         public static ITexture2D MapCursorTexture
         {
-            get { return GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors")); }
+            get
+            {
+                return GuiTextures.Find(texture =>
+                    texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors"));
+            }
         }
 
         public static ITexture2D MenuCursorTexture
@@ -147,13 +152,13 @@ namespace SolStandard
 
             AvailableMaps = new List<MapInfo>
             {
-                new MapInfo("Last Harbour", "Void_01.tmx",
+                new MapInfo("The Void", "Void_01.tmx",
                     new SpriteAtlas(mapPreviewVoid, new Vector2(mapPreviewVoid.Width, mapPreviewVoid.Height), 1)),
                 new MapInfo("Atheion Grassland", "Grass_01.tmx",
                     new SpriteAtlas(mapPreviewGrass, new Vector2(mapPreviewGrass.Width, mapPreviewGrass.Height), 1)),
-                new MapInfo("Romjack Mountain", "Snow_01.tmx",
+                new MapInfo("Hiatok Mountain", "Snow_01.tmx",
                     new SpriteAtlas(mapPreviewSnow, new Vector2(mapPreviewSnow.Width, mapPreviewSnow.Height), 1)),
-                new MapInfo("Yaruuti Desert", "Desert_01.tmx",
+                new MapInfo("Riverside Dunes", "Desert_01.tmx",
                     new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1))
             };
 
@@ -169,11 +174,11 @@ namespace SolStandard
 
             GameContext.ActivePlayer = PlayerIndex.One;
 
-
             _gameContext = new GameContext(
-                new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite),
-                new MapSelectionMenuUI()
+                new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
             );
+            
+            _mapCamera.CenterCameraToCursor();
         }
 
         /// <summary>
@@ -231,11 +236,6 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (p1ControlMapper.Select())
-            {
-                NewGame(AvailableMaps[Random.Next(AvailableMaps.Count)].FileName);
-            }
-
             if (_quitting)
             {
                 Exit();
@@ -288,15 +288,31 @@ namespace SolStandard
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (GameContext.CurrentGameState == GameContext.GameState.InGame)
+            switch (GameContext.CurrentGameState)
             {
-                _mapCamera.UpdateEveryFrame();
-                _gameContext.UpdateCamera(_mapCamera);
-
-                //Map Cursor Hover Logic
-                MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                MapCursorHover.Hover(_gameContext.MapContext.CurrentTurnState, hoverTiles,
-                    _gameContext.MapContext.MapUI);
+                case GameContext.GameState.MainMenu:
+                    break;
+                case GameContext.GameState.ModeSelect:
+                    break;
+                case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.MapSelect:
+                    _mapCamera.UpdateEveryFrame();
+                    _gameContext.UpdateCamera(_mapCamera);
+                    GameContext.MapSelectContext.HoverOverEntity();
+                    break;
+                case GameContext.GameState.PauseScreen:
+                    break;
+                case GameContext.GameState.InGame:
+                    _mapCamera.UpdateEveryFrame();
+                    _gameContext.UpdateCamera(_mapCamera);
+                    MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
+                    _gameContext.MapContext.UpdateUnitPortraitWindows(hoverTiles);
+                    break;
+                case GameContext.GameState.Results:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             base.Update(gameTime);
@@ -326,55 +342,82 @@ namespace SolStandard
                 case GameContext.GameState.ArmyDraft:
                     break;
                 case GameContext.GameState.MapSelect:
-                    //Render Map Select Screen
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, null);
-                    _gameContext.MapSelectionMenuUI.Draw(spriteBatch);
-                    spriteBatch.End();
+                    DrawMapSelectMap();
+                    DrawMapSelectHUD();
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
-
-                    //MAP LAYER
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
-                    _gameContext.MapContext.MapContainer.Draw(spriteBatch);
-                    spriteBatch.End();
-
-                    //WINDOW LAYER
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, null);
-
-                    if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
-                    {
-                        _gameContext.BattleContext.Draw(spriteBatch);
-                    }
-                    else
-                    {
-                        _gameContext.MapContext.MapUI.Draw(spriteBatch);
-                    }
-
-                    spriteBatch.End();
+                    DrawInGameMap();
+                    DrawInGameHUD();
                     break;
                 case GameContext.GameState.Results:
-
-                    //Render Results
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, null);
-
-                    _gameContext.ResultsUI.Draw(spriteBatch);
-
-                    spriteBatch.End();
+                    DrawGameResultsScreen();
                     break;
                 default:
                     base.Draw(gameTime);
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void DrawMapSelectMap()
+        {
+//MAP LAYER
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+
+            GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
+
+        private void DrawMapSelectHUD()
+        {
+//HUD
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            GameContext.MapSelectContext.SelectMapUI.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawGameResultsScreen()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+
+            _gameContext.ResultsUI.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
+
+        private void DrawInGameMap()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+            _gameContext.MapContext.MapContainer.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawInGameHUD()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+
+            if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+            {
+                _gameContext.BattleContext.Draw(spriteBatch);
+            }
+            else
+            {
+                _gameContext.MapContext.GameMapUI.Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
         }
     }
 }

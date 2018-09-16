@@ -23,7 +23,8 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.ArmyDraft:
                     break;
                 case GameContext.GameState.MapSelect:
-                    MenuControls(controlMapper, gameContext.MapSelectionMenuUI.MapSelectMenu);
+                    MapSelectControls(controlMapper, mapCursor);
+                    //MenuControls(controlMapper, gameContext.MapSelectionMenuUI.MapSelectMenu);
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
@@ -34,6 +35,35 @@ namespace SolStandard.Containers.Contexts
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
+        private static void MapSelectControls(GameControlMapper controlMapper, MapCursor mapCursor)
+        {
+            if (controlMapper.Up())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Up));
+            }
+
+            if (controlMapper.Down())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Down));
+            }
+
+            if (controlMapper.Left())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Left));
+            }
+
+            if (controlMapper.Right())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Right));
+            }
+
+            if (controlMapper.A())
+            {
+                GameContext.MapSelectContext.SelectMap();
             }
         }
 
@@ -60,7 +90,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Start())
             {
-                gameContext.MapContext.MapUI.ToggleVisible();
+                gameContext.MapContext.GameMapUI.ToggleVisible();
             }
 
             if (controlMapper.Down())
@@ -209,7 +239,6 @@ namespace SolStandard.Containers.Contexts
 
             const float cameraPanRateOverride = 64;
 
-            //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (controlMapper.RightStickDown())
             {
                 mapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);

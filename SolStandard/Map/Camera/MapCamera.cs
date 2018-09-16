@@ -18,7 +18,7 @@ namespace SolStandard.Map.Camera
         private const int TopThreshold = 200;
         private const int HorizontalThreshold = 200;
         private const int BottomThreshold = 300;
-        private const int DefaultZoomLevel = 2;
+        private const float DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
         private const float MinimumZoom = 2.0f;
 

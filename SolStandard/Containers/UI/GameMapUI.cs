@@ -12,10 +12,10 @@ using SolStandard.Utility.Monogame;
 namespace SolStandard.Containers.UI
 {
     /*
-     * MapUI is where the HUD elements for the Map Scene are handled.
+     * GameMapUI is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class MapUI : IUserInterface
+    public class GameMapUI : IUserInterface
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -38,7 +38,7 @@ namespace SolStandard.Containers.UI
 
         private readonly ITexture2D windowTexture;
 
-        public MapUI(Vector2 screenSize)
+        public GameMapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
             windowTexture = GameDriver.WindowTexture;

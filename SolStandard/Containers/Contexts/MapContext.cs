@@ -6,6 +6,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Contexts
@@ -27,6 +28,7 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
         public string HelpText = "HELP: Select a unit. Defeat the enemy!";
+        public GameMapUI GameMapUI { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -37,12 +39,10 @@ namespace SolStandard.Containers.Contexts
                 {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
             };
 
-        public MapUI MapUI { get; private set; }
-
-        public MapContext(MapContainer mapContainer, MapUI mapUI)
+        public MapContext(MapContainer mapContainer, GameMapUI gameMapUI)
         {
             this.mapContainer = mapContainer;
-            MapUI = mapUI;
+            GameMapUI = gameMapUI;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
         }
@@ -50,15 +50,15 @@ namespace SolStandard.Containers.Contexts
         public void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            MapUI.GenerateInitiativeWindow(GameContext.Units);
+            GameMapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
-            MapUI.GenerateTurnWindow(turnWindowSize);
+            Vector2 turnWindowSize = new Vector2(290, GameMapUI.InitiativeWindow.Height);
+            GameMapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window
-            MapUI.GenerateHelpWindow(HelpText);
+            GameMapUI.GenerateHelpWindow(HelpText);
         }
 
         public void ProceedToNextState()
@@ -98,7 +98,7 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
-        
+
         public void SlideCursorToActiveUnit()
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
@@ -131,14 +131,14 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            MapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(300, 100));
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(300, 100));
         }
 
         public void ConfirmPromptWindow()
         {
-            if (MapUI.UserPromptWindow != null)
+            if (GameMapUI.UserPromptWindow != null)
             {
-                MapUI.UserPromptWindow.Visible = false;
+                GameMapUI.UserPromptWindow.Visible = false;
             }
         }
 
@@ -157,6 +157,31 @@ namespace SolStandard.Containers.Contexts
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
             }
+        }
+
+        public void UpdateUnitPortraitWindows(MapSlice hoverTiles)
+        {
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
+
+            if (CurrentTurnState != TurnState.SelectUnit)
+            {
+                if (hoverMapUnit != GameContext.ActiveUnit)
+                {
+                    GameMapUI.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                }
+                else
+                {
+                    GameMapUI.UpdateRightPortraitAndDetailWindows(null);
+                }
+            }
+            else
+            {
+                GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                GameMapUI.UpdateRightPortraitAndDetailWindows(null);
+            }
+
+            //Terrain (Entity) Window
+            GameMapUI.GenerateTerrainWindow(hoverTiles.TerrainEntity);
         }
 
         private bool TargetTileHasADynamicTile(Direction direction)

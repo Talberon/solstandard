@@ -27,9 +27,9 @@ namespace SolStandard.Containers.Contexts
 
         private MapContext mapContext;
         private readonly BattleContext battleContext;
+        public static MapSelectContext MapSelectContext { get; private set; }
         public ResultsUI ResultsUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
-        public MapSelectionMenuUI MapSelectionMenuUI { get; private set; }
         public static int TurnNumber { get; private set; }
         private float oldZoom;
 
@@ -58,13 +58,31 @@ namespace SolStandard.Containers.Contexts
             get { return battleContext; }
         }
 
-        public GameContext(MainMenuUI mainMenuUI, MapSelectionMenuUI mapSelectionMenuUI)
+        public GameContext(MainMenuUI mainMenuUI)
         {
             battleContext = new BattleContext(new BattleUI());
             MainMenuUI = mainMenuUI;
-            MapSelectionMenuUI = mapSelectionMenuUI;
+
+            LoadMapSelect();
 
             CurrentGameState = GameState.MainMenu;
+        }
+
+        public static void LoadMapSelect()
+        {
+            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_01.tmx";
+            TmxMapParser mapParser = new TmxMapParser(
+                new TmxMap(mapSelectPath),
+                GameDriver.WorldTileSetTexture,
+                GameDriver.TerrainTexture,
+                GameDriver.UnitSprites,
+                GameDriver.TmxObjectTypeDefaults);
+            MapSelectContext = new MapSelectContext(new SelectMapUI(),
+                new MapContainer(mapParser.LoadMapGrid(), GameDriver.MapCursorTexture));
+
+            LoadInitiativeContext(mapParser);
+
+            CurrentGameState = GameState.MapSelect;
         }
 
         public void StartGame(string mapPath, MapCamera mapCamera)
@@ -117,7 +135,7 @@ namespace SolStandard.Containers.Contexts
 
             mapContext = new MapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
-                new MapUI(GameDriver.ScreenSize)
+                new GameMapUI(GameDriver.ScreenSize)
             );
         }
 
@@ -232,26 +250,29 @@ namespace SolStandard.Containers.Contexts
 
         public void UpdateCamera(MapCamera mapCamera)
         {
-            switch (MapContext.CurrentTurnState)
+            if (CurrentGameState == GameState.InGame)
             {
-                case MapContext.TurnState.SelectUnit:
-                    break;
-                case MapContext.TurnState.UnitMoving:
-                    break;
-                case MapContext.TurnState.UnitDecidingAction:
-                    break;
-                case MapContext.TurnState.UnitTargeting:
-                    oldZoom = mapCamera.CurrentZoom;
-                    break;
-                case MapContext.TurnState.UnitActing:
-                    const float combatZoom = 4;
-                    mapCamera.ZoomToCursor(combatZoom);
-                    break;
-                case MapContext.TurnState.ResolvingTurn:
-                    mapCamera.ZoomToCursor(oldZoom);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (MapContext.CurrentTurnState)
+                {
+                    case MapContext.TurnState.SelectUnit:
+                        break;
+                    case MapContext.TurnState.UnitMoving:
+                        break;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        break;
+                    case MapContext.TurnState.UnitTargeting:
+                        oldZoom = mapCamera.CurrentZoom;
+                        break;
+                    case MapContext.TurnState.UnitActing:
+                        const float combatZoom = 4;
+                        mapCamera.ZoomToCursor(combatZoom);
+                        break;
+                    case MapContext.TurnState.ResolvingTurn:
+                        mapCamera.ZoomToCursor(oldZoom);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 

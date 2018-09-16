@@ -47,6 +47,7 @@
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
+    <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
@@ -54,9 +55,9 @@
     <Compile Include="Containers\Contexts\MapContext.cs" />
     <Compile Include="Containers\UI\BattleUI.cs" />
     <Compile Include="Containers\UI\MainMenuUI.cs" />
-    <Compile Include="Containers\UI\MapSelectionMenuUI.cs" />
-    <Compile Include="Containers\UI\MapUI.cs" />
+    <Compile Include="Containers\UI\GameMapUI.cs" />
     <Compile Include="Containers\UI\ResultsUI.cs" />
+    <Compile Include="Containers\UI\SelectMapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
@@ -88,7 +90,6 @@
     <Compile Include="HUD\Window\WindowCell.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
-    <Compile Include="Map\Elements\Cursor\MapCursorHover.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
     <Compile Include="Map\Elements\Direction.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
@@ -193,6 +194,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Grass_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Map_Select_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
