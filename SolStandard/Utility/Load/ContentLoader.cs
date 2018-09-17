@@ -246,7 +246,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerSky");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerFlag");
 
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
@@ -261,6 +261,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Snow_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_02"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();

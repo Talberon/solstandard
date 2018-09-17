@@ -225,7 +225,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Y())
             {
-                gameContext.ResolveTurn();
+                gameContext.MapContext.SlideCursorToActiveUnit();
             }
 
             if (controlMapper.X())

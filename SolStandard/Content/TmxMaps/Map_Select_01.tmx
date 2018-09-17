@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="32" tileheight="32" infinite="0" nextobjectid="419">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="32" tileheight="32" infinite="0" nextobjectid="420">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" tilecount="2048" columns="32">
   <image source="F:/Pictures/Assets/FREE/lpc-terrains/lpc-terrains/terrain-v7.png" width="1024" height="2048"/>
   <terraintypes>
@@ -2768,6 +2768,11 @@
   <object id="415" type="Decoration" gid="2201" x="864" y="384" width="32" height="32"/>
   <object id="416" type="Decoration" gid="2201" x="704" y="416" width="32" height="32"/>
   <object id="417" type="Decoration" gid="2201" x="832" y="448" width="32" height="32"/>
+  <object id="419" name="The Old Woods" type="SelectMap" gid="2492" x="512" y="192" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Grass_02.tmx"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Units">
   <object id="418" name="Player 1" type="Unit" gid="2070" x="480" y="416" width="32" height="32">

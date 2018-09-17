@@ -149,6 +149,8 @@ namespace SolStandard
                 MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
             ITexture2D mapPreviewDesert =
                 MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
+            ITexture2D mapPreviewGrass2 =
+                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
 
             AvailableMaps = new List<MapInfo>
             {
@@ -159,7 +161,9 @@ namespace SolStandard
                 new MapInfo("Hiatok Mountain", "Snow_01.tmx",
                     new SpriteAtlas(mapPreviewSnow, new Vector2(mapPreviewSnow.Width, mapPreviewSnow.Height), 1)),
                 new MapInfo("Riverside Dunes", "Desert_01.tmx",
-                    new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1))
+                    new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1)),
+                new MapInfo("The Old Woods", "Grass_02.tmx",
+                new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(MainMenuLogoTexture,

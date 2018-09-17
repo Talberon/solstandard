@@ -104,7 +104,7 @@ namespace SolStandard.Containers.Contexts
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
 
-            mapCamera.CenterCameraToCursor();
+            mapCamera.ZoomToCursor(2.5f);
 
             CurrentGameState = GameState.InGame;
         }
