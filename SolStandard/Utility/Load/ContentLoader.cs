@@ -10,8 +10,13 @@ namespace SolStandard.Utility.Load
      * ContentLoader
      * Holds a series of loader methods that are used for the game
      */
-    public class ContentLoader
+    public static class ContentLoader
     {
+        public static ISpriteFont LoadPromptFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/PromptText"));
+        }
+
         public static ISpriteFont LoadHeaderFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowHeaderText"));
@@ -234,7 +239,7 @@ namespace SolStandard.Utility.Load
 
             return backgroundTextureWrapper;
         }
-        
+
         public static ITexture2D LoadSolSpin(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin");

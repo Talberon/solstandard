@@ -4,25 +4,25 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Assets
 {
+    public enum ButtonIcon
+    {
+        A,
+        B,
+        X,
+        Y,
+        Dpad,
+        Lb,
+        Lt,
+        Rb,
+        Rt,
+        LeftStick,
+        RightStick,
+        Windows,
+        Menu
+    }
+    
     public static class ButtonIconProvider
     {
-        public enum ButtonIcon
-        {
-            A,
-            B,
-            X,
-            Y,
-            Dpad,
-            Lb,
-            Lt,
-            Rb,
-            Rt,
-            LeftStick,
-            RightStick,
-            Windows,
-            Menu
-        }
-
         private static Dictionary<ButtonIcon, ITexture2D> _buttonDictionary;
 
         public static SpriteAtlas GetButton(ButtonIcon icon, Vector2 iconSize)

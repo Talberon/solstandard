@@ -89,16 +89,16 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(AssetManager.WindowFont, promptText),
+                    new RenderText(AssetManager.PromptFont, promptText),
                     new RenderBlank(),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
-                    new RenderText(AssetManager.WindowFont, "["),
-                    new RenderText(AssetManager.WindowFont, "Press "),
-                    new RenderText(AssetManager.WindowFont, "(A)", Color.Green),
-                    new RenderText(AssetManager.WindowFont, "]")
+                    new RenderText(AssetManager.PromptFont, "["),
+                    new RenderText(AssetManager.PromptFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(40)),
+                    new RenderText(AssetManager.PromptFont, "]")
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
