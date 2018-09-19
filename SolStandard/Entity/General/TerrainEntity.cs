@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -27,7 +28,7 @@ namespace SolStandard.Entity.General
                             Sprite
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, Name)
+                            new RenderText(AssetManager.WindowFont, Name)
                         }
                     },
                     1

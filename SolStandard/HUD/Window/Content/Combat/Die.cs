@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Window.Content.Combat
 {
@@ -47,7 +48,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             currentSide = initialSide;
             this.color = color;
-            dieAtlas = new SpriteAtlas(GameDriver.DiceTexture, new Vector2(GameDriver.DiceTexture.Height), 1);
+            dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height), 1);
             Height = dieAtlas.Height;
             Width = dieAtlas.Width;
             Enabled = true;

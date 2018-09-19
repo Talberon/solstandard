@@ -68,7 +68,7 @@
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
-    <Compile Include="Entity\Unit\UnitClassBuilder.cs" />
+    <Compile Include="Entity\Unit\UnitBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
@@ -101,6 +101,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
+    <Compile Include="Utility\Assets\AssetManager.cs" />
+    <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
     <Compile Include="Utility\Buttons\RightBumperControl.cs" />

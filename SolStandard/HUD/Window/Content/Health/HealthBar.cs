@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
@@ -57,7 +58,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < Pips.Length; i++)
             {
-                Pips[i] = new HealthPip(GameDriver.WhitePixel, ActiveColor, InactiveColor);
+                Pips[i] = new HealthPip(AssetManager.WhitePixel, ActiveColor, InactiveColor);
             }
         }
 

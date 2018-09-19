@@ -7,6 +7,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
 
@@ -73,12 +74,12 @@ namespace SolStandard.Containers.Contexts
             const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_01.tmx";
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),
-                GameDriver.WorldTileSetTexture,
-                GameDriver.TerrainTexture,
-                GameDriver.UnitSprites,
+                AssetManager.WorldTileSetTexture,
+                AssetManager.TerrainTexture,
+                AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
             MapSelectContext = new MapSelectContext(new SelectMapUI(),
-                new MapContainer(mapParser.LoadMapGrid(), GameDriver.MapCursorTexture));
+                new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
             LoadInitiativeContext(mapParser);
 
@@ -104,8 +105,6 @@ namespace SolStandard.Containers.Contexts
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
 
-            mapCamera.ZoomToCursor(2.5f);
-
             CurrentGameState = GameState.InGame;
         }
 
@@ -113,9 +112,9 @@ namespace SolStandard.Containers.Contexts
         {
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
-                GameDriver.WorldTileSetTexture,
-                GameDriver.TerrainTexture,
-                GameDriver.UnitSprites,
+                AssetManager.WorldTileSetTexture,
+                AssetManager.TerrainTexture,
+                AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults
             );
 
@@ -131,7 +130,7 @@ namespace SolStandard.Containers.Contexts
 
         private void LoadMapContainer(TmxMapParser mapParser)
         {
-            ITexture2D mapCursorTexture = GameDriver.MapCursorTexture;
+            ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
 
             mapContext = new MapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
@@ -141,11 +140,11 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadInitiativeContext(TmxMapParser mapParser)
         {
-            List<GameUnit> unitsFromMap = UnitClassBuilder.GenerateUnitsFromMap(
+            List<GameUnit> unitsFromMap = UnitBuilder.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
-                GameDriver.LargePortraitTextures,
-                GameDriver.MediumPortraitTextures,
-                GameDriver.SmallPortraitTextures
+                AssetManager.LargePortraitTextures,
+                AssetManager.MediumPortraitTextures,
+                AssetManager.SmallPortraitTextures
             );
 
             //Randomize the team that goes first
@@ -179,7 +178,7 @@ namespace SolStandard.Containers.Contexts
             //Open the targeting grid
             MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
             MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
-                new Texture2DWrapper(GameDriver.ActionTiles.MonoGameTexture),
+                new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                 new Vector2(GameDriver.CellSize), 3));
         }
 
@@ -324,7 +323,7 @@ namespace SolStandard.Containers.Contexts
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     MapContext.SelectedUnit.Stats.MaxMv,
-                    new SpriteAtlas(new Texture2DWrapper(GameDriver.ActionTiles.MonoGameTexture),
+                    new SpriteAtlas(new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                         new Vector2(GameDriver.CellSize), 2));
             }
             else

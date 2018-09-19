@@ -11,8 +11,8 @@ using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard
@@ -39,64 +39,8 @@ namespace SolStandard
         private static GameContext _gameContext;
         private static bool _quitting;
 
-        private static List<ITexture2D> WindowTextures { get; set; }
-        private static List<ITexture2D> TerrainTextures { get; set; }
-        private static List<ITexture2D> MapPreviewTextures { get; set; }
-        private static List<ITexture2D> GuiTextures { get; set; }
-
-        private static ITexture2D MainMenuLogoTexture { get; set; }
-        private static ITexture2D MainMenuSunTexture { get; set; }
-        private static ITexture2D MainMenuBackground { get; set; }
-
-        public static ISpriteFont WindowFont { get; private set; }
-        public static ISpriteFont MapFont { get; private set; }
-        public static ISpriteFont ResultsFont { get; private set; }
-        public static ISpriteFont HeaderFont { get; private set; }
-        public static ISpriteFont MainMenuFont { get; private set; }
-
-        public static ITexture2D ActionTiles { get; private set; }
-        public static ITexture2D WhitePixel { get; private set; }
-        public static ITexture2D WhiteGrid { get; private set; }
-        public static ITexture2D DiceTexture { get; private set; }
-        public static ITexture2D StatIcons { get; private set; }
-
-        public static List<ITexture2D> UnitSprites { get; private set; }
-        public static List<ITexture2D> LargePortraitTextures { get; private set; }
-        public static List<ITexture2D> MediumPortraitTextures { get; private set; }
-        public static List<ITexture2D> SmallPortraitTextures { get; private set; }
 
 
-        public static ITexture2D WorldTileSetTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")); }
-        }
-
-        public static ITexture2D TerrainTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
-        }
-
-        public static ITexture2D MapCursorTexture
-        {
-            get
-            {
-                return GuiTextures.Find(texture =>
-                    texture.MonoGameTexture.Name.Contains("Map/Cursor/Cursors"));
-            }
-        }
-
-        public static ITexture2D MenuCursorTexture
-        {
-            get
-            {
-                return GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow"));
-            }
-        }
-
-        public static ITexture2D WindowTexture
-        {
-            get { return WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow")); }
-        }
 
         public GameDriver()
         {
@@ -142,15 +86,15 @@ namespace SolStandard
             _mapCamera = new MapCamera(5, 0.05f);
 
             ITexture2D mapPreviewVoid =
-                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Void_01"));
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Void_01"));
             ITexture2D mapPreviewGrass =
-                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_01"));
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_01"));
             ITexture2D mapPreviewSnow =
-                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
             ITexture2D mapPreviewDesert =
-                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
             ITexture2D mapPreviewGrass2 =
-                MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
 
             AvailableMaps = new List<MapInfo>
             {
@@ -166,12 +110,12 @@ namespace SolStandard
                 new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
             };
 
-            SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(MainMenuLogoTexture,
-                new Vector2(MainMenuLogoTexture.Width, MainMenuLogoTexture.Height), 1);
+            SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
+                new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height), 1);
             AnimatedSprite mainMenuLogoSprite =
-                new AnimatedSprite(MainMenuSunTexture, MainMenuSunTexture.Height, 5, false);
-            SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(MainMenuBackground,
-                new Vector2(MainMenuBackground.Width, MainMenuBackground.Height), 1);
+                new AnimatedSprite(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5, false);
+            SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), 1);
 
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
@@ -193,34 +137,7 @@ namespace SolStandard
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(Content);
-            ActionTiles = ContentLoader.LoadActionTiles(Content);
-
-            WhitePixel = ContentLoader.LoadWhitePixel(Content);
-            WhiteGrid = ContentLoader.LoadWhiteGridOutline(Content);
-
-            StatIcons = ContentLoader.LoadStatIcons(Content);
-
-            UnitSprites = ContentLoader.LoadUnitSpriteTextures(Content);
-            GuiTextures = ContentLoader.LoadCursorTextures(Content);
-            WindowTextures = ContentLoader.LoadWindowTextures(Content);
-            MapPreviewTextures = ContentLoader.LoadMapPreviews(Content);
-
-            WindowFont = ContentLoader.LoadWindowFont(Content);
-            MapFont = ContentLoader.LoadMapFont(Content);
-            ResultsFont = ContentLoader.LoadResultsFont(Content);
-            HeaderFont = ContentLoader.LoadHeaderFont(Content);
-            MainMenuFont = ContentLoader.LoadMainMenuFont(Content);
-
-            MainMenuLogoTexture = ContentLoader.LoadGameLogo(Content);
-            MainMenuSunTexture = ContentLoader.LoadSolSpin(Content);
-            MainMenuBackground = ContentLoader.LoadTitleScreenBackground(Content);
-
-            LargePortraitTextures = ContentLoader.LoadLargePortraits(Content);
-            MediumPortraitTextures = ContentLoader.LoadMediumPortraits(Content);
-            SmallPortraitTextures = ContentLoader.LoadSmallPortraits(Content);
-            DiceTexture = ContentLoader.LoadDiceAtlas(Content);
+            AssetManager.LoadContent(Content);
         }
 
 

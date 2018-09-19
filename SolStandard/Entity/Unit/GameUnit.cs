@@ -6,6 +6,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -128,32 +129,32 @@ namespace SolStandard.Entity.Unit
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.HeaderFont, Id),
+                            new RenderText(AssetManager.HeaderFont, Id),
                             new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(GameDriver.WindowFont, "HP: " + Stats.Hp)
+                            new RenderText(AssetManager.WindowFont, "HP: " + Stats.Hp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(GameDriver.WindowFont, "ATK: " + Stats.Atk)
+                            new RenderText(AssetManager.WindowFont, "ATK: " + Stats.Atk)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(GameDriver.WindowFont, "DEF: " + Stats.Def)
+                            new RenderText(AssetManager.WindowFont, "DEF: " + Stats.Def)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(GameDriver.WindowFont, "SP: " + Stats.Sp)
+                            new RenderText(AssetManager.WindowFont, "SP: " + Stats.Sp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(GameDriver.WindowFont, "MV: " + Stats.Mv)
+                            new RenderText(AssetManager.WindowFont, "MV: " + Stats.Mv)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(GameDriver.WindowFont,
+                            new RenderText(AssetManager.WindowFont,
                                 string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
                         }
                     },

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -27,19 +28,19 @@ namespace SolStandard.Entity.General
                     {
                         {
                             Sprite,
-                            new RenderText(GameDriver.HeaderFont, Name)
+                            new RenderText(AssetManager.HeaderFont, Name)
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, "~~~~~~~~~~~"),
+                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~~~"),
                             new RenderBlank()
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, (isLocked) ? "Locked" : "Unlocked",
+                            new RenderText(AssetManager.WindowFont, (isLocked) ? "Locked" : "Unlocked",
                                 (isLocked) ? PositiveColor : NegativeColor),
                             new RenderBlank()
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, (isOpen) ? "Open" : "Closed",
+                            new RenderText(AssetManager.WindowFont, (isOpen) ? "Open" : "Closed",
                                 (isOpen) ? PositiveColor : NegativeColor),
                             new RenderBlank()
                         }

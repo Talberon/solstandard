@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.UI
 {
     public class SelectMapUI : IUserInterface
     {
-        private Window instructionWindow; //"Select a map!"
-        private Window mapInfoWindow; //SelectMapEntity title, image preview
+        private Window instructionWindow;
+        private Window mapInfoWindow;
 
         private const int WindowEdgeBuffer = 5;
         private static readonly Color InstructionWindowColor = new Color(50, 50, 50, 200);
@@ -24,15 +25,27 @@ namespace SolStandard.Containers.UI
 
         private void SetUpWindows()
         {
+            WindowContentGrid instructionContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            "Select a map! Move the cursor to the crossed swords and press "),
+                        ButtonIconProvider.GetButton(ButtonIconProvider.ButtonIcon.A, new Vector2(25))
+                    }
+                },
+                1
+            );
+
+
             instructionWindow = new Window(
-                "Instruction Window", GameDriver.WindowTexture,
-                new RenderText(GameDriver.WindowFont,
-                    "Select a map! Move the cursor to the crossed swords and press (A)"),
+                "Instruction Window", AssetManager.WindowTexture,
+                instructionContentGrid,
                 InstructionWindowColor
             );
 
             mapInfoWindow = new Window(
-                "SelectMapEntity Info Window", GameDriver.WindowTexture, new RenderBlank(), MapInfoWindowColor
+                "SelectMapEntity Info Window", AssetManager.WindowTexture, new RenderBlank(), MapInfoWindowColor
             );
         }
 
@@ -44,7 +57,7 @@ namespace SolStandard.Containers.UI
             }
             else
             {
-                mapInfoWindow = new Window("MapInfo Window", GameDriver.WindowTexture, terrainInfo, MapInfoWindowColor);
+                mapInfoWindow = new Window("MapInfo Window", AssetManager.WindowTexture, terrainInfo, MapInfoWindowColor);
             }
         }
 

@@ -10,6 +10,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -88,16 +89,16 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, promptText),
+                    new RenderText(AssetManager.WindowFont, promptText),
                     new RenderBlank(),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
-                    new RenderText(GameDriver.WindowFont, "["),
-                    new RenderText(GameDriver.WindowFont, "Press "),
-                    new RenderText(GameDriver.WindowFont, "(A)", Color.Green),
-                    new RenderText(GameDriver.WindowFont, "]")
+                    new RenderText(AssetManager.WindowFont, "["),
+                    new RenderText(AssetManager.WindowFont, "Press "),
+                    new RenderText(AssetManager.WindowFont, "(A)", Color.Green),
+                    new RenderText(AssetManager.WindowFont, "]")
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
@@ -118,7 +119,7 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] textToRender =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, helpText, Color.White),
+                    new RenderText(AssetManager.WindowFont, helpText, Color.White),
                     new RenderBlank(),
                     new RenderBlank(),
                     new RenderBlank(),
@@ -126,12 +127,12 @@ namespace SolStandard.Containers.Contexts
                     new RenderBlank()
                 },
                 {
-                    new RenderText(GameDriver.WindowFont, "Dice Legend: ", Color.White),
-                    new RenderText(GameDriver.WindowFont, "[Unresolved] ", Color.White),
-                    new RenderText(GameDriver.WindowFont, "[Bonus] ", new Color(100, 250, 100)),
-                    new RenderText(GameDriver.WindowFont, "[Damage] ", new Color(250, 100, 100)),
-                    new RenderText(GameDriver.WindowFont, "[Blocked] ", new Color(100, 100, 250)),
-                    new RenderText(GameDriver.WindowFont, "[Ignored]", Color.Gray)
+                    new RenderText(AssetManager.WindowFont, "Dice Legend: ", Color.White),
+                    new RenderText(AssetManager.WindowFont, "[Unresolved] ", Color.White),
+                    new RenderText(AssetManager.WindowFont, "[Bonus] ", new Color(100, 250, 100)),
+                    new RenderText(AssetManager.WindowFont, "[Damage] ", new Color(250, 100, 100)),
+                    new RenderText(AssetManager.WindowFont, "[Blocked] ", new Color(100, 100, 250)),
+                    new RenderText(AssetManager.WindowFont, "[Ignored]", Color.Gray)
                 }
             };
             WindowContentGrid helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);

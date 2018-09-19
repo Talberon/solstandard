@@ -2,6 +2,7 @@
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.MapSelectMenu
 {
@@ -17,8 +18,8 @@ namespace SolStandard.HUD.Menu.Options.MapSelectMenu
             LabelText = mapInfo.Title;
             OptionWindow = new Window.Window(
                 "MapSelectOption " + LabelText,
-                GameDriver.WindowTexture,
-                new RenderText(GameDriver.MainMenuFont, LabelText),
+                AssetManager.WindowTexture,
+                new RenderText(AssetManager.MainMenuFont, LabelText),
                 Color.White
             );
         }

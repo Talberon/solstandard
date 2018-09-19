@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -25,7 +26,7 @@ namespace SolStandard.Entity.General
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.HeaderFont, MapInfo.Title)
+                            new RenderText(AssetManager.HeaderFont, MapInfo.Title)
                         },
                         {
                             MapInfo.PreviewImage

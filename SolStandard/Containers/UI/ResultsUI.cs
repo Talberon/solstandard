@@ -6,6 +6,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
@@ -37,7 +38,7 @@ namespace SolStandard.Containers.UI
 
         public ResultsUI()
         {
-            windowTexture = GameDriver.WindowTexture;
+            windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
         }
@@ -66,7 +67,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.ResultsFont, "-RESULTS-")
+                            new RenderText(AssetManager.ResultsFont, "-RESULTS-")
                         }
                     },
                     1
@@ -106,7 +107,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.ResultsFont, windowText)
+                            new RenderText(AssetManager.ResultsFont, windowText)
                         }
                     },
                     1
@@ -146,7 +147,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.ResultsFont, windowText)
+                            new RenderText(AssetManager.ResultsFont, windowText)
                         }
                     },
                     1
@@ -180,7 +181,7 @@ namespace SolStandard.Containers.UI
                 IRenderable[,] unitContent =
                 {
                     {
-                        new RenderText(GameDriver.MapFont, unit.Id)
+                        new RenderText(AssetManager.MapFont, unit.Id)
                     },
                     {
                         portraitToUse

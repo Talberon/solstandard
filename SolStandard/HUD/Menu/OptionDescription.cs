@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Menu
@@ -15,9 +16,9 @@ namespace SolStandard.HUD.Menu
         {
             this.windowTexture = windowTexture;
             infoTitleWindow =
-                new Window.Window("Title", windowTexture, new RenderText(GameDriver.HeaderFont, title), Color.White);
+                new Window.Window("Title", windowTexture, new RenderText(AssetManager.HeaderFont, title), Color.White);
             infoDescriptionWindow =
-                new Window.Window("Description", windowTexture, new RenderText(GameDriver.WindowFont, description),
+                new Window.Window("Description", windowTexture, new RenderText(AssetManager.WindowFont, description),
                     Color.White);
         }
 

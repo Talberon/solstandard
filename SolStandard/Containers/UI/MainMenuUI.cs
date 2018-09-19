@@ -4,6 +4,7 @@ using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.UI
 {
@@ -33,11 +34,11 @@ namespace SolStandard.Containers.UI
         {
             IOption[] options =
             {
-                new NewGameOption(GameDriver.WindowTexture),
-                new QuitGameOption(GameDriver.WindowTexture)
+                new NewGameOption(AssetManager.WindowTexture),
+                new QuitGameOption(AssetManager.WindowTexture)
             };
-            IRenderable cursorSprite = new SpriteAtlas(GameDriver.MenuCursorTexture,
-                new Vector2(GameDriver.MenuCursorTexture.Width, GameDriver.MenuCursorTexture.Height), 1);
+            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
 
             return new VerticalMenu(options, cursorSprite);
         }

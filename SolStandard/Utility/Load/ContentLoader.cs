@@ -272,5 +272,33 @@ namespace SolStandard.Utility.Load
 
             return mapPreviewITextures;
         }
+
+        public static List<ITexture2D> LoadButtonIcons(ContentManager content)
+        {
+            List<Texture2D> buttonIconTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_A"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_B"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_X"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Y"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Dpad"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_LB"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_LT"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RB"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RT"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Windows"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu"),
+            };
+
+            List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in buttonIconTextures)
+            {
+                buttonIconITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return buttonIconITextures;
+        }
     }
 }

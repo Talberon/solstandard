@@ -2,6 +2,7 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Menu.Options.MainMenu
@@ -19,7 +20,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
             OptionWindow = new Window.Window(
                 "Option " + LabelText,
                 windowTexture,
-                new RenderText(GameDriver.MainMenuFont, LabelText),
+                new RenderText(AssetManager.MainMenuFont, LabelText),
                 Color.White
             );
         }

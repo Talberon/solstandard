@@ -8,6 +8,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -118,16 +119,16 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, promptText),
+                    new RenderText(AssetManager.WindowFont, promptText),
                     new RenderBlank(),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
-                    new RenderText(GameDriver.WindowFont, "["),
-                    new RenderText(GameDriver.WindowFont, "Press "),
-                    new RenderText(GameDriver.WindowFont, "(A)", Color.Green),
-                    new RenderText(GameDriver.WindowFont, "]")
+                    new RenderText(AssetManager.WindowFont, "["),
+                    new RenderText(AssetManager.WindowFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIconProvider.ButtonIcon.A, new Vector2(25)),
+                    new RenderText(AssetManager.WindowFont, "]")
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
