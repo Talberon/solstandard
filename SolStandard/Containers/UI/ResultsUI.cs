@@ -36,11 +36,16 @@ namespace SolStandard.Containers.UI
 
         public bool Visible { get; private set; }
 
+        private readonly SpriteAtlas background;
+
         public ResultsUI()
         {
             windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
+            background = new SpriteAtlas(AssetManager.MainMenuBackground,
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                GameDriver.ScreenSize, 1);
         }
 
         public void UpdateWindows()
@@ -187,7 +192,7 @@ namespace SolStandard.Containers.UI
                         portraitToUse
                     },
                     {
-                        unit.GetInitiativeHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
+                        unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     }
                 };
 
@@ -289,6 +294,12 @@ namespace SolStandard.Containers.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 centerScreen = GameDriver.ScreenSize / 2;
+
+            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
+            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+
+
             if (BlueTeamLeaderPortrait != null)
                 BlueTeamLeaderPortrait.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
 

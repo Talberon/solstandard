@@ -97,7 +97,7 @@ namespace SolStandard.Containers.Contexts
                 {
                     new RenderText(AssetManager.PromptFont, "["),
                     new RenderText(AssetManager.PromptFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(40)),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
                     new RenderText(AssetManager.PromptFont, "]")
                 }
             };

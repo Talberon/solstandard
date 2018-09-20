@@ -40,8 +40,6 @@ namespace SolStandard
         private static bool _quitting;
 
 
-
-
         public GameDriver()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -107,7 +105,7 @@ namespace SolStandard
                 new MapInfo("Riverside Dunes", "Desert_01.tmx",
                     new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1)),
                 new MapInfo("The Old Woods", "Grass_02.tmx",
-                new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
+                    new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
@@ -115,7 +113,8 @@ namespace SolStandard
             AnimatedSprite mainMenuLogoSprite =
                 new AnimatedSprite(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5, false);
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), 1);
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                ScreenSize, 1);
 
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
@@ -125,7 +124,7 @@ namespace SolStandard
             _gameContext = new GameContext(
                 new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
             );
-            
+
             _mapCamera.CenterCameraToCursor();
         }
 

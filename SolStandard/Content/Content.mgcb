@@ -744,18 +744,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/TitleBackground_BannerSky.png
 
-#begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
-
 #begin Graphics/Map/MapPreviews/Grass_02.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2118,4 +2106,16 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/PromptText.spritefont
+
+#begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
 

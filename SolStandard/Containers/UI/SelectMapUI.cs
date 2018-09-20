@@ -31,8 +31,7 @@ namespace SolStandard.Containers.UI
                     {
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
-                        ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(25))
-                    }
+                        ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.WindowFont.MeasureString("A").Y))                    }
                 },
                 1
             );

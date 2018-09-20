@@ -120,19 +120,12 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
-                },
-                {
-                    new RenderText(AssetManager.PromptFont, "["),
-                    new RenderText(AssetManager.PromptFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(40)),
-                    new RenderText(AssetManager.PromptFont, "]")
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(300, 100));
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, 
+                new Vector2(0, 150));
         }
 
         public void ConfirmPromptWindow()
