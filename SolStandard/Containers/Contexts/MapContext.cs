@@ -28,7 +28,7 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
-        public string HelpText = "HELP: Select a unit. Defeat the enemy!";
+        private const string HelpText = "OBJECTIVE: Slay the enemy Monarch!";
         public GameMapUI GameMapUI { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
