@@ -29,13 +29,14 @@ namespace SolStandard.Map
         Decoration,
         Door,
         Movable,
+        SelectMap,
         Unit
     }
 
 
     /**
      * TmxMapBuilder
-     * Responsible for parsing game maps to a Map object that we can use in the game.
+     * Responsible for parsing game maps to a SelectMapEntity object that we can use in the game.
      */
     public class TmxMapParser
     {
@@ -58,6 +59,7 @@ namespace SolStandard.Map
             {"Decoration", EntityTypes.Decoration},
             {"Door", EntityTypes.Door},
             {"Movable", EntityTypes.Movable},
+            {"SelectMap", EntityTypes.SelectMap},
             {"Unit", EntityTypes.Unit}
         };
 
@@ -275,6 +277,20 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"])
+                                        );
+                                        break;
+                                    case EntityTypes.SelectMap:
+                                        MapInfo derivedMapInfo =
+                                            GameDriver.AvailableMaps.Find(
+                                                mapInfo => mapInfo.FileName == currentProperties["mapFileName"]);
+
+                                        entityGrid[col, row] = new SelectMapEntity(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            derivedMapInfo
                                         );
                                         break;
                                     case EntityTypes.Unit:

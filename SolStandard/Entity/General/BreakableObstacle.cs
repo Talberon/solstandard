@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -30,23 +31,23 @@ namespace SolStandard.Entity.General
                     {
                         {
                             Sprite,
-                            new RenderText(GameDriver.HeaderFont, Name)
+                            new RenderText(AssetManager.HeaderFont, Name)
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, "~~~~~~~~~~~"),
+                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~~~"),
                             new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(GameDriver.WindowFont, "HP: " + hp)
+                            new RenderText(AssetManager.WindowFont, "HP: " + hp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(GameDriver.WindowFont, (canMove) ? "Can Move" : "No Move",
+                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
                                 (canMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(GameDriver.WindowFont, (isBroken) ? "Not Broken" : "Broken",
+                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Not Broken" : "Broken",
                                 (isBroken) ? PositiveColor : NegativeColor),
                             new RenderBlank()
                         }

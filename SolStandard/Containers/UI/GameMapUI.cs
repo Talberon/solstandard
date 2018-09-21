@@ -7,15 +7,16 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
     /*
-     * MapUI is where the HUD elements for the Map Scene are handled.
+     * GameMapUI is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class MapUI : IUserInterface
+    public class GameMapUI : IUserInterface
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
@@ -38,10 +39,10 @@ namespace SolStandard.Containers.UI
 
         private readonly ITexture2D windowTexture;
 
-        public MapUI(Vector2 screenSize, ITexture2D windowTexture)
+        public GameMapUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
-            this.windowTexture = windowTexture;
+            windowTexture = AssetManager.WindowTexture;
             visible = true;
         }
 
@@ -87,7 +88,7 @@ namespace SolStandard.Containers.UI
                 {
                     {
                         GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
-                        new RenderText(GameDriver.WindowFont, turnInfo)
+                        new RenderText(AssetManager.WindowFont, turnInfo)
                     }
                 },
                 1
@@ -118,7 +119,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.WindowFont, "None ")
+                            new RenderText(AssetManager.WindowFont, "None ")
                         }
                     },
                     1);
@@ -130,7 +131,7 @@ namespace SolStandard.Containers.UI
 
         public void GenerateHelpWindow(string helpText)
         {
-            IRenderable textToRender = new RenderText(GameDriver.WindowFont, helpText);
+            IRenderable textToRender = new RenderText(AssetManager.WindowFont, helpText);
             HelpTextWindow = new Window("Help Text", windowTexture, textToRender, new Color(30, 30, 30, 150));
         }
 
@@ -164,7 +165,7 @@ namespace SolStandard.Containers.UI
             IRenderable[,] firstUnitContent =
             {
                 {
-                    new RenderText(GameDriver.MapFont, unitList[0].Id)
+                    new RenderText(AssetManager.MapFont, unitList[0].Id)
                 },
                 {
                     unitList[0].MediumPortrait
@@ -193,7 +194,7 @@ namespace SolStandard.Containers.UI
                 IRenderable[,] unitContent =
                 {
                     {
-                        new RenderText(GameDriver.MapFont, unitList[i].Id)
+                        new RenderText(AssetManager.MapFont, unitList[i].Id)
                     },
                     {
                         unitList[i].MediumPortrait

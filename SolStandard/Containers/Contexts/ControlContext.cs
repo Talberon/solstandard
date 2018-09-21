@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using SolStandard.Entity.Unit;
+using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -16,6 +16,17 @@ namespace SolStandard.Containers.Contexts
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    MenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
+                    break;
+                case GameContext.GameState.ModeSelect:
+                    break;
+                case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.MapSelect:
+                    MapSelectControls(controlMapper, mapCursor);
+                    //MenuControls(controlMapper, gameContext.MapSelectionMenuUI.MapSelectMenu);
+                    break;
+                case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
                     MapControls(gameContext, controlMapper, mapCamera, mapCursor);
@@ -25,7 +36,53 @@ namespace SolStandard.Containers.Contexts
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
+
+        private static void MapSelectControls(GameControlMapper controlMapper, MapCursor mapCursor)
+        {
+            if (controlMapper.Up())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Up));
+            }
+
+            if (controlMapper.Down())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Down));
+            }
+
+            if (controlMapper.Left())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Left));
+            }
+
+            if (controlMapper.Right())
+            {
+                mapCursor.MoveCursorInDirection((Direction.Right));
+            }
+
+            if (controlMapper.A())
+            {
+                GameContext.MapSelectContext.SelectMap();
+            }
+        }
+
+        private static void MenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
+        {
+            if (controlMapper.Down())
+            {
+                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Up())
+            {
+                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.A())
+            {
+                verticalMenu.SelectOption();
+            }
         }
 
         private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
@@ -33,7 +90,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Start())
             {
-                gameContext.MapContext.MapUI.ToggleVisible();
+                gameContext.MapContext.GameMapUI.ToggleVisible();
             }
 
             if (controlMapper.Down())
@@ -168,23 +225,20 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Y())
             {
-                gameContext.MapContext.ResetCursorToActiveUnit();
+                gameContext.MapContext.SlideCursorToActiveUnit();
             }
 
             if (controlMapper.X())
             {
-                //FIXME Remove this eventually after debugging is done
+                mapCamera.CenterCameraToCursor();
 
-                foreach (GameUnit unit in GameContext.Units)
-                {
-                    unit.DamageUnit(1);
-                }
+                //FIXME Remove this eventually after debugging is done
+                //GameContext.Units.ForEach(unit => unit.DamageUnit(1));
             }
 
 
             const float cameraPanRateOverride = 64;
 
-            //TODO Figure out how to handle the free camera or decide if this is only for debugging
             if (controlMapper.RightStickDown())
             {
                 mapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
@@ -204,8 +258,8 @@ namespace SolStandard.Containers.Contexts
             {
                 mapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
-            
-            
+
+
             if (controlMapper.RightBumper())
             {
                 //Zoom in

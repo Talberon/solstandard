@@ -9,6 +9,7 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers
@@ -79,7 +80,7 @@ namespace SolStandard.Containers
             {
                 for (int row = 0; row < _gameGrid[0].GetLength(1); row++)
                 {
-                    spriteBatch.Draw(GameDriver.WhiteGrid.MonoGameTexture, new Vector2(col, row) * GameDriver.CellSize,
+                    spriteBatch.Draw(AssetManager.WhiteGrid.MonoGameTexture, new Vector2(col, row) * GameDriver.CellSize,
                         new Color(0, 0, 0, 20));
                 }
             }

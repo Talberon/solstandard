@@ -6,7 +6,9 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -26,7 +28,8 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
-        public string HelpText = "HELP: Select a unit. Defeat the enemy!";
+        private const string HelpText = "OBJECTIVE: Slay the enemy Monarch!";
+        public GameMapUI GameMapUI { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -37,28 +40,26 @@ namespace SolStandard.Containers.Contexts
                 {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
             };
 
-        public MapUI MapUI { get; private set; }
-
-        public MapContext(MapContainer mapContainer, MapUI mapUI)
+        public MapContext(MapContainer mapContainer, GameMapUI gameMapUI)
         {
             this.mapContainer = mapContainer;
-            MapUI = mapUI;
+            GameMapUI = gameMapUI;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
         }
 
-        public void UpdateWindows()
+        public void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            MapUI.GenerateInitiativeWindow(GameContext.Units);
+            GameMapUI.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(290, MapUI.InitiativeWindow.Height);
-            MapUI.GenerateTurnWindow(turnWindowSize);
+            Vector2 turnWindowSize = new Vector2(290, GameMapUI.InitiativeWindow.Height);
+            GameMapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window
-            MapUI.GenerateHelpWindow(HelpText);
+            GameMapUI.GenerateHelpWindow(HelpText);
         }
 
         public void ProceedToNextState()
@@ -91,11 +92,19 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void ResetCursorToActiveUnit()
+        public void SnapCursorToActiveUnit()
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                MapContainer.MapCursor.MapCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            }
+        }
+
+        public void SlideCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                MapContainer.MapCursor.MoveCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
 
@@ -110,27 +119,20 @@ namespace SolStandard.Containers.Contexts
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(GameDriver.WindowFont, promptText),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
-                },
-                {
-                    new RenderText(GameDriver.WindowFont, "["),
-                    new RenderText(GameDriver.WindowFont, "Press "),
-                    new RenderText(GameDriver.WindowFont, "(A)", Color.Green),
-                    new RenderText(GameDriver.WindowFont, "]")
+                    new RenderText(AssetManager.PromptFont, promptText),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            MapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(300, 100));
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, 
+                new Vector2(0, 150));
         }
 
         public void ConfirmPromptWindow()
         {
-            if (MapUI.UserPromptWindow != null)
+            if (GameMapUI.UserPromptWindow != null)
             {
-                MapUI.UserPromptWindow.Visible = false;
+                GameMapUI.UserPromptWindow.Visible = false;
             }
         }
 
@@ -149,6 +151,31 @@ namespace SolStandard.Containers.Contexts
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
             }
+        }
+
+        public void UpdateUnitPortraitWindows(MapSlice hoverTiles)
+        {
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
+
+            if (CurrentTurnState != TurnState.SelectUnit)
+            {
+                if (hoverMapUnit != GameContext.ActiveUnit)
+                {
+                    GameMapUI.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                }
+                else
+                {
+                    GameMapUI.UpdateRightPortraitAndDetailWindows(null);
+                }
+            }
+            else
+            {
+                GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                GameMapUI.UpdateRightPortraitAndDetailWindows(null);
+            }
+
+            //Terrain (Entity) Window
+            GameMapUI.GenerateTerrainWindow(hoverTiles.TerrainEntity);
         }
 
         private bool TargetTileHasADynamicTile(Direction direction)
@@ -175,7 +202,7 @@ namespace SolStandard.Containers.Contexts
 
             return MapContainer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
-        
+
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
         {
             if (coordinates.X > MapContainer.GameGrid[0].GetLength(0)) return false;
@@ -213,7 +240,7 @@ namespace SolStandard.Containers.Contexts
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-             selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
+            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 

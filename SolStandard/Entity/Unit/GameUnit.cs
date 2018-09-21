@@ -6,6 +6,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -36,6 +37,7 @@ namespace SolStandard.Entity.Unit
         private readonly HealthBar hoverWindowHealthBar;
         private readonly HealthBar combatHealthBar;
         private readonly HealthBar initiativeHealthBar;
+        private readonly HealthBar resultsHealthBar;
         private readonly List<HealthBar> healthbars;
 
         private static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
@@ -58,6 +60,7 @@ namespace SolStandard.Entity.Unit
             initiativeHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
             combatHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            resultsHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
 
             healthbars = new List<HealthBar>
             {
@@ -120,6 +123,12 @@ namespace SolStandard.Entity.Unit
             return combatHealthBar;
         }
 
+        public IRenderable GetResultsHealthBar(Vector2 barSize)
+        {
+            resultsHealthBar.SetSize(barSize);
+            return resultsHealthBar;
+        }
+
         public IRenderable DetailPane
         {
             get
@@ -128,32 +137,32 @@ namespace SolStandard.Entity.Unit
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(GameDriver.HeaderFont, Id),
+                            new RenderText(AssetManager.HeaderFont, Id),
                             new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(GameDriver.WindowFont, "HP: " + Stats.Hp)
+                            new RenderText(AssetManager.WindowFont, "HP: " + Stats.Hp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(GameDriver.WindowFont, "ATK: " + Stats.Atk)
+                            new RenderText(AssetManager.WindowFont, "ATK: " + Stats.Atk)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(GameDriver.WindowFont, "DEF: " + Stats.Def)
+                            new RenderText(AssetManager.WindowFont, "DEF: " + Stats.Def)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(GameDriver.WindowFont, "SP: " + Stats.Sp)
+                            new RenderText(AssetManager.WindowFont, "SP: " + Stats.Sp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(GameDriver.WindowFont, "MV: " + Stats.Mv)
+                            new RenderText(AssetManager.WindowFont, "MV: " + Stats.Mv)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(GameDriver.WindowFont,
+                            new RenderText(AssetManager.WindowFont,
                                 string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
                         }
                     },

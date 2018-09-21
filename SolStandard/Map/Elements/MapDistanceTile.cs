@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Map.Elements
 {
@@ -14,7 +15,7 @@ namespace SolStandard.Map.Elements
             sprite, mapCoordinates)
         {
             this.distance = distance;
-            renderText = new RenderText(GameDriver.MapFont, distance.ToString());
+            renderText = new RenderText(AssetManager.MapFont, distance.ToString());
         }
 
         public int Distance

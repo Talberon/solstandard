@@ -9,20 +9,33 @@ namespace SolStandard.Utility
     {
         private readonly ITexture2D image;
         private readonly Vector2 cellSize;
+        private readonly Vector2 renderSize;
         public int CellIndex { get; set; }
         public Color RenderColor { get; set; }
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex, Color renderColor)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color renderColor)
         {
             if (cellIndex < 1) throw new InvalidCellIndexException();
-            
+
             this.image = image;
             this.cellSize = cellSize;
+            this.renderSize = renderSize;
             CellIndex = cellIndex;
             RenderColor = renderColor;
         }
         
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex) : this(image,cellSize,cellIndex, Color.White)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex) : this(image, cellSize,
+            renderSize, cellIndex, Color.White)
+        {
+        }
+
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex, Color renderColor) : this(image, cellSize,
+            cellSize, cellIndex, renderColor)
+        {
+        }
+
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex) : this(image, cellSize, cellIndex,
+            Color.White)
         {
         }
 
@@ -54,17 +67,17 @@ namespace SolStandard.Utility
 
         private Rectangle DestinationRectangle(int x, int y)
         {
-            return new Rectangle(x, y, (int) cellSize.X, (int) cellSize.Y);
+            return new Rectangle(x, y, (int) renderSize.X, (int) renderSize.Y);
         }
 
         public int Height
         {
-            get { return (int) cellSize.Y; }
+            get { return (int) renderSize.Y; }
         }
 
         public int Width
         {
-            get { return (int) cellSize.X; }
+            get { return (int) renderSize.X; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

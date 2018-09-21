@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit
 {
@@ -124,7 +125,7 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
         {
-            return new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
+            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
         }
 
         public override string ToString()

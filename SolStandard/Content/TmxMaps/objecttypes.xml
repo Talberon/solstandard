@@ -11,6 +11,7 @@
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Chest" color="#a4a13b">
+  <property name="Contents" type="string"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
  </objecttype>
@@ -18,6 +19,9 @@
  <objecttype name="Door" color="#625232">
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="SelectMap" color="#fe2973">
+  <property name="mapFileName" type="string" default="Map_00.tmx"/>
  </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>

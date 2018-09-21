@@ -4,13 +4,13 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
-    public class UnitClassBuilder
+    public class UnitBuilder
     {
         private readonly List<ITexture2D> largePortraits;
         private readonly List<ITexture2D> mediumPortraits;
         private readonly List<ITexture2D> smallPortraits;
 
-        public UnitClassBuilder(List<ITexture2D> largePortraits, List<ITexture2D> mediumPortraits,
+        public UnitBuilder(List<ITexture2D> largePortraits, List<ITexture2D> mediumPortraits,
             List<ITexture2D> smallPortraits)
         {
             this.largePortraits = largePortraits;
@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit
             {
                 if (unit == null) continue;
 
-                UnitClassBuilder unitBuilder = new UnitClassBuilder(largePortraitTextures, mediumPortraitTextures,
+                UnitBuilder unitBuilder = new UnitBuilder(largePortraitTextures, mediumPortraitTextures,
                     smallPortraitTextures);
 
                 Team unitTeam;
@@ -106,22 +106,22 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(5, 4, 2, 1, 3, new[] {2});
+            return new UnitStatistics(5, 4, 2, 1, 4, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(7, 4, 3, 1, 4, new[] {1});
+            return new UnitStatistics(7, 4, 3, 1, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(3, 5, 1, 1, 3, new[] {1, 2});
+            return new UnitStatistics(3, 5, 1, 1, 4, new[] {1, 2});
         }
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(10, 2, 2, 1, 2, new[] {1});
+            return new UnitStatistics(10, 2, 2, 1, 3, new[] {1});
         }
 
         private ITexture2D FindLargePortrait(string textureName)

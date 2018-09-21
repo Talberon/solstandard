@@ -249,15 +249,7 @@ namespace SolStandard.HUD.Window
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
-            if (Visible)
-            {
-                foreach (WindowCell windowCell in windowCells)
-                {
-                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, windowColor);
-                }
-
-                windowContents.Draw(spriteBatch, CenteredContentCoordinates(coordinates));
-            }
+            Draw(spriteBatch, coordinates, windowColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)

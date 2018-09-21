@@ -7,6 +7,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
@@ -48,9 +49,9 @@ namespace SolStandard.Containers.UI
 
         private readonly ITexture2D windowTexture;
 
-        public BattleUI(ITexture2D windowTexture)
+        public BattleUI()
         {
-            this.windowTexture = windowTexture;
+            windowTexture = AssetManager.WindowTexture;
             visible = true;
         }
 
@@ -83,7 +84,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerDiceLabelWindow(Color attackerWindowColor)
         {
             AttackerDiceLabelWindow = new Window("Dice Label", windowTexture,
-                new RenderText(GameDriver.WindowFont, "Attacking"), attackerWindowColor);
+                new RenderText(AssetManager.WindowFont, "Attacking"), attackerWindowColor);
         }
 
         internal void GenerateAttackerInRangeWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
@@ -93,8 +94,8 @@ namespace SolStandard.Containers.UI
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                    new RenderText(GameDriver.WindowFont, "In Range: "),
-                    new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
+                    new RenderText(AssetManager.WindowFont, "In Range: "),
+                    new RenderText(AssetManager.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
             };
             WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
@@ -122,8 +123,8 @@ namespace SolStandard.Containers.UI
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.BonusAtk),
-                    new RenderText(GameDriver.WindowFont, "Bonus: "),
-                    new RenderText(GameDriver.WindowFont, terrainAttackBonus,
+                    new RenderText(AssetManager.WindowFont, "Bonus: "),
+                    new RenderText(AssetManager.WindowFont, terrainAttackBonus,
                         (Convert.ToInt32(terrainAttackBonus) > 0) ? PositiveColor : NeutralColor)
                 }
             };
@@ -141,8 +142,8 @@ namespace SolStandard.Containers.UI
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                    new RenderText(GameDriver.WindowFont, "ATK: "),
-                    new RenderText(GameDriver.WindowFont, atkValue.ToString())
+                    new RenderText(AssetManager.WindowFont, "ATK: "),
+                    new RenderText(AssetManager.WindowFont, atkValue.ToString())
                 }
             };
             WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
@@ -153,8 +154,8 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             GameUnit attacker, int hpBarHeight)
         {
-            IRenderable hpIcon = new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1);
-            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
+            IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
+            IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
             IRenderable[,] attackerHpContent =
@@ -170,7 +171,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerLabelWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string attackerName)
         {
-            IRenderable attackerLabelText = new RenderText(GameDriver.HeaderFont, attackerName);
+            IRenderable attackerLabelText = new RenderText(AssetManager.HeaderFont, attackerName);
             AttackerLabelWindow = new Window("Attacker Name Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
         }
@@ -178,7 +179,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateAttackerClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string attackerClass)
         {
-            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, "Class: " + attackerClass);
+            IRenderable attackerLabelText = new RenderText(AssetManager.WindowFont, "Class: " + attackerClass);
             AttackerClassWindow = new Window("Attacker Class Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
         }
@@ -205,7 +206,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderDiceLabelWindow(Color defenderWindowColor)
         {
             DefenderDiceLabelWindow = new Window("Dice Label", windowTexture,
-                new RenderText(GameDriver.WindowFont, "Defending"), defenderWindowColor);
+                new RenderText(AssetManager.WindowFont, "Defending"), defenderWindowColor);
         }
 
         internal void GenerateDefenderRangeWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
@@ -215,8 +216,8 @@ namespace SolStandard.Containers.UI
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                    new RenderText(GameDriver.WindowFont, "In Range: "),
-                    new RenderText(GameDriver.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
+                    new RenderText(AssetManager.WindowFont, "In Range: "),
+                    new RenderText(AssetManager.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
                 }
             };
 
@@ -245,8 +246,8 @@ namespace SolStandard.Containers.UI
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.BonusDef),
-                    new RenderText(GameDriver.WindowFont, "Bonus: "),
-                    new RenderText(GameDriver.WindowFont, terrainDefenseBonus,
+                    new RenderText(AssetManager.WindowFont, "Bonus: "),
+                    new RenderText(AssetManager.WindowFont, terrainDefenseBonus,
                         (Convert.ToInt32(terrainDefenseBonus) > 0) ? PositiveColor : NeutralColor)
                 }
             };
@@ -262,9 +263,9 @@ namespace SolStandard.Containers.UI
             IRenderable[,] defenderAtkContent =
             {
                 {
-                    new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 3),
-                    new RenderText(GameDriver.WindowFont, "DEF: "),
-                    new RenderText(GameDriver.WindowFont, defValue.ToString())
+                    new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 3),
+                    new RenderText(AssetManager.WindowFont, "DEF: "),
+                    new RenderText(AssetManager.WindowFont, defValue.ToString())
                 }
             };
             WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
@@ -275,8 +276,8 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             GameUnit defender, int hpBarHeight)
         {
-            IRenderable hpIcon = new SpriteAtlas(GameDriver.StatIcons, new Vector2(GameDriver.CellSize), 1);
-            IRenderable hpLabel = new RenderText(GameDriver.WindowFont, "HP: ");
+            IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
+            IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
             IRenderable[,] defenderHpContent =
@@ -292,7 +293,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderLabelWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             string defenderName)
         {
-            IRenderable defenderLabelText = new RenderText(GameDriver.HeaderFont, defenderName);
+            IRenderable defenderLabelText = new RenderText(AssetManager.HeaderFont, defenderName);
             DefenderLabelWindow = new Window("Defender Name Label", windowTexture, defenderLabelText,
                 defenderWindowColor, portraitWidthOverride);
         }
@@ -300,7 +301,7 @@ namespace SolStandard.Containers.UI
         internal void GenerateDefenderClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string defenderClass)
         {
-            IRenderable attackerLabelText = new RenderText(GameDriver.WindowFont, "Class: " + defenderClass);
+            IRenderable attackerLabelText = new RenderText(AssetManager.WindowFont, "Class: " + defenderClass);
             DefenderClassWindow = new Window("Defender Class Label", windowTexture, attackerLabelText,
                 attackerWindowColor, portraitWidthOverride);
         }

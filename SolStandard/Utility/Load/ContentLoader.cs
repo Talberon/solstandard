@@ -10,8 +10,13 @@ namespace SolStandard.Utility.Load
      * ContentLoader
      * Holds a series of loader methods that are used for the game
      */
-    public class ContentLoader
+    public static class ContentLoader
     {
+        public static ISpriteFont LoadPromptFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/PromptText"));
+        }
+
         public static ISpriteFont LoadHeaderFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowHeaderText"));
@@ -30,6 +35,11 @@ namespace SolStandard.Utility.Load
         public static ISpriteFont LoadResultsFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/ResultsText"));
+        }
+
+        public static ISpriteFont LoadMainMenuFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MainMenuText"));
         }
 
         public static ITexture2D LoadWhitePixel(ContentManager content)
@@ -86,7 +96,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadCursorTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/Cursor/Cursors")
+                content.Load<Texture2D>("Graphics/Map/Cursor/Cursors"),
+                content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorArrow_32")
             };
 
             List<ITexture2D> cursorTextures = new List<ITexture2D>();
@@ -213,11 +224,86 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
-            Texture2D diceAtlasTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
+            Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
 
-            ITexture2D diceAtlas = new Texture2DWrapper(diceAtlasTexture);
+            ITexture2D diceTextureWrapper = new Texture2DWrapper(diceTexture);
 
-            return diceAtlas;
+            return diceTextureWrapper;
+        }
+
+        public static ITexture2D LoadGameLogo(ContentManager content)
+        {
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");
+
+            ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
+
+            return backgroundTextureWrapper;
+        }
+
+        public static ITexture2D LoadSolSpin(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static ITexture2D LoadTitleScreenBackground(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerFlag");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static List<ITexture2D> LoadMapPreviews(ContentManager content)
+        {
+            List<Texture2D> mapPreviewTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Snow_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_02"),
+            };
+
+            List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in mapPreviewTextures)
+            {
+                mapPreviewITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return mapPreviewITextures;
+        }
+
+        public static List<ITexture2D> LoadButtonIcons(ContentManager content)
+        {
+            List<Texture2D> buttonIconTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_A"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_B"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_X"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Y"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Dpad"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_LB"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_LT"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RB"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RT"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Windows"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu"),
+            };
+
+            List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in buttonIconTextures)
+            {
+                buttonIconITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return buttonIconITextures;
         }
     }
 }
