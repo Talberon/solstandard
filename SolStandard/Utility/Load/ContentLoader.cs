@@ -310,73 +310,73 @@ namespace SolStandard.Utility.Load
 
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-move-4");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder3b");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadMenuConfirmSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-confirm-2");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster3");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadMapCursorMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/map-cursor-move");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder4a");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadMapUnitSelectSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/unit-selected-5");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double1");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadMapUnitCancelSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadDiceRollSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadMapUnitMoveSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-footsteps");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_footsteps1b");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadCombatStartSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/combat-start");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_falling5");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadCombatBlockSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-block");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_impact11");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadCombatDamageSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-damage");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_shortest_hard6");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
         public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-die-2");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_short_hard1");
             return new SoundEffectWrapper(effect, 0.8f);
         }
 
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/disable-dice");
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_wpn_punch2");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 

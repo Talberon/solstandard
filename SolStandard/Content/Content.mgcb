@@ -2119,174 +2119,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
 
-#begin Audio/SFX/Character/unit-die.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-die.wav
-
-#begin Audio/SFX/Character/unit-damage.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-damage.wav
-
-#begin Audio/SFX/Character/unit-block.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-block.wav
-
-#begin Audio/SFX/Character/unit-victory.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-victory.wav
-
-#begin Audio/SFX/Interface/map-cursor-move.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/map-cursor-move.wav
-
-#begin Audio/SFX/Interface/menu-move.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-move.wav
-
-#begin Audio/SFX/Interface/main-menu-select-option.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/main-menu-select-option.wav
-
-#begin Audio/SFX/Interface/open-pause-menu.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/open-pause-menu.wav
-
-#begin Audio/SFX/Character/unit-footsteps.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-footsteps.wav
-
-#begin Audio/SFX/Environment/door-open.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Environment/door-open.wav
-
-#begin Audio/SFX/Interface/map-select-confirmation.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/map-select-confirmation.wav
-
-#begin Audio/SFX/Interface/unit-selected.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/unit-selected.wav
-
-#begin Audio/SFX/Interface/map-cursor-move-2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/map-cursor-move-2.wav
-
-#begin Audio/SFX/Interface/map-cursor-move-3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/map-cursor-move-3.wav
-
-#begin Audio/SFX/Interface/menu-move-2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-move-2.wav
-
-#begin Audio/SFX/Interface/menu-confirm.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-confirm.wav
-
-#begin Audio/SFX/Interface/menu-move-3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-move-3.wav
-
-#begin Audio/SFX/Interface/menu-confirm-2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-confirm-2.wav
-
-#begin Audio/SFX/Interface/unit-selected-2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/unit-selected-2.wav
-
-#begin Audio/SFX/Interface/unit-selected-3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/unit-selected-3.wav
-
-#begin Audio/SFX/Interface/menu-move-4.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/menu-move-4.wav
-
-#begin Audio/SFX/Character/combat-start.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/combat-start.wav
-
-#begin Audio/SFX/Interface/dice-roll.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/dice-roll.wav
-
-#begin Audio/SFX/Interface/text-blip.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/text-blip.wav
-
-#begin Audio/SFX/Interface/unit-selected-4.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/unit-selected-4.wav
-
-#begin Audio/SFX/Interface/unit-selected-5.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Interface/unit-selected-5.wav
-
-#begin Audio/SFX/Character/disable-dice.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/disable-dice.wav
-
-#begin Audio/SFX/Character/unit-die-2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SFX/Character/unit-die-2.wav
-
 #begin Audio/Music/Game/MilitaryTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
@@ -2346,4 +2178,136 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/VictoryTheme.wav
+
+#begin Audio/SFX/Character/sfx_wpn_punch2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_wpn_punch2.wav
+
+#begin Audio/SFX/Interface/sfx_movement_ladder3b.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_movement_ladder3b.wav
+
+#begin Audio/SFX/Interface/sfx_movement_ladder4a.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_movement_ladder4a.wav
+
+#begin Audio/SFX/Interface/sfx_movement_ladder5b.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_movement_ladder5b.wav
+
+#begin Audio/SFX/Interface/sfx_movement_stairs3b.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_movement_stairs3b.wav
+
+#begin Audio/SFX/Character/sfx_sounds_falling5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_sounds_falling5.wav
+
+#begin Audio/SFX/Character/sfx_sounds_falling9.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_sounds_falling9.wav
+
+#begin Audio/SFX/Interface/sfx_movement_footsteps5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_movement_footsteps5.wav
+
+#begin Audio/SFX/Character/sfx_movement_footsteps1b.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_movement_footsteps1b.wav
+
+#begin Audio/SFX/Interface/sfx_coin_double1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_coin_double1.wav
+
+#begin Audio/SFX/Character/sfx_sounds_impact11.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_sounds_impact11.wav
+
+#begin Audio/SFX/Character/sfx_sounds_impact1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_sounds_impact1.wav
+
+#begin Audio/SFX/Interface/sfx_menu_move4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_menu_move4.wav
+
+#begin Audio/SFX/Character/sfx_sounds_damage1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_sounds_damage1.wav
+
+#begin Audio/SFX/Interface/sfx_sounds_pause3_in.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_sounds_pause3_in.wav
+
+#begin Audio/SFX/Character/sfx_damage_hit3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_damage_hit3.wav
+
+#begin Audio/SFX/Character/sfx_damage_hit5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_damage_hit5.wav
+
+#begin Audio/SFX/Character/sfx_exp_shortest_hard6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_exp_shortest_hard6.wav
+
+#begin Audio/SFX/Character/sfx_exp_shortest_soft2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_exp_shortest_soft2.wav
+
+#begin Audio/SFX/Character/sfx_exp_short_hard1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/sfx_exp_short_hard1.wav
+
+#begin Audio/SFX/Interface/sfx_weapon_singleshot4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_weapon_singleshot4.wav
+
+#begin Audio/SFX/Interface/sfx_coin_cluster3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_coin_cluster3.wav
 
