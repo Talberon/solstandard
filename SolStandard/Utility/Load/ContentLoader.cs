@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace SolStandard.Utility.Load
 {
@@ -304,6 +306,95 @@ namespace SolStandard.Utility.Load
             }
 
             return buttonIconITextures;
+        }
+
+        public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-move-4");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMenuConfirmSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-confirm-2");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapCursorMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/map-cursor-move");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapUnitSelectSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/unit-selected-5");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapUnitCancelSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadDiceRollSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapUnitMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-footsteps");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatStartSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/combat-start");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatBlockSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-block");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatDamageSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-damage");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-die-2");
+            return new SoundEffectWrapper(effect, 0.8f);
+        }
+
+        public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/disable-dice");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static List<Song> LoadMusic(ContentManager content)
+        {
+            return new List<Song>
+            {
+                content.Load<Song>("Audio/Music/Game/MilitaryTheme"),
+                content.Load<Song>("Audio/Music/Game/PlainsTheme"),
+                content.Load<Song>("Audio/Music/Game/VoidTheme"),
+                content.Load<Song>("Audio/Music/Game/DesertTheme"),
+                content.Load<Song>("Audio/Music/Game/SnowyMountainTheme"),
+                content.Load<Song>("Audio/Music/Game/IslandTheme"),
+                content.Load<Song>("Audio/Music/Game/LavaTheme"),
+                content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
+                content.Load<Song>("Audio/Music/Game/BossTheme"),
+                content.Load<Song>("Audio/Music/Game/VictoryTheme")
+            };
         }
     }
 }

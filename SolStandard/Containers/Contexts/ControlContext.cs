@@ -24,7 +24,6 @@ namespace SolStandard.Containers.Contexts
                     break;
                 case GameContext.GameState.MapSelect:
                     MapSelectControls(controlMapper, mapCursor);
-                    //MenuControls(controlMapper, gameContext.MapSelectionMenuUI.MapSelectMenu);
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;

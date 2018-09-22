@@ -290,7 +290,8 @@ namespace SolStandard.Map
                                             spriteAtlas,
                                             new Vector2(col, row),
                                             currentProperties,
-                                            derivedMapInfo
+                                            derivedMapInfo,
+                                            currentProperties["mapSong"]
                                         );
                                         break;
                                     case EntityTypes.Unit:

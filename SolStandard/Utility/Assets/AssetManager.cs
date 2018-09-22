@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
@@ -7,6 +8,21 @@ namespace SolStandard.Utility.Assets
 {
     public static class AssetManager
     {
+        public static ISoundEffect MenuMoveSFX { get; private set; }
+        public static ISoundEffect MenuConfirmSFX { get; private set; }
+        public static ISoundEffect MapCursorMoveSFX { get; private set; }
+        public static ISoundEffect MapUnitSelectSFX { get; private set; }
+        public static ISoundEffect MapUnitCancelSFX { get; private set; }
+        public static ISoundEffect MapUnitMoveSFX { get; private set; }
+        public static ISoundEffect CombatStartSFX { get; private set; }
+        public static ISoundEffect DiceRollSFX { get; private set; }
+        public static ISoundEffect CombatBlockSFX { get; private set; }
+        public static ISoundEffect CombatDamageSFX { get; private set; }
+        public static ISoundEffect CombatDeathSFX { get; private set; }
+        public static ISoundEffect DisableDiceSFX { get; private set; }
+        
+        public static List<Song> MusicTracks { get; private set; }
+
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
         public static List<ITexture2D> MapPreviewTextures { get; private set; }
@@ -34,6 +50,7 @@ namespace SolStandard.Utility.Assets
         public static List<ITexture2D> LargePortraitTextures { get; private set; }
         public static List<ITexture2D> MediumPortraitTextures { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
+
 
         public static ITexture2D WorldTileSetTexture
         {
@@ -71,36 +88,52 @@ namespace SolStandard.Utility.Assets
         {
             TerrainTextures = ContentLoader.LoadTerrainSpriteTexture(content);
             ActionTiles = ContentLoader.LoadActionTiles(content);
-            
+
             WhitePixel = ContentLoader.LoadWhitePixel(content);
             WhiteGrid = ContentLoader.LoadWhiteGridOutline(content);
-            
+
             StatIcons = ContentLoader.LoadStatIcons(content);
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(content);
-            
+
             GuiTextures = ContentLoader.LoadCursorTextures(content);
             WindowTextures = ContentLoader.LoadWindowTextures(content);
             ButtonIcons = ContentLoader.LoadButtonIcons(content);
             MapPreviewTextures = ContentLoader.LoadMapPreviews(content);
-            
+
             WindowFont = ContentLoader.LoadWindowFont(content);
             MapFont = ContentLoader.LoadMapFont(content);
             ResultsFont = ContentLoader.LoadResultsFont(content);
             HeaderFont = ContentLoader.LoadHeaderFont(content);
             PromptFont = ContentLoader.LoadPromptFont(content);
-            
+
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);
             MainMenuSunTexture = ContentLoader.LoadSolSpin(content);
             MainMenuBackground = ContentLoader.LoadTitleScreenBackground(content);
-            
+
             LargePortraitTextures = ContentLoader.LoadLargePortraits(content);
             MediumPortraitTextures = ContentLoader.LoadMediumPortraits(content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
-            
+
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
 
             ButtonIconProvider.LoadButtons(ButtonIcons);
+
+            MenuMoveSFX = ContentLoader.LoadMenuMoveSFX(content);
+            MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);
+            MapCursorMoveSFX = ContentLoader.LoadMapCursorMoveSFX(content);
+            MapUnitSelectSFX = ContentLoader.LoadMapUnitSelectSFX(content);
+            MapUnitCancelSFX = ContentLoader.LoadMapUnitCancelSFX(content);
+            DiceRollSFX = ContentLoader.LoadDiceRollSFX(content);
+
+            CombatStartSFX = ContentLoader.LoadCombatStartSFX(content);
+            MapUnitMoveSFX = ContentLoader.LoadMapUnitMoveSFX(content);
+            CombatBlockSFX = ContentLoader.LoadCombatBlockSFX(content); 
+            CombatDamageSFX = ContentLoader.LoadCombatDamageSFX(content); 
+            CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
+            DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
+
+            MusicTracks = ContentLoader.LoadMusic(content);
         }
     }
 }

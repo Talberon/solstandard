@@ -150,6 +150,7 @@ namespace SolStandard.Containers.Contexts
                 SelectedUnit.MoveUnitInDirection(direction, MapContainer.MapGridSize);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
+                AssetManager.MapUnitMoveSFX.Play();
             }
         }
 
@@ -240,7 +241,7 @@ namespace SolStandard.Containers.Contexts
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
+             selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 

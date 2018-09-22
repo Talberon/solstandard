@@ -20,11 +20,12 @@
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
  </objecttype>
- <objecttype name="SelectMap" color="#fe2973">
-  <property name="mapFileName" type="string" default="Map_00.tmx"/>
- </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="SelectMap" color="#fe2973">
+  <property name="mapFileName" type="string" default="Map_00.tmx"/>
+  <property name="mapSong" type="string" default="MilitaryTheme"/>
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>

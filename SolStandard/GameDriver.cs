@@ -60,6 +60,7 @@ namespace SolStandard
         /// </summary>
         public static void NewGame(string mapName)
         {
+            
             string mapPath = "Content/TmxMaps/" + mapName;
             _gameContext.StartGame(mapPath, _mapCamera);
         }
@@ -126,6 +127,8 @@ namespace SolStandard
             );
 
             _mapCamera.CenterCameraToCursor();
+
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
 
         /// <summary>

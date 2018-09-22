@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Map.Elements.Cursor
 {
@@ -79,6 +80,7 @@ namespace SolStandard.Map.Elements.Cursor
             }
 
             PreventCursorLeavingMapBounds();
+            AssetManager.MapCursorMoveSFX.Play();
         }
 
         private void PreventCursorLeavingMapBounds()

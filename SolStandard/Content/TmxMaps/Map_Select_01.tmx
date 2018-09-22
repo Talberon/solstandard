@@ -2738,6 +2738,7 @@
   <object id="398" name="Last Harbour" type="SelectMap" gid="2492" x="928" y="256" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Void_01.tmx"/>
+    <property name="mapSong" value="VoidTheme"/>
    </properties>
   </object>
   <object id="400" name="Riverside Dunes" type="SelectMap" gid="2492" x="800" y="480" width="32" height="32">
@@ -2748,11 +2749,13 @@
   <object id="401" name="Hiatok Mountains" type="SelectMap" gid="2492" x="192" y="96" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Snow_01.tmx"/>
+    <property name="mapSong" value="SnowyMountainTheme"/>
    </properties>
   </object>
   <object id="402" name="Atheion Grasslands" type="SelectMap" gid="2492" x="448" y="320" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Grass_01.tmx"/>
+    <property name="mapSong" value="PlainsTheme"/>
    </properties>
   </object>
   <object id="403" type="Decoration" gid="2202" x="96" y="64" width="32" height="32"/>
@@ -2771,6 +2774,7 @@
   <object id="419" name="The Old Woods" type="SelectMap" gid="2492" x="512" y="192" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Grass_02.tmx"/>
+    <property name="mapSong" value="ForestTheme"/>
    </properties>
   </object>
  </objectgroup>
