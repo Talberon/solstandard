@@ -317,7 +317,7 @@ namespace SolStandard.Containers.Contexts
         public void CancelMove()
         {
             MapContext.CancelMovement();
-            AssetManager.DiceRollSFX.Play();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         private void EndTurnIfUnitIsDead()

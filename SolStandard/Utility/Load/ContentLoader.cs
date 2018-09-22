@@ -332,6 +332,12 @@ namespace SolStandard.Utility.Load
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
+        public static ISoundEffect LoadMapUnitCancelSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
         public static ISoundEffect LoadDiceRollSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");

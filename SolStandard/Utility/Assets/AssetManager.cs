@@ -12,6 +12,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect MenuConfirmSFX { get; private set; }
         public static ISoundEffect MapCursorMoveSFX { get; private set; }
         public static ISoundEffect MapUnitSelectSFX { get; private set; }
+        public static ISoundEffect MapUnitCancelSFX { get; private set; }
         public static ISoundEffect MapUnitMoveSFX { get; private set; }
         public static ISoundEffect CombatStartSFX { get; private set; }
         public static ISoundEffect DiceRollSFX { get; private set; }
@@ -122,6 +123,7 @@ namespace SolStandard.Utility.Assets
             MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);
             MapCursorMoveSFX = ContentLoader.LoadMapCursorMoveSFX(content);
             MapUnitSelectSFX = ContentLoader.LoadMapUnitSelectSFX(content);
+            MapUnitCancelSFX = ContentLoader.LoadMapUnitCancelSFX(content);
             DiceRollSFX = ContentLoader.LoadDiceRollSFX(content);
 
             CombatStartSFX = ContentLoader.LoadCombatStartSFX(content);
