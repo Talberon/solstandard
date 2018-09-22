@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
@@ -18,6 +19,8 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDamageSFX { get; private set; }
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
+        
+        public static List<Song> MusicTracks { get; private set; }
 
         private static List<ITexture2D> WindowTextures { get; set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
@@ -127,6 +130,8 @@ namespace SolStandard.Utility.Assets
             CombatDamageSFX = ContentLoader.LoadCombatDamageSFX(content); 
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
+
+            MusicTracks = ContentLoader.LoadMusic(content);
         }
     }
 }

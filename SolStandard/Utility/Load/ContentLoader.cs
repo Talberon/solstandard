@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace SolStandard.Utility.Load
 {
@@ -363,14 +364,25 @@ namespace SolStandard.Utility.Load
 
         public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
         {
-            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-die");
-            return new SoundEffectWrapper(effect, 0.5f);
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-die-2");
+            return new SoundEffectWrapper(effect, 0.8f);
         }
 
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/disable-dice");
             return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static List<Song> LoadMusic(ContentManager content)
+        {
+            return new List<Song>
+            {
+                content.Load<Song>("Audio/Music/Game/MilitaryTheme"),
+                content.Load<Song>("Audio/Music/Game/PlainsTheme"),
+                content.Load<Song>("Audio/Music/Game/VoidTheme"),
+                content.Load<Song>("Audio/Music/Game/DesertTheme")
+            };
         }
     }
 }

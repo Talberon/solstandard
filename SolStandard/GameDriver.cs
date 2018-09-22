@@ -60,6 +60,7 @@ namespace SolStandard
         /// </summary>
         public static void NewGame(string mapName)
         {
+            
             string mapPath = "Content/TmxMaps/" + mapName;
             _gameContext.StartGame(mapPath, _mapCamera);
         }

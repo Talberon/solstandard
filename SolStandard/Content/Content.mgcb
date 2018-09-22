@@ -2281,3 +2281,45 @@
 /processorParam:Quality=Best
 /build:Audio/SFX/Character/disable-dice.wav
 
+#begin Audio/Music/Game/Exploration4 - Prairie Nights.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/Exploration4 - Prairie Nights.ogg
+
+#begin Audio/Music/Game/Exploration5 - Sneaking Around.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/Exploration5 - Sneaking Around.ogg
+
+#begin Audio/SFX/Character/unit-die-2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Character/unit-die-2.wav
+
+#begin Audio/Music/Game/MilitaryTheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/MilitaryTheme.ogg
+
+#begin Audio/Music/Game/PlainsTheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/PlainsTheme.ogg
+
+#begin Audio/Music/Game/VoidTheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/VoidTheme.ogg
+
+#begin Audio/Music/Game/DesertTheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/DesertTheme.ogg
+

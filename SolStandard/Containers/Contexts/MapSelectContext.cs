@@ -1,4 +1,6 @@
-﻿using SolStandard.Containers.UI;
+﻿using Microsoft.Xna.Framework.Media;
+using SharpDX.MediaFoundation;
+using SolStandard.Containers.UI;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
@@ -43,10 +45,19 @@ namespace SolStandard.Containers.Contexts
                     SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
                     GameDriver.NewGame(selectMapEntity.MapInfo.FileName);
                     AssetManager.MenuConfirmSFX.Play();
+                    PlayMapSong(selectMapEntity);
                 }
             }
         }
 
+        private static void PlayMapSong(SelectMapEntity mapEntity)
+        {
+            Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
+            MediaPlayer.Play(songToPlay);
+            MediaPlayer.Volume = 0.3f;
+            MediaPlayer.IsRepeating = true;
+        }
+        
         private static bool CursorAtMapSelectFeature(MapSlice cursorSlice)
         {
             return cursorSlice.TerrainEntity != null &&

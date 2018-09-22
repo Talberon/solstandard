@@ -246,6 +246,7 @@ namespace SolStandard.Entity.Unit
                 mediumPortrait.RenderColor = DeadPortraitColor;
                 smallPortrait.RenderColor = DeadPortraitColor;
                 Trace.WriteLine("Unit " + Id + " is dead!");
+                AssetManager.CombatDeathSFX.Play();
             }
         }
 
