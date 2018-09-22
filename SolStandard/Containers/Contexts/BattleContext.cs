@@ -236,7 +236,9 @@ namespace SolStandard.Containers.Contexts
             {
                 attackerDice.RollDice();
                 defenderDice.RollDice();
+                AssetManager.DiceRollSFX.Play();
             }
+            
         }
 
 
@@ -264,16 +266,22 @@ namespace SolStandard.Containers.Contexts
                 {
                     attackerDice.BlockNextDieWithValue(Die.FaceValue.Sword);
                     defenderDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+                    AssetManager.CombatBlockSFX.Play();
                 }
                 else if (defenderInRange && defenderSwords > 0 && attackerShields > 0)
                 {
                     defenderDice.BlockNextDieWithValue(Die.FaceValue.Sword);
                     attackerDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+                    AssetManager.CombatBlockSFX.Play();
                 }
                 else
                 {
                     //Don't count defender's attack dice if out of range
-                    if (!defenderInRange) defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
+                    if (!defenderInRange)
+                    {
+                        defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
+                        AssetManager.DisableDiceSFX.Play();
+                    }
 
                     currentlyResolvingBlocks = false;
 
@@ -307,18 +315,21 @@ namespace SolStandard.Containers.Contexts
                     defenderDice.DisableAllDiceWithValue(Die.FaceValue.Blank);
                     attackerDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     defenderDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
+                    AssetManager.DisableDiceSFX.Play();
                 }
                 else if (attackerDamage > 0 && attackerInRange)
                 {
                     attackerDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
                     defender.DamageUnit(1);
                     attackerDamageCounter++;
+                    AssetManager.CombatDamageSFX.Play();
                 }
                 else if (defenderDamage > 0 && defenderInRange)
                 {
                     defenderDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
                     attacker.DamageUnit(1);
                     defenderDamageCounter++;
+                    AssetManager.CombatDamageSFX.Play();
                 }
                 else
                 {

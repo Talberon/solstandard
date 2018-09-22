@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu
 {
@@ -72,6 +73,7 @@ namespace SolStandard.HUD.Menu
         public void SelectOption()
         {
             options[currentOptionIndex].Execute();
+            AssetManager.MenuConfirmSFX.Play();
         }
 
         public void MoveMenuCursor(MenuCursorDirection direction)
@@ -79,12 +81,20 @@ namespace SolStandard.HUD.Menu
             switch (direction)
             {
                 case MenuCursorDirection.Forward:
-                    if (currentOptionIndex < options.Length - 1) currentOptionIndex++;
-                    PositionCursorToOption();
+                    if (currentOptionIndex < options.Length - 1)
+                    {
+                        currentOptionIndex++;
+                        PositionCursorToOption();
+                        AssetManager.MenuMoveSFX.Play();
+                    }
                     break;
                 case MenuCursorDirection.Backward:
-                    if (currentOptionIndex > 0) currentOptionIndex--;
-                    PositionCursorToOption();
+                    if (currentOptionIndex > 0)
+                    {
+                        currentOptionIndex--;
+                        PositionCursorToOption();
+                        AssetManager.MenuMoveSFX.Play();
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);

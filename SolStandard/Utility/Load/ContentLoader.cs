@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SolStandard.Utility.Load
 {
@@ -304,6 +305,72 @@ namespace SolStandard.Utility.Load
             }
 
             return buttonIconITextures;
+        }
+
+        public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-move-4");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMenuConfirmSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/menu-confirm-2");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapCursorMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/map-cursor-move");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapUnitSelectSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/unit-selected-5");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadDiceRollSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/dice-roll");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadMapUnitMoveSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-footsteps");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatStartSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/combat-start");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatBlockSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-block");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatDamageSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-damage");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/unit-die");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/disable-dice");
+            return new SoundEffectWrapper(effect, 0.5f);
         }
     }
 }

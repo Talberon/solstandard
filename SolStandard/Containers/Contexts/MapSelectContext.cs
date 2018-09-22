@@ -2,6 +2,7 @@
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -41,6 +42,7 @@ namespace SolStandard.Containers.Contexts
                 {
                     SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
                     GameDriver.NewGame(selectMapEntity.MapInfo.FileName);
+                    AssetManager.MenuConfirmSFX.Play();
                 }
             }
         }

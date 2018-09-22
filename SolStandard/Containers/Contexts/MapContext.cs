@@ -150,6 +150,7 @@ namespace SolStandard.Containers.Contexts
                 SelectedUnit.MoveUnitInDirection(direction, MapContainer.MapGridSize);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
+                AssetManager.MapUnitMoveSFX.Play();
             }
         }
 

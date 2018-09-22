@@ -157,6 +157,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (!TrySelectUnit()) return;
             StartMoving();
+            AssetManager.MapUnitSelectSFX.Play();
         }
 
         public void FinishMoving()
@@ -166,6 +167,7 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            AssetManager.MapUnitSelectSFX.Play();
             //TODO Open the action menu
         }
 
@@ -180,6 +182,8 @@ namespace SolStandard.Containers.Contexts
             MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
                 new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                 new Vector2(GameDriver.CellSize), 3));
+            
+            AssetManager.MapUnitSelectSFX.Play();
         }
 
         public void StartCombat()
@@ -197,6 +201,8 @@ namespace SolStandard.Containers.Contexts
 
                 MapContext.SetPromptWindowText("Confirm End Turn");
                 MapContext.ProceedToNextState();
+                
+                AssetManager.CombatStartSFX.Play();
             }
             //Skip the combat state if player selects the same unit
             else if (attackingUnit == defendingUnit)
@@ -206,6 +212,8 @@ namespace SolStandard.Containers.Contexts
                 MapContext.ProceedToNextState();
                 MapContext.SetPromptWindowText("Confirm End Turn");
                 MapContext.ProceedToNextState();
+                
+                AssetManager.MapUnitSelectSFX.Play();
             }
         }
 
@@ -214,6 +222,7 @@ namespace SolStandard.Containers.Contexts
             switch (BattleContext.CurrentState)
             {
                 case BattleContext.BattleState.Start:
+                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
                         BattleContext.StartRollingDice();
@@ -221,6 +230,7 @@ namespace SolStandard.Containers.Contexts
 
                     break;
                 case BattleContext.BattleState.RollDice:
+                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
                         BattleContext.StartResolvingBlocks();
@@ -228,6 +238,7 @@ namespace SolStandard.Containers.Contexts
 
                     break;
                 case BattleContext.BattleState.CountDice:
+                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
                         BattleContext.StartResolvingDamage();
@@ -235,6 +246,7 @@ namespace SolStandard.Containers.Contexts
 
                     break;
                 case BattleContext.BattleState.ResolveCombat:
+                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
                         MapContext.ProceedToNextState();
@@ -297,6 +309,8 @@ namespace SolStandard.Containers.Contexts
 
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
+            
+            AssetManager.MapUnitSelectSFX.Play();
         }
 
 
