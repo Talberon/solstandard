@@ -381,7 +381,13 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/MilitaryTheme"),
                 content.Load<Song>("Audio/Music/Game/PlainsTheme"),
                 content.Load<Song>("Audio/Music/Game/VoidTheme"),
-                content.Load<Song>("Audio/Music/Game/DesertTheme")
+                content.Load<Song>("Audio/Music/Game/DesertTheme"),
+                content.Load<Song>("Audio/Music/Game/SnowyMountainTheme"),
+                content.Load<Song>("Audio/Music/Game/IslandTheme"),
+                content.Load<Song>("Audio/Music/Game/LavaTheme"),
+                content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
+                content.Load<Song>("Audio/Music/Game/BossTheme"),
+                content.Load<Song>("Audio/Music/Game/VictoryTheme")
             };
         }
     }

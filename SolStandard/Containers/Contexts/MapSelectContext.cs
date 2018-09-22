@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Media;
-using SharpDX.MediaFoundation;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -53,11 +53,9 @@ namespace SolStandard.Containers.Contexts
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
             Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
-            MediaPlayer.Play(songToPlay);
-            MediaPlayer.Volume = 0.3f;
-            MediaPlayer.IsRepeating = true;
+            MusicBox.PlayLoop(songToPlay, 0.3f);
         }
-        
+
         private static bool CursorAtMapSelectFeature(MapSlice cursorSlice)
         {
             return cursorSlice.TerrainEntity != null &&

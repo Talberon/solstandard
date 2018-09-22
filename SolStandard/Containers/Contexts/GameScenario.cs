@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Entity.Unit;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -15,6 +17,7 @@ namespace SolStandard.Containers.Contexts
                 gameContext.ResultsUI.RedTeamResultText = "RED TEAM WINS!";
                 gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
+                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }
 
             if (TeamMonarchsAreAllDead(redTeam))
@@ -22,6 +25,7 @@ namespace SolStandard.Containers.Contexts
                 gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM WINS!";
                 gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
+                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }
 
             if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
@@ -29,6 +33,7 @@ namespace SolStandard.Containers.Contexts
                 gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
+                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }
         }
 

@@ -66,7 +66,8 @@ namespace SolStandard.Entity.Unit
             {
                 initiativeHealthBar,
                 combatHealthBar,
-                hoverWindowHealthBar
+                hoverWindowHealthBar,
+                resultsHealthBar
             };
         }
 

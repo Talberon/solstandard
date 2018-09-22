@@ -127,6 +127,8 @@ namespace SolStandard
             );
 
             _mapCamera.CenterCameraToCursor();
+
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
 
         /// <summary>
