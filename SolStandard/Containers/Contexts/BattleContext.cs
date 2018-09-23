@@ -215,7 +215,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyRolling)
             {
                 currentlyRolling = true;
-                battleUI.UserPromptWindow.Visible = false;
+                 battleUI.UserPromptWindow.Visible = false;
             }
         }
 

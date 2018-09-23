@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Skills
     public class BasicAttack : UnitSkill
     {
         private readonly int[] range;
-        
+
         public BasicAttack(string name, SpriteAtlas tileSprite, int[] range) : base(name, tileSprite)
         {
             this.range = range;
@@ -25,11 +25,28 @@ namespace SolStandard.Entity.Unit.Skills
         {
             if (target != null && target.GetType() == typeof(GameUnit))
             {
-                StartCombat((GameUnit) target, mapContext, battleContext);
+                //Skip the combat state if player selects the same unit
+                if (mapContext.SelectedUnit == target)
+                {
+                    MapContainer.ClearDynamicGrid();
+                    mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                    mapContext.ProceedToNextState();
+                    mapContext.ProceedToNextState();
+                    mapContext.SetPromptWindowText("Confirm End Turn");
+                    AssetManager.MapUnitSelectSFX.Play();
+                }
+                else
+                {
+                    if (StartCombat((GameUnit) target, mapContext, battleContext))
+                    {
+                        mapContext.ProceedToNextState();
+                        mapContext.SetPromptWindowText("Confirm End Turn");
+                    }
+                }
             }
         }
 
-        private void StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
+        public static bool StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit attackingUnit = mapContext.SelectedUnit;
             GameUnit defendingUnit = target;
@@ -42,26 +59,12 @@ namespace SolStandard.Entity.Unit.Skills
                     defendingUnit,
                     MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
 
-                mapContext.SetPromptWindowText("Confirm End Turn");
-                mapContext.ProceedToNextState();
-
                 AssetManager.CombatStartSFX.Play();
+                return true;
             }
-            //Skip the combat state if player selects the same unit
-            else if (attackingUnit == defendingUnit)
-            {
-                MapContainer.ClearDynamicGrid();
-                mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                mapContext.ProceedToNextState();
-                mapContext.SetPromptWindowText("Confirm End Turn");
-                mapContext.ProceedToNextState();
 
-                AssetManager.MapUnitSelectSFX.Play();
-            }
-            else
-            {
-                AssetManager.WarningSFX.Play();
-            }
+            AssetManager.WarningSFX.Play();
+            return false;
         }
     }
 }

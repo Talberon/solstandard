@@ -29,22 +29,27 @@ namespace SolStandard.Entity.Unit.Skills
                 //Skip the action if selecting self
                 MapContainer.ClearDynamicGrid();
                 mapContext.ProceedToNextState();
-                mapContext.SetPromptWindowText("Confirm End Turn");
                 mapContext.ProceedToNextState();
+                mapContext.SetPromptWindowText("Confirm End Turn");
                 AssetManager.MapUnitSelectSFX.Play();
             }
             else
             {
-                ShoveAction((GameUnit) target, mapContext);
+                if (ShoveAction((GameUnit) target, mapContext))
+                {
+                    mapContext.ProceedToNextState();
+                    mapContext.ProceedToNextState();
+                    mapContext.SetPromptWindowText("Confirm End Turn");
+                }
             }
         }
 
-        private static void ShoveAction(GameUnit target, MapContext mapContext)
+        public static bool ShoveAction(GameUnit target, MapContext mapContext)
         {
             if (!mapContext.TargetUnitIsLegal(target))
             {
                 AssetManager.WarningSFX.Play();
-                return;
+                return false;
             }
 
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
@@ -55,15 +60,12 @@ namespace SolStandard.Entity.Unit.Skills
             {
                 target.UnitEntity.MapCoordinates = oppositeCoordinates;
                 MapContainer.ClearDynamicGrid();
-                mapContext.ProceedToNextState();
-                mapContext.SetPromptWindowText("Confirm End Turn");
-                mapContext.ProceedToNextState();
                 AssetManager.CombatBlockSFX.Play();
+                return true;
             }
-            else
-            {
-                AssetManager.WarningSFX.Play();
-            }
+
+            AssetManager.WarningSFX.Play();
+            return false;
         }
 
         private static Vector2 DetermineShoveDirection(Vector2 actorCoordinates, Vector2 targetCoordinates)

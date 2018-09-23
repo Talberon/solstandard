@@ -6,7 +6,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 {
     public class NewGameOption : MenuOption
     {
-        private const string NewGameOptionText = "New Game ";
+        private const string NewGameOptionText = "New Game";
 
         public NewGameOption(Color windowColor) : base(windowColor, NewGameOptionText, AssetManager.MainMenuFont)
         {

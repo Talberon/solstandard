@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Skills.Champion;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -149,7 +150,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 BasicAttack(SelectChampionStats().AtkRange),
-                Shove
+                Shove,
+                Tackle
             };
         }
 
@@ -177,11 +179,7 @@ namespace SolStandard.Entity.Unit
         {
             return new BasicAttack(
                 "Basic Attack",
-                new SpriteAtlas(
-                    AssetManager.ActionTiles,
-                    new Vector2(GameDriver.CellSize),
-                    (int) MapDistanceTile.TileType.Attack
-                ),
+                ActionTile,
                 range
             );
         }
@@ -192,11 +190,30 @@ namespace SolStandard.Entity.Unit
             {
                 return new Shove(
                     "Shove",
-                    new SpriteAtlas(
-                        AssetManager.ActionTiles,
-                        new Vector2(GameDriver.CellSize),
-                        (int) MapDistanceTile.TileType.Action
-                    )
+                    ActionTile
+                );
+            }
+        }
+
+        private static Tackle Tackle
+        {
+            get
+            {
+                return new Tackle(
+                    "Tackle",
+                    ActionTile
+                );
+            }
+        }
+
+        private static SpriteAtlas ActionTile
+        {
+            get
+            {
+                return new SpriteAtlas(
+                    AssetManager.ActionTiles,
+                    new Vector2(GameDriver.CellSize),
+                    (int) MapDistanceTile.TileType.Action
                 );
             }
         }
