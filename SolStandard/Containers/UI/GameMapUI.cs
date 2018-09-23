@@ -70,6 +70,11 @@ namespace SolStandard.Containers.UI
         {
             get { return rightUnitDetailWindow; }
         }
+        
+        public void ClearCombatMenu()
+        {
+            ActionMenu = null;
+        }
 
         #region Generation
 

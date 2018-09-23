@@ -238,6 +238,7 @@ namespace SolStandard.Entity.Unit
 
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
+            SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
         }
 
         public void DisableExhaustedUnit()
@@ -246,6 +247,7 @@ namespace SolStandard.Entity.Unit
 
             Enabled = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
+            SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
         }
 
         public void SetUnitAnimation(UnitSprite.UnitAnimationState state)

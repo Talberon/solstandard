@@ -27,8 +27,6 @@ namespace SolStandard.HUD.Menu
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
 
-        public bool Visible { get; set; }
-
         public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color backgroundColor)
         {
             this.options = options;
@@ -39,7 +37,6 @@ namespace SolStandard.HUD.Menu
             optionCoordinates = MapOptionCoordinates();
             PositionCursorToOption();
             menuWindow = BuildMenuWindow();
-            Visible = true;
         }
 
         private Window.Window BuildMenuWindow()
@@ -144,8 +141,6 @@ namespace SolStandard.HUD.Menu
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            if (!Visible) return;
-
             menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
         }

@@ -99,7 +99,6 @@ namespace SolStandard.Containers.Contexts
             }
 
             ActiveUnit.ActivateUnit();
-            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.SnapCursorToActiveUnit();
             MapContext.EndTurn();
 
@@ -176,7 +175,7 @@ namespace SolStandard.Containers.Contexts
         public void DecideAction()
         {
             MapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
-            MapContext.GameMapUI.ActionMenu.Visible = false;
+            MapContext.GameMapUI.ClearCombatMenu();
 
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
@@ -268,7 +267,6 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
-            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.SlideCursorToActiveUnit();
 
             MapContext.EndTurn();
