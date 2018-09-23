@@ -120,11 +120,12 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
+                    ButtonIconProvider.GetButton(ButtonIcon.A,
+                        new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, 
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid,
                 new Vector2(0, 150));
         }
 
@@ -241,7 +242,7 @@ namespace SolStandard.Containers.Contexts
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
         {
-             selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
+            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
             GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
         }
 

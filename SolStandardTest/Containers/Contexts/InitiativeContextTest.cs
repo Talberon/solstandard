@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Skills;
 using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.Containers.Contexts
@@ -11,11 +12,11 @@ namespace SolStandardTest.Containers.Contexts
     {
         private static readonly GameUnit BlueUnit =
             new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null, new UnitStatistics(10, 2, 2, 1, 2, new[] {1}),
-                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""));
+                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""), new List<UnitSkill>());
 
         private static readonly GameUnit RedUnit =
             new GameUnit("RedGuy", Team.Red, Role.Monarch, null, new UnitStatistics(10, 2, 2, 1, 2, new[] {1}),
-                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""));
+                new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""), new List<UnitSkill>());
 
         [TestMethod]
         public void testInitiativeListRandomizer_3v3_BlueFirst()

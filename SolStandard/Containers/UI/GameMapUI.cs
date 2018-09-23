@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Menu;
+using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -34,6 +37,8 @@ namespace SolStandard.Containers.UI
         public Window HelpTextWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
+
+        private VerticalMenu actionMenu;
 
         private bool visible;
 
@@ -68,7 +73,27 @@ namespace SolStandard.Containers.UI
 
         #region Generation
 
-        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        public void GenerateCombatMenu()
+        {
+            
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            int skillCount = GameContext.ActiveUnit.Skills.Count;
+            
+            MenuOption[] options = new MenuOption[skillCount];
+
+            for (int i = 0; i < skillCount; i++)
+            {
+                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.Skills[i]);
+            }
+
+            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+            
+            
+            actionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+        }
+        
+        public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor,
@@ -280,6 +305,13 @@ namespace SolStandard.Containers.UI
 
         #region Window Positions
 
+        private Vector2 CombatMenuPosition()
+        {
+            Vector2 centerScreen = screenSize / 2;
+            Vector2 menuSize = new Vector2(actionMenu.Width, actionMenu.Height);
+            return new Vector2(screenSize.X - menuSize.X - WindowEdgeBuffer, centerScreen.Y - menuSize.Y);
+        }
+        
         private Vector2 LeftUnitPortraitWindowPosition()
         {
             //Bottom-left, above initiative window
@@ -399,6 +431,11 @@ namespace SolStandard.Containers.UI
                 {
                     UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
                 }
+            }
+
+            if (actionMenu != null)
+            {
+                actionMenu.Draw(spriteBatch, CombatMenuPosition());
             }
         }
     }

@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit.Skills;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -81,27 +85,32 @@ namespace SolStandard.Entity.Unit
             ITexture2D largePortrait = FindLargePortrait(unitTeamAndClass);
 
             UnitStatistics unitStats;
+            List<UnitSkill> unitSkills;
 
             switch (unitJobClass)
             {
                 case Role.Archer:
                     unitStats = SelectArcherStats();
+                    unitSkills = SelectArcherSkills();
                     break;
                 case Role.Champion:
                     unitStats = SelectChampionStats();
+                    unitSkills = SelectChampionSkills();
                     break;
                 case Role.Mage:
                     unitStats = SelectMageStats();
+                    unitSkills = SelectMageSkills();
                     break;
                 case Role.Monarch:
                     unitStats = SelectMonarchStats();
+                    unitSkills = SelectMonarchSkills();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
             return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
-                smallPortrait);
+                smallPortrait, unitSkills);
         }
 
         private static UnitStatistics SelectArcherStats()
@@ -122,6 +131,64 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectMonarchStats()
         {
             return new UnitStatistics(10, 2, 2, 1, 3, new[] {1});
+        }
+
+        private static List<UnitSkill> SelectArcherSkills()
+        {
+            return new List<UnitSkill>
+            {
+                BasicAttack,
+                BasicAttack,
+                BasicAttack
+            };
+        }
+
+
+        private static List<UnitSkill> SelectChampionSkills()
+        {
+            return new List<UnitSkill>
+            {
+                BasicAttack,
+                BasicAttack
+            };
+        }
+
+
+        private static List<UnitSkill> SelectMageSkills()
+        {
+            return new List<UnitSkill>
+            {
+                BasicAttack
+            };
+        }
+
+
+        private static List<UnitSkill> SelectMonarchSkills()
+        {
+            return new List<UnitSkill>
+            {
+                BasicAttack,
+                BasicAttack,
+                BasicAttack,
+                BasicAttack,
+                BasicAttack
+            };
+        }
+
+        private static BasicAttack BasicAttack
+        {
+            get
+            {
+                return new BasicAttack(
+                    "Basic Attack",
+                    new SpriteAtlas(
+                        AssetManager.ActionTiles,
+                        new Vector2(AssetManager.ActionTiles.Width, AssetManager.ActionTiles.Height),
+                        1
+                    ),
+                    SelectArcherStats().AtkRange
+                );
+            }
         }
 
         private ITexture2D FindLargePortrait(string textureName)

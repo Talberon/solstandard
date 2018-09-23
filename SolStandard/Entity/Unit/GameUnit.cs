@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit.Skills;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
@@ -45,12 +47,16 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
 
+        public List<UnitSkill> Skills { get; private set; }
+        private UnitSkill armedUnitSkill;
+
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapEntity)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) : base(id, mapEntity)
         {
             this.team = team;
             this.role = role;
             this.stats = stats;
+            Skills = skills;
             this.largePortrait =
                 new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
             this.mediumPortrait =
@@ -69,6 +75,8 @@ namespace SolStandard.Entity.Unit
                 hoverWindowHealthBar,
                 resultsHealthBar
             };
+
+            armedUnitSkill = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
         }
 
         public UnitEntity UnitEntity
@@ -184,6 +192,16 @@ namespace SolStandard.Entity.Unit
             return mapSprite;
         }
 
+        public void ArmUnitSkill(UnitSkill skill)
+        {
+            armedUnitSkill = skill;
+        }
+
+        public void ExecuteArmedSkill(GameEntity target, MapContext mapContext, BattleContext battleContext)
+        {
+            armedUnitSkill.ExecuteAction(target, mapContext, battleContext);
+        }
+        
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
             switch (direction)
@@ -250,7 +268,6 @@ namespace SolStandard.Entity.Unit
                 AssetManager.CombatDeathSFX.Play();
             }
         }
-
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)
         {

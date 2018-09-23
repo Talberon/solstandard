@@ -2744,6 +2744,7 @@
   <object id="400" name="Riverside Dunes" type="SelectMap" gid="2492" x="800" y="480" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Desert_01.tmx"/>
+    <property name="mapSong" value="DesertTheme"/>
    </properties>
   </object>
   <object id="401" name="Hiatok Mountains" type="SelectMap" gid="2492" x="192" y="96" width="32" height="32">
@@ -2774,7 +2775,7 @@
   <object id="419" name="The Old Woods" type="SelectMap" gid="2492" x="512" y="192" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Grass_02.tmx"/>
-    <property name="mapSong" value="ForestTheme"/>
+    <property name="mapSong" value="PlainsTheme"/>
    </properties>
   </object>
  </objectgroup>

@@ -2167,12 +2167,6 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MapSelectTheme.ogg
 
-#begin Audio/Music/Game/SnowyMountainTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/SnowyMountainTheme.ogg
-
 #begin Audio/Music/Game/VictoryTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -2310,4 +2304,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SFX/Interface/sfx_coin_cluster3.wav
+
+#begin Audio/Music/Game/SnowyMountainTheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/SnowyMountainTheme.ogg
 

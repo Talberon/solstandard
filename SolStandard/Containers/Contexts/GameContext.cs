@@ -169,6 +169,7 @@ namespace SolStandard.Containers.Contexts
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
             //TODO Open the action menu
+            MapContext.GameMapUI.GenerateCombatMenu();
         }
 
         public void StartAction()
@@ -178,11 +179,15 @@ namespace SolStandard.Containers.Contexts
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             //If the selection is Basic Attack
             //Open the targeting grid
-            MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
-            MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
-                new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                new Vector2(GameDriver.CellSize), 3));
-            
+            //TODO SelectedAction.GenerateActionGrid(...)
+            MapContext.GenerateTargetingGridAtUnit(
+                new SpriteAtlas(
+                    new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
+                    new Vector2(GameDriver.CellSize),
+                    3
+                )
+            );
+
             AssetManager.MapUnitSelectSFX.Play();
         }
 
@@ -201,7 +206,7 @@ namespace SolStandard.Containers.Contexts
 
                 MapContext.SetPromptWindowText("Confirm End Turn");
                 MapContext.ProceedToNextState();
-                
+
                 AssetManager.CombatStartSFX.Play();
             }
             //Skip the combat state if player selects the same unit
@@ -212,7 +217,7 @@ namespace SolStandard.Containers.Contexts
                 MapContext.ProceedToNextState();
                 MapContext.SetPromptWindowText("Confirm End Turn");
                 MapContext.ProceedToNextState();
-                
+
                 AssetManager.MapUnitSelectSFX.Play();
             }
         }
@@ -309,7 +314,7 @@ namespace SolStandard.Containers.Contexts
 
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
-            
+
             AssetManager.MapUnitSelectSFX.Play();
         }
 
@@ -350,9 +355,7 @@ namespace SolStandard.Containers.Contexts
         private bool TrySelectUnit()
         {
             //Select the unit. Store it somewhere.
-            MapContext.SelectedUnit =
-                UnitSelector.SelectUnit(
-                    MapContainer.GetMapSliceAtCursor().UnitEntity);
+            MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
             //If the entity selected isn't the active unit, don't select it.
             if (MapContext.SelectedUnit != ActiveUnit)
