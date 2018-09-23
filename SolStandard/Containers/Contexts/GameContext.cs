@@ -6,6 +6,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -168,7 +169,7 @@ namespace SolStandard.Containers.Contexts
             MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
-            
+
             MapContext.GameMapUI.GenerateCombatMenu();
         }
 
@@ -176,7 +177,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
             MapContext.GameMapUI.ActionMenu.Visible = false;
-            
+
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             AssetManager.MapUnitSelectSFX.Play();
@@ -309,8 +310,11 @@ namespace SolStandard.Containers.Contexts
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     MapContext.SelectedUnit.Stats.MaxMv,
-                    new SpriteAtlas(new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize), 2));
+                    new SpriteAtlas(
+                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
+                        new Vector2(GameDriver.CellSize),
+                        (int) MapDistanceTile.TileType.Movement
+                    ));
             }
             else
             {

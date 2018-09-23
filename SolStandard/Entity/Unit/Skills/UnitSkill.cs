@@ -8,13 +8,11 @@ namespace SolStandard.Entity.Unit.Skills
     {
         public string Name { get; private set; }
         protected readonly SpriteAtlas TileSprite;
-        protected readonly int[] Range;
 
-        protected UnitSkill(string name, SpriteAtlas tileSprite, int[] range)
+        protected UnitSkill(string name, SpriteAtlas tileSprite)
         {
             Name = name;
             TileSprite = tileSprite;
-            Range = range;
         }
 
         public abstract void GenerateActionGrid(Vector2 origin);

@@ -2311,3 +2311,15 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/SnowyMountainTheme.ogg
 
+#begin Audio/SFX/Interface/sfx_damage_hit1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_damage_hit1.wav
+
+#begin Audio/SFX/Interface/sfx_sounds_impact12.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_sounds_impact12.wav
+

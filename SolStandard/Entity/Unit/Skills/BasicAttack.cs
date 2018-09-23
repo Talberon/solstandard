@@ -8,19 +8,25 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public class BasicAttack : UnitSkill
     {
-        public BasicAttack(string name, SpriteAtlas tileSprite, int[] range) : base(name, tileSprite, range)
+        private readonly int[] range;
+        
+        public BasicAttack(string name, SpriteAtlas tileSprite, int[] range) : base(name, tileSprite)
         {
+            this.range = range;
         }
 
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, Range);
+            unitTargetingContext.GenerateTargetingGrid(origin, range);
         }
 
         public override void ExecuteAction(GameEntity target, MapContext mapContext, BattleContext battleContext)
         {
-            StartCombat((GameUnit) target, mapContext, battleContext);
+            if (target != null && target.GetType() == typeof(GameUnit))
+            {
+                StartCombat((GameUnit) target, mapContext, battleContext);
+            }
         }
 
         private void StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
@@ -51,6 +57,10 @@ namespace SolStandard.Entity.Unit.Skills
                 mapContext.ProceedToNextState();
 
                 AssetManager.MapUnitSelectSFX.Play();
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
             }
         }
     }

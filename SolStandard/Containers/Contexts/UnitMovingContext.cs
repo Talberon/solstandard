@@ -112,5 +112,24 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
+        
+        
+        public static bool CanMoveAtCoordinates(Vector2 coordinates)
+        {
+            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+            
+            MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
+            if (slice.UnitEntity != null) return false;
+            
+            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
+            {
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
+            }
+
+            if (slice.CollideTile != null) return false;
+
+            return true;
+        }
     }
 }

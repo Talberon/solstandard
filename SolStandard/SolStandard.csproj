@@ -69,6 +69,7 @@
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
+    <Compile Include="Entity\Unit\Skills\Shove.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\UnitBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />

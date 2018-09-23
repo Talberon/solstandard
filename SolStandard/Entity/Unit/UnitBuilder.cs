@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -137,7 +138,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectArcherStats().AtkRange)
+                BasicAttack(SelectArcherStats().AtkRange),
+                Shove
             };
         }
 
@@ -146,7 +148,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectChampionStats().AtkRange)
+                BasicAttack(SelectChampionStats().AtkRange),
+                Shove
             };
         }
 
@@ -155,7 +158,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectMageStats().AtkRange)
+                BasicAttack(SelectMageStats().AtkRange),
+                Shove
             };
         }
 
@@ -164,21 +168,37 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectMonarchStats().AtkRange)
+                BasicAttack(SelectMonarchStats().AtkRange),
+                Shove
             };
         }
 
         private static BasicAttack BasicAttack(int[] range)
         {
-                return new BasicAttack(
-                    "Basic Attack",
+            return new BasicAttack(
+                "Basic Attack",
+                new SpriteAtlas(
+                    AssetManager.ActionTiles,
+                    new Vector2(GameDriver.CellSize),
+                    (int) MapDistanceTile.TileType.Attack
+                ),
+                range
+            );
+        }
+
+        private static Shove Shove
+        {
+            get
+            {
+                return new Shove(
+                    "Shove",
                     new SpriteAtlas(
                         AssetManager.ActionTiles,
                         new Vector2(GameDriver.CellSize),
-                        3
-                    ),
-                    range
+                        (int) MapDistanceTile.TileType.Action
+                    )
                 );
+            }
         }
 
         private ITexture2D FindLargePortrait(string textureName)

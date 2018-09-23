@@ -20,7 +20,8 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDamageSFX { get; private set; }
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
-        
+        public static ISoundEffect WarningSFX { get; private set; }
+
         public static List<Song> MusicTracks { get; private set; }
 
         private static List<ITexture2D> WindowTextures { get; set; }
@@ -128,10 +129,11 @@ namespace SolStandard.Utility.Assets
 
             CombatStartSFX = ContentLoader.LoadCombatStartSFX(content);
             MapUnitMoveSFX = ContentLoader.LoadMapUnitMoveSFX(content);
-            CombatBlockSFX = ContentLoader.LoadCombatBlockSFX(content); 
-            CombatDamageSFX = ContentLoader.LoadCombatDamageSFX(content); 
+            CombatBlockSFX = ContentLoader.LoadCombatBlockSFX(content);
+            CombatDamageSFX = ContentLoader.LoadCombatDamageSFX(content);
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
+            WarningSFX = ContentLoader.LoadWarningSFX(content);
 
             MusicTracks = ContentLoader.LoadMusic(content);
         }

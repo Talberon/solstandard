@@ -380,6 +380,11 @@ namespace SolStandard.Utility.Load
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
+        public static ISoundEffect LoadWarningSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
         public static List<Song> LoadMusic(ContentManager content)
         {
             return new List<Song>

@@ -240,17 +240,5 @@ namespace SolStandard.Containers.Contexts
                 && SelectedUnit.Team != targetUnit.Team;
         }
 
-        public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)
-        {
-            selectedUnitOriginalPosition = SelectedUnit.UnitEntity.MapCoordinates;
-            GenerateTargetingGridAtCoordinates(selectedUnitOriginalPosition, SelectedUnit.Stats.AtkRange, spriteAtlas);
-        }
-
-        public void GenerateTargetingGridAtCoordinates(Vector2 origin, int[] range, SpriteAtlas spriteAtlas)
-        {
-            selectedUnitOriginalPosition = origin;
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(spriteAtlas);
-            unitTargetingContext.GenerateTargetingGrid(origin, range);
-        }
     }
 }

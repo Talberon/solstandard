@@ -8,6 +8,15 @@ namespace SolStandard.Map.Elements
 {
     public class MapDistanceTile : MapTile
     {
+        public enum TileType
+        {
+            None,
+            White,
+            Movement,
+            Attack,
+            Action
+        }
+        
         private readonly int distance;
         private readonly RenderText renderText;
 
