@@ -23,20 +23,23 @@ namespace SolStandard.HUD.Menu
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
         private int currentOptionIndex;
-        private readonly Color optionBackgroundColor;
+        private readonly Color backgroundColor;
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
 
-        public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color optionBackgroundColor)
+        public bool Visible { get; set; }
+
+        public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color backgroundColor)
         {
             this.options = options;
             this.cursorSprite = cursorSprite;
-            this.optionBackgroundColor = optionBackgroundColor;
+            this.backgroundColor = backgroundColor;
             currentOptionIndex = 0;
             cursorPosition = Vector2.Zero;
             optionCoordinates = MapOptionCoordinates();
             PositionCursorToOption();
             menuWindow = BuildMenuWindow();
+            Visible = true;
         }
 
         private Window.Window BuildMenuWindow()
@@ -49,8 +52,7 @@ namespace SolStandard.HUD.Menu
 
             WindowContentGrid menuWindowContent = new WindowContentGrid(optionWindows, Padding);
 
-            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, menuWindowContent,
-                optionBackgroundColor);
+            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, menuWindowContent, backgroundColor);
         }
 
         public int Height
@@ -137,11 +139,13 @@ namespace SolStandard.HUD.Menu
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, optionBackgroundColor);
+            Draw(spriteBatch, position, backgroundColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
+            if (!Visible) return;
+
             menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
         }

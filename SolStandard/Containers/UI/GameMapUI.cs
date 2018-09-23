@@ -38,7 +38,7 @@ namespace SolStandard.Containers.UI
 
         public Window UserPromptWindow { get; private set; }
 
-        private VerticalMenu actionMenu;
+        public VerticalMenu ActionMenu { get; private set; }
 
         private bool visible;
 
@@ -75,10 +75,9 @@ namespace SolStandard.Containers.UI
 
         public void GenerateCombatMenu()
         {
-            
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
             int skillCount = GameContext.ActiveUnit.Skills.Count;
-            
+
             MenuOption[] options = new MenuOption[skillCount];
 
             for (int i = 0; i < skillCount; i++)
@@ -88,11 +87,11 @@ namespace SolStandard.Containers.UI
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
-            
-            
-            actionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+
+
+            ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
         }
-        
+
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
@@ -307,22 +306,25 @@ namespace SolStandard.Containers.UI
 
         private Vector2 CombatMenuPosition()
         {
-            Vector2 centerScreen = screenSize / 2;
-            Vector2 menuSize = new Vector2(actionMenu.Width, actionMenu.Height);
-            return new Vector2(screenSize.X - menuSize.X - WindowEdgeBuffer, centerScreen.Y - menuSize.Y);
+            return new Vector2(
+                WindowEdgeBuffer + LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width,
+                LeftUnitDetailWindowPosition().Y
+            );
         }
-        
+
         private Vector2 LeftUnitPortraitWindowPosition()
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                screenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height);
+                screenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height
+            );
         }
 
         private Vector2 LeftUnitDetailWindowPosition()
         {
             //Bottom-left, right of portrait, above initiative window
-            return new Vector2(WindowEdgeBuffer + LeftUnitPortraitWindow.Width,
+            return new Vector2(
+                WindowEdgeBuffer + LeftUnitPortraitWindow.Width,
                 LeftUnitPortraitWindowPosition().Y + LeftUnitPortraitWindow.Height - LeftUnitDetailWindow.Height -
                 UnitDetailVerticalAdjustment
             );
@@ -331,8 +333,10 @@ namespace SolStandard.Containers.UI
         private Vector2 RightUnitPortraitWindowPosition()
         {
             //Bottom-right, above intiative window
-            return new Vector2(screenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                screenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height);
+            return new Vector2(
+                screenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height
+            );
         }
 
         private Vector2 RightUnitDetailWindowPosition()
@@ -348,20 +352,28 @@ namespace SolStandard.Containers.UI
         private Vector2 InitiativeWindowPosition()
         {
             //Bottom-right
-            return new Vector2(screenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
-                screenSize.Y - InitiativeWindow.Height);
+            return new Vector2(
+                screenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - InitiativeWindow.Height
+            );
         }
 
         private Vector2 TurnWindowPosition()
         {
             //Bottom-right
-            return new Vector2(WindowEdgeBuffer, screenSize.Y - TurnWindow.Height);
+            return new Vector2(
+                WindowEdgeBuffer,
+                screenSize.Y - TurnWindow.Height
+            );
         }
 
         private Vector2 TerrainWindowPosition()
         {
             //Top-right
-            return new Vector2(screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer, WindowEdgeBuffer);
+            return new Vector2(
+                screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer,
+                WindowEdgeBuffer
+            );
         }
 
         private Vector2 HelpTextWindowPosition()
@@ -373,8 +385,10 @@ namespace SolStandard.Containers.UI
         private Vector2 UserPromptWindowPosition()
         {
             //Middle of the screen
-            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
-                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2);
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2
+            );
         }
 
         #endregion Window Positions
@@ -433,9 +447,9 @@ namespace SolStandard.Containers.UI
                 }
             }
 
-            if (actionMenu != null)
+            if (ActionMenu != null)
             {
-                actionMenu.Draw(spriteBatch, CombatMenuPosition());
+                ActionMenu.Draw(spriteBatch, CombatMenuPosition());
             }
         }
     }

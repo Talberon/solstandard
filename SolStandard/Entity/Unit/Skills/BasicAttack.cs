@@ -20,13 +20,13 @@ namespace SolStandard.Entity.Unit.Skills
 
         public override void ExecuteAction(GameEntity target, MapContext mapContext, BattleContext battleContext)
         {
-            StartCombat(mapContext, battleContext);
+            StartCombat((GameUnit) target, mapContext, battleContext);
         }
 
-        private void StartCombat(MapContext mapContext, BattleContext battleContext)
+        private void StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit attackingUnit = mapContext.SelectedUnit;
-            GameUnit defendingUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
+            GameUnit defendingUnit = target;
 
             if (mapContext.TargetUnitIsLegal(defendingUnit))
             {

@@ -233,11 +233,11 @@ namespace SolStandard.Containers.Contexts
 
         public bool TargetUnitIsLegal(GameUnit targetUnit)
         {
-            return targetUnit != null
-                   && SelectedUnit != targetUnit
-                   && BattleContext.CoordinatesAreInRange(SelectedUnit.UnitEntity.MapCoordinates,
-                       targetUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange)
-                   && SelectedUnit.Team != targetUnit.Team;
+            return
+                targetUnit != null
+                && SelectedUnit != targetUnit
+                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null)
+                && SelectedUnit.Team != targetUnit.Team;
         }
 
         public void GenerateTargetingGridAtUnit(SpriteAtlas spriteAtlas)

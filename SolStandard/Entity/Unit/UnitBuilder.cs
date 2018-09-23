@@ -137,9 +137,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack,
-                BasicAttack,
-                BasicAttack
+                BasicAttack(SelectArcherStats().AtkRange)
             };
         }
 
@@ -148,8 +146,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack,
-                BasicAttack
+                BasicAttack(SelectChampionStats().AtkRange)
             };
         }
 
@@ -158,7 +155,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack
+                BasicAttack(SelectMageStats().AtkRange)
             };
         }
 
@@ -167,28 +164,21 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack,
-                BasicAttack,
-                BasicAttack,
-                BasicAttack,
-                BasicAttack
+                BasicAttack(SelectMonarchStats().AtkRange)
             };
         }
 
-        private static BasicAttack BasicAttack
+        private static BasicAttack BasicAttack(int[] range)
         {
-            get
-            {
                 return new BasicAttack(
                     "Basic Attack",
                     new SpriteAtlas(
                         AssetManager.ActionTiles,
-                        new Vector2(AssetManager.ActionTiles.Width, AssetManager.ActionTiles.Height),
-                        1
+                        new Vector2(GameDriver.CellSize),
+                        3
                     ),
-                    SelectArcherStats().AtkRange
+                    range
                 );
-            }
         }
 
         private ITexture2D FindLargePortrait(string textureName)

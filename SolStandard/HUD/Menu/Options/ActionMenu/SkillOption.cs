@@ -9,8 +9,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
     {
         private readonly UnitSkill skill;
 
-        public SkillOption(Color windowColor, UnitSkill skill) : base(windowColor, skill.Name,
-            AssetManager.WindowFont)
+        public SkillOption(Color windowColor, UnitSkill skill) : base(windowColor, skill.Name, AssetManager.WindowFont)
         {
             this.skill = skill;
         }

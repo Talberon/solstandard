@@ -168,58 +168,24 @@ namespace SolStandard.Containers.Contexts
             MapContainer.ClearDynamicGrid();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
-            //TODO Open the action menu
+            
             MapContext.GameMapUI.GenerateCombatMenu();
         }
 
-        public void StartAction()
+        public void DecideAction()
         {
-            //TODO Select option in the action menu
+            MapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
+            MapContext.GameMapUI.ActionMenu.Visible = false;
+            
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            //If the selection is Basic Attack
-            //Open the targeting grid
-            //TODO SelectedAction.GenerateActionGrid(...)
-            MapContext.GenerateTargetingGridAtUnit(
-                new SpriteAtlas(
-                    new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                    new Vector2(GameDriver.CellSize),
-                    3
-                )
-            );
-
             AssetManager.MapUnitSelectSFX.Play();
         }
 
-        public void StartCombat()
+        public void ExecuteAction()
         {
-            GameUnit attackingUnit = MapContext.SelectedUnit;
             GameUnit defendingUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
-
-            if (MapContext.TargetUnitIsLegal(defendingUnit))
-            {
-                MapContainer.ClearDynamicGrid();
-                BattleContext.StartNewCombat(attackingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
-                    defendingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
-
-                MapContext.SetPromptWindowText("Confirm End Turn");
-                MapContext.ProceedToNextState();
-
-                AssetManager.CombatStartSFX.Play();
-            }
-            //Skip the combat state if player selects the same unit
-            else if (attackingUnit == defendingUnit)
-            {
-                MapContainer.ClearDynamicGrid();
-                MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                MapContext.ProceedToNextState();
-                MapContext.SetPromptWindowText("Confirm End Turn");
-                MapContext.ProceedToNextState();
-
-                AssetManager.MapUnitSelectSFX.Play();
-            }
+            ActiveUnit.ExecuteArmedSkill(defendingUnit, mapContext, battleContext);
         }
 
         public void ContinueCombat()
