@@ -108,7 +108,6 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-
         public MapContainer MapContainer
         {
             get { return mapContainer; }
@@ -239,6 +238,5 @@ namespace SolStandard.Containers.Contexts
                 && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null)
                 && SelectedUnit.Team != targetUnit.Team;
         }
-
     }
 }
