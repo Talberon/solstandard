@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Skills;
-using SolStandard.Entity.Unit.Skills.Champion;
-using SolStandard.Entity.Unit.Skills.Mage;
-using SolStandard.Map.Elements;
-using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -140,8 +134,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectArcherStats().AtkRange),
-                Shove
+                SkillProvider.BasicAttack(SelectArcherStats().AtkRange),
+                SkillProvider.Shove
             };
         }
 
@@ -149,9 +143,9 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectChampionStats().AtkRange),
-                Shove,
-                Tackle
+                SkillProvider.BasicAttack(SelectChampionStats().AtkRange),
+                SkillProvider.Shove,
+                SkillProvider.Tackle
             };
         }
 
@@ -159,9 +153,9 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectMageStats().AtkRange),
-                Blink,
-                Shove
+                SkillProvider.BasicAttack(SelectMageStats().AtkRange),
+                SkillProvider.Blink,
+                SkillProvider.Shove
             };
         }
 
@@ -169,53 +163,11 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                BasicAttack(SelectMonarchStats().AtkRange),
-                Shove
+                SkillProvider.BasicAttack(SelectMonarchStats().AtkRange),
+                SkillProvider.Shove
             };
         }
 
-        private static BasicAttack BasicAttack(int[] range)
-        {
-            return new BasicAttack("Basic Attack", AttackTile, range);
-        }
-
-        private static Shove Shove
-        {
-            get { return new Shove("Shove", ActionTile); }
-        }
-
-        private static Tackle Tackle
-        {
-            get { return new Tackle("Tackle", AttackTile); }
-        }
-
-        private static Blink Blink
-        {
-            get { return new Blink("Blink", ActionTile); }
-        }
-
-        private static SpriteAtlas ActionTile
-        {
-            get
-            {
-                return new SpriteAtlas(
-                    AssetManager.ActionTiles,
-                    new Vector2(GameDriver.CellSize),
-                    (int) MapDistanceTile.TileType.Action
-                );
-            }
-        }
-        private static SpriteAtlas AttackTile
-        {
-            get
-            {
-                return new SpriteAtlas(
-                    AssetManager.ActionTiles,
-                    new Vector2(GameDriver.CellSize),
-                    (int) MapDistanceTile.TileType.Attack
-                );
-            }
-        }
 
         private ITexture2D FindLargePortrait(string textureName)
         {
