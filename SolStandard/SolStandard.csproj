@@ -70,6 +70,7 @@
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
+    <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\UnitBuilder.cs" />
@@ -229,7 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entity\Unit\Skills\Archer" />
-    <Folder Include="Entity\Unit\Skills\Mage" />
     <Folder Include="Entity\Unit\Skills\Monarch" />
     <Folder Include="HUD\Menu\Options\PauseMenu" />
   </ItemGroup>

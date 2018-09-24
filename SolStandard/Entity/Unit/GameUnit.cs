@@ -7,6 +7,7 @@ using SolStandard.Entity.Unit.Skills;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -51,7 +52,8 @@ namespace SolStandard.Entity.Unit
         private UnitSkill armedUnitSkill;
 
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) : base(id, mapEntity)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) :
+            base(id, mapEntity)
         {
             this.team = team;
             this.role = role;
@@ -197,11 +199,11 @@ namespace SolStandard.Entity.Unit
             armedUnitSkill = skill;
         }
 
-        public void ExecuteArmedSkill(GameEntity target, MapContext mapContext, BattleContext battleContext)
+        public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            armedUnitSkill.ExecuteAction(target, mapContext, battleContext);
+            armedUnitSkill.ExecuteAction(targetSlice, mapContext, battleContext);
         }
-        
+
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
             switch (direction)
@@ -235,7 +237,6 @@ namespace SolStandard.Entity.Unit
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
-
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);

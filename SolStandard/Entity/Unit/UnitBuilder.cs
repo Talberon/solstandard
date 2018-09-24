@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Skills.Champion;
+using SolStandard.Entity.Unit.Skills.Mage;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -144,7 +145,6 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-
         private static List<UnitSkill> SelectChampionSkills()
         {
             return new List<UnitSkill>
@@ -155,16 +155,15 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-
         private static List<UnitSkill> SelectMageSkills()
         {
             return new List<UnitSkill>
             {
                 BasicAttack(SelectMageStats().AtkRange),
+                Blink,
                 Shove
             };
         }
-
 
         private static List<UnitSkill> SelectMonarchSkills()
         {
@@ -177,33 +176,22 @@ namespace SolStandard.Entity.Unit
 
         private static BasicAttack BasicAttack(int[] range)
         {
-            return new BasicAttack(
-                "Basic Attack",
-                ActionTile,
-                range
-            );
+            return new BasicAttack("Basic Attack", AttackTile, range);
         }
 
         private static Shove Shove
         {
-            get
-            {
-                return new Shove(
-                    "Shove",
-                    ActionTile
-                );
-            }
+            get { return new Shove("Shove", ActionTile); }
         }
 
         private static Tackle Tackle
         {
-            get
-            {
-                return new Tackle(
-                    "Tackle",
-                    ActionTile
-                );
-            }
+            get { return new Tackle("Tackle", AttackTile); }
+        }
+
+        private static Blink Blink
+        {
+            get { return new Blink("Blink", ActionTile); }
         }
 
         private static SpriteAtlas ActionTile
@@ -214,6 +202,17 @@ namespace SolStandard.Entity.Unit
                     AssetManager.ActionTiles,
                     new Vector2(GameDriver.CellSize),
                     (int) MapDistanceTile.TileType.Action
+                );
+            }
+        }
+        private static SpriteAtlas AttackTile
+        {
+            get
+            {
+                return new SpriteAtlas(
+                    AssetManager.ActionTiles,
+                    new Vector2(GameDriver.CellSize),
+                    (int) MapDistanceTile.TileType.Attack
                 );
             }
         }

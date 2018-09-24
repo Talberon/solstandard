@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.Unit.Skills
@@ -16,6 +17,18 @@ namespace SolStandard.Entity.Unit.Skills
         }
 
         public abstract void GenerateActionGrid(Vector2 origin);
-        public abstract void ExecuteAction(GameEntity target, MapContext mapContext, BattleContext battleContext);
+        public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
+
+        protected static void SkipCombatPhase(MapContext mapContext)
+        {
+            EnterCombatPhase(mapContext);
+            mapContext.ProceedToNextState();
+        }
+
+        protected static void EnterCombatPhase(MapContext mapContext)
+        {
+            mapContext.ProceedToNextState();
+            mapContext.SetPromptWindowText("Confirm End Turn");
+        }
     }
 }

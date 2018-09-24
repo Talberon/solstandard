@@ -141,7 +141,7 @@ namespace SolStandard.Containers.Contexts
         {
             selectedUnitOriginalPosition = origin;
             UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
-            unitMovingContext.GenerateMoveGrid(origin, maximumDistance, SelectedUnit);
+            unitMovingContext.GenerateMoveGrid(origin, maximumDistance);
         }
 
         public void MoveCursorAndSelectedUnitWithinMoveGrid(Direction direction)

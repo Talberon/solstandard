@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -20,26 +21,21 @@ namespace SolStandard.Entity.Unit.Skills
             unitTargetingContext.GenerateTargetingGrid(origin, Range);
         }
 
-        public override void ExecuteAction(GameEntity target, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (target == null || target.GetType() != typeof(GameUnit)) return;
+            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
+            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit)) return;
 
-            if (target == GameContext.ActiveUnit)
+            if (targetUnit == GameContext.ActiveUnit)
             {
-                //Skip the action if selecting self
-                MapContainer.ClearDynamicGrid();
-                mapContext.ProceedToNextState();
-                mapContext.ProceedToNextState();
-                mapContext.SetPromptWindowText("Confirm End Turn");
+                SkipCombatPhase(mapContext);
                 AssetManager.MapUnitSelectSFX.Play();
             }
             else
             {
-                if (ShoveAction((GameUnit) target, mapContext))
+                if (ShoveAction(targetUnit, mapContext))
                 {
-                    mapContext.ProceedToNextState();
-                    mapContext.ProceedToNextState();
-                    mapContext.SetPromptWindowText("Confirm End Turn");
+                    SkipCombatPhase(mapContext);
                 }
             }
         }

@@ -184,8 +184,7 @@ namespace SolStandard.Containers.Contexts
 
         public void ExecuteAction()
         {
-            GameUnit defendingUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
-            ActiveUnit.ExecuteArmedSkill(defendingUnit, mapContext, battleContext);
+            ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), mapContext, battleContext);
         }
 
         public void ContinueCombat()

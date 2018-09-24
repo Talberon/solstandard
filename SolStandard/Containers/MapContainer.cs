@@ -68,10 +68,10 @@ namespace SolStandard.Containers
                 MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
                 MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
-                return new MapSlice(unit, dynamic, entity, collide, terrainDecoration, terrain);
+                return new MapSlice(coordinates, unit, dynamic, entity, collide, terrainDecoration, terrain);
             }
 
-            return new MapSlice(null, null, null, null, null, null);
+            return new MapSlice(Vector2.Zero, null, null, null, null, null, null);
         }
 
         private void DrawMapGrid(SpriteBatch spriteBatch)
