@@ -134,8 +134,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack(SelectArcherStats().AtkRange),
-                SkillProvider.Shove
+                SkillProvider.BasicAttack,
+                SkillProvider.Draw
             };
         }
 
@@ -143,7 +143,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack(SelectChampionStats().AtkRange),
+                SkillProvider.BasicAttack,
                 SkillProvider.Shove,
                 SkillProvider.Tackle
             };
@@ -153,9 +153,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack(SelectMageStats().AtkRange),
-                SkillProvider.Blink,
-                SkillProvider.Shove
+                SkillProvider.BasicAttack,
+                SkillProvider.Blink
             };
         }
 
@@ -163,8 +162,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack(SelectMonarchStats().AtkRange),
-                SkillProvider.Shove
+                SkillProvider.BasicAttack
             };
         }
 

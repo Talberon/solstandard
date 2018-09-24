@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit.Skills.Archer;
 using SolStandard.Entity.Unit.Skills.Champion;
 using SolStandard.Entity.Unit.Skills.Mage;
 using SolStandard.Map.Elements;
@@ -9,9 +10,9 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public static class SkillProvider
     {
-        public static BasicAttack BasicAttack(int[] range)
+        public static BasicAttack BasicAttack
         {
-            return new BasicAttack("Basic Attack", AttackTile, range);
+            get { return new BasicAttack("Basic Attack", AttackTile); }
         }
 
         public static Shove Shove
@@ -27,6 +28,11 @@ namespace SolStandard.Entity.Unit.Skills
         public static Blink Blink
         {
             get { return new Blink("Blink", ActionTile); }
+        }
+
+        public static Draw Draw
+        {
+            get { return new Draw("Draw", ActionTile); }
         }
 
         private static SpriteAtlas ActionTile

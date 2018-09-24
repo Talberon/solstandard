@@ -9,17 +9,15 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public class BasicAttack : UnitSkill
     {
-        private readonly int[] range;
 
-        public BasicAttack(string name, SpriteAtlas tileSprite, int[] range) : base(name, tileSprite)
+        public BasicAttack(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
         {
-            this.range = range;
         }
 
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, range);
+            unitTargetingContext.GenerateTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

@@ -21,6 +21,9 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
         public static ISoundEffect WarningSFX { get; private set; }
+        
+        public static ISoundEffect SkillDrawSFX { get; private set; }
+        public static ISoundEffect SkillBlinkSFX  { get; private set; }
 
         public static List<Song> MusicTracks { get; private set; }
 
@@ -134,6 +137,9 @@ namespace SolStandard.Utility.Assets
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
             WarningSFX = ContentLoader.LoadWarningSFX(content);
+            
+            SkillDrawSFX = ContentLoader.LoadSkillDrawSFX(content);
+            SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);
 
             MusicTracks = ContentLoader.LoadMusic(content);
         }

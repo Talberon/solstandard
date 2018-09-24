@@ -68,6 +68,7 @@
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
+    <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
@@ -230,7 +231,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entity\Unit\Skills\Archer" />
     <Folder Include="Entity\Unit\Skills\Monarch" />
     <Folder Include="HUD\Menu\Options\PauseMenu" />
   </ItemGroup>

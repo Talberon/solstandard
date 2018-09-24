@@ -39,6 +39,8 @@ namespace SolStandard.Entity.Unit.Skills.Champion
 
                 if (Shove.ShoveAction(targetUnit, mapContext))
                 {
+                    GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    
                     if (MoveToTarget(targetOriginalPosition))
                     {
                         GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);

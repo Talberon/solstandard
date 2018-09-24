@@ -23,11 +23,14 @@ namespace SolStandard.Entity.Unit.Skills.Mage
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates))
+            if (
+                UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
+                MapContainer.GetMapSliceAtCoordinates(targetSlice.MapCoordinates).DynamicEntity != null
+            )
             {
                 GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetSlice.MapCoordinates;
                 MapContainer.ClearDynamicGrid();
-                AssetManager.CombatDamageSFX.Play();
+                AssetManager.SkillBlinkSFX.Play();
                 SkipCombatPhase(mapContext);
             }
             else

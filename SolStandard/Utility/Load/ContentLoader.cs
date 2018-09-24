@@ -385,6 +385,19 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
             return new SoundEffectWrapper(effect, 0.5f);
         }
+        
+        public static ISoundEffect LoadSkillDrawSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+        
+        public static ISoundEffect LoadSkillBlinkSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+        
         public static List<Song> LoadMusic(ContentManager content)
         {
             return new List<Song>
