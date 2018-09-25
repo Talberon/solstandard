@@ -17,7 +17,7 @@ namespace SolStandard.Utility
         private readonly bool reversible;
         private bool reversing;
 
-        public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible)
+        public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible)
         {
             this.spriteMap = spriteMap;
             this.cellSize = cellSize;
@@ -28,8 +28,14 @@ namespace SolStandard.Utility
             currentColumn = 0;
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
-            renderSize = new Vector2(cellSize);
+            this.renderSize = renderSize;
         }
+
+        public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
+            cellSize, new Vector2(cellSize), frameDelay, reversible)
+        {
+        }
+
 
         public void SetSpriteCell(int spriteMapColumn, int spriteMapRow)
         {
@@ -137,7 +143,7 @@ namespace SolStandard.Utility
 
         public AnimatedSprite Clone()
         {
-            return new AnimatedSprite(spriteMap, cellSize, frameDelay, reversible);
+            return new AnimatedSprite(spriteMap, cellSize, renderSize, frameDelay, reversible);
         }
     }
 }

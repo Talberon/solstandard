@@ -1,4 +1,5 @@
-﻿using SolStandard.Utility;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -21,8 +22,13 @@ namespace SolStandard.Entity.Unit
 
         private UnitAnimationState currentState;
 
-        public UnitSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : base(spriteMap,
-            cellSize, frameDelay, reversible)
+        public UnitSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
+            cellSize, new Vector2(cellSize),  frameDelay, reversible)
+        {
+        }
+        
+        public UnitSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible) : base(spriteMap,
+            cellSize, renderSize, frameDelay, reversible)
         {
             currentState = UnitAnimationState.Idle;
         }

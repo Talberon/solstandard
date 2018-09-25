@@ -342,7 +342,16 @@ namespace SolStandard.Map
                             string unitTeamAndClass = unitTeam.ToString() + role.ToString();
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
-                            UnitSprite animatedSprite = new UnitSprite(unitSprite, GameDriver.CellSize, 15, false);
+                            Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
+                            const int unitAnimationFrames = 4;
+
+                            UnitSprite animatedSprite = new UnitSprite(
+                                unitSprite,
+                                unitSprite.Width / unitAnimationFrames,
+                                unitScale,
+                                15,
+                                false
+                            );
 
                             entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
                                 animatedSprite,
