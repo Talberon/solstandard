@@ -28,6 +28,7 @@ namespace SolStandard.Entity.Unit.Skills
 
             if (targetUnit == GameContext.ActiveUnit)
             {
+                MapContainer.ClearDynamicGrid();
                 SkipCombatPhase(mapContext);
                 AssetManager.MapUnitSelectSFX.Play();
             }
