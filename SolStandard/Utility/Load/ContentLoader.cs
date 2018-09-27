@@ -64,7 +64,9 @@ namespace SolStandard.Utility.Load
             {
                 content.Load<Texture2D>("Graphics/Map/Tiles/Tiles"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet")
+                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/entities-32"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/wonderdot-overworld-32")
             };
 
             List<ITexture2D> terrainTextures = new List<ITexture2D>();
@@ -269,6 +271,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_03"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -385,19 +388,19 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
             return new SoundEffectWrapper(effect, 0.5f);
         }
-        
+
         public static ISoundEffect LoadSkillDrawSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
             return new SoundEffectWrapper(effect, 0.5f);
         }
-        
+
         public static ISoundEffect LoadSkillBlinkSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
             return new SoundEffectWrapper(effect, 0.5f);
         }
-        
+
         public static List<Song> LoadMusic(ContentManager content)
         {
             return new List<Song>

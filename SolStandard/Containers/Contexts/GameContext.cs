@@ -72,13 +72,16 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
-            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_01.tmx";
+            //TODO Reset this if the new map isn't being used
+            const string mapSelectPath = "Content/TmxMaps/" + "Experimenting_01.tmx";
+            
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),
-                AssetManager.WorldTileSetTexture,
-                AssetManager.TerrainTexture,
+                AssetManager.OverworldTexture,
+                AssetManager.EntitiesTexture,
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
+            
             MapSelectContext = new MapSelectContext(new SelectMapUI(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
@@ -112,8 +115,8 @@ namespace SolStandard.Containers.Contexts
         {
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
-                AssetManager.WorldTileSetTexture,
-                AssetManager.TerrainTexture,
+                AssetManager.OverworldTexture,
+                AssetManager.EntitiesTexture,
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults
             );

@@ -2395,7 +2395,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedChampion.png
 
-#begin Graphics/Map/Units/Blue/BlueMonarch.png
+#begin Graphics/Map/Tiles/entities-32.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2405,9 +2405,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/Units/Blue/BlueMonarch.png
+/build:Graphics/Map/Tiles/entities-32.png
 
-#begin Graphics/Map/Units/Red/RedMonarch.png
+#begin Graphics/Map/Tiles/wonderdot-overworld-32.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2417,7 +2417,67 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/Units/Red/RedMonarch.png
+/build:Graphics/Map/Tiles/wonderdot-overworld-32.png
+
+#begin Graphics/Map/Units/Blue/BlueMage2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMage2.png
+
+#begin Graphics/Map/Units/Blue/BlueMonarch2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMonarch2.png
+
+#begin Graphics/Map/Units/Red/RedMonarch2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedMonarch2.png
+
+#begin Graphics/Map/Units/Red/RedMage2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedMage2.png
+
+#begin Graphics/Map/Units/Blue/BlueMage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMage.png
 
 #begin Graphics/Map/Units/Red/RedMage.png
 /importer:TextureImporter
@@ -2431,7 +2491,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedMage.png
 
-#begin Graphics/Map/Units/Blue/BlueMage.png
+#begin Graphics/Map/Units/Red/RedMonarch.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2441,5 +2501,29 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/Units/Blue/BlueMage.png
+/build:Graphics/Map/Units/Red/RedMonarch.png
+
+#begin Graphics/Map/Units/Blue/BlueMonarch.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMonarch.png
+
+#begin Graphics/Map/MapPreviews/Grass_03.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Grass_03.png
 

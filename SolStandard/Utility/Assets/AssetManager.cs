@@ -65,6 +65,16 @@ namespace SolStandard.Utility.Assets
         {
             get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
         }
+        
+        public static ITexture2D EntitiesTexture
+        {
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/entities-32")); }
+        }
+
+        public static ITexture2D OverworldTexture
+        {
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/wonderdot-overworld-32")); }
+        }
 
         public static ITexture2D MapCursorTexture
         {

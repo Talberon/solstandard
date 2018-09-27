@@ -94,6 +94,8 @@ namespace SolStandard
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
             ITexture2D mapPreviewGrass2 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
+            ITexture2D mapPreviewGrass3 =
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
 
             AvailableMaps = new List<MapInfo>
             {
@@ -106,7 +108,9 @@ namespace SolStandard
                 new MapInfo("Riverside Dunes", "Desert_01.tmx",
                     new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1)),
                 new MapInfo("The Old Woods", "Grass_02.tmx",
-                    new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
+                    new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1)),
+                new MapInfo("New World", "Experimenting_01.tmx",
+                    new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1))
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,

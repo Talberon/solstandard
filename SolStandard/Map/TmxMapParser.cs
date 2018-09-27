@@ -87,17 +87,17 @@ namespace SolStandard.Map
         {
             ITexture2D tileSet = null;
 
-            if (gid >= tmxMap.Tilesets["Terrain"].FirstGid)
+            if (gid >= tmxMap.Tilesets["entities-32"].FirstGid)
             {
                 tileSet = terrainSprite;
             }
 
-            if (gid >= tmxMap.Tilesets["Units"].FirstGid)
+            if (gid >= tmxMap.Tilesets["units-32"].FirstGid)
             {
                 tileSet = null;
             }
 
-            if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            if (gid >= tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
             {
                 tileSet = worldTileSetSprite;
             }
@@ -110,19 +110,19 @@ namespace SolStandard.Map
         {
             int nextFirstGid = 1;
 
-            if (gid > tmxMap.Tilesets["Terrain"].FirstGid)
+            if (gid > tmxMap.Tilesets["entities-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["Terrain"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["entities-32"].FirstGid;
             }
 
-            if (gid > tmxMap.Tilesets["Units"].FirstGid)
+            if (gid > tmxMap.Tilesets["units-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["Units"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["units-32"].FirstGid;
             }
 
-            if (gid > tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            if (gid > tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["WorldTileSet"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid;
             }
 
             return gid - nextFirstGid + 1;
