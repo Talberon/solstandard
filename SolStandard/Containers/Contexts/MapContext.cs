@@ -74,6 +74,14 @@ namespace SolStandard.Containers.Contexts
                 Trace.WriteLine("Changing state: " + CurrentTurnState);
             }
         }
+        
+        public void RevertToPreviousState()
+        {
+            if (CurrentTurnState <= TurnState.SelectUnit) return;
+            
+            CurrentTurnState--;
+            Trace.WriteLine("Changing state: " + CurrentTurnState);
+        }
 
         public void EndTurn()
         {

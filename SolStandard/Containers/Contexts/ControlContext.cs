@@ -246,6 +246,7 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitDecidingAction:
                         return;
                     case MapContext.TurnState.UnitTargeting:
+                        gameContext.CancelAction();
                         return;
                     case MapContext.TurnState.UnitActing:
                         return;

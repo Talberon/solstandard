@@ -10,6 +10,11 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public static class SkillProvider
     {
+        public static Wait Wait
+        {
+            get {return new Wait("Wait", ActionTile);}
+        }
+        
         public static BasicAttack BasicAttack
         {
             get { return new BasicAttack("Basic Attack", AttackTile); }

@@ -74,14 +74,14 @@ namespace SolStandard.Containers.Contexts
         {
             //TODO Reset this if the new map isn't being used
             const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_02.tmx";
-            
+
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),
                 AssetManager.OverworldTexture,
                 AssetManager.EntitiesTexture,
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
-            
+
             MapSelectContext = new MapSelectContext(new SelectMapUI(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
@@ -188,6 +188,13 @@ namespace SolStandard.Containers.Contexts
         public void ExecuteAction()
         {
             ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), mapContext, battleContext);
+        }
+
+        public void CancelAction()
+        {
+            ActiveUnit.CancelArmedSkill(mapContext);
+            MapContext.SlideCursorToActiveUnit();
+            MapContext.GameMapUI.GenerateCombatMenu();
         }
 
         public void ContinueCombat()

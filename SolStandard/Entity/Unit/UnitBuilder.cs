@@ -112,12 +112,12 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(5, 4, 2, 1, 4, new[] {2});
+            return new UnitStatistics(4, 4, 2, 1, 4, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(7, 4, 3, 1, 5, new[] {1});
+            return new UnitStatistics(5, 4, 3, 1, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
@@ -127,7 +127,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(10, 2, 2, 1, 3, new[] {1});
+            return new UnitStatistics(6, 3, 1, 1, 3, new[] {1,2});
         }
 
         private static List<UnitSkill> SelectArcherSkills()
@@ -135,7 +135,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 SkillProvider.BasicAttack,
-                SkillProvider.Draw
+                SkillProvider.Draw,
+                SkillProvider.Wait
             };
         }
 
@@ -144,8 +145,9 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 SkillProvider.BasicAttack,
+                SkillProvider.Tackle,
                 SkillProvider.Shove,
-                SkillProvider.Tackle
+                SkillProvider.Wait
             };
         }
 
@@ -154,7 +156,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 SkillProvider.BasicAttack,
-                SkillProvider.Blink
+                SkillProvider.Blink,
+                SkillProvider.Wait
             };
         }
 
@@ -162,7 +165,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack
+                SkillProvider.BasicAttack,
+                SkillProvider.Wait
             };
         }
 

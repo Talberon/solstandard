@@ -204,6 +204,11 @@ namespace SolStandard.Entity.Unit
             armedUnitSkill.ExecuteAction(targetSlice, mapContext, battleContext);
         }
 
+        public void CancelArmedSkill(MapContext mapContext)
+        {
+            armedUnitSkill.CancelAction(mapContext);
+        }
+
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
         {
             switch (direction)
