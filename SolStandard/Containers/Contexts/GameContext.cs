@@ -73,7 +73,7 @@ namespace SolStandard.Containers.Contexts
         public static void LoadMapSelect()
         {
             //TODO Reset this if the new map isn't being used
-            const string mapSelectPath = "Content/TmxMaps/" + "Experimenting_01.tmx";
+            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_02.tmx";
             
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),

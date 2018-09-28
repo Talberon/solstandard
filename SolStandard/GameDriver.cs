@@ -84,31 +84,11 @@ namespace SolStandard
 
             _mapCamera = new MapCamera(5, 0.05f);
 
-            ITexture2D mapPreviewVoid =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Void_01"));
-            ITexture2D mapPreviewGrass =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_01"));
-            ITexture2D mapPreviewSnow =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
-            ITexture2D mapPreviewDesert =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
-            ITexture2D mapPreviewGrass2 =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
             ITexture2D mapPreviewGrass3 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
 
             AvailableMaps = new List<MapInfo>
             {
-                new MapInfo("The Void", "Void_01.tmx",
-                    new SpriteAtlas(mapPreviewVoid, new Vector2(mapPreviewVoid.Width, mapPreviewVoid.Height), 1)),
-                new MapInfo("Atheion Grassland", "Grass_01.tmx",
-                    new SpriteAtlas(mapPreviewGrass, new Vector2(mapPreviewGrass.Width, mapPreviewGrass.Height), 1)),
-                new MapInfo("Hiatok Mountain", "Snow_01.tmx",
-                    new SpriteAtlas(mapPreviewSnow, new Vector2(mapPreviewSnow.Width, mapPreviewSnow.Height), 1)),
-                new MapInfo("Riverside Dunes", "Desert_01.tmx",
-                    new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1)),
-                new MapInfo("The Old Woods", "Grass_02.tmx",
-                    new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1)),
                 new MapInfo("New World", "Experimenting_01.tmx",
                     new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1))
             };

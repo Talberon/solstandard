@@ -2323,18 +2323,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueMonarch.png
 
-#begin Graphics/Map/MapPreviews/Grass_03.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Grass_03.png
-
 #begin Graphics/Map/Units/Blue/BlueMage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2370,4 +2358,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Large/Blue/Monarch.gif
+
+#begin Graphics/Map/MapPreviews/Grass_03.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Grass_03.png
 
