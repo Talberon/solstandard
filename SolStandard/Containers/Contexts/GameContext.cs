@@ -172,7 +172,7 @@ namespace SolStandard.Containers.Contexts
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
-            MapContext.GameMapUI.GenerateCombatMenu();
+            MapContext.GameMapUI.GenerateActionMenu();
         }
 
         public void DecideAction()
@@ -194,7 +194,7 @@ namespace SolStandard.Containers.Contexts
         {
             ActiveUnit.CancelArmedSkill(mapContext);
             MapContext.SlideCursorToActiveUnit();
-            MapContext.GameMapUI.GenerateCombatMenu();
+            MapContext.GameMapUI.GenerateActionMenu();
         }
 
         public void ContinueCombat()
@@ -316,7 +316,7 @@ namespace SolStandard.Containers.Contexts
                 MapContext.ProceedToNextState();
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
-                    MapContext.SelectedUnit.Stats.MaxMv,
+                    MapContext.SelectedUnit.Stats.Mv,
                     new SpriteAtlas(
                         new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                         new Vector2(GameDriver.CellSize),

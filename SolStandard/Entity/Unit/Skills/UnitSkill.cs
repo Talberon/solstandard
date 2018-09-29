@@ -9,19 +9,19 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public abstract class UnitSkill
     {
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
         protected readonly SpriteAtlas TileSprite;
 
-        protected UnitSkill(string name, SpriteAtlas tileSprite)
+        protected UnitSkill(SpriteAtlas tileSprite)
         {
-            Name = name;
             TileSprite = tileSprite;
         }
 
         public abstract void GenerateActionGrid(Vector2 origin);
         public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
 
-
+        // ReSharper disable once MemberCanBeMadeStatic.Global
         public void CancelAction(MapContext mapContext)
         {
             MapContainer.ClearDynamicGrid();

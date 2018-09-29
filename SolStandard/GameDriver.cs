@@ -86,11 +86,15 @@ namespace SolStandard
 
             ITexture2D mapPreviewGrass3 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
+            ITexture2D mapPreviewGrass4 =
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_04"));
 
             AvailableMaps = new List<MapInfo>
             {
-                new MapInfo("New World", "Experimenting_01.tmx",
-                    new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1))
+                new MapInfo("Old World", "Experimenting_01.tmx",
+                    new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
+                new MapInfo("Beachhead", "Experimenting_02.tmx",
+                    new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1))
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,

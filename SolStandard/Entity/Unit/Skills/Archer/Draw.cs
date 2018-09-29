@@ -12,8 +12,11 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         private static readonly int[] Range = {0};
         private bool active;
 
-        public Draw(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public Draw(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Draw";
+            Description = "Increase your range by 1. "
+                          + "\nDecrease your range by 1 if this ability is already active.";
             active = false;
         }
 
@@ -44,8 +47,8 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             }
 
             active = !active;
-            AssetManager.SkillDrawSFX.Play();
-            
+            AssetManager.SkillBuffSFX.Play();
+
             MapContainer.ClearDynamicGrid();
             mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             SkipCombatPhase(mapContext);

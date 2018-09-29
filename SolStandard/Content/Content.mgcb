@@ -394,18 +394,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/Terrain.png
 
-#begin Graphics/Map/Tiles/ActionTiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/ActionTiles.png
-
 #begin Graphics/Map/Tiles/GridOutline.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -576,54 +564,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/WorldTileSet.png
 
-#begin Graphics/Map/MapPreviews/Desert_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Desert_01.png
-
-#begin Graphics/Map/MapPreviews/Grass_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Grass_01.png
-
-#begin Graphics/Map/MapPreviews/Snow_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Snow_01.png
-
-#begin Graphics/Map/MapPreviews/Void_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Void_01.png
-
 #begin Graphics/Images/Screens/TitleBackground_BannerSky.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -635,18 +575,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/TitleBackground_BannerSky.png
-
-#begin Graphics/Map/MapPreviews/Grass_02.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Grass_02.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_RT.png
 /importer:TextureImporter
@@ -2370,4 +2298,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Grass_03.png
+
+#begin Graphics/Map/Tiles/ActionTiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/ActionTiles.png
+
+#begin Graphics/Map/MapPreviews/Grass_04.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Grass_04.png
 

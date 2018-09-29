@@ -11,8 +11,10 @@ namespace SolStandard.Entity.Unit.Skills
     {
         private static readonly int[] Range = {1};
 
-        public Shove(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public Shove(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Shove";
+            Description = "Push an enemy unit away one space if there is an unoccupied space behind them.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)
@@ -24,7 +26,11 @@ namespace SolStandard.Entity.Unit.Skills
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit)) return;
+            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit))
+            {
+                AssetManager.WarningSFX.Play();
+                return;
+            }
 
             if (targetUnit == GameContext.ActiveUnit)
             {

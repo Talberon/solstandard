@@ -11,8 +11,11 @@ namespace SolStandard.Entity.Unit.Skills.Champion
     {
         private static readonly int[] Range = {1};
 
-        public Tackle(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public Tackle(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Tackle";
+            Description = "Shove an enemy if there is an empty space behind them,"
+                          + "\nthen follow up by moving into their space and attacking.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)
@@ -24,7 +27,11 @@ namespace SolStandard.Entity.Unit.Skills.Champion
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit)) return;
+            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit))
+            {
+                AssetManager.WarningSFX.Play();
+                return;
+            }
 
             if (targetUnit == GameContext.ActiveUnit)
             {
@@ -40,7 +47,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
                 if (Shove.ShoveAction(targetUnit, mapContext))
                 {
                     GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                    
+
                     if (MoveToTarget(targetOriginalPosition))
                     {
                         GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);

@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect DisableDiceSFX { get; private set; }
         public static ISoundEffect WarningSFX { get; private set; }
         
-        public static ISoundEffect SkillDrawSFX { get; private set; }
+        public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX  { get; private set; }
 
         public static List<Song> MusicTracks { get; private set; }
@@ -148,7 +148,7 @@ namespace SolStandard.Utility.Assets
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
             WarningSFX = ContentLoader.LoadWarningSFX(content);
             
-            SkillDrawSFX = ContentLoader.LoadSkillDrawSFX(content);
+            SkillBuffSFX = ContentLoader.LoadSkillDrawSFX(content);
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);
 
             MusicTracks = ContentLoader.LoadMusic(content);

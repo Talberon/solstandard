@@ -11,8 +11,10 @@ namespace SolStandard.Entity.Unit.Skills
     {
         private static readonly int[] Range = {0};
         
-        public Wait(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public Wait(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Wait";
+            Description = "Take no action and end your turn.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

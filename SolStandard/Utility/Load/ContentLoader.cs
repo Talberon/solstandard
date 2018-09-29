@@ -266,12 +266,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Snow_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_03"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_04"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();

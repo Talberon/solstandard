@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu
         private Vector2 cursorPosition;
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
-        private int currentOptionIndex;
+        public int CurrentOptionIndex { get; private set; }
         private readonly Color backgroundColor;
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
@@ -32,7 +32,7 @@ namespace SolStandard.HUD.Menu
             this.options = options;
             this.cursorSprite = cursorSprite;
             this.backgroundColor = backgroundColor;
-            currentOptionIndex = 0;
+            CurrentOptionIndex = 0;
             cursorPosition = Vector2.Zero;
             optionCoordinates = MapOptionCoordinates();
             PositionCursorToOption();
@@ -54,14 +54,13 @@ namespace SolStandard.HUD.Menu
 
         public int Height
         {
-            get { return (int) (optionCoordinates[options.Last()].Y + options.Last().Height); }
+            get { return menuWindow.Height; }
         }
 
 
         public int Width
         {
-            //Get widest width of the available options
-            get { return options.Select(option => option.Width).Concat(new[] {0}).Max(); }
+            get { return menuWindow.Width; }
         }
 
         private Dictionary<MenuOption, Vector2> MapOptionCoordinates()
@@ -83,12 +82,12 @@ namespace SolStandard.HUD.Menu
 
         public MenuOption CurrentOption
         {
-            get { return options[currentOptionIndex]; }
+            get { return options[CurrentOptionIndex]; }
         }
 
         public void SelectOption()
         {
-            options[currentOptionIndex].Execute();
+            options[CurrentOptionIndex].Execute();
             AssetManager.MenuConfirmSFX.Play();
         }
 
@@ -97,18 +96,18 @@ namespace SolStandard.HUD.Menu
             switch (direction)
             {
                 case MenuCursorDirection.Forward:
-                    if (currentOptionIndex < options.Length - 1)
+                    if (CurrentOptionIndex < options.Length - 1)
                     {
-                        currentOptionIndex++;
+                        CurrentOptionIndex++;
                         PositionCursorToOption();
                         AssetManager.MenuMoveSFX.Play();
                     }
 
                     break;
                 case MenuCursorDirection.Backward:
-                    if (currentOptionIndex > 0)
+                    if (CurrentOptionIndex > 0)
                     {
-                        currentOptionIndex--;
+                        CurrentOptionIndex--;
                         PositionCursorToOption();
                         AssetManager.MenuMoveSFX.Play();
                     }
@@ -121,7 +120,7 @@ namespace SolStandard.HUD.Menu
 
         private void PositionCursorToOption()
         {
-            MenuOption currentOption = options[currentOptionIndex];
+            MenuOption currentOption = options[CurrentOptionIndex];
 
             Vector2 optionPosition = optionCoordinates[currentOption];
 

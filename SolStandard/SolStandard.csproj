@@ -72,6 +72,7 @@
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
+    <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
     <Compile Include="Entity\Unit\Skills\SkillProvider.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
@@ -203,31 +204,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\TmxMaps\Desert_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Experimenting_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Grass_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Grass_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Map_Select_01.tmx">
+    <Content Include="Content\TmxMaps\Experimenting_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Snow_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Void_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
@@ -238,7 +224,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entity\Unit\Skills\Monarch" />
     <Folder Include="HUD\Menu\Options\PauseMenu" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

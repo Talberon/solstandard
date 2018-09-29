@@ -3451,93 +3451,87 @@
     <property name="canMove" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="531" name="NewMap" type="SelectMap" gid="289" x="448" y="288" width="32" height="32">
-   <properties>
-    <property name="mapFileName" value="Experimenting_01.tmx"/>
-    <property name="mapSong" value="PlainsTheme"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup name="Units">
-  <object id="517" name="Astor" type="Unit" gid="302" x="928" y="320" width="32" height="32">
+  <object id="517" name="Horatio" type="Unit" gid="302" x="960" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="518" name="Grelm" type="Unit" gid="303" x="960" y="288" width="32" height="32">
+  <object id="518" name="Astor" type="Unit" gid="303" x="928" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="519" name="Rosencrantz" type="Unit" gid="304" x="896" y="448" width="32" height="32">
+  <object id="519" name="Rosencrantz" type="Unit" gid="304" x="928" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Skull" type="Unit" gid="305" x="992" y="128" width="32" height="32">
+  <object id="520" name="Fracturius I" type="Unit" gid="305" x="672" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Crossbones" type="Unit" gid="309" x="640" y="448" width="32" height="32">
+  <object id="521" name="Marrowon II" type="Unit" gid="309" x="608" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="522" name="Hector" type="Unit" gid="308" x="704" y="416" width="32" height="32">
+  <object id="522" name="Hector" type="Unit" gid="308" x="352" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="523" name="Seth" type="Unit" gid="308" x="768" y="448" width="32" height="32">
+  <object id="523" name="Seth" type="Unit" gid="308" x="480" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="524" name="Eckhart" type="Unit" gid="307" x="640" y="512" width="32" height="32">
+  <object id="524" name="Eckhart" type="Unit" gid="307" x="352" y="608" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="525" name="Moge" type="Unit" gid="307" x="672" y="320" width="32" height="32">
+  <object id="525" name="Merrick" type="Unit" gid="307" x="448" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="526" name="Ralph" type="Unit" gid="306" x="704" y="320" width="32" height="32">
+  <object id="526" name="Ralph" type="Unit" gid="306" x="512" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="527" name="Aelf" type="Unit" gid="306" x="800" y="416" width="32" height="32">
+  <object id="527" name="Kenneth" type="Unit" gid="306" x="352" y="576" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="528" name="Gildenstern" type="Unit" gid="304" x="864" y="320" width="32" height="32">
+  <object id="528" name="Gildenstern" type="Unit" gid="304" x="928" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="529" name="Jules" type="Unit" gid="303" x="992" y="480" width="32" height="32">
+  <object id="529" name="Jules" type="Unit" gid="303" x="960" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="530" name="Shia" type="Unit" gid="302" x="960" y="448" width="32" height="32">
+  <object id="530" name="Grelm" type="Unit" gid="302" x="960" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>

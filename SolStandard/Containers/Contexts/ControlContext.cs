@@ -103,9 +103,7 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
                         return;
                     case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.GameMapUI.ActionMenu.MoveMenuCursor(
-                            VerticalMenu.MenuCursorDirection.Forward
-                        );
+                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
                         break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Down));
@@ -130,9 +128,6 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
                         return;
                     case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.GameMapUI.ActionMenu.MoveMenuCursor(
-                            VerticalMenu.MenuCursorDirection.Backward
-                        );
                         break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Left));
@@ -157,9 +152,6 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
                         return;
                     case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.GameMapUI.ActionMenu.MoveMenuCursor(
-                            VerticalMenu.MenuCursorDirection.Forward
-                        );
                         break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Right));
@@ -184,9 +176,7 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
                         return;
                     case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.GameMapUI.ActionMenu.MoveMenuCursor(
-                            VerticalMenu.MenuCursorDirection.Backward
-                        );
+                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
                         break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Up));

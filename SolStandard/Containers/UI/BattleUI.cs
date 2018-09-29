@@ -15,7 +15,7 @@ namespace SolStandard.Containers.UI
     public class BattleUI : IUserInterface
     {
         //TODO Make this scale properly with resolution
-        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 200);
+        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 150);
 
         private const int WindowSpacing = 5;
         private static readonly Color PositiveColor = new Color(30, 200, 30);

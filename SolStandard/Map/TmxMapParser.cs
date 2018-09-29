@@ -344,12 +344,13 @@ namespace SolStandard.Map
 
                             Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
                             const int unitAnimationFrames = 4;
+                            const int unitAnimationDelay = 14;
 
                             UnitSprite animatedSprite = new UnitSprite(
                                 unitSprite,
                                 unitSprite.Width / unitAnimationFrames,
                                 unitScale,
-                                15,
+                                unitAnimationDelay,
                                 false
                             );
 

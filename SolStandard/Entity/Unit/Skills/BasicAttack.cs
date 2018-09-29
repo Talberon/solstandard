@@ -10,8 +10,10 @@ namespace SolStandard.Entity.Unit.Skills
     public class BasicAttack : UnitSkill
     {
 
-        public BasicAttack(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public BasicAttack(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Basic Attack";
+            Description = "Attack a target with dice based on your ATK statistic.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit
         private readonly int baseAtk;
         private readonly int baseDef;
         private readonly int maxSp;
-        private readonly int maxMv;
+        private readonly int baseMv;
         private readonly int[] baseAtkRange;
 
 
@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit
             baseAtk = atk;
             baseDef = def;
             maxSp = sp;
-            maxMv = mv;
+            baseMv = mv;
             baseAtkRange = atkRange;
         }
 
@@ -76,9 +76,9 @@ namespace SolStandard.Entity.Unit
             get { return maxSp; }
         }
 
-        public int MaxMv
+        public int BaseMv
         {
-            get { return maxMv; }
+            get { return baseMv; }
         }
 
         public int[] BaseAtkRange
@@ -140,7 +140,7 @@ namespace SolStandard.Entity.Unit
             output += Environment.NewLine;
             output += "SP: " + Sp.ToString() + "/" + maxSp;
             output += Environment.NewLine;
-            output += "MV: " + Mv.ToString() + "/" + maxMv;
+            output += "MV: " + Mv.ToString() + "/" + baseMv;
             output += Environment.NewLine;
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
 

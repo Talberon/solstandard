@@ -39,6 +39,7 @@ namespace SolStandard.Containers.UI
         public Window UserPromptWindow { get; private set; }
 
         public VerticalMenu ActionMenu { get; private set; }
+        public Window ActionMenuDescriptionWindow { get; private set; }
 
         private bool visible;
 
@@ -70,15 +71,16 @@ namespace SolStandard.Containers.UI
         {
             get { return rightUnitDetailWindow; }
         }
-        
+
         public void ClearCombatMenu()
         {
             ActionMenu = null;
         }
 
+
         #region Generation
 
-        public void GenerateCombatMenu()
+        public void GenerateActionMenu()
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
             int skillCount = GameContext.ActiveUnit.Skills.Count;
@@ -95,6 +97,22 @@ namespace SolStandard.Containers.UI
 
 
             ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+
+            GenerateActionMenuDescription();
+        }
+
+        public void GenerateActionMenuDescription()
+        {
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            ActionMenuDescriptionWindow = new Window(
+                "Action Menu Description",
+                windowTexture,
+                new RenderText(
+                    AssetManager.WindowFont,
+                    GameContext.ActiveUnit.Skills[ActionMenu.CurrentOptionIndex].Description
+                ),
+                windowColour
+            );
         }
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
@@ -116,7 +134,7 @@ namespace SolStandard.Containers.UI
                 new[,]
                 {
                     {
-                        GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
+                        GameContext.ActiveUnit.GetMapSprite(new Vector2(100)),
                         new RenderText(AssetManager.WindowFont, turnInfo)
                     }
                 },
@@ -309,11 +327,19 @@ namespace SolStandard.Containers.UI
 
         #region Window Positions
 
-        private Vector2 CombatMenuPosition()
+        private Vector2 ActionMenuPosition()
         {
             return new Vector2(
                 WindowEdgeBuffer + LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width,
                 LeftUnitDetailWindowPosition().Y
+            );
+        }
+
+        private Vector2 ActionMenuDescriptionPosition()
+        {
+            return new Vector2(
+                WindowEdgeBuffer + ActionMenuPosition().X + ActionMenu.Width,
+                ActionMenuPosition().Y
             );
         }
 
@@ -454,7 +480,12 @@ namespace SolStandard.Containers.UI
 
             if (ActionMenu != null)
             {
-                ActionMenu.Draw(spriteBatch, CombatMenuPosition());
+                ActionMenu.Draw(spriteBatch, ActionMenuPosition());
+
+                if (ActionMenuDescriptionWindow != null)
+                {
+                    ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
+                }
             }
         }
     }

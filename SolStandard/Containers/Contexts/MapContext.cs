@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Menu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -74,11 +75,11 @@ namespace SolStandard.Containers.Contexts
                 Trace.WriteLine("Changing state: " + CurrentTurnState);
             }
         }
-        
+
         public void RevertToPreviousState()
         {
             if (CurrentTurnState <= TurnState.SelectUnit) return;
-            
+
             CurrentTurnState--;
             Trace.WriteLine("Changing state: " + CurrentTurnState);
         }
@@ -214,9 +215,9 @@ namespace SolStandard.Containers.Contexts
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
         {
-            if (coordinates.X > MapContainer.GameGrid[0].GetLength(0)) return false;
+            if (coordinates.X > MapContainer.GameGrid[0].GetLength(0) - 1) return false;
             if (coordinates.X < 0) return false;
-            if (coordinates.Y > MapContainer.GameGrid[0].GetLength(1)) return false;
+            if (coordinates.Y > MapContainer.GameGrid[0].GetLength(1) - 1) return false;
             if (coordinates.Y < 0) return false;
 
             return true;
@@ -236,6 +237,12 @@ namespace SolStandard.Containers.Contexts
         {
             SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
             MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+        }
+
+        public void MoveActionMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        {
+            GameMapUI.ActionMenu.MoveMenuCursor(direction);
+            GameMapUI.GenerateActionMenuDescription();
         }
 
         public bool TargetUnitIsLegal(GameUnit targetUnit)

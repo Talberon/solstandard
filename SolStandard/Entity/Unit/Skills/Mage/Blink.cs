@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements.Cursor;
@@ -11,8 +12,10 @@ namespace SolStandard.Entity.Unit.Skills.Mage
     {
         private static readonly int[] Range = {1, 2, 3, 4};
 
-        public Blink(string name, SpriteAtlas tileSprite) : base(name, tileSprite)
+        public Blink(SpriteAtlas tileSprite) : base(tileSprite)
         {
+            Name = "Blink";
+            Description = "Move to an unoccupied space within " + Range.Max() + "spaces.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

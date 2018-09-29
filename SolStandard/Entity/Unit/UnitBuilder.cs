@@ -166,6 +166,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 SkillProvider.BasicAttack,
+                SkillProvider.DoubleTime,
                 SkillProvider.Wait
             };
         }
