@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
@@ -51,6 +52,8 @@ namespace SolStandard.Entity.Unit
         public List<UnitSkill> Skills { get; private set; }
         private UnitSkill armedUnitSkill;
 
+        public List<StatusEffect> StatusEffects { get; private set; }
+
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) :
             base(id, mapEntity)
@@ -79,6 +82,8 @@ namespace SolStandard.Entity.Unit
             };
 
             armedUnitSkill = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
+
+            StatusEffects = new List<StatusEffect>();
         }
 
         public UnitEntity UnitEntity
@@ -245,6 +250,7 @@ namespace SolStandard.Entity.Unit
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            UpdateStatusEffects();
         }
 
         public void DisableExhaustedUnit()
@@ -262,6 +268,22 @@ namespace SolStandard.Entity.Unit
             {
                 UnitEntity.UnitSprite.SetAnimation(state);
             }
+        }
+
+        public void AddStatusEffect(StatusEffect statusEffect)
+        {
+            StatusEffects.Add(statusEffect);
+            statusEffect.ApplyEffect(this);
+        }
+
+        private void UpdateStatusEffects()
+        {
+            foreach (StatusEffect effect in StatusEffects)
+            {
+                effect.UpdateEffect(this);
+            }
+
+            StatusEffects.RemoveAll(effect => effect.TurnDuration <= 0);
         }
 
         private void KillIfDead()

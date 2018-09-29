@@ -16,7 +16,7 @@ namespace SolStandard.Map.Elements
             Attack,
             Action
         }
-        
+
         private readonly int distance;
         private readonly RenderText renderText;
 
@@ -25,6 +25,11 @@ namespace SolStandard.Map.Elements
         {
             this.distance = distance;
             renderText = new RenderText(AssetManager.MapFont, distance.ToString());
+        }
+
+        public static SpriteAtlas GetTileSprite(TileType tileType)
+        {
+            return new SpriteAtlas(AssetManager.ActionTiles, new Vector2(GameDriver.CellSize), (int) tileType);
         }
 
         public int Distance
@@ -76,11 +81,11 @@ namespace SolStandard.Map.Elements
             Vector2 centeredText = CenterTextToTile();
             //Black outline
             int offset = 1;
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X-offset, centeredText.Y), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X+offset, centeredText.Y), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y-offset), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y+offset), Color.Black);
-            
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X - offset, centeredText.Y), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X + offset, centeredText.Y), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
+
             renderText.Draw(spriteBatch, centeredText, colorOverride);
         }
     }

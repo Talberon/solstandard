@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -10,12 +12,17 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
     public class DoubleTime : UnitSkill
     {
         private static readonly int[] Range = {1};
+        private readonly int statModifier;
+        private readonly int duration;
 
-        public DoubleTime(SpriteAtlas tileSprite) : base(tileSprite)
+        public DoubleTime(int duration, int statModifier) : base(
+            name: "Double Time",
+            description: "Grant a buff that increases an ally's MV by " + statModifier + " for " + duration + " turns.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+        )
         {
-            Name = "Double Time";
-            Description = "Grant a buff of +1 Mv to an Ally in exchange for -1 Def."
-                          + "\nCan only use if target's Def is greater than 1.";
+            this.statModifier = statModifier;
+            this.duration = duration;
         }
 
         public override void GenerateActionGrid(Vector2 origin)
@@ -28,15 +35,14 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (targetUnit == null || targetUnit == GameContext.ActiveUnit || targetUnit.Stats.Def <= 1)
+            if (targetUnit == null || targetUnit == GameContext.ActiveUnit)
             {
                 AssetManager.WarningSFX.Play();
             }
             else if (targetUnit.Team == GameContext.ActiveUnit.Team)
             {
                 AssetManager.SkillBuffSFX.Play();
-                targetUnit.Stats.Def--;
-                targetUnit.Stats.Mv++;
+                targetUnit.AddStatusEffect(new MoveStatUp(duration, statModifier));
                 MapContainer.ClearDynamicGrid();
                 SkipCombatPhase(mapContext);
             }

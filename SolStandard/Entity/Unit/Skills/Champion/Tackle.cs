@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -11,11 +13,13 @@ namespace SolStandard.Entity.Unit.Skills.Champion
     {
         private static readonly int[] Range = {1};
 
-        public Tackle(SpriteAtlas tileSprite) : base(tileSprite)
+        public Tackle() : base(
+            name: "Tackle",
+            description: "Shove an enemy if there is an empty space behind them,"
+                         + "\nthen follow up by moving into their space and attacking.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
+        )
         {
-            Name = "Tackle";
-            Description = "Shove an enemy if there is an empty space behind them,"
-                          + "\nthen follow up by moving into their space and attacking.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

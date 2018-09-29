@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Skills.Archer;
+using SolStandard.Entity.Unit.Skills.Champion;
+using SolStandard.Entity.Unit.Skills.Mage;
+using SolStandard.Entity.Unit.Skills.Monarch;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -127,16 +131,16 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(6, 3, 1, 1, 3, new[] {1,2});
+            return new UnitStatistics(6, 3, 1, 1, 3, new[] {1, 2});
         }
 
         private static List<UnitSkill> SelectArcherSkills()
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack,
-                SkillProvider.Draw,
-                SkillProvider.Wait
+                new BasicAttack(),
+                new Draw(),
+                new Wait()
             };
         }
 
@@ -144,10 +148,10 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack,
-                SkillProvider.Tackle,
-                SkillProvider.Shove,
-                SkillProvider.Wait
+                new BasicAttack(),
+                new Tackle(),
+                new Shove(),
+                new Wait()
             };
         }
 
@@ -155,9 +159,9 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack,
-                SkillProvider.Blink,
-                SkillProvider.Wait
+                new BasicAttack(),
+                new Blink(),
+                new Wait()
             };
         }
 
@@ -165,9 +169,9 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitSkill>
             {
-                SkillProvider.BasicAttack,
-                SkillProvider.DoubleTime,
-                SkillProvider.Wait
+                new BasicAttack(),
+                new DoubleTime(2, 1),
+                new Wait()
             };
         }
 

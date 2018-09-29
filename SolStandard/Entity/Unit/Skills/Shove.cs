@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -11,10 +12,12 @@ namespace SolStandard.Entity.Unit.Skills
     {
         private static readonly int[] Range = {1};
 
-        public Shove(SpriteAtlas tileSprite) : base(tileSprite)
+        public Shove() : base(
+            name: "Shove",
+            description: "Push an enemy unit away one space if there is an unoccupied space behind them.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+        )
         {
-            Name = "Shove";
-            Description = "Push an enemy unit away one space if there is an unoccupied space behind them.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

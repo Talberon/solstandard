@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -10,10 +11,12 @@ namespace SolStandard.Entity.Unit.Skills
     public class BasicAttack : UnitSkill
     {
 
-        public BasicAttack(SpriteAtlas tileSprite) : base(tileSprite)
+        public BasicAttack() : base(
+            name: "Basic Attack",
+            description: "Attack a target with dice based on your ATK statistic.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
+        )
         {
-            Name = "Basic Attack";
-            Description = "Attack a target with dice based on your ATK statistic.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

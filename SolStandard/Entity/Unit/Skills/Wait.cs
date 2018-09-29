@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills
@@ -10,11 +10,13 @@ namespace SolStandard.Entity.Unit.Skills
     public class Wait : UnitSkill
     {
         private static readonly int[] Range = {0};
-        
-        public Wait(SpriteAtlas tileSprite) : base(tileSprite)
+
+        public Wait() : base(
+            name: "Wait",
+            description: "Take no action and end your turn.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+        )
         {
-            Name = "Wait";
-            Description = "Take no action and end your turn.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

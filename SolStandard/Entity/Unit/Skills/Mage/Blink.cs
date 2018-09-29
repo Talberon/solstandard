@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -12,10 +13,12 @@ namespace SolStandard.Entity.Unit.Skills.Mage
     {
         private static readonly int[] Range = {1, 2, 3, 4};
 
-        public Blink(SpriteAtlas tileSprite) : base(tileSprite)
+        public Blink() : base(
+            name: "Blink",
+            description: "Move to an unoccupied space within " + Range.Max() + "spaces.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+        )
         {
-            Name = "Blink";
-            Description = "Move to an unoccupied space within " + Range.Max() + "spaces.";
         }
 
         public override void GenerateActionGrid(Vector2 origin)

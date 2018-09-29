@@ -259,13 +259,13 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Y())
             {
-                gameContext.MapContext.SlideCursorToActiveUnit();
+                mapCamera.CenterCameraToCursor();
             }
 
             if (controlMapper.X())
             {
-                mapCamera.CenterCameraToCursor();
-
+                gameContext.MapContext.SlideCursorToActiveUnit();
+                
                 //FIXME Remove this eventually after debugging is done
                 //GameContext.Units.ForEach(unit => unit.DamageUnit(1));
             }

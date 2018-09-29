@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills.Archer
@@ -12,11 +12,13 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         private static readonly int[] Range = {0};
         private bool active;
 
-        public Draw(SpriteAtlas tileSprite) : base(tileSprite)
+        public Draw() : base(
+            name: "Draw",
+            description: "Increase your range by 1."
+                         + "\nDecrease your range by 1 if this ability is already active.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+        )
         {
-            Name = "Draw";
-            Description = "Increase your range by 1. "
-                          + "\nDecrease your range by 1 if this ability is already active.";
             active = false;
         }
 

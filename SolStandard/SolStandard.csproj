@@ -74,9 +74,10 @@
     <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
-    <Compile Include="Entity\Unit\Skills\SkillProvider.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
+    <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSprite.cs" />
@@ -204,6 +205,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Debug_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Experimenting_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

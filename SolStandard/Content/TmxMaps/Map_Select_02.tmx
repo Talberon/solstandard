@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="535">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="536">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="301" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/entities-32.png" width="224" height="1401"/>
  </tileset>
@@ -1949,6 +1949,12 @@
   <object id="534" name="Beachhead" type="SelectMap" gid="289" x="480" y="160" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Experimenting_02.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+   </properties>
+  </object>
+  <object id="535" name="Debug" type="SelectMap" gid="289" x="480" y="384" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
    </properties>
   </object>

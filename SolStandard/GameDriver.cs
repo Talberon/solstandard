@@ -7,6 +7,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
@@ -60,7 +61,6 @@ namespace SolStandard
         /// </summary>
         public static void NewGame(string mapName)
         {
-            
             string mapPath = "Content/TmxMaps/" + mapName;
             _gameContext.StartGame(mapPath, _mapCamera);
         }
@@ -94,7 +94,8 @@ namespace SolStandard
                 new MapInfo("Old World", "Experimenting_01.tmx",
                     new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
                 new MapInfo("Beachhead", "Experimenting_02.tmx",
-                    new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1))
+                    new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
+                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank())
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,

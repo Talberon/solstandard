@@ -6,10 +6,10 @@ namespace SolStandard.Map
     {
         public string Title { get; private set; }
         public string FileName { get; private set; }
-        public SpriteAtlas PreviewImage { get; private set; }
+        public IRenderable PreviewImage { get; private set; }
         
 
-        public MapInfo(string title, string fileName, SpriteAtlas previewImage)
+        public MapInfo(string title, string fileName, IRenderable previewImage)
         {
             Title = title;
             FileName = fileName;
