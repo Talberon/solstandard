@@ -22,24 +22,23 @@ namespace SolStandard.Entity.Unit.Skills
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit))
-            {
-                AssetManager.WarningSFX.Play();
-                return;
-            }
-
-            if (targetUnit == GameContext.ActiveUnit)
-            {
-                MapContainer.ClearDynamicGrid();
-                SkipCombatPhase(mapContext);
-                AssetManager.MapUnitSelectSFX.Play();
-            }
-            else
+            
+            if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
                 if (ShoveAction(targetUnit, mapContext))
                 {
                     SkipCombatPhase(mapContext);
+                    MapContainer.ClearDynamicGrid();
+                    AssetManager.CombatBlockSFX.Play();
                 }
+                else
+                {
+                    AssetManager.WarningSFX.Play();
+                }
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
             }
         }
 
@@ -47,23 +46,18 @@ namespace SolStandard.Entity.Unit.Skills
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
-            Vector2 oppositeCoordinates = DetermineShoveDirection(actorCoordinates, targetCoordinates);
+            Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
 
             if (TargetUnitIsInRange(target) && UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
             {
                 target.UnitEntity.MapCoordinates = oppositeCoordinates;
-                MapContainer.ClearDynamicGrid();
-                AssetManager.CombatBlockSFX.Play();
                 return true;
             }
-            else
-            {
-                AssetManager.WarningSFX.Play();
-                return false;
-            }
+
+            return false;
         }
 
-        private static Vector2 DetermineShoveDirection(Vector2 actorCoordinates, Vector2 targetCoordinates)
+        private static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
         {
             Vector2 oppositeCoordinates = targetCoordinates;
 

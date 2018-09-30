@@ -3,6 +3,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills.Archer
@@ -30,31 +31,33 @@ namespace SolStandard.Entity.Unit.Skills.Archer
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (targetSlice.UnitEntity == null || targetSlice.UnitEntity != GameContext.ActiveUnit.UnitEntity)
-            {
-                AssetManager.WarningSFX.Play();
-                return;
-            }
+            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!active)
+            if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
+                if (!active)
                 {
-                    GameContext.ActiveUnit.Stats.AtkRange[i]++;
+                    for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
+                    {
+                        GameContext.ActiveUnit.Stats.AtkRange[i]++;
+                    }
                 }
+                else
+                {
+                    GameContext.ActiveUnit.Stats.AtkRange = GameContext.ActiveUnit.Stats.BaseAtkRange;
+                }
+
+                active = !active;
+
+                AssetManager.SkillBuffSFX.Play();
+                MapContainer.ClearDynamicGrid();
+                mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                SkipCombatPhase(mapContext);
             }
             else
             {
-                GameContext.ActiveUnit.Stats.AtkRange = GameContext.ActiveUnit.Stats.BaseAtkRange;
+                AssetManager.WarningSFX.Play();
             }
-
-            active = !active;
-
-            AssetManager.SkillBuffSFX.Play();
-
-            MapContainer.ClearDynamicGrid();
-            mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-            SkipCombatPhase(mapContext);
         }
     }
 }

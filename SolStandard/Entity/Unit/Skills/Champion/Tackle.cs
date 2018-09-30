@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -15,7 +14,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: new[]{1}
+            range: new[] {1}
         )
         {
         }
@@ -23,49 +22,34 @@ namespace SolStandard.Entity.Unit.Skills.Champion
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            if (targetUnit == null || targetUnit.GetType() != typeof(GameUnit))
-            {
-                AssetManager.WarningSFX.Play();
-                return;
-            }
 
-            if (targetUnit == GameContext.ActiveUnit)
-            {
-                //Skip the action if selecting self
-                MapContainer.ClearDynamicGrid();
-                AssetManager.MapUnitSelectSFX.Play();
-                SkipCombatPhase(mapContext);
-            }
-            else
+            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 Vector2 targetOriginalPosition = targetUnit.UnitEntity.MapCoordinates;
 
                 if (Shove.ShoveAction(targetUnit, mapContext))
                 {
+                    MoveToTarget(targetOriginalPosition);
+
                     GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    BasicAttack.StartCombat(targetUnit, mapContext, battleContext);
 
-                    if (MoveToTarget(targetOriginalPosition))
-                    {
-                        GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-
-                        if (BasicAttack.StartCombat(targetUnit, mapContext, battleContext))
-                        {
-                            EnterCombatPhase(mapContext);
-                        }
-                    }
+                    EnterCombatPhase(mapContext);
                 }
+                else
+                {
+                    AssetManager.WarningSFX.Play();
+                }
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
             }
         }
 
-        private static bool MoveToTarget(Vector2 targetCoordinates)
+        private static void MoveToTarget(Vector2 targetCoordinates)
         {
-            if (UnitMovingContext.CanMoveAtCoordinates(targetCoordinates))
-            {
-                GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
-                return true;
-            }
-
-            return false;
+            GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
         }
     }
 }

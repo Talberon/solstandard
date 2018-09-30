@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Skills
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range);
         }
-        
+
         public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
 
         // ReSharper disable once MemberCanBeMadeStatic.Global
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Skills
             mapContext.RevertToPreviousState();
             AssetManager.MapUnitCancelSFX.Play();
         }
-        
+
         protected static void SkipCombatPhase(MapContext mapContext)
         {
             EnterCombatPhase(mapContext);
@@ -48,6 +48,35 @@ namespace SolStandard.Entity.Unit.Skills
         {
             mapContext.ProceedToNextState();
             mapContext.SetPromptWindowText("Confirm End Turn");
+        }
+
+
+        protected static bool TargetIsUnitInRange(MapSlice targetSlice, GameUnit targetUnit)
+        {
+            return
+                targetUnit != null
+                && targetSlice.DynamicEntity != null;
+        }
+
+        protected static bool TargetIsAnAllyInRange(MapSlice targetSlice, GameUnit targetUnit)
+        {
+            return
+                TargetIsUnitInRange(targetSlice, targetUnit)
+                && targetUnit.Team == GameContext.ActiveUnit.Team;
+        }
+
+        protected static bool TargetIsAnEnemyInRange(MapSlice targetSlice, GameUnit targetUnit)
+        {
+            return
+                TargetIsUnitInRange(targetSlice, targetUnit)
+                && GameContext.ActiveUnit.Team != targetUnit.Team;
+        }
+
+        protected static bool TargetIsSelfInRange(MapSlice targetSlice, GameUnit targetUnit)
+        {
+            return
+                TargetIsUnitInRange(targetSlice, targetUnit)
+                && GameContext.ActiveUnit == targetUnit;
         }
     }
 }

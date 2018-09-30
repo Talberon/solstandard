@@ -10,7 +10,6 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public class BasicAttack : UnitSkill
     {
-
         public BasicAttack() : base(
             name: "Basic Attack",
             description: "Attack a target with dice based on your ATK statistic.",
@@ -29,54 +28,37 @@ namespace SolStandard.Entity.Unit.Skills
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            if (targetUnit != null && targetUnit.GetType() == typeof(GameUnit))
+            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            {
+                StartCombat(targetUnit, mapContext, battleContext);
+                EnterCombatPhase(mapContext);
+            }
+            else if (mapContext.SelectedUnit == targetUnit)
             {
                 //Skip the combat state if player selects the same unit
-                if (mapContext.SelectedUnit == targetUnit)
-                {
-                    MapContainer.ClearDynamicGrid();
-                    mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                    SkipCombatPhase(mapContext);
-                    AssetManager.MapUnitSelectSFX.Play();
-                }
-                else
-                {
-                    if (StartCombat(targetUnit, mapContext, battleContext))
-                    {
-                        EnterCombatPhase(mapContext);
-                    }
-                }
+                MapContainer.ClearDynamicGrid();
+                mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                SkipCombatPhase(mapContext);
+                AssetManager.MapUnitSelectSFX.Play();
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
             }
         }
 
-        public static bool StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
+        public static void StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit attackingUnit = mapContext.SelectedUnit;
             GameUnit defendingUnit = target;
-
-            if (TargetUnitIsEnemyInRange(defendingUnit))
-            {
-                MapContainer.ClearDynamicGrid();
-                battleContext.StartNewCombat(attackingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
-                    defendingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
-
-                AssetManager.CombatStartSFX.Play();
-                return true;
-            }
-
-            AssetManager.WarningSFX.Play();
-            return false;
-        }
-        
-        private static bool TargetUnitIsEnemyInRange(GameUnit targetUnit)
-        {
-            return
-                targetUnit != null
-                && GameContext.ActiveUnit != targetUnit
-                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null)
-                && GameContext.ActiveUnit.Team != targetUnit.Team;
+            MapContainer.ClearDynamicGrid();
+            battleContext.StartNewCombat(
+                attackingUnit,
+                MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
+                defendingUnit,
+                MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates)
+            );
+            AssetManager.CombatStartSFX.Play();
         }
     }
 }

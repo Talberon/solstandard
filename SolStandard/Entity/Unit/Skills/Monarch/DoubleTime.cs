@@ -29,16 +29,16 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (targetUnit == null || targetUnit == GameContext.ActiveUnit || targetSlice.DynamicEntity == null)
-            {
-                AssetManager.WarningSFX.Play();
-            }
-            else if (targetUnit.Team == GameContext.ActiveUnit.Team)
+            if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
                 AssetManager.SkillBuffSFX.Play();
                 targetUnit.AddStatusEffect(new MoveStatUp(duration, statModifier));
                 MapContainer.ClearDynamicGrid();
                 SkipCombatPhase(mapContext);
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
             }
         }
     }
