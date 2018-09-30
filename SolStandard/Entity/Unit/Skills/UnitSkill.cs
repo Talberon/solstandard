@@ -12,15 +12,22 @@ namespace SolStandard.Entity.Unit.Skills
         public string Name { get; private set; }
         public string Description { get; private set; }
         protected readonly SpriteAtlas TileSprite;
+        public int[] Range { get; private set; }
 
-        protected UnitSkill(string name, string description, SpriteAtlas tileSprite)
+        protected UnitSkill(string name, string description, SpriteAtlas tileSprite, int[] range)
         {
             Name = name;
             Description = description;
             TileSprite = tileSprite;
+            Range = range;
         }
 
-        public abstract void GenerateActionGrid(Vector2 origin);
+        public virtual void GenerateActionGrid(Vector2 origin)
+        {
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            unitTargetingContext.GenerateTargetingGrid(origin, Range);
+        }
+        
         public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
 
         // ReSharper disable once MemberCanBeMadeStatic.Global

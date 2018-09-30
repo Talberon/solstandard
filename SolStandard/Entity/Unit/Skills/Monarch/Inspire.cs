@@ -8,14 +8,14 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills.Monarch
 {
-    public class DoubleTime : UnitSkill
+    public class Inspire : UnitSkill
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public DoubleTime(int duration, int statModifier) : base(
-            name: "Double Time",
-            description: "Grant a buff that increases an ally's MV by [+" + statModifier + "] for [" + duration +
+        public Inspire(int duration, int statModifier) : base(
+            name: "Inspire",
+            description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
                          "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             else if (targetUnit.Team == GameContext.ActiveUnit.Team)
             {
                 AssetManager.SkillBuffSFX.Play();
-                targetUnit.AddStatusEffect(new MoveStatUp(duration, statModifier));
+                targetUnit.AddStatusEffect(new AtkStatUp(duration, statModifier));
                 MapContainer.ClearDynamicGrid();
                 SkipCombatPhase(mapContext);
             }

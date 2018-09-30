@@ -9,14 +9,14 @@ namespace SolStandard.Entity.Unit.Skills.Archer
 {
     public class Draw : UnitSkill
     {
-        private static readonly int[] Range = {0};
         private bool active;
 
         public Draw() : base(
             name: "Draw",
             description: "Increase your range by 1."
                          + "\nDecrease your range by 1 if this ability is already active.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+            range: new[] {0}
         )
         {
             active = false;

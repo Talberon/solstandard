@@ -2,23 +2,23 @@
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class MoveStatUp : StatusEffect
+    public class AtkStatUp : StatusEffect
     {
-        private readonly int mvModifier;
+        private readonly int atkModifier;
 
-        public MoveStatUp(int turnDuration, int mvModifier) : base(
+        public AtkStatUp(int turnDuration, int atkModifier) : base(
             statusIcon: new RenderBlank(),
-            name: "MV Up!",
-            description: "Increased movement distance.",
+            name: "ATK Up!",
+            description: "Increased attack power.",
             turnDuration: turnDuration
         )
         {
-            this.mvModifier = mvModifier;
+            this.atkModifier = atkModifier;
         }
 
         public override void ApplyEffect(GameUnit target)
         {
-            target.Stats.Mv += mvModifier;
+            target.Stats.Atk += atkModifier;
         }
 
         protected override void ExecuteEffect(GameUnit target)
@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void RemoveEffect(GameUnit target)
         {
-            target.Stats.Mv -= mvModifier;
+            target.Stats.Atk -= atkModifier;
         }
     }
 }

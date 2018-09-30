@@ -9,8 +9,11 @@ namespace SolStandard.Entity.Unit.Statuses
         public string Description { get; protected set; }
         public int TurnDuration { get; private set; }
 
-        protected StatusEffect(int turnDuration)
+        protected StatusEffect(IRenderable statusIcon, string name, string description, int turnDuration)
         {
+            StatusIcon = statusIcon;
+            Name = name;
+            Description = description;
             TurnDuration = turnDuration;
         }
 

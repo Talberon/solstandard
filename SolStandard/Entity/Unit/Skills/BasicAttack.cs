@@ -14,7 +14,8 @@ namespace SolStandard.Entity.Unit.Skills
         public BasicAttack() : base(
             name: "Basic Attack",
             description: "Attack a target with dice based on your ATK statistic.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+            range: null
         )
         {
         }

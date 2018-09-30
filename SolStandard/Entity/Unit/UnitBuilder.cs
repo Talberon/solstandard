@@ -170,7 +170,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 new BasicAttack(),
-                new DoubleTime(2, 1),
+                new Inspire(2, 1),
+                new DoubleTime(1, 2),
                 new Wait()
             };
         }

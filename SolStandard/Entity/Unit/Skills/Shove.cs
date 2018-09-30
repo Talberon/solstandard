@@ -10,20 +10,14 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public class Shove : UnitSkill
     {
-        private static readonly int[] Range = {1};
 
         public Shove() : base(
             name: "Shove",
             description: "Push an enemy unit away one space if there is an unoccupied space behind them.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+            range: new[]{1}
         )
         {
-        }
-
-        public override void GenerateActionGrid(Vector2 origin)
-        {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, Range);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

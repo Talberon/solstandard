@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
@@ -11,21 +10,14 @@ namespace SolStandard.Entity.Unit.Skills.Champion
 {
     public class Tackle : UnitSkill
     {
-        private static readonly int[] Range = {1};
-
         public Tackle() : base(
             name: "Tackle",
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+            range: new[]{1}
         )
         {
-        }
-
-        public override void GenerateActionGrid(Vector2 origin)
-        {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, Range);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

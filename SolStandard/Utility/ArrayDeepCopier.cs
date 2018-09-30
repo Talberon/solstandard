@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace SolStandard.Utility
+﻿namespace SolStandard.Utility
 {
-    public class ArrayDeepCopier<T>
+    public static class ArrayDeepCopier<T>
     {
         public static T[] DeepCopyArray(T[] array)
         {
