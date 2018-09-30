@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit
             baseDef = def;
             maxSp = sp;
             baseMv = mv;
-            baseAtkRange = new List<int>(atkRange).ToArray();
+            baseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
 
         public int MaxHp

@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
 
         public DoubleTime(int duration, int statModifier) : base(
             name: "Double Time",
-            description: "Grant a buff that increases an ally's MV by " + statModifier + " for " + duration + " turns.",
+            description: "Grant a buff that increases an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action)
         )
         {
