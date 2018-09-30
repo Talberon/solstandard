@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Champion
 {
@@ -28,14 +31,27 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             {
                 Vector2 targetOriginalPosition = targetUnit.UnitEntity.MapCoordinates;
 
-                if (Shove.ShoveAction(targetUnit))
+                if (Shove.CanShove(targetUnit))
                 {
-                    MoveToTarget(targetOriginalPosition);
+                    MapContainer.ClearDynamicAndPreviewGrids();
 
-                    GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                    BasicAttack.StartCombat(targetUnit, mapContext, battleContext);
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new ShoveEvent(ref targetUnit));
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new MoveCoordinatesEvent(targetOriginalPosition));
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(
+                        new StartCombatEvent(
+                            GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                            GameContext.ActiveUnit.Stats.AtkRange,
+                            ref targetUnit,
+                            ref mapContext,
+                            ref battleContext,
+                            TileSprite
+                        )
+                    );
 
-                    EnterCombatPhase(mapContext);
+                    GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {

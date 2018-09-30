@@ -9,6 +9,12 @@ namespace SolStandard.Map.Elements
         protected IRenderable Sprite;
         protected Color ElementColor = Color.White;
         public Vector2 MapCoordinates { get; set; }
+        public bool Visible { get; set; }
+
+        protected MapElement()
+        {
+            Visible = true;
+        }
 
         public IRenderable RenderSprite
         {
@@ -22,7 +28,7 @@ namespace SolStandard.Map.Elements
 
         public virtual void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
-            Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
+            if (Visible) Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
         }
     }
 }

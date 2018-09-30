@@ -139,7 +139,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 new BasicAttack(),
-                new Draw(),
+                new Draw(2, 1),
                 new Shove(),
                 new Wait()
             };
@@ -150,7 +150,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 new BasicAttack(),
-                new Cover(1,2),
+                new Cover(1, 2),
                 new Tackle(),
                 new Shove(),
                 new Wait()

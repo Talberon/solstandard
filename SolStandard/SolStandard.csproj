@@ -78,6 +78,7 @@
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
@@ -140,6 +141,18 @@
     <Compile Include="Utility\Buttons\UpControl.cs" />
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
+    <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\EndTurnEvent.cs" />
+    <Compile Include="Utility\Events\HideUnitEvent.cs" />
+    <Compile Include="Utility\Events\IEvent.cs" />
+    <Compile Include="Utility\Events\GlobalEventQueue.cs" />
+    <Compile Include="Utility\Events\ShoveEvent.cs" />
+    <Compile Include="Utility\Events\StartCombatEvent.cs" />
+    <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
+    <Compile Include="Utility\Events\WaitActionEvent.cs" />
+    <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />

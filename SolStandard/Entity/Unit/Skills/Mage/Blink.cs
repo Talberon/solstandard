@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Mage
 {
@@ -28,10 +30,18 @@ namespace SolStandard.Entity.Unit.Skills.Mage
                 UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) && targetSlice.DynamicEntity != null
             )
             {
-                GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetSlice.MapCoordinates;
+                UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
+
                 MapContainer.ClearDynamicAndPreviewGrids();
-                AssetManager.SkillBlinkSFX.Play();
-                SkipCombatPhase(mapContext);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new HideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new BlinkCoordinatesEvent(targetSlice.MapCoordinates));
+                eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

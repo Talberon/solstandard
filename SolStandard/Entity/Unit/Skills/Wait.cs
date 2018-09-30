@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
@@ -24,8 +26,11 @@ namespace SolStandard.Entity.Unit.Skills
             if (targetSlice.DynamicEntity != null)
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-                SkipCombatPhase(mapContext);
-                AssetManager.MapUnitSelectSFX.Play();
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new WaitActionEvent());
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

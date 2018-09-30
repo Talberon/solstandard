@@ -40,15 +40,15 @@ namespace SolStandard.Entity.Unit.Skills
             AssetManager.MapUnitCancelSFX.Play();
         }
 
-        protected static void SkipCombatPhase(MapContext mapContext)
+        protected static void EnterEndPhase(MapContext mapContext)
         {
-            EnterCombatPhase(mapContext);
-            mapContext.ProceedToNextState();
+            mapContext.CurrentTurnState = MapContext.TurnState.ResolvingTurn;
+            mapContext.SetPromptWindowText("Confirm End Turn");
         }
 
-        protected static void EnterCombatPhase(MapContext mapContext)
+        protected static void EnterActionPhase(MapContext mapContext)
         {
-            mapContext.ProceedToNextState();
+            mapContext.CurrentTurnState = MapContext.TurnState.UnitActing;
             mapContext.SetPromptWindowText("Confirm End Turn");
         }
 

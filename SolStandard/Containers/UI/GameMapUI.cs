@@ -296,13 +296,13 @@ namespace SolStandard.Containers.UI
 
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
 
-            IRenderable[,] selectedUnitStatuses = new IRenderable[1, selectedUnit.StatusEffects.Count];
+            IRenderable[,] selectedUnitStatuses = new IRenderable[selectedUnit.StatusEffects.Count, 1];
 
             for (int i = 0; i < selectedUnit.StatusEffects.Count; i++)
             {
                 StatusEffect effect = selectedUnit.StatusEffects[i];
 
-                selectedUnitStatuses[0, i] = new Window(
+                selectedUnitStatuses[i, 0] = new Window(
                     "Status " + effect.Name,
                     windowTexture,
                     new WindowContentGrid(

@@ -45,10 +45,15 @@ namespace SolStandard.Entity.Unit
 
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
-            Sprite.Draw(spriteBatch,
-                MapCoordinates * GameDriver.CellSize - new Vector2(UnitSprite.Width, UnitSprite.Height) / 2 + new Vector2(GameDriver.CellSize) / 2,
-                
-                colorOverride);
+            if (Visible)
+            {
+                Sprite.Draw(
+                    spriteBatch,
+                    MapCoordinates * GameDriver.CellSize - new Vector2(UnitSprite.Width, UnitSprite.Height) / 2 +
+                    new Vector2(GameDriver.CellSize) / 2,
+                    colorOverride
+                );
+            }
         }
     }
 }

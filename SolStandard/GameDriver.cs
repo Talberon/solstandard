@@ -14,6 +14,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard
@@ -184,20 +185,25 @@ namespace SolStandard
                 }
             }
 
-            switch (GameContext.ActivePlayer)
+            if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
-                case PlayerIndex.One:
-                    ControlContext.ListenForInputs(_gameContext, p1ControlMapper, _mapCamera, MapContainer.MapCursor);
-                    break;
-                case PlayerIndex.Two:
-                    ControlContext.ListenForInputs(_gameContext, p2ControlMapper, _mapCamera, MapContainer.MapCursor);
-                    break;
-                case PlayerIndex.Three:
-                    break;
-                case PlayerIndex.Four:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (GameContext.ActivePlayer)
+                {
+                    case PlayerIndex.One:
+                        ControlContext.ListenForInputs(_gameContext, p1ControlMapper, _mapCamera,
+                            MapContainer.MapCursor);
+                        break;
+                    case PlayerIndex.Two:
+                        ControlContext.ListenForInputs(_gameContext, p2ControlMapper, _mapCamera,
+                            MapContainer.MapCursor);
+                        break;
+                    case PlayerIndex.Three:
+                        break;
+                    case PlayerIndex.Four:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             switch (GameContext.CurrentGameState)

@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
@@ -28,19 +30,29 @@ namespace SolStandard.Entity.Unit.Skills
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
+            Queue<IEvent> eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                StartCombat(targetUnit, mapContext, battleContext);
-                EnterCombatPhase(mapContext);
+                eventQueue.Enqueue(
+                    new StartCombatEvent(
+                        GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                        GameContext.ActiveUnit.Stats.AtkRange,
+                        ref targetUnit,
+                        ref mapContext,
+                        ref battleContext,
+                        TileSprite
+                    )
+                );
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (mapContext.SelectedUnit == targetUnit)
             {
                 //Skip the combat state if player selects the same unit
-                MapContainer.ClearDynamicAndPreviewGrids();
-                mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                SkipCombatPhase(mapContext);
                 AssetManager.MapUnitSelectSFX.Play();
+
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

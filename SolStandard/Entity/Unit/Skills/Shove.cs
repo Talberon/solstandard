@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
@@ -23,14 +25,17 @@ namespace SolStandard.Entity.Unit.Skills
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-            
+
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                if (ShoveAction(targetUnit))
+                if (CanShove(targetUnit))
                 {
-                    SkipCombatPhase(mapContext);
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    AssetManager.CombatBlockSFX.Play();
+
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new ShoveEvent(ref targetUnit));
+                    eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                    GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
@@ -43,7 +48,7 @@ namespace SolStandard.Entity.Unit.Skills
             }
         }
 
-        public static bool ShoveAction(GameUnit target)
+        public static bool CanShove(GameUnit target)
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
@@ -51,14 +56,13 @@ namespace SolStandard.Entity.Unit.Skills
 
             if (TargetUnitIsInRange(target) && UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
             {
-                target.UnitEntity.MapCoordinates = oppositeCoordinates;
                 return true;
             }
 
             return false;
         }
 
-        private static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
+        public static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
         {
             Vector2 oppositeCoordinates = targetCoordinates;
 

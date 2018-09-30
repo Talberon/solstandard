@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
@@ -6,6 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Champion
 {
@@ -17,8 +19,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
         public Cover(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cover, new Vector2(32)),
             name: "Cover",
-            description: "Grant a buff that increases an ally's DEF by [+" + statModifier + "] for [" + duration +
-                         "] turns.",
+            description: "Increase an ally's DEF by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
@@ -33,10 +34,12 @@ namespace SolStandard.Entity.Unit.Skills.Champion
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
-                AssetManager.SkillBuffSFX.Play();
-                targetUnit.AddStatusEffect(new DefStatUp(duration, statModifier));
                 MapContainer.ClearDynamicAndPreviewGrids();
-                SkipCombatPhase(mapContext);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new DefStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

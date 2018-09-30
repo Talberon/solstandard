@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
@@ -6,6 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Monarch
 {
@@ -18,7 +20,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
             name: "Inspire",
             description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
-                         "] turns.",
+                         " ] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
@@ -33,10 +35,12 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
-                AssetManager.SkillBuffSFX.Play();
-                targetUnit.AddStatusEffect(new AtkStatUp(duration, statModifier));
                 MapContainer.ClearDynamicAndPreviewGrids();
-                SkipCombatPhase(mapContext);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

@@ -1,33 +1,31 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Archer
 {
     public class Draw : UnitSkill
     {
-        private bool active;
+        private readonly int statModifier;
+        private readonly int duration;
 
-        public Draw() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(32)),
+        public Draw(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
             name: "Draw",
-            description: "Increase your range by 1."
-                         + "\nDecrease your range by 1 if this ability is already active.",
+            description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0}
         )
         {
-            active = false;
-        }
-
-        public override void GenerateActionGrid(Vector2 origin)
-        {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
+            this.duration = duration;
+            this.statModifier = statModifier;
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -36,24 +34,12 @@ namespace SolStandard.Entity.Unit.Skills.Archer
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                if (!active)
-                {
-                    for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
-                    {
-                        GameContext.ActiveUnit.Stats.AtkRange[i]++;
-                    }
-                }
-                else
-                {
-                    GameContext.ActiveUnit.Stats.AtkRange = GameContext.ActiveUnit.Stats.BaseAtkRange;
-                }
-
-                active = !active;
-
-                AssetManager.SkillBuffSFX.Play();
                 MapContainer.ClearDynamicAndPreviewGrids();
-                mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                SkipCombatPhase(mapContext);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkRangeStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {

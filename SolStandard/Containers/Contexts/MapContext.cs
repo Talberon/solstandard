@@ -25,7 +25,7 @@ namespace SolStandard.Containers.Contexts
             ResolvingTurn
         }
 
-        public TurnState CurrentTurnState { get; private set; }
+        public TurnState CurrentTurnState { get; set; }
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;

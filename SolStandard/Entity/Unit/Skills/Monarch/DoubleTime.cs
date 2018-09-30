@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
@@ -6,6 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Monarch
 {
@@ -17,8 +19,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
         public DoubleTime(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(32)),
             name: "Double Time",
-            description: "Grant a buff that increases an ally's MV by [+" + statModifier + "] for [" + duration +
-                         "] turns.",
+            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
@@ -33,10 +34,12 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
-                AssetManager.SkillBuffSFX.Play();
-                targetUnit.AddStatusEffect(new MoveStatUp(duration, statModifier));
                 MapContainer.ClearDynamicAndPreviewGrids();
-                SkipCombatPhase(mapContext);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new MoveStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
