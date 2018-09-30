@@ -6,6 +6,7 @@ namespace SolStandard.Entity.Unit.Statuses
     public class MoveStatUp : StatusEffect
     {
         private readonly int mvModifier;
+        private const int FrameDelay = 10;
 
         public MoveStatUp(int turnDuration, int mvModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
@@ -20,7 +21,9 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             target.Stats.Mv += mvModifier;
+            target.UnitEntity.UnitSprite.SetFrameDelay(FrameDelay);
         }
+
 
         protected override void ExecuteEffect(GameUnit target)
         {
@@ -30,6 +33,7 @@ namespace SolStandard.Entity.Unit.Statuses
         protected override void RemoveEffect(GameUnit target)
         {
             target.Stats.Mv -= mvModifier;
+            target.UnitEntity.UnitSprite.ResetFrameDelay();
         }
     }
 }

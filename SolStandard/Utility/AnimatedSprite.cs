@@ -13,7 +13,8 @@ namespace SolStandard.Utility
         private int currentRow;
         private int currentColumn;
         private int frameDelayCounter;
-        private readonly int frameDelay;
+        protected int FrameDelay { get; set; }
+        protected readonly int DefaultFrameDelay;
         private readonly bool reversible;
         private bool reversing;
 
@@ -21,8 +22,9 @@ namespace SolStandard.Utility
         {
             this.spriteMap = spriteMap;
             this.cellSize = cellSize;
-            this.frameDelay = frameDelay;
             this.reversible = reversible;
+            DefaultFrameDelay = frameDelay;
+            FrameDelay = frameDelay;
             frameDelayCounter = 0;
             currentRow = 0;
             currentColumn = 0;
@@ -54,7 +56,7 @@ namespace SolStandard.Utility
 
         private void UpdateFrame()
         {
-            if (frameDelayCounter % frameDelay == 0)
+            if (frameDelayCounter % FrameDelay == 0)
             {
                 frameDelayCounter = 0;
 
@@ -73,7 +75,7 @@ namespace SolStandard.Utility
 
         private void UpdateFrameReversible()
         {
-            if (frameDelayCounter % frameDelay == 0)
+            if (frameDelayCounter % FrameDelay == 0)
             {
                 frameDelayCounter = 0;
 
@@ -143,7 +145,7 @@ namespace SolStandard.Utility
 
         public AnimatedSprite Clone()
         {
-            return new AnimatedSprite(spriteMap, cellSize, renderSize, frameDelay, reversible);
+            return new AnimatedSprite(spriteMap, cellSize, renderSize, FrameDelay, reversible);
         }
     }
 }
