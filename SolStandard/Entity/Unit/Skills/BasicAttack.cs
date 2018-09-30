@@ -11,6 +11,7 @@ namespace SolStandard.Entity.Unit.Skills
     public class BasicAttack : UnitSkill
     {
         public BasicAttack() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
             name: "Basic Attack",
             description: "Attack a target with dice based on your ATK statistic.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

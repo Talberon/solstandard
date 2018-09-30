@@ -307,6 +307,52 @@ namespace SolStandard.Utility.Load
             return buttonIconITextures;
         }
 
+
+        public static List<ITexture2D> LoadSkillIcons(ContentManager content)
+        {
+            List<Texture2D> textures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cover"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Draw"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inspire"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Shove"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tackle"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wait"),
+            };
+
+            List<ITexture2D> skillTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in textures)
+            {
+                skillTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return skillTextures;
+        }
+
+        public static List<ITexture2D> LoadStatusIcons(ContentManager content)
+        {
+            List<Texture2D> textures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkRangeUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/defUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/hpUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/mvUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/spUp"),
+            };
+
+            List<ITexture2D> statusTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in textures)
+            {
+                statusTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return statusTextures;
+        }
+
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder3b");

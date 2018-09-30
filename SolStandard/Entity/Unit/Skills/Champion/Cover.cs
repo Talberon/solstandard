@@ -1,4 +1,5 @@
-﻿using SolStandard.Containers;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
@@ -14,6 +15,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
         private readonly int duration;
 
         public Cover(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cover, new Vector2(32)),
             name: "Cover",
             description: "Grant a buff that increases an ally's DEF by [+" + statModifier + "] for [" + duration +
                          "] turns.",

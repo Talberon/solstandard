@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.ActionMenu
@@ -9,7 +11,20 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
     {
         private readonly UnitSkill skill;
 
-        public SkillOption(Color windowColor, UnitSkill skill) : base(windowColor, skill.Name, AssetManager.WindowFont)
+        public SkillOption(Color windowColor, UnitSkill skill) : base(
+            windowColor,
+            new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        skill.Icon,
+                        new RenderText(AssetManager.WindowFont, skill.Name),
+                    }
+                },
+                1
+            ),
+            AssetManager.WindowFont
+        )
         {
             this.skill = skill;
         }

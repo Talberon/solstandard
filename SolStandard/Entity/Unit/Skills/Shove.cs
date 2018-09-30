@@ -11,6 +11,7 @@ namespace SolStandard.Entity.Unit.Skills
     public class Shove : UnitSkill
     {
         public Shove() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(32)),
             name: "Shove",
             description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

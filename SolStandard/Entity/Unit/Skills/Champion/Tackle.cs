@@ -10,6 +10,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
     public class Tackle : UnitSkill
     {
         public Tackle() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, new Vector2(32)),
             name: "Tackle",
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",

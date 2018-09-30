@@ -1,4 +1,5 @@
-﻿using SolStandard.HUD.Window.Content;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
@@ -7,7 +8,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int atkModifier;
 
         public AtkStatUp(int turnDuration, int atkModifier) : base(
-            statusIcon: new RenderBlank(),
+            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkUp, new Vector2(32)),
             name: "ATK Up!",
             description: "Increased attack power.",
             turnDuration: turnDuration

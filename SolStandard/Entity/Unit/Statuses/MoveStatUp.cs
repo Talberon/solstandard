@@ -1,4 +1,5 @@
-﻿using SolStandard.HUD.Window.Content;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
@@ -7,7 +8,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int mvModifier;
 
         public MoveStatUp(int turnDuration, int mvModifier) : base(
-            statusIcon: new RenderBlank(),
+            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
             name: "MV Up!",
             description: "Increased movement distance.",
             turnDuration: turnDuration

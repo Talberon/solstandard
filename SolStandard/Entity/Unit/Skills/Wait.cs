@@ -1,4 +1,5 @@
-﻿using SolStandard.Containers;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -9,6 +10,7 @@ namespace SolStandard.Entity.Unit.Skills
     public class Wait : UnitSkill
     {
         public Wait() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Wait, new Vector2(32)),
             name: "Wait",
             description: "Take no action and end your turn.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

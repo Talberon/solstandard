@@ -9,13 +9,15 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public abstract class UnitSkill
     {
+        public IRenderable Icon { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; private set; }
 
-        protected UnitSkill(string name, string description, SpriteAtlas tileSprite, int[] range)
+        protected UnitSkill(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range)
         {
+            Icon = icon;
             Name = name;
             Description = description;
             TileSprite = tileSprite;

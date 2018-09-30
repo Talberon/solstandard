@@ -13,6 +13,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         private bool active;
 
         public Draw() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(32)),
             name: "Draw",
             description: "Increase your range by 1."
                          + "\nDecrease your range by 1 if this ability is already active.",

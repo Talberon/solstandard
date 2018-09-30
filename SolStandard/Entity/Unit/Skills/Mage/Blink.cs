@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
@@ -12,6 +13,7 @@ namespace SolStandard.Entity.Unit.Skills.Mage
         private static readonly int[] BlinkRange = {1, 2, 3, 4};
 
         public Blink() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
             name: "Blink",
             description: "Move to an unoccupied space within " + BlinkRange.Max() + "spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

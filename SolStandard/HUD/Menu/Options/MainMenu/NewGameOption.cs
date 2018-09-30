@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.MainMenu
@@ -8,7 +9,11 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
     {
         private const string NewGameOptionText = "New Game";
 
-        public NewGameOption(Color windowColor) : base(windowColor, NewGameOptionText, AssetManager.MainMenuFont)
+        public NewGameOption(Color windowColor) : base(
+            windowColor,
+            new RenderText(AssetManager.MainMenuFont, NewGameOptionText),
+            AssetManager.MainMenuFont
+        )
         {
         }
 

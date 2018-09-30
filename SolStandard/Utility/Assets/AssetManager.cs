@@ -21,9 +21,9 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
         public static ISoundEffect WarningSFX { get; private set; }
-        
+
         public static ISoundEffect SkillBuffSFX { get; private set; }
-        public static ISoundEffect SkillBlinkSFX  { get; private set; }
+        public static ISoundEffect SkillBlinkSFX { get; private set; }
 
         public static List<Song> MusicTracks { get; private set; }
 
@@ -31,7 +31,10 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> TerrainTextures { get; set; }
         public static List<ITexture2D> MapPreviewTextures { get; private set; }
         private static List<ITexture2D> GuiTextures { get; set; }
+
         private static List<ITexture2D> ButtonIcons { get; set; }
+        private static List<ITexture2D> SkillIcons { get; set; }
+        private static List<ITexture2D> StatusIcons { get; set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -65,7 +68,7 @@ namespace SolStandard.Utility.Assets
         {
             get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
         }
-        
+
         public static ITexture2D EntitiesTexture
         {
             get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/entities-32")); }
@@ -89,7 +92,8 @@ namespace SolStandard.Utility.Assets
         {
             get
             {
-                return GuiTextures.Find(texture => texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow_32"));
+                return GuiTextures.Find(texture =>
+                    texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow_32"));
             }
         }
 
@@ -111,7 +115,6 @@ namespace SolStandard.Utility.Assets
 
             GuiTextures = ContentLoader.LoadCursorTextures(content);
             WindowTextures = ContentLoader.LoadWindowTextures(content);
-            ButtonIcons = ContentLoader.LoadButtonIcons(content);
             MapPreviewTextures = ContentLoader.LoadMapPreviews(content);
 
             WindowFont = ContentLoader.LoadWindowFont(content);
@@ -131,7 +134,16 @@ namespace SolStandard.Utility.Assets
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
 
+
+            ButtonIcons = ContentLoader.LoadButtonIcons(content);
             ButtonIconProvider.LoadButtons(ButtonIcons);
+
+            SkillIcons = ContentLoader.LoadSkillIcons(content);
+            SkillIconProvider.LoadSkillIcons(SkillIcons);
+
+            StatusIcons = ContentLoader.LoadStatusIcons(content);
+            StatusIconProvider.LoadStatusIcons(StatusIcons);
+
 
             MenuMoveSFX = ContentLoader.LoadMenuMoveSFX(content);
             MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);
@@ -147,7 +159,7 @@ namespace SolStandard.Utility.Assets
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
             WarningSFX = ContentLoader.LoadWarningSFX(content);
-            
+
             SkillBuffSFX = ContentLoader.LoadSkillDrawSFX(content);
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);
 

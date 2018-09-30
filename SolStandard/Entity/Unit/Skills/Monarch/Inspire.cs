@@ -1,4 +1,5 @@
-﻿using SolStandard.Containers;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
@@ -14,6 +15,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
         private readonly int duration;
 
         public Inspire(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
             name: "Inspire",
             description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
                          "] turns.",

@@ -1,4 +1,5 @@
-﻿using SolStandard.HUD.Window.Content;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
@@ -7,7 +8,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int defModifier;
 
         public DefStatUp(int turnDuration, int defModifier) : base(
-            statusIcon: new RenderBlank(),
+            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.DefUp, new Vector2(32)),
             name: "DEF Up!",
             description: "Increased defensive power.",
             turnDuration: turnDuration

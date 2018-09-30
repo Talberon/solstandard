@@ -10,22 +10,22 @@ namespace SolStandard.HUD.Menu.Options
     public abstract class MenuOption : IRenderable
     {
         private readonly Color color;
-        private readonly string labelText;
+        private readonly IRenderable labelContent;
         private readonly Window.Window optionWindow;
 
-        protected MenuOption(Color color, string labelText, ISpriteFont font)
+        protected MenuOption(Color color, IRenderable labelContent, ISpriteFont font)
         {
             this.color = color;
-            this.labelText = labelText;
+            this.labelContent = labelContent;
             optionWindow = BuildOptionWindow(font);
         }
 
         private Window.Window BuildOptionWindow(ISpriteFont font)
         {
             return new Window.Window(
-                labelText,
+                "Option",
                 AssetManager.WindowTexture,
-                new RenderText(font, labelText),
+                labelContent,
                 color
             );
         }

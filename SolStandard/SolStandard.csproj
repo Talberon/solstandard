@@ -118,6 +118,8 @@
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
+    <Compile Include="Utility\Assets\SkillIconProvider.cs" />
+    <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
     <Compile Include="Utility\Buttons\RightBumperControl.cs" />
