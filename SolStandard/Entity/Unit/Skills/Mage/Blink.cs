@@ -4,7 +4,6 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills.Mage
@@ -30,8 +29,7 @@ namespace SolStandard.Entity.Unit.Skills.Mage
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
             if (
-                UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
-                MapContainer.GetMapSliceAtCoordinates(targetSlice.MapCoordinates).DynamicEntity != null
+                UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) && targetSlice.DynamicEntity != null
             )
             {
                 GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetSlice.MapCoordinates;

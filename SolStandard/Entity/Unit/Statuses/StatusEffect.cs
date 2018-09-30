@@ -18,13 +18,16 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public virtual void UpdateEffect(GameUnit target)
         {
-            if (TurnDuration <= 0)
+            TurnDuration--;
+
+            if (TurnDuration < 1)
             {
                 RemoveEffect(target);
             }
-
-            TurnDuration--;
-            ExecuteEffect(target);
+            else
+            {
+                ExecuteEffect(target);
+            }
         }
 
         protected abstract void ExecuteEffect(GameUnit target);

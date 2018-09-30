@@ -245,7 +245,7 @@ namespace SolStandard.Containers.Contexts
             GameMapUI.GenerateActionMenuDescription();
         }
 
-        public bool TargetUnitIsLegal(GameUnit targetUnit)
+        public bool TargetUnitIsEnemyInRange(GameUnit targetUnit)
         {
             return
                 targetUnit != null

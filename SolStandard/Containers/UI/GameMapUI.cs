@@ -310,6 +310,7 @@ namespace SolStandard.Containers.UI
                         new[,]
                         {
                             {
+                                new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "]"),
                                 effect.StatusIcon,
                                 new RenderText(AssetManager.WindowFont, effect.Name)
                             }

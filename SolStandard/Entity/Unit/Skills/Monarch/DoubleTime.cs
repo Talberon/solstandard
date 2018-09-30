@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (targetUnit == null || targetUnit == GameContext.ActiveUnit)
+            if (targetUnit == null || targetUnit == GameContext.ActiveUnit || targetSlice.DynamicEntity == null)
             {
                 AssetManager.WarningSFX.Play();
             }

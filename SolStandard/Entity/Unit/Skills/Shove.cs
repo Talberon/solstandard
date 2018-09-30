@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Skills
 
         public static bool ShoveAction(GameUnit target, MapContext mapContext)
         {
-            if (!mapContext.TargetUnitIsLegal(target))
+            if (!mapContext.TargetUnitIsEnemyInRange(target))
             {
                 AssetManager.WarningSFX.Play();
                 return false;

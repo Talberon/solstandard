@@ -121,7 +121,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(5, 4, 3, 1, 5, new[] {1});
+            return new UnitStatistics(4, 4, 3, 1, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()

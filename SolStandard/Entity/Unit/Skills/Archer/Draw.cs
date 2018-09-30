@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
 
             if (!active)
             {
-                for (int i = 0; i < GameContext.ActiveUnit.Stats.BaseAtkRange.Length; i++)
+                for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
                 {
                     GameContext.ActiveUnit.Stats.AtkRange[i]++;
                 }
@@ -49,6 +49,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             }
 
             active = !active;
+
             AssetManager.SkillBuffSFX.Play();
 
             MapContainer.ClearDynamicGrid();

@@ -202,33 +202,33 @@ namespace SolStandard.Containers.Contexts
             switch (BattleContext.CurrentState)
             {
                 case BattleContext.BattleState.Start:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartRollingDice();
                     }
 
                     break;
                 case BattleContext.BattleState.RollDice:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingBlocks();
                     }
 
                     break;
                 case BattleContext.BattleState.CountDice:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingDamage();
                     }
 
                     break;
                 case BattleContext.BattleState.ResolveCombat:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         MapContext.ProceedToNextState();
                     }
 

@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Skills
             GameUnit attackingUnit = mapContext.SelectedUnit;
             GameUnit defendingUnit = target;
 
-            if (mapContext.TargetUnitIsLegal(defendingUnit))
+            if (mapContext.TargetUnitIsEnemyInRange(defendingUnit))
             {
                 MapContainer.ClearDynamicGrid();
                 battleContext.StartNewCombat(attackingUnit,

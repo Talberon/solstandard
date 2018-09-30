@@ -250,7 +250,6 @@ namespace SolStandard.Entity.Unit
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            UpdateStatusEffects();
         }
 
         public void DisableExhaustedUnit()
@@ -260,6 +259,7 @@ namespace SolStandard.Entity.Unit
             Enabled = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
             SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            UpdateStatusEffects();
         }
 
         public void SetUnitAnimation(UnitSprite.UnitAnimationState state)
@@ -283,7 +283,7 @@ namespace SolStandard.Entity.Unit
                 effect.UpdateEffect(this);
             }
 
-            StatusEffects.RemoveAll(effect => effect.TurnDuration <= 0);
+            StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
         }
 
         private void KillIfDead()

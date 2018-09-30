@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -53,7 +54,7 @@ namespace SolStandard.Entity.Unit
             baseDef = def;
             maxSp = sp;
             baseMv = mv;
-            baseAtkRange = atkRange;
+            baseAtkRange = new List<int>(atkRange).ToArray();
         }
 
         public int MaxHp

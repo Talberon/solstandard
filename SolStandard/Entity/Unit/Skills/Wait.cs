@@ -27,9 +27,16 @@ namespace SolStandard.Entity.Unit.Skills
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            MapContainer.ClearDynamicGrid();
-            SkipCombatPhase(mapContext);
-            AssetManager.MapUnitSelectSFX.Play();
+            if (targetSlice.DynamicEntity != null)
+            {
+                MapContainer.ClearDynamicGrid();
+                SkipCombatPhase(mapContext);
+                AssetManager.MapUnitSelectSFX.Play();
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+            }
         }
     }
 }
