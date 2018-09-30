@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Skills
             GameUnit attackingUnit = mapContext.SelectedUnit;
             GameUnit defendingUnit = target;
 
-            if (mapContext.TargetUnitIsEnemyInRange(defendingUnit))
+            if (TargetUnitIsEnemyInRange(defendingUnit))
             {
                 MapContainer.ClearDynamicGrid();
                 battleContext.StartNewCombat(attackingUnit,
@@ -68,6 +68,15 @@ namespace SolStandard.Entity.Unit.Skills
 
             AssetManager.WarningSFX.Play();
             return false;
+        }
+        
+        private static bool TargetUnitIsEnemyInRange(GameUnit targetUnit)
+        {
+            return
+                targetUnit != null
+                && GameContext.ActiveUnit != targetUnit
+                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null)
+                && GameContext.ActiveUnit.Team != targetUnit.Team;
         }
     }
 }

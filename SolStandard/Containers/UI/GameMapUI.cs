@@ -24,7 +24,6 @@ namespace SolStandard.Containers.UI
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
-        private const int UnitDetailVerticalAdjustment = 3;
 
         public Window LeftUnitPortraitWindow { get; private set; }
         public Window LeftUnitDetailWindow { get; private set; }

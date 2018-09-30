@@ -140,6 +140,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Draw(),
+                new Shove(),
                 new Wait()
             };
         }
@@ -149,6 +150,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitSkill>
             {
                 new BasicAttack(),
+                new Cover(1,2),
                 new Tackle(),
                 new Shove(),
                 new Wait()
@@ -161,6 +163,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Blink(),
+                new Shove(),
                 new Wait()
             };
         }
@@ -172,6 +175,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Inspire(2, 1),
                 new DoubleTime(1, 2),
+                new Shove(),
                 new Wait()
             };
         }

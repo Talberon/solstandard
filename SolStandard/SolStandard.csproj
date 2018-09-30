@@ -70,6 +70,7 @@
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
+    <Compile Include="Entity\Unit\Skills\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitBuilder.cs" />

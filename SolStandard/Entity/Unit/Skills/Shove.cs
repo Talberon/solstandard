@@ -10,12 +10,11 @@ namespace SolStandard.Entity.Unit.Skills
 {
     public class Shove : UnitSkill
     {
-
         public Shove() : base(
             name: "Shove",
-            description: "Push an enemy unit away one space if there is an unoccupied space behind them.",
+            description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[]{1}
+            range: new[] {1}
         )
         {
         }
@@ -46,26 +45,22 @@ namespace SolStandard.Entity.Unit.Skills
 
         public static bool ShoveAction(GameUnit target, MapContext mapContext)
         {
-            if (!mapContext.TargetUnitIsEnemyInRange(target))
-            {
-                AssetManager.WarningSFX.Play();
-                return false;
-            }
-
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = DetermineShoveDirection(actorCoordinates, targetCoordinates);
 
-            if (UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
+            if (TargetUnitIsInRange(target) && UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
             {
                 target.UnitEntity.MapCoordinates = oppositeCoordinates;
                 MapContainer.ClearDynamicGrid();
                 AssetManager.CombatBlockSFX.Play();
                 return true;
             }
-
-            AssetManager.WarningSFX.Play();
-            return false;
+            else
+            {
+                AssetManager.WarningSFX.Play();
+                return false;
+            }
         }
 
         private static Vector2 DetermineShoveDirection(Vector2 actorCoordinates, Vector2 targetCoordinates)
@@ -117,6 +112,15 @@ namespace SolStandard.Entity.Unit.Skills
         private static bool ActorNorthOfTarget(Vector2 actorCoordinates, Vector2 targetCoordinates)
         {
             return actorCoordinates.Y < targetCoordinates.Y;
+        }
+
+
+        private static bool TargetUnitIsInRange(GameUnit targetUnit)
+        {
+            return
+                targetUnit != null
+                && GameContext.ActiveUnit != targetUnit
+                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null);
         }
     }
 }

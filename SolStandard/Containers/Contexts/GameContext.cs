@@ -26,6 +26,10 @@ namespace SolStandard.Containers.Contexts
             InGame,
             Results
         }
+        
+        public static readonly Color PositiveColor = new Color(30, 200, 30);
+        public static readonly Color NegativeColor = new Color(250, 10, 10);
+        public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private MapContext mapContext;
         private readonly BattleContext battleContext;

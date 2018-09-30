@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -145,6 +146,15 @@ namespace SolStandard.Entity.Unit
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
 
             return output;
+        }
+
+        public static Color DetermineStatColor(int stat, int baseStat)
+        {
+            if (stat > baseStat) return GameContext.PositiveColor;
+            if (stat == baseStat) return GameContext.NeutralColor;
+            if (stat < baseStat) return GameContext.NegativeColor;
+
+            return Color.White;
         }
     }
 }

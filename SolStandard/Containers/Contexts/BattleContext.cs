@@ -149,7 +149,7 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
                 attacker.Role.ToString());
             battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
-            battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats.Atk);
+            battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats);
             battleUI.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
             battleUI.GenerateAttackerDiceLabelWindow(attackerWindowColor);
 
@@ -169,7 +169,7 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
                 defender.Role.ToString());
             battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
-            battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats.Def);
+            battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats);
             battleUI.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
             battleUI.GenerateDefenderDiceLabelWindow(defenderWindowColor);
 

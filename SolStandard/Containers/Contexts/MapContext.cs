@@ -245,13 +245,5 @@ namespace SolStandard.Containers.Contexts
             GameMapUI.GenerateActionMenuDescription();
         }
 
-        public bool TargetUnitIsEnemyInRange(GameUnit targetUnit)
-        {
-            return
-                targetUnit != null
-                && SelectedUnit != targetUnit
-                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null)
-                && SelectedUnit.Team != targetUnit.Team;
-        }
     }
 }

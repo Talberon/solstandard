@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Skills;
@@ -154,32 +155,62 @@ namespace SolStandard.Entity.Unit
                     {
                         {
                             new RenderText(AssetManager.HeaderFont, Id),
+                            new RenderBlank(),
                             new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: " + Stats.Hp)
+                            new RenderText(AssetManager.WindowFont, "HP: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Hp.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Hp, Stats.MaxHp)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(AssetManager.WindowFont, "ATK: " + Stats.Atk)
+                            new RenderText(AssetManager.WindowFont, "ATK: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Atk.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(AssetManager.WindowFont, "DEF: " + Stats.Def)
+                            new RenderText(AssetManager.WindowFont, "DEF: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Def.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(AssetManager.WindowFont, "SP: " + Stats.Sp)
+                            new RenderText(AssetManager.WindowFont, "SP: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Sp.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, "MV: " + Stats.Mv)
+                            new RenderText(AssetManager.WindowFont, "MV: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Mv.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
+                            new RenderText(AssetManager.WindowFont, "RNG:"),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
+                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(), Stats.BaseAtkRange.Max())
+                            )
                         }
                     },
                     2

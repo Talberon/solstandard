@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -18,9 +19,6 @@ namespace SolStandard.Containers.UI
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 150);
 
         private const int WindowSpacing = 5;
-        private static readonly Color PositiveColor = new Color(30, 200, 30);
-        private static readonly Color NegativeColor = new Color(250, 10, 10);
-        private static readonly Color NeutralColor = new Color(200, 200, 200);
 
         public Window AttackerLabelWindow { get; private set; }
         public Window AttackerPortraitWindow { get; private set; }
@@ -95,7 +93,8 @@ namespace SolStandard.Containers.UI
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
-                    new RenderText(AssetManager.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
+                    new RenderText(AssetManager.WindowFont, inRange.ToString(),
+                        (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
                 }
             };
             WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
@@ -125,7 +124,9 @@ namespace SolStandard.Containers.UI
                     UnitStatistics.GetSpriteAtlas(StatIcons.BonusAtk),
                     new RenderText(AssetManager.WindowFont, "Bonus: "),
                     new RenderText(AssetManager.WindowFont, terrainAttackBonus,
-                        (Convert.ToInt32(terrainAttackBonus) > 0) ? PositiveColor : NeutralColor)
+                        (Convert.ToInt32(terrainAttackBonus) > 0)
+                            ? GameContext.PositiveColor
+                            : GameContext.NeutralColor)
                 }
             };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
@@ -136,14 +137,18 @@ namespace SolStandard.Containers.UI
         }
 
         internal void GenerateAttackerAtkWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
-            int atkValue)
+            UnitStatistics attackerStats)
         {
             IRenderable[,] attackerAtkContent =
             {
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
                     new RenderText(AssetManager.WindowFont, "ATK: "),
-                    new RenderText(AssetManager.WindowFont, atkValue.ToString())
+                    new RenderText(
+                        AssetManager.WindowFont,
+                        attackerStats.Atk.ToString(),
+                        UnitStatistics.DetermineStatColor(attackerStats.Atk, attackerStats.BaseAtk)
+                    )
                 }
             };
             WindowContentGrid attackerAtkContentGrid = new WindowContentGrid(attackerAtkContent, 1);
@@ -217,7 +222,8 @@ namespace SolStandard.Containers.UI
                 {
                     UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
-                    new RenderText(AssetManager.WindowFont, inRange.ToString(), (inRange) ? PositiveColor : NegativeColor)
+                    new RenderText(AssetManager.WindowFont, inRange.ToString(),
+                        (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
                 }
             };
 
@@ -248,7 +254,9 @@ namespace SolStandard.Containers.UI
                     UnitStatistics.GetSpriteAtlas(StatIcons.BonusDef),
                     new RenderText(AssetManager.WindowFont, "Bonus: "),
                     new RenderText(AssetManager.WindowFont, terrainDefenseBonus,
-                        (Convert.ToInt32(terrainDefenseBonus) > 0) ? PositiveColor : NeutralColor)
+                        (Convert.ToInt32(terrainDefenseBonus) > 0)
+                            ? GameContext.PositiveColor
+                            : GameContext.NeutralColor)
                 }
             };
             WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
@@ -258,14 +266,19 @@ namespace SolStandard.Containers.UI
             return Convert.ToInt32(terrainDefenseBonus);
         }
 
-        internal void GenerateDefenderDefWindow(Color defenderWindowColor, Vector2 portraitWidthOverride, int defValue)
+        internal void GenerateDefenderDefWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+            UnitStatistics defenderStats)
         {
             IRenderable[,] defenderAtkContent =
             {
                 {
                     new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 3),
                     new RenderText(AssetManager.WindowFont, "DEF: "),
-                    new RenderText(AssetManager.WindowFont, defValue.ToString())
+                    new RenderText(
+                        AssetManager.WindowFont,
+                        defenderStats.Def.ToString(),
+                        UnitStatistics.DetermineStatColor(defenderStats.Def, defenderStats.BaseDef)
+                    )
                 }
             };
             WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
