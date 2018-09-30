@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Skills
         public virtual void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, Range);
+            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
         }
 
         public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Skills
         // ReSharper disable once MemberCanBeMadeStatic.Global
         public void CancelAction(MapContext mapContext)
         {
-            MapContainer.ClearDynamicGrid();
+            MapContainer.ClearDynamicAndPreviewGrids();
             mapContext.RevertToPreviousState();
             AssetManager.MapUnitCancelSFX.Play();
         }

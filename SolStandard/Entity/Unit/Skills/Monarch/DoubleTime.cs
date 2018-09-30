@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             {
                 AssetManager.SkillBuffSFX.Play();
                 targetUnit.AddStatusEffect(new MoveStatUp(duration, statModifier));
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 SkipCombatPhase(mapContext);
             }
             else

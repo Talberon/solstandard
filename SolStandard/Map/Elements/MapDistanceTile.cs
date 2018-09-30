@@ -19,11 +19,13 @@ namespace SolStandard.Map.Elements
 
         private readonly int distance;
         private readonly RenderText renderText;
+        private readonly bool textVisible;
 
-        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance) : base(
-            sprite, mapCoordinates)
+        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, bool textVisible = true) :
+            base(sprite, mapCoordinates)
         {
             this.distance = distance;
+            this.textVisible = textVisible;
             renderText = new RenderText(AssetManager.MapFont, distance.ToString());
         }
 
@@ -78,15 +80,18 @@ namespace SolStandard.Map.Elements
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
 
-            Vector2 centeredText = CenterTextToTile();
-            //Black outline
-            int offset = 1;
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X - offset, centeredText.Y), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X + offset, centeredText.Y), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
-            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
+            if (textVisible)
+            {
+                Vector2 centeredText = CenterTextToTile();
+                //Black outline
+                const int offset = 1;
+                renderText.Draw(spriteBatch, new Vector2(centeredText.X - offset, centeredText.Y), Color.Black);
+                renderText.Draw(spriteBatch, new Vector2(centeredText.X + offset, centeredText.Y), Color.Black);
+                renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
+                renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
 
-            renderText.Draw(spriteBatch, centeredText, colorOverride);
+                renderText.Draw(spriteBatch, centeredText, colorOverride);
+            }
         }
     }
 }

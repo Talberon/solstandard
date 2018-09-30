@@ -18,7 +18,8 @@ namespace SolStandard.Map
         TerrainDecoration = 1,
         Collide = 2,
         Entities = 3,
-        Dynamic = 4
+        Preview = 4,
+        Dynamic = 5
     }
 
     public enum EntityTypes
@@ -138,6 +139,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Collide),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
+                new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };
 

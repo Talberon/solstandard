@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             {
                 AssetManager.SkillBuffSFX.Play();
                 targetUnit.AddStatusEffect(new DefStatUp(duration, statModifier));
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 SkipCombatPhase(mapContext);
             }
             else

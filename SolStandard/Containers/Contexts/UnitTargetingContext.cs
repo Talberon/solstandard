@@ -17,12 +17,26 @@ namespace SolStandard.Containers.Contexts
             this.spriteAtlas = spriteAtlas;
         }
 
-        public void GenerateTargetingGrid(Vector2 origin, int[] ranges)
+        public void GeneratePreviewTargetingGrid(Vector2 origin, int[] ranges)
+        {
+            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, false);
+
+            AddVisitedTilesToGameGrid(visited, Layer.Preview);
+        }
+
+        public void GenerateRealTargetingGrid(Vector2 origin, int[] ranges)
+        {
+            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, true);
+
+            AddVisitedTilesToGameGrid(visited, Layer.Dynamic);
+        }
+
+        private List<MapDistanceTile> GenerateTargetingGrid(Vector2 origin, int[] ranges, bool distanceVisible)
         {
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0);
+            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0, distanceVisible);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited = new List<MapDistanceTile> {startTile};
@@ -33,7 +47,7 @@ namespace SolStandard.Containers.Contexts
 
                 if (currentTile.Distance >= ranges.Max()) continue;
 
-                IEnumerable<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited);
+                IEnumerable<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited, distanceVisible);
 
                 foreach (MapDistanceTile neighbour in neighbours)
                 {
@@ -45,8 +59,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             visited = RemoveTilesOutOfRange(visited, ranges);
-
-            AddVisitedTilesToGameGrid(visited);
+            return visited;
         }
 
         private static List<MapDistanceTile> RemoveTilesOutOfRange(List<MapDistanceTile> visited, int[] ranges)
@@ -68,7 +81,7 @@ namespace SolStandard.Containers.Contexts
         }
 
         private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
-            List<MapDistanceTile> visitedTiles)
+            List<MapDistanceTile> visitedTiles, bool distanceVisible)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
 
@@ -79,22 +92,30 @@ namespace SolStandard.Containers.Contexts
 
             if (CanMoveAtCoordinates(north, visitedTiles))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1));
+                neighbours.Add(
+                    new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
+                );
             }
 
             if (CanMoveAtCoordinates(south, visitedTiles))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1));
+                neighbours.Add(
+                    new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
+                );
             }
 
             if (CanMoveAtCoordinates(east, visitedTiles))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1));
+                neighbours.Add(
+                    new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
+                );
             }
 
             if (CanMoveAtCoordinates(west, visitedTiles))
             {
-                neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1));
+                neighbours.Add(
+                    new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
+                );
             }
 
             return neighbours;
@@ -107,11 +128,11 @@ namespace SolStandard.Containers.Contexts
             return MapContext.CoordinatesWithinMapBounds(coordinates);
         }
 
-        private void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles)
+        private void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
 

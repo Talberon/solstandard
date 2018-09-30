@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Skills
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
+            unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Skills
             else if (mapContext.SelectedUnit == targetUnit)
             {
                 //Skip the combat state if player selects the same unit
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                 SkipCombatPhase(mapContext);
                 AssetManager.MapUnitSelectSFX.Play();
@@ -51,7 +51,7 @@ namespace SolStandard.Entity.Unit.Skills
         {
             GameUnit attackingUnit = mapContext.SelectedUnit;
             GameUnit defendingUnit = target;
-            MapContainer.ClearDynamicGrid();
+            MapContainer.ClearDynamicAndPreviewGrids();
             battleContext.StartNewCombat(
                 attackingUnit,
                 MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),

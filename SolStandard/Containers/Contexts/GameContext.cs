@@ -26,7 +26,7 @@ namespace SolStandard.Containers.Contexts
             InGame,
             Results
         }
-        
+
         public static readonly Color PositiveColor = new Color(30, 200, 30);
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 250, 250);
@@ -172,7 +172,7 @@ namespace SolStandard.Containers.Contexts
             if (MapContext.OtherUnitExistsAtCursor()) return;
             MapContext.ProceedToNextState();
 
-            MapContainer.ClearDynamicGrid();
+            MapContainer.ClearDynamicAndPreviewGrids();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
@@ -325,7 +325,14 @@ namespace SolStandard.Containers.Contexts
                         new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                         new Vector2(GameDriver.CellSize),
                         (int) MapDistanceTile.TileType.Movement
-                    ));
+                    )
+                );
+
+                MapContainer.ClearPreviewGrid();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GeneratePreviewTargetingGrid(
+                        MapContext.SelectedUnit.UnitEntity.MapCoordinates, MapContext.SelectedUnit.Stats.AtkRange
+                    );
             }
             else
             {

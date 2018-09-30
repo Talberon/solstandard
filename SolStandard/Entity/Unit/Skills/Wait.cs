@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Skills
         {
             if (targetSlice.DynamicEntity != null)
             {
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 SkipCombatPhase(mapContext);
                 AssetManager.MapUnitSelectSFX.Play();
             }

@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             {
                 Vector2 targetOriginalPosition = targetUnit.UnitEntity.MapCoordinates;
 
-                if (Shove.ShoveAction(targetUnit, mapContext))
+                if (Shove.ShoveAction(targetUnit))
                 {
                     MoveToTarget(targetOriginalPosition);
 

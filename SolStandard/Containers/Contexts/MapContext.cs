@@ -56,7 +56,7 @@ namespace SolStandard.Containers.Contexts
 
             //Turn Window
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(290, GameMapUI.InitiativeWindow.Height);
+            Vector2 turnWindowSize = new Vector2(300, GameMapUI.InitiativeWindow.Height);
             GameMapUI.GenerateTurnWindow(turnWindowSize);
 
             //Help Window
@@ -96,7 +96,7 @@ namespace SolStandard.Containers.Contexts
             {
                 SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                 ReturnUnitToOriginalPosition();
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 CurrentTurnState--;
             }
         }
@@ -160,6 +160,10 @@ namespace SolStandard.Containers.Contexts
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
                 MapContainer.MapCursor.MoveCursorInDirection(direction);
                 AssetManager.MapUnitMoveSFX.Play();
+
+                MapContainer.ClearPreviewGrid();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GeneratePreviewTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange);
             }
         }
 
@@ -244,6 +248,5 @@ namespace SolStandard.Containers.Contexts
             GameMapUI.ActionMenu.MoveMenuCursor(direction);
             GameMapUI.GenerateActionMenuDescription();
         }
-
     }
 }

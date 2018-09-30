@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, Range);
+            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
                 active = !active;
 
                 AssetManager.SkillBuffSFX.Play();
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
                 SkipCombatPhase(mapContext);
             }

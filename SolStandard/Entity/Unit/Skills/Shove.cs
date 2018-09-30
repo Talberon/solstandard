@@ -25,10 +25,10 @@ namespace SolStandard.Entity.Unit.Skills
             
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                if (ShoveAction(targetUnit, mapContext))
+                if (ShoveAction(targetUnit))
                 {
                     SkipCombatPhase(mapContext);
-                    MapContainer.ClearDynamicGrid();
+                    MapContainer.ClearDynamicAndPreviewGrids();
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Skills
             }
         }
 
-        public static bool ShoveAction(GameUnit target, MapContext mapContext)
+        public static bool ShoveAction(GameUnit target)
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;

@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Skills.Mage
             )
             {
                 GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetSlice.MapCoordinates;
-                MapContainer.ClearDynamicGrid();
+                MapContainer.ClearDynamicAndPreviewGrids();
                 AssetManager.SkillBlinkSFX.Play();
                 SkipCombatPhase(mapContext);
             }
