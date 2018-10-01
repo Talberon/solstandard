@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -35,7 +36,7 @@ namespace SolStandard.Entity.Unit
         private readonly int baseAtk;
         private readonly int baseDef;
         private readonly int maxSp;
-        private readonly int maxMv;
+        private readonly int baseMv;
         private readonly int[] baseAtkRange;
 
 
@@ -52,8 +53,8 @@ namespace SolStandard.Entity.Unit
             baseAtk = atk;
             baseDef = def;
             maxSp = sp;
-            maxMv = mv;
-            baseAtkRange = atkRange;
+            baseMv = mv;
+            baseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
 
         public int MaxHp
@@ -76,9 +77,9 @@ namespace SolStandard.Entity.Unit
             get { return maxSp; }
         }
 
-        public int MaxMv
+        public int BaseMv
         {
-            get { return maxMv; }
+            get { return baseMv; }
         }
 
         public int[] BaseAtkRange
@@ -140,11 +141,20 @@ namespace SolStandard.Entity.Unit
             output += Environment.NewLine;
             output += "SP: " + Sp.ToString() + "/" + maxSp;
             output += Environment.NewLine;
-            output += "MV: " + Mv.ToString() + "/" + maxMv;
+            output += "MV: " + Mv.ToString() + "/" + baseMv;
             output += Environment.NewLine;
             output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
 
             return output;
+        }
+
+        public static Color DetermineStatColor(int stat, int baseStat)
+        {
+            if (stat > baseStat) return GameContext.PositiveColor;
+            if (stat == baseStat) return GameContext.NeutralColor;
+            if (stat < baseStat) return GameContext.NegativeColor;
+
+            return Color.White;
         }
     }
 }

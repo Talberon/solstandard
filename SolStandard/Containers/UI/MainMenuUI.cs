@@ -11,6 +11,7 @@ namespace SolStandard.Containers.UI
     public class MainMenuUI : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
+        private readonly Color menuColor;
         private readonly SpriteAtlas title;
         private readonly AnimatedSprite logo;
         private readonly SpriteAtlas background;
@@ -22,6 +23,7 @@ namespace SolStandard.Containers.UI
             this.logo = logo;
             this.background = background;
             visible = true;
+            menuColor = new Color(127, 148, 217);
             mainMenu = GenerateMainMenu();
         }
 
@@ -30,17 +32,17 @@ namespace SolStandard.Containers.UI
             get { return mainMenu; }
         }
 
-        private static VerticalMenu GenerateMainMenu()
+        private VerticalMenu GenerateMainMenu()
         {
-            IOption[] options =
+            MenuOption[] options =
             {
-                new NewGameOption(AssetManager.WindowTexture),
-                new QuitGameOption(AssetManager.WindowTexture)
+                new NewGameOption(menuColor),
+                new QuitGameOption(menuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
 
-            return new VerticalMenu(options, cursorSprite);
+            return new VerticalMenu(options, cursorSprite, menuColor);
         }
 
         public void ToggleVisible()

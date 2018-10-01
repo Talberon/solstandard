@@ -64,7 +64,9 @@ namespace SolStandard.Utility.Load
             {
                 content.Load<Texture2D>("Graphics/Map/Tiles/Tiles"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet")
+                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/entities-32"),
+                content.Load<Texture2D>("Graphics/Map/Tiles/wonderdot-overworld-32")
             };
 
             List<ITexture2D> terrainTextures = new List<ITexture2D>();
@@ -264,11 +266,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Snow_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Desert_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Void_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_03"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_04"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -306,6 +305,52 @@ namespace SolStandard.Utility.Load
             }
 
             return buttonIconITextures;
+        }
+
+
+        public static List<ITexture2D> LoadSkillIcons(ContentManager content)
+        {
+            List<Texture2D> textures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cover"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Draw"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inspire"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Shove"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tackle"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wait"),
+            };
+
+            List<ITexture2D> skillTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in textures)
+            {
+                skillTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return skillTextures;
+        }
+
+        public static List<ITexture2D> LoadStatusIcons(ContentManager content)
+        {
+            List<Texture2D> textures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/atkRangeUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/defUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/hpUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/mvUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/spUp"),
+            };
+
+            List<ITexture2D> statusTextures = new List<ITexture2D>();
+            foreach (Texture2D texture in textures)
+            {
+                statusTextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return statusTextures;
         }
 
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
@@ -377,6 +422,24 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_wpn_punch2");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadWarningSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadSkillDrawSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadSkillBlinkSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
             return new SoundEffectWrapper(effect, 0.5f);
         }
 

@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Skills.Archer;
+using SolStandard.Entity.Unit.Skills.Champion;
+using SolStandard.Entity.Unit.Skills.Mage;
+using SolStandard.Entity.Unit.Skills.Monarch;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -81,37 +86,42 @@ namespace SolStandard.Entity.Unit
             ITexture2D largePortrait = FindLargePortrait(unitTeamAndClass);
 
             UnitStatistics unitStats;
+            List<UnitSkill> unitSkills;
 
             switch (unitJobClass)
             {
                 case Role.Archer:
                     unitStats = SelectArcherStats();
+                    unitSkills = SelectArcherSkills();
                     break;
                 case Role.Champion:
                     unitStats = SelectChampionStats();
+                    unitSkills = SelectChampionSkills();
                     break;
                 case Role.Mage:
                     unitStats = SelectMageStats();
+                    unitSkills = SelectMageSkills();
                     break;
                 case Role.Monarch:
                     unitStats = SelectMonarchStats();
+                    unitSkills = SelectMonarchSkills();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
             return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
-                smallPortrait);
+                smallPortrait, unitSkills);
         }
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(5, 4, 2, 1, 4, new[] {2});
+            return new UnitStatistics(4, 4, 2, 1, 4, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(7, 4, 3, 1, 5, new[] {1});
+            return new UnitStatistics(4, 4, 3, 1, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
@@ -121,8 +131,55 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(10, 2, 2, 1, 3, new[] {1});
+            return new UnitStatistics(6, 3, 1, 1, 3, new[] {1, 2});
         }
+
+        private static List<UnitSkill> SelectArcherSkills()
+        {
+            return new List<UnitSkill>
+            {
+                new BasicAttack(),
+                new Draw(2, 1),
+                new Shove(),
+                new Wait()
+            };
+        }
+
+        private static List<UnitSkill> SelectChampionSkills()
+        {
+            return new List<UnitSkill>
+            {
+                new BasicAttack(),
+                new Cover(1, 2),
+                new Tackle(),
+                new Shove(),
+                new Wait()
+            };
+        }
+
+        private static List<UnitSkill> SelectMageSkills()
+        {
+            return new List<UnitSkill>
+            {
+                new BasicAttack(),
+                new Blink(),
+                new Shove(),
+                new Wait()
+            };
+        }
+
+        private static List<UnitSkill> SelectMonarchSkills()
+        {
+            return new List<UnitSkill>
+            {
+                new BasicAttack(),
+                new Inspire(2, 1),
+                new DoubleTime(1, 2),
+                new Shove(),
+                new Wait()
+            };
+        }
+
 
         private ITexture2D FindLargePortrait(string textureName)
         {

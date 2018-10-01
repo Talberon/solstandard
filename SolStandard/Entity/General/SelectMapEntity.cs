@@ -25,7 +25,7 @@ namespace SolStandard.Entity.General
             get
             {
                 return new WindowContentGrid(
-                    new IRenderable[,]
+                    new [,]
                     {
                         {
                             new RenderText(AssetManager.HeaderFont, MapInfo.Title)

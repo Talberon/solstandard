@@ -1,31 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Menu.Options.MainMenu
 {
-    public class NewGameOption : IOption
+    public class NewGameOption : MenuOption
     {
-        private const string NewGameOptionText = "New Game ";
+        private const string NewGameOptionText = "New Game";
 
-        public string LabelText { get; private set; }
-        public IRenderable OptionWindow { get; private set; }
-
-        public NewGameOption(ITexture2D windowTexture)
+        public NewGameOption(Color windowColor) : base(
+            windowColor,
+            new RenderText(AssetManager.MainMenuFont, NewGameOptionText),
+            AssetManager.MainMenuFont
+        )
         {
-            LabelText = NewGameOptionText;
-            OptionWindow = new Window.Window(
-                "Option " + LabelText,
-                windowTexture,
-                new RenderText(AssetManager.MainMenuFont, LabelText),
-                Color.White
-            );
         }
 
-        public void Execute()
+        public override void Execute()
         {
             GameContext.LoadMapSelect();
         }

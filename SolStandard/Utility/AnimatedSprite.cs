@@ -13,23 +13,31 @@ namespace SolStandard.Utility
         private int currentRow;
         private int currentColumn;
         private int frameDelayCounter;
-        private readonly int frameDelay;
+        protected int FrameDelay { get; set; }
+        protected readonly int DefaultFrameDelay;
         private readonly bool reversible;
         private bool reversing;
 
-        public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible)
+        public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible)
         {
             this.spriteMap = spriteMap;
             this.cellSize = cellSize;
-            this.frameDelay = frameDelay;
             this.reversible = reversible;
+            DefaultFrameDelay = frameDelay;
+            FrameDelay = frameDelay;
             frameDelayCounter = 0;
             currentRow = 0;
             currentColumn = 0;
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
-            renderSize = new Vector2(cellSize);
+            this.renderSize = renderSize;
         }
+
+        public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
+            cellSize, new Vector2(cellSize), frameDelay, reversible)
+        {
+        }
+
 
         public void SetSpriteCell(int spriteMapColumn, int spriteMapRow)
         {
@@ -48,7 +56,7 @@ namespace SolStandard.Utility
 
         private void UpdateFrame()
         {
-            if (frameDelayCounter % frameDelay == 0)
+            if (frameDelayCounter % FrameDelay == 0)
             {
                 frameDelayCounter = 0;
 
@@ -67,7 +75,7 @@ namespace SolStandard.Utility
 
         private void UpdateFrameReversible()
         {
-            if (frameDelayCounter % frameDelay == 0)
+            if (frameDelayCounter % FrameDelay == 0)
             {
                 frameDelayCounter = 0;
 
@@ -137,7 +145,7 @@ namespace SolStandard.Utility
 
         public AnimatedSprite Clone()
         {
-            return new AnimatedSprite(spriteMap, cellSize, frameDelay, reversible);
+            return new AnimatedSprite(spriteMap, cellSize, renderSize, FrameDelay, reversible);
         }
     }
 }

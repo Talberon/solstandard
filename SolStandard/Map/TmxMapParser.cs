@@ -18,7 +18,8 @@ namespace SolStandard.Map
         TerrainDecoration = 1,
         Collide = 2,
         Entities = 3,
-        Dynamic = 4
+        Preview = 4,
+        Dynamic = 5
     }
 
     public enum EntityTypes
@@ -87,17 +88,17 @@ namespace SolStandard.Map
         {
             ITexture2D tileSet = null;
 
-            if (gid >= tmxMap.Tilesets["Terrain"].FirstGid)
+            if (gid >= tmxMap.Tilesets["entities-32"].FirstGid)
             {
                 tileSet = terrainSprite;
             }
 
-            if (gid >= tmxMap.Tilesets["Units"].FirstGid)
+            if (gid >= tmxMap.Tilesets["units-32"].FirstGid)
             {
                 tileSet = null;
             }
 
-            if (gid >= tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            if (gid >= tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
             {
                 tileSet = worldTileSetSprite;
             }
@@ -110,19 +111,19 @@ namespace SolStandard.Map
         {
             int nextFirstGid = 1;
 
-            if (gid > tmxMap.Tilesets["Terrain"].FirstGid)
+            if (gid > tmxMap.Tilesets["entities-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["Terrain"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["entities-32"].FirstGid;
             }
 
-            if (gid > tmxMap.Tilesets["Units"].FirstGid)
+            if (gid > tmxMap.Tilesets["units-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["Units"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["units-32"].FirstGid;
             }
 
-            if (gid > tmxMap.Tilesets["WorldTileSet"].FirstGid)
+            if (gid > tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["WorldTileSet"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid;
             }
 
             return gid - nextFirstGid + 1;
@@ -138,6 +139,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Collide),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
+                new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };
 
@@ -342,7 +344,17 @@ namespace SolStandard.Map
                             string unitTeamAndClass = unitTeam.ToString() + role.ToString();
                             ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
 
-                            UnitSprite animatedSprite = new UnitSprite(unitSprite, GameDriver.CellSize, 15, false);
+                            Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
+                            const int unitAnimationFrames = 4;
+                            const int unitAnimationDelay = 14;
+
+                            UnitSprite animatedSprite = new UnitSprite(
+                                unitSprite,
+                                unitSprite.Width / unitAnimationFrames,
+                                unitScale,
+                                unitAnimationDelay,
+                                false
+                            );
 
                             entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
                                 animatedSprite,

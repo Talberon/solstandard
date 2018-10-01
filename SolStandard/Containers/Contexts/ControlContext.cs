@@ -16,7 +16,7 @@ namespace SolStandard.Containers.Contexts
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    MenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
+                    MainMenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -66,7 +66,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
+        private static void MainMenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
         {
             if (controlMapper.Down())
             {
@@ -102,9 +102,18 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
                         return;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                        break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Down));
                         return;
+                    case MapContext.TurnState.UnitActing:
+                        break;
+                    case MapContext.TurnState.ResolvingTurn:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -118,9 +127,17 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
                         return;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Left));
                         return;
+                    case MapContext.TurnState.UnitActing:
+                        break;
+                    case MapContext.TurnState.ResolvingTurn:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -134,9 +151,17 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
                         return;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Right));
                         return;
+                    case MapContext.TurnState.UnitActing:
+                        break;
+                    case MapContext.TurnState.ResolvingTurn:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -150,9 +175,18 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
                         return;
+                    case MapContext.TurnState.UnitDecidingAction:
+                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                        break;
                     case MapContext.TurnState.UnitTargeting:
                         mapCursor.MoveCursorInDirection((Direction.Up));
                         return;
+                    case MapContext.TurnState.UnitActing:
+                        break;
+                    case MapContext.TurnState.ResolvingTurn:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -171,11 +205,11 @@ namespace SolStandard.Containers.Contexts
                         return;
 
                     case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.StartAction();
+                        gameContext.DecideAction();
                         return;
 
                     case MapContext.TurnState.UnitTargeting:
-                        gameContext.StartCombat();
+                        gameContext.ExecuteAction();
                         return;
 
                     case MapContext.TurnState.UnitActing:
@@ -202,6 +236,7 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitDecidingAction:
                         return;
                     case MapContext.TurnState.UnitTargeting:
+                        gameContext.CancelAction();
                         return;
                     case MapContext.TurnState.UnitActing:
                         return;
@@ -224,13 +259,13 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Y())
             {
-                gameContext.MapContext.SlideCursorToActiveUnit();
+                mapCamera.CenterCameraToCursor();
             }
 
             if (controlMapper.X())
             {
-                mapCamera.CenterCameraToCursor();
-
+                gameContext.MapContext.SlideCursorToActiveUnit();
+                
                 //FIXME Remove this eventually after debugging is done
                 //GameContext.Units.ForEach(unit => unit.DamageUnit(1));
             }

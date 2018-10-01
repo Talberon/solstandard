@@ -6,6 +6,7 @@ using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -25,6 +26,10 @@ namespace SolStandard.Containers.Contexts
             InGame,
             Results
         }
+
+        public static readonly Color PositiveColor = new Color(30, 200, 30);
+        public static readonly Color NegativeColor = new Color(250, 10, 10);
+        public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private MapContext mapContext;
         private readonly BattleContext battleContext;
@@ -71,13 +76,16 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
-            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_01.tmx";
+            //TODO Reset this if the new map isn't being used
+            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_02.tmx";
+
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),
-                AssetManager.WorldTileSetTexture,
-                AssetManager.TerrainTexture,
+                AssetManager.OverworldTexture,
+                AssetManager.EntitiesTexture,
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
+
             MapSelectContext = new MapSelectContext(new SelectMapUI(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
@@ -98,7 +106,6 @@ namespace SolStandard.Containers.Contexts
             }
 
             ActiveUnit.ActivateUnit();
-            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.SnapCursorToActiveUnit();
             MapContext.EndTurn();
 
@@ -112,8 +119,8 @@ namespace SolStandard.Containers.Contexts
         {
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
-                AssetManager.WorldTileSetTexture,
-                AssetManager.TerrainTexture,
+                AssetManager.OverworldTexture,
+                AssetManager.EntitiesTexture,
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults
             );
@@ -165,56 +172,33 @@ namespace SolStandard.Containers.Contexts
             if (MapContext.OtherUnitExistsAtCursor()) return;
             MapContext.ProceedToNextState();
 
-            MapContainer.ClearDynamicGrid();
+            MapContainer.ClearDynamicAndPreviewGrids();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
-            //TODO Open the action menu
+
+            MapContext.GameMapUI.GenerateActionMenu();
         }
 
-        public void StartAction()
+        public void DecideAction()
         {
-            //TODO Select option in the action menu
+            MapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
+            MapContext.GameMapUI.ClearCombatMenu();
+
             MapContext.ProceedToNextState();
             MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            //If the selection is Basic Attack
-            //Open the targeting grid
-            MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
-            MapContext.GenerateTargetingGridAtUnit(new SpriteAtlas(
-                new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                new Vector2(GameDriver.CellSize), 3));
-            
             AssetManager.MapUnitSelectSFX.Play();
         }
 
-        public void StartCombat()
+        public void ExecuteAction()
         {
-            GameUnit attackingUnit = MapContext.SelectedUnit;
-            GameUnit defendingUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
+            ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), mapContext, battleContext);
+        }
 
-            if (MapContext.TargetUnitIsLegal(defendingUnit))
-            {
-                MapContainer.ClearDynamicGrid();
-                BattleContext.StartNewCombat(attackingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
-                    defendingUnit,
-                    MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates));
-
-                MapContext.SetPromptWindowText("Confirm End Turn");
-                MapContext.ProceedToNextState();
-                
-                AssetManager.CombatStartSFX.Play();
-            }
-            //Skip the combat state if player selects the same unit
-            else if (attackingUnit == defendingUnit)
-            {
-                MapContainer.ClearDynamicGrid();
-                MapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                MapContext.ProceedToNextState();
-                MapContext.SetPromptWindowText("Confirm End Turn");
-                MapContext.ProceedToNextState();
-                
-                AssetManager.MapUnitSelectSFX.Play();
-            }
+        public void CancelAction()
+        {
+            ActiveUnit.CancelArmedSkill(mapContext);
+            MapContext.SlideCursorToActiveUnit();
+            MapContext.GameMapUI.GenerateActionMenu();
         }
 
         public void ContinueCombat()
@@ -222,33 +206,33 @@ namespace SolStandard.Containers.Contexts
             switch (BattleContext.CurrentState)
             {
                 case BattleContext.BattleState.Start:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartRollingDice();
                     }
 
                     break;
                 case BattleContext.BattleState.RollDice:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingBlocks();
                     }
 
                     break;
                 case BattleContext.BattleState.CountDice:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingDamage();
                     }
 
                     break;
                 case BattleContext.BattleState.ResolveCombat:
-                    AssetManager.MapUnitSelectSFX.Play();
                     if (BattleContext.TryProceedToNextState())
                     {
+                        AssetManager.MapUnitSelectSFX.Play();
                         MapContext.ProceedToNextState();
                     }
 
@@ -296,7 +280,6 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
-            ActiveUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             MapContext.SlideCursorToActiveUnit();
 
             MapContext.EndTurn();
@@ -309,7 +292,7 @@ namespace SolStandard.Containers.Contexts
 
             MapContext.UpdateWindowsEachTurn();
             ResultsUI.UpdateWindows();
-            
+
             AssetManager.MapUnitSelectSFX.Play();
         }
 
@@ -332,14 +315,23 @@ namespace SolStandard.Containers.Contexts
         {
             if (MapContext.SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + MapContext.SelectedUnit.Team + " " +
-                                MapContext.SelectedUnit.Role);
+                Trace.WriteLine("Selecting unit: " + MapContext.SelectedUnit.Team + " " + MapContext.SelectedUnit.Role);
                 MapContext.ProceedToNextState();
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
-                    MapContext.SelectedUnit.Stats.MaxMv,
-                    new SpriteAtlas(new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize), 2));
+                    MapContext.SelectedUnit.Stats.Mv,
+                    new SpriteAtlas(
+                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
+                        new Vector2(GameDriver.CellSize),
+                        (int) MapDistanceTile.TileType.Movement
+                    )
+                );
+
+                MapContainer.ClearPreviewGrid();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GeneratePreviewTargetingGrid(
+                        MapContext.SelectedUnit.UnitEntity.MapCoordinates, MapContext.SelectedUnit.Stats.AtkRange
+                    );
             }
             else
             {
@@ -350,9 +342,7 @@ namespace SolStandard.Containers.Contexts
         private bool TrySelectUnit()
         {
             //Select the unit. Store it somewhere.
-            MapContext.SelectedUnit =
-                UnitSelector.SelectUnit(
-                    MapContainer.GetMapSliceAtCursor().UnitEntity);
+            MapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
             //If the entity selected isn't the active unit, don't select it.
             if (MapContext.SelectedUnit != ActiveUnit)

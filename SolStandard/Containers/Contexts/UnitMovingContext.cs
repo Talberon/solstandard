@@ -18,7 +18,7 @@ namespace SolStandard.Containers.Contexts
             this.spriteAtlas = spriteAtlas;
         }
 
-        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, GameUnit selectedUnit)
+        public void GenerateMoveGrid(Vector2 origin, int maximumDistance)
         {
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
 
                 if (currentTile.Distance >= maximumDistance) continue;
 
-                IEnumerable<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited, selectedUnit);
+                IEnumerable<MapDistanceTile> neighbours = GetNeighbours(currentTile, visited, GameContext.ActiveUnit);
 
                 foreach (MapDistanceTile neighbour in neighbours)
                 {
@@ -85,7 +85,6 @@ namespace SolStandard.Containers.Contexts
         private static bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles,
             GameUnit selectedUnit)
         {
-            
             if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
@@ -111,6 +110,25 @@ namespace SolStandard.Containers.Contexts
             {
                 MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
+        }
+
+
+        public static bool CanMoveAtCoordinates(Vector2 coordinates)
+        {
+            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+
+            MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
+            if (slice.UnitEntity != null) return false;
+
+            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
+            {
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
+                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
+            }
+
+            if (slice.CollideTile != null) return false;
+
+            return true;
         }
     }
 }

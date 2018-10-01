@@ -1,30 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Menu.Options.MainMenu
 {
-    public class QuitGameOption : IOption
+    public class QuitGameOption : MenuOption
     {
-        private const string NewGameOptionText = "Quit Game ";
+        private const string QuitGameOptionText = "Quit Game";
 
-        public string LabelText { get; private set; }
-        public IRenderable OptionWindow { get; private set; }
-
-        public QuitGameOption(ITexture2D windowTexture)
+        public QuitGameOption(Color windowColor) : base(
+            windowColor,
+            new RenderText(AssetManager.MainMenuFont, QuitGameOptionText),
+            AssetManager.MainMenuFont
+        )
         {
-            LabelText = NewGameOptionText;
-            OptionWindow = new Window.Window(
-                "Option " + LabelText,
-                windowTexture,
-                new RenderText(AssetManager.MainMenuFont, LabelText),
-                Color.White
-            );
         }
 
-        public void Execute()
+        public override void Execute()
         {
             GameDriver.QuitGame();
         }

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -45,12 +50,19 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
 
+        public List<UnitSkill> Skills { get; private set; }
+        private UnitSkill armedUnitSkill;
+
+        public List<StatusEffect> StatusEffects { get; private set; }
+
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait) : base(id, mapEntity)
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) :
+            base(id, mapEntity)
         {
             this.team = team;
             this.role = role;
             this.stats = stats;
+            Skills = skills;
             this.largePortrait =
                 new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
             this.mediumPortrait =
@@ -69,6 +81,10 @@ namespace SolStandard.Entity.Unit
                 hoverWindowHealthBar,
                 resultsHealthBar
             };
+
+            armedUnitSkill = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
+
+            StatusEffects = new List<StatusEffect>();
         }
 
         public UnitEntity UnitEntity
@@ -139,32 +155,62 @@ namespace SolStandard.Entity.Unit
                     {
                         {
                             new RenderText(AssetManager.HeaderFont, Id),
+                            new RenderBlank(),
                             new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: " + Stats.Hp)
+                            new RenderText(AssetManager.WindowFont, "HP: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Hp.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Hp, Stats.MaxHp)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(AssetManager.WindowFont, "ATK: " + Stats.Atk)
+                            new RenderText(AssetManager.WindowFont, "ATK: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Atk.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(AssetManager.WindowFont, "DEF: " + Stats.Def)
+                            new RenderText(AssetManager.WindowFont, "DEF: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Def.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(AssetManager.WindowFont, "SP: " + Stats.Sp)
+                            new RenderText(AssetManager.WindowFont, "SP: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Sp.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, "MV: " + Stats.Mv)
+                            new RenderText(AssetManager.WindowFont, "MV: "),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                Stats.Mv.ToString(),
+                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
+                            )
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("RNG: [{0}]", string.Join(",", Stats.AtkRange)))
+                            new RenderText(AssetManager.WindowFont, "RNG:"),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
+                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(), Stats.BaseAtkRange.Max())
+                            )
                         }
                     },
                     2
@@ -182,6 +228,21 @@ namespace SolStandard.Entity.Unit
             AnimatedSprite mapSprite = UnitEntity.UnitSprite.Clone();
             mapSprite.Resize(size);
             return mapSprite;
+        }
+
+        public void ArmUnitSkill(UnitSkill skill)
+        {
+            armedUnitSkill = skill;
+        }
+
+        public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        {
+            armedUnitSkill.ExecuteAction(targetSlice, mapContext, battleContext);
+        }
+
+        public void CancelArmedSkill(MapContext mapContext)
+        {
+            armedUnitSkill.CancelAction(mapContext);
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
@@ -217,9 +278,9 @@ namespace SolStandard.Entity.Unit
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
-
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
+            SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
         }
 
         public void DisableExhaustedUnit()
@@ -228,6 +289,8 @@ namespace SolStandard.Entity.Unit
 
             Enabled = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
+            SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            UpdateStatusEffects();
         }
 
         public void SetUnitAnimation(UnitSprite.UnitAnimationState state)
@@ -236,6 +299,22 @@ namespace SolStandard.Entity.Unit
             {
                 UnitEntity.UnitSprite.SetAnimation(state);
             }
+        }
+
+        public void AddStatusEffect(StatusEffect statusEffect)
+        {
+            StatusEffects.Add(statusEffect);
+            statusEffect.ApplyEffect(this);
+        }
+
+        private void UpdateStatusEffects()
+        {
+            foreach (StatusEffect effect in StatusEffects)
+            {
+                effect.UpdateEffect(this);
+            }
+
+            StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
         }
 
         private void KillIfDead()
@@ -250,7 +329,6 @@ namespace SolStandard.Entity.Unit
                 AssetManager.CombatDeathSFX.Play();
             }
         }
-
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)
         {

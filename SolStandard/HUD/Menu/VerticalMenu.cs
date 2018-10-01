@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -19,60 +19,74 @@ namespace SolStandard.HUD.Menu
 
         private readonly IRenderable cursorSprite;
         private Vector2 cursorPosition;
-        private readonly IOption[] options;
-        private readonly Dictionary<IOption, Vector2> optionCoordinates;
-        private int currentOptionIndex;
-        private readonly Color optionBackgroundColor;
+        private readonly MenuOption[] options;
+        private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
+        public int CurrentOptionIndex { get; private set; }
+        private readonly Color backgroundColor;
         private const int Padding = 2;
+        private readonly Window.Window menuWindow;
 
-
-        public VerticalMenu(IOption[] options, IRenderable cursorSprite)
+        public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color backgroundColor)
         {
             this.options = options;
             this.cursorSprite = cursorSprite;
-            optionBackgroundColor = new Color(127, 148, 217, 200);
-            currentOptionIndex = 0;
+            this.backgroundColor = backgroundColor;
+            CurrentOptionIndex = 0;
             cursorPosition = Vector2.Zero;
             optionCoordinates = MapOptionCoordinates();
             PositionCursorToOption();
+            menuWindow = BuildMenuWindow();
+        }
+
+        private Window.Window BuildMenuWindow()
+        {
+            IRenderable[,] optionWindows = new IRenderable[options.Length, 1];
+            for (int i = 0; i < options.Length; i++)
+            {
+                optionWindows[i, 0] = options[i];
+            }
+
+            WindowContentGrid menuWindowContent = new WindowContentGrid(optionWindows, Padding);
+
+            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, menuWindowContent, backgroundColor);
         }
 
         public int Height
         {
-            get { return (int) (optionCoordinates[options.Last()].Y + options.Last().OptionWindow.Height); }
+            get { return menuWindow.Height; }
         }
 
 
         public int Width
         {
-            //Get widest width of the available options
-            get { return options.Select(option => option.OptionWindow.Width).Concat(new[] {0}).Max(); }
+            get { return menuWindow.Width; }
         }
 
-        private Dictionary<IOption, Vector2> MapOptionCoordinates()
+        private Dictionary<MenuOption, Vector2> MapOptionCoordinates()
         {
-            Dictionary<IOption, Vector2> optionCoordinatesMapping = new Dictionary<IOption, Vector2>();
+            Dictionary<MenuOption, Vector2> optionCoordinatesMapping = new Dictionary<MenuOption, Vector2>();
 
-            Vector2 lastCoordinates = new Vector2(0);
+            Vector2 lastCoordinates =
+                new Vector2(AssetManager.WindowTexture.Width, AssetManager.WindowTexture.Height) / 3;
 
             for (int i = 0; i < options.Length; i++)
             {
                 optionCoordinatesMapping[options[i]] = lastCoordinates;
-                lastCoordinates.Y += options[i].OptionWindow.Height + Padding;
+                lastCoordinates.Y += options[i].Height + Padding;
             }
 
             return optionCoordinatesMapping;
         }
 
 
-        public IOption CurrentOption
+        public MenuOption CurrentOption
         {
-            get { return options[currentOptionIndex]; }
+            get { return options[CurrentOptionIndex]; }
         }
 
         public void SelectOption()
         {
-            options[currentOptionIndex].Execute();
+            options[CurrentOptionIndex].Execute();
             AssetManager.MenuConfirmSFX.Play();
         }
 
@@ -81,20 +95,22 @@ namespace SolStandard.HUD.Menu
             switch (direction)
             {
                 case MenuCursorDirection.Forward:
-                    if (currentOptionIndex < options.Length - 1)
+                    if (CurrentOptionIndex < options.Length - 1)
                     {
-                        currentOptionIndex++;
+                        CurrentOptionIndex++;
                         PositionCursorToOption();
                         AssetManager.MenuMoveSFX.Play();
                     }
+
                     break;
                 case MenuCursorDirection.Backward:
-                    if (currentOptionIndex > 0)
+                    if (CurrentOptionIndex > 0)
                     {
-                        currentOptionIndex--;
+                        CurrentOptionIndex--;
                         PositionCursorToOption();
                         AssetManager.MenuMoveSFX.Play();
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -103,11 +119,11 @@ namespace SolStandard.HUD.Menu
 
         private void PositionCursorToOption()
         {
-            IOption currentOption = options[currentOptionIndex];
+            MenuOption currentOption = options[CurrentOptionIndex];
 
             Vector2 optionPosition = optionCoordinates[currentOption];
 
-            optionPosition.Y += (float) currentOption.OptionWindow.Height / 2;
+            optionPosition.Y += (float) currentOption.Height / 2;
 
             cursorPosition = new Vector2(
                 optionPosition.X - cursorSprite.Width,
@@ -118,16 +134,12 @@ namespace SolStandard.HUD.Menu
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, backgroundColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            foreach (IOption option in options)
-            {
-                option.OptionWindow.Draw(spriteBatch, position + optionCoordinates[option], optionBackgroundColor);
-            }
-
+            menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
         }
     }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Media;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.General;
 using SolStandard.Map;
@@ -17,7 +19,11 @@ namespace SolStandard.Containers.Contexts
         {
             SelectMapUI = selectMapUI;
             MapContainer = mapContainer;
-            MapContainer.MapCursor.SnapCursorToCoordinates(MapContainer.MapGridSize / 2);
+            Vector2 mapCenter = new Vector2(
+                (float) Math.Round(MapContainer.MapGridSize.X / 2),
+                (float) Math.Round(MapContainer.MapGridSize.Y / 2)
+            );
+            MapContainer.MapCursor.SnapCursorToCoordinates(mapCenter);
         }
 
         public void HoverOverEntity()

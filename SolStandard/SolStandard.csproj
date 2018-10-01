@@ -68,15 +68,30 @@
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
+    <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
+    <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
+    <Compile Include="Entity\Unit\Skills\Champion\Cover.cs" />
+    <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
+    <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
+    <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
+    <Compile Include="Entity\Unit\Skills\Monarch\Inspire.cs" />
+    <Compile Include="Entity\Unit\Skills\Shove.cs" />
+    <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
+    <Compile Include="Entity\Unit\Skills\Wait.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitBuilder.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
-    <Compile Include="HUD\Menu\Options\MapSelectMenu\MapSelectOption.cs" />
+    <Compile Include="HUD\Menu\Options\ActionMenu\SkillOption.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\OptionDescription.cs" />
-    <Compile Include="HUD\Menu\Options\IOption.cs" />
+    <Compile Include="HUD\Menu\Options\MenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
@@ -101,8 +116,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AnimatedSprite.cs" />
+    <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
+    <Compile Include="Utility\Assets\SkillIconProvider.cs" />
+    <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
     <Compile Include="Utility\Buttons\RightBumperControl.cs" />
@@ -123,6 +141,18 @@
     <Compile Include="Utility\Buttons\UpControl.cs" />
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
+    <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\EndTurnEvent.cs" />
+    <Compile Include="Utility\Events\HideUnitEvent.cs" />
+    <Compile Include="Utility\Events\IEvent.cs" />
+    <Compile Include="Utility\Events\GlobalEventQueue.cs" />
+    <Compile Include="Utility\Events\ShoveEvent.cs" />
+    <Compile Include="Utility\Events\StartCombatEvent.cs" />
+    <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
+    <Compile Include="Utility\Events\WaitActionEvent.cs" />
+    <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
@@ -195,25 +225,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\TmxMaps\Desert_01.tmx">
+    <Content Include="Content\TmxMaps\Debug_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Grass_01.tmx">
+    <Content Include="Content\TmxMaps\Experimenting_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Grass_02.tmx">
+    <Content Include="Content\TmxMaps\Experimenting_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Map_Select_01.tmx">
+    <Content Include="Content\TmxMaps\Experimenting_03.tmx" />
+    <Content Include="Content\TmxMaps\Map_Select_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Snow_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Void_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

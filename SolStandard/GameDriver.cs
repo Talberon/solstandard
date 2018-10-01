@@ -7,12 +7,14 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard
@@ -60,7 +62,6 @@ namespace SolStandard
         /// </summary>
         public static void NewGame(string mapName)
         {
-            
             string mapPath = "Content/TmxMaps/" + mapName;
             _gameContext.StartGame(mapPath, _mapCamera);
         }
@@ -84,29 +85,18 @@ namespace SolStandard
 
             _mapCamera = new MapCamera(5, 0.05f);
 
-            ITexture2D mapPreviewVoid =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Void_01"));
-            ITexture2D mapPreviewGrass =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_01"));
-            ITexture2D mapPreviewSnow =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Snow_01"));
-            ITexture2D mapPreviewDesert =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Desert_01"));
-            ITexture2D mapPreviewGrass2 =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_02"));
+            ITexture2D mapPreviewGrass3 =
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
+            ITexture2D mapPreviewGrass4 =
+                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_04"));
 
             AvailableMaps = new List<MapInfo>
             {
-                new MapInfo("The Void", "Void_01.tmx",
-                    new SpriteAtlas(mapPreviewVoid, new Vector2(mapPreviewVoid.Width, mapPreviewVoid.Height), 1)),
-                new MapInfo("Atheion Grassland", "Grass_01.tmx",
-                    new SpriteAtlas(mapPreviewGrass, new Vector2(mapPreviewGrass.Width, mapPreviewGrass.Height), 1)),
-                new MapInfo("Hiatok Mountain", "Snow_01.tmx",
-                    new SpriteAtlas(mapPreviewSnow, new Vector2(mapPreviewSnow.Width, mapPreviewSnow.Height), 1)),
-                new MapInfo("Riverside Dunes", "Desert_01.tmx",
-                    new SpriteAtlas(mapPreviewDesert, new Vector2(mapPreviewDesert.Width, mapPreviewDesert.Height), 1)),
-                new MapInfo("The Old Woods", "Grass_02.tmx",
-                    new SpriteAtlas(mapPreviewGrass2, new Vector2(mapPreviewGrass2.Width, mapPreviewGrass2.Height), 1))
+                new MapInfo("Old World", "Experimenting_01.tmx",
+                    new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
+                new MapInfo("Beachhead", "Experimenting_02.tmx",
+                    new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
+                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank())
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
@@ -195,20 +185,25 @@ namespace SolStandard
                 }
             }
 
-            switch (GameContext.ActivePlayer)
+            if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
-                case PlayerIndex.One:
-                    ControlContext.ListenForInputs(_gameContext, p1ControlMapper, _mapCamera, MapContainer.MapCursor);
-                    break;
-                case PlayerIndex.Two:
-                    ControlContext.ListenForInputs(_gameContext, p2ControlMapper, _mapCamera, MapContainer.MapCursor);
-                    break;
-                case PlayerIndex.Three:
-                    break;
-                case PlayerIndex.Four:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (GameContext.ActivePlayer)
+                {
+                    case PlayerIndex.One:
+                        ControlContext.ListenForInputs(_gameContext, p1ControlMapper, _mapCamera,
+                            MapContainer.MapCursor);
+                        break;
+                    case PlayerIndex.Two:
+                        ControlContext.ListenForInputs(_gameContext, p2ControlMapper, _mapCamera,
+                            MapContainer.MapCursor);
+                        break;
+                    case PlayerIndex.Three:
+                        break;
+                    case PlayerIndex.Four:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             switch (GameContext.CurrentGameState)

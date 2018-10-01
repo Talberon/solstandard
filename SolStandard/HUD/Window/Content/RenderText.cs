@@ -9,6 +9,7 @@ namespace SolStandard.HUD.Window.Content
     {
         private readonly ISpriteFont font;
         private readonly string message;
+        private const string Space = " ";
         private readonly Color defaultColor;
 
         public RenderText(ISpriteFont font, string message, Color defaultColor)
@@ -30,7 +31,7 @@ namespace SolStandard.HUD.Window.Content
 
         public int Width
         {
-            get { return (int) font.MeasureString(message).X; }
+            get { return (int) font.MeasureString(message + Space).X; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

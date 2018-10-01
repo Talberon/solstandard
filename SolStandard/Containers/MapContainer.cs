@@ -43,10 +43,22 @@ namespace SolStandard.Containers
             get { return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)); }
         }
 
-        public static void ClearDynamicGrid()
+        public static void ClearDynamicAndPreviewGrids()
+        {
+            ClearDynamicGrid();
+            ClearPreviewGrid();
+        }
+
+        private static void ClearDynamicGrid()
         {
             _gameGrid[(int) Layer.Dynamic] = new MapElement[_gameGrid[(int) Layer.Dynamic].GetLength(0),
                 _gameGrid[(int) Layer.Dynamic].GetLength(1)];
+        }
+
+        public static void ClearPreviewGrid()
+        {
+            _gameGrid[(int) Layer.Preview] = new MapElement[_gameGrid[(int) Layer.Preview].GetLength(0),
+                _gameGrid[(int) Layer.Preview].GetLength(1)];
         }
 
         public static MapSlice GetMapSliceAtCursor()
@@ -63,15 +75,16 @@ namespace SolStandard.Containers
 
                 UnitEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
                 MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
+                MapElement preview = _gameGrid[(int) Layer.Preview][column, row];
                 TerrainEntity entity = (TerrainEntity) _gameGrid[(int) Layer.Entities][column, row];
                 MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
                 MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
                 MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
-                return new MapSlice(unit, dynamic, entity, collide, terrainDecoration, terrain);
+                return new MapSlice(coordinates, unit, preview, dynamic, entity, collide, terrainDecoration, terrain);
             }
 
-            return new MapSlice(null, null, null, null, null, null);
+            return new MapSlice(Vector2.Zero, null, null, null, null, null, null, null);
         }
 
         private void DrawMapGrid(SpriteBatch spriteBatch)
@@ -80,7 +93,8 @@ namespace SolStandard.Containers
             {
                 for (int row = 0; row < _gameGrid[0].GetLength(1); row++)
                 {
-                    spriteBatch.Draw(AssetManager.WhiteGrid.MonoGameTexture, new Vector2(col, row) * GameDriver.CellSize,
+                    spriteBatch.Draw(AssetManager.WhiteGrid.MonoGameTexture,
+                        new Vector2(col, row) * GameDriver.CellSize,
                         new Color(0, 0, 0, 20));
                 }
             }
@@ -112,6 +126,12 @@ namespace SolStandard.Containers
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
+            }
+
+            foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch, new Color(255, 255, 255, 200));
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])

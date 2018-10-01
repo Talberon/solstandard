@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Statuses;
+using SolStandard.HUD.Menu;
+using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -20,13 +24,14 @@ namespace SolStandard.Containers.UI
     {
         private readonly Vector2 screenSize;
         private const int WindowEdgeBuffer = 5;
-        private const int UnitDetailVerticalAdjustment = 3;
 
-        private Window leftUnitPortraitWindow;
-        private Window leftUnitDetailWindow;
+        public Window LeftUnitPortraitWindow { get; private set; }
+        public Window LeftUnitDetailWindow { get; private set; }
+        public Window LeftUnitStatusWindow { get; private set; }
 
-        private Window rightUnitPortraitWindow;
-        private Window rightUnitDetailWindow;
+        public Window RightUnitPortraitWindow { get; private set; }
+        public Window RightUnitDetailWindow { get; private set; }
+        public Window RightUnitStatusWindow { get; private set; }
 
         public Window TurnWindow { get; private set; }
         public Window InitiativeWindow { get; private set; }
@@ -34,6 +39,9 @@ namespace SolStandard.Containers.UI
         public Window HelpTextWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
+
+        public VerticalMenu ActionMenu { get; private set; }
+        public Window ActionMenuDescriptionWindow { get; private set; }
 
         private bool visible;
 
@@ -46,29 +54,49 @@ namespace SolStandard.Containers.UI
             visible = true;
         }
 
-        public Window LeftUnitPortraitWindow
+        public void ClearCombatMenu()
         {
-            get { return leftUnitPortraitWindow; }
-        }
-
-        public Window LeftUnitDetailWindow
-        {
-            get { return leftUnitDetailWindow; }
-        }
-
-        public Window RightUnitPortraitWindow
-        {
-            get { return rightUnitPortraitWindow; }
-        }
-
-        public Window RightUnitDetailWindow
-        {
-            get { return rightUnitDetailWindow; }
+            ActionMenu = null;
         }
 
         #region Generation
 
-        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        public void GenerateActionMenu()
+        {
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            int skillCount = GameContext.ActiveUnit.Skills.Count;
+
+            MenuOption[] options = new MenuOption[skillCount];
+
+            for (int i = 0; i < skillCount; i++)
+            {
+                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.Skills[i]);
+            }
+
+            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+
+
+            ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+
+            GenerateActionMenuDescription();
+        }
+
+        public void GenerateActionMenuDescription()
+        {
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            ActionMenuDescriptionWindow = new Window(
+                "Action Menu Description",
+                windowTexture,
+                new RenderText(
+                    AssetManager.WindowFont,
+                    GameContext.ActiveUnit.Skills[ActionMenu.CurrentOptionIndex].Description
+                ),
+                windowColour
+            );
+        }
+
+        public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window("User Prompt Window", windowTexture, promptTextContent, promptWindowColor,
@@ -87,7 +115,7 @@ namespace SolStandard.Containers.UI
                 new[,]
                 {
                     {
-                        GameContext.ActiveUnit.GetMapSprite(new Vector2(64)),
+                        GameContext.ActiveUnit.GetMapSprite(new Vector2(100)),
                         new RenderText(AssetManager.WindowFont, turnInfo)
                     }
                 },
@@ -218,24 +246,21 @@ namespace SolStandard.Containers.UI
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            GenerateUnitPortraitWindow(hoverMapUnit, ref leftUnitPortraitWindow);
-            GenerateUnitDetailWindow(hoverMapUnit, ref leftUnitDetailWindow);
+            LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
+            LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
+            LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
         }
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            GenerateUnitPortraitWindow(hoverMapUnit, ref rightUnitPortraitWindow);
-            GenerateUnitDetailWindow(hoverMapUnit, ref rightUnitDetailWindow);
+            RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
+            RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
+            RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
         }
 
-        // ReSharper disable once RedundantAssignment
-        private void GenerateUnitPortraitWindow(GameUnit selectedUnit, ref Window windowToUpdate)
+        private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
         {
-            if (selectedUnit == null)
-            {
-                windowToUpdate = null;
-                return;
-            }
+            if (selectedUnit == null) return null;
 
             const int hoverWindowHealthBarHeight = 15;
             IRenderable[,] selectedUnitPortrait =
@@ -250,29 +275,53 @@ namespace SolStandard.Containers.UI
             };
 
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
-
-            Color windowColour = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-
-            windowToUpdate = new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1),
-                windowColour);
+            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+            return new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1), windowColor);
         }
 
-        // ReSharper disable once RedundantAssignment
-        private void GenerateUnitDetailWindow(GameUnit selectedUnit, ref Window windowToUpdate)
+        private Window GenerateUnitDetailWindow(GameUnit selectedUnit)
         {
-            if (selectedUnit == null)
-            {
-                windowToUpdate = null;
-                return;
-            }
+            if (selectedUnit == null) return null;
 
             IRenderable selectedUnitInfo = selectedUnit.DetailPane;
 
             string windowLabel = "Selected Info: " + selectedUnit.Id;
+            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+            return new Window(windowLabel, windowTexture, selectedUnitInfo, windowColor);
+        }
 
-            Color windowColour = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+        private Window GenerateUnitStatusWindow(GameUnit selectedUnit)
+        {
+            if (selectedUnit == null || selectedUnit.StatusEffects.Count < 1) return null;
 
-            windowToUpdate = new Window(windowLabel, windowTexture, selectedUnitInfo, windowColour);
+            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+
+            IRenderable[,] selectedUnitStatuses = new IRenderable[selectedUnit.StatusEffects.Count, 1];
+
+            for (int i = 0; i < selectedUnit.StatusEffects.Count; i++)
+            {
+                StatusEffect effect = selectedUnit.StatusEffects[i];
+
+                selectedUnitStatuses[i, 0] = new Window(
+                    "Status " + effect.Name,
+                    windowTexture,
+                    new WindowContentGrid(
+                        new[,]
+                        {
+                            {
+                                new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "]"),
+                                effect.StatusIcon,
+                                new RenderText(AssetManager.WindowFont, effect.Name)
+                            }
+                        },
+                        1
+                    ),
+                    windowColor
+                );
+            }
+
+            string windowLabel = "Selected Status: " + selectedUnit.Id;
+            return new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitStatuses, 1), windowColor);
         }
 
         #endregion Generation
@@ -280,27 +329,55 @@ namespace SolStandard.Containers.UI
 
         #region Window Positions
 
+        private Vector2 ActionMenuPosition()
+        {
+            return new Vector2(
+                WindowEdgeBuffer + LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width,
+                LeftUnitDetailWindowPosition().Y
+            );
+        }
+
+        private Vector2 ActionMenuDescriptionPosition()
+        {
+            return new Vector2(
+                WindowEdgeBuffer + ActionMenuPosition().X + ActionMenu.Width,
+                ActionMenuPosition().Y
+            );
+        }
+
         private Vector2 LeftUnitPortraitWindowPosition()
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                screenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height);
+                screenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height
+            );
         }
 
         private Vector2 LeftUnitDetailWindowPosition()
         {
             //Bottom-left, right of portrait, above initiative window
-            return new Vector2(WindowEdgeBuffer + LeftUnitPortraitWindow.Width,
-                LeftUnitPortraitWindowPosition().Y + LeftUnitPortraitWindow.Height - LeftUnitDetailWindow.Height -
-                UnitDetailVerticalAdjustment
+            return new Vector2(
+                WindowEdgeBuffer + LeftUnitPortraitWindow.Width,
+                LeftUnitPortraitWindowPosition().Y + LeftUnitPortraitWindow.Height - LeftUnitDetailWindow.Height
+            );
+        }
+
+        private Vector2 LeftUnitStatusWindowPosition()
+        {
+            //Bottom-left, above portrait
+            return new Vector2(
+                LeftUnitPortraitWindowPosition().X,
+                LeftUnitPortraitWindowPosition().Y - LeftUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 
         private Vector2 RightUnitPortraitWindowPosition()
         {
             //Bottom-right, above intiative window
-            return new Vector2(screenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                screenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height);
+            return new Vector2(
+                screenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height
+            );
         }
 
         private Vector2 RightUnitDetailWindowPosition()
@@ -308,28 +385,45 @@ namespace SolStandard.Containers.UI
             //Bottom-right, left of portrait, above intiative window
             return new Vector2(
                 screenSize.X - RightUnitDetailWindow.Width - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                RightUnitPortraitWindowPosition().Y + RightUnitPortraitWindow.Height - RightUnitDetailWindow.Height -
-                UnitDetailVerticalAdjustment
+                RightUnitPortraitWindowPosition().Y + RightUnitPortraitWindow.Height - RightUnitDetailWindow.Height
+            );
+        }
+
+
+        private Vector2 RightUnitStatusWindowPosition()
+        {
+            //Bottom-right, above portrait
+            return new Vector2(
+                RightUnitPortraitWindowPosition().X + RightUnitPortraitWindow.Width - RightUnitStatusWindow.Width,
+                RightUnitPortraitWindowPosition().Y - RightUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 
         private Vector2 InitiativeWindowPosition()
         {
             //Bottom-right
-            return new Vector2(screenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
-                screenSize.Y - InitiativeWindow.Height);
+            return new Vector2(
+                screenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
+                screenSize.Y - InitiativeWindow.Height
+            );
         }
 
         private Vector2 TurnWindowPosition()
         {
             //Bottom-right
-            return new Vector2(WindowEdgeBuffer, screenSize.Y - TurnWindow.Height);
+            return new Vector2(
+                WindowEdgeBuffer,
+                screenSize.Y - TurnWindow.Height
+            );
         }
 
         private Vector2 TerrainWindowPosition()
         {
             //Top-right
-            return new Vector2(screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer, WindowEdgeBuffer);
+            return new Vector2(
+                screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer,
+                WindowEdgeBuffer
+            );
         }
 
         private Vector2 HelpTextWindowPosition()
@@ -341,8 +435,10 @@ namespace SolStandard.Containers.UI
         private Vector2 UserPromptWindowPosition()
         {
             //Middle of the screen
-            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
-                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2);
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2
+            );
         }
 
         #endregion Window Positions
@@ -383,6 +479,11 @@ namespace SolStandard.Containers.UI
                     {
                         LeftUnitDetailWindow.Draw(spriteBatch, LeftUnitDetailWindowPosition());
                     }
+
+                    if (LeftUnitStatusWindow != null)
+                    {
+                        LeftUnitStatusWindow.Draw(spriteBatch, LeftUnitStatusWindowPosition());
+                    }
                 }
 
                 if (RightUnitPortraitWindow != null)
@@ -393,11 +494,26 @@ namespace SolStandard.Containers.UI
                     {
                         RightUnitDetailWindow.Draw(spriteBatch, RightUnitDetailWindowPosition());
                     }
+
+                    if (RightUnitStatusWindow != null)
+                    {
+                        RightUnitStatusWindow.Draw(spriteBatch, RightUnitStatusWindowPosition());
+                    }
                 }
 
                 if (UserPromptWindow != null)
                 {
                     UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
+                }
+            }
+
+            if (ActionMenu != null)
+            {
+                ActionMenu.Draw(spriteBatch, ActionMenuPosition());
+
+                if (ActionMenuDescriptionWindow != null)
+                {
+                    ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
                 }
             }
         }
