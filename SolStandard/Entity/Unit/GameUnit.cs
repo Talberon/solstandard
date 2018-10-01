@@ -161,11 +161,7 @@ namespace SolStandard.Entity.Unit
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
                             new RenderText(AssetManager.WindowFont, "HP: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Hp.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Hp, Stats.MaxHp)
-                            )
+                            new RenderText(AssetManager.WindowFont, Stats.Hp.ToString() + "/" + Stats.MaxHp.ToString())
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Atk),

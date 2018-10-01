@@ -24,7 +24,8 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             range: new[] {0}
         )
         {
-            this.duration = duration;
+            //Add one to the duration to compensate for the counter going down right after the user's turn ends.
+            this.duration = duration + 1;
             this.statModifier = statModifier;
         }
 

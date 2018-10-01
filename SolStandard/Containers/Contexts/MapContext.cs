@@ -133,8 +133,7 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid,
-                new Vector2(0, 150));
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
         public void ConfirmPromptWindow()
@@ -179,6 +178,7 @@ namespace SolStandard.Containers.Contexts
                 }
                 else
                 {
+                    GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
                     GameMapUI.UpdateRightPortraitAndDetailWindows(null);
                 }
             }

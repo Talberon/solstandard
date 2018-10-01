@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit
         }
 
         private static readonly Color ActiveColor = Color.White;
-        private static readonly Color InactiveColor = new Color(200, 200, 200);
+        private static readonly Color InactiveColor = new Color(180, 180, 180);
 
         public UnitEntity(string name, string type, UnitSprite sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties) : base(name, type, sprite, mapCoordinates, tiledProperties)
