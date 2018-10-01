@@ -9,7 +9,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        private readonly int hp;
+        private int hp;
         private bool canMove;
         private bool isBroken;
 
@@ -20,6 +20,21 @@ namespace SolStandard.Entity.General
             this.hp = hp;
             this.canMove = canMove;
             this.isBroken = isBroken;
+        }
+
+        public void DealDamage(int damage)
+        {
+            hp -= damage;
+            AssetManager.CombatDamageSFX.Play();
+
+            if (hp <= 0)
+            {
+                AssetManager.CombatDeathSFX.Play();
+                isBroken = true;
+                canMove = true;
+                TiledProperties["canMove"] = "true";
+                Visible = false;
+            }
         }
 
         public override IRenderable TerrainInfo
@@ -47,8 +62,8 @@ namespace SolStandard.Entity.General
                                 (canMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Not Broken" : "Broken",
-                                (isBroken) ? PositiveColor : NegativeColor),
+                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Broken" : "Not Broken",
+                                (isBroken) ? NegativeColor : PositiveColor),
                             new RenderBlank()
                         }
                     },

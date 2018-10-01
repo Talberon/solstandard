@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
+using SolStandard.Map;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -79,6 +83,12 @@ namespace SolStandard.Entity.Unit.Skills
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
                 && GameContext.ActiveUnit == targetUnit;
+        }
+
+        protected static bool TargetIsABreakableObstacleInRange(MapSlice targetSlice)
+        {
+            return targetSlice.DynamicEntity != null &&
+                   targetSlice.TerrainEntity.GetType() == typeof(BreakableObstacle);
         }
     }
 }

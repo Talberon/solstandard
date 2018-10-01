@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -44,6 +45,14 @@ namespace SolStandard.Entity.Unit.Skills
                         TileSprite
                     )
                 );
+                GlobalEventQueue.QueueEvents(eventQueue);
+            }
+            else if (TargetIsABreakableObstacleInRange(targetSlice))
+            {
+                //deal damage to terrain
+                BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
+                targetObstacle.DealDamage(1);
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (mapContext.SelectedUnit == targetUnit)
