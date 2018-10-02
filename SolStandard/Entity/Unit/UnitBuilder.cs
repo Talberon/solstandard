@@ -81,9 +81,9 @@ namespace SolStandard.Entity.Unit
         {
             string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
 
-            ITexture2D smallPortrait = FindSmallPortrait(unitTeamAndClass);
-            ITexture2D mediumPortrait = FindMediumPortrait(unitTeamAndClass);
-            ITexture2D largePortrait = FindLargePortrait(unitTeamAndClass);
+            ITexture2D smallPortrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString());
+            ITexture2D mediumPortrait = FindMediumPortrait(unitTeam.ToString(), unitJobClass.ToString());
+            ITexture2D largePortrait = FindLargePortrait(unitTeam.ToString(), unitJobClass.ToString());
 
             UnitStatistics unitStats;
             List<UnitSkill> unitSkills;
@@ -181,19 +181,22 @@ namespace SolStandard.Entity.Unit
         }
 
 
-        private ITexture2D FindLargePortrait(string textureName)
+        private ITexture2D FindLargePortrait(string unitTeam, string unitJobClass)
         {
-            return largePortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
+            return largePortraits.Find(texture =>
+                texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
         }
 
-        private ITexture2D FindMediumPortrait(string textureName)
+        private ITexture2D FindMediumPortrait(string unitTeam, string unitJobClass)
         {
-            return mediumPortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
+            return mediumPortraits.Find(texture =>
+                texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
         }
 
-        private ITexture2D FindSmallPortrait(string textureName)
+        private ITexture2D FindSmallPortrait(string unitTeam, string unitJobClass)
         {
-            return smallPortraits.Find(texture => texture.MonoGameTexture.Name.Contains(textureName));
+            return smallPortraits.Find(texture =>
+                texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
         }
     }
 }

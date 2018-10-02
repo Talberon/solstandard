@@ -22,19 +22,6 @@ namespace SolStandard.Map
         Dynamic = 5
     }
 
-    public enum EntityTypes
-    {
-        BreakableObstacle,
-        BuffTile,
-        Chest,
-        Decoration,
-        Door,
-        Movable,
-        SelectMap,
-        Unit
-    }
-
-
     /**
      * TmxMapBuilder
      * Responsible for parsing game maps to a SelectMapEntity object that we can use in the game.
