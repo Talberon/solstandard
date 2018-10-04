@@ -79,8 +79,6 @@ namespace SolStandard.Entity.Unit
 
         private GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, UnitEntity mapEntity)
         {
-            string unitTeamAndClass = unitTeam.ToString() + "/" + unitJobClass.ToString();
-
             ITexture2D smallPortrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString());
             ITexture2D mediumPortrait = FindMediumPortrait(unitTeam.ToString(), unitJobClass.ToString());
             ITexture2D largePortrait = FindLargePortrait(unitTeam.ToString(), unitJobClass.ToString());

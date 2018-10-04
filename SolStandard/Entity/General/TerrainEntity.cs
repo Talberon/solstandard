@@ -15,6 +15,10 @@ namespace SolStandard.Entity.General
         Decoration,
         Door,
         Movable,
+        Interactive,
+        Currency,
+        Portal,
+        Switch,
         SelectMap,
         Unit
     }

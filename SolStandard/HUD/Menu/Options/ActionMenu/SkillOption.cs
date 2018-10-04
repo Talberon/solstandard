@@ -2,7 +2,6 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.ActionMenu
@@ -14,7 +13,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
         public SkillOption(Color windowColor, UnitSkill skill) : base(
             windowColor,
             new WindowContentGrid(
-                new IRenderable[,]
+                new [,]
                 {
                     {
                         skill.Icon,
@@ -22,8 +21,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                     }
                 },
                 1
-            ),
-            AssetManager.WindowFont
+            )
         )
         {
             this.skill = skill;

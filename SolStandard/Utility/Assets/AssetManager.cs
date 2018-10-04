@@ -76,7 +76,7 @@ namespace SolStandard.Utility.Assets
 
         public static ITexture2D OverworldTexture
         {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/wonderdot-overworld-32")); }
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/overworld-32")); }
         }
 
         public static ITexture2D MapCursorTexture

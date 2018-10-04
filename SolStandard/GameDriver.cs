@@ -83,8 +83,8 @@ namespace SolStandard
 
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            _mapCamera = new MapCamera(5, 0.05f);
-
+            _mapCamera = new MapCamera(10, 0.09f);
+            
             ITexture2D mapPreviewGrass3 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
             ITexture2D mapPreviewGrass4 =
@@ -96,6 +96,7 @@ namespace SolStandard
                     new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
                 new MapInfo("Beachhead", "Experimenting_02.tmx",
                     new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
+                new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
                 new MapInfo("Debug", "Debug_01.tmx", new RenderBlank())
             };
 

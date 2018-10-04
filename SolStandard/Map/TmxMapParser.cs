@@ -48,7 +48,11 @@ namespace SolStandard.Map
             {"Door", EntityTypes.Door},
             {"Movable", EntityTypes.Movable},
             {"SelectMap", EntityTypes.SelectMap},
-            {"Unit", EntityTypes.Unit}
+            {"Unit", EntityTypes.Unit},
+            {"Interactive", EntityTypes.Interactive},
+            {"Portal", EntityTypes.Portal},
+            {"Switch", EntityTypes.Switch},
+            {"Currency", EntityTypes.Currency}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -85,7 +89,7 @@ namespace SolStandard.Map
                 tileSet = null;
             }
 
-            if (gid >= tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
+            if (gid >= tmxMap.Tilesets["overworld-32"].FirstGid)
             {
                 tileSet = worldTileSetSprite;
             }
@@ -108,9 +112,9 @@ namespace SolStandard.Map
                 nextFirstGid = tmxMap.Tilesets["units-32"].FirstGid;
             }
 
-            if (gid > tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid)
+            if (gid > tmxMap.Tilesets["overworld-32"].FirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["wonderdot-overworld-32"].FirstGid;
+                nextFirstGid = tmxMap.Tilesets["overworld-32"].FirstGid;
             }
 
             return gid - nextFirstGid + 1;
@@ -154,12 +158,16 @@ namespace SolStandard.Map
             {
                 for (int col = 0; col < tmxMap.Width; col++)
                 {
-                    int tileId = tmxMap.Layers[(int) tileLayer].Tiles[tileCounter].Gid;
+                    TmxLayerTile tile = tmxMap.Layers[(int) tileLayer].Tiles[tileCounter];
 
-                    if (tileId != 0)
+                    if (tile.Gid != 0)
                     {
                         tileGrid[col, row] = new MapTile(
-                            new SpriteAtlas(FindTileSet(tileId), new Vector2(GameDriver.CellSize), FindTileId(tileId)),
+                            new SpriteAtlas(
+                                FindTileSet(tile.Gid),
+                                new Vector2(GameDriver.CellSize),
+                                FindTileId(tile.Gid)
+                            ),
                             new Vector2(col, row));
                     }
 

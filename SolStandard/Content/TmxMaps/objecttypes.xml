@@ -10,22 +10,43 @@
   <property name="Stat" type="string"/>
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
- <objecttype name="Chest" color="#a4a13b">
+ <objecttype name="Chest" color="#a66b47">
   <property name="Contents" type="string"/>
+  <property name="canMove" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
  </objecttype>
+ <objecttype name="Currency" color="#dad45e">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="value" type="int" default="1"/>
+ </objecttype>
  <objecttype name="Decoration" color="#ffaaff"/>
  <objecttype name="Door" color="#625232">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isBroken" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Interactive" color="#358ad3">
+  <property name="action" type="string" default="none"/>
+  <property name="canMove" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
+ <objecttype name="Portal" color="#aaaaff">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="destinationId" type="string" default="DEFAULT"/>
+  <property name="oneWay" type="bool" default="false"/>
+ </objecttype>
  <objecttype name="SelectMap" color="#fe2973">
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
+ </objecttype>
+ <objecttype name="Switch" color="#ff7029">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isActive" type="bool" default="false"/>
+  <property name="triggersId" type="string" default="Door A"/>
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>

@@ -63,10 +63,5 @@ namespace SolStandard.Entity.Unit.Skills.Champion
                 AssetManager.WarningSFX.Play();
             }
         }
-
-        private static void MoveToTarget(Vector2 targetCoordinates)
-        {
-            GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
-        }
     }
 }

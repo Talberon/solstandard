@@ -66,7 +66,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/entities-32"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/wonderdot-overworld-32")
+                content.Load<Texture2D>("Graphics/Map/Tiles/overworld-32")
             };
 
             List<ITexture2D> terrainTextures = new List<ITexture2D>();

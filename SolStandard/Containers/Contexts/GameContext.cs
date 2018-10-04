@@ -280,7 +280,7 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
-            MapContext.SlideCursorToActiveUnit();
+            MapContext.SnapCursorToActiveUnit();
 
             MapContext.EndTurn();
             TurnNumber++;

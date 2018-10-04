@@ -10,8 +10,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public QuitGameOption(Color windowColor) : base(
             windowColor,
-            new RenderText(AssetManager.MainMenuFont, QuitGameOptionText),
-            AssetManager.MainMenuFont
+            new RenderText(AssetManager.MainMenuFont, QuitGameOptionText)
         )
         {
         }
