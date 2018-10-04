@@ -7,7 +7,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
-using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -64,21 +63,13 @@ namespace SolStandard.Containers.UI
         public void GenerateActionMenu()
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
-            int skillCount = GameContext.ActiveUnit.Skills.Count;
 
-            MenuOption[] options = new MenuOption[skillCount];
-
-            for (int i = 0; i < skillCount; i++)
-            {
-                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.Skills[i]);
-            }
+            MenuOption[] options = UnitActionMenuContext.GenerateActionMenuOptions(windowColour);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
 
-
             ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
-
             GenerateActionMenuDescription();
         }
 
@@ -90,7 +81,7 @@ namespace SolStandard.Containers.UI
                 windowTexture,
                 new RenderText(
                     AssetManager.WindowFont,
-                    GameContext.ActiveUnit.Skills[ActionMenu.CurrentOptionIndex].Description
+                    UnitActionMenuContext.GetActionDescriptionAtIndex(ActionMenu.CurrentOptionIndex)
                 ),
                 windowColour
             );

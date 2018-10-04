@@ -88,5 +88,11 @@ namespace SolStandard.Entity.Unit.Skills
                    targetSlice.TerrainEntity != null &&
                    targetSlice.TerrainEntity.GetType() == typeof(BreakableObstacle);
         }
+
+        protected static bool CanMoveToTargetTile(MapSlice targetSlice)
+        {
+            return UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
+                   targetSlice.DynamicEntity != null;
+        }
     }
 }

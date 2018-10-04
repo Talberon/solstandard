@@ -48,6 +48,7 @@
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
+    <Compile Include="Containers\Contexts\UnitActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Skills\Monarch\Inspire.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
     <Compile Include="Map\Elements\Direction.cs" />
+    <Compile Include="Map\Elements\IActionTile.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />

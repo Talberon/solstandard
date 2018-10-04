@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -7,17 +7,19 @@ namespace SolStandard.Utility.Events
     public class BlinkCoordinatesEvent : IEvent
     {
         private readonly Vector2 targetCoordinates;
+        private readonly MapEntity entity;
 
-        public BlinkCoordinatesEvent(Vector2 targetCoordinates)
+        public BlinkCoordinatesEvent(MapEntity entity, Vector2 targetCoordinates)
         {
             this.targetCoordinates = targetCoordinates;
+            this.entity = entity;
         }
 
         public bool Complete { get; private set; }
 
         public void Continue()
         {
-            GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
+            entity.MapCoordinates = targetCoordinates;
             AssetManager.SkillBlinkSFX.Play();
             Complete = true;
         }

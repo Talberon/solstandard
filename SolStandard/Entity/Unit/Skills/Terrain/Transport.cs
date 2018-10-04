@@ -1,27 +1,34 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Mage
+namespace SolStandard.Entity.Unit.Skills.Terrain
 {
-    public class Blink : UnitSkill
+    public class Transport : UnitSkill
     {
-        private static readonly int[] BlinkRange = {1, 2, 3, 4};
+        private readonly Vector2 targetCoordinates;
 
-        public Blink() : base(
+        public Transport(Vector2 targetCoordinates) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
-            name: "Blink",
-            description: "Move to an unoccupied space within " + BlinkRange.Max() + "spaces.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: BlinkRange
+            name: "Transport",
+            description: "Moves unit to another space.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement),
+            range: null
         )
         {
+            this.targetCoordinates = targetCoordinates;
+        }
+
+        public override void GenerateActionGrid(Vector2 origin)
+        {
+            MapContainer.GameGrid[(int) Layer.Dynamic][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
+                new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

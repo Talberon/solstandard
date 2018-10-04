@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
@@ -243,7 +244,10 @@ namespace SolStandard.Map
                                             currentProperties,
                                             currentProperties["Contents"],
                                             Convert.ToBoolean(currentProperties["isLocked"]),
-                                            Convert.ToBoolean(currentProperties["isOpen"])
+                                            Convert.ToBoolean(currentProperties["isOpen"]),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["range"]
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
                                         );
                                         break;
                                     case EntityTypes.Decoration:
@@ -263,7 +267,9 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["isLocked"]),
-                                            Convert.ToBoolean(currentProperties["isOpen"])
+                                            Convert.ToBoolean(currentProperties["isOpen"]),
+                                            currentProperties["range"]
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
                                         );
                                         break;
                                     case EntityTypes.Movable:
@@ -275,6 +281,29 @@ namespace SolStandard.Map
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
+                                        break;
+                                    case EntityTypes.Portal:
+                                        entityGrid[col, row] = new Portal(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["destinationId"],
+                                            Convert.ToBoolean(currentProperties["oneWay"]),
+                                            currentProperties["range"]
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
+                                        );
+                                        break;
+                                    case EntityTypes.Interactive:
+                                        //TODO Implement me
+                                        break;
+                                    case EntityTypes.Currency:
+                                        //TODO Implement me
+                                        break;
+                                    case EntityTypes.Switch:
+                                        //TODO Implement me
                                         break;
                                     case EntityTypes.SelectMap:
                                         MapInfo derivedMapInfo =
