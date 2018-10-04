@@ -48,7 +48,7 @@ namespace SolStandard.Map.Elements.Cursor
         }
 
 
-        public void MoveCursorToCoordinates(Vector2 coordinates)
+        public void SlideCursorToCoordinates(Vector2 coordinates)
         {
             MapCoordinates = coordinates;
         }
@@ -64,16 +64,16 @@ namespace SolStandard.Map.Elements.Cursor
             switch (direction)
             {
                 case Direction.Down:
-                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
+                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
                     break;
                 case Direction.Right:
-                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
+                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
                     break;
                 case Direction.Up:
-                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
+                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
                     break;
                 case Direction.Left:
-                    MoveCursorToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
+                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);

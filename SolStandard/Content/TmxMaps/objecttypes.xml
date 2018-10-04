@@ -41,7 +41,6 @@
  <objecttype name="Portal" color="#aaaaff">
   <property name="canMove" type="bool" default="true"/>
   <property name="destinationId" type="string" default="DEFAULT"/>
-  <property name="oneWay" type="bool" default="false"/>
   <property name="range" type="string" default="0"/>
  </objecttype>
  <objecttype name="SelectMap" color="#fe2973">

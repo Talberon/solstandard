@@ -291,7 +291,6 @@ namespace SolStandard.Map
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["destinationId"],
-                                            Convert.ToBoolean(currentProperties["oneWay"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
                                         );

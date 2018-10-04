@@ -113,7 +113,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                MapContainer.MapCursor.MoveCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                MapContainer.MapCursor.SlideCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
 

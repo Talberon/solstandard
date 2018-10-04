@@ -16,16 +16,14 @@ namespace SolStandard.Entity.General
     {
         private readonly bool canMove;
         private readonly string destinationId;
-        private readonly bool oneWay;
         public int[] Range { get; private set; }
 
         public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove, string destinationId, bool oneWay, int[] range) :
+            Dictionary<string, string> tiledProperties, bool canMove, string destinationId, int[] range) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             this.canMove = canMove;
             this.destinationId = destinationId;
-            this.oneWay = oneWay;
             Range = range;
         }
 
@@ -72,7 +70,8 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (oneWay) ? "One-Way" : "Portal"),
+                            new RenderText(AssetManager.WindowFont,
+                                string.Format("Range: [{0}]", string.Join(",", Range))),
                             new RenderBlank()
                         }
                     },

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="40" height="25" tilewidth="32" tileheight="32" infinite="0" nextobjectid="664">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="40" height="25" tilewidth="32" tileheight="32" infinite="0" nextobjectid="667">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="392" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="1792"/>
  </tileset>
@@ -3330,6 +3330,16 @@
   <object id="661" name="Drawbridge A" type="Door" gid="3093" x="576" y="416" width="32" height="32"/>
   <object id="662" name="Drawbridge A" type="Door" gid="3093" x="608" y="416" width="32" height="32"/>
   <object id="663" name="Drawbridge A" type="Door" gid="3093" x="640" y="416" width="32" height="32"/>
+  <object id="664" name="Stairs A1" type="Portal" gid="253" x="160" y="512" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="666" name="Stairs A2" type="Portal" gid="253" x="864" y="384" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Units">
   <object id="517" name="Horatio" type="Unit" gid="393" x="928" y="544" width="32" height="32">
