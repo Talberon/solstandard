@@ -10,12 +10,11 @@ using SolStandard.Utility.Assets;
 namespace SolStandard.Entity.General
 {
     //TODO implement IActionTile interface
-    public class Chest : TerrainEntity
+    public class Chest : TerrainEntity, IOpenable, ILockable
     {
         private readonly string contents;
-        private bool isLocked;
-        private bool isOpen;
-        private bool canMove;
+        public bool IsLocked { get; private set; }
+        public bool IsOpen { get; private set; }
         public int[] Range { get; private set; }
 
         public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
@@ -24,9 +23,9 @@ namespace SolStandard.Entity.General
             sprite, mapCoordinates, tiledProperties)
         {
             this.contents = contents;
-            this.isLocked = isLocked;
-            this.isOpen = isOpen;
-            this.canMove = canMove;
+            CanMove = canMove;
+            IsLocked = isLocked;
+            IsOpen = isOpen;
             Range = range;
         }
 
@@ -47,22 +46,22 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                                (canMove) ? PositiveColor : NegativeColor)
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (isLocked) ? "Locked" : "Unlocked",
-                                (isLocked) ? NegativeColor : PositiveColor),
+                            new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                                (IsLocked) ? NegativeColor : PositiveColor),
                             new RenderBlank()
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (isOpen) ? "Open" : "Closed",
-                                (isOpen) ? PositiveColor : NegativeColor),
+                            new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                                (IsOpen) ? PositiveColor : NegativeColor),
                             new RenderBlank()
                         },
                         {
                             new RenderText(AssetManager.WindowFont, "Contents: "),
-                            new RenderText(AssetManager.WindowFont, (isOpen) ? contents : "????")
+                            new RenderText(AssetManager.WindowFont, (IsOpen) ? contents : "????")
                         }
                     },
                     3
@@ -71,6 +70,21 @@ namespace SolStandard.Entity.General
         }
 
         public UnitSkill TileAction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Open()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Unlock()
         {
             throw new NotImplementedException();
         }

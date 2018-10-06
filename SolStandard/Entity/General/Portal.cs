@@ -29,6 +29,8 @@ namespace SolStandard.Entity.General
 
         public UnitSkill TileAction()
         {
+            //Check for the corresponding portal destination point
+            
             Vector2 targetTileCoordinates = Vector2.One;
 
             foreach (MapElement entity in MapContainer.GameGrid[(int) Layer.Entities])

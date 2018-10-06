@@ -53,7 +53,8 @@ namespace SolStandard.Map
             {"Interactive", EntityTypes.Interactive},
             {"Portal", EntityTypes.Portal},
             {"Switch", EntityTypes.Switch},
-            {"Currency", EntityTypes.Currency}
+            {"Currency", EntityTypes.Currency},
+            {"Key", EntityTypes.Key}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -269,7 +270,8 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["isLocked"]),
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             currentProperties["range"]
-                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
+                                            Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;
                                     case EntityTypes.Movable:

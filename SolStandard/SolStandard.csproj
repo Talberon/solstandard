@@ -69,6 +69,8 @@
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
+    <Compile Include="Entity\ILockable.cs" />
+    <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Skills\Monarch\Inspire.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\UseDoorSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
     <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\ToggleDoorEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
