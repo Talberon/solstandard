@@ -166,9 +166,9 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void UpdateUnitPortraitWindows(MapSlice hoverTiles)
+        public void UpdateHoverContextWindows(MapSlice hoverSlice)
         {
-            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             if (CurrentTurnState != TurnState.SelectUnit)
             {
@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             //Terrain (Entity) Window
-            GameMapUI.GenerateTerrainWindow(hoverTiles.TerrainEntity);
+            GameMapUI.GenerateEntityWindow(hoverSlice);
         }
 
         private bool TargetTileHasADynamicTile(Direction direction)

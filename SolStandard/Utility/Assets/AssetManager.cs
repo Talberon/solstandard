@@ -52,22 +52,13 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D WhiteGrid { get; private set; }
         public static ITexture2D DiceTexture { get; private set; }
         public static ITexture2D StatIcons { get; private set; }
+        public static ITexture2D GoldIcon { get; private set; }
+        public static ITexture2D SpoilsIcon { get; private set; }
 
         public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> LargePortraitTextures { get; private set; }
         public static List<ITexture2D> MediumPortraitTextures { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
-
-
-        public static ITexture2D WorldTileSetTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")); }
-        }
-
-        public static ITexture2D TerrainTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
-        }
 
         public static ITexture2D EntitiesTexture
         {
@@ -134,6 +125,8 @@ namespace SolStandard.Utility.Assets
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
 
+            GoldIcon = ContentLoader.LoadGoldIcon(content);
+            SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
 
             ButtonIcons = ContentLoader.LoadButtonIcons(content);
             ButtonIconProvider.LoadButtons(ButtonIcons);

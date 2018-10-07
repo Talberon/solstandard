@@ -459,5 +459,22 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/VictoryTheme")
             };
         }
+
+        public static ITexture2D LoadGoldIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+        public static ITexture2D LoadSpoilsIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
     }
 }

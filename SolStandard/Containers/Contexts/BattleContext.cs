@@ -319,14 +319,14 @@ namespace SolStandard.Containers.Contexts
                 else if (attackerDamage > 0 && attackerInRange)
                 {
                     attackerDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
-                    defender.DamageUnit(1, attacker);
+                    defender.DamageUnit(1);
                     attackerDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
                 else if (defenderDamage > 0 && defenderInRange)
                 {
                     defenderDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
-                    attacker.DamageUnit(1, defender);
+                    attacker.DamageUnit(1);
                     defenderDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }

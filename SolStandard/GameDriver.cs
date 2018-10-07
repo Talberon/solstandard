@@ -226,7 +226,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                    _gameContext.MapContext.UpdateUnitPortraitWindows(hoverTiles);
+                    _gameContext.MapContext.UpdateHoverContextWindows(hoverTiles);
                     break;
                 case GameContext.GameState.Results:
                     break;

@@ -2,13 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -36,7 +36,7 @@ namespace SolStandard.Containers.UI
 
         public Window TurnWindow { get; private set; }
         public Window InitiativeWindow { get; private set; }
-        public Window TerrainEntityWindow { get; private set; }
+        public Window EntityWindow { get; private set; }
         public Window HelpTextWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
@@ -119,17 +119,34 @@ namespace SolStandard.Containers.UI
                 windowSize);
         }
 
-        public void GenerateTerrainWindow(TerrainEntity selectedTerrain)
+        public void GenerateEntityWindow(MapSlice hoverSlice)
         {
             WindowContentGrid terrainContentGrid;
 
-            if (selectedTerrain != null)
+            if (hoverSlice.TerrainEntity != null || hoverSlice.ItemEntity != null)
             {
                 terrainContentGrid = new WindowContentGrid(
-                    new[,]
+                    new IRenderable[,]
                     {
                         {
-                            selectedTerrain.TerrainInfo
+                            (hoverSlice.TerrainEntity != null)
+                                ? new Window(
+                                    "Terrain Preview",
+                                    AssetManager.WindowTexture,
+                                    hoverSlice.TerrainEntity.TerrainInfo,
+                                    new Color(100, 150, 100, 180)
+                                ) as IRenderable
+                                : new RenderBlank()
+                        },
+                        {
+                            (hoverSlice.ItemEntity != null)
+                                ? new Window(
+                                    "Item Preview",
+                                    AssetManager.WindowTexture,
+                                    hoverSlice.ItemEntity.TerrainInfo,
+                                    new Color(180, 180, 100, 180)
+                                ) as IRenderable
+                                : new RenderBlank()
                         }
                     },
                     1);
@@ -140,14 +157,18 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.WindowFont, "None ")
+                            new Window(
+                                "No Entity Info",
+                                AssetManager.WindowTexture,
+                                new RenderText(AssetManager.WindowFont, "None"),
+                                new Color(100, 100, 100, 180)
+                            )
                         }
                     },
                     1);
             }
 
-            TerrainEntityWindow = new Window("Terrain Info", windowTexture, terrainContentGrid,
-                new Color(100, 150, 100, 220));
+            EntityWindow = new Window("Entity Info", windowTexture, terrainContentGrid, new Color(50, 50, 50, 150));
         }
 
         public void GenerateHelpWindow(string helpText)
@@ -449,7 +470,7 @@ namespace SolStandard.Containers.UI
         {
             //Top-right
             return new Vector2(
-                screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer,
+                screenSize.X - EntityWindow.Width - WindowEdgeBuffer,
                 WindowEdgeBuffer
             );
         }
@@ -485,9 +506,9 @@ namespace SolStandard.Containers.UI
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
             }
 
-            if (TerrainEntityWindow != null)
+            if (EntityWindow != null)
             {
-                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition());
+                EntityWindow.Draw(spriteBatch, TerrainWindowPosition());
             }
 
             if (TurnWindow != null)

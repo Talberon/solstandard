@@ -70,6 +70,7 @@
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
+    <Compile Include="Entity\General\Spoils.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Entity\Unit\Skills\Terrain\DropItemAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\PickUpItemAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\UseDoorAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
     <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />

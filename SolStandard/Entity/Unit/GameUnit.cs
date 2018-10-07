@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -192,9 +194,9 @@ namespace SolStandard.Entity.Unit
                             new RenderBlank()
                         },
                         {
-                            //TODO Add CurrentGold icon to StatIcons
-                            new RenderBlank(),
-                            new RenderText(AssetManager.WindowFont, "Currency: " + CurrentGold + Currency.CurrencyAbbreviation),
+                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                            new RenderText(AssetManager.WindowFont,
+                                "Currency: " + CurrentGold + Currency.CurrencyAbbreviation),
                             new RenderBlank()
                         },
                         {
@@ -303,11 +305,11 @@ namespace SolStandard.Entity.Unit
             PreventUnitLeavingMapBounds(mapSize);
         }
 
-        public void DamageUnit(int damage, GameUnit source)
+        public void DamageUnit(int damage)
         {
             stats.Hp -= damage;
             healthbars.ForEach(healthbar => healthbar.DealDamage(damage));
-            KillIfDead(source);
+            KillIfDead();
         }
 
         public void ActivateUnit()
@@ -373,28 +375,50 @@ namespace SolStandard.Entity.Unit
             return false;
         }
 
-        private void KillIfDead(GameUnit source)
+        private void KillIfDead()
         {
-            if (stats.Hp <= 0)
+            if (stats.Hp <= 0 && MapEntity != null)
             {
-                MapEntity = null;
+                DropSpoils();
                 largePortrait.RenderColor = DeadPortraitColor;
                 mediumPortrait.RenderColor = DeadPortraitColor;
                 smallPortrait.RenderColor = DeadPortraitColor;
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
+                MapEntity = null;
+            }
+        }
 
-                //Give killer all inventory items
-                if (source.Stats.Hp > 0)
+        private void DropSpoils()
+        {
+            TerrainEntity entityAtUnitPosition =
+                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                    (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
+
+            //Check if an item already exists here and add it to the spoils so that they aren't lost 
+            if (entityAtUnitPosition != null)
+            {
+                if (entityAtUnitPosition is IItem)
                 {
-                    source.Inventory.AddRange(Inventory);
-                    Inventory.Clear();
+                    AddItemToInventory(entityAtUnitPosition as IItem);
                 }
-                //TODO If the killer is also dead, drop a chest at your coordinates with all your items
-                else
+                else if (entityAtUnitPosition is Currency)
                 {
+                    Currency gold = entityAtUnitPosition as Currency;
+                    CurrentGold += gold.Value;
                 }
             }
+
+            MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X, (int) MapEntity.MapCoordinates.Y]
+                = new Spoils(
+                    Id + " Spoils",
+                    "Spoils",
+                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize), 1),
+                    MapEntity.MapCoordinates,
+                    new Dictionary<string, string>(),
+                    CurrentGold,
+                    Inventory
+                );
         }
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)
