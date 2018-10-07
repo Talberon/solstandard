@@ -36,11 +36,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new ToggleLockEvent(targetUnlockable));
                 eventQueue.Enqueue(new WaitFramesEvent(5));
-                eventQueue.Enqueue(
-                    new ToggleOpenEvent(
-                        targetSlice.TerrainEntity as IOpenable, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX
-                    )
-                );
+                eventQueue.Enqueue(new ToggleOpenEvent(targetSlice.TerrainEntity as IOpenable));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);

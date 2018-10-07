@@ -180,7 +180,7 @@ namespace SolStandard.Containers.UI
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
-            const int maxInitiativeSize = 9;
+            const int maxInitiativeSize = 8;
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 

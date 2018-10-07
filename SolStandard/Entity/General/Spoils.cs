@@ -17,8 +17,8 @@ namespace SolStandard.Entity.General
             Dictionary<string, string> tiledProperties, int currency, List<IItem> items) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.Currency = currency;
-            this.Items = items;
+            Currency = currency;
+            Items = items;
             Range = new[] {0, 1};
         }
 

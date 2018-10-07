@@ -15,7 +15,6 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             lockable.ToggleLock();
-            //TODO Play ToggleLock SFX
             Complete = true;
         }
     }

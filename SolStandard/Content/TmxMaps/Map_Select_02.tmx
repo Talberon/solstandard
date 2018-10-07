@@ -1964,7 +1964,7 @@
   <object id="536" name="Dungeon" type="SelectMap" gid="289" x="224" y="224" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Experimenting_03.tmx"/>
-    <property name="mapSong" value="VoidTheme"/>
+    <property name="mapSong" value="LavaTheme"/>
    </properties>
   </object>
  </objectgroup>

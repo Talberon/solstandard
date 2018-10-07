@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (TargetingSwitch(targetSlice))
+            if (TargetingSwitchAndNothingOnTargets(targetSlice))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -42,11 +42,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
                 foreach (ILockable lockable in targetLockables)
                 {
-                    eventQueue.Enqueue(
-                        new ToggleOpenEvent(
-                            lockable as IOpenable, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX
-                        )
-                    );
+                    eventQueue.Enqueue(new ToggleOpenEvent(lockable as IOpenable));
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(5));
@@ -66,8 +62,20 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
         }
 
-        private bool TargetingSwitch(MapSlice targetSlice)
+        private bool TargetingSwitchAndNothingOnTargets(MapSlice targetSlice)
         {
+            foreach (ILockable lockable in targetLockables)
+            {
+                TerrainEntity entity = lockable as TerrainEntity;
+                if (entity == null) continue;
+                
+                //Don't allow the switch to be triggered if any target tiles have a unit on them
+                if (MapContainer.GetMapSliceAtCoordinates(entity.MapCoordinates).UnitEntity != null)
+                {
+                    return false;
+                }
+            }
+
             return targetSlice.DynamicEntity != null &&
                    targetSlice.TerrainEntity is Switch;
         }

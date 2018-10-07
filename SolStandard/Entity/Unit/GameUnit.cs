@@ -186,7 +186,7 @@ namespace SolStandard.Entity.Unit
             get
             {
                 return new WindowContentGrid(
-                    new IRenderable[,]
+                    new IRenderable[,] 
                     {
                         {
                             new RenderText(AssetManager.HeaderFont, Id),
@@ -196,7 +196,7 @@ namespace SolStandard.Entity.Unit
                         {
                             new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
                             new RenderText(AssetManager.WindowFont,
-                                "Currency: " + CurrentGold + Currency.CurrencyAbbreviation),
+                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation),
                             new RenderBlank()
                         },
                         {

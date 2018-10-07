@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
         private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return spoils.MapCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
+            return spoils == targetSlice.ItemEntity &&
                    targetSlice.DynamicEntity != null;
         }
     }

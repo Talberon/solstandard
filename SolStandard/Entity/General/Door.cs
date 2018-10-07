@@ -72,7 +72,7 @@ namespace SolStandard.Entity.General
         {
             if (!IsLocked)
             {
-                //TODO Play open door SFX
+                AssetManager.DoorSFX.Play();
                 ElementColor = InactiveColor;
                 IsOpen = true;
                 CanMove = true;
@@ -85,7 +85,7 @@ namespace SolStandard.Entity.General
 
         public void Close()
         {
-            //TODO Play close door sfx
+            AssetManager.DoorSFX.Play();
             ElementColor = Color.White;
             IsOpen = false;
             CanMove = false;
@@ -93,7 +93,7 @@ namespace SolStandard.Entity.General
 
         public void ToggleLock()
         {
-            //TODO Play lock/unlock SFX
+            AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
         }
     }

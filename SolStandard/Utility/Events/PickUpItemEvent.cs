@@ -3,6 +3,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Map;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -23,7 +24,7 @@ namespace SolStandard.Utility.Events
         {
             GameContext.ActiveUnit.AddItemToInventory(item);
             RemoveItemFromMap();
-            //TODO Play pickup SFX
+            AssetManager.MenuConfirmSFX.Play();
             Complete = true;
         }
 

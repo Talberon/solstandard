@@ -40,19 +40,22 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 door == targetSlice.TerrainEntity
                 && targetSlice.DynamicEntity != null
                 && targetSlice.UnitEntity == null
-                && !door.IsLocked
             )
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
+                if (!door.IsLocked)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(
-                    //TODO Add door SFX
-                    new ToggleOpenEvent(door, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX)
-                );
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
-                GlobalEventQueue.QueueEvents(eventQueue);
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new ToggleOpenEvent(door));
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    AssetManager.LockedSFX.Play();
+                }
             }
             else
             {

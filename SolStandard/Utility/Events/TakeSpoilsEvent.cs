@@ -3,6 +3,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Map;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -27,6 +28,8 @@ namespace SolStandard.Utility.Events
             }
 
             RemoveItemFromMap();
+
+            AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;
         }

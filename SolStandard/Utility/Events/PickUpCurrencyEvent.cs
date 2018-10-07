@@ -2,6 +2,7 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Map;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -20,7 +21,7 @@ namespace SolStandard.Utility.Events
         {
             GameContext.ActiveUnit.CurrentGold += currency.Value;
             RemoveItemFromMap();
-            //TODO Play gold SFX
+            AssetManager.CoinSFX.Play();
             Complete = true;
         }
 

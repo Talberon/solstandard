@@ -21,6 +21,10 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
         public static ISoundEffect WarningSFX { get; private set; }
+        public static ISoundEffect CoinSFX { get; private set; }
+        public static ISoundEffect DoorSFX { get; private set; }
+        public static ISoundEffect LockedSFX { get; private set; }
+        public static ISoundEffect UnlockSFX { get; private set; }
 
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
@@ -152,6 +156,10 @@ namespace SolStandard.Utility.Assets
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
             WarningSFX = ContentLoader.LoadWarningSFX(content);
+            CoinSFX = ContentLoader.LoadCoinSFX(content);
+            DoorSFX = ContentLoader.LoadDoorSFX(content);
+            LockedSFX = ContentLoader.LoadLockedSFX(content);
+            UnlockSFX = ContentLoader.LoadUnLockSFX(content);
 
             SkillBuffSFX = ContentLoader.LoadSkillDrawSFX(content);
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);

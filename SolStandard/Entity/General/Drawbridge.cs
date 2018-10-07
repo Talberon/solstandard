@@ -29,7 +29,7 @@ namespace SolStandard.Entity.General
             Visible = true;
             IsOpen = true;
             CanMove = true;
-            //TODO play open bridge SFX
+            AssetManager.DoorSFX.Play();
         }
 
         public void Close()
@@ -38,12 +38,12 @@ namespace SolStandard.Entity.General
             Visible = false;
             IsOpen = false;
             CanMove = false;
-            //TODO play close bridge SFX
+            AssetManager.DoorSFX.Play();
         }
 
         public void ToggleLock()
         {
-            //TODO Play lock/unlock SFX
+            AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
         }
 

@@ -468,6 +468,7 @@ namespace SolStandard.Utility.Load
 
             return textureWrapper;
         }
+
         public static ITexture2D LoadSpoilsIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
@@ -475,6 +476,30 @@ namespace SolStandard.Utility.Load
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
             return textureWrapper;
+        }
+
+        public static ISoundEffect LoadCoinSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadDoorSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_hard4");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadLockedSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error5");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadUnLockSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
+            return new SoundEffectWrapper(effect, 0.5f);
         }
     }
 }
