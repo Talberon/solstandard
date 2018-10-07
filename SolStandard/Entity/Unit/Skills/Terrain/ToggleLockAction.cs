@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
@@ -37,6 +36,16 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 eventQueue.Enqueue(new ToggleLockEvent(targetUnlockable));
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 eventQueue.Enqueue(new ToggleOpenEvent(targetSlice.TerrainEntity as IOpenable));
+
+                Chest targetChest = targetUnlockable as Chest;
+                if (targetChest != null)
+                {
+                    eventQueue.Enqueue(new IncreaseUnitGoldEvent(targetChest.Gold));
+                    eventQueue.Enqueue(new WaitFramesEvent(5));
+                    //Keys are one-time use; delete the key after using it.
+                    eventQueue.Enqueue(new DeleteItemEvent(key));
+                }
+
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -52,7 +61,14 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             return targetUnlockable != null
                    && targetSlice.DynamicEntity != null
                    && targetSlice.UnitEntity == null
-                   && key.UsedWith == targetSlice.TerrainEntity.Name;
+                   && key.UsedWith == targetSlice.TerrainEntity.Name
+                   && ChestIsNotOpen(targetUnlockable);
+        }
+
+        private bool ChestIsNotOpen(ILockable targetUnlockable)
+        {
+            Chest targetChest = targetUnlockable as Chest;
+            return targetChest != null && !targetChest.IsOpen;
         }
     }
 }

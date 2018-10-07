@@ -163,6 +163,7 @@
     <Compile Include="Utility\Buttons\YControl.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\DeleteItemEvent.cs" />
     <Compile Include="Utility\Events\DropItemEvent.cs" />
     <Compile Include="Utility\Events\EndTurnEvent.cs" />
     <Compile Include="Utility\Events\HideUnitEvent.cs" />

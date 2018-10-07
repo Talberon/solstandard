@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Skills.Terrain;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;

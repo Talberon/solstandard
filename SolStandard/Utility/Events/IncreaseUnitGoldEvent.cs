@@ -5,7 +5,7 @@ namespace SolStandard.Utility.Events
 {
     public class IncreaseUnitGoldEvent : IEvent
     {
-        private int gold;
+        private readonly int gold;
 
         public IncreaseUnitGoldEvent(int gold)
         {
