@@ -71,9 +71,8 @@ namespace SolStandard.Entity.General
         {
             if (!IsLocked)
             {
-                //TODO Have a frame for the door in its open state
                 //TODO Play open door SFX
-                Visible = false;
+                ElementColor = new Color(0, 0, 0, 50);
                 IsOpen = true;
                 CanMove = true;
             }
@@ -86,7 +85,7 @@ namespace SolStandard.Entity.General
         public void Close()
         {
             //TODO Play close door sfx
-            Visible = true;
+            ElementColor = Color.White;
             IsOpen = false;
             CanMove = false;
         }

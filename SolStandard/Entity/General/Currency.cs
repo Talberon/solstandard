@@ -39,15 +39,15 @@ namespace SolStandard.Entity.General
                     {
                         {
                             Sprite,
+                            new RenderText(AssetManager.HeaderFont, Name),
+                        },
+                        {
+                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~"),
                             new RenderBlank()
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, Name),
+                            new RenderText(AssetManager.WindowFont, "Value: " + Value + CurrencyAbbreviation),
                             new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, "Value: " + Value + CurrencyAbbreviation)
                         }
                     },
                     1
