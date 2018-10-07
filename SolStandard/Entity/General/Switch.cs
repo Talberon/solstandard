@@ -16,6 +16,8 @@ namespace SolStandard.Entity.General
     {
         public int[] Range { get; private set; }
         public string TriggersId { get; private set; }
+        private bool active;
+        private static readonly Color ActiveColor = new Color(180, 180, 180);
 
         public Switch(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, string triggersId) :
@@ -24,6 +26,7 @@ namespace SolStandard.Entity.General
             TriggersId = triggersId;
             Range = new[] {1};
             CanMove = false;
+            active = false;
         }
 
         public UnitAction TileAction()
@@ -49,6 +52,20 @@ namespace SolStandard.Entity.General
             }
 
             return lockables;
+        }
+
+        public void ToggleActive()
+        {
+            if (active)
+            {
+                active = false;
+                ElementColor = Color.White;
+            }
+            else
+            {
+                active = true;
+                ElementColor = ActiveColor;
+            }
         }
 
         public override IRenderable TerrainInfo

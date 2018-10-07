@@ -1,32 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Skills.Terrain;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    //TODO implement IActionTile interface
-    public class Chest : TerrainEntity, IOpenable, ILockable
+    public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable
     {
-        private readonly string contents;
+        public int Gold { get; private set; }
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
         public int[] Range { get; private set; }
+        private static readonly Color InactiveColor = new Color(50, 50, 50);
 
         public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string contents, bool isLocked, bool isOpen,
-            bool canMove, int[] range) : base(name, type,
-            sprite, mapCoordinates, tiledProperties)
+            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, bool canMove, int[] range,
+            int gold) :
+            base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.contents = contents;
             CanMove = canMove;
             IsLocked = isLocked;
             IsOpen = isOpen;
             Range = range;
+            Gold = gold;
         }
 
         public override IRenderable TerrainInfo
@@ -60,8 +61,9 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Contents: "),
-                            new RenderText(AssetManager.WindowFont, (IsOpen) ? contents : "????")
+                            new RenderText(AssetManager.WindowFont, "Gold: "),
+                            new RenderText(AssetManager.WindowFont,
+                                (IsOpen) ? Gold + Currency.CurrencyAbbreviation : "????")
                         }
                     },
                     3
@@ -71,22 +73,27 @@ namespace SolStandard.Entity.General
 
         public UnitAction TileAction()
         {
-            throw new NotImplementedException();
+            return new OpenChestAction(this, MapCoordinates);
         }
 
         public void Open()
         {
-            throw new NotImplementedException();
+            AssetManager.DoorSFX.Play();
+            ElementColor = InactiveColor;
+            IsOpen = true;
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+            AssetManager.DoorSFX.Play();
+            ElementColor = Color.White;
+            IsOpen = false;
         }
 
         public void ToggleLock()
         {
-            throw new NotImplementedException();
+            AssetManager.UnlockSFX.Play();
+            IsLocked = !IsLocked;
         }
     }
 }

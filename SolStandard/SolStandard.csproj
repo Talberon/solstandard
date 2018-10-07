@@ -92,6 +92,7 @@
     <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleSwitchAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\OpenChestAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\UseDoorAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Skills\UnitAction.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Utility\Events\HideUnitEvent.cs" />
     <Compile Include="Utility\Events\IEvent.cs" />
     <Compile Include="Utility\Events\GlobalEventQueue.cs" />
+    <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />

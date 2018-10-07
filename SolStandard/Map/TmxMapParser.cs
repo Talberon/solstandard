@@ -246,12 +246,12 @@ namespace SolStandard.Map
                                             spriteAtlas,
                                             new Vector2(col, row),
                                             currentProperties,
-                                            currentProperties["Contents"],
                                             Convert.ToBoolean(currentProperties["isLocked"]),
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["range"]
-                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
+                                            Convert.ToInt32(currentProperties["gold"])
                                         );
                                         break;
                                     case EntityTypes.Decoration:

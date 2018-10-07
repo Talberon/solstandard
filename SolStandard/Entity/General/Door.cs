@@ -70,17 +70,10 @@ namespace SolStandard.Entity.General
 
         public void Open()
         {
-            if (!IsLocked)
-            {
-                AssetManager.DoorSFX.Play();
-                ElementColor = InactiveColor;
-                IsOpen = true;
-                CanMove = true;
-            }
-            else
-            {
-                //TODO Play locked SFX
-            }
+            AssetManager.DoorSFX.Play();
+            ElementColor = InactiveColor;
+            IsOpen = true;
+            CanMove = true;
         }
 
         public void Close()

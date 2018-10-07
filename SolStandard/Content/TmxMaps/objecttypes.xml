@@ -11,10 +11,11 @@
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
  <objecttype name="Chest" color="#a66b47">
-  <property name="Contents" type="string"/>
   <property name="canMove" type="bool" default="false"/>
+  <property name="gold" type="int" default="0"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
+  <property name="items" type="string"/>
   <property name="range" type="string" default="1"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">

@@ -12,8 +12,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
     public class ToggleSwitchAction : UnitAction
     {
         private readonly List<ILockable> targetLockables;
+        private Switch switchTile;
 
-        public ToggleSwitchAction(MapEntity switchTile, List<ILockable> targetLockables) : base(
+        public ToggleSwitchAction(Switch switchTile, List<ILockable> targetLockables) : base(
             icon: switchTile.RenderSprite,
             name: "Use: " + switchTile.Name,
             description: "Opens or closes the target lockable.",
@@ -21,6 +22,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             range: new[] {1}
         )
         {
+            this.switchTile = switchTile;
             this.targetLockables = targetLockables;
         }
 
@@ -29,27 +31,13 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
         {
             if (TargetingSwitchAndNothingOnTargets(targetSlice))
             {
+                switchTile.ToggleActive();
+
                 MapContainer.ClearDynamicAndPreviewGrids();
-
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-
-                foreach (ILockable lockable in targetLockables)
-                {
-                    eventQueue.Enqueue(new ToggleLockEvent(lockable));
-                }
-
-                eventQueue.Enqueue(new WaitFramesEvent(5));
-
                 foreach (ILockable lockable in targetLockables)
                 {
                     eventQueue.Enqueue(new ToggleOpenEvent(lockable as IOpenable));
-                }
-
-                eventQueue.Enqueue(new WaitFramesEvent(5));
-                //Relock the tile after opening/closing it
-                foreach (ILockable lockable in targetLockables)
-                {
-                    eventQueue.Enqueue(new ToggleLockEvent(lockable));
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -68,7 +56,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             {
                 TerrainEntity entity = lockable as TerrainEntity;
                 if (entity == null) continue;
-                
+
                 //Don't allow the switch to be triggered if any target tiles have a unit on them
                 if (MapContainer.GetMapSliceAtCoordinates(entity.MapCoordinates).UnitEntity != null)
                 {
