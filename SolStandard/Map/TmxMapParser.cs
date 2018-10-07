@@ -315,7 +315,14 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.Switch:
-                                        //TODO Implement me
+                                        entityGrid[col, row] = new Switch(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            currentProperties["triggersId"]
+                                        );
                                         break;
                                     case EntityTypes.Key:
                                         entityGrid[col, row] = new Key(

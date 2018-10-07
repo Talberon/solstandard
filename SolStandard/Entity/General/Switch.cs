@@ -9,40 +9,45 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Entity.General
 {
-    public class Key : TerrainEntity, IItem, IActionTile
+    public class Switch : TerrainEntity, IActionTile
     {
-        public string UsedWith { get; private set; }
         public int[] Range { get; private set; }
+        public string TriggersId { get; private set; }
 
-        public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string usedWith, int[] range) :
+        public Switch(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties, string triggersId) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            UsedWith = usedWith;
-            Range = range;
-        }
-
-        public IRenderable Icon
-        {
-            get { return Sprite; }
+            TriggersId = triggersId;
+            Range = new[] {1};
+            CanMove = false;
         }
 
         public UnitAction TileAction()
         {
-            return new PickUpItemAction(this, MapCoordinates);
+            ILockable targetLockable = FindLockable();
+            return new ToggleSwitchAction(this, targetLockable);
         }
 
-        public UnitAction UseAction()
+        private ILockable FindLockable()
         {
-            return new ToggleLockAction(this);
-        }
+            foreach (MapEntity entity in MapContainer.GameGrid[(int) Layer.Entities])
+            {
+                ILockable door = entity as ILockable;
+                if (door != null)
+                {
+                    if (entity.Name == TriggersId)
+                    {
+                        return door;
+                    }
+                }
+            }
 
-        public UnitAction DropAction()
-        {
-            return new DropItemAction(this);
+            throw new TileNotFoundException();
         }
 
         public override IRenderable TerrainInfo
@@ -57,20 +62,16 @@ namespace SolStandard.Entity.General
                             new RenderText(AssetManager.HeaderFont, Name)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~~~"),
-                            new RenderBlank()
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
-                            new RenderBlank()
                         }
                     },
-                    3
+                    1
                 );
             }
         }

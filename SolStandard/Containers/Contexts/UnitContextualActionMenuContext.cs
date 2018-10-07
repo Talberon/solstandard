@@ -9,7 +9,7 @@ using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Containers.Contexts
 {
-    public static class UnitActionMenuContext
+    public static class UnitContextualActionMenuContext
     {
         private static readonly int[] InteractionRange = {0, 1};
         private static List<UnitAction> _contextualActions;

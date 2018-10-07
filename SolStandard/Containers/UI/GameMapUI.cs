@@ -66,7 +66,7 @@ namespace SolStandard.Containers.UI
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
 
-            MenuOption[] options = UnitActionMenuContext.GenerateActionMenuOptions(windowColour);
+            MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
@@ -83,7 +83,7 @@ namespace SolStandard.Containers.UI
                 windowTexture,
                 new RenderText(
                     AssetManager.WindowFont,
-                    UnitActionMenuContext.GetActionDescriptionAtIndex(ActionMenu.CurrentOptionIndex)
+                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu.CurrentOptionIndex)
                 ),
                 windowColour
             );

@@ -48,7 +48,7 @@
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
-    <Compile Include="Containers\Contexts\UnitActionMenuContext.cs" />
+    <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\Spoils.cs" />
+    <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Entity\Unit\Skills\Terrain\PickUpItemAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\ToggleSwitchAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\UseDoorAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Skills\UnitAction.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
