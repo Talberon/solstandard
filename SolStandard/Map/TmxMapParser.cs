@@ -48,6 +48,7 @@ namespace SolStandard.Map
             {"Chest", EntityTypes.Chest},
             {"Decoration", EntityTypes.Decoration},
             {"Door", EntityTypes.Door},
+            {"Drawbridge", EntityTypes.Drawbridge},
             {"Movable", EntityTypes.Movable},
             {"SelectMap", EntityTypes.SelectMap},
             {"Unit", EntityTypes.Unit},
@@ -334,6 +335,16 @@ namespace SolStandard.Map
                                             currentProperties["usedWith"],
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray()
+                                        );
+                                        break;
+                                    case EntityTypes.Drawbridge:
+                                        entityGrid[col, row] = new Drawbridge(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["isOpen"])
                                         );
                                         break;
                                     case EntityTypes.SelectMap:

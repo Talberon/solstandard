@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -10,9 +11,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 {
     public class ToggleSwitchAction : UnitAction
     {
-        private readonly ILockable targetLockable;
+        private readonly List<ILockable> targetLockables;
 
-        public ToggleSwitchAction(MapEntity switchTile, ILockable targetLockable) : base(
+        public ToggleSwitchAction(MapEntity switchTile, List<ILockable> targetLockables) : base(
             icon: switchTile.RenderSprite,
             name: "Use: " + switchTile.Name,
             description: "Opens or closes the target lockable.",
@@ -20,27 +21,41 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             range: new[] {1}
         )
         {
-            this.targetLockable = targetLockable;
+            this.targetLockables = targetLockables;
         }
 
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (SwitchWorksOnLock(targetSlice))
+            if (TargetingSwitch(targetSlice))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new ToggleLockEvent(targetLockable));
+
+                foreach (ILockable lockable in targetLockables)
+                {
+                    eventQueue.Enqueue(new ToggleLockEvent(lockable));
+                }
+
                 eventQueue.Enqueue(new WaitFramesEvent(5));
-                eventQueue.Enqueue(
-                    new ToggleOpenEvent(
-                        targetLockable as IOpenable, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX
-                    )
-                );
+
+                foreach (ILockable lockable in targetLockables)
+                {
+                    eventQueue.Enqueue(
+                        new ToggleOpenEvent(
+                            lockable as IOpenable, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX
+                        )
+                    );
+                }
+
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 //Relock the tile after opening/closing it
-                eventQueue.Enqueue(new ToggleLockEvent(targetLockable));
+                foreach (ILockable lockable in targetLockables)
+                {
+                    eventQueue.Enqueue(new ToggleLockEvent(lockable));
+                }
+
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -51,9 +66,10 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
         }
 
-        private bool SwitchWorksOnLock(MapSlice targetSlice)
+        private bool TargetingSwitch(MapSlice targetSlice)
         {
-            return targetLockable != null && targetSlice.DynamicEntity != null;
+            return targetSlice.DynamicEntity != null &&
+                   targetSlice.TerrainEntity is Switch;
         }
     }
 }

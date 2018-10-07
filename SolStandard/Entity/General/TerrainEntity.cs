@@ -15,6 +15,7 @@ namespace SolStandard.Entity.General
         Chest,
         Decoration,
         Door,
+        Drawbridge,
         Movable,
         Interactive,
         Currency,

@@ -9,7 +9,6 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Entity.General
 {
@@ -29,25 +28,27 @@ namespace SolStandard.Entity.General
 
         public UnitAction TileAction()
         {
-            ILockable targetLockable = FindLockable();
-            return new ToggleSwitchAction(this, targetLockable);
+            List<ILockable> targetLockables = FindLockables();
+            return new ToggleSwitchAction(this, targetLockables);
         }
 
-        private ILockable FindLockable()
+        private List<ILockable> FindLockables()
         {
+            List<ILockable> lockables = new List<ILockable>();
+
             foreach (MapEntity entity in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                ILockable door = entity as ILockable;
-                if (door != null)
+                ILockable lockable = entity as ILockable;
+                if (lockable != null)
                 {
                     if (entity.Name == TriggersId)
                     {
-                        return door;
+                        lockables.Add(lockable);
                     }
                 }
             }
 
-            throw new TileNotFoundException();
+            return lockables;
         }
 
         public override IRenderable TerrainInfo

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="663">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="670">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="392" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="1792"/>
  </tileset>
@@ -1750,69 +1750,69 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="542"/>
    <tile gid="543"/>
+   <tile gid="543"/>
+   <tile gid="543"/>
+   <tile gid="543"/>
    <tile gid="544"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2159,99 +2159,106 @@
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
-  <object id="630" name="Ballista" type="Interactive" gid="371" x="576" y="352" width="32" height="32">
+  <object id="630" name="Ballista" type="Interactive" gid="371" x="512" y="352" width="32" height="32">
    <properties>
     <property name="action" value="Ballista"/>
     <property name="canMove" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="633" name="Trebuchet" type="Interactive" gid="370" x="576" y="256" width="32" height="32">
+  <object id="633" name="Trebuchet" type="Interactive" gid="370" x="512" y="256" width="32" height="32">
    <properties>
     <property name="action" value="Trebuchet"/>
     <property name="canMove" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="635" name="Switch" type="Switch" gid="250" x="256" y="320" width="32" height="32">
+  <object id="635" name="Switch" type="Switch" gid="250" x="320" y="224" width="32" height="32">
    <properties>
     <property name="triggersId" value="Door A"/>
    </properties>
   </object>
-  <object id="636" name="Door A" type="Door" gid="236" x="256" y="288" width="32" height="32">
+  <object id="636" name="Door A" type="Door" gid="236" x="256" y="256" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
   <object id="651" name="Bridge" type="Movable" gid="55" x="224" y="256" width="32" height="32"/>
-  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="288" y="256" width="32" height="32">
+  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="480" y="192" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="2"/>
    </properties>
   </object>
-  <object id="654" name="Stairs A1" type="Portal" gid="253" x="288" y="416" width="32" height="32">
+  <object id="654" name="Stairs A1" type="Portal" gid="253" x="288" y="384" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A2"/>
    </properties>
   </object>
-  <object id="655" name="Stairs A2" type="Portal" gid="253" x="480" y="224" width="32" height="32">
+  <object id="655" name="Stairs A2" type="Portal" gid="253" x="480" y="256" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="658" name="Door LK1" type="Door" gid="236" x="352" y="320" width="32" height="32">
+  <object id="658" name="Door LK1" type="Door" gid="236" x="256" y="288" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="661" name="Chest LK1" type="Chest" gid="205" x="416" y="320" width="32" height="32">
+  <object id="661" name="Chest LK1" type="Chest" gid="205" x="480" y="384" width="32" height="32">
    <properties>
     <property name="Contents" value="{gold:5}"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="662" name="Unlocked Door" type="Door" gid="236" x="480" y="288" width="32" height="32">
+  <object id="662" name="Unlocked Door" type="Door" gid="236" x="256" y="224" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="667" name="Drawbridge A" type="Drawbridge" gid="48" x="416" y="320" width="32" height="32"/>
+  <object id="668" name="Drawbridge Switch" type="Switch" gid="250" x="448" y="288" width="32" height="32">
+   <properties>
+    <property name="triggersId" value="Drawbridge A"/>
+   </properties>
+  </object>
+  <object id="669" name="Drawbridge A" type="Drawbridge" gid="48" x="352" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Items">
-  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="320" y="320" width="32" height="32">
+  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="288" y="288" width="32" height="32">
    <properties>
     <property name="usedWith" value="Door LK1"/>
    </properties>
   </object>
-  <object id="660" name="Chest LK1 Key" type="Key" gid="388" x="448" y="320" width="32" height="32">
+  <object id="660" name="Chest LK1 Key" type="Key" gid="388" x="512" y="384" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="644" name="Treasure" type="Currency" gid="374" x="608" y="256" width="32" height="32">
+  <object id="644" name="Treasure" type="Currency" gid="374" x="544" y="256" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="645" name="Treasure" type="Currency" gid="372" x="608" y="224" width="32" height="32"/>
-  <object id="646" name="Treasure" type="Currency" gid="386" x="608" y="416" width="32" height="32">
+  <object id="645" name="Treasure" type="Currency" gid="372" x="544" y="224" width="32" height="32"/>
+  <object id="646" name="Treasure" type="Currency" gid="386" x="544" y="416" width="32" height="32">
    <properties>
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="647" name="Treasure" type="Currency" gid="387" x="608" y="384" width="32" height="32">
+  <object id="647" name="Treasure" type="Currency" gid="387" x="544" y="384" width="32" height="32">
    <properties>
     <property name="value" type="int" value="25"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="382" x="608" y="320" width="32" height="32">
+  <object id="648" name="Treasure" type="Currency" gid="382" x="544" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="649" name="Treasure" type="Currency" gid="381" x="608" y="288" width="32" height="32">
+  <object id="649" name="Treasure" type="Currency" gid="381" x="544" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="650" name="Treasure" type="Currency" gid="380" x="608" y="352" width="32" height="32">
+  <object id="650" name="Treasure" type="Currency" gid="380" x="544" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>

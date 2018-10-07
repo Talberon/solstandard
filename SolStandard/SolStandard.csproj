@@ -66,6 +66,7 @@
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Currency.cs" />
+    <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Key.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />

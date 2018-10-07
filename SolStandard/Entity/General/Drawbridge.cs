@@ -1,31 +1,52 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills;
-using SolStandard.Entity.Unit.Skills.Terrain;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : TerrainEntity, IActionTile, IOpenable, ILockable
+    public class Drawbridge : TerrainEntity, IOpenable, ILockable
     {
-        public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
-        public int[] Range { get; private set; }
-        private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
+        public bool IsLocked { get; private set; }
+        private static readonly Color InactiveColor = new Color(100, 100, 100, 50);
 
-        public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, int[] range, bool canMove) :
+        public Drawbridge(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties, bool isOpen) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            IsLocked = isLocked;
+            ElementColor = InactiveColor;
             IsOpen = isOpen;
-            Range = range;
-            CanMove = canMove;
+            IsLocked = true;
+            CanMove = false;
         }
+
+        public void Open()
+        {
+            ElementColor = Color.White;
+            Visible = true;
+            IsOpen = true;
+            CanMove = true;
+            //TODO play open bridge SFX
+        }
+
+        public void Close()
+        {
+            ElementColor = InactiveColor;
+            Visible = false;
+            IsOpen = false;
+            CanMove = false;
+            //TODO play close bridge SFX
+        }
+
+        public void ToggleLock()
+        {
+            //TODO Play lock/unlock SFX
+            IsLocked = !IsLocked;
+        }
+
 
         public override IRenderable TerrainInfo
         {
@@ -61,40 +82,6 @@ namespace SolStandard.Entity.General
                     3
                 );
             }
-        }
-
-        public UnitAction TileAction()
-        {
-            return new UseDoorAction(this, MapCoordinates);
-        }
-
-        public void Open()
-        {
-            if (!IsLocked)
-            {
-                //TODO Play open door SFX
-                ElementColor = InactiveColor;
-                IsOpen = true;
-                CanMove = true;
-            }
-            else
-            {
-                //TODO Play locked SFX
-            }
-        }
-
-        public void Close()
-        {
-            //TODO Play close door sfx
-            ElementColor = Color.White;
-            IsOpen = false;
-            CanMove = false;
-        }
-
-        public void ToggleLock()
-        {
-            //TODO Play lock/unlock SFX
-            IsLocked = !IsLocked;
         }
     }
 }

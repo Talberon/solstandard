@@ -30,6 +30,10 @@
   <property name="isOpen" type="bool" default="false"/>
   <property name="range" type="string" default="1"/>
  </objecttype>
+ <objecttype name="Drawbridge" color="#aa5500">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
  <objecttype name="Interactive" color="#358ad3">
   <property name="action" type="string" default="none"/>
   <property name="canMove" type="bool" default="false"/>
