@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Map;
+using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -10,28 +9,19 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Terrain
 {
-    public class PickUpItemAction : UnitAction
+    public class PickUpCurrencyAction : UnitAction
     {
-        private readonly IItem item;
-        private readonly Vector2 itemCoordinates;
+        private readonly Currency currency;
 
-        public PickUpItemAction(IItem item, Vector2 itemCoordinates) : base(
-            icon: item.Icon,
+        public PickUpCurrencyAction(Currency currency) : base(
+            icon: currency.RenderSprite,
             name: "Pick Up",
-            description: "Add the item to the active unit's inventory.",
+            description: "Add [" + currency.Value + "] to your unit's money count.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: currency.Range
         )
         {
-            this.item = item;
-            this.itemCoordinates = itemCoordinates;
-        }
-
-        public override void GenerateActionGrid(Vector2 origin)
-        {
-            MapContainer.GameGrid[(int) Layer.Dynamic][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
-                new MapDistanceTile(TileSprite, itemCoordinates, 0, false);
-            MapContainer.MapCursor.SlideCursorToCoordinates(itemCoordinates);
+            this.currency = currency;
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -41,7 +31,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new PickUpItemEvent(item, itemCoordinates));
+                eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -54,7 +44,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
         private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return itemCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
+            return currency.MapCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
                    targetSlice.DynamicEntity != null;
         }
     }

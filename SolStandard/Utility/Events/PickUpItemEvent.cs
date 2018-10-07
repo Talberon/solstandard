@@ -6,12 +6,12 @@ using SolStandard.Map;
 
 namespace SolStandard.Utility.Events
 {
-    public class PickUpEvent : IEvent
+    public class PickUpItemEvent : IEvent
     {
         private readonly IItem item;
         private readonly Vector2 itemCoordinates;
 
-        public PickUpEvent(IItem item, Vector2 itemCoordinates)
+        public PickUpItemEvent(IItem item, Vector2 itemCoordinates)
         {
             this.item = item;
             this.itemCoordinates = itemCoordinates;

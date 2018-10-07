@@ -303,7 +303,16 @@ namespace SolStandard.Map
                                         //TODO Implement me
                                         break;
                                     case EntityTypes.Currency:
-                                        //TODO Implement me
+                                        entityGrid[col, row] = new Currency(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToInt32(currentProperties["value"]),
+                                            currentProperties["range"]
+                                                .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
+                                        );
                                         break;
                                     case EntityTypes.Switch:
                                         //TODO Implement me

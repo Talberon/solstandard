@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
@@ -56,7 +57,7 @@ namespace SolStandard.Entity.Unit
         public List<StatusEffect> StatusEffects { get; private set; }
 
         public List<IItem> Inventory { get; private set; }
-        public int Gold { get; private set; }
+        public int CurrentGold { get; set; }
 
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
@@ -89,7 +90,7 @@ namespace SolStandard.Entity.Unit
 
             StatusEffects = new List<StatusEffect>();
             Inventory = new List<IItem>();
-            Gold = 0;
+            CurrentGold = 0;
         }
 
         public UnitEntity UnitEntity
@@ -191,9 +192,9 @@ namespace SolStandard.Entity.Unit
                             new RenderBlank()
                         },
                         {
-                            //TODO Add Gold icon to StatIcons
+                            //TODO Add CurrentGold icon to StatIcons
                             new RenderBlank(),
-                            new RenderText(AssetManager.WindowFont, "Gold: " + Gold + "p"),
+                            new RenderText(AssetManager.WindowFont, "Currency: " + CurrentGold + Currency.CurrencyAbbreviation),
                             new RenderBlank()
                         },
                         {
