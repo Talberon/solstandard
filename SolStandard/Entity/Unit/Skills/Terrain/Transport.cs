@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -14,9 +15,8 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
     {
         private readonly Vector2 targetCoordinates;
 
-        public Transport(Vector2 targetCoordinates) : base(
-            //FIXME Add a unique action icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
+        public Transport(Portal portal, Vector2 targetCoordinates) : base(
+            icon: portal.RenderSprite,
             name: "Transport",
             description: "Moves unit to another space.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement),

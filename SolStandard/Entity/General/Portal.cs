@@ -30,7 +30,7 @@ namespace SolStandard.Entity.General
         public UnitAction TileAction()
         {
             //Check for the corresponding portal destination point
-            
+
             Vector2 targetTileCoordinates = Vector2.One;
 
             foreach (MapElement entity in MapContainer.GameGrid[(int) Layer.Entities])
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.General
                 }
             }
 
-            return new Transport(targetTileCoordinates);
+            return new Transport(this, targetTileCoordinates);
         }
 
         public override IRenderable TerrainInfo
