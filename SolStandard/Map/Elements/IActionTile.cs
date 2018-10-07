@@ -7,6 +7,6 @@ namespace SolStandard.Map.Elements
     {
         int[] Range { get; }
         Vector2 MapCoordinates { get; }
-        UnitSkill TileAction();
+        UnitAction TileAction();
     }
 }

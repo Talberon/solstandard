@@ -2181,6 +2181,50 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="651" name="Bridge" type="Movable" gid="55" x="224" y="256" width="32" height="32"/>
+  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="288" y="256" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="654" name="Stairs A1" type="Portal" gid="253" x="288" y="416" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="655" name="Stairs A2" type="Portal" gid="253" x="480" y="224" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
+  <object id="658" name="Door LK1" type="Door" gid="236" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="661" name="Chest LK1" type="Chest" gid="205" x="416" y="320" width="32" height="32">
+   <properties>
+    <property name="Contents" value="{gold:5}"/>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="662" name="Unlocked Door" type="Door" gid="236" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items">
+  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="320" y="320" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Door LK1"/>
+   </properties>
+  </object>
+  <object id="660" name="Chest LK1 Key" type="Key" gid="388" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Chest LK1"/>
+   </properties>
+  </object>
   <object id="644" name="Treasure" type="Currency" gid="374" x="608" y="256" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
@@ -2210,48 +2254,6 @@
   <object id="650" name="Treasure" type="Currency" gid="380" x="608" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="651" name="Bridge" type="Movable" gid="55" x="224" y="256" width="32" height="32"/>
-  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="288" y="256" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="654" name="Stairs A1" type="Portal" gid="253" x="288" y="416" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A2"/>
-   </properties>
-  </object>
-  <object id="655" name="Stairs A2" type="Portal" gid="253" x="480" y="224" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A1"/>
-   </properties>
-  </object>
-  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="320" y="320" width="32" height="32">
-   <properties>
-    <property name="usedWith" value="Door LK1"/>
-   </properties>
-  </object>
-  <object id="658" name="Door LK1" type="Door" gid="236" x="352" y="320" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="660" name="Chest LK1 Key" type="Key" gid="388" x="448" y="320" width="32" height="32">
-   <properties>
-    <property name="usedWith" value="Chest LK1"/>
-   </properties>
-  </object>
-  <object id="661" name="Chest LK1" type="Chest" gid="205" x="416" y="320" width="32" height="32">
-   <properties>
-    <property name="Contents" value="{gold:5}"/>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="662" name="Unlocked Door" type="Door" gid="236" x="480" y="288" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

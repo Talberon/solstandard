@@ -251,7 +251,7 @@ namespace SolStandard
                 case GameContext.GameState.MainMenu:
                     //Render Main Menu
                     spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                        SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                         null, SamplerState.PointClamp, null, null, null, null);
                     _gameContext.MainMenuUI.Draw(spriteBatch);
                     spriteBatch.End();
@@ -283,7 +283,7 @@ namespace SolStandard
         {
 //MAP LAYER
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
 
             GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
@@ -295,7 +295,7 @@ namespace SolStandard
         {
 //HUD
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
             GameContext.MapSelectContext.SelectMapUI.Draw(spriteBatch);
             spriteBatch.End();
@@ -304,7 +304,7 @@ namespace SolStandard
         private void DrawGameResultsScreen()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
             _gameContext.ResultsUI.Draw(spriteBatch);
@@ -315,7 +315,7 @@ namespace SolStandard
         private void DrawInGameMap()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
             _gameContext.MapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
@@ -324,7 +324,7 @@ namespace SolStandard
         private void DrawInGameHUD()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
             if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)

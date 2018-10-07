@@ -15,12 +15,13 @@ namespace SolStandard.Map
 {
     public enum Layer
     {
-        Terrain = 0,
-        TerrainDecoration = 1,
-        Collide = 2,
-        Entities = 3,
-        Preview = 4,
-        Dynamic = 5
+        Terrain,
+        TerrainDecoration,
+        Collide,
+        Entities,
+        Items,
+        Preview,
+        Dynamic
     }
 
     /**
@@ -132,6 +133,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Collide),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
+                ObtainEntitiesFromLayer("Items"),
                 new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };
@@ -305,6 +307,18 @@ namespace SolStandard.Map
                                         break;
                                     case EntityTypes.Switch:
                                         //TODO Implement me
+                                        break;
+                                    case EntityTypes.Key:
+                                        entityGrid[col, row] = new Key(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            currentProperties["usedWith"],
+                                            currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray()
+                                        );
                                         break;
                                     case EntityTypes.SelectMap:
                                         MapInfo derivedMapInfo =

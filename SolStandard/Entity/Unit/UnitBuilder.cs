@@ -84,7 +84,7 @@ namespace SolStandard.Entity.Unit
             ITexture2D largePortrait = FindLargePortrait(unitTeam.ToString(), unitJobClass.ToString());
 
             UnitStatistics unitStats;
-            List<UnitSkill> unitSkills;
+            List<UnitAction> unitSkills;
 
             switch (unitJobClass)
             {
@@ -132,9 +132,9 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(6, 3, 1, 1, 3, new[] {1, 2});
         }
 
-        private static List<UnitSkill> SelectArcherSkills()
+        private static List<UnitAction> SelectArcherSkills()
         {
-            return new List<UnitSkill>
+            return new List<UnitAction>
             {
                 new BasicAttack(),
                 new Draw(2, 1),
@@ -143,9 +143,9 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        private static List<UnitSkill> SelectChampionSkills()
+        private static List<UnitAction> SelectChampionSkills()
         {
-            return new List<UnitSkill>
+            return new List<UnitAction>
             {
                 new BasicAttack(),
                 new Cover(1, 2),
@@ -155,9 +155,9 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        private static List<UnitSkill> SelectMageSkills()
+        private static List<UnitAction> SelectMageSkills()
         {
-            return new List<UnitSkill>
+            return new List<UnitAction>
             {
                 new BasicAttack(),
                 new Blink(),
@@ -166,9 +166,9 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        private static List<UnitSkill> SelectMonarchSkills()
+        private static List<UnitAction> SelectMonarchSkills()
         {
-            return new List<UnitSkill>
+            return new List<UnitAction>
             {
                 new BasicAttack(),
                 new Inspire(2, 1),

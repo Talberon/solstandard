@@ -48,7 +48,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                (IsLocked) ? PositiveColor : NegativeColor),
+                                (IsLocked) ? NegativeColor : PositiveColor),
                             new RenderBlank()
                         },
                         {
@@ -62,9 +62,9 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public UnitSkill TileAction()
+        public UnitAction TileAction()
         {
-            return new UseDoorSkill(MapCoordinates);
+            return new UseDoorAction(this, MapCoordinates);
         }
 
         public void Open()
@@ -91,10 +91,10 @@ namespace SolStandard.Entity.General
             CanMove = false;
         }
 
-        public void Unlock()
+        public void ToggleLock()
         {
-            //TODO Play unlock SFX
-            IsLocked = false;
+            //TODO Play lock/unlock SFX
+            IsLocked = !IsLocked;
         }
     }
 }

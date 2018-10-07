@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -11,43 +10,40 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Terrain
 {
-    public class UseDoorSkill : UnitSkill
+    public class PickUpItemAction : UnitAction
     {
-        private readonly Vector2 targetCoordinates;
+        private readonly IItem item;
+        private readonly Vector2 itemCoordinates;
 
-        public UseDoorSkill(Vector2 targetCoordinates) : base(
-            //FIXME Add a unique skill icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
-            name: "Use Door",
-            description: "Opens or closes the door.",
+        public PickUpItemAction(IItem item, Vector2 itemCoordinates) : base(
+            icon: item.Icon,
+            name: "Pick Up",
+            description: "Add the item to the active unit's inventory.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null
         )
         {
-            this.targetCoordinates = targetCoordinates;
+            this.item = item;
+            this.itemCoordinates = itemCoordinates;
         }
 
         public override void GenerateActionGrid(Vector2 origin)
         {
-            MapContainer.GameGrid[(int) Layer.Dynamic][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
-                new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
+            MapContainer.GameGrid[(int) Layer.Dynamic][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
+                new MapDistanceTile(TileSprite, itemCoordinates, 0, false);
+            MapContainer.MapCursor.SlideCursorToCoordinates(itemCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            Door targetDoor = targetSlice.TerrainEntity as Door;
-
-            if (
-                targetDoor != null
-                && targetSlice.DynamicEntity != null
-                && targetSlice.UnitEntity == null
-                && !targetDoor.IsLocked
-            )
+            if (itemCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates)
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new ToggleDoorEvent(targetDoor));
+
+                eventQueue.Enqueue(new PickUpEvent(item, itemCoordinates));
+
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);

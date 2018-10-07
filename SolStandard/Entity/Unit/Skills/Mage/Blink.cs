@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Mage
 {
-    public class Blink : UnitSkill
+    public class Blink : UnitAction
     {
         private static readonly int[] BlinkRange = {1, 2, 3, 4};
 

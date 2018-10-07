@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Archer
 {
-    public class Draw : UnitSkill
+    public class Draw : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;

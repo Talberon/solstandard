@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Champion
 {
-    public class Tackle : UnitSkill
+    public class Tackle : UnitAction
     {
         public Tackle() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, new Vector2(32)),

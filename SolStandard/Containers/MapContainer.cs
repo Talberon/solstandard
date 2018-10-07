@@ -77,14 +77,16 @@ namespace SolStandard.Containers
                 MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
                 MapElement preview = _gameGrid[(int) Layer.Preview][column, row];
                 TerrainEntity entity = (TerrainEntity) _gameGrid[(int) Layer.Entities][column, row];
+                TerrainEntity item = (TerrainEntity) _gameGrid[(int) Layer.Items][column, row];
                 MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
                 MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
                 MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
-                return new MapSlice(coordinates, unit, preview, dynamic, entity, collide, terrainDecoration, terrain);
+                return new MapSlice(coordinates, unit, preview, dynamic, entity, item, collide, terrainDecoration,
+                    terrain);
             }
 
-            return new MapSlice(Vector2.Zero, null, null, null, null, null, null, null);
+            return new MapSlice(Vector2.Zero, null, null, null, null, null, null, null, null);
         }
 
         private void DrawMapGrid(SpriteBatch spriteBatch)
@@ -123,6 +125,12 @@ namespace SolStandard.Containers
             DrawMapGrid(spriteBatch);
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Entities])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
+            }
+            
+            foreach (MapElement tile in _gameGrid[(int) Layer.Items])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);

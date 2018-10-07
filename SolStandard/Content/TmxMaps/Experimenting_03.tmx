@@ -3341,6 +3341,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Items"/>
  <objectgroup name="Units">
   <object id="517" name="Horatio" type="Unit" gid="393" x="928" y="544" width="32" height="32">
    <properties>

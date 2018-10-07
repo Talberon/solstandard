@@ -8,7 +8,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public abstract class UnitSkill
+    public abstract class UnitAction
     {
         public IRenderable Icon { get; private set; }
         public string Name { get; private set; }
@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Skills
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; private set; }
 
-        protected UnitSkill(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range)
+        protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range)
         {
             Icon = icon;
             Name = name;

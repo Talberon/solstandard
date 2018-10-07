@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Monarch
 {
-    public class Inspire : UnitSkill
+    public class Inspire : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;

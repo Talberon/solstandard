@@ -50,13 +50,16 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
 
-        public List<UnitSkill> Skills { get; private set; }
-        private UnitSkill armedUnitSkill;
+        public List<UnitAction> Skills { get; private set; }
+        private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
 
+        public List<IItem> Inventory { get; private set; }
+        public int Gold { get; private set; }
+
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) :
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
             base(id, mapEntity)
         {
             this.team = team;
@@ -82,9 +85,11 @@ namespace SolStandard.Entity.Unit
                 resultsHealthBar
             };
 
-            armedUnitSkill = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
+            armedUnitAction = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
 
             StatusEffects = new List<StatusEffect>();
+            Inventory = new List<IItem>();
+            Gold = 0;
         }
 
         public UnitEntity UnitEntity
@@ -146,6 +151,33 @@ namespace SolStandard.Entity.Unit
             return resultsHealthBar;
         }
 
+        //TODO Move the Portrait Pane, Status Pane, and new Inventory pane to GameUnit class and call from GameMapUI instead of building them there.
+
+        public IRenderable InventoryPane
+        {
+            get
+            {
+                if (Inventory.Count > 0)
+                {
+                    const int offset = 1;
+                    IRenderable[,] content = new IRenderable[Inventory.Count + offset, 2];
+
+                    content[0, 0] = new RenderBlank();
+                    content[0, 1] = new RenderText(AssetManager.HeaderFont, "Inventory");
+
+                    for (int i = 0; i < Inventory.Count; i++)
+                    {
+                        content[i + offset, 0] = Inventory[i].Icon;
+                        content[i + offset, 1] = new RenderText(AssetManager.WindowFont, Inventory[i].Name);
+                    }
+
+                    return new WindowContentGrid(content, 2);
+                }
+
+                return null;
+            }
+        }
+
         public IRenderable DetailPane
         {
             get
@@ -156,6 +188,12 @@ namespace SolStandard.Entity.Unit
                         {
                             new RenderText(AssetManager.HeaderFont, Id),
                             new RenderBlank(),
+                            new RenderBlank()
+                        },
+                        {
+                            //TODO Add Gold icon to StatIcons
+                            new RenderBlank(),
+                            new RenderText(AssetManager.WindowFont, "Gold: " + Gold + "p"),
                             new RenderBlank()
                         },
                         {
@@ -226,19 +264,19 @@ namespace SolStandard.Entity.Unit
             return mapSprite;
         }
 
-        public void ArmUnitSkill(UnitSkill skill)
+        public void ArmUnitSkill(UnitAction action)
         {
-            armedUnitSkill = skill;
+            armedUnitAction = action;
         }
 
         public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            armedUnitSkill.ExecuteAction(targetSlice, mapContext, battleContext);
+            armedUnitAction.ExecuteAction(targetSlice, mapContext, battleContext);
         }
 
         public void CancelArmedSkill(MapContext mapContext)
         {
-            armedUnitSkill.CancelAction(mapContext);
+            armedUnitAction.CancelAction(mapContext);
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
@@ -264,11 +302,11 @@ namespace SolStandard.Entity.Unit
             PreventUnitLeavingMapBounds(mapSize);
         }
 
-        public void DamageUnit(int damage)
+        public void DamageUnit(int damage, GameUnit source)
         {
             stats.Hp -= damage;
             healthbars.ForEach(healthbar => healthbar.DealDamage(damage));
-            KillIfDead();
+            KillIfDead(source);
         }
 
         public void ActivateUnit()
@@ -313,7 +351,28 @@ namespace SolStandard.Entity.Unit
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
         }
 
-        private void KillIfDead()
+        public void AddItemToInventory(IItem item)
+        {
+            Inventory.Add(item);
+            Skills.Insert(1, item.DropAction());
+            Skills.Insert(1, item.UseAction());
+        }
+
+        public bool RemoveItemFromInventory(IItem item)
+        {
+            if (Inventory.Contains(item))
+            {
+                Skills.Remove(Skills.Find(skill => skill.Name == item.UseAction().Name));
+                Skills.Remove(Skills.Find(skill => skill.Name == item.DropAction().Name));
+                Inventory.Remove(item);
+                return true;
+            }
+
+            AssetManager.WarningSFX.Play();
+            return false;
+        }
+
+        private void KillIfDead(GameUnit source)
         {
             if (stats.Hp <= 0)
             {
@@ -323,6 +382,17 @@ namespace SolStandard.Entity.Unit
                 smallPortrait.RenderColor = DeadPortraitColor;
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
+
+                //Give killer all inventory items
+                if (source.Stats.Hp > 0)
+                {
+                    source.Inventory.AddRange(Inventory);
+                    Inventory.Clear();
+                }
+                //TODO If the killer is also dead, drop a chest at your coordinates with all your items
+                else
+                {
+                }
             }
         }
 

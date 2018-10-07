@@ -64,7 +64,7 @@ namespace SolStandard.Containers.Contexts
         {
             attacker = newAttacker;
             defender = newDefender;
-            
+
             attacker.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
             defender.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
 
@@ -73,15 +73,14 @@ namespace SolStandard.Containers.Contexts
                 (attacker.UnitEntity != null) ? attacker.UnitEntity.MapCoordinates : new Vector2(-1);
             Vector2 defenderCoordinates =
                 (defender.UnitEntity != null) ? defender.UnitEntity.MapCoordinates : new Vector2(-1);
-            
+
             attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
             defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
-            
+
             SetupHelpWindow();
             SetupAttackerWindows(attackerSlice);
             SetupDefenderWindows(defenderSlice);
             SetPromptWindowText("Start Combat!");
-
         }
 
         private void SetPromptWindowText(string promptText)
@@ -97,7 +96,8 @@ namespace SolStandard.Containers.Contexts
                 {
                     new RenderText(AssetManager.PromptFont, "["),
                     new RenderText(AssetManager.PromptFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
+                    ButtonIconProvider.GetButton(ButtonIcon.A,
+                        new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
                     new RenderText(AssetManager.PromptFont, "]")
                 }
             };
@@ -215,7 +215,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyRolling)
             {
                 currentlyRolling = true;
-                 battleUI.UserPromptWindow.Visible = false;
+                battleUI.UserPromptWindow.Visible = false;
             }
         }
 
@@ -238,7 +238,6 @@ namespace SolStandard.Containers.Contexts
                 defenderDice.RollDice();
                 AssetManager.DiceRollSFX.Play();
             }
-            
         }
 
 
@@ -320,14 +319,14 @@ namespace SolStandard.Containers.Contexts
                 else if (attackerDamage > 0 && attackerInRange)
                 {
                     attackerDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
-                    defender.DamageUnit(1);
+                    defender.DamageUnit(1, attacker);
                     attackerDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
                 else if (defenderDamage > 0 && defenderInRange)
                 {
                     defenderDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
-                    attacker.DamageUnit(1);
+                    attacker.DamageUnit(1, defender);
                     defenderDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -10,19 +11,20 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Terrain
 {
-    public class Transport : UnitAction
+    public class UseDoorAction : UnitAction
     {
         private readonly Vector2 targetCoordinates;
+        private readonly Door door;
 
-        public Transport(Vector2 targetCoordinates) : base(
-            //FIXME Add a unique action icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
-            name: "Transport",
-            description: "Moves unit to another space.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement),
+        public UseDoorAction(Door door, Vector2 targetCoordinates) : base(
+            icon: door.RenderSprite,
+            name: "Use Door",
+            description: "Opens or closes the door.",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null
         )
         {
+            this.door = door;
             this.targetCoordinates = targetCoordinates;
         }
 
@@ -30,25 +32,24 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
         {
             MapContainer.GameGrid[(int) Layer.Dynamic][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
-            MapContainer.MapCursor.SlideCursorToCoordinates(targetCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (CanMoveToTargetTile(targetSlice))
+            if (
+                door == targetSlice.TerrainEntity
+                && targetSlice.DynamicEntity != null
+                && targetSlice.UnitEntity == null
+                && !door.IsLocked
+            )
             {
-                UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
-
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new HideUnitEvent(ref targetEntity));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new BlinkCoordinatesEvent(
-                    GameContext.ActiveUnit.UnitEntity,
-                    targetSlice.MapCoordinates
-                ));
-                eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(
+                    //TODO Add door SFX
+                    new ToggleOpenEvent(door, AssetManager.MenuConfirmSFX, AssetManager.MenuConfirmSFX)
+                );
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);

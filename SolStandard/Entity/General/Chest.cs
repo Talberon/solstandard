@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public UnitSkill TileAction()
+        public UnitAction TileAction()
         {
             throw new NotImplementedException();
         }
@@ -84,7 +84,7 @@ namespace SolStandard.Entity.General
             throw new NotImplementedException();
         }
 
-        public void Unlock()
+        public void ToggleLock()
         {
             throw new NotImplementedException();
         }

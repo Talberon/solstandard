@@ -12,39 +12,51 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Portal : TerrainEntity, IActionTile
+    public class Key : TerrainEntity, IItem, IActionTile
     {
-        private readonly bool canMove;
-        private readonly string destinationId;
+        public string UsedWith { get; private set; }
         public int[] Range { get; private set; }
 
-        public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove, string destinationId, int[] range) :
+        public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties, string usedWith, int[] range) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.canMove = canMove;
-            this.destinationId = destinationId;
+            UsedWith = usedWith;
             Range = range;
+        }
+
+        public IRenderable Icon
+        {
+            get { return Sprite; }
         }
 
         public UnitAction TileAction()
         {
-            //Check for the corresponding portal destination point
-            
-            Vector2 targetTileCoordinates = Vector2.One;
+            return new PickUpItemAction(this, MapCoordinates);
+        }
 
-            foreach (MapElement entity in MapContainer.GameGrid[(int) Layer.Entities])
+        public UnitAction UseAction()
+        {
+            //Find the ILockable map tile that is unlocked with this key
+            Vector2 targetEntityCoordinates = Vector2.One;
+
+            foreach (MapEntity element in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                Portal targetPortal = entity as Portal;
-                if (targetPortal == null) continue;
-
-                if (targetPortal.Name == destinationId)
+                if (element is ILockable)
                 {
-                    targetTileCoordinates = targetPortal.MapCoordinates;
+                    if (element.Name == UsedWith)
+                    {
+                        targetEntityCoordinates = element.MapCoordinates;
+                    }
                 }
             }
 
-            return new Transport(targetTileCoordinates);
+            return new ToggleLockAction(this, targetEntityCoordinates);
+        }
+
+        public UnitAction DropAction()
+        {
+            return new DropItemAction(this);
         }
 
         public override IRenderable TerrainInfo
@@ -64,16 +76,11 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                                (canMove) ? PositiveColor : NegativeColor)
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Destination: " + destinationId),
-                            new RenderBlank()
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("Range: [{0}]", string.Join(",", Range))),
+                            new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
                             new RenderBlank()
                         }
                     },

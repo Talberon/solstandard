@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Champion
 {
-    public class Cover : UnitSkill
+    public class Cover : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;

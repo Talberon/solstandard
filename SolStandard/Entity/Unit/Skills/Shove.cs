@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public class Shove : UnitSkill
+    public class Shove : UnitAction
     {
         public Shove() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(32)),

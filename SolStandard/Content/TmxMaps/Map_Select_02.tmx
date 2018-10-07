@@ -1968,6 +1968,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Items"/>
  <objectgroup name="Units">
   <object id="532" name="Player One" type="Unit" gid="396" x="352" y="320" width="32" height="32">
    <properties>

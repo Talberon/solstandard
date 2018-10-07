@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public class BasicAttack : UnitSkill
+    public class BasicAttack : UnitAction
     {
         public BasicAttack() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),

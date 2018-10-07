@@ -8,29 +8,29 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
 {
     public class SkillOption : MenuOption
     {
-        private readonly UnitSkill skill;
+        private readonly UnitAction action;
 
-        public SkillOption(Color windowColor, UnitSkill skill) : base(
+        public SkillOption(Color windowColor, UnitAction action) : base(
             windowColor,
             new WindowContentGrid(
                 new [,]
                 {
                     {
-                        skill.Icon,
-                        new RenderText(AssetManager.WindowFont, skill.Name),
+                        action.Icon,
+                        new RenderText(AssetManager.WindowFont, action.Name),
                     }
                 },
                 1
             )
         )
         {
-            this.skill = skill;
+            this.action = action;
         }
 
         public override void Execute()
         {
-            skill.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-            GameContext.ActiveUnit.ArmUnitSkill(skill);
+            action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            GameContext.ActiveUnit.ArmUnitSkill(action);
         }
     }
 }

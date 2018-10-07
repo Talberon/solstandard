@@ -27,10 +27,12 @@ namespace SolStandard.Containers.UI
         public Window LeftUnitPortraitWindow { get; private set; }
         public Window LeftUnitDetailWindow { get; private set; }
         public Window LeftUnitStatusWindow { get; private set; }
+        public Window LeftUnitInventoryWindow { get; private set; }
 
         public Window RightUnitPortraitWindow { get; private set; }
         public Window RightUnitDetailWindow { get; private set; }
         public Window RightUnitStatusWindow { get; private set; }
+        public Window RightUnitInventoryWindow { get; private set; }
 
         public Window TurnWindow { get; private set; }
         public Window InitiativeWindow { get; private set; }
@@ -240,6 +242,7 @@ namespace SolStandard.Containers.UI
             LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
@@ -247,6 +250,7 @@ namespace SolStandard.Containers.UI
             RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
         private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
@@ -279,6 +283,15 @@ namespace SolStandard.Containers.UI
             string windowLabel = "Selected Info: " + selectedUnit.Id;
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
             return new Window(windowLabel, windowTexture, selectedUnitInfo, windowColor);
+        }
+
+        private Window GenerateUnitInventoryWindow(GameUnit selectedUnit)
+        {
+            if (selectedUnit == null || selectedUnit.InventoryPane == null) return null;
+
+            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+            return new Window("Unit Inventory: " + selectedUnit.Id, AssetManager.WindowTexture,
+                selectedUnit.InventoryPane, windowColor);
         }
 
         private Window GenerateUnitStatusWindow(GameUnit selectedUnit)
@@ -322,14 +335,16 @@ namespace SolStandard.Containers.UI
 
         private Vector2 ActionMenuPosition()
         {
+            //Center of screen, above Initiative List
             return new Vector2(
-                WindowEdgeBuffer + LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width,
-                LeftUnitDetailWindowPosition().Y
+                GameDriver.ScreenSize.X / 2 - ActionMenu.Width,
+                InitiativeWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
             );
         }
 
         private Vector2 ActionMenuDescriptionPosition()
         {
+            //Right of Action Menu
             return new Vector2(
                 WindowEdgeBuffer + ActionMenuPosition().X + ActionMenu.Width,
                 ActionMenuPosition().Y
@@ -362,6 +377,17 @@ namespace SolStandard.Containers.UI
             );
         }
 
+
+        private Vector2 LeftUnitInventoryWindowPosition()
+        {
+            //Bottom-left, right of stats
+            return new Vector2(
+                LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width + WindowEdgeBuffer,
+                LeftUnitDetailWindowPosition().Y
+            );
+        }
+
+
         private Vector2 RightUnitPortraitWindowPosition()
         {
             //Bottom-right, above intiative window
@@ -389,6 +415,17 @@ namespace SolStandard.Containers.UI
                 RightUnitPortraitWindowPosition().Y - RightUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
+
+
+        private Vector2 RightUnitInventoryWindowPosition()
+        {
+            //Bottom-left, right of stats
+            return new Vector2(
+                RightUnitDetailWindowPosition().X - RightUnitInventoryWindow.Width - WindowEdgeBuffer,
+                RightUnitDetailWindowPosition().Y
+            );
+        }
+
 
         private Vector2 InitiativeWindowPosition()
         {
@@ -475,6 +512,11 @@ namespace SolStandard.Containers.UI
                     {
                         LeftUnitStatusWindow.Draw(spriteBatch, LeftUnitStatusWindowPosition());
                     }
+
+                    if (LeftUnitInventoryWindow != null)
+                    {
+                        LeftUnitInventoryWindow.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
+                    }
                 }
 
                 if (RightUnitPortraitWindow != null)
@@ -489,6 +531,11 @@ namespace SolStandard.Containers.UI
                     if (RightUnitStatusWindow != null)
                     {
                         RightUnitStatusWindow.Draw(spriteBatch, RightUnitStatusWindowPosition());
+                    }
+
+                    if (RightUnitInventoryWindow != null)
+                    {
+                        RightUnitInventoryWindow.Draw(spriteBatch, RightUnitInventoryWindowPosition());
                     }
                 }
 

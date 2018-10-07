@@ -89,28 +89,28 @@ namespace SolStandard.Containers.Contexts
             Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
             Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
 
-            if (CanMoveAtCoordinates(north, visitedTiles))
+            if (CanPlaceTileAtCoordinates(north, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(south, visitedTiles))
+            if (CanPlaceTileAtCoordinates(south, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(east, visitedTiles))
+            if (CanPlaceTileAtCoordinates(east, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(west, visitedTiles))
+            if (CanPlaceTileAtCoordinates(west, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
@@ -120,7 +120,7 @@ namespace SolStandard.Containers.Contexts
             return neighbours;
         }
 
-        private static bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
+        private static bool CanPlaceTileAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
         {
             if (visitedTiles.Any(tile => tile.Coordinates == coordinates)) return false;
 

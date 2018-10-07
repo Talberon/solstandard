@@ -4,6 +4,6 @@
     {
         bool IsLocked { get; }
 
-        void Unlock();
+        void ToggleLock();
     }
 }
