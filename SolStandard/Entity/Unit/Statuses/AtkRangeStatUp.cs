@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
@@ -20,10 +22,11 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
-            {
-                GameContext.ActiveUnit.Stats.AtkRange[i] += atkRangeModifier;
-            }
+            int extraRange = GameContext.ActiveUnit.Stats.AtkRange.Max() + 1;
+            int[] atkRange = GameContext.ActiveUnit.Stats.AtkRange;
+
+            //Add +1 to end of ranges
+            GameContext.ActiveUnit.Stats.AtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
         }
 
         protected override void ExecuteEffect(GameUnit target)
@@ -33,10 +36,10 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void RemoveEffect(GameUnit target)
         {
-            for (int i = 0; i < GameContext.ActiveUnit.Stats.AtkRange.Length; i++)
-            {
-                GameContext.ActiveUnit.Stats.AtkRange[i] -= atkRangeModifier;
-            }
+            int[] atkRange = GameContext.ActiveUnit.Stats.AtkRange;
+
+            //Remove the last range
+            GameContext.ActiveUnit.Stats.AtkRange = atkRange.Take(atkRange.Length - 1).ToArray();
         }
     }
 }

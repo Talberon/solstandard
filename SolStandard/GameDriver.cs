@@ -83,7 +83,7 @@ namespace SolStandard
 
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            _mapCamera = new MapCamera(10, 0.09f);
+            _mapCamera = new MapCamera(5, 0.05f);
 
             ITexture2D mapPreviewGrass3 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
