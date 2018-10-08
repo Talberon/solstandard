@@ -171,6 +171,11 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.D0))
+            {
+                MusicBox.Pause();
+            }
+
             //Set the controller based on the active team
             if (GameContext.CurrentGameState >= GameContext.GameState.InGame)
             {

@@ -56,7 +56,9 @@ namespace SolStandard.Map
             {"Portal", EntityTypes.Portal},
             {"Switch", EntityTypes.Switch},
             {"Currency", EntityTypes.Currency},
-            {"Key", EntityTypes.Key}
+            {"Key", EntityTypes.Key},
+            {"Artillery", EntityTypes.Artillery},
+            {"Railgun", EntityTypes.Railgun}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -347,6 +349,21 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["isOpen"])
                                         );
                                         break;
+                                    case EntityTypes.Artillery:
+                                        entityGrid[col, row] = new Artillery(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray()
+                                        );
+                                        break;
+                                    case EntityTypes.Railgun:
+                                        //TODO Implement me
+                                        break;
                                     case EntityTypes.SelectMap:
                                         MapInfo derivedMapInfo =
                                             GameDriver.AvailableMaps.Find(
@@ -363,7 +380,6 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.Unit:
-                                        entityGrid[col, row] = null;
                                         break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(

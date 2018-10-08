@@ -74,7 +74,7 @@ namespace SolStandard.Containers.Contexts
             Vector2 defenderCoordinates =
                 (defender.UnitEntity != null) ? defender.UnitEntity.MapCoordinates : new Vector2(-1);
 
-            attackerInRange = CoordinatesAreInRange(attackerCoordinates, defenderCoordinates, attacker.Stats.AtkRange);
+            attackerInRange = true;
             defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
 
             SetupHelpWindow();

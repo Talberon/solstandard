@@ -31,5 +31,15 @@ namespace SolStandard.Utility.Monogame
             MediaPlayer.Volume = volume;
             MediaPlayer.IsRepeating = true;
         }
+
+        public static void Stop()
+        {
+            MediaPlayer.Stop();
+        }
+
+        public static void Pause()
+        {
+            MediaPlayer.Pause();
+        }
     }
 }

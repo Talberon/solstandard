@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Skills
     public class BasicAttack : UnitAction
     {
         public BasicAttack() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
             name: "Basic Attack",
             description: "Attack a target with dice based on your ATK statistic.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Skills
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
+              unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="Artillery" color="#f42ad9">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="range" type="string" default="3,4"/>
+ </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
   <property name="HP" type="int" default="0"/>
   <property name="canMove" type="bool" default="false"/>
@@ -51,6 +55,10 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="destinationId" type="string" default="DEFAULT"/>
   <property name="range" type="string" default="0"/>
+ </objecttype>
+ <objecttype name="Railgun" color="#67ba67">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="range" type="int" default="5"/>
  </objecttype>
  <objecttype name="SelectMap" color="#fe2973">
   <property name="mapFileName" type="string" default="Map_00.tmx"/>

@@ -22,6 +22,8 @@ namespace SolStandard.Entity.General
         Portal,
         Switch,
         Key,
+        Artillery,
+        Railgun,
         SelectMap,
         Unit
     }
