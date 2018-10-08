@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -71,6 +72,18 @@ namespace SolStandard
             _quitting = true;
         }
 
+        private static void CleanTmxFiles(IEnumerable<MapInfo> mapList)
+        {
+            foreach (MapInfo mapInfo in mapList)
+            {
+                string filePath = "Content/TmxMaps/" + mapInfo.FileName;
+
+                string text = File.ReadAllText(filePath);
+                text = text.Replace("tile/", "tile gid=\"0\"/");
+                File.WriteAllText(filePath, text);
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -92,6 +105,8 @@ namespace SolStandard
 
             AvailableMaps = new List<MapInfo>
             {
+                new MapInfo("MapSelect", "Map_Select_02.tmx", new RenderBlank()),
+
                 new MapInfo("Old World", "Experimenting_01.tmx",
                     new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
                 new MapInfo("Beachhead", "Experimenting_02.tmx",
@@ -100,6 +115,9 @@ namespace SolStandard
                 new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
                 new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank())
             };
+
+            //Compensate for TiledSharp's inability to parse tiles without a gid value
+            CleanTmxFiles(AvailableMaps);
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height), 1);
