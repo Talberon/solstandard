@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Skills.Archer;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
-    public class ShoveEvent : IEvent
+    public class PullEvent : IEvent
     {
         private readonly GameUnit target;
 
-        public ShoveEvent(GameUnit target)
+        public PullEvent(GameUnit target)
         {
             this.target = target;
         }
@@ -21,8 +21,8 @@ namespace SolStandard.Utility.Events
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
-            Vector2 oppositeCoordinates = Shove.DetermineShovePosition(actorCoordinates, targetCoordinates);
-            target.UnitEntity.MapCoordinates = oppositeCoordinates;
+            Vector2 pullCoordinates = Harpoon.DeterminePullPosition(actorCoordinates, targetCoordinates);
+            target.UnitEntity.MapCoordinates = pullCoordinates;
             AssetManager.CombatBlockSFX.Play();
             Complete = true;
         }

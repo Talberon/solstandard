@@ -94,5 +94,25 @@ namespace SolStandard.Entity.Unit.Skills
             return UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
+        
+        protected static bool SourceSouthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        {
+            return sourceCoordinates.Y > targetCoordinates.Y;
+        }
+
+        protected static bool SourceWestOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        {
+            return sourceCoordinates.X < targetCoordinates.X;
+        }
+
+        protected static bool SourceEastOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        {
+            return sourceCoordinates.X > targetCoordinates.X;
+        }
+
+        protected static bool SourceNorthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        {
+            return sourceCoordinates.Y < targetCoordinates.Y;
+        }
     }
 }

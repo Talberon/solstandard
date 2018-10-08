@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Skills
         public override void GenerateActionGrid(Vector2 origin)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-              unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
+            unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -35,16 +35,7 @@ namespace SolStandard.Entity.Unit.Skills
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                eventQueue.Enqueue(
-                    new StartCombatEvent(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates,
-                        GameContext.ActiveUnit.Stats.AtkRange,
-                        ref targetUnit,
-                        ref mapContext,
-                        ref battleContext,
-                        TileSprite
-                    )
-                );
+                eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (TargetIsABreakableObstacleInRange(targetSlice))

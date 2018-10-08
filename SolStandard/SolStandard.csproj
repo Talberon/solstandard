@@ -81,6 +81,7 @@
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
+    <Compile Include="Entity\Unit\Skills\Archer\Harpoon.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
@@ -176,9 +177,10 @@
     <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
+    <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
-    <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />

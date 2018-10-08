@@ -131,6 +131,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new Harpoon(2),
                 new Draw(2, 1),
                 new Shove(),
                 new Wait()
