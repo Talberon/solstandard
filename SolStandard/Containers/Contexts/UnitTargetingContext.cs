@@ -79,7 +79,7 @@ namespace SolStandard.Containers.Contexts
             return tilesToKeep;
         }
 
-        private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
+        private static IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
             List<MapDistanceTile> visitedTiles, bool distanceVisible)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
@@ -127,13 +127,12 @@ namespace SolStandard.Containers.Contexts
             return MapContext.CoordinatesWithinMapBounds(coordinates);
         }
 
-        private void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
+        private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
                 MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
         }
-
     }
 }

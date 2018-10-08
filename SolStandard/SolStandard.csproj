@@ -70,6 +70,7 @@
     <Compile Include="Entity\General\Key.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
+    <Compile Include="Entity\General\Railgun.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\Spoils.cs" />
     <Compile Include="Entity\General\Switch.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Entity\Unit\Skills\Terrain\DropItemAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\PickUpItemAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\RailgunAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
     <Compile Include="Entity\Unit\Skills\Terrain\ToggleSwitchAction.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
-    <Compile Include="Entity\Unit\UnitBuilder.cs" />
+    <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />

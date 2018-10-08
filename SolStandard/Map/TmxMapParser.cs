@@ -362,7 +362,15 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.Railgun:
-                                        //TODO Implement me
+                                        entityGrid[col, row] = new Railgun(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            Convert.ToInt32(currentProperties["range"])
+                                        );
                                         break;
                                     case EntityTypes.SelectMap:
                                         MapInfo derivedMapInfo =
