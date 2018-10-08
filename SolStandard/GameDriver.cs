@@ -84,7 +84,7 @@ namespace SolStandard
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             _mapCamera = new MapCamera(10, 0.09f);
-            
+
             ITexture2D mapPreviewGrass3 =
                 AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
             ITexture2D mapPreviewGrass4 =
@@ -97,7 +97,8 @@ namespace SolStandard
                 new MapInfo("Beachhead", "Experimenting_02.tmx",
                     new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
                 new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
-                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank())
+                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
+                new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank())
             };
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
@@ -251,7 +252,8 @@ namespace SolStandard
                 case GameContext.GameState.MainMenu:
                     //Render Main Menu
                     spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                        SpriteSortMode
+                            .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                         null, SamplerState.PointClamp, null, null, null, null);
                     _gameContext.MainMenuUI.Draw(spriteBatch);
                     spriteBatch.End();
