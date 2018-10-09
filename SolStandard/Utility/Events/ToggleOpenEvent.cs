@@ -1,5 +1,4 @@
 ﻿using SolStandard.Entity;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Events
 {

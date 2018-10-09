@@ -80,47 +80,55 @@ namespace SolStandard.Map
             this.terrainSprite = terrainSprite;
         }
 
-        //FIXME this currently requires that the tilesets be in a particular order
+        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid
+        {
+            get
+            {
+                List<KeyValuePair<ITexture2D, int>> tilesetGids = new List<KeyValuePair<ITexture2D, int>>();
+                foreach (TmxTileset tileset in tmxMap.Tilesets)
+                {
+                    if (worldTileSetSprite.Name.Contains(tileset.Name))
+                    {
+                        tilesetGids.Add(new KeyValuePair<ITexture2D, int>(worldTileSetSprite, tileset.FirstGid));
+                    }
+
+                    if (terrainSprite.Name.Contains(tileset.Name))
+                    {
+                        tilesetGids.Add(new KeyValuePair<ITexture2D, int>(terrainSprite, tileset.FirstGid));
+                    }
+                }
+
+                tilesetGids.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+                return tilesetGids;
+            }
+        }
+
         private ITexture2D FindTileSet(int gid)
         {
             ITexture2D tileSet = null;
 
-            if (gid >= tmxMap.Tilesets["entities-32"].FirstGid)
+            foreach (KeyValuePair<ITexture2D, int> item in TilesetsSortedByFirstGid)
             {
-                tileSet = terrainSprite;
-            }
-
-            if (gid >= tmxMap.Tilesets["units-32"].FirstGid)
-            {
-                tileSet = null;
-            }
-
-            if (gid >= tmxMap.Tilesets["overworld-32"].FirstGid)
-            {
-                tileSet = worldTileSetSprite;
+                if (gid >= item.Value)
+                {
+                    tileSet = item.Key;
+                }
             }
 
             return tileSet;
         }
 
-        //FIXME this currently requires that the tilesets be in a particular order
         private int FindTileId(int gid)
         {
             int nextFirstGid = 1;
 
-            if (gid > tmxMap.Tilesets["entities-32"].FirstGid)
+            foreach (KeyValuePair<ITexture2D, int> item in TilesetsSortedByFirstGid)
             {
-                nextFirstGid = tmxMap.Tilesets["entities-32"].FirstGid;
-            }
-
-            if (gid > tmxMap.Tilesets["units-32"].FirstGid)
-            {
-                nextFirstGid = tmxMap.Tilesets["units-32"].FirstGid;
-            }
-
-            if (gid > tmxMap.Tilesets["overworld-32"].FirstGid)
-            {
-                nextFirstGid = tmxMap.Tilesets["overworld-32"].FirstGid;
+                if (gid >= item.Value)
+                {
+                    nextFirstGid = item.Value;
+                }
             }
 
             return gid - nextFirstGid + 1;
@@ -136,6 +144,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Collide),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
+                // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Items"),
                 new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]

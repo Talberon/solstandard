@@ -39,6 +39,7 @@ namespace SolStandard.Entity.General
         {
             List<ILockable> lockables = new List<ILockable>();
 
+            // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
             foreach (MapEntity entity in MapContainer.GameGrid[(int) Layer.Entities])
             {
                 ILockable lockable = entity as ILockable;

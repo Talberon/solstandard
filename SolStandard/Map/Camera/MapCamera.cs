@@ -348,22 +348,16 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        private void CenterVertically()
+        private static void CenterVertically()
         {
             _currentPosition.Y = (GameDriver.ScreenSize.Y - MapContainer.MapScreenSizeInPixels.Y) / 2;
             _targetPosition.Y = _currentPosition.Y;
         }
 
-        private void CenterHorizontally()
+        private static void CenterHorizontally()
         {
             _currentPosition.X = (GameDriver.ScreenSize.X - MapContainer.MapScreenSizeInPixels.X) / 2;
             _targetPosition.X = _currentPosition.X;
-        }
-
-        private void RevertToPreviousPosition(Vector2 previousPosition)
-        {
-            _currentPosition = previousPosition;
-            _targetPosition = _currentPosition;
         }
 
         private bool CameraIsBeyondBottomEdge(Vector2 mapSize, Vector2 position)

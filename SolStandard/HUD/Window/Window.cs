@@ -23,8 +23,8 @@ namespace SolStandard.HUD.Window
         private readonly WindowContentGrid windowContents;
         private WindowCell[,] windowCells;
         private Color windowColor;
-        public HorizontalAlignment HorizontalAlignment { get; set; }
-        public Vector2 WindowPixelSize { get; private set; }
+        private HorizontalAlignment HorizontalAlignment { get; set; }
+        private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
 
 
@@ -63,22 +63,6 @@ namespace SolStandard.HUD.Window
             }
 
             throw new InvalidWindowTextureException();
-        }
-
-        private Vector2 DeriveSizeFromContent()
-        {
-            Vector2 calculatedSize = new Vector2();
-
-            Vector2 contentGridSize = windowContents.GridSizeInPixels();
-            calculatedSize.X = contentGridSize.X;
-            calculatedSize.Y = contentGridSize.Y;
-
-            //Adjust for border
-            int borderSize = windowCellSize * 2;
-            calculatedSize.X += borderSize;
-            calculatedSize.Y += borderSize;
-
-            return calculatedSize;
         }
 
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
@@ -219,18 +203,13 @@ namespace SolStandard.HUD.Window
             {
                 case HorizontalAlignment.Left:
                     return LeftAlignedContentCoordinates(windowCoordinates);
-                    break;
                 case HorizontalAlignment.Centered:
                     return CenteredContentCoordinates(windowCoordinates);
-                    break;
                 case HorizontalAlignment.Right:
-                    RightAlignedContentCoordinates(windowCoordinates);
-                    break;
+                    return RightAlignedContentCoordinates(windowCoordinates);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            return windowCoordinates;
         }
 
         private Vector2 LeftAlignedContentCoordinates(Vector2 windowCoordinates)
@@ -294,6 +273,11 @@ namespace SolStandard.HUD.Window
 
                 windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
             }
+        }
+
+        public override string ToString()
+        {
+            return "Window: " + windowName;
         }
     }
 }

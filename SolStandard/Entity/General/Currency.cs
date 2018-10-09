@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Skills.Terrain;
 using SolStandard.HUD.Window.Content;
