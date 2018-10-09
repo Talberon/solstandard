@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.HUD.Window;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -24,7 +25,8 @@ namespace SolStandard.HUD.Menu.Options
                 "Option",
                 AssetManager.WindowTexture,
                 labelContent,
-                color
+                color,
+                HorizontalAlignment.Left
             );
         }
 
@@ -33,11 +35,13 @@ namespace SolStandard.HUD.Menu.Options
         public int Height
         {
             get { return optionWindow.Height; }
+            set { optionWindow.Height = value; }
         }
 
         public int Width
         {
             get { return optionWindow.Width; }
+            set { optionWindow.Width = value; }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

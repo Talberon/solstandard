@@ -277,7 +277,7 @@ namespace SolStandard.Containers.UI
         private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null) return null;
-            
+
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
             return new Window(windowLabel, windowTexture, selectedUnit.UnitPortraitPane, windowColor);
