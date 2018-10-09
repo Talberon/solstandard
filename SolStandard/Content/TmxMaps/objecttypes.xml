@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
  <objecttype name="Artillery" color="#f42ad9">
   <property name="canMove" type="bool" default="true"/>

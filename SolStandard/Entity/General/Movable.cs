@@ -9,13 +9,11 @@ namespace SolStandard.Entity.General
 {
     public class Movable : TerrainEntity
     {
-        private readonly bool canMove;
-
         public Movable(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, bool canMove) : base(name, type, sprite, mapCoordinates,
             tiledProperties)
         {
-            this.canMove = canMove;
+            CanMove = canMove;
         }
         
         public override IRenderable TerrainInfo
@@ -35,8 +33,8 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                                (canMove) ? PositiveColor : NegativeColor)
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
                         }
                     },
                     3

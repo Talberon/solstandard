@@ -8,6 +8,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map;
@@ -154,7 +155,24 @@ namespace SolStandard.Entity.Unit
             return resultsHealthBar;
         }
 
-        //TODO Move the Portrait Pane, Status Pane, and new Inventory pane to GameUnit class and call from GameMapUI instead of building them there.
+        public IRenderable UnitPortraitPane
+        {
+            get
+            {
+                const int hoverWindowHealthBarHeight = 15;
+                IRenderable[,] selectedUnitPortrait =
+                {
+                    {
+                        MediumPortrait
+                    },
+                    {
+                        GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width, hoverWindowHealthBarHeight))
+                    }
+                };
+
+                return new WindowContentGrid(selectedUnitPortrait, 2);
+            }
+        }
 
         public IRenderable InventoryPane
         {
@@ -185,68 +203,143 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
+                Color statPanelColor = new Color(10, 10, 10, 100);
+                Vector2 panelSizeOverride = new Vector2(180, 35);
+
                 return new WindowContentGrid(
-                    new IRenderable[,] 
+                    new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.HeaderFont, Id),
-                            new RenderBlank(),
-                            new RenderBlank()
-                        },
-                        {
-                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
-                            new RenderText(AssetManager.WindowFont,
-                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation),
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: "),
-                            new RenderText(AssetManager.WindowFont, Stats.Hp.ToString() + "/" + Stats.MaxHp.ToString())
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(AssetManager.WindowFont, "ATK: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Atk.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                            new Window("Unit Title", AssetManager.WindowTexture,
+                                new RenderText(AssetManager.HeaderFont, Id),
+                                statPanelColor, panelSizeOverride),
+
+                            new Window("Gold", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(AssetManager.WindowFont, "DEF: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Def.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                            new Window("HP", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
+                                            new RenderText(AssetManager.WindowFont, "HP: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                Stats.Hp.ToString() + "/" + Stats.MaxHp.ToString())
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+
+                            new Window("SP", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
+                                            new RenderText(AssetManager.WindowFont, "SP: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Sp.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(AssetManager.WindowFont, "SP: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Sp.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
+                            new Window("ATK", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
+                                            new RenderText(AssetManager.WindowFont, "ATK: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Atk.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+                            new Window("DEF", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
+                                            new RenderText(AssetManager.WindowFont, "DEF: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Def.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, "MV: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Mv.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
-                            )
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "RNG:"),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
-                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(), Stats.BaseAtkRange.Max())
+                            new Window("MV", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                                            new RenderText(AssetManager.WindowFont, "MV: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Mv.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+                            new Window("AtkRange", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                                            new RenderText(AssetManager.WindowFont, "RNG:"),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
+                                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(),
+                                                    Stats.BaseAtkRange.Max())
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         }
                     },

@@ -13,18 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Graphics/Map/Tiles/Tiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/Tiles.png
-
 #begin Graphics/HUD/Window/GreyWindow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -105,18 +93,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ResultsText.spritefont
-
-#begin Graphics/Map/Tiles/Terrain.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/Terrain.png
 
 #begin Graphics/Map/Tiles/GridOutline.png
 /importer:TextureImporter
@@ -275,18 +251,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/SolStandard-LogoText_350.png
-
-#begin Graphics/Map/Tiles/WorldTileSet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/WorldTileSet.png
 
 #begin Graphics/Images/Screens/TitleBackground_BannerSky.png
 /importer:TextureImporter
@@ -2515,18 +2479,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/spoils.png
 
-#begin Graphics/Map/Tiles/entities-32.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/entities-32.png
-
 #begin Audio/SFX/Interface/sfx_coin_cluster7.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -2550,4 +2502,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SFX/Interface/sfx_coin_double6.wav
+
+#begin Graphics/Map/Tiles/entities-32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/entities-32.png
 

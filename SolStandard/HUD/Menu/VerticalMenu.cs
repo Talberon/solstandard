@@ -98,18 +98,27 @@ namespace SolStandard.HUD.Menu
                     if (CurrentOptionIndex < options.Length - 1)
                     {
                         CurrentOptionIndex++;
-                        PositionCursorToOption();
-                        AssetManager.MenuMoveSFX.Play();
+                    }
+                    else
+                    {
+                        CurrentOptionIndex = 0;
                     }
 
+                    PositionCursorToOption();
+                    AssetManager.MenuMoveSFX.Play();
                     break;
                 case MenuCursorDirection.Backward:
                     if (CurrentOptionIndex > 0)
                     {
                         CurrentOptionIndex--;
-                        PositionCursorToOption();
-                        AssetManager.MenuMoveSFX.Play();
                     }
+                    else
+                    {
+                        CurrentOptionIndex = options.Length - 1;
+                    }
+
+                    PositionCursorToOption();
+                    AssetManager.MenuMoveSFX.Play();
 
                     break;
                 default:

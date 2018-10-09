@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,6 +18,7 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
 {
@@ -33,7 +35,7 @@ namespace SolStandard
         public static Vector2 ScreenSize { get; private set; }
         public static List<MapInfo> AvailableMaps;
 
-        private readonly GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper p1ControlMapper;
         private GameControlMapper p2ControlMapper;
@@ -45,16 +47,34 @@ namespace SolStandard
 
         public GameDriver()
         {
+            UseDebugResolution();
+            //UseBorderlessFullscreen();
+            Content.RootDirectory = "Content";
+        }
+
+        private void UseDebugResolution()
+        {
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1600,
                 PreferredBackBufferHeight = 900
             };
 
-            //FIXME HACK Move the window away from the top-left corner
+            //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
+            Window.IsBorderless = false;
+        }
 
-            Content.RootDirectory = "Content";
+        private void UseBorderlessFullscreen()
+        {
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
+                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height
+            };
+
+            Window.Position = new Point(0, 0);
+            Window.IsBorderless = true;
         }
 
 
@@ -113,7 +133,8 @@ namespace SolStandard
                     new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
                 new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
                 new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
-                new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank())
+                new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank()),
+                new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank())
             };
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -243,6 +264,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     GameContext.MapSelectContext.HoverOverEntity();
+                    
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
@@ -309,7 +331,7 @@ namespace SolStandard
 //MAP LAYER
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
 
             GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
 
@@ -341,7 +363,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
             _gameContext.MapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }

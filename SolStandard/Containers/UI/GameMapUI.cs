@@ -126,7 +126,7 @@ namespace SolStandard.Containers.UI
             if (hoverSlice.TerrainEntity != null || hoverSlice.ItemEntity != null)
             {
                 terrainContentGrid = new WindowContentGrid(
-                    new IRenderable[,]
+                    new[,]
                     {
                         {
                             (hoverSlice.TerrainEntity != null)
@@ -180,7 +180,7 @@ namespace SolStandard.Containers.UI
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
-            const int maxInitiativeSize = 8;
+            const int maxInitiativeSize = 16;
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
@@ -210,11 +210,11 @@ namespace SolStandard.Containers.UI
                     new RenderText(AssetManager.MapFont, unitList[0].Id)
                 },
                 {
-                    unitList[0].MediumPortrait
+                    unitList[0].SmallPortrait
                 },
                 {
                     unitList[0]
-                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
+                        .GetInitiativeHealthBar(new Vector2(unitList[0].SmallPortrait.Width,
                             initiativeHealthBarHeight))
                 }
             };
@@ -239,11 +239,11 @@ namespace SolStandard.Containers.UI
                         new RenderText(AssetManager.MapFont, unitList[i].Id)
                     },
                     {
-                        unitList[i].MediumPortrait
+                        unitList[i].SmallPortrait
                     },
                     {
                         unitList[i]
-                            .GetInitiativeHealthBar(new Vector2(unitList[i].MediumPortrait.Width,
+                            .GetInitiativeHealthBar(new Vector2(unitList[i].SmallPortrait.Width,
                                 initiativeHealthBarHeight))
                     }
                 };
@@ -277,22 +277,10 @@ namespace SolStandard.Containers.UI
         private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null) return null;
-
-            const int hoverWindowHealthBarHeight = 15;
-            IRenderable[,] selectedUnitPortrait =
-            {
-                {
-                    selectedUnit.LargePortrait
-                },
-                {
-                    selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,
-                        hoverWindowHealthBarHeight))
-                }
-            };
-
+            
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-            return new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1), windowColor);
+            return new Window(windowLabel, windowTexture, selectedUnit.UnitPortraitPane, windowColor);
         }
 
         private Window GenerateUnitDetailWindow(GameUnit selectedUnit)
@@ -466,7 +454,7 @@ namespace SolStandard.Containers.UI
             );
         }
 
-        private Vector2 TerrainWindowPosition()
+        private Vector2 EntityWindowPosition()
         {
             //Top-right
             return new Vector2(
@@ -508,7 +496,7 @@ namespace SolStandard.Containers.UI
 
             if (EntityWindow != null)
             {
-                EntityWindow.Draw(spriteBatch, TerrainWindowPosition());
+                EntityWindow.Draw(spriteBatch, EntityWindowPosition());
             }
 
             if (TurnWindow != null)

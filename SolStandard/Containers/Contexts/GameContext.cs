@@ -256,7 +256,7 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitDecidingAction:
                         break;
                     case MapContext.TurnState.UnitTargeting:
-                        oldZoom = mapCamera.CurrentZoom;
+                        oldZoom = MapCamera.CurrentZoom;
                         break;
                     case MapContext.TurnState.UnitActing:
                         const float combatZoom = 4;

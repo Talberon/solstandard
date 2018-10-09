@@ -6,6 +6,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
+using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -41,6 +42,15 @@ namespace SolStandard.Containers
         public static Vector2 MapGridSize
         {
             get { return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)); }
+        }
+
+        public static Vector2 MapScreenSizeInPixels
+        {
+            get
+            {
+                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)) 
+                       * GameDriver.CellSize * MapCamera.CurrentZoom;
+            }
         }
 
         public static void ClearDynamicAndPreviewGrids()
@@ -129,7 +139,7 @@ namespace SolStandard.Containers
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
-            
+
             foreach (MapElement tile in _gameGrid[(int) Layer.Items])
             {
                 if (tile != null)

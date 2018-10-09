@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Window
         private readonly WindowContentGrid windowContents;
         private readonly Vector2 windowPixelSize;
         private readonly WindowCell[,] windowCells;
-        private readonly Color windowColor;
+        private Color windowColor;
 
         public bool Visible { get; set; }
 
@@ -246,6 +246,11 @@ namespace SolStandard.HUD.Window
             return contentRenderCoordinates;
         }
 
+
+        public int Alpha
+        {
+            set { windowColor.A = Convert.ToByte(value); }
+        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
