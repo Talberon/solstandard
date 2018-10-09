@@ -157,7 +157,7 @@ namespace SolStandard
                 new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
             );
 
-            _mapCamera.CenterCameraToCursor();
+            MapCamera.CenterCameraToCursor();
 
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
@@ -264,7 +264,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     GameContext.MapSelectContext.HoverOverEntity();
-                    
+
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
@@ -295,13 +295,7 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    //Render Main Menu
-                    spriteBatch.Begin(
-                        SpriteSortMode
-                            .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, null);
-                    _gameContext.MainMenuUI.Draw(spriteBatch);
-                    spriteBatch.End();
+                    DrawMainMenu();
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -326,9 +320,20 @@ namespace SolStandard
             }
         }
 
+        private void DrawMainMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            _gameContext.MainMenuUI.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
         private void DrawMapSelectMap()
         {
-//MAP LAYER
+            //MAP LAYER
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
@@ -340,7 +345,7 @@ namespace SolStandard
 
         private void DrawMapSelectHUD()
         {
-//HUD
+            //HUD
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);

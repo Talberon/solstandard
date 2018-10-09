@@ -31,9 +31,9 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
-        private MapContext mapContext;
         private readonly BattleContext battleContext;
         public static MapSelectContext MapSelectContext { get; private set; }
+        public MapContext MapContext { get; private set; }
         public ResultsUI ResultsUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
         public static int TurnNumber { get; private set; }
@@ -44,6 +44,7 @@ namespace SolStandard.Containers.Contexts
 
         private static InitiativeContext InitiativeContext { get; set; }
 
+
         public static List<GameUnit> Units
         {
             get { return InitiativeContext.InitiativeList; }
@@ -52,11 +53,6 @@ namespace SolStandard.Containers.Contexts
         public static GameUnit ActiveUnit
         {
             get { return InitiativeContext.CurrentActiveUnit; }
-        }
-
-        public MapContext MapContext
-        {
-            get { return mapContext; }
         }
 
         public BattleContext BattleContext
@@ -76,8 +72,8 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
-            //TODO Reset this if the new map isn't being used
-            const string mapSelectPath = "Content/TmxMaps/" + "Map_Select_02.tmx";
+            const string mapFile = "Map_Select_02.tmx";
+            const string mapSelectPath = "Content/TmxMaps/" + mapFile;
 
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapSelectPath),
@@ -107,6 +103,7 @@ namespace SolStandard.Containers.Contexts
 
             ActiveUnit.ActivateUnit();
             MapContext.SnapCursorToActiveUnit();
+            MapCamera.SnapCameraCenterToCursor();
             MapContext.EndTurn();
 
             MapContext.UpdateWindowsEachTurn();
@@ -139,7 +136,7 @@ namespace SolStandard.Containers.Contexts
         {
             ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
 
-            mapContext = new MapContext(
+            MapContext = new MapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
                 new GameMapUI(GameDriver.ScreenSize)
             );
@@ -191,12 +188,12 @@ namespace SolStandard.Containers.Contexts
 
         public void ExecuteAction()
         {
-            ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), mapContext, battleContext);
+            ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), MapContext, battleContext);
         }
 
         public void CancelAction()
         {
-            ActiveUnit.CancelArmedSkill(mapContext);
+            ActiveUnit.CancelArmedSkill(MapContext);
             MapContext.SlideCursorToActiveUnit();
             MapContext.GameMapUI.GenerateActionMenu();
         }
@@ -275,12 +272,12 @@ namespace SolStandard.Containers.Contexts
         {
             GameScenario.CheckForWinState(this);
 
-
             MapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
             MapContext.SnapCursorToActiveUnit();
+            MapCamera.CenterCameraToCursor();
 
             MapContext.EndTurn();
             TurnNumber++;

@@ -99,7 +99,7 @@ namespace SolStandard.Containers
             return new MapSlice(Vector2.Zero, null, null, null, null, null, null, null, null);
         }
 
-        private void DrawMapGrid(SpriteBatch spriteBatch)
+        private static void DrawMapGrid(SpriteBatch spriteBatch)
         {
             for (int col = 0; col < _gameGrid[0].GetLength(0); col++)
             {

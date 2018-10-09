@@ -56,7 +56,7 @@ namespace SolStandard.Containers.UI
             }
             else
             {
-                mapInfoWindow = new Window("MapInfo Window", AssetManager.WindowTexture, terrainInfo, MapInfoWindowColor);
+                mapInfoWindow = new Window("MapInfo Window", AssetManager.WindowTexture, terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
             }
         }
 

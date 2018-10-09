@@ -77,8 +77,8 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            Sprite,
-                            new RenderText(AssetManager.HeaderFont, Name)
+                            InfoHeader,
+                            new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),

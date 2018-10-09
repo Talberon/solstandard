@@ -24,11 +24,7 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            Sprite,
-                            new RenderText(AssetManager.HeaderFont, Name)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~~~"), 
+                            InfoHeader,
                             new RenderBlank()
                         },
                         {

@@ -237,7 +237,7 @@ namespace SolStandard.HUD.Window
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X = Width - windowContents.Width - windowCellSize;
+            contentRenderCoordinates.X = windowCoordinates.X + Width - windowContents.Width - windowCellSize;
 
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
 
