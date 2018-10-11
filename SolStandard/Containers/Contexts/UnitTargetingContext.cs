@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Contexts
@@ -80,7 +79,7 @@ namespace SolStandard.Containers.Contexts
             return tilesToKeep;
         }
 
-        private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
+        private static IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
             List<MapDistanceTile> visitedTiles, bool distanceVisible)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
@@ -90,28 +89,28 @@ namespace SolStandard.Containers.Contexts
             Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
             Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
 
-            if (CanMoveAtCoordinates(north, visitedTiles))
+            if (CanPlaceTileAtCoordinates(north, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(south, visitedTiles))
+            if (CanPlaceTileAtCoordinates(south, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(east, visitedTiles))
+            if (CanPlaceTileAtCoordinates(east, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
-            if (CanMoveAtCoordinates(west, visitedTiles))
+            if (CanPlaceTileAtCoordinates(west, visitedTiles))
             {
                 neighbours.Add(
                     new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
@@ -121,38 +120,19 @@ namespace SolStandard.Containers.Contexts
             return neighbours;
         }
 
-        private static bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
+        private static bool CanPlaceTileAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
         {
             if (visitedTiles.Any(tile => tile.Coordinates == coordinates)) return false;
 
             return MapContext.CoordinatesWithinMapBounds(coordinates);
         }
 
-        private void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
+        private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
                 MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
             }
-        }
-
-
-        public static bool CanMoveAtCoordinates(Vector2 coordinates)
-        {
-            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
-
-            MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
-            if (slice.UnitEntity != null) return false;
-
-            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
-            {
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
-            }
-
-            if (slice.CollideTile != null) return false;
-
-            return true;
         }
     }
 }

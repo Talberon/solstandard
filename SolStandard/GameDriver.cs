@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,6 +18,7 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
 {
@@ -32,7 +35,7 @@ namespace SolStandard
         public static Vector2 ScreenSize { get; private set; }
         public static List<MapInfo> AvailableMaps;
 
-        private readonly GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper p1ControlMapper;
         private GameControlMapper p2ControlMapper;
@@ -44,16 +47,34 @@ namespace SolStandard
 
         public GameDriver()
         {
+            UseDebugResolution();
+            //UseBorderlessFullscreen();
+            Content.RootDirectory = "Content";
+        }
+
+        private void UseDebugResolution()
+        {
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1600,
                 PreferredBackBufferHeight = 900
             };
 
-            //FIXME HACK Move the window away from the top-left corner
+            //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
+            Window.IsBorderless = false;
+        }
 
-            Content.RootDirectory = "Content";
+        private void UseBorderlessFullscreen()
+        {
+            graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
+                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height
+            };
+
+            Window.Position = new Point(0, 0);
+            Window.IsBorderless = true;
         }
 
 
@@ -63,12 +84,24 @@ namespace SolStandard
         public static void NewGame(string mapName)
         {
             string mapPath = "Content/TmxMaps/" + mapName;
-            _gameContext.StartGame(mapPath, _mapCamera);
+            _gameContext.StartGame(mapPath);
         }
 
         public static void QuitGame()
         {
             _quitting = true;
+        }
+
+        private static void CleanTmxFiles(IEnumerable<MapInfo> mapList)
+        {
+            foreach (MapInfo mapInfo in mapList)
+            {
+                string filePath = "Content/TmxMaps/" + mapInfo.FileName;
+
+                string text = File.ReadAllText(filePath);
+                text = text.Replace("tile/", "tile gid=\"0\"/");
+                File.WriteAllText(filePath, text);
+            }
         }
 
         /// <summary>
@@ -92,12 +125,20 @@ namespace SolStandard
 
             AvailableMaps = new List<MapInfo>
             {
+                new MapInfo("MapSelect", "Map_Select_02.tmx", new RenderBlank()),
+
                 new MapInfo("Old World", "Experimenting_01.tmx",
                     new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
                 new MapInfo("Beachhead", "Experimenting_02.tmx",
                     new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
-                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank())
+                new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
+                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
+                new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank()),
+                new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank())
             };
+
+            //Compensate for TiledSharp's inability to parse tiles without a gid value
+            CleanTmxFiles(AvailableMaps);
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height), 1);
@@ -116,7 +157,7 @@ namespace SolStandard
                 new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
             );
 
-            _mapCamera.CenterCameraToCursor();
+            MapCamera.CenterCameraToCursor();
 
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
@@ -139,7 +180,6 @@ namespace SolStandard
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -167,6 +207,11 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.D3))
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D0))
+            {
+                MusicBox.Pause();
             }
 
             //Set the controller based on the active team
@@ -218,6 +263,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     GameContext.MapSelectContext.HoverOverEntity();
+
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
@@ -225,7 +271,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                    _gameContext.MapContext.UpdateUnitPortraitWindows(hoverTiles);
+                    _gameContext.MapContext.UpdateHoverContextWindows(hoverTiles);
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -248,12 +294,7 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    //Render Main Menu
-                    spriteBatch.Begin(
-                        SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                        null, SamplerState.PointClamp, null, null, null, null);
-                    _gameContext.MainMenuUI.Draw(spriteBatch);
-                    spriteBatch.End();
+                    DrawMainMenu();
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -278,12 +319,23 @@ namespace SolStandard
             }
         }
 
+        private void DrawMainMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            _gameContext.MainMenuUI.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
         private void DrawMapSelectMap()
         {
-//MAP LAYER
+            //MAP LAYER
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
 
             GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
 
@@ -292,9 +344,9 @@ namespace SolStandard
 
         private void DrawMapSelectHUD()
         {
-//HUD
+            //HUD
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
             GameContext.MapSelectContext.SelectMapUI.Draw(spriteBatch);
             spriteBatch.End();
@@ -303,7 +355,7 @@ namespace SolStandard
         private void DrawGameResultsScreen()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
             _gameContext.ResultsUI.Draw(spriteBatch);
@@ -314,8 +366,8 @@ namespace SolStandard
         private void DrawInGameMap()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, _mapCamera.CameraMatrix);
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
             _gameContext.MapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -323,7 +375,7 @@ namespace SolStandard
         private void DrawInGameHUD()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //Use deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
             if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)

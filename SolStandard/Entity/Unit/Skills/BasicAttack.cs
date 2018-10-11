@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -10,10 +11,10 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public class BasicAttack : UnitSkill
+    public class BasicAttack : UnitAction
     {
         public BasicAttack() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
             name: "Basic Attack",
             description: "Attack a target with dice based on your ATK statistic.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
@@ -34,16 +35,15 @@ namespace SolStandard.Entity.Unit.Skills
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                eventQueue.Enqueue(
-                    new StartCombatEvent(
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates,
-                        GameContext.ActiveUnit.Stats.AtkRange,
-                        ref targetUnit,
-                        ref mapContext,
-                        ref battleContext,
-                        TileSprite
-                    )
-                );
+                eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
+                GlobalEventQueue.QueueEvents(eventQueue);
+            }
+            else if (TargetIsABreakableObstacleInRange(targetSlice))
+            {
+                //deal damage to terrain
+                BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
+                targetObstacle.DealDamage(1);
+                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (mapContext.SelectedUnit == targetUnit)

@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
-using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -28,14 +27,16 @@ namespace SolStandard.Containers.UI
         public Window LeftUnitPortraitWindow { get; private set; }
         public Window LeftUnitDetailWindow { get; private set; }
         public Window LeftUnitStatusWindow { get; private set; }
+        public Window LeftUnitInventoryWindow { get; private set; }
 
         public Window RightUnitPortraitWindow { get; private set; }
         public Window RightUnitDetailWindow { get; private set; }
         public Window RightUnitStatusWindow { get; private set; }
+        public Window RightUnitInventoryWindow { get; private set; }
 
         public Window TurnWindow { get; private set; }
         public Window InitiativeWindow { get; private set; }
-        public Window TerrainEntityWindow { get; private set; }
+        public Window EntityWindow { get; private set; }
         public Window HelpTextWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
@@ -64,21 +65,13 @@ namespace SolStandard.Containers.UI
         public void GenerateActionMenu()
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
-            int skillCount = GameContext.ActiveUnit.Skills.Count;
 
-            MenuOption[] options = new MenuOption[skillCount];
-
-            for (int i = 0; i < skillCount; i++)
-            {
-                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.Skills[i]);
-            }
+            MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
 
-
             ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
-
             GenerateActionMenuDescription();
         }
 
@@ -90,7 +83,7 @@ namespace SolStandard.Containers.UI
                 windowTexture,
                 new RenderText(
                     AssetManager.WindowFont,
-                    GameContext.ActiveUnit.Skills[ActionMenu.CurrentOptionIndex].Description
+                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu.CurrentOptionIndex)
                 ),
                 windowColour
             );
@@ -105,7 +98,9 @@ namespace SolStandard.Containers.UI
 
         public void GenerateTurnWindow(Vector2 windowSize)
         {
-            string turnInfo = "Turn: " + GameContext.TurnNumber;
+            string turnInfo = "Turn: " + GameContext.TurnCounter;
+            turnInfo += "\n";
+            turnInfo += "Round: " + GameContext.RoundCounter;
             turnInfo += "\n";
             turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
             turnInfo += "\n";
@@ -126,17 +121,34 @@ namespace SolStandard.Containers.UI
                 windowSize);
         }
 
-        public void GenerateTerrainWindow(TerrainEntity selectedTerrain)
+        public void GenerateEntityWindow(MapSlice hoverSlice)
         {
             WindowContentGrid terrainContentGrid;
 
-            if (selectedTerrain != null)
+            if (hoverSlice.TerrainEntity != null || hoverSlice.ItemEntity != null)
             {
                 terrainContentGrid = new WindowContentGrid(
                     new[,]
                     {
                         {
-                            selectedTerrain.TerrainInfo
+                            (hoverSlice.TerrainEntity != null)
+                                ? new Window(
+                                    "Terrain Preview",
+                                    AssetManager.WindowTexture,
+                                    hoverSlice.TerrainEntity.TerrainInfo,
+                                    new Color(100, 150, 100, 180)
+                                ) as IRenderable
+                                : new RenderBlank()
+                        },
+                        {
+                            (hoverSlice.ItemEntity != null)
+                                ? new Window(
+                                    "Item Preview",
+                                    AssetManager.WindowTexture,
+                                    hoverSlice.ItemEntity.TerrainInfo,
+                                    new Color(180, 180, 100, 180)
+                                ) as IRenderable
+                                : new RenderBlank()
                         }
                     },
                     1);
@@ -147,14 +159,18 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.WindowFont, "None ")
+                            new Window(
+                                "No Entity Info",
+                                AssetManager.WindowTexture,
+                                new RenderText(AssetManager.WindowFont, "None"),
+                                new Color(100, 100, 100, 180)
+                            )
                         }
                     },
                     1);
             }
 
-            TerrainEntityWindow = new Window("Terrain Info", windowTexture, terrainContentGrid,
-                new Color(100, 150, 100, 220));
+            EntityWindow = new Window("Entity Info", windowTexture, terrainContentGrid, new Color(50, 50, 50, 150));
         }
 
         public void GenerateHelpWindow(string helpText)
@@ -166,7 +182,7 @@ namespace SolStandard.Containers.UI
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
-            const int maxInitiativeSize = 9;
+            const int maxInitiativeSize = 16;
 
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
@@ -196,11 +212,11 @@ namespace SolStandard.Containers.UI
                     new RenderText(AssetManager.MapFont, unitList[0].Id)
                 },
                 {
-                    unitList[0].MediumPortrait
+                    unitList[0].SmallPortrait
                 },
                 {
                     unitList[0]
-                        .GetInitiativeHealthBar(new Vector2(unitList[0].MediumPortrait.Width,
+                        .GetInitiativeHealthBar(new Vector2(unitList[0].SmallPortrait.Width,
                             initiativeHealthBarHeight))
                 }
             };
@@ -225,11 +241,11 @@ namespace SolStandard.Containers.UI
                         new RenderText(AssetManager.MapFont, unitList[i].Id)
                     },
                     {
-                        unitList[i].MediumPortrait
+                        unitList[i].SmallPortrait
                     },
                     {
                         unitList[i]
-                            .GetInitiativeHealthBar(new Vector2(unitList[i].MediumPortrait.Width,
+                            .GetInitiativeHealthBar(new Vector2(unitList[i].SmallPortrait.Width,
                                 initiativeHealthBarHeight))
                     }
                 };
@@ -249,6 +265,7 @@ namespace SolStandard.Containers.UI
             LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
@@ -256,27 +273,16 @@ namespace SolStandard.Containers.UI
             RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
         private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null) return null;
 
-            const int hoverWindowHealthBarHeight = 15;
-            IRenderable[,] selectedUnitPortrait =
-            {
-                {
-                    selectedUnit.LargePortrait
-                },
-                {
-                    selectedUnit.GetHoverWindowHealthBar(new Vector2(selectedUnit.LargePortrait.Width,
-                        hoverWindowHealthBarHeight))
-                }
-            };
-
             string windowLabel = "Selected Portrait: " + selectedUnit.Id;
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-            return new Window(windowLabel, windowTexture, new WindowContentGrid(selectedUnitPortrait, 1), windowColor);
+            return new Window(windowLabel, windowTexture, selectedUnit.UnitPortraitPane, windowColor);
         }
 
         private Window GenerateUnitDetailWindow(GameUnit selectedUnit)
@@ -288,6 +294,15 @@ namespace SolStandard.Containers.UI
             string windowLabel = "Selected Info: " + selectedUnit.Id;
             Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
             return new Window(windowLabel, windowTexture, selectedUnitInfo, windowColor);
+        }
+
+        private Window GenerateUnitInventoryWindow(GameUnit selectedUnit)
+        {
+            if (selectedUnit == null || selectedUnit.InventoryPane == null) return null;
+
+            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
+            return new Window("Unit Inventory: " + selectedUnit.Id, AssetManager.WindowTexture,
+                selectedUnit.InventoryPane, windowColor);
         }
 
         private Window GenerateUnitStatusWindow(GameUnit selectedUnit)
@@ -331,14 +346,16 @@ namespace SolStandard.Containers.UI
 
         private Vector2 ActionMenuPosition()
         {
+            //Center of screen, above Initiative List
             return new Vector2(
-                WindowEdgeBuffer + LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width,
-                LeftUnitDetailWindowPosition().Y
+                GameDriver.ScreenSize.X / 2 - ActionMenu.Width,
+                InitiativeWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
             );
         }
 
         private Vector2 ActionMenuDescriptionPosition()
         {
+            //Right of Action Menu
             return new Vector2(
                 WindowEdgeBuffer + ActionMenuPosition().X + ActionMenu.Width,
                 ActionMenuPosition().Y
@@ -371,6 +388,17 @@ namespace SolStandard.Containers.UI
             );
         }
 
+
+        private Vector2 LeftUnitInventoryWindowPosition()
+        {
+            //Bottom-left, right of stats
+            return new Vector2(
+                LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width + WindowEdgeBuffer,
+                LeftUnitDetailWindowPosition().Y
+            );
+        }
+
+
         private Vector2 RightUnitPortraitWindowPosition()
         {
             //Bottom-right, above intiative window
@@ -399,6 +427,17 @@ namespace SolStandard.Containers.UI
             );
         }
 
+
+        private Vector2 RightUnitInventoryWindowPosition()
+        {
+            //Bottom-left, right of stats
+            return new Vector2(
+                RightUnitDetailWindowPosition().X - RightUnitInventoryWindow.Width - WindowEdgeBuffer,
+                RightUnitDetailWindowPosition().Y
+            );
+        }
+
+
         private Vector2 InitiativeWindowPosition()
         {
             //Bottom-right
@@ -417,11 +456,11 @@ namespace SolStandard.Containers.UI
             );
         }
 
-        private Vector2 TerrainWindowPosition()
+        private Vector2 EntityWindowPosition()
         {
             //Top-right
             return new Vector2(
-                screenSize.X - TerrainEntityWindow.Width - WindowEdgeBuffer,
+                screenSize.X - EntityWindow.Width - WindowEdgeBuffer,
                 WindowEdgeBuffer
             );
         }
@@ -457,9 +496,9 @@ namespace SolStandard.Containers.UI
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
             }
 
-            if (TerrainEntityWindow != null)
+            if (EntityWindow != null)
             {
-                TerrainEntityWindow.Draw(spriteBatch, TerrainWindowPosition());
+                EntityWindow.Draw(spriteBatch, EntityWindowPosition());
             }
 
             if (TurnWindow != null)
@@ -484,6 +523,11 @@ namespace SolStandard.Containers.UI
                     {
                         LeftUnitStatusWindow.Draw(spriteBatch, LeftUnitStatusWindowPosition());
                     }
+
+                    if (LeftUnitInventoryWindow != null)
+                    {
+                        LeftUnitInventoryWindow.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
+                    }
                 }
 
                 if (RightUnitPortraitWindow != null)
@@ -498,6 +542,11 @@ namespace SolStandard.Containers.UI
                     if (RightUnitStatusWindow != null)
                     {
                         RightUnitStatusWindow.Draw(spriteBatch, RightUnitStatusWindowPosition());
+                    }
+
+                    if (RightUnitInventoryWindow != null)
+                    {
+                        RightUnitInventoryWindow.Draw(spriteBatch, RightUnitInventoryWindowPosition());
                     }
                 }
 

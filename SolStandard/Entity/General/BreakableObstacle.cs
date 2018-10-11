@@ -9,8 +9,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        private readonly int hp;
-        private bool canMove;
+        private int hp;
         private bool isBroken;
 
         public BreakableObstacle(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
@@ -18,8 +17,22 @@ namespace SolStandard.Entity.General
             mapCoordinates, tiledProperties)
         {
             this.hp = hp;
-            this.canMove = canMove;
+            CanMove = canMove;
             this.isBroken = isBroken;
+        }
+
+        public void DealDamage(int damage)
+        {
+            hp -= damage;
+            AssetManager.CombatDamageSFX.Play();
+
+            if (hp <= 0)
+            {
+                AssetManager.CombatDeathSFX.Play();
+                isBroken = true;
+                CanMove = true;
+                Visible = false;
+            }
         }
 
         public override IRenderable TerrainInfo
@@ -30,11 +43,7 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            Sprite,
-                            new RenderText(AssetManager.HeaderFont, Name)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, "~~~~~~~~~~~"),
+                            InfoHeader,
                             new RenderBlank()
                         },
                         {
@@ -43,12 +52,12 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                                (canMove) ? PositiveColor : NegativeColor)
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Not Broken" : "Broken",
-                                (isBroken) ? PositiveColor : NegativeColor),
+                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Broken" : "Not Broken",
+                                (isBroken) ? NegativeColor : PositiveColor),
                             new RenderBlank()
                         }
                     },

@@ -9,7 +9,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public class Wait : UnitSkill
+    public class Wait : UnitAction
     {
         public Wait() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Wait, new Vector2(32)),

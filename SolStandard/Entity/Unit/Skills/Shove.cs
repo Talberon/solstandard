@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills
 {
-    public class Shove : UnitSkill
+    public class Shove : UnitAction
     {
         public Shove() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(32)),
@@ -28,12 +28,12 @@ namespace SolStandard.Entity.Unit.Skills
 
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                if (CanShove(targetUnit))
+                if (CanShove(targetSlice, targetUnit))
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new ShoveEvent(ref targetUnit));
+                    eventQueue.Enqueue(new ShoveEvent(targetUnit));
                     eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
@@ -48,13 +48,14 @@ namespace SolStandard.Entity.Unit.Skills
             }
         }
 
-        public static bool CanShove(GameUnit target)
+        public static bool CanShove(MapSlice targetSlice, GameUnit targetUnit)
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
-            Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
+            Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
 
-            if (TargetUnitIsInRange(target) && UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
+            if (TargetIsUnitInRange(targetSlice, targetUnit) &&
+                UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
             {
                 return true;
             }
@@ -66,25 +67,25 @@ namespace SolStandard.Entity.Unit.Skills
         {
             Vector2 oppositeCoordinates = targetCoordinates;
 
-            if (ActorNorthOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceNorthOfTarget(actorCoordinates, targetCoordinates))
             {
                 //Move South
                 oppositeCoordinates.Y++;
             }
 
-            if (ActorSouthOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceSouthOfTarget(actorCoordinates, targetCoordinates))
             {
                 //Move North
                 oppositeCoordinates.Y--;
             }
 
-            if (ActorEastOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceEastOfTarget(actorCoordinates, targetCoordinates))
             {
                 //Move West
                 oppositeCoordinates.X--;
             }
 
-            if (ActorWestOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceWestOfTarget(actorCoordinates, targetCoordinates))
             {
                 //Move East
                 oppositeCoordinates.X++;
@@ -93,33 +94,6 @@ namespace SolStandard.Entity.Unit.Skills
             return oppositeCoordinates;
         }
 
-        private static bool ActorSouthOfTarget(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            return actorCoordinates.Y > targetCoordinates.Y;
-        }
 
-        private static bool ActorWestOfTarget(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            return actorCoordinates.X < targetCoordinates.X;
-        }
-
-        private static bool ActorEastOfTarget(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            return actorCoordinates.X > targetCoordinates.X;
-        }
-
-        private static bool ActorNorthOfTarget(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            return actorCoordinates.Y < targetCoordinates.Y;
-        }
-
-
-        private static bool TargetUnitIsInRange(GameUnit targetUnit)
-        {
-            return
-                targetUnit != null
-                && GameContext.ActiveUnit != targetUnit
-                && (MapContainer.GetMapSliceAtCoordinates(targetUnit.UnitEntity.MapCoordinates).DynamicEntity != null);
-        }
     }
 }

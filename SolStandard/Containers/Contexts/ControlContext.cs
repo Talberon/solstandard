@@ -247,63 +247,59 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.LeftTrigger())
-            {
-                mapCamera.DecreaseZoom(0.1f);
-            }
-
-            if (controlMapper.RightTrigger())
-            {
-                mapCamera.IncreaseZoom(0.1f);
-            }
-
             if (controlMapper.Y())
             {
-                mapCamera.CenterCameraToCursor();
+                MapCamera.CenterCameraToCursor();
             }
 
             if (controlMapper.X())
             {
                 gameContext.MapContext.SlideCursorToActiveUnit();
-                
-                //FIXME Remove this eventually after debugging is done
-                //GameContext.Units.ForEach(unit => unit.DamageUnit(1));
             }
 
+
+            if (controlMapper.LeftTrigger())
+            {
+                //Zoom out
+                mapCamera.DecrementZoom(0.1f);
+            }
+
+            if (controlMapper.RightTrigger())
+            {
+                //Zoom in
+                mapCamera.IncrementZoom(0.1f);
+            }
+
+            if (controlMapper.LeftBumper())
+            {
+                mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
+            }
+
+            if (controlMapper.RightBumper())
+            {
+                mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Medium);
+            }
 
             const float cameraPanRateOverride = 64;
 
             if (controlMapper.RightStickDown())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
+                MapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
             if (controlMapper.RightStickLeft())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
+                MapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
             if (controlMapper.RightStickRight())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
+                MapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
             if (controlMapper.RightStickUp())
             {
-                mapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
-            }
-
-
-            if (controlMapper.RightBumper())
-            {
-                //Zoom in
-                mapCamera.ZoomToCursor(4);
-            }
-
-            if (controlMapper.LeftBumper())
-            {
-                //Zoom out
-                mapCamera.ZoomToCursor(2);
+                MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
         }
     }

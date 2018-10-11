@@ -10,7 +10,7 @@ namespace SolStandard.Utility.Events
     {
         private readonly GameUnit target;
 
-        public ShoveEvent(ref GameUnit target)
+        public ShoveEvent(GameUnit target)
         {
             this.target = target;
         }

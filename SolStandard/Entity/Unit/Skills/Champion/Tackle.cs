@@ -10,10 +10,10 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Champion
 {
-    public class Tackle : UnitSkill
+    public class Tackle : UnitAction
     {
         public Tackle() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, new Vector2(GameDriver.CellSize)),
             name: "Tackle",
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",
@@ -31,25 +31,18 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             {
                 Vector2 targetOriginalPosition = targetUnit.UnitEntity.MapCoordinates;
 
-                if (Shove.CanShove(targetUnit))
+                if (Shove.CanShove(targetSlice, targetUnit))
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new ShoveEvent(ref targetUnit));
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new MoveCoordinatesEvent(targetOriginalPosition));
+                    eventQueue.Enqueue(new ShoveEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(
-                        new StartCombatEvent(
-                            GameContext.ActiveUnit.UnitEntity.MapCoordinates,
-                            GameContext.ActiveUnit.Stats.AtkRange,
-                            ref targetUnit,
-                            ref mapContext,
-                            ref battleContext,
-                            TileSprite
-                        )
+                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetOriginalPosition)
                     );
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
@@ -62,11 +55,6 @@ namespace SolStandard.Entity.Unit.Skills.Champion
             {
                 AssetManager.WarningSFX.Play();
             }
-        }
-
-        private static void MoveToTarget(Vector2 targetCoordinates)
-        {
-            GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
         }
     }
 }

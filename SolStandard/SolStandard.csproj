@@ -48,6 +48,7 @@
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
+    <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
@@ -64,11 +65,23 @@
     <Compile Include="Entity\General\Chest.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
+    <Compile Include="Entity\General\Currency.cs" />
+    <Compile Include="Entity\General\Drawbridge.cs" />
+    <Compile Include="Entity\General\Key.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\Portal.cs" />
+    <Compile Include="Entity\General\Railgun.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
+    <Compile Include="Entity\General\Spoils.cs" />
+    <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
+    <Compile Include="Entity\General\Artillery.cs" />
+    <Compile Include="Entity\IItem.cs" />
+    <Compile Include="Entity\ILockable.cs" />
+    <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
+    <Compile Include="Entity\Unit\Skills\Archer\Harpoon.cs" />
     <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
@@ -76,14 +89,25 @@
     <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Skills\Monarch\Inspire.cs" />
     <Compile Include="Entity\Unit\Skills\Shove.cs" />
-    <Compile Include="Entity\Unit\Skills\UnitSkill.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\ArtilleryAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\DropItemAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\PickUpCurrencyAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\PickUpItemAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\RailgunAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\ToggleSwitchAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\OpenChestAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\UseDoorAction.cs" />
+    <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
+    <Compile Include="Entity\Unit\Skills\UnitAction.cs" />
     <Compile Include="Entity\Unit\Skills\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
-    <Compile Include="Entity\Unit\UnitBuilder.cs" />
+    <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSprite.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
@@ -107,6 +131,7 @@
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
     <Compile Include="Map\Elements\Direction.cs" />
+    <Compile Include="Map\Elements\IActionTile.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />
@@ -143,16 +168,26 @@
     <Compile Include="Utility\Buttons\YControl.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\DeleteItemEvent.cs" />
+    <Compile Include="Utility\Events\DropItemEvent.cs" />
     <Compile Include="Utility\Events\EndTurnEvent.cs" />
     <Compile Include="Utility\Events\HideUnitEvent.cs" />
     <Compile Include="Utility\Events\IEvent.cs" />
     <Compile Include="Utility\Events\GlobalEventQueue.cs" />
+    <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
+    <Compile Include="Utility\Events\PickUpItemEvent.cs" />
+    <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
-    <Compile Include="Utility\Events\MoveCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
+    <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
+    <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
@@ -180,6 +215,7 @@
       <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="mscorlib" />
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
       <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
       <Private>True</Private>
@@ -218,6 +254,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TiledSharp, Version=0.15.5889.20321, Culture=neutral, processorArchitecture=MSIL">
@@ -234,7 +276,15 @@
     <Content Include="Content\TmxMaps\Experimenting_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Experimenting_03.tmx" />
+    <Content Include="Content\TmxMaps\Experimenting_03.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Experimenting_04.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Experimenting_05.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Map_Select_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

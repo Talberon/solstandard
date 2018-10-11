@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="Artillery" color="#f42ad9">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="range" type="string" default="3,4"/>
+ </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
   <property name="HP" type="int" default="0"/>
   <property name="canMove" type="bool" default="false"/>
@@ -10,22 +14,61 @@
   <property name="Stat" type="string"/>
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
- <objecttype name="Chest" color="#a4a13b">
-  <property name="Contents" type="string"/>
+ <objecttype name="Chest" color="#a66b47">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="gold" type="int" default="0"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
+  <property name="items" type="string"/>
+  <property name="range" type="string" default="1"/>
+ </objecttype>
+ <objecttype name="Currency" color="#dad45e">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="range" type="string" default="0"/>
+  <property name="value" type="int" default="1"/>
  </objecttype>
  <objecttype name="Decoration" color="#ffaaff"/>
  <objecttype name="Door" color="#625232">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isBroken" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
+  <property name="range" type="string" default="1"/>
+ </objecttype>
+ <objecttype name="Drawbridge" color="#aa5500">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isOpen" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Interactive" color="#358ad3">
+  <property name="action" type="string" default="none"/>
+  <property name="canMove" type="bool" default="false"/>
+  <property name="range" type="string" default="0,1"/>
+ </objecttype>
+ <objecttype name="Key" color="#ffaa00">
+  <property name="range" type="string" default="0"/>
+  <property name="usedWith" type="string" default="Door A1"/>
  </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
+ <objecttype name="Portal" color="#aaaaff">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="destinationId" type="string" default="DEFAULT"/>
+  <property name="range" type="string" default="0"/>
+ </objecttype>
+ <objecttype name="Railgun" color="#67ba67">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="range" type="int" default="5"/>
+ </objecttype>
  <objecttype name="SelectMap" color="#fe2973">
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
+ </objecttype>
+ <objecttype name="Switch" color="#ff7029">
+  <property name="canMove" type="bool" default="false"/>
+  <property name="isActive" type="bool" default="false"/>
+  <property name="range" type="string" default="1"/>
+  <property name="triggersId" type="string" default="Door A"/>
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>

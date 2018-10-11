@@ -11,20 +11,21 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Archer
 {
-    public class Draw : UnitSkill
+    public class Draw : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
         public Draw(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(32)),
             name: "Draw",
             description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0}
         )
         {
-            this.duration = duration;
+            //Add one to the duration to compensate for the counter going down right after the user's turn ends.
+            this.duration = duration + 1;
             this.statModifier = statModifier;
         }
 

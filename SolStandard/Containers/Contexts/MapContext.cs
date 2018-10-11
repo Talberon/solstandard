@@ -113,7 +113,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
-                MapContainer.MapCursor.MoveCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                MapContainer.MapCursor.SlideCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
 
@@ -133,8 +133,7 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid,
-                new Vector2(0, 150));
+            GameMapUI.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
         public void ConfirmPromptWindow()
@@ -167,9 +166,9 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void UpdateUnitPortraitWindows(MapSlice hoverTiles)
+        public void UpdateHoverContextWindows(MapSlice hoverSlice)
         {
-            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverTiles.UnitEntity);
+            GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             if (CurrentTurnState != TurnState.SelectUnit)
             {
@@ -179,6 +178,7 @@ namespace SolStandard.Containers.Contexts
                 }
                 else
                 {
+                    GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
                     GameMapUI.UpdateRightPortraitAndDetailWindows(null);
                 }
             }
@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             //Terrain (Entity) Window
-            GameMapUI.GenerateTerrainWindow(hoverTiles.TerrainEntity);
+            GameMapUI.GenerateEntityWindow(hoverSlice);
         }
 
         private bool TargetTileHasADynamicTile(Direction direction)

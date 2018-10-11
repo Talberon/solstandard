@@ -21,6 +21,11 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect CombatDeathSFX { get; private set; }
         public static ISoundEffect DisableDiceSFX { get; private set; }
         public static ISoundEffect WarningSFX { get; private set; }
+        public static ISoundEffect CoinSFX { get; private set; }
+        public static ISoundEffect DoorSFX { get; private set; }
+        public static ISoundEffect LockedSFX { get; private set; }
+        public static ISoundEffect UnlockSFX { get; private set; }
+        public static ISoundEffect DropItemSFX { get; private set; }
 
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
@@ -52,22 +57,13 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D WhiteGrid { get; private set; }
         public static ITexture2D DiceTexture { get; private set; }
         public static ITexture2D StatIcons { get; private set; }
+        public static ITexture2D GoldIcon { get; private set; }
+        public static ITexture2D SpoilsIcon { get; private set; }
 
         public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> LargePortraitTextures { get; private set; }
         public static List<ITexture2D> MediumPortraitTextures { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
-
-
-        public static ITexture2D WorldTileSetTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/WorldTileSet")); }
-        }
-
-        public static ITexture2D TerrainTexture
-        {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/Terrain")); }
-        }
 
         public static ITexture2D EntitiesTexture
         {
@@ -76,7 +72,7 @@ namespace SolStandard.Utility.Assets
 
         public static ITexture2D OverworldTexture
         {
-            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/wonderdot-overworld-32")); }
+            get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/overworld-32")); }
         }
 
         public static ITexture2D MapCursorTexture
@@ -134,6 +130,8 @@ namespace SolStandard.Utility.Assets
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
 
+            GoldIcon = ContentLoader.LoadGoldIcon(content);
+            SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
 
             ButtonIcons = ContentLoader.LoadButtonIcons(content);
             ButtonIconProvider.LoadButtons(ButtonIcons);
@@ -159,6 +157,11 @@ namespace SolStandard.Utility.Assets
             CombatDeathSFX = ContentLoader.LoadCombatDeathSFX(content);
             DisableDiceSFX = ContentLoader.LoadDisableDiceSFX(content);
             WarningSFX = ContentLoader.LoadWarningSFX(content);
+            CoinSFX = ContentLoader.LoadCoinSFX(content);
+            DoorSFX = ContentLoader.LoadDoorSFX(content);
+            LockedSFX = ContentLoader.LoadLockedSFX(content);
+            UnlockSFX = ContentLoader.LoadUnlockSFX(content);
+            DropItemSFX = ContentLoader.LoadDropItemSFX(content);
 
             SkillBuffSFX = ContentLoader.LoadSkillDrawSFX(content);
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);

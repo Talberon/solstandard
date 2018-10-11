@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Skills.Monarch
 {
-    public class DoubleTime : UnitSkill
+    public class DoubleTime : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             name: "Double Time",
             description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1, 2}
         )
         {
             this.statModifier = statModifier;

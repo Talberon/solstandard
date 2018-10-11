@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit.Skills;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -50,13 +54,16 @@ namespace SolStandard.Entity.Unit
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
 
-        public List<UnitSkill> Skills { get; private set; }
-        private UnitSkill armedUnitSkill;
+        public List<UnitAction> Skills { get; private set; }
+        private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
 
+        public List<IItem> Inventory { get; private set; }
+        public int CurrentGold { get; set; }
+
         public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitSkill> skills) :
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
             base(id, mapEntity)
         {
             this.team = team;
@@ -82,9 +89,11 @@ namespace SolStandard.Entity.Unit
                 resultsHealthBar
             };
 
-            armedUnitSkill = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
+            armedUnitAction = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
 
             StatusEffects = new List<StatusEffect>();
+            Inventory = new List<IItem>();
+            CurrentGold = 0;
         }
 
         public UnitEntity UnitEntity
@@ -146,70 +155,191 @@ namespace SolStandard.Entity.Unit
             return resultsHealthBar;
         }
 
+        public IRenderable UnitPortraitPane
+        {
+            get
+            {
+                const int hoverWindowHealthBarHeight = 15;
+                IRenderable[,] selectedUnitPortrait =
+                {
+                    {
+                        MediumPortrait
+                    },
+                    {
+                        GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width, hoverWindowHealthBarHeight))
+                    }
+                };
+
+                return new WindowContentGrid(selectedUnitPortrait, 2);
+            }
+        }
+
+        public IRenderable InventoryPane
+        {
+            get
+            {
+                if (Inventory.Count > 0)
+                {
+                    const int offset = 1;
+                    IRenderable[,] content = new IRenderable[Inventory.Count + offset, 2];
+
+                    content[0, 0] = new RenderBlank();
+                    content[0, 1] = new RenderText(AssetManager.HeaderFont, "Inventory");
+
+                    for (int i = 0; i < Inventory.Count; i++)
+                    {
+                        content[i + offset, 0] = Inventory[i].Icon;
+                        content[i + offset, 1] = new RenderText(AssetManager.WindowFont, Inventory[i].Name);
+                    }
+
+                    return new WindowContentGrid(content, 2);
+                }
+
+                return null;
+            }
+        }
+
         public IRenderable DetailPane
         {
             get
             {
+                Color statPanelColor = new Color(10, 10, 10, 100);
+                Vector2 panelSizeOverride = new Vector2(180, 35);
+
                 return new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.HeaderFont, Id),
-                            new RenderBlank(),
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Hp.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Hp, Stats.MaxHp)
+                            new Window("Unit Title", AssetManager.WindowTexture,
+                                new RenderText(AssetManager.HeaderFont, Id),
+                                statPanelColor, panelSizeOverride),
+
+                            new Window("Gold", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
-                            new RenderText(AssetManager.WindowFont, "ATK: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Atk.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                            new Window("HP", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
+                                            new RenderText(AssetManager.WindowFont, "HP: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                Stats.Hp.ToString() + "/" + Stats.MaxHp.ToString())
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+
+                            new Window("SP", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
+                                            new RenderText(AssetManager.WindowFont, "SP: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Sp.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                            new RenderText(AssetManager.WindowFont, "DEF: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Def.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                            new Window("ATK", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
+                                            new RenderText(AssetManager.WindowFont, "ATK: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Atk.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+                            new Window("DEF", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
+                                            new RenderText(AssetManager.WindowFont, "DEF: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Def.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                            new RenderText(AssetManager.WindowFont, "SP: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Sp.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
-                            )
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
-                            new RenderText(AssetManager.WindowFont, "MV: "),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                Stats.Mv.ToString(),
-                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
-                            )
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "RNG:"),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
-                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(), Stats.BaseAtkRange.Max())
+                            new Window("MV", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                                            new RenderText(AssetManager.WindowFont, "MV: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Mv.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+                            new Window("AtkRange", AssetManager.WindowTexture,
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                                            new RenderText(AssetManager.WindowFont, "RNG:"),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
+                                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(),
+                                                    Stats.BaseAtkRange.Max())
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
                             )
                         }
                     },
@@ -230,19 +360,19 @@ namespace SolStandard.Entity.Unit
             return mapSprite;
         }
 
-        public void ArmUnitSkill(UnitSkill skill)
+        public void ArmUnitSkill(UnitAction action)
         {
-            armedUnitSkill = skill;
+            armedUnitAction = action;
         }
 
         public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            armedUnitSkill.ExecuteAction(targetSlice, mapContext, battleContext);
+            armedUnitAction.ExecuteAction(targetSlice, mapContext, battleContext);
         }
 
         public void CancelArmedSkill(MapContext mapContext)
         {
-            armedUnitSkill.CancelAction(mapContext);
+            armedUnitAction.CancelAction(mapContext);
         }
 
         public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
@@ -317,17 +447,71 @@ namespace SolStandard.Entity.Unit
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
         }
 
+        public void AddItemToInventory(IItem item)
+        {
+            Inventory.Add(item);
+            Skills.Insert(1, item.DropAction());
+            Skills.Insert(1, item.UseAction());
+        }
+
+        public bool RemoveItemFromInventory(IItem item)
+        {
+            if (Inventory.Contains(item))
+            {
+                Skills.Remove(Skills.Find(skill => skill.Name == item.UseAction().Name));
+                Skills.Remove(Skills.Find(skill => skill.Name == item.DropAction().Name));
+                Inventory.Remove(item);
+                return true;
+            }
+
+            AssetManager.WarningSFX.Play();
+            return false;
+        }
+
         private void KillIfDead()
         {
-            if (stats.Hp <= 0)
+            if (stats.Hp <= 0 && MapEntity != null)
             {
-                MapEntity = null;
+                DropSpoils();
                 largePortrait.RenderColor = DeadPortraitColor;
                 mediumPortrait.RenderColor = DeadPortraitColor;
                 smallPortrait.RenderColor = DeadPortraitColor;
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
+                MapEntity = null;
             }
+        }
+
+        private void DropSpoils()
+        {
+            TerrainEntity entityAtUnitPosition =
+                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                    (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
+
+            //Check if an item already exists here and add it to the spoils so that they aren't lost 
+            if (entityAtUnitPosition != null)
+            {
+                if (entityAtUnitPosition is IItem)
+                {
+                    AddItemToInventory(entityAtUnitPosition as IItem);
+                }
+                else if (entityAtUnitPosition is Currency)
+                {
+                    Currency gold = entityAtUnitPosition as Currency;
+                    CurrentGold += gold.Value;
+                }
+            }
+
+            MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X, (int) MapEntity.MapCoordinates.Y]
+                = new Spoils(
+                    Id + " Spoils",
+                    "Spoils",
+                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize), 1),
+                    MapEntity.MapCoordinates,
+                    new Dictionary<string, string>(),
+                    CurrentGold,
+                    Inventory
+                );
         }
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)

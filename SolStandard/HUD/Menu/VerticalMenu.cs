@@ -38,17 +38,39 @@ namespace SolStandard.HUD.Menu
             menuWindow = BuildMenuWindow();
         }
 
+
         private Window.Window BuildMenuWindow()
         {
+            ResizeOptionsToWidestWidth(options);
+
             IRenderable[,] optionWindows = new IRenderable[options.Length, 1];
+
             for (int i = 0; i < options.Length; i++)
             {
                 optionWindows[i, 0] = options[i];
             }
 
-            WindowContentGrid menuWindowContent = new WindowContentGrid(optionWindows, Padding);
+            WindowContentGrid optionsContent = new WindowContentGrid(optionWindows, Padding);
 
-            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, menuWindowContent, backgroundColor);
+            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, optionsContent, backgroundColor);
+        }
+
+        private static void ResizeOptionsToWidestWidth(MenuOption[] options)
+        {
+            int widestWidth = 0;
+
+            foreach (MenuOption option in options)
+            {
+                if (widestWidth < option.Width)
+                {
+                    widestWidth = option.Width;
+                }
+            }
+
+            foreach (MenuOption menuOption in options)
+            {
+                menuOption.Width = widestWidth;
+            }
         }
 
         public int Height
@@ -98,18 +120,27 @@ namespace SolStandard.HUD.Menu
                     if (CurrentOptionIndex < options.Length - 1)
                     {
                         CurrentOptionIndex++;
-                        PositionCursorToOption();
-                        AssetManager.MenuMoveSFX.Play();
+                    }
+                    else
+                    {
+                        CurrentOptionIndex = 0;
                     }
 
+                    PositionCursorToOption();
+                    AssetManager.MenuMoveSFX.Play();
                     break;
                 case MenuCursorDirection.Backward:
                     if (CurrentOptionIndex > 0)
                     {
                         CurrentOptionIndex--;
-                        PositionCursorToOption();
-                        AssetManager.MenuMoveSFX.Play();
                     }
+                    else
+                    {
+                        CurrentOptionIndex = options.Length - 1;
+                    }
+
+                    PositionCursorToOption();
+                    AssetManager.MenuMoveSFX.Play();
 
                     break;
                 default:

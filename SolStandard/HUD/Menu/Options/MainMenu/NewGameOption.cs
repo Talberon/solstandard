@@ -11,8 +11,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public NewGameOption(Color windowColor) : base(
             windowColor,
-            new RenderText(AssetManager.MainMenuFont, NewGameOptionText),
-            AssetManager.MainMenuFont
+            new RenderText(AssetManager.MainMenuFont, NewGameOptionText)
         )
         {
         }

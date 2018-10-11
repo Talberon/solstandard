@@ -1,15 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
-    public class MoveCoordinatesEvent : IEvent
+    public class MoveEntityToCoordinatesEvent : IEvent
     {
+        private readonly MapEntity entity;
         private readonly Vector2 targetCoordinates;
 
-        public MoveCoordinatesEvent(Vector2 targetCoordinates)
+        public MoveEntityToCoordinatesEvent(MapEntity entity, Vector2 targetCoordinates)
         {
+            this.entity = entity;
             this.targetCoordinates = targetCoordinates;
         }
 
@@ -17,7 +19,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.UnitEntity.MapCoordinates = targetCoordinates;
+            entity.MapCoordinates = targetCoordinates;
             AssetManager.MapUnitMoveSFX.Play();
             Complete = true;
         }

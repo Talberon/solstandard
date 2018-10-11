@@ -59,22 +59,22 @@ namespace SolStandard.Containers.Contexts
             Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
             Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
 
-            if (CanMoveAtCoordinates(north, visitedTiles, selectedUnit))
+            if (CanPlaceMoveTileAtCoordinates(north, visitedTiles, selectedUnit))
             {
                 neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1));
             }
 
-            if (CanMoveAtCoordinates(south, visitedTiles, selectedUnit))
+            if (CanPlaceMoveTileAtCoordinates(south, visitedTiles, selectedUnit))
             {
                 neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1));
             }
 
-            if (CanMoveAtCoordinates(east, visitedTiles, selectedUnit))
+            if (CanPlaceMoveTileAtCoordinates(east, visitedTiles, selectedUnit))
             {
                 neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1));
             }
 
-            if (CanMoveAtCoordinates(west, visitedTiles, selectedUnit))
+            if (CanPlaceMoveTileAtCoordinates(west, visitedTiles, selectedUnit))
             {
                 neighbours.Add(new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1));
             }
@@ -82,8 +82,8 @@ namespace SolStandard.Containers.Contexts
             return neighbours;
         }
 
-        private static bool CanMoveAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles,
-            GameUnit selectedUnit)
+        private static bool CanPlaceMoveTileAtCoordinates(Vector2 coordinates,
+            IEnumerable<MapDistanceTile> visitedTiles, GameUnit selectedUnit)
         {
             if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
@@ -93,10 +93,9 @@ namespace SolStandard.Containers.Contexts
 
             if (visitedTiles.Any(tile => tile.Coordinates.Equals(coordinates))) return false;
 
-            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
+            if (slice.TerrainEntity != null)
             {
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
+                return slice.TerrainEntity.CanMove;
             }
 
             if (slice.CollideTile != null) return false;
@@ -120,10 +119,9 @@ namespace SolStandard.Containers.Contexts
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
             if (slice.UnitEntity != null) return false;
 
-            if (slice.TerrainEntity != null && slice.TerrainEntity.Type != "Decoration")
+            if (slice.TerrainEntity != null)
             {
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "true") return true;
-                if (slice.TerrainEntity.TiledProperties["canMove"] == "false") return false;
+                return slice.TerrainEntity.CanMove;
             }
 
             if (slice.CollideTile != null) return false;

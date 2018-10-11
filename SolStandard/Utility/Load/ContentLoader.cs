@@ -62,11 +62,8 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadTerrainTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/Tiles/Tiles"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/Terrain"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/WorldTileSet"),
                 content.Load<Texture2D>("Graphics/Map/Tiles/entities-32"),
-                content.Load<Texture2D>("Graphics/Map/Tiles/wonderdot-overworld-32")
+                content.Load<Texture2D>("Graphics/Map/Tiles/overworld-32")
             };
 
             List<ITexture2D> terrainTextures = new List<ITexture2D>();
@@ -158,15 +155,15 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Blue/Monarch"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Monarch"),
 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Large/Red/Monarch")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -182,15 +179,15 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Blue/Monarch"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Monarch"),
 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Medium/Red/Monarch")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -206,15 +203,15 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Blue/Monarch"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Small/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Small/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Small/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Small/Monarch"),
 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Small/Red/Monarch")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Archer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Champion"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Mage"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Monarch")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -321,6 +318,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Shove"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tackle"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wait"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Harpoon"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();
@@ -458,6 +456,54 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/BossTheme"),
                 content.Load<Song>("Audio/Music/Game/VictoryTheme")
             };
+        }
+
+        public static ITexture2D LoadGoldIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static ITexture2D LoadSpoilsIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static ISoundEffect LoadCoinSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadDoorSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_hard4");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadLockedSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error5");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadUnlockSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+        
+        public static ISoundEffect LoadDropItemSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
+            return new SoundEffectWrapper(effect, 0.5f);
         }
     }
 }
