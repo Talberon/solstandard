@@ -143,18 +143,22 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void GenerateMoveGrid(Vector2 origin, int maximumDistance, SpriteAtlas spriteAtlas)
+        public void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
             UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
-            unitMovingContext.GenerateMoveGrid(origin, maximumDistance);
+            unitMovingContext.GenerateMoveGrid(origin, selectedUnit);
+        }
+
+        public void MoveCursorOnMap(Direction direction)
+        {
+            MapContainer.MapCursor.MoveCursorInDirection(direction);
         }
 
         public void MoveCursorAndSelectedUnitWithinMoveGrid(Direction direction)
         {
-            //TODO Snap the unit to the cursor position when inside the grid, and allow the cursor to leave the move grid
             MapContainer.MapCursor.MoveCursorInDirection(direction);
-            
+
             if (MapContainer.GetMapSliceAtCursor().DynamicEntity != null)
             {
                 SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
@@ -185,6 +189,13 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
+                MapContainer.ClearDynamicAndPreviewGrids();
+                if (hoverMapUnit != null)
+                {
+                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                        .GenerateThreatPreviewGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                }
+
                 GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
                 GameMapUI.UpdateRightPortraitAndDetailWindows(null);
             }

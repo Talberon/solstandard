@@ -39,11 +39,6 @@ namespace SolStandard.Map.Elements
             get { return distance; }
         }
 
-        public Vector2 Coordinates
-        {
-            get { return MapCoordinates; }
-        }
-
         public SpriteAtlas SpriteAtlas
         {
             get { return (SpriteAtlas) Sprite; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -28,6 +29,32 @@ namespace SolStandard.Containers.Contexts
             List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, true);
 
             AddVisitedTilesToGameGrid(visited, Layer.Dynamic);
+        }
+
+
+        public void GenerateThreatPreviewGrid(Vector2 origin, GameUnit unit)
+        {
+            new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement))
+                .GenerateMoveGrid(origin, unit);
+
+            foreach (MapDistanceTile tile in MapContainer.GameGrid[(int) Layer.Dynamic])
+            {
+                if (tile == null) continue;
+
+                //Generate attack tiles for the perimeter of the grid
+                GeneratePreviewTargetingGrid(tile.MapCoordinates, unit.Stats.AtkRange);
+            }
+
+            //Clean up overlapping tiles
+            foreach (MapDistanceTile tile in MapContainer.GameGrid[(int) Layer.Dynamic])
+            {
+                if (tile != null)
+                {
+                    MapContainer.GameGrid[(int) Layer.Preview][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y]
+                        =
+                        null;
+                }
+            }
         }
 
         private List<MapDistanceTile> GenerateTargetingGrid(Vector2 origin, int[] ranges, bool distanceVisible)
@@ -84,10 +111,10 @@ namespace SolStandard.Containers.Contexts
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
 
-            Vector2 north = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
-            Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
+            Vector2 north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
+            Vector2 south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
+            Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
+            Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
             if (CanPlaceTileAtCoordinates(north, visitedTiles))
             {
@@ -122,7 +149,7 @@ namespace SolStandard.Containers.Contexts
 
         private static bool CanPlaceTileAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
         {
-            if (visitedTiles.Any(tile => tile.Coordinates == coordinates)) return false;
+            if (visitedTiles.Any(tile => tile.MapCoordinates == coordinates)) return false;
 
             return MapContext.CoordinatesWithinMapBounds(coordinates);
         }
@@ -131,7 +158,7 @@ namespace SolStandard.Containers.Contexts
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }

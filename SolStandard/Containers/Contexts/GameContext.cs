@@ -333,7 +333,7 @@ namespace SolStandard.Containers.Contexts
                 MapContext.ProceedToNextState();
                 MapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
-                    MapContext.SelectedUnit.Stats.Mv,
+                    MapContext.SelectedUnit,
                     new SpriteAtlas(
                         new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
                         new Vector2(GameDriver.CellSize),

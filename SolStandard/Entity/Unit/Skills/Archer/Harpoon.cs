@@ -134,7 +134,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }

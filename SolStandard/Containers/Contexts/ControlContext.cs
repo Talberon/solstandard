@@ -28,7 +28,7 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
-                    MapControls(gameContext, controlMapper, mapCamera, mapCursor);
+                    MapControls(gameContext, controlMapper, mapCamera);
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -42,22 +42,22 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Up())
             {
-                mapCursor.MoveCursorInDirection((Direction.Up));
+                mapCursor.MoveCursorInDirection(Direction.Up);
             }
 
             if (controlMapper.Down())
             {
-                mapCursor.MoveCursorInDirection((Direction.Down));
+                mapCursor.MoveCursorInDirection(Direction.Down);
             }
 
             if (controlMapper.Left())
             {
-                mapCursor.MoveCursorInDirection((Direction.Left));
+                mapCursor.MoveCursorInDirection(Direction.Left);
             }
 
             if (controlMapper.Right())
             {
-                mapCursor.MoveCursorInDirection((Direction.Right));
+                mapCursor.MoveCursorInDirection(Direction.Right);
             }
 
             if (controlMapper.A())
@@ -84,8 +84,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
-            MapCursor mapCursor)
+        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera)
         {
             if (controlMapper.Start())
             {
@@ -97,7 +96,7 @@ namespace SolStandard.Containers.Contexts
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Down));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Down);
                         return;
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
@@ -106,7 +105,7 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
                         break;
                     case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Down));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Down);
                         return;
                     case MapContext.TurnState.UnitActing:
                         break;
@@ -122,7 +121,7 @@ namespace SolStandard.Containers.Contexts
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Left));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Left);
                         return;
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
@@ -130,7 +129,7 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitDecidingAction:
                         break;
                     case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Left));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Left);
                         return;
                     case MapContext.TurnState.UnitActing:
                         break;
@@ -146,7 +145,7 @@ namespace SolStandard.Containers.Contexts
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Right));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Right);
                         return;
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
@@ -154,7 +153,7 @@ namespace SolStandard.Containers.Contexts
                     case MapContext.TurnState.UnitDecidingAction:
                         break;
                     case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Right));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Right);
                         return;
                     case MapContext.TurnState.UnitActing:
                         break;
@@ -170,7 +169,7 @@ namespace SolStandard.Containers.Contexts
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
                     case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Up));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Up);
                         return;
                     case MapContext.TurnState.UnitMoving:
                         gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
@@ -179,7 +178,7 @@ namespace SolStandard.Containers.Contexts
                         gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
                         break;
                     case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Up));
+                        gameContext.MapContext.MoveCursorOnMap(Direction.Up);
                         return;
                     case MapContext.TurnState.UnitActing:
                         break;

@@ -99,7 +99,7 @@ namespace SolStandard.Map.Elements.Cursor
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
         }
-
+        
         private void PreventCursorLeavingMapBounds()
         {
             if (MapCoordinates.X < 0)
