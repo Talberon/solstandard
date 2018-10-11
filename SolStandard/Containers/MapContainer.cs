@@ -48,7 +48,7 @@ namespace SolStandard.Containers
         {
             get
             {
-                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)) 
+                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
                        * GameDriver.CellSize * MapCamera.CurrentZoom;
             }
         }
@@ -149,13 +149,13 @@ namespace SolStandard.Containers
             foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
             {
                 if (tile != null)
-                    tile.Draw(spriteBatch, new Color(255, 255, 255, 200));
+                    tile.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 if (tile != null)
-                    tile.Draw(spriteBatch, new Color(200, 200, 200, 150));
+                    tile.Draw(spriteBatch);
             }
 
             foreach (GameUnit unit in GameContext.Units)

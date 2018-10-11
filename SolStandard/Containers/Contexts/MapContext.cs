@@ -192,8 +192,12 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.ClearDynamicAndPreviewGrids();
                 if (hoverMapUnit != null)
                 {
-                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                        .GenerateThreatPreviewGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                    new UnitTargetingContext(
+                            MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+                            new Color(255, 255, 255, 150)
+                        )
+                        .GenerateThreatPreviewGrid(hoverSlice.MapCoordinates, hoverMapUnit,
+                            new Color(20, 20, 20, 100));
                 }
 
                 GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);

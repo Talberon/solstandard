@@ -21,12 +21,19 @@ namespace SolStandard.Map.Elements
         private readonly RenderText renderText;
         private readonly bool textVisible;
 
-        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, bool textVisible = true) :
+        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, Color color,
+            bool textVisible = true) :
             base(sprite, mapCoordinates)
         {
             this.distance = distance;
             this.textVisible = textVisible;
             renderText = new RenderText(AssetManager.MapFont, distance.ToString());
+            ElementColor = color;
+        }
+
+        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, bool textVisible = true) :
+            this(sprite, mapCoordinates, distance, Color.White, textVisible)
+        {
         }
 
         public static SpriteAtlas GetTileSprite(TileType tileType)
@@ -85,7 +92,7 @@ namespace SolStandard.Map.Elements
                 renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
                 renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
 
-                renderText.Draw(spriteBatch, centeredText, colorOverride);
+                renderText.Draw(spriteBatch, centeredText);
             }
         }
     }
