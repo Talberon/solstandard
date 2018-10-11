@@ -36,7 +36,8 @@ namespace SolStandard.Containers.Contexts
         public MapContext MapContext { get; private set; }
         public ResultsUI ResultsUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
-        public static int TurnNumber { get; private set; }
+        public static int TurnCounter { get; private set; }
+        public static int RoundCounter { get; private set; }
         private float oldZoom;
 
         public static GameState CurrentGameState;
@@ -90,11 +91,12 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        public void StartGame(string mapPath, MapCamera mapCamera)
+        public void StartGame(string mapPath)
         {
             LoadMap(mapPath);
 
-            TurnNumber = 1;
+            TurnCounter = 1;
+            RoundCounter = 1;
 
             foreach (GameUnit unit in Units)
             {
@@ -242,29 +244,28 @@ namespace SolStandard.Containers.Contexts
 
         public void UpdateCamera(MapCamera mapCamera)
         {
-            if (CurrentGameState == GameState.InGame)
+            if (CurrentGameState != GameState.InGame) return;
+
+            switch (MapContext.CurrentTurnState)
             {
-                switch (MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        break;
-                    case MapContext.TurnState.UnitMoving:
-                        break;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        break;
-                    case MapContext.TurnState.UnitTargeting:
-                        oldZoom = MapCamera.CurrentZoom;
-                        break;
-                    case MapContext.TurnState.UnitActing:
-                        const float combatZoom = 4;
-                        mapCamera.ZoomToCursor(combatZoom);
-                        break;
-                    case MapContext.TurnState.ResolvingTurn:
-                        mapCamera.ZoomToCursor(oldZoom);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                case MapContext.TurnState.SelectUnit:
+                    break;
+                case MapContext.TurnState.UnitMoving:
+                    break;
+                case MapContext.TurnState.UnitDecidingAction:
+                    break;
+                case MapContext.TurnState.UnitTargeting:
+                    oldZoom = MapCamera.CurrentZoom;
+                    break;
+                case MapContext.TurnState.UnitActing:
+                    const float combatZoom = 4;
+                    mapCamera.ZoomToCursor(combatZoom);
+                    break;
+                case MapContext.TurnState.ResolvingTurn:
+                    mapCamera.ZoomToCursor(oldZoom);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -280,7 +281,8 @@ namespace SolStandard.Containers.Contexts
             MapCamera.CenterCameraToCursor();
 
             MapContext.EndTurn();
-            TurnNumber++;
+
+            UpdateTurnCounters();
 
             if (!Units.TrueForAll(unit => unit.Stats.Hp <= 0))
             {
@@ -291,6 +293,17 @@ namespace SolStandard.Containers.Contexts
             ResultsUI.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();
+        }
+
+        private static void UpdateTurnCounters()
+        {
+            TurnCounter++;
+
+            if (TurnCounter <= Units.Count) return;
+
+            TurnCounter = 1;
+            RoundCounter++;
+            
         }
 
 

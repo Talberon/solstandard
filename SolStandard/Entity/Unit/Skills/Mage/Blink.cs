@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -22,6 +23,33 @@ namespace SolStandard.Entity.Unit.Skills.Mage
             range: BlinkRange
         )
         {
+        }
+
+        public override void GenerateActionGrid(Vector2 origin)
+        {
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
+            RemoveActionTilesOnUnmovableSpaces();
+        }
+
+        private static void RemoveActionTilesOnUnmovableSpaces()
+        {
+            List<MapElement> tilesToRemove = new List<MapElement>();
+
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            {
+                if (mapElement == null) continue;
+                if (!UnitMovingContext.CanMoveAtCoordinates(mapElement.MapCoordinates))
+                {
+                    tilesToRemove.Add(mapElement);
+                }
+            }
+
+            foreach (MapElement tile in tilesToRemove)
+            {
+                MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] =
+                    null;
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)

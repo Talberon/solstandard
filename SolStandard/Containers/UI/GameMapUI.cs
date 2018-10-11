@@ -98,7 +98,9 @@ namespace SolStandard.Containers.UI
 
         public void GenerateTurnWindow(Vector2 windowSize)
         {
-            string turnInfo = "Turn: " + GameContext.TurnNumber;
+            string turnInfo = "Turn: " + GameContext.TurnCounter;
+            turnInfo += "\n";
+            turnInfo += "Round: " + GameContext.RoundCounter;
             turnInfo += "\n";
             turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
             turnInfo += "\n";

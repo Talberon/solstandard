@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             name: "Double Time",
             description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1, 2}
         )
         {
             this.statModifier = statModifier;

@@ -155,7 +155,7 @@ namespace SolStandard.Containers
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 if (tile != null)
-                    tile.Draw(spriteBatch, new Color(255, 255, 255, 180));
+                    tile.Draw(spriteBatch, new Color(200, 200, 200, 150));
             }
 
             foreach (GameUnit unit in GameContext.Units)
