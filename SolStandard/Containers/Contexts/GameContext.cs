@@ -168,7 +168,12 @@ namespace SolStandard.Containers.Contexts
 
         public void FinishMoving()
         {
-            if (MapContext.OtherUnitExistsAtCursor()) return;
+            if (MapContext.OtherUnitExistsAtCursor() || MapContainer.GetMapSliceAtCursor().DynamicEntity == null)
+            {
+                AssetManager.WarningSFX.Play();
+                return;
+            }
+
             MapContext.ProceedToNextState();
 
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -303,7 +308,6 @@ namespace SolStandard.Containers.Contexts
 
             TurnCounter = 1;
             RoundCounter++;
-            
         }
 
 

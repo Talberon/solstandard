@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
@@ -153,11 +152,13 @@ namespace SolStandard.Containers.Contexts
 
         public void MoveCursorAndSelectedUnitWithinMoveGrid(Direction direction)
         {
-            if (TargetTileHasADynamicTile(direction))
+            //TODO Snap the unit to the cursor position when inside the grid, and allow the cursor to leave the move grid
+            MapContainer.MapCursor.MoveCursorInDirection(direction);
+            
+            if (MapContainer.GetMapSliceAtCursor().DynamicEntity != null)
             {
-                SelectedUnit.MoveUnitInDirection(direction, MapContainer.MapGridSize);
+                SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
                 SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
-                MapContainer.MapCursor.MoveCursorInDirection(direction);
                 AssetManager.MapUnitMoveSFX.Play();
 
                 MapContainer.ClearPreviewGrid();
@@ -190,31 +191,6 @@ namespace SolStandard.Containers.Contexts
 
             //Terrain (Entity) Window
             GameMapUI.GenerateEntityWindow(hoverSlice);
-        }
-
-        private bool TargetTileHasADynamicTile(Direction direction)
-        {
-            Vector2 targetPosition = MapContainer.MapCursor.MapCoordinates;
-
-            switch (direction)
-            {
-                case Direction.Down:
-                    targetPosition = new Vector2(targetPosition.X, targetPosition.Y + 1);
-                    break;
-                case Direction.Right:
-                    targetPosition = new Vector2(targetPosition.X + 1, targetPosition.Y);
-                    break;
-                case Direction.Up:
-                    targetPosition = new Vector2(targetPosition.X, targetPosition.Y - 1);
-                    break;
-                case Direction.Left:
-                    targetPosition = new Vector2(targetPosition.X - 1, targetPosition.Y);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
-            }
-
-            return MapContainer.GetMapSliceAtCoordinates(targetPosition).DynamicEntity != null;
         }
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)

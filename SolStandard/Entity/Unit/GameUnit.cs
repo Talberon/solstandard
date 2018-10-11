@@ -375,27 +375,31 @@ namespace SolStandard.Entity.Unit
             armedUnitAction.CancelAction(mapContext);
         }
 
-        public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
+        public void MoveUnitInDirection(Direction direction)
         {
             switch (direction)
             {
                 case Direction.Down:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y + 1);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y + 1));
                     break;
                 case Direction.Right:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X + 1, MapEntity.MapCoordinates.Y);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X + 1, MapEntity.MapCoordinates.Y));
                     break;
                 case Direction.Up:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y - 1);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y - 1));
                     break;
                 case Direction.Left:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X - 1, MapEntity.MapCoordinates.Y);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X - 1, MapEntity.MapCoordinates.Y));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
+        }
 
-            PreventUnitLeavingMapBounds(mapSize);
+        public void MoveUnitToCoordinates(Vector2 newCoordinates)
+        {
+            MapEntity.MapCoordinates = newCoordinates;
+            PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
         public void DamageUnit(int damage)
