@@ -318,6 +318,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Shove"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tackle"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wait"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Harpoon"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();
@@ -493,9 +494,15 @@ namespace SolStandard.Utility.Load
             return new SoundEffectWrapper(effect, 0.5f);
         }
 
-        public static ISoundEffect LoadUnLockSFX(ContentManager content)
+        public static ISoundEffect LoadUnlockSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
+            return new SoundEffectWrapper(effect, 0.5f);
+        }
+        
+        public static ISoundEffect LoadDropItemSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
             return new SoundEffectWrapper(effect, 0.5f);
         }
     }

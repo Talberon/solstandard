@@ -25,6 +25,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect DoorSFX { get; private set; }
         public static ISoundEffect LockedSFX { get; private set; }
         public static ISoundEffect UnlockSFX { get; private set; }
+        public static ISoundEffect DropItemSFX { get; private set; }
 
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
@@ -159,7 +160,8 @@ namespace SolStandard.Utility.Assets
             CoinSFX = ContentLoader.LoadCoinSFX(content);
             DoorSFX = ContentLoader.LoadDoorSFX(content);
             LockedSFX = ContentLoader.LoadLockedSFX(content);
-            UnlockSFX = ContentLoader.LoadUnLockSFX(content);
+            UnlockSFX = ContentLoader.LoadUnlockSFX(content);
+            DropItemSFX = ContentLoader.LoadDropItemSFX(content);
 
             SkillBuffSFX = ContentLoader.LoadSkillDrawSFX(content);
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);

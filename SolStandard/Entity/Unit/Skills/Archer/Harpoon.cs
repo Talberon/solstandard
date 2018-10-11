@@ -16,8 +16,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         private readonly int skillRange;
 
         public Harpoon(int skillRange) : base(
-            //FIXME Get a unique icon for this skill
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Harpoon, new Vector2(GameDriver.CellSize)),
             name: "Harpoon",
             description: "Pull an enemy within range towards you, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

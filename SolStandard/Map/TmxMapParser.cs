@@ -311,9 +311,6 @@ namespace SolStandard.Map
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
                                         );
                                         break;
-                                    case EntityTypes.Interactive:
-                                        //TODO Implement me
-                                        break;
                                     case EntityTypes.Currency:
                                         entityGrid[col, row] = new Currency(
                                             currentObject.Name,

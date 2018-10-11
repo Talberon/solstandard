@@ -30,7 +30,6 @@ namespace SolStandard.HUD.Window.Content
             get { return (int) GridSizeInPixels().X; }
         }
 
-        //TODO clean this so I'm not duplicating so much of the Draw logic (maybe use Delegates)
         public Vector2 GridSizeInPixels()
         {
             float totalWidth = 0f;

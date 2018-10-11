@@ -4,6 +4,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Map;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -25,7 +26,7 @@ namespace SolStandard.Utility.Events
             if (GameContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
             {
                 DropItemAtCoordinates();
-                //TODO Play drop item SFX
+                AssetManager.DropItemSFX.Play();
             }
 
             Complete = true;
