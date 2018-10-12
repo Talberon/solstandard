@@ -54,11 +54,13 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Door is locked!", 50);
                     AssetManager.LockedSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not a door!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

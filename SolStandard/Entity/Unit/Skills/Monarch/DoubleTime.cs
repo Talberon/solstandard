@@ -43,6 +43,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

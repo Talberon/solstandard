@@ -38,6 +38,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

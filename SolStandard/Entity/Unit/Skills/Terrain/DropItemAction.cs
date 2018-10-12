@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
@@ -37,6 +38,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

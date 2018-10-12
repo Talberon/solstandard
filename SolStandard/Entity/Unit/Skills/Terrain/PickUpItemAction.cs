@@ -48,6 +48,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Cannot pickup item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -21,13 +21,12 @@ namespace SolStandard.Containers
     {
         private static List<MapElement[,]> _gameGrid;
         public static MapCursor MapCursor { get; private set; }
-        public static List<ToastWindow> ToastWindows { get; private set; }
+        private static ToastWindow ToastWindow { get; set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
-            ToastWindows = new List<ToastWindow>();
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -60,7 +59,7 @@ namespace SolStandard.Containers
         public static void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
         {
             IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
-            ToastWindows.Add(new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames));
+            ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
         }
 
         public static void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
@@ -183,13 +182,12 @@ namespace SolStandard.Containers
                 }
             }
 
-            foreach (ToastWindow toast in ToastWindows)
+            if (ToastWindow != null)
             {
-                toast.Draw(spriteBatch);
+                ToastWindow.Draw(spriteBatch);
+                
+                if (ToastWindow.Expired) ToastWindow = null;
             }
-
-            //Remove expired toasts
-            ToastWindows.RemoveAll(toast => toast.Expired);
 
             MapCursor.Draw(spriteBatch);
         }

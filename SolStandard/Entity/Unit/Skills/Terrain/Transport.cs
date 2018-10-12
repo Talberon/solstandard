@@ -55,6 +55,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

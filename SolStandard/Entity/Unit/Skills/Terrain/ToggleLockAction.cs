@@ -52,6 +52,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -44,6 +44,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

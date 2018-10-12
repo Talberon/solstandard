@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Skills
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Invalid tile!", 50);
+                MapContainer.AddNewToastAtMapCursor("Can't wait here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

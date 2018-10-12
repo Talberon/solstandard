@@ -74,6 +74,7 @@ namespace SolStandard.Entity.Unit.Skills.Mage
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

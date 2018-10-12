@@ -57,6 +57,7 @@ namespace SolStandard.Entity.Unit.Skills
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

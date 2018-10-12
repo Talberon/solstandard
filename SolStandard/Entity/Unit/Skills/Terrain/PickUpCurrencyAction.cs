@@ -38,6 +38,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -36,12 +36,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
         {
-            if (
-                chest == targetSlice.TerrainEntity
-                && !chest.IsOpen
-                && targetSlice.DynamicEntity != null
-                && targetSlice.UnitEntity == null
-            )
+            if (TargetIsUnopenedChest(targetSlice))
             {
                 if (!chest.IsLocked)
                 {
@@ -57,13 +52,23 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
                     AssetManager.LockedSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        private bool TargetIsUnopenedChest(MapSlice targetSlice)
+        {
+            return chest == targetSlice.TerrainEntity
+                   && !chest.IsOpen
+                   && targetSlice.DynamicEntity != null
+                   && targetSlice.UnitEntity == null;
         }
     }
 }

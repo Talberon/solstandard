@@ -170,6 +170,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (MapContext.OtherUnitExistsAtCursor() || MapContainer.GetMapSliceAtCursor().DynamicEntity == null)
             {
+                MapContainer.AddNewToastAtMapCursor("Cannot end move on this space!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }

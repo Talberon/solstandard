@@ -62,11 +62,13 @@ namespace SolStandard.Entity.Unit.Skills.Archer
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
