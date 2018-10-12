@@ -26,9 +26,21 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             this.skillRange = skillRange;
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            GenerateRealCustomTargetingGrid(origin, skillRange);
+            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+
+            Vector2 northTile = new Vector2(origin.X, origin.Y - skillRange);
+            Vector2 southTile = new Vector2(origin.X, origin.Y + skillRange);
+            Vector2 eastTile = new Vector2(origin.X + skillRange, origin.Y);
+            Vector2 westTile = new Vector2(origin.X - skillRange, origin.Y);
+
+            AddTileWithinMapBounds(attackTiles, northTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, southTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, eastTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, westTile, skillRange);
+
+            AddVisitedTilesToGameGrid(attackTiles, mapLayer);
         }
 
         public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
@@ -103,23 +115,6 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             }
 
             return closerCoordinates;
-        }
-
-        private void GenerateRealCustomTargetingGrid(Vector2 origin, int range)
-        {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
-
-            Vector2 northTile = new Vector2(origin.X, origin.Y - range);
-            Vector2 southTile = new Vector2(origin.X, origin.Y + range);
-            Vector2 eastTile = new Vector2(origin.X + range, origin.Y);
-            Vector2 westTile = new Vector2(origin.X - range, origin.Y);
-
-            AddTileWithinMapBounds(attackTiles, northTile, range);
-            AddTileWithinMapBounds(attackTiles, southTile, range);
-            AddTileWithinMapBounds(attackTiles, eastTile, range);
-            AddTileWithinMapBounds(attackTiles, westTile, range);
-
-            AddVisitedTilesToGameGrid(attackTiles, Layer.Dynamic);
         }
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)

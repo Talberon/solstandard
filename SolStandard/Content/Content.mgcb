@@ -2503,18 +2503,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/entities-32.png
 
-#begin Graphics/Map/Tiles/ActionTiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/Tiles/ActionTiles.png
-
 #begin Graphics/Images/Icons/Skill/Harpoon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2532,4 +2520,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SFX/Interface/sfx_exp_shortest_soft1.wav
+
+#begin Graphics/Map/Tiles/ActionTiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/ActionTiles.png
 

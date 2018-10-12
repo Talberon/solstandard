@@ -181,10 +181,12 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
 
             MapContext.GameMapUI.GenerateActionMenu();
+            MapContext.GenerateActionPreviewGrid();
         }
 
         public void DecideAction()
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
             MapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
             MapContext.GameMapUI.ClearCombatMenu();
 
@@ -343,8 +345,10 @@ namespace SolStandard.Containers.Contexts
 
                 MapContainer.ClearPreviewGrid();
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                    .GeneratePreviewTargetingGrid(
-                        MapContext.SelectedUnit.UnitEntity.MapCoordinates, MapContext.SelectedUnit.Stats.AtkRange
+                    .GenerateTargetingGrid(
+                        MapContext.SelectedUnit.UnitEntity.MapCoordinates,
+                        MapContext.SelectedUnit.Stats.AtkRange,
+                        Layer.Preview
                     );
             }
             else

@@ -12,10 +12,14 @@ namespace SolStandard.Map.Elements
         {
             None,
             White,
+            Dark,
             Movement,
             Attack,
             Action
         }
+
+        private const int TileAlpha = 160;
+        private static readonly Color Transparent = new Color(255, 255, 255, TileAlpha);
 
         private readonly int distance;
         private readonly RenderText renderText;
@@ -32,7 +36,7 @@ namespace SolStandard.Map.Elements
         }
 
         public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, bool textVisible = true) :
-            this(sprite, mapCoordinates, distance, Color.White, textVisible)
+            this(sprite, mapCoordinates, distance, Transparent, textVisible)
         {
         }
 

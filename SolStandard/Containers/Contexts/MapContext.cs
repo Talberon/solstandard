@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
+using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -167,7 +169,8 @@ namespace SolStandard.Containers.Contexts
 
                 MapContainer.ClearPreviewGrid();
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                    .GeneratePreviewTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange);
+                    .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
+                        Layer.Preview);
             }
         }
 
@@ -194,10 +197,9 @@ namespace SolStandard.Containers.Contexts
                 {
                     new UnitTargetingContext(
                             MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-                            new Color(255, 255, 255, 150)
+                            false
                         )
-                        .GenerateThreatPreviewGrid(hoverSlice.MapCoordinates, hoverMapUnit,
-                            new Color(20, 20, 20, 100));
+                        .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
                 }
 
                 GameMapUI.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
@@ -238,6 +240,18 @@ namespace SolStandard.Containers.Contexts
         {
             GameMapUI.ActionMenu.MoveMenuCursor(direction);
             GameMapUI.GenerateActionMenuDescription();
+
+            GenerateActionPreviewGrid();
+        }
+
+        public void GenerateActionPreviewGrid()
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            SkillOption skillOption = GameMapUI.ActionMenu.CurrentOption as SkillOption;
+            if (skillOption != null)
+            {
+                skillOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
+            }
         }
     }
 }

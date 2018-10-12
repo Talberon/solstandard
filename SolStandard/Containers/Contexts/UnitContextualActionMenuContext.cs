@@ -39,7 +39,7 @@ namespace SolStandard.Containers.Contexts
         private static List<UnitAction> FetchContextualActionsInRange()
         {
             new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
-                .GenerateRealTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRange);
+                .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRange);
 
             List<MapSlice> mapSlicesInRange = new List<MapSlice>();
             List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();

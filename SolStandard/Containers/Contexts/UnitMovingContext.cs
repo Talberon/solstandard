@@ -11,20 +11,11 @@ namespace SolStandard.Containers.Contexts
 {
     public class UnitMovingContext
     {
-        private const int TileAlpha = 150;
-        private static readonly Color Transparent = new Color(255, 255, 255, TileAlpha);
-
         private readonly SpriteAtlas spriteAtlas;
-        private readonly Color spriteColor;
 
-        public UnitMovingContext(SpriteAtlas spriteAtlas) : this(spriteAtlas, Transparent)
-        {
-        }
-
-        public UnitMovingContext(SpriteAtlas spriteAtlas, Color spriteColor)
+        public UnitMovingContext(SpriteAtlas spriteAtlas)
         {
             this.spriteAtlas = spriteAtlas;
-            this.spriteColor = spriteColor;
         }
 
         public void GenerateMoveGrid(Vector2 origin, GameUnit unit, bool showNumbers = true)
@@ -32,7 +23,7 @@ namespace SolStandard.Containers.Contexts
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0, spriteColor);
+            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited =
@@ -80,32 +71,28 @@ namespace SolStandard.Containers.Contexts
             if (CanPlaceMoveTileAtCoordinates(north, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, spriteColor,
-                        distanceVisible)
+                    new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(south, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, spriteColor,
-                        distanceVisible)
+                    new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(east, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, spriteColor,
-                        distanceVisible)
+                    new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(west, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, spriteColor,
-                        distanceVisible)
+                    new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
                 );
             }
 

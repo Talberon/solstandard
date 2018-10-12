@@ -27,9 +27,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             this.itemCoordinates = itemCoordinates;
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) Layer.Dynamic][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
+            MapContainer.GameGrid[(int) mapLayer][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
                 new MapDistanceTile(TileSprite, itemCoordinates, 0, false);
             MapContainer.MapCursor.SlideCursorToCoordinates(itemCoordinates);
         }

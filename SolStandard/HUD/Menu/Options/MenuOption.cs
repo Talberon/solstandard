@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Menu.Options
         private readonly IRenderable labelContent;
         private readonly Window.Window optionWindow;
 
-        protected MenuOption(Color color, IRenderable labelContent)
+        protected MenuOption(IRenderable labelContent, Color color)
         {
             this.color = color;
             this.labelContent = labelContent;
