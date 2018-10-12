@@ -40,27 +40,27 @@ namespace SolStandard.Containers.Contexts
 
         private static void MapSelectControls(GameControlMapper controlMapper, MapCursor mapCursor)
         {
-            if (controlMapper.Up())
+            if (controlMapper.Press(Input.Up, PressType.Repeating))
             {
                 mapCursor.MoveCursorInDirection(Direction.Up);
             }
 
-            if (controlMapper.Down())
+            if (controlMapper.Press(Input.Down, PressType.Repeating))
             {
                 mapCursor.MoveCursorInDirection(Direction.Down);
             }
 
-            if (controlMapper.Left())
+            if (controlMapper.Press(Input.Left, PressType.Repeating))
             {
                 mapCursor.MoveCursorInDirection(Direction.Left);
             }
 
-            if (controlMapper.Right())
+            if (controlMapper.Press(Input.Right, PressType.Repeating))
             {
                 mapCursor.MoveCursorInDirection(Direction.Right);
             }
 
-            if (controlMapper.A())
+            if (controlMapper.Press(Input.A, PressType.Repeating))
             {
                 GameContext.MapSelectContext.SelectMap();
             }
@@ -68,17 +68,17 @@ namespace SolStandard.Containers.Contexts
 
         private static void MainMenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
         {
-            if (controlMapper.Down())
+            if (controlMapper.Press(Input.Down, PressType.Repeating))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Up())
+            if (controlMapper.Press(Input.Up, PressType.Repeating))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
-            if (controlMapper.A())
+            if (controlMapper.Press(Input.A, PressType.Repeating))
             {
                 verticalMenu.SelectOption();
             }
@@ -86,12 +86,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera)
         {
-            if (controlMapper.Start())
+            if (controlMapper.Press(Input.Start, PressType.Repeating))
             {
                 gameContext.MapContext.GameMapUI.ToggleVisible();
             }
 
-            if (controlMapper.Down())
+            if (controlMapper.Press(Input.Down, PressType.Repeating))
             {
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
@@ -116,7 +116,7 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.Left())
+            if (controlMapper.Press(Input.Left, PressType.Repeating))
             {
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
@@ -140,7 +140,7 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.Right())
+            if (controlMapper.Press(Input.Right, PressType.Repeating))
             {
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
@@ -164,7 +164,7 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.Up())
+            if (controlMapper.Press(Input.Up, PressType.Repeating))
             {
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.A())
+            if (controlMapper.Press(Input.A, PressType.Repeating))
             {
                 Trace.WriteLine("Current Turn State: " + gameContext.MapContext.CurrentTurnState);
 
@@ -223,7 +223,7 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.B())
+            if (controlMapper.Press(Input.B, PressType.Repeating))
             {
                 switch (gameContext.MapContext.CurrentTurnState)
                 {
@@ -246,57 +246,57 @@ namespace SolStandard.Containers.Contexts
                 }
             }
 
-            if (controlMapper.Y())
+            if (controlMapper.Press(Input.Y, PressType.Repeating))
             {
                 MapCamera.CenterCameraToCursor();
             }
 
-            if (controlMapper.X())
+            if (controlMapper.Press(Input.X, PressType.Repeating))
             {
                 gameContext.MapContext.SlideCursorToActiveUnit();
             }
 
 
-            if (controlMapper.LeftTrigger())
+            if (controlMapper.Press(Input.LeftTrigger, PressType.Repeating))
             {
                 //Zoom out
                 mapCamera.DecrementZoom(0.1f);
             }
 
-            if (controlMapper.RightTrigger())
+            if (controlMapper.Press(Input.RightTrigger, PressType.Repeating))
             {
                 //Zoom in
                 mapCamera.IncrementZoom(0.1f);
             }
 
-            if (controlMapper.LeftBumper())
+            if (controlMapper.Press(Input.LeftBumper, PressType.Repeating))
             {
                 mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
             }
 
-            if (controlMapper.RightBumper())
+            if (controlMapper.Press(Input.RightBumper, PressType.Repeating))
             {
                 mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Medium);
             }
 
             const float cameraPanRateOverride = 64;
 
-            if (controlMapper.RightStickDown())
+            if (controlMapper.Press(Input.RsDown, PressType.Repeating))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickLeft())
+            if (controlMapper.Press(Input.RsLeft, PressType.Repeating))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickRight())
+            if (controlMapper.Press(Input.RsRight, PressType.Repeating))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickUp())
+            if (controlMapper.Press(Input.RsUp, PressType.Repeating))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
