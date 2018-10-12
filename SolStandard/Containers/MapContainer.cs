@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -19,11 +21,13 @@ namespace SolStandard.Containers
     {
         private static List<MapElement[,]> _gameGrid;
         public static MapCursor MapCursor { get; private set; }
+        public static List<ToastWindow> ToastWindows { get; private set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
+            ToastWindows = new List<ToastWindow>();
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -51,6 +55,19 @@ namespace SolStandard.Containers
                 return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
                        * GameDriver.CellSize * MapCamera.CurrentZoom;
             }
+        }
+
+        public static void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
+            ToastWindows.Add(new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames));
+        }
+
+        public static void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
+        {
+            //Set the toast to the right of the cursor
+            AddNewToastAtCoordinates(toastMessage, (MapCursor.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
+                lifetimeInFrames);
         }
 
         public static void ClearDynamicAndPreviewGrids()
@@ -165,6 +182,14 @@ namespace SolStandard.Containers
                     unit.UnitEntity.Draw(spriteBatch);
                 }
             }
+
+            foreach (ToastWindow toast in ToastWindows)
+            {
+                toast.Draw(spriteBatch);
+            }
+
+            //Remove expired toasts
+            ToastWindows.RemoveAll(toast => toast.Expired);
 
             MapCursor.Draw(spriteBatch);
         }

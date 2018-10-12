@@ -34,6 +34,7 @@ namespace SolStandard.Entity.Unit.Skills
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Invalid tile!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -125,6 +125,7 @@
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
+    <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
     <Compile Include="HUD\Window\WindowCell.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />

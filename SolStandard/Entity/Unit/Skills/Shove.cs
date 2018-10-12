@@ -39,11 +39,13 @@ namespace SolStandard.Entity.Unit.Skills
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

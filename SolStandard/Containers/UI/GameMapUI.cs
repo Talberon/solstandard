@@ -44,6 +44,7 @@ namespace SolStandard.Containers.UI
         public VerticalMenu ActionMenu { get; private set; }
         public Window ActionMenuDescriptionWindow { get; private set; }
 
+
         private bool visible;
 
         private readonly ITexture2D windowTexture;

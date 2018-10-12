@@ -468,6 +468,7 @@ namespace SolStandard.Entity.Unit
                 return true;
             }
 
+            MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;
         }
