@@ -31,8 +31,8 @@ namespace SolStandard.Entity.General
 
     public class TerrainEntity : MapEntity
     {
-        protected static readonly Color PositiveColor = new Color(30, 200, 30);
-        protected static readonly Color NegativeColor = new Color(250, 10, 10);
+        public static readonly Color PositiveColor = new Color(30, 200, 30);
+        public static readonly Color NegativeColor = new Color(250, 10, 10);
 
 
         protected IRenderable InfoHeader { get; private set; }
