@@ -6,7 +6,8 @@ namespace SolStandard.Utility.Buttons
 {
     public enum PressType
     {
-        Repeating,
+        DelayedRepeat,
+        InstantRepeat,
         Single
     }
 
@@ -109,19 +110,32 @@ namespace SolStandard.Utility.Buttons
         {
             switch (pressType)
             {
-                case PressType.Repeating:
-                    return InputRepeating(buttonMap[input]);
+                case PressType.DelayedRepeat:
+                    return DelayedRepeat(buttonMap[input]);
+                case PressType.InstantRepeat:
+                    return InstantRepeat(buttonMap[input]);
+                    break;
                 case PressType.Single:
-                    return InputSingle(buttonMap[input]);
+                    return SinglePress(buttonMap[input]);
                 default:
                     throw new ArgumentOutOfRangeException("pressType", pressType, null);
             }
         }
 
-        private static bool InputSingle(GameControl control)
+        public bool Released(Input input)
+        {
+            return (buttonMap[input].Released);
+        }
+
+        private static bool InstantRepeat(GameControl control)
+        {
+            return control.Pressed;
+        }
+
+        private static bool SinglePress(GameControl control)
         {
             //Press just once on input down; do not repeat
-            if (control.Pressed())
+            if (control.Pressed)
             {
                 if (control.InputCounter == 0)
                 {
@@ -130,7 +144,7 @@ namespace SolStandard.Utility.Buttons
                 }
             }
 
-            if (control.Released())
+            if (control.Released)
             {
                 control.ResetInputCounter();
             }
@@ -138,10 +152,10 @@ namespace SolStandard.Utility.Buttons
             return false;
         }
 
-        private static bool InputRepeating(GameControl control)
+        private static bool DelayedRepeat(GameControl control)
         {
             //Hold Down (Previous state matches the current state)
-            if (control.Pressed())
+            if (control.Pressed)
             {
                 control.IncrementInputCounter();
 
@@ -161,7 +175,7 @@ namespace SolStandard.Utility.Buttons
                 }
             }
 
-            if (control.Released())
+            if (control.Released)
             {
                 control.ResetInputCounter();
             }

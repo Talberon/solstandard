@@ -8,17 +8,14 @@ namespace SolStandard.Utility.Buttons
         public RsLeftControl(PlayerIndex playerIndex) : base(playerIndex)
         {
         }
-        
-        public override bool Pressed()
-        {
-            return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X < (-GameControlMapper.StickThreshold) ||
-                   Keyboard.GetState().IsKeyDown(Keys.Left);
-        }
 
-        public override bool Released()
+        public override bool Pressed
         {
-            return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X > (-GameControlMapper.StickThreshold) &&
-                   Keyboard.GetState().IsKeyUp(Keys.Left);
+            get
+            {
+                return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X < (-GameControlMapper.StickThreshold) ||
+                       Keyboard.GetState().IsKeyDown(Keys.Left);
+            }
         }
     }
 }

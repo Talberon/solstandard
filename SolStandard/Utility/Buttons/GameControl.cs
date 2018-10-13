@@ -11,14 +11,14 @@ namespace SolStandard.Utility.Buttons
         protected GameControl(PlayerIndex playerIndex)
         {
             PlayerIndex = playerIndex;
+            InputCounter = 0;
         }
 
-        public abstract bool Pressed();
-        public abstract bool Released();
+        public abstract bool Pressed { get; }
 
-        protected GameControl()
+        public bool Released
         {
-            InputCounter = 0;
+            get { return !Pressed && InputCounter > 0; }
         }
 
         public void IncrementInputCounter()

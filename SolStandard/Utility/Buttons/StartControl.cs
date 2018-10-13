@@ -8,17 +8,14 @@ namespace SolStandard.Utility.Buttons
         public StartControl(PlayerIndex playerIndex) : base(playerIndex)
         {
         }
-        
-        public override bool Pressed()
-        {
-            return GamePad.GetState(PlayerIndex).Buttons.Start == ButtonState.Pressed ||
-                   Keyboard.GetState().IsKeyDown(Keys.Enter);
-        }
 
-        public override bool Released()
+        public override bool Pressed
         {
-            return GamePad.GetState(PlayerIndex).Buttons.Start == ButtonState.Released &&
-                   Keyboard.GetState().IsKeyUp(Keys.Enter);
+            get
+            {
+                return GamePad.GetState(PlayerIndex).Buttons.Start == ButtonState.Pressed ||
+                       Keyboard.GetState().IsKeyDown(Keys.Enter);
+            }
         }
     }
 }

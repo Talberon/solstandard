@@ -9,16 +9,14 @@ namespace SolStandard.Utility.Buttons
         {
         }
 
-        public override bool Pressed()
+        public override bool Pressed
         {
-            return GamePad.GetState(PlayerIndex).Buttons.A == ButtonState.Pressed ||
-                   Keyboard.GetState().IsKeyDown(Keys.Space);
+            get
+            {
+                return GamePad.GetState(PlayerIndex).Buttons.A == ButtonState.Pressed ||
+                       Keyboard.GetState().IsKeyDown(Keys.Space);
+            }
         }
 
-        public override bool Released()
-        {
-            return GamePad.GetState(PlayerIndex).Buttons.A == ButtonState.Released &&
-                   Keyboard.GetState().IsKeyUp(Keys.Space);
-        }
     }
 }

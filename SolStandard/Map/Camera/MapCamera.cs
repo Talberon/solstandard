@@ -255,6 +255,11 @@ namespace SolStandard.Map.Camera
             }
         }
 
+        public static void StopMovingCamera()
+        {
+            _targetPosition = _currentPosition;
+        }
+
         private void CorrectCameraToCursor()
         {
             if (MapCursor.ScreenCoordinates.X < WestBound)
