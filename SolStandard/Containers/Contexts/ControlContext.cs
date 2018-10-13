@@ -213,7 +213,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.X, PressType.Single))
             {
-                gameContext.MapContext.SlideCursorToActiveUnit();
+                gameContext.MapContext.ResetCursorToActiveUnit();
             }
 
             CameraControl(controlMapper, mapCamera);
@@ -303,7 +303,8 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.SlideCursorToActiveUnit();
+                gameContext.MapContext.ResetCursorToActiveUnit();
+                MapCamera.CenterCameraToCursor();
             }
 
             CameraControl(controlMapper, mapCamera);

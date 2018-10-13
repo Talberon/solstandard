@@ -34,7 +34,7 @@ namespace SolStandard.Map.Camera
         private const float MinimumZoom = 1.2f;
         private const float DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
-        
+
         private const int TopCursorThreshold = 200;
         private const int HorizontalCursorThreshold = 200;
         private const int BottomCursorThreshold = 300;
@@ -45,7 +45,8 @@ namespace SolStandard.Map.Camera
 
         private static Vector2 _currentPosition;
         private static Vector2 _targetPosition;
-        private readonly float panRate;
+        private static float _panRate = 1;
+        private static bool _movingCameraToCursor;
 
         private bool centeringOnPoint;
 
@@ -56,7 +57,7 @@ namespace SolStandard.Map.Camera
             CurrentZoom = DefaultZoomLevel;
             TargetZoom = CurrentZoom;
             centeringOnPoint = false;
-            this.panRate = panRate;
+            _panRate = panRate;
             this.zoomRate = zoomRate;
         }
 
@@ -121,11 +122,12 @@ namespace SolStandard.Map.Camera
             }
             else
             {
-                PanCameraToTarget(panRate);
+                PanCameraToTarget(_panRate);
             }
 
             UpdateZoomLevel();
-            CorrectCameraToCursor();
+            UpdateCameraToCursor();
+            CorrectCameraToMap();
         }
 
         public static void SnapCameraCenterToCursor()
@@ -229,9 +231,9 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        private void MoveCameraInDirection(CameraDirection direction)
+        private static void MoveCameraInDirection(CameraDirection direction)
         {
-            MoveCameraInDirection(direction, panRate);
+            MoveCameraInDirection(direction, _panRate);
         }
 
         public static void MoveCameraInDirection(CameraDirection direction, float panRateOverride)
@@ -260,30 +262,40 @@ namespace SolStandard.Map.Camera
             _targetPosition = _currentPosition;
         }
 
-        private void CorrectCameraToCursor()
+        public static void StartMovingCameraToCursor()
         {
-            if (MapCursor.ScreenCoordinates.X < WestBound)
+            _movingCameraToCursor = true;
+        }
+
+        private static void UpdateCameraToCursor()
+        {
+            if (_movingCameraToCursor)
             {
-                MoveCameraInDirection(CameraDirection.Left);
+                if (MapCursor.CenterCursorScreenCoordinates.X < WestBound)
+                {
+                    MoveCameraInDirection(CameraDirection.Left);
+                }
+
+                if (MapCursor.CenterCursorScreenCoordinates.X > EastBound)
+                {
+                    MoveCameraInDirection(CameraDirection.Right);
+                }
+
+                if (MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
+                {
+                    MoveCameraInDirection(CameraDirection.Up);
+                }
+
+                if (MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
+                {
+                    MoveCameraInDirection(CameraDirection.Down);
+                }
             }
 
-            if (MapCursor.ScreenCoordinates.X > EastBound)
+            if (_targetPosition == _currentPosition)
             {
-                MoveCameraInDirection(CameraDirection.Right);
+                _movingCameraToCursor = false;
             }
-
-            if (MapCursor.ScreenCoordinates.Y < NorthBound)
-            {
-                MoveCameraInDirection(CameraDirection.Up);
-            }
-
-            if (MapCursor.ScreenCoordinates.Y > SouthBound)
-            {
-                MoveCameraInDirection(CameraDirection.Down);
-            }
-
-
-            CorrectCameraToMap();
         }
 
         private static float WestBound

@@ -102,19 +102,11 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void SnapCursorToActiveUnit()
+        public void ResetCursorToActiveUnit()
         {
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-            }
-        }
-
-        public void SlideCursorToActiveUnit()
-        {
-            if (GameContext.ActiveUnit.UnitEntity != null)
-            {
-                MapContainer.MapCursor.SlideCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             }
         }
 

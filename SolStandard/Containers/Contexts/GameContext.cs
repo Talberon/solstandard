@@ -104,7 +104,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             ActiveUnit.ActivateUnit();
-            MapContext.SnapCursorToActiveUnit();
+            MapContext.ResetCursorToActiveUnit();
             MapCamera.SnapCameraCenterToCursor();
             MapContext.EndTurn();
 
@@ -204,7 +204,7 @@ namespace SolStandard.Containers.Contexts
         public void CancelAction()
         {
             ActiveUnit.CancelArmedSkill(MapContext);
-            MapContext.SlideCursorToActiveUnit();
+            MapContext.ResetCursorToActiveUnit();
             MapContext.GameMapUI.GenerateActionMenu();
         }
 
@@ -276,7 +276,7 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
-            MapContext.SnapCursorToActiveUnit();
+            MapContext.ResetCursorToActiveUnit();
             MapCamera.CenterCameraToCursor();
 
             MapContext.EndTurn();
