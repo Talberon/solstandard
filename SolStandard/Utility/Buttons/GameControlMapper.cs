@@ -7,7 +7,7 @@ namespace SolStandard.Utility.Buttons
     public enum PressType
     {
         Repeating,
-        SinglePressDown
+        Single
     }
 
     public enum Input
@@ -111,7 +111,7 @@ namespace SolStandard.Utility.Buttons
             {
                 case PressType.Repeating:
                     return InputRepeating(buttonMap[input]);
-                case PressType.SinglePressDown:
+                case PressType.Single:
                     return InputSingle(buttonMap[input]);
                 default:
                     throw new ArgumentOutOfRangeException("pressType", pressType, null);
@@ -123,7 +123,11 @@ namespace SolStandard.Utility.Buttons
             //Press just once on input down; do not repeat
             if (control.Pressed())
             {
-                return control.InputCounter == 0;
+                if (control.InputCounter == 0)
+                {
+                    control.IncrementInputCounter();
+                    return true;
+                }
             }
 
             if (control.Released())
