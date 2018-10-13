@@ -160,7 +160,7 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MapUnitMoveSFX.Play();
 
                 MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
                     .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
                         Layer.Preview);
             }

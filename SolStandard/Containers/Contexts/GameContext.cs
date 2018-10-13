@@ -336,7 +336,7 @@ namespace SolStandard.Containers.Contexts
                 );
 
                 MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
                     .GenerateTargetingGrid(
                         MapContext.SelectedUnit.UnitEntity.MapCoordinates,
                         MapContext.SelectedUnit.Stats.AtkRange,
