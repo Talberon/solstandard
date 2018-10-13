@@ -213,7 +213,7 @@ namespace SolStandard.Containers.Contexts
             switch (BattleContext.CurrentState)
             {
                 case BattleContext.BattleState.Start:
-                    if (BattleContext.TryProceedToNextState())
+                    if (BattleContext.TryProceedToState(BattleContext.BattleState.RollDice))
                     {
                         AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartRollingDice();
@@ -221,23 +221,14 @@ namespace SolStandard.Containers.Contexts
 
                     break;
                 case BattleContext.BattleState.RollDice:
-                    if (BattleContext.TryProceedToNextState())
+                    if (BattleContext.TryProceedToState(BattleContext.BattleState.ResolveCombat))
                     {
                         AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingBlocks();
                     }
-
-                    break;
-                case BattleContext.BattleState.CountDice:
-                    if (BattleContext.TryProceedToNextState())
-                    {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        BattleContext.StartResolvingDamage();
-                    }
-
                     break;
                 case BattleContext.BattleState.ResolveCombat:
-                    if (BattleContext.TryProceedToNextState())
+                    if (BattleContext.TryProceedToState(BattleContext.BattleState.Start))
                     {
                         AssetManager.MapUnitSelectSFX.Play();
                         MapContext.ProceedToNextState();

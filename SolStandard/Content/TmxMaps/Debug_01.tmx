@@ -2223,7 +2223,7 @@
     <property name="gold" type="int" value="20"/>
    </properties>
   </object>
-  <object id="672" name="Drawbridge A" type="Drawbridge" gid="48" x="384" y="320" width="32" height="32"/>
+  <object id="672" name="Bridge" type="Movable" gid="3093" x="384" y="320" width="32" height="32"/>
   <object id="674" name="Drawbridge Switch" type="Switch" gid="250" x="320" y="352" width="32" height="32">
    <properties>
     <property name="triggersId" value="Drawbridge A"/>
