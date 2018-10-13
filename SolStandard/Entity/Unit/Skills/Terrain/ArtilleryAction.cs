@@ -18,9 +18,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            new BasicAttack().ExecuteAction(targetSlice, mapContext, battleContext);
+            new BasicAttack().ExecuteAction(targetSlice, gameMapContext, battleContext);
         }
     }
 }

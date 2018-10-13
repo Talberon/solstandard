@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             this.currency = currency;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (SelectingItemAtUnitLocation(targetSlice))
             {
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

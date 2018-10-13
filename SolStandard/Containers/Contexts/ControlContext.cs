@@ -87,27 +87,27 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Start, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.GameMapUI.ToggleVisible();
+                gameContext.GameMapContext.GameMapUI.ToggleVisible();
             }
 
-            switch (gameContext.MapContext.CurrentTurnState)
+            switch (gameContext.GameMapContext.CurrentTurnState)
             {
-                case MapContext.TurnState.SelectUnit:
+                case GameMapContext.TurnState.SelectUnit:
                     SelectUnitControl(gameContext, controlMapper, mapCamera);
                     break;
-                case MapContext.TurnState.UnitMoving:
+                case GameMapContext.TurnState.UnitMoving:
                     MoveUnitControl(gameContext, controlMapper, mapCamera);
                     break;
-                case MapContext.TurnState.UnitDecidingAction:
+                case GameMapContext.TurnState.UnitDecidingAction:
                     DecideActionControl(gameContext, controlMapper);
                     break;
-                case MapContext.TurnState.UnitTargeting:
+                case GameMapContext.TurnState.UnitTargeting:
                     UnitTargetingControl(gameContext, controlMapper, mapCamera);
                     break;
-                case MapContext.TurnState.UnitActing:
+                case GameMapContext.TurnState.UnitActing:
                     UnitActingControl(gameContext, controlMapper);
                     break;
-                case MapContext.TurnState.ResolvingTurn:
+                case GameMapContext.TurnState.ResolvingTurn:
                     ResolvingTurnControl(gameContext, controlMapper);
                     break;
                 default:
@@ -193,27 +193,27 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Up);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
             }
 
             if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Down);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
             }
 
             if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Left);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
             }
 
             if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Right);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
             if (controlMapper.Press(Input.X, PressType.Single))
             {
-                gameContext.MapContext.ResetCursorToActiveUnit();
+                gameContext.GameMapContext.ResetCursorToActiveUnit();
             }
 
             CameraControl(controlMapper, mapCamera);
@@ -229,22 +229,22 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
             }
 
             if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
             }
 
             if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
             }
 
             if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
             }
 
             CameraControl(controlMapper, mapCamera);
@@ -264,12 +264,12 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                gameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
             if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                gameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
             if (controlMapper.Press(Input.A, PressType.Single))
@@ -283,27 +283,27 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Up);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
             }
 
             if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Down);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
             }
 
             if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Left);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
             }
 
             if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.MoveCursorOnMap(Direction.Right);
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
             if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.ResetCursorToActiveUnit();
+                gameContext.GameMapContext.ResetCursorToActiveUnit();
                 MapCamera.CenterCameraToCursor();
             }
 

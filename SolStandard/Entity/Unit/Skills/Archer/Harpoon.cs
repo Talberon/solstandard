@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             AddVisitedTilesToGameGrid(attackTiles, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new PullEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
@@ -121,7 +121,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (MapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

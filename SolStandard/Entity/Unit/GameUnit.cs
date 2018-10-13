@@ -350,14 +350,14 @@ namespace SolStandard.Entity.Unit
             armedUnitAction = action;
         }
 
-        public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public void ExecuteArmedSkill(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            armedUnitAction.ExecuteAction(targetSlice, mapContext, battleContext);
+            armedUnitAction.ExecuteAction(targetSlice, gameMapContext, battleContext);
         }
 
-        public void CancelArmedSkill(MapContext mapContext)
+        public void CancelArmedSkill(GameMapContext gameMapContext)
         {
-            armedUnitAction.CancelAction(mapContext);
+            armedUnitAction.CancelAction(gameMapContext);
         }
 
         public void MoveUnitInDirection(Direction direction)

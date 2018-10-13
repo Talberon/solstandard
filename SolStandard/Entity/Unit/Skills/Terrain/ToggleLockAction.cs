@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             this.key = key;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             ILockable targetUnlockable = targetSlice.TerrainEntity as ILockable;
 
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

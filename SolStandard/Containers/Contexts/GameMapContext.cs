@@ -14,7 +14,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
-    public class MapContext
+    public class GameMapContext
     {
         public enum TurnState
         {
@@ -42,7 +42,7 @@ namespace SolStandard.Containers.Contexts
                 {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
             };
 
-        public MapContext(MapContainer mapContainer, GameMapUI gameMapUI)
+        public GameMapContext(MapContainer mapContainer, GameMapUI gameMapUI)
         {
             this.mapContainer = mapContainer;
             GameMapUI = gameMapUI;

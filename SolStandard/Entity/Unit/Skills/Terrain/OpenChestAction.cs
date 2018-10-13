@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (TargetIsUnopenedChest(targetSlice))
             {
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                     eventQueue.Enqueue(new WaitFramesEvent(5));
                     eventQueue.Enqueue(new IncreaseUnitGoldEvent(chest.Gold));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

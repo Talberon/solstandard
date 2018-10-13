@@ -53,7 +53,7 @@
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
-    <Compile Include="Containers\Contexts\MapContext.cs" />
+    <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\UI\BattleUI.cs" />
     <Compile Include="Containers\UI\MainMenuUI.cs" />
     <Compile Include="Containers\UI\GameMapUI.cs" />

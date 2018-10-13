@@ -271,7 +271,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                    _gameContext.MapContext.UpdateHoverContextWindows(hoverTiles);
+                    _gameContext.GameMapContext.UpdateHoverContextWindows(hoverTiles);
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -368,7 +368,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
-            _gameContext.MapContext.MapContainer.Draw(spriteBatch);
+            _gameContext.GameMapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -378,13 +378,13 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+            if (_gameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {
                 _gameContext.BattleContext.Draw(spriteBatch);
             }
             else
             {
-                _gameContext.MapContext.GameMapUI.Draw(spriteBatch);
+                _gameContext.GameMapContext.GameMapUI.Draw(spriteBatch);
             }
 
             spriteBatch.End();

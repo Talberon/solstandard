@@ -94,7 +94,7 @@ namespace SolStandard.Containers
 
         public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
-            if (MapContext.CoordinatesWithinMapBounds(coordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(coordinates))
             {
                 int column = (int) coordinates.X;
                 int row = (int) coordinates.Y;

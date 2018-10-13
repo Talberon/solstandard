@@ -102,7 +102,7 @@ namespace SolStandard.Containers.Contexts
         private static bool CanPlaceMoveTileAtCoordinates(Vector2 coordinates,
             IEnumerable<MapDistanceTile> visitedTiles, Team team)
         {
-            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+            if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
             //FIXME use unit Team property and not tiled property
@@ -131,7 +131,7 @@ namespace SolStandard.Containers.Contexts
 
         public static bool CanMoveAtCoordinates(Vector2 coordinates)
         {
-            if (!MapContext.CoordinatesWithinMapBounds(coordinates)) return false;
+            if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
 
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
             if (slice.UnitEntity != null && slice.UnitEntity != GameContext.ActiveUnit.UnitEntity) return false;

@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Skills
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (targetSlice.DynamicEntity != null)
             {
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Skills
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitActionEvent());
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

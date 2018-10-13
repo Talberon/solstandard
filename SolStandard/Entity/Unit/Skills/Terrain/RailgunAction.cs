@@ -30,9 +30,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             GenerateRealLinearTargetingGrid(origin, range, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            new BasicAttack().ExecuteAction(targetSlice, mapContext, battleContext);
+            new BasicAttack().ExecuteAction(targetSlice, gameMapContext, battleContext);
         }
 
         private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (MapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }

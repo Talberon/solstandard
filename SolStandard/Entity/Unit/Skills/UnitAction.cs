@@ -32,13 +32,13 @@ namespace SolStandard.Entity.Unit.Skills
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
         }
 
-        public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
+        public abstract void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext);
 
         // ReSharper disable once MemberCanBeMadeStatic.Global
-        public void CancelAction(MapContext mapContext)
+        public void CancelAction(GameMapContext gameMapContext)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            mapContext.RevertToPreviousState();
+            gameMapContext.RevertToPreviousState();
             AssetManager.MapUnitCancelSFX.Play();
         }
 

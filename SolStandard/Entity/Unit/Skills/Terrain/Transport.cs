@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

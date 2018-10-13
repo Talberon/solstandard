@@ -148,7 +148,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (visitedTiles.Any(tile => tile.MapCoordinates == coordinates)) return false;
 
-            return MapContext.CoordinatesWithinMapBounds(coordinates);
+            return GameMapContext.CoordinatesWithinMapBounds(coordinates);
         }
 
         private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
