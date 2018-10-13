@@ -21,7 +21,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
             1
         ), windowColor)
         {
-            this.Action = action;
+            Action = action;
         }
 
         public override void Execute()

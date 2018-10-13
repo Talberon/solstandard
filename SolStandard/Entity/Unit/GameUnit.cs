@@ -214,20 +214,9 @@ namespace SolStandard.Entity.Unit
                                 new RenderText(AssetManager.HeaderFont, Id),
                                 statPanelColor, panelSizeOverride),
 
-                            new Window("Gold", AssetManager.WindowTexture,
-                                new WindowContentGrid(
-                                    new IRenderable[,]
-                                    {
-                                        {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
-                                            new RenderText(AssetManager.WindowFont,
-                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
-                                        }
-                                    },
-                                    1
-                                ),
-                                statPanelColor, panelSizeOverride
-                            )
+                            new Window("Unit Class", AssetManager.WindowTexture,
+                                new RenderText(AssetManager.HeaderFont, Role.ToString()),
+                                statPanelColor, panelSizeOverride),
                         },
                         {
                             new Window("HP", AssetManager.WindowTexture,
@@ -246,18 +235,14 @@ namespace SolStandard.Entity.Unit
                                 statPanelColor, panelSizeOverride
                             ),
 
-                            new Window("SP", AssetManager.WindowTexture,
+                            new Window("Gold", AssetManager.WindowTexture,
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                                            new RenderText(AssetManager.WindowFont, "SP: "),
-                                            new RenderText(
-                                                AssetManager.WindowFont,
-                                                Stats.Sp.ToString(),
-                                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
-                                            )
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
                                     },
                                     1

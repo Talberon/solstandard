@@ -36,7 +36,6 @@ namespace SolStandard.Map
                 {"HP", StatIcons.Hp},
                 {"ATK", StatIcons.Atk},
                 {"DEF", StatIcons.Def},
-                {"SP", StatIcons.Sp},
                 {"MV", StatIcons.Mv},
                 {"RNG", StatIcons.AtkRange}
             };
