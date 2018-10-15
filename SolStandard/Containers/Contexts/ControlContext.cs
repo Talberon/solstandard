@@ -3,6 +3,7 @@ using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.Contexts
@@ -25,6 +26,7 @@ namespace SolStandard.Containers.Contexts
                     MapSelectControls(controlMapper, mapCursor);
                     break;
                 case GameContext.GameState.PauseScreen:
+                    PauseMenuControl(gameContext, controlMapper);
                     break;
                 case GameContext.GameState.InGame:
                     MapControls(gameContext, controlMapper, mapCamera);
@@ -85,7 +87,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera)
         {
-            if (controlMapper.Press(Input.Start, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.Select, PressType.Single))
             {
                 gameContext.GameMapContext.GameMapUI.ToggleVisible();
             }
@@ -218,6 +220,12 @@ namespace SolStandard.Containers.Contexts
 
             CameraControl(controlMapper, mapCamera);
 
+            if (controlMapper.Press(Input.Start, PressType.DelayedRepeat))
+            {
+                AssetManager.MenuConfirmSFX.Play();
+                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+            }
+            
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 gameContext.SelectUnitAndStartMoving();
@@ -274,7 +282,25 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.A, PressType.Single))
             {
-                gameContext.DecideAction();
+                gameContext.GameMapContext.SelectActionMenuOption();
+            }
+        }
+
+        private static void PauseMenuControl(GameContext gameContext, GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.GameMapContext.SelectPauseMenuOption();
             }
         }
 

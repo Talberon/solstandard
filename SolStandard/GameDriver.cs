@@ -208,6 +208,10 @@ namespace SolStandard
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D4))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
@@ -305,6 +309,8 @@ namespace SolStandard
                     DrawMapSelectHUD();
                     break;
                 case GameContext.GameState.PauseScreen:
+                    DrawInGameMap();
+                    DrawPauseMenu();
                     break;
                 case GameContext.GameState.InGame:
                     DrawInGameMap();
@@ -317,6 +323,17 @@ namespace SolStandard
                     base.Draw(gameTime);
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void DrawPauseMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            _gameContext.GameMapContext.PauseMenuUI.Draw(spriteBatch);
+            spriteBatch.End();
         }
 
         private void DrawMainMenu()
@@ -358,7 +375,7 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            _gameContext.ResultsUI.Draw(spriteBatch);
+            _gameContext.StatusUI.Draw(spriteBatch);
 
             spriteBatch.End();
         }

@@ -19,7 +19,12 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            gameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+
+            if (gameMapContext.SelectedUnit != null)
+            {
+                gameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            }
+
             gameMapContext.SetPromptWindowText("Confirm End Turn");
             gameMapContext.CurrentTurnState = GameMapContext.TurnState.ResolvingTurn;
             Complete = true;

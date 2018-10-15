@@ -14,24 +14,24 @@ namespace SolStandard.Containers.Contexts
 
             if (TeamMonarchsAreAllDead(blueTeam))
             {
-                gameContext.ResultsUI.RedTeamResultText = "RED TEAM WINS!";
-                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                gameContext.StatusUI.RedTeamResultText = "RED TEAM WINS!";
+                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
                 MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }
 
             if (TeamMonarchsAreAllDead(redTeam))
             {
-                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM WINS!";
-                gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM WINS!";
+                gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
                 MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }
 
             if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
             {
-                gameContext.ResultsUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
-                gameContext.ResultsUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 GameContext.CurrentGameState = GameContext.GameState.Results;
                 MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
             }

@@ -32,6 +32,7 @@ namespace SolStandard.Containers.Contexts
         private readonly MapContainer mapContainer;
         private const string HelpText = "OBJECTIVE: Slay the enemy Monarch!";
         public GameMapUI GameMapUI { get; private set; }
+        public PauseMenuUI PauseMenuUI { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -48,6 +49,7 @@ namespace SolStandard.Containers.Contexts
             GameMapUI = gameMapUI;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
+            PauseMenuUI = new PauseMenuUI(this);
         }
 
         public void UpdateWindowsEachTurn()
@@ -234,6 +236,27 @@ namespace SolStandard.Containers.Contexts
             GameMapUI.GenerateActionMenuDescription();
 
             GenerateActionPreviewGrid();
+        }
+
+        public void SelectActionMenuOption()
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            GameMapUI.ActionMenu.CurrentOption.Execute();
+            GameMapUI.ClearCombatMenu();
+
+            ProceedToNextState();
+            SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            AssetManager.MapUnitSelectSFX.Play();
+        }
+
+        public void MovePauseMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        {
+            PauseMenuUI.CurrentMenu.MoveMenuCursor(direction);
+        }
+
+        public void SelectPauseMenuOption()
+        {
+            PauseMenuUI.CurrentMenu.SelectOption();
         }
 
         public void GenerateActionPreviewGrid()

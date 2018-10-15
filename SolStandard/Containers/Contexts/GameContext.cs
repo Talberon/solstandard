@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
         private readonly BattleContext battleContext;
         public static MapSelectContext MapSelectContext { get; private set; }
         public GameMapContext GameMapContext { get; private set; }
-        public ResultsUI ResultsUI { get; private set; }
+        public StatusUI StatusUI { get; private set; }
         public MainMenuUI MainMenuUI { get; private set; }
         public static int TurnCounter { get; private set; }
         public static int RoundCounter { get; private set; }
@@ -69,6 +69,7 @@ namespace SolStandard.Containers.Contexts
             LoadMapSelect();
 
             CurrentGameState = GameState.MainMenu;
+            oldZoom = MapCamera.CurrentZoom;
         }
 
         public static void LoadMapSelect()
@@ -109,7 +110,7 @@ namespace SolStandard.Containers.Contexts
             GameMapContext.EndTurn();
 
             GameMapContext.UpdateWindowsEachTurn();
-            ResultsUI.UpdateWindows();
+            StatusUI.UpdateWindows();
 
             CurrentGameState = GameState.InGame;
         }
@@ -131,7 +132,7 @@ namespace SolStandard.Containers.Contexts
 
         private void LoadResultsUI()
         {
-            ResultsUI = new ResultsUI();
+            StatusUI = new StatusUI();
         }
 
         private void LoadMapContainer(TmxMapParser mapParser)
@@ -185,17 +186,6 @@ namespace SolStandard.Containers.Contexts
             GameMapContext.GenerateActionPreviewGrid();
         }
 
-        public void DecideAction()
-        {
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapContext.GameMapUI.ActionMenu.CurrentOption.Execute();
-            GameMapContext.GameMapUI.ClearCombatMenu();
-
-            GameMapContext.ProceedToNextState();
-            GameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            AssetManager.MapUnitSelectSFX.Play();
-        }
-
         public void ExecuteAction()
         {
             ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), GameMapContext, battleContext);
@@ -226,6 +216,7 @@ namespace SolStandard.Containers.Contexts
                         AssetManager.MapUnitSelectSFX.Play();
                         BattleContext.StartResolvingBlocks();
                     }
+
                     break;
                 case BattleContext.BattleState.ResolveCombat:
                     if (BattleContext.TryProceedToState(BattleContext.BattleState.Start))
@@ -289,7 +280,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameMapContext.UpdateWindowsEachTurn();
-            ResultsUI.UpdateWindows();
+            StatusUI.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();
         }
@@ -323,7 +314,8 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameMapContext.SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + GameMapContext.SelectedUnit.Team + " " + GameMapContext.SelectedUnit.Role);
+                Trace.WriteLine("Selecting unit: " + GameMapContext.SelectedUnit.Team + " " +
+                                GameMapContext.SelectedUnit.Role);
                 GameMapContext.ProceedToNextState();
                 GameMapContext.GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
