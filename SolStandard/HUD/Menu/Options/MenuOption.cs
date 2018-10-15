@@ -32,9 +32,9 @@ namespace SolStandard.HUD.Menu.Options
 
         public abstract void Execute();
 
-        public void UpdateLabel(IRenderable labelContent)
+        public void UpdateLabel(IRenderable newContent)
         {
-            this.labelContent = labelContent;
+            labelContent = newContent;
             optionWindow = BuildOptionWindow();
         }
         

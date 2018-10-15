@@ -86,7 +86,7 @@ namespace SolStandard.Map.Camera
             ZoomToCursor(ZoomLevels[zoomLevel]);
         }
 
-        public void IncrementZoom(float newTargetZoom)
+        public void ZoomIn(float newTargetZoom)
         {
             if (TargetZoom < MaximumZoom)
             {
@@ -94,7 +94,7 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void DecrementZoom(float newTargetZoom)
+        public void ZoomOut(float newTargetZoom)
         {
             if (TargetZoom > MinimumZoom)
             {

@@ -44,6 +44,8 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
         public static ITexture2D MainMenuBackground { get; private set; }
+        public static ITexture2D GamepadControlHelp { get; private set; }
+        public static ITexture2D KeyboardControlHelp { get; private set; }
 
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
@@ -142,6 +144,8 @@ namespace SolStandard.Utility.Assets
             StatusIcons = ContentLoader.LoadStatusIcons(content);
             StatusIconProvider.LoadStatusIcons(StatusIcons);
 
+            GamepadControlHelp = ContentLoader.LoadGamepadKeyMap(content);
+            KeyboardControlHelp = ContentLoader.LoadKeyboardKeyMap(content);
 
             MenuMoveSFX = ContentLoader.LoadMenuMoveSFX(content);
             MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);

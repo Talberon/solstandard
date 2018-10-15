@@ -122,6 +122,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
+    <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\OptionDescription.cs" />
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />

@@ -16,30 +16,37 @@ namespace SolStandard.Containers.UI
         public enum PauseMenus
         {
             Primary,
+            Controller,
             Config
         }
 
-        private static readonly Color OptionsColor = new Color(30, 30, 30, 180);
+        private static readonly Color OptionsColor = new Color(40, 40, 40, 180);
         private VerticalMenu PauseMenu { get; set; }
         private VerticalMenu ConfigMenu { get; set; }
+        private VerticalMenu ControlsMenu { get; set; }
         private PauseMenus currentMenu;
         private bool visible;
 
         public PauseMenuUI(GameMapContext gameMapContext)
         {
-            SpriteAtlas cursorTexture = new SpriteAtlas(AssetManager.MenuCursorTexture,
+            SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+
+            SpriteAtlas gamepadHelp = new SpriteAtlas(AssetManager.GamepadControlHelp,
+                new Vector2(AssetManager.GamepadControlHelp.Width, AssetManager.GamepadControlHelp.Height), 1);
+            SpriteAtlas keyboardHelp = new SpriteAtlas(AssetManager.KeyboardControlHelp,
+                new Vector2(AssetManager.KeyboardControlHelp.Width, AssetManager.KeyboardControlHelp.Height), 1);
 
             PauseMenu = new VerticalMenu(
                 new MenuOption[]
                 {
                     new ContinueOption(OptionsColor),
-                    new ControlsOption(OptionsColor),
+                    new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
                     new EndTurnOption(OptionsColor, gameMapContext),
                     new ConcedeOption(OptionsColor),
                 },
-                cursorTexture,
+                cursorSprite,
                 OptionsColor
             );
 
@@ -50,7 +57,18 @@ namespace SolStandard.Containers.UI
                     new SoundEffectMuteOption(OptionsColor),
                     new ReturnToPauseMenuOption(OptionsColor, this)
                 },
-                cursorTexture,
+                cursorSprite,
+                OptionsColor
+            );
+
+            ControlsMenu = new VerticalMenu(
+                new MenuOption[]
+                {
+                    new ReturnToPauseMenuOption(OptionsColor, this),
+                    new UnselectableOption(gamepadHelp, OptionsColor),
+                    new UnselectableOption(keyboardHelp, OptionsColor),
+                },
+                cursorSprite,
                 OptionsColor
             );
 
@@ -66,6 +84,8 @@ namespace SolStandard.Containers.UI
                 {
                     case PauseMenus.Primary:
                         return PauseMenu;
+                    case PauseMenus.Controller:
+                        return ControlsMenu;
                     case PauseMenus.Config:
                         return ConfigMenu;
                     default:
@@ -88,12 +108,15 @@ namespace SolStandard.Containers.UI
         {
             if (!visible) return;
 
-            Vector2 centerScreen = GameDriver.ScreenSize / 2 - new Vector2(PauseMenu.Width, PauseMenu.Height) / 2;
+            Vector2 centerScreen = GameDriver.ScreenSize / 2 - new Vector2(CurrentMenu.Width, CurrentMenu.Height) / 2;
 
             switch (currentMenu)
             {
                 case PauseMenus.Primary:
                     PauseMenu.Draw(spriteBatch, centerScreen);
+                    break;
+                case PauseMenus.Controller:
+                    ControlsMenu.Draw(spriteBatch, centerScreen);
                     break;
                 case PauseMenus.Config:
                     ConfigMenu.Draw(spriteBatch, centerScreen);

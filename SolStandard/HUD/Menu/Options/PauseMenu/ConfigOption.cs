@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.UI;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Assets;
@@ -10,8 +9,8 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
     {
         private readonly PauseMenuUI pauseMenuUI;
 
-        public ConfigOption(Color color, PauseMenuUI pauseMenuUI) : base(
-            new RenderText(AssetManager.MainMenuFont, "Config"), color)
+        public ConfigOption(Color color, PauseMenuUI pauseMenuUI) :
+            base(new RenderText(AssetManager.MainMenuFont, "Config"), color)
         {
             this.pauseMenuUI = pauseMenuUI;
         }

@@ -32,9 +32,18 @@ namespace SolStandard.Containers.Contexts
                     MapControls(gameContext, controlMapper, mapCamera);
                     break;
                 case GameContext.GameState.Results:
+                    ResultsControls(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void ResultsControls(GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Select, PressType.Single))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
         }
 
@@ -89,7 +98,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Select, PressType.Single))
             {
-                gameContext.GameMapContext.GameMapUI.ToggleVisible();
+                GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
             switch (gameContext.GameMapContext.CurrentTurnState)
@@ -126,14 +135,12 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
             {
-                //Zoom out
-                mapCamera.DecrementZoom(0.1f);
+                mapCamera.ZoomOut(0.1f);
             }
 
             if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
-                //Zoom in
-                mapCamera.IncrementZoom(0.1f);
+                mapCamera.ZoomIn(0.1f);
             }
 
             if (controlMapper.Press(Input.LeftBumper, PressType.Single))
@@ -168,7 +175,7 @@ namespace SolStandard.Containers.Contexts
                 MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
             
-            
+
             if (controlMapper.Released(Input.RsDown))
             {
                 MapCamera.StopMovingCamera();
@@ -225,7 +232,7 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MenuConfirmSFX.Play();
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
-            
+
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 gameContext.SelectUnitAndStartMoving();

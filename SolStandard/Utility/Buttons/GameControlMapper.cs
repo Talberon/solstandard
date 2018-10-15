@@ -114,7 +114,6 @@ namespace SolStandard.Utility.Buttons
                     return DelayedRepeat(buttonMap[input]);
                 case PressType.InstantRepeat:
                     return InstantRepeat(buttonMap[input]);
-                    break;
                 case PressType.Single:
                     return SinglePress(buttonMap[input]);
                 default:
