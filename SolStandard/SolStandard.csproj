@@ -48,6 +48,9 @@
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\DefeatCommander.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\WinCondition.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Surrender.cs" />
     <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />

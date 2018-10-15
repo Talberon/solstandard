@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -32,6 +33,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private readonly BattleContext battleContext;
+        public static GameScenario GameScenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
         public GameMapContext GameMapContext { get; private set; }
         public StatusUI StatusUI { get; private set; }
@@ -92,8 +94,22 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
+        //FIXME Read the different available scenarios from the props of the Map that gets selected on the select screen
+        private static List<WinCondition> DefaultScenarios
+        {
+            get
+            {
+                return new List<WinCondition>
+                {
+                    new DefeatCommander()
+                };
+            }
+        }
+
         public void StartGame(string mapPath)
         {
+            GameScenario = new GameScenario(DefaultScenarios);
+
             LoadMap(mapPath);
 
             TurnCounter = 1;

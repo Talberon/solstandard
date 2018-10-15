@@ -44,7 +44,7 @@ namespace SolStandard.Containers.UI
                     new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
                     new EndTurnOption(OptionsColor, gameMapContext),
-                    new ConcedeOption(OptionsColor),
+                    new ConcedeOption(OptionsColor, gameMapContext),
                 },
                 cursorSprite,
                 OptionsColor

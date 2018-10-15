@@ -1,56 +1,34 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Entity.Unit;
-using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
+using SolStandard.Containers.Contexts.WinConditions;
 
 namespace SolStandard.Containers.Contexts
 {
-    public static class GameScenario
+    public class GameScenario
     {
-        public static void CheckForWinState(GameContext gameContext)
+        public Surrender Surrender { get; private set; }
+
+        private List<WinCondition> WinConditions { get; set; }
+
+        public GameScenario(List<WinCondition> winConditions)
         {
-            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
-            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
-
-            if (TeamMonarchsAreAllDead(blueTeam))
-            {
-                gameContext.StatusUI.RedTeamResultText = "RED TEAM WINS!";
-                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
-            }
-
-            if (TeamMonarchsAreAllDead(redTeam))
-            {
-                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM WINS!";
-                gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
-            }
-
-            if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
-            {
-                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
-                gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")),0.5f);
-            }
+            WinConditions = winConditions;
+            Surrender = new Surrender();
         }
 
-        private static bool TeamMonarchsAreAllDead(List<GameUnit> team)
+        public void CheckForWinState(GameContext gameContext)
         {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role == Role.Monarch);
-
-            foreach (GameUnit monarch in teamMonarchs)
+            if (Surrender.ConditionsMet(gameContext))
             {
-                //Return false if any Monarchs are alive.
-                if (monarch.Stats.Hp > 0)
-                {
-                    return false;
-                }
+                Surrender.EndGame(gameContext);
             }
 
-            return true;
+            foreach (WinCondition scenario in WinConditions)
+            {
+                if (scenario.ConditionsMet(gameContext))
+                {
+                    scenario.EndGame(gameContext);
+                }
+            }
         }
     }
 }
