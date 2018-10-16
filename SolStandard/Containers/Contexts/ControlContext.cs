@@ -1,4 +1,5 @@
 ﻿using System;
+using SolStandard.Containers.UI;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -174,7 +175,7 @@ namespace SolStandard.Containers.Contexts
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
-            
+
 
             if (controlMapper.Released(Input.RsDown))
             {
@@ -308,6 +309,12 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 gameContext.GameMapContext.SelectPauseMenuOption();
+            }
+
+            if (controlMapper.Press(Input.Start, PressType.Single))
+            {
+                gameContext.GameMapContext.PauseMenuUI.ChangeMenu(PauseMenuUI.PauseMenus.Primary);
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
         }
 
