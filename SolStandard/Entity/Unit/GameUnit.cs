@@ -214,20 +214,9 @@ namespace SolStandard.Entity.Unit
                                 new RenderText(AssetManager.HeaderFont, Id),
                                 statPanelColor, panelSizeOverride),
 
-                            new Window("Gold", AssetManager.WindowTexture,
-                                new WindowContentGrid(
-                                    new IRenderable[,]
-                                    {
-                                        {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
-                                            new RenderText(AssetManager.WindowFont,
-                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
-                                        }
-                                    },
-                                    1
-                                ),
-                                statPanelColor, panelSizeOverride
-                            )
+                            new Window("Unit Class", AssetManager.WindowTexture,
+                                new RenderText(AssetManager.HeaderFont, Role.ToString()),
+                                statPanelColor, panelSizeOverride),
                         },
                         {
                             new Window("HP", AssetManager.WindowTexture,
@@ -246,18 +235,14 @@ namespace SolStandard.Entity.Unit
                                 statPanelColor, panelSizeOverride
                             ),
 
-                            new Window("SP", AssetManager.WindowTexture,
+                            new Window("Gold", AssetManager.WindowTexture,
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Sp),
-                                            new RenderText(AssetManager.WindowFont, "SP: "),
-                                            new RenderText(
-                                                AssetManager.WindowFont,
-                                                Stats.Sp.ToString(),
-                                                UnitStatistics.DetermineStatColor(Stats.Sp, Stats.MaxSp)
-                                            )
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
                                     },
                                     1
@@ -365,37 +350,41 @@ namespace SolStandard.Entity.Unit
             armedUnitAction = action;
         }
 
-        public void ExecuteArmedSkill(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public void ExecuteArmedSkill(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            armedUnitAction.ExecuteAction(targetSlice, mapContext, battleContext);
+            armedUnitAction.ExecuteAction(targetSlice, gameMapContext, battleContext);
         }
 
-        public void CancelArmedSkill(MapContext mapContext)
+        public void CancelArmedSkill(GameMapContext gameMapContext)
         {
-            armedUnitAction.CancelAction(mapContext);
+            armedUnitAction.CancelAction(gameMapContext);
         }
 
-        public void MoveUnitInDirection(Direction direction, Vector2 mapSize)
+        public void MoveUnitInDirection(Direction direction)
         {
             switch (direction)
             {
                 case Direction.Down:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y + 1);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y + 1));
                     break;
                 case Direction.Right:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X + 1, MapEntity.MapCoordinates.Y);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X + 1, MapEntity.MapCoordinates.Y));
                     break;
                 case Direction.Up:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y - 1);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y - 1));
                     break;
                 case Direction.Left:
-                    MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X - 1, MapEntity.MapCoordinates.Y);
+                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X - 1, MapEntity.MapCoordinates.Y));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
+        }
 
-            PreventUnitLeavingMapBounds(mapSize);
+        public void MoveUnitToCoordinates(Vector2 newCoordinates)
+        {
+            MapEntity.MapCoordinates = newCoordinates;
+            PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
         public void DamageUnit(int damage)
@@ -464,6 +453,7 @@ namespace SolStandard.Entity.Unit
                 return true;
             }
 
+            MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;
         }

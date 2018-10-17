@@ -9,10 +9,10 @@ namespace SolStandard.HUD.Menu.Options
     public abstract class MenuOption : IRenderable
     {
         private readonly Color color;
-        private readonly IRenderable labelContent;
-        private readonly Window.Window optionWindow;
+        private IRenderable labelContent;
+        private Window.Window optionWindow;
 
-        protected MenuOption(Color color, IRenderable labelContent)
+        protected MenuOption(IRenderable labelContent, Color color)
         {
             this.color = color;
             this.labelContent = labelContent;
@@ -32,6 +32,12 @@ namespace SolStandard.HUD.Menu.Options
 
         public abstract void Execute();
 
+        public void UpdateLabel(IRenderable newContent)
+        {
+            labelContent = newContent;
+            optionWindow = BuildOptionWindow();
+        }
+        
         public int Height
         {
             get { return optionWindow.Height; }

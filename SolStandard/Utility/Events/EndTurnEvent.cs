@@ -6,11 +6,11 @@ namespace SolStandard.Utility.Events
 {
     public class EndTurnEvent : IEvent
     {
-        private readonly MapContext mapContext;
+        private readonly GameMapContext gameMapContext;
 
-        public EndTurnEvent(ref MapContext mapContext)
+        public EndTurnEvent(ref GameMapContext gameMapContext)
         {
-            this.mapContext = mapContext;
+            this.gameMapContext = gameMapContext;
             Complete = false;
         }
 
@@ -19,9 +19,14 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            mapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-            mapContext.SetPromptWindowText("Confirm End Turn");
-            mapContext.CurrentTurnState = MapContext.TurnState.ResolvingTurn;
+
+            if (gameMapContext.SelectedUnit != null)
+            {
+                gameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            }
+
+            gameMapContext.SetPromptWindowText("Confirm End Turn");
+            gameMapContext.CurrentTurnState = GameMapContext.TurnState.ResolvingTurn;
             Complete = true;
         }
     }

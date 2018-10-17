@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -10,24 +11,47 @@ namespace SolStandard.Containers.Contexts
     public class UnitTargetingContext
     {
         private readonly SpriteAtlas spriteAtlas;
+        private readonly bool numbersVisible;
 
-        public UnitTargetingContext(SpriteAtlas spriteAtlas)
+        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = true)
         {
             this.spriteAtlas = spriteAtlas;
+            this.numbersVisible = numbersVisible;
         }
 
-        public void GeneratePreviewTargetingGrid(Vector2 origin, int[] ranges)
+        public void GenerateTargetingGrid(Vector2 origin, int[] ranges, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, false);
+            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, numbersVisible);
 
-            AddVisitedTilesToGameGrid(visited, Layer.Preview);
+            AddVisitedTilesToGameGrid(visited, mapLayer);
         }
 
-        public void GenerateRealTargetingGrid(Vector2 origin, int[] ranges)
+        public void GenerateThreatGrid(Vector2 origin, GameUnit unit)
         {
-            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, true);
+            new UnitMovingContext(
+                    MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark)
+                )
+                .GenerateMoveGrid(origin, unit, false);
 
-            AddVisitedTilesToGameGrid(visited, Layer.Dynamic);
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            {
+                MapDistanceTile tile = (MapDistanceTile) mapElement;
+                if (tile == null) continue;
+
+                //Generate attack tiles for the perimeter of the grid
+                GenerateTargetingGrid(tile.MapCoordinates, unit.Stats.AtkRange, Layer.Preview);
+            }
+
+            //Clean up overlapping tiles
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            {
+                MapDistanceTile tile = (MapDistanceTile) mapElement;
+                if (tile != null)
+                {
+                    MapContainer.GameGrid[(int) Layer.Preview][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y]
+                        = null;
+                }
+            }
         }
 
         private List<MapDistanceTile> GenerateTargetingGrid(Vector2 origin, int[] ranges, bool distanceVisible)
@@ -79,15 +103,15 @@ namespace SolStandard.Containers.Contexts
             return tilesToKeep;
         }
 
-        private static IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
+        private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
             List<MapDistanceTile> visitedTiles, bool distanceVisible)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
 
-            Vector2 north = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.Coordinates.X, currentTile.Coordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.Coordinates.X + 1, currentTile.Coordinates.Y);
-            Vector2 west = new Vector2(currentTile.Coordinates.X - 1, currentTile.Coordinates.Y);
+            Vector2 north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
+            Vector2 south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
+            Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
+            Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
             if (CanPlaceTileAtCoordinates(north, visitedTiles))
             {
@@ -122,16 +146,16 @@ namespace SolStandard.Containers.Contexts
 
         private static bool CanPlaceTileAtCoordinates(Vector2 coordinates, IEnumerable<MapDistanceTile> visitedTiles)
         {
-            if (visitedTiles.Any(tile => tile.Coordinates == coordinates)) return false;
+            if (visitedTiles.Any(tile => tile.MapCoordinates == coordinates)) return false;
 
-            return MapContext.CoordinatesWithinMapBounds(coordinates);
+            return GameMapContext.CoordinatesWithinMapBounds(coordinates);
         }
 
         private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }

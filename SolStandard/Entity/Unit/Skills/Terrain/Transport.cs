@@ -26,14 +26,14 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             this.targetCoordinates = targetCoordinates;
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) Layer.Dynamic][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
+            MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
-            MapContainer.MapCursor.SlideCursorToCoordinates(targetCoordinates);
+            MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -50,11 +50,12 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

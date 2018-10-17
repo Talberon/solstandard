@@ -25,18 +25,18 @@ namespace SolStandard.Entity.Unit.Skills.Mage
         {
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
-            RemoveActionTilesOnUnmovableSpaces();
+            unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
+            RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
 
-        private static void RemoveActionTilesOnUnmovableSpaces()
+        private static void RemoveActionTilesOnUnmovableSpaces(Layer mapLayer)
         {
             List<MapElement> tilesToRemove = new List<MapElement>();
 
-            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
                 if (mapElement == null) continue;
                 if (!UnitMovingContext.CanMoveAtCoordinates(mapElement.MapCoordinates))
@@ -47,12 +47,12 @@ namespace SolStandard.Entity.Unit.Skills.Mage
 
             foreach (MapElement tile in tilesToRemove)
             {
-                MapContainer.GameGrid[(int) Layer.Dynamic][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] =
+                MapContainer.GameGrid[(int) mapLayer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] =
                     null;
             }
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -69,11 +69,12 @@ namespace SolStandard.Entity.Unit.Skills.Mage
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

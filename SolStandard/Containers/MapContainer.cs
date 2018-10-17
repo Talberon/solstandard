@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -19,6 +21,7 @@ namespace SolStandard.Containers
     {
         private static List<MapElement[,]> _gameGrid;
         public static MapCursor MapCursor { get; private set; }
+        private static ToastWindow ToastWindow { get; set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
@@ -48,9 +51,22 @@ namespace SolStandard.Containers
         {
             get
             {
-                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)) 
+                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
                        * GameDriver.CellSize * MapCamera.CurrentZoom;
             }
+        }
+
+        public static void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
+            ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
+        }
+
+        public static void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
+        {
+            //Set the toast to the right of the cursor
+            AddNewToastAtCoordinates(toastMessage, (MapCursor.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
+                lifetimeInFrames);
         }
 
         public static void ClearDynamicAndPreviewGrids()
@@ -78,7 +94,7 @@ namespace SolStandard.Containers
 
         public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
-            if (MapContext.CoordinatesWithinMapBounds(coordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(coordinates))
             {
                 int column = (int) coordinates.X;
                 int row = (int) coordinates.Y;
@@ -149,13 +165,13 @@ namespace SolStandard.Containers
             foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
             {
                 if (tile != null)
-                    tile.Draw(spriteBatch, new Color(255, 255, 255, 200));
+                    tile.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 if (tile != null)
-                    tile.Draw(spriteBatch, new Color(200, 200, 200, 150));
+                    tile.Draw(spriteBatch);
             }
 
             foreach (GameUnit unit in GameContext.Units)
@@ -164,6 +180,13 @@ namespace SolStandard.Containers
                 {
                     unit.UnitEntity.Draw(spriteBatch);
                 }
+            }
+
+            if (ToastWindow != null)
+            {
+                ToastWindow.Draw(spriteBatch);
+                
+                if (ToastWindow.Expired) ToastWindow = null;
             }
 
             MapCursor.Draw(spriteBatch);

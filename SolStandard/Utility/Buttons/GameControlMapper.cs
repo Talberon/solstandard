@@ -1,197 +1,180 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace SolStandard.Utility.Buttons
 {
+    public enum PressType
+    {
+        DelayedRepeat,
+        InstantRepeat,
+        Single
+    }
+
+    public enum Input
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        RsUp,
+        RsDown,
+        RsLeft,
+        RsRight,
+        A,
+        B,
+        X,
+        Y,
+        Select,
+        Start,
+        LeftBumper,
+        LeftTrigger,
+        RightBumper,
+        RightTrigger
+    }
+
     public class GameControlMapper
     {
         public const float StickThreshold = 0.2f;
 
-        private const int InitialInputDelay = 15;
-        private const int RepeatInputDelay = 5;
+        private const int InitialInputDelayInFrames = 15;
+        private const int RepeatInputDelayInFrames = 5;
 
-        private readonly GameControl upControl, downControl, leftControl, rightControl;
-        private readonly GameControl rsUpControl, rsDownControl, rsLeftControl, rsRightControl;
-        private readonly GameControl aControl, bControl, xControl, yControl;
-        private readonly GameControl lbControl, rbControl, ltControl, rtControl;
-        private readonly GameControl startControl, selectControl;
+        private readonly Dictionary<Input, GameControl> buttonMap;
 
         public GameControlMapper(PlayerIndex playerIndex)
         {
-            upControl = new UpControl(playerIndex);
-            downControl = new DownControl(playerIndex);
-            leftControl = new LeftControl(playerIndex);
-            rightControl = new RightControl(playerIndex);
+            buttonMap = new Dictionary<Input, GameControl>
+            {
+                {Input.Up, new UpControl(playerIndex)},
+                {Input.Down, new DownControl(playerIndex)},
+                {Input.Left, new LeftControl(playerIndex)},
+                {Input.Right, new RightControl(playerIndex)},
 
-            rsUpControl = new RsUpControl(playerIndex);
-            rsDownControl = new RsDownControl(playerIndex);
-            rsLeftControl = new RsLeftControl(playerIndex);
-            rsRightControl = new RsRightControl(playerIndex);
+                {Input.RsUp, new RsUpControl(playerIndex)},
+                {Input.RsDown, new RsDownControl(playerIndex)},
+                {Input.RsLeft, new RsLeftControl(playerIndex)},
+                {Input.RsRight, new RsRightControl(playerIndex)},
 
-            startControl = new StartControl(playerIndex);
-            selectControl = new SelectControl(playerIndex);
+                {Input.Start, new StartControl(playerIndex)},
+                {Input.Select, new SelectControl(playerIndex)},
 
-            aControl = new AControl(playerIndex);
-            bControl = new BControl(playerIndex);
-            xControl = new XControl(playerIndex);
-            yControl = new YControl(playerIndex);
+                {Input.A, new AControl(playerIndex)},
+                {Input.B, new BControl(playerIndex)},
+                {Input.X, new XControl(playerIndex)},
+                {Input.Y, new YControl(playerIndex)},
 
-            lbControl = new LeftBumperControl(playerIndex);
-            rbControl = new RightBumperControl(playerIndex);
-            ltControl = new LeftTriggerControl(playerIndex);
-            rtControl = new RightTriggerControl(playerIndex);
+                {Input.LeftBumper, new LeftBumperControl(playerIndex)},
+                {Input.RightBumper, new RightBumperControl(playerIndex)},
+                {Input.LeftTrigger, new LeftTriggerControl(playerIndex)},
+                {Input.RightTrigger, new RightTriggerControl(playerIndex)},
+            };
         }
 
         public override string ToString()
         {
             string output = "";
 
-            output += "initialInputDelay: " + InitialInputDelay;
+            output += "initialInputDelay: " + InitialInputDelayInFrames;
             output += Environment.NewLine;
-            output += "repeatInputDelay: " + RepeatInputDelay;
+            output += "repeatInputDelay: " + RepeatInputDelayInFrames;
             output += Environment.NewLine;
             output += "inputCounters: {";
             output += Environment.NewLine;
-            output += " Up: " + upControl.GetInputCounter();
+            output += " Up: " + buttonMap[Input.Up].InputCounter;
             output += Environment.NewLine;
-            output += " Down: " + downControl.GetInputCounter();
+            output += " Down: " + buttonMap[Input.Down].InputCounter;
             output += Environment.NewLine;
-            output += " Left: " + leftControl.GetInputCounter();
+            output += " Left: " + buttonMap[Input.Left].InputCounter;
             output += Environment.NewLine;
-            output += " Right: " + rightControl.GetInputCounter();
+            output += " Right: " + buttonMap[Input.Right].InputCounter;
             output += Environment.NewLine;
-            output += " A: " + aControl.GetInputCounter();
+            output += " A: " + buttonMap[Input.A].InputCounter;
             output += Environment.NewLine;
-            output += " B: " + bControl.GetInputCounter();
+            output += " B: " + buttonMap[Input.B].InputCounter;
             output += Environment.NewLine;
-            output += " X: " + xControl.GetInputCounter();
+            output += " X: " + buttonMap[Input.X].InputCounter;
             output += Environment.NewLine;
-            output += " Y: " + yControl.GetInputCounter();
+            output += " Y: " + buttonMap[Input.Y].InputCounter;
             output += Environment.NewLine;
-            output += " Select: " + selectControl.GetInputCounter();
+            output += " Select: " + buttonMap[Input.Select].InputCounter;
             output += Environment.NewLine;
-            output += " Start: " + startControl.GetInputCounter();
+            output += " Start: " + buttonMap[Input.Start].InputCounter;
             output += Environment.NewLine;
             output += "}";
 
             return output;
         }
 
-
-        public bool Up()
+        public bool Press(Input input, PressType pressType)
         {
-            return CheckInputDelay(upControl);
+            switch (pressType)
+            {
+                case PressType.DelayedRepeat:
+                    return DelayedRepeat(buttonMap[input]);
+                case PressType.InstantRepeat:
+                    return InstantRepeat(buttonMap[input]);
+                case PressType.Single:
+                    return SinglePress(buttonMap[input]);
+                default:
+                    throw new ArgumentOutOfRangeException("pressType", pressType, null);
+            }
         }
 
-        public bool Down()
+        public bool Released(Input input)
         {
-            return CheckInputDelay(downControl);
+            return (buttonMap[input].Released);
         }
 
-        public bool Left()
+        private static bool InstantRepeat(GameControl control)
         {
-            return CheckInputDelay(leftControl);
+            return control.Pressed;
         }
 
-        public bool Right()
+        private static bool SinglePress(GameControl control)
         {
-            return CheckInputDelay(rightControl);
+            //Press just once on input down; do not repeat
+            if (control.Pressed)
+            {
+                if (control.InputCounter == 0)
+                {
+                    control.IncrementInputCounter();
+                    return true;
+                }
+            }
+
+            if (control.Released)
+            {
+                control.ResetInputCounter();
+            }
+
+            return false;
         }
 
-        public bool RightStickUp()
-        {
-            return CheckInputDelay(rsUpControl);
-        }
-
-        public bool RightStickDown()
-        {
-            return CheckInputDelay(rsDownControl);
-        }
-
-        public bool RightStickLeft()
-        {
-            return CheckInputDelay(rsLeftControl);
-        }
-
-        public bool RightStickRight()
-        {
-            return CheckInputDelay(rsRightControl);
-        }
-
-        public bool A()
-        {
-            return CheckInputDelay(aControl);
-        }
-
-        public bool B()
-        {
-            return CheckInputDelay(bControl);
-        }
-
-        public bool X()
-        {
-            return CheckInputDelay(xControl);
-        }
-
-        public bool Y()
-        {
-            return CheckInputDelay(yControl);
-        }
-
-        public bool LeftBumper()
-        {
-            return CheckInputDelay(lbControl);
-        }
-
-        public bool RightBumper()
-        {
-            return CheckInputDelay(rbControl);
-        }
-
-        public bool LeftTrigger()
-        {
-            return CheckInputDelay(ltControl);
-        }
-
-        public bool RightTrigger()
-        {
-            return CheckInputDelay(rtControl);
-        }
-
-        public bool Start()
-        {
-            return CheckInputDelay(startControl);
-        }
-
-        public bool Select()
-        {
-            return CheckInputDelay(selectControl);
-        }
-
-        private static bool CheckInputDelay(GameControl control)
+        private static bool DelayedRepeat(GameControl control)
         {
             //Hold Down (Previous state matches the current state)
-            if (control.Pressed())
+            if (control.Pressed)
             {
                 control.IncrementInputCounter();
 
                 //Act on tap
-                if (control.GetInputCounter() - 1 == 0)
+                if (control.InputCounter - 1 == 0)
                 {
                     return true;
                 }
 
                 //If the counter is over [initialInputDelay], start tapping every [repeatInputDelay] frames
-                if (control.GetInputCounter() > InitialInputDelay)
+                if (control.InputCounter > InitialInputDelayInFrames)
                 {
-                    if (control.GetInputCounter() % RepeatInputDelay == 0)
+                    if (control.InputCounter % RepeatInputDelayInFrames == 0)
                     {
                         return true;
                     }
                 }
             }
 
-            if (control.Released())
+            if (control.Released)
             {
                 control.ResetInputCounter();
             }

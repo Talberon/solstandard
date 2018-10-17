@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -42,17 +42,19 @@ namespace SolStandard.Entity.Unit.Skills.Champion
                         new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetOriginalPosition)
                     );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

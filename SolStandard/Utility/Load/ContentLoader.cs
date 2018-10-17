@@ -259,6 +259,24 @@ namespace SolStandard.Utility.Load
             return textureWrapper;
         }
 
+        public static ITexture2D LoadGamepadKeyMap(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-Xbox");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
+        public static ITexture2D LoadKeyboardKeyMap(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-PC");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
         public static List<ITexture2D> LoadMapPreviews(ContentManager content)
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
+using SolStandard.Containers.UI;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.Contexts
@@ -26,41 +27,51 @@ namespace SolStandard.Containers.Contexts
                     MapSelectControls(controlMapper, mapCursor);
                     break;
                 case GameContext.GameState.PauseScreen:
+                    PauseMenuControl(gameContext, controlMapper);
                     break;
                 case GameContext.GameState.InGame:
-                    MapControls(gameContext, controlMapper, mapCamera, mapCursor);
+                    MapControls(gameContext, controlMapper, mapCamera);
                     break;
                 case GameContext.GameState.Results:
+                    ResultsControls(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        private static void ResultsControls(GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Select, PressType.Single))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+        }
+
 
         private static void MapSelectControls(GameControlMapper controlMapper, MapCursor mapCursor)
         {
-            if (controlMapper.Up())
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
-                mapCursor.MoveCursorInDirection((Direction.Up));
+                mapCursor.MoveCursorInDirection(Direction.Up);
             }
 
-            if (controlMapper.Down())
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
-                mapCursor.MoveCursorInDirection((Direction.Down));
+                mapCursor.MoveCursorInDirection(Direction.Down);
             }
 
-            if (controlMapper.Left())
+            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
             {
-                mapCursor.MoveCursorInDirection((Direction.Left));
+                mapCursor.MoveCursorInDirection(Direction.Left);
             }
 
-            if (controlMapper.Right())
+            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
             {
-                mapCursor.MoveCursorInDirection((Direction.Right));
+                mapCursor.MoveCursorInDirection(Direction.Right);
             }
 
-            if (controlMapper.A())
+            if (controlMapper.Press(Input.A, PressType.Single))
             {
                 GameContext.MapSelectContext.SelectMap();
             }
@@ -68,238 +79,300 @@ namespace SolStandard.Containers.Contexts
 
         private static void MainMenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
         {
-            if (controlMapper.Down())
+            if (controlMapper.Press(Input.Down, PressType.Single))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Up())
+            if (controlMapper.Press(Input.Up, PressType.Single))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
-            if (controlMapper.A())
+            if (controlMapper.Press(Input.A, PressType.Single))
             {
                 verticalMenu.SelectOption();
             }
         }
 
-        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera,
-            MapCursor mapCursor)
+        private static void MapControls(GameContext gameContext, GameControlMapper controlMapper, MapCamera mapCamera)
         {
-            if (controlMapper.Start())
+            if (controlMapper.Press(Input.Select, PressType.Single))
             {
-                gameContext.MapContext.GameMapUI.ToggleVisible();
+                GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
-            if (controlMapper.Down())
+            switch (gameContext.GameMapContext.CurrentTurnState)
             {
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Down));
-                        return;
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
-                        return;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
-                        break;
-                    case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Down));
-                        return;
-                    case MapContext.TurnState.UnitActing:
-                        break;
-                    case MapContext.TurnState.ResolvingTurn:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                case GameMapContext.TurnState.SelectUnit:
+                    SelectUnitControl(gameContext, controlMapper, mapCamera);
+                    break;
+                case GameMapContext.TurnState.UnitMoving:
+                    MoveUnitControl(gameContext, controlMapper, mapCamera);
+                    break;
+                case GameMapContext.TurnState.UnitDecidingAction:
+                    DecideActionControl(gameContext, controlMapper);
+                    break;
+                case GameMapContext.TurnState.UnitTargeting:
+                    UnitTargetingControl(gameContext, controlMapper, mapCamera);
+                    break;
+                case GameMapContext.TurnState.UnitActing:
+                    UnitActingControl(gameContext, controlMapper);
+                    break;
+                case GameMapContext.TurnState.ResolvingTurn:
+                    ResolvingTurnControl(gameContext, controlMapper);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+        }
 
-            if (controlMapper.Left())
-            {
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Left));
-                        return;
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
-                        return;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        break;
-                    case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Left));
-                        return;
-                    case MapContext.TurnState.UnitActing:
-                        break;
-                    case MapContext.TurnState.ResolvingTurn:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (controlMapper.Right())
-            {
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Right));
-                        return;
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
-                        return;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        break;
-                    case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Right));
-                        return;
-                    case MapContext.TurnState.UnitActing:
-                        break;
-                    case MapContext.TurnState.ResolvingTurn:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (controlMapper.Up())
-            {
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        mapCursor.MoveCursorInDirection((Direction.Up));
-                        return;
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.MapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
-                        return;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.MapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
-                        break;
-                    case MapContext.TurnState.UnitTargeting:
-                        mapCursor.MoveCursorInDirection((Direction.Up));
-                        return;
-                    case MapContext.TurnState.UnitActing:
-                        break;
-                    case MapContext.TurnState.ResolvingTurn:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (controlMapper.A())
-            {
-                Trace.WriteLine("Current Turn State: " + gameContext.MapContext.CurrentTurnState);
-
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        gameContext.SelectUnitAndStartMoving();
-                        return;
-
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.FinishMoving();
-                        return;
-
-                    case MapContext.TurnState.UnitDecidingAction:
-                        gameContext.DecideAction();
-                        return;
-
-                    case MapContext.TurnState.UnitTargeting:
-                        gameContext.ExecuteAction();
-                        return;
-
-                    case MapContext.TurnState.UnitActing:
-                        gameContext.ContinueCombat();
-                        return;
-
-                    case MapContext.TurnState.ResolvingTurn:
-                        gameContext.ResolveTurn();
-                        return;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (controlMapper.B())
-            {
-                switch (gameContext.MapContext.CurrentTurnState)
-                {
-                    case MapContext.TurnState.SelectUnit:
-                        return;
-                    case MapContext.TurnState.UnitMoving:
-                        gameContext.CancelMove();
-                        return;
-                    case MapContext.TurnState.UnitDecidingAction:
-                        return;
-                    case MapContext.TurnState.UnitTargeting:
-                        gameContext.CancelAction();
-                        return;
-                    case MapContext.TurnState.UnitActing:
-                        return;
-                    case MapContext.TurnState.ResolvingTurn:
-                        return;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            if (controlMapper.Y())
+        private static void CameraControl(GameControlMapper controlMapper, MapCamera mapCamera)
+        {
+            if (controlMapper.Press(Input.Y, PressType.Single))
             {
                 MapCamera.CenterCameraToCursor();
             }
 
-            if (controlMapper.X())
+            if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
             {
-                gameContext.MapContext.SlideCursorToActiveUnit();
+                mapCamera.ZoomOut(0.1f);
             }
 
-
-            if (controlMapper.LeftTrigger())
+            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
-                //Zoom out
-                mapCamera.DecrementZoom(0.1f);
+                mapCamera.ZoomIn(0.1f);
             }
 
-            if (controlMapper.RightTrigger())
-            {
-                //Zoom in
-                mapCamera.IncrementZoom(0.1f);
-            }
-
-            if (controlMapper.LeftBumper())
+            if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
                 mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
             }
 
-            if (controlMapper.RightBumper())
+            if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
                 mapCamera.SetZoomLevel(MapCamera.ZoomLevel.Medium);
             }
 
-            const float cameraPanRateOverride = 64;
+            const float cameraPanRateOverride = 5;
 
-            if (controlMapper.RightStickDown())
+            if (controlMapper.Press(Input.RsDown, PressType.InstantRepeat))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickLeft())
+            if (controlMapper.Press(Input.RsLeft, PressType.InstantRepeat))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickRight())
+            if (controlMapper.Press(Input.RsRight, PressType.InstantRepeat))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
-            if (controlMapper.RightStickUp())
+            if (controlMapper.Press(Input.RsUp, PressType.InstantRepeat))
             {
                 MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
+            }
+
+
+            if (controlMapper.Released(Input.RsDown))
+            {
+                MapCamera.StopMovingCamera();
+            }
+
+            if (controlMapper.Released(Input.RsLeft))
+            {
+                MapCamera.StopMovingCamera();
+            }
+
+            if (controlMapper.Released(Input.RsRight))
+            {
+                MapCamera.StopMovingCamera();
+            }
+
+            if (controlMapper.Released(Input.RsUp))
+            {
+                MapCamera.StopMovingCamera();
+            }
+        }
+
+        private static void SelectUnitControl(GameContext gameContext, GameControlMapper controlMapper,
+            MapCamera mapCamera)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
+            }
+
+            if (controlMapper.Press(Input.X, PressType.Single))
+            {
+                gameContext.GameMapContext.ResetCursorToActiveUnit();
+            }
+
+            CameraControl(controlMapper, mapCamera);
+
+            if (controlMapper.Press(Input.Start, PressType.DelayedRepeat))
+            {
+                AssetManager.MenuConfirmSFX.Play();
+                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+            }
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.SelectUnitAndStartMoving();
+            }
+        }
+
+        private static void MoveUnitControl(GameContext gameContext, GameControlMapper controlMapper,
+            MapCamera mapCamera)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+            }
+
+            CameraControl(controlMapper, mapCamera);
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.FinishMoving();
+            }
+
+            if (controlMapper.Press(Input.B, PressType.Single))
+            {
+                gameContext.CancelMove();
+            }
+        }
+
+        private static void DecideActionControl(GameContext gameContext, GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.GameMapContext.SelectActionMenuOption();
+            }
+        }
+
+        private static void PauseMenuControl(GameContext gameContext, GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.GameMapContext.SelectPauseMenuOption();
+            }
+
+            if (controlMapper.Press(Input.Start, PressType.Single))
+            {
+                gameContext.GameMapContext.PauseMenuUI.ChangeMenu(PauseMenuUI.PauseMenus.Primary);
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+        }
+
+        private static void UnitTargetingControl(GameContext gameContext, GameControlMapper controlMapper,
+            MapCamera mapCamera)
+        {
+            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
+            }
+
+            if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
+            {
+                gameContext.GameMapContext.ResetCursorToActiveUnit();
+                MapCamera.CenterCameraToCursor();
+            }
+
+            CameraControl(controlMapper, mapCamera);
+
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.ExecuteAction();
+            }
+
+            if (controlMapper.Press(Input.B, PressType.Single))
+            {
+                gameContext.CancelAction();
+            }
+        }
+
+        private static void UnitActingControl(GameContext gameContext, GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.ContinueCombat();
+            }
+        }
+
+        private static void ResolvingTurnControl(GameContext gameContext, GameControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.A, PressType.Single))
+            {
+                gameContext.ResolveTurn();
             }
         }
     }

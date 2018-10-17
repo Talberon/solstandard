@@ -4,6 +4,7 @@ namespace SolStandard.Utility.Monogame
 {
     public class SoundEffectWrapper : ISoundEffect
     {
+        public static bool Muted { get; private set; }
         private readonly SoundEffect soundEffect;
         private readonly float volume;
 
@@ -13,9 +14,17 @@ namespace SolStandard.Utility.Monogame
             this.soundEffect = soundEffect;
         }
 
+        public static void ToggleMute()
+        {
+            Muted = !Muted;
+        }
+
         public void Play()
         {
-            soundEffect.Play(volume, 0, 0);
+            if (!Muted)
+            {
+                soundEffect.Play(volume, 0, 0);
+            }
         }
 
         public SoundEffect MonoGameSoundEffect()

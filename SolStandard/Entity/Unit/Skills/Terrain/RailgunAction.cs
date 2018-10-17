@@ -25,17 +25,17 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
             this.range = range;
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            GenerateRealLinearTargetingGrid(origin, range);
+            GenerateRealLinearTargetingGrid(origin, range, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            new BasicAttack().ExecuteAction(targetSlice, mapContext, battleContext);
+            new BasicAttack().ExecuteAction(targetSlice, gameMapContext, battleContext);
         }
 
-        private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange)
+        private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)
         {
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
@@ -52,12 +52,12 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 AddTileWithinMapBounds(attackTiles, westTile, i);
             }
 
-            AddVisitedTilesToGameGrid(attackTiles, Layer.Dynamic);
+            AddVisitedTilesToGameGrid(attackTiles, mapLayer);
         }
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (MapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }
@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }

@@ -15,7 +15,6 @@ namespace SolStandard.Entity.General
                 {StatIcons.Hp, StatIcons.BonusHp},
                 {StatIcons.Atk, StatIcons.BonusAtk},
                 {StatIcons.Def, StatIcons.BonusDef},
-                {StatIcons.Sp, StatIcons.BonusSp},
                 {StatIcons.Mv, StatIcons.BonusMv},
                 {StatIcons.AtkRange, StatIcons.BonusAtkRange}
             };

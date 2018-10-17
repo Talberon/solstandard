@@ -48,16 +48,20 @@
     <Compile Include="Containers\Contexts\GameScenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\DefeatCommander.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\WinCondition.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Surrender.cs" />
     <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
     <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
-    <Compile Include="Containers\Contexts\MapContext.cs" />
+    <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\UI\BattleUI.cs" />
     <Compile Include="Containers\UI\MainMenuUI.cs" />
     <Compile Include="Containers\UI\GameMapUI.cs" />
-    <Compile Include="Containers\UI\ResultsUI.cs" />
+    <Compile Include="Containers\UI\PauseMenuUI.cs" />
+    <Compile Include="Containers\UI\StatusUI.cs" />
     <Compile Include="Containers\UI\SelectMapUI.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
@@ -113,6 +117,15 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\SkillOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
+    <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\OptionDescription.cs" />
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />
@@ -125,6 +138,7 @@
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
+    <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
     <Compile Include="HUD\Window\WindowCell.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
@@ -267,7 +281,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Chesslike_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Desert_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Experimenting_01.tmx">
@@ -297,9 +317,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HUD\Menu\Options\PauseMenu" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

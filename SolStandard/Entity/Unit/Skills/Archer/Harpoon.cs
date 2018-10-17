@@ -26,12 +26,24 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             this.skillRange = skillRange;
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            GenerateRealCustomTargetingGrid(origin, skillRange);
+            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+
+            Vector2 northTile = new Vector2(origin.X, origin.Y - skillRange);
+            Vector2 southTile = new Vector2(origin.X, origin.Y + skillRange);
+            Vector2 eastTile = new Vector2(origin.X + skillRange, origin.Y);
+            Vector2 westTile = new Vector2(origin.X - skillRange, origin.Y);
+
+            AddTileWithinMapBounds(attackTiles, northTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, southTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, eastTile, skillRange);
+            AddTileWithinMapBounds(attackTiles, westTile, skillRange);
+
+            AddVisitedTilesToGameGrid(attackTiles, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -44,17 +56,19 @@ namespace SolStandard.Entity.Unit.Skills.Archer
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new PullEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -105,26 +119,9 @@ namespace SolStandard.Entity.Unit.Skills.Archer
             return closerCoordinates;
         }
 
-        private void GenerateRealCustomTargetingGrid(Vector2 origin, int range)
-        {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
-
-            Vector2 northTile = new Vector2(origin.X, origin.Y - range);
-            Vector2 southTile = new Vector2(origin.X, origin.Y + range);
-            Vector2 eastTile = new Vector2(origin.X + range, origin.Y);
-            Vector2 westTile = new Vector2(origin.X - range, origin.Y);
-
-            AddTileWithinMapBounds(attackTiles, northTile, range);
-            AddTileWithinMapBounds(attackTiles, southTile, range);
-            AddTileWithinMapBounds(attackTiles, eastTile, range);
-            AddTileWithinMapBounds(attackTiles, westTile, range);
-
-            AddVisitedTilesToGameGrid(attackTiles, Layer.Dynamic);
-        }
-
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
-            if (MapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
                 tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
             }
@@ -134,7 +131,7 @@ namespace SolStandard.Entity.Unit.Skills.Archer
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {
-                MapContainer.GameGrid[(int) layer][(int) tile.Coordinates.X, (int) tile.Coordinates.Y] = tile;
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }

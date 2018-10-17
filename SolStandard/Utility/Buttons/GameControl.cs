@@ -6,34 +6,29 @@ namespace SolStandard.Utility.Buttons
     {
         protected readonly PlayerIndex PlayerIndex;
 
+        public int InputCounter { get; private set; }
+
         protected GameControl(PlayerIndex playerIndex)
         {
             PlayerIndex = playerIndex;
+            InputCounter = 0;
         }
-        
-        private int inputCounter;
 
-        public abstract bool Pressed();
-        public abstract bool Released();
+        public abstract bool Pressed { get; }
 
-        protected GameControl()
+        public bool Released
         {
-            inputCounter = 0;
+            get { return !Pressed && InputCounter > 0; }
         }
 
         public void IncrementInputCounter()
         {
-            inputCounter++;
+            InputCounter++;
         }
 
         public void ResetInputCounter()
         {
-            inputCounter = 0;
-        }
-
-        public int GetInputCounter()
-        {
-            return inputCounter;
+            InputCounter = 0;
         }
     }
 }

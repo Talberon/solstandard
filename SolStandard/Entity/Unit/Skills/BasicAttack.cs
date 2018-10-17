@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -23,19 +24,19 @@ namespace SolStandard.Entity.Unit.Skills
         {
         }
 
-        public override void GenerateActionGrid(Vector2 origin)
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateRealTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange);
+            unitTargetingContext.GenerateTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             Queue<IEvent> eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                eventQueue.Enqueue(new StartCombatEvent(targetUnit, mapContext, battleContext));
+                eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (TargetIsABreakableObstacleInRange(targetSlice))
@@ -43,26 +44,27 @@ namespace SolStandard.Entity.Unit.Skills
                 //deal damage to terrain
                 BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
                 targetObstacle.DealDamage(1);
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
-            else if (mapContext.SelectedUnit == targetUnit)
+            else if (gameMapContext.SelectedUnit == targetUnit)
             {
                 //Skip the combat state if player selects the same unit
                 AssetManager.MapUnitSelectSFX.Play();
 
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        public static void StartCombat(GameUnit target, MapContext mapContext, BattleContext battleContext)
+        public static void StartCombat(GameUnit target, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            GameUnit attackingUnit = mapContext.SelectedUnit;
+            GameUnit attackingUnit = gameMapContext.SelectedUnit;
             GameUnit defendingUnit = target;
             MapContainer.ClearDynamicAndPreviewGrids();
             battleContext.StartNewCombat(

@@ -2,6 +2,7 @@
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -25,34 +26,21 @@ namespace SolStandard.Entity.Unit.Skills
             Range = range;
         }
 
-        public virtual void GenerateActionGrid(Vector2 origin)
+        public virtual void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateRealTargetingGrid(origin, Range);
+            unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
         }
 
-        public abstract void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext);
+        public abstract void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext);
 
         // ReSharper disable once MemberCanBeMadeStatic.Global
-        public void CancelAction(MapContext mapContext)
+        public void CancelAction(GameMapContext gameMapContext)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            mapContext.RevertToPreviousState();
+            gameMapContext.RevertToPreviousState();
             AssetManager.MapUnitCancelSFX.Play();
         }
-
-        protected static void EnterEndPhase(MapContext mapContext)
-        {
-            mapContext.CurrentTurnState = MapContext.TurnState.ResolvingTurn;
-            mapContext.SetPromptWindowText("Confirm End Turn");
-        }
-
-        protected static void EnterActionPhase(MapContext mapContext)
-        {
-            mapContext.CurrentTurnState = MapContext.TurnState.UnitActing;
-            mapContext.SetPromptWindowText("Confirm End Turn");
-        }
-
 
         protected static bool TargetIsUnitInRange(MapSlice targetSlice, GameUnit targetUnit)
         {
@@ -94,7 +82,7 @@ namespace SolStandard.Entity.Unit.Skills
             return UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
-        
+
         protected static bool SourceSouthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
         {
             return sourceCoordinates.Y > targetCoordinates.Y;

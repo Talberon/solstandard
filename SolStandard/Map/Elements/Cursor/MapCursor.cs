@@ -64,8 +64,7 @@ namespace SolStandard.Map.Elements.Cursor
             get { return (SpriteAtlas) Sprite; }
         }
 
-
-        public void SlideCursorToCoordinates(Vector2 coordinates)
+        private void SlideCursorToCoordinates(Vector2 coordinates)
         {
             MapCoordinates = coordinates;
         }
@@ -74,6 +73,7 @@ namespace SolStandard.Map.Elements.Cursor
         {
             MapCoordinates = coordinates;
             _currentPixelCoordinates = MapCoordinates * GameDriver.CellSize;
+            MapCamera.StartMovingCameraToCursor();
         }
 
         public void MoveCursorInDirection(Direction direction)
@@ -98,6 +98,7 @@ namespace SolStandard.Map.Elements.Cursor
 
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
+            MapCamera.StartMovingCameraToCursor();
         }
 
         private void PreventCursorLeavingMapBounds()
@@ -154,6 +155,7 @@ namespace SolStandard.Map.Elements.Cursor
             if (slidingLeftWouldPassMapCoordinates) _currentPixelCoordinates.X = mapPixelCoordinates.X;
             if (slidingDownWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
             if (slidingUpWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
+
         }
 
         private void UpdateCursorTeam()
@@ -161,13 +163,13 @@ namespace SolStandard.Map.Elements.Cursor
             switch (GameContext.ActiveUnit.Team)
             {
                 case Team.Red:
-                    SpriteAtlas.CellIndex = (int) CursorColor.Red;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.Red);
                     break;
                 case Team.Blue:
-                    SpriteAtlas.CellIndex = (int) CursorColor.Blue;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
                     break;
                 default:
-                    SpriteAtlas.CellIndex = (int) CursorColor.White;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.White);
                     break;
             }
         }

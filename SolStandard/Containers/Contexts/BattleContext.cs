@@ -20,7 +20,6 @@ namespace SolStandard.Containers.Contexts
         {
             Start,
             RollDice,
-            CountDice,
             ResolveCombat,
         }
 
@@ -179,22 +178,13 @@ namespace SolStandard.Containers.Contexts
             battleUI.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
         }
 
-        public bool TryProceedToNextState()
+        public bool TryProceedToState(BattleState state)
         {
             if (currentlyResolvingBlocks || currentlyResolvingDamage || currentlyRolling) return false;
 
-            if (CurrentState == BattleState.ResolveCombat)
-            {
-                CurrentState = 0;
-                Trace.WriteLine("Resetting to initial combat state: " + CurrentState);
-                return true;
-            }
-            else
-            {
-                CurrentState++;
-                Trace.WriteLine("Changing combat state: " + CurrentState);
-                return true;
-            }
+            CurrentState = state;
+            Trace.WriteLine("Changing combat state: " + CurrentState);
+            return true;
         }
 
         public static bool CoordinatesAreInRange(Vector2 sourcePosition, Vector2 targetPosition,
@@ -228,7 +218,7 @@ namespace SolStandard.Containers.Contexts
                 rollingCounter = 0;
                 currentlyRolling = false;
 
-                SetPromptWindowText("Resolve Blocks.");
+                SetPromptWindowText("Resolve dice.");
             }
 
             const int renderDelay = 3;
@@ -239,7 +229,6 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.DiceRollSFX.Play();
             }
         }
-
 
         public void StartResolvingBlocks()
         {
@@ -284,7 +273,7 @@ namespace SolStandard.Containers.Contexts
 
                     currentlyResolvingBlocks = false;
 
-                    SetPromptWindowText("Resolve Damage.");
+                    StartResolvingDamage();
                 }
             }
         }

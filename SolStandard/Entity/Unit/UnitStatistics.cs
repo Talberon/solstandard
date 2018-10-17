@@ -12,47 +12,35 @@ namespace SolStandard.Entity.Unit
         Hp,
         Atk,
         Def,
-        Sp,
         Mv,
         AtkRange,
         BonusHp,
         BonusAtk,
         BonusDef,
-        BonusSp,
         BonusMv,
         BonusAtkRange
     }
 
     public class UnitStatistics
     {
-        private int hp;
-        private int atk;
-        private int def;
-        private int sp;
-        private int mv;
-        private int[] atkRange;
-
         private readonly int maxHp;
         private readonly int baseAtk;
         private readonly int baseDef;
-        private readonly int maxSp;
         private readonly int baseMv;
         private readonly int[] baseAtkRange;
 
 
-        public UnitStatistics(int hp, int atk, int def, int sp, int mv, int[] atkRange)
+        public UnitStatistics(int hp, int atk, int def, int mv, int[] atkRange)
         {
             Hp = hp;
             Atk = atk;
             Def = def;
-            Sp = sp;
             Mv = mv;
             AtkRange = atkRange;
 
             maxHp = hp;
             baseAtk = atk;
             baseDef = def;
-            maxSp = sp;
             baseMv = mv;
             baseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
@@ -72,11 +60,6 @@ namespace SolStandard.Entity.Unit
             get { return baseDef; }
         }
 
-        public int MaxSp
-        {
-            get { return maxSp; }
-        }
-
         public int BaseMv
         {
             get { return baseMv; }
@@ -87,41 +70,15 @@ namespace SolStandard.Entity.Unit
             get { return baseAtkRange; }
         }
 
-        public int Hp
-        {
-            get { return hp; }
-            set { hp = value; }
-        }
+        public int Hp { get; set; }
 
-        public int Atk
-        {
-            get { return atk; }
-            set { atk = value; }
-        }
+        public int Atk { get; set; }
 
-        public int Def
-        {
-            get { return def; }
-            set { def = value; }
-        }
+        public int Def { get; set; }
 
-        public int Sp
-        {
-            get { return sp; }
-            set { sp = value; }
-        }
+        public int Mv { get; set; }
 
-        public int Mv
-        {
-            get { return mv; }
-            set { mv = value; }
-        }
-
-        public int[] AtkRange
-        {
-            get { return atkRange; }
-            set { atkRange = value; }
-        }
+        public int[] AtkRange { get; set; }
 
 
         public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
@@ -138,8 +95,6 @@ namespace SolStandard.Entity.Unit
             output += "ATK: " + Atk.ToString() + "/" + baseAtk;
             output += Environment.NewLine;
             output += "DEF: " + Def.ToString() + "/" + baseDef;
-            output += Environment.NewLine;
-            output += "SP: " + Sp.ToString() + "/" + maxSp;
             output += Environment.NewLine;
             output += "MV: " + Mv.ToString() + "/" + baseMv;
             output += Environment.NewLine;

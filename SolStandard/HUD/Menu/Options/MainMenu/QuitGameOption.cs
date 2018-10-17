@@ -8,10 +8,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
     {
         private const string QuitGameOptionText = "Quit Game";
 
-        public QuitGameOption(Color windowColor) : base(
-            windowColor,
-            new RenderText(AssetManager.MainMenuFont, QuitGameOptionText)
-        )
+        public QuitGameOption(Color windowColor) : base(new RenderText(AssetManager.MainMenuFont, QuitGameOptionText), windowColor)
         {
         }
 

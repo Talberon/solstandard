@@ -27,9 +27,9 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
         }
 
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            if (TargetingSwitchAndNothingOnTargets(targetSlice))
+            if (TargetingSwitch(targetSlice) && NothingObstructingSwitchTarget())
             {
                 switchTile.ToggleActive();
 
@@ -41,31 +41,46 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
+                if (!TargetingSwitch(targetSlice))
+                {
+                    MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
+                }
+
+                if (!NothingObstructingSwitchTarget())
+                {
+                    MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
+                }
+
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        private bool TargetingSwitchAndNothingOnTargets(MapSlice targetSlice)
+        private static bool TargetingSwitch(MapSlice targetSlice)
         {
+            return targetSlice.DynamicEntity != null &&
+                   targetSlice.TerrainEntity is Switch;
+        }
+
+        private bool NothingObstructingSwitchTarget()
+        {
+            //Don't allow the switch to be triggered if any target tiles have a unit on them
             foreach (ILockable lockable in targetLockables)
             {
                 TerrainEntity entity = lockable as TerrainEntity;
                 if (entity == null) continue;
 
-                //Don't allow the switch to be triggered if any target tiles have a unit on them
                 if (MapContainer.GetMapSliceAtCoordinates(entity.MapCoordinates).UnitEntity != null)
                 {
                     return false;
                 }
             }
 
-            return targetSlice.DynamicEntity != null &&
-                   targetSlice.TerrainEntity is Switch;
+            return true;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Skills
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, MapContext mapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -34,16 +34,18 @@ namespace SolStandard.Entity.Unit.Skills
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
-                    eventQueue.Enqueue(new EndTurnEvent(ref mapContext));
+                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
+                    MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
+                MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -11,7 +11,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.UI
 {
-    public class ResultsUI : IUserInterface
+    public class StatusUI : IUserInterface
     {
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
@@ -38,7 +38,7 @@ namespace SolStandard.Containers.UI
 
         private readonly SpriteAtlas background;
 
-        public ResultsUI()
+        public StatusUI()
         {
             windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
@@ -72,7 +72,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.ResultsFont, "-RESULTS-")
+                            new RenderText(AssetManager.ResultsFont, "-STATUS-")
                         }
                     },
                     1

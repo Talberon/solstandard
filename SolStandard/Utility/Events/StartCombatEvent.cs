@@ -7,13 +7,13 @@ namespace SolStandard.Utility.Events
     public class StartCombatEvent : IEvent
     {
         private readonly GameUnit targetUnit;
-        private readonly MapContext mapContext;
+        private readonly GameMapContext gameMapContext;
         private readonly BattleContext battleContext;
 
-        public StartCombatEvent(GameUnit targetUnit, MapContext mapContext, BattleContext battleContext)
+        public StartCombatEvent(GameUnit targetUnit, GameMapContext gameMapContext, BattleContext battleContext)
         {
             this.targetUnit = targetUnit;
-            this.mapContext = mapContext;
+            this.gameMapContext = gameMapContext;
             this.battleContext = battleContext;
         }
 
@@ -21,9 +21,9 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            BasicAttack.StartCombat(targetUnit, mapContext, battleContext);
-            mapContext.SetPromptWindowText("Confirm End Turn");
-            mapContext.CurrentTurnState = MapContext.TurnState.UnitActing;
+            BasicAttack.StartCombat(targetUnit, gameMapContext, battleContext);
+            gameMapContext.SetPromptWindowText("Confirm End Turn");
+            gameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }
     }

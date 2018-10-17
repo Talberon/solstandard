@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
@@ -43,6 +44,7 @@ namespace SolStandard.Containers.UI
 
         public VerticalMenu ActionMenu { get; private set; }
         public Window ActionMenuDescriptionWindow { get; private set; }
+
 
         private bool visible;
 
@@ -155,6 +157,24 @@ namespace SolStandard.Containers.UI
             }
             else
             {
+                bool canMove = UnitMovingContext.CanMoveAtCoordinates(hoverSlice.MapCoordinates);
+
+                WindowContentGrid noEntityContent = new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new RenderText(AssetManager.WindowFont, "None"),
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
+                                (canMove) ? TerrainEntity.PositiveColor : TerrainEntity.NegativeColor)
+                        }
+                    },
+                    1
+                );
+
                 terrainContentGrid = new WindowContentGrid(
                     new IRenderable[,]
                     {
@@ -162,7 +182,7 @@ namespace SolStandard.Containers.UI
                             new Window(
                                 "No Entity Info",
                                 AssetManager.WindowTexture,
-                                new RenderText(AssetManager.WindowFont, "None"),
+                                noEntityContent,
                                 new Color(100, 100, 100, 180)
                             )
                         }

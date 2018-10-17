@@ -134,7 +134,9 @@ namespace SolStandard
                 new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
                 new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
                 new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank()),
-                new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank())
+                new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank()),
+                new MapInfo("Askar Desert", "Desert_01.tmx", new RenderBlank()),
+                new MapInfo("Chess Board", "Chesslike_01.tmx", new RenderBlank())
             };
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -208,6 +210,10 @@ namespace SolStandard
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D4))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
@@ -271,7 +277,7 @@ namespace SolStandard
                     _mapCamera.UpdateEveryFrame();
                     _gameContext.UpdateCamera(_mapCamera);
                     MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                    _gameContext.MapContext.UpdateHoverContextWindows(hoverTiles);
+                    _gameContext.GameMapContext.UpdateHoverContextWindows(hoverTiles);
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -305,6 +311,8 @@ namespace SolStandard
                     DrawMapSelectHUD();
                     break;
                 case GameContext.GameState.PauseScreen:
+                    DrawInGameMap();
+                    DrawPauseMenu();
                     break;
                 case GameContext.GameState.InGame:
                     DrawInGameMap();
@@ -317,6 +325,17 @@ namespace SolStandard
                     base.Draw(gameTime);
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void DrawPauseMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            _gameContext.GameMapContext.PauseMenuUI.Draw(spriteBatch);
+            spriteBatch.End();
         }
 
         private void DrawMainMenu()
@@ -358,7 +377,7 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            _gameContext.ResultsUI.Draw(spriteBatch);
+            _gameContext.StatusUI.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -368,7 +387,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
-            _gameContext.MapContext.MapContainer.Draw(spriteBatch);
+            _gameContext.GameMapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -378,13 +397,13 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            if (_gameContext.MapContext.CurrentTurnState == MapContext.TurnState.UnitActing)
+            if (_gameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {
                 _gameContext.BattleContext.Draw(spriteBatch);
             }
             else
             {
-                _gameContext.MapContext.GameMapUI.Draw(spriteBatch);
+                _gameContext.GameMapContext.GameMapUI.Draw(spriteBatch);
             }
 
             spriteBatch.End();

@@ -9,16 +9,13 @@ namespace SolStandard.Utility.Buttons
         {
         }
 
-        public override bool Pressed()
+        public override bool Pressed
         {
-            return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X > (GameControlMapper.StickThreshold) ||
-                   Keyboard.GetState().IsKeyDown(Keys.Right);
-        }
-
-        public override bool Released()
-        {
-            return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X < (GameControlMapper.StickThreshold) &&
-                   Keyboard.GetState().IsKeyUp(Keys.Right);
+            get
+            {
+                return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X > (GameControlMapper.StickThreshold) ||
+                       Keyboard.GetState().IsKeyDown(Keys.Right);
+            }
         }
     }
 }
