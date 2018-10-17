@@ -3923,8 +3923,8 @@
   <object id="654" name="Bridge" type="Movable" gid="2057" x="352" y="480" width="32" height="32"/>
   <object id="655" name="Bridge" type="Movable" gid="2057" x="384" y="480" width="32" height="32"/>
   <object id="656" name="Bridge" type="Movable" gid="2021" x="416" y="480" width="32" height="32"/>
-  <object id="657" name="Door B" type="Door" gid="236" x="960" y="448" width="32" height="32"/>
-  <object id="659" name="Door A" type="Door" gid="236" x="512" y="480" width="32" height="32"/>
+  <object id="657" name="Door B" type="Door" gid="237" x="960" y="448" width="32" height="32"/>
+  <object id="659" name="Door A" type="Door" gid="237" x="512" y="480" width="32" height="32"/>
   <object id="661" name="Drawbridge A" type="Drawbridge" gid="2058" x="704" y="416" width="32" height="32"/>
   <object id="662" name="Drawbridge A" type="Drawbridge" gid="2058" x="736" y="416" width="32" height="32"/>
   <object id="663" name="Drawbridge A" type="Drawbridge" gid="2058" x="768" y="416" width="32" height="32"/>
@@ -3938,8 +3938,8 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="667" name="Door C" type="Door" gid="236" x="960" y="576" width="32" height="32"/>
-  <object id="668" name="Door D" type="Door" gid="236" x="512" y="384" width="32" height="32"/>
+  <object id="667" name="Door C" type="Door" gid="237" x="960" y="576" width="32" height="32"/>
+  <object id="668" name="Door D" type="Door" gid="237" x="512" y="384" width="32" height="32"/>
   <object id="669" name="Bridge Switch" type="Switch" gid="250" x="608" y="448" width="32" height="32">
    <properties>
     <property name="triggersId" value="Drawbridge A"/>

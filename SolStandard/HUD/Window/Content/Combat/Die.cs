@@ -63,7 +63,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             int randomValue = GameDriver.Random.Next(0, 6);
             currentSide = (DieSides) randomValue;
-            dieAtlas.CellIndex = (int) currentSide + 1;
+            dieAtlas.SetCellIndex((int) currentSide + 1);
         }
 
         public FaceValue GetFaceValue()

@@ -163,13 +163,13 @@ namespace SolStandard.Map.Elements.Cursor
             switch (GameContext.ActiveUnit.Team)
             {
                 case Team.Red:
-                    SpriteAtlas.CellIndex = (int) CursorColor.Red;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.Red);
                     break;
                 case Team.Blue:
-                    SpriteAtlas.CellIndex = (int) CursorColor.Blue;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
                     break;
                 default:
-                    SpriteAtlas.CellIndex = (int) CursorColor.White;
+                    SpriteAtlas.SetCellIndex((int) CursorColor.White);
                     break;
             }
         }
