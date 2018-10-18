@@ -3,8 +3,12 @@ using SolStandard.Entity.Unit;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class DefeatCommander : WinCondition
+    public class DefeatCommander : Objective
     {
+        public DefeatCommander() : base("COMMANDER DEFEATED")
+        {
+        }
+
         public override bool ConditionsMet(GameContext gameContext)
         {
             List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
@@ -12,20 +16,20 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
             if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
             {
-                BothTeamsLose = true;
-                return BothTeamsLose;
+                GameIsADraw = true;
+                return GameIsADraw;
             }
 
             if (TeamMonarchsAreAllDead(blueTeam))
             {
-                BlueTeamWins = true;
-                return BlueTeamWins;
+                RedTeamWins = true;
+                return RedTeamWins;
             }
 
             if (TeamMonarchsAreAllDead(redTeam))
             {
-                RedTeamWins = true;
-                return RedTeamWins;
+                BlueTeamWins = true;
+                return BlueTeamWins;
             }
 
             return false;

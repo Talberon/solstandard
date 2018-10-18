@@ -1,9 +1,13 @@
 ﻿namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class Surrender : WinCondition
+    public class Surrender : Objective
     {
         public bool BlueConcedes { private get; set; }
         public bool RedConcedes { private get; set; }
+
+        public Surrender() : base("SURRENDER")
+        {
+        }
 
         public override bool ConditionsMet(GameContext gameContext)
         {

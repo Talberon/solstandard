@@ -31,6 +31,7 @@ namespace SolStandard.Containers.UI
 
         public string BlueTeamResultText { private get; set; }
         public string RedTeamResultText { private get; set; }
+        public string ResultLabelText { private get; set; }
 
         private readonly ITexture2D windowTexture;
 
@@ -43,6 +44,7 @@ namespace SolStandard.Containers.UI
             windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
+            ResultLabelText = "STATUS";
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                 GameDriver.ScreenSize, 1);
@@ -72,7 +74,7 @@ namespace SolStandard.Containers.UI
                     new IRenderable[,]
                     {
                         {
-                            new RenderText(AssetManager.ResultsFont, "-STATUS-")
+                            new RenderText(AssetManager.ResultsFont, ResultLabelText)
                         }
                     },
                     1

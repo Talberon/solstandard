@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
@@ -101,11 +103,11 @@ namespace SolStandard.Containers.UI
         public void GenerateTurnWindow(Vector2 windowSize)
         {
             string turnInfo = "Turn: " + GameContext.TurnCounter;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Round: " + GameContext.RoundCounter;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(
@@ -195,8 +197,45 @@ namespace SolStandard.Containers.UI
 
         public void GenerateHelpWindow(string helpText)
         {
+            Color helpWindowColor = new Color(30, 30, 30, 150);
+
             IRenderable textToRender = new RenderText(AssetManager.WindowFont, helpText);
-            HelpTextWindow = new Window("Help Text", windowTexture, textToRender, new Color(30, 30, 30, 150));
+
+            Taxes taxes = GameContext.Scenario.Objectives[VictoryConditions.Taxes] as Taxes;
+            int targetGold = 0;
+            if (taxes != null)
+            {
+                targetGold = taxes.TargetGold;
+            }
+
+            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                        new RenderText(AssetManager.WindowFont, "Gold Count"),
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            "Blue: " + Taxes.CollectedGold(Team.Blue) + "/" + targetGold + " G"),
+                        new RenderText(AssetManager.WindowFont,
+                            "Red: " + Taxes.CollectedGold(Team.Red) + "/" + targetGold + " G")
+                    }
+                },
+                2
+            );
+
+
+            WindowContentGrid helpWindowContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {new Window("HelpText", windowTexture, textToRender, helpWindowColor)},
+                    {new Window("HelpText", windowTexture, teamGoldWindowContentGrid, helpWindowColor)}
+                },
+                1
+            );
+
+            HelpTextWindow = new Window("Help Text", windowTexture, helpWindowContentGrid, Color.Transparent);
         }
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)

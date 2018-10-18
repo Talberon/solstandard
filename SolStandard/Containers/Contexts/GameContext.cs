@@ -33,7 +33,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private readonly BattleContext battleContext;
-        public static GameScenario GameScenario { get; private set; }
+        public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
         public GameMapContext GameMapContext { get; private set; }
         public StatusUI StatusUI { get; private set; }
@@ -94,21 +94,23 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        //FIXME Read the different available scenarios from the props of the Map that gets selected on the select screen
-        private static List<WinCondition> DefaultScenarios
+        //TODO Read the different available scenarios from the props of the Map that gets selected on the select screen
+        private static Dictionary<VictoryConditions, Objective> DefaultScenarios
         {
             get
             {
-                return new List<WinCondition>
+                return new Dictionary<VictoryConditions, Objective>
                 {
-                    new DefeatCommander()
+                    {VictoryConditions.Surrender, new Surrender()},
+                    {VictoryConditions.DefeatCommander, new DefeatCommander()},
+                    {VictoryConditions.Taxes, new Taxes(100)}
                 };
             }
         }
 
         public void StartGame(string mapPath)
         {
-            GameScenario = new GameScenario(DefaultScenarios);
+            Scenario = new Scenario(DefaultScenarios);
 
             LoadMap(mapPath);
 
@@ -277,7 +279,7 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
-            GameScenario.CheckForWinState(this);
+            Scenario.CheckForWinState(this);
 
             GameMapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
@@ -295,7 +297,6 @@ namespace SolStandard.Containers.Contexts
                 EndTurnIfUnitIsDead();
             }
 
-            GameMapContext.UpdateWindowsEachTurn();
             StatusUI.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();

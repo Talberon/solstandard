@@ -45,11 +45,12 @@
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
-    <Compile Include="Containers\Contexts\GameScenario.cs" />
+    <Compile Include="Containers\Contexts\Scenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\DefeatCommander.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\WinCondition.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Objective.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Surrender.cs" />
     <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
