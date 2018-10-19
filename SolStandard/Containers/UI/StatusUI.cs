@@ -31,7 +31,7 @@ namespace SolStandard.Containers.UI
 
         public string BlueTeamResultText { private get; set; }
         public string RedTeamResultText { private get; set; }
-        public string ResultLabelText { private get; set; }
+        public IRenderable ResultLabelContent { private get; set; }
 
         private readonly ITexture2D windowTexture;
 
@@ -44,7 +44,7 @@ namespace SolStandard.Containers.UI
             windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
-            ResultLabelText = "STATUS";
+            ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                 GameDriver.ScreenSize, 1);
@@ -67,25 +67,12 @@ namespace SolStandard.Containers.UI
 
         private void GenerateResultsLabelWindow()
         {
-            ResultsLabelWindow = new Window(
-                "Versus Window",
-                windowTexture,
-                new WindowContentGrid(
-                    new IRenderable[,]
-                    {
-                        {
-                            new RenderText(AssetManager.ResultsFont, ResultLabelText)
-                        }
-                    },
-                    1
-                ),
-                BackgroundColor
-            );
+            ResultsLabelWindow = new Window("Versus Window", windowTexture, ResultLabelContent, BackgroundColor);
         }
 
         private void GenerateBlueTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = {{FindTeamLeader(Team.Blue, Role.Monarch).LargePortrait}};
+            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Monarch));
 
             BlueTeamLeaderPortrait = new Window(
                 "Blue Leader Portrait Window",
@@ -125,12 +112,12 @@ namespace SolStandard.Containers.UI
 
         private void GenerateRedTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = {{FindTeamLeader(Team.Red, Role.Monarch).LargePortrait}};
+            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Monarch));
 
             RedTeamLeaderPortrait = new Window(
                 "Red Leader Portrait Window",
                 windowTexture,
-                new WindowContentGrid(blueLeaderContent, 1),
+                new WindowContentGrid(redLeaderContent, 1),
                 TeamUtility.DetermineTeamColor(Team.Red)
             );
         }
@@ -163,10 +150,20 @@ namespace SolStandard.Containers.UI
             );
         }
 
-
         private static GameUnit FindTeamLeader(Team team, Role role)
         {
             return GameContext.Units.Find(unit => unit.Team == team && unit.Role == role);
+        }
+
+        private static IRenderable[,] LeaderContent(GameUnit leader)
+        {
+            IRenderable[,] redLeaderContent =
+            {
+                {
+                    leader.LargePortrait
+                },
+            };
+            return redLeaderContent;
         }
 
 
@@ -195,6 +192,9 @@ namespace SolStandard.Containers.UI
                     },
                     {
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
+                    },
+                    {
+                        new RenderText(AssetManager.MapFont, unit.CurrentGold + "G")
                     }
                 };
 

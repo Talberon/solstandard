@@ -25,8 +25,7 @@ namespace SolStandard.Utility.Events
                 gameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             }
 
-            gameMapContext.UpdateWindowsEachTurn();
-            gameMapContext.SetPromptWindowText("Confirm End Turn");
+            GameMapContext.SetPromptWindowText("Confirm End Turn");
             gameMapContext.CurrentTurnState = GameMapContext.TurnState.ResolvingTurn;
             Complete = true;
         }

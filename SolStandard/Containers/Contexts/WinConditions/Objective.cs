@@ -1,26 +1,34 @@
-﻿using SolStandard.Utility.Assets;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
     public abstract class Objective
     {
-        public string VictoryLabelText { get; private set; }
-
+        public IRenderable VictoryLabelContent { get; private set; }
+        protected static Color ObjectiveWindowColor = new Color(60, 60, 60, 180);
         protected bool BlueTeamWins;
         protected bool RedTeamWins;
         protected bool GameIsADraw;
 
-        protected Objective(string victoryLabelText)
+        protected Objective(IRenderable victoryLabelContent)
         {
-            VictoryLabelText = victoryLabelText;
+            VictoryLabelContent = victoryLabelContent;
+        }
+
+        public virtual IRenderable ObjectiveInfo
+        {
+            get { return new RenderBlank(); }
         }
 
         public abstract bool ConditionsMet(GameContext gameContext);
 
         public void EndGame(GameContext gameContext)
         {
-            gameContext.StatusUI.ResultLabelText = VictoryLabelText;
+            gameContext.StatusUI.ResultLabelContent = VictoryLabelContent;
 
             if (RedTeamWins)
             {

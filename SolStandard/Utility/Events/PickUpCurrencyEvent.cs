@@ -22,6 +22,7 @@ namespace SolStandard.Utility.Events
             GameContext.ActiveUnit.CurrentGold += currency.Value;
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
+            GameMapContext.GameMapUI.GenerateObjectiveWindow();
             Complete = true;
         }
 

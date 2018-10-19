@@ -403,7 +403,7 @@ namespace SolStandard
             }
             else
             {
-                _gameContext.GameMapContext.GameMapUI.Draw(spriteBatch);
+                GameMapContext.GameMapUI.Draw(spriteBatch);
             }
 
             spriteBatch.End();

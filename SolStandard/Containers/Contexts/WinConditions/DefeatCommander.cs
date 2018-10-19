@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class DefeatCommander : Objective
     {
-        public DefeatCommander() : base("COMMANDER DEFEATED")
+        public DefeatCommander() : base(
+            new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED")
+        )
         {
         }
 

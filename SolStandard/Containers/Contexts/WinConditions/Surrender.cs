@@ -1,11 +1,16 @@
-﻿namespace SolStandard.Containers.Contexts.WinConditions
+﻿using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
+
+namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Surrender : Objective
     {
         public bool BlueConcedes { private get; set; }
         public bool RedConcedes { private get; set; }
 
-        public Surrender() : base("SURRENDER")
+        public Surrender() : base(
+            new RenderText(AssetManager.ResultsFont, "SURRENDER")
+        )
         {
         }
 

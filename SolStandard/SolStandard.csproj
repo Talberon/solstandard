@@ -224,6 +224,7 @@
     <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
     <Compile Include="Utility\Randomizer.cs" />
     <Compile Include="Utility\SpriteAtlas.cs" />
+    <Compile Include="Utility\ArrayToList.cs" />
     <Compile Include="Utility\UnitSelector.cs" />
   </ItemGroup>
   <ItemGroup>

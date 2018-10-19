@@ -285,6 +285,7 @@ namespace SolStandard.Containers.Contexts
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
+            GameMapContext.UpdateWindowsEachTurn();
             GameMapContext.ResetCursorToActiveUnit();
             MapCamera.CenterCameraToCursor();
 

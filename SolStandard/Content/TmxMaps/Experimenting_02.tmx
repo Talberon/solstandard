@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="40" height="25" tilewidth="32" tileheight="32" infinite="0" nextobjectid="630">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="40" height="25" tilewidth="32" tileheight="32" infinite="0" nextobjectid="657">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="392" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="1792"/>
  </tileset>
@@ -461,6 +461,9 @@
   <tile id="2777" terrain="13,13,13,13"/>
   <tile id="2778" terrain="13,13,13,13"/>
   <tile id="2779" terrain="13,13,13,13"/>
+ </tileset>
+ <tileset firstgid="8961" name="entities-32" tilewidth="32" tileheight="32" tilecount="392" columns="7">
+  <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="1792"/>
  </tileset>
  <layer name="Terrain" width="40" height="25">
   <data>
@@ -3571,8 +3574,115 @@
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
+  <object id="651" name="Treasure Chest" type="Chest" gid="205" x="1056" y="704" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="25"/>
+   </properties>
+  </object>
+  <object id="652" name="Treasure Chest" type="Chest" gid="205" x="224" y="736" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="25"/>
+   </properties>
+  </object>
+  <object id="653" name="Locked Chest A" type="Chest" gid="206" x="672" y="416" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="50"/>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="Items"/>
+ <objectgroup name="Items">
+  <object id="630" name="Treasure" type="Currency" gid="9334" x="352" y="768" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="631" name="Treasure" type="Currency" gid="9333" x="576" y="640" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="636" name="Treasure" type="Currency" gid="9340" x="1152" y="480" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="638" name="Treasure" type="Currency" gid="9340" x="896" y="96" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="639" name="Treasure" type="Currency" gid="9340" x="64" y="256" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="640" name="Treasure" type="Currency" gid="9334" x="672" y="640" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="641" name="Treasure" type="Currency" gid="9334" x="960" y="256" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="642" name="Treasure" type="Currency" gid="9334" x="640" y="160" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="643" name="Treasure" type="Currency" gid="9334" x="224" y="128" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="644" name="Treasure" type="Currency" gid="9333" x="736" y="384" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="645" name="Treasure" type="Currency" gid="9333" x="416" y="352" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="646" name="Treasure" type="Currency" gid="9333" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="647" name="Treasure" type="Currency" gid="9333" x="896" y="608" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="648" name="Treasure" type="Currency" gid="9333" x="992" y="384" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="649" name="Treasure" type="Currency" gid="9333" x="768" y="224" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="650" name="Treasure" type="Currency" gid="9334" x="352" y="256" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="655" name="Chest A Key" type="Key" gid="388" x="1248" y="320" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Locked Chest A"/>
+   </properties>
+  </object>
+  <object id="656" name="Chest A Key" type="Key" gid="388" x="0" y="480" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Locked Chest A"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="Units">
   <object id="517" name="Horatio" type="Unit" gid="393" x="768" y="320" width="32" height="32">
    <properties>

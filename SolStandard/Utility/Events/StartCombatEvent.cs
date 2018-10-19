@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             BasicAttack.StartCombat(targetUnit, gameMapContext, battleContext);
-            gameMapContext.SetPromptWindowText("Confirm End Turn");
+            GameMapContext.SetPromptWindowText("Confirm End Turn");
             gameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }

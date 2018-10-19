@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
@@ -41,6 +40,7 @@ namespace SolStandard.Containers.UI
         public Window InitiativeWindow { get; private set; }
         public Window EntityWindow { get; private set; }
         public Window HelpTextWindow { get; private set; }
+        public Window ObjectiveWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
 
@@ -201,42 +201,23 @@ namespace SolStandard.Containers.UI
 
             IRenderable textToRender = new RenderText(AssetManager.WindowFont, helpText);
 
-            Taxes taxes = GameContext.Scenario.Objectives[VictoryConditions.Taxes] as Taxes;
-            int targetGold = 0;
-            if (taxes != null)
-            {
-                targetGold = taxes.TargetGold;
-            }
-
-            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
-                new IRenderable[,]
-                {
-                    {
-                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
-                        new RenderText(AssetManager.WindowFont, "Gold Count"),
-                    },
-                    {
-                        new RenderText(AssetManager.WindowFont,
-                            "Blue: " + Taxes.CollectedGold(Team.Blue) + "/" + targetGold + " G"),
-                        new RenderText(AssetManager.WindowFont,
-                            "Red: " + Taxes.CollectedGold(Team.Red) + "/" + targetGold + " G")
-                    }
-                },
-                2
-            );
-
 
             WindowContentGrid helpWindowContentGrid = new WindowContentGrid(
                 new IRenderable[,]
                 {
                     {new Window("HelpText", windowTexture, textToRender, helpWindowColor)},
-                    {new Window("HelpText", windowTexture, teamGoldWindowContentGrid, helpWindowColor)}
                 },
                 1
             );
 
             HelpTextWindow = new Window("Help Text", windowTexture, helpWindowContentGrid, Color.Transparent);
         }
+
+        public void GenerateObjectiveWindow()
+        {
+            ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
+        }
+
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
@@ -539,6 +520,11 @@ namespace SolStandard.Containers.UI
             );
         }
 
+        private Vector2 ObjectiveWindowPosition()
+        {
+            return new Vector2(screenSize.X / 2 - (float) ObjectiveWindow.Width / 2, WindowEdgeBuffer);
+        }
+
         #endregion Window Positions
 
         public void ToggleVisible()
@@ -623,6 +609,11 @@ namespace SolStandard.Containers.UI
                 {
                     ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
                 }
+            }
+
+            if (ObjectiveWindow != null)
+            {
+                ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
             }
         }
     }

@@ -1,16 +1,56 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Taxes : Objective
     {
-        public int TargetGold { get; private set; }
+        public static int TargetGold { get; private set; }
 
-        public Taxes(int targetGold) : base("GOLD TARGET REACHED")
+        public Taxes(int targetGold) : base(
+            GetGoldWindow(AssetManager.ResultsFont)
+        )
         {
             TargetGold = targetGold;
+        }
+
+        public override IRenderable ObjectiveInfo
+        {
+            get { return GetGoldWindow(AssetManager.WindowFont); }
+        }
+
+        private static IRenderable GetGoldWindow(ISpriteFont font)
+        {
+            Window blueGoldWindow = new Window("BlueGold", AssetManager.WindowTexture,
+                new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + " G"),
+                TeamUtility.DetermineTeamColor(Team.Blue));
+
+            Window redGoldWindow = new Window("RedGold", AssetManager.WindowTexture,
+                new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + TargetGold + " G"),
+                TeamUtility.DetermineTeamColor(Team.Red));
+
+            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        blueGoldWindow,
+                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize),
+                            new Vector2(blueGoldWindow.Height), 1),
+                        redGoldWindow,
+                    }
+                },
+                2,
+                HorizontalAlignment.Centered
+            );
+            return new Window("HelpText", AssetManager.WindowTexture, teamGoldWindowContentGrid,
+                ObjectiveWindowColor);
         }
 
         public override bool ConditionsMet(GameContext gameContext)
