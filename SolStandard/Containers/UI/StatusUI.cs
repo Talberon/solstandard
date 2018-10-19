@@ -201,7 +201,7 @@ namespace SolStandard.Containers.UI
                 IRenderable singleUnitContent = new Window(
                     "Unit " + unit.Id + " Window",
                     windowTexture,
-                    new WindowContentGrid(unitContent, 2),
+                    new WindowContentGrid(unitContent, 2, HorizontalAlignment.Centered),
                     TeamUtility.DetermineTeamColor(unit.Team)
                 );
 

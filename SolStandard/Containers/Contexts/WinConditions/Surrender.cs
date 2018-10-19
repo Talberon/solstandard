@@ -1,4 +1,5 @@
 ﻿using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
@@ -8,10 +9,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
         public bool BlueConcedes { private get; set; }
         public bool RedConcedes { private get; set; }
 
-        public Surrender() : base(
-            new RenderText(AssetManager.ResultsFont, "SURRENDER")
-        )
+        
+        protected override IRenderable VictoryLabelContent
         {
+            get { return new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDER!"); }
         }
 
         public override bool ConditionsMet(GameContext gameContext)

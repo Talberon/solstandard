@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class DefeatCommander : Objective
     {
-        public DefeatCommander() : base(
-            new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED")
-        )
+        protected override IRenderable VictoryLabelContent
         {
+            get { return new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED"); }
         }
 
         public override bool ConditionsMet(GameContext gameContext)

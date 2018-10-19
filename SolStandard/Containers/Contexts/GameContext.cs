@@ -145,10 +145,10 @@ namespace SolStandard.Containers.Contexts
 
             LoadMapContainer(mapParser);
             LoadInitiativeContext(mapParser);
-            LoadResultsUI();
+            LoadStatusUI();
         }
 
-        private void LoadResultsUI()
+        private void LoadStatusUI()
         {
             StatusUI = new StatusUI();
         }

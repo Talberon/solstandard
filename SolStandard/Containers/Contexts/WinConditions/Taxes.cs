@@ -14,11 +14,14 @@ namespace SolStandard.Containers.Contexts.WinConditions
     {
         public static int TargetGold { get; private set; }
 
-        public Taxes(int targetGold) : base(
-            GetGoldWindow(AssetManager.ResultsFont)
-        )
+        public Taxes(int targetGold)
         {
             TargetGold = targetGold;
+        }
+
+        protected override IRenderable VictoryLabelContent
+        {
+            get { return GetGoldWindow(AssetManager.ResultsFont); }
         }
 
         public override IRenderable ObjectiveInfo
@@ -29,11 +32,11 @@ namespace SolStandard.Containers.Contexts.WinConditions
         private static IRenderable GetGoldWindow(ISpriteFont font)
         {
             Window blueGoldWindow = new Window("BlueGold", AssetManager.WindowTexture,
-                new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + " G"),
+                new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Blue));
 
             Window redGoldWindow = new Window("RedGold", AssetManager.WindowTexture,
-                new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + TargetGold + " G"),
+                new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + TargetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Red));
 
             WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
