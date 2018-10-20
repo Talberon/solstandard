@@ -7,21 +7,21 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Terrain
+namespace SolStandard.Entity.Unit.Actions.Terrain
 {
-    public class TakeSpoilsAction : UnitAction
+    public class PickUpCurrencyAction : UnitAction
     {
-        private readonly Spoils spoils;
+        private readonly Currency currency;
 
-        public TakeSpoilsAction(Spoils spoils) : base(
-            icon: spoils.RenderSprite,
-            name: "Claim Spoils",
-            description: "Take all of the currency and items from the bag of spoils.",
+        public PickUpCurrencyAction(Currency currency) : base(
+            icon: currency.RenderSprite,
+            name: "Pick Up",
+            description: "Add [" + currency.Value + "] to your unit's money count.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1}
+            range: currency.Range
         )
         {
-            this.spoils = spoils;
+            this.currency = currency;
         }
 
         public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
@@ -31,21 +31,21 @@ namespace SolStandard.Entity.Unit.Skills.Terrain
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new TakeSpoilsEvent(spoils));
+                eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return spoils == targetSlice.ItemEntity &&
+            return currency.MapCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
                    targetSlice.DynamicEntity != null;
         }
     }

@@ -7,45 +7,46 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Terrain
+namespace SolStandard.Entity.Unit.Actions.Terrain
 {
-    public class DropItemAction : UnitAction
+    public class TakeSpoilsAction : UnitAction
     {
-        private readonly IItem item;
+        private readonly Spoils spoils;
 
-        public DropItemAction(IItem item) : base(
-            icon: item.Icon,
-            name: "Drop: " + item.Name,
-            description: "Drop this item on an empty item tile.",
+        public TakeSpoilsAction(Spoils spoils) : base(
+            icon: spoils.RenderSprite,
+            name: "Claim Spoils",
+            description: "Take all of the currency and items from the bag of spoils.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0, 1}
         )
         {
-            this.item = item;
+            this.spoils = spoils;
         }
 
         public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
-            TerrainEntity itemTile = item as TerrainEntity;
-
-            if (CanPlaceItemAtSlice(itemTile, targetSlice))
+            if (SelectingItemAtUnitLocation(targetSlice))
             {
+                MapContainer.ClearDynamicAndPreviewGrids();
+
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new DropItemEvent(itemTile, targetSlice.MapCoordinates));
+                eventQueue.Enqueue(new TakeSpoilsEvent(spoils));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 50);
+                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        private static bool CanPlaceItemAtSlice(TerrainEntity itemTile, MapSlice targetSlice)
+        private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null;
+            return spoils == targetSlice.ItemEntity &&
+                   targetSlice.DynamicEntity != null;
         }
     }
 }

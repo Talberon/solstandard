@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills.Archer;
+using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events

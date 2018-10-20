@@ -7,7 +7,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Terrain
+namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class ToggleSwitchAction : UnitAction
     {

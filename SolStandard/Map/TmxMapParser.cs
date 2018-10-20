@@ -58,7 +58,7 @@ namespace SolStandard.Map
             {"Artillery", EntityTypes.Artillery},
             {"Railgun", EntityTypes.Railgun},
             {"Seize", EntityTypes.Seize},
-            {"Shovable", EntityTypes.Shovable}
+            {"IShovable", EntityTypes.Shovable}
         };
 
         private readonly string objectTypesDefaultXmlPath;

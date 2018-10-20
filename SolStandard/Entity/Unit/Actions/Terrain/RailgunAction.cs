@@ -7,7 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
-namespace SolStandard.Entity.Unit.Skills.Terrain
+namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class RailgunAction : UnitAction
     {

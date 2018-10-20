@@ -9,7 +9,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Archer
+namespace SolStandard.Entity.Unit.Actions.Archer
 {
     public class Harpoon : UnitAction
     {

@@ -9,19 +9,19 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Champion
+namespace SolStandard.Entity.Unit.Actions.Monarch
 {
-    public class Cover : UnitAction
+    public class DoubleTime : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Cover(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cover, new Vector2(32)),
-            name: "Cover",
-            description: "Increase an ally's DEF by [+" + statModifier + "] for [" + duration + "] turns.",
+        public DoubleTime(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(32)),
+            name: "Double Time",
+            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1, 2}
         )
         {
             this.statModifier = statModifier;
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Skills.Champion
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new DefStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new MoveStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

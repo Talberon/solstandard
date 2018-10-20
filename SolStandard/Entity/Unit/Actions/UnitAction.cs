@@ -7,7 +7,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.Unit.Skills
+namespace SolStandard.Entity.Unit.Actions
 {
     public abstract class UnitAction
     {

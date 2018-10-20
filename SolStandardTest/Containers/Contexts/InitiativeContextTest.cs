@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Actions;
 using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.Containers.Contexts

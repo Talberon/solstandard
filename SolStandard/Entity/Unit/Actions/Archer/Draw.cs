@@ -9,42 +9,42 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Monarch
+namespace SolStandard.Entity.Unit.Actions.Archer
 {
-    public class Inspire : UnitAction
+    public class Draw : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Inspire(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
-            name: "Inspire",
-            description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
-                         " ] turns.",
+        public Draw(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(32)),
+            name: "Draw",
+            description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {0}
         )
         {
+            //Add one to the duration to compensate for the counter going down right after the user's turn ends.
+            this.duration = duration + 1;
             this.statModifier = statModifier;
-            this.duration = duration;
         }
 
         public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnAllyInRange(targetSlice, targetUnit))
+            if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkRangeStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Assets;
 

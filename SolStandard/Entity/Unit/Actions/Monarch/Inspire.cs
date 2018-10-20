@@ -9,17 +9,18 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Monarch
+namespace SolStandard.Entity.Unit.Actions.Monarch
 {
-    public class DoubleTime : UnitAction
+    public class Inspire : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public DoubleTime(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(32)),
-            name: "Double Time",
-            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
+        public Inspire(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
+            name: "Inspire",
+            description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
+                         " ] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -37,7 +38,7 @@ namespace SolStandard.Entity.Unit.Skills.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new MoveStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

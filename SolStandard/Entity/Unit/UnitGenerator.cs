@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using SolStandard.Entity.Unit.Skills;
-using SolStandard.Entity.Unit.Skills.Archer;
-using SolStandard.Entity.Unit.Skills.Champion;
-using SolStandard.Entity.Unit.Skills.Mage;
-using SolStandard.Entity.Unit.Skills.Monarch;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Archer;
+using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Entity.Unit.Actions.Mage;
+using SolStandard.Entity.Unit.Actions.Monarch;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit

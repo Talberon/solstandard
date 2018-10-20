@@ -9,7 +9,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Mage
+namespace SolStandard.Entity.Unit.Actions.Mage
 {
     public class Blink : UnitAction
     {

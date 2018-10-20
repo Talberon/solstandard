@@ -8,7 +8,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills.Champion
+namespace SolStandard.Entity.Unit.Actions.Champion
 {
     public class Tackle : UnitAction
     {

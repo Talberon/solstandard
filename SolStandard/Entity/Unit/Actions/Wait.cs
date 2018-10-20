@@ -7,7 +7,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Skills
+namespace SolStandard.Entity.Unit.Actions
 {
     public class Wait : UnitAction
     {
