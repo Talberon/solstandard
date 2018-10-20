@@ -13,7 +13,8 @@ namespace SolStandard.Containers.Contexts
     {
         Surrender,
         DefeatCommander,
-        Taxes
+        Taxes,
+        LastMan
     }
 
     public class Scenario

@@ -29,25 +29,28 @@ namespace SolStandard.Containers.Contexts.WinConditions
             {
                 gameContext.StatusUI.RedTeamResultText = "RED TEAM WINS!";
                 gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")), 0.5f);
+                TransferToResultsScreen();
             }
 
             if (BlueTeamWins)
             {
                 gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM WINS!";
                 gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")), 0.5f);
+                TransferToResultsScreen();
             }
 
             if (GameIsADraw)
             {
                 gameContext.StatusUI.BlueTeamResultText = "DRAW...";
                 gameContext.StatusUI.RedTeamResultText = "DRAW...";
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-                MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")), 0.5f);
+                TransferToResultsScreen();
             }
+        }
+
+        private static void TransferToResultsScreen()
+        {
+            GameContext.CurrentGameState = GameContext.GameState.Results;
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryTheme")), 0.5f);
         }
     }
 }

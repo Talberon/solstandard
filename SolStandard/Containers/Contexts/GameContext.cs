@@ -101,9 +101,10 @@ namespace SolStandard.Containers.Contexts
             {
                 return new Dictionary<VictoryConditions, Objective>
                 {
+                    {VictoryConditions.Taxes, new Taxes(100)},
                     {VictoryConditions.Surrender, new Surrender()},
                     {VictoryConditions.DefeatCommander, new DefeatCommander()},
-                    {VictoryConditions.Taxes, new Taxes(100)}
+                    {VictoryConditions.LastMan, new RoutArmy()}
                 };
             }
         }
