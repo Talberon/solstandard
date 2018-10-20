@@ -58,7 +58,7 @@ namespace SolStandard.Map
             {"Artillery", EntityTypes.Artillery},
             {"Railgun", EntityTypes.Railgun},
             {"Seize", EntityTypes.Seize},
-            {"IShovable", EntityTypes.Shovable}
+            {"Pushable", EntityTypes.Pushable}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -405,7 +405,14 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["capturableByRed"])
                                         );
                                         break;
-                                    case EntityTypes.Shovable:
+                                    case EntityTypes.Pushable:
+                                        entityGrid[col, row] = new PushBlock(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties
+                                        );
                                         break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(

@@ -25,7 +25,7 @@ namespace SolStandard.Entity.General
         Artillery,
         Railgun,
         Seize,
-        Shovable,
+        Pushable,
         SelectMap,
         Unit
     }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
  <objecttype name="Artillery" color="#f42ad9">
   <property name="canMove" type="bool" default="true"/>
@@ -51,7 +51,6 @@
   <property name="destinationId" type="string" default="DEFAULT"/>
   <property name="range" type="string" default="0"/>
  </objecttype>
- <objecttype name="IShovable" color="#6672b5"/>
  <objecttype name="Railgun" color="#67ba67">
   <property name="canMove" type="bool" default="true"/>
   <property name="range" type="int" default="5"/>
@@ -64,6 +63,7 @@
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
  </objecttype>
+ <objecttype name="Pushable" color="#6672b5"/>
  <objecttype name="Switch" color="#ff7029">
   <property name="canMove" type="bool" default="false"/>
   <property name="isActive" type="bool" default="false"/>

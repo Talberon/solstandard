@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 
@@ -20,7 +21,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction TileAction()
         {
-            throw new System.NotImplementedException();
+            return new PushBlockAction(this, MapCoordinates);
         }
     }
 }
