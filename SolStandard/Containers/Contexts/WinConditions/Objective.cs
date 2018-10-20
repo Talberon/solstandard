@@ -6,6 +6,15 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
+    public enum VictoryConditions
+    {
+        Surrender,
+        DefeatCommander,
+        Taxes,
+        LastMan,
+        Seize
+    }
+    
     public abstract class Objective
     {
         protected abstract IRenderable VictoryLabelContent { get; }

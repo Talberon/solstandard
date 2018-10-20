@@ -57,7 +57,8 @@ namespace SolStandard
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1600,
-                PreferredBackBufferHeight = 900
+                PreferredBackBufferHeight = 900,
+                GraphicsProfile = GraphicsProfile.HiDef
             };
 
             //FIXME HACK move the window away from the top of the screen
@@ -70,7 +71,8 @@ namespace SolStandard
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
-                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height
+                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height,
+                GraphicsProfile = GraphicsProfile.HiDef
             };
 
             Window.Position = new Point(0, 0);

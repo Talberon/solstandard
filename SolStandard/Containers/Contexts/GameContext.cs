@@ -104,7 +104,8 @@ namespace SolStandard.Containers.Contexts
                     {VictoryConditions.Taxes, new Taxes(100)},
                     {VictoryConditions.Surrender, new Surrender()},
                     {VictoryConditions.DefeatCommander, new DefeatCommander()},
-                    {VictoryConditions.LastMan, new RoutArmy()}
+                    {VictoryConditions.LastMan, new RoutArmy()},
+                    {VictoryConditions.Seize, new Seize()}
                 };
             }
         }

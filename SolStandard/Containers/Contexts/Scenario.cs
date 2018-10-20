@@ -9,13 +9,6 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
-    public enum VictoryConditions
-    {
-        Surrender,
-        DefeatCommander,
-        Taxes,
-        LastMan
-    }
 
     public class Scenario
     {

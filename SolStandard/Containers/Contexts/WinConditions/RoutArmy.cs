@@ -21,8 +21,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
             if (AllUnitsDeadExceptMonarch(blueTeam) && AllUnitsDeadExceptMonarch(redTeam))
             {
-                GameIsADraw = true;
-                return GameIsADraw;
+                //Let the Commanders fight it out.
+                return false;
             }
 
             if (AllUnitsDeadExceptMonarch(blueTeam))

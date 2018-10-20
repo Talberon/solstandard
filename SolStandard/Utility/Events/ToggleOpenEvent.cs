@@ -1,4 +1,5 @@
-﻿using SolStandard.Entity;
+﻿using SolStandard.Containers.Contexts;
+using SolStandard.Entity;
 
 namespace SolStandard.Utility.Events
 {
@@ -18,6 +19,7 @@ namespace SolStandard.Utility.Events
             if (!openable.IsOpen)
             {
                 openable.Open();
+                GameMapContext.GameMapUI.GenerateObjectiveWindow();
             }
             else
             {

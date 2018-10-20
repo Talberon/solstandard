@@ -51,13 +51,14 @@ namespace SolStandard.Map
             {"Movable", EntityTypes.Movable},
             {"SelectMap", EntityTypes.SelectMap},
             {"Unit", EntityTypes.Unit},
-            {"Interactive", EntityTypes.Interactive},
             {"Portal", EntityTypes.Portal},
             {"Switch", EntityTypes.Switch},
             {"Currency", EntityTypes.Currency},
             {"Key", EntityTypes.Key},
             {"Artillery", EntityTypes.Artillery},
-            {"Railgun", EntityTypes.Railgun}
+            {"Railgun", EntityTypes.Railgun},
+            {"Seize", EntityTypes.Seize},
+            {"Shovable", EntityTypes.Shovable}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -205,7 +206,8 @@ namespace SolStandard.Map
                 {
                     for (int row = 0; row < tmxMap.Height; row++)
                     {
-                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile.c Compensate in the calculation here.
+                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile.
+                        //Compensate in the calculation here.
                         if ((col * GameDriver.CellSize) == (int) currentObject.X &&
                             (row * GameDriver.CellSize) == ((int) currentObject.Y - GameDriver.CellSize))
                         {
@@ -392,7 +394,18 @@ namespace SolStandard.Map
                                             currentProperties["mapSong"]
                                         );
                                         break;
-                                    case EntityTypes.Unit:
+                                    case EntityTypes.Seize:
+                                        entityGrid[col, row] = new SeizeEntity(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            Convert.ToBoolean(currentProperties["capturableByBlue"]),
+                                            Convert.ToBoolean(currentProperties["capturableByRed"])
+                                        );
+                                        break;
+                                    case EntityTypes.Shovable:
                                         break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(
@@ -424,7 +437,8 @@ namespace SolStandard.Map
                 {
                     for (int row = 0; row < tmxMap.Height; row++)
                     {
-                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile. Compensate in the calculation here.
+                        //NOTE: For some reason, ObjectLayer objects in Tiled measure Y-axis from the bottom of the tile.
+                        //Compensate in the calculation here.
                         if ((col * GameDriver.CellSize) != (int) currentObject.X || (row * GameDriver.CellSize) !=
                             ((int) currentObject.Y - GameDriver.CellSize)) continue;
 
