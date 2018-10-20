@@ -138,7 +138,8 @@ namespace SolStandard
                 new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank()),
                 new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank()),
                 new MapInfo("Askar Desert", "Desert_01.tmx", new RenderBlank()),
-                new MapInfo("Chess Board", "Chesslike_01.tmx", new RenderBlank())
+                new MapInfo("Chess Board", "Chesslike_01.tmx", new RenderBlank()),
+                new MapInfo("Kelladon Dungeon", "Dungeon_01.tmx", new RenderBlank())
             };
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
