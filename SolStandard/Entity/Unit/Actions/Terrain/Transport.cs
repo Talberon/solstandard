@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -13,9 +12,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class Transport : UnitAction
     {
-        private readonly Vector2 targetCoordinates;
+        private readonly string targetLabel;
 
-        public Transport(Portal portal, Vector2 targetCoordinates) : base(
+        public Transport(MapElement portal, string targetLabel) : base(
             icon: portal.RenderSprite,
             name: "Transport",
             description: "Moves unit to another space.",
@@ -23,17 +22,26 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             range: null
         )
         {
-            this.targetCoordinates = targetCoordinates;
+            this.targetLabel = targetLabel;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
-                new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
-            MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
+            {
+                MapEntity entity = (MapEntity) mapElement;
+                if (entity != null && entity.Name == targetLabel)
+                {
+                    MapContainer
+                            .GameGrid[(int) mapLayer][(int) entity.MapCoordinates.X, (int) entity.MapCoordinates.Y] =
+                        new MapDistanceTile(TileSprite, entity.MapCoordinates, 0, false);
+                    MapContainer.MapCursor.SnapCursorToCoordinates(entity.MapCoordinates);
+                }
+            }
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
+            BattleContext battleContext)
         {
             if (CanMoveToTargetTile(targetSlice))
             {

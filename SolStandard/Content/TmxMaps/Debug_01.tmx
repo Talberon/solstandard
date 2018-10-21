@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="699">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="702">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2051,10 +2051,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4866"/>
-   <tile gid="4867"/>
-   <tile gid="4867"/>
-   <tile gid="4868"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2436,12 +2436,22 @@
   </object>
   <object id="686" name="Throne" type="Decoration" gid="204" x="384" y="256" width="32" height="32"/>
   <object id="687" name="Bridge" type="Movable" gid="3149" x="416" y="480" width="32" height="32"/>
-  <object id="688" name="Push Block" type="Pushable" gid="6053" x="512" y="256" width="32" height="32"/>
-  <object id="694" name="Push Block" type="Pushable" gid="6053" x="480" y="256" width="32" height="32"/>
-  <object id="695" name="Push Block" type="Pushable" gid="6053" x="512" y="288" width="32" height="32"/>
+  <object id="688" name="Push Block" type="Pushable" gid="6053" x="480" y="192" width="32" height="32"/>
+  <object id="694" name="Push Block" type="Pushable" gid="6053" x="448" y="192" width="32" height="32"/>
+  <object id="695" name="Push Block" type="Pushable" gid="6053" x="512" y="192" width="32" height="32"/>
   <object id="696" name="Push Block" type="Pushable" gid="6053" x="224" y="352" width="32" height="32"/>
   <object id="697" name="Push Block" type="Pushable" gid="6053" x="224" y="384" width="32" height="32"/>
   <object id="698" name="Push Block" type="Pushable" gid="6053" x="256" y="384" width="32" height="32"/>
+  <object id="699" name="Stairs A1" type="Portal" gid="253" x="256" y="480" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="700" name="Stairs A2" type="Portal" gid="253" x="576" y="224" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="388" x="288" y="288" width="32" height="32">

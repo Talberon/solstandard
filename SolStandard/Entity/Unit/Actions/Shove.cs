@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
+            BattleContext battleContext)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -56,13 +57,8 @@ namespace SolStandard.Entity.Unit.Actions
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
 
-            if (TargetIsUnitInRange(targetSlice, targetUnit) &&
-                UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates))
-            {
-                return true;
-            }
-
-            return false;
+            return TargetIsUnitInRange(targetSlice, targetUnit) &&
+                   UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates);
         }
 
         public static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
@@ -95,7 +91,5 @@ namespace SolStandard.Entity.Unit.Actions
 
             return oppositeCoordinates;
         }
-
-
     }
 }
