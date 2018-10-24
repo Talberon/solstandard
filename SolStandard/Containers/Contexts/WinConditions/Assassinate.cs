@@ -6,7 +6,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class DefeatCommander : Objective
+    public class Assassinate : Objective
     {
         protected override IRenderable VictoryLabelContent
         {

@@ -10,20 +10,36 @@ namespace SolStandard.Entity.General
     public class SelectMapEntity : TerrainEntity
     {
         public readonly MapInfo MapInfo;
+        public readonly MapObjectives MapObjectives;
         public readonly string MapSongName;
 
         public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName) : base(name, type, sprite,
-            mapCoordinates,
-            tiledProperties)
+            Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName,
+            MapObjectives mapObjectives) :
+            base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             MapInfo = mapInfo;
             MapSongName = mapSongName;
+            MapObjectives = mapObjectives;
         }
 
         public override IRenderable TerrainInfo
         {
-            get { return new RenderText(AssetManager.HeaderFont, MapInfo.Title); }
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            new RenderText(AssetManager.HeaderFont, MapInfo.Title)
+                        },
+                        {
+                            MapObjectives.Preview
+                        }
+                    },
+                    3
+                );
+            }
         }
     }
 }

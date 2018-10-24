@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -94,25 +93,9 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        //TODO Read the different available scenarios from the props of the Map that gets selected on the select screen
-        private static Dictionary<VictoryConditions, Objective> DefaultScenarios
+        public void StartGame(string mapPath, Scenario scenario)
         {
-            get
-            {
-                return new Dictionary<VictoryConditions, Objective>
-                {
-                    {VictoryConditions.Taxes, new Taxes(100)},
-                    {VictoryConditions.Surrender, new Surrender()},
-                    {VictoryConditions.DefeatCommander, new DefeatCommander()},
-                    {VictoryConditions.LastMan, new RoutArmy()},
-                    {VictoryConditions.Seize, new Seize()}
-                };
-            }
-        }
-
-        public void StartGame(string mapPath)
-        {
-            Scenario = new Scenario(DefaultScenarios);
+            Scenario = scenario;
 
             LoadMap(mapPath);
 

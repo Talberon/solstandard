@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
@@ -20,7 +23,19 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            Seize seize = GameContext.Scenario.Objectives[VictoryConditions.Seize] as Seize;
+            Seize seize = null;
+            try
+            {
+                seize = GameContext.Scenario.Objectives[VictoryConditions.Seize] as Seize;
+            }
+            catch (KeyNotFoundException e)
+            {
+                Trace.TraceError("Seize could not be found in the victory conditions {0}", e);
+                //TODO Use another SFX that's more specific to errors
+                AssetManager.LockedSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("Seize is not a valid victory condition!", 500);
+            }
+
             if (seize != null)
             {
                 switch (seizingTeam)

@@ -9,7 +9,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
     public enum VictoryConditions
     {
         Surrender,
-        DefeatCommander,
+        Assassinate,
         Taxes,
         LastMan,
         Seize

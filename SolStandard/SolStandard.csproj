@@ -48,7 +48,7 @@
     <Compile Include="Containers\Contexts\Scenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\DefeatCommander.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
     <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
@@ -158,6 +158,7 @@
     <Compile Include="Map\Elements\MapTile.cs" />
     <Compile Include="Map\Elements\MapElement.cs" />
     <Compile Include="Map\MapInfo.cs" />
+    <Compile Include="Map\MapObjectives.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -390,7 +390,14 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties,
                                             derivedMapInfo,
-                                            currentProperties["mapSong"]
+                                            currentProperties["mapSong"],
+                                            new MapObjectives(
+                                                Convert.ToBoolean(currentProperties["modeAssassinate"]),
+                                                Convert.ToBoolean(currentProperties["modeRoutArmy"]),
+                                                Convert.ToBoolean(currentProperties["modeSeize"]),
+                                                Convert.ToBoolean(currentProperties["modeTaxes"]),
+                                                Convert.ToInt32(currentProperties["valueTaxes"])
+                                            )
                                         );
                                         break;
                                     case EntityTypes.Seize:

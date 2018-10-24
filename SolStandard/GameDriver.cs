@@ -84,10 +84,10 @@ namespace SolStandard
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame(string mapName)
+        public static void NewGame(string mapName, Scenario scenario)
         {
             string mapPath = "Content/TmxMaps/" + mapName;
-            _gameContext.StartGame(mapPath);
+            _gameContext.StartGame(mapPath, scenario);
         }
 
         public static void QuitGame()

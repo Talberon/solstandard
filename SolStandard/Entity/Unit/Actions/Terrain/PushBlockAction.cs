@@ -69,7 +69,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 Vector2 oppositeCoordinates = Shove.DetermineShovePosition(
                     GameContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
 
-                return UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates);
+                return UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates) &&
+                       MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates).TerrainEntity == null;
             }
         }
 
