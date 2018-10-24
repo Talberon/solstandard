@@ -26,6 +26,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect LockedSFX { get; private set; }
         public static ISoundEffect UnlockSFX { get; private set; }
         public static ISoundEffect DropItemSFX { get; private set; }
+        public static ISoundEffect ErrorSFX { get; private set; }
 
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
@@ -153,6 +154,7 @@ namespace SolStandard.Utility.Assets
             MapUnitSelectSFX = ContentLoader.LoadMapUnitSelectSFX(content);
             MapUnitCancelSFX = ContentLoader.LoadMapUnitCancelSFX(content);
             DiceRollSFX = ContentLoader.LoadDiceRollSFX(content);
+            ErrorSFX = ContentLoader.LoadErrorSFX(content);
 
             CombatStartSFX = ContentLoader.LoadCombatStartSFX(content);
             MapUnitMoveSFX = ContentLoader.LoadMapUnitMoveSFX(content);

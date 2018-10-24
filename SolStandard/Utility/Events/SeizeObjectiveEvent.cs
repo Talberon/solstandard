@@ -27,13 +27,14 @@ namespace SolStandard.Utility.Events
             try
             {
                 seize = GameContext.Scenario.Objectives[VictoryConditions.Seize] as Seize;
+                AssetManager.SkillBuffSFX.Play();
             }
             catch (KeyNotFoundException e)
             {
                 Trace.TraceError("Seize could not be found in the victory conditions {0}", e);
                 //TODO Use another SFX that's more specific to errors
-                AssetManager.LockedSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("Seize is not a valid victory condition!", 500);
+                AssetManager.ErrorSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("Seize is not a valid victory condition!", 50);
             }
 
             if (seize != null)
@@ -51,7 +52,6 @@ namespace SolStandard.Utility.Events
                 }
             }
 
-            AssetManager.SkillBuffSFX.Play();
             Complete = true;
         }
     }

@@ -1959,7 +1959,8 @@
    <properties>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeAssassinate" type="bool" value="true"/>
+    <property name="modeSeize" type="bool" value="true"/>
     <property name="valueTaxes" type="int" value="50"/>
    </properties>
   </object>

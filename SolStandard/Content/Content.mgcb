@@ -2569,3 +2569,9 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/overworld-32.png
 
+#begin Audio/SFX/Interface/sfx_sounds_error3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_sounds_error3.wav
+
