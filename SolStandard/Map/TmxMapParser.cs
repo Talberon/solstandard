@@ -380,9 +380,8 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.SelectMap:
-                                        MapInfo derivedMapInfo =
-                                            GameDriver.AvailableMaps.Find(
-                                                mapInfo => mapInfo.FileName == currentProperties["mapFileName"]);
+                                        MapInfo derivedMapInfo = new MapInfo(currentObject.Name,
+                                            currentProperties["mapFileName"]);
 
                                         entityGrid[col, row] = new SelectMapEntity(
                                             currentObject.Name,

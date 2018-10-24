@@ -13,7 +13,8 @@ namespace SolStandard.Entity.General
         public readonly string MapSongName;
 
         public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName) : base(name, type, sprite, mapCoordinates,
+            Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName) : base(name, type, sprite,
+            mapCoordinates,
             tiledProperties)
         {
             MapInfo = mapInfo;
@@ -22,21 +23,7 @@ namespace SolStandard.Entity.General
 
         public override IRenderable TerrainInfo
         {
-            get
-            {
-                return new WindowContentGrid(
-                    new [,]
-                    {
-                        {
-                            new RenderText(AssetManager.HeaderFont, MapInfo.Title)
-                        },
-                        {
-                            MapInfo.PreviewImage
-                        }
-                    },
-                    3
-                );
-            }
+            get { return new RenderText(AssetManager.HeaderFont, MapInfo.Title); }
         }
     }
 }
