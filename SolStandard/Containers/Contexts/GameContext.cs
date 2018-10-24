@@ -353,7 +353,8 @@ namespace SolStandard.Containers.Contexts
             if (GameMapContext.SelectedUnit != ActiveUnit)
             {
                 GameMapContext.SelectedUnit = null;
-                //TODO Notify the player the selected unit is not legal
+                AssetManager.WarningSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("Not the active unit!",50);
                 return false;
             }
 

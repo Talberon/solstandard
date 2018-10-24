@@ -32,7 +32,6 @@ namespace SolStandard.Utility.Events
             catch (KeyNotFoundException e)
             {
                 Trace.TraceError("Seize could not be found in the victory conditions {0}", e);
-                //TODO Use another SFX that's more specific to errors
                 AssetManager.ErrorSFX.Play();
                 MapContainer.AddNewToastAtMapCursor("Seize is not a valid victory condition!", 50);
             }
