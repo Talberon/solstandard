@@ -30,8 +30,8 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
-        private const string HelpText = "OBJECTIVE: Slay the enemy Monarch!";
-        public GameMapUI GameMapUI { get; private set; }
+        private const string HelpText = "Select a unit.";
+        public static GameMapUI GameMapUI { get; private set; }
         public PauseMenuUI PauseMenuUI { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
@@ -52,7 +52,7 @@ namespace SolStandard.Containers.Contexts
             PauseMenuUI = new PauseMenuUI(this);
         }
 
-        public void UpdateWindowsEachTurn()
+        public static void UpdateWindowsEachTurn()
         {
             //Initiative Window
             GameMapUI.GenerateInitiativeWindow(GameContext.Units);
@@ -64,6 +64,7 @@ namespace SolStandard.Containers.Contexts
 
             //Help Window
             GameMapUI.GenerateHelpWindow(HelpText);
+            GameMapUI.GenerateObjectiveWindow();
         }
 
         public void ProceedToNextState()
@@ -117,7 +118,7 @@ namespace SolStandard.Containers.Contexts
             get { return mapContainer; }
         }
 
-        public void SetPromptWindowText(string promptText)
+        public static void SetPromptWindowText(string promptText)
         {
             IRenderable[,] promptTextContent =
             {

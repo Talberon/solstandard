@@ -1,9 +1,19 @@
-﻿namespace SolStandard.Containers.Contexts.WinConditions
+﻿using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+
+namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class Surrender : WinCondition
+    public class Surrender : Objective
     {
         public bool BlueConcedes { private get; set; }
         public bool RedConcedes { private get; set; }
+
+        
+        protected override IRenderable VictoryLabelContent
+        {
+            get { return new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED"); }
+        }
 
         public override bool ConditionsMet(GameContext gameContext)
         {

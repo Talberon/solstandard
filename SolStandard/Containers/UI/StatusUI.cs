@@ -31,6 +31,7 @@ namespace SolStandard.Containers.UI
 
         public string BlueTeamResultText { private get; set; }
         public string RedTeamResultText { private get; set; }
+        public IRenderable ResultLabelContent { private get; set; }
 
         private readonly ITexture2D windowTexture;
 
@@ -43,6 +44,7 @@ namespace SolStandard.Containers.UI
             windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
+            ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                 GameDriver.ScreenSize, 1);
@@ -65,25 +67,12 @@ namespace SolStandard.Containers.UI
 
         private void GenerateResultsLabelWindow()
         {
-            ResultsLabelWindow = new Window(
-                "Versus Window",
-                windowTexture,
-                new WindowContentGrid(
-                    new IRenderable[,]
-                    {
-                        {
-                            new RenderText(AssetManager.ResultsFont, "-STATUS-")
-                        }
-                    },
-                    1
-                ),
-                BackgroundColor
-            );
+            ResultsLabelWindow = new Window("Versus Window", windowTexture, ResultLabelContent, BackgroundColor);
         }
 
         private void GenerateBlueTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = {{FindTeamLeader(Team.Blue, Role.Monarch).LargePortrait}};
+            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Monarch));
 
             BlueTeamLeaderPortrait = new Window(
                 "Blue Leader Portrait Window",
@@ -123,12 +112,12 @@ namespace SolStandard.Containers.UI
 
         private void GenerateRedTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = {{FindTeamLeader(Team.Red, Role.Monarch).LargePortrait}};
+            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Monarch));
 
             RedTeamLeaderPortrait = new Window(
                 "Red Leader Portrait Window",
                 windowTexture,
-                new WindowContentGrid(blueLeaderContent, 1),
+                new WindowContentGrid(redLeaderContent, 1),
                 TeamUtility.DetermineTeamColor(Team.Red)
             );
         }
@@ -161,10 +150,20 @@ namespace SolStandard.Containers.UI
             );
         }
 
-
         private static GameUnit FindTeamLeader(Team team, Role role)
         {
             return GameContext.Units.Find(unit => unit.Team == team && unit.Role == role);
+        }
+
+        private static IRenderable[,] LeaderContent(GameUnit leader)
+        {
+            IRenderable[,] redLeaderContent =
+            {
+                {
+                    leader.LargePortrait
+                },
+            };
+            return redLeaderContent;
         }
 
 
@@ -186,20 +185,37 @@ namespace SolStandard.Containers.UI
                 IRenderable[,] unitContent =
                 {
                     {
-                        new RenderText(AssetManager.MapFont, unit.Id)
+                        new RenderText(AssetManager.WindowFont, unit.Id)
                     },
                     {
                         portraitToUse
                     },
                     {
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
+                    },
+                    {
+                        new Window(
+                            "Unit Gold",
+                            AssetManager.WindowTexture,
+                            new WindowContentGrid(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                        new RenderText(AssetManager.WindowFont, unit.CurrentGold + "G")
+                                    }
+                                },
+                                1
+                            ),
+                            TeamUtility.DetermineTeamColor(unit.Team)
+                        )
                     }
                 };
 
                 IRenderable singleUnitContent = new Window(
                     "Unit " + unit.Id + " Window",
                     windowTexture,
-                    new WindowContentGrid(unitContent, 2),
+                    new WindowContentGrid(unitContent, 2, HorizontalAlignment.Centered),
                     TeamUtility.DetermineTeamColor(unit.Team)
                 );
 
@@ -223,7 +239,7 @@ namespace SolStandard.Containers.UI
 
         private Vector2 BlueTeamResultPosition()
         {
-            //Right of Blue Portrait, Aligned at top
+//Right of Blue Portrait, Aligned at top
             return new Vector2(
                 BlueTeamLeaderPortraitPosition().X + BlueTeamLeaderPortrait.Width + WindowPadding,
                 BlueTeamLeaderPortraitPosition().Y
@@ -232,29 +248,27 @@ namespace SolStandard.Containers.UI
 
         private Vector2 BlueTeamUnitRosterPosition()
         {
-            //Below Blue Result, Aligned at left with Result
+//Below Blue Result, Aligned at left with Result
             return new Vector2(
                 BlueTeamResultPosition().X,
                 BlueTeamResultPosition().Y + BlueTeamResult.Height + WindowPadding
             );
         }
 
-
-        //Versus Window
+//Versus Window
         private Vector2 ResultsLabelWindowPosition()
         {
-            //Center of screen
+//Center of screen
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - (float) ResultsLabelWindow.Width / 2,
                 GameDriver.ScreenSize.Y / 2 - (float) ResultsLabelWindow.Height / 2
             );
         }
 
-
-        //Red Windows
+//Red Windows
         private Vector2 RedTeamLeaderPortraitPosition()
         {
-            //Bottom-Right of screen
+//Bottom-Right of screen
             return new Vector2(
                 GameDriver.ScreenSize.X - WindowEdgeBuffer - RedTeamLeaderPortrait.Width,
                 GameDriver.ScreenSize.Y - WindowEdgeBuffer - RedTeamLeaderPortrait.Height
@@ -266,7 +280,7 @@ namespace SolStandard.Containers.UI
             float redPortraitLeft = RedTeamLeaderPortraitPosition().X;
             float redPortraitBottom = RedTeamLeaderPortraitPosition().Y + RedTeamLeaderPortrait.Height;
 
-            //Left of Red Portrait, Aligned at bottom
+//Left of Red Portrait, Aligned at bottom
             return new Vector2(
                 redPortraitLeft - WindowPadding - RedTeamResult.Width,
                 redPortraitBottom - RedTeamResult.Height
@@ -278,7 +292,7 @@ namespace SolStandard.Containers.UI
             float redResultRight = RedTeamResultPosition().X + RedTeamResult.Width;
             float redResultTop = RedTeamResultPosition().Y;
 
-            //Above Red Result, Aligned at right with Result
+//Above Red Result, Aligned at right with Result
             return new Vector2(
                 redResultRight - RedTeamUnitRoster.Width,
                 redResultTop - WindowPadding - RedTeamUnitRoster.Height
@@ -295,20 +309,14 @@ namespace SolStandard.Containers.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
-
             Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
             background.Draw(spriteBatch, centerScreen - backgroundCenter);
-
-
             if (BlueTeamLeaderPortrait != null)
                 BlueTeamLeaderPortrait.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
-
             if (BlueTeamUnitRoster != null)
                 BlueTeamUnitRoster.Draw(spriteBatch, BlueTeamUnitRosterPosition());
-
             if (BlueTeamResult != null)
                 BlueTeamResult.Draw(spriteBatch, BlueTeamResultPosition());
-
             if (ResultsLabelWindow != null)
             {
                 ResultsLabelWindow.Draw(spriteBatch, ResultsLabelWindowPosition());
@@ -316,10 +324,8 @@ namespace SolStandard.Containers.UI
 
             if (RedTeamLeaderPortrait != null)
                 RedTeamLeaderPortrait.Draw(spriteBatch, RedTeamLeaderPortraitPosition());
-
             if (RedTeamUnitRoster != null)
                 RedTeamUnitRoster.Draw(spriteBatch, RedTeamUnitRosterPosition());
-
             if (RedTeamResult != null)
                 RedTeamResult.Draw(spriteBatch, RedTeamResultPosition());
         }

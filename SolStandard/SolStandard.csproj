@@ -45,11 +45,14 @@
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
-    <Compile Include="Containers\Contexts\GameScenario.cs" />
+    <Compile Include="Containers\Contexts\Scenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\DefeatCommander.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\WinCondition.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Objective.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Surrender.cs" />
     <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
     <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
@@ -74,7 +77,9 @@
     <Compile Include="Entity\General\Key.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
+    <Compile Include="Entity\General\PushBlock.cs" />
     <Compile Include="Entity\General\Railgun.cs" />
+    <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\Spoils.cs" />
     <Compile Include="Entity\General\Switch.cs" />
@@ -84,28 +89,30 @@
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
-    <Compile Include="Entity\Unit\Skills\Archer\Draw.cs" />
-    <Compile Include="Entity\Unit\Skills\Archer\Harpoon.cs" />
-    <Compile Include="Entity\Unit\Skills\BasicAttack.cs" />
-    <Compile Include="Entity\Unit\Skills\Champion\Cover.cs" />
-    <Compile Include="Entity\Unit\Skills\Champion\Tackle.cs" />
-    <Compile Include="Entity\Unit\Skills\Mage\Blink.cs" />
-    <Compile Include="Entity\Unit\Skills\Monarch\DoubleTime.cs" />
-    <Compile Include="Entity\Unit\Skills\Monarch\Inspire.cs" />
-    <Compile Include="Entity\Unit\Skills\Shove.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\ArtilleryAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\DropItemAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\PickUpCurrencyAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\PickUpItemAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\RailgunAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\TakeSpoilsAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\ToggleLockAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\ToggleSwitchAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\OpenChestAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\UseDoorAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Terrain\Transport.cs" />
-    <Compile Include="Entity\Unit\Skills\UnitAction.cs" />
-    <Compile Include="Entity\Unit\Skills\Wait.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
+    <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
+    <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
+    <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
+    <Compile Include="Entity\Unit\Actions\Shove.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\DropItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\PushBlockAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\RailgunAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\SeizeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\TakeSpoilsAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\ToggleLockAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\ToggleSwitchAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\OpenChestAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\UseDoorAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\Transport.cs" />
+    <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
@@ -151,6 +158,7 @@
     <Compile Include="Map\Elements\MapTile.cs" />
     <Compile Include="Map\Elements\MapElement.cs" />
     <Compile Include="Map\MapInfo.cs" />
+    <Compile Include="Map\MapObjectives.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +200,8 @@
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
     <Compile Include="Utility\Events\PullEvent.cs" />
+    <Compile Include="Utility\Events\PushBlockEvent.cs" />
+    <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
     <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
@@ -201,6 +211,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
@@ -222,6 +233,7 @@
     <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
     <Compile Include="Utility\Randomizer.cs" />
     <Compile Include="Utility\SpriteAtlas.cs" />
+    <Compile Include="Utility\ArrayToList.cs" />
     <Compile Include="Utility\UnitSelector.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +300,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Desert_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Dungeon_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Experimenting_01.tmx">

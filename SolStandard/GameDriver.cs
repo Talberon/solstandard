@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +11,6 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
@@ -57,7 +58,8 @@ namespace SolStandard
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1600,
-                PreferredBackBufferHeight = 900
+                PreferredBackBufferHeight = 900,
+                GraphicsProfile = GraphicsProfile.HiDef
             };
 
             //FIXME HACK move the window away from the top of the screen
@@ -70,7 +72,8 @@ namespace SolStandard
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
-                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height
+                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height,
+                GraphicsProfile = GraphicsProfile.HiDef
             };
 
             Window.Position = new Point(0, 0);
@@ -81,10 +84,10 @@ namespace SolStandard
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame(string mapName)
+        public static void NewGame(string mapName, Scenario scenario)
         {
             string mapPath = "Content/TmxMaps/" + mapName;
-            _gameContext.StartGame(mapPath);
+            _gameContext.StartGame(mapPath, scenario);
         }
 
         public static void QuitGame()
@@ -92,15 +95,16 @@ namespace SolStandard
             _quitting = true;
         }
 
-        private static void CleanTmxFiles(IEnumerable<MapInfo> mapList)
+        private static void CleanTmxFiles()
         {
-            foreach (MapInfo mapInfo in mapList)
-            {
-                string filePath = "Content/TmxMaps/" + mapInfo.FileName;
+            const string tmxPath = "Content/TmxMaps/";
+            Regex tmxName = new Regex("([\\w])+.tmx");
 
-                string text = File.ReadAllText(filePath);
+            foreach (string tmxFile in Directory.GetFiles(tmxPath).Where(filename => tmxName.IsMatch(filename)))
+            {
+                string text = File.ReadAllText(tmxFile);
                 text = text.Replace("tile/", "tile gid=\"0\"/");
-                File.WriteAllText(filePath, text);
+                File.WriteAllText(tmxFile, text);
             }
         }
 
@@ -118,29 +122,8 @@ namespace SolStandard
 
             _mapCamera = new MapCamera(5, 0.05f);
 
-            ITexture2D mapPreviewGrass3 =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_03"));
-            ITexture2D mapPreviewGrass4 =
-                AssetManager.MapPreviewTextures.Find(texture => texture.Name.Contains("MapPreviews/Grass_04"));
-
-            AvailableMaps = new List<MapInfo>
-            {
-                new MapInfo("MapSelect", "Map_Select_02.tmx", new RenderBlank()),
-
-                new MapInfo("Old World", "Experimenting_01.tmx",
-                    new SpriteAtlas(mapPreviewGrass3, new Vector2(mapPreviewGrass3.Width, mapPreviewGrass3.Height), 1)),
-                new MapInfo("Beachhead", "Experimenting_02.tmx",
-                    new SpriteAtlas(mapPreviewGrass4, new Vector2(mapPreviewGrass4.Width, mapPreviewGrass4.Height), 1)),
-                new MapInfo("Dungeon", "Experimenting_03.tmx", new RenderBlank()),
-                new MapInfo("Debug", "Debug_01.tmx", new RenderBlank()),
-                new MapInfo("Nova Fields", "Experimenting_04.tmx", new RenderBlank()),
-                new MapInfo("Scotia Hill", "Experimenting_05.tmx", new RenderBlank()),
-                new MapInfo("Askar Desert", "Desert_01.tmx", new RenderBlank()),
-                new MapInfo("Chess Board", "Chesslike_01.tmx", new RenderBlank())
-            };
-
             //Compensate for TiledSharp's inability to parse tiles without a gid value
-            CleanTmxFiles(AvailableMaps);
+            CleanTmxFiles();
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height), 1);
@@ -210,6 +193,7 @@ namespace SolStandard
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D4))
             {
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
@@ -403,7 +387,7 @@ namespace SolStandard
             }
             else
             {
-                _gameContext.GameMapContext.GameMapUI.Draw(spriteBatch);
+                GameMapContext.GameMapUI.Draw(spriteBatch);
             }
 
             spriteBatch.End();

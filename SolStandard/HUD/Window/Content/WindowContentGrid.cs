@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
 
@@ -6,18 +9,17 @@ namespace SolStandard.HUD.Window.Content
 {
     public class WindowContentGrid : IRenderable
     {
-        private readonly IRenderable[,] contentGrid;
+        private readonly List<List<IRenderable>> contentGrid;
         private readonly int padding;
 
-        public WindowContentGrid(IRenderable[,] contentGrid, int padding)
-        {
-            this.contentGrid = contentGrid;
-            this.padding = padding;
-        }
+        private HorizontalAlignment HorizontalAlignment { get; set; }
 
-        private IRenderable[,] ContentGrid
+        public WindowContentGrid(IRenderable[,] contentGrid, int padding,
+            HorizontalAlignment alignment = HorizontalAlignment.Left)
         {
-            get { return contentGrid; }
+            this.contentGrid = ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid);
+            this.padding = padding;
+            HorizontalAlignment = alignment;
         }
 
         public int Height
@@ -35,34 +37,11 @@ namespace SolStandard.HUD.Window.Content
             float totalWidth = 0f;
             float totalHeight = 0;
 
-            float highestRowHeight = 0f;
-            float horizontalOffset = 0f;
-
-            for (int column = 0; column < ContentGrid.GetLength(0); column++)
+            foreach (List<IRenderable> row in contentGrid)
             {
-                for (int row = 0; row < ContentGrid.GetLength(1); row++)
-                {
-                    float contentWidth = ContentGrid[column, row].Width;
-                    horizontalOffset += contentWidth + padding;
-
-                    float contentHeight = ContentGrid[column, row].Height;
-                    if (highestRowHeight < contentHeight)
-                    {
-                        highestRowHeight = contentHeight + padding;
-                    }
-                }
-
-                //Combination of highest heights determines the height
-                totalHeight += highestRowHeight;
-
-                //Widest set of items determines the width
-                if (totalWidth < horizontalOffset)
-                {
-                    totalWidth = horizontalOffset;
-                }
-
-                horizontalOffset = 0;
-                highestRowHeight = 0;
+                int rowWidth = row.Sum(item => item.Width);
+                if (rowWidth > totalWidth) totalWidth = rowWidth + row.Count * padding;
+                totalHeight += row.Max(item => item.Height) + padding;
             }
 
             return new Vector2(totalWidth, totalHeight);
@@ -73,35 +52,55 @@ namespace SolStandard.HUD.Window.Content
             Draw(spriteBatch, coordinates, Color.White);
         }
 
+
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)
         {
-            float highestRowHeight = 0f;
+            float previousHeight = 0f;
 
-            float horizontalOffset = 0f;
-            float verticalOffset = 0f;
-
-            for (int column = 0; column < ContentGrid.GetLength(0); column++)
+            foreach (List<IRenderable> row in contentGrid)
             {
-                for (int row = 0; row < ContentGrid.GetLength(1); row++)
+                float rowWidth = row.Sum(item => item.Width);
+
+                switch (HorizontalAlignment)
                 {
-                    //Draw with offset
-                    ContentGrid[column, row].Draw(spriteBatch,
-                        new Vector2(coordinates.X + horizontalOffset, coordinates.Y + verticalOffset));
-
-                    //Adjust offset
-                    float contentWidth = ContentGrid[column, row].Width;
-                    horizontalOffset += contentWidth + padding;
-
-                    float contentHeight = ContentGrid[column, row].Height;
-                    if (highestRowHeight < contentHeight)
-                    {
-                        highestRowHeight = contentHeight + padding;
-                    }
+                    case HorizontalAlignment.Left:
+                        DrawRow(spriteBatch, row, new Vector2(coordinates.X, coordinates.Y + previousHeight));
+                        break;
+                    case HorizontalAlignment.Centered:
+                        DrawRow(
+                            spriteBatch,
+                            row,
+                            new Vector2(
+                                coordinates.X + ((float) Width / 2 - rowWidth / 2),
+                                coordinates.Y + previousHeight
+                            )
+                        );
+                        break;
+                    case HorizontalAlignment.Right:
+                        DrawRow(
+                            spriteBatch,
+                            row,
+                            new Vector2(
+                                coordinates.X + (Width - rowWidth),
+                                coordinates.Y + previousHeight
+                            )
+                        );
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
-                verticalOffset += highestRowHeight; //Once I start drawing the next row I should reset the height
-                highestRowHeight = 0;
-                horizontalOffset = 0;
+                previousHeight += row.Max(item => item.Height) + padding;
+            }
+        }
+
+        private void DrawRow(SpriteBatch spriteBatch, IEnumerable<IRenderable> row, Vector2 coordinates)
+        {
+            float horizontalOffset = 0f;
+            foreach (IRenderable item in row)
+            {
+                item.Draw(spriteBatch, new Vector2(coordinates.X + horizontalOffset, coordinates.Y));
+                horizontalOffset += item.Width + padding;
             }
         }
     }

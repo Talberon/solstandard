@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills;
-using SolStandard.Entity.Unit.Skills.Terrain;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -29,22 +27,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction TileAction()
         {
-            //Check for the corresponding portal destination point
-
-            Vector2 targetTileCoordinates = Vector2.One;
-
-            foreach (MapElement entity in MapContainer.GameGrid[(int) Layer.Entities])
-            {
-                Portal targetPortal = entity as Portal;
-                if (targetPortal == null) continue;
-
-                if (targetPortal.Name == destinationId)
-                {
-                    targetTileCoordinates = targetPortal.MapCoordinates;
-                }
-            }
-
-            return new Transport(this, targetTileCoordinates);
+            return new Transport(this, destinationId);
         }
 
         public override IRenderable TerrainInfo

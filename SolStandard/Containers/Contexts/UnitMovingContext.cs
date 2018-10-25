@@ -105,8 +105,7 @@ namespace SolStandard.Containers.Contexts
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
-            //FIXME use unit Team property and not tiled property
-            if (slice.UnitEntity != null && slice.UnitEntity.TiledProperties["Team"] != team.ToString()) return false;
+            if (slice.UnitEntity != null && UnitSelector.SelectUnit(slice.UnitEntity).Team != team) return false;
 
             if (visitedTiles.Any(tile => tile.MapCoordinates.Equals(coordinates))) return false;
 

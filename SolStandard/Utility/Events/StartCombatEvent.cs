@@ -1,6 +1,6 @@
 ﻿using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Actions;
 
 namespace SolStandard.Utility.Events
 {
@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             BasicAttack.StartCombat(targetUnit, gameMapContext, battleContext);
-            gameMapContext.SetPromptWindowText("Confirm End Turn");
+            GameMapContext.SetPromptWindowText("Confirm End Turn");
             gameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }

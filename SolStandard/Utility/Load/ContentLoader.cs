@@ -517,11 +517,17 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
             return new SoundEffectWrapper(effect, 0.5f);
         }
-        
+
         public static ISoundEffect LoadDropItemSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
             return new SoundEffectWrapper(effect, 0.5f);
+        }
+
+        public static ISoundEffect LoadErrorSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
+            return new SoundEffectWrapper(effect, 1f);
         }
     }
 }

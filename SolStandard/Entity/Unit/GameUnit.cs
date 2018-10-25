@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
-using SolStandard.Entity.Unit.Skills;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;

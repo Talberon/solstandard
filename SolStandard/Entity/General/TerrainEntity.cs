@@ -18,13 +18,14 @@ namespace SolStandard.Entity.General
         Door,
         Drawbridge,
         Movable,
-        Interactive,
         Currency,
         Portal,
         Switch,
         Key,
         Artillery,
         Railgun,
+        Seize,
+        Pushable,
         SelectMap,
         Unit
     }

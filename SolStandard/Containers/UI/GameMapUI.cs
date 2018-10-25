@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -39,6 +40,7 @@ namespace SolStandard.Containers.UI
         public Window InitiativeWindow { get; private set; }
         public Window EntityWindow { get; private set; }
         public Window HelpTextWindow { get; private set; }
+        public Window ObjectiveWindow { get; private set; }
 
         public Window UserPromptWindow { get; private set; }
 
@@ -101,11 +103,11 @@ namespace SolStandard.Containers.UI
         public void GenerateTurnWindow(Vector2 windowSize)
         {
             string turnInfo = "Turn: " + GameContext.TurnCounter;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Round: " + GameContext.RoundCounter;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
-            turnInfo += "\n";
+            turnInfo += Environment.NewLine;
             turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(
@@ -195,9 +197,27 @@ namespace SolStandard.Containers.UI
 
         public void GenerateHelpWindow(string helpText)
         {
+            Color helpWindowColor = new Color(30, 30, 30, 150);
+
             IRenderable textToRender = new RenderText(AssetManager.WindowFont, helpText);
-            HelpTextWindow = new Window("Help Text", windowTexture, textToRender, new Color(30, 30, 30, 150));
+
+
+            WindowContentGrid helpWindowContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {new Window("HelpText", windowTexture, textToRender, helpWindowColor)},
+                },
+                1
+            );
+
+            HelpTextWindow = new Window("Help Text", windowTexture, helpWindowContentGrid, Color.Transparent);
         }
+
+        public void GenerateObjectiveWindow()
+        {
+            ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
+        }
+
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
         {
@@ -226,27 +246,7 @@ namespace SolStandard.Containers.UI
         private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
             IRenderable[,] unitListGrid)
         {
-            IRenderable[,] firstUnitContent =
-            {
-                {
-                    new RenderText(AssetManager.MapFont, unitList[0].Id)
-                },
-                {
-                    unitList[0].SmallPortrait
-                },
-                {
-                    unitList[0]
-                        .GetInitiativeHealthBar(new Vector2(unitList[0].SmallPortrait.Width,
-                            initiativeHealthBarHeight))
-                }
-            };
-
-            IRenderable firstSingleUnitContent = new Window(
-                "First Unit " + unitList[0].Id + " Window",
-                windowTexture,
-                new WindowContentGrid(firstUnitContent, 2),
-                new Color(100, 200, 100, 225)
-            );
+            IRenderable firstSingleUnitContent = SingleUnitContent(unitList[0], initiativeHealthBarHeight);
             unitListGrid[0, 0] = firstSingleUnitContent;
         }
 
@@ -255,29 +255,33 @@ namespace SolStandard.Containers.UI
         {
             for (int i = 1; i < unitListGrid.GetLength(1); i++)
             {
-                IRenderable[,] unitContent =
-                {
-                    {
-                        new RenderText(AssetManager.MapFont, unitList[i].Id)
-                    },
-                    {
-                        unitList[i].SmallPortrait
-                    },
-                    {
-                        unitList[i]
-                            .GetInitiativeHealthBar(new Vector2(unitList[i].SmallPortrait.Width,
-                                initiativeHealthBarHeight))
-                    }
-                };
-
-                IRenderable singleUnitContent = new Window(
-                    "Unit " + unitList[i].Id + " Window",
-                    windowTexture,
-                    new WindowContentGrid(unitContent, 2),
-                    TeamUtility.DetermineTeamColor(unitList[i].Team)
-                );
+                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight);
                 unitListGrid[0, i] = singleUnitContent;
             }
+        }
+
+        private IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
+        {
+            IRenderable[,] unitContent =
+            {
+                {
+                    new RenderText(AssetManager.MapFont, unit.Id)
+                },
+                {
+                    unit.SmallPortrait
+                },
+                {
+                    unit.GetInitiativeHealthBar(new Vector2(unit.SmallPortrait.Width, initiativeHealthBarHeight))
+                }
+            };
+
+            IRenderable singleUnitContent = new Window(
+                "Unit " + unit.Id + " Window",
+                windowTexture,
+                new WindowContentGrid(unitContent, 3, HorizontalAlignment.Centered),
+                TeamUtility.DetermineTeamColor(unit.Team)
+            );
+            return singleUnitContent;
         }
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
@@ -500,6 +504,11 @@ namespace SolStandard.Containers.UI
             );
         }
 
+        private Vector2 ObjectiveWindowPosition()
+        {
+            return new Vector2(screenSize.X / 2 - (float) ObjectiveWindow.Width / 2, WindowEdgeBuffer);
+        }
+
         #endregion Window Positions
 
         public void ToggleVisible()
@@ -584,6 +593,11 @@ namespace SolStandard.Containers.UI
                 {
                     ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
                 }
+            }
+
+            if (ObjectiveWindow != null)
+            {
+                ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
             }
         }
     }

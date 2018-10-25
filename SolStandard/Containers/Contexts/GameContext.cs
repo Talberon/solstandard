@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.UI;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -33,7 +32,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private readonly BattleContext battleContext;
-        public static GameScenario GameScenario { get; private set; }
+        public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
         public GameMapContext GameMapContext { get; private set; }
         public StatusUI StatusUI { get; private set; }
@@ -94,21 +93,9 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        //FIXME Read the different available scenarios from the props of the Map that gets selected on the select screen
-        private static List<WinCondition> DefaultScenarios
+        public void StartGame(string mapPath, Scenario scenario)
         {
-            get
-            {
-                return new List<WinCondition>
-                {
-                    new DefeatCommander()
-                };
-            }
-        }
-
-        public void StartGame(string mapPath)
-        {
-            GameScenario = new GameScenario(DefaultScenarios);
+            Scenario = scenario;
 
             LoadMap(mapPath);
 
@@ -143,10 +130,10 @@ namespace SolStandard.Containers.Contexts
 
             LoadMapContainer(mapParser);
             LoadInitiativeContext(mapParser);
-            LoadResultsUI();
+            LoadStatusUI();
         }
 
-        private void LoadResultsUI()
+        private void LoadStatusUI()
         {
             StatusUI = new StatusUI();
         }
@@ -277,12 +264,13 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
-            GameScenario.CheckForWinState(this);
+            Scenario.CheckForWinState(this);
 
             GameMapContext.ConfirmPromptWindow();
             ActiveUnit.DisableExhaustedUnit();
             InitiativeContext.PassTurnToNextUnit();
             ActiveUnit.ActivateUnit();
+            GameMapContext.UpdateWindowsEachTurn();
             GameMapContext.ResetCursorToActiveUnit();
             MapCamera.CenterCameraToCursor();
 
@@ -295,7 +283,6 @@ namespace SolStandard.Containers.Contexts
                 EndTurnIfUnitIsDead();
             }
 
-            GameMapContext.UpdateWindowsEachTurn();
             StatusUI.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();
@@ -366,7 +353,8 @@ namespace SolStandard.Containers.Contexts
             if (GameMapContext.SelectedUnit != ActiveUnit)
             {
                 GameMapContext.SelectedUnit = null;
-                //TODO Notify the player the selected unit is not legal
+                AssetManager.WarningSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("Not the active unit!",50);
                 return false;
             }
 

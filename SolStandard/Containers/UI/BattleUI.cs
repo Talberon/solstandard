@@ -16,6 +16,7 @@ namespace SolStandard.Containers.UI
     public class BattleUI : IUserInterface
     {
         //TODO Make this scale properly with resolution
+        //TODO Calculate total content size to center UI
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 150);
 
         private const int WindowSpacing = 5;
