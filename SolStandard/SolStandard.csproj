@@ -63,7 +63,7 @@
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleUI.cs" />
     <Compile Include="Containers\View\MainMenuUI.cs" />
-    <Compile Include="Containers\View\GameMapUI.cs" />
+    <Compile Include="Containers\View\GameMapView.cs" />
     <Compile Include="Containers\View\PauseMenuUI.cs" />
     <Compile Include="Containers\View\StatusUI.cs" />
     <Compile Include="Containers\View\SelectMapUI.cs" />

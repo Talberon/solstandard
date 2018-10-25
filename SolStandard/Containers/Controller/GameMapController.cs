@@ -19,26 +19,26 @@ namespace SolStandard.Containers.Controller
 {
     public class GameMapController
     {
-        private GameMapUI GameMapUI { get; set; }
+        private GameMapView GameMapView { get; set; }
 
         public GameMapController()
         {
-            GameMapUI = new GameMapUI();
+            GameMapView = new GameMapView();
         }
 
         public VerticalMenu ActionMenu
         {
-            get { return GameMapUI.ActionMenu; }
+            get { return GameMapView.ActionMenu; }
         }
 
         public void ClearCombatMenu()
         {
-            GameMapUI.ActionMenu = null;
+            GameMapView.ActionMenu = null;
         }
 
         public void ClosePromptWindow()
         {
-            GameMapUI.UserPromptWindow = null;
+            GameMapView.UserPromptWindow = null;
         }
 
         public void GenerateActionMenu()
@@ -50,19 +50,19 @@ namespace SolStandard.Containers.Controller
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
 
-            GameMapUI.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+            GameMapView.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
             GenerateActionMenuDescription();
         }
 
         public void GenerateActionMenuDescription()
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
-            GameMapUI.ActionMenuDescriptionWindow = new Window(
+            GameMapView.ActionMenuDescriptionWindow = new Window(
                 "Action Menu Description",
                 AssetManager.WindowTexture,
                 new RenderText(
                     AssetManager.WindowFont,
-                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(GameMapUI.ActionMenu.CurrentOptionIndex)
+                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(GameMapView.ActionMenu.CurrentOptionIndex)
                 ),
                 windowColour
             );
@@ -71,7 +71,7 @@ namespace SolStandard.Containers.Controller
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
-            GameMapUI.UserPromptWindow = new Window("User Prompt Window", AssetManager.WindowTexture, promptTextContent,
+            GameMapView.UserPromptWindow = new Window("User Prompt Window", AssetManager.WindowTexture, promptTextContent,
                 promptWindowColor,
                 sizeOverride);
         }
@@ -79,7 +79,7 @@ namespace SolStandard.Containers.Controller
         public void GenerateTurnWindow()
         {
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(300, GameMapUI.InitiativeWindow.Height);
+            Vector2 turnWindowSize = new Vector2(300, GameMapView.InitiativeWindow.Height);
 
             string turnInfo = "Turn: " + GameContext.TurnCounter;
             turnInfo += Environment.NewLine;
@@ -100,7 +100,7 @@ namespace SolStandard.Containers.Controller
                 1
             );
 
-            GameMapUI.TurnWindow = new Window("Turn Counter", AssetManager.WindowTexture, unitListContentGrid,
+            GameMapView.TurnWindow = new Window("Turn Counter", AssetManager.WindowTexture, unitListContentGrid,
                 new Color(100, 100, 100, 225), turnWindowSize);
         }
 
@@ -171,7 +171,7 @@ namespace SolStandard.Containers.Controller
                     1);
             }
 
-            GameMapUI.EntityWindow = new Window("Entity Info", AssetManager.WindowTexture, terrainContentGrid,
+            GameMapView.EntityWindow = new Window("Entity Info", AssetManager.WindowTexture, terrainContentGrid,
                 new Color(50, 50, 50, 150));
         }
 
@@ -190,13 +190,13 @@ namespace SolStandard.Containers.Controller
                 1
             );
 
-            GameMapUI.HelpTextWindow = new Window("Help Text", AssetManager.WindowTexture, helpWindowContentGrid,
+            GameMapView.HelpTextWindow = new Window("Help Text", AssetManager.WindowTexture, helpWindowContentGrid,
                 Color.Transparent);
         }
 
         public void GenerateObjectiveWindow()
         {
-            GameMapUI.ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
+            GameMapView.ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
         }
 
         public void GenerateInitiativeWindow(List<GameUnit> unitList)
@@ -215,7 +215,7 @@ namespace SolStandard.Containers.Controller
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
 
-            GameMapUI.InitiativeWindow = new Window(
+            GameMapView.InitiativeWindow = new Window(
                 "Initiative List",
                 AssetManager.WindowTexture,
                 unitListContentGrid,
@@ -230,7 +230,7 @@ namespace SolStandard.Containers.Controller
             unitListGrid[0, 0] = firstSingleUnitContent;
         }
 
-        private void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
+        private static void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
             int initiativeHealthBarHeight)
         {
             for (int i = 1; i < unitListGrid.GetLength(1); i++)
@@ -240,7 +240,7 @@ namespace SolStandard.Containers.Controller
             }
         }
 
-        private IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
+        private static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
         {
             IRenderable[,] unitContent =
             {
@@ -266,21 +266,21 @@ namespace SolStandard.Containers.Controller
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            GameMapUI.LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
-            GameMapUI.LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
-            GameMapUI.LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
-            GameMapUI.LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
+            GameMapView.LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
+            GameMapView.LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
+            GameMapView.LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            GameMapView.LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            GameMapUI.RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
-            GameMapUI.RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
-            GameMapUI.RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
-            GameMapUI.RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
+            GameMapView.RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
+            GameMapView.RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
+            GameMapView.RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
+            GameMapView.RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
         }
 
-        private Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
+        private static Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null) return null;
 
@@ -300,7 +300,7 @@ namespace SolStandard.Containers.Controller
             return new Window(windowLabel, AssetManager.WindowTexture, selectedUnitInfo, windowColor);
         }
 
-        private Window GenerateUnitInventoryWindow(GameUnit selectedUnit)
+        private static Window GenerateUnitInventoryWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null || selectedUnit.InventoryPane == null) return null;
 
@@ -309,7 +309,7 @@ namespace SolStandard.Containers.Controller
                 selectedUnit.InventoryPane, windowColor);
         }
 
-        private Window GenerateUnitStatusWindow(GameUnit selectedUnit)
+        private static Window GenerateUnitStatusWindow(GameUnit selectedUnit)
         {
             if (selectedUnit == null || selectedUnit.StatusEffects.Count < 1) return null;
 
@@ -346,7 +346,7 @@ namespace SolStandard.Containers.Controller
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            GameMapUI.Draw(spriteBatch);
+            GameMapView.Draw(spriteBatch);
         }
     }
 }

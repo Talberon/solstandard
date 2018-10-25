@@ -9,7 +9,7 @@ namespace SolStandard.Containers.View
      * GameMapController is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
-    public class GameMapUI : IUserInterface
+    public class GameMapView : IUserInterface
     {
         private const int WindowEdgeBuffer = 5;
 
@@ -36,7 +36,7 @@ namespace SolStandard.Containers.View
 
         private bool visible;
 
-        public GameMapUI()
+        public GameMapView()
         {
             visible = true;
         }
