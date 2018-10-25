@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
@@ -387,7 +387,7 @@ namespace SolStandard
             }
             else
             {
-                GameMapContext.GameMapUI.Draw(spriteBatch);
+                GameMapContext.GameMapController.Draw(spriteBatch);
             }
 
             spriteBatch.End();

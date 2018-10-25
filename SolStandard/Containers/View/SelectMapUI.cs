@@ -5,7 +5,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Containers.View
 {
     public class SelectMapUI : IUserInterface
     {

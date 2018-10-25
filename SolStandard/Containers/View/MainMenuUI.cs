@@ -6,7 +6,7 @@ using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Containers.View
 {
     public class MainMenuUI : IUserInterface
     {

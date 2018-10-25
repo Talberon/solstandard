@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;

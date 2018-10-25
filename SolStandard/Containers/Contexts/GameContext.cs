@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.Controller;
+using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
@@ -144,7 +145,7 @@ namespace SolStandard.Containers.Contexts
 
             GameMapContext = new GameMapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
-                new GameMapUI(GameDriver.ScreenSize)
+                new GameMapController()
             );
         }
 
@@ -185,7 +186,7 @@ namespace SolStandard.Containers.Contexts
             GameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
-            GameMapContext.GameMapUI.GenerateActionMenu();
+            GameMapContext.GameMapController.GenerateActionMenu();
             GameMapContext.GenerateActionPreviewGrid();
         }
 
@@ -198,7 +199,7 @@ namespace SolStandard.Containers.Contexts
         {
             ActiveUnit.CancelArmedSkill(GameMapContext);
             GameMapContext.ResetCursorToActiveUnit();
-            GameMapContext.GameMapUI.GenerateActionMenu();
+            GameMapContext.GameMapController.GenerateActionMenu();
         }
 
         public void ContinueCombat()

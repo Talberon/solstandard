@@ -11,7 +11,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Containers.View
 {
     public class BattleUI : IUserInterface
     {

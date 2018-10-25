@@ -1,5 +1,5 @@
 ﻿using System;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.View;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;

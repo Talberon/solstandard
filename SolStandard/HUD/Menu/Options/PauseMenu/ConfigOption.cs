@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.View;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Assets;
 
