@@ -210,16 +210,16 @@ namespace SolStandard.Entity.Unit
                     new IRenderable[,]
                     {
                         {
-                            new Window("Unit Title", AssetManager.WindowTexture,
+                            new Window(
                                 new RenderText(AssetManager.HeaderFont, Id),
                                 statPanelColor, panelSizeOverride),
 
-                            new Window("Unit Class", AssetManager.WindowTexture,
+                            new Window(
                                 new RenderText(AssetManager.HeaderFont, Role.ToString()),
                                 statPanelColor, panelSizeOverride),
                         },
                         {
-                            new Window("HP", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
@@ -235,7 +235,7 @@ namespace SolStandard.Entity.Unit
                                 statPanelColor, panelSizeOverride
                             ),
 
-                            new Window("Gold", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
@@ -251,7 +251,7 @@ namespace SolStandard.Entity.Unit
                             )
                         },
                         {
-                            new Window("ATK", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
@@ -269,7 +269,7 @@ namespace SolStandard.Entity.Unit
                                 ),
                                 statPanelColor, panelSizeOverride
                             ),
-                            new Window("DEF", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
@@ -289,7 +289,7 @@ namespace SolStandard.Entity.Unit
                             )
                         },
                         {
-                            new Window("MV", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {
@@ -307,7 +307,7 @@ namespace SolStandard.Entity.Unit
                                 ),
                                 statPanelColor, panelSizeOverride
                             ),
-                            new Window("AtkRange", AssetManager.WindowTexture,
+                            new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
                                     {

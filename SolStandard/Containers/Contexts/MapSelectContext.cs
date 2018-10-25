@@ -11,12 +11,12 @@ namespace SolStandard.Containers.Contexts
 {
     public class MapSelectContext
     {
-        public readonly SelectMapUI SelectMapUI;
+        public readonly MapSelectScreenView MapSelectScreenView;
         public readonly MapContainer MapContainer;
 
-        public MapSelectContext(SelectMapUI selectMapUI, MapContainer mapContainer)
+        public MapSelectContext(MapSelectScreenView mapSelectScreenView, MapContainer mapContainer)
         {
-            SelectMapUI = selectMapUI;
+            MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
             Vector2 mapCenter = new Vector2(
                 (float) Math.Round(MapContainer.MapGridSize.X / 2),
@@ -31,11 +31,11 @@ namespace SolStandard.Containers.Contexts
 
             if (CursorAtMapSelectFeature(cursorSlice))
             {
-                SelectMapUI.UpdateMapInfoWindow(cursorSlice.TerrainEntity.TerrainInfo);
+                MapSelectScreenView.UpdateMapInfoWindow(cursorSlice.TerrainEntity.TerrainInfo);
             }
             else
             {
-                SelectMapUI.UpdateMapInfoWindow(null);
+                MapSelectScreenView.UpdateMapInfoWindow(null);
             }
         }
 

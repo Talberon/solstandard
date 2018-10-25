@@ -8,7 +8,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.View
 {
-    public class MainMenuUI : IUserInterface
+    public class MainMenuView : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
         private readonly Color menuColor;
@@ -17,7 +17,7 @@ namespace SolStandard.Containers.View
         private readonly SpriteAtlas background;
         private bool visible;
 
-        public MainMenuUI(SpriteAtlas title, AnimatedSprite logo, SpriteAtlas background)
+        public MainMenuView(SpriteAtlas title, AnimatedSprite logo, SpriteAtlas background)
         {
             this.title = title;
             this.logo = logo;

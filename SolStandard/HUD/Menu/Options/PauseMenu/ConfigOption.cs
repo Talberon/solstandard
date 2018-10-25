@@ -7,18 +7,18 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 {
     public class ConfigOption : MenuOption
     {
-        private readonly PauseMenuUI pauseMenuUI;
+        private readonly PauseScreenView pauseScreenView;
 
-        public ConfigOption(Color color, PauseMenuUI pauseMenuUI) :
+        public ConfigOption(Color color, PauseScreenView pauseScreenView) :
             base(new RenderText(AssetManager.MainMenuFont, "Config"), color)
         {
-            this.pauseMenuUI = pauseMenuUI;
+            this.pauseScreenView = pauseScreenView;
         }
 
         public override void Execute()
         {
             //Show Options Menu for Sound + Music
-            pauseMenuUI.ChangeMenu(PauseMenuUI.PauseMenus.Config);
+            pauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Config);
         }
     }
 }

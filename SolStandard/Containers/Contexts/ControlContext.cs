@@ -17,7 +17,7 @@ namespace SolStandard.Containers.Contexts
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    MainMenuControls(controlMapper, gameContext.MainMenuUI.MainMenu);
+                    MainMenuControls(controlMapper, gameContext.MainMenuView.MainMenu);
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -313,7 +313,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.Start, PressType.Single))
             {
-                gameContext.GameMapContext.PauseMenuUI.ChangeMenu(PauseMenuUI.PauseMenus.Primary);
+                gameContext.GameMapContext.PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
         }

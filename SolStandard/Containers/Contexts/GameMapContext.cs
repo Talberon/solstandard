@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Controller;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
+using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -12,7 +12,6 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using GameMapUI = SolStandard.Containers.Controller.GameMapController;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -33,8 +32,8 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
         private const string HelpText = "Select a unit.";
-        public static GameMapUI GameMapController { get; private set; }
-        public PauseMenuUI PauseMenuUI { get; private set; }
+        public static GameMapView GameMapView { get; private set; }
+        public PauseScreenView PauseScreenView { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -45,26 +44,26 @@ namespace SolStandard.Containers.Contexts
                 {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
             };
 
-        public GameMapContext(MapContainer mapContainer, GameMapController gameMapController)
+        public GameMapContext(MapContainer mapContainer, GameMapView gameMapController)
         {
             this.mapContainer = mapContainer;
-            GameMapController = gameMapController;
+            GameMapView = gameMapController;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
-            PauseMenuUI = new PauseMenuUI(this);
+            PauseScreenView = new PauseScreenView(this);
         }
 
         public static void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            GameMapController.GenerateInitiativeWindow(GameContext.Units);
+            GameMapView.GenerateInitiativeWindow(GameContext.Units);
 
             //Turn Window
-            GameMapController.GenerateTurnWindow();
+            GameMapView.GenerateTurnWindow();
 
             //Help Window
-            GameMapController.GenerateHelpWindow(HelpText);
-            GameMapController.GenerateObjectiveWindow();
+            GameMapView.GenerateHelpWindow(HelpText);
+            GameMapView.GenerateObjectiveWindow();
         }
 
         public void ProceedToNextState()
@@ -129,12 +128,12 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
-            GameMapController.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
+            GameMapView.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
         public void ConfirmPromptWindow()
         {
-            GameMapController.ClosePromptWindow();
+            GameMapView.CloseUserPromptWindow();
         }
 
         public void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
@@ -174,12 +173,12 @@ namespace SolStandard.Containers.Contexts
             {
                 if (hoverMapUnit != GameContext.ActiveUnit)
                 {
-                    GameMapController.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
+                    GameMapView.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
                 }
                 else
                 {
-                    GameMapController.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
-                    GameMapController.UpdateRightPortraitAndDetailWindows(null);
+                    GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                    GameMapView.UpdateRightPortraitAndDetailWindows(null);
                 }
             }
             else
@@ -194,12 +193,12 @@ namespace SolStandard.Containers.Contexts
                         .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
                 }
 
-                GameMapController.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
-                GameMapController.UpdateRightPortraitAndDetailWindows(null);
+                GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
+                GameMapView.UpdateRightPortraitAndDetailWindows(null);
             }
 
             //Terrain (Entity) Window
-            GameMapController.GenerateEntityWindow(hoverSlice);
+            GameMapView.GenerateEntityWindow(hoverSlice);
         }
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
@@ -230,8 +229,8 @@ namespace SolStandard.Containers.Contexts
 
         public void MoveActionMenuCursor(VerticalMenu.MenuCursorDirection direction)
         {
-            GameMapController.ActionMenu.MoveMenuCursor(direction);
-            GameMapController.GenerateActionMenuDescription();
+            GameMapView.ActionMenu.MoveMenuCursor(direction);
+            GameMapView.GenerateActionMenuDescription();
 
             GenerateActionPreviewGrid();
         }
@@ -239,8 +238,8 @@ namespace SolStandard.Containers.Contexts
         public void SelectActionMenuOption()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapController.ActionMenu.CurrentOption.Execute();
-            GameMapController.ClearCombatMenu();
+            GameMapView.ActionMenu.CurrentOption.Execute();
+            GameMapView.CloseCombatMenu();
 
             ProceedToNextState();
             SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
@@ -249,22 +248,37 @@ namespace SolStandard.Containers.Contexts
 
         public void MovePauseMenuCursor(VerticalMenu.MenuCursorDirection direction)
         {
-            PauseMenuUI.CurrentMenu.MoveMenuCursor(direction);
+            PauseScreenView.CurrentMenu.MoveMenuCursor(direction);
         }
 
         public void SelectPauseMenuOption()
         {
-            PauseMenuUI.CurrentMenu.SelectOption();
+            PauseScreenView.CurrentMenu.SelectOption();
         }
 
         public void GenerateActionPreviewGrid()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            SkillOption skillOption = GameMapController.ActionMenu.CurrentOption as SkillOption;
+            SkillOption skillOption = GameMapView.ActionMenu.CurrentOption as SkillOption;
             if (skillOption != null)
             {
                 skillOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
+        }
+        
+        
+
+        public void GenerateActionMenu()
+        {
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+
+            MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
+
+            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+
+            GameMapView.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
+            GameMapView.GenerateActionMenuDescription();
         }
     }
 }

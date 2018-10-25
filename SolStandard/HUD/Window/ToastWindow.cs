@@ -25,7 +25,7 @@ namespace SolStandard.HUD.Window
 
         public ToastWindow(IRenderable windowContent, Vector2 originalCoordinates, int maxLifetimeInFrames)
         {
-            window = new Window("Toast Window", AssetManager.WindowTexture, windowContent, ToastColor);
+            window = new Window(windowContent, ToastColor);
             MaxLifetimeInFrames = maxLifetimeInFrames;
             this.originalCoordinates = originalCoordinates;
             CurrentLifetimeInFrames = 0;

@@ -139,7 +139,7 @@ namespace SolStandard
             GameContext.ActivePlayer = PlayerIndex.One;
 
             _gameContext = new GameContext(
-                new MainMenuUI(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
+                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
             );
 
             MapCamera.CenterCameraToCursor();
@@ -318,7 +318,7 @@ namespace SolStandard
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            _gameContext.GameMapContext.PauseMenuUI.Draw(spriteBatch);
+            _gameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -329,7 +329,7 @@ namespace SolStandard
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            _gameContext.MainMenuUI.Draw(spriteBatch);
+            _gameContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -351,7 +351,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            GameContext.MapSelectContext.SelectMapUI.Draw(spriteBatch);
+            GameContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -361,7 +361,7 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            _gameContext.StatusUI.Draw(spriteBatch);
+            _gameContext.StatusScreenView.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -387,7 +387,7 @@ namespace SolStandard
             }
             else
             {
-                GameMapContext.GameMapController.Draw(spriteBatch);
+                GameMapContext.GameMapView.Draw(spriteBatch);
             }
 
             spriteBatch.End();

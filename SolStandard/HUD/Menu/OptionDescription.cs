@@ -16,9 +16,9 @@ namespace SolStandard.HUD.Menu
         {
             this.windowTexture = windowTexture;
             infoTitleWindow =
-                new Window.Window("Title", windowTexture, new RenderText(AssetManager.HeaderFont, title), Color.White);
+                new Window.Window(new RenderText(AssetManager.HeaderFont, title), Color.White);
             infoDescriptionWindow =
-                new Window.Window("Description", windowTexture, new RenderText(AssetManager.WindowFont, description),
+                new Window.Window(new RenderText(AssetManager.WindowFont, description),
                     Color.White);
         }
 
@@ -36,7 +36,7 @@ namespace SolStandard.HUD.Menu
                     2
                 );
                 
-                return new Window.Window("Info Window", windowTexture, infoWindowContentGrid, Color.White);
+                return new Window.Window(infoWindowContentGrid, Color.White);
             }
         }
     }

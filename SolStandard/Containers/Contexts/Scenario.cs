@@ -9,7 +9,6 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
-
     public class Scenario
     {
         public Dictionary<VictoryConditions, Objective> Objectives { get; private set; }
@@ -31,8 +30,6 @@ namespace SolStandard.Containers.Contexts
                 }
 
                 return new Window(
-                    "Objectives",
-                    AssetManager.WindowTexture,
                     new WindowContentGrid(
                         objectives,
                         0,

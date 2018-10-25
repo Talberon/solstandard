@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Controller;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -36,8 +35,8 @@ namespace SolStandard.Containers.Contexts
         public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
         public GameMapContext GameMapContext { get; private set; }
-        public StatusUI StatusUI { get; private set; }
-        public MainMenuUI MainMenuUI { get; private set; }
+        public StatusScreenView StatusScreenView { get; private set; }
+        public MainMenuView MainMenuView { get; private set; }
         public static int TurnCounter { get; private set; }
         public static int RoundCounter { get; private set; }
         private float oldZoom;
@@ -63,10 +62,10 @@ namespace SolStandard.Containers.Contexts
             get { return battleContext; }
         }
 
-        public GameContext(MainMenuUI mainMenuUI)
+        public GameContext(MainMenuView mainMenuView)
         {
-            battleContext = new BattleContext(new BattleUI());
-            MainMenuUI = mainMenuUI;
+            battleContext = new BattleContext(new BattleView());
+            MainMenuView = mainMenuView;
 
             LoadMapSelect();
 
@@ -86,7 +85,7 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.UnitSprites,
                 GameDriver.TmxObjectTypeDefaults);
 
-            MapSelectContext = new MapSelectContext(new SelectMapUI(),
+            MapSelectContext = new MapSelectContext(new MapSelectScreenView(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
             LoadInitiativeContext(mapParser);
@@ -114,7 +113,7 @@ namespace SolStandard.Containers.Contexts
             GameMapContext.EndTurn();
 
             GameMapContext.UpdateWindowsEachTurn();
-            StatusUI.UpdateWindows();
+            StatusScreenView.UpdateWindows();
 
             CurrentGameState = GameState.InGame;
         }
@@ -136,7 +135,7 @@ namespace SolStandard.Containers.Contexts
 
         private void LoadStatusUI()
         {
-            StatusUI = new StatusUI();
+            StatusScreenView = new StatusScreenView();
         }
 
         private void LoadMapContainer(TmxMapParser mapParser)
@@ -145,7 +144,7 @@ namespace SolStandard.Containers.Contexts
 
             GameMapContext = new GameMapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
-                new GameMapController()
+                new GameMapView()
             );
         }
 
@@ -186,7 +185,7 @@ namespace SolStandard.Containers.Contexts
             GameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
-            GameMapContext.GameMapController.GenerateActionMenu();
+            GameMapContext.GenerateActionMenu();
             GameMapContext.GenerateActionPreviewGrid();
         }
 
@@ -199,7 +198,7 @@ namespace SolStandard.Containers.Contexts
         {
             ActiveUnit.CancelArmedSkill(GameMapContext);
             GameMapContext.ResetCursorToActiveUnit();
-            GameMapContext.GameMapController.GenerateActionMenu();
+            GameMapContext.GenerateActionMenu();
         }
 
         public void ContinueCombat()
@@ -284,7 +283,7 @@ namespace SolStandard.Containers.Contexts
                 EndTurnIfUnitIsDead();
             }
 
-            StatusUI.UpdateWindows();
+            StatusScreenView.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();
         }

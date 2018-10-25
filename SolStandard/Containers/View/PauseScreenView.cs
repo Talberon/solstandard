@@ -11,7 +11,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.View
 {
-    public class PauseMenuUI : IUserInterface
+    public class PauseScreenView : IUserInterface
     {
         public enum PauseMenus
         {
@@ -27,7 +27,7 @@ namespace SolStandard.Containers.View
         private PauseMenus currentMenu;
         private bool visible;
 
-        public PauseMenuUI(GameMapContext gameMapContext)
+        public PauseScreenView(GameMapContext gameMapContext)
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);

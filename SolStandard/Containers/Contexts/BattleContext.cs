@@ -23,7 +23,7 @@ namespace SolStandard.Containers.Contexts
             ResolveCombat,
         }
 
-        private readonly BattleUI battleUI;
+        private readonly BattleView battleController;
         private const int HpBarHeight = 25;
 
         private CombatDice attackerDice;
@@ -45,9 +45,9 @@ namespace SolStandard.Containers.Contexts
         private bool attackerInRange;
         private bool defenderInRange;
 
-        public BattleContext(BattleUI battleUI)
+        public BattleContext(BattleView battleController)
         {
-            this.battleUI = battleUI;
+            this.battleController = battleController;
             frameCounter = 0;
             currentlyRolling = false;
             rollingCounter = 0;
@@ -102,13 +102,13 @@ namespace SolStandard.Containers.Contexts
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
 
-            Vector2 threeBarsHighOrTaller = new Vector2(0, battleUI.AttackerBonusWindow.Height * 3);
+            Vector2 threeBarsHighOrTaller = new Vector2(0, battleController.AttackerBonusWindow.Height * 3);
             if (threeBarsHighOrTaller.Y < promptWindowContentGrid.Height)
             {
                 threeBarsHighOrTaller.Y = 0;
             }
 
-            battleUI.GenerateUserPromptWindow(promptWindowContentGrid, threeBarsHighOrTaller);
+            battleController.GenerateUserPromptWindow(promptWindowContentGrid, threeBarsHighOrTaller);
         }
 
         private void SetupHelpWindow()
@@ -135,47 +135,49 @@ namespace SolStandard.Containers.Contexts
                 }
             };
             WindowContentGrid helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);
-            battleUI.GenerateHelpTextWindow(helpTextWindowContentGrid);
+            battleController.GenerateHelpTextWindow(helpTextWindowContentGrid);
         }
 
         private void SetupAttackerWindows(MapSlice attackerSlice)
         {
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
-            battleUI.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.LargePortrait);
+            battleController.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.LargePortrait);
 
-            Vector2 portraitWidthOverride = new Vector2(battleUI.AttackerPortraitWindow.Width, 0);
-            battleUI.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
-            battleUI.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
+            Vector2 portraitWidthOverride = new Vector2(battleController.AttackerPortraitWindow.Width, 0);
+            battleController.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
+            battleController.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
                 attacker.Role.ToString());
-            battleUI.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
-            battleUI.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats);
-            battleUI.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
-            battleUI.GenerateAttackerDiceLabelWindow(attackerWindowColor);
+            battleController.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker,
+                HpBarHeight);
+            battleController.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats);
+            battleController.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
+            battleController.GenerateAttackerDiceLabelWindow(attackerWindowColor);
 
-            int terrainAttackBonus = battleUI.GenerateAttackerBonusWindow(attackerSlice, attackerWindowColor,
+            int terrainAttackBonus = battleController.GenerateAttackerBonusWindow(attackerSlice, attackerWindowColor,
                 portraitWidthOverride);
             attackerDice = new CombatDice(attacker.Stats.Atk, terrainAttackBonus, 3);
-            battleUI.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
+            battleController.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
         }
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
         {
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
-            battleUI.GenerateDefenderPortraitWindow(defenderWindowColor, defender.LargePortrait);
+            battleController.GenerateDefenderPortraitWindow(defenderWindowColor, defender.LargePortrait);
 
-            Vector2 portraitWidthOverride = new Vector2(battleUI.DefenderPortraitWindow.Width, 0);
-            battleUI.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
-            battleUI.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
+            Vector2 portraitWidthOverride = new Vector2(battleController.DefenderPortraitWindow.Width, 0);
+            battleController.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
+            battleController.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
                 defender.Role.ToString());
-            battleUI.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
-            battleUI.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats);
-            battleUI.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
-            battleUI.GenerateDefenderDiceLabelWindow(defenderWindowColor);
+            battleController.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender,
+                HpBarHeight);
+            battleController.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats);
+            battleController.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
+            battleController.GenerateDefenderDiceLabelWindow(defenderWindowColor);
 
             int terrainDefenseBonus =
-                battleUI.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, portraitWidthOverride);
+                battleController.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, portraitWidthOverride);
             defenderDice = new CombatDice(defender.Stats.Def, terrainDefenseBonus, 3);
-            battleUI.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
+            battleController.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
         }
 
         public bool TryProceedToState(BattleState state)
@@ -205,7 +207,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyRolling)
             {
                 currentlyRolling = true;
-                battleUI.UserPromptWindow.Visible = false;
+                battleController.UserPromptWindow.Visible = false;
             }
         }
 
@@ -235,7 +237,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyResolvingBlocks)
             {
                 currentlyResolvingBlocks = true;
-                battleUI.UserPromptWindow.Visible = false;
+                battleController.UserPromptWindow.Visible = false;
             }
         }
 
@@ -283,7 +285,7 @@ namespace SolStandard.Containers.Contexts
             if (!currentlyResolvingDamage)
             {
                 currentlyResolvingDamage = true;
-                battleUI.UserPromptWindow.Visible = false;
+                battleController.UserPromptWindow.Visible = false;
             }
         }
 
@@ -377,7 +379,7 @@ namespace SolStandard.Containers.Contexts
         {
             frameCounter++;
             UpdateDice();
-            battleUI.Draw(spriteBatch);
+            battleController.Draw(spriteBatch);
         }
     }
 }

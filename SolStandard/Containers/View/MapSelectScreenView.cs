@@ -7,7 +7,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.View
 {
-    public class SelectMapUI : IUserInterface
+    public class MapSelectScreenView : IUserInterface
     {
         private Window instructionWindow;
         private Window mapInfoWindow;
@@ -18,7 +18,7 @@ namespace SolStandard.Containers.View
 
         private bool visible;
 
-        public SelectMapUI()
+        public MapSelectScreenView()
         {
             SetUpWindows();
         }
@@ -31,21 +31,17 @@ namespace SolStandard.Containers.View
                     {
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
-                        ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(AssetManager.WindowFont.MeasureString("A").Y))                    }
+                        ButtonIconProvider.GetButton(ButtonIcon.A,
+                            new Vector2(AssetManager.WindowFont.MeasureString("A").Y))
+                    }
                 },
                 1
             );
 
 
-            instructionWindow = new Window(
-                "Instruction Window", AssetManager.WindowTexture,
-                instructionContentGrid,
-                InstructionWindowColor
-            );
+            instructionWindow = new Window(instructionContentGrid, InstructionWindowColor);
 
-            mapInfoWindow = new Window(
-                "SelectMapEntity Info Window", AssetManager.WindowTexture, new RenderBlank(), MapInfoWindowColor
-            );
+            mapInfoWindow = new Window(new RenderBlank(), MapInfoWindowColor);
         }
 
         public void UpdateMapInfoWindow(IRenderable terrainInfo)
@@ -56,7 +52,7 @@ namespace SolStandard.Containers.View
             }
             else
             {
-                mapInfoWindow = new Window("MapInfo Window", AssetManager.WindowTexture, terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
+                mapInfoWindow = new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
             }
         }
 
