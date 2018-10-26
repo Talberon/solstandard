@@ -20,13 +20,15 @@ namespace SolStandard.Containers
     public class MapContainer
     {
         private static List<MapElement[,]> _gameGrid;
-        public static MapCursor MapCursor { get; private set; }
+        public MapCursor MapCursor { get; private set; }
+        public MapCamera MapCamera { get; private set; }
         private static ToastWindow ToastWindow { get; set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
+            MapCamera = new MapCamera(5, 0.05f);
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -52,17 +54,17 @@ namespace SolStandard.Containers
             get
             {
                 return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
-                       * GameDriver.CellSize * MapCamera.CurrentZoom;
+                       * GameDriver.CellSize * GameContext.MapCamera.CurrentZoom;
             }
         }
 
-        public static void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        public void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
         {
             IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
             ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
         }
 
-        public static void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
+        public void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
         {
             //Set the toast to the right of the cursor
             AddNewToastAtCoordinates(toastMessage, (MapCursor.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
@@ -87,7 +89,7 @@ namespace SolStandard.Containers
                 _gameGrid[(int) Layer.Preview].GetLength(1)];
         }
 
-        public static MapSlice GetMapSliceAtCursor()
+        public MapSlice GetMapSliceAtCursor()
         {
             return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }

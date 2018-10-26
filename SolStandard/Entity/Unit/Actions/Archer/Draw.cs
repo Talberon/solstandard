@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             this.statModifier = statModifier;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -39,12 +39,12 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkRangeStatUp(duration, statModifier)));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

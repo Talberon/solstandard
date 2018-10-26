@@ -22,8 +22,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
-            BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -35,18 +34,18 @@ namespace SolStandard.Entity.Unit.Actions
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
-                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                    eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

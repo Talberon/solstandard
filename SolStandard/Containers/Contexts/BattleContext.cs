@@ -81,6 +81,40 @@ namespace SolStandard.Containers.Contexts
             SetupDefenderWindows(defenderSlice);
             SetPromptWindowText("Start Combat!");
         }
+        
+        public void ContinueCombat()
+        {
+            switch (CurrentState)
+            {
+                case BattleState.Start:
+                    if (TryProceedToState(BattleState.RollDice))
+                    {
+                        AssetManager.MapUnitSelectSFX.Play();
+                        StartRollingDice();
+                    }
+
+                    break;
+                case BattleState.RollDice:
+                    if (TryProceedToState(BattleState.ResolveCombat))
+                    {
+                        AssetManager.MapUnitSelectSFX.Play();
+                        StartResolvingBlocks();
+                    }
+
+                    break;
+                case BattleState.ResolveCombat:
+                    if (TryProceedToState(BattleState.Start))
+                    {
+                        AssetManager.MapUnitSelectSFX.Play();
+                        GameContext.GameMapContext.ProceedToNextState();
+                    }
+
+                    break;
+                default:
+                    GameContext.GameMapContext.ProceedToNextState();
+                    return;
+            }
+        }
 
         private void SetPromptWindowText(string promptText)
         {

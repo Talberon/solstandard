@@ -55,7 +55,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return new Window(teamGoldWindowContentGrid, ObjectiveWindowColor);
         }
 
-        public override bool ConditionsMet(GameContext gameContext)
+        public override bool ConditionsMet()
         {
             if (TeamHasCollectedTargetGold(Team.Blue) && TeamHasCollectedTargetGold(Team.Red))
             {

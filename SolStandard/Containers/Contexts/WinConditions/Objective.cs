@@ -28,30 +28,30 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return new RenderBlank(); }
         }
 
-        public abstract bool ConditionsMet(GameContext gameContext);
+        public abstract bool ConditionsMet();
 
-        public void EndGame(GameContext gameContext)
+        public void EndGame()
         {
-            gameContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
+            GameContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
 
             if (RedTeamWins)
             {
-                gameContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
-                gameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
+                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (BlueTeamWins)
             {
-                gameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
-                gameContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
+                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (GameIsADraw)
             {
-                gameContext.StatusScreenView.BlueTeamResultText = "DRAW...";
-                gameContext.StatusScreenView.RedTeamResultText = "DRAW...";
+                GameContext.StatusScreenView.BlueTeamResultText = "DRAW...";
+                GameContext.StatusScreenView.RedTeamResultText = "DRAW...";
                 TransferToResultsScreen();
             }
         }

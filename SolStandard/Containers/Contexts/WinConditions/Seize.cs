@@ -14,7 +14,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return new RenderText(AssetManager.ResultsFont, "Objective Seized!"); }
         }
 
-        public override bool ConditionsMet(GameContext gameContext)
+        public override bool ConditionsMet()
         {
             if (RedSeizedObjective)
             {

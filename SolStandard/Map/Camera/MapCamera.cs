@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Map.Camera
@@ -39,47 +40,46 @@ namespace SolStandard.Map.Camera
         private const int HorizontalCursorThreshold = 200;
         private const int BottomCursorThreshold = 300;
 
-        public static float CurrentZoom { get; private set; }
-        public static float TargetZoom { get; private set; }
+        public float CurrentZoom { get; private set; }
+        public float TargetZoom { get; private set; }
         private readonly float zoomRate;
 
-        private static Vector2 _currentPosition;
-        private static Vector2 _targetPosition;
-        private static float _panRate = 1;
-        private static bool _movingCameraToCursor;
+        private Vector2 currentPosition;
+        private Vector2 targetPosition;
+        private readonly float panRate;
+        private bool movingCameraToCursor;
 
         private bool centeringOnPoint;
 
         public MapCamera(float panRate, float zoomRate)
         {
-            _currentPosition = new Vector2(0);
-            _targetPosition = new Vector2(0);
+            currentPosition = new Vector2(0);
+            targetPosition = new Vector2(0);
             CurrentZoom = DefaultZoomLevel;
             TargetZoom = CurrentZoom;
             centeringOnPoint = false;
-            _panRate = panRate;
+            this.panRate = panRate;
             this.zoomRate = zoomRate;
         }
 
-        public static Vector2 CurrentPosition
+        public Vector2 CurrentPosition
         {
-            get { return _currentPosition; }
+            get { return currentPosition; }
         }
 
-        public static Vector2 TargetPosition
+        public Vector2 TargetPosition
         {
-            get { return _targetPosition; }
+            get { return targetPosition; }
         }
 
-        public static Matrix CameraMatrix
+        public Matrix CameraMatrix
         {
             get
             {
-                return Matrix.CreateTranslation(_currentPosition.X, _currentPosition.Y, 0) *
+                return Matrix.CreateTranslation(currentPosition.X, currentPosition.Y, 0) *
                        Matrix.CreateScale(new Vector3(CurrentZoom, CurrentZoom, 1));
             }
         }
-
 
         public void SetZoomLevel(ZoomLevel zoomLevel)
         {
@@ -110,7 +110,7 @@ namespace SolStandard.Map.Camera
 
         public void UpdateEveryFrame()
         {
-            if (_targetPosition == _currentPosition && Math.Abs(TargetZoom - CurrentZoom) < 0.01)
+            if (targetPosition == currentPosition && Math.Abs(TargetZoom - CurrentZoom) < 0.01)
             {
                 centeringOnPoint = false;
             }
@@ -122,7 +122,7 @@ namespace SolStandard.Map.Camera
             }
             else
             {
-                PanCameraToTarget(_panRate);
+                PanCameraToTarget(panRate);
             }
 
             UpdateZoomLevel();
@@ -130,25 +130,25 @@ namespace SolStandard.Map.Camera
             CorrectCameraToMap();
         }
 
-        public static void SnapCameraCenterToCursor()
+        public void SnapCameraCenterToCursor()
         {
-            CenterCameraToPoint(MapContainer.MapCursor.CenterPixelPoint);
-            _currentPosition = _targetPosition;
+            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
+            currentPosition = targetPosition;
         }
 
-        public static void CenterCameraToCursor()
+        public void CenterCameraToCursor()
         {
-            CenterCameraToPoint(MapContainer.MapCursor.CenterPixelPoint);
+            CenterCameraToPoint(GameContext.MapCursor.CenterPixelPoint);
         }
 
-        private static void CenterCameraToPoint(Vector2 centerPoint)
+        private void CenterCameraToPoint(Vector2 centerPoint)
         {
             Vector2 screenCenter = GameDriver.ScreenSize / 2;
 
-            _targetPosition = Vector2.Negate(centerPoint);
-            _targetPosition += screenCenter / CurrentZoom;
+            targetPosition = Vector2.Negate(centerPoint);
+            targetPosition += screenCenter / CurrentZoom;
 
-            Trace.WriteLine("Camera:" + _targetPosition);
+            Trace.WriteLine("Camera:" + targetPosition);
             Trace.WriteLine("TargetPoint:" + centerPoint);
             Trace.WriteLine("Cursor:" + MapCursor.CurrentPixelCoordinates);
         }
@@ -180,96 +180,96 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        private static void PanCameraToTarget(float panSpeed)
+        private void PanCameraToTarget(float panSpeed)
         {
-            if (_currentPosition.X < _targetPosition.X)
+            if (currentPosition.X < targetPosition.X)
             {
-                if (_currentPosition.X + panSpeed > _targetPosition.X)
+                if (currentPosition.X + panSpeed > targetPosition.X)
                 {
-                    _currentPosition.X = _targetPosition.X;
+                    currentPosition.X = targetPosition.X;
                 }
                 else
                 {
-                    _currentPosition.X += panSpeed;
+                    currentPosition.X += panSpeed;
                 }
             }
 
-            if (_currentPosition.X > _targetPosition.X)
+            if (currentPosition.X > targetPosition.X)
             {
-                if (_currentPosition.X - panSpeed < _targetPosition.X)
+                if (currentPosition.X - panSpeed < targetPosition.X)
                 {
-                    _currentPosition.X = _targetPosition.X;
+                    currentPosition.X = targetPosition.X;
                 }
                 else
                 {
-                    _currentPosition.X -= panSpeed;
+                    currentPosition.X -= panSpeed;
                 }
             }
 
-            if (_currentPosition.Y < _targetPosition.Y)
+            if (currentPosition.Y < targetPosition.Y)
             {
-                if (_currentPosition.Y + panSpeed > _targetPosition.Y)
+                if (currentPosition.Y + panSpeed > targetPosition.Y)
                 {
-                    _currentPosition.Y = _targetPosition.Y;
+                    currentPosition.Y = targetPosition.Y;
                 }
                 else
                 {
-                    _currentPosition.Y += panSpeed;
+                    currentPosition.Y += panSpeed;
                 }
             }
 
-            if (_currentPosition.Y > _targetPosition.Y)
+            if (currentPosition.Y > targetPosition.Y)
             {
-                if (_currentPosition.Y - panSpeed < _targetPosition.Y)
+                if (currentPosition.Y - panSpeed < targetPosition.Y)
                 {
-                    _currentPosition.Y = _targetPosition.Y;
+                    currentPosition.Y = targetPosition.Y;
                 }
                 else
                 {
-                    _currentPosition.Y -= panSpeed;
+                    currentPosition.Y -= panSpeed;
                 }
             }
         }
 
-        private static void MoveCameraInDirection(CameraDirection direction)
+        private void MoveCameraInDirection(CameraDirection direction)
         {
-            MoveCameraInDirection(direction, _panRate);
+            MoveCameraInDirection(direction, panRate);
         }
 
-        public static void MoveCameraInDirection(CameraDirection direction, float panRateOverride)
+        public void MoveCameraInDirection(CameraDirection direction, float panRateOverride)
         {
             switch (direction)
             {
                 case CameraDirection.Down:
-                    _targetPosition.Y -= panRateOverride;
+                    targetPosition.Y -= panRateOverride;
                     break;
                 case CameraDirection.Right:
-                    _targetPosition.X -= panRateOverride;
+                    targetPosition.X -= panRateOverride;
                     break;
                 case CameraDirection.Up:
-                    _targetPosition.Y += panRateOverride;
+                    targetPosition.Y += panRateOverride;
                     break;
                 case CameraDirection.Left:
-                    _targetPosition.X += panRateOverride;
+                    targetPosition.X += panRateOverride;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
         }
 
-        public static void StopMovingCamera()
+        public void StopMovingCamera()
         {
-            _targetPosition = _currentPosition;
+            targetPosition = currentPosition;
         }
 
-        public static void StartMovingCameraToCursor()
+        public void StartMovingCameraToCursor()
         {
-            _movingCameraToCursor = true;
+            movingCameraToCursor = true;
         }
 
-        private static void UpdateCameraToCursor()
+        private void UpdateCameraToCursor()
         {
-            if (_movingCameraToCursor)
+            if (movingCameraToCursor)
             {
                 if (MapCursor.CenterCursorScreenCoordinates.X < WestBound)
                 {
@@ -292,46 +292,46 @@ namespace SolStandard.Map.Camera
                 }
             }
 
-            if (_targetPosition == _currentPosition)
+            if (targetPosition == currentPosition)
             {
-                _movingCameraToCursor = false;
+                movingCameraToCursor = false;
             }
         }
 
-        private static float WestBound
+        private float WestBound
         {
             get { return 0 + HorizontalCursorThreshold; }
         }
 
-        private static float EastBound
+        private float EastBound
         {
             get
             {
                 return GameDriver.ScreenSize.X - HorizontalCursorThreshold -
-                       (MapContainer.MapCursor.RenderSprite.Width * CurrentZoom);
+                       (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
             }
         }
 
-        private static float NorthBound
+        private float NorthBound
         {
             get { return 0 + TopCursorThreshold; }
         }
 
-        private static float SouthBound
+        private float SouthBound
         {
             get
             {
                 return GameDriver.ScreenSize.Y - BottomCursorThreshold -
-                       (MapContainer.MapCursor.RenderSprite.Height * CurrentZoom);
+                       (GameContext.MapCursor.RenderSprite.Height * CurrentZoom);
             }
         }
 
-        private static void CorrectCameraToMap()
+        private void CorrectCameraToMap()
         {
-            CorrectPositionToMap(MapContainer.MapGridSize, _currentPosition);
+            CorrectPositionToMap(MapContainer.MapGridSize, currentPosition);
         }
 
-        private static void CorrectPositionToMap(Vector2 mapSize, Vector2 position)
+        private void CorrectPositionToMap(Vector2 mapSize, Vector2 position)
         {
             if (CameraIsBeyondLeftEdge(position) && CameraIsBeyondRightEdge(mapSize, position))
             {
@@ -341,22 +341,22 @@ namespace SolStandard.Map.Camera
             {
                 if (CameraIsBeyondLeftEdge(position))
                 {
-                    _currentPosition.X = 0;
-                    _targetPosition.X = _currentPosition.X;
+                    currentPosition.X = 0;
+                    targetPosition.X = currentPosition.X;
 
                     //If new position would be beyond Right Edge, just center
-                    if (CameraIsBeyondRightEdge(mapSize, _currentPosition)) CenterHorizontally();
+                    if (CameraIsBeyondRightEdge(mapSize, currentPosition)) CenterHorizontally();
                 }
                 else if (CameraIsBeyondRightEdge(mapSize, position))
                 {
-                    _currentPosition.X = RightEdge(mapSize) / CurrentZoom;
-                    if (_targetPosition.X < _currentPosition.X)
+                    currentPosition.X = RightEdge(mapSize) / CurrentZoom;
+                    if (targetPosition.X < currentPosition.X)
                     {
-                        _targetPosition.X = _currentPosition.X;
+                        targetPosition.X = currentPosition.X;
                     }
 
                     //If new position would be beyond Left Edge, just center
-                    if (CameraIsBeyondLeftEdge(_currentPosition)) CenterHorizontally();
+                    if (CameraIsBeyondLeftEdge(currentPosition)) CenterHorizontally();
                 }
             }
 
@@ -368,63 +368,63 @@ namespace SolStandard.Map.Camera
             {
                 if (CameraIsBeyondTopEdge(position))
                 {
-                    _currentPosition.Y = 0;
-                    _targetPosition.Y = _currentPosition.Y;
+                    currentPosition.Y = 0;
+                    targetPosition.Y = currentPosition.Y;
                     //If new position would be beyond Bottom Edge, just center
-                    if (CameraIsBeyondBottomEdge(mapSize, _currentPosition)) CenterVertically();
+                    if (CameraIsBeyondBottomEdge(mapSize, currentPosition)) CenterVertically();
                 }
                 else if (CameraIsBeyondBottomEdge(mapSize, position))
                 {
-                    _currentPosition.Y = BottomEdge(mapSize) / CurrentZoom;
-                    if (_targetPosition.Y < _currentPosition.Y)
+                    currentPosition.Y = BottomEdge(mapSize) / CurrentZoom;
+                    if (targetPosition.Y < currentPosition.Y)
                     {
-                        _targetPosition.Y = _currentPosition.Y;
+                        targetPosition.Y = currentPosition.Y;
                     }
 
                     //If new position would be beyond Top Edge, just center
-                    if (CameraIsBeyondTopEdge(_currentPosition)) CenterVertically();
+                    if (CameraIsBeyondTopEdge(currentPosition)) CenterVertically();
                 }
             }
         }
 
-        private static void CenterVertically()
+        private void CenterVertically()
         {
-            _currentPosition.Y = (GameDriver.ScreenSize.Y - MapContainer.MapScreenSizeInPixels.Y) / 2;
-            _targetPosition.Y = _currentPosition.Y;
+            currentPosition.Y = (GameDriver.ScreenSize.Y - MapContainer.MapScreenSizeInPixels.Y) / 2;
+            targetPosition.Y = currentPosition.Y;
         }
 
-        private static void CenterHorizontally()
+        private void CenterHorizontally()
         {
-            _currentPosition.X = (GameDriver.ScreenSize.X - MapContainer.MapScreenSizeInPixels.X) / 2;
-            _targetPosition.X = _currentPosition.X;
+            currentPosition.X = (GameDriver.ScreenSize.X - MapContainer.MapScreenSizeInPixels.X) / 2;
+            targetPosition.X = currentPosition.X;
         }
 
-        private static bool CameraIsBeyondBottomEdge(Vector2 mapSize, Vector2 position)
+        private bool CameraIsBeyondBottomEdge(Vector2 mapSize, Vector2 position)
         {
             return position.Y * CurrentZoom < BottomEdge(mapSize);
         }
 
-        private static bool CameraIsBeyondRightEdge(Vector2 mapSize, Vector2 position)
+        private bool CameraIsBeyondRightEdge(Vector2 mapSize, Vector2 position)
         {
             return position.X * CurrentZoom < RightEdge(mapSize);
         }
 
-        private static bool CameraIsBeyondTopEdge(Vector2 position)
+        private bool CameraIsBeyondTopEdge(Vector2 position)
         {
             return position.Y > 0;
         }
 
-        private static bool CameraIsBeyondLeftEdge(Vector2 position)
+        private bool CameraIsBeyondLeftEdge(Vector2 position)
         {
             return position.X > 0;
         }
 
-        private static float BottomEdge(Vector2 mapSize)
+        private float BottomEdge(Vector2 mapSize)
         {
             return (-1 * mapSize.Y * GameDriver.CellSize) * CurrentZoom + GameDriver.ScreenSize.Y;
         }
 
-        private static float RightEdge(Vector2 mapSize)
+        private float RightEdge(Vector2 mapSize)
         {
             return (-1 * mapSize.X * GameDriver.CellSize) * CurrentZoom + GameDriver.ScreenSize.X;
         }

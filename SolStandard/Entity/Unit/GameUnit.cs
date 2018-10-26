@@ -350,14 +350,14 @@ namespace SolStandard.Entity.Unit
             armedUnitAction = action;
         }
 
-        public void ExecuteArmedSkill(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public void ExecuteArmedSkill(MapSlice targetSlice)
         {
-            armedUnitAction.ExecuteAction(targetSlice, gameMapContext, battleContext);
+            armedUnitAction.ExecuteAction(targetSlice);
         }
 
-        public void CancelArmedSkill(GameMapContext gameMapContext)
+        public void CancelArmedSkill()
         {
-            armedUnitAction.CancelAction(gameMapContext);
+            armedUnitAction.CancelAction();
         }
 
         public void MoveUnitInDirection(Direction direction)
@@ -453,7 +453,7 @@ namespace SolStandard.Entity.Unit
                 return true;
             }
 
-            MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;
         }

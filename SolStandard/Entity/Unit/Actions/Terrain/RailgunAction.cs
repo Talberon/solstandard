@@ -30,9 +30,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             GenerateRealLinearTargetingGrid(origin, range, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
-            new BasicAttack().ExecuteAction(targetSlice, gameMapContext, battleContext);
+            new BasicAttack().ExecuteAction(targetSlice);
         }
 
         private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)

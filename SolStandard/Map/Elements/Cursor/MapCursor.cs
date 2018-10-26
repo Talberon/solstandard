@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Map.Camera;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -38,14 +37,19 @@ namespace SolStandard.Map.Elements.Cursor
 
         public static Vector2 ScreenCoordinates
         {
-            get { return (_currentPixelCoordinates + MapCamera.TargetPosition) * MapCamera.TargetZoom; }
+            get
+            {
+                return (_currentPixelCoordinates + GameContext.MapCamera.TargetPosition) *
+                       GameContext.MapCamera.TargetZoom;
+            }
         }
 
         public static Vector2 CenterCursorScreenCoordinates
         {
             get
             {
-                return (_currentPixelCoordinates + (_cursorSize / 2) + MapCamera.TargetPosition) * MapCamera.TargetZoom;
+                return (_currentPixelCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
+                       GameContext.MapCamera.TargetZoom;
             }
         }
 
@@ -73,7 +77,7 @@ namespace SolStandard.Map.Elements.Cursor
         {
             MapCoordinates = coordinates;
             _currentPixelCoordinates = MapCoordinates * GameDriver.CellSize;
-            MapCamera.StartMovingCameraToCursor();
+            GameContext.MapCamera.StartMovingCameraToCursor();
         }
 
         public void MoveCursorInDirection(Direction direction)
@@ -98,7 +102,7 @@ namespace SolStandard.Map.Elements.Cursor
 
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
-            MapCamera.StartMovingCameraToCursor();
+            GameContext.MapCamera.StartMovingCameraToCursor();
         }
 
         private void PreventCursorLeavingMapBounds()
@@ -155,7 +159,6 @@ namespace SolStandard.Map.Elements.Cursor
             if (slidingLeftWouldPassMapCoordinates) _currentPixelCoordinates.X = mapPixelCoordinates.X;
             if (slidingDownWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
             if (slidingUpWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
-
         }
 
         private void UpdateCursorTeam()

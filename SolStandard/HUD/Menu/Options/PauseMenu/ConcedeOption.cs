@@ -13,12 +13,8 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 {
     public class ConcedeOption : MenuOption
     {
-        private GameMapContext gameMapContext;
-
-        public ConcedeOption(Color color, GameMapContext gameMapContext) :
-            base(new RenderText(AssetManager.MainMenuFont, "Surrender"), color)
+        public ConcedeOption(Color color) : base(new RenderText(AssetManager.MainMenuFont, "Surrender"), color)
         {
-            this.gameMapContext = gameMapContext;
         }
 
         public override void Execute()
@@ -42,7 +38,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
                 //Exit the menu and end the turn
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
                 Queue<IEvent> eventsToQueue = new Queue<IEvent>();
-                eventsToQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventsToQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventsToQueue);
             }
             else

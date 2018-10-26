@@ -16,7 +16,7 @@ using SolStandard.Utility.Assets;
 namespace SolStandard.Containers.View
 {
     /*
-     * GameMapController is where the HUD elements for the SelectMapEntity Scene are handled.
+     * GameMapContext is where the HUD elements for the SelectMapEntity Scene are handled.
      * HUD Elements in this case includes various map-screen windows.
      */
     public class GameMapView : IUserInterface
@@ -51,7 +51,7 @@ namespace SolStandard.Containers.View
             visible = true;
         }
         
-        #region Clearing
+        #region Close Windows
 
         public void CloseUserPromptWindow()
         {
@@ -62,7 +62,8 @@ namespace SolStandard.Containers.View
         {
             ActionMenu = null;
         }
-        #endregion
+        
+        #endregion Close Windows
 
         #region Generation
 
@@ -93,9 +94,9 @@ namespace SolStandard.Containers.View
             //FIXME Stop hardcoding the X-Value of the Turn Window
             Vector2 turnWindowSize = new Vector2(300, InitiativeWindow.Height);
 
-            string turnInfo = "Turn: " + GameContext.TurnCounter;
+            string turnInfo = "Turn: " + GameContext.GameMapContext.TurnCounter;
             turnInfo += Environment.NewLine;
-            turnInfo += "Round: " + GameContext.RoundCounter;
+            turnInfo += "Round: " + GameContext.GameMapContext.RoundCounter;
             turnInfo += Environment.NewLine;
             turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
             turnInfo += Environment.NewLine;

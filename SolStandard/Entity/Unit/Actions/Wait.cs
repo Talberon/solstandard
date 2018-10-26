@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (targetSlice.DynamicEntity != null)
             {
@@ -29,12 +29,12 @@ namespace SolStandard.Entity.Unit.Actions
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitActionEvent());
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't wait here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't wait here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

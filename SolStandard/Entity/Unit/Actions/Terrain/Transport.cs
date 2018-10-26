@@ -35,13 +35,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     MapContainer
                             .GameGrid[(int) mapLayer][(int) entity.MapCoordinates.X, (int) entity.MapCoordinates.Y] =
                         new MapDistanceTile(TileSprite, entity.MapCoordinates, 0, false);
-                    MapContainer.MapCursor.SnapCursorToCoordinates(entity.MapCoordinates);
+                    GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(entity.MapCoordinates);
                 }
             }
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
-            BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -58,12 +57,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

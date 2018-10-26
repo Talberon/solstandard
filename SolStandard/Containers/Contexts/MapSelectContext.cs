@@ -18,11 +18,17 @@ namespace SolStandard.Containers.Contexts
         {
             MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
-            Vector2 mapCenter = new Vector2(
-                (float) Math.Round(MapContainer.MapGridSize.X / 2),
-                (float) Math.Round(MapContainer.MapGridSize.Y / 2)
-            );
-            MapContainer.MapCursor.SnapCursorToCoordinates(mapCenter);
+        }
+
+        public Vector2 MapCenter
+        {
+            get
+            {
+                return new Vector2(
+                    (float) Math.Round(MapContainer.MapGridSize.X / 2),
+                    (float) Math.Round(MapContainer.MapGridSize.Y / 2)
+                );
+            }
         }
 
         public void HoverOverEntity()

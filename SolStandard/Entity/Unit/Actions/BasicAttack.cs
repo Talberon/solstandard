@@ -30,13 +30,13 @@ namespace SolStandard.Entity.Unit.Actions
             unitTargetingContext.GenerateTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange, mapLayer);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             Queue<IEvent> eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
+                eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else if (TargetIsABreakableObstacleInRange(targetSlice))
@@ -44,30 +44,30 @@ namespace SolStandard.Entity.Unit.Actions
                 //deal damage to terrain
                 BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
                 targetObstacle.DealDamage(1);
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
-            else if (gameMapContext.SelectedUnit == targetUnit)
+            else if (GameContext.ActiveUnit == targetUnit)
             {
                 //Skip the combat state if player selects the same unit
                 AssetManager.MapUnitSelectSFX.Play();
 
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        public static void StartCombat(GameUnit target, GameMapContext gameMapContext, BattleContext battleContext)
+        public static void StartCombat(GameUnit target)
         {
-            GameUnit attackingUnit = gameMapContext.SelectedUnit;
+            GameUnit attackingUnit = GameContext.ActiveUnit;
             GameUnit defendingUnit = target;
             MapContainer.ClearDynamicAndPreviewGrids();
-            battleContext.StartNewCombat(
+            GameContext.BattleContext.StartNewCombat(
                 attackingUnit,
                 MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
                 defendingUnit,

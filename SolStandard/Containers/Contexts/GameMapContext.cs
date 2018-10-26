@@ -12,6 +12,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -34,6 +35,8 @@ namespace SolStandard.Containers.Contexts
         private const string HelpText = "Select a unit.";
         public static GameMapView GameMapView { get; private set; }
         public PauseScreenView PauseScreenView { get; private set; }
+        public int TurnCounter { get; private set; }
+        public int RoundCounter { get; private set; }
 
         private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitSprite.UnitAnimationState>
@@ -51,6 +54,8 @@ namespace SolStandard.Containers.Contexts
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
             PauseScreenView = new PauseScreenView(this);
+            TurnCounter = 1;
+            RoundCounter = 1;
         }
 
         public static void UpdateWindowsEachTurn()
@@ -79,6 +84,50 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        public void ResolveTurn()
+        {
+            GameContext.Scenario.CheckForWinState();
+            ConfirmPromptWindow();
+            GameContext.ActiveUnit.DisableExhaustedUnit();
+            GameContext.InitiativeContext.PassTurnToNextUnit();
+            GameContext.ActiveUnit.ActivateUnit();
+            UpdateWindowsEachTurn();
+            ResetCursorToActiveUnit();
+            MapContainer.MapCamera.CenterCameraToCursor();
+
+            EndTurn();
+
+            UpdateTurnCounters();
+
+            if (!GameContext.Units.TrueForAll(unit => unit.Stats.Hp <= 0))
+            {
+                EndTurnIfUnitIsDead();
+            }
+
+            GameContext.StatusScreenView.UpdateWindows();
+
+            AssetManager.MapUnitSelectSFX.Play();
+        }
+
+        private void UpdateTurnCounters()
+        {
+            TurnCounter++;
+
+            if (TurnCounter <= GameContext.Units.Count) return;
+
+            TurnCounter = 1;
+            RoundCounter++;
+        }
+
+
+        private void EndTurnIfUnitIsDead()
+        {
+            if (CurrentTurnState == TurnState.SelectUnit && GameContext.ActiveUnit.UnitEntity == null)
+            {
+                ResolveTurn();
+            }
+        }
+
         public void RevertToPreviousState()
         {
             if (CurrentTurnState <= TurnState.SelectUnit) return;
@@ -93,7 +142,35 @@ namespace SolStandard.Containers.Contexts
             Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
         }
 
-        public void CancelMovement()
+        public void FinishMoving()
+        {
+            if (OtherUnitExistsAtCursor() || MapContainer.GetMapSliceAtCursor().DynamicEntity == null)
+            {
+                MapContainer.AddNewToastAtMapCursor("Cannot end move on this space!", 50);
+                AssetManager.WarningSFX.Play();
+                return;
+            }
+
+            ProceedToNextState();
+
+            MapContainer.ClearDynamicAndPreviewGrids();
+            SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            AssetManager.MapUnitSelectSFX.Play();
+
+            GenerateActionMenu();
+            GenerateActionPreviewGrid();
+        }
+
+        public void ResetCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                MapContainer.MapCamera.CenterCameraToCursor();
+            }
+        }
+
+        public void CancelMove()
         {
             if (CurrentTurnState == TurnState.UnitMoving)
             {
@@ -102,14 +179,77 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.ClearDynamicAndPreviewGrids();
                 CurrentTurnState--;
             }
+
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
-        public void ResetCursorToActiveUnit()
+        public void CancelAction()
         {
-            if (GameContext.ActiveUnit.UnitEntity != null)
+            GameContext.ActiveUnit.CancelArmedSkill();
+            ResetCursorToActiveUnit();
+            GenerateActionMenu();
+            RevertToPreviousState();
+        }
+
+        private void StartMoving()
+        {
+            if (SelectedUnit != null)
             {
-                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " +
+                                SelectedUnit.Role);
+                ProceedToNextState();
+                GenerateMoveGrid(
+                    MapContainer.MapCursor.MapCoordinates,
+                    SelectedUnit,
+                    new SpriteAtlas(
+                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
+                        new Vector2(GameDriver.CellSize),
+                        (int) MapDistanceTile.TileType.Movement
+                    )
+                );
+
+                MapContainer.ClearPreviewGrid();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+                    .GenerateTargetingGrid(
+                        SelectedUnit.UnitEntity.MapCoordinates,
+                        SelectedUnit.Stats.AtkRange,
+                        Layer.Preview
+                    );
             }
+            else
+            {
+                Trace.WriteLine("No unit to select.");
+            }
+        }
+
+        public void SelectUnitAndStartMoving()
+        {
+            if (!TrySelectUnit()) return;
+            StartMoving();
+            AssetManager.MapUnitSelectSFX.Play();
+        }
+
+
+        private bool TrySelectUnit()
+        {
+            //Select the unit. Store it somewhere.
+            SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
+
+            //If the entity selected isn't the active unit, don't select it.
+            if (SelectedUnit != GameContext.ActiveUnit)
+            {
+                SelectedUnit = null;
+                AssetManager.WarningSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("Not the active unit!", 50);
+                return false;
+            }
+
+            return true;
+        }
+
+        public void ExecuteAction()
+        {
+            GameContext.ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor());
         }
 
         public MapContainer MapContainer
@@ -265,8 +405,7 @@ namespace SolStandard.Containers.Contexts
                 skillOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
         }
-        
-        
+
 
         public void GenerateActionMenu()
         {

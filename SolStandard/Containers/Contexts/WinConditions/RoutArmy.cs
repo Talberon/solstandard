@@ -14,7 +14,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return new RenderText(AssetManager.ResultsFont, "ARMY ROUTED"); }
         }
 
-        public override bool ConditionsMet(GameContext gameContext)
+        public override bool ConditionsMet()
         {
             List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
             List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);

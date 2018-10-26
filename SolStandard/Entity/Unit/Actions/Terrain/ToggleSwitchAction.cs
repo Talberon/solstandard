@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         }
 
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (TargetingSwitch(targetSlice) && NothingObstructingSwitchTarget())
             {
@@ -41,19 +41,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
                 if (!TargetingSwitch(targetSlice))
                 {
-                    MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
                 }
 
                 if (!NothingObstructingSwitchTarget())
                 {
-                    MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
                 }
 
                 AssetManager.WarningSFX.Play();

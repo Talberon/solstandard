@@ -43,13 +43,12 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
-    <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
-    <Compile Include="Containers\Contexts\Scenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
     <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Scenario.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Objective.cs" />
@@ -293,6 +292,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Castle_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Chesslike_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -324,6 +326,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Village_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

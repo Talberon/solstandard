@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -69,12 +69,12 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

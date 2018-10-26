@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (
                 door == targetSlice.TerrainEntity
@@ -49,18 +49,18 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ToggleOpenEvent(door));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                    eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Door is locked!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Door is locked!", 50);
                     AssetManager.LockedSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not a door!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a door!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

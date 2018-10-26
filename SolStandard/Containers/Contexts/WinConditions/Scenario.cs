@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.Contexts
+namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Scenario
     {
@@ -41,13 +39,13 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void CheckForWinState(GameContext gameContext)
+        public void CheckForWinState()
         {
             foreach (Objective scenario in Objectives.Values)
             {
-                if (scenario.ConditionsMet(gameContext))
+                if (scenario.ConditionsMet())
                 {
-                    scenario.EndGame(gameContext);
+                    scenario.EndGame();
                 }
             }
         }

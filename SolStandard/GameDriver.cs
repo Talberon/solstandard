@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,12 +6,10 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
-using SolStandard.Map;
-using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -34,15 +31,11 @@ namespace SolStandard
 
         public static readonly Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
-        public static List<MapInfo> AvailableMaps;
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper p1ControlMapper;
         private GameControlMapper p2ControlMapper;
 
-        private static MapCamera _mapCamera;
-        private static GameContext _gameContext;
         private static bool _quitting;
 
 
@@ -86,8 +79,7 @@ namespace SolStandard
         /// </summary>
         public static void NewGame(string mapName, Scenario scenario)
         {
-            string mapPath = "Content/TmxMaps/" + mapName;
-            _gameContext.StartGame(mapPath, scenario);
+            GameContext.StartGame(mapName, scenario);
         }
 
         public static void QuitGame()
@@ -120,8 +112,6 @@ namespace SolStandard
 
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            _mapCamera = new MapCamera(5, 0.05f);
-
             //Compensate for TiledSharp's inability to parse tiles without a gid value
             CleanTmxFiles();
 
@@ -136,14 +126,7 @@ namespace SolStandard
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
 
-            GameContext.ActivePlayer = PlayerIndex.One;
-
-            _gameContext = new GameContext(
-                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite)
-            );
-
-            MapCamera.CenterCameraToCursor();
-
+            GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite));
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
 
@@ -225,12 +208,10 @@ namespace SolStandard
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
-                        ControlContext.ListenForInputs(_gameContext, p1ControlMapper, _mapCamera,
-                            MapContainer.MapCursor);
+                        ControlContext.ListenForInputs(p1ControlMapper);
                         break;
                     case PlayerIndex.Two:
-                        ControlContext.ListenForInputs(_gameContext, p2ControlMapper, _mapCamera,
-                            MapContainer.MapCursor);
+                        ControlContext.ListenForInputs(p2ControlMapper);
                         break;
                     case PlayerIndex.Three:
                         break;
@@ -250,18 +231,16 @@ namespace SolStandard
                 case GameContext.GameState.ArmyDraft:
                     break;
                 case GameContext.GameState.MapSelect:
-                    _mapCamera.UpdateEveryFrame();
-                    _gameContext.UpdateCamera(_mapCamera);
+                    GameContext.UpdateCamera();
                     GameContext.MapSelectContext.HoverOverEntity();
 
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
-                    _mapCamera.UpdateEveryFrame();
-                    _gameContext.UpdateCamera(_mapCamera);
-                    MapSlice hoverTiles = MapContainer.GetMapSliceAtCursor();
-                    _gameContext.GameMapContext.UpdateHoverContextWindows(hoverTiles);
+                    GameContext.UpdateCamera();
+                    MapSlice hoverTiles = GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
+                    GameContext.GameMapContext.UpdateHoverContextWindows(hoverTiles);
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -318,7 +297,7 @@ namespace SolStandard
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            _gameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
+            GameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -329,7 +308,7 @@ namespace SolStandard
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
-            _gameContext.MainMenuView.Draw(spriteBatch);
+            GameContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -338,7 +317,7 @@ namespace SolStandard
             //MAP LAYER
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
+                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
 
             GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
 
@@ -361,7 +340,7 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            _gameContext.StatusScreenView.Draw(spriteBatch);
+            GameContext.StatusScreenView.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -370,8 +349,8 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, MapCamera.CameraMatrix);
-            _gameContext.GameMapContext.MapContainer.Draw(spriteBatch);
+                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
+            GameContext.GameMapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -381,9 +360,9 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
 
-            if (_gameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+            if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {
-                _gameContext.BattleContext.Draw(spriteBatch);
+                GameContext.BattleContext.Draw(spriteBatch);
             }
             else
             {

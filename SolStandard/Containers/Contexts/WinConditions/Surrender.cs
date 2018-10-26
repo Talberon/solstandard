@@ -15,7 +15,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED"); }
         }
 
-        public override bool ConditionsMet(GameContext gameContext)
+        public override bool ConditionsMet()
         {
             if (BlueConcedes)
             {
