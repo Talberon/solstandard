@@ -2,7 +2,6 @@
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Menu
 {
@@ -10,11 +9,9 @@ namespace SolStandard.HUD.Menu
     {
         private readonly Window.Window infoTitleWindow;
         private readonly Window.Window infoDescriptionWindow;
-        private readonly ITexture2D windowTexture;
 
-        public OptionDescription(ITexture2D windowTexture, string title, string description)
+        public OptionDescription(string title, string description)
         {
-            this.windowTexture = windowTexture;
             infoTitleWindow =
                 new Window.Window(new RenderText(AssetManager.HeaderFont, title), Color.White);
             infoDescriptionWindow =

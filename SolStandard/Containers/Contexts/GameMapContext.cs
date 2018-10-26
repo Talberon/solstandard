@@ -53,7 +53,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView = gameMapController;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
-            PauseScreenView = new PauseScreenView(this);
+            PauseScreenView = new PauseScreenView();
             TurnCounter = 1;
             RoundCounter = 1;
         }

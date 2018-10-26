@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.PauseMenu;
@@ -27,7 +26,7 @@ namespace SolStandard.Containers.View
         private PauseMenus currentMenu;
         private bool visible;
 
-        public PauseScreenView(GameMapContext gameMapContext)
+        public PauseScreenView()
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);

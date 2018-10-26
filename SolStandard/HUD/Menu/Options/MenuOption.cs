@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options
 {
