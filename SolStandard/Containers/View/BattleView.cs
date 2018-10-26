@@ -20,28 +20,28 @@ namespace SolStandard.Containers.View
 
         private const int WindowSpacing = 5;
 
-        public Window AttackerLabelWindow { get; private set; }
+        private Window AttackerLabelWindow { get; set; }
         public Window AttackerPortraitWindow { get; private set; }
-        public Window AttackerClassWindow { get; private set; }
-        public Window AttackerHpWindow { get; private set; }
-        public Window AttackerAtkWindow { get; private set; }
+        private Window AttackerClassWindow { get; set; }
+        private Window AttackerHpWindow { get; set; }
+        private Window AttackerAtkWindow { get; set; }
         public Window AttackerBonusWindow { get; private set; }
-        public Window AttackerRangeWindow { get; private set; }
-        public Window AttackerDiceLabelWindow { get; private set; }
-        public Window AttackerDiceWindow { get; private set; }
+        private Window AttackerRangeWindow { get; set; }
+        private Window AttackerDiceLabelWindow { get; set; }
+        private Window AttackerDiceWindow { get; set; }
 
-        public Window DefenderLabelWindow { get; private set; }
+        private Window DefenderLabelWindow { get; set; }
         public Window DefenderPortraitWindow { get; private set; }
-        public Window DefenderClassWindow { get; private set; }
-        public Window DefenderHpWindow { get; private set; }
-        public Window DefenderDefWindow { get; private set; }
-        public Window DefenderBonusWindow { get; private set; }
-        public Window DefenderRangeWindow { get; private set; }
-        public Window DefenderDiceLabelWindow { get; private set; }
-        public Window DefenderDiceWindow { get; private set; }
+        private Window DefenderClassWindow { get; set; }
+        private Window DefenderHpWindow { get; set; }
+        private Window DefenderDefWindow { get; set; }
+        private Window DefenderBonusWindow { get; set; }
+        private Window DefenderRangeWindow { get; set; }
+        private Window DefenderDiceLabelWindow { get; set; }
+        private Window DefenderDiceWindow { get; set; }
 
-        public Window HelpTextWindow { get; set; }
-        public Window UserPromptWindow { get; set; }
+        private Window HelpTextWindow { get; set; }
+        private Window UserPromptWindow { get; set; }
 
         private bool visible;
 
@@ -50,13 +50,24 @@ namespace SolStandard.Containers.View
             visible = true;
         }
 
-        internal void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
+        #region View Management
+        
+        public void HidePromptWindow()
+        {
+            UserPromptWindow.Visible = false;
+        }
+
+        #endregion View Management
+
+        #region Generation
+
+        public void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
             HelpTextWindow = new Window(helpTextContent, helpTextWindowColor);
         }
 
-        internal void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
+        public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
             Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window(promptTextContent, promptWindowColor,
@@ -64,7 +75,7 @@ namespace SolStandard.Containers.View
         }
 
 
-        internal void GenerateAttackerDiceWindow(Color attackerWindowColor,
+        public void GenerateAttackerDiceWindow(Color attackerWindowColor,
             ref CombatDice attackerDice)
         {
             IRenderable[,] diceWindowContent =
@@ -76,13 +87,13 @@ namespace SolStandard.Containers.View
                 attackerWindowColor);
         }
 
-        internal void GenerateAttackerDiceLabelWindow(Color attackerWindowColor)
+        public void GenerateAttackerDiceLabelWindow(Color attackerWindowColor)
         {
             AttackerDiceLabelWindow = new Window(
                 new RenderText(AssetManager.WindowFont, "Attacking"), attackerWindowColor);
         }
 
-        internal void GenerateAttackerInRangeWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateAttackerInRangeWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             bool inRange)
         {
             IRenderable[,] attackerRangeContent =
@@ -133,7 +144,7 @@ namespace SolStandard.Containers.View
             return Convert.ToInt32(terrainAttackBonus);
         }
 
-        internal void GenerateAttackerAtkWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateAttackerAtkWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             UnitStatistics attackerStats)
         {
             IRenderable[,] attackerAtkContent =
@@ -153,7 +164,7 @@ namespace SolStandard.Containers.View
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             GameUnit attacker, int hpBarHeight)
         {
             IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
@@ -170,7 +181,7 @@ namespace SolStandard.Containers.View
                     portraitWidthOverride);
         }
 
-        internal void GenerateAttackerLabelWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateAttackerLabelWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string attackerName)
         {
             IRenderable attackerLabelText = new RenderText(AssetManager.HeaderFont, attackerName);
@@ -178,7 +189,7 @@ namespace SolStandard.Containers.View
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateAttackerClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateAttackerClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string attackerClass)
         {
             IRenderable attackerLabelText = new RenderText(AssetManager.WindowFont, "Class: " + attackerClass);
@@ -186,14 +197,14 @@ namespace SolStandard.Containers.View
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
+        public void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
         {
             AttackerPortraitWindow =
                 new Window(attackerPortrait, attackerWindowColor);
         }
 
 
-        internal void GenerateDefenderDiceWindow(Color defenderWindowColor, ref CombatDice defenderDice)
+        public void GenerateDefenderDiceWindow(Color defenderWindowColor, ref CombatDice defenderDice)
         {
             IRenderable[,] diceWindowContent =
             {
@@ -205,13 +216,13 @@ namespace SolStandard.Containers.View
                 defenderWindowColor);
         }
 
-        internal void GenerateDefenderDiceLabelWindow(Color defenderWindowColor)
+        public void GenerateDefenderDiceLabelWindow(Color defenderWindowColor)
         {
             DefenderDiceLabelWindow = new Window(
                 new RenderText(AssetManager.WindowFont, "Defending"), defenderWindowColor);
         }
 
-        internal void GenerateDefenderRangeWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateDefenderRangeWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             bool inRange)
         {
             IRenderable[,] defenderRangeContent =
@@ -263,7 +274,7 @@ namespace SolStandard.Containers.View
             return Convert.ToInt32(terrainDefenseBonus);
         }
 
-        internal void GenerateDefenderDefWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateDefenderDefWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             UnitStatistics defenderStats)
         {
             IRenderable[,] defenderAtkContent =
@@ -283,7 +294,7 @@ namespace SolStandard.Containers.View
                 defenderWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             GameUnit defender, int hpBarHeight)
         {
             IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
@@ -300,7 +311,7 @@ namespace SolStandard.Containers.View
                     portraitWidthOverride);
         }
 
-        internal void GenerateDefenderLabelWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateDefenderLabelWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             string defenderName)
         {
             IRenderable defenderLabelText = new RenderText(AssetManager.HeaderFont, defenderName);
@@ -308,7 +319,7 @@ namespace SolStandard.Containers.View
                 defenderWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateDefenderClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
+        public void GenerateDefenderClassWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             string defenderClass)
         {
             IRenderable attackerLabelText = new RenderText(AssetManager.WindowFont, "Class: " + defenderClass);
@@ -316,14 +327,21 @@ namespace SolStandard.Containers.View
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        internal void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
+        public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
         {
             DefenderPortraitWindow =
                 new Window(defenderPortrait, defenderWindowColor);
         }
 
 
-        //Window Render Positions
+        #endregion Generation
+        
+        #region Window Positions
+
+        public static Vector2 WindowEdgeBuffer1
+        {
+            get { return WindowEdgeBuffer; }
+        }
 
         private Vector2 HelpTextWindowPosition()
         {
@@ -505,6 +523,8 @@ namespace SolStandard.Containers.View
 
         #endregion Defender
 
+        #endregion Window Positions
+        
         public void ToggleVisible()
         {
             visible = !visible;
@@ -512,6 +532,8 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (!visible) return;
+            
             if (HelpTextWindow != null)
             {
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
