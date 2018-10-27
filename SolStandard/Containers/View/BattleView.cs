@@ -51,7 +51,7 @@ namespace SolStandard.Containers.View
         }
 
         #region View Management
-        
+
         public void HidePromptWindow()
         {
             UserPromptWindow.Visible = false;
@@ -333,15 +333,9 @@ namespace SolStandard.Containers.View
                 new Window(defenderPortrait, defenderWindowColor);
         }
 
-
         #endregion Generation
-        
-        #region Window Positions
 
-        public static Vector2 WindowEdgeBuffer1
-        {
-            get { return WindowEdgeBuffer; }
-        }
+        #region Window Positions
 
         private Vector2 HelpTextWindowPosition()
         {
@@ -524,7 +518,7 @@ namespace SolStandard.Containers.View
         #endregion Defender
 
         #endregion Window Positions
-        
+
         public void ToggleVisible()
         {
             visible = !visible;
@@ -533,7 +527,7 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-            
+
             if (HelpTextWindow != null)
             {
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());

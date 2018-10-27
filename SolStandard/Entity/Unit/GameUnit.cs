@@ -502,6 +502,9 @@ namespace SolStandard.Entity.Unit
                     CurrentGold,
                     Inventory
                 );
+
+            CurrentGold = 0;
+            Inventory.Clear();
         }
 
         private void PreventUnitLeavingMapBounds(Vector2 mapSize)

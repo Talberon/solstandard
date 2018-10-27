@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts
         private bool currentlyResolvingBlocks;
         private bool currentlyResolvingDamage;
 
-        public BattleState CurrentState { get; private set; }
+        private BattleState CurrentState { get; set; }
 
         private GameUnit attacker;
         private GameUnit defender;
