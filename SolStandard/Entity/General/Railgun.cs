@@ -41,7 +41,7 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
                             new RenderText(AssetManager.WindowFont, "Range:" + AtkRange)
                         },
                         {

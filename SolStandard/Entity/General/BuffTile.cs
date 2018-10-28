@@ -9,16 +9,6 @@ namespace SolStandard.Entity.General
 {
     public class BuffTile : TerrainEntity
     {
-        private static readonly Dictionary<StatIcons, StatIcons> StatToBonusStatDictionary =
-            new Dictionary<StatIcons, StatIcons>
-            {
-                {StatIcons.Hp, StatIcons.BonusHp},
-                {StatIcons.Atk, StatIcons.BonusAtk},
-                {StatIcons.Def, StatIcons.BonusDef},
-                {StatIcons.Mv, StatIcons.BonusMv},
-                {StatIcons.AtkRange, StatIcons.BonusAtkRange}
-            };
-
         private readonly int modifier;
         private readonly StatIcons buffStat;
         private readonly bool canMove;
@@ -44,8 +34,8 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatToBonusStatDictionary[buffStat]),
-                            new RenderText(AssetManager.WindowFont, buffStat.ToString().ToUpper() + ": +" + modifier.ToString()),
+                            UnitStatistics.GetSpriteAtlas(buffStat),
+                            new RenderText(AssetManager.WindowFont, buffStat.ToString().ToUpper() + ": +" + modifier),
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(StatIcons.Mv),

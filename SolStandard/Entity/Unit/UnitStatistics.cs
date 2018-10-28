@@ -13,16 +13,18 @@ namespace SolStandard.Entity.Unit
         Atk,
         Def,
         Mv,
-        AtkRange,
-        BonusHp,
-        BonusAtk,
-        BonusDef,
-        BonusMv,
-        BonusAtkRange
+        Crosshair,
+        EmptyHp,
+        Coin,
+        EmptyDef,
+        Positive,
+        Negative
     }
+
 
     public class UnitStatistics
     {
+        private const int iconSizePixels = 16;
         private readonly int maxHp;
         private readonly int baseAtk;
         private readonly int baseDef;
@@ -83,7 +85,12 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
         {
-            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
+            return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
+        }
+
+        public static SpriteAtlas GetSpriteAtlas(StatIcons stat, Vector2 size)
+        {
+            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(iconSizePixels), size, (int) stat);
         }
 
         public override string ToString()

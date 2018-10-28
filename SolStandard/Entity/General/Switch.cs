@@ -81,7 +81,7 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
                             new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
                         },
                         {

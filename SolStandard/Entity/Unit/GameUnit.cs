@@ -312,7 +312,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
                                             new RenderText(AssetManager.WindowFont, "RNG:"),
                                             new RenderText(
                                                 AssetManager.WindowFont,

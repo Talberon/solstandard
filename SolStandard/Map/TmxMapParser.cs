@@ -37,7 +37,7 @@ namespace SolStandard.Map
                 {"ATK", StatIcons.Atk},
                 {"DEF", StatIcons.Def},
                 {"MV", StatIcons.Mv},
-                {"RNG", StatIcons.AtkRange}
+                {"RNG", StatIcons.Crosshair}
             };
 
         private static readonly Dictionary<string, EntityTypes> EntityDictionary = new Dictionary<string, EntityTypes>

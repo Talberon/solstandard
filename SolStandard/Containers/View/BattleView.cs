@@ -99,7 +99,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] attackerRangeContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
                     new RenderText(AssetManager.WindowFont, inRange.ToString(),
                         (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
@@ -129,7 +129,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.BonusAtk),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Coin),
                     new RenderText(AssetManager.WindowFont, "Bonus: "),
                     new RenderText(AssetManager.WindowFont, terrainAttackBonus,
                         (Convert.ToInt32(terrainAttackBonus) > 0)
@@ -150,7 +150,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] attackerAtkContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Atk, new Vector2(GameDriver.CellSize)),
                     new RenderText(AssetManager.WindowFont, "ATK: "),
                     new RenderText(
                         AssetManager.WindowFont,
@@ -167,7 +167,7 @@ namespace SolStandard.Containers.View
         public void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
             GameUnit attacker, int hpBarHeight)
         {
-            IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
+            IRenderable hpIcon = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, new Vector2(GameDriver.CellSize));
             IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
@@ -228,7 +228,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] defenderRangeContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
                     new RenderText(AssetManager.WindowFont, inRange.ToString(),
                         (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
@@ -259,7 +259,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] defenderBonusContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.BonusDef),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.EmptyDef),
                     new RenderText(AssetManager.WindowFont, "Bonus: "),
                     new RenderText(AssetManager.WindowFont, terrainDefenseBonus,
                         (Convert.ToInt32(terrainDefenseBonus) > 0)
@@ -280,7 +280,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] defenderAtkContent =
             {
                 {
-                    new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 3),
+                    UnitStatistics.GetSpriteAtlas(StatIcons.Def, new Vector2(GameDriver.CellSize)),
                     new RenderText(AssetManager.WindowFont, "DEF: "),
                     new RenderText(
                         AssetManager.WindowFont,
@@ -297,7 +297,7 @@ namespace SolStandard.Containers.View
         public void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             GameUnit defender, int hpBarHeight)
         {
-            IRenderable hpIcon = new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), 1);
+            IRenderable hpIcon = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, new Vector2(GameDriver.CellSize));
             IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
             Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
             IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
