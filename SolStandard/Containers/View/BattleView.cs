@@ -29,6 +29,7 @@ namespace SolStandard.Containers.View
         private Window AttackerRangeWindow { get; set; }
         private Window AttackerDiceLabelWindow { get; set; }
         private Window AttackerDiceWindow { get; set; }
+        private Window AttackerSpriteWindow { get; set; }
 
         private Window DefenderLabelWindow { get; set; }
         public Window DefenderPortraitWindow { get; private set; }
@@ -39,6 +40,7 @@ namespace SolStandard.Containers.View
         private Window DefenderRangeWindow { get; set; }
         private Window DefenderDiceLabelWindow { get; set; }
         private Window DefenderDiceWindow { get; set; }
+        private Window DefenderSpriteWindow { get; set; }
 
         private Window HelpTextWindow { get; set; }
         private Window UserPromptWindow { get; set; }
@@ -74,6 +76,21 @@ namespace SolStandard.Containers.View
                 sizeOverride);
         }
 
+        public void GenerateAttackerSpriteWindow(Color windowColor, GameUnit attacker)
+        {
+            AttackerSpriteWindow = new Window(
+                new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            attacker.GetMapSprite(new Vector2(120), UnitAnimationState.Attack)
+                        }
+                    },
+                    1
+                ),
+                windowColor
+            );
+        }
 
         public void GenerateAttackerDiceWindow(Color attackerWindowColor,
             ref CombatDice attackerDice)
@@ -201,6 +218,23 @@ namespace SolStandard.Containers.View
         {
             AttackerPortraitWindow =
                 new Window(attackerPortrait, attackerWindowColor);
+        }
+
+
+        public void GenerateDefenderSpriteWindow(Color windowColor, GameUnit defender)
+        {
+            DefenderSpriteWindow = new Window(
+                new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            defender.GetMapSprite(new Vector2(120), UnitAnimationState.Attack)
+                        }
+                    },
+                    1
+                ),
+                windowColor
+            );
         }
 
 
@@ -429,6 +463,11 @@ namespace SolStandard.Containers.View
                 attackerPortraitWindowPosition.Y);
         }
 
+        private Vector2 AttackerSpriteWindowPosition()
+        {
+            return GameDriver.ScreenSize / 2 - new Vector2(AttackerSpriteWindow.Width, 0);
+        }
+
         #endregion Attacker
 
         #region Defender
@@ -515,6 +554,11 @@ namespace SolStandard.Containers.View
                 WindowEdgeBuffer.X, defenderPortraitWindowPosition.Y);
         }
 
+        private static Vector2 DefenderSpriteWindowPosition()
+        {
+            return GameDriver.ScreenSize / 2;
+        }
+
         #endregion Defender
 
         #endregion Window Positions
@@ -543,6 +587,8 @@ namespace SolStandard.Containers.View
                     AttackerRangeWindow.Draw(spriteBatch, AttackerRangeWindowPosition());
                     AttackerDiceLabelWindow.Draw(spriteBatch, AttackerDiceLabelPosition());
                     AttackerDiceWindow.Draw(spriteBatch, AttackerDicePosition());
+                    AttackerSpriteWindow.Draw(spriteBatch,
+                        AttackerSpriteWindowPosition());
                 }
 
                 if (DefenderPortraitWindow != null)
@@ -556,6 +602,7 @@ namespace SolStandard.Containers.View
                     DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
                     DefenderDiceLabelWindow.Draw(spriteBatch, DefenderDiceLabelPosition());
                     DefenderDiceWindow.Draw(spriteBatch, DefenderDicePosition());
+                    DefenderSpriteWindow.Draw(spriteBatch, DefenderSpriteWindowPosition());
                 }
             }
 

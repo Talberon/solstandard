@@ -38,13 +38,13 @@ namespace SolStandard.Containers.Contexts
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
 
-        private readonly Dictionary<Direction, UnitSprite.UnitAnimationState> directionToAnimation =
-            new Dictionary<Direction, UnitSprite.UnitAnimationState>
+        private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
+            new Dictionary<Direction, UnitAnimationState>
             {
-                {Direction.Down, UnitSprite.UnitAnimationState.WalkDown},
-                {Direction.Up, UnitSprite.UnitAnimationState.WalkUp},
-                {Direction.Right, UnitSprite.UnitAnimationState.WalkRight},
-                {Direction.Left, UnitSprite.UnitAnimationState.WalkLeft},
+                {Direction.Down, UnitAnimationState.WalkDown},
+                {Direction.Up, UnitAnimationState.WalkUp},
+                {Direction.Right, UnitAnimationState.WalkRight},
+                {Direction.Left, UnitAnimationState.WalkLeft},
             };
 
         public GameMapContext(MapContainer mapContainer, GameMapView gameMapController)
@@ -154,7 +154,7 @@ namespace SolStandard.Containers.Contexts
             ProceedToNextState();
 
             MapContainer.ClearDynamicAndPreviewGrids();
-            SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
             GenerateActionMenu();
@@ -174,7 +174,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.UnitMoving)
             {
-                SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
                 ReturnUnitToOriginalPosition();
                 MapContainer.ClearDynamicAndPreviewGrids();
                 CurrentTurnState--;
@@ -382,7 +382,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView.CloseCombatMenu();
 
             ProceedToNextState();
-            SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
             AssetManager.MapUnitSelectSFX.Play();
         }
 

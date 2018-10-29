@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
 
             if (GameContext.GameMapContext.SelectedUnit != null)
             {
-                GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             }
 
             GameMapContext.SetPromptWindowText("Confirm End Turn");

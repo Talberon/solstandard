@@ -64,8 +64,8 @@ namespace SolStandard.Containers.Contexts
             attacker = newAttacker;
             defender = newDefender;
 
-            attacker.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
-            defender.SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            attacker.SetUnitAnimation(UnitAnimationState.Attack);
+            defender.SetUnitAnimation(UnitAnimationState.Attack);
 
             //Treat the unit as off-screen if null
             Vector2 attackerCoordinates =
@@ -181,8 +181,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
             battleView.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
                 attacker.Role.ToString());
-            battleView.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker,
-                HpBarHeight);
+            battleView.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
             battleView.GenerateAttackerDiceLabelWindow(attackerWindowColor);
@@ -191,6 +190,7 @@ namespace SolStandard.Containers.Contexts
                 portraitWidthOverride);
             attackerDice = new CombatDice(attacker.Stats.Atk, terrainAttackBonus, 3);
             battleView.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
+            battleView.GenerateAttackerSpriteWindow(attackerWindowColor, attacker);
         }
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
@@ -202,8 +202,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
             battleView.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
                 defender.Role.ToString());
-            battleView.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender,
-                HpBarHeight);
+            battleView.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
             battleView.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
             battleView.GenerateDefenderDiceLabelWindow(defenderWindowColor);
@@ -212,6 +211,7 @@ namespace SolStandard.Containers.Contexts
                 battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, portraitWidthOverride);
             defenderDice = new CombatDice(defender.Stats.Def, terrainDefenseBonus, 3);
             battleView.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
+            battleView.GenerateDefenderSpriteWindow(defenderWindowColor, defender);
         }
 
         public bool TryProceedToState(BattleState state)
@@ -360,8 +360,8 @@ namespace SolStandard.Containers.Contexts
                     currentlyResolvingDamage = false;
 
                     SetPromptWindowDamageReport();
-                    attacker.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-                    defender.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+                    attacker.SetUnitAnimation(UnitAnimationState.Idle);
+                    defender.SetUnitAnimation(UnitAnimationState.Idle);
                     ResetDamageCounters();
                 }
             }

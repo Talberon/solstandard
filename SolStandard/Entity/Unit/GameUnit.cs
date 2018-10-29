@@ -333,15 +333,16 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        public IRenderable GetMapSprite(Vector2 size)
+        public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
         {
             if (UnitEntity == null)
             {
                 return new RenderBlank();
             }
 
-            AnimatedSprite mapSprite = UnitEntity.UnitSprite.Clone();
+            UnitSprite mapSprite = UnitEntity.UnitSprite.Clone();
             mapSprite.Resize(size);
+            mapSprite.SetAnimation(animation);
             return mapSprite;
         }
 
@@ -399,7 +400,7 @@ namespace SolStandard.Entity.Unit
             if (UnitEntity == null) return;
             Enabled = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
-            SetUnitAnimation(UnitSprite.UnitAnimationState.Attack);
+            SetUnitAnimation(UnitAnimationState.Attack);
         }
 
         public void DisableExhaustedUnit()
@@ -408,11 +409,11 @@ namespace SolStandard.Entity.Unit
 
             Enabled = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
-            SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
+            SetUnitAnimation(UnitAnimationState.Idle);
             UpdateStatusEffects();
         }
 
-        public void SetUnitAnimation(UnitSprite.UnitAnimationState state)
+        public void SetUnitAnimation(UnitAnimationState state)
         {
             if (UnitEntity != null)
             {

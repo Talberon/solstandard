@@ -15,10 +15,11 @@ namespace SolStandard.HUD.Window.Content.Combat
         public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
         public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
 
+        private const int CombatDieSize = 96;
+
         private readonly List<Die> dice;
         private readonly int rowSize;
-        public int Height { get; private set; }
-        public int Width { get; private set; }
+
 
         public CombatDice(int baseDice, int bonusDice, int rowSize)
         {
@@ -27,8 +28,6 @@ namespace SolStandard.HUD.Window.Content.Combat
 
             this.rowSize = rowSize;
             dice = PopulateDice(baseDice, bonusDice);
-            Height = CalculateHeight();
-            Width = CalculateWidth();
         }
 
         private static List<Die> PopulateDice(int baseDice, int bonusDice)
@@ -37,26 +36,29 @@ namespace SolStandard.HUD.Window.Content.Combat
 
             for (int i = 0; i < baseDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieSides.One, DefaultDieColor));
+                diceToGenerate.Add(new Die(Die.DieSides.One, CombatDieSize, DefaultDieColor));
             }
 
             for (int i = 0; i < bonusDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieSides.One, BonusDieColor));
+                diceToGenerate.Add(new Die(Die.DieSides.One, CombatDieSize, BonusDieColor));
             }
 
             return diceToGenerate;
         }
 
-        private int CalculateHeight()
+        public int Height
         {
-            int totalRows = (int) Math.Ceiling((float) dice.Count / rowSize);
-            return totalRows * dice.First().Height;
+            get
+            {
+                int totalRows = (int) Math.Ceiling((float) dice.Count / rowSize);
+                return totalRows * dice.First().Height;
+            }
         }
 
-        private int CalculateWidth()
+        public int Width
         {
-            return rowSize * dice.First().Width;
+            get { return rowSize * dice.First().Width; }
         }
 
         public void RollDice()

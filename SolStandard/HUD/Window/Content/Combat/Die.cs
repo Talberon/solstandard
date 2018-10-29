@@ -44,19 +44,15 @@ namespace SolStandard.HUD.Window.Content.Combat
         public int Width { get; private set; }
         public bool Enabled { get; private set; }
 
-        public Die(DieSides initialSide, Color color)
+        public Die(DieSides initialSide, int size, Color color)
         {
             currentSide = initialSide;
             this.color = color;
-            dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height), 1);
+            dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height),
+                new Vector2(size), 1);
             Height = dieAtlas.Height;
             Width = dieAtlas.Width;
             Enabled = true;
-        }
-
-        public Die(DieSides initialSide) : this(initialSide, Color.White)
-        {
-            //Intentionally left blank
         }
 
         public void Roll()

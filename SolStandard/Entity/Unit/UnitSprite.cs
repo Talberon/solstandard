@@ -4,22 +4,22 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
+    public enum UnitAnimationState
+    {
+        Idle,
+        Attack,
+        WalkLeft,
+        WalkRight,
+        WalkDown,
+        WalkUp,
+        WalkSW,
+        WalkSE,
+        WalkNW,
+        WalkNE
+    }
+
     public class UnitSprite : AnimatedSprite
     {
-        public enum UnitAnimationState
-        {
-            Idle,
-            Attack,
-            WalkLeft,
-            WalkRight,
-            WalkDown,
-            WalkUp,
-            WalkSW,
-            WalkSE,
-            WalkNW,
-            WalkNE
-        }
-
         private UnitAnimationState currentState;
 
         public UnitSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible) :
@@ -42,6 +42,11 @@ namespace SolStandard.Entity.Unit
         {
             currentState = state;
             SetSpriteCell(0, (int) currentState);
+        }
+        
+        public new UnitSprite Clone()
+        {
+            return new UnitSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible);
         }
     }
 }

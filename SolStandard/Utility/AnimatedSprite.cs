@@ -6,23 +6,23 @@ namespace SolStandard.Utility
 {
     public class AnimatedSprite : IRenderable
     {
-        private readonly ITexture2D spriteMap;
-        private readonly int cellSize;
-        private Vector2 renderSize;
+        protected readonly ITexture2D SpriteMap;
+        protected readonly int CellSize;
+        protected Vector2 RenderSize;
         private readonly Vector2 spriteFrameCount;
         private int currentRow;
         private int currentColumn;
         private int frameDelayCounter;
         protected int FrameDelay { get; set; }
         protected readonly int DefaultFrameDelay;
-        private readonly bool reversible;
+        protected readonly bool Reversible;
         private bool reversing;
 
         public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible)
         {
-            this.spriteMap = spriteMap;
-            this.cellSize = cellSize;
-            this.reversible = reversible;
+            SpriteMap = spriteMap;
+            CellSize = cellSize;
+            Reversible = reversible;
             DefaultFrameDelay = frameDelay;
             FrameDelay = frameDelay;
             frameDelayCounter = 0;
@@ -30,7 +30,7 @@ namespace SolStandard.Utility
             currentColumn = 0;
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
-            this.renderSize = renderSize;
+            RenderSize = renderSize;
         }
 
         public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
@@ -47,8 +47,8 @@ namespace SolStandard.Utility
 
         private Vector2 CalculateSpriteFrameCount()
         {
-            float columns = (float) spriteMap.Width / cellSize;
-            float rows = (float) spriteMap.Width / cellSize;
+            float columns = (float) SpriteMap.Width / CellSize;
+            float rows = (float) SpriteMap.Width / CellSize;
 
             return new Vector2(columns, rows);
         }
@@ -99,17 +99,17 @@ namespace SolStandard.Utility
 
         public int Height
         {
-            get { return (int) renderSize.Y; }
+            get { return (int) RenderSize.Y; }
         }
 
         public int Width
         {
-            get { return (int) renderSize.X; }
+            get { return (int) RenderSize.X; }
         }
 
         public void Resize(Vector2 newSize)
         {
-            renderSize = newSize;
+            RenderSize = newSize;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -119,7 +119,7 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            if (reversible)
+            if (Reversible)
             {
                 UpdateFrameReversible();
             }
@@ -128,24 +128,24 @@ namespace SolStandard.Utility
                 UpdateFrame();
             }
 
-            spriteBatch.Draw(spriteMap.MonoGameTexture,
+            spriteBatch.Draw(SpriteMap.MonoGameTexture,
                 RenderRectangle(position), CurrentCell(), colorOverride);
         }
 
         private Rectangle RenderRectangle(Vector2 position)
         {
-            return new Rectangle((int) position.X, (int) position.Y, (int) renderSize.X, (int) renderSize.Y);
+            return new Rectangle((int) position.X, (int) position.Y, (int) RenderSize.X, (int) RenderSize.Y);
         }
 
         private Rectangle CurrentCell()
         {
-            Rectangle rendercell = new Rectangle(cellSize * currentColumn, cellSize * currentRow, cellSize, cellSize);
+            Rectangle rendercell = new Rectangle(CellSize * currentColumn, CellSize * currentRow, CellSize, CellSize);
             return rendercell;
         }
 
-        public AnimatedSprite Clone()
+        public virtual AnimatedSprite Clone()
         {
-            return new AnimatedSprite(spriteMap, cellSize, renderSize, FrameDelay, reversible);
+            return new AnimatedSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible);
         }
     }
 }

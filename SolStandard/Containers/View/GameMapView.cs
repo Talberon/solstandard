@@ -50,19 +50,19 @@ namespace SolStandard.Containers.View
         {
             visible = true;
         }
-        
+
         #region Close Windows
 
         public void CloseUserPromptWindow()
         {
             UserPromptWindow = null;
         }
-        
+
         public void CloseCombatMenu()
         {
             ActionMenu = null;
         }
-        
+
         #endregion Close Windows
 
         #region Generation
@@ -86,7 +86,8 @@ namespace SolStandard.Containers.View
             UserPromptWindow = new Window(
                 promptTextContent,
                 promptWindowColor,
-                sizeOverride);
+                sizeOverride
+            );
         }
 
         public void GenerateTurnWindow()
