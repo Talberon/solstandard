@@ -175,19 +175,16 @@ namespace SolStandard.Containers.Contexts
         private void SetupAttackerWindows(MapSlice attackerSlice)
         {
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
-            battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.LargePortrait);
+            battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
 
-            Vector2 portraitWidthOverride = new Vector2(battleView.AttackerPortraitWindow.Width, 0);
-            battleView.GenerateAttackerLabelWindow(attackerWindowColor, portraitWidthOverride, attacker.Id);
-            battleView.GenerateAttackerClassWindow(attackerWindowColor, portraitWidthOverride,
-                attacker.Role.ToString());
-            battleView.GenerateAttackerHpWindow(attackerWindowColor, portraitWidthOverride, attacker, HpBarHeight);
-            battleView.GenerateAttackerAtkWindow(attackerWindowColor, portraitWidthOverride, attacker.Stats);
-            battleView.GenerateAttackerInRangeWindow(attackerWindowColor, portraitWidthOverride, attackerInRange);
-            battleView.GenerateAttackerDiceLabelWindow(attackerWindowColor);
+            Vector2 windowWidthOverride = new Vector2(0, 0);
+            battleView.GenerateAttackerDetailWindow(attackerWindowColor, windowWidthOverride, attacker.DetailPane);
+            battleView.GenerateAttackerHpWindow(attackerWindowColor, windowWidthOverride, attacker, HpBarHeight);
+            battleView.GenerateAttackerAtkWindow(attackerWindowColor, windowWidthOverride, attacker.Stats);
+            battleView.GenerateAttackerInRangeWindow(attackerWindowColor, windowWidthOverride, attackerInRange);
 
             int terrainAttackBonus = battleView.GenerateAttackerBonusWindow(attackerSlice, attackerWindowColor,
-                portraitWidthOverride);
+                windowWidthOverride);
             attackerDice = new CombatDice(attacker.Stats.Atk, terrainAttackBonus, 3);
             battleView.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
             battleView.GenerateAttackerSpriteWindow(attackerWindowColor, attacker);
@@ -196,19 +193,16 @@ namespace SolStandard.Containers.Contexts
         private void SetupDefenderWindows(MapSlice defenderSlice)
         {
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
-            battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.LargePortrait);
+            battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
 
-            Vector2 portraitWidthOverride = new Vector2(battleView.DefenderPortraitWindow.Width, 0);
-            battleView.GenerateDefenderLabelWindow(defenderWindowColor, portraitWidthOverride, defender.Id);
-            battleView.GenerateDefenderClassWindow(defenderWindowColor, portraitWidthOverride,
-                defender.Role.ToString());
-            battleView.GenerateDefenderHpWindow(defenderWindowColor, portraitWidthOverride, defender, HpBarHeight);
-            battleView.GenerateDefenderDefWindow(defenderWindowColor, portraitWidthOverride, defender.Stats);
-            battleView.GenerateDefenderRangeWindow(defenderWindowColor, portraitWidthOverride, defenderInRange);
-            battleView.GenerateDefenderDiceLabelWindow(defenderWindowColor);
+            Vector2 windowWidthOverride = new Vector2(0, 0);
+            battleView.GenerateDefenderDetailWindow(defenderWindowColor, windowWidthOverride, defender.DetailPane);
+            battleView.GenerateDefenderHpWindow(defenderWindowColor, windowWidthOverride, defender, HpBarHeight);
+            battleView.GenerateDefenderDefWindow(defenderWindowColor, windowWidthOverride, defender.Stats);
+            battleView.GenerateDefenderRangeWindow(defenderWindowColor, windowWidthOverride, defenderInRange);
 
             int terrainDefenseBonus =
-                battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, portraitWidthOverride);
+                battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, windowWidthOverride);
             defenderDice = new CombatDice(defender.Stats.Def, terrainDefenseBonus, 3);
             battleView.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
             battleView.GenerateDefenderSpriteWindow(defenderWindowColor, defender);
