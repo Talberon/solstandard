@@ -24,7 +24,7 @@ namespace SolStandard.HUD.Window.Content.Health
             //Draw Border
             spriteBatch.Draw(whitePixel.MonoGameTexture,
                 new Rectangle((int) position.X, (int) position.Y, (int) size.X, (int) size.Y),
-                new Rectangle(0, 0, whitePixel.Width, whitePixel.Height), new Color(50,50,50,200));
+                new Rectangle(0, 0, whitePixel.Width, whitePixel.Height), new Color(50, 50, 50, 200));
 
             //Draw Inside
             spriteBatch.Draw(whitePixel.MonoGameTexture,

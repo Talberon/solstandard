@@ -15,7 +15,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
         public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
 
-        private const int CombatDieSize = 64;
+        private const int CombatDieSize = 80;
 
         private readonly List<Die> dice;
         private readonly int rowSize;

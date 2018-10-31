@@ -349,7 +349,7 @@ namespace SolStandard.Containers.View
         {
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
-                GameDriver.ScreenSize.Y * 3 / 4
+                GameDriver.ScreenSize.Y - UserPromptWindow.Height - WindowSpacing
             );
         }
 

@@ -140,6 +140,8 @@
     <Compile Include="HUD\Window\Content\Combat\Die.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthPip.cs" />
+    <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\Heart.cs" />
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />

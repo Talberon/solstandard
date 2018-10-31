@@ -1,24 +1,17 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
     public class HealthBar : IRenderable
     {
-        protected HealthPip[] Pips;
-        private int pipWidth;
+        protected IResourcePoint[] Pips;
         private Vector2 barSize;
 
         private readonly int maxHp;
         private int currentHp;
-        private static readonly Color ActiveColor = new Color(30, 200, 30);
-        private static readonly Color InactiveColor = new Color(140, 10, 10, 150);
-
-        public int Height { get; private set; }
-        public int Width { get; private set; }
 
         public HealthBar(int maxHp, int currentHp, Vector2 barSize)
         {
@@ -32,40 +25,16 @@ namespace SolStandard.HUD.Window.Content.Health
             barSize = size;
             PopulatePips();
             UpdatePips();
-            pipWidth = CalculatePipWidth();
-            Height = CalculateHeight();
-            Width = CalculateWidth();
-        }
-
-        private int CalculatePipWidth()
-        {
-            return (int) Math.Floor(barSize.X / maxHp);
-        }
-
-        private int CalculateHeight()
-        {
-            return (int) barSize.Y;
-        }
-
-        private int CalculateWidth()
-        {
-            return pipWidth * Pips.Length;
         }
 
         private void PopulatePips()
         {
-            Pips = new HealthPip[maxHp];
+            Pips = new IResourcePoint[maxHp];
 
             for (int i = 0; i < Pips.Length; i++)
             {
-                Pips[i] = new HealthPip(AssetManager.WhitePixel, ActiveColor, InactiveColor);
+                Pips[i] = new Heart(new Vector2(barSize.Y));
             }
-        }
-
-        public void DealDamage(int damage)
-        {
-            currentHp -= damage;
-            UpdatePips();
         }
 
         private void UpdatePips()
@@ -76,6 +45,27 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
+        private int PipWidth
+        {
+            get { return Pips.Length > 0 ? Pips.First().Width : 0; }
+        }
+
+        public int Height
+        {
+            get { return (int) barSize.Y; }
+        }
+
+        public int Width
+        {
+            get { return PipWidth * Pips.Length; }
+        }
+
+        public void DealDamage(int damage)
+        {
+            currentHp -= damage;
+            UpdatePips();
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             Draw(spriteBatch, position, Color.White);
@@ -84,10 +74,10 @@ namespace SolStandard.HUD.Window.Content.Health
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             Vector2 pipOffset = new Vector2(position.X, position.Y);
-            foreach (HealthPip pip in Pips)
+            foreach (IResourcePoint pip in Pips)
             {
-                pip.Draw(spriteBatch, pipOffset, new Vector2(pipWidth, barSize.Y));
-                pipOffset.X += pipWidth;
+                pip.Draw(spriteBatch, pipOffset);
+                pipOffset.X += PipWidth;
             }
         }
     }
