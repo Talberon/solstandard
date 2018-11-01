@@ -8,13 +8,21 @@ namespace SolStandard.HUD.Window.Content.Health
     public class Heart : IResourcePoint
     {
         public bool Active { get; set; }
-        private readonly SpriteAtlas activeSprite;
-        private readonly SpriteAtlas inactiveSprite;
+        private SpriteAtlas activeSprite;
+        private SpriteAtlas inactiveSprite;
 
         public Heart(Vector2 size)
         {
-            activeSprite = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, size);
-            inactiveSprite = UnitStatistics.GetSpriteAtlas(StatIcons.EmptyHp, size);
+            Size = size;
+        }
+
+        public Vector2 Size
+        {
+            set
+            {
+                activeSprite = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, value);
+                inactiveSprite = UnitStatistics.GetSpriteAtlas(StatIcons.EmptyHp, value);
+            }
         }
 
         public int Height

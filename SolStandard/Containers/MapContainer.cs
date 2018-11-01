@@ -187,7 +187,7 @@ namespace SolStandard.Containers
             if (ToastWindow != null)
             {
                 ToastWindow.Draw(spriteBatch);
-                
+
                 if (ToastWindow.Expired) ToastWindow = null;
             }
 

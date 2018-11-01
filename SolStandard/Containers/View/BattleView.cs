@@ -19,6 +19,7 @@ namespace SolStandard.Containers.View
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 150);
 
         private const int WindowSpacing = 5;
+        private static readonly Vector2 HpBarSize = new Vector2(300, 64);
 
         public Window AttackerPortraitWindow { get; private set; }
         private Window AttackerDetailWindow { get; set; }
@@ -30,9 +31,9 @@ namespace SolStandard.Containers.View
         private Window AttackerSpriteWindow { get; set; }
 
         public Window DefenderPortraitWindow { get; private set; }
-        private Window DefenderClassWindow { get; set; }
+        private Window DefenderDetailWindow { get; set; }
         private Window DefenderHpWindow { get; set; }
-        private Window DefenderDefWindow { get; set; }
+        private Window DefenderAtkWindow { get; set; }
         private Window DefenderBonusWindow { get; set; }
         private Window DefenderRangeWindow { get; set; }
         private Window DefenderDiceWindow { get; set; }
@@ -173,21 +174,14 @@ namespace SolStandard.Containers.View
                 attackerWindowColor, portraitWidthOverride);
         }
 
-        public void GenerateAttackerHpWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
-            GameUnit attacker, int hpBarHeight)
+        public void GenerateAttackerHpWindow(Color windowColor, Vector2 sizeOverride, GameUnit attacker)
         {
-            IRenderable hpIcon = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, new Vector2(GameDriver.CellSize));
-            IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
-            Vector2 hpBarSize = new Vector2(attacker.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
-            IRenderable hpBar = attacker.GetCombatHealthBar(hpBarSize);
-            IRenderable[,] attackerHpContent =
-            {
-                {hpIcon, hpLabel, hpBar}
-            };
-            WindowContentGrid attackerHpContentGrid = new WindowContentGrid(attackerHpContent, 1);
-            AttackerHpWindow =
-                new Window(attackerHpContentGrid, attackerWindowColor,
-                    portraitWidthOverride);
+            AttackerHpWindow = GenerateHpWindow(attacker, sizeOverride, windowColor);
+        }
+
+        private Window GenerateHpWindow(GameUnit unit, Vector2 sizeOverride, Color windowColor)
+        {
+            return new Window(unit.GetCombatHealthBar(HpBarSize), windowColor, sizeOverride);
         }
 
         public void GenerateAttackerDetailWindow(Color attackerWindowColor, Vector2 portraitWidthOverride,
@@ -302,31 +296,19 @@ namespace SolStandard.Containers.View
                 }
             };
             WindowContentGrid defenderAtkContentGrid = new WindowContentGrid(defenderAtkContent, 1);
-            DefenderDefWindow = new Window(defenderAtkContentGrid,
+            DefenderAtkWindow = new Window(defenderAtkContentGrid,
                 defenderWindowColor, portraitWidthOverride);
         }
 
-        public void GenerateDefenderHpWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
-            GameUnit defender, int hpBarHeight)
+        public void GenerateDefenderHpWindow(Color windowColor, Vector2 sizeOverride, GameUnit defender)
         {
-            IRenderable hpIcon = UnitStatistics.GetSpriteAtlas(StatIcons.Hp, new Vector2(GameDriver.CellSize));
-            IRenderable hpLabel = new RenderText(AssetManager.WindowFont, "HP: ");
-            Vector2 hpBarSize = new Vector2(defender.LargePortrait.Width - hpLabel.Width - hpIcon.Width, hpBarHeight);
-            IRenderable hpBar = defender.GetCombatHealthBar(hpBarSize);
-            IRenderable[,] defenderHpContent =
-            {
-                {hpIcon, hpLabel, hpBar}
-            };
-            WindowContentGrid defenderHpContentGrid = new WindowContentGrid(defenderHpContent, 1);
-            DefenderHpWindow =
-                new Window(defenderHpContentGrid, defenderWindowColor,
-                    portraitWidthOverride);
+            DefenderHpWindow = GenerateHpWindow(defender, sizeOverride, windowColor);
         }
 
         public void GenerateDefenderDetailWindow(Color defenderWindowColor, Vector2 portraitWidthOverride,
             IRenderable defenderDetail)
         {
-            DefenderClassWindow = new Window(defenderDetail, defenderWindowColor, portraitWidthOverride);
+            DefenderDetailWindow = new Window(defenderDetail, defenderWindowColor, portraitWidthOverride);
         }
 
         public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
@@ -359,6 +341,13 @@ namespace SolStandard.Containers.View
             return referenceWindowXPosition + referenceWindow.Width - placingWindow.Width;
         }
 
+        private static float BottomAlignWindow(IRenderable placingWindow, IRenderable referenceWindow,
+            float referenceWindowYPosition)
+        {
+            return referenceWindowYPosition + referenceWindow.Height - placingWindow.Height;
+        }
+
+
         private static float CenterHorizontally(IRenderable placingWindow, IRenderable referenceWindow,
             float referenceWindowXPosition)
         {
@@ -371,75 +360,74 @@ namespace SolStandard.Containers.View
 
         private Vector2 AttackerDetailWindowPosition()
         {
-            //Anchored beneath health window
-            Vector2 attackerHpWindowPosition = AttackerHpWindowPosition();
+            //Anchored right of portrait window
+            Vector2 attackerPortraitWindowPosition = AttackerPortraitWindowPosition();
 
             return new Vector2(
-                RightAlignWindow(AttackerDetailWindow, AttackerHpWindow, attackerHpWindowPosition.X),
-                attackerHpWindowPosition.Y + AttackerHpWindow.Height + WindowSpacing
+                attackerPortraitWindowPosition.X + AttackerPortraitWindow.Width,
+                BottomAlignWindow(AttackerDetailWindow, AttackerPortraitWindow, attackerPortraitWindowPosition.Y)
             );
         }
 
         private Vector2 AttackerPortraitWindowPosition()
         {
-            //Anchored left of detail window
-            Vector2 attackerDetailWindowPosition = AttackerDetailWindowPosition();
-
+            //Bottom-left of screen
             return new Vector2(
-                attackerDetailWindowPosition.X - AttackerPortraitWindow.Width - WindowSpacing,
-                attackerDetailWindowPosition.Y
+                WindowSpacing,
+                GameDriver.ScreenSize.Y - AttackerPortraitWindow.Height - WindowSpacing
             );
         }
 
         private Vector2 AttackerHpWindowPosition()
         {
-            //Anchored beneath Range window
-            Vector2 attackerRangeWindowPosition = AttackerRangeWindowPosition();
+            //Anchored above Sprite window
+            Vector2 attackerSpriteWindowPosition = AttackerSpriteWindowPosition();
 
             return new Vector2(
-                RightAlignWindow(AttackerHpWindow, AttackerRangeWindow, attackerRangeWindowPosition.X),
-                attackerRangeWindowPosition.Y + AttackerHpWindow.Height + WindowSpacing
+                RightAlignWindow(AttackerHpWindow, AttackerSpriteWindow, attackerSpriteWindowPosition.X),
+                attackerSpriteWindowPosition.Y - AttackerHpWindow.Height - WindowSpacing
             );
         }
 
         private Vector2 AttackerAtkWindowPosition()
         {
-            //Anchored above bonus window
-            Vector2 attackerBonusWindowPosition = AttackerBonusWindowPosition();
+            //Anchored below Sprite window
+            Vector2 attackerSpriteWindowPosition = AttackerSpriteWindowPosition();
 
             return new Vector2(
-                CenterHorizontally(AttackerAtkWindow, AttackerBonusWindow, attackerBonusWindowPosition.X),
-                attackerBonusWindowPosition.Y - AttackerAtkWindow.Height - WindowSpacing
+                RightAlignWindow(AttackerAtkWindow, AttackerSpriteWindow, attackerSpriteWindowPosition.X),
+                attackerSpriteWindowPosition.Y + AttackerSpriteWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 AttackerBonusWindowPosition()
         {
-            //Anchored above dice window
-            Vector2 attackerDicePosition = AttackerDicePosition();
+            //Anchored below Atk window
+            Vector2 attackerAtkWindowPosition = AttackerAtkWindowPosition();
 
             return new Vector2(
-                CenterHorizontally(AttackerBonusWindow, AttackerDiceWindow, attackerDicePosition.X),
-                attackerDicePosition.Y - AttackerBonusWindow.Height - WindowSpacing
+                RightAlignWindow(AttackerBonusWindow, AttackerAtkWindow, attackerAtkWindowPosition.X),
+                attackerAtkWindowPosition.Y + AttackerAtkWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 AttackerRangeWindowPosition()
         {
-            Vector2 attackerSpriteWindowPosition = AttackerSpriteWindowPosition();
-            //Anchored beneath Sprite Window
+            Vector2 attackerDicePosition = AttackerDicePosition();
+            //Anchored beneath Dice Window
             return new Vector2(
-                RightAlignWindow(AttackerRangeWindow, AttackerSpriteWindow, attackerSpriteWindowPosition.X),
-                attackerSpriteWindowPosition.Y + AttackerSpriteWindow.Height + WindowSpacing
+                RightAlignWindow(AttackerRangeWindow, AttackerDiceWindow, attackerDicePosition.X),
+                attackerDicePosition.Y + AttackerDiceWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 AttackerDicePosition()
         {
-            //Left quarter of screen
+            Vector2 attackerBonusWindowPosition = AttackerBonusWindowPosition();
+            //Anchored beneath Bonus Window
             return new Vector2(
-                GameDriver.ScreenSize.X / 4 - (float) AttackerDiceWindow.Width / 2,
-                GameDriver.ScreenSize.Y / 2 - (float) AttackerDiceWindow.Height / 2
+                RightAlignWindow(AttackerDiceWindow, AttackerBonusWindow, attackerBonusWindowPosition.X),
+                attackerBonusWindowPosition.Y + AttackerBonusWindow.Height + WindowSpacing
             );
         }
 
@@ -455,74 +443,76 @@ namespace SolStandard.Containers.View
 
         private Vector2 DefenderDetailWindowPosition()
         {
-            //Anchored beneath Health window
-            Vector2 defenderHpWindowPosition = DefenderHpWindowPosition();
+            //Anchored left of portrait window
+            Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
 
-            return new Vector2(defenderHpWindowPosition.X,
-                defenderHpWindowPosition.Y + DefenderHpWindow.Height + WindowSpacing);
+            return new Vector2(
+                defenderPortraitWindowPosition.X - DefenderDetailWindow.Width,
+                BottomAlignWindow(DefenderDetailWindow, DefenderPortraitWindow, defenderPortraitWindowPosition.Y)
+            );
         }
 
         private Vector2 DefenderPortraitWindowPosition()
         {
-            //Anchored right of defender details window
-            Vector2 defenderClassWindowPosition = DefenderDetailWindowPosition();
+            //Bottom-right of screen
+            return new Vector2(
+                GameDriver.ScreenSize.X - DefenderPortraitWindow.Width - WindowSpacing,
+                GameDriver.ScreenSize.Y - DefenderPortraitWindow.Height - WindowSpacing
+            );
+        }
+
+        private Vector2 DefenderHpWindowPosition()
+        {
+            //Anchored above Sprite window
+            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderClassWindowPosition.X + DefenderClassWindow.Width + WindowSpacing,
-                defenderClassWindowPosition.Y
+                defenderSpriteWindowPosition.X,
+                defenderSpriteWindowPosition.Y - DefenderHpWindow.Height - WindowSpacing
+            );
+        }
+
+        private Vector2 DefenderAtkWindowPosition()
+        {
+            //Anchored below Sprite window
+            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+
+            return new Vector2(
+                defenderSpriteWindowPosition.X,
+                defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderBonusWindowPosition()
         {
-            //Anchored above Dice window
-            Vector2 defenderDicePosition = DefenderDicePosition();
+            //Anchored below Atk window
+            Vector2 defenderAtkWindowPosition = DefenderAtkWindowPosition();
 
             return new Vector2(
-                CenterHorizontally(DefenderBonusWindow, DefenderDiceWindow, defenderDicePosition.X),
-                defenderDicePosition.Y - DefenderDefWindow.Height - WindowSpacing
+                defenderAtkWindowPosition.X,
+                defenderAtkWindowPosition.Y + DefenderAtkWindow.Height + WindowSpacing
             );
         }
 
-
-        private Vector2 DefenderHpWindowPosition()
+        private Vector2 DefenderDiceWindowPosition()
         {
-            //Anchored beneath Range window
-            Vector2 defenderRangeWindowPosition = DefenderRangeWindowPosition();
-
-            return new Vector2(
-                GameDriver.ScreenSize.X / 2 + WindowSpacing,
-                defenderRangeWindowPosition.Y + DefenderBonusWindow.Height + WindowSpacing
-            );
-        }
-
-        private Vector2 DefenderDefWindowPosition()
-        {
-            //Anchored above Bonus window
+            //Anchored beneath Bonus Window
             Vector2 defenderBonusWindowPosition = DefenderBonusWindowPosition();
 
             return new Vector2(
-                (defenderBonusWindowPosition.X + (float) DefenderBonusWindow.Width / 2) -
-                ((float) DefenderDefWindow.Width / 2),
-                defenderBonusWindowPosition.Y - DefenderDefWindow.Height - WindowSpacing
+                defenderBonusWindowPosition.X,
+                defenderBonusWindowPosition.Y + DefenderBonusWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderRangeWindowPosition()
         {
-            //Anchored beneath Sprite Window
-            return new Vector2(
-                GameDriver.ScreenSize.X / 2 + WindowSpacing,
-                DefenderSpriteWindowPosition().Y + DefenderSpriteWindow.Height + WindowSpacing
-            );
-        }
+            //Anchored beneath Dice Window
+            Vector2 defenderDiceWindowPosition = DefenderDiceWindowPosition();
 
-        private Vector2 DefenderDicePosition()
-        {
-            //Right quarter of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 4 * 3 - (float) DefenderDiceWindow.Width / 2,
-                GameDriver.ScreenSize.Y / 2 - (float) DefenderDiceWindow.Height / 2
+                defenderDiceWindowPosition.X,
+                defenderDiceWindowPosition.Y + DefenderDiceWindow.Height + WindowSpacing
             );
         }
 
@@ -564,12 +554,12 @@ namespace SolStandard.Containers.View
                 if (DefenderPortraitWindow != null)
                 {
                     DefenderPortraitWindow.Draw(spriteBatch, DefenderPortraitWindowPosition());
-                    DefenderClassWindow.Draw(spriteBatch, DefenderDetailWindowPosition());
+                    DefenderDetailWindow.Draw(spriteBatch, DefenderDetailWindowPosition());
                     DefenderHpWindow.Draw(spriteBatch, DefenderHpWindowPosition());
-                    DefenderDefWindow.Draw(spriteBatch, DefenderDefWindowPosition());
+                    DefenderAtkWindow.Draw(spriteBatch, DefenderAtkWindowPosition());
                     DefenderBonusWindow.Draw(spriteBatch, DefenderBonusWindowPosition());
                     DefenderRangeWindow.Draw(spriteBatch, DefenderRangeWindowPosition());
-                    DefenderDiceWindow.Draw(spriteBatch, DefenderDicePosition());
+                    DefenderDiceWindow.Draw(spriteBatch, DefenderDiceWindowPosition());
                     DefenderSpriteWindow.Draw(spriteBatch, DefenderSpriteWindowPosition());
                 }
             }

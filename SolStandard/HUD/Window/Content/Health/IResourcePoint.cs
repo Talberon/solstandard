@@ -1,9 +1,11 @@
-﻿using SolStandard.Utility;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
     public interface IResourcePoint : IRenderable
     {
-        bool Active { get; set; }
+        bool Active { set; }
+        Vector2 Size { set; }
     }
 }

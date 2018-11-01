@@ -49,6 +49,7 @@ namespace SolStandard.Entity.Unit
         private readonly HealthBar resultsHealthBar;
         private readonly List<HealthBar> healthbars;
 
+
         private static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
 
         private readonly UnitStatistics stats;
@@ -133,25 +134,25 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
-            initiativeHealthBar.SetSize(barSize);
+            initiativeHealthBar.BarSize = barSize;
             return initiativeHealthBar;
         }
 
         public IRenderable GetHoverWindowHealthBar(Vector2 barSize)
         {
-            hoverWindowHealthBar.SetSize(barSize);
+            hoverWindowHealthBar.BarSize = barSize;
             return hoverWindowHealthBar;
         }
 
         public IRenderable GetCombatHealthBar(Vector2 barSize)
         {
-            combatHealthBar.SetSize(barSize);
+            combatHealthBar.BarSize = barSize;
             return combatHealthBar;
         }
 
         public IRenderable GetResultsHealthBar(Vector2 barSize)
         {
-            resultsHealthBar.SetSize(barSize);
+            resultsHealthBar.BarSize = barSize;
             return resultsHealthBar;
         }
 

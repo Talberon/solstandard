@@ -9,24 +9,24 @@ namespace SolStandard.HUD.Window.Content.Combat
 {
     public class CombatDice : IRenderable
     {
-        public static readonly Color DefaultDieColor = Color.White;
-        public static readonly Color BonusDieColor = new Color(80, 200, 80);
-        public static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
-        public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
-        public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
+        private static readonly Color DefaultDieColor = Color.White;
+        private static readonly Color BonusDieColor = new Color(80, 200, 80);
+        private static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
+        private static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
+        private static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
 
         private const int CombatDieSize = 80;
 
         private readonly List<Die> dice;
-        private readonly int rowSize;
+        private readonly int maxRowSize;
 
 
-        public CombatDice(int baseDice, int bonusDice, int rowSize)
+        public CombatDice(int baseDice, int bonusDice, int maxRowSize)
         {
             if (baseDice < 1) throw new ArgumentOutOfRangeException();
             if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
-            this.rowSize = rowSize;
+            this.maxRowSize = maxRowSize;
             dice = PopulateDice(baseDice, bonusDice);
         }
 
@@ -51,14 +51,18 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             get
             {
-                int totalRows = (int) Math.Ceiling((float) dice.Count / rowSize);
+                int totalRows = (int) Math.Ceiling((float) dice.Count / maxRowSize);
                 return totalRows * dice.First().Height;
             }
         }
 
         public int Width
         {
-            get { return rowSize * dice.First().Width; }
+            get
+            {
+                int rowSize = (dice.Count > maxRowSize) ? maxRowSize : dice.Count;
+                return rowSize * dice.First().Width;
+            }
         }
 
         public void RollDice()
@@ -129,8 +133,8 @@ namespace SolStandard.HUD.Window.Content.Combat
 
             for (int i = 0; i < dice.Count; i++)
             {
-                //Drop dice to the next row after rowSize reached.
-                if (i != 0 && i % rowSize == 0)
+                //Drop dice to the next row after maxRowSize reached.
+                if (i != 0 && i % maxRowSize == 0)
                 {
                     dieOffset.X = 0;
                     dieOffset.Y += dice[i].Height;
@@ -148,8 +152,8 @@ namespace SolStandard.HUD.Window.Content.Combat
 
             for (int i = 0; i < dice.Count; i++)
             {
-                //Drop dice to the next row after rowSize reached.
-                if (i != 0 && i % rowSize == 0)
+                //Drop dice to the next row after maxRowSize reached.
+                if (i != 0 && i % maxRowSize == 0)
                 {
                     dieOffset.X = 0;
                     dieOffset.Y += dice[i].Height;

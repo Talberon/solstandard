@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
@@ -8,23 +8,48 @@ namespace SolStandard.HUD.Window.Content.Health
     public class HealthBar : IRenderable
     {
         protected IResourcePoint[] Pips;
-        private Vector2 barSize;
 
         private readonly int maxHp;
         private int currentHp;
+        private const int MaxPointsPerRow = 10;
+        private Vector2 pipSize;
+        private Vector2 barSize;
 
         public HealthBar(int maxHp, int currentHp, Vector2 barSize)
         {
             this.maxHp = maxHp;
             this.currentHp = currentHp;
-            SetSize(barSize);
-        }
-
-        public void SetSize(Vector2 size)
-        {
-            barSize = size;
             PopulatePips();
             UpdatePips();
+            BarSize = barSize;
+        }
+
+        private Vector2 PipSize
+        {
+            set
+            {
+                pipSize = value;
+
+                foreach (IResourcePoint pip in Pips)
+                {
+                    pip.Size = value;
+                }
+            }
+        }
+
+        public Vector2 BarSize
+        {
+            set
+            {
+                barSize = value;
+
+                float colCount = (Pips.Length > MaxPointsPerRow) ? MaxPointsPerRow : Pips.Length;
+                float widthLimit = value.X / colCount;
+
+                float rowCount = Convert.ToSingle(Math.Ceiling((float) Pips.Length / MaxPointsPerRow));
+                float heightLimit = value.Y / rowCount;
+                PipSize = new Vector2((widthLimit > heightLimit) ? heightLimit : widthLimit);
+            }
         }
 
         private void PopulatePips()
@@ -33,7 +58,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < Pips.Length; i++)
             {
-                Pips[i] = new Heart(new Vector2(barSize.Y));
+                Pips[i] = new Heart(pipSize);
             }
         }
 
@@ -45,19 +70,14 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
-        private int PipWidth
-        {
-            get { return Pips.Length > 0 ? Pips.First().Width : 0; }
-        }
-
         public int Height
         {
-            get { return (int) barSize.Y; }
+            get { return Convert.ToInt32(barSize.Y); }
         }
 
         public int Width
         {
-            get { return PipWidth * Pips.Length; }
+            get { return Convert.ToInt32(barSize.X); }
         }
 
         public void DealDamage(int damage)
@@ -73,11 +93,17 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            Vector2 pipOffset = new Vector2(position.X, position.Y);
-            foreach (IResourcePoint pip in Pips)
+            Vector2 pipOffset = Vector2.Zero;
+
+            for (int i = 0; i < Pips.Length; i++)
             {
-                pip.Draw(spriteBatch, pipOffset);
-                pipOffset.X += PipWidth;
+                Pips[i].Draw(spriteBatch, position + pipOffset);
+                pipOffset.X += (barSize.X / MaxPointsPerRow);
+                if ((i + 1) % MaxPointsPerRow == 0)
+                {
+                    pipOffset.Y += pipSize.Y;
+                    pipOffset.X = 0;
+                }
             }
         }
     }

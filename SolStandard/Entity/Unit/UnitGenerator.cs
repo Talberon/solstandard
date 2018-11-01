@@ -108,22 +108,22 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(4, 4, 2, 4, new[] {2});
+            return new UnitStatistics(14, 4, 2, 4, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(4, 4, 3, 5, new[] {1});
+            return new UnitStatistics(14, 4, 3, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(3, 5, 1, 4, new[] {1, 2});
+            return new UnitStatistics(13, 5, 1, 4, new[] {1, 2});
         }
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(6, 3, 1, 3, new[] {1, 2});
+            return new UnitStatistics(16, 3, 1, 3, new[] {1, 2});
         }
 
         private static List<UnitAction> SelectArcherSkills()

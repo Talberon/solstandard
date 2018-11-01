@@ -24,7 +24,6 @@ namespace SolStandard.Containers.Contexts
         }
 
         private readonly BattleView battleView;
-        private const int HpBarHeight = 25;
 
         private CombatDice attackerDice;
         private CombatDice defenderDice;
@@ -177,9 +176,10 @@ namespace SolStandard.Containers.Contexts
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
 
+            //FIXME Remove the override
             Vector2 windowWidthOverride = new Vector2(0, 0);
             battleView.GenerateAttackerDetailWindow(attackerWindowColor, windowWidthOverride, attacker.DetailPane);
-            battleView.GenerateAttackerHpWindow(attackerWindowColor, windowWidthOverride, attacker, HpBarHeight);
+            battleView.GenerateAttackerHpWindow(attackerWindowColor, windowWidthOverride, attacker);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, windowWidthOverride, attacker.Stats);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, windowWidthOverride, attackerInRange);
 
@@ -195,9 +195,10 @@ namespace SolStandard.Containers.Contexts
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
 
+            //FIXME Remove the override
             Vector2 windowWidthOverride = new Vector2(0, 0);
             battleView.GenerateDefenderDetailWindow(defenderWindowColor, windowWidthOverride, defender.DetailPane);
-            battleView.GenerateDefenderHpWindow(defenderWindowColor, windowWidthOverride, defender, HpBarHeight);
+            battleView.GenerateDefenderHpWindow(defenderWindowColor, windowWidthOverride, defender);
             battleView.GenerateDefenderDefWindow(defenderWindowColor, windowWidthOverride, defender.Stats);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, windowWidthOverride, defenderInRange);
 

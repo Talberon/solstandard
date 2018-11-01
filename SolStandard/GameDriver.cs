@@ -279,6 +279,11 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.InGame:
                     DrawInGameMap();
+                    if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+                    {
+                        DrawColorEntireScreen(new Color(0, 0, 0, 190));
+                    }
+
                     DrawInGameHUD();
                     break;
                 case GameContext.GameState.Results:
@@ -342,6 +347,18 @@ namespace SolStandard
 
             GameContext.StatusScreenView.Draw(spriteBatch);
 
+            spriteBatch.End();
+        }
+
+        private void DrawColorEntireScreen(Color color)
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null,
+                SamplerState.PointClamp
+            );
+            spriteBatch.Draw(AssetManager.WhitePixel.MonoGameTexture,
+                new Rectangle(0, 0, (int) ScreenSize.X, (int) ScreenSize.Y), color);
             spriteBatch.End();
         }
 
