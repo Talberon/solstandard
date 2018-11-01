@@ -6,7 +6,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Window.Content.Combat
 {
-    public class Die : IRenderable
+    public class Die : IRenderable, ICombatPoint
     {
         public enum FaceValue
         {
@@ -40,8 +40,6 @@ namespace SolStandard.HUD.Window.Content.Combat
         private DieSides currentSide;
         private Color color;
 
-        public int Height { get; private set; }
-        public int Width { get; private set; }
         public bool Enabled { get; private set; }
 
         public Die(DieSides initialSide, int size, Color color)
@@ -50,9 +48,17 @@ namespace SolStandard.HUD.Window.Content.Combat
             this.color = color;
             dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height),
                 new Vector2(size), 1);
-            Height = dieAtlas.Height;
-            Width = dieAtlas.Width;
             Enabled = true;
+        }
+
+        public int Height
+        {
+            get { return dieAtlas.Height; }
+        }
+
+        public int Width
+        {
+            get { return dieAtlas.Width; }
         }
 
         public void Roll()

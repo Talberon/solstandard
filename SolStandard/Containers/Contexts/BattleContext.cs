@@ -25,8 +25,8 @@ namespace SolStandard.Containers.Contexts
 
         private readonly BattleView battleView;
 
-        private CombatDice attackerDice;
-        private CombatDice defenderDice;
+        private CombatDamage attackerDamage;
+        private CombatDamage defenderDamage;
 
         private int frameCounter;
         private bool currentlyRolling;
@@ -43,6 +43,8 @@ namespace SolStandard.Containers.Contexts
         private int defenderDamageCounter;
         private bool attackerInRange;
         private bool defenderInRange;
+
+        private const int AttackPointSize = 48;
 
         public BattleContext(BattleView battleView)
         {
@@ -185,9 +187,9 @@ namespace SolStandard.Containers.Contexts
 
             int terrainAttackBonus = battleView.GenerateAttackerBonusWindow(attackerSlice, attackerWindowColor,
                 windowWidthOverride);
-            attackerDice = new CombatDice(attacker.Stats.Atk, terrainAttackBonus, 3);
-            battleView.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
-            battleView.GenerateAttackerSpriteWindow(attacker);
+            attackerDamage = new CombatDamage(attacker.Stats, terrainAttackBonus, AttackPointSize);
+            battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
+            battleView.GenerateAttackerSpriteWindow(attacker, UnitAnimationState.Attack);
         }
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
@@ -204,9 +206,9 @@ namespace SolStandard.Containers.Contexts
 
             int terrainDefenseBonus =
                 battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, windowWidthOverride);
-            defenderDice = new CombatDice(defender.Stats.Def, terrainDefenseBonus, 3);
-            battleView.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
-            battleView.GenerateDefenderSpriteWindow(defender);
+            defenderDamage = new CombatDamage(defender.Stats, terrainDefenseBonus, AttackPointSize);
+            battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
+            battleView.GenerateDefenderSpriteWindow(defender, UnitAnimationState.Attack);
         }
 
         public bool TryProceedToState(BattleState state)
@@ -255,8 +257,8 @@ namespace SolStandard.Containers.Contexts
             const int renderDelay = 3;
             if (frameCounter % renderDelay == 0)
             {
-                attackerDice.RollDice();
-                defenderDice.RollDice();
+                attackerDamage.RollDice();
+                defenderDamage.RollDice();
                 AssetManager.DiceRollSFX.Play();
             }
         }
@@ -272,25 +274,25 @@ namespace SolStandard.Containers.Contexts
 
         private void ResolveBlocks()
         {
-            int attackerSwords = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
-            int defenderSwords = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
-            int attackerShields = attackerDice.CountFaceValue(Die.FaceValue.Shield, true);
-            int defenderShields = defenderDice.CountFaceValue(Die.FaceValue.Shield, true);
+            int attackerSwords = attackerDamage.CountDamage();
+            int defenderSwords = defenderDamage.CountDamage();
+            int attackerShields = attackerDamage.CountShields();
+            int defenderShields = defenderDamage.CountShields();
 
             //Animate grey-out of each pair of swords+shields, one after another
-            const int renderDelay = 30;
+            const int renderDelay = 20;
             if (frameCounter % renderDelay == 0)
             {
                 if (attackerInRange && attackerSwords > 0 && defenderShields > 0)
                 {
-                    attackerDice.BlockNextDieWithValue(Die.FaceValue.Sword);
-                    defenderDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+                    attackerDamage.BlockAttackPoint();
+                    defenderDamage.ResolveBlockDie();
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else if (defenderInRange && defenderSwords > 0 && attackerShields > 0)
                 {
-                    defenderDice.BlockNextDieWithValue(Die.FaceValue.Sword);
-                    attackerDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+                    defenderDamage.BlockAttackPoint();
+                    attackerDamage.ResolveBlockDie();
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else
@@ -298,8 +300,8 @@ namespace SolStandard.Containers.Contexts
                     //Don't count defender's attack dice if out of range
                     if (!defenderInRange)
                     {
-                        defenderDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
-                        AssetManager.DisableDiceSFX.Play();
+                        defenderDamage.DisableAllAttackPoints();
+                        defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Sword);
                     }
 
                     currentlyResolvingBlocks = false;
@@ -320,32 +322,32 @@ namespace SolStandard.Containers.Contexts
 
         private void ResolveDamage()
         {
-            int attackerDamage = attackerDice.CountFaceValue(Die.FaceValue.Sword, true);
-            int defenderDamage = defenderDice.CountFaceValue(Die.FaceValue.Sword, true);
+            int attackerSwords = attackerDamage.CountDamage();
+            int defenderSwords = defenderDamage.CountDamage();
 
             //Animate HP bar taking one damage at a time
-            const int renderDelay = 30;
+            const int renderDelay = 7;
             if (frameCounter % renderDelay == 0)
             {
                 if (NonSwordDiceRemain())
                 {
                     //Disable blank dice after all other dice resolved
-                    attackerDice.DisableAllDiceWithValue(Die.FaceValue.Blank);
-                    defenderDice.DisableAllDiceWithValue(Die.FaceValue.Blank);
-                    attackerDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
-                    defenderDice.DisableAllDiceWithValue(Die.FaceValue.Shield);
+                    attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
+                    defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
+                    attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
+                    defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     AssetManager.DisableDiceSFX.Play();
                 }
-                else if (attackerDamage > 0 && attackerInRange)
+                else if (attackerSwords > 0 && attackerInRange)
                 {
-                    attackerDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
+                    attackerDamage.ResolveDamagePoint();
                     defender.DamageUnit(1);
                     attackerDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
-                else if (defenderDamage > 0 && defenderInRange)
+                else if (defenderSwords > 0 && defenderInRange && defender.Stats.Hp > 0)
                 {
-                    defenderDice.ResolveDamageNextDieWithValue(Die.FaceValue.Sword);
+                    defenderDamage.ResolveDamagePoint();
                     attacker.DamageUnit(1);
                     defenderDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
@@ -358,6 +360,17 @@ namespace SolStandard.Containers.Contexts
                     attacker.SetUnitAnimation(UnitAnimationState.Idle);
                     defender.SetUnitAnimation(UnitAnimationState.Idle);
                     ResetDamageCounters();
+                }
+
+                if (attacker.Stats.Hp <= 0)
+                {
+                    //TODO Replace with a death animation
+                    battleView.GenerateAttackerSpriteWindow(attacker, UnitAnimationState.WalkUp);
+                }
+                if (defender.Stats.Hp <= 0)
+                {
+                    //TODO Replace with a death animation
+                    battleView.GenerateDefenderSpriteWindow(defender, UnitAnimationState.WalkUp);
                 }
             }
         }
@@ -380,10 +393,8 @@ namespace SolStandard.Containers.Contexts
 
         private bool NonSwordDiceRemain()
         {
-            bool blanksLeft = (attackerDice.CountFaceValue(Die.FaceValue.Blank, true) > 0 ||
-                               defenderDice.CountFaceValue(Die.FaceValue.Blank, true) > 0);
-            bool shieldsLeft = (attackerDice.CountFaceValue(Die.FaceValue.Shield, true) > 0 ||
-                                defenderDice.CountFaceValue(Die.FaceValue.Shield, true) > 0);
+            bool blanksLeft = (attackerDamage.CountBlanks() > 0 || defenderDamage.CountBlanks() > 0);
+            bool shieldsLeft = (attackerDamage.CountShields() > 0 || defenderDamage.CountShields() > 0);
 
             return blanksLeft || shieldsLeft;
         }

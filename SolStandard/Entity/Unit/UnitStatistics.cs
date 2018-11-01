@@ -24,63 +24,38 @@ namespace SolStandard.Entity.Unit
 
     public class UnitStatistics
     {
-        private const int iconSizePixels = 16;
-        private readonly int maxHp;
-        private readonly int baseAtk;
-        private readonly int baseDef;
-        private readonly int baseMv;
-        private readonly int[] baseAtkRange;
+        private const int IconSizePixels = 16;
 
+        public int MaxHp { get; private set; }
+        public int MaxArmor { get; private set; }
+        public int BaseAtk { get; private set; }
+        public int BaseLuck { get; set; }
+        public int BaseMv { get; private set; }
+        public int[] BaseAtkRange { get; private set; }
 
-        public UnitStatistics(int hp, int atk, int def, int mv, int[] atkRange)
+        public int Hp { get; set; }
+        public int Atk { get; set; }
+        public int Armor { get; set; }
+        public int Luck { get; set; }
+        public int Mv { get; set; }
+        public int[] AtkRange { get; set; }
+
+        public UnitStatistics(int hp, int armor, int atk, int luck, int mv, int[] atkRange)
         {
             Hp = hp;
+            Armor = armor;
             Atk = atk;
-            Def = def;
+            Luck = luck;
             Mv = mv;
             AtkRange = atkRange;
 
-            maxHp = hp;
-            baseAtk = atk;
-            baseDef = def;
-            baseMv = mv;
-            baseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
+            MaxHp = hp;
+            MaxArmor = armor;
+            BaseAtk = atk;
+            BaseLuck = luck;
+            BaseMv = mv;
+            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
-
-        public int MaxHp
-        {
-            get { return maxHp; }
-        }
-
-        public int BaseAtk
-        {
-            get { return baseAtk; }
-        }
-
-        public int BaseDef
-        {
-            get { return baseDef; }
-        }
-
-        public int BaseMv
-        {
-            get { return baseMv; }
-        }
-
-        public int[] BaseAtkRange
-        {
-            get { return baseAtkRange; }
-        }
-
-        public int Hp { get; set; }
-
-        public int Atk { get; set; }
-
-        public int Def { get; set; }
-
-        public int Mv { get; set; }
-
-        public int[] AtkRange { get; set; }
 
 
         public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
@@ -90,22 +65,24 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(StatIcons stat, Vector2 size)
         {
-            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(iconSizePixels), size, (int) stat);
+            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(IconSizePixels), size, (int) stat);
         }
 
         public override string ToString()
         {
             string output = "";
 
-            output += "HP: " + Hp.ToString() + "/" + maxHp;
+            output += "HP: " + Hp.ToString() + "/" + MaxHp;
             output += Environment.NewLine;
-            output += "ATK: " + Atk.ToString() + "/" + baseAtk;
+            output += "ARM: " + Armor.ToString() + "/" + MaxArmor;
             output += Environment.NewLine;
-            output += "DEF: " + Def.ToString() + "/" + baseDef;
+            output += "ATK: " + Atk.ToString() + "/" + BaseAtk;
             output += Environment.NewLine;
-            output += "MV: " + Mv.ToString() + "/" + baseMv;
+            output += "LCK: " + Luck.ToString() + "/" + BaseLuck;
             output += Environment.NewLine;
-            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
+            output += "MV: " + Mv.ToString() + "/" + BaseMv;
+            output += Environment.NewLine;
+            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", BaseAtkRange));
 
             return output;
         }

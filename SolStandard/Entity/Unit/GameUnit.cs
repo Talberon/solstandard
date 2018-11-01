@@ -63,9 +63,11 @@ namespace SolStandard.Entity.Unit
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
 
-        public GameUnit(string id, Team team, Role role, UnitEntity mapEntity, UnitStatistics stats,
+        private UnitSprite unitSprite;
+
+        public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
-            base(id, mapEntity)
+            base(id, unitEntity)
         {
             this.team = team;
             this.role = role;
@@ -95,6 +97,8 @@ namespace SolStandard.Entity.Unit
             StatusEffects = new List<StatusEffect>();
             Inventory = new List<IItem>();
             CurrentGold = 0;
+
+            unitSprite = unitEntity.UnitSprite;
         }
 
         public UnitEntity UnitEntity
@@ -279,8 +283,8 @@ namespace SolStandard.Entity.Unit
                                             new RenderText(AssetManager.WindowFont, "DEF: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                Stats.Def.ToString(),
-                                                UnitStatistics.DetermineStatColor(Stats.Def, Stats.BaseDef)
+                                                Stats.Armor.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Armor, Stats.MaxArmor)
                                             )
                                         }
                                     },
@@ -336,12 +340,7 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
         {
-            if (UnitEntity == null)
-            {
-                return new RenderBlank();
-            }
-
-            UnitSprite mapSprite = UnitEntity.UnitSprite.Clone();
+            UnitSprite mapSprite = unitSprite.Clone();
             mapSprite.Resize(size);
             mapSprite.SetAnimation(animation);
             return mapSprite;

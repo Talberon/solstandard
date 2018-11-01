@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            target.Stats.Def += defModifier;
+            target.Stats.Armor += defModifier;
         }
 
         protected override void ExecuteEffect(GameUnit target)
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void RemoveEffect(GameUnit target)
         {
-            target.Stats.Def -= defModifier;
+            target.Stats.Armor -= defModifier;
         }
     }
 }

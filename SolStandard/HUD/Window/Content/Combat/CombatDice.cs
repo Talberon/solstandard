@@ -11,18 +11,18 @@ namespace SolStandard.HUD.Window.Content.Combat
     {
         private static readonly Color DefaultDieColor = Color.White;
         private static readonly Color BonusDieColor = new Color(80, 200, 80);
-        private static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
-        private static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
-        private static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
-
-        private const int CombatDieSize = 80;
+        public static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
+        public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
+        public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
 
         private readonly List<Die> dice;
         private readonly int maxRowSize;
+        private readonly int dieSize;
 
 
-        public CombatDice(int baseDice, int bonusDice, int maxRowSize)
+        public CombatDice(int baseDice, int bonusDice, int maxRowSize, int dieSize)
         {
+            this.dieSize = dieSize;
             if (baseDice < 1) throw new ArgumentOutOfRangeException();
             if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
@@ -30,18 +30,18 @@ namespace SolStandard.HUD.Window.Content.Combat
             dice = PopulateDice(baseDice, bonusDice);
         }
 
-        private static List<Die> PopulateDice(int baseDice, int bonusDice)
+        private List<Die> PopulateDice(int baseDice, int bonusDice)
         {
             List<Die> diceToGenerate = new List<Die>();
 
             for (int i = 0; i < baseDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieSides.One, CombatDieSize, DefaultDieColor));
+                diceToGenerate.Add(new Die(Die.DieSides.One, dieSize, DefaultDieColor));
             }
 
             for (int i = 0; i < bonusDice; i++)
             {
-                diceToGenerate.Add(new Die(Die.DieSides.One, CombatDieSize, BonusDieColor));
+                diceToGenerate.Add(new Die(Die.DieSides.One, dieSize, BonusDieColor));
             }
 
             return diceToGenerate;
