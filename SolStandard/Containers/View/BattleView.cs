@@ -16,7 +16,7 @@ namespace SolStandard.Containers.View
     {
         //TODO Make this scale properly with resolution
         //TODO Calculate total content size to center UI
-        private static readonly Vector2 WindowEdgeBuffer = new Vector2(200, 150);
+        private static readonly Vector2 WindowEdgeBuffer = new Vector2(WindowSpacing);
 
         private const int WindowSpacing = 5;
         private static readonly Vector2 HpBarSize = new Vector2(300, 64);
@@ -73,20 +73,9 @@ namespace SolStandard.Containers.View
                 sizeOverride);
         }
 
-        public void GenerateAttackerSpriteWindow(Color windowColor, GameUnit attacker)
+        public void GenerateAttackerSpriteWindow(GameUnit attacker)
         {
-            AttackerSpriteWindow = new Window(
-                new WindowContentGrid(
-                    new[,]
-                    {
-                        {
-                            attacker.GetMapSprite(new Vector2(120), UnitAnimationState.Attack)
-                        }
-                    },
-                    1
-                ),
-                windowColor
-            );
+            AttackerSpriteWindow = BattlerWindow(attacker);
         }
 
         public void GenerateAttackerDiceWindow(Color attackerWindowColor,
@@ -197,20 +186,9 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderSpriteWindow(Color windowColor, GameUnit defender)
+        public void GenerateDefenderSpriteWindow(GameUnit defender)
         {
-            DefenderSpriteWindow = new Window(
-                new WindowContentGrid(
-                    new[,]
-                    {
-                        {
-                            defender.GetMapSprite(new Vector2(120), UnitAnimationState.Attack)
-                        }
-                    },
-                    1
-                ),
-                windowColor
-            );
+            DefenderSpriteWindow = BattlerWindow(defender);
         }
 
 
@@ -317,6 +295,24 @@ namespace SolStandard.Containers.View
                 new Window(defenderPortrait, defenderWindowColor);
         }
 
+        private static Window BattlerWindow(GameUnit attacker)
+        {
+            const int spriteSize = 200;
+
+            return new Window(
+                new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            attacker.GetMapSprite(new Vector2(spriteSize), UnitAnimationState.Attack)
+                        }
+                    },
+                    1
+                ),
+                Color.Transparent
+            );
+        }
+
         #endregion Generation
 
         #region Window Positions
@@ -391,12 +387,12 @@ namespace SolStandard.Containers.View
 
         private Vector2 AttackerAtkWindowPosition()
         {
-            //Anchored below Sprite window
-            Vector2 attackerSpriteWindowPosition = AttackerSpriteWindowPosition();
+            //Anchored below Range window
+            Vector2 attackerRangeWindowPosition = AttackerRangeWindowPosition();
 
             return new Vector2(
-                RightAlignWindow(AttackerAtkWindow, AttackerSpriteWindow, attackerSpriteWindowPosition.X),
-                attackerSpriteWindowPosition.Y + AttackerSpriteWindow.Height + WindowSpacing
+                RightAlignWindow(AttackerAtkWindow, AttackerRangeWindow, attackerRangeWindowPosition.X),
+                attackerRangeWindowPosition.Y + AttackerRangeWindow.Height + WindowSpacing
             );
         }
 
@@ -413,15 +409,15 @@ namespace SolStandard.Containers.View
 
         private Vector2 AttackerRangeWindowPosition()
         {
-            Vector2 attackerDicePosition = AttackerDicePosition();
-            //Anchored beneath Dice Window
+            Vector2 attackerSpritePosition = AttackerSpriteWindowPosition();
+            //Anchored beneath Sprite Window
             return new Vector2(
-                RightAlignWindow(AttackerRangeWindow, AttackerDiceWindow, attackerDicePosition.X),
-                attackerDicePosition.Y + AttackerDiceWindow.Height + WindowSpacing
+                RightAlignWindow(AttackerRangeWindow, AttackerSpriteWindow, attackerSpritePosition.X),
+                attackerSpritePosition.Y + AttackerSpriteWindow.Height + WindowSpacing
             );
         }
 
-        private Vector2 AttackerDicePosition()
+        private Vector2 AttackerDiceWindowPosition()
         {
             Vector2 attackerBonusWindowPosition = AttackerBonusWindowPosition();
             //Anchored beneath Bonus Window
@@ -433,6 +429,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 AttackerSpriteWindowPosition()
         {
+            //Center of screen
             return GameDriver.ScreenSize / 2 -
                    new Vector2(AttackerSpriteWindow.Width + WindowSpacing, AttackerSpriteWindow.Height);
         }
@@ -474,12 +471,12 @@ namespace SolStandard.Containers.View
 
         private Vector2 DefenderAtkWindowPosition()
         {
-            //Anchored below Sprite window
-            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+            //Anchored below Range window
+            Vector2 defenderRangeWindowPosition = DefenderRangeWindowPosition();
 
             return new Vector2(
-                defenderSpriteWindowPosition.X,
-                defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
+                defenderRangeWindowPosition.X,
+                defenderRangeWindowPosition.Y + DefenderRangeWindow.Height + WindowSpacing
             );
         }
 
@@ -507,12 +504,12 @@ namespace SolStandard.Containers.View
 
         private Vector2 DefenderRangeWindowPosition()
         {
-            //Anchored beneath Dice Window
-            Vector2 defenderDiceWindowPosition = DefenderDiceWindowPosition();
+            //Anchored beneath Sprite Window
+            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderDiceWindowPosition.X,
-                defenderDiceWindowPosition.Y + DefenderDiceWindow.Height + WindowSpacing
+                defenderSpriteWindowPosition.X,
+                defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
             );
         }
 
@@ -546,7 +543,7 @@ namespace SolStandard.Containers.View
                     AttackerAtkWindow.Draw(spriteBatch, AttackerAtkWindowPosition());
                     AttackerBonusWindow.Draw(spriteBatch, AttackerBonusWindowPosition());
                     AttackerRangeWindow.Draw(spriteBatch, AttackerRangeWindowPosition());
-                    AttackerDiceWindow.Draw(spriteBatch, AttackerDicePosition());
+                    AttackerDiceWindow.Draw(spriteBatch, AttackerDiceWindowPosition());
                     AttackerSpriteWindow.Draw(spriteBatch,
                         AttackerSpriteWindowPosition());
                 }

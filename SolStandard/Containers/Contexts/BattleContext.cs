@@ -187,7 +187,7 @@ namespace SolStandard.Containers.Contexts
                 windowWidthOverride);
             attackerDice = new CombatDice(attacker.Stats.Atk, terrainAttackBonus, 3);
             battleView.GenerateAttackerDiceWindow(attackerWindowColor, ref attackerDice);
-            battleView.GenerateAttackerSpriteWindow(attackerWindowColor, attacker);
+            battleView.GenerateAttackerSpriteWindow(attacker);
         }
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
@@ -206,7 +206,7 @@ namespace SolStandard.Containers.Contexts
                 battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, windowWidthOverride);
             defenderDice = new CombatDice(defender.Stats.Def, terrainDefenseBonus, 3);
             battleView.GenerateDefenderDiceWindow(defenderWindowColor, ref defenderDice);
-            battleView.GenerateDefenderSpriteWindow(defenderWindowColor, defender);
+            battleView.GenerateDefenderSpriteWindow(defender);
         }
 
         public bool TryProceedToState(BattleState state)
