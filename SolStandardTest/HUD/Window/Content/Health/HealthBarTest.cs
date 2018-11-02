@@ -15,11 +15,11 @@ namespace SolStandardTest.HUD.Window.Content.Health
 
             testHealthBar.DealDamage(1);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
         [TestMethod]
         public void TestDealMultipleDamageFromFull()
@@ -30,11 +30,11 @@ namespace SolStandardTest.HUD.Window.Content.Health
 
             testHealthBar.DealDamage(3);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
         
         [TestMethod]
@@ -45,11 +45,11 @@ namespace SolStandardTest.HUD.Window.Content.Health
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
         
         [TestMethod]
@@ -61,11 +61,11 @@ namespace SolStandardTest.HUD.Window.Content.Health
 
             testHealthBar.DealDamage(2);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
         
         [TestMethod]
@@ -77,11 +77,11 @@ namespace SolStandardTest.HUD.Window.Content.Health
 
             testHealthBar.DealDamage(10);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[0].Active, pipsString);
         }
     }
 }

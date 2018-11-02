@@ -79,10 +79,10 @@ namespace SolStandard.Entity.Unit
                 new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height), 1);
             this.smallPortrait =
                 new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height), 1);
-            initiativeHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
-            combatHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
-            resultsHealthBar = new HealthBar(this.stats.MaxHp, this.stats.Hp, Vector2.One);
+            initiativeHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            resultsHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
 
             healthbars = new List<HealthBar>
             {
@@ -395,10 +395,18 @@ namespace SolStandard.Entity.Unit
             PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
-        public void DamageUnit(int damage)
+        public void DamageUnit()
         {
-            stats.Hp -= damage;
-            healthbars.ForEach(healthbar => healthbar.DealDamage(damage));
+            if (stats.Armor > 0)
+            {
+                stats.Armor--;
+            }
+            else
+            {
+                stats.Hp--;
+            }
+
+            healthbars.ForEach(healthbar => healthbar.DealDamage());
             KillIfDead();
         }
 

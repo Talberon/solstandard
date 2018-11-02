@@ -157,7 +157,7 @@ namespace SolStandard.Containers.View
 
             IRenderable[,] unitRosterGrid = new IRenderable[1, teamUnits.Count];
 
-            const int unitListHealthBarHeight = 10;
+            const int unitListHealthBarHeight = 20;
             int listPosition = 0;
 
 

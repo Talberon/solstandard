@@ -141,6 +141,7 @@
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
     <Compile Include="HUD\Window\Content\Combat\Die.cs" />
     <Compile Include="HUD\Window\Content\Combat\ICombatPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\ArmorPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthPip.cs" />
     <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />

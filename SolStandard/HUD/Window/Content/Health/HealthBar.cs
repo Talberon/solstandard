@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
@@ -7,20 +8,26 @@ namespace SolStandard.HUD.Window.Content.Health
 {
     public class HealthBar : IRenderable
     {
-        protected IResourcePoint[] Pips;
+        private readonly List<IResourcePoint> armorPips;
+        private int currentArmor;
 
-        private readonly int maxHp;
+        private readonly List<IResourcePoint> healthPips;
         private int currentHp;
+
         private const int MaxPointsPerRow = 10;
         private Vector2 pipSize;
         private Vector2 barSize;
 
-        public HealthBar(int maxHp, int currentHp, Vector2 barSize)
+        public HealthBar(int maxArmor, int maxHp, Vector2 barSize)
         {
-            this.maxHp = maxHp;
-            this.currentHp = currentHp;
-            PopulatePips();
-            UpdatePips();
+            currentArmor = maxArmor;
+            armorPips = GenerateArmorPips(maxArmor);
+            UpdatePips(armorPips, currentArmor);
+
+            currentHp = maxHp;
+            healthPips = GenerateHpPips(maxHp);
+            UpdatePips(healthPips, currentHp);
+
             BarSize = barSize;
         }
 
@@ -30,7 +37,12 @@ namespace SolStandard.HUD.Window.Content.Health
             {
                 pipSize = value;
 
-                foreach (IResourcePoint pip in Pips)
+                foreach (IResourcePoint pip in healthPips)
+                {
+                    pip.Size = value;
+                }
+
+                foreach (IResourcePoint pip in armorPips)
                 {
                     pip.Size = value;
                 }
@@ -43,30 +55,72 @@ namespace SolStandard.HUD.Window.Content.Health
             {
                 barSize = value;
 
-                float colCount = (Pips.Length > MaxPointsPerRow) ? MaxPointsPerRow : Pips.Length;
-                float widthLimit = value.X / colCount;
+                float colCount = ColumnCount;
+                float widthLimit = barSize.X / colCount;
 
-                float rowCount = Convert.ToSingle(Math.Ceiling((float) Pips.Length / MaxPointsPerRow));
-                float heightLimit = value.Y / rowCount;
+                float heightLimit = barSize.Y / (HealthRowCount + ArmorRowCount);
+
                 PipSize = new Vector2((widthLimit > heightLimit) ? heightLimit : widthLimit);
             }
         }
 
-        private void PopulatePips()
+        private float ColumnCount
         {
-            Pips = new IResourcePoint[maxHp];
-
-            for (int i = 0; i < Pips.Length; i++)
+            get
             {
-                Pips[i] = new Heart(pipSize);
+                List<IResourcePoint> greaterPips = (healthPips.Count > armorPips.Count) ? healthPips : armorPips;
+                float colCount = (greaterPips.Count > MaxPointsPerRow) ? MaxPointsPerRow : greaterPips.Count;
+                return colCount;
             }
         }
 
-        private void UpdatePips()
+        private float ArmorRowCount
         {
-            for (int i = 0; i < Pips.Length; i++)
+            get
             {
-                Pips[i].Active = i <= (currentHp - 1);
+                float armorRowCount = Convert.ToSingle(Math.Ceiling((float) armorPips.Count / MaxPointsPerRow));
+                return armorRowCount;
+            }
+        }
+
+        private float HealthRowCount
+        {
+            get
+            {
+                float healthRowCount = Convert.ToSingle(Math.Ceiling((float) healthPips.Count / MaxPointsPerRow));
+                return healthRowCount;
+            }
+        }
+
+        private List<IResourcePoint> GenerateArmorPips(int maxArmor)
+        {
+            List<IResourcePoint> pips = new List<IResourcePoint>();
+
+            for (int i = 0; i < maxArmor; i++)
+            {
+                pips.Add(new ArmorPoint(pipSize));
+            }
+
+            return pips;
+        }
+
+        private List<IResourcePoint> GenerateHpPips(int maxHp)
+        {
+            List<IResourcePoint> pips = new List<IResourcePoint>();
+
+            for (int i = 0; i < maxHp; i++)
+            {
+                pips.Add(new Heart(pipSize));
+            }
+
+            return pips;
+        }
+
+        private static void UpdatePips(IReadOnlyList<IResourcePoint> pips, int currentResource)
+        {
+            for (int i = 0; i < pips.Count; i++)
+            {
+                pips[i].Active = i <= (currentResource - 1);
             }
         }
 
@@ -80,10 +134,18 @@ namespace SolStandard.HUD.Window.Content.Health
             get { return Convert.ToInt32(barSize.X); }
         }
 
-        public void DealDamage(int damage)
+        public void DealDamage()
         {
-            currentHp -= damage;
-            UpdatePips();
+            if (currentArmor > 0)
+            {
+                currentArmor--;
+                UpdatePips(armorPips, currentArmor);
+            }
+            else
+            {
+                currentHp--;
+                UpdatePips(healthPips, currentHp);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -94,17 +156,26 @@ namespace SolStandard.HUD.Window.Content.Health
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             Vector2 pipOffset = Vector2.Zero;
-            float colCount = (Pips.Length > MaxPointsPerRow) ? MaxPointsPerRow : Pips.Length;
 
-            for (int i = 0; i < Pips.Length; i++)
+            DrawPips(spriteBatch, position, armorPips, pipOffset);
+
+            pipOffset.Y += pipSize.Y * ArmorRowCount;
+
+            DrawPips(spriteBatch, position, healthPips, pipOffset);
+        }
+
+        private void DrawPips(SpriteBatch spriteBatch, Vector2 position, List<IResourcePoint> points, Vector2 pipOffset)
+        {
+            for (int i = 0; i < points.Count; i++)
             {
-                Pips[i].Draw(spriteBatch, position + pipOffset);
-                pipOffset.X += (barSize.X / colCount);
-                if ((i + 1) % MaxPointsPerRow == 0)
-                {
-                    pipOffset.Y += pipSize.Y;
-                    pipOffset.X = 0;
-                }
+                points[i].Draw(spriteBatch, position + pipOffset);
+
+                pipOffset.X += (barSize.X / ColumnCount);
+
+                if ((i + 1) % MaxPointsPerRow != 0) continue;
+
+                pipOffset.Y += pipSize.Y;
+                pipOffset.X = 0;
             }
         }
     }

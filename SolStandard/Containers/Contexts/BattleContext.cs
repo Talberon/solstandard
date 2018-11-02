@@ -326,7 +326,7 @@ namespace SolStandard.Containers.Contexts
             int defenderSwords = defenderDamage.CountDamage();
 
             //Animate HP bar taking one damage at a time
-            const int renderDelay = 7;
+            const int renderDelay = 12;
             if (frameCounter % renderDelay == 0)
             {
                 if (NonSwordDiceRemain())
@@ -341,14 +341,14 @@ namespace SolStandard.Containers.Contexts
                 else if (attackerSwords > 0 && attackerInRange)
                 {
                     attackerDamage.ResolveDamagePoint();
-                    defender.DamageUnit(1);
+                    defender.DamageUnit();
                     attackerDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
                 else if (defenderSwords > 0 && defenderInRange && defender.Stats.Hp > 0)
                 {
                     defenderDamage.ResolveDamagePoint();
-                    attacker.DamageUnit(1);
+                    attacker.DamageUnit();
                     defenderDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
