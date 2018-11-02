@@ -490,6 +490,9 @@ namespace SolStandard.Entity.Unit
 
         private void DropSpoils()
         {
+            //Don't drop spoils if inventory is empty
+            if (CurrentGold == 0 && Inventory.Count == 0) return;
+            
             TerrainEntity entityAtUnitPosition =
                 MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                     (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
