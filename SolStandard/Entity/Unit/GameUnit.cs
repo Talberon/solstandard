@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit
         private readonly List<HealthBar> healthbars;
 
 
-        private static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
+        public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
 
         private readonly UnitStatistics stats;
         public bool Enabled { get; private set; }
@@ -164,14 +164,14 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
-                const int hoverWindowHealthBarHeight = 15;
+                const int hoverWindowHealthBarHeight = 32;
                 IRenderable[,] selectedUnitPortrait =
                 {
                     {
-                        MediumPortrait
+                        GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width, hoverWindowHealthBarHeight))
                     },
                     {
-                        GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width, hoverWindowHealthBarHeight))
+                        MediumPortrait
                     }
                 };
 
@@ -340,10 +340,17 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
         {
-            UnitSprite mapSprite = unitSprite.Clone();
-            mapSprite.Resize(size);
-            mapSprite.SetAnimation(animation);
-            return mapSprite;
+            return GetMapSprite(size, Color.White, animation);
+        }
+
+        public IRenderable GetMapSprite(Vector2 size, Color color,
+            UnitAnimationState animation = UnitAnimationState.Idle)
+        {
+            UnitSprite clonedSprite = unitSprite.Clone();
+            clonedSprite.Resize(size);
+            clonedSprite.SetAnimation(animation);
+            clonedSprite.Color = color;
+            return clonedSprite;
         }
 
         public void ArmUnitSkill(UnitAction action)

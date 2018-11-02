@@ -189,7 +189,7 @@ namespace SolStandard.Containers.Contexts
                 windowWidthOverride);
             attackerDamage = new CombatDamage(attacker.Stats, terrainAttackBonus, AttackPointSize);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
-            battleView.GenerateAttackerSpriteWindow(attacker, UnitAnimationState.Attack);
+            battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
         }
 
         private void SetupDefenderWindows(MapSlice defenderSlice)
@@ -208,7 +208,7 @@ namespace SolStandard.Containers.Contexts
                 battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, windowWidthOverride);
             defenderDamage = new CombatDamage(defender.Stats, terrainDefenseBonus, AttackPointSize);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
-            battleView.GenerateDefenderSpriteWindow(defender, UnitAnimationState.Attack);
+            battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
         }
 
         public bool TryProceedToState(BattleState state)
@@ -364,13 +364,16 @@ namespace SolStandard.Containers.Contexts
 
                 if (attacker.Stats.Hp <= 0)
                 {
-                    //TODO Replace with a death animation
-                    battleView.GenerateAttackerSpriteWindow(attacker, UnitAnimationState.WalkUp);
+                    battleView.GenerateAttackerSpriteWindow(attacker, GameUnit.DeadPortraitColor,
+                        UnitAnimationState.Idle);
+                    attackerDamage.DisableAllAttackPoints();
                 }
+
                 if (defender.Stats.Hp <= 0)
                 {
-                    //TODO Replace with a death animation
-                    battleView.GenerateDefenderSpriteWindow(defender, UnitAnimationState.WalkUp);
+                    battleView.GenerateDefenderSpriteWindow(defender, GameUnit.DeadPortraitColor,
+                        UnitAnimationState.Idle);
+                    defenderDamage.DisableAllAttackPoints();
                 }
             }
         }

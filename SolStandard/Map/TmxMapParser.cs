@@ -475,7 +475,8 @@ namespace SolStandard.Map
                                 unitSprite.Width / unitAnimationFrames,
                                 unitScale,
                                 unitAnimationDelay,
-                                false
+                                false,
+                                Color.White
                             );
 
                             entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,

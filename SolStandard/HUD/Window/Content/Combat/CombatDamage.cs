@@ -94,7 +94,18 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void DisableAllAttackPoints()
         {
-            atkPoints.ForEach(point => point.Disable(CombatDice.IgnoredDieColor));
+            foreach (AttackPoint point in atkPoints)
+            {
+                if (point.Enabled)
+                {
+                    point.Disable(CombatDice.IgnoredDieColor);
+                }
+            }
+
+            if (CombatDice.CountFaceValue(Die.FaceValue.Sword, true) > 0)
+            {
+                CombatDice.DisableAllDiceWithValue(Die.FaceValue.Sword);
+            }
         }
 
         public void DisableAllDiceWithValue(Die.FaceValue value)

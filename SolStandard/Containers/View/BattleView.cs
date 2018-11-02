@@ -71,9 +71,9 @@ namespace SolStandard.Containers.View
                 sizeOverride);
         }
 
-        public void GenerateAttackerSpriteWindow(GameUnit attacker, UnitAnimationState state)
+        public void GenerateAttackerSpriteWindow(GameUnit attacker, Color color, UnitAnimationState state)
         {
-            AttackerSpriteWindow = BattlerWindow(attacker, state);
+            AttackerSpriteWindow = BattlerWindow(attacker, color, state);
         }
 
         public void GenerateAttackerDamageWindow(Color attackerWindowColor, CombatDamage attackerDamage)
@@ -161,9 +161,9 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderSpriteWindow(GameUnit defender, UnitAnimationState state)
+        public void GenerateDefenderSpriteWindow(GameUnit defender, Color color, UnitAnimationState state)
         {
-            DefenderSpriteWindow = BattlerWindow(defender, state);
+            DefenderSpriteWindow = BattlerWindow(defender, color, state);
         }
 
 
@@ -249,7 +249,7 @@ namespace SolStandard.Containers.View
                 new Window(defenderPortrait, defenderWindowColor);
         }
 
-        private static Window BattlerWindow(GameUnit attacker, UnitAnimationState state)
+        private static Window BattlerWindow(GameUnit attacker, Color color, UnitAnimationState state)
         {
             const int spriteSize = 200;
 
@@ -258,7 +258,7 @@ namespace SolStandard.Containers.View
                     new[,]
                     {
                         {
-                            attacker.GetMapSprite(new Vector2(spriteSize), state)
+                            attacker.GetMapSprite(new Vector2(spriteSize), color, state)
                         }
                     },
                     1

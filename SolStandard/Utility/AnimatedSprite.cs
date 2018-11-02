@@ -17,8 +17,9 @@ namespace SolStandard.Utility
         protected readonly int DefaultFrameDelay;
         protected readonly bool Reversible;
         private bool reversing;
+        protected Color SpriteColor { get; set; }
 
-        public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible)
+        public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible, Color spriteColor)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
@@ -31,10 +32,11 @@ namespace SolStandard.Utility
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
             RenderSize = renderSize;
+            SpriteColor = spriteColor;
         }
 
         public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
-            cellSize, new Vector2(cellSize), frameDelay, reversible)
+            cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White)
         {
         }
 
@@ -114,7 +116,7 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, SpriteColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -128,8 +130,7 @@ namespace SolStandard.Utility
                 UpdateFrame();
             }
 
-            spriteBatch.Draw(SpriteMap.MonoGameTexture,
-                RenderRectangle(position), CurrentCell(), colorOverride);
+            spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride);
         }
 
         private Rectangle RenderRectangle(Vector2 position)
@@ -145,7 +146,7 @@ namespace SolStandard.Utility
 
         public virtual AnimatedSprite Clone()
         {
-            return new AnimatedSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible);
+            return new AnimatedSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
         }
     }
 }

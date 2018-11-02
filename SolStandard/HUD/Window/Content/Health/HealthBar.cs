@@ -94,11 +94,12 @@ namespace SolStandard.HUD.Window.Content.Health
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             Vector2 pipOffset = Vector2.Zero;
+            float colCount = (Pips.Length > MaxPointsPerRow) ? MaxPointsPerRow : Pips.Length;
 
             for (int i = 0; i < Pips.Length; i++)
             {
                 Pips[i].Draw(spriteBatch, position + pipOffset);
-                pipOffset.X += (barSize.X / MaxPointsPerRow);
+                pipOffset.X += (barSize.X / colCount);
                 if ((i + 1) % MaxPointsPerRow == 0)
                 {
                     pipOffset.Y += pipSize.Y;
