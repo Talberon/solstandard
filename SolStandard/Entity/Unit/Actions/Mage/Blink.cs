@@ -13,12 +13,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 {
     public class Blink : UnitAction
     {
-        private static readonly int[] BlinkRange = {1, 2, 3, 4};
+        private static readonly int[] BlinkRange = {2, 3};
 
         public Blink() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
             name: "Blink",
-            description: "Move to an unoccupied space within " + BlinkRange.Max() + "spaces.",
+            description: "Move to an unoccupied space within [" + BlinkRange.Min() + "-" + BlinkRange.Max() +
+                         "] spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: BlinkRange
         )

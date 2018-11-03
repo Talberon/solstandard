@@ -17,7 +17,7 @@ namespace SolStandard.Entity.General
             new Dictionary<string, Stats>
             {
                 {"ATK", Stats.Atk},
-                {"DEF", Stats.Armor}
+                {"DEF", Stats.Armor},
             };
 
         public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates,

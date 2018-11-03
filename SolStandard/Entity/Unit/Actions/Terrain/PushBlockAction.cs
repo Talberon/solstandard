@@ -14,9 +14,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
     public class PushBlockAction : UnitAction
     {
         private readonly PushBlock pushBlock;
-        private readonly Vector2 itemCoordinates;
+        private readonly Vector2 blockCoordinates;
 
-        public PushBlockAction(PushBlock pushBlock, Vector2 itemCoordinates) : base(
+        public PushBlockAction(PushBlock pushBlock, Vector2 blockCoordinates) : base(
             icon: pushBlock.RenderSprite,
             name: "Push",
             description: "Push the target a tile away from your unit's position.",
@@ -25,13 +25,15 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         )
         {
             this.pushBlock = pushBlock;
-            this.itemCoordinates = itemCoordinates;
+            this.blockCoordinates = blockCoordinates;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) mapLayer][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
-                new MapDistanceTile(TileSprite, itemCoordinates, 0, false);
+            MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
+                new MapDistanceTile(TileSprite, blockCoordinates, 0, false);
+            
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(blockCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

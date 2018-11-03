@@ -2302,7 +2302,7 @@
   </data>
  </layer>
  <objectgroup name="Entities">
-  <object id="597" name="Rock" type="BreakableObstacle" gid="6386" x="480" y="128" width="32" height="32">
+  <object id="597" name="Rock" type="BreakableObstacle" gid="6386" x="480" y="224" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
    </properties>
@@ -2313,25 +2313,13 @@
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
-  <object id="605" name="Shrine" type="BuffTile" gid="175" x="416" y="160" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
-  <object id="609" name="Spirit Lantern" type="BuffTile" gid="174" x="416" y="128" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
-   </properties>
-  </object>
-  <object id="626" name="Tower Base" type="BuffTile" gid="54" x="448" y="160" width="32" height="32">
+  <object id="626" name="Tower Base" type="BuffTile" gid="54" x="416" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="3"/>
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="627" name="Tower Top" type="BuffTile" gid="47" x="448" y="128" width="32" height="32">
+  <object id="627" name="Tower Top" type="BuffTile" gid="47" x="416" y="128" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="3"/>
     <property name="Stat" value="ATK"/>

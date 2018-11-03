@@ -26,8 +26,8 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
-            unitTargetingContext.GenerateTargetingGrid(origin, GameContext.ActiveUnit.Stats.AtkRange, mapLayer);
+            Range = GameContext.ActiveUnit.Stats.AtkRange;
+            base.GenerateActionGrid(origin, mapLayer);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

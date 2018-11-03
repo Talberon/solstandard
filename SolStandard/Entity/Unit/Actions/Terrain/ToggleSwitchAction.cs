@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -12,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
     public class ToggleSwitchAction : UnitAction
     {
         private readonly List<ILockable> targetLockables;
-        private Switch switchTile;
+        private readonly Switch switchTile;
 
         public ToggleSwitchAction(Switch switchTile, List<ILockable> targetLockables) : base(
             icon: switchTile.RenderSprite,
@@ -26,6 +28,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             this.targetLockables = targetLockables;
         }
 
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            MapContainer.GameGrid[(int) mapLayer][(int) switchTile.MapCoordinates.X, (int) switchTile.MapCoordinates.Y] =
+                new MapDistanceTile(TileSprite, switchTile.MapCoordinates, 0, false);
+            
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(switchTile.MapCoordinates);
+        }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {

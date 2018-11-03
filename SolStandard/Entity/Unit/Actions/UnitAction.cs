@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions
         public string Name { get; private set; }
         public string Description { get; private set; }
         protected readonly SpriteAtlas TileSprite;
-        public int[] Range { get; private set; }
+        public int[] Range { get; protected set; }
 
         protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range)
         {
@@ -30,6 +30,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
         }
 
         public abstract void ExecuteAction(MapSlice targetSlice);
