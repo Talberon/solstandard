@@ -16,7 +16,7 @@ namespace SolStandard.Containers.View
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(WindowSpacing);
 
         private const int WindowSpacing = 5;
-        private static readonly Vector2 HpBarSize = new Vector2(300, 64);
+        private static readonly Vector2 HpBarSize = new Vector2(350, 80);
 
         public Window AttackerPortraitWindow { get; private set; }
         private Window AttackerDetailWindow { get; set; }
@@ -343,22 +343,22 @@ namespace SolStandard.Containers.View
 
         private Vector2 AttackerRangeWindowPosition()
         {
-            Vector2 attackerSpritePosition = AttackerSpriteWindowPosition();
-            //Anchored beneath Sprite Window
+            Vector2 attackerDiceWindowPosition = AttackerDiceWindowPosition();
+            //Anchored beneath Dice Window
             return new Vector2(
-                RightAlignWindow(AttackerRangeWindow, AttackerSpriteWindow, attackerSpritePosition.X),
-                attackerSpritePosition.Y + AttackerSpriteWindow.Height + WindowSpacing
-                - ((float) AttackerSpriteWindow.Height / 3)
+                RightAlignWindow(AttackerRangeWindow, AttackerDiceWindow, attackerDiceWindowPosition.X),
+                attackerDiceWindowPosition.Y + AttackerDiceWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 AttackerDiceWindowPosition()
         {
-            Vector2 attackerBonusWindowPosition = AttackerBonusWindowPosition();
-            //Anchored beneath Bonus Window
+            Vector2 attackerSpriteWindowPosition = AttackerSpriteWindowPosition();
+            //Anchored beneath Sprite Window
             return new Vector2(
-                RightAlignWindow(AttackerDiceWindow, AttackerBonusWindow, attackerBonusWindowPosition.X),
-                attackerBonusWindowPosition.Y + AttackerBonusWindow.Height + WindowSpacing
+                RightAlignWindow(AttackerDiceWindow, AttackerSpriteWindow, attackerSpriteWindowPosition.X),
+                attackerSpriteWindowPosition.Y + AttackerSpriteWindow.Height + WindowSpacing
+                - ((float) AttackerSpriteWindow.Height / 3)
             );
         }
 
@@ -428,17 +428,6 @@ namespace SolStandard.Containers.View
 
         private Vector2 DefenderDiceWindowPosition()
         {
-            //Anchored beneath Bonus Window
-            Vector2 defenderBonusWindowPosition = DefenderBonusWindowPosition();
-
-            return new Vector2(
-                defenderBonusWindowPosition.X,
-                defenderBonusWindowPosition.Y + DefenderBonusWindow.Height + WindowSpacing
-            );
-        }
-
-        private Vector2 DefenderRangeWindowPosition()
-        {
             //Anchored beneath Sprite Window
             Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
 
@@ -446,6 +435,17 @@ namespace SolStandard.Containers.View
                 defenderSpriteWindowPosition.X,
                 defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
                 - ((float) DefenderSpriteWindow.Height / 3)
+            );
+        }
+
+        private Vector2 DefenderRangeWindowPosition()
+        {
+            //Anchored beneath Dice Window
+            Vector2 defenderDiceWindowPosition = DefenderDiceWindowPosition();
+
+            return new Vector2(
+                defenderDiceWindowPosition.X,
+                defenderDiceWindowPosition.Y + DefenderDiceWindow.Height + WindowSpacing
             );
         }
 

@@ -67,12 +67,7 @@ namespace SolStandard.Entity.Unit.Actions
             GameUnit attackingUnit = GameContext.ActiveUnit;
             GameUnit defendingUnit = target;
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameContext.BattleContext.StartNewCombat(
-                attackingUnit,
-                MapContainer.GetMapSliceAtCoordinates(attackingUnit.UnitEntity.MapCoordinates),
-                defendingUnit,
-                MapContainer.GetMapSliceAtCoordinates(defendingUnit.UnitEntity.MapCoordinates)
-            );
+            GameContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit);
             AssetManager.CombatStartSFX.Play();
         }
     }

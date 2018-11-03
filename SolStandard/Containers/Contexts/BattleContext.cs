@@ -45,7 +45,7 @@ namespace SolStandard.Containers.Contexts
         private bool attackerInRange;
         private bool defenderInRange;
 
-        private const int AttackPointSize = 48;
+        private const int AttackPointSize = 40;
 
         public BattleContext(BattleView battleView)
         {
@@ -60,8 +60,7 @@ namespace SolStandard.Containers.Contexts
             defenderDamageCounter = 0;
         }
 
-        public void StartNewCombat(GameUnit newAttacker, MapSlice attackerSlice, GameUnit newDefender,
-            MapSlice defenderSlice)
+        public void StartNewCombat(GameUnit newAttacker, GameUnit newDefender)
         {
             attacker = newAttacker;
             defender = newDefender;
