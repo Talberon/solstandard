@@ -61,13 +61,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new HideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
                     GameContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates
                 ));
-                eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

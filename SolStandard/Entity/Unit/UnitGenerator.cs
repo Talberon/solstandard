@@ -143,7 +143,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Cover(1, 2),
+                new Cover(3),
                 new Tackle(),
                 new Shove(),
                 new Wait()

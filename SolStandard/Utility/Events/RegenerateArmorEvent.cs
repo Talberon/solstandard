@@ -1,18 +1,17 @@
 ﻿using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
-    public class CastBuffEvent : IEvent
+    public class RegenerateArmorEvent : IEvent
     {
         private readonly GameUnit targetUnit;
-        private readonly StatusEffect statusEffect;
+        private readonly int armorPoints;
 
-        public CastBuffEvent(GameUnit targetUnit, StatusEffect statusEffect)
+        public RegenerateArmorEvent(GameUnit targetUnit, int armorPoints)
         {
             this.targetUnit = targetUnit;
-            this.statusEffect = statusEffect;
+            this.armorPoints = armorPoints;
         }
 
         public bool Complete { get; private set; }
@@ -20,7 +19,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             AssetManager.SkillBuffSFX.Play();
-            targetUnit.AddStatusEffect(statusEffect);
+            targetUnit.RecoverArmor(armorPoints);
             Complete = true;
         }
     }

@@ -253,7 +253,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
                                             new RenderText(AssetManager.WindowFont, "HP: "),
                                             new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
                                         }
@@ -268,7 +268,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Armor),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Armor),
                                             new RenderText(AssetManager.WindowFont, "ARM: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
@@ -287,7 +287,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Atk),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Atk),
                                             new RenderText(AssetManager.WindowFont, "ATK: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
@@ -305,7 +305,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Luck),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Luck),
                                             new RenderText(AssetManager.WindowFont, "LCK: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
@@ -325,7 +325,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Mv),
                                             new RenderText(AssetManager.WindowFont, "MV: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
@@ -343,7 +343,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.AtkRange),
                                             new RenderText(AssetManager.WindowFont, "RNG:"),
                                             new RenderText(
                                                 AssetManager.WindowFont,
@@ -436,7 +436,7 @@ namespace SolStandard.Entity.Unit
             KillIfDead();
         }
 
-        private void RecoverArmor(int amountToRecover)
+        public void RecoverArmor(int amountToRecover)
         {
             if (amountToRecover + Stats.Armor > Stats.MaxArmor)
             {

@@ -265,7 +265,7 @@ namespace SolStandard.HUD.Window
             {
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, colorOverride);
+                    windowCell.Draw(spriteBatch, windowTexture, coordinates, colorOverride);
                 }
 
                 windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));

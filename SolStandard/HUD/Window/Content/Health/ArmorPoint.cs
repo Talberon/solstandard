@@ -20,8 +20,8 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             set
             {
-                activeSprite = UnitStatistics.GetSpriteAtlas(StatIcons.Armor, value);
-                inactiveSprite = UnitStatistics.GetSpriteAtlas(StatIcons.EmptyArmor, value);
+                activeSprite = UnitStatistics.GetSpriteAtlas(Stats.Armor, value);
+                inactiveSprite = UnitStatistics.GetSpriteAtlas(Stats.EmptyArmor, value);
             }
         }
 

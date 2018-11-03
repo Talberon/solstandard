@@ -235,9 +235,9 @@ namespace SolStandard.Containers.Contexts
 
             if (buffTile == null) return terrainAttackBonus;
 
-            if (unit.Equals(attacker) && buffTile.BuffStat == StatIcons.Atk) terrainAttackBonus = buffTile.Modifier;
+            if (unit.Equals(attacker) && buffTile.BuffStat == Stats.Atk) terrainAttackBonus = buffTile.Modifier;
 
-            if (unit.Equals(defender) && buffTile.BuffStat == StatIcons.Armor) terrainAttackBonus = buffTile.Modifier;
+            if (unit.Equals(defender) && buffTile.BuffStat == Stats.Armor) terrainAttackBonus = buffTile.Modifier;
 
             return terrainAttackBonus;
         }

@@ -158,7 +158,7 @@ namespace SolStandard.Containers.View
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
                                 (canMove) ? TerrainEntity.PositiveColor : TerrainEntity.NegativeColor)
                         }

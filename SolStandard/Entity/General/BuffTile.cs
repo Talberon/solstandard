@@ -9,15 +9,15 @@ namespace SolStandard.Entity.General
 {
     public class BuffTile : TerrainEntity
     {
-        public StatIcons BuffStat { get; private set; }
+        public Stats BuffStat { get; private set; }
         public int Modifier { get; private set; }
         private readonly bool canMove;
 
-        private static readonly Dictionary<string, StatIcons> BonusStatDictionary =
-            new Dictionary<string, StatIcons>
+        private static readonly Dictionary<string, Stats> BonusStatDictionary =
+            new Dictionary<string, Stats>
             {
-                {"ATK", StatIcons.Atk},
-                {"DEF", StatIcons.Armor}
+                {"ATK", Stats.Atk},
+                {"DEF", Stats.Armor}
             };
 
         public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
@@ -45,7 +45,7 @@ namespace SolStandard.Entity.General
                             new RenderText(AssetManager.WindowFont, BuffStat.ToString().ToUpper() + ": +" + Modifier),
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
                                 (canMove) ? PositiveColor : NegativeColor)
                         }

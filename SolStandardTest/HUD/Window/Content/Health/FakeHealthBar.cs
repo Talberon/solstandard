@@ -12,9 +12,9 @@ namespace SolStandardTest.HUD.Window.Content.Health
         {
         }
 
-        public new IResourcePoint[] HealthPips
+        public List<IResourcePoint> HealthPips
         {
-            get { return base.HealthPips; }
+            get { return new List<IResourcePoint>(); }
         }
         
         public List<string> PipValues

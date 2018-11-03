@@ -176,7 +176,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] defenderRangeContent =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
+                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
                     new RenderText(AssetManager.WindowFont, inRange.ToString(),
                         (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
@@ -193,8 +193,8 @@ namespace SolStandard.Containers.View
             {
                 {
                     (Convert.ToInt32(bonusLuck) > 0)
-                        ? UnitStatistics.GetSpriteAtlas(StatIcons.Positive)
-                        : UnitStatistics.GetSpriteAtlas(StatIcons.Negative),
+                        ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                        : UnitStatistics.GetSpriteAtlas(Stats.Negative),
 
                     new RenderText(AssetManager.WindowFont, "Bonus: " + luckStat),
 
@@ -232,7 +232,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid atkContentGrid = new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(StatIcons.Armor, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
                         new RenderText(AssetManager.WindowFont, "ATK: "),
                         new RenderText(
                             AssetManager.WindowFont,

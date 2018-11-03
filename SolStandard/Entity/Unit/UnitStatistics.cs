@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility;
@@ -6,14 +7,14 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit
 {
-    public enum StatIcons
+    public enum Stats
     {
         None,
         Hp,
         Atk,
         Armor,
         Mv,
-        Crosshair,
+        AtkRange,
         EmptyHp,
         Luck,
         EmptyArmor,
@@ -23,6 +24,17 @@ namespace SolStandard.Entity.Unit
 
     public class UnitStatistics
     {
+        public static readonly Dictionary<Stats, string> Abbreviation = new Dictionary<Stats, string>
+        {
+            {Stats.Hp, "HP"},
+            {Stats.Atk, "ATK"},
+            {Stats.Armor, "AMR"},
+            {Stats.Mv, "MV"},
+            {Stats.AtkRange, "RNG"},
+            {Stats.Luck, "LCK"}
+        };
+
+
         private const int IconSizePixels = 16;
 
         public int MaxHp { get; private set; }
@@ -57,12 +69,12 @@ namespace SolStandard.Entity.Unit
         }
 
 
-        public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
+        public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
             return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
         }
 
-        public static SpriteAtlas GetSpriteAtlas(StatIcons stat, Vector2 size)
+        public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
             return new SpriteAtlas(AssetManager.StatIcons, new Vector2(IconSizePixels), size, (int) stat);
         }
@@ -71,17 +83,18 @@ namespace SolStandard.Entity.Unit
         {
             string output = "";
 
-            output += "HP: " + Hp.ToString() + "/" + MaxHp;
+            output += Abbreviation[Stats.Hp] + ": " + Hp.ToString() + "/" + MaxHp;
             output += Environment.NewLine;
-            output += "ARM: " + Armor.ToString() + "/" + MaxArmor;
+            output += Abbreviation[Stats.Armor] + ": " + Armor.ToString() + "/" + MaxArmor;
             output += Environment.NewLine;
-            output += "ATK: " + Atk.ToString() + "/" + BaseAtk;
+            output += Abbreviation[Stats.Atk] + ": " + Atk.ToString() + "/" + BaseAtk;
             output += Environment.NewLine;
-            output += "LCK: " + Luck.ToString() + "/" + BaseLuck;
+            output += Abbreviation[Stats.Luck] + ": " + Luck.ToString() + "/" + BaseLuck;
             output += Environment.NewLine;
-            output += "MV: " + Mv.ToString() + "/" + BaseMv;
+            output += Abbreviation[Stats.Mv] + ": " + Mv.ToString() + "/" + BaseMv;
             output += Environment.NewLine;
-            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", BaseAtkRange));
+            output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", AtkRange),
+                string.Join(",", BaseAtkRange));
 
             return output;
         }

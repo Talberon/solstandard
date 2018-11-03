@@ -205,6 +205,7 @@
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
     <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\PushBlockEvent.cs" />
+    <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
     <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />

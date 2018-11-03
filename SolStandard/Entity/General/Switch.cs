@@ -81,11 +81,11 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
+                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                             new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
                         }
