@@ -5,13 +5,13 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
-    public class Heart : IResourcePoint
+    public class HeartPoint : IResourcePoint
     {
         public bool Active { get; set; }
         private SpriteAtlas activeSprite;
         private SpriteAtlas inactiveSprite;
 
-        public Heart(Vector2 size)
+        public HeartPoint(Vector2 size)
         {
             Size = size;
         }

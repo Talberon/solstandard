@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
-    public class HealthBar : IRenderable
+    public class HealthBar : IHealthBar
     {
         private readonly List<IResourcePoint> armorPips;
         private int currentArmor;
@@ -30,6 +29,39 @@ namespace SolStandard.HUD.Window.Content.Health
 
             BarSize = barSize;
         }
+
+        private List<IResourcePoint> GenerateArmorPips(int maxArmor)
+        {
+            List<IResourcePoint> pips = new List<IResourcePoint>();
+
+            for (int i = 0; i < maxArmor; i++)
+            {
+                pips.Add(new ArmorPoint(pipSize));
+            }
+
+            return pips;
+        }
+
+        private List<IResourcePoint> GenerateHpPips(int maxHp)
+        {
+            List<IResourcePoint> pips = new List<IResourcePoint>();
+
+            for (int i = 0; i < maxHp; i++)
+            {
+                pips.Add(new HeartPoint(pipSize));
+            }
+
+            return pips;
+        }
+
+        private static void UpdatePips(IReadOnlyList<IResourcePoint> pips, int currentResource)
+        {
+            for (int i = 0; i < pips.Count; i++)
+            {
+                pips[i].Active = i <= (currentResource - 1);
+            }
+        }
+
 
         private Vector2 PipSize
         {
@@ -92,38 +124,6 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
-        private List<IResourcePoint> GenerateArmorPips(int maxArmor)
-        {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
-
-            for (int i = 0; i < maxArmor; i++)
-            {
-                pips.Add(new ArmorPoint(pipSize));
-            }
-
-            return pips;
-        }
-
-        private List<IResourcePoint> GenerateHpPips(int maxHp)
-        {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
-
-            for (int i = 0; i < maxHp; i++)
-            {
-                pips.Add(new Heart(pipSize));
-            }
-
-            return pips;
-        }
-
-        private static void UpdatePips(IReadOnlyList<IResourcePoint> pips, int currentResource)
-        {
-            for (int i = 0; i < pips.Count; i++)
-            {
-                pips[i].Active = i <= (currentResource - 1);
-            }
-        }
-
         public int Height
         {
             get { return Convert.ToInt32(barSize.Y); }
@@ -136,11 +136,11 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Update(int armor, int hp)
         {
-                currentArmor = armor;
-                UpdatePips(armorPips, currentArmor);
-            
-                currentHp = hp;
-                UpdatePips(healthPips, currentHp);
+            currentArmor = armor;
+            UpdatePips(armorPips, currentArmor);
+
+            currentHp = hp;
+            UpdatePips(healthPips, currentHp);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

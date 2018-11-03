@@ -45,9 +45,9 @@ namespace SolStandard.Entity.Unit
 
         private readonly HealthBar hoverWindowHealthBar;
         private readonly HealthBar combatHealthBar;
-        private readonly HealthBar initiativeHealthBar;
-        private readonly HealthBar resultsHealthBar;
-        private readonly List<HealthBar> healthbars;
+        private readonly MiniHealthBar initiativeHealthBar;
+        private readonly MiniHealthBar resultsHealthBar;
+        private readonly List<IHealthBar> healthbars;
 
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
@@ -79,12 +79,12 @@ namespace SolStandard.Entity.Unit
                 new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height), 1);
             this.smallPortrait =
                 new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height), 1);
-            initiativeHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
-            resultsHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
 
-            healthbars = new List<HealthBar>
+            healthbars = new List<IHealthBar>
             {
                 initiativeHealthBar,
                 combatHealthBar,
