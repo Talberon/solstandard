@@ -134,18 +134,13 @@ namespace SolStandard.HUD.Window.Content.Health
             get { return Convert.ToInt32(barSize.X); }
         }
 
-        public void DealDamage()
+        public void Update(int armor, int hp)
         {
-            if (currentArmor > 0)
-            {
-                currentArmor--;
+                currentArmor = armor;
                 UpdatePips(armorPips, currentArmor);
-            }
-            else
-            {
-                currentHp--;
+            
+                currentHp = hp;
                 UpdatePips(healthPips, currentHp);
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

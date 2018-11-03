@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
 
-        private UnitSprite unitSprite;
+        private readonly UnitSprite unitSprite;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
@@ -432,14 +432,29 @@ namespace SolStandard.Entity.Unit
                 stats.Hp--;
             }
 
-            healthbars.ForEach(healthbar => healthbar.DealDamage());
+            healthbars.ForEach(healthbar => healthbar.Update(Stats.Armor, Stats.Hp));
             KillIfDead();
+        }
+
+        private void RecoverArmor(int amountToRecover)
+        {
+            if (amountToRecover + Stats.Armor > Stats.MaxArmor)
+            {
+                Stats.Armor = Stats.MaxArmor;
+            }
+            else
+            {
+                Stats.Armor += amountToRecover;
+            }
+            
+            healthbars.ForEach(bar => bar.Update(Stats.Armor, Stats.Hp));
         }
 
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
             Enabled = true;
+            RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
         }
