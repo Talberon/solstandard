@@ -2,31 +2,27 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Archer
+namespace SolStandard.Entity.Unit.Actions
 {
-    public class Draw : UnitAction
+    public class Guard : UnitAction
     {
-        private readonly int statModifier;
-        private readonly int duration;
+        private readonly int armorPoints;
 
-        public Draw(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(GameDriver.CellSize)),
-            name: "Draw",
-            description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
+        public Guard(int armorPoints) : base(
+            icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+            name: "Guard",
+            description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0}
         )
         {
-            //Add one to the duration to compensate for the counter going down right after the user's turn ends.
-            this.duration = duration + 1;
-            this.statModifier = statModifier;
+            this.armorPoints = armorPoints;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -38,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(targetUnit, new AtkRangeStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new RegenerateArmorEvent(targetUnit, armorPoints));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

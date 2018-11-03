@@ -42,7 +42,8 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(BuffStat),
-                            new RenderText(AssetManager.WindowFont, BuffStat.ToString().ToUpper() + ": +" + Modifier),
+                            new RenderText(AssetManager.WindowFont,
+                                UnitStatistics.Abbreviation[BuffStat] + ": +" + Modifier),
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

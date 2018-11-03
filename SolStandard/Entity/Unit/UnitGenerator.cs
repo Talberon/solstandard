@@ -134,6 +134,7 @@ namespace SolStandard.Entity.Unit
                 new Harpoon(2),
                 new Draw(2, 1),
                 new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -146,6 +147,7 @@ namespace SolStandard.Entity.Unit
                 new Cover(3),
                 new Tackle(),
                 new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -157,6 +159,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Blink(),
                 new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
