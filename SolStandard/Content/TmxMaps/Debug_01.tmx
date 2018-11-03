@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="702">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="705">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -407,13 +407,13 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6025"/>
    <tile gid="5985"/>
    <tile gid="6022"/>
    <tile gid="6023"/>
    <tile gid="5987"/>
    <tile gid="5987"/>
-   <tile gid="5987"/>
+   <tile gid="6624"/>
    <tile gid="5987"/>
    <tile gid="5941"/>
    <tile gid="5942"/>
@@ -468,7 +468,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6064"/>
    <tile gid="5985"/>
    <tile gid="6022"/>
    <tile gid="6023"/>
@@ -509,7 +509,7 @@
    <tile gid="5981"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6024"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -534,7 +534,7 @@
    <tile gid="6022"/>
    <tile gid="6022"/>
    <tile gid="6023"/>
-   <tile gid="5987"/>
+   <tile gid="6584"/>
    <tile gid="5987"/>
    <tile gid="5941"/>
    <tile gid="5942"/>
@@ -579,7 +579,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6064"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -620,7 +620,7 @@
    <tile gid="6021"/>
    <tile gid="5984"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6065"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -675,7 +675,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6065"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -683,7 +683,7 @@
    <tile gid="5987"/>
    <tile gid="5981"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6064"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -700,7 +700,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6025"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -768,7 +768,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6065"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
@@ -789,7 +789,7 @@
    <tile gid="5943"/>
    <tile gid="5987"/>
    <tile gid="5987"/>
-   <tile gid="5987"/>
+   <tile gid="6583"/>
    <tile gid="5987"/>
    <tile gid="6021"/>
    <tile gid="5984"/>
@@ -806,7 +806,7 @@
    <tile gid="5982"/>
    <tile gid="5982"/>
    <tile gid="5982"/>
-   <tile gid="5982"/>
+   <tile gid="6064"/>
    <tile gid="5982"/>
    <tile gid="5983"/>
    <tile gid="5987"/>
@@ -902,7 +902,7 @@
    <tile gid="5987"/>
    <tile gid="5987"/>
    <tile gid="5987"/>
-   <tile gid="5987"/>
+   <tile gid="6583"/>
    <tile gid="5987"/>
    <tile gid="5987"/>
    <tile gid="5987"/>
@@ -1729,7 +1729,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="6617"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1760,9 +1760,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6578"/>
+   <tile gid="6620"/>
+   <tile gid="6580"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1793,7 +1793,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="6697"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1857,8 +1857,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="6142"/>
+   <tile gid="5951"/>
+   <tile gid="5953"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1889,8 +1889,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="6182"/>
+   <tile gid="5991"/>
+   <tile gid="5993"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1921,40 +1921,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="6222"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="6182"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5991"/>
-   <tile gid="5992"/>
-   <tile gid="5992"/>
-   <tile gid="5992"/>
-   <tile gid="5992"/>
-   <tile gid="5992"/>
-   <tile gid="5992"/>
-   <tile gid="5993"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6031"/>
+   <tile gid="6033"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2022,6 +1990,38 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6182"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5991"/>
+   <tile gid="5992"/>
+   <tile gid="5992"/>
+   <tile gid="5992"/>
+   <tile gid="5992"/>
+   <tile gid="5992"/>
+   <tile gid="5992"/>
+   <tile gid="5993"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="278"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2053,7 +2053,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="285"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2302,12 +2302,12 @@
   </data>
  </layer>
  <objectgroup name="Entities">
-  <object id="597" name="Rock" type="BreakableObstacle" gid="152" x="480" y="128" width="32" height="32">
+  <object id="597" name="Rock" type="BreakableObstacle" gid="6386" x="480" y="128" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="601" name="Fort" type="BuffTile" gid="60" x="352" y="128" width="32" height="32">
+  <object id="601" name="Fort" type="BuffTile" gid="60" x="384" y="320" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="ATK"/>
@@ -2337,12 +2337,12 @@
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
-  <object id="630" name="Ballista" type="Railgun" gid="371" x="576" y="288" width="32" height="32">
+  <object id="630" name="Ballista" type="Railgun" gid="371" x="576" y="320" width="32" height="32">
    <properties>
     <property name="range" type="int" value="15"/>
    </properties>
   </object>
-  <object id="633" name="Trebuchet" type="Artillery" gid="370" x="576" y="320" width="32" height="32">
+  <object id="633" name="Trebuchet" type="Artillery" gid="370" x="544" y="320" width="32" height="32">
    <properties>
     <property name="range" value="4,5,6"/>
    </properties>
@@ -2357,7 +2357,7 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="651" name="Bridge" type="Movable" gid="55" x="224" y="256" width="32" height="32"/>
+  <object id="651" name="Bridge" type="Movable" gid="63" x="224" y="256" width="32" height="32"/>
   <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="480" y="160" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="2"/>
@@ -2411,7 +2411,7 @@
     <property name="range" type="int" value="15"/>
    </properties>
   </object>
-  <object id="676" name="Trebuchet" type="Artillery" gid="370" x="192" y="288" width="32" height="32">
+  <object id="676" name="Trebuchet" type="Artillery" gid="370" x="224" y="320" width="32" height="32">
    <properties>
     <property name="range" value="4,5,6"/>
    </properties>
@@ -2428,20 +2428,16 @@
     <property name="capturableByRed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="685" name="Throne" type="Seize" gid="211" x="384" y="288" width="32" height="32">
+  <object id="685" name="Throne" type="Seize" gid="211" x="128" y="288" width="32" height="32">
    <properties>
     <property name="capturableByBlue" type="bool" value="true"/>
     <property name="capturableByRed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="686" name="Throne" type="Decoration" gid="204" x="384" y="256" width="32" height="32"/>
-  <object id="687" name="Bridge" type="Movable" gid="3149" x="416" y="480" width="32" height="32"/>
-  <object id="688" name="Push Block" type="Pushable" gid="6053" x="480" y="192" width="32" height="32"/>
-  <object id="694" name="Push Block" type="Pushable" gid="6053" x="448" y="192" width="32" height="32"/>
-  <object id="695" name="Push Block" type="Pushable" gid="6053" x="512" y="192" width="32" height="32"/>
-  <object id="696" name="Push Block" type="Pushable" gid="6053" x="224" y="352" width="32" height="32"/>
-  <object id="697" name="Push Block" type="Pushable" gid="6053" x="224" y="384" width="32" height="32"/>
-  <object id="698" name="Push Block" type="Pushable" gid="6053" x="256" y="384" width="32" height="32"/>
+  <object id="686" name="Throne" type="Decoration" gid="204" x="128" y="256" width="32" height="32"/>
+  <object id="696" name="Push Block" type="Pushable" gid="6053" x="192" y="352" width="32" height="32"/>
+  <object id="697" name="Push Block" type="Pushable" gid="6053" x="224" y="352" width="32" height="32"/>
+  <object id="698" name="Push Block" type="Pushable" gid="6053" x="256" y="352" width="32" height="32"/>
   <object id="699" name="Stairs A1" type="Portal" gid="253" x="256" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A2"/>
@@ -2452,6 +2448,14 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
+  <object id="702" name="Fort" type="BuffTile" gid="45" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="Modifier" type="int" value="1"/>
+    <property name="Stat" value="DEF"/>
+   </properties>
+  </object>
+  <object id="703" name="Drawbridge A" type="Drawbridge" gid="48" x="416" y="480" width="32" height="32"/>
+  <object id="704" name="Bridge" type="Movable" gid="61" x="192" y="256" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="388" x="288" y="288" width="32" height="32">
@@ -2464,37 +2468,37 @@
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="644" name="Treasure" type="Currency" gid="415" x="352" y="320" width="32" height="32">
+  <object id="644" name="Treasure" type="Currency" gid="415" x="640" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="645" name="Treasure" type="Currency" gid="429" x="320" y="320" width="32" height="32">
+  <object id="645" name="Treasure" type="Currency" gid="429" x="640" y="256" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="646" name="Treasure" type="Currency" gid="386" x="512" y="320" width="32" height="32">
+  <object id="646" name="Treasure" type="Currency" gid="386" x="640" y="448" width="32" height="32">
    <properties>
     <property name="value" type="int" value="100"/>
    </properties>
   </object>
-  <object id="647" name="Treasure" type="Currency" gid="387" x="480" y="320" width="32" height="32">
+  <object id="647" name="Treasure" type="Currency" gid="387" x="640" y="416" width="32" height="32">
    <properties>
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="414" x="416" y="320" width="32" height="32">
+  <object id="648" name="Treasure" type="Currency" gid="414" x="640" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="25"/>
    </properties>
   </object>
-  <object id="649" name="Treasure" type="Currency" gid="417" x="448" y="320" width="32" height="32">
+  <object id="649" name="Treasure" type="Currency" gid="417" x="640" y="384" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="650" name="Treasure" type="Currency" gid="416" x="384" y="320" width="32" height="32">
+  <object id="650" name="Treasure" type="Currency" gid="416" x="640" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>

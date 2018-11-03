@@ -30,16 +30,6 @@ namespace SolStandard.Map
      */
     public class TmxMapParser
     {
-        private static readonly Dictionary<string, StatIcons> BonusStatDictionary =
-            new Dictionary<string, StatIcons>
-            {
-                {"HP", StatIcons.Hp},
-                {"ATK", StatIcons.Atk},
-                {"DEF", StatIcons.Def},
-                {"MV", StatIcons.Mv},
-                {"RNG", StatIcons.Crosshair}
-            };
-
         private static readonly Dictionary<string, EntityTypes> EntityDictionary = new Dictionary<string, EntityTypes>
         {
             {"BreakableObstacle", EntityTypes.BreakableObstacle},
@@ -247,7 +237,7 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToInt32(currentProperties["Modifier"]),
-                                            BonusStatDictionary[currentProperties["Stat"]],
+                                            currentProperties["Stat"],
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;

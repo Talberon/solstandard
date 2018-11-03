@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.View;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
@@ -78,8 +79,8 @@ namespace SolStandard.Containers.Contexts
             defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
 
             SetupHelpWindow();
-            SetupAttackerWindows(attackerSlice);
-            SetupDefenderWindows(defenderSlice);
+            SetupAttackerWindows();
+            SetupDefenderWindows();
             SetPromptWindowText("Start Combat!");
         }
 
@@ -173,40 +174,34 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateHelpTextWindow(helpTextWindowContentGrid);
         }
 
-        private void SetupAttackerWindows(MapSlice attackerSlice)
+        private void SetupAttackerWindows()
         {
+            int attackerTerrainBonus = DetermineTerrainBonus(attacker);
+            attackerDamage = new CombatDamage(attacker.Stats, attackerTerrainBonus, AttackPointSize);
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
+
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
-
-            //FIXME Remove the override
-            Vector2 windowWidthOverride = new Vector2(0, 0);
-            battleView.GenerateAttackerDetailWindow(attackerWindowColor, windowWidthOverride, attacker.DetailPane);
-            battleView.GenerateAttackerHpWindow(attackerWindowColor, windowWidthOverride, attacker);
-            battleView.GenerateAttackerAtkWindow(attackerWindowColor, windowWidthOverride, attacker.Stats);
-            battleView.GenerateAttackerInRangeWindow(attackerWindowColor, windowWidthOverride, attackerInRange);
-
-            int terrainAttackBonus = battleView.GenerateAttackerBonusWindow(attackerSlice, attackerWindowColor,
-                windowWidthOverride);
-            attackerDamage = new CombatDamage(attacker.Stats, terrainAttackBonus, AttackPointSize);
+            battleView.GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane);
+            battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
+            battleView.GenerateAttackerAtkWindow(attackerWindowColor, attacker.Stats);
+            battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
+            battleView.GenerateAttackerBonusWindow(attacker.Stats.Luck, attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
             battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
         }
 
-        private void SetupDefenderWindows(MapSlice defenderSlice)
+        private void SetupDefenderWindows()
         {
+            int defenderTerrainBonus = DetermineTerrainBonus(defender);
+            defenderDamage = new CombatDamage(defender.Stats, defenderTerrainBonus, AttackPointSize);
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
+
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
-
-            //FIXME Remove the override
-            Vector2 windowWidthOverride = new Vector2(0, 0);
-            battleView.GenerateDefenderDetailWindow(defenderWindowColor, windowWidthOverride, defender.DetailPane);
-            battleView.GenerateDefenderHpWindow(defenderWindowColor, windowWidthOverride, defender);
-            battleView.GenerateDefenderDefWindow(defenderWindowColor, windowWidthOverride, defender.Stats);
-            battleView.GenerateDefenderRangeWindow(defenderWindowColor, windowWidthOverride, defenderInRange);
-
-            int terrainDefenseBonus =
-                battleView.GenerateDefenderBonusWindow(defenderSlice, defenderWindowColor, windowWidthOverride);
-            defenderDamage = new CombatDamage(defender.Stats, terrainDefenseBonus, AttackPointSize);
+            battleView.GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane);
+            battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
+            battleView.GenerateDefenderDefWindow(defenderWindowColor, defender.Stats);
+            battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
+            battleView.GenerateDefenderBonusWindow(defender.Stats.Luck, defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
             battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
         }
@@ -225,12 +220,27 @@ namespace SolStandard.Containers.Contexts
         {
             /*Since distance is measured in horizontal and vertical steps, the absolute value of the difference of
              absolute positions should add up to the appropriate range.*/
-            int horizontalDistance = Math.Abs(Math.Abs((int) targetPosition.X) -
-                                              Math.Abs((int) sourcePosition.X));
+            int horizontalDistance = Math.Abs(Math.Abs((int) targetPosition.X) - Math.Abs((int) sourcePosition.X));
 
-            int verticalDistance = Math.Abs(Math.Abs((int) targetPosition.Y) -
-                                            Math.Abs((int) sourcePosition.Y));
+            int verticalDistance = Math.Abs(Math.Abs((int) targetPosition.Y) - Math.Abs((int) sourcePosition.Y));
             return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
+        }
+
+        private int DetermineTerrainBonus(GameUnit unit)
+        {
+            int terrainAttackBonus = 0;
+
+            MapSlice unitSlice = MapContainer.GetMapSliceAtCoordinates(unit.UnitEntity.MapCoordinates);
+
+            BuffTile buffTile = unitSlice.TerrainEntity as BuffTile;
+
+            if (buffTile == null) return terrainAttackBonus;
+
+            if (unit.Equals(attacker) && buffTile.BuffStat == StatIcons.Atk) terrainAttackBonus = buffTile.Modifier;
+
+            if (unit.Equals(defender) && buffTile.BuffStat == StatIcons.Armor) terrainAttackBonus = buffTile.Modifier;
+
+            return terrainAttackBonus;
         }
 
         public void StartRollingDice()

@@ -164,14 +164,38 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
+                Color panelColor = new Color(10, 10, 10, 100);
+                const int goldPanelHeight = 32;
                 const int hoverWindowHealthBarHeight = 32;
+                int windowBordersSize = AssetManager.WindowTexture.Width * 2 / 3;
                 IRenderable[,] selectedUnitPortrait =
                 {
                     {
-                        GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width, hoverWindowHealthBarHeight))
+                        new Window(
+                            GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width - windowBordersSize,
+                                hoverWindowHealthBarHeight)),
+                            panelColor
+                        )
                     },
                     {
                         MediumPortrait
+                    },
+                    {
+                        new Window(
+                            new WindowContentGrid(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                    }
+                                },
+                                1
+                            ),
+                            panelColor,
+                            new Vector2(MediumPortrait.Width, goldPanelHeight)
+                        )
                     }
                 };
 
@@ -231,8 +255,7 @@ namespace SolStandard.Entity.Unit
                                         {
                                             UnitStatistics.GetSpriteAtlas(StatIcons.Hp),
                                             new RenderText(AssetManager.WindowFont, "HP: "),
-                                            new RenderText(AssetManager.WindowFont,
-                                                Stats.Hp.ToString() + "/" + Stats.MaxHp.ToString())
+                                            new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
                                         }
                                     },
                                     1
@@ -245,9 +268,12 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
-                                            new RenderText(AssetManager.WindowFont,
-                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Armor),
+                                            new RenderText(AssetManager.WindowFont, "ARM: "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Armor + "/" + Stats.MaxArmor
+                                            )
                                         }
                                     },
                                     1
@@ -279,12 +305,12 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(StatIcons.Def),
-                                            new RenderText(AssetManager.WindowFont, "DEF: "),
+                                            UnitStatistics.GetSpriteAtlas(StatIcons.Luck),
+                                            new RenderText(AssetManager.WindowFont, "LCK: "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                Stats.Armor.ToString(),
-                                                UnitStatistics.DetermineStatColor(Stats.Armor, Stats.MaxArmor)
+                                                Stats.Luck.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Luck, Stats.BaseLuck)
                                             )
                                         }
                                     },
@@ -492,7 +518,7 @@ namespace SolStandard.Entity.Unit
         {
             //Don't drop spoils if inventory is empty
             if (CurrentGold == 0 && Inventory.Count == 0) return;
-            
+
             TerrainEntity entityAtUnitPosition =
                 MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                     (int) MapEntity.MapCoordinates.Y] as TerrainEntity;

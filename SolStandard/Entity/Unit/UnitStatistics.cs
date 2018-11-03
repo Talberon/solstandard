@@ -11,16 +11,15 @@ namespace SolStandard.Entity.Unit
         None,
         Hp,
         Atk,
-        Def,
+        Armor,
         Mv,
         Crosshair,
         EmptyHp,
-        Coin,
-        EmptyDef,
+        Luck,
+        EmptyArmor,
         Positive,
         Negative
     }
-
 
     public class UnitStatistics
     {

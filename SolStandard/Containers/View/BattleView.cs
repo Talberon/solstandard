@@ -6,7 +6,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -71,9 +70,11 @@ namespace SolStandard.Containers.View
                 sizeOverride);
         }
 
-        public void GenerateAttackerSpriteWindow(GameUnit attacker, Color color, UnitAnimationState state)
+        #region Attacker Windows
+
+        public void GenerateAttackerSpriteWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
         {
-            AttackerSpriteWindow = BattlerWindow(attacker, color, state);
+            AttackerSpriteWindow = BattlerWindow(attacker, spriteColor, state);
         }
 
         public void GenerateAttackerDamageWindow(Color attackerWindowColor, CombatDamage attackerDamage)
@@ -81,78 +82,30 @@ namespace SolStandard.Containers.View
             AttackerDiceWindow = new Window(attackerDamage, attackerWindowColor);
         }
 
-        public void GenerateAttackerInRangeWindow(Color attackerWindowColor, Vector2 sizeOverride,
-            bool inRange)
+        public void GenerateAttackerInRangeWindow(Color attackerWindowColor, bool inRange)
         {
-            IRenderable[,] attackerRangeContent =
-            {
-                {
-                    UnitStatistics.GetSpriteAtlas(StatIcons.Crosshair),
-                    new RenderText(AssetManager.WindowFont, "In Range: "),
-                    new RenderText(AssetManager.WindowFont, inRange.ToString(),
-                        (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
-                }
-            };
-            WindowContentGrid attackerRangeContentGrid = new WindowContentGrid(attackerRangeContent, 1);
-            AttackerRangeWindow = new Window(attackerRangeContentGrid,
-                attackerWindowColor, sizeOverride);
+            AttackerRangeWindow = RangeWindow(attackerWindowColor, inRange);
         }
 
-        internal int GenerateAttackerBonusWindow(MapSlice attackerSlice, Color attackerWindowColor,
-            Vector2 sizeOverride)
+        public void GenerateAttackerBonusWindow(int luckStat, int bonusLuck, Color attackerWindowColor)
         {
-            string terrainAttackBonus = "0";
-            if (attackerSlice.TerrainEntity != null)
-            {
-                if (attackerSlice.TerrainEntity.TiledProperties.ContainsKey("Stat") &&
-                    attackerSlice.TerrainEntity.TiledProperties["Stat"] == "ATK")
-                {
-                    if (attackerSlice.TerrainEntity.TiledProperties.ContainsKey("Modifier"))
-                    {
-                        terrainAttackBonus = attackerSlice.TerrainEntity.TiledProperties["Modifier"];
-                    }
-                }
-            }
-
-            IRenderable[,] attackerBonusContent =
-            {
-                {
-                    (Convert.ToInt32(terrainAttackBonus) > 0)
-                        ? UnitStatistics.GetSpriteAtlas(StatIcons.Positive)
-                        : UnitStatistics.GetSpriteAtlas(StatIcons.Negative),
-                    new RenderText(AssetManager.WindowFont, "Bonus: "),
-                    new RenderText(AssetManager.WindowFont, terrainAttackBonus,
-                        (Convert.ToInt32(terrainAttackBonus) > 0)
-                            ? GameContext.PositiveColor
-                            : GameContext.NeutralColor)
-                }
-            };
-            WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 1);
-            AttackerBonusWindow = new Window(attackerBonusContentGrid,
-                attackerWindowColor, sizeOverride);
-
-            return Convert.ToInt32(terrainAttackBonus);
+            AttackerBonusWindow = BonusWindow(luckStat, bonusLuck, attackerWindowColor);
         }
 
-        public void GenerateAttackerAtkWindow(Color windowColor, Vector2 sizeOverride, UnitStatistics attackerStats)
+        public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats)
         {
-            AttackerAtkWindow = AtkStatWindow(windowColor, sizeOverride, attackerStats);
+            AttackerAtkWindow = AtkStatWindow(windowColor, attackerStats);
         }
 
-        public void GenerateAttackerHpWindow(Color windowColor, Vector2 sizeOverride, GameUnit attacker)
+        public void GenerateAttackerHpWindow(Color windowColor, GameUnit attacker)
         {
-            AttackerHpWindow = GenerateHpWindow(attacker, sizeOverride, windowColor);
+            AttackerHpWindow = GenerateHpWindow(attacker, windowColor);
         }
 
-        private static Window GenerateHpWindow(GameUnit unit, Vector2 sizeOverride, Color windowColor)
-        {
-            return new Window(unit.GetCombatHealthBar(HpBarSize), windowColor, sizeOverride);
-        }
-
-        public void GenerateAttackerDetailWindow(Color attackerWindowColor, Vector2 sizeOverride,
+        public void GenerateAttackerDetailWindow(Color attackerWindowColor,
             IRenderable attackerDetail)
         {
-            AttackerDetailWindow = new Window(attackerDetail, attackerWindowColor, sizeOverride);
+            AttackerDetailWindow = new Window(attackerDetail, attackerWindowColor);
         }
 
         public void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
@@ -160,10 +113,13 @@ namespace SolStandard.Containers.View
             AttackerPortraitWindow = new Window(attackerPortrait, attackerWindowColor);
         }
 
+        #endregion Attacker Windows
 
-        public void GenerateDefenderSpriteWindow(GameUnit defender, Color color, UnitAnimationState state)
+        #region Defender Windows
+
+        public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
-            DefenderSpriteWindow = BattlerWindow(defender, color, state);
+            DefenderSpriteWindow = BattlerWindow(defender, spriteColor, state);
         }
 
 
@@ -172,7 +128,50 @@ namespace SolStandard.Containers.View
             DefenderDiceWindow = new Window(defenderDamage, defenderWindowColor);
         }
 
-        public void GenerateDefenderRangeWindow(Color defenderWindowColor, Vector2 sizeOverride, bool inRange)
+        public void GenerateDefenderRangeWindow(Color defenderWindowColor, bool inRange)
+        {
+            DefenderRangeWindow = RangeWindow(defenderWindowColor, inRange);
+        }
+
+
+        public void GenerateDefenderBonusWindow(int luckStat, int bonusLuck, Color defenderWindowColor)
+        {
+            DefenderBonusWindow = BonusWindow(luckStat, bonusLuck, defenderWindowColor);
+        }
+
+
+        public void GenerateDefenderDefWindow(Color windowColor, UnitStatistics defenderStats)
+        {
+            DefenderAtkWindow = AtkStatWindow(windowColor, defenderStats);
+        }
+
+
+        public void GenerateDefenderHpWindow(Color windowColor, GameUnit defender)
+        {
+            DefenderHpWindow = GenerateHpWindow(defender, windowColor);
+        }
+
+        public void GenerateDefenderDetailWindow(Color defenderWindowColor,
+            IRenderable defenderDetail)
+        {
+            DefenderDetailWindow = new Window(defenderDetail, defenderWindowColor);
+        }
+
+        public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
+        {
+            DefenderPortraitWindow = new Window(defenderPortrait, defenderWindowColor);
+        }
+
+        #endregion Defender Windows
+
+        #region Window Generators
+
+        private static Window GenerateHpWindow(GameUnit unit, Color windowColor)
+        {
+            return new Window(unit.GetCombatHealthBar(HpBarSize), windowColor);
+        }
+
+        private static Window RangeWindow(Color windowColor, bool inRange)
         {
             IRenderable[,] defenderRangeContent =
             {
@@ -185,71 +184,32 @@ namespace SolStandard.Containers.View
             };
 
             WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent, 1);
-            DefenderRangeWindow = new Window(defenderRangeContentGrid, defenderWindowColor, sizeOverride);
+            return new Window(defenderRangeContentGrid, windowColor);
         }
 
-        internal int GenerateDefenderBonusWindow(MapSlice defenderSlice, Color defenderWindowColor,
-            Vector2 sizeOverride)
+        private static Window BonusWindow(int luckStat, int bonusLuck, Color attackerWindowColor)
         {
-            //FIXME Move this out of the BattleView class. It shouldn't be part of presentation; this is actual combat logic.
-            string terrainDefenseBonus = "0";
-            if (defenderSlice.TerrainEntity != null)
-            {
-                if (defenderSlice.TerrainEntity.TiledProperties.ContainsKey("Stat") &&
-                    defenderSlice.TerrainEntity.TiledProperties["Stat"] == "DEF")
-                {
-                    if (defenderSlice.TerrainEntity.TiledProperties.ContainsKey("Modifier"))
-                    {
-                        terrainDefenseBonus = defenderSlice.TerrainEntity.TiledProperties["Modifier"];
-                    }
-                }
-            }
-
-            IRenderable[,] defenderBonusContent =
+            IRenderable[,] attackerBonusContent =
             {
                 {
-                    (Convert.ToInt32(terrainDefenseBonus) > 0)
+                    (Convert.ToInt32(bonusLuck) > 0)
                         ? UnitStatistics.GetSpriteAtlas(StatIcons.Positive)
                         : UnitStatistics.GetSpriteAtlas(StatIcons.Negative),
-                    new RenderText(AssetManager.WindowFont, "Bonus: "),
-                    new RenderText(AssetManager.WindowFont, terrainDefenseBonus,
-                        (Convert.ToInt32(terrainDefenseBonus) > 0)
-                            ? GameContext.PositiveColor
-                            : GameContext.NeutralColor)
+
+                    new RenderText(AssetManager.WindowFont, "Bonus: " + luckStat),
+
+                    (bonusLuck > 0)
+                        ? new RenderText(AssetManager.WindowFont, " + " + bonusLuck,
+                                (bonusLuck > 0) ? GameContext.PositiveColor : GameContext.NeutralColor) as
+                            IRenderable
+                        : new RenderBlank() as IRenderable
                 }
             };
-            WindowContentGrid defenderBonusContentGrid = new WindowContentGrid(defenderBonusContent, 1);
-            DefenderBonusWindow = new Window(defenderBonusContentGrid,
-                defenderWindowColor, sizeOverride);
-
-            return Convert.ToInt32(terrainDefenseBonus);
+            WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);
+            return new Window(attackerBonusContentGrid, attackerWindowColor);
         }
 
-
-        public void GenerateDefenderDefWindow(Color windowColor, Vector2 sizeOverride, UnitStatistics defenderStats)
-        {
-            DefenderAtkWindow = AtkStatWindow(windowColor, sizeOverride, defenderStats);
-        }
-
-
-        public void GenerateDefenderHpWindow(Color windowColor, Vector2 sizeOverride, GameUnit defender)
-        {
-            DefenderHpWindow = GenerateHpWindow(defender, sizeOverride, windowColor);
-        }
-
-        public void GenerateDefenderDetailWindow(Color defenderWindowColor, Vector2 sizeOverride,
-            IRenderable defenderDetail)
-        {
-            DefenderDetailWindow = new Window(defenderDetail, defenderWindowColor, sizeOverride);
-        }
-
-        public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
-        {
-            DefenderPortraitWindow =
-                new Window(defenderPortrait, defenderWindowColor);
-        }
-
-        private static Window BattlerWindow(GameUnit attacker, Color color, UnitAnimationState state)
+        private static Window BattlerWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
         {
             const int spriteSize = 200;
 
@@ -258,7 +218,7 @@ namespace SolStandard.Containers.View
                     new[,]
                     {
                         {
-                            attacker.GetMapSprite(new Vector2(spriteSize), color, state)
+                            attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state)
                         }
                     },
                     1
@@ -267,12 +227,12 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private static Window AtkStatWindow(Color windowColor, Vector2 sizeOverride, UnitStatistics stats)
+        private static Window AtkStatWindow(Color windowColor, UnitStatistics stats)
         {
             WindowContentGrid atkContentGrid = new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(StatIcons.Def, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(StatIcons.Armor, new Vector2(GameDriver.CellSize)),
                         new RenderText(AssetManager.WindowFont, "ATK: "),
                         new RenderText(
                             AssetManager.WindowFont,
@@ -283,8 +243,10 @@ namespace SolStandard.Containers.View
                 },
                 1
             );
-            return new Window(atkContentGrid, windowColor, sizeOverride);
+            return new Window(atkContentGrid, windowColor);
         }
+
+        #endregion Window Generators
 
         #endregion Generation
 
@@ -315,7 +277,6 @@ namespace SolStandard.Containers.View
         {
             return referenceWindowYPosition + referenceWindow.Height - placingWindow.Height;
         }
-
 
         private static float CenterHorizontally(IRenderable placingWindow, IRenderable referenceWindow,
             float referenceWindowXPosition)
