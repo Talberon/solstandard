@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
@@ -19,6 +20,12 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             target.Stats.Atk += atkModifier;
+            
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                Name,
+                50
+            );
         }
 
         protected override void ExecuteEffect(GameUnit target)

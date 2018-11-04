@@ -21,7 +21,11 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            //Do nothing
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                Name,
+                50
+            );
         }
 
         protected override void ExecuteEffect(GameUnit target)

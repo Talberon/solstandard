@@ -16,14 +16,15 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly int damagePerTurn;
         private readonly int duration;
 
-        protected DamageOverTimeAction(SkillIcon icon, string name, int duration, int damagePerTurn, int[] range) : base(
-            icon: SkillIconProvider.GetSkillIcon(icon, new Vector2(GameDriver.CellSize)),
-            name: name,
-            description: "Deal [+" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
-                         "] turns.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: range
-        )
+        protected DamageOverTimeAction(SkillIcon icon, string name, int duration, int damagePerTurn, int[] range) :
+            base(
+                icon: SkillIconProvider.GetSkillIcon(icon, new Vector2(GameDriver.CellSize)),
+                name: name,
+                description: "Deal [+" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
+                             "] turns.",
+                tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+                range: range
+            )
         {
             this.damagePerTurn = damagePerTurn;
             this.duration = duration;
@@ -39,7 +40,8 @@ namespace SolStandard.Entity.Unit.Actions
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(targetUnit, new DamageOverTimeStatus(Icon, duration, damagePerTurn))
+                    new CastStatusEffectEvent(targetUnit,
+                        new DamageOverTimeStatus(Icon, duration, damagePerTurn, "Burning!"))
                 );
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

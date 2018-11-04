@@ -1,5 +1,4 @@
 ﻿using SolStandard.Containers.Contexts;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -8,8 +7,9 @@ namespace SolStandard.Entity.Unit.Statuses
     public class DamageOverTimeStatus : StatusEffect
     {
         private readonly int damage;
+        private readonly string applyMessage;
 
-        public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage) : base(
+        public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage, string applyMessage) : base(
             statusIcon: statusIcon,
             name: "Damage Over Time",
             description: "Deals damage to the afflicted at the beginning of each turn.",
@@ -17,11 +17,16 @@ namespace SolStandard.Entity.Unit.Statuses
         )
         {
             this.damage = damage;
+            this.applyMessage = applyMessage;
         }
 
         public override void ApplyEffect(GameUnit target)
         {
-            //Do nothing
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                applyMessage,
+                50
+            );
         }
 
 

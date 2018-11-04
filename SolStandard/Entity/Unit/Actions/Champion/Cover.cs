@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -17,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         public Cover(int armorPoints) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cover, new Vector2(32)),
             name: "Cover",
-            description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] + " for an ally in range.",
+            description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
+                         " for an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
@@ -37,6 +39,11 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 eventQueue.Enqueue(new RegenerateArmorEvent(targetUnit, armorPoints));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
+
+                string toastMessage = "Cover!" + Environment.NewLine +
+                                      "Recovered [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
+                                      "!";
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);
             }
             else
             {
