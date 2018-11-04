@@ -463,6 +463,7 @@ namespace SolStandard.Entity.Unit
             RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
+            UpdateStatusEffects();
         }
 
         public void DisableExhaustedUnit()
@@ -472,7 +473,6 @@ namespace SolStandard.Entity.Unit
             Enabled = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
             SetUnitAnimation(UnitAnimationState.Idle);
-            UpdateStatusEffects();
         }
 
         public void SetUnitAnimation(UnitAnimationState state)
@@ -495,7 +495,6 @@ namespace SolStandard.Entity.Unit
             {
                 effect.UpdateEffect(this);
             }
-
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
         }
 

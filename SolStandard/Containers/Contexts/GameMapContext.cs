@@ -113,7 +113,7 @@ namespace SolStandard.Containers.Contexts
         {
             TurnCounter++;
 
-            if (TurnCounter <= GameContext.Units.Count) return;
+            if (TurnCounter < GameContext.Units.Count) return;
 
             TurnCounter = 1;
             RoundCounter++;

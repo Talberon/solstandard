@@ -64,6 +64,22 @@ namespace SolStandard.Containers
             ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
         }
 
+        public void AddNewToastAtUnit(UnitEntity unitEntity, string toastMessage, int lifetimeInFrames)
+        {
+            if (unitEntity == null)
+            {
+                //Place the toast at the cursor if the unit is dead
+                AddNewToastAtMapCursor(toastMessage, lifetimeInFrames);
+            }
+            else
+            {
+                //Set the toast to the right of the cursor
+                AddNewToastAtCoordinates(
+                    toastMessage, (unitEntity.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize, lifetimeInFrames
+                );
+            }
+        }
+
         public void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
         {
             //Set the toast to the right of the cursor

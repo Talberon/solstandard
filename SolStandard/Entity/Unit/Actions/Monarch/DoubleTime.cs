@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(targetUnit, new MoveStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

@@ -4,12 +4,12 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
-    public class CastBuffEvent : IEvent
+    public class CastStatusEffectEvent : IEvent
     {
         private readonly GameUnit targetUnit;
         private readonly StatusEffect statusEffect;
 
-        public CastBuffEvent(GameUnit targetUnit, StatusEffect statusEffect)
+        public CastStatusEffectEvent(GameUnit targetUnit, StatusEffect statusEffect)
         {
             this.targetUnit = targetUnit;
             this.statusEffect = statusEffect;

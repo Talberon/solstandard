@@ -87,7 +87,9 @@
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
+    <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
@@ -196,7 +199,7 @@
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />
     <Compile Include="Utility\Events\DropItemEvent.cs" />
     <Compile Include="Utility\Events\EndTurnEvent.cs" />

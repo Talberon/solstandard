@@ -15,7 +15,8 @@ namespace SolStandard.Utility.Assets
         Shove,
         Tackle,
         Wait,
-        Harpoon
+        Harpoon,
+        Ignite
     }
 
     public static class SkillIconProvider
@@ -40,6 +41,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D tackle = skillIconTextures.Find(texture => texture.Name.EndsWith("Tackle"));
             ITexture2D wait = skillIconTextures.Find(texture => texture.Name.EndsWith("Wait"));
             ITexture2D harpoon = skillIconTextures.Find(texture => texture.Name.EndsWith("Harpoon"));
+            ITexture2D ignite = skillIconTextures.Find(texture => texture.Name.EndsWith("Ignite"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -52,7 +54,8 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Shove, shove},
                 {SkillIcon.Tackle, tackle},
                 {SkillIcon.Wait, wait},
-                {SkillIcon.Harpoon, harpoon}
+                {SkillIcon.Harpoon, harpoon},
+                {SkillIcon.Ignite, ignite}
             };
         }
     }
