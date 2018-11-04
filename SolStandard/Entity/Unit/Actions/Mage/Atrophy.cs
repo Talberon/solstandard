@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Atrophy, new Vector2(GameDriver.CellSize)),
             name: "Atrophy",
             description: "Reduce an enemy's " + UnitStatistics.Abbreviation[Stats.Atk] + " by [+" + statModifier + "]" +
-                         " for [" + duration + " ] turns.",
+                         " for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )

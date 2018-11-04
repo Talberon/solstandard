@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (TargetHasNoEntitiesPresent(targetSlice))
+            if (TargetIsNotObstructed(targetSlice))
             {
                 trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers);
 
@@ -51,9 +51,12 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             }
         }
 
-        private static bool TargetHasNoEntitiesPresent(MapSlice targetSlice)
+        private static bool TargetIsNotObstructed(MapSlice targetSlice)
         {
-            return targetSlice.TerrainEntity == null;
+            if (targetSlice.TerrainEntity != null) return false;
+            if (targetSlice.CollideTile != null) return false;
+            
+            return true;
         }
     }
 }
