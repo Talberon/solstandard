@@ -87,9 +87,11 @@
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
+    <Compile Include="Entity\Unit\Actions\Monarch\Bulwark.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
@@ -99,7 +101,6 @@
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
-    <Compile Include="Entity\Unit\Actions\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\DropItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
@@ -118,7 +119,8 @@
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />

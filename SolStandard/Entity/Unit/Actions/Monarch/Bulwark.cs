@@ -11,16 +11,16 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Monarch
 {
-    public class Inspire : UnitAction
+    public class Bulwark : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Inspire(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
-            name: "Inspire",
-            description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
-                         " by [+" + statModifier + "] for [" + duration + " ] turns.",
+        public Bulwark(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
+            name: "Bulwark",
+            description: "Increase an ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " regeneration by " +
+                         "[+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new LuckStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ArmorRegenerationUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

@@ -123,7 +123,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(20, 0, 4, 3, 4, new[] {1, 2});
+            return new UnitStatistics(20, 0, 4, 3, 4, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -133,7 +133,6 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Harpoon(2),
                 new Draw(2, 1),
-                new Shove(),
                 new Guard(3),
                 new Wait()
             };
@@ -159,7 +158,6 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Ignite(3, 3),
                 new Blink(),
-                new Shove(),
                 new Guard(3),
                 new Wait()
             };
@@ -172,7 +170,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Inspire(2, 1),
                 new DoubleTime(1, 2),
-                new Shove(),
+                new Bulwark(2, 2),
                 new Wait()
             };
         }

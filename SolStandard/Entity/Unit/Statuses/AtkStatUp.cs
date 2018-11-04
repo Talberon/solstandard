@@ -8,8 +8,9 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int atkModifier;
 
         public AtkStatUp(int turnDuration, int atkModifier) : base(
-            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkUp, new Vector2(32)),
-            name: "ATK Up!",
+            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkUp,
+                new Vector2(GameDriver.CellSize)),
+            name: UnitStatistics.Abbreviation[Stats.Atk] + " Up!",
             description: "Increased attack power.",
             turnDuration: turnDuration
         )
