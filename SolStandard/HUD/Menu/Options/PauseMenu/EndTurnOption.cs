@@ -9,12 +9,10 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 {
     public class EndTurnOption : MenuOption
     {
-        private GameMapContext gameMapContext;
 
-        public EndTurnOption(Color color, GameMapContext gameMapContext) :
+        public EndTurnOption(Color color) :
             base(new RenderText(AssetManager.MainMenuFont, "End Turn"), color)
         {
-            this.gameMapContext = gameMapContext;
         }
 
         public override void Execute()
@@ -22,7 +20,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
             //Exit the menu and end the turn
             GameContext.CurrentGameState = GameContext.GameState.InGame;
             Queue<IEvent> eventsToQueue = new Queue<IEvent>();
-            eventsToQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+            eventsToQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(eventsToQueue);
         }
     }

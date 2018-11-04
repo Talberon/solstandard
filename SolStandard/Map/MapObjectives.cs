@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General;
 using SolStandard.HUD.Window.Content;

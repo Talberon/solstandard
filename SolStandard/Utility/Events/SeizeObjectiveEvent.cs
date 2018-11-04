@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
@@ -33,7 +32,8 @@ namespace SolStandard.Utility.Events
             {
                 Trace.TraceError("Seize could not be found in the victory conditions {0}", e);
                 AssetManager.ErrorSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("Seize is not a valid victory condition!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    "Seize is not a valid victory condition!", 50);
             }
 
             if (seize != null)

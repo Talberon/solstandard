@@ -20,13 +20,15 @@ namespace SolStandard.Containers
     public class MapContainer
     {
         private static List<MapElement[,]> _gameGrid;
-        public static MapCursor MapCursor { get; private set; }
+        public MapCursor MapCursor { get; private set; }
+        public MapCamera MapCamera { get; private set; }
         private static ToastWindow ToastWindow { get; set; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
         {
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
+            MapCamera = new MapCamera(5, 0.05f);
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -52,21 +54,61 @@ namespace SolStandard.Containers
             get
             {
                 return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
-                       * GameDriver.CellSize * MapCamera.CurrentZoom;
+                       * GameDriver.CellSize * GameContext.MapCamera.CurrentZoom;
             }
         }
 
-        public static void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        private static void AddNewToastAtMapPixelCoordinates(IRenderable content, Vector2 mapPixelCoordinates,
+            int lifetimeInFrames)
         {
-            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
-            ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
+            ToastWindow = new ToastWindow(content, mapPixelCoordinates, lifetimeInFrames);
         }
 
-        public static void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
+        public void AddNewToastAtMapCellCoordinates(IRenderable content, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            //Place the toast to the right of the designated map coordinates
+            AddNewToastAtMapPixelCoordinates(
+                content,
+                (mapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
+                lifetimeInFrames
+            );
+        }
+
+        public void AddNewToastAtMapCursor(IRenderable content, int lifetimeInFrames)
         {
             //Set the toast to the right of the cursor
-            AddNewToastAtCoordinates(toastMessage, (MapCursor.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
-                lifetimeInFrames);
+            AddNewToastAtMapCellCoordinates(content, MapCursor.MapCoordinates, lifetimeInFrames);
+        }
+
+        public void AddNewToastAtUnit(UnitEntity unitEntity, IRenderable content, int lifetimeInFrames)
+        {
+            if (unitEntity == null)
+            {
+                //Place the toast at the cursor if the unit is dead
+                AddNewToastAtMapCursor(content, lifetimeInFrames);
+            }
+            else
+            {
+                //Set the toast to the right of the unit
+                AddNewToastAtMapCellCoordinates(content, unitEntity.MapCoordinates, lifetimeInFrames);
+            }
+        }
+
+        public void AddNewToastAtMapCellCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
+            AddNewToastAtMapCellCoordinates(toastContent, mapCoordinates, lifetimeInFrames);
+        }
+
+        public void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
+        {
+            //Set the toast to the right of the cursor
+            AddNewToastAtMapCellCoordinates(toastMessage, MapCursor.MapCoordinates, lifetimeInFrames);
+        }
+
+        public void AddNewToastAtUnit(UnitEntity unitEntity, string toastMessage, int lifetimeInFrames)
+        {
+            AddNewToastAtUnit(unitEntity, new RenderText(AssetManager.MapFont, toastMessage), lifetimeInFrames);
         }
 
         public static void ClearDynamicAndPreviewGrids()
@@ -87,7 +129,7 @@ namespace SolStandard.Containers
                 _gameGrid[(int) Layer.Preview].GetLength(1)];
         }
 
-        public static MapSlice GetMapSliceAtCursor()
+        public MapSlice GetMapSliceAtCursor()
         {
             return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }
@@ -185,7 +227,7 @@ namespace SolStandard.Containers
             if (ToastWindow != null)
             {
                 ToastWindow.Draw(spriteBatch);
-                
+
                 if (ToastWindow.Expired) ToastWindow = null;
             }
 

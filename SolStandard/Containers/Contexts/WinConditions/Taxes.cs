@@ -31,11 +31,11 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private static IRenderable GetGoldWindow(ISpriteFont font)
         {
-            Window blueGoldWindow = new Window("BlueGold", AssetManager.WindowTexture,
+            Window blueGoldWindow = new Window(
                 new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Blue));
 
-            Window redGoldWindow = new Window("RedGold", AssetManager.WindowTexture,
+            Window redGoldWindow = new Window(
                 new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + TargetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Red));
 
@@ -52,11 +52,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 2,
                 HorizontalAlignment.Centered
             );
-            return new Window("HelpText", AssetManager.WindowTexture, teamGoldWindowContentGrid,
-                ObjectiveWindowColor);
+            return new Window(teamGoldWindowContentGrid, ObjectiveWindowColor);
         }
 
-        public override bool ConditionsMet(GameContext gameContext)
+        public override bool ConditionsMet()
         {
             if (TeamHasCollectedTargetGold(Team.Blue) && TeamHasCollectedTargetGold(Team.Red))
             {

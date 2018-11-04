@@ -25,12 +25,6 @@ namespace SolStandard.Utility
             SetCellIndex(cellIndex);
         }
 
-        public void SetCellIndex(int index)
-        {
-            cellIndex = index;
-            sourceRectangle = CalculateSourceRectangle(image, cellSize, index);
-        }
-
         public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex) : this(image,
             cellSize, renderSize, cellIndex, Color.White)
         {
@@ -44,6 +38,12 @@ namespace SolStandard.Utility
         public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex) : this(image, cellSize, cellIndex,
             Color.White)
         {
+        }
+
+        public void SetCellIndex(int index)
+        {
+            cellIndex = index;
+            sourceRectangle = CalculateSourceRectangle(image, cellSize, index);
         }
 
         private static Rectangle CalculateSourceRectangle(ITexture2D image, Vector2 cellSize, int cellIndex)

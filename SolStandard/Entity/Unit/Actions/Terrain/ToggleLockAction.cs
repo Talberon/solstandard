@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             this.key = key;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             ILockable targetUnlockable = targetSlice.TerrainEntity as ILockable;
 
@@ -47,12 +47,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Key doesn't work here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

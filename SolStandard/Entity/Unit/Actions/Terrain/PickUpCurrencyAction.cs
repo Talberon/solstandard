@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             this.currency = currency;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (SelectingItemAtUnitLocation(targetSlice))
             {
@@ -33,12 +33,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

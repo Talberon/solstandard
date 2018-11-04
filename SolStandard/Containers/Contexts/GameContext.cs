@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
-using SolStandard.Map.Elements;
-using SolStandard.Utility;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
 
 namespace SolStandard.Containers.Contexts
 {
-    public class GameContext
+    public static class GameContext
     {
         public enum GameState
         {
@@ -31,21 +30,86 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
-        private readonly BattleContext battleContext;
+        public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
-        public GameMapContext GameMapContext { get; private set; }
-        public StatusUI StatusUI { get; private set; }
-        public MainMenuUI MainMenuUI { get; private set; }
-        public static int TurnCounter { get; private set; }
-        public static int RoundCounter { get; private set; }
-        private float oldZoom;
+        public static GameMapContext GameMapContext { get; private set; }
+        public static InitiativeContext InitiativeContext { get; private set; }
+        public static StatusScreenView StatusScreenView { get; private set; }
+        public static MainMenuView MainMenuView { get; private set; }
+        private static float _oldZoom;
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
 
-        private static InitiativeContext InitiativeContext { get; set; }
+        private const string MapDirectory = "Content/TmxMaps/";
+        private const string MapSelectFile = "Map_Select_02.tmx";
 
+        public static void Initialize(MainMenuView mainMenuView)
+        {
+            MainMenuView = mainMenuView;
+
+            BattleContext = new BattleContext(new BattleView());
+
+            LoadMapSelect();
+
+            CurrentGameState = GameState.MainMenu;
+            _oldZoom = MapCamera.CurrentZoom;
+
+            ActivePlayer = PlayerIndex.One;
+        }
+
+        public static MapCursor MapCursor
+        {
+            get
+            {
+                switch (CurrentGameState)
+                {
+                    case GameState.MainMenu:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.ModeSelect:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.ArmyDraft:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.MapSelect:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.PauseScreen:
+                        return GameMapContext.MapContainer.MapCursor;
+                    case GameState.InGame:
+                        return GameMapContext.MapContainer.MapCursor;
+                    case GameState.Results:
+                        return GameMapContext.MapContainer.MapCursor;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public static MapCamera MapCamera
+        {
+            get
+            {
+                switch (CurrentGameState)
+                {
+                    case GameState.MainMenu:
+                        return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.ModeSelect:
+                        return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.ArmyDraft:
+                        return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.MapSelect:
+                        return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.PauseScreen:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.InGame:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.Results:
+                        return GameMapContext.MapContainer.MapCamera;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         public static List<GameUnit> Units
         {
@@ -57,50 +121,11 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public BattleContext BattleContext
-        {
-            get { return battleContext; }
-        }
-
-        public GameContext(MainMenuUI mainMenuUI)
-        {
-            battleContext = new BattleContext(new BattleUI());
-            MainMenuUI = mainMenuUI;
-
-            LoadMapSelect();
-
-            CurrentGameState = GameState.MainMenu;
-            oldZoom = MapCamera.CurrentZoom;
-        }
-
-        public static void LoadMapSelect()
-        {
-            const string mapFile = "Map_Select_02.tmx";
-            const string mapSelectPath = "Content/TmxMaps/" + mapFile;
-
-            TmxMapParser mapParser = new TmxMapParser(
-                new TmxMap(mapSelectPath),
-                AssetManager.OverworldTexture,
-                AssetManager.EntitiesTexture,
-                AssetManager.UnitSprites,
-                GameDriver.TmxObjectTypeDefaults);
-
-            MapSelectContext = new MapSelectContext(new SelectMapUI(),
-                new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
-
-            LoadInitiativeContext(mapParser);
-
-            CurrentGameState = GameState.MapSelect;
-        }
-
-        public void StartGame(string mapPath, Scenario scenario)
+        public static void StartGame(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
 
             LoadMap(mapPath);
-
-            TurnCounter = 1;
-            RoundCounter = 1;
 
             foreach (GameUnit unit in Units)
             {
@@ -109,17 +134,41 @@ namespace SolStandard.Containers.Contexts
 
             ActiveUnit.ActivateUnit();
             GameMapContext.ResetCursorToActiveUnit();
-            MapCamera.SnapCameraCenterToCursor();
+            MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             GameMapContext.EndTurn();
 
             GameMapContext.UpdateWindowsEachTurn();
-            StatusUI.UpdateWindows();
+            StatusScreenView.UpdateWindows();
 
             CurrentGameState = GameState.InGame;
         }
 
-        private void LoadMap(string mapPath)
+        public static void LoadMapSelect()
         {
+            const string mapPath = MapDirectory + MapSelectFile;
+
+            TmxMapParser mapParser = new TmxMapParser(
+                new TmxMap(mapPath),
+                AssetManager.OverworldTexture,
+                AssetManager.EntitiesTexture,
+                AssetManager.UnitSprites,
+                GameDriver.TmxObjectTypeDefaults);
+
+            MapSelectContext = new MapSelectContext(new MapSelectScreenView(),
+                new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
+
+            MapCursor.SnapCursorToCoordinates(MapSelectContext.MapCenter);
+            MapCamera.CenterCameraToCursor();
+
+            LoadInitiativeContext(mapParser);
+
+            CurrentGameState = GameState.MapSelect;
+        }
+
+        private static void LoadMap(string mapFile)
+        {
+            string mapPath = MapDirectory + mapFile;
+
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
                 AssetManager.OverworldTexture,
@@ -128,24 +177,25 @@ namespace SolStandard.Containers.Contexts
                 GameDriver.TmxObjectTypeDefaults
             );
 
-            LoadMapContainer(mapParser);
+            LoadMapContext(mapParser);
             LoadInitiativeContext(mapParser);
             LoadStatusUI();
         }
 
-        private void LoadStatusUI()
+        private static void LoadStatusUI()
         {
-            StatusUI = new StatusUI();
+            StatusScreenView = new StatusScreenView();
         }
 
-        private void LoadMapContainer(TmxMapParser mapParser)
+        private static void LoadMapContext(TmxMapParser mapParser)
         {
             ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
 
             GameMapContext = new GameMapContext(
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
-                new GameMapUI(GameDriver.ScreenSize)
+                new GameMapView()
             );
+
         }
 
         private static void LoadInitiativeContext(TmxMapParser mapParser)
@@ -162,81 +212,10 @@ namespace SolStandard.Containers.Contexts
                 new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
         }
 
-
-        public void SelectUnitAndStartMoving()
+        public static void UpdateCamera()
         {
-            if (!TrySelectUnit()) return;
-            StartMoving();
-            AssetManager.MapUnitSelectSFX.Play();
-        }
+            MapCamera.UpdateEveryFrame();
 
-        public void FinishMoving()
-        {
-            if (GameMapContext.OtherUnitExistsAtCursor() || MapContainer.GetMapSliceAtCursor().DynamicEntity == null)
-            {
-                MapContainer.AddNewToastAtMapCursor("Cannot end move on this space!", 50);
-                AssetManager.WarningSFX.Play();
-                return;
-            }
-
-            GameMapContext.ProceedToNextState();
-
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapContext.SelectedUnit.SetUnitAnimation(UnitSprite.UnitAnimationState.Idle);
-            AssetManager.MapUnitSelectSFX.Play();
-
-            GameMapContext.GameMapUI.GenerateActionMenu();
-            GameMapContext.GenerateActionPreviewGrid();
-        }
-
-        public void ExecuteAction()
-        {
-            ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor(), GameMapContext, battleContext);
-        }
-
-        public void CancelAction()
-        {
-            ActiveUnit.CancelArmedSkill(GameMapContext);
-            GameMapContext.ResetCursorToActiveUnit();
-            GameMapContext.GameMapUI.GenerateActionMenu();
-        }
-
-        public void ContinueCombat()
-        {
-            switch (BattleContext.CurrentState)
-            {
-                case BattleContext.BattleState.Start:
-                    if (BattleContext.TryProceedToState(BattleContext.BattleState.RollDice))
-                    {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        BattleContext.StartRollingDice();
-                    }
-
-                    break;
-                case BattleContext.BattleState.RollDice:
-                    if (BattleContext.TryProceedToState(BattleContext.BattleState.ResolveCombat))
-                    {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        BattleContext.StartResolvingBlocks();
-                    }
-
-                    break;
-                case BattleContext.BattleState.ResolveCombat:
-                    if (BattleContext.TryProceedToState(BattleContext.BattleState.Start))
-                    {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        GameMapContext.ProceedToNextState();
-                    }
-
-                    break;
-                default:
-                    GameMapContext.ProceedToNextState();
-                    return;
-            }
-        }
-
-        public void UpdateCamera(MapCamera mapCamera)
-        {
             if (CurrentGameState != GameState.InGame) return;
 
             switch (GameMapContext.CurrentTurnState)
@@ -248,117 +227,18 @@ namespace SolStandard.Containers.Contexts
                 case GameMapContext.TurnState.UnitDecidingAction:
                     break;
                 case GameMapContext.TurnState.UnitTargeting:
-                    oldZoom = MapCamera.CurrentZoom;
+                    _oldZoom = MapCamera.CurrentZoom;
                     break;
                 case GameMapContext.TurnState.UnitActing:
                     const float combatZoom = 4;
-                    mapCamera.ZoomToCursor(combatZoom);
+                    GameMapContext.MapContainer.MapCamera.ZoomToCursor(combatZoom);
                     break;
                 case GameMapContext.TurnState.ResolvingTurn:
-                    mapCamera.ZoomToCursor(oldZoom);
+                    GameMapContext.MapContainer.MapCamera.ZoomToCursor(_oldZoom);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public void ResolveTurn()
-        {
-            Scenario.CheckForWinState(this);
-
-            GameMapContext.ConfirmPromptWindow();
-            ActiveUnit.DisableExhaustedUnit();
-            InitiativeContext.PassTurnToNextUnit();
-            ActiveUnit.ActivateUnit();
-            GameMapContext.UpdateWindowsEachTurn();
-            GameMapContext.ResetCursorToActiveUnit();
-            MapCamera.CenterCameraToCursor();
-
-            GameMapContext.EndTurn();
-
-            UpdateTurnCounters();
-
-            if (!Units.TrueForAll(unit => unit.Stats.Hp <= 0))
-            {
-                EndTurnIfUnitIsDead();
-            }
-
-            StatusUI.UpdateWindows();
-
-            AssetManager.MapUnitSelectSFX.Play();
-        }
-
-        private static void UpdateTurnCounters()
-        {
-            TurnCounter++;
-
-            if (TurnCounter <= Units.Count) return;
-
-            TurnCounter = 1;
-            RoundCounter++;
-        }
-
-
-        public void CancelMove()
-        {
-            GameMapContext.CancelMovement();
-            AssetManager.MapUnitCancelSFX.Play();
-        }
-
-        private void EndTurnIfUnitIsDead()
-        {
-            if (GameMapContext.CurrentTurnState == GameMapContext.TurnState.SelectUnit && ActiveUnit.UnitEntity == null)
-            {
-                ResolveTurn();
-            }
-        }
-
-        private void StartMoving()
-        {
-            if (GameMapContext.SelectedUnit != null)
-            {
-                Trace.WriteLine("Selecting unit: " + GameMapContext.SelectedUnit.Team + " " +
-                                GameMapContext.SelectedUnit.Role);
-                GameMapContext.ProceedToNextState();
-                GameMapContext.GenerateMoveGrid(
-                    MapContainer.MapCursor.MapCoordinates,
-                    GameMapContext.SelectedUnit,
-                    new SpriteAtlas(
-                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize),
-                        (int) MapDistanceTile.TileType.Movement
-                    )
-                );
-
-                MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
-                    .GenerateTargetingGrid(
-                        GameMapContext.SelectedUnit.UnitEntity.MapCoordinates,
-                        GameMapContext.SelectedUnit.Stats.AtkRange,
-                        Layer.Preview
-                    );
-            }
-            else
-            {
-                Trace.WriteLine("No unit to select.");
-            }
-        }
-
-        private bool TrySelectUnit()
-        {
-            //Select the unit. Store it somewhere.
-            GameMapContext.SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
-
-            //If the entity selected isn't the active unit, don't select it.
-            if (GameMapContext.SelectedUnit != ActiveUnit)
-            {
-                GameMapContext.SelectedUnit = null;
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("Not the active unit!",50);
-                return false;
-            }
-
-            return true;
         }
     }
 }

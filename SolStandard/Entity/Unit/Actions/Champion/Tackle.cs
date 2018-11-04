@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         {
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -42,19 +42,19 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                         new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetOriginalPosition)
                     );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit, gameMapContext, battleContext));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

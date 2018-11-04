@@ -13,12 +13,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 {
     public class Blink : UnitAction
     {
-        private static readonly int[] BlinkRange = {1, 2, 3, 4};
+        private static readonly int[] BlinkRange = {2, 3};
 
         public Blink() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
             name: "Blink",
-            description: "Move to an unoccupied space within " + BlinkRange.Max() + "spaces.",
+            description: "Move to an unoccupied space within [" + BlinkRange.Min() + "-" + BlinkRange.Max() +
+                         "] spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: BlinkRange
         )
@@ -52,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (CanMoveToTargetTile(targetSlice))
             {
@@ -61,20 +62,20 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new HideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
                     GameContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates
                 ));
-                eventQueue.Enqueue(new UnhideUnitEvent(ref targetEntity));
+                eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't blink here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

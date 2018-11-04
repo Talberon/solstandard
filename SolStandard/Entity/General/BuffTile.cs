@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -9,26 +10,23 @@ namespace SolStandard.Entity.General
 {
     public class BuffTile : TerrainEntity
     {
-        private static readonly Dictionary<StatIcons, StatIcons> StatToBonusStatDictionary =
-            new Dictionary<StatIcons, StatIcons>
-            {
-                {StatIcons.Hp, StatIcons.BonusHp},
-                {StatIcons.Atk, StatIcons.BonusAtk},
-                {StatIcons.Def, StatIcons.BonusDef},
-                {StatIcons.Mv, StatIcons.BonusMv},
-                {StatIcons.AtkRange, StatIcons.BonusAtkRange}
-            };
-
-        private readonly int modifier;
-        private readonly StatIcons buffStat;
+        public Stats BuffStat { get; private set; }
+        public int Modifier { get; private set; }
         private readonly bool canMove;
 
+        private static readonly Dictionary<string, Stats> BonusStatDictionary =
+            new Dictionary<string, Stats>
+            {
+                {"ATK", Stats.Atk},
+                {"DEF", Stats.Armor},
+            };
+
         public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, int modifier, StatIcons buffStat, bool canMove) : base(name,
+            Dictionary<string, string> tiledProperties, int modifier, string buffStat, bool canMove) : base(name,
             type, sprite, mapCoordinates, tiledProperties)
         {
-            this.modifier = modifier;
-            this.buffStat = buffStat;
+            Modifier = modifier;
+            BuffStat = BonusStatDictionary[buffStat];
             this.canMove = canMove;
         }
 
@@ -44,16 +42,27 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatToBonusStatDictionary[buffStat]),
-                            new RenderText(AssetManager.WindowFont, buffStat.ToString().ToUpper() + ": +" + modifier.ToString()),
+                            new WindowContentGrid(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        UnitStatistics.GetSpriteAtlas(BuffStat),
+                                        new RenderText(AssetManager.WindowFont, ": +" + Modifier),
+                                        UnitStatistics.GetSpriteAtlas(Stats.Luck)
+                                    }
+                                },
+                                0
+                            ),
+                            new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
                                 (canMove) ? PositiveColor : NegativeColor)
                         }
                     },
-                    3
+                    3,
+                    HorizontalAlignment.Centered
                 );
             }
         }

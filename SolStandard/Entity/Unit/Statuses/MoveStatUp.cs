@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -10,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public MoveStatUp(int turnDuration, int mvModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
-            name: "MV Up!",
+            name: UnitStatistics.Abbreviation[Stats.Mv] + " Up!",
             description: "Increased movement distance.",
             turnDuration: turnDuration
         )
@@ -22,6 +23,12 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             target.Stats.Mv += mvModifier;
             target.UnitEntity.UnitSprite.SetFrameDelay(FrameDelay);
+
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                Name,
+                50
+            );
         }
 
 

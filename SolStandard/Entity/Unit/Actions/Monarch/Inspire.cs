@@ -19,8 +19,8 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
         public Inspire(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
             name: "Inspire",
-            description: "Grant a buff that increases an ally's ATK by [+" + statModifier + "] for [" + duration +
-                         " ] turns.",
+            description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
+                         " by [+" + statModifier + "] for [" + duration + " ] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
             this.duration = duration;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -38,13 +38,13 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkStatUp(duration, statModifier)));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new LuckStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

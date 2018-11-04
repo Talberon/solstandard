@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options
 {
@@ -22,8 +21,6 @@ namespace SolStandard.HUD.Menu.Options
         private Window.Window BuildOptionWindow()
         {
             return new Window.Window(
-                "Option",
-                AssetManager.WindowTexture,
                 labelContent,
                 color,
                 HorizontalAlignment.Left

@@ -41,13 +41,13 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.AtkRange),
+                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                             new RenderText(AssetManager.WindowFont,
-                                "Range:" + string.Format("[{0}]", string.Join(",", AtkRange))
+                                "Range: " + string.Format("[{0}]", string.Join(",", AtkRange))
                             )
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
                         }

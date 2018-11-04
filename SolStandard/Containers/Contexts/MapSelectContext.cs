@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
-using SolStandard.Containers.UI;
+using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -11,18 +11,24 @@ namespace SolStandard.Containers.Contexts
 {
     public class MapSelectContext
     {
-        public readonly SelectMapUI SelectMapUI;
+        public readonly MapSelectScreenView MapSelectScreenView;
         public readonly MapContainer MapContainer;
 
-        public MapSelectContext(SelectMapUI selectMapUI, MapContainer mapContainer)
+        public MapSelectContext(MapSelectScreenView mapSelectScreenView, MapContainer mapContainer)
         {
-            SelectMapUI = selectMapUI;
+            MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
-            Vector2 mapCenter = new Vector2(
-                (float) Math.Round(MapContainer.MapGridSize.X / 2),
-                (float) Math.Round(MapContainer.MapGridSize.Y / 2)
-            );
-            MapContainer.MapCursor.SnapCursorToCoordinates(mapCenter);
+        }
+
+        public Vector2 MapCenter
+        {
+            get
+            {
+                return new Vector2(
+                    (float) Math.Round(MapContainer.MapGridSize.X / 2),
+                    (float) Math.Round(MapContainer.MapGridSize.Y / 2)
+                );
+            }
         }
 
         public void HoverOverEntity()
@@ -31,11 +37,11 @@ namespace SolStandard.Containers.Contexts
 
             if (CursorAtMapSelectFeature(cursorSlice))
             {
-                SelectMapUI.UpdateMapInfoWindow(cursorSlice.TerrainEntity.TerrainInfo);
+                MapSelectScreenView.UpdateMapInfoWindow(cursorSlice.TerrainEntity.TerrainInfo);
             }
             else
             {
-                SelectMapUI.UpdateMapInfoWindow(null);
+                MapSelectScreenView.UpdateMapInfoWindow(null);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Map.Elements;
@@ -24,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             this.item = item;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             TerrainEntity itemTile = item as TerrainEntity;
 
@@ -33,12 +32,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new DropItemEvent(itemTile, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

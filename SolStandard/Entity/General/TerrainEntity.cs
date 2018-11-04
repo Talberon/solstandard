@@ -49,7 +49,8 @@ namespace SolStandard.Entity.General
 
             NameText = new RenderText(AssetManager.HeaderFont, Name);
             TypeText = new RenderText(AssetManager.WindowFont, "[" + Type + "]");
-            InfoHeader = new Window("InfoHeader", AssetManager.WindowTexture, new WindowContentGrid(
+            InfoHeader = new Window(
+                new WindowContentGrid(
                     new[,]
                     {
                         {
@@ -81,7 +82,7 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(StatIcons.Mv),
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
                         }

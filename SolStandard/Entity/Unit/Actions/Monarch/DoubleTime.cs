@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
             this.duration = duration;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -37,13 +37,13 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new MoveStatUp(duration, statModifier)));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

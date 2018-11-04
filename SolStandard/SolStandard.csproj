@@ -43,13 +43,12 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
-    <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
-    <Compile Include="Containers\Contexts\Scenario.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
     <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Scenario.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Objective.cs" />
@@ -60,12 +59,12 @@
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
-    <Compile Include="Containers\UI\BattleUI.cs" />
-    <Compile Include="Containers\UI\MainMenuUI.cs" />
-    <Compile Include="Containers\UI\GameMapUI.cs" />
-    <Compile Include="Containers\UI\PauseMenuUI.cs" />
-    <Compile Include="Containers\UI\StatusUI.cs" />
-    <Compile Include="Containers\UI\SelectMapUI.cs" />
+    <Compile Include="Containers\View\BattleView.cs" />
+    <Compile Include="Containers\View\MainMenuView.cs" />
+    <Compile Include="Containers\View\GameMapView.cs" />
+    <Compile Include="Containers\View\PauseScreenView.cs" />
+    <Compile Include="Containers\View\StatusScreenView.cs" />
+    <Compile Include="Containers\View\MapSelectScreenView.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
@@ -85,9 +84,18 @@
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
+    <Compile Include="Entity\General\TrapEntity.cs" />
+    <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\LayTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
+    <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Guard.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
+    <Compile Include="Entity\Unit\Actions\Monarch\Bulwark.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
@@ -97,7 +105,6 @@
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
-    <Compile Include="Entity\Unit\Actions\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\DropItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
@@ -114,8 +121,10 @@
     <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\DefStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
+    <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
@@ -134,14 +143,21 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
-    <Compile Include="HUD\Menu\OptionDescription.cs" />
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
+    <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />
+    <Compile Include="HUD\Window\Content\Combat\CombatDamage.cs" />
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
     <Compile Include="HUD\Window\Content\Combat\Die.cs" />
+    <Compile Include="HUD\Window\Content\Combat\ICombatPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\ArmorPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
-    <Compile Include="HUD\Window\Content\Health\HealthPip.cs" />
+    <Compile Include="HUD\Window\Content\Health\BarPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\IHealthBar.cs" />
+    <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\HeartPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\MiniHealthBar.cs" />
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
@@ -189,7 +205,7 @@
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\CastBuffEvent.cs" />
+    <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />
     <Compile Include="Utility\Events\DropItemEvent.cs" />
     <Compile Include="Utility\Events\EndTurnEvent.cs" />
@@ -199,8 +215,10 @@
     <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
+    <Compile Include="Utility\Events\PlaceEntityOnMapEvent.cs" />
     <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\PushBlockEvent.cs" />
+    <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
     <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
@@ -293,6 +311,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Castle_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Chesslike_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -324,6 +345,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Village_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

@@ -52,7 +52,7 @@ namespace SolStandard.HUD.Menu
 
             WindowContentGrid optionsContent = new WindowContentGrid(optionWindows, Padding);
 
-            return new Window.Window("VerticalMenu", AssetManager.WindowTexture, optionsContent, backgroundColor);
+            return new Window.Window(optionsContent, backgroundColor);
         }
 
         private static void ResizeOptionsToWidestWidth(MenuOption[] options)

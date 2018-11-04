@@ -6,7 +6,7 @@ namespace SolStandard.Utility.Events
     {
         private readonly UnitEntity unit;
 
-        public HideUnitEvent(ref UnitEntity unit)
+        public HideUnitEvent(UnitEntity unit)
         {
             this.unit = unit;
         }

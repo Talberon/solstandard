@@ -33,11 +33,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) tileCoordinates.X, (int) tileCoordinates.Y] =
                 new MapDistanceTile(TileSprite, tileCoordinates, 0, false);
-            MapContainer.MapCursor.SnapCursorToCoordinates(tileCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(tileCoordinates);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
-            BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (SelectingTileAtUnitLocation(targetSlice))
             {
@@ -48,18 +47,18 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new SeizeObjectiveEvent(GameContext.ActiveUnit.Team));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                    eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

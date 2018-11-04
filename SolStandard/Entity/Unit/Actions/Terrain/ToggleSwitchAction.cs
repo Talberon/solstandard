@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -12,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
     public class ToggleSwitchAction : UnitAction
     {
         private readonly List<ILockable> targetLockables;
-        private Switch switchTile;
+        private readonly Switch switchTile;
 
         public ToggleSwitchAction(Switch switchTile, List<ILockable> targetLockables) : base(
             icon: switchTile.RenderSprite,
@@ -26,8 +28,15 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             this.targetLockables = targetLockables;
         }
 
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            MapContainer.GameGrid[(int) mapLayer][(int) switchTile.MapCoordinates.X, (int) switchTile.MapCoordinates.Y] =
+                new MapDistanceTile(TileSprite, switchTile.MapCoordinates, 0, false);
+            
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(switchTile.MapCoordinates);
+        }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (TargetingSwitch(targetSlice) && NothingObstructingSwitchTarget())
             {
@@ -41,19 +50,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
                 if (!TargetingSwitch(targetSlice))
                 {
-                    MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
                 }
 
                 if (!NothingObstructingSwitchTarget())
                 {
-                    MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
                 }
 
                 AssetManager.WarningSFX.Play();

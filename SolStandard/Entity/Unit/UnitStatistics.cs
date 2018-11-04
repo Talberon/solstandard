@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility;
@@ -6,99 +7,94 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit
 {
-    public enum StatIcons
+    public enum Stats
     {
         None,
         Hp,
         Atk,
-        Def,
+        Armor,
         Mv,
         AtkRange,
-        BonusHp,
-        BonusAtk,
-        BonusDef,
-        BonusMv,
-        BonusAtkRange
+        EmptyHp,
+        Luck,
+        EmptyArmor,
+        Positive,
+        Negative
     }
 
     public class UnitStatistics
     {
-        private readonly int maxHp;
-        private readonly int baseAtk;
-        private readonly int baseDef;
-        private readonly int baseMv;
-        private readonly int[] baseAtkRange;
+        public static readonly Dictionary<Stats, string> Abbreviation = new Dictionary<Stats, string>
+        {
+            {Stats.Hp, "HP"},
+            {Stats.Atk, "ATK"},
+            {Stats.Armor, "AMR"},
+            {Stats.Mv, "MV"},
+            {Stats.AtkRange, "RNG"},
+            {Stats.Luck, "LCK"}
+        };
 
 
-        public UnitStatistics(int hp, int atk, int def, int mv, int[] atkRange)
+        private const int IconSizePixels = 16;
+
+        public int MaxHp { get; private set; }
+        public int MaxArmor { get; private set; }
+        public int BaseAtk { get; private set; }
+        public int BaseLuck { get; set; }
+        public int BaseMv { get; private set; }
+        public int[] BaseAtkRange { get; private set; }
+
+        public int Hp { get; set; }
+        public int Atk { get; set; }
+        public int Armor { get; set; }
+        public int Luck { get; set; }
+        public int Mv { get; set; }
+        public int[] AtkRange { get; set; }
+
+        public UnitStatistics(int hp, int armor, int atk, int luck, int mv, int[] atkRange)
         {
             Hp = hp;
+            Armor = armor;
             Atk = atk;
-            Def = def;
+            Luck = luck;
             Mv = mv;
             AtkRange = atkRange;
 
-            maxHp = hp;
-            baseAtk = atk;
-            baseDef = def;
-            baseMv = mv;
-            baseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
+            MaxHp = hp;
+            MaxArmor = armor;
+            BaseAtk = atk;
+            BaseLuck = luck;
+            BaseMv = mv;
+            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
 
-        public int MaxHp
+
+        public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
-            get { return maxHp; }
+            return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
         }
 
-        public int BaseAtk
+        public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
-            get { return baseAtk; }
-        }
-
-        public int BaseDef
-        {
-            get { return baseDef; }
-        }
-
-        public int BaseMv
-        {
-            get { return baseMv; }
-        }
-
-        public int[] BaseAtkRange
-        {
-            get { return baseAtkRange; }
-        }
-
-        public int Hp { get; set; }
-
-        public int Atk { get; set; }
-
-        public int Def { get; set; }
-
-        public int Mv { get; set; }
-
-        public int[] AtkRange { get; set; }
-
-
-        public static SpriteAtlas GetSpriteAtlas(StatIcons stat)
-        {
-            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(GameDriver.CellSize), (int) stat);
+            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(IconSizePixels), size, (int) stat);
         }
 
         public override string ToString()
         {
             string output = "";
 
-            output += "HP: " + Hp.ToString() + "/" + maxHp;
+            output += Abbreviation[Stats.Hp] + ": " + Hp.ToString() + "/" + MaxHp;
             output += Environment.NewLine;
-            output += "ATK: " + Atk.ToString() + "/" + baseAtk;
+            output += Abbreviation[Stats.Armor] + ": " + Armor.ToString() + "/" + MaxArmor;
             output += Environment.NewLine;
-            output += "DEF: " + Def.ToString() + "/" + baseDef;
+            output += Abbreviation[Stats.Atk] + ": " + Atk.ToString() + "/" + BaseAtk;
             output += Environment.NewLine;
-            output += "MV: " + Mv.ToString() + "/" + baseMv;
+            output += Abbreviation[Stats.Luck] + ": " + Luck.ToString() + "/" + BaseLuck;
             output += Environment.NewLine;
-            output += string.Format("RNG: [{0}]/[{1}]", string.Join(",", AtkRange), string.Join(",", baseAtkRange));
+            output += Abbreviation[Stats.Mv] + ": " + Mv.ToString() + "/" + BaseMv;
+            output += Environment.NewLine;
+            output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", AtkRange),
+                string.Join(",", BaseAtkRange));
 
             return output;
         }

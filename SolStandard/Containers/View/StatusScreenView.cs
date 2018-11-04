@@ -7,11 +7,10 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Containers.View
 {
-    public class StatusUI : IUserInterface
+    public class StatusScreenView : IUserInterface
     {
         private const int WindowEdgeBuffer = 5;
         private const int WindowPadding = 10;
@@ -33,15 +32,12 @@ namespace SolStandard.Containers.UI
         public string RedTeamResultText { private get; set; }
         public IRenderable ResultLabelContent { private get; set; }
 
-        private readonly ITexture2D windowTexture;
-
         public bool Visible { get; private set; }
 
         private readonly SpriteAtlas background;
 
-        public StatusUI()
+        public StatusScreenView()
         {
-            windowTexture = AssetManager.WindowTexture;
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
             ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
@@ -67,7 +63,7 @@ namespace SolStandard.Containers.UI
 
         private void GenerateResultsLabelWindow()
         {
-            ResultsLabelWindow = new Window("Versus Window", windowTexture, ResultLabelContent, BackgroundColor);
+            ResultsLabelWindow = new Window(ResultLabelContent, BackgroundColor);
         }
 
         private void GenerateBlueTeamLeaderPortraitWindow()
@@ -75,8 +71,6 @@ namespace SolStandard.Containers.UI
             IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Monarch));
 
             BlueTeamLeaderPortrait = new Window(
-                "Blue Leader Portrait Window",
-                windowTexture,
                 new WindowContentGrid(blueLeaderContent, 1),
                 TeamUtility.DetermineTeamColor(Team.Blue)
             );
@@ -85,8 +79,6 @@ namespace SolStandard.Containers.UI
         private void GenerateBlueTeamUnitRosterWindow()
         {
             BlueTeamUnitRoster = new Window(
-                "Blue Team Roster",
-                windowTexture,
                 new WindowContentGrid(GenerateUnitRoster(Team.Blue), 2),
                 BackgroundColor
             );
@@ -95,8 +87,6 @@ namespace SolStandard.Containers.UI
         private void GenerateBlueTeamResultWindow(string windowText)
         {
             BlueTeamResult = new Window(
-                "Blue Team Result Window",
-                windowTexture,
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
@@ -115,8 +105,6 @@ namespace SolStandard.Containers.UI
             IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Monarch));
 
             RedTeamLeaderPortrait = new Window(
-                "Red Leader Portrait Window",
-                windowTexture,
                 new WindowContentGrid(redLeaderContent, 1),
                 TeamUtility.DetermineTeamColor(Team.Red)
             );
@@ -125,8 +113,6 @@ namespace SolStandard.Containers.UI
         private void GenerateRedTeamUnitRosterWindow()
         {
             RedTeamUnitRoster = new Window(
-                "Red Team Roster",
-                windowTexture,
                 new WindowContentGrid(GenerateUnitRoster(Team.Red), 2),
                 BackgroundColor
             );
@@ -135,8 +121,6 @@ namespace SolStandard.Containers.UI
         private void GenerateRedTeamResultWindow(string windowText)
         {
             RedTeamResult = new Window(
-                "Red Team Result Window",
-                windowTexture,
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
@@ -173,7 +157,7 @@ namespace SolStandard.Containers.UI
 
             IRenderable[,] unitRosterGrid = new IRenderable[1, teamUnits.Count];
 
-            const int unitListHealthBarHeight = 10;
+            const int unitListHealthBarHeight = 20;
             int listPosition = 0;
 
 
@@ -195,8 +179,6 @@ namespace SolStandard.Containers.UI
                     },
                     {
                         new Window(
-                            "Unit Gold",
-                            AssetManager.WindowTexture,
                             new WindowContentGrid(
                                 new IRenderable[,]
                                 {
@@ -213,8 +195,6 @@ namespace SolStandard.Containers.UI
                 };
 
                 IRenderable singleUnitContent = new Window(
-                    "Unit " + unit.Id + " Window",
-                    windowTexture,
                     new WindowContentGrid(unitContent, 2, HorizontalAlignment.Centered),
                     TeamUtility.DetermineTeamColor(unit.Team)
                 );

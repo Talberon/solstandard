@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
         private readonly int duration;
 
         public Draw(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(GameDriver.CellSize)),
             name: "Draw",
             description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             this.statModifier = statModifier;
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -38,13 +38,13 @@ namespace SolStandard.Entity.Unit.Actions.Archer
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastBuffEvent(ref targetUnit, new AtkRangeStatUp(duration, statModifier)));
-                eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkRangeStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

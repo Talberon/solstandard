@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Window
 {
@@ -13,8 +12,8 @@ namespace SolStandard.HUD.Window
         private static readonly Color ToastColor = new Color(40, 40, 40, 180);
 
 
-        public int MaxLifetimeInFrames { get; private set; }
-        public int CurrentLifetimeInFrames { get; private set; }
+        private int MaxLifetimeInFrames { get; set; }
+        private int CurrentLifetimeInFrames { get; set; }
 
         private readonly Window window;
 
@@ -25,7 +24,7 @@ namespace SolStandard.HUD.Window
 
         public ToastWindow(IRenderable windowContent, Vector2 originalCoordinates, int maxLifetimeInFrames)
         {
-            window = new Window("Toast Window", AssetManager.WindowTexture, windowContent, ToastColor);
+            window = new Window(windowContent, ToastColor);
             MaxLifetimeInFrames = maxLifetimeInFrames;
             this.originalCoordinates = originalCoordinates;
             CurrentLifetimeInFrames = 0;

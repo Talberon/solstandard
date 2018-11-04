@@ -11,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public AtkRangeStatUp(int turnDuration, int atkRangeModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkRangeUp, new Vector2(32)),
-            name: "Range Up!",
+            name: UnitStatistics.Abbreviation[Stats.AtkRange] + " Up!",
             description: "Increased attack range.",
             turnDuration: turnDuration
         )
@@ -29,6 +29,12 @@ namespace SolStandard.Entity.Unit.Statuses
                 int extraRange = GameContext.ActiveUnit.Stats.AtkRange.Max() + range;
                 GameContext.ActiveUnit.Stats.AtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
+
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                Name,
+                50
+            );
         }
 
         protected override void ExecuteEffect(GameUnit target)

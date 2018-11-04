@@ -28,30 +28,30 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return new RenderBlank(); }
         }
 
-        public abstract bool ConditionsMet(GameContext gameContext);
+        public abstract bool ConditionsMet();
 
-        public void EndGame(GameContext gameContext)
+        public void EndGame()
         {
-            gameContext.StatusUI.ResultLabelContent = VictoryLabelContent;
+            GameContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
 
             if (RedTeamWins)
             {
-                gameContext.StatusUI.RedTeamResultText = "RED TEAM WINS!";
-                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
+                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (BlueTeamWins)
             {
-                gameContext.StatusUI.BlueTeamResultText = "BLUE TEAM WINS!";
-                gameContext.StatusUI.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
+                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (GameIsADraw)
             {
-                gameContext.StatusUI.BlueTeamResultText = "DRAW...";
-                gameContext.StatusUI.RedTeamResultText = "DRAW...";
+                GameContext.StatusScreenView.BlueTeamResultText = "DRAW...";
+                GameContext.StatusScreenView.RedTeamResultText = "DRAW...";
                 TransferToResultsScreen();
             }
         }

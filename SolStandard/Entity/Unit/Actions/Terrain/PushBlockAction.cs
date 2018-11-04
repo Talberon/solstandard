@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -14,9 +15,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
     public class PushBlockAction : UnitAction
     {
         private readonly PushBlock pushBlock;
-        private readonly Vector2 itemCoordinates;
+        private readonly Vector2 blockCoordinates;
 
-        public PushBlockAction(PushBlock pushBlock, Vector2 itemCoordinates) : base(
+        public PushBlockAction(PushBlock pushBlock, Vector2 blockCoordinates) : base(
             icon: pushBlock.RenderSprite,
             name: "Push",
             description: "Push the target a tile away from your unit's position.",
@@ -25,17 +26,18 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         )
         {
             this.pushBlock = pushBlock;
-            this.itemCoordinates = itemCoordinates;
+            this.blockCoordinates = blockCoordinates;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) mapLayer][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
-                new MapDistanceTile(TileSprite, itemCoordinates, 0, false);
+            MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
+                new MapDistanceTile(TileSprite, blockCoordinates, 0, false);
+            
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(blockCoordinates);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext,
-            BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (SelectingPushBlockInRange(targetSlice))
             {
@@ -46,18 +48,18 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new PushBlockEvent(pushBlock));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                    eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

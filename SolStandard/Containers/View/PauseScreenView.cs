@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.PauseMenu;
@@ -9,9 +8,9 @@ using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Containers.UI
+namespace SolStandard.Containers.View
 {
-    public class PauseMenuUI : IUserInterface
+    public class PauseScreenView : IUserInterface
     {
         public enum PauseMenus
         {
@@ -27,7 +26,7 @@ namespace SolStandard.Containers.UI
         private PauseMenus currentMenu;
         private bool visible;
 
-        public PauseMenuUI(GameMapContext gameMapContext)
+        public PauseScreenView()
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
@@ -43,8 +42,8 @@ namespace SolStandard.Containers.UI
                     new ContinueOption(OptionsColor),
                     new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
-                    new EndTurnOption(OptionsColor, gameMapContext),
-                    new ConcedeOption(OptionsColor, gameMapContext),
+                    new EndTurnOption(OptionsColor),
+                    new ConcedeOption(OptionsColor),
                 },
                 cursorSprite,
                 OptionsColor

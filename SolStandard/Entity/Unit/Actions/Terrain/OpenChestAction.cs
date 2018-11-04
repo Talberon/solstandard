@@ -32,9 +32,11 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
+            
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
         }
 
-        public override void ExecuteAction(MapSlice targetSlice, GameMapContext gameMapContext, BattleContext battleContext)
+        public override void ExecuteAction(MapSlice targetSlice)
         {
             if (TargetIsUnopenedChest(targetSlice))
             {
@@ -47,18 +49,18 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     eventQueue.Enqueue(new WaitFramesEvent(5));
                     eventQueue.Enqueue(new IncreaseUnitGoldEvent(chest.Gold));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent(ref gameMapContext));
+                    eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
                     AssetManager.LockedSFX.Play();
                 }
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -13,14 +13,15 @@ namespace SolStandardTest.HUD.Window.Content.Health
             int hp = 5;
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
-            testHealthBar.DealDamage(1);
+            testHealthBar.Update(0, 1);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
+
         [TestMethod]
         public void TestDealMultipleDamageFromFull()
         {
@@ -28,15 +29,15 @@ namespace SolStandardTest.HUD.Window.Content.Health
             int hp = 5;
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
-            testHealthBar.DealDamage(3);
+            testHealthBar.Update(0, 3);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
-        
+
         [TestMethod]
         public void TestGenerateLessThanFullHp()
         {
@@ -45,13 +46,13 @@ namespace SolStandardTest.HUD.Window.Content.Health
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
-        
+
         [TestMethod]
         public void TestDealDamageFromLessThanFull()
         {
@@ -59,15 +60,15 @@ namespace SolStandardTest.HUD.Window.Content.Health
             int hp = 3;
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
-            testHealthBar.DealDamage(2);
+            testHealthBar.Update(0, 2);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
-        
+
         [TestMethod]
         public void TestDealDamageMoreThanFullFromFull()
         {
@@ -75,13 +76,13 @@ namespace SolStandardTest.HUD.Window.Content.Health
             int hp = 5;
             FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
 
-            testHealthBar.DealDamage(10);
+            testHealthBar.Update(0, 10);
             string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.Pips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[1].Active, pipsString);
-            Assert.IsFalse(testHealthBar.Pips[0].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
+            Assert.IsFalse(testHealthBar.HealthPips[0].Active, pipsString);
         }
     }
 }

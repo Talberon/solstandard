@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
             if (!openable.IsOpen)
             {
                 openable.Open();
-                GameMapContext.GameMapUI.GenerateObjectiveWindow();
+                GameMapContext.GameMapView.GenerateObjectiveWindow();
             }
             else
             {

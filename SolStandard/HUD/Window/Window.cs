@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 
@@ -17,10 +17,9 @@ namespace SolStandard.HUD.Window
 
     public class Window : IRenderable
     {
-        private readonly string windowName;
         private ITexture2D windowTexture;
         private readonly int windowCellSize;
-        private readonly WindowContentGrid windowContents;
+        private readonly IRenderable windowContents;
         private WindowCell[,] windowCells;
         private Color windowColor;
         private HorizontalAlignment HorizontalAlignment { get; set; }
@@ -28,25 +27,21 @@ namespace SolStandard.HUD.Window
         public bool Visible { get; set; }
 
 
-        public Window(string windowName, ITexture2D windowTexture, IRenderable windowContent, Color windowColor) :
-            this(windowName, windowTexture, windowContent, windowColor, Vector2.Zero)
+        public Window(IRenderable windowContent, Color windowColor) : this(windowContent, windowColor, Vector2.Zero)
         {
         }
 
-
-        public Window(string windowName, ITexture2D windowTexture, IRenderable windowContent, Color windowColor,
-            HorizontalAlignment horizontalAlignment) :
-            this(windowName, windowTexture, windowContent, windowColor, Vector2.Zero, horizontalAlignment)
+        public Window(IRenderable windowContent, Color windowColor, HorizontalAlignment horizontalAlignment) :
+            this(windowContent, windowColor, Vector2.Zero, horizontalAlignment)
         {
         }
 
-        public Window(string windowName, ITexture2D windowTexture, IRenderable windowContent, Color windowColor,
-            Vector2 pixelSizeOverride, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered)
+        public Window(IRenderable windowContent, Color windowColor, Vector2 pixelSizeOverride,
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered)
         {
-            this.windowTexture = windowTexture;
+            windowTexture = AssetManager.WindowTexture;
             this.windowColor = windowColor;
-            this.windowName = windowName;
-            windowContents = new WindowContentGrid(new[,] {{windowContent}}, 0);
+            windowContents = windowContent;
             windowCellSize = CalculateCellSize(windowTexture);
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
             windowCells = ConstructWindowCells(WindowPixelSize);
@@ -68,7 +63,7 @@ namespace SolStandard.HUD.Window
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
             Vector2 calculatedSize = new Vector2();
-            Vector2 contentGridSize = windowContents.GridSizeInPixels();
+            Vector2 contentGridSize = new Vector2(windowContents.Width, windowContents.Height);
 
             //Adjust for border
             int borderSize = windowCellSize * 2;
@@ -225,7 +220,8 @@ namespace SolStandard.HUD.Window
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X += ((float) Width / 2) - (windowContents.GridSizeInPixels().X / 2);
+            contentRenderCoordinates.X +=
+                ((float) Width / 2) - (new Vector2(windowContents.Width, windowContents.Height).X / 2);
             contentRenderCoordinates.X = (float) Math.Round(contentRenderCoordinates.X);
 
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
@@ -247,7 +243,8 @@ namespace SolStandard.HUD.Window
         private float VerticalCenterContent(Vector2 windowCoordinates)
         {
             float contentRenderCoordinates = windowCoordinates.Y;
-            contentRenderCoordinates += ((float) Height / 2) - (windowContents.GridSizeInPixels().Y / 2);
+            contentRenderCoordinates +=
+                ((float) Height / 2) - (new Vector2(windowContents.Width, windowContents.Height).Y / 2);
             return (float) Math.Round(contentRenderCoordinates);
         }
 
@@ -268,16 +265,11 @@ namespace SolStandard.HUD.Window
             {
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, ref windowTexture, coordinates, colorOverride);
+                    windowCell.Draw(spriteBatch, windowTexture, coordinates, colorOverride);
                 }
 
                 windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
             }
-        }
-
-        public override string ToString()
-        {
-            return "Window: " + windowName;
         }
     }
 }

@@ -108,22 +108,22 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(4, 4, 2, 4, new[] {2});
+            return new UnitStatistics(7, 4, 4, 3, 4, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(4, 4, 3, 5, new[] {1});
+            return new UnitStatistics(5, 9, 4, 1, 5, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(3, 5, 1, 4, new[] {1, 2});
+            return new UnitStatistics(8, 2, 5, 2, 4, new[] {1, 2});
         }
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(6, 3, 1, 3, new[] {1, 2});
+            return new UnitStatistics(20, 0, 4, 3, 4, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -131,9 +131,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new LayTrap(3, 3),
                 new Harpoon(2),
                 new Draw(2, 1),
-                new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -143,9 +144,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Cover(1, 2),
+                new Cover(3),
                 new Tackle(),
                 new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -155,8 +157,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new Ignite(3, 2),
+                new Atrophy(2, 1),
                 new Blink(),
-                new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -166,9 +170,9 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Inspire(2, 1),
+                new Inspire(2, 2),
                 new DoubleTime(1, 2),
-                new Shove(),
+                new Bulwark(2, 2),
                 new Wait()
             };
         }
