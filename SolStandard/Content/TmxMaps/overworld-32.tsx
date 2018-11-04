@@ -580,5 +580,85 @@
    <wangtile tileid="5762" wangid="0x1010102"/>
    <wangtile tileid="5763" wangid="0x2010101"/>
   </wangset>
+  <wangset name="Wall Brown Dungeon" tile="5688">
+   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangtile tileid="5645" wangid="0x2020202"/>
+   <wangtile tileid="5646" wangid="0x2020102"/>
+   <wangtile tileid="5647" wangid="0x1020102"/>
+   <wangtile tileid="5648" wangid="0x1020202"/>
+   <wangtile tileid="5685" wangid="0x2010202"/>
+   <wangtile tileid="5686" wangid="0x2010102"/>
+   <wangtile tileid="5687" wangid="0x1010202"/>
+   <wangtile tileid="5688" wangid="0x1010101"/>
+   <wangtile tileid="5725" wangid="0x2010201"/>
+   <wangtile tileid="5726" wangid="0x2020101"/>
+   <wangtile tileid="5727" wangid="0x1020201"/>
+   <wangtile tileid="5728" wangid="0x1020101"/>
+   <wangtile tileid="5765" wangid="0x2020201"/>
+   <wangtile tileid="5766" wangid="0x1010201"/>
+   <wangtile tileid="5767" wangid="0x1010102"/>
+   <wangtile tileid="5768" wangid="0x2010101"/>
+  </wangset>
+  <wangset name="RIver" tile="62">
+   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangtile tileid="20" wangid="0x2010202"/>
+   <wangtile tileid="21" wangid="0x2010102"/>
+   <wangtile tileid="22" wangid="0x1010102"/>
+   <wangtile tileid="23" wangid="0x1010202"/>
+   <wangtile tileid="60" wangid="0x2010201"/>
+   <wangtile tileid="61" wangid="0x2010101"/>
+   <wangtile tileid="62" wangid="0x1010101"/>
+   <wangtile tileid="63" wangid="0x1010201"/>
+   <wangtile tileid="100" wangid="0x2020201"/>
+   <wangtile tileid="101" wangid="0x2020101"/>
+   <wangtile tileid="102" wangid="0x1020101"/>
+   <wangtile tileid="103" wangid="0x1020201"/>
+   <wangtile tileid="140" wangid="0x2020202"/>
+   <wangtile tileid="141" wangid="0x2020102"/>
+   <wangtile tileid="142" wangid="0x1020102"/>
+   <wangtile tileid="143" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="Castle Wall" tile="455">
+   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangtile tileid="413" wangid="0x2010202"/>
+   <wangtile tileid="414" wangid="0x2010102"/>
+   <wangtile tileid="415" wangid="0x1010102"/>
+   <wangtile tileid="416" wangid="0x1010202"/>
+   <wangtile tileid="453" wangid="0x2010201"/>
+   <wangtile tileid="454" wangid="0x2010101"/>
+   <wangtile tileid="455" wangid="0x1010101"/>
+   <wangtile tileid="456" wangid="0x1010201"/>
+   <wangtile tileid="493" wangid="0x2020201"/>
+   <wangtile tileid="494" wangid="0x2020101"/>
+   <wangtile tileid="495" wangid="0x1020101"/>
+   <wangtile tileid="496" wangid="0x1020201"/>
+   <wangtile tileid="533" wangid="0x2020202"/>
+   <wangtile tileid="534" wangid="0x2020102"/>
+   <wangtile tileid="535" wangid="0x1020102"/>
+   <wangtile tileid="536" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="Countertop" tile="4490">
+   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangtile tileid="4448" wangid="0x2010202"/>
+   <wangtile tileid="4449" wangid="0x2010102"/>
+   <wangtile tileid="4450" wangid="0x1010102"/>
+   <wangtile tileid="4451" wangid="0x1010202"/>
+   <wangtile tileid="4488" wangid="0x2010201"/>
+   <wangtile tileid="4489" wangid="0x2010101"/>
+   <wangtile tileid="4490" wangid="0x1010101"/>
+   <wangtile tileid="4491" wangid="0x1010201"/>
+   <wangtile tileid="4528" wangid="0x2020201"/>
+   <wangtile tileid="4529" wangid="0x2020101"/>
+   <wangtile tileid="4530" wangid="0x1020101"/>
+   <wangtile tileid="4531" wangid="0x1020201"/>
+   <wangtile tileid="4568" wangid="0x2020202"/>
+   <wangtile tileid="4569" wangid="0x2020102"/>
+   <wangtile tileid="4570" wangid="0x1020102"/>
+   <wangtile tileid="4571" wangid="0x1020202"/>
+  </wangset>
  </wangsets>
 </tileset>

@@ -171,6 +171,7 @@ namespace SolStandard.Containers.Contexts
             {
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
                 MapContainer.MapCamera.CenterCameraToCursor();
+                AssetManager.MapUnitCancelSFX.Play();
             }
         }
 
@@ -185,6 +186,18 @@ namespace SolStandard.Containers.Contexts
             }
 
             AssetManager.MapUnitCancelSFX.Play();
+        }
+
+        public void CancelActionMenu()
+        {
+            if (CurrentTurnState == TurnState.UnitDecidingAction)
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+                GameMapView.CloseCombatMenu();
+
+                RevertToPreviousState();
+                CancelMove();
+            }
         }
 
         public void CancelAction()

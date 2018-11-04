@@ -18,6 +18,7 @@ namespace SolStandard.Map
         Terrain,
         TerrainDecoration,
         Collide,
+        Overlay,
         Entities,
         Items,
         Preview,
@@ -132,6 +133,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Terrain),
                 ObtainTilesFromLayer(Layer.TerrainDecoration),
                 ObtainTilesFromLayer(Layer.Collide),
+                ObtainTilesFromLayer(Layer.Overlay),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Entities"),
                 // ReSharper disable once CoVariantArrayConversion
