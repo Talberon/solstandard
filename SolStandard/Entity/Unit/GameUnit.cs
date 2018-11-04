@@ -254,7 +254,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
-                                            new RenderText(AssetManager.WindowFont, "HP: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
                                             new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
                                         }
                                     },
@@ -269,7 +270,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Armor),
-                                            new RenderText(AssetManager.WindowFont, "ARM: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Armor] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
                                                 Stats.Armor + "/" + Stats.MaxArmor
@@ -288,7 +290,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Atk),
-                                            new RenderText(AssetManager.WindowFont, "ATK: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Atk] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
                                                 Stats.Atk.ToString(),
@@ -306,7 +309,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Luck),
-                                            new RenderText(AssetManager.WindowFont, "LCK: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Luck] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
                                                 Stats.Luck.ToString(),
@@ -326,7 +330,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Mv),
-                                            new RenderText(AssetManager.WindowFont, "MV: "),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Mv] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
                                                 Stats.Mv.ToString(),
@@ -344,7 +349,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.AtkRange),
-                                            new RenderText(AssetManager.WindowFont, "RNG:"),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
                                                 string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
@@ -446,7 +452,7 @@ namespace SolStandard.Entity.Unit
             {
                 Stats.Armor += amountToRecover;
             }
-            
+
             healthbars.ForEach(bar => bar.Update(Stats.Armor, Stats.Hp));
         }
 

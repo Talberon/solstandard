@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -41,9 +42,18 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(BuffStat),
-                            new RenderText(AssetManager.WindowFont,
-                                UnitStatistics.Abbreviation[BuffStat] + ": +" + Modifier),
+                            new WindowContentGrid(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        UnitStatistics.GetSpriteAtlas(BuffStat),
+                                        new RenderText(AssetManager.WindowFont, ": +" + Modifier),
+                                        UnitStatistics.GetSpriteAtlas(Stats.Luck)
+                                    }
+                                },
+                                0
+                            ),
+                            new RenderBlank()
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),
@@ -51,7 +61,8 @@ namespace SolStandard.Entity.General
                                 (canMove) ? PositiveColor : NegativeColor)
                         }
                     },
-                    3
+                    3,
+                    HorizontalAlignment.Centered
                 );
             }
         }
