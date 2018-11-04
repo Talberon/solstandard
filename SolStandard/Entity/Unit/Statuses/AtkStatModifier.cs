@@ -1,17 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class AtkStatUp : StatusEffect
+    public class AtkStatModifier : StatusEffect
     {
         private readonly int atkModifier;
 
-        public AtkStatUp(int turnDuration, int atkModifier) : base(
-            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkUp,
-                new Vector2(GameDriver.CellSize)),
-            name: UnitStatistics.Abbreviation[Stats.Atk] + " Up!",
-            description: "Increased attack power.",
+        public AtkStatModifier(int turnDuration, int atkModifier) : base(
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+            name: UnitStatistics.Abbreviation[Stats.Atk] + ((atkModifier >= 0) ? " Up!" : " Down!"),
+            description: ((atkModifier >= 0) ? "In" : "De") + "creased attack power.",
             turnDuration: turnDuration
         )
         {

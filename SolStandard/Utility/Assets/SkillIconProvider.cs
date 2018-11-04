@@ -17,7 +17,8 @@ namespace SolStandard.Utility.Assets
         Wait,
         Harpoon,
         Ignite,
-        Bulwark
+        Bulwark,
+        Atrophy
     }
 
     public static class SkillIconProvider
@@ -44,6 +45,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D harpoon = skillIconTextures.Find(texture => texture.Name.EndsWith("Harpoon"));
             ITexture2D ignite = skillIconTextures.Find(texture => texture.Name.EndsWith("Ignite"));
             ITexture2D bulwark = skillIconTextures.Find(texture => texture.Name.EndsWith("Bulwark"));
+            ITexture2D atrophy = skillIconTextures.Find(texture => texture.Name.EndsWith("Atrophy"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -58,7 +60,8 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Wait, wait},
                 {SkillIcon.Harpoon, harpoon},
                 {SkillIcon.Ignite, ignite},
-                {SkillIcon.Bulwark, bulwark}
+                {SkillIcon.Bulwark, bulwark},
+                {SkillIcon.Atrophy, atrophy}
             };
         }
     }

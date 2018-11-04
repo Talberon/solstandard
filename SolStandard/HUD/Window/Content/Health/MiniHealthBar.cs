@@ -135,7 +135,6 @@ namespace SolStandard.HUD.Window.Content.Health
 
             foreach (IResourcePoint pip in healthPips)
             {
-                //TODO Adjust color based on health %
                 pip.Draw(spriteBatch, pipOffset, colorOverride);
                 pipOffset.X += pip.Width;
             }

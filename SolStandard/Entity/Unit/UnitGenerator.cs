@@ -156,7 +156,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Ignite(3, 3),
+                new Ignite(3, 2),
+                new Atrophy(2, 2),
                 new Blink(),
                 new Guard(3),
                 new Wait()
