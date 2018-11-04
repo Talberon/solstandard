@@ -58,33 +58,57 @@ namespace SolStandard.Containers
             }
         }
 
-        public void AddNewToastAtCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        private static void AddNewToastAtMapPixelCoordinates(IRenderable content, Vector2 mapPixelCoordinates,
+            int lifetimeInFrames)
         {
-            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
-            ToastWindow = new ToastWindow(toastContent, mapCoordinates, lifetimeInFrames);
+            ToastWindow = new ToastWindow(content, mapPixelCoordinates, lifetimeInFrames);
         }
 
-        public void AddNewToastAtUnit(UnitEntity unitEntity, string toastMessage, int lifetimeInFrames)
+        public void AddNewToastAtMapCellCoordinates(IRenderable content, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            //Place the toast to the right of the designated map coordinates
+            AddNewToastAtMapPixelCoordinates(
+                content,
+                (mapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
+                lifetimeInFrames
+            );
+        }
+
+        public void AddNewToastAtMapCursor(IRenderable content, int lifetimeInFrames)
+        {
+            //Set the toast to the right of the cursor
+            AddNewToastAtMapCellCoordinates(content, MapCursor.MapCoordinates, lifetimeInFrames);
+        }
+
+        public void AddNewToastAtUnit(UnitEntity unitEntity, IRenderable content, int lifetimeInFrames)
         {
             if (unitEntity == null)
             {
                 //Place the toast at the cursor if the unit is dead
-                AddNewToastAtMapCursor(toastMessage, lifetimeInFrames);
+                AddNewToastAtMapCursor(content, lifetimeInFrames);
             }
             else
             {
-                //Set the toast to the right of the cursor
-                AddNewToastAtCoordinates(
-                    toastMessage, (unitEntity.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize, lifetimeInFrames
-                );
+                //Set the toast to the right of the unit
+                AddNewToastAtMapCellCoordinates(content, unitEntity.MapCoordinates, lifetimeInFrames);
             }
+        }
+
+        public void AddNewToastAtMapCellCoordinates(string toastMessage, Vector2 mapCoordinates, int lifetimeInFrames)
+        {
+            IRenderable toastContent = new RenderText(AssetManager.MapFont, toastMessage);
+            AddNewToastAtMapCellCoordinates(toastContent, mapCoordinates, lifetimeInFrames);
         }
 
         public void AddNewToastAtMapCursor(string toastMessage, int lifetimeInFrames)
         {
             //Set the toast to the right of the cursor
-            AddNewToastAtCoordinates(toastMessage, (MapCursor.MapCoordinates + new Vector2(1, 0)) * GameDriver.CellSize,
-                lifetimeInFrames);
+            AddNewToastAtMapCellCoordinates(toastMessage, MapCursor.MapCoordinates, lifetimeInFrames);
+        }
+
+        public void AddNewToastAtUnit(UnitEntity unitEntity, string toastMessage, int lifetimeInFrames)
+        {
+            AddNewToastAtUnit(unitEntity, new RenderText(AssetManager.MapFont, toastMessage), lifetimeInFrames);
         }
 
         public static void ClearDynamicAndPreviewGrids()

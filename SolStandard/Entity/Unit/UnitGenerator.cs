@@ -131,6 +131,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new LayTrap(3, 3),
                 new Harpoon(2),
                 new Draw(2, 1),
                 new Guard(3),
@@ -157,7 +158,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Ignite(3, 2),
-                new Atrophy(2, 2),
+                new Atrophy(2, 1),
                 new Blink(),
                 new Guard(3),
                 new Wait()
@@ -169,7 +170,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Inspire(2, 1),
+                new Inspire(2, 2),
                 new DoubleTime(1, 2),
                 new Bulwark(2, 2),
                 new Wait()

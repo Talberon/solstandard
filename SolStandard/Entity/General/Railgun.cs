@@ -42,7 +42,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "Range:" + AtkRange)
+                            new RenderText(AssetManager.WindowFont, "Range: " + AtkRange)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

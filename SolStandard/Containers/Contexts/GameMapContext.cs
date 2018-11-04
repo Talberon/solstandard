@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
@@ -29,7 +31,7 @@ namespace SolStandard.Containers.Contexts
         }
 
         public TurnState CurrentTurnState { get; set; }
-        public GameUnit SelectedUnit { get; set; }
+        public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
         private const string HelpText = "Select a unit.";
@@ -99,6 +101,8 @@ namespace SolStandard.Containers.Contexts
 
             UpdateTurnCounters();
 
+            ActivateEffectTiles();
+
             if (!GameContext.Units.TrueForAll(unit => unit.Stats.Hp <= 0))
             {
                 EndTurnIfUnitIsDead();
@@ -128,7 +132,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void RevertToPreviousState()
+        private void RevertToPreviousState()
         {
             if (CurrentTurnState <= TurnState.SelectUnit) return;
 
@@ -271,12 +275,12 @@ namespace SolStandard.Containers.Contexts
             GameMapView.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
-        public void ConfirmPromptWindow()
+        private static void ConfirmPromptWindow()
         {
             GameMapView.CloseUserPromptWindow();
         }
 
-        public void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
+        private void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
             UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
@@ -292,17 +296,16 @@ namespace SolStandard.Containers.Contexts
         {
             MapContainer.MapCursor.MoveCursorInDirection(direction);
 
-            if (MapContainer.GetMapSliceAtCursor().DynamicEntity != null)
-            {
-                SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
-                SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
-                AssetManager.MapUnitMoveSFX.Play();
+            if (MapContainer.GetMapSliceAtCursor().DynamicEntity == null) return;
 
-                MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
-                    .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
-                        Layer.Preview);
-            }
+            SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
+            SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
+            AssetManager.MapUnitMoveSFX.Play();
+
+            MapContainer.ClearPreviewGrid();
+            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+                .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
+                    Layer.Preview);
         }
 
         public void UpdateHoverContextWindows(MapSlice hoverSlice)
@@ -327,10 +330,9 @@ namespace SolStandard.Containers.Contexts
                 if (hoverMapUnit != null)
                 {
                     new UnitTargetingContext(
-                            MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-                            false
-                        )
-                        .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+                        false
+                    ).GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
                 }
 
                 GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
@@ -351,17 +353,17 @@ namespace SolStandard.Containers.Contexts
             return true;
         }
 
-        public bool OtherUnitExistsAtCursor()
+        private bool OtherUnitExistsAtCursor()
         {
             return OtherUnitExistsAtCoordinates(MapContainer.MapCursor.MapCoordinates);
         }
 
-        public bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
+        private bool OtherUnitExistsAtCoordinates(Vector2 coordinates)
         {
             return UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, SelectedUnit.UnitEntity) != null;
         }
 
-        public void ReturnUnitToOriginalPosition()
+        private void ReturnUnitToOriginalPosition()
         {
             SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
             MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
@@ -386,6 +388,22 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
         }
 
+        private static void ActivateEffectTiles()
+        {
+            List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
+
+            effectTiles.ForEach(tile => tile.TriggerEffect());
+
+            foreach (IEffectTile effectTile in effectTiles)
+            {
+                if (effectTile.IsExpired)
+                {
+                    MapContainer.GameGrid[(int) Layer.Entities][(int) effectTile.MapCoordinates.X,
+                        (int) effectTile.MapCoordinates.Y] = null;
+                }
+            }
+        }
+
         public void MovePauseMenuCursor(VerticalMenu.MenuCursorDirection direction)
         {
             PauseScreenView.CurrentMenu.MoveMenuCursor(direction);
@@ -396,7 +414,7 @@ namespace SolStandard.Containers.Contexts
             PauseScreenView.CurrentMenu.SelectOption();
         }
 
-        public void GenerateActionPreviewGrid()
+        private void GenerateActionPreviewGrid()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
             SkillOption skillOption = GameMapView.ActionMenu.CurrentOption as SkillOption;
@@ -406,8 +424,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-
-        public void GenerateActionMenu()
+        private static void GenerateActionMenu()
         {
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
 

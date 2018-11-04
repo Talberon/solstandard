@@ -84,9 +84,12 @@
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
+    <Compile Include="Entity\General\TrapEntity.cs" />
+    <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
+    <Compile Include="Utility\Events\PlaceEntityOnMapEvent.cs" />
     <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\PushBlockEvent.cs" />
     <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
