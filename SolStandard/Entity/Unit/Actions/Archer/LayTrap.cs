@@ -33,20 +33,28 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (TargetIsNotObstructed(targetSlice))
+            if (TargetIsInRange(targetSlice))
             {
-                trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers);
+                if (TargetIsNotObstructed(targetSlice))
+                {
+                    trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers);
 
-                MapContainer.ClearDynamicAndPreviewGrids();
+                    MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
+                    eventQueue.Enqueue(new EndTurnEvent());
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -58,5 +66,12 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             
             return true;
         }
+        
+        private static bool TargetIsInRange(MapSlice targetSlice)
+        {
+            return targetSlice.DynamicEntity != null;
+        }
+
+        
     }
 }

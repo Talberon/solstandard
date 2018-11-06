@@ -169,7 +169,7 @@ namespace SolStandard.Map
 
                     if (tile.Gid != 0)
                     {
-                        //Check if tileset has animation associated with it. Compensate for id offset
+                        //Check if tileset has animation associated with it.
                         const string overworldTileSet = "overworld-32";
                         TmxTilesetTile animatedTile = tmxMap.Tilesets[overworldTileSet].Tiles
                             .SingleOrDefault(
@@ -189,21 +189,7 @@ namespace SolStandard.Map
                         }
                         else
                         {
-                            List<int> tileIds = new List<int>();
-
-                            //Hold the id values for each frame
-                            foreach (TmxAnimationFrame tmxAnimationFrame in animatedTile.AnimationFrames)
-                            {
-                                tileIds.Add(tmxAnimationFrame.Id);
-                            }
-
-                            AnimatedTileSprite tileSprite = new AnimatedTileSprite(
-                                FindTileSet(tile.Gid),
-                                tileIds,
-                                new Vector2(GameDriver.CellSize)
-                            );
-
-                            tileGrid[col, row] = new MapTile(tileSprite, new Vector2(col, row));
+                            AddAnimatedTileToMap(animatedTile, tile, tileGrid, col, row);
                         }
                     }
 
@@ -558,6 +544,28 @@ namespace SolStandard.Map
 
             throw new TeamNotFoundException();
         }
+        
+        
+        private void AddAnimatedTileToMap(TmxTilesetTile animatedTile, TmxLayerTile tile, MapElement[,] tileGrid,
+            int col, int row)
+        {
+            List<int> tileIds = new List<int>();
+
+            //Hold the id values for each frame
+            foreach (TmxAnimationFrame tmxAnimationFrame in animatedTile.AnimationFrames)
+            {
+                tileIds.Add(tmxAnimationFrame.Id);
+            }
+
+            AnimatedTileSprite tileSprite = new AnimatedTileSprite(
+                FindTileSet(tile.Gid),
+                tileIds,
+                new Vector2(GameDriver.CellSize)
+            );
+
+            tileGrid[col, row] = new MapTile(tileSprite, new Vector2(col, row));
+        }
+
 
         private ITexture2D FetchUnitGraphic(string unitTeam, string role)
         {

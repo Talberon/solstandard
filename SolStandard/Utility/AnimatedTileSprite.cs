@@ -9,7 +9,7 @@ namespace SolStandard.Utility
 {
     public class AnimatedTileSprite : IRenderable
     {
-        private const int DefaultFrameDelay = 10;
+        private const int DefaultFrameDelay = 14;
 
         private readonly Vector2 renderSize;
         private readonly int frameDelay;
