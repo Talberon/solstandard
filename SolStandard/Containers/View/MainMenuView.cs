@@ -13,11 +13,11 @@ namespace SolStandard.Containers.View
         private readonly VerticalMenu mainMenu;
         private readonly Color menuColor;
         private readonly SpriteAtlas title;
-        private readonly AnimatedSprite logo;
+        private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
         private bool visible;
 
-        public MainMenuView(SpriteAtlas title, AnimatedSprite logo, SpriteAtlas background)
+        public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
         {
             this.title = title;
             this.logo = logo;
@@ -40,7 +40,7 @@ namespace SolStandard.Containers.View
                 new QuitGameOption(menuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
             return new VerticalMenu(options, cursorSprite, menuColor);
         }

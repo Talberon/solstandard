@@ -61,6 +61,8 @@ namespace SolStandard.Map
         private List<MapElement[,]> gameTileLayers;
         private List<UnitEntity> unitLayer;
 
+        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid { get; set; }
+
         public TmxMapParser(TmxMap tmxMap, ITexture2D worldTileSetSprite, ITexture2D terrainSprite,
             List<ITexture2D> unitSprites, string objectTypesDefaultXmlPath)
         {
@@ -69,30 +71,28 @@ namespace SolStandard.Map
             this.unitSprites = unitSprites;
             this.objectTypesDefaultXmlPath = objectTypesDefaultXmlPath;
             this.terrainSprite = terrainSprite;
+            TilesetsSortedByFirstGid = SortTilesetsByFirstGid();
         }
 
-        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid
+        private List<KeyValuePair<ITexture2D, int>> SortTilesetsByFirstGid()
         {
-            get
+            List<KeyValuePair<ITexture2D, int>> tilesetGids = new List<KeyValuePair<ITexture2D, int>>();
+            foreach (TmxTileset tileset in tmxMap.Tilesets)
             {
-                List<KeyValuePair<ITexture2D, int>> tilesetGids = new List<KeyValuePair<ITexture2D, int>>();
-                foreach (TmxTileset tileset in tmxMap.Tilesets)
+                if (worldTileSetSprite.Name.Contains(tileset.Name))
                 {
-                    if (worldTileSetSprite.Name.Contains(tileset.Name))
-                    {
-                        tilesetGids.Add(new KeyValuePair<ITexture2D, int>(worldTileSetSprite, tileset.FirstGid));
-                    }
-
-                    if (terrainSprite.Name.Contains(tileset.Name))
-                    {
-                        tilesetGids.Add(new KeyValuePair<ITexture2D, int>(terrainSprite, tileset.FirstGid));
-                    }
+                    tilesetGids.Add(new KeyValuePair<ITexture2D, int>(worldTileSetSprite, tileset.FirstGid));
                 }
 
-                tilesetGids.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-
-                return tilesetGids;
+                if (terrainSprite.Name.Contains(tileset.Name))
+                {
+                    tilesetGids.Add(new KeyValuePair<ITexture2D, int>(terrainSprite, tileset.FirstGid));
+                }
             }
+
+            tilesetGids.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            return tilesetGids;
         }
 
         private ITexture2D FindTileSet(int gid)
@@ -122,9 +122,8 @@ namespace SolStandard.Map
                 }
             }
 
-            return gid - nextFirstGid + 1;
+            return gid - nextFirstGid;
         }
-
 
         public List<MapElement[,]> LoadMapGrid()
         {
@@ -170,13 +169,42 @@ namespace SolStandard.Map
 
                     if (tile.Gid != 0)
                     {
-                        tileGrid[col, row] = new MapTile(
-                            new SpriteAtlas(
+                        //Check if tileset has animation associated with it. Compensate for id offset
+                        const string overworldTileSet = "overworld-32";
+                        TmxTilesetTile animatedTile = tmxMap.Tilesets[overworldTileSet].Tiles
+                            .SingleOrDefault(
+                                tilesetTile =>
+                                    tilesetTile.Id == FindTileId(tile.Gid) && tilesetTile.AnimationFrames.Count > 0
+                            );
+
+                        if (animatedTile == null)
+                        {
+                            tileGrid[col, row] = new MapTile(
+                                new SpriteAtlas(
+                                    FindTileSet(tile.Gid),
+                                    new Vector2(GameDriver.CellSize),
+                                    FindTileId(tile.Gid)
+                                ),
+                                new Vector2(col, row));
+                        }
+                        else
+                        {
+                            List<int> tileIds = new List<int>();
+
+                            //Hold the id values for each frame
+                            foreach (TmxAnimationFrame tmxAnimationFrame in animatedTile.AnimationFrames)
+                            {
+                                tileIds.Add(tmxAnimationFrame.Id);
+                            }
+
+                            AnimatedTileSprite tileSprite = new AnimatedTileSprite(
                                 FindTileSet(tile.Gid),
-                                new Vector2(GameDriver.CellSize),
-                                FindTileId(tile.Gid)
-                            ),
-                            new Vector2(col, row));
+                                tileIds,
+                                new Vector2(GameDriver.CellSize)
+                            );
+
+                            tileGrid[col, row] = new MapTile(tileSprite, new Vector2(col, row));
+                        }
                     }
 
                     tileCounter++;
@@ -455,14 +483,13 @@ namespace SolStandard.Map
                             Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
                             Role role = ObtainUnitClass(currentProperties["Class"]);
 
-                            string unitTeamAndClass = unitTeam.ToString() + role.ToString();
-                            ITexture2D unitSprite = FetchUnitGraphic(unitTeamAndClass);
+                            ITexture2D unitSprite = FetchUnitGraphic(unitTeam.ToString(), role.ToString());
 
                             Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
                             const int unitAnimationFrames = 4;
                             const int unitAnimationDelay = 14;
 
-                            UnitSprite animatedSprite = new UnitSprite(
+                            UnitSpriteSheet animatedSpriteSheet = new UnitSpriteSheet(
                                 unitSprite,
                                 unitSprite.Width / unitAnimationFrames,
                                 unitScale,
@@ -472,7 +499,7 @@ namespace SolStandard.Map
                             );
 
                             entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
-                                animatedSprite,
+                                animatedSpriteSheet,
                                 new Vector2(col, row), currentProperties);
                         }
                     }
@@ -532,9 +559,10 @@ namespace SolStandard.Map
             throw new TeamNotFoundException();
         }
 
-        private ITexture2D FetchUnitGraphic(string unitName)
+        private ITexture2D FetchUnitGraphic(string unitTeam, string role)
         {
-            return unitSprites.Find(texture => texture.Name.Contains(unitName));
+            string unitTeamAndClass = unitTeam + role;
+            return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SolStandard.Utility.Assets
         public static SpriteAtlas GetButton(ButtonIcon icon, Vector2 iconSize)
         {
             return new SpriteAtlas(_buttonDictionary[icon],
-                new Vector2(_buttonDictionary[icon].Width, _buttonDictionary[icon].Height), iconSize, 1);
+                new Vector2(_buttonDictionary[icon].Width, _buttonDictionary[icon].Height), iconSize);
         }
 
         public static void LoadButtons(List<ITexture2D> buttonTextures)

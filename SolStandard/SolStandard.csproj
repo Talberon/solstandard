@@ -129,7 +129,7 @@
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
-    <Compile Include="Entity\Unit\UnitSprite.cs" />
+    <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\SkillOption.cs" />
@@ -178,7 +178,8 @@
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\AnimatedSprite.cs" />
+    <Compile Include="Utility\AnimatedSpriteSheet.cs" />
+    <Compile Include="Utility\AnimatedTileSprite.cs" />
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
@@ -351,7 +352,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\overworld-32.tsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Village_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

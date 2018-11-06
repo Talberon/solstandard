@@ -2043,6 +2043,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6377"/>
+   <tile gid="517"/>
+   <tile gid="518"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2072,12 +2075,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6417"/>
+   <tile gid="557"/>
+   <tile gid="558"/>
    <tile/>
    <tile/>
    <tile/>

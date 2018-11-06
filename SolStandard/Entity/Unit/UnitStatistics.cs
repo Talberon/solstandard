@@ -9,7 +9,6 @@ namespace SolStandard.Entity.Unit
 {
     public enum Stats
     {
-        None,
         Hp,
         Atk,
         Armor,

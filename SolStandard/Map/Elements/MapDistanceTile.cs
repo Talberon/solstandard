@@ -10,7 +10,6 @@ namespace SolStandard.Map.Elements
     {
         public enum TileType
         {
-            None,
             White,
             Dark,
             Movement,

@@ -33,6 +33,15 @@
   <terrain name="Dungeon Floor Blue Light" tile="5352"/>
   <terrain name="Dungeon Floor Blue Dark" tile="5472"/>
  </terraintypes>
+ <tile id="20"/>
+ <tile id="36">
+  <animation>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="79" duration="100"/>
+  </animation>
+ </tile>
  <tile id="40" terrain=",,,0"/>
  <tile id="41" terrain=",,0,0"/>
  <tile id="42" terrain=",,0,"/>
@@ -40,6 +49,22 @@
  <tile id="44" terrain="0,,0,0"/>
  <tile id="45" terrain="0,0,0,0"/>
  <tile id="46" terrain="0,0,0,0"/>
+ <tile id="60">
+  <animation>
+   <frame tileid="60" duration="100"/>
+   <frame tileid="64" duration="100"/>
+   <frame tileid="68" duration="100"/>
+   <frame tileid="72" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="76">
+  <animation>
+   <frame tileid="76" duration="100"/>
+   <frame tileid="77" duration="100"/>
+   <frame tileid="78" duration="100"/>
+   <frame tileid="79" duration="100"/>
+  </animation>
+ </tile>
  <tile id="80" terrain=",0,,0"/>
  <tile id="81" terrain="0,0,0,0"/>
  <tile id="82" terrain="0,,0,"/>
@@ -47,6 +72,22 @@
  <tile id="84" terrain="0,0,0,"/>
  <tile id="85" terrain="0,0,0,0"/>
  <tile id="86" terrain="0,0,0,0"/>
+ <tile id="100">
+  <animation>
+   <frame tileid="100" duration="100"/>
+   <frame tileid="104" duration="100"/>
+   <frame tileid="108" duration="100"/>
+   <frame tileid="112" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="101">
+  <animation>
+   <frame tileid="101" duration="100"/>
+   <frame tileid="105" duration="100"/>
+   <frame tileid="109" duration="100"/>
+   <frame tileid="113" duration="100"/>
+  </animation>
+ </tile>
  <tile id="120" terrain=",0,,"/>
  <tile id="121" terrain="0,0,,"/>
  <tile id="122" terrain="0,,,"/>
@@ -519,6 +560,14 @@
  <tile id="5574" terrain=",20,,"/>
  <tile id="5575" terrain="20,20,,"/>
  <tile id="5576" terrain="20,,,"/>
+ <tile id="5920">
+  <animation>
+   <frame tileid="5920" duration="100"/>
+   <frame tileid="5921" duration="100"/>
+   <frame tileid="5922" duration="100"/>
+   <frame tileid="5923" duration="100"/>
+  </animation>
+ </tile>
  <wangsets>
   <wangset name="Fence" tile="4290">
    <wangedgecolor name="" color="#ff0000" tile="4330" probability="1"/>
@@ -600,7 +649,7 @@
    <wangtile tileid="5767" wangid="0x1010102"/>
    <wangtile tileid="5768" wangid="0x2010101"/>
   </wangset>
-  <wangset name="RIver" tile="62">
+  <wangset name="River" tile="62">
    <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
    <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
    <wangtile tileid="20" wangid="0x2010202"/>

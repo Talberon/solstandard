@@ -29,12 +29,12 @@ namespace SolStandard.Containers.View
         public PauseScreenView()
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
             SpriteAtlas gamepadHelp = new SpriteAtlas(AssetManager.GamepadControlHelp,
-                new Vector2(AssetManager.GamepadControlHelp.Width, AssetManager.GamepadControlHelp.Height), 1);
+                new Vector2(AssetManager.GamepadControlHelp.Width, AssetManager.GamepadControlHelp.Height));
             SpriteAtlas keyboardHelp = new SpriteAtlas(AssetManager.KeyboardControlHelp,
-                new Vector2(AssetManager.KeyboardControlHelp.Width, AssetManager.KeyboardControlHelp.Height), 1);
+                new Vector2(AssetManager.KeyboardControlHelp.Width, AssetManager.KeyboardControlHelp.Height));
 
             PauseMenu = new VerticalMenu(
                 new MenuOption[]

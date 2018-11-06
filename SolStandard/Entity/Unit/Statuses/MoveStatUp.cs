@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             target.Stats.Mv += mvModifier;
-            target.UnitEntity.UnitSprite.SetFrameDelay(FrameDelay);
+            target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FrameDelay);
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Statuses
         protected override void RemoveEffect(GameUnit target)
         {
             target.Stats.Mv -= mvModifier;
-            target.UnitEntity.UnitSprite.ResetFrameDelay();
+            target.UnitEntity.UnitSpriteSheet.ResetFrameDelay();
         }
     }
 }

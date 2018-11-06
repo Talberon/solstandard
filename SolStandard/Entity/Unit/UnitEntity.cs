@@ -17,8 +17,8 @@ namespace SolStandard.Entity.Unit
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(180, 180, 180);
 
-        public UnitEntity(string name, string type, UnitSprite sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties) : base(name, type, sprite, mapCoordinates, tiledProperties)
+        public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties) : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
         {
             ElementColor = ActiveColor;
         }
@@ -38,9 +38,9 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        public UnitSprite UnitSprite
+        public UnitSpriteSheet UnitSpriteSheet
         {
-            get { return (UnitSprite) Sprite; }
+            get { return (UnitSpriteSheet) Sprite; }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit
             {
                 Sprite.Draw(
                     spriteBatch,
-                    MapCoordinates * GameDriver.CellSize - new Vector2(UnitSprite.Width, UnitSprite.Height) / 2 +
+                    MapCoordinates * GameDriver.CellSize - new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
                     new Vector2(GameDriver.CellSize) / 2,
                     colorOverride
                 );

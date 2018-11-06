@@ -444,7 +444,7 @@ namespace SolStandard.Containers.Contexts
             MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
             GameMapView.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
             GameMapView.GenerateActionMenuDescription();

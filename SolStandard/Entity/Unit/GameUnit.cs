@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
 
-        private readonly UnitSprite unitSprite;
+        private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
@@ -74,11 +74,11 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Skills = skills;
             this.largePortrait =
-                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
+                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
             this.mediumPortrait =
-                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height), 1);
+                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height));
             this.smallPortrait =
-                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height), 1);
+                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height));
             combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
@@ -98,7 +98,7 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSprite = unitEntity.UnitSprite;
+            unitSpriteSheet = unitEntity.UnitSpriteSheet;
         }
 
         public UnitEntity UnitEntity
@@ -186,7 +186,7 @@ namespace SolStandard.Entity.Unit
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
                                         new RenderText(AssetManager.WindowFont,
                                             "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                     }
@@ -378,11 +378,11 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color,
             UnitAnimationState animation = UnitAnimationState.Idle)
         {
-            UnitSprite clonedSprite = unitSprite.Clone();
-            clonedSprite.Resize(size);
-            clonedSprite.SetAnimation(animation);
-            clonedSprite.Color = color;
-            return clonedSprite;
+            UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            clonedSpriteSheet.Resize(size);
+            clonedSpriteSheet.SetAnimation(animation);
+            clonedSpriteSheet.Color = color;
+            return clonedSpriteSheet;
         }
 
         public void ArmUnitSkill(UnitAction action)
@@ -479,7 +479,7 @@ namespace SolStandard.Entity.Unit
         {
             if (UnitEntity != null)
             {
-                UnitEntity.UnitSprite.SetAnimation(state);
+                UnitEntity.UnitSpriteSheet.SetAnimation(state);
             }
         }
 
@@ -561,7 +561,7 @@ namespace SolStandard.Entity.Unit
                 = new Spoils(
                     Id + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize), 1),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
                     MapEntity.MapCoordinates,
                     new Dictionary<string, string>(),
                     CurrentGold,

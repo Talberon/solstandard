@@ -116,17 +116,18 @@ namespace SolStandard
             CleanTmxFiles();
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
-                new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height), 1);
-            AnimatedSprite mainMenuLogoSprite =
-                new AnimatedSprite(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5, false);
+                new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
+            AnimatedSpriteSheet mainMenuLogoSpriteSheet =
+                new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
+                    false);
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                ScreenSize, 1);
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
             p1ControlMapper = new GameControlMapper(PlayerIndex.One);
             p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
 
-            GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSprite, mainMenuBackgroundSprite));
+            GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
+                mainMenuBackgroundSprite));
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
         }
 

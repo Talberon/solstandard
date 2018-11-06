@@ -45,7 +45,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     {
                         blueGoldWindow,
                         new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize),
-                            new Vector2(blueGoldWindow.Height), 1),
+                            new Vector2(blueGoldWindow.Height)),
                         redGoldWindow,
                     }
                 },

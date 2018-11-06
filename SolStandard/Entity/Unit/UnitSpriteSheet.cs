@@ -18,11 +18,11 @@ namespace SolStandard.Entity.Unit
         WalkNE
     }
 
-    public class UnitSprite : AnimatedSprite
+    public class UnitSpriteSheet : AnimatedSpriteSheet
     {
         private UnitAnimationState currentState;
 
-        public UnitSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible,
+        public UnitSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible,
             Color spriteColor) :
             base(spriteMap, cellSize, renderSize, frameDelay, reversible, spriteColor)
         {
@@ -51,9 +51,9 @@ namespace SolStandard.Entity.Unit
             SetSpriteCell(0, (int) currentState);
         }
 
-        public new UnitSprite Clone()
+        public new UnitSpriteSheet Clone()
         {
-            return new UnitSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
+            return new UnitSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
         }
     }
 }
