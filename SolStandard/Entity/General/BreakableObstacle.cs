@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -25,14 +26,18 @@ namespace SolStandard.Entity.General
         {
             hp -= damage;
             AssetManager.CombatDamageSFX.Play();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(Name + " takes " + damage + " damage!",
+                MapCoordinates, 50);
 
-            if (hp <= 0)
-            {
-                AssetManager.CombatDeathSFX.Play();
-                isBroken = true;
-                CanMove = true;
-                Visible = false;
-            }
+            if (hp > 0) return;
+            
+            AssetManager.CombatDeathSFX.Play();
+            isBroken = true;
+            CanMove = true;
+            Visible = false;
+
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates,
+                50);
         }
 
         public override IRenderable TerrainInfo
