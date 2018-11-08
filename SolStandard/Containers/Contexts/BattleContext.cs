@@ -176,7 +176,7 @@ namespace SolStandard.Containers.Contexts
         private void SetupAttackerWindows()
         {
             int attackerTerrainBonus = DetermineTerrainBonus(attacker);
-            attackerDamage = new CombatDamage(attacker.Stats, attackerTerrainBonus, AttackPointSize);
+            attackerDamage = new CombatDamage(attacker.Stats.Atk, attacker.Stats.Luck, attackerTerrainBonus, AttackPointSize);
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
 
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
@@ -192,7 +192,7 @@ namespace SolStandard.Containers.Contexts
         private void SetupDefenderWindows()
         {
             int defenderTerrainBonus = DetermineTerrainBonus(defender);
-            defenderDamage = new CombatDamage(defender.Stats, defenderTerrainBonus, AttackPointSize);
+            defenderDamage = new CombatDamage(defender.Stats.Atk, defender.Stats.Luck, defenderTerrainBonus, AttackPointSize);
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);

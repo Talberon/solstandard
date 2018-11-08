@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
     public class HealthBar : IHealthBar
     {
         private readonly List<IResourcePoint> armorPips;
+        private readonly int maxArmor;
         private int currentArmor;
 
         private readonly List<IResourcePoint> healthPips;
+        private readonly int maxHp;
         private int currentHp;
 
         private const int MaxPointsPerRow = 10;
@@ -19,10 +22,12 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public HealthBar(int maxArmor, int maxHp, Vector2 barSize)
         {
+            this.maxArmor = maxArmor;
             currentArmor = maxArmor;
             armorPips = GenerateArmorPips(maxArmor);
             UpdatePips(armorPips, currentArmor);
 
+            this.maxHp = maxHp;
             currentHp = maxHp;
             healthPips = GenerateHpPips(maxHp);
             UpdatePips(healthPips, currentHp);
@@ -30,11 +35,11 @@ namespace SolStandard.HUD.Window.Content.Health
             BarSize = barSize;
         }
 
-        private List<IResourcePoint> GenerateArmorPips(int maxArmor)
+        private List<IResourcePoint> GenerateArmorPips(int maxPips)
         {
             List<IResourcePoint> pips = new List<IResourcePoint>();
 
-            for (int i = 0; i < maxArmor; i++)
+            for (int i = 0; i < maxPips; i++)
             {
                 pips.Add(new ArmorPoint(pipSize));
             }
@@ -42,11 +47,11 @@ namespace SolStandard.HUD.Window.Content.Health
             return pips;
         }
 
-        private List<IResourcePoint> GenerateHpPips(int maxHp)
+        private List<IResourcePoint> GenerateHpPips(int maxPips)
         {
             List<IResourcePoint> pips = new List<IResourcePoint>();
 
-            for (int i = 0; i < maxHp; i++)
+            for (int i = 0; i < maxPips; i++)
             {
                 pips.Add(new HeartPoint(pipSize));
             }
@@ -157,6 +162,11 @@ namespace SolStandard.HUD.Window.Content.Health
             pipOffset.Y += pipSize.Y * ArmorRowCount;
 
             DrawPips(spriteBatch, position, healthPips, pipOffset);
+        }
+
+        public IRenderable Clone()
+        {
+            return new HealthBar(maxArmor, maxHp, barSize);
         }
 
         private void DrawPips(SpriteBatch spriteBatch, Vector2 position, List<IResourcePoint> points, Vector2 pipOffset)

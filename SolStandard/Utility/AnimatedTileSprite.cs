@@ -18,11 +18,15 @@ namespace SolStandard.Utility
 
         private readonly List<int> frameIds;
         private readonly List<SpriteAtlas> frameSprites;
+        private readonly ITexture2D tileMapTexture;
+        private Vector2 cellSize;
 
         public AnimatedTileSprite(ITexture2D tileMapTexture, List<int> frameIds, Vector2 cellSize,
             Vector2 renderSize, int frameDelay = DefaultFrameDelay)
         {
+            this.tileMapTexture = tileMapTexture;
             this.frameIds = frameIds;
+            this.cellSize = cellSize;
             this.renderSize = renderSize;
             this.frameDelay = frameDelay;
             currentFrameIndex = 0;
@@ -78,6 +82,11 @@ namespace SolStandard.Utility
         {
             UpdateFrame();
             frameSprites[currentFrameIndex].Draw(spriteBatch, position, colorOverride);
+        }
+
+        public IRenderable Clone()
+        {
+            return new AnimatedTileSprite(tileMapTexture, frameIds, cellSize, renderSize, frameDelay);
         }
     }
 }

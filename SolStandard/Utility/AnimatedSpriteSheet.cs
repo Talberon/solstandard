@@ -146,7 +146,7 @@ namespace SolStandard.Utility
             return rendercell;
         }
 
-        public virtual AnimatedSpriteSheet Clone()
+        public virtual IRenderable Clone()
         {
             return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
         }

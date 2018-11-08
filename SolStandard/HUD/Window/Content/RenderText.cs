@@ -43,5 +43,10 @@ namespace SolStandard.HUD.Window.Content
         {
             spriteBatch.DrawString(font.MonoGameSpriteFont, message, position, colorOverride);
         }
+
+        public IRenderable Clone()
+        {
+            return new RenderText(font, message, defaultColor);
+        }
     }
 }

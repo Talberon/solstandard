@@ -1252,6 +1252,14 @@
    <frame tileid="5637" duration="100"/>
   </animation>
  </tile>
+ <tile id="5880">
+  <animation>
+   <frame tileid="5880" duration="100"/>
+   <frame tileid="5881" duration="100"/>
+   <frame tileid="5882" duration="100"/>
+   <frame tileid="5883" duration="100"/>
+  </animation>
+ </tile>
  <tile id="5920">
   <animation>
    <frame tileid="5920" duration="100"/>

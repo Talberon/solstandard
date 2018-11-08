@@ -79,6 +79,12 @@
   <property name="range" type="string" default="1"/>
   <property name="triggersId" type="string" default="Door A"/>
  </objecttype>
+ <objecttype name="Trap" color="#ff0000">
+  <property name="damage" type="int" default="1"/>
+  <property name="enabled" type="bool" default="true"/>
+  <property name="limitedTriggers" type="bool" default="false"/>
+  <property name="triggersRemaining" type="int" default="1"/>
+ </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>
   <property name="Team" type="string"/>

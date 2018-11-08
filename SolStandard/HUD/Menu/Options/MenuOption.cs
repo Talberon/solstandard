@@ -7,22 +7,22 @@ namespace SolStandard.HUD.Menu.Options
 {
     public abstract class MenuOption : IRenderable
     {
-        private readonly Color color;
-        private IRenderable labelContent;
+        protected readonly Color Color;
+        protected IRenderable LabelContent;
         private Window.Window optionWindow;
 
         protected MenuOption(IRenderable labelContent, Color color)
         {
-            this.color = color;
-            this.labelContent = labelContent;
+            Color = color;
+            LabelContent = labelContent;
             optionWindow = BuildOptionWindow();
         }
 
         private Window.Window BuildOptionWindow()
         {
             return new Window.Window(
-                labelContent,
-                color,
+                LabelContent,
+                Color,
                 HorizontalAlignment.Left
             );
         }
@@ -31,7 +31,7 @@ namespace SolStandard.HUD.Menu.Options
 
         public void UpdateLabel(IRenderable newContent)
         {
-            labelContent = newContent;
+            LabelContent = newContent;
             optionWindow = BuildOptionWindow();
         }
         
@@ -49,12 +49,14 @@ namespace SolStandard.HUD.Menu.Options
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, color);
+            Draw(spriteBatch, position, Color);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             optionWindow.Draw(spriteBatch, position, colorOverride);
         }
+
+        public abstract IRenderable Clone();
     }
 }

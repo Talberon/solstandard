@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
@@ -22,6 +23,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
             SoundEffectWrapper.ToggleMute();
 
             UpdateLabel(new RenderText(AssetManager.MainMenuFont, (SoundEffectWrapper.Muted) ? OffLabel : OnLabel));
+        }
+
+        public override IRenderable Clone()
+        {
+            return new SoundEffectMuteOption(Color);
         }
     }
 }

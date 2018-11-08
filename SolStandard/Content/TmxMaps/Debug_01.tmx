@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="712">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="715">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -1118,8 +1118,8 @@
    <tile gid="4877"/>
    <tile gid="4917"/>
    <tile gid="4883"/>
-   <tile/>
-   <tile/>
+   <tile gid="6011"/>
+   <tile gid="6011"/>
    <tile gid="4921"/>
    <tile gid="4922"/>
    <tile gid="4923"/>
@@ -1150,9 +1150,9 @@
    <tile gid="4877"/>
    <tile gid="4837"/>
    <tile gid="4883"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6011"/>
+   <tile gid="6011"/>
+   <tile gid="6011"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1182,9 +1182,9 @@
    <tile gid="4922"/>
    <tile gid="4922"/>
    <tile gid="4923"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6011"/>
+   <tile gid="6011"/>
+   <tile gid="6011"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2736,13 +2736,13 @@
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="708" name="Pressure Plate" type="PressurePlate" gid="6112" x="576" y="512" width="32" height="32">
+  <object id="708" name="Pressure Plate" type="PressurePlate" gid="6134" x="576" y="512" width="32" height="32">
    <properties>
     <property name="triggersId" value="Plate Door"/>
    </properties>
   </object>
-  <object id="709" name="Plate Door" type="Door" gid="3028" x="544" y="544" width="32" height="32"/>
-  <object id="710" name="Pressure Plate Double" type="PressurePlate" gid="6111" x="544" y="480" width="32" height="32">
+  <object id="709" name="Plate Door" type="Door" gid="229" x="544" y="544" width="32" height="32"/>
+  <object id="710" name="Pressure Plate Double" type="PressurePlate" gid="6135" x="544" y="480" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="true"/>
     <property name="triggersId" value="Plate Door"/>
@@ -2751,6 +2751,16 @@
   <object id="711" name="Rubble" type="BreakableObstacle" gid="6347" x="448" y="288" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="712" name="Spike Trap" type="Trap" gid="6337" x="384" y="256" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="714" name="Spike Trap" type="Trap" gid="6337" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>

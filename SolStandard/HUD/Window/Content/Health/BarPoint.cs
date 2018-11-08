@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
@@ -50,6 +51,11 @@ namespace SolStandard.HUD.Window.Content.Health
                 new Rectangle((int) position.X + 1, (int) position.Y + 1, (int) Size.X - 1, (int) Size.Y - 1),
                 new Rectangle(0, 0, whitePixel.Width - 2, whitePixel.Height - 2),
                 (Active) ? colorOverride : inactiveColor);
+        }
+
+        public IRenderable Clone()
+        {
+            return new BarPoint(Size, activeColor, inactiveColor);
         }
 
         public override string ToString()

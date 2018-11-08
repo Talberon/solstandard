@@ -24,5 +24,10 @@ namespace SolStandard.HUD.Window.Content
         {
             //Do nothing
         }
+
+        public IRenderable Clone()
+        {
+            return new RenderBlank();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
@@ -21,6 +22,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         {
             MusicBox.ToggleMute();
             UpdateLabel(new RenderText(AssetManager.MainMenuFont, (MusicBox.Muted) ? OffLabel : OnLabel));
+        }
+
+        public override IRenderable Clone()
+        {
+            return new MusicMuteOption(Color);
         }
     }
 }

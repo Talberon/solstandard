@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             {
                 if (TargetIsNotObstructed(targetSlice))
                 {
-                    trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers);
+                    trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 

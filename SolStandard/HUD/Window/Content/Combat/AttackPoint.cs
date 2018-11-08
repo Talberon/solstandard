@@ -11,8 +11,11 @@ namespace SolStandard.HUD.Window.Content.Combat
         private Color color;
         private readonly SpriteAtlas pointSprite;
 
+        private readonly int size;
+
         public AttackPoint(int size)
         {
+            this.size = size;
             color = Color.White;
             Enabled = true;
             pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(size));
@@ -42,6 +45,11 @@ namespace SolStandard.HUD.Window.Content.Combat
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             pointSprite.Draw(spriteBatch, position, colorOverride);
+        }
+
+        public IRenderable Clone()
+        {
+            return new AttackPoint(size);
         }
     }
 }

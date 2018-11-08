@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace SolStandard.HUD.Window.Content.Combat
 {
@@ -87,6 +89,11 @@ namespace SolStandard.HUD.Window.Content.Combat
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             dieAtlas.Draw(spriteBatch, position, colorOverride);
+        }
+
+        public IRenderable Clone()
+        {
+            return new Die(currentSide, Height, color);
         }
 
         public override string ToString()

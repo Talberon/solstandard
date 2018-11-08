@@ -14,12 +14,17 @@ namespace SolStandard.HUD.Window.Content
 
         private HorizontalAlignment HorizontalAlignment { get; set; }
 
-        public WindowContentGrid(IRenderable[,] contentGrid, int padding,
-            HorizontalAlignment alignment = HorizontalAlignment.Left)
+        private WindowContentGrid(List<List<IRenderable>> contentGrid, int padding, HorizontalAlignment alignment)
         {
-            this.contentGrid = ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid);
+            this.contentGrid = contentGrid;
             this.padding = padding;
             HorizontalAlignment = alignment;
+        }
+
+        public WindowContentGrid(IRenderable[,] contentGrid, int padding,
+            HorizontalAlignment alignment = HorizontalAlignment.Left)
+            : this(ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid), padding, alignment)
+        {
         }
 
         public int Height
@@ -92,6 +97,11 @@ namespace SolStandard.HUD.Window.Content
 
                 previousHeight += row.Max(item => item.Height) + padding;
             }
+        }
+
+        public IRenderable Clone()
+        {
+            return new WindowContentGrid(contentGrid, padding, HorizontalAlignment);
         }
 
         private void DrawRow(SpriteBatch spriteBatch, IEnumerable<IRenderable> row, Vector2 coordinates)

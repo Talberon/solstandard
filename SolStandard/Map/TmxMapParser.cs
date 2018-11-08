@@ -50,7 +50,8 @@ namespace SolStandard.Map
             {"Railgun", EntityTypes.Railgun},
             {"Seize", EntityTypes.Seize},
             {"Pushable", EntityTypes.Pushable},
-            {"PressurePlate", EntityTypes.PressurePlate}
+            {"PressurePlate", EntityTypes.PressurePlate},
+            {"Trap", EntityTypes.Trap}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -170,13 +171,7 @@ namespace SolStandard.Map
 
                     if (tile.Gid != 0)
                     {
-                        //Check if tileset has animation associated with it.
-                        const string overworldTileSet = "overworld-32";
-                        TmxTilesetTile animatedTile = tmxMap.Tilesets[overworldTileSet].Tiles
-                            .SingleOrDefault(
-                                tilesetTile =>
-                                    tilesetTile.Id == FindTileId(tile.Gid) && tilesetTile.AnimationFrames.Count > 0
-                            );
+                        TmxTilesetTile animatedTile = TilesetTile(tile);
 
                         if (animatedTile == null)
                         {
@@ -190,7 +185,8 @@ namespace SolStandard.Map
                         }
                         else
                         {
-                            AddAnimatedTileToMap(animatedTile, tile, tileGrid, col, row);
+                            tileGrid[col, row] = new MapTile(GetAnimatedTile(animatedTile, tile),
+                                new Vector2(col, row));
                         }
                     }
 
@@ -200,7 +196,6 @@ namespace SolStandard.Map
 
             return tileGrid;
         }
-
 
         private TerrainEntity[,] ObtainEntitiesFromLayer(string objectGroupName)
         {
@@ -224,11 +219,22 @@ namespace SolStandard.Map
                                 Dictionary<string, string> currentProperties =
                                     GetDefaultPropertiesAndOverrides(currentObject);
 
-                                SpriteAtlas spriteAtlas = new SpriteAtlas(
-                                    FindTileSet(objectTileId),
-                                    new Vector2(GameDriver.CellSize),
-                                    FindTileId(objectTileId)
-                                );
+                                IRenderable tileSprite;
+
+                                TmxTilesetTile animatedTile = TilesetTile(currentObject.Tile);
+
+                                if (animatedTile == null)
+                                {
+                                    tileSprite = new SpriteAtlas(
+                                        FindTileSet(objectTileId),
+                                        new Vector2(GameDriver.CellSize),
+                                        FindTileId(objectTileId)
+                                    );
+                                }
+                                else
+                                {
+                                    tileSprite = GetAnimatedTile(animatedTile, currentObject.Tile);
+                                }
 
                                 EntityTypes tileEntityType = EntityDictionary[currentObject.Type];
 
@@ -238,7 +244,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new BreakableObstacle(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToInt32(currentProperties["HP"]),
@@ -250,7 +256,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new BuffTile(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToInt32(currentProperties["Modifier"]),
@@ -262,7 +268,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Chest(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["isLocked"]),
@@ -277,7 +283,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Decoration(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties
                                         );
@@ -286,7 +292,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Door(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["isLocked"]),
@@ -300,7 +306,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Movable(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"])
@@ -310,7 +316,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Portal(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
@@ -323,7 +329,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Currency(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToInt32(currentProperties["value"]),
@@ -335,7 +341,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Switch(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             currentProperties["triggersId"]
@@ -345,7 +351,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Key(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             currentProperties["usedWith"],
@@ -357,7 +363,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Drawbridge(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["isOpen"])
@@ -367,7 +373,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Artillery(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
@@ -379,7 +385,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Railgun(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
@@ -393,7 +399,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new SelectMapEntity(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             derivedMapInfo,
@@ -411,7 +417,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new SeizeEntity(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["capturableByBlue"]),
@@ -422,7 +428,7 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new PushBlock(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties
                                         );
@@ -431,18 +437,29 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new PressurePlate(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
                                             currentProperties["triggersId"],
                                             Convert.ToBoolean(currentProperties["triggerOnRelease"])
                                         );
                                         break;
+                                    case EntityTypes.Trap:
+                                        entityGrid[col, row] = new TrapEntity(
+                                            currentObject.Name,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToInt32(currentProperties["damage"]),
+                                            Convert.ToInt32(currentProperties["triggersRemaining"]),
+                                            Convert.ToBoolean(currentProperties["limitedTriggers"]),
+                                            Convert.ToBoolean(currentProperties["enabled"])
+                                        );
+                                        break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(
                                             currentObject.Name,
                                             currentObject.Type,
-                                            spriteAtlas,
+                                            tileSprite,
                                             new Vector2(col, row),
                                             currentProperties
                                         );
@@ -558,8 +575,21 @@ namespace SolStandard.Map
         }
 
 
-        private void AddAnimatedTileToMap(TmxTilesetTile animatedTile, TmxLayerTile tile, MapElement[,] tileGrid,
-            int col, int row)
+        private TmxTilesetTile TilesetTile(TmxLayerTile tile)
+        {
+            //Check if tileset has animation associated with it.
+            string tilesetPath = FindTileSet(tile.Gid).Name;
+            string tilesetName = tilesetPath.Substring(tilesetPath.LastIndexOf('/') + 1); 
+            
+            TmxTilesetTile animatedTile = tmxMap.Tilesets[tilesetName].Tiles
+                .SingleOrDefault(
+                    tilesetTile =>
+                        tilesetTile.Id == FindTileId(tile.Gid) && tilesetTile.AnimationFrames.Count > 0
+                );
+            return animatedTile;
+        }
+
+        private AnimatedTileSprite GetAnimatedTile(TmxTilesetTile animatedTile, TmxLayerTile tile)
         {
             List<int> tileIds = new List<int>();
 
@@ -575,7 +605,7 @@ namespace SolStandard.Map
                 new Vector2(GameDriver.CellSize)
             );
 
-            tileGrid[col, row] = new MapTile(tileSprite, new Vector2(col, row));
+            return tileSprite;
         }
 
 

@@ -28,7 +28,8 @@ namespace SolStandard.Entity.General
         Pushable,
         SelectMap,
         Unit,
-        PressurePlate
+        PressurePlate,
+        Trap
     }
 
     public class TerrainEntity : MapEntity
@@ -55,7 +56,7 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            Sprite,
+                            Sprite.Clone(),
                             NameText
                         },
                         {

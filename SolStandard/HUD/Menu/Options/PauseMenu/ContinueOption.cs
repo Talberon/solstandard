@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu
@@ -14,6 +15,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
         public override void Execute()
         {
             GameContext.CurrentGameState = GameContext.GameState.InGame;
+        }
+
+        public override IRenderable Clone()
+        {
+            return new ConcedeOption(Color);
         }
     }
 }

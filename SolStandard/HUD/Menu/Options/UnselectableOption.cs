@@ -14,5 +14,10 @@ namespace SolStandard.HUD.Menu.Options
         {
             AssetManager.WarningSFX.Play();
         }
+
+        public override IRenderable Clone()
+        {
+            return new UnselectableOption(LabelContent, Color);
+        }
     }
 }

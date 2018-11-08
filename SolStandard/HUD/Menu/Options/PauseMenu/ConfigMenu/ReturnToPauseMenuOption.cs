@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
@@ -20,6 +21,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
         public override void Execute()
         {
             pauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+        }
+
+        public override IRenderable Clone()
+        {
+            return new ReturnToPauseMenuOption(Color, pauseScreenView);
         }
     }
 }

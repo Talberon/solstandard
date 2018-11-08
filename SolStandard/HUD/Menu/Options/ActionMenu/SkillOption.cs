@@ -2,6 +2,7 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.ActionMenu
@@ -10,16 +11,17 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
     {
         public UnitAction Action { get; private set; }
 
-        public SkillOption(Color windowColor, UnitAction action) : base(new WindowContentGrid(
-            new[,]
-            {
+        public SkillOption(Color windowColor, UnitAction action) : base(
+            new WindowContentGrid(
+                new[,]
                 {
-                    action.Icon,
-                    new RenderText(AssetManager.WindowFont, action.Name),
-                }
-            },
-            1
-        ), windowColor)
+                    {
+                        action.Icon,
+                        new RenderText(AssetManager.WindowFont, action.Name),
+                    }
+                },
+                1
+            ), windowColor)
         {
             Action = action;
         }
@@ -28,6 +30,11 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
         {
             Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             GameContext.ActiveUnit.ArmUnitSkill(Action);
+        }
+
+        public override IRenderable Clone()
+        {
+            return new SkillOption(Color, Action);
         }
     }
 }

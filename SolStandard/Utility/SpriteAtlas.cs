@@ -102,5 +102,10 @@ namespace SolStandard.Utility
         {
             return "SpriteAtlas: <Name," + image.Name + "><cellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
+
+        public IRenderable Clone()
+        {
+            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, RenderColor);
+        }
     }
 }

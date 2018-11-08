@@ -27,15 +27,6 @@ namespace SolStandard.HUD.Window
         public bool Visible { get; set; }
 
 
-        public Window(IRenderable windowContent, Color windowColor) : this(windowContent, windowColor, Vector2.Zero)
-        {
-        }
-
-        public Window(IRenderable windowContent, Color windowColor, HorizontalAlignment horizontalAlignment) :
-            this(windowContent, windowColor, Vector2.Zero, horizontalAlignment)
-        {
-        }
-
         public Window(IRenderable windowContent, Color windowColor, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered)
         {
@@ -47,6 +38,15 @@ namespace SolStandard.HUD.Window
             windowCells = ConstructWindowCells(WindowPixelSize);
             Visible = true;
             HorizontalAlignment = horizontalAlignment;
+        }
+
+        public Window(IRenderable windowContent, Color windowColor, HorizontalAlignment horizontalAlignment) :
+            this(windowContent, windowColor, Vector2.Zero, horizontalAlignment)
+        {
+        }
+
+        public Window(IRenderable windowContent, Color windowColor) : this(windowContent, windowColor, Vector2.Zero)
+        {
         }
 
         private int CalculateCellSize(ITexture2D windowTextureTemplate)
@@ -270,6 +270,12 @@ namespace SolStandard.HUD.Window
 
                 windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
             }
+        }
+
+
+        public IRenderable Clone()
+        {
+            return new Window(windowContents, windowColor, WindowPixelSize, HorizontalAlignment);
         }
     }
 }
