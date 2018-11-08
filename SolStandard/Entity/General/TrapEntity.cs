@@ -98,7 +98,8 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "Triggers Left: " + triggersRemaining)
+                            new RenderText(AssetManager.WindowFont,
+                                (limitedTriggers) ? "Triggers Left: " + triggersRemaining : "Permanent")
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

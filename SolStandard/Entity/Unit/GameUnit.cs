@@ -495,7 +495,7 @@ namespace SolStandard.Entity.Unit
             {
                 effect.UpdateEffect(this);
             }
-            StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
+            StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
         public void AddItemToInventory(IItem item)
