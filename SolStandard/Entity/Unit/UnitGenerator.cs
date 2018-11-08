@@ -131,7 +131,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new LayTrap(3, 3),
+                new LayTrap(5, 1),
                 new Harpoon(2),
                 new Draw(2, 1),
                 new Guard(3),

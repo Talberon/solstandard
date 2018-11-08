@@ -49,7 +49,8 @@ namespace SolStandard.Map
             {"Artillery", EntityTypes.Artillery},
             {"Railgun", EntityTypes.Railgun},
             {"Seize", EntityTypes.Seize},
-            {"Pushable", EntityTypes.Pushable}
+            {"Pushable", EntityTypes.Pushable},
+            {"PressurePlate", EntityTypes.PressurePlate}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -426,6 +427,17 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
+                                    case EntityTypes.PressurePlate:
+                                        entityGrid[col, row] = new PressurePlate(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            spriteAtlas,
+                                            new Vector2(col, row),
+                                            currentProperties,
+                                            currentProperties["triggersId"],
+                                            Convert.ToBoolean(currentProperties["triggerOnRelease"])
+                                        );
+                                        break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(
                                             currentObject.Name,
@@ -544,8 +556,8 @@ namespace SolStandard.Map
 
             throw new TeamNotFoundException();
         }
-        
-        
+
+
         private void AddAnimatedTileToMap(TmxTilesetTile animatedTile, TmxLayerTile tile, MapElement[,] tileGrid,
             int col, int row)
         {

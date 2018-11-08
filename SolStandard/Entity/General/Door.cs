@@ -10,7 +10,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : TerrainEntity, IActionTile, IOpenable, ILockable
+    public class Door : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
@@ -80,10 +80,27 @@ namespace SolStandard.Entity.General
             CanMove = false;
         }
 
+        private void ToggleOpen()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+            else
+            {
+                Open();
+            }
+        }
+
         public void ToggleLock()
         {
             AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
+        }
+
+        public void Trigger()
+        {
+            ToggleOpen();
         }
     }
 }

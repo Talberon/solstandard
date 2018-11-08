@@ -15,6 +15,7 @@ namespace SolStandard.Entity.General
     {
         private int triggersRemaining;
         private readonly int damage;
+
         public bool IsExpired { get; private set; }
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining) :
@@ -25,7 +26,7 @@ namespace SolStandard.Entity.General
             IsExpired = false;
         }
 
-        public void TriggerEffect()
+        public void TriggerStartOfTurn()
         {
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
@@ -55,6 +56,11 @@ namespace SolStandard.Entity.General
 
                 AssetManager.CombatDeathSFX.Play();
             }
+        }
+
+        public void TriggerEndOfTurn()
+        {
+            //Do nothing
         }
 
         public override IRenderable TerrainInfo

@@ -13,19 +13,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class ToggleSwitchAction : UnitAction
     {
-        private readonly List<ILockable> targetLockables;
+        private readonly List<ITriggerable> targetTriggerables;
         private readonly Switch switchTile;
 
-        public ToggleSwitchAction(Switch switchTile, List<ILockable> targetLockables) : base(
+        public ToggleSwitchAction(Switch switchTile, List<ITriggerable> targetTriggerables) : base(
             icon: switchTile.RenderSprite,
             name: "Use: " + switchTile.Name,
-            description: "Opens or closes the target lockable.",
+            description: "Opens or closes the target triggerable.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
         {
             this.switchTile = switchTile;
-            this.targetLockables = targetLockables;
+            this.targetTriggerables = targetTriggerables;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -44,9 +44,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                foreach (ILockable lockable in targetLockables)
+                foreach (ITriggerable triggerable in targetTriggerables)
                 {
-                    eventQueue.Enqueue(new ToggleOpenEvent(lockable as IOpenable));
+                    eventQueue.Enqueue(new TriggerEntityEvent(triggerable));
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -78,9 +78,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private bool NothingObstructingSwitchTarget()
         {
             //Don't allow the switch to be triggered if any target tiles have a unit on them
-            foreach (ILockable lockable in targetLockables)
+            foreach (ITriggerable triggerable in targetTriggerables)
             {
-                TerrainEntity entity = lockable as TerrainEntity;
+                TerrainEntity entity = triggerable as TerrainEntity;
                 if (entity == null) continue;
 
                 if (MapContainer.GetMapSliceAtCoordinates(entity.MapCoordinates).UnitEntity != null)

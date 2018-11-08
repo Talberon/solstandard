@@ -88,6 +88,7 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
+
             GameContext.Scenario.CheckForWinState();
             ConfirmPromptWindow();
             GameContext.ActiveUnit.DisableExhaustedUnit();
@@ -96,12 +97,14 @@ namespace SolStandard.Containers.Contexts
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
             MapContainer.MapCamera.CenterCameraToCursor();
+            
+            TriggerEffectTilesTurnEnd();
 
             EndTurn();
 
             UpdateTurnCounters();
 
-            ActivateEffectTiles();
+            TriggerEffectTilesTurnStart();
 
             if (!GameContext.Units.TrueForAll(unit => unit.Stats.Hp <= 0))
             {
@@ -401,12 +404,26 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
         }
 
-        private static void ActivateEffectTiles()
+        private static void TriggerEffectTilesTurnStart()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerEffect());
+            effectTiles.ForEach(tile => tile.TriggerStartOfTurn());
 
+            RemoveExpiredEffectTiles(effectTiles);
+        }
+
+        private static void TriggerEffectTilesTurnEnd()
+        {
+            List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
+
+            effectTiles.ForEach(tile => tile.TriggerEndOfTurn());
+
+            RemoveExpiredEffectTiles(effectTiles);
+        }
+
+        private static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
+        {
             foreach (IEffectTile effectTile in effectTiles)
             {
                 if (effectTile.IsExpired)

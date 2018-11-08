@@ -76,6 +76,7 @@
     <Compile Include="Entity\General\Key.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
+    <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />
     <Compile Include="Entity\General\Railgun.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
+    <Compile Include="Entity\ITriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
@@ -226,6 +228,7 @@
     <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
+    <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
@@ -353,6 +356,9 @@
     </Content>
     <Content Include="Content\TmxMaps\overworld-32.tsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Scotia_Hill_Redux_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Village_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

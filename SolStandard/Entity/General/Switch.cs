@@ -15,7 +15,7 @@ namespace SolStandard.Entity.General
     public class Switch : TerrainEntity, IActionTile
     {
         public int[] Range { get; private set; }
-        public string TriggersId { get; private set; }
+        private string TriggersId { get; set; }
         private bool active;
         private static readonly Color ActiveColor = new Color(180, 180, 180);
 
@@ -31,18 +31,18 @@ namespace SolStandard.Entity.General
 
         public UnitAction TileAction()
         {
-            List<ILockable> targetLockables = FindLockables();
-            return new ToggleSwitchAction(this, targetLockables);
+            List<ITriggerable> targetTriggerables = FindTriggerables();
+            return new ToggleSwitchAction(this, targetTriggerables);
         }
 
-        private List<ILockable> FindLockables()
+        private List<ITriggerable> FindTriggerables()
         {
-            List<ILockable> lockables = new List<ILockable>();
+            List<ITriggerable> lockables = new List<ITriggerable>();
 
-            // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
-            foreach (MapEntity entity in MapContainer.GameGrid[(int) Layer.Entities])
+            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                ILockable lockable = entity as ILockable;
+                MapEntity entity = (MapEntity) mapElement;
+                ITriggerable lockable = mapElement as ITriggerable;
                 if (lockable != null)
                 {
                     if (entity.Name == TriggersId)

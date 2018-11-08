@@ -27,7 +27,8 @@ namespace SolStandard.Entity.General
         Seize,
         Pushable,
         SelectMap,
-        Unit
+        Unit,
+        PressurePlate
     }
 
     public class TerrainEntity : MapEntity
