@@ -35,8 +35,6 @@
   <terrain name="Dungeon Floor Blue Light" tile="5352"/>
   <terrain name="Dungeon Floor Blue Dark" tile="5472"/>
  </terraintypes>
- <tile id="1" terrain="1,1,1,1"/>
- <tile id="2" terrain="1,1,1,1"/>
  <tile id="20">
   <animation>
    <frame tileid="20" duration="100"/>
@@ -1141,11 +1139,11 @@
  <tile id="4466" terrain="29,,,"/>
  <tile id="4467" terrain=",29,29,"/>
  <tile id="4468" terrain="29,,,29"/>
- <tile id="5324" terrain="17,17,17,18"/>
- <tile id="5325" terrain="17,17,18,18"/>
- <tile id="5326" terrain="17,17,18,17"/>
- <tile id="5327" terrain="17,18,18,18"/>
- <tile id="5328" terrain="18,17,18,18"/>
+ <tile id="5324" terrain=",,,18"/>
+ <tile id="5325" terrain=",,18,18"/>
+ <tile id="5326" terrain=",,18,"/>
+ <tile id="5327" terrain=",18,18,18"/>
+ <tile id="5328" terrain="18,,18,18"/>
  <tile id="5329" terrain=",,,17"/>
  <tile id="5330" terrain=",,17,17"/>
  <tile id="5331" terrain=",,17,"/>
@@ -1161,11 +1159,11 @@
  <tile id="5353" terrain=",,30,"/>
  <tile id="5354" terrain="30,30,30,"/>
  <tile id="5355" terrain="30,30,,30"/>
- <tile id="5364" terrain="17,18,17,18"/>
+ <tile id="5364" terrain=",18,,18"/>
  <tile id="5365" terrain="18,18,18,18"/>
- <tile id="5366" terrain="18,17,18,17"/>
- <tile id="5367" terrain="18,18,17,18"/>
- <tile id="5368" terrain="18,18,18,17"/>
+ <tile id="5366" terrain="18,,18,"/>
+ <tile id="5367" terrain="18,18,,18"/>
+ <tile id="5368" terrain="18,18,18,"/>
  <tile id="5369" terrain=",17,,17"/>
  <tile id="5370" terrain="17,17,17,17"/>
  <tile id="5371" terrain="17,,17,"/>
@@ -1181,9 +1179,9 @@
  <tile id="5393" terrain="30,,30,"/>
  <tile id="5394" terrain="30,,30,30"/>
  <tile id="5395" terrain=",30,30,30"/>
- <tile id="5404" terrain="17,18,17,17"/>
- <tile id="5405" terrain="18,18,17,17"/>
- <tile id="5406" terrain="18,17,17,17"/>
+ <tile id="5404" terrain=",18,,"/>
+ <tile id="5405" terrain="18,18,,"/>
+ <tile id="5406" terrain="18,,,"/>
  <tile id="5409" terrain=",17,,"/>
  <tile id="5410" terrain="17,17,,"/>
  <tile id="5411" terrain="17,,,"/>
@@ -1346,8 +1344,8 @@
    <wangtile tileid="5763" wangid="0x2010101"/>
   </wangset>
   <wangset name="Wall Brown Dungeon" tile="5688">
-   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
-   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#ff0000" tile="5688" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="5645" probability="1"/>
    <wangtile tileid="5645" wangid="0x2020202"/>
    <wangtile tileid="5646" wangid="0x2020102"/>
    <wangtile tileid="5647" wangid="0x1020102"/>
@@ -1366,8 +1364,8 @@
    <wangtile tileid="5768" wangid="0x2010101"/>
   </wangset>
   <wangset name="River" tile="62">
-   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
-   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#ff0000" tile="62" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="140" probability="1"/>
    <wangtile tileid="20" wangid="0x2010202"/>
    <wangtile tileid="21" wangid="0x2010102"/>
    <wangtile tileid="22" wangid="0x1010102"/>
@@ -1386,8 +1384,8 @@
    <wangtile tileid="143" wangid="0x1020202"/>
   </wangset>
   <wangset name="Castle Wall" tile="455">
-   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
-   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#ff0000" tile="455" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="533" probability="1"/>
    <wangtile tileid="413" wangid="0x2010202"/>
    <wangtile tileid="414" wangid="0x2010102"/>
    <wangtile tileid="415" wangid="0x1010102"/>
@@ -1406,8 +1404,8 @@
    <wangtile tileid="536" wangid="0x1020202"/>
   </wangset>
   <wangset name="Countertop" tile="4490">
-   <wangedgecolor name="" color="#ff0000" tile="-1" probability="1"/>
-   <wangedgecolor name="" color="#00ff00" tile="-1" probability="1"/>
+   <wangedgecolor name="" color="#ff0000" tile="4490" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="4568" probability="1"/>
    <wangtile tileid="4448" wangid="0x2010202"/>
    <wangtile tileid="4449" wangid="0x2010102"/>
    <wangtile tileid="4450" wangid="0x1010102"/>
@@ -1424,6 +1422,26 @@
    <wangtile tileid="4569" wangid="0x2020102"/>
    <wangtile tileid="4570" wangid="0x1020102"/>
    <wangtile tileid="4571" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="Hedges" tile="4336">
+   <wangedgecolor name="" color="#ff0000" tile="4336" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="4414" probability="1"/>
+   <wangtile tileid="4294" wangid="0x2010202"/>
+   <wangtile tileid="4295" wangid="0x2010102"/>
+   <wangtile tileid="4296" wangid="0x1010102"/>
+   <wangtile tileid="4297" wangid="0x1010202"/>
+   <wangtile tileid="4334" wangid="0x2010201"/>
+   <wangtile tileid="4335" wangid="0x2010101"/>
+   <wangtile tileid="4336" wangid="0x1010101"/>
+   <wangtile tileid="4337" wangid="0x1010201"/>
+   <wangtile tileid="4374" wangid="0x2020201"/>
+   <wangtile tileid="4375" wangid="0x2020101"/>
+   <wangtile tileid="4376" wangid="0x1020101"/>
+   <wangtile tileid="4377" wangid="0x1020201"/>
+   <wangtile tileid="4414" wangid="0x2020202"/>
+   <wangtile tileid="4415" wangid="0x2020102"/>
+   <wangtile tileid="4416" wangid="0x1020102"/>
+   <wangtile tileid="4417" wangid="0x1020202"/>
   </wangset>
  </wangsets>
 </tileset>
