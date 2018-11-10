@@ -36,8 +36,8 @@ namespace SolStandard.Map.Camera
         private const float DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
 
-        private const int TopCursorThreshold = 200;
-        private const int HorizontalCursorThreshold = 200;
+        private const int TopCursorThreshold = 250;
+        private const int HorizontalCursorThreshold = 300;
         private const int BottomCursorThreshold = 300;
 
         public float CurrentZoom { get; private set; }
@@ -300,7 +300,8 @@ namespace SolStandard.Map.Camera
 
         private float WestBound
         {
-            get { return 0 + HorizontalCursorThreshold; }
+            get { return 0 + HorizontalCursorThreshold +
+                         (GameContext.MapCursor.RenderSprite.Width * CurrentZoom); }
         }
 
         private float EastBound
