@@ -233,6 +233,14 @@
    <frame tileid="193" duration="100"/>
   </animation>
  </tile>
+ <tile id="182">
+  <animation>
+   <frame tileid="182" duration="100"/>
+   <frame tileid="186" duration="100"/>
+   <frame tileid="190" duration="100"/>
+   <frame tileid="194" duration="100"/>
+  </animation>
+ </tile>
  <tile id="196">
   <animation>
    <frame tileid="196" duration="100"/>
@@ -260,6 +268,14 @@
    <frame tileid="233" duration="100"/>
   </animation>
  </tile>
+ <tile id="222">
+  <animation>
+   <frame tileid="222" duration="100"/>
+   <frame tileid="226" duration="100"/>
+   <frame tileid="230" duration="100"/>
+   <frame tileid="234" duration="100"/>
+  </animation>
+ </tile>
  <tile id="236">
   <animation>
    <frame tileid="236" duration="100"/>
@@ -271,12 +287,76 @@
  <tile id="240" terrain=",1,,"/>
  <tile id="241" terrain="1,1,,"/>
  <tile id="242" terrain="1,,,"/>
+ <tile id="260">
+  <animation>
+   <frame tileid="260" duration="100"/>
+   <frame tileid="264" duration="100"/>
+   <frame tileid="268" duration="100"/>
+   <frame tileid="272" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="261">
+  <animation>
+   <frame tileid="261" duration="100"/>
+   <frame tileid="265" duration="100"/>
+   <frame tileid="269" duration="100"/>
+   <frame tileid="273" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="262">
+  <animation>
+   <frame tileid="262" duration="100"/>
+   <frame tileid="266" duration="100"/>
+   <frame tileid="270" duration="100"/>
+   <frame tileid="274" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="263">
+  <animation>
+   <frame tileid="263" duration="100"/>
+   <frame tileid="267" duration="100"/>
+   <frame tileid="271" duration="100"/>
+   <frame tileid="275" duration="100"/>
+  </animation>
+ </tile>
  <tile id="280" terrain=",,,2"/>
  <tile id="281" terrain=",,2,2"/>
  <tile id="282" terrain=",,2,"/>
  <tile id="283" terrain=",2,2,2"/>
  <tile id="284" terrain="2,,2,2"/>
  <tile id="285" terrain="2,2,2,2"/>
+ <tile id="300">
+  <animation>
+   <frame tileid="300" duration="100"/>
+   <frame tileid="304" duration="100"/>
+   <frame tileid="308" duration="100"/>
+   <frame tileid="312" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="301">
+  <animation>
+   <frame tileid="301" duration="100"/>
+   <frame tileid="305" duration="100"/>
+   <frame tileid="309" duration="100"/>
+   <frame tileid="313" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="302">
+  <animation>
+   <frame tileid="302" duration="100"/>
+   <frame tileid="306" duration="100"/>
+   <frame tileid="310" duration="100"/>
+   <frame tileid="314" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="303">
+  <animation>
+   <frame tileid="303" duration="100"/>
+   <frame tileid="307" duration="100"/>
+   <frame tileid="311" duration="100"/>
+   <frame tileid="315" duration="100"/>
+  </animation>
+ </tile>
  <tile id="320" terrain=",2,,2"/>
  <tile id="321" terrain="2,2,2,2"/>
  <tile id="322" terrain="2,,2,"/>
@@ -1442,6 +1522,49 @@
    <wangtile tileid="4415" wangid="0x2020102"/>
    <wangtile tileid="4416" wangid="0x1020102"/>
    <wangtile tileid="4417" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="World Path Dark" tile="92">
+   <wangedgecolor name="" color="#ff0000" tile="54" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="132" probability="1"/>
+   <wangtile tileid="12" wangid="0x2010202"/>
+   <wangtile tileid="13" wangid="0x2010102"/>
+   <wangtile tileid="14" wangid="0x1010102"/>
+   <wangtile tileid="15" wangid="0x1010202"/>
+   <wangtile tileid="52" wangid="0x2010201"/>
+   <wangtile tileid="53" wangid="0x2010101"/>
+   <wangtile tileid="54" wangid="0x1010101"/>
+   <wangtile tileid="55" wangid="0x1010201"/>
+   <wangtile tileid="56" wangid="0x1020102"/>
+   <wangtile tileid="92" wangid="0x2020201"/>
+   <wangtile tileid="93" wangid="0x2020101"/>
+   <wangtile tileid="94" wangid="0x1020101"/>
+   <wangtile tileid="95" wangid="0x1020201"/>
+   <wangtile tileid="96" wangid="0x2010201"/>
+   <wangtile tileid="132" wangid="0x2020202"/>
+   <wangtile tileid="133" wangid="0x2020102"/>
+   <wangtile tileid="134" wangid="0x1020102"/>
+   <wangtile tileid="135" wangid="0x1020202"/>
+   <wangtile tileid="136" wangid="0x2010201"/>
+  </wangset>
+  <wangset name="World Path Light" tile="127">
+   <wangedgecolor name="" color="#ff0000" tile="49" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="127" probability="1"/>
+   <wangtile tileid="7" wangid="0x2010202"/>
+   <wangtile tileid="8" wangid="0x2010102"/>
+   <wangtile tileid="9" wangid="0x1010102"/>
+   <wangtile tileid="10" wangid="0x1010202"/>
+   <wangtile tileid="47" wangid="0x2010201"/>
+   <wangtile tileid="48" wangid="0x2010101"/>
+   <wangtile tileid="49" wangid="0x1010101"/>
+   <wangtile tileid="50" wangid="0x1010201"/>
+   <wangtile tileid="87" wangid="0x2020201"/>
+   <wangtile tileid="88" wangid="0x2020101"/>
+   <wangtile tileid="89" wangid="0x1020101"/>
+   <wangtile tileid="90" wangid="0x1020201"/>
+   <wangtile tileid="127" wangid="0x2020202"/>
+   <wangtile tileid="128" wangid="0x2020102"/>
+   <wangtile tileid="129" wangid="0x1020102"/>
+   <wangtile tileid="130" wangid="0x1020202"/>
   </wangset>
  </wangsets>
 </tileset>
