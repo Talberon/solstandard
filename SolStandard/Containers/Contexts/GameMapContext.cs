@@ -88,7 +88,6 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
-
             GameContext.Scenario.CheckForWinState();
             ConfirmPromptWindow();
             GameContext.ActiveUnit.DisableExhaustedUnit();
@@ -97,7 +96,7 @@ namespace SolStandard.Containers.Contexts
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
             MapContainer.MapCamera.CenterCameraToCursor();
-            
+
             TriggerEffectTilesTurnEnd();
 
             EndTurn();
@@ -229,7 +228,7 @@ namespace SolStandard.Containers.Contexts
                 );
 
                 MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateTargetingGrid(
                         SelectedUnit.UnitEntity.MapCoordinates,
                         SelectedUnit.Stats.AtkRange,
@@ -319,7 +318,7 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitMoveSFX.Play();
 
             MapContainer.ClearPreviewGrid();
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                 .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
                     Layer.Preview);
         }
@@ -346,8 +345,7 @@ namespace SolStandard.Containers.Contexts
                 if (hoverMapUnit != null)
                 {
                     new UnitTargetingContext(
-                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-                        false
+                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
                     ).GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
                 }
 

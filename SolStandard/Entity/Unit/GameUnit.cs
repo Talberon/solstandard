@@ -429,13 +429,13 @@ namespace SolStandard.Entity.Unit
 
         public void DamageUnit()
         {
-            if (stats.Armor > 0)
+            if (Stats.Armor > 0)
             {
-                stats.Armor--;
+                Stats.Armor--;
             }
             else
             {
-                stats.Hp--;
+                Stats.Hp--;
             }
 
             healthbars.ForEach(healthbar => healthbar.Update(Stats.Armor, Stats.Hp));
@@ -565,7 +565,7 @@ namespace SolStandard.Entity.Unit
                     MapEntity.MapCoordinates,
                     new Dictionary<string, string>(),
                     CurrentGold,
-                    Inventory
+                    new List<IItem> (Inventory)
                 );
 
             CurrentGold = 0;

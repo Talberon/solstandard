@@ -44,6 +44,14 @@ namespace SolStandard.Entity.Unit.Actions
                 //deal damage to terrain
                 BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
                 targetObstacle.DealDamage(1);
+
+                if (targetObstacle.IsBroken)
+                {
+                    MapContainer.GameGrid[(int) Layer.Entities]
+                        [(int) targetObstacle.MapCoordinates.X, (int) targetObstacle.MapCoordinates.Y] = null;
+                }
+
+
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

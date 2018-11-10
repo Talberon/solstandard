@@ -52,7 +52,7 @@
   <property name="range" type="string" default="0"/>
  </objecttype>
  <objecttype name="PressurePlate" color="#7ca47f">
-  <property name="triggerOnRelease" type="bool" default="false"/>
+  <property name="triggerOnRelease" type="bool" default="true"/>
   <property name="triggersId" type="string"/>
  </objecttype>
  <objecttype name="Pushable" color="#6672b5"/>

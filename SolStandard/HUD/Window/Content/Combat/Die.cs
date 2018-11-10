@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace SolStandard.HUD.Window.Content.Combat
 {

@@ -13,6 +13,8 @@ namespace SolStandard.Entity.General
 {
     public class TrapEntity : TerrainEntity, IEffectTile, ITriggerable
     {
+        private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
+
         private int triggersRemaining;
         private readonly int damage;
         private readonly bool limitedTriggers;
@@ -79,6 +81,8 @@ namespace SolStandard.Entity.General
         public void Trigger()
         {
             enabled = !enabled;
+
+            ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 
         public override IRenderable TerrainInfo

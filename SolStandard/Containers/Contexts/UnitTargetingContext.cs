@@ -31,7 +31,7 @@ namespace SolStandard.Containers.Contexts
             new UnitMovingContext(
                     MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark)
                 )
-                .GenerateMoveGrid(origin, unit, false);
+                .GenerateMoveGrid(origin, unit);
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {

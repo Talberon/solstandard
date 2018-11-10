@@ -11,7 +11,7 @@ namespace SolStandard.Entity.General
     public class BreakableObstacle : TerrainEntity
     {
         private int hp;
-        private bool isBroken;
+        public bool IsBroken { get; private set; }
 
         public BreakableObstacle(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, int hp, bool canMove, bool isBroken) : base(name, type, sprite,
@@ -19,7 +19,7 @@ namespace SolStandard.Entity.General
         {
             this.hp = hp;
             CanMove = canMove;
-            this.isBroken = isBroken;
+            IsBroken = isBroken;
         }
 
         public void DealDamage(int damage)
@@ -32,7 +32,7 @@ namespace SolStandard.Entity.General
             if (hp > 0) return;
             
             AssetManager.CombatDeathSFX.Play();
-            isBroken = true;
+            IsBroken = true;
             CanMove = true;
             Visible = false;
 
@@ -61,8 +61,8 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (isBroken) ? "Broken" : "Not Broken",
-                                (isBroken) ? NegativeColor : PositiveColor),
+                            new RenderText(AssetManager.WindowFont, (IsBroken) ? "Broken" : "Not Broken",
+                                (IsBroken) ? NegativeColor : PositiveColor),
                             new RenderBlank()
                         }
                     },

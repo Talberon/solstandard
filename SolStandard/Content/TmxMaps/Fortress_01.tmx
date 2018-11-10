@@ -5528,85 +5528,85 @@
   </object>
  </objectgroup>
  <objectgroup name="Units">
-  <object id="520" name="Fracturius I" type="Unit" gid="452" x="1024" y="800" width="32" height="32">
+  <object id="520" name="Fracturius I" type="Unit" gid="452" x="736" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="456" x="288" y="64" width="32" height="32">
+  <object id="521" name="Marrowon II" type="Unit" gid="456" x="544" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="795" name="Henry" type="Unit" gid="455" x="288" y="96" width="32" height="32">
+  <object id="795" name="Henry" type="Unit" gid="455" x="544" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="796" name="Charles" type="Unit" gid="454" x="224" y="96" width="32" height="32">
+  <object id="796" name="Charles" type="Unit" gid="454" x="480" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="797" name="Benjamin" type="Unit" gid="453" x="352" y="96" width="32" height="32">
+  <object id="797" name="Benjamin" type="Unit" gid="453" x="608" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="798" name="Vincent" type="Unit" gid="455" x="288" y="128" width="32" height="32">
+  <object id="798" name="Vincent" type="Unit" gid="455" x="544" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="799" name="Oliver" type="Unit" gid="454" x="224" y="128" width="32" height="32">
+  <object id="799" name="Oliver" type="Unit" gid="454" x="480" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="800" name="Qorf" type="Unit" gid="453" x="352" y="128" width="32" height="32">
+  <object id="800" name="Qorf" type="Unit" gid="453" x="608" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="801" name="Ezra" type="Unit" gid="449" x="1088" y="800" width="32" height="32">
+  <object id="801" name="Ezra" type="Unit" gid="449" x="800" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="802" name="William" type="Unit" gid="451" x="1024" y="832" width="32" height="32">
+  <object id="802" name="William" type="Unit" gid="451" x="736" y="672" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="803" name="Thomas" type="Unit" gid="450" x="1056" y="768" width="32" height="32">
+  <object id="803" name="Thomas" type="Unit" gid="450" x="768" y="608" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="804" name="Kaiser" type="Unit" gid="449" x="992" y="864" width="32" height="32">
+  <object id="804" name="Kaiser" type="Unit" gid="449" x="704" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="805" name="Rowan" type="Unit" gid="451" x="992" y="800" width="32" height="32">
+  <object id="805" name="Rowan" type="Unit" gid="451" x="704" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="806" name="Erik" type="Unit" gid="450" x="960" y="832" width="32" height="32">
+  <object id="806" name="Erik" type="Unit" gid="450" x="672" y="672" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
