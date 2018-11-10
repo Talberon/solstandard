@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="37" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="807">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="37" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="808">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -4904,7 +4904,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Items">
-  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="512" y="480" width="32" height="32">
+  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="512" y="512" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
@@ -4978,6 +4978,11 @@
    <properties>
     <property name="gold" type="int" value="100"/>
     <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="807" name="Treasure" type="Currency" gid="416" x="128" y="832" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
    </properties>
   </object>
  </objectgroup>

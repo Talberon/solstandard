@@ -18,7 +18,7 @@ namespace SolStandard.Containers.Contexts
             this.spriteAtlas = spriteAtlas;
         }
 
-        public void GenerateMoveGrid(Vector2 origin, GameUnit unit, bool showNumbers = true)
+        public void GenerateMoveGrid(Vector2 origin, GameUnit unit, bool showNumbers = false)
         {
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();

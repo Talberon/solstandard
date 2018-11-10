@@ -159,7 +159,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Ignite(3, 2),
                 new Atrophy(2, 1),
-                new Blink(),
+                new Replace(),
                 new Guard(3),
                 new Wait()
             };

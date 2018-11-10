@@ -47,14 +47,6 @@ namespace SolStandard.Entity.Unit.Actions
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
-            else if (GameContext.ActiveUnit == targetUnit)
-            {
-                //Skip the combat state if player selects the same unit
-                AssetManager.MapUnitSelectSFX.Play();
-
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
-            }
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);

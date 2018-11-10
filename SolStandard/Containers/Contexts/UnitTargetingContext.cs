@@ -13,7 +13,7 @@ namespace SolStandard.Containers.Contexts
         private readonly SpriteAtlas spriteAtlas;
         private readonly bool numbersVisible;
 
-        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = true)
+        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = false)
         {
             this.spriteAtlas = spriteAtlas;
             this.numbersVisible = numbersVisible;
