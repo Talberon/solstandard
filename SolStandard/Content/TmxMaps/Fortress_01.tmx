@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="828">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="830">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -5218,7 +5218,7 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="737" name="Spike Trap A" type="Trap" gid="6337" x="768" y="352" width="32" height="32">
+  <object id="737" name="Spike Trap B" type="Trap" gid="6337" x="768" y="352" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -5447,6 +5447,11 @@
    <properties>
     <property name="gold" type="int" value="100"/>
     <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="829" name="Unlocked Chest" type="Chest" gid="205" x="288" y="608" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="20"/>
    </properties>
   </object>
  </objectgroup>
