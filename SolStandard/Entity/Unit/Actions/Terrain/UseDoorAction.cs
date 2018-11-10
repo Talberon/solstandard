@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a door!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
