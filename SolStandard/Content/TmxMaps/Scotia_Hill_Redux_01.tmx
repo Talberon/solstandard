@@ -10475,24 +10475,6 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="524" name="Clancy" type="Unit" gid="454" x="1216" y="1312" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="527" name="Ernie" type="Unit" gid="453" x="832" y="1344" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="528" name="Duncan" type="Unit" gid="451" x="1184" y="800" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
   <object id="529" name="Leopold" type="Unit" gid="450" x="1056" y="800" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
@@ -10511,25 +10493,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="715" name="Cuthbert" type="Unit" gid="453" x="1184" y="1344" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="716" name="Aleksandr" type="Unit" gid="455" x="992" y="1408" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="717" name="Siegfried" type="Unit" gid="455" x="1248" y="1280" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="718" name="Samson" type="Unit" gid="455" x="1248" y="1216" width="32" height="32">
+  <object id="717" name="Siegfried" type="Unit" gid="455" x="1248" y="1248" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
@@ -10541,37 +10505,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="720" name="Scott" type="Unit" gid="451" x="512" y="800" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
   <object id="721" name="Durndler" type="Unit" gid="449" x="1152" y="768" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="722" name="Fontain" type="Unit" gid="449" x="1056" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="723" name="Ronaldo" type="Unit" gid="449" x="608" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="724" name="Vernan" type="Unit" gid="450" x="864" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="725" name="Wayne" type="Unit" gid="450" x="704" y="704" width="32" height="32">
+  <object id="724" name="Vernan" type="Unit" gid="450" x="704" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
@@ -10589,21 +10529,9 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="728" name="Garth" type="Unit" gid="454" x="1024" y="1440" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
   <object id="729" name="Casper" type="Unit" gid="451" x="1120" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="730" name="Jules" type="Unit" gid="450" x="640" y="736" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="830">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="838">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -5365,12 +5365,12 @@
   </object>
   <object id="778" name="Rubble" type="BreakableObstacle" gid="246" x="736" y="288" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="3"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="779" name="Rubble" type="BreakableObstacle" gid="246" x="960" y="256" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="3"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="788" name="Spike Trap B" type="Trap" gid="6337" x="832" y="192" width="32" height="32">
@@ -5454,6 +5454,46 @@
     <property name="gold" type="int" value="20"/>
    </properties>
   </object>
+  <object id="830" name="Spike Trap B" type="Trap" gid="6337" x="672" y="224" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="831" name="Spike Trap B" type="Trap" gid="6337" x="896" y="288" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="832" name="Spike Trap B" type="Trap" gid="6337" x="928" y="192" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="833" name="Spike Trap B" type="Trap" gid="6337" x="704" y="192" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="834" name="Spike Trap B" type="Trap" gid="6337" x="704" y="352" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="835" name="Spike Trap B" type="Trap" gid="6337" x="672" y="352" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="836" name="Spike Trap B" type="Trap" gid="6337" x="672" y="320" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="837" name="Spike Trap B" type="Trap" gid="6337" x="704" y="320" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Items">
   <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="576" y="512" width="32" height="32">
@@ -5533,85 +5573,85 @@
   </object>
  </objectgroup>
  <objectgroup name="Units">
-  <object id="520" name="Fracturius I" type="Unit" gid="452" x="736" y="640" width="32" height="32">
+  <object id="520" name="Fracturius I" type="Unit" gid="452" x="1024" y="800" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="456" x="544" y="352" width="32" height="32">
+  <object id="521" name="Marrowon II" type="Unit" gid="456" x="288" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="795" name="Henry" type="Unit" gid="455" x="544" y="384" width="32" height="32">
+  <object id="795" name="Henry" type="Unit" gid="455" x="288" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="796" name="Charles" type="Unit" gid="454" x="480" y="384" width="32" height="32">
+  <object id="796" name="Charles" type="Unit" gid="454" x="224" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="797" name="Benjamin" type="Unit" gid="453" x="608" y="384" width="32" height="32">
+  <object id="797" name="Benjamin" type="Unit" gid="453" x="352" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="798" name="Vincent" type="Unit" gid="455" x="544" y="416" width="32" height="32">
+  <object id="798" name="Vincent" type="Unit" gid="455" x="288" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="799" name="Oliver" type="Unit" gid="454" x="480" y="416" width="32" height="32">
+  <object id="799" name="Oliver" type="Unit" gid="454" x="224" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="800" name="Qorf" type="Unit" gid="453" x="608" y="416" width="32" height="32">
+  <object id="800" name="Qorf" type="Unit" gid="453" x="352" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="801" name="Ezra" type="Unit" gid="449" x="800" y="640" width="32" height="32">
+  <object id="801" name="Ezra" type="Unit" gid="449" x="1088" y="800" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="802" name="William" type="Unit" gid="451" x="736" y="672" width="32" height="32">
+  <object id="802" name="William" type="Unit" gid="451" x="1024" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="803" name="Thomas" type="Unit" gid="450" x="768" y="608" width="32" height="32">
+  <object id="803" name="Thomas" type="Unit" gid="450" x="1056" y="768" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="804" name="Kaiser" type="Unit" gid="449" x="704" y="704" width="32" height="32">
+  <object id="804" name="Kaiser" type="Unit" gid="449" x="992" y="864" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="805" name="Rowan" type="Unit" gid="451" x="704" y="640" width="32" height="32">
+  <object id="805" name="Rowan" type="Unit" gid="451" x="992" y="800" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="806" name="Erik" type="Unit" gid="450" x="672" y="672" width="32" height="32">
+  <object id="806" name="Erik" type="Unit" gid="450" x="960" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>

@@ -539,20 +539,32 @@ namespace SolStandard.Entity.Unit
             //Don't drop spoils if inventory is empty
             if (CurrentGold == 0 && Inventory.Count == 0) return;
 
-            TerrainEntity entityAtUnitPosition =
+            //If on top of other Spoils, pick those up before dropping on top of them
+            Spoils spoilsAtUnitPosition =
+                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                    (int) MapEntity.MapCoordinates.Y] as Spoils;
+
+            if (spoilsAtUnitPosition != null)
+            {
+                CurrentGold += spoilsAtUnitPosition.Gold;
+                Inventory.AddRange(spoilsAtUnitPosition.Items);
+            }
+            
+            
+            TerrainEntity itemAtUnitPosition =
                 MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                     (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
 
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (entityAtUnitPosition != null)
+            if (itemAtUnitPosition != null)
             {
-                if (entityAtUnitPosition is IItem)
+                if (itemAtUnitPosition is IItem)
                 {
-                    AddItemToInventory(entityAtUnitPosition as IItem);
+                    AddItemToInventory(itemAtUnitPosition as IItem);
                 }
-                else if (entityAtUnitPosition is Currency)
+                else if (itemAtUnitPosition is Currency)
                 {
-                    Currency gold = entityAtUnitPosition as Currency;
+                    Currency gold = itemAtUnitPosition as Currency;
                     CurrentGold += gold.Value;
                 }
             }
