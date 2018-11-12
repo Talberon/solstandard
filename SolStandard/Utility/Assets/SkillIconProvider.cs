@@ -19,7 +19,8 @@ namespace SolStandard.Utility.Assets
         Ignite,
         Bulwark,
         Atrophy,
-        Trap
+        Trap,
+        Bloodthirst
     }
 
     public static class SkillIconProvider
@@ -48,6 +49,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D bulwark = skillIconTextures.Find(texture => texture.Name.EndsWith("Bulwark"));
             ITexture2D atrophy = skillIconTextures.Find(texture => texture.Name.EndsWith("Atrophy"));
             ITexture2D trap = skillIconTextures.Find(texture => texture.Name.EndsWith("Trap"));
+            ITexture2D bloodthirst = skillIconTextures.Find(texture => texture.Name.EndsWith("Bloodthirst"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -64,7 +66,8 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Ignite, ignite},
                 {SkillIcon.Bulwark, bulwark},
                 {SkillIcon.Atrophy, atrophy},
-                {SkillIcon.Trap, trap}
+                {SkillIcon.Trap, trap},
+                {SkillIcon.Bloodthirst, bloodthirst}
             };
         }
     }

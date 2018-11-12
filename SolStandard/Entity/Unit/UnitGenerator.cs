@@ -143,11 +143,10 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitAction>
             {
-                new BasicAttack(),
+                new Bloodthirst(2),
                 new Atrophy(2, 1),
                 new Tackle(),
                 new Shove(),
-                new Cover(3),
                 new Guard(3),
                 new Wait()
             };

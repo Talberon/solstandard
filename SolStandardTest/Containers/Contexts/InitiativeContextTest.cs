@@ -11,11 +11,11 @@ namespace SolStandardTest.Containers.Contexts
     public class InitiativeContextTest
     {
         private static readonly GameUnit BlueUnit =
-            new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null, new UnitStatistics(10, 2, 2, 2, 2, new[] {1}),
+            new GameUnit("BlueGuy", Team.Blue, Role.Monarch, null, new UnitStatistics(10, 2, 2, 2, 2, 2, new[] {1}),
                 new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""), new List<UnitAction>());
 
         private static readonly GameUnit RedUnit =
-            new GameUnit("RedGuy", Team.Red, Role.Monarch, null, new UnitStatistics(10, 2, 2, 2, 2, new[] {1}),
+            new GameUnit("RedGuy", Team.Red, Role.Monarch, null, new UnitStatistics(10, 2, 2, 2, 2, 2, new[] {1}),
                 new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""), new List<UnitAction>());
 
         [TestMethod]
