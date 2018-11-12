@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -11,6 +12,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -31,7 +33,7 @@ namespace SolStandard.Entity.Unit
     {
         Red,
         Blue,
-        Neutral
+        Creep
     }
 
     public class GameUnit : GameEntity
@@ -417,6 +419,37 @@ namespace SolStandard.Entity.Unit
         public void CancelArmedSkill()
         {
             armedUnitAction.CancelAction();
+        }
+
+        public void MoveUnitInDirection(Direction direction)
+        {
+            Vector2 destination = UnitEntity.MapCoordinates;
+            switch (direction)
+            {
+                case Direction.Down:
+                    destination.Y = destination.Y + 1;
+                    break;
+                case Direction.Right:
+                    destination.X = destination.X + 1;
+                    break;
+                case Direction.Up:
+                    destination.Y = destination.Y - 1;
+                    break;
+                case Direction.Left:
+                    destination.X = destination.X - 1;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("direction", direction, null);
+            }
+
+            if (UnitMovingContext.CanMoveAtCoordinates(destination))
+            {
+                MoveUnitToCoordinates(destination);
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+            }
         }
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)

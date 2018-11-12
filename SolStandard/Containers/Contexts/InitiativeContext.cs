@@ -63,6 +63,7 @@ namespace SolStandard.Containers.Contexts
             //Split the initiative list into each team
             List<GameUnit> redTeam = new List<GameUnit>();
             List<GameUnit> blueTeam = new List<GameUnit>();
+            List<GameUnit> creepTeam = new List<GameUnit>();
 
             foreach (GameUnit unit in unitList)
             {
@@ -74,6 +75,9 @@ namespace SolStandard.Containers.Contexts
                     case Team.Blue:
                         blueTeam.Add(unit);
                         break;
+                    case Team.Creep:
+                        creepTeam.Add(unit);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -82,6 +86,7 @@ namespace SolStandard.Containers.Contexts
             //Randomize each team's units
             redTeam.Shuffle();
             blueTeam.Shuffle();
+            creepTeam.Shuffle();
 
             //Determine which team has more units and by how much 
             Queue<GameUnit> minorityTeam;
@@ -122,7 +127,7 @@ namespace SolStandard.Containers.Contexts
 
             //Build the final initiative list
             List<GameUnit> newInitiativeList = new List<GameUnit>();
-            for (int i = 1; i < unitList.Count + 1; i++)
+            for (int i = 1; i < (redTeam.Count + blueTeam.Count) + 1; i++)
             {
                 //Majority has priority
                 if (minorityTeam.Count < 1)
@@ -140,6 +145,9 @@ namespace SolStandard.Containers.Contexts
                     newInitiativeList.Add(majorityTeam.Dequeue());
                 }
             }
+            
+            //Fill the end of the list with Creeps
+            newInitiativeList.AddRange(creepTeam);
 
             return newInitiativeList;
         }

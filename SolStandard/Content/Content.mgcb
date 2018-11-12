@@ -2515,42 +2515,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Small/Monarch.png
 
-#begin Graphics/Images/Portraits/Neutral/Large/Slime.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Neutral/Large/Slime.png
-
-#begin Graphics/Images/Portraits/Neutral/Medium/Slime.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Neutral/Medium/Slime.png
-
-#begin Graphics/Images/Portraits/Neutral/Small/Slime.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Neutral/Small/Slime.png
-
 #begin Graphics/Images/Portraits/Red/Large/Archer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2695,7 +2659,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Small/Monarch.png
 
-#begin Graphics/Map/Units/Neutral/CreepSlime.png
+#begin Graphics/Images/Portraits/Creep/Large/Slime.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2705,5 +2669,41 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/Units/Neutral/CreepSlime.png
+/build:Graphics/Images/Portraits/Creep/Large/Slime.png
+
+#begin Graphics/Images/Portraits/Creep/Medium/Slime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Medium/Slime.png
+
+#begin Graphics/Images/Portraits/Creep/Small/Slime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Small/Slime.png
+
+#begin Graphics/Map/Units/Creep/CreepSlime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepSlime.png
 

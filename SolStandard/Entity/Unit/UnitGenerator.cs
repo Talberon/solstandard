@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Entity.Unit.Actions.Creeps.Slime;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Monarch;
 using SolStandard.Utility.Monogame;
@@ -19,7 +20,7 @@ namespace SolStandard.Entity.Unit
         {
             {"Red", Team.Red},
             {"Blue", Team.Blue},
-            {"Neutral", Team.Neutral}
+            {"Creep", Team.Creep}
         };
 
         private static readonly Dictionary<string, Role> roleDictionary = new Dictionary<string, Role>
@@ -83,6 +84,10 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectMonarchStats();
                     unitSkills = SelectMonarchSkills();
                     break;
+                case Role.Slime:
+                    unitStats = SelectSlimeStats();
+                    unitSkills = SelectSlimeSkills();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
@@ -109,6 +114,11 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectMonarchStats()
         {
             return new UnitStatistics(20, 0, 4, 3, 1, 5, new[] {1});
+        }
+
+        private static UnitStatistics SelectSlimeStats()
+        {
+            return new UnitStatistics(5, 0, 3, 3, 1, 3, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -159,6 +169,15 @@ namespace SolStandard.Entity.Unit
                 new DoubleTime(2, 1),
                 new Bulwark(2, 2),
                 new Wait()
+            };
+        }
+
+        private static List<UnitAction> SelectSlimeSkills()
+        {
+            return new List<UnitAction>
+            {
+                new SlimeRoutine(),
+                new BasicAttack()
             };
         }
 

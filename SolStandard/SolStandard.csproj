@@ -94,6 +94,7 @@
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\Slime\SlimeRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Utility\Buttons\UpControl.cs" />
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
+    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />
