@@ -47,29 +47,26 @@ namespace SolStandard.Entity.General
                 trapUnit.DamageUnit();
             }
 
-            string trapMessage = "Trap activated!" + Environment.NewLine +
-                                 trapUnit.Id + " takes [" + damage + "] damage!";
-
-
-            AssetManager.CombatDamageSFX.Play();
-
-            if (!limitedTriggers)
-            {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
-                    50);
-                return;
-            }
+            string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + damage +
+                                 "] damage!";
 
             triggersRemaining--;
 
-            if (triggersRemaining < 1)
+            if (limitedTriggers && triggersRemaining < 1)
             {
                 IsExpired = true;
 
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                     trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 50);
 
+                AssetManager.CombatDamageSFX.Play();
                 AssetManager.CombatDeathSFX.Play();
+            }
+            else
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                    50);
+                AssetManager.CombatDamageSFX.Play();
             }
         }
 

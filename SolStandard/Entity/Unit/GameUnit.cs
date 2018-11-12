@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,6 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map;
-using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -417,27 +415,6 @@ namespace SolStandard.Entity.Unit
         public void CancelArmedSkill()
         {
             armedUnitAction.CancelAction();
-        }
-
-        public void MoveUnitInDirection(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Down:
-                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y + 1));
-                    break;
-                case Direction.Right:
-                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X + 1, MapEntity.MapCoordinates.Y));
-                    break;
-                case Direction.Up:
-                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X, MapEntity.MapCoordinates.Y - 1));
-                    break;
-                case Direction.Left:
-                    MoveUnitToCoordinates(new Vector2(MapEntity.MapCoordinates.X - 1, MapEntity.MapCoordinates.Y));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
-            }
         }
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)

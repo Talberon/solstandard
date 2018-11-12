@@ -232,6 +232,15 @@ namespace SolStandard.Utility.Load
             return diceTextureWrapper;
         }
 
+        public static ITexture2D LoadFireAtlas(ContentManager content)
+        {
+            Texture2D fireTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire");
+
+            ITexture2D fireTextureWrapper = new Texture2DWrapper(fireTexture);
+
+            return fireTextureWrapper;
+        }
+
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");
@@ -342,6 +351,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Atrophy"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Trap"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Bloodthirst"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inferno"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

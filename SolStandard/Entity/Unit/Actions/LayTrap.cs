@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Archer
+namespace SolStandard.Entity.Unit.Actions
 {
     public class LayTrap : UnitAction
     {
-        private TrapEntity trap;
+        private readonly IRenderable tileSprite;
+        
         private readonly int damage;
         private readonly int maxTriggers;
 
-        public LayTrap(int damage, int maxTriggers) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Trap, new Vector2(GameDriver.CellSize)),
-            name: "Lay Trap",
-            description: "Lay a trap that will deal [" + damage + "] damage to enemies that start their turn on it." +
+        protected LayTrap(IRenderable skillIcon, IRenderable tileSprite, string title, int damage, int maxTriggers) : base(
+            icon: skillIcon,
+            name: title,
+            description: "Place a tile that will deal [" + damage + "] damage to enemies that start their turn on it." +
                          Environment.NewLine + "Max activations: [" + maxTriggers + "]",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
@@ -29,6 +30,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
         {
             this.damage = damage;
             this.maxTriggers = maxTriggers;
+            this.tileSprite = tileSprite;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -37,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             {
                 if (TargetIsNotObstructed(targetSlice))
                 {
-                    trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers, true, true);
+                    TrapEntity trap = new TrapEntity("Trap", tileSprite, targetSlice.MapCoordinates, damage, maxTriggers, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 
