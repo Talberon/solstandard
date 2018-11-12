@@ -15,6 +15,23 @@ namespace SolStandard.Entity.Unit
         private static List<ITexture2D> _mediumPortraits;
         private static List<ITexture2D> _smallPortraits;
 
+        private static readonly Dictionary<string, Team> teamDictionary = new Dictionary<string, Team>
+        {
+            {"Red", Team.Red},
+            {"Blue", Team.Blue},
+            {"Neutral", Team.Neutral}
+        };
+
+        private static readonly Dictionary<string, Role> roleDictionary = new Dictionary<string, Role>
+        {
+            {"Archer", Role.Archer},
+            {"Champion", Role.Champion},
+            {"Mage", Role.Mage},
+            {"Monarch", Role.Monarch},
+            {"Slime", Role.Slime}
+        };
+
+
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units,
             List<ITexture2D> largePortraits, List<ITexture2D> mediumPortraits, List<ITexture2D> smallPortraits)
         {
@@ -28,40 +45,8 @@ namespace SolStandard.Entity.Unit
             {
                 if (unit == null) continue;
 
-
-                Team unitTeam;
-
-                switch (unit.TiledProperties["Team"])
-                {
-                    case "Red":
-                        unitTeam = Team.Red;
-                        break;
-                    case "Blue":
-                        unitTeam = Team.Blue;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("", unit.TiledProperties["Team"], null);
-                }
-
-                Role role;
-
-                switch (unit.TiledProperties["Class"])
-                {
-                    case "Archer":
-                        role = Role.Archer;
-                        break;
-                    case "Champion":
-                        role = Role.Champion;
-                        break;
-                    case "Mage":
-                        role = Role.Mage;
-                        break;
-                    case "Monarch":
-                        role = Role.Monarch;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("", unit.TiledProperties["Class"], null);
-                }
+                Team unitTeam = teamDictionary[unit.TiledProperties["Team"]];
+                Role role = roleDictionary[unit.TiledProperties["Class"]];
 
                 GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit);
                 unitsFromMap.Add(unitToBuild);
@@ -131,8 +116,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new HuntingTrap(5, 1),
                 new Harpoon(2),
+                new HuntingTrap(5, 1),
                 new Draw(2, 1),
                 new Guard(3),
                 new Wait()
@@ -144,8 +129,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new Bloodthirst(2),
-                new Atrophy(2, 1),
                 new Tackle(),
+                new Atrophy(2, 2),
                 new Shove(),
                 new Guard(3),
                 new Wait()
@@ -158,7 +143,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Ignite(2, 3),
-                new Inferno(3, 3),
+                new Inferno(2, 3),
                 new Replace(),
                 new Guard(3),
                 new Wait()

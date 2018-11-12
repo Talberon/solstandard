@@ -23,13 +23,15 @@ namespace SolStandard.Entity.Unit
         Champion,
         Archer,
         Mage,
-        Monarch
+        Monarch,
+        Slime
     }
 
     public enum Team
     {
         Red,
-        Blue
+        Blue,
+        Neutral
     }
 
     public class GameUnit : GameEntity
