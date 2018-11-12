@@ -34,6 +34,6 @@ namespace SolStandard.Entity.Unit.Statuses
         }
 
         protected abstract void ExecuteEffect(GameUnit target);
-        protected abstract void RemoveEffect(GameUnit target);
+        public abstract void RemoveEffect(GameUnit target);
     }
 }

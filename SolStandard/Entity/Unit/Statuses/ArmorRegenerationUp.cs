@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
         }
 
-        protected override void RemoveEffect(GameUnit target)
+        public override void RemoveEffect(GameUnit target)
         {
             //Do nothing
         }

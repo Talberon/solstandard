@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Statuses
             //Do nothing
         }
 
-        protected override void RemoveEffect(GameUnit target)
+        public override void RemoveEffect(GameUnit target)
         {
             target.Stats.Atk -= atkModifier;
         }

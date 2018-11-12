@@ -485,6 +485,17 @@ namespace SolStandard.Entity.Unit
 
         public void AddStatusEffect(StatusEffect statusEffect)
         {
+            //Do not allow stacking of same effect. Remove the existing one and reapply
+            foreach (StatusEffect effect in StatusEffects)
+            {
+                if (effect.Name == statusEffect.Name)
+                {
+                    effect.RemoveEffect(this);
+                }
+            }
+
+            StatusEffects.RemoveAll(status => status.Name == statusEffect.Name);
+
             StatusEffects.Add(statusEffect);
             statusEffect.ApplyEffect(this);
         }
@@ -495,6 +506,7 @@ namespace SolStandard.Entity.Unit
             {
                 effect.UpdateEffect(this);
             }
+
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
@@ -549,8 +561,8 @@ namespace SolStandard.Entity.Unit
                 CurrentGold += spoilsAtUnitPosition.Gold;
                 Inventory.AddRange(spoilsAtUnitPosition.Items);
             }
-            
-            
+
+
             TerrainEntity itemAtUnitPosition =
                 MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                     (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
@@ -577,7 +589,7 @@ namespace SolStandard.Entity.Unit
                     MapEntity.MapCoordinates,
                     new Dictionary<string, string>(),
                     CurrentGold,
-                    new List<IItem> (Inventory)
+                    new List<IItem>(Inventory)
                 );
 
             CurrentGold = 0;

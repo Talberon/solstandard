@@ -11,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage, string applyMessage) : base(
             statusIcon: statusIcon,
-            name: "Damage Over Time",
+            name: "Damage Over Time [" + damage + "] DMG",
             description: "Deals damage to the afflicted at the beginning of each turn.",
             turnDuration: turnDuration
         )
@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.CombatDamageSFX.Play();
         }
 
-        protected override void RemoveEffect(GameUnit target)
+        public override void RemoveEffect(GameUnit target)
         {
             //Do nothing
         }
