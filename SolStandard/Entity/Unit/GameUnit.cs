@@ -486,6 +486,14 @@ namespace SolStandard.Entity.Unit
         public void AddStatusEffect(StatusEffect statusEffect)
         {
             //Do not allow stacking of same effect. Remove the existing one and reapply
+            RemoveDuplicateEffects(statusEffect);
+
+            StatusEffects.Add(statusEffect);
+            statusEffect.ApplyEffect(this);
+        }
+
+        private void RemoveDuplicateEffects(StatusEffect statusEffect)
+        {
             foreach (StatusEffect effect in StatusEffects)
             {
                 if (effect.Name == statusEffect.Name)
@@ -495,9 +503,6 @@ namespace SolStandard.Entity.Unit
             }
 
             StatusEffects.RemoveAll(status => status.Name == statusEffect.Name);
-
-            StatusEffects.Add(statusEffect);
-            statusEffect.ApplyEffect(this);
         }
 
         private void UpdateStatusEffects()
