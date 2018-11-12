@@ -11,22 +11,32 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class TrapEntity : TerrainEntity, IEffectTile
+    public class TrapEntity : TerrainEntity, IEffectTile, ITriggerable
     {
+        private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
+
         private int triggersRemaining;
         private readonly int damage;
+        private readonly bool limitedTriggers;
+        private bool enabled;
+
         public bool IsExpired { get; private set; }
 
-        public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining) :
+        public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
+            bool limitedTriggers, bool enabled) :
             base(name, "Trap", sprite, mapCoordinates, new Dictionary<string, string>())
         {
             this.damage = damage;
             this.triggersRemaining = triggersRemaining;
+            this.limitedTriggers = limitedTriggers;
+            this.enabled = enabled;
             IsExpired = false;
         }
 
-        public void TriggerEffect()
+        public void TriggerStartOfTurn()
         {
+            if (!enabled) return;
+
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
 
@@ -40,9 +50,15 @@ namespace SolStandard.Entity.General
             string trapMessage = "Trap activated!" + Environment.NewLine +
                                  trapUnit.Id + " takes [" + damage + "] damage!";
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates, 50);
 
             AssetManager.CombatDamageSFX.Play();
+
+            if (!limitedTriggers)
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                    50);
+                return;
+            }
 
             triggersRemaining--;
 
@@ -50,11 +66,23 @@ namespace SolStandard.Entity.General
             {
                 IsExpired = true;
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Trap is broken!",
-                    MapCoordinates, 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                    trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 50);
 
                 AssetManager.CombatDeathSFX.Play();
             }
+        }
+
+        public void TriggerEndOfTurn()
+        {
+            //Do nothing
+        }
+
+        public void Trigger()
+        {
+            enabled = !enabled;
+
+            ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 
         public override IRenderable TerrainInfo
@@ -73,8 +101,9 @@ namespace SolStandard.Entity.General
                             new RenderText(AssetManager.WindowFont, "Damage: " + damage)
                         },
                         {
-                            Sprite,
-                            new RenderText(AssetManager.WindowFont, "Triggers Left: " + triggersRemaining)
+                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                            new RenderText(AssetManager.WindowFont,
+                                (limitedTriggers) ? "Triggers Left: " + triggersRemaining : "Permanent")
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

@@ -14,13 +14,13 @@ namespace SolStandard.Map.Elements
         private readonly string type;
         private readonly Dictionary<string, string> tiledProperties;
 
-        public MapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+        public MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties)
         {
             this.name = name;
             this.type = type;
             this.tiledProperties = tiledProperties;
-            Sprite = sprite;
+            Sprite = spriteSheet;
             MapCoordinates = mapCoordinates;
         }
 

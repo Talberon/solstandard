@@ -11,19 +11,18 @@ namespace SolStandard.Containers.View
     public class MainMenuView : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
-        private readonly Color menuColor;
+        private static readonly Color MenuColor = new Color(20, 45, 60, 100);
         private readonly SpriteAtlas title;
-        private readonly AnimatedSprite logo;
+        private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
         private bool visible;
 
-        public MainMenuView(SpriteAtlas title, AnimatedSprite logo, SpriteAtlas background)
+        public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
         {
             this.title = title;
             this.logo = logo;
             this.background = background;
             visible = true;
-            menuColor = new Color(127, 148, 217);
             mainMenu = GenerateMainMenu();
         }
 
@@ -36,13 +35,13 @@ namespace SolStandard.Containers.View
         {
             MenuOption[] options =
             {
-                new NewGameOption(menuColor),
-                new QuitGameOption(menuColor)
+                new NewGameOption(MenuColor),
+                new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
-            return new VerticalMenu(options, cursorSprite, menuColor);
+            return new VerticalMenu(options, cursorSprite, MenuColor);
         }
 
         public void ToggleVisible()

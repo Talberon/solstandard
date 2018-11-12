@@ -33,7 +33,7 @@ namespace SolStandard.Containers
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
-            SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, new Vector2(GameDriver.CellSize), 1);
+            SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, new Vector2(GameDriver.CellSize));
             Vector2 cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorSprite, cursorStartPosition, MapGridSize);
         }
@@ -204,13 +204,13 @@ namespace SolStandard.Containers
                     tile.Draw(spriteBatch);
             }
 
-            foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
             }
 
-            foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
+            foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
             {
                 if (tile != null)
                     tile.Draw(spriteBatch);
@@ -222,6 +222,12 @@ namespace SolStandard.Containers
                 {
                     unit.UnitEntity.Draw(spriteBatch);
                 }
+            }
+
+            foreach (MapElement tile in _gameGrid[(int) Layer.Overlay])
+            {
+                if (tile != null)
+                    tile.Draw(spriteBatch);
             }
 
             if (ToastWindow != null)

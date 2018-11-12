@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             MapContainer.GameGrid[(int) mapLayer][(int) spoils.MapCoordinates.X, (int) spoils.MapCoordinates.Y] =
-                new MapDistanceTile(TileSprite, spoils.MapCoordinates, 0, false);
+                new MapDistanceTile(TileSprite, spoils.MapCoordinates, 0);
             
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(spoils.MapCoordinates);
         }

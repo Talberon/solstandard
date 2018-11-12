@@ -47,7 +47,7 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
                             new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
                         },
                         {

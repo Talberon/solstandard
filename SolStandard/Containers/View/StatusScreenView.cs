@@ -43,7 +43,7 @@ namespace SolStandard.Containers.View
             ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                GameDriver.ScreenSize, 1);
+                GameDriver.ScreenSize);
         }
 
         public void UpdateWindows()
@@ -183,7 +183,7 @@ namespace SolStandard.Containers.View
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
                                         new RenderText(AssetManager.WindowFont, unit.CurrentGold + "G")
                                     }
                                 },

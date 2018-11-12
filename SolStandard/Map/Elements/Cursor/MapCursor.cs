@@ -18,7 +18,6 @@ namespace SolStandard.Map.Elements.Cursor
 
         private enum CursorColor
         {
-            None,
             White,
             Blue,
             Red

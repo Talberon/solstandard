@@ -5,6 +5,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Exceptions;
@@ -45,6 +46,11 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
             {
                 throw new ScenarioNotFoundException();
             }
+        }
+
+        public override IRenderable Clone()
+        {
+            return new ConcedeOption(Color);
         }
     }
 }

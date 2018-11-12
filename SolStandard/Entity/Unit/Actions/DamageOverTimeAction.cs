@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions
             base(
                 icon: SkillIconProvider.GetSkillIcon(icon, new Vector2(GameDriver.CellSize)),
                 name: name,
-                description: "Deal [+" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
+                description: "Deal [" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
                              "] turns.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
                 range: range

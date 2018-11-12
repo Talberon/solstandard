@@ -288,6 +288,11 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.SelectActionMenuOption();
             }
+            
+            if (controlMapper.Press(Input.B, PressType.Single))
+            {
+                GameContext.GameMapContext.CancelActionMenu();
+            }
         }
 
         private static void PauseMenuControl(GameControlMapper controlMapper)

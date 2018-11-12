@@ -97,11 +97,13 @@ namespace SolStandard.Containers.Contexts
             ResetCursorToActiveUnit();
             MapContainer.MapCamera.CenterCameraToCursor();
 
+            TriggerEffectTilesTurnEnd();
+
             EndTurn();
 
             UpdateTurnCounters();
 
-            ActivateEffectTiles();
+            TriggerEffectTilesTurnStart();
 
             if (!GameContext.Units.TrueForAll(unit => unit.Stats.Hp <= 0))
             {
@@ -171,6 +173,7 @@ namespace SolStandard.Containers.Contexts
             {
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
                 MapContainer.MapCamera.CenterCameraToCursor();
+                AssetManager.MapUnitCancelSFX.Play();
             }
         }
 
@@ -185,6 +188,18 @@ namespace SolStandard.Containers.Contexts
             }
 
             AssetManager.MapUnitCancelSFX.Play();
+        }
+
+        public void CancelActionMenu()
+        {
+            if (CurrentTurnState == TurnState.UnitDecidingAction)
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+                GameMapView.CloseCombatMenu();
+
+                RevertToPreviousState();
+                CancelMove();
+            }
         }
 
         public void CancelAction()
@@ -213,7 +228,7 @@ namespace SolStandard.Containers.Contexts
                 );
 
                 MapContainer.ClearPreviewGrid();
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateTargetingGrid(
                         SelectedUnit.UnitEntity.MapCoordinates,
                         SelectedUnit.Stats.AtkRange,
@@ -303,7 +318,7 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitMoveSFX.Play();
 
             MapContainer.ClearPreviewGrid();
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack), false)
+            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                 .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
                     Layer.Preview);
         }
@@ -330,8 +345,7 @@ namespace SolStandard.Containers.Contexts
                 if (hoverMapUnit != null)
                 {
                     new UnitTargetingContext(
-                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-                        false
+                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
                     ).GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
                 }
 
@@ -388,12 +402,26 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
         }
 
-        private static void ActivateEffectTiles()
+        private static void TriggerEffectTilesTurnStart()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerEffect());
+            effectTiles.ForEach(tile => tile.TriggerStartOfTurn());
 
+            RemoveExpiredEffectTiles(effectTiles);
+        }
+
+        private static void TriggerEffectTilesTurnEnd()
+        {
+            List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
+
+            effectTiles.ForEach(tile => tile.TriggerEndOfTurn());
+
+            RemoveExpiredEffectTiles(effectTiles);
+        }
+
+        private static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
+        {
             foreach (IEffectTile effectTile in effectTiles)
             {
                 if (effectTile.IsExpired)
@@ -431,7 +459,7 @@ namespace SolStandard.Containers.Contexts
             MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height), 1);
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
             GameMapView.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
             GameMapView.GenerateActionMenuDescription();

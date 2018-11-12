@@ -52,6 +52,11 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
+        public IRenderable Clone()
+        {
+            return new HeartPoint(new Vector2(Width, Height));
+        }
+
         public override string ToString()
         {
             return "Heart: { Active=" + Active + "}";

@@ -16,7 +16,7 @@ namespace SolStandard.Utility
 
         public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color renderColor)
         {
-            if (cellIndex < 1) throw new InvalidCellIndexException();
+            if (cellIndex < 0) throw new InvalidCellIndexException();
 
             this.image = image;
             this.cellSize = cellSize;
@@ -25,7 +25,7 @@ namespace SolStandard.Utility
             SetCellIndex(cellIndex);
         }
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex) : this(image,
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex = 0) : this(image,
             cellSize, renderSize, cellIndex, Color.White)
         {
         }
@@ -35,7 +35,7 @@ namespace SolStandard.Utility
         {
         }
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex) : this(image, cellSize, cellIndex,
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, int cellIndex = 0) : this(image, cellSize, cellIndex,
             Color.White)
         {
         }
@@ -58,14 +58,14 @@ namespace SolStandard.Utility
             {
                 for (int col = 0; col < columns; col++)
                 {
-                    cellSearcher++;
-
                     if (cellSearcher == cellIndex)
                     {
                         Rectangle rendercell = new Rectangle((int) (cellSize.X * col), (int) (cellSize.Y * row),
                             (int) cellSize.X, (int) cellSize.Y);
                         return rendercell;
                     }
+
+                    cellSearcher++;
                 }
             }
 
@@ -101,6 +101,11 @@ namespace SolStandard.Utility
         public override string ToString()
         {
             return "SpriteAtlas: <Name," + image.Name + "><cellIndex," + cellIndex + "><CellSize," + cellSize + ">";
+        }
+
+        public IRenderable Clone()
+        {
+            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, RenderColor);
         }
     }
 }

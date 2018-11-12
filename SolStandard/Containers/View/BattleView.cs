@@ -232,7 +232,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid atkContentGrid = new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
                         new RenderText(AssetManager.WindowFont, "ATK: "),
                         new RenderText(
                             AssetManager.WindowFont,

@@ -5,7 +5,8 @@ namespace SolStandard.Entity
 {
     public interface IEffectTile
     {
-        void TriggerEffect();
+        void TriggerStartOfTurn();
+        void TriggerEndOfTurn();
         bool IsExpired { get; }
         Vector2 MapCoordinates { get; }
     }

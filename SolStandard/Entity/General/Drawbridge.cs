@@ -7,7 +7,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Drawbridge : TerrainEntity, IOpenable, ILockable
+    public class Drawbridge : TerrainEntity, IOpenable, ILockable, ITriggerable
     {
         public bool IsOpen { get; private set; }
         public bool IsLocked { get; private set; }
@@ -39,6 +39,18 @@ namespace SolStandard.Entity.General
             IsOpen = false;
             CanMove = false;
             AssetManager.DoorSFX.Play();
+        }
+
+        private void ToggleOpen()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+            else
+            {
+                Open();
+            }
         }
 
         public void ToggleLock()
@@ -78,6 +90,11 @@ namespace SolStandard.Entity.General
                     3
                 );
             }
+        }
+
+        public void Trigger()
+        {
+            ToggleOpen();
         }
     }
 }

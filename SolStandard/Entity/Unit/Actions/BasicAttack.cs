@@ -44,13 +44,13 @@ namespace SolStandard.Entity.Unit.Actions
                 //deal damage to terrain
                 BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
                 targetObstacle.DealDamage(1);
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
-            }
-            else if (GameContext.ActiveUnit == targetUnit)
-            {
-                //Skip the combat state if player selects the same unit
-                AssetManager.MapUnitSelectSFX.Play();
+
+                if (targetObstacle.IsBroken)
+                {
+                    MapContainer.GameGrid[(int) Layer.Entities]
+                        [(int) targetObstacle.MapCoordinates.X, (int) targetObstacle.MapCoordinates.Y] = null;
+                }
+
 
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

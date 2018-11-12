@@ -18,19 +18,22 @@ namespace SolStandard.HUD.Window.Content.Combat
         private readonly List<Die> dice;
         private readonly int maxRowSize;
         private readonly int dieSize;
-
+        private readonly int baseDice;
+        private readonly int bonusDice;
 
         public CombatDice(int baseDice, int bonusDice, int maxRowSize, int dieSize)
         {
+            this.baseDice = baseDice;
+            this.bonusDice = bonusDice;
             this.dieSize = dieSize;
             if (baseDice < 1) throw new ArgumentOutOfRangeException();
             if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
             this.maxRowSize = maxRowSize;
-            dice = PopulateDice(baseDice, bonusDice);
+            dice = PopulateDice();
         }
 
-        private List<Die> PopulateDice(int baseDice, int bonusDice)
+        private List<Die> PopulateDice()
         {
             List<Die> diceToGenerate = new List<Die>();
 
@@ -163,6 +166,11 @@ namespace SolStandard.HUD.Window.Content.Combat
 
                 dieOffset.X += dice[i].Width;
             }
+        }
+
+        public IRenderable Clone()
+        {
+            return new CombatDice(baseDice, bonusDice, maxRowSize, dieSize);
         }
 
         public override string ToString()

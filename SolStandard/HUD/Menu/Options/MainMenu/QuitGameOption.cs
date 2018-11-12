@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.MainMenu
@@ -15,6 +16,11 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
         public override void Execute()
         {
             GameDriver.QuitGame();
+        }
+
+        public override IRenderable Clone()
+        {
+            return new QuitGameOption(Color);
         }
     }
 }

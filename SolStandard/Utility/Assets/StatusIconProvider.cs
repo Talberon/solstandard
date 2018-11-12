@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Assets
         public static SpriteAtlas GetStatusIcon(StatusIcon icon, Vector2 iconSize)
         {
             return new SpriteAtlas(_skillIconDictionary[icon],
-                new Vector2(_skillIconDictionary[icon].Width, _skillIconDictionary[icon].Height), iconSize, 1);
+                new Vector2(_skillIconDictionary[icon].Width, _skillIconDictionary[icon].Height), iconSize);
         }
 
         public static void LoadStatusIcons(List<ITexture2D> skillIconTextures)

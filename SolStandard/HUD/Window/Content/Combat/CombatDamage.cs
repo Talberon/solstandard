@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Combat
@@ -16,10 +15,19 @@ namespace SolStandard.HUD.Window.Content.Combat
         private CombatDice CombatDice { get; set; }
         private Window CombatDamageWindow { get; set; }
 
-        public CombatDamage(UnitStatistics stats, int bonusDice, int pointSize)
+        private readonly int atk;
+        private readonly int luck;
+        private readonly int bonusDice;
+        private readonly int pointSize;
+
+        public CombatDamage(int atk, int luck, int bonusDice, int pointSize)
         {
-            atkPoints = InitializeAtkPoints(stats, pointSize);
-            CombatDice = new CombatDice(stats.Luck, bonusDice, MaxRowSize, pointSize + DieSizeAdjustment);
+            this.atk = atk;
+            this.luck = luck;
+            this.bonusDice = bonusDice;
+            this.pointSize = pointSize;
+            atkPoints = InitializeAtkPoints(atk, pointSize);
+            CombatDice = new CombatDice(luck, bonusDice, MaxRowSize, pointSize + DieSizeAdjustment);
             CombatDamageWindow = ConstructDamageWindow();
         }
 
@@ -33,10 +41,10 @@ namespace SolStandard.HUD.Window.Content.Combat
             get { return CombatDamageWindow.Width; }
         }
 
-        private static List<AttackPoint> InitializeAtkPoints(UnitStatistics stats, int pointSize)
+        private static List<AttackPoint> InitializeAtkPoints(int atk, int pointSize)
         {
             List<AttackPoint> points = new List<AttackPoint>();
-            for (int i = 0; i < stats.Atk; i++)
+            for (int i = 0; i < atk; i++)
             {
                 points.Add(new AttackPoint(pointSize));
             }
@@ -177,6 +185,11 @@ namespace SolStandard.HUD.Window.Content.Combat
             return atkPointGrid;
         }
 
+
+        public IRenderable Clone()
+        {
+            return new CombatDamage(atk, luck, bonusDice, pointSize);
+        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

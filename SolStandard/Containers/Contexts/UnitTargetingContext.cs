@@ -13,7 +13,7 @@ namespace SolStandard.Containers.Contexts
         private readonly SpriteAtlas spriteAtlas;
         private readonly bool numbersVisible;
 
-        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = true)
+        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = false)
         {
             this.spriteAtlas = spriteAtlas;
             this.numbersVisible = numbersVisible;
@@ -31,7 +31,7 @@ namespace SolStandard.Containers.Contexts
             new UnitMovingContext(
                     MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark)
                 )
-                .GenerateMoveGrid(origin, unit, false);
+                .GenerateMoveGrid(origin, unit);
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {

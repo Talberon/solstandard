@@ -4,7 +4,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility
 {
-    public class AnimatedSprite : IRenderable
+    public class AnimatedSpriteSheet : IRenderable
     {
         protected readonly ITexture2D SpriteMap;
         protected readonly int CellSize;
@@ -19,7 +19,8 @@ namespace SolStandard.Utility
         private bool reversing;
         protected Color SpriteColor { get; set; }
 
-        public AnimatedSprite(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible, Color spriteColor)
+        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
+            bool reversible, Color spriteColor)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
@@ -35,7 +36,8 @@ namespace SolStandard.Utility
             SpriteColor = spriteColor;
         }
 
-        public AnimatedSprite(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(spriteMap,
+        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(
+            spriteMap,
             cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White)
         {
         }
@@ -144,9 +146,9 @@ namespace SolStandard.Utility
             return rendercell;
         }
 
-        public virtual AnimatedSprite Clone()
+        public virtual IRenderable Clone()
         {
-            return new AnimatedSprite(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
         }
     }
 }

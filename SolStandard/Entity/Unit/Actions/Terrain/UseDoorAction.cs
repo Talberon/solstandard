@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
-                new MapDistanceTile(TileSprite, targetCoordinates, 0, false);
+                new MapDistanceTile(TileSprite, targetCoordinates, 0);
             
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
         }
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a door!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

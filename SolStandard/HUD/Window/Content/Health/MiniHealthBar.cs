@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
@@ -138,6 +139,11 @@ namespace SolStandard.HUD.Window.Content.Health
                 pip.Draw(spriteBatch, pipOffset, colorOverride);
                 pipOffset.X += pip.Width;
             }
+        }
+
+        public IRenderable Clone()
+        {
+            return new MiniHealthBar(maxArmor, maxHp, barSize);
         }
     }
 }

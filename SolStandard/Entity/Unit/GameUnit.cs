@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
 
-        private readonly UnitSprite unitSprite;
+        private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
@@ -74,11 +74,11 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Skills = skills;
             this.largePortrait =
-                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height), 1);
+                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
             this.mediumPortrait =
-                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height), 1);
+                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height));
             this.smallPortrait =
-                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height), 1);
+                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height));
             combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
@@ -98,7 +98,7 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSprite = unitEntity.UnitSprite;
+            unitSpriteSheet = unitEntity.UnitSpriteSheet;
         }
 
         public UnitEntity UnitEntity
@@ -186,7 +186,7 @@ namespace SolStandard.Entity.Unit
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize), 1),
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
                                         new RenderText(AssetManager.WindowFont,
                                             "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                     }
@@ -378,11 +378,11 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color,
             UnitAnimationState animation = UnitAnimationState.Idle)
         {
-            UnitSprite clonedSprite = unitSprite.Clone();
-            clonedSprite.Resize(size);
-            clonedSprite.SetAnimation(animation);
-            clonedSprite.Color = color;
-            return clonedSprite;
+            UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            clonedSpriteSheet.Resize(size);
+            clonedSpriteSheet.SetAnimation(animation);
+            clonedSpriteSheet.Color = color;
+            return clonedSpriteSheet;
         }
 
         public void ArmUnitSkill(UnitAction action)
@@ -429,13 +429,13 @@ namespace SolStandard.Entity.Unit
 
         public void DamageUnit()
         {
-            if (stats.Armor > 0)
+            if (Stats.Armor > 0)
             {
-                stats.Armor--;
+                Stats.Armor--;
             }
             else
             {
-                stats.Hp--;
+                Stats.Hp--;
             }
 
             healthbars.ForEach(healthbar => healthbar.Update(Stats.Armor, Stats.Hp));
@@ -479,14 +479,30 @@ namespace SolStandard.Entity.Unit
         {
             if (UnitEntity != null)
             {
-                UnitEntity.UnitSprite.SetAnimation(state);
+                UnitEntity.UnitSpriteSheet.SetAnimation(state);
             }
         }
 
         public void AddStatusEffect(StatusEffect statusEffect)
         {
+            //Do not allow stacking of same effect. Remove the existing one and reapply
+            RemoveDuplicateEffects(statusEffect);
+
             StatusEffects.Add(statusEffect);
             statusEffect.ApplyEffect(this);
+        }
+
+        private void RemoveDuplicateEffects(StatusEffect statusEffect)
+        {
+            foreach (StatusEffect effect in StatusEffects)
+            {
+                if (effect.Name == statusEffect.Name)
+                {
+                    effect.RemoveEffect(this);
+                }
+            }
+
+            StatusEffects.RemoveAll(status => status.Name == statusEffect.Name);
         }
 
         private void UpdateStatusEffects()
@@ -495,7 +511,8 @@ namespace SolStandard.Entity.Unit
             {
                 effect.UpdateEffect(this);
             }
-            StatusEffects.RemoveAll(effect => effect.TurnDuration < 1);
+
+            StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
         public void AddItemToInventory(IItem item)
@@ -539,20 +556,32 @@ namespace SolStandard.Entity.Unit
             //Don't drop spoils if inventory is empty
             if (CurrentGold == 0 && Inventory.Count == 0) return;
 
-            TerrainEntity entityAtUnitPosition =
+            //If on top of other Spoils, pick those up before dropping on top of them
+            Spoils spoilsAtUnitPosition =
+                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                    (int) MapEntity.MapCoordinates.Y] as Spoils;
+
+            if (spoilsAtUnitPosition != null)
+            {
+                CurrentGold += spoilsAtUnitPosition.Gold;
+                Inventory.AddRange(spoilsAtUnitPosition.Items);
+            }
+
+
+            TerrainEntity itemAtUnitPosition =
                 MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                     (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
 
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (entityAtUnitPosition != null)
+            if (itemAtUnitPosition != null)
             {
-                if (entityAtUnitPosition is IItem)
+                if (itemAtUnitPosition is IItem)
                 {
-                    AddItemToInventory(entityAtUnitPosition as IItem);
+                    AddItemToInventory(itemAtUnitPosition as IItem);
                 }
-                else if (entityAtUnitPosition is Currency)
+                else if (itemAtUnitPosition is Currency)
                 {
-                    Currency gold = entityAtUnitPosition as Currency;
+                    Currency gold = itemAtUnitPosition as Currency;
                     CurrentGold += gold.Value;
                 }
             }
@@ -561,11 +590,11 @@ namespace SolStandard.Entity.Unit
                 = new Spoils(
                     Id + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize), 1),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
                     MapEntity.MapCoordinates,
                     new Dictionary<string, string>(),
                     CurrentGold,
-                    Inventory
+                    new List<IItem>(Inventory)
                 );
 
             CurrentGold = 0;

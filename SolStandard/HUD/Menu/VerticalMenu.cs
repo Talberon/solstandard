@@ -173,5 +173,10 @@ namespace SolStandard.HUD.Menu
             menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
         }
+
+        public IRenderable Clone()
+        {
+            return new VerticalMenu(options, cursorSprite, backgroundColor);
+        }
     }
 }

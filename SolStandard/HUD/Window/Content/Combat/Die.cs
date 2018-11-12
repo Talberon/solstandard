@@ -47,7 +47,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             currentSide = initialSide;
             this.color = color;
             dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height),
-                new Vector2(size), 1);
+                new Vector2(size));
             Enabled = true;
         }
 
@@ -65,7 +65,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             int randomValue = GameDriver.Random.Next(0, 6);
             currentSide = (DieSides) randomValue;
-            dieAtlas.SetCellIndex((int) currentSide + 1);
+            dieAtlas.SetCellIndex((int) currentSide);
         }
 
         public FaceValue GetFaceValue()
@@ -87,6 +87,11 @@ namespace SolStandard.HUD.Window.Content.Combat
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             dieAtlas.Draw(spriteBatch, position, colorOverride);
+        }
+
+        public IRenderable Clone()
+        {
+            return new Die(currentSide, Height, color);
         }
 
         public override string ToString()

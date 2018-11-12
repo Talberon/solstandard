@@ -33,27 +33,45 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (TargetHasNoEntitiesPresent(targetSlice))
+            if (TargetIsInRange(targetSlice))
             {
-                trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers);
+                if (TargetIsNotObstructed(targetSlice))
+                {
+                    trap = new TrapEntity("Trap", Icon, targetSlice.MapCoordinates, damage, maxTriggers, true, true);
 
-                MapContainer.ClearDynamicAndPreviewGrids();
+                    MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
+                    eventQueue.Enqueue(new EndTurnEvent());
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
-        private static bool TargetHasNoEntitiesPresent(MapSlice targetSlice)
+        private static bool TargetIsNotObstructed(MapSlice targetSlice)
         {
-            return targetSlice.TerrainEntity == null;
+            if (targetSlice.TerrainEntity != null) return false;
+            if (targetSlice.CollideTile != null) return false;
+            
+            return true;
         }
+        
+        private static bool TargetIsInRange(MapSlice targetSlice)
+        {
+            return targetSlice.DynamicEntity != null;
+        }
+
+        
     }
 }
