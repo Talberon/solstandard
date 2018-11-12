@@ -108,22 +108,22 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(6, 4, 4, 2, 5, new[] {2});
+            return new UnitStatistics(6, 4, 4, 3, 2, 5, new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(7, 9, 5, 1, 6, new[] {1});
+            return new UnitStatistics(7, 9, 5, 5, 1, 6, new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(5, 3, 6, 2, 5, new[] {1, 2});
+            return new UnitStatistics(5, 3, 6, 3, 2, 5, new[] {1, 2});
         }
 
         private static UnitStatistics SelectMonarchStats()
         {
-            return new UnitStatistics(20, 0, 4, 1, 5, new[] {1});
+            return new UnitStatistics(20, 0, 4, 3, 1, 5, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -133,7 +133,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new LayTrap(5, 1),
                 new Harpoon(2),
-                new Draw(1, 1),
+                new Draw(2, 1),
                 new Guard(3),
                 new Wait()
             };

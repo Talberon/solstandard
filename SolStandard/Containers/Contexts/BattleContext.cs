@@ -182,7 +182,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
             battleView.GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane);
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
-            battleView.GenerateAttackerAtkWindow(attackerWindowColor, attacker.Stats);
+            battleView.GenerateAttackerAtkWindow(attackerWindowColor, attacker.Stats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
             battleView.GenerateAttackerBonusWindow(attacker.Stats.Luck, attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
@@ -192,13 +192,13 @@ namespace SolStandard.Containers.Contexts
         private void SetupDefenderWindows()
         {
             int defenderTerrainBonus = DetermineTerrainBonus(defender);
-            defenderDamage = new CombatDamage(defender.Stats.Atk, defender.Stats.Luck, defenderTerrainBonus, AttackPointSize);
+            defenderDamage = new CombatDamage(defender.Stats.Ret, defender.Stats.Luck, defenderTerrainBonus, AttackPointSize);
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
             battleView.GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane);
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
-            battleView.GenerateDefenderDefWindow(defenderWindowColor, defender.Stats);
+            battleView.GenerateDefenderDefWindow(defenderWindowColor, defender.Stats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
             battleView.GenerateDefenderBonusWindow(defender.Stats.Luck, defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);

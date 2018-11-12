@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit
         Luck,
         EmptyArmor,
         Positive,
-        Negative
+        Negative,
+        Retribution
     }
 
     public class UnitStatistics
@@ -30,7 +31,8 @@ namespace SolStandard.Entity.Unit
             {Stats.Armor, "AMR"},
             {Stats.Mv, "MV"},
             {Stats.AtkRange, "RNG"},
-            {Stats.Luck, "LCK"}
+            {Stats.Luck, "LCK"},
+            {Stats.Retribution, "RET"}
         };
 
 
@@ -39,22 +41,25 @@ namespace SolStandard.Entity.Unit
         public int MaxHp { get; private set; }
         public int MaxArmor { get; private set; }
         public int BaseAtk { get; private set; }
-        public int BaseLuck { get; set; }
+        public int BaseRet { get; private set; }
+        public int BaseLuck { get; private set; }
         public int BaseMv { get; private set; }
         public int[] BaseAtkRange { get; private set; }
 
         public int Hp { get; set; }
         public int Atk { get; set; }
+        public int Ret { get; set; }
         public int Armor { get; set; }
         public int Luck { get; set; }
         public int Mv { get; set; }
         public int[] AtkRange { get; set; }
 
-        public UnitStatistics(int hp, int armor, int atk, int luck, int mv, int[] atkRange)
+        public UnitStatistics(int hp, int armor, int atk, int ret, int luck, int mv, int[] atkRange)
         {
             Hp = hp;
             Armor = armor;
             Atk = atk;
+            Ret = ret;
             Luck = luck;
             Mv = mv;
             AtkRange = atkRange;
@@ -62,6 +67,7 @@ namespace SolStandard.Entity.Unit
             MaxHp = hp;
             MaxArmor = armor;
             BaseAtk = atk;
+            BaseRet = ret;
             BaseLuck = luck;
             BaseMv = mv;
             BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
@@ -87,6 +93,8 @@ namespace SolStandard.Entity.Unit
             output += Abbreviation[Stats.Armor] + ": " + Armor.ToString() + "/" + MaxArmor;
             output += Environment.NewLine;
             output += Abbreviation[Stats.Atk] + ": " + Atk.ToString() + "/" + BaseAtk;
+            output += Environment.NewLine;
+            output += Abbreviation[Stats.Retribution] + ": " + Ret.ToString() + "/" + BaseRet;
             output += Environment.NewLine;
             output += Abbreviation[Stats.Luck] + ": " + Luck.ToString() + "/" + BaseLuck;
             output += Environment.NewLine;

@@ -179,23 +179,6 @@ namespace SolStandard.Entity.Unit
                     },
                     {
                         MediumPortrait
-                    },
-                    {
-                        new Window(
-                            new WindowContentGrid(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
-                                        new RenderText(AssetManager.WindowFont,
-                                            "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
-                                    }
-                                },
-                                1
-                            ),
-                            panelColor,
-                            new Vector2(MediumPortrait.Width, goldPanelHeight)
-                        )
                     }
                 };
 
@@ -233,7 +216,7 @@ namespace SolStandard.Entity.Unit
             get
             {
                 Color statPanelColor = new Color(10, 10, 10, 100);
-                Vector2 panelSizeOverride = new Vector2(180, 35);
+                Vector2 panelSizeOverride = new Vector2(180, 33);
 
                 return new WindowContentGrid(
                     new IRenderable[,]
@@ -253,22 +236,6 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
-                                            new RenderText(AssetManager.WindowFont,
-                                                UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
-                                            new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
-                                        }
-                                    },
-                                    1
-                                ),
-                                statPanelColor, panelSizeOverride
-                            ),
-
-                            new Window(
-                                new WindowContentGrid(
-                                    new IRenderable[,]
-                                    {
-                                        {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Armor),
                                             new RenderText(AssetManager.WindowFont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Armor] + ": "),
@@ -276,6 +243,21 @@ namespace SolStandard.Entity.Unit
                                                 AssetManager.WindowFont,
                                                 Stats.Armor + "/" + Stats.MaxArmor
                                             )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor, panelSizeOverride
+                            ),
+                            new Window(
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
+                                            new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
                                         }
                                     },
                                     1
@@ -308,6 +290,28 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Retribution),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Retribution] + ": "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Ret.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Ret, Stats.BaseRet)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor,
+                                panelSizeOverride
+                            )
+                        },
+                        {
+                            new Window(
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Luck),
                                             new RenderText(AssetManager.WindowFont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Luck] + ": "),
@@ -321,6 +325,21 @@ namespace SolStandard.Entity.Unit
                                     1
                                 ),
                                 statPanelColor, panelSizeOverride
+                            ),
+                            new Window(
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor,
+                                panelSizeOverride
                             )
                         },
                         {
