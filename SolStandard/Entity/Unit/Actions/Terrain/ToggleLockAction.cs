@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                    && targetSlice.DynamicEntity != null
                    && targetSlice.UnitEntity == null
                    && key.UsedWith == targetSlice.TerrainEntity.Name
-                   && ChestIsNotOpen(targetUnlockable);
+                   && (ChestIsNotOpen(targetUnlockable) || !(targetUnlockable is Chest));
         }
 
         private bool ChestIsNotOpen(ILockable targetUnlockable)
