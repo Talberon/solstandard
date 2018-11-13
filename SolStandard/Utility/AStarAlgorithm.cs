@@ -8,7 +8,7 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
-    public class AStarAlgorithm
+    public static class AStarAlgorithm
     {
         public static List<Direction> DirectionsToDestination(Vector2 origin, Vector2 destination)
         {
@@ -31,7 +31,7 @@ namespace SolStandard.Utility
 
                 if (current.MapCoordinates == destination)
                 {
-                    //TODO step backwards through the path and plot the directions from each of the nodes that map to the destination
+                    //Step backwards through the path and plot the directions from each of the nodes that map to the destination
                     List<MapDistanceTile> path = new List<MapDistanceTile>();
                     List<Direction> directions = new List<Direction>();
 
@@ -46,7 +46,7 @@ namespace SolStandard.Utility
 
                     foreach (MapDistanceTile tile in path)
                     {
-                        if (cameFrom[tile] != null) directions.Add(DetermineDirection(cameFrom[tile], tile));
+                        if (cameFrom[tile] != null) directions.Insert(0, DetermineDirection(cameFrom[tile], tile));
                     }
 
                     return directions;

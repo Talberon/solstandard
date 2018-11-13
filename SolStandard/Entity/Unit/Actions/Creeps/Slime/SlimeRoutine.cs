@@ -37,6 +37,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
             {
                 GameUnit targetUnit = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
 
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                    "Targetting " + targetUnit.Id + "!", slime.UnitEntity.MapCoordinates, 50
+                );
+
                 List<Direction> directions = AStarAlgorithm.DirectionsToDestination(slime.UnitEntity.MapCoordinates,
                     targetUnit.UnitEntity.MapCoordinates);
 
@@ -54,11 +58,15 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
             }
             else
             {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                    "Roaming...", slime.UnitEntity.MapCoordinates, 50
+                );
+
                 //Move randomly up to max movement
                 for (int i = 0; i < slime.Stats.Mv; i++)
                 {
                     Direction randomDirection =
-                        (Direction) GameDriver.Random.Next(Enum.GetValues(typeof(Direction)).Length);
+                        (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
                     //TODO Add movement and short wait to the queue
                     aiEventQueue.Enqueue(new CreepMoveEvent(slime, randomDirection));
