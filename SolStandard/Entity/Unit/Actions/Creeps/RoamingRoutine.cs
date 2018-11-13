@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     if (direction == Direction.None) continue;
 
                     aiEventQueue.Enqueue(new CreepMoveEvent(roamer, direction));
-                    aiEventQueue.Enqueue(new WaitFramesEvent(20));
+                    aiEventQueue.Enqueue(new WaitFramesEvent(15));
                 }
 
                 aiEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));

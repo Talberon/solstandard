@@ -105,7 +105,14 @@ namespace SolStandard.Containers.Contexts
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
-            if (slice.UnitEntity != null && UnitSelector.SelectUnit(slice.UnitEntity).Team != team) return false;
+            if (slice.UnitEntity != null)
+            {
+                GameUnit unitAtTile = UnitSelector.SelectUnit(slice.UnitEntity);
+                if (unitAtTile.Team != team || unitAtTile.Team == Team.Creep)
+                {
+                    return false;
+                }
+            }
 
             if (visitedTiles.Any(tile => tile.MapCoordinates.Equals(coordinates))) return false;
 

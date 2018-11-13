@@ -93,9 +93,6 @@ namespace SolStandard.Utility
             Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
             Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
-            //FIXME CanEndMoveAtCoordinates() returns false for tiles with friendly units on them.
-            //FIXME This is tricky; we can move through these units, but we can't end our movement on them.
-            
             if (
                 GameMapContext.CoordinatesWithinMapBounds(north) &&
                 (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination)

@@ -347,7 +347,7 @@ namespace SolStandard.Containers.Contexts
             else
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-                if (hoverMapUnit != null)
+                if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
                 {
                     new UnitTargetingContext(
                         MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
