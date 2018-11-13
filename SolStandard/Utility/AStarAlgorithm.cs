@@ -15,7 +15,7 @@ namespace SolStandard.Utility
             SimplePriorityQueue<MapDistanceTile> frontier = new SimplePriorityQueue<MapDistanceTile>();
 
             frontier.Enqueue(
-                new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), origin, 0),
+                new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), origin),
                 0
             );
 
@@ -31,27 +31,8 @@ namespace SolStandard.Utility
 
                 if (current.MapCoordinates == destination)
                 {
-                    //Step backwards through the path and plot the directions from each of the nodes that map to the destination
-                    List<MapDistanceTile> path = new List<MapDistanceTile>();
-                    List<Direction> directions = new List<Direction>();
-
-                    MapDistanceTile nextTile = current;
-
-                    while (cameFrom[nextTile] != null)
-                    {
-                        nextTile = cameFrom[nextTile];
-
-                        path.Add(nextTile);
-                    }
-
-                    foreach (MapDistanceTile tile in path)
-                    {
-                        if (cameFrom[tile] != null) directions.Insert(0, DetermineDirection(cameFrom[tile], tile));
-                    }
-
-                    return directions;
+                    return DeriveDirectionsFromPath(current, cameFrom);
                 }
-
 
                 IEnumerable<MapDistanceTile> neighbours = GetNeighbours(current, destination);
 
@@ -74,6 +55,30 @@ namespace SolStandard.Utility
             throw new TileNotFoundException();
         }
 
+        private static List<Direction> DeriveDirectionsFromPath(MapDistanceTile current,
+            IReadOnlyDictionary<MapDistanceTile, MapDistanceTile> cameFrom)
+        {
+            //Step backwards through the path and plot the directions from each of the nodes that map to the destination
+            List<MapDistanceTile> path = new List<MapDistanceTile>();
+            List<Direction> directions = new List<Direction>();
+
+            MapDistanceTile nextTile = current;
+
+            while (cameFrom[nextTile] != null)
+            {
+                nextTile = cameFrom[nextTile];
+
+                path.Add(nextTile);
+            }
+
+            foreach (MapDistanceTile tile in path)
+            {
+                if (cameFrom[tile] != null) directions.Insert(0, DetermineDirection(cameFrom[tile], tile));
+            }
+
+            return directions;
+        }
+
         private static int DistanceFromGoal(Vector2 next, Vector2 current)
         {
             return Convert.ToInt32(Math.Abs(next.X - current.X) + Math.Abs(next.Y - current.Y));
@@ -94,7 +99,7 @@ namespace SolStandard.Utility
             )
             {
                 neighbours.Add(
-                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), north, 0)
+                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), north)
                 );
             }
 
@@ -104,7 +109,7 @@ namespace SolStandard.Utility
             )
             {
                 neighbours.Add(
-                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), south, 0)
+                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), south)
                 );
             }
 
@@ -114,7 +119,7 @@ namespace SolStandard.Utility
             )
             {
                 neighbours.Add(
-                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), east, 0)
+                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), east)
                 );
             }
 
@@ -124,7 +129,7 @@ namespace SolStandard.Utility
             )
             {
                 neighbours.Add(
-                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), west, 0)
+                    new MapDistanceTile(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement), west)
                 );
             }
 

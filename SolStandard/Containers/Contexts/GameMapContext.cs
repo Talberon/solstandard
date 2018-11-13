@@ -113,6 +113,8 @@ namespace SolStandard.Containers.Contexts
             GameContext.StatusScreenView.UpdateWindows();
 
             AssetManager.MapUnitSelectSFX.Play();
+
+            ExecuteAIActions();
         }
 
         private void UpdateTurnCounters()
@@ -400,6 +402,11 @@ namespace SolStandard.Containers.Contexts
             ProceedToNextState();
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
             AssetManager.MapUnitSelectSFX.Play();
+        }
+
+        public void ExecuteAIActions()
+        {
+            GameContext.ActiveUnit.ExecuteRoutines();
         }
 
         private static void TriggerEffectTilesTurnStart()

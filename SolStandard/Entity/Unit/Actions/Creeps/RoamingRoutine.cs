@@ -10,15 +10,15 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
 
-namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
+namespace SolStandard.Entity.Unit.Actions.Creeps
 {
-    public class SlimeRoutine : UnitAction
+    public class RoamingRoutine : UnitAction, IRoutine
     {
-        public SlimeRoutine()
+        public RoamingRoutine()
             : base(
                 icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
-                name: "Slime Routine",
-                description: "Execute Slime's default AI routine.",
+                name: "Roaming Routine",
+                description: "Execute Roaming AI routine.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: new[] {0}
             )
@@ -32,6 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
             List<GameUnit> enemiesInRange = EnemiesWithinThreatRange(slime);
 
             Queue<IEvent> aiEventQueue = new Queue<IEvent>();
+            aiEventQueue.Enqueue(new WaitFramesEvent(60));
 
             if (enemiesInRange.Count > 0)
             {
@@ -52,9 +53,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
 
+                aiEventQueue.Enqueue(new CreepMoveEvent(slime, Direction.None));
                 aiEventQueue.Enqueue(new StartCombatEvent(targetUnit));
-
-                //TODO Create queue of movements next to that unit and then start combat with it.
             }
             else
             {
@@ -68,7 +68,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
                     Direction randomDirection =
                         (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
-                    //TODO Add movement and short wait to the queue
                     aiEventQueue.Enqueue(new CreepMoveEvent(slime, randomDirection));
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }

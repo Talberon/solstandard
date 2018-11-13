@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Champion;
-using SolStandard.Entity.Unit.Actions.Creeps.Slime;
+using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Monarch;
 using SolStandard.Utility.Monogame;
@@ -29,7 +29,8 @@ namespace SolStandard.Entity.Unit
             {"Champion", Role.Champion},
             {"Mage", Role.Mage},
             {"Monarch", Role.Monarch},
-            {"Slime", Role.Slime}
+            {"Slime", Role.Slime},
+            {"Troll", Role.Troll}
         };
 
 
@@ -88,6 +89,10 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectSlimeStats();
                     unitSkills = SelectSlimeSkills();
                     break;
+                case Role.Troll:
+                    unitStats = SelectTrollStats();
+                    unitSkills = SelectTrollSkills();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
@@ -107,6 +112,9 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Slime:
                     generatedUnit.CurrentGold += 10;
+                    break;
+                case Role.Troll:
+                    generatedUnit.CurrentGold += 30;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -137,7 +145,12 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectSlimeStats()
         {
-            return new UnitStatistics(5, 0, 3, 3, 1, 3, new[] {1});
+            return new UnitStatistics(5, 0, 2, 2, 2, 3, new[] {1});
+        }
+
+        private static UnitStatistics SelectTrollStats()
+        {
+            return new UnitStatistics(10, 5, 4, 3, 1, 3, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -195,7 +208,16 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitAction>
             {
-                new SlimeRoutine(),
+                new RoamingRoutine(),
+                new BasicAttack()
+            };
+        }
+
+        private static List<UnitAction> SelectTrollSkills()
+        {
+            return new List<UnitAction>
+            {
+                new RoamingRoutine(),
                 new BasicAttack()
             };
         }

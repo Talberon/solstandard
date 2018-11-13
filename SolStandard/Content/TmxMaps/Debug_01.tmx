@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="742">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="744">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2879,6 +2879,12 @@
   <object id="738" name="Slime" type="Unit" gid="457" x="480" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="743" name="Troll" type="Unit" gid="458" x="480" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Troll"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>

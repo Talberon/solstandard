@@ -200,7 +200,6 @@ namespace SolStandard
                         GameContext.ActivePlayer = PlayerIndex.Two;
                         break;
                     case Team.Creep:
-                        //TODO Implement AI
                         GameContext.ActivePlayer = PlayerIndex.One;
                         break;
                     default:

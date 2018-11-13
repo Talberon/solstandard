@@ -141,7 +141,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMonarch"),
                 
-                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime")
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -167,7 +168,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Monarch"),
                 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Slime")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Slime"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Troll"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -193,7 +195,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Monarch"),
                 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Slime")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Slime"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Troll"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -219,7 +222,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Small/Monarch"),
                 
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Slime")
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Slime"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Troll"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();

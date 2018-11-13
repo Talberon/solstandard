@@ -26,7 +26,8 @@ namespace SolStandard.Entity.Unit
         Archer,
         Mage,
         Monarch,
-        Slime
+        Slime,
+        Troll
     }
 
     public enum Team
@@ -55,7 +56,8 @@ namespace SolStandard.Entity.Unit
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
 
         private readonly UnitStatistics stats;
-        public bool Enabled { get; private set; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        private bool Enabled { get; set; }
 
         public List<UnitAction> Skills { get; private set; }
         private UnitAction armedUnitAction;
@@ -167,7 +169,6 @@ namespace SolStandard.Entity.Unit
             get
             {
                 Color panelColor = new Color(10, 10, 10, 100);
-                const int goldPanelHeight = 32;
                 const int hoverWindowHealthBarHeight = 32;
                 int windowBordersSize = AssetManager.WindowTexture.Width * 2 / 3;
                 IRenderable[,] selectedUnitPortrait =
@@ -426,16 +427,23 @@ namespace SolStandard.Entity.Unit
             Vector2 destination = UnitEntity.MapCoordinates;
             switch (direction)
             {
+                case Direction.None:
+                    SetUnitAnimation(UnitAnimationState.Idle);
+                    break;
                 case Direction.Down:
+                    SetUnitAnimation(UnitAnimationState.WalkDown);
                     destination.Y = destination.Y + 1;
                     break;
                 case Direction.Right:
+                    SetUnitAnimation(UnitAnimationState.WalkRight);
                     destination.X = destination.X + 1;
                     break;
                 case Direction.Up:
+                    SetUnitAnimation(UnitAnimationState.WalkUp);
                     destination.Y = destination.Y - 1;
                     break;
                 case Direction.Left:
+                    SetUnitAnimation(UnitAnimationState.WalkLeft);
                     destination.X = destination.X - 1;
                     break;
                 default:
@@ -658,6 +666,18 @@ namespace SolStandard.Entity.Unit
         public override string ToString()
         {
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
+        }
+
+        public void ExecuteRoutines()
+        {
+            foreach (UnitAction action in Skills)
+            {
+                IRoutine routine = action as IRoutine;
+                if (routine != null)
+                {
+                    routine.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(UnitEntity.MapCoordinates));
+                }
+            }
         }
     }
 }
