@@ -276,7 +276,7 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
-                                            Convert.ToInt32(currentProperties["gold"])
+                                            Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0,5)
                                         );
                                         break;
                                     case EntityTypes.Decoration:

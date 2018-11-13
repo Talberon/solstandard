@@ -111,10 +111,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Monarch:
                     break;
                 case Role.Slime:
-                    generatedUnit.CurrentGold += 10;
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(0, 5);
                     break;
                 case Role.Troll:
-                    generatedUnit.CurrentGold += 30;
+                    generatedUnit.CurrentGold += 20 + GameDriver.Random.Next(0, 5);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -150,7 +150,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(10, 5, 4, 3, 1, 3, new[] {1});
+            return new UnitStatistics(10, 5, 4, 3, 1, 4, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
