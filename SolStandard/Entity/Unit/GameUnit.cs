@@ -451,7 +451,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
 
-            if (UnitMovingContext.CanMoveAtCoordinates(destination))
+            if (UnitMovingContext.CanEndMoveAtCoordinates(destination))
             {
                 MoveUnitToCoordinates(destination);
             }

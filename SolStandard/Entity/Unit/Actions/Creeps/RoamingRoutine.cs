@@ -14,7 +14,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class RoamingRoutine : UnitAction, IRoutine
     {
-        public RoamingRoutine()
+        private readonly bool independent;
+
+        public RoamingRoutine(bool independent = false)
             : base(
                 icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
                 name: "Roaming Routine",
@@ -23,52 +25,53 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 range: new[] {0}
             )
         {
+            this.independent = independent;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit slime = GameContext.ActiveUnit;
+            GameUnit roamer = GameContext.ActiveUnit;
 
-            List<GameUnit> enemiesInRange = EnemiesWithinThreatRange(slime);
+            List<GameUnit> targetsInRange = UnitsWithinThreatRange(roamer);
 
             Queue<IEvent> aiEventQueue = new Queue<IEvent>();
             aiEventQueue.Enqueue(new WaitFramesEvent(60));
 
-            if (enemiesInRange.Count > 0)
+            if (targetsInRange.Count > 0)
             {
-                GameUnit targetUnit = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
+                GameUnit targetUnit = targetsInRange[GameDriver.Random.Next(targetsInRange.Count)];
 
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
-                    "Targetting " + targetUnit.Id + "!", slime.UnitEntity.MapCoordinates, 50
+                    "Targetting " + targetUnit.Id + "!", roamer.UnitEntity.MapCoordinates, 50
                 );
 
-                List<Direction> directions = AStarAlgorithm.DirectionsToDestination(slime.UnitEntity.MapCoordinates,
+                List<Direction> directions = AStarAlgorithm.DirectionsToDestination(roamer.UnitEntity.MapCoordinates,
                     targetUnit.UnitEntity.MapCoordinates);
 
                 foreach (Direction direction in directions)
                 {
                     if (direction == Direction.None) continue;
 
-                    aiEventQueue.Enqueue(new CreepMoveEvent(slime, direction));
+                    aiEventQueue.Enqueue(new CreepMoveEvent(roamer, direction));
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
 
-                aiEventQueue.Enqueue(new CreepMoveEvent(slime, Direction.None));
+                aiEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
                 aiEventQueue.Enqueue(new StartCombatEvent(targetUnit));
             }
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
-                    "Roaming...", slime.UnitEntity.MapCoordinates, 50
+                    "Roaming...", roamer.UnitEntity.MapCoordinates, 50
                 );
 
                 //Move randomly up to max movement
-                for (int i = 0; i < slime.Stats.Mv; i++)
+                for (int i = 0; i < roamer.Stats.Mv; i++)
                 {
                     Direction randomDirection =
                         (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
-                    aiEventQueue.Enqueue(new CreepMoveEvent(slime, randomDirection));
+                    aiEventQueue.Enqueue(new CreepMoveEvent(roamer, randomDirection));
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
 
@@ -78,7 +81,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GlobalEventQueue.QueueEvents(aiEventQueue);
         }
 
-        private static List<GameUnit> EnemiesWithinThreatRange(GameUnit creep)
+        private List<GameUnit> UnitsWithinThreatRange(GameUnit creep)
         {
             List<GameUnit> unitsWithinDistance = new List<GameUnit>();
 
@@ -88,12 +91,13 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             rangeMovingContext.GenerateThreatGrid(creep.UnitEntity.MapCoordinates, creep);
 
-            //If enemy is on a tile that has a non-null preview or dynamic tile, then add it to the list
+            //If target is on a tile that has a non-null preview or dynamic tile, then add it to the list
 
             foreach (GameUnit unit in GameContext.Units)
             {
                 if (unit.UnitEntity == null) continue;
-                if (unit.Team == GameContext.ActiveUnit.Team) continue;
+                if (unit.UnitEntity == GameContext.ActiveUnit.UnitEntity) continue;
+                if (!independent && unit.Team == GameContext.ActiveUnit.Team) continue;
 
                 MapSlice unitSlice = MapContainer.GetMapSliceAtCoordinates(unit.UnitEntity.MapCoordinates);
 

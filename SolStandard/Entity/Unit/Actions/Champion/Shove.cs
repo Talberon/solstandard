@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
-                   UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates);
+                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates);
         }
 
         public static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)

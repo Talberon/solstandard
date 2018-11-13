@@ -80,7 +80,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
-                UnitMovingContext.CanMoveAtCoordinates(pullTileCoordinates))
+                UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates))
             {
                 return true;
             }

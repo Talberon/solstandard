@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
                 if (mapElement == null) continue;
-                if (!UnitMovingContext.CanMoveAtCoordinates(mapElement.MapCoordinates))
+                if (!UnitMovingContext.CanEndMoveAtCoordinates(mapElement.MapCoordinates))
                 {
                     tilesToRemove.Add(mapElement);
                 }

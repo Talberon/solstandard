@@ -114,7 +114,10 @@ namespace SolStandard.Containers.Contexts
 
             AssetManager.MapUnitSelectSFX.Play();
 
-            ExecuteAIActions();
+            if (GameContext.ActiveUnit.UnitEntity != null)
+            {
+                ExecuteAIActions();
+            }
         }
 
         private void UpdateTurnCounters()

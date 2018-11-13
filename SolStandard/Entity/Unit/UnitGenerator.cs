@@ -231,7 +231,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitAction>
             {
-                new RoamingRoutine(),
+                new RoamingRoutine(true),
                 new BasicAttack()
             };
         }
@@ -239,7 +239,7 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitAction>
             {
-                new RoamingRoutine(),
+                new RoamingRoutine(true),
                 new BasicAttack()
             };
         }

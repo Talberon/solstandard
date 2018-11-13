@@ -128,7 +128,7 @@ namespace SolStandard.Containers.Contexts
         }
 
 
-        public static bool CanMoveAtCoordinates(Vector2 coordinates)
+        public static bool CanEndMoveAtCoordinates(Vector2 coordinates)
         {
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
 

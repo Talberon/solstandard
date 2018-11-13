@@ -148,7 +148,7 @@ namespace SolStandard.Containers.View
             }
             else
             {
-                bool canMove = UnitMovingContext.CanMoveAtCoordinates(hoverSlice.MapCoordinates);
+                bool canMove = UnitMovingContext.CanEndMoveAtCoordinates(hoverSlice.MapCoordinates);
 
                 WindowContentGrid noEntityContent = new WindowContentGrid(
                     new IRenderable[,]

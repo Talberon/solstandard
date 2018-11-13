@@ -93,9 +93,12 @@ namespace SolStandard.Utility
             Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
             Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
+            //FIXME CanEndMoveAtCoordinates() returns false for tiles with friendly units on them.
+            //FIXME This is tricky; we can move through these units, but we can't end our movement on them.
+            
             if (
                 GameMapContext.CoordinatesWithinMapBounds(north) &&
-                (UnitMovingContext.CanMoveAtCoordinates(north) || north == destination)
+                (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination)
             )
             {
                 neighbours.Add(
@@ -105,7 +108,7 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(south) &&
-                (UnitMovingContext.CanMoveAtCoordinates(south) || south == destination)
+                (UnitMovingContext.CanEndMoveAtCoordinates(south) || south == destination)
             )
             {
                 neighbours.Add(
@@ -115,7 +118,7 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(east) &&
-                (UnitMovingContext.CanMoveAtCoordinates(east) || east == destination)
+                (UnitMovingContext.CanEndMoveAtCoordinates(east) || east == destination)
             )
             {
                 neighbours.Add(
@@ -125,7 +128,7 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(west) &&
-                (UnitMovingContext.CanMoveAtCoordinates(west) || west == destination)
+                (UnitMovingContext.CanEndMoveAtCoordinates(west) || west == destination)
             )
             {
                 neighbours.Add(

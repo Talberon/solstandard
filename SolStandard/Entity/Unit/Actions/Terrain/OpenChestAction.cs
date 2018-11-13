@@ -52,8 +52,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     {
                         foreach (IItem item in chest.Items)
                         {
-                            eventQueue.Enqueue(new WaitFramesEvent(30));
                             eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, item));
+                            eventQueue.Enqueue(new WaitFramesEvent(30));
                         }
                     }
 

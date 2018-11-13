@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="755">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="781">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -1367,12 +1367,12 @@
    <tile gid="5996"/>
    <tile gid="5996"/>
    <tile gid="5997"/>
+   <tile gid="6146"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6146"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1399,12 +1399,12 @@
    <tile gid="5999"/>
    <tile gid="6036"/>
    <tile gid="6037"/>
+   <tile gid="6186"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6186"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1431,12 +1431,12 @@
    <tile gid="5997"/>
    <tile/>
    <tile/>
+   <tile gid="6186"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6186"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1463,12 +1463,12 @@
    <tile gid="5997"/>
    <tile/>
    <tile/>
-   <tile gid="6107"/>
+   <tile gid="6187"/>
    <tile gid="6108"/>
    <tile gid="6108"/>
    <tile gid="6108"/>
    <tile gid="6108"/>
-   <tile gid="6109"/>
+   <tile gid="6188"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2050,7 +2050,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="47"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2596,22 +2596,6 @@
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="627" name="Tower Top" type="BuffTile" gid="47" x="416" y="128" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="3"/>
-    <property name="Stat" value="ATK"/>
-   </properties>
-  </object>
-  <object id="630" name="Ballista" type="Railgun" gid="371" x="576" y="320" width="32" height="32">
-   <properties>
-    <property name="range" type="int" value="15"/>
-   </properties>
-  </object>
-  <object id="633" name="Trebuchet" type="Artillery" gid="370" x="544" y="320" width="32" height="32">
-   <properties>
-    <property name="range" value="4,5,6"/>
-   </properties>
-  </object>
   <object id="635" name="Switch" type="Switch" gid="250" x="320" y="224" width="32" height="32">
    <properties>
     <property name="triggersId" value="Door A"/>
@@ -2623,7 +2607,7 @@
    </properties>
   </object>
   <object id="651" name="Bridge" type="Movable" gid="63" x="224" y="256" width="32" height="32"/>
-  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="512" y="128" width="32" height="32">
+  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="155" x="576" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="2"/>
    </properties>
@@ -2633,7 +2617,7 @@
     <property name="destinationId" value="Stairs A2"/>
    </properties>
   </object>
-  <object id="655" name="Stairs A2" type="Portal" gid="253" x="576" y="192" width="32" height="32">
+  <object id="655" name="Stairs A2" type="Portal" gid="253" x="512" y="192" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A1"/>
    </properties>
@@ -2643,7 +2627,7 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="661" name="Chest LK1" type="Chest" gid="206" x="576" y="384" width="32" height="32">
+  <object id="661" name="Chest LK1" type="Chest" gid="206" x="576" y="352" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="25"/>
     <property name="isLocked" type="bool" value="true"/>
@@ -2661,7 +2645,7 @@
    </properties>
   </object>
   <object id="669" name="Drawbridge A" type="Drawbridge" gid="48" x="384" y="480" width="32" height="32"/>
-  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="576" y="256" width="32" height="32">
+  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="576" y="288" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
     <property name="item" value="Chest LK1 Key"/>
@@ -2706,7 +2690,7 @@
     <property name="destinationId" value="Stairs A2"/>
    </properties>
   </object>
-  <object id="700" name="Stairs A2" type="Portal" gid="253" x="576" y="224" width="32" height="32">
+  <object id="700" name="Stairs A2" type="Portal" gid="253" x="512" y="224" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A1"/>
    </properties>
@@ -2749,12 +2733,12 @@
     <property name="triggersId" value="Plate Door"/>
    </properties>
   </object>
-  <object id="711" name="Rubble" type="BreakableObstacle" gid="6351" x="480" y="128" width="32" height="32">
+  <object id="711" name="Rubble" type="BreakableObstacle" gid="6351" x="544" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="5"/>
    </properties>
   </object>
-  <object id="712" name="Spike Trap" type="Trap" gid="6341" x="768" y="256" width="32" height="32">
+  <object id="712" name="Spike Trap" type="Trap" gid="6341" x="352" y="288" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -2774,21 +2758,96 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="744" name="Money Pot" type="BreakableObstacle" gid="6135" x="512" y="320" width="32" height="32">
+  <object id="744" name="Money Pot" type="BreakableObstacle" gid="6135" x="480" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
     <property name="gold" type="int" value="10"/>
    </properties>
   </object>
-  <object id="745" name="Honey Pot" type="BreakableObstacle" gid="6135" x="512" y="288" width="32" height="32">
+  <object id="745" name="Honey Pot" type="BreakableObstacle" gid="6135" x="448" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="749" name="MonKeyPot" type="BreakableObstacle" gid="6135" x="512" y="352" width="32" height="32">
+  <object id="749" name="MonKeyPot" type="BreakableObstacle" gid="6135" x="512" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
     <property name="item" value="Chest LK1 Key"/>
+   </properties>
+  </object>
+  <object id="755" name="Spike Trap" type="Trap" gid="6341" x="352" y="352" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="756" name="Spike Trap" type="Trap" gid="6341" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="757" name="Spike Trap" type="Trap" gid="6341" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="761" name="Spike Trap" type="Trap" gid="6341" x="256" y="128" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="762" name="Spike Trap" type="Trap" gid="6341" x="288" y="128" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="763" name="Spike Trap" type="Trap" gid="6341" x="288" y="96" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="764" name="Spike Trap" type="Trap" gid="6341" x="256" y="96" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="765" name="Spike Trap" type="Trap" gid="6341" x="224" y="96" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="766" name="Spike Trap" type="Trap" gid="6341" x="224" y="128" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="767" name="Spike Trap" type="Trap" gid="6341" x="224" y="160" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="768" name="Spike Trap" type="Trap" gid="6341" x="256" y="160" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="769" name="Spike Trap" type="Trap" gid="6341" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="770" name="Spike Trap" type="Trap" gid="6341" x="320" y="160" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="771" name="Spike Trap" type="Trap" gid="6341" x="320" y="128" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="772" name="Spike Trap" type="Trap" gid="6341" x="320" y="96" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -2805,7 +2864,7 @@
     <property name="usedWith" value="Door LK1"/>
    </properties>
   </object>
-  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="544" y="384" width="32" height="32">
+  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="544" y="352" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
@@ -2895,45 +2954,87 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="736" name="Slime" type="Unit" gid="457" x="320" y="160" width="32" height="32">
+  <object id="736" name="Slime" type="Unit" gid="457" x="288" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="738" name="Slime" type="Unit" gid="457" x="352" y="448" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
-   </properties>
-  </object>
-  <object id="743" name="Troll" type="Unit" gid="458" x="480" y="224" width="32" height="32">
+  <object id="743" name="Troll" type="Unit" gid="458" x="768" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="750" name="Orc" type="Unit" gid="459" x="288" y="320" width="32" height="32">
+  <object id="750" name="Orc" type="Unit" gid="459" x="96" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="752" name="Orc" type="Unit" gid="459" x="480" y="384" width="32" height="32">
+  <object id="758" name="Slime" type="Unit" gid="457" x="224" y="128" width="32" height="32">
    <properties>
-    <property name="Class" value="Orc"/>
+    <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="753" name="Orc" type="Unit" gid="459" x="512" y="224" width="32" height="32">
+  <object id="759" name="Slime" type="Unit" gid="457" x="256" y="128" width="32" height="32">
    <properties>
-    <property name="Class" value="Orc"/>
+    <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="754" name="Orc" type="Unit" gid="459" x="384" y="256" width="32" height="32">
+  <object id="760" name="Slime" type="Unit" gid="457" x="288" y="128" width="32" height="32">
    <properties>
-    <property name="Class" value="Orc"/>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="773" name="Slime" type="Unit" gid="457" x="256" y="96" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="774" name="Slime" type="Unit" gid="457" x="224" y="96" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="775" name="Slime" type="Unit" gid="457" x="224" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="776" name="Slime" type="Unit" gid="457" x="256" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="777" name="Slime" type="Unit" gid="457" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="778" name="Slime" type="Unit" gid="457" x="320" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="779" name="Slime" type="Unit" gid="457" x="320" y="128" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="780" name="Slime" type="Unit" gid="457" x="320" y="96" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>

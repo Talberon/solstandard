@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         protected static bool CanMoveToTargetTile(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
 
