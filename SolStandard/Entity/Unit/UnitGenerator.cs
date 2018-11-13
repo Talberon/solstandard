@@ -16,14 +16,14 @@ namespace SolStandard.Entity.Unit
         private static List<ITexture2D> _mediumPortraits;
         private static List<ITexture2D> _smallPortraits;
 
-        private static readonly Dictionary<string, Team> teamDictionary = new Dictionary<string, Team>
+        private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
         {
             {"Red", Team.Red},
             {"Blue", Team.Blue},
             {"Creep", Team.Creep}
         };
 
-        private static readonly Dictionary<string, Role> roleDictionary = new Dictionary<string, Role>
+        private static readonly Dictionary<string, Role> RoleDictionary = new Dictionary<string, Role>
         {
             {"Archer", Role.Archer},
             {"Champion", Role.Champion},
@@ -47,8 +47,8 @@ namespace SolStandard.Entity.Unit
             {
                 if (unit == null) continue;
 
-                Team unitTeam = teamDictionary[unit.TiledProperties["Team"]];
-                Role role = roleDictionary[unit.TiledProperties["Class"]];
+                Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
+                Role role = RoleDictionary[unit.TiledProperties["Class"]];
 
                 GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit);
                 unitsFromMap.Add(unitToBuild);

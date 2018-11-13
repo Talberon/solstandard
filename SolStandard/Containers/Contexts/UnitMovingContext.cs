@@ -23,7 +23,7 @@ namespace SolStandard.Containers.Contexts
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0);
+            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited =
