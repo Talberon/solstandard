@@ -5,6 +5,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
@@ -36,6 +37,19 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
             {
                 GameUnit targetUnit = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
 
+                List<Direction> directions = AStarAlgorithm.DirectionsToDestination(slime.UnitEntity.MapCoordinates,
+                    targetUnit.UnitEntity.MapCoordinates);
+
+                foreach (Direction direction in directions)
+                {
+                    if (direction == Direction.None) continue;
+
+                    aiEventQueue.Enqueue(new CreepMoveEvent(slime, direction));
+                    aiEventQueue.Enqueue(new WaitFramesEvent(20));
+                }
+
+                aiEventQueue.Enqueue(new StartCombatEvent(targetUnit));
+
                 //TODO Create queue of movements next to that unit and then start combat with it.
             }
             else
@@ -50,9 +64,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps.Slime
                     aiEventQueue.Enqueue(new CreepMoveEvent(slime, randomDirection));
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
+
+                aiEventQueue.Enqueue(new EndTurnEvent());
             }
 
-            aiEventQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(aiEventQueue);
         }
 

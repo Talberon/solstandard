@@ -92,8 +92,27 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
-            return new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait, mediumPortrait,
-                smallPortrait, unitSkills);
+            GameUnit generatedUnit = new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait,
+                mediumPortrait, smallPortrait, unitSkills);
+
+            switch (generatedUnit.Role)
+            {
+                case Role.Champion:
+                    break;
+                case Role.Archer:
+                    break;
+                case Role.Mage:
+                    break;
+                case Role.Monarch:
+                    break;
+                case Role.Slime:
+                    generatedUnit.CurrentGold += 10;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return generatedUnit;
         }
 
         private static UnitStatistics SelectArcherStats()

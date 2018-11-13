@@ -2870,19 +2870,19 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="736" name="Slime" type="Unit" gid="457" x="256" y="96" width="32" height="32">
+  <object id="736" name="Slime" type="Unit" gid="457" x="352" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="738" name="Slime" type="Unit" gid="457" x="192" y="512" width="32" height="32">
+  <object id="738" name="Slime" type="Unit" gid="457" x="320" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="739" name="Slime" type="Unit" gid="457" x="576" y="128" width="32" height="32">
+  <object id="739" name="Slime" type="Unit" gid="457" x="480" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
