@@ -1,4 +1,5 @@
-﻿using SolStandard.Entity.Unit;
+﻿using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 
@@ -20,6 +21,7 @@ namespace SolStandard.Utility.Events.AI
         public void Continue()
         {
             unitToMove.MoveUnitInDirection(directionToMove);
+            GameContext.GameMapContext.ResetCursorToActiveUnit();
             AssetManager.MapUnitMoveSFX.Play();
             Complete = true;
         }
