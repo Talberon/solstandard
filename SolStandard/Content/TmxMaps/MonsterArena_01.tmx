@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="782">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="786">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2679,13 +2679,13 @@
  <objectgroup name="Loot" opacity="0.62"/>
  <objectgroup name="Items"/>
  <objectgroup name="Units">
-  <object id="520" name="Fracturius I" type="Unit" gid="452" x="736" y="480" width="32" height="32">
+  <object id="520" name="Fracturius I" type="Unit" gid="452" x="512" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="456" x="736" y="192" width="32" height="32">
+  <object id="521" name="Marrowon II" type="Unit" gid="456" x="576" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
@@ -2778,6 +2778,30 @@
   <object id="762" name="Troll" type="Unit" gid="458" x="576" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="782" name="Slime" type="Unit" gid="457" x="736" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="783" name="Slime" type="Unit" gid="457" x="672" y="128" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="784" name="Slime" type="Unit" gid="457" x="768" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="785" name="Slime" type="Unit" gid="457" x="640" y="544" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>

@@ -111,10 +111,21 @@ namespace SolStandard.Containers.Contexts
             switch (CurrentState)
             {
                 case BattleState.Start:
-                    if (TryProceedToState(BattleState.RollDice))
+                    //Skip the dice roll if neither unit has dice
+                    if (attackerDamage.CountBlanks() > 0 || defenderDamage.CountBlanks() > 0)
                     {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        StartRollingDice();
+                        if (TryProceedToState(BattleState.RollDice))
+                        {
+                            AssetManager.MapUnitSelectSFX.Play();
+                            StartRollingDice();
+                        }
+                    }
+                    else
+                    {
+                        if (TryProceedToState(BattleState.ResolveCombat))
+                        {
+                            StartResolvingBlocks();
+                        }
                     }
 
                     break;
@@ -131,7 +142,7 @@ namespace SolStandard.Containers.Contexts
                     {
                         attackerProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
                         defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
-                        
+
                         AssetManager.MapUnitSelectSFX.Play();
                         GameContext.GameMapContext.ProceedToNextState();
                     }
@@ -350,7 +361,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void StartResolvingDamage()
+        private void StartResolvingDamage()
         {
             if (!currentlyResolvingDamage)
             {
