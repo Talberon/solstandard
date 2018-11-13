@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
@@ -129,6 +130,8 @@ namespace SolStandard.Map
 
         public List<MapElement[,]> LoadMapGrid()
         {
+            List<IItem> mapLoot = LoadMapLoot();
+
             gameTileLayers = new List<MapElement[,]>
             {
                 ObtainTilesFromLayer(Layer.Terrain),
@@ -136,7 +139,7 @@ namespace SolStandard.Map
                 ObtainTilesFromLayer(Layer.Collide),
                 ObtainTilesFromLayer(Layer.Overlay),
                 // ReSharper disable once CoVariantArrayConversion
-                ObtainEntitiesFromLayer("Entities"),
+                ObtainEntitiesFromLayer("Entities", mapLoot),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Items"),
                 new MapElement[tmxMap.Width, tmxMap.Height],
@@ -155,6 +158,15 @@ namespace SolStandard.Map
             }
 
             return unitLayer;
+        }
+
+        private List<IItem> LoadMapLoot()
+        {
+            TerrainEntity[,] mapInventoryLayer = ObtainEntitiesFromLayer("Loot");
+
+            List<IItem> loot = mapInventoryLayer.OfType<IItem>().ToList();
+
+            return loot;
         }
 
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
@@ -198,6 +210,11 @@ namespace SolStandard.Map
         }
 
         private TerrainEntity[,] ObtainEntitiesFromLayer(string objectGroupName)
+        {
+            return ObtainEntitiesFromLayer(objectGroupName, new List<IItem>());
+        }
+
+        private TerrainEntity[,] ObtainEntitiesFromLayer(string objectGroupName, List<IItem> mapLoot)
         {
             TerrainEntity[,] entityGrid = new TerrainEntity[tmxMap.Width, tmxMap.Height];
 
@@ -249,7 +266,11 @@ namespace SolStandard.Map
                                             currentProperties,
                                             Convert.ToInt32(currentProperties["HP"]),
                                             Convert.ToBoolean(currentProperties["canMove"]),
-                                            Convert.ToBoolean(currentProperties["isBroken"])
+                                            Convert.ToBoolean(currentProperties["isBroken"]),
+                                            Convert.ToInt32(currentProperties["gold"]),
+                                            (currentProperties["item"] != string.Empty)
+                                                ? mapLoot.Single(item => item.Name == currentProperties["item"])
+                                                : null
                                         );
                                         break;
                                     case EntityTypes.BuffTile:
@@ -276,7 +297,10 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
-                                            Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0,5)
+                                            Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0, 5),
+                                            (currentProperties["item"] != string.Empty)
+                                                ? mapLoot.Single(item => item.Name == currentProperties["item"])
+                                                : null
                                         );
                                         break;
                                     case EntityTypes.Decoration:
@@ -579,8 +603,8 @@ namespace SolStandard.Map
         {
             //Check if tileset has animation associated with it.
             string tilesetPath = FindTileSet(tile.Gid).Name;
-            string tilesetName = tilesetPath.Substring(tilesetPath.LastIndexOf('/') + 1); 
-            
+            string tilesetName = tilesetPath.Substring(tilesetPath.LastIndexOf('/') + 1);
+
             TmxTilesetTile animatedTile = tmxMap.Tilesets[tilesetName].Tiles
                 .SingleOrDefault(
                     tilesetTile =>

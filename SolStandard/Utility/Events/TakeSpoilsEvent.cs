@@ -29,6 +29,7 @@ namespace SolStandard.Utility.Events
 
             RemoveItemFromMap();
 
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Retrieved spoils!", 50);
             AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;

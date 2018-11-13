@@ -5168,11 +5168,6 @@
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="725" name="Rubble" type="BreakableObstacle" gid="246" x="800" y="416" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
   <object id="726" name="Rubble" type="BreakableObstacle" gid="246" x="832" y="384" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
@@ -5495,6 +5490,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Loot"/>
  <objectgroup name="Items">
   <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="576" y="512" width="32" height="32">
    <properties>

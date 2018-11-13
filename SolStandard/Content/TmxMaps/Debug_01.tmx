@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="744">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="750">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2645,7 +2645,7 @@
   </object>
   <object id="661" name="Chest LK1" type="Chest" gid="206" x="576" y="384" width="32" height="32">
    <properties>
-    <property name="gold" type="int" value="50"/>
+    <property name="gold" type="int" value="25"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
@@ -2664,6 +2664,7 @@
   <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="576" y="256" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
+    <property name="item" value="Chest LK1 Key"/>
    </properties>
   </object>
   <object id="674" name="Drawbridge Switch" type="Switch" gid="252" x="352" y="512" width="32" height="32">
@@ -2771,6 +2772,30 @@
   <object id="719" name="Switch Spike Trap" type="Trap" gid="6341" x="736" y="320" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="744" name="Money Pot" type="BreakableObstacle" gid="6135" x="512" y="320" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="745" name="Honey Pot" type="BreakableObstacle" gid="6135" x="512" y="288" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="749" name="MonKeyPot" type="BreakableObstacle" gid="6135" x="512" y="352" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="item" value="Chest LK1 Key"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Loot" opacity="0.62">
+  <object id="748" name="Chest LK1 Key" type="Key" gid="389" x="0" y="32" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
  </objectgroup>

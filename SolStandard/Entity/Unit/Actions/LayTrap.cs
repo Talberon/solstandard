@@ -15,11 +15,12 @@ namespace SolStandard.Entity.Unit.Actions
     public class LayTrap : UnitAction
     {
         private readonly IRenderable tileSprite;
-        
+
         private readonly int damage;
         private readonly int maxTriggers;
 
-        protected LayTrap(IRenderable skillIcon, IRenderable tileSprite, string title, int damage, int maxTriggers) : base(
+        protected LayTrap(IRenderable skillIcon, IRenderable tileSprite, string title, int damage,
+            int maxTriggers) : base(
             icon: skillIcon,
             name: title,
             description: "Place a tile that will deal [" + damage + "] damage to enemies that start their turn on it." +
@@ -39,7 +40,8 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 if (TargetIsNotObstructed(targetSlice))
                 {
-                    TrapEntity trap = new TrapEntity("Trap", tileSprite, targetSlice.MapCoordinates, damage, maxTriggers, true, true);
+                    TrapEntity trap = new TrapEntity("Trap", tileSprite.Clone(), targetSlice.MapCoordinates, damage,
+                        maxTriggers, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -65,15 +67,13 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (targetSlice.TerrainEntity != null) return false;
             if (targetSlice.CollideTile != null) return false;
-            
+
             return true;
         }
-        
+
         private static bool TargetIsInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null;
         }
-
-        
     }
 }
