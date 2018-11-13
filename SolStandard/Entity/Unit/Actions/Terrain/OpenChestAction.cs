@@ -47,7 +47,6 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ToggleOpenEvent(chest));
                     eventQueue.Enqueue(new WaitFramesEvent(5));
-                    eventQueue.Enqueue(new IncreaseUnitGoldEvent(chest.Gold));
 
                     if (chest.Items.Count > 0)
                     {
@@ -57,10 +56,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                             eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, item));
                         }
                     }
-                    else
+
+                    if (chest.Gold > 0)
                     {
+                        eventQueue.Enqueue(new IncreaseUnitGoldEvent(chest.Gold));
                         eventQueue.Enqueue(new WaitFramesEvent(20));
                     }
+
 
                     eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);

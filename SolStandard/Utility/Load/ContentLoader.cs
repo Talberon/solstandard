@@ -143,6 +143,7 @@ namespace SolStandard.Utility.Load
                 
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -170,6 +171,7 @@ namespace SolStandard.Utility.Load
                 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Troll"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Orc"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -197,6 +199,7 @@ namespace SolStandard.Utility.Load
                 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Troll"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Orc"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -224,6 +227,7 @@ namespace SolStandard.Utility.Load
                 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Troll"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Small/Orc"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();

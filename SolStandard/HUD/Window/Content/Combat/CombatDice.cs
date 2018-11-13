@@ -26,7 +26,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             this.baseDice = baseDice;
             this.bonusDice = bonusDice;
             this.dieSize = dieSize;
-            if (baseDice < 1) throw new ArgumentOutOfRangeException();
+            if (baseDice < 0) throw new ArgumentOutOfRangeException();
             if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
             this.maxRowSize = maxRowSize;
@@ -54,6 +54,8 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             get
             {
+                if (dice.Count < 1) return 0;
+                
                 int totalRows = (int) Math.Ceiling((float) dice.Count / maxRowSize);
                 return totalRows * dice.First().Height;
             }
@@ -63,6 +65,8 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             get
             {
+                if (dice.Count < 1) return 0;
+                
                 int rowSize = (dice.Count > maxRowSize) ? maxRowSize : dice.Count;
                 return rowSize * dice.First().Width;
             }
