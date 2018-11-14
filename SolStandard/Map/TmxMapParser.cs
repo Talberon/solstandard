@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;

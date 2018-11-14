@@ -8,7 +8,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.General
+namespace SolStandard.Entity.General.Item
 {
     public class Spoils : TerrainEntity, IActionTile
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;

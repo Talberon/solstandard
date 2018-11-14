@@ -71,9 +71,10 @@
     <Compile Include="Entity\General\Chest.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
-    <Compile Include="Entity\General\Currency.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
-    <Compile Include="Entity\General\Key.cs" />
+    <Compile Include="Entity\General\Item\Currency.cs" />
+    <Compile Include="Entity\General\Item\Key.cs" />
+    <Compile Include="Entity\General\Item\Spoils.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\PressurePlate.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Entity\General\Railgun.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
-    <Compile Include="Entity\General\Spoils.cs" />
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />

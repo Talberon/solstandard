@@ -8,39 +8,26 @@ using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.General
+namespace SolStandard.Entity.General.Item
 {
-    public class Key : TerrainEntity, IItem, IActionTile
+    public class Currency : TerrainEntity, IActionTile
     {
-        public string UsedWith { get; private set; }
+        public const string CurrencyAbbreviation = "G";
+
+        public int Value { get; private set; }
         public int[] Range { get; private set; }
 
-        public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string usedWith, int[] range) :
+        public Currency(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
+            Dictionary<string, string> tiledProperties, int value, int[] range) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            UsedWith = usedWith;
+            Value = value;
             Range = range;
-        }
-
-        public IRenderable Icon
-        {
-            get { return Sprite; }
         }
 
         public UnitAction TileAction()
         {
-            return new PickUpItemAction(this, MapCoordinates);
-        }
-
-        public UnitAction UseAction()
-        {
-            return new ToggleLockAction(this);
-        }
-
-        public UnitAction DropAction()
-        {
-            return new DropItemAction(this);
+            return new PickUpCurrencyAction(this);
         }
 
         public override IRenderable TerrainInfo
@@ -60,11 +47,11 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
+                            new RenderText(AssetManager.WindowFont, "Value: " + Value + CurrencyAbbreviation),
                             new RenderBlank()
                         }
                     },
-                    3
+                    1
                 );
             }
         }
