@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="854">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextobjectid="859">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2951,8 +2951,8 @@
    <tile gid="6222"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6348"/>
+   <tile gid="6349"/>
    <tile/>
    <tile gid="6308"/>
    <tile gid="6309"/>
@@ -4226,8 +4226,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6348"/>
-   <tile gid="6349"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -5141,11 +5141,13 @@
   <object id="719" name="Pottery" type="BreakableObstacle" gid="6135" x="896" y="480" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
    </properties>
   </object>
   <object id="720" name="Pottery" type="BreakableObstacle" gid="6135" x="736" y="480" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="10"/>
    </properties>
   </object>
   <object id="721" name="Rubble" type="BreakableObstacle" gid="246" x="768" y="384" width="32" height="32">
@@ -5497,11 +5499,6 @@
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="644" name="Treasure" type="Currency" gid="415" x="736" y="480" width="32" height="32">
-   <properties>
-    <property name="value" type="int" value="10"/>
-   </properties>
-  </object>
   <object id="645" name="Treasure" type="Currency" gid="429" x="256" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
@@ -5713,9 +5710,39 @@
     <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="853" name="Troll" type="Unit" gid="458" x="512" y="832" width="32" height="32">
+  <object id="853" name="Troll" type="Unit" gid="458" x="352" y="864" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="855" name="Orc" type="Unit" gid="459" x="288" y="384" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="856" name="Orc" type="Unit" gid="459" x="96" y="672" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="857" name="Orc" type="Unit" gid="459" x="1088" y="576" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="858" name="Orc" type="Unit" gid="459" x="288" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Team" value="Creep"/>
+   </properties>
+  </object>
+  <object id="854" name="Orc" type="Unit" gid="459" x="704" y="640" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
     <property name="Team" value="Creep"/>
    </properties>
   </object>

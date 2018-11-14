@@ -116,13 +116,13 @@ namespace SolStandard.Entity.Unit
                 case Role.Monarch:
                     break;
                 case Role.Slime:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(0, 5);
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
                 case Role.Troll:
-                    generatedUnit.CurrentGold += 20 + GameDriver.Random.Next(0, 5);
+                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(5);
                     break;
                 case Role.Orc:
-                    generatedUnit.CurrentGold += 15 + GameDriver.Random.Next(0, 5);
+                    generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -153,17 +153,17 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectSlimeStats()
         {
-            return new UnitStatistics(5, 0, 3, 3, 0, 3, new[] {1});
+            return new UnitStatistics(7, 0, 3, 3, 0, 3, new[] {1});
         }
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(10, 5, 4, 2, 2, 4, new[] {1});
+            return new UnitStatistics(20, 3, 6, 4, 2, 4, new[] {1});
         }
 
         private static UnitStatistics SelectOrcStats()
         {
-            return new UnitStatistics(10, 0, 5, 3, 0, 4, new[] {1});
+            return new UnitStatistics(15, 0, 5, 4, 0, 4, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -235,11 +235,12 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack()
             };
         }
+
         private static List<UnitAction> SelectOrcSkills()
         {
             return new List<UnitAction>
             {
-                new RoamingRoutine(true),
+                new RoamingRoutine(),
                 new BasicAttack()
             };
         }
