@@ -149,7 +149,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Medium);
+                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
             }
 
             const float cameraPanRateOverride = 5;

@@ -11,6 +11,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
+using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -104,6 +105,8 @@ namespace SolStandard.Containers.Contexts
             defenderProcs.ForEach(proc => proc.OnCombatStart(attacker, defender));
 
             SetPromptWindowText("Start Combat!");
+            
+            GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
         }
 
         public void ContinueCombat()
@@ -145,11 +148,14 @@ namespace SolStandard.Containers.Contexts
 
                         AssetManager.MapUnitSelectSFX.Play();
                         GameContext.GameMapContext.ProceedToNextState();
+                        
+                        GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
 
                     break;
                 default:
                     GameContext.GameMapContext.ProceedToNextState();
+                    GameContext.MapCamera.RevertToPreviousZoomLevel();
                     return;
             }
         }

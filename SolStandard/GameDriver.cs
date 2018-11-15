@@ -25,13 +25,15 @@ namespace SolStandard
     /// </summary>
     public class GameDriver : Game
     {
+        // ReSharper disable once NotAccessedField.Local
+        private GraphicsDeviceManager graphics;
+        
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
         public static readonly Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
-        private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameControlMapper p1ControlMapper;
         private GameControlMapper p2ControlMapper;
@@ -200,7 +202,7 @@ namespace SolStandard
                         GameContext.ActivePlayer = PlayerIndex.Two;
                         break;
                     case Team.Creep:
-                        GameContext.ActivePlayer = PlayerIndex.One;
+                        GameContext.ActivePlayer = PlayerIndex.Three;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -218,6 +220,8 @@ namespace SolStandard
                         ControlContext.ListenForInputs(p2ControlMapper);
                         break;
                     case PlayerIndex.Three:
+                        ControlContext.ListenForInputs(p1ControlMapper);
+                        ControlContext.ListenForInputs(p2ControlMapper);
                         break;
                     case PlayerIndex.Four:
                         break;

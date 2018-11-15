@@ -75,7 +75,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
 
-                aiEventQueue.Enqueue(new EndTurnEvent());
+                aiEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
+                aiEventQueue.Enqueue(new WaitFramesEvent(60));
+                aiEventQueue.Enqueue(new CreepEndTurnEvent());
             }
 
             GlobalEventQueue.QueueEvents(aiEventQueue);

@@ -2,9 +2,9 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 
-namespace SolStandard.Utility.Events
+namespace SolStandard.Utility.Events.AI
 {
-    public class EndTurnEvent : IEvent
+    public class CreepEndTurnEvent : IEvent
     {
         public bool Complete { get; private set; }
 
@@ -17,8 +17,7 @@ namespace SolStandard.Utility.Events
                 GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             }
 
-            GameMapContext.SetPromptWindowText("Confirm End Turn");
-            GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.ResolvingTurn;
+            GameContext.GameMapContext.ResolveTurn();
             Complete = true;
         }
     }
