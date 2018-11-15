@@ -53,7 +53,8 @@ namespace SolStandard.Map
             {"Seize", EntityTypes.Seize},
             {"Pushable", EntityTypes.Pushable},
             {"PressurePlate", EntityTypes.PressurePlate},
-            {"Trap", EntityTypes.Trap}
+            {"Trap", EntityTypes.Trap},
+            {"Creep", EntityTypes.Creep}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -161,7 +162,7 @@ namespace SolStandard.Map
             return unitLayer;
         }
 
-        private List<IItem> LoadMapLoot()
+        public List<IItem> LoadMapLoot()
         {
             TerrainEntity[,] mapInventoryLayer = ObtainEntitiesFromLayer("Loot");
 
@@ -501,7 +502,7 @@ namespace SolStandard.Map
 
         private UnitEntity[,] ObtainUnitsFromLayer(string objectGroupName)
         {
-            UnitEntity[,] entityGrid = new UnitEntity[tmxMap.Width, tmxMap.Height];
+            UnitEntity[,] unitGrid = new UnitEntity[tmxMap.Width, tmxMap.Height];
 
             //Handle the Units Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
@@ -538,15 +539,14 @@ namespace SolStandard.Map
                                 Color.White
                             );
 
-                            entityGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
-                                animatedSpriteSheet,
-                                new Vector2(col, row), currentProperties);
+                            unitGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
+                                animatedSpriteSheet, new Vector2(col, row), currentProperties);
                         }
                     }
                 }
             }
 
-            return entityGrid;
+            return unitGrid;
         }
 
 

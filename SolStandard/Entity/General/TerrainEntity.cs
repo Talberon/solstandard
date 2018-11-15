@@ -29,7 +29,8 @@ namespace SolStandard.Entity.General
         SelectMap,
         Unit,
         PressurePlate,
-        Trap
+        Trap,
+        Creep
     }
 
     public class TerrainEntity : MapEntity

@@ -200,8 +200,11 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadInitiativeContext(TmxMapParser mapParser)
         {
+            
+            
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
+                mapParser.LoadMapLoot(),
                 AssetManager.LargePortraitTextures,
                 AssetManager.MediumPortraitTextures,
                 AssetManager.SmallPortraitTextures

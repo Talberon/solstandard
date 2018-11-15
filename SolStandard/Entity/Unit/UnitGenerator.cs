@@ -16,6 +16,11 @@ namespace SolStandard.Entity.Unit
         private static List<ITexture2D> _mediumPortraits;
         private static List<ITexture2D> _smallPortraits;
 
+        private enum Routine
+        {
+            Roam
+        }
+
         private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
         {
             {"Red", Team.Red},
@@ -34,8 +39,12 @@ namespace SolStandard.Entity.Unit
             {"Orc", Role.Orc}
         };
 
+        private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
+        {
+            {"Roam", Routine.Roam}
+        };
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units,
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
             List<ITexture2D> largePortraits, List<ITexture2D> mediumPortraits, List<ITexture2D> smallPortraits)
         {
             _largePortraits = largePortraits;
@@ -51,7 +60,7 @@ namespace SolStandard.Entity.Unit
                 Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
 
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit, loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -59,7 +68,7 @@ namespace SolStandard.Entity.Unit
         }
 
         private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass,
-            UnitEntity mapEntity)
+            UnitEntity mapEntity, List<IItem> loot)
         {
             ITexture2D smallPortrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString());
             ITexture2D mediumPortrait = FindMediumPortrait(unitTeam.ToString(), unitJobClass.ToString());
@@ -88,15 +97,15 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Slime:
                     unitStats = SelectSlimeStats();
-                    unitSkills = SelectSlimeSkills();
+                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Troll:
                     unitStats = SelectTrollStats();
-                    unitSkills = SelectTrollSkills();
+                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Orc:
                     unitStats = SelectOrcStats();
-                    unitSkills = SelectOrcSkills();
+                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
@@ -126,6 +135,16 @@ namespace SolStandard.Entity.Unit
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+
+            if (generatedUnit.Team == Team.Creep)
+            {
+                string itemName = mapEntity.TiledProperties["Item"];
+                
+                if (itemName != string.Empty)
+                {
+                    generatedUnit.AddItemToInventory(loot.Find(item => item.Name == itemName));
+                }
             }
 
             return generatedUnit;
@@ -218,32 +237,22 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        private static List<UnitAction> SelectSlimeSkills()
+        private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
         {
-            return new List<UnitAction>
+            List<UnitAction> actions = new List<UnitAction>();
+
+            switch (RoutineDictionary[tiledProperties["Routine"]])
             {
-                new RoamingRoutine(),
-                new BasicAttack()
-            };
+                case Routine.Roam:
+                    actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"])));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return actions;
         }
 
-        private static List<UnitAction> SelectTrollSkills()
-        {
-            return new List<UnitAction>
-            {
-                new RoamingRoutine(true),
-                new BasicAttack()
-            };
-        }
-
-        private static List<UnitAction> SelectOrcSkills()
-        {
-            return new List<UnitAction>
-            {
-                new RoamingRoutine(),
-                new BasicAttack()
-            };
-        }
 
         private static ITexture2D FindLargePortrait(string unitTeam, string unitJobClass)
         {

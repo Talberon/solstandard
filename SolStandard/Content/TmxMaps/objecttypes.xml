@@ -24,6 +24,13 @@
   <property name="item" type="string"/>
   <property name="range" type="string" default="1"/>
  </objecttype>
+ <objecttype name="Creep" color="#55857f">
+  <property name="Class" type="string"/>
+  <property name="Independent" type="bool" default="false"/>
+  <property name="Item" type="string"/>
+  <property name="Routine" type="string" default="Roam"/>
+  <property name="Team" type="string" default="Creep"/>
+ </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
   <property name="range" type="string" default="0"/>

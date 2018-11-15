@@ -3120,58 +3120,50 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="743" name="Troll" type="Unit" gid="458" x="544" y="352" width="32" height="32">
+  <object id="743" name="Troll" type="Creep" gid="458" x="224" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="750" name="Orc" type="Unit" gid="459" x="864" y="544" width="32" height="32">
+  <object id="750" name="Orc" type="Creep" gid="459" x="864" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="758" name="Slime" type="Unit" gid="457" x="288" y="160" width="32" height="32">
+  <object id="758" name="Slime" type="Creep" gid="457" x="288" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="774" name="Slime" type="Unit" gid="457" x="192" y="256" width="32" height="32">
+  <object id="774" name="Slime" type="Creep" gid="457" x="192" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="775" name="Slime" type="Unit" gid="457" x="352" y="64" width="32" height="32">
+  <object id="775" name="Slime" type="Creep" gid="457" x="352" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="781" name="Orc" type="Unit" gid="459" x="672" y="352" width="32" height="32">
+  <object id="781" name="Orc" type="Creep" gid="459" x="672" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="804" name="Slime" type="Unit" gid="457" x="96" y="352" width="32" height="32">
+  <object id="804" name="Slime" type="Creep" gid="457" x="96" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="805" name="Orc" type="Unit" gid="459" x="416" y="288" width="32" height="32">
+  <object id="805" name="Orc" type="Creep" gid="459" x="416" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="806" name="Orc" type="Unit" gid="459" x="256" y="384" width="32" height="32">
+  <object id="806" name="Orc" type="Creep" gid="459" x="256" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
   <object id="807" name="Gildenstern" type="Unit" gid="451" x="384" y="448" width="32" height="32">

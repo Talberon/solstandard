@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="836">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="859">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -7695,70 +7695,66 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="801" name="Slime" type="Unit" gid="457" x="1024" y="512" width="32" height="32">
+  <object id="801" name="Slime" type="Creep" gid="457" x="1024" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="802" name="Orc" type="Unit" gid="459" x="928" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
-   </properties>
-  </object>
-  <object id="803" name="Slime" type="Unit" gid="457" x="864" y="544" width="32" height="32">
+  <object id="803" name="Slime" type="Creep" gid="457" x="864" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="804" name="Slime" type="Unit" gid="457" x="1088" y="416" width="32" height="32">
+  <object id="804" name="Slime" type="Creep" gid="457" x="1088" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="805" name="Slime" type="Unit" gid="457" x="1152" y="544" width="32" height="32">
+  <object id="805" name="Slime" type="Creep" gid="457" x="1152" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="Team" value="Creep"/>
    </properties>
   </object>
-  <object id="806" name="Orc" type="Unit" gid="459" x="384" y="704" width="32" height="32">
+  <object id="806" name="Orc" type="Creep" gid="459" x="384" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="807" name="Orc" type="Unit" gid="459" x="448" y="768" width="32" height="32">
+  <object id="807" name="Orc" type="Creep" gid="459" x="448" y="768" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="808" name="Orc" type="Unit" gid="459" x="384" y="832" width="32" height="32">
+  <object id="808" name="Orc" type="Creep" gid="459" x="384" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="809" name="Orc" type="Unit" gid="459" x="416" y="832" width="32" height="32">
+  <object id="809" name="Orc" type="Creep" gid="459" x="416" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="810" name="Orc" type="Unit" gid="459" x="256" y="640" width="32" height="32">
+  <object id="810" name="Orc" type="Creep" gid="459" x="256" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="811" name="Troll" type="Unit" gid="458" x="160" y="1056" width="32" height="32">
+  <object id="811" name="Troll" type="Creep" gid="458" x="160" y="1056" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
-    <property name="Team" value="Creep"/>
+    <property name="Independent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="858" name="Orc" type="Creep" gid="459" x="928" y="672" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
