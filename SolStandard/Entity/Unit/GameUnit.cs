@@ -85,10 +85,10 @@ namespace SolStandard.Entity.Unit
                 new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height));
             this.smallPortrait =
                 new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height));
-            combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
-            initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
-            resultsHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHp, Vector2.One);
+            combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
 
             healthbars = new List<IHealthBar>
             {
@@ -246,7 +246,7 @@ namespace SolStandard.Entity.Unit
                                                 UnitStatistics.Abbreviation[Unit.Stats.Armor] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                Stats.Armor + "/" + Stats.MaxArmor
+                                                Stats.CurrentArmor + "/" + Stats.MaxArmor
                                             )
                                         }
                                     },
@@ -262,7 +262,7 @@ namespace SolStandard.Entity.Unit
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
                                             new RenderText(AssetManager.WindowFont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
-                                            new RenderText(AssetManager.WindowFont, Stats.Hp + "/" + Stats.MaxHp)
+                                            new RenderText(AssetManager.WindowFont, Stats.CurrentHP + "/" + Stats.MaxHP)
                                         }
                                     },
                                     1
@@ -377,8 +377,8 @@ namespace SolStandard.Entity.Unit
                                                 UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                string.Format("[{0}]", string.Join(",", Stats.AtkRange)),
-                                                UnitStatistics.DetermineStatColor(Stats.AtkRange.Max(),
+                                                string.Format("[{0}]", string.Join(",", Stats.CurrentAtkRange)),
+                                                UnitStatistics.DetermineStatColor(Stats.CurrentAtkRange.Max(),
                                                     Stats.BaseAtkRange.Max())
                                             )
                                         }
@@ -470,31 +470,31 @@ namespace SolStandard.Entity.Unit
 
         public void DamageUnit()
         {
-            if (Stats.Armor > 0)
+            if (Stats.CurrentArmor > 0)
             {
-                Stats.Armor--;
+                Stats.CurrentArmor--;
             }
             else
             {
-                Stats.Hp--;
+                Stats.CurrentHP--;
             }
 
-            healthbars.ForEach(healthbar => healthbar.Update(Stats.Armor, Stats.Hp));
+            healthbars.ForEach(healthbar => healthbar.Update(Stats.CurrentArmor, Stats.CurrentHP));
             KillIfDead();
         }
 
         public void RecoverArmor(int amountToRecover)
         {
-            if (amountToRecover + Stats.Armor > Stats.MaxArmor)
+            if (amountToRecover + Stats.CurrentArmor > Stats.MaxArmor)
             {
-                Stats.Armor = Stats.MaxArmor;
+                Stats.CurrentArmor = Stats.MaxArmor;
             }
             else
             {
-                Stats.Armor += amountToRecover;
+                Stats.CurrentArmor += amountToRecover;
             }
 
-            healthbars.ForEach(bar => bar.Update(Stats.Armor, Stats.Hp));
+            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
         public void ActivateUnit()
@@ -580,7 +580,7 @@ namespace SolStandard.Entity.Unit
 
         private void KillIfDead()
         {
-            if (stats.Hp <= 0 && MapEntity != null)
+            if (stats.CurrentHP <= 0 && MapEntity != null)
             {
                 DropSpoils();
                 largePortrait.RenderColor = DeadPortraitColor;

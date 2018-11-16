@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             foreach (GameUnit monarch in teamMonarchs)
             {
                 //Return false if any Monarchs are alive.
-                if (monarch.Stats.Hp > 0)
+                if (monarch.Stats.CurrentHP > 0)
                 {
                     return false;
                 }

@@ -38,41 +38,66 @@ namespace SolStandard.Entity.Unit
 
         private const int IconSizePixels = 16;
 
-        public int MaxHp { get; private set; }
+        public int MaxHP { get; private set; }
         public int MaxArmor { get; private set; }
+        public int[] BaseAtkRange { get; private set; }
+
         public int BaseAtk { get; private set; }
         public int BaseRet { get; private set; }
         public int BaseLuck { get; private set; }
         public int BaseMv { get; private set; }
-        public int[] BaseAtkRange { get; private set; }
 
-        public int Hp { get; set; }
-        public int Atk { get; set; }
-        public int Ret { get; set; }
-        public int Armor { get; set; }
-        public int Luck { get; set; }
-        public int Mv { get; set; }
-        public int[] AtkRange { get; set; }
+        public int CurrentHP { get; set; }
+        public int CurrentArmor { get; set; }
+        public int[] CurrentAtkRange { get; set; }
 
-        public UnitStatistics(int hp, int armor, int atk, int ret, int luck, int mv, int[] atkRange)
+        public int AtkModifier { get; set; }
+        public int RetModifier { get; set; }
+        public int LuckModifier { get; set; }
+        public int MvModifier { get; set; }
+
+
+        public UnitStatistics(int currentHp, int currentArmor, int atk, int ret, int luck, int mv,
+            int[] currentAtkRange)
         {
-            Hp = hp;
-            Armor = armor;
-            Atk = atk;
-            Ret = ret;
-            Luck = luck;
-            Mv = mv;
-            AtkRange = atkRange;
+            CurrentHP = currentHp;
+            CurrentArmor = currentArmor;
+            CurrentAtkRange = currentAtkRange;
 
-            MaxHp = hp;
-            MaxArmor = armor;
+            AtkModifier = 0;
+            RetModifier = 0;
+            LuckModifier = 0;
+            MvModifier = 0;
+
+            MaxHP = currentHp;
+            MaxArmor = currentArmor;
+            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(currentAtkRange);
+
             BaseAtk = atk;
             BaseRet = ret;
             BaseLuck = luck;
             BaseMv = mv;
-            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(atkRange);
         }
 
+        public int Atk
+        {
+            get { return BaseAtk + AtkModifier; }
+        }
+
+        public int Ret
+        {
+            get { return BaseRet + RetModifier; }
+        }
+
+        public int Luck
+        {
+            get { return BaseLuck + LuckModifier; }
+        }
+
+        public int Mv
+        {
+            get { return BaseMv + MvModifier; }
+        }
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
@@ -86,11 +111,11 @@ namespace SolStandard.Entity.Unit
 
         public override string ToString()
         {
-            string output = "";
+            string output = string.Empty;
 
-            output += Abbreviation[Stats.Hp] + ": " + Hp.ToString() + "/" + MaxHp;
+            output += Abbreviation[Stats.Hp] + ": " + CurrentHP.ToString() + "/" + MaxHP;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Armor] + ": " + Armor.ToString() + "/" + MaxArmor;
+            output += Abbreviation[Stats.Armor] + ": " + CurrentArmor.ToString() + "/" + MaxArmor;
             output += Environment.NewLine;
             output += Abbreviation[Stats.Atk] + ": " + Atk.ToString() + "/" + BaseAtk;
             output += Environment.NewLine;
@@ -100,7 +125,7 @@ namespace SolStandard.Entity.Unit
             output += Environment.NewLine;
             output += Abbreviation[Stats.Mv] + ": " + Mv.ToString() + "/" + BaseMv;
             output += Environment.NewLine;
-            output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", AtkRange),
+            output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", CurrentAtkRange),
                 string.Join(",", BaseAtkRange));
 
             return output;

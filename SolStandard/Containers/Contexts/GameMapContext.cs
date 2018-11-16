@@ -105,7 +105,7 @@ namespace SolStandard.Containers.Contexts
 
             TriggerEffectTilesTurnStart();
 
-            if (!GameContext.Units.TrueForAll(unit => unit.Stats.Hp <= 0))
+            if (!GameContext.Units.TrueForAll(unit => unit.Stats.CurrentHP <= 0))
             {
                 EndTurnIfUnitIsDead();
             }
@@ -236,7 +236,7 @@ namespace SolStandard.Containers.Contexts
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateTargetingGrid(
                         SelectedUnit.UnitEntity.MapCoordinates,
-                        SelectedUnit.Stats.AtkRange,
+                        SelectedUnit.Stats.CurrentAtkRange,
                         Layer.Preview
                     );
             }
@@ -324,7 +324,7 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.ClearPreviewGrid();
             new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.AtkRange,
+                .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.CurrentAtkRange,
                     Layer.Preview);
         }
 

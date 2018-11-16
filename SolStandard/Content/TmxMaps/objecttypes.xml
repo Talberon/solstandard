@@ -98,4 +98,13 @@
   <property name="Class" type="string"/>
   <property name="Team" type="string"/>
  </objecttype>
+ <objecttype name="Weapon" color="#b93246">
+  <property name="armor" type="int" default="0"/>
+  <property name="atk" type="int" default="0"/>
+  <property name="atkRange" type="string" default="1"/>
+  <property name="hp" type="int" default="0"/>
+  <property name="luck" type="int" default="0"/>
+  <property name="mv" type="int" default="0"/>
+  <property name="ret" type="int" default="0"/>
+ </objecttype>
 </objecttypes>

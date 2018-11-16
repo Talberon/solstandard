@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            Range = GameContext.ActiveUnit.Stats.AtkRange;
+            Range = GameContext.ActiveUnit.Stats.CurrentAtkRange;
             base.GenerateActionGrid(origin, mapLayer);
         }
 

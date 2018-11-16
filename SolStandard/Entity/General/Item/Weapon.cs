@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
+using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+
+namespace SolStandard.Entity.General.Item
+{
+    public class Weapon : TerrainEntity, IItem, IActionTile
+    {
+        public int[] Range { get; private set; }
+        private readonly UnitStatistics statOverloads;
+
+        public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
+            int currentHp, int currentArmor, int atk, int ret, int luck, int mv, int[] currentAtkRange)
+            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+        {
+            Range = pickupRange;
+            statOverloads = new UnitStatistics(currentHp, currentArmor, atk, ret, luck, mv, currentAtkRange);
+        }
+
+        public IRenderable Icon
+        {
+            get { return Sprite; }
+        }
+
+        public UnitAction TileAction()
+        {
+            return new PickUpItemAction(this, MapCoordinates);
+        }
+
+        public UnitAction UseAction()
+        {
+            return new WeaponAttack(Sprite, Name, statOverloads);
+        }
+
+        public UnitAction DropAction()
+        {
+            return new DropItemAction(this);
+        }
+
+        public override IRenderable TerrainInfo
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            InfoHeader,
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            new RenderText(AssetManager.WindowFont, "Stats: " + Environment.NewLine + statOverloads),
+                            new RenderBlank()
+                        }
+                    },
+                    3
+                );
+            }
+        }
+    }
+}

@@ -140,7 +140,7 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderDefWindow(Color windowColor, UnitStatistics defenderStats, Stats combatStat)
+        public void GenerateDefenderRetWindow(Color windowColor, UnitStatistics defenderStats, Stats combatStat)
         {
             DefenderAtkWindow = CombatStatWindow(windowColor, defenderStats, combatStat);
         }
@@ -230,17 +230,21 @@ namespace SolStandard.Containers.View
         private static Window CombatStatWindow(Color windowColor, UnitStatistics stats, Stats combatStat)
         {
             int statValue;
+            int baseStatValue;
 
             switch (combatStat)
             {
                 case Stats.Atk:
                     statValue = stats.Atk;
+                    baseStatValue = stats.BaseAtk;
                     break;
                 case Stats.Retribution:
                     statValue = stats.Ret;
+                    baseStatValue = stats.BaseRet;
                     break;
                 default:
                     statValue = -1;
+                    baseStatValue = -1;
                     break;
             }
 
@@ -253,7 +257,7 @@ namespace SolStandard.Containers.View
                         new RenderText(
                             AssetManager.WindowFont,
                             statValue.ToString(),
-                            UnitStatistics.DetermineStatColor(stats.Atk, stats.BaseAtk)
+                            UnitStatistics.DetermineStatColor(statValue, baseStatValue)
                         )
                     }
                 },

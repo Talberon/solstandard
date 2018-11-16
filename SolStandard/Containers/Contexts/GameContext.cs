@@ -30,6 +30,9 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
+        private const string MapDirectory = "Content/TmxMaps/";
+        private const string MapSelectFile = "Map_Select_02.tmx";
+
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
@@ -37,25 +40,16 @@ namespace SolStandard.Containers.Contexts
         public static InitiativeContext InitiativeContext { get; private set; }
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
-        private static float _oldZoom;
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
 
-        private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_02.tmx";
-
         public static void Initialize(MainMenuView mainMenuView)
         {
             MainMenuView = mainMenuView;
-
             BattleContext = new BattleContext(new BattleView());
-
             LoadMapSelect();
-
             CurrentGameState = GameState.MainMenu;
-            _oldZoom = MapCamera.CurrentZoom;
-
             ActivePlayer = PlayerIndex.One;
         }
 
