@@ -54,7 +54,8 @@ namespace SolStandard.Map
             {"Pushable", EntityTypes.Pushable},
             {"PressurePlate", EntityTypes.PressurePlate},
             {"Trap", EntityTypes.Trap},
-            {"Creep", EntityTypes.Creep}
+            {"Creep", EntityTypes.Creep},
+            {"Weapon", EntityTypes.Weapon}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -479,6 +480,20 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["triggersRemaining"]),
                                             Convert.ToBoolean(currentProperties["limitedTriggers"]),
                                             Convert.ToBoolean(currentProperties["enabled"])
+                                        );
+                                        break;
+                                    case EntityTypes.Weapon:
+                                        entityGrid[col, row] = new Weapon(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["atkValue"]),
+                                            Convert.ToInt32(currentProperties["luckModifier"]),
+                                            currentProperties["atkRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray()
                                         );
                                         break;
                                     default:

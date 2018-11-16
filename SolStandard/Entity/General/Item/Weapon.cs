@@ -15,14 +15,14 @@ namespace SolStandard.Entity.General.Item
     public class Weapon : TerrainEntity, IItem, IActionTile
     {
         public int[] Range { get; private set; }
-        private readonly UnitStatistics statOverloads;
+        private WeaponStatistics WeaponStatistics { get; set; }
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
-            int currentHp, int currentArmor, int atk, int ret, int luck, int mv, int[] currentAtkRange)
+            int atkValue, int luckModifier, int[] atkRange)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             Range = pickupRange;
-            statOverloads = new UnitStatistics(currentHp, currentArmor, atk, ret, luck, mv, currentAtkRange);
+            WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange);
         }
 
         public IRenderable Icon
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction UseAction()
         {
-            return new WeaponAttack(Sprite, Name, statOverloads);
+            return new WeaponAttack(Sprite, Name, WeaponStatistics);
         }
 
         public UnitAction DropAction()
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Stats: " + Environment.NewLine + statOverloads),
+                            new RenderText(AssetManager.WindowFont, "Stats: " + Environment.NewLine + WeaponStatistics),
                             new RenderBlank()
                         }
                     },

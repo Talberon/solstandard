@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General.Item;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -57,26 +58,67 @@ namespace SolStandard.Entity.Unit
         public int MvModifier { get; set; }
 
 
-        public UnitStatistics(int currentHp, int currentArmor, int atk, int ret, int luck, int mv,
-            int[] currentAtkRange)
+        public UnitStatistics(int hp, int armor, int atk, int ret, int luck, int mv, int[] atkRange) : this(
+            maxHP: hp,
+            maxArmor: armor,
+            baseAtk: atk,
+            baseRet: ret,
+            baseLuck: luck,
+            baseMv: mv,
+            baseAtkRange: atkRange,
+            currentHP: hp,
+            currentArmor: armor,
+            atkModifier: 0,
+            retModifier: 0,
+            luckModifier: 0,
+            mvModifier: 0,
+            currentAtkRange: atkRange
+        )
         {
-            CurrentHP = currentHp;
+        }
+
+        private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseLuck, int baseMv,
+            int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int luckModifier,
+            int mvModifier, int[] currentAtkRange
+        )
+        {
+            CurrentHP = currentHP;
             CurrentArmor = currentArmor;
-            CurrentAtkRange = currentAtkRange;
+            CurrentAtkRange = ArrayDeepCopier<int>.DeepCopyArray(currentAtkRange);
 
-            AtkModifier = 0;
-            RetModifier = 0;
-            LuckModifier = 0;
-            MvModifier = 0;
+            AtkModifier = atkModifier;
+            RetModifier = retModifier;
+            LuckModifier = luckModifier;
+            MvModifier = mvModifier;
 
-            MaxHP = currentHp;
-            MaxArmor = currentArmor;
-            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(currentAtkRange);
+            MaxHP = maxHP;
+            MaxArmor = maxArmor;
+            BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(baseAtkRange);
 
-            BaseAtk = atk;
-            BaseRet = ret;
-            BaseLuck = luck;
-            BaseMv = mv;
+            BaseAtk = baseAtk;
+            BaseRet = baseRet;
+            BaseLuck = baseLuck;
+            BaseMv = baseMv;
+        }
+
+        public UnitStatistics ApplyWeaponStatistics(WeaponStatistics weaponStatistics)
+        {
+            return new UnitStatistics(
+                maxHP: MaxHP,
+                maxArmor: MaxArmor,
+                baseAtk: weaponStatistics.AtkValue,
+                baseRet: BaseRet,
+                baseLuck: BaseLuck,
+                baseMv: BaseMv,
+                baseAtkRange: BaseAtkRange,
+                currentHP: CurrentHP,
+                currentArmor: CurrentArmor,
+                atkModifier: AtkModifier,
+                retModifier: RetModifier,
+                luckModifier: weaponStatistics.LuckModifier,
+                mvModifier: MvModifier,
+                currentAtkRange: weaponStatistics.AtkRange
+            );
         }
 
         public int Atk

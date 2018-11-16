@@ -17,7 +17,8 @@ namespace SolStandard.Entity.Unit.Actions
         public BasicAttack() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
             name: "Basic Attack",
-            description: "Attack a target with dice based on your ATK statistic.",
+            description: "Attack a target with dice based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
+                         " statistic.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )
@@ -41,15 +42,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
             else if (TargetIsABreakableObstacleInRange(targetSlice))
             {
-                //deal damage to terrain
-                BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
-                targetObstacle.DealDamage(1);
-
-                if (targetObstacle.IsBroken)
-                {
-                    MapContainer.GameGrid[(int) Layer.Entities]
-                        [(int) targetObstacle.MapCoordinates.X, (int) targetObstacle.MapCoordinates.Y] = null;
-                }
+                DamageTerrain(targetSlice);
 
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
@@ -62,13 +55,16 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        public static void StartCombat(GameUnit target)
+        public static void DamageTerrain(MapSlice targetSlice)
         {
-            GameUnit attackingUnit = GameContext.ActiveUnit;
-            GameUnit defendingUnit = target;
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit);
-            AssetManager.CombatStartSFX.Play();
+            BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
+            targetObstacle.DealDamage(1);
+
+            if (targetObstacle.IsBroken)
+            {
+                MapContainer.GameGrid[(int) Layer.Entities]
+                    [(int) targetObstacle.MapCoordinates.X, (int) targetObstacle.MapCoordinates.Y] = null;
+            }
         }
     }
 }

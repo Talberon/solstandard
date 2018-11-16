@@ -23,11 +23,9 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public CombatDice(int baseDice, int bonusDice, int maxRowSize, int dieSize)
         {
-            this.baseDice = baseDice;
-            this.bonusDice = bonusDice;
+            this.baseDice = (baseDice > 0) ? baseDice : 0;
+            this.bonusDice = (bonusDice > 0) ? bonusDice : 0;
             this.dieSize = dieSize;
-            if (baseDice < 0) throw new ArgumentOutOfRangeException();
-            if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
             this.maxRowSize = maxRowSize;
             dice = PopulateDice();
