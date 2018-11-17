@@ -10,7 +10,7 @@ namespace SolStandard.Utility
         private readonly ITexture2D image;
         private readonly Vector2 cellSize;
         private readonly Vector2 renderSize;
-        public Color RenderColor { get; set; }
+        public Color RenderColor { private get; set; }
         private Rectangle sourceRectangle;
         private int cellIndex;
 
@@ -103,6 +103,11 @@ namespace SolStandard.Utility
             return "SpriteAtlas: <Name," + image.Name + "><cellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
 
+        public SpriteAtlas Resize(Vector2 newSize)
+        {
+            return new SpriteAtlas(image, cellSize, newSize, cellIndex, RenderColor);
+        }
+        
         public IRenderable Clone()
         {
             return new SpriteAtlas(image, cellSize, renderSize, cellIndex, RenderColor);

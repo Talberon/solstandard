@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="42" height="30" tilewidth="32" tileheight="32" infinite="0" nextobjectid="761">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="42" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="761">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -369,7 +369,7 @@
   <tile id="5575" terrain="20,20,,"/>
   <tile id="5576" terrain="20,,,"/>
  </tileset>
- <layer name="Terrain" width="42" height="30">
+ <layer id="1" name="Terrain" width="42" height="30">
   <data>
    <tile/>
    <tile/>
@@ -1633,7 +1633,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="TerrainDecoration" width="42" height="30">
+ <layer id="2" name="TerrainDecoration" width="42" height="30">
   <data>
    <tile/>
    <tile/>
@@ -2897,7 +2897,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collide" width="42" height="30">
+ <layer id="3" name="Collide" width="42" height="30">
   <data>
    <tile gid="5996"/>
    <tile gid="5996"/>
@@ -4161,7 +4161,181 @@
    <tile gid="5996"/>
   </data>
  </layer>
- <layer name="Overlay" width="42" height="30">
+ <objectgroup id="5" name="Entities">
+  <object id="635" name="Switch B" type="Switch" gid="250" x="736" y="352" width="32" height="32">
+   <properties>
+    <property name="triggersId" value="Switch Gate B"/>
+   </properties>
+  </object>
+  <object id="636" name="Switch Gate B" type="Door" gid="229" x="960" y="544" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="655" name="Stairs A2" type="Portal" gid="255" x="1088" y="192" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
+  <object id="658" name="Locked Door B" type="Door" gid="224" x="672" y="544" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="661" name="Locked Chest A" type="Chest" gid="206" x="672" y="480" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="25"/>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="544" y="576" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="15"/>
+   </properties>
+  </object>
+  <object id="679" name="Blue McGuffin" type="Seize" gid="443" x="384" y="224" width="32" height="32">
+   <properties>
+    <property name="capturableByBlue" type="bool" value="true"/>
+    <property name="capturableByRed" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="680" name="Red McGuffin" type="Seize" gid="442" x="960" y="704" width="32" height="32">
+   <properties>
+    <property name="capturableByBlue" type="bool" value="false"/>
+    <property name="capturableByRed" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="688" name="Push Block" type="Pushable" gid="6057" x="1024" y="448" width="32" height="32"/>
+  <object id="700" name="Switch A" type="Switch" gid="250" x="608" y="576" width="32" height="32">
+   <properties>
+    <property name="triggersId" value="Switch Gate A"/>
+   </properties>
+  </object>
+  <object id="701" name="Switch Gate A" type="Door" gid="229" x="384" y="384" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="712" name="Unlocked Chest" type="Chest" gid="205" x="800" y="352" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="15"/>
+   </properties>
+  </object>
+  <object id="713" name="Locked Door A" type="Door" gid="224" x="672" y="384" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="719" name="Rubble" type="BreakableObstacle" gid="248" x="288" y="704" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="720" name="Rubble" type="BreakableObstacle" gid="248" x="288" y="736" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="721" name="Rubble" type="BreakableObstacle" gid="248" x="256" y="672" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="722" name="Rubble" type="BreakableObstacle" gid="248" x="224" y="672" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="723" name="Rubble" type="BreakableObstacle" gid="248" x="1088" y="256" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="724" name="Rubble" type="BreakableObstacle" gid="248" x="1120" y="256" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="725" name="Rubble" type="BreakableObstacle" gid="248" x="1056" y="224" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="726" name="Rubble" type="BreakableObstacle" gid="248" x="1056" y="192" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="731" name="Stairs A1" type="Portal" gid="255" x="256" y="736" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="736" name="Stairs A1" type="Portal" gid="255" x="224" y="736" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="737" name="Stairs A1" type="Portal" gid="255" x="224" y="704" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A2"/>
+   </properties>
+  </object>
+  <object id="738" name="Stairs A2" type="Portal" gid="255" x="1120" y="192" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
+  <object id="739" name="Stairs A2" type="Portal" gid="255" x="1120" y="224" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Stairs A1"/>
+   </properties>
+  </object>
+  <object id="740" name="Switch Gate A" type="Door" gid="229" x="352" y="384" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="741" name="Switch Gate B" type="Door" gid="229" x="992" y="544" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="751" name="Push Block" type="Pushable" gid="6057" x="960" y="480" width="32" height="32"/>
+  <object id="752" name="Push Block" type="Pushable" gid="6057" x="384" y="448" width="32" height="32"/>
+  <object id="753" name="Push Block" type="Pushable" gid="6057" x="320" y="480" width="32" height="32"/>
+  <object id="754" name="Rubble" type="BreakableObstacle" gid="248" x="928" y="704" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="755" name="Rubble" type="BreakableObstacle" gid="248" x="416" y="224" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="756" name="Rubble" type="BreakableObstacle" gid="248" x="416" y="192" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="757" name="Rubble" type="BreakableObstacle" gid="248" x="352" y="192" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="758" name="Rubble" type="BreakableObstacle" gid="248" x="992" y="736" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="759" name="Rubble" type="BreakableObstacle" gid="248" x="928" y="736" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="4" name="Overlay" width="42" height="30">
   <data>
    <tile/>
    <tile/>
@@ -5425,182 +5599,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Entities">
-  <object id="635" name="Switch B" type="Switch" gid="250" x="736" y="352" width="32" height="32">
-   <properties>
-    <property name="triggersId" value="Switch Gate B"/>
-   </properties>
-  </object>
-  <object id="636" name="Switch Gate B" type="Door" gid="229" x="960" y="544" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="655" name="Stairs A2" type="Portal" gid="255" x="1088" y="192" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A1"/>
-   </properties>
-  </object>
-  <object id="658" name="Locked Door B" type="Door" gid="224" x="672" y="544" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="661" name="Locked Chest A" type="Chest" gid="206" x="672" y="480" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="25"/>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="544" y="576" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="15"/>
-   </properties>
-  </object>
-  <object id="679" name="Blue McGuffin" type="Seize" gid="443" x="384" y="224" width="32" height="32">
-   <properties>
-    <property name="capturableByBlue" type="bool" value="true"/>
-    <property name="capturableByRed" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="680" name="Red McGuffin" type="Seize" gid="442" x="960" y="704" width="32" height="32">
-   <properties>
-    <property name="capturableByBlue" type="bool" value="false"/>
-    <property name="capturableByRed" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="688" name="Push Block" type="Pushable" gid="6057" x="1024" y="448" width="32" height="32"/>
-  <object id="700" name="Switch A" type="Switch" gid="250" x="608" y="576" width="32" height="32">
-   <properties>
-    <property name="triggersId" value="Switch Gate A"/>
-   </properties>
-  </object>
-  <object id="701" name="Switch Gate A" type="Door" gid="229" x="384" y="384" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="712" name="Unlocked Chest" type="Chest" gid="205" x="800" y="352" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="15"/>
-   </properties>
-  </object>
-  <object id="713" name="Locked Door A" type="Door" gid="224" x="672" y="384" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="719" name="Rubble" type="BreakableObstacle" gid="248" x="288" y="704" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="720" name="Rubble" type="BreakableObstacle" gid="248" x="288" y="736" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="721" name="Rubble" type="BreakableObstacle" gid="248" x="256" y="672" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="722" name="Rubble" type="BreakableObstacle" gid="248" x="224" y="672" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="723" name="Rubble" type="BreakableObstacle" gid="248" x="1088" y="256" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="724" name="Rubble" type="BreakableObstacle" gid="248" x="1120" y="256" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="725" name="Rubble" type="BreakableObstacle" gid="248" x="1056" y="224" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="726" name="Rubble" type="BreakableObstacle" gid="248" x="1056" y="192" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="731" name="Stairs A1" type="Portal" gid="255" x="256" y="736" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A2"/>
-   </properties>
-  </object>
-  <object id="736" name="Stairs A1" type="Portal" gid="255" x="224" y="736" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A2"/>
-   </properties>
-  </object>
-  <object id="737" name="Stairs A1" type="Portal" gid="255" x="224" y="704" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A2"/>
-   </properties>
-  </object>
-  <object id="738" name="Stairs A2" type="Portal" gid="255" x="1120" y="192" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A1"/>
-   </properties>
-  </object>
-  <object id="739" name="Stairs A2" type="Portal" gid="255" x="1120" y="224" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Stairs A1"/>
-   </properties>
-  </object>
-  <object id="740" name="Switch Gate A" type="Door" gid="229" x="352" y="384" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="741" name="Switch Gate B" type="Door" gid="229" x="992" y="544" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="751" name="Push Block" type="Pushable" gid="6057" x="960" y="480" width="32" height="32"/>
-  <object id="752" name="Push Block" type="Pushable" gid="6057" x="384" y="448" width="32" height="32"/>
-  <object id="753" name="Push Block" type="Pushable" gid="6057" x="320" y="480" width="32" height="32"/>
-  <object id="754" name="Rubble" type="BreakableObstacle" gid="248" x="928" y="704" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="755" name="Rubble" type="BreakableObstacle" gid="248" x="416" y="224" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="756" name="Rubble" type="BreakableObstacle" gid="248" x="416" y="192" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="757" name="Rubble" type="BreakableObstacle" gid="248" x="352" y="192" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="758" name="Rubble" type="BreakableObstacle" gid="248" x="992" y="736" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="759" name="Rubble" type="BreakableObstacle" gid="248" x="928" y="736" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="Loot"/>
- <objectgroup name="Items">
+ <objectgroup id="6" name="Loot"/>
+ <objectgroup id="7" name="Items">
   <object id="657" name="Door A Key" type="Key" gid="388" x="736" y="480" width="32" height="32">
    <properties>
     <property name="usedWith" value="Locked Door A"/>
@@ -5682,7 +5682,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Units">
+ <objectgroup id="8" name="Units">
   <object id="517" name="Ezra" type="Unit" gid="449" x="1024" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>

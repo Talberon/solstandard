@@ -11,6 +11,7 @@ namespace SolStandard.Utility.Events
     {
         private readonly IItem item;
         private readonly Vector2 itemCoordinates;
+        public bool Complete { get; private set; }
 
         public PickUpItemEvent(IItem item, Vector2 itemCoordinates)
         {
@@ -18,13 +19,14 @@ namespace SolStandard.Utility.Events
             this.itemCoordinates = itemCoordinates;
         }
 
-        public bool Complete { get; private set; }
-
         public void Continue()
         {
             GameContext.ActiveUnit.AddItemToInventory(item);
             RemoveItemFromMap();
             AssetManager.MenuConfirmSFX.Play();
+            
+            AddItemToUnitInventoryEvent.ItemToast(GameContext.ActiveUnit, item);
+            
             Complete = true;
         }
 

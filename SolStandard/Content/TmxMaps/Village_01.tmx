@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="859">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="859">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -7,7 +7,7 @@
   <image source="F:/Pictures/Assets/Tactics Frontier/UI/Units3.png" width="128" height="96"/>
  </tileset>
  <tileset firstgid="461" source="overworld-32.tsx"/>
- <layer name="Terrain" width="46" height="40">
+ <layer id="1" name="Terrain" width="46" height="40">
   <data>
    <tile gid="4547"/>
    <tile gid="4547"/>
@@ -1851,7 +1851,7 @@
    <tile gid="4621"/>
   </data>
  </layer>
- <layer name="TerrainDecoration" width="46" height="40">
+ <layer id="2" name="TerrainDecoration" width="46" height="40">
   <data>
    <tile/>
    <tile/>
@@ -2974,9 +2974,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="4810"/>
+   <tile gid="4811"/>
+   <tile gid="4812"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3695,7 +3695,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collide" width="46" height="40">
+ <layer id="3" name="Collide" width="46" height="40">
   <data>
    <tile gid="1242"/>
    <tile gid="1242"/>
@@ -4818,9 +4818,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4810"/>
-   <tile gid="4811"/>
-   <tile gid="4812"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -5539,7 +5539,131 @@
    <tile/>
   </data>
  </layer>
- <layer name="Overlay" width="46" height="40">
+ <objectgroup id="5" name="Entities">
+  <object id="763" name="Crate" type="Pushable" gid="222" x="1088" y="544" width="32" height="32"/>
+  <object id="764" name="Crate" type="Pushable" gid="223" x="1152" y="608" width="32" height="32"/>
+  <object id="765" name="Crate" type="Pushable" gid="223" x="1120" y="672" width="32" height="32"/>
+  <object id="766" name="Crate" type="Pushable" gid="222" x="1184" y="672" width="32" height="32"/>
+  <object id="767" name="Crate" type="Pushable" gid="222" x="1088" y="608" width="32" height="32"/>
+  <object id="768" name="Crate" type="Pushable" gid="222" x="1056" y="416" width="32" height="32"/>
+  <object id="769" name="Crate" type="Pushable" gid="222" x="960" y="448" width="32" height="32"/>
+  <object id="770" name="Crate" type="Pushable" gid="223" x="1024" y="480" width="32" height="32"/>
+  <object id="771" name="Clay Pot" type="BreakableObstacle" gid="208" x="1120" y="480" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="773" name="Clay Pot" type="BreakableObstacle" gid="208" x="1184" y="544" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="774" name="Clay Pot" type="BreakableObstacle" gid="208" x="1184" y="736" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="775" name="Clay Pot" type="BreakableObstacle" gid="208" x="896" y="512" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="776" name="Clay Pot" type="BreakableObstacle" gid="209" x="960" y="544" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="777" name="Locked Chest A" type="Chest" gid="206" x="1024" y="384" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="30"/>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="779" name="Clay Pot" type="BreakableObstacle" gid="209" x="768" y="544" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="780" name="Clay Pot" type="BreakableObstacle" gid="209" x="1088" y="640" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="781" name="Debris" type="BreakableObstacle" gid="210" x="1056" y="512" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="782" name="Debris" type="BreakableObstacle" gid="210" x="992" y="544" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="783" name="Debris" type="BreakableObstacle" gid="210" x="1056" y="576" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="784" name="Debris" type="BreakableObstacle" gid="210" x="832" y="512" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="785" name="Debris" type="BreakableObstacle" gid="210" x="704" y="544" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="786" name="Crate" type="Pushable" gid="223" x="672" y="512" width="32" height="32"/>
+  <object id="788" name="Door To Storage" type="Portal" gid="5944" x="576" y="768" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Door To Lobby"/>
+   </properties>
+  </object>
+  <object id="789" name="Door To Storage" type="Portal" gid="4944" x="896" y="576" width="32" height="32"/>
+  <object id="790" name="Door To Lobby" type="Portal" gid="4731" x="896" y="576" width="32" height="32">
+   <properties>
+    <property name="destinationId" value="Door To Storage"/>
+   </properties>
+  </object>
+  <object id="791" name="Unlocked Door" type="Door" gid="236" x="288" y="416" width="32" height="32"/>
+  <object id="792" name="Unlocked Door" type="Door" gid="236" x="320" y="416" width="32" height="32"/>
+  <object id="793" name="Unlocked Door" type="Door" gid="236" x="512" y="416" width="32" height="32"/>
+  <object id="794" name="Unlocked Door" type="Door" gid="236" x="544" y="416" width="32" height="32"/>
+  <object id="795" name="Unlocked Door" type="Door" gid="236" x="288" y="928" width="32" height="32"/>
+  <object id="796" name="Unlocked Door" type="Door" gid="236" x="736" y="896" width="32" height="32"/>
+  <object id="797" name="Unlocked Door" type="Door" gid="236" x="928" y="960" width="32" height="32"/>
+  <object id="798" name="Unlocked Door" type="Door" gid="236" x="1152" y="768" width="32" height="32"/>
+  <object id="799" name="Clay Pot" type="BreakableObstacle" gid="5113" x="448" y="576" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="812" name="Unlocked Chest" type="Chest" gid="205" x="1376" y="448" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="813" name="Unlocked Chest" type="Chest" gid="205" x="736" y="352" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="814" name="Unlocked Chest" type="Chest" gid="205" x="96" y="704" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="20"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="4" name="Overlay" width="46" height="40">
   <data>
    <tile/>
    <tile/>
@@ -6350,9 +6474,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5132"/>
+   <tile gid="5169"/>
+   <tile gid="5131"/>
    <tile/>
    <tile/>
    <tile/>
@@ -7383,132 +7507,8 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Entities">
-  <object id="763" name="Crate" type="Pushable" gid="222" x="1088" y="544" width="32" height="32"/>
-  <object id="764" name="Crate" type="Pushable" gid="223" x="1152" y="608" width="32" height="32"/>
-  <object id="765" name="Crate" type="Pushable" gid="223" x="1120" y="672" width="32" height="32"/>
-  <object id="766" name="Crate" type="Pushable" gid="222" x="1184" y="672" width="32" height="32"/>
-  <object id="767" name="Crate" type="Pushable" gid="222" x="1088" y="608" width="32" height="32"/>
-  <object id="768" name="Crate" type="Pushable" gid="222" x="1056" y="416" width="32" height="32"/>
-  <object id="769" name="Crate" type="Pushable" gid="222" x="960" y="448" width="32" height="32"/>
-  <object id="770" name="Crate" type="Pushable" gid="223" x="1024" y="480" width="32" height="32"/>
-  <object id="771" name="Clay Pot" type="BreakableObstacle" gid="208" x="1120" y="480" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="773" name="Clay Pot" type="BreakableObstacle" gid="208" x="1184" y="544" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="774" name="Clay Pot" type="BreakableObstacle" gid="208" x="1184" y="736" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="775" name="Clay Pot" type="BreakableObstacle" gid="208" x="896" y="512" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="776" name="Clay Pot" type="BreakableObstacle" gid="209" x="960" y="544" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="777" name="Locked Chest A" type="Chest" gid="206" x="1024" y="384" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="30"/>
-    <property name="isLocked" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="779" name="Clay Pot" type="BreakableObstacle" gid="209" x="768" y="544" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="780" name="Clay Pot" type="BreakableObstacle" gid="209" x="1088" y="640" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="781" name="Debris" type="BreakableObstacle" gid="210" x="1056" y="512" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="782" name="Debris" type="BreakableObstacle" gid="210" x="992" y="544" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="783" name="Debris" type="BreakableObstacle" gid="210" x="1056" y="576" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="784" name="Debris" type="BreakableObstacle" gid="210" x="832" y="512" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="785" name="Debris" type="BreakableObstacle" gid="210" x="704" y="544" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="786" name="Crate" type="Pushable" gid="223" x="672" y="512" width="32" height="32"/>
-  <object id="788" name="Door To Storage" type="Portal" gid="5944" x="576" y="768" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Door To Lobby"/>
-   </properties>
-  </object>
-  <object id="789" name="Door To Storage" type="Portal" gid="4944" x="896" y="576" width="32" height="32"/>
-  <object id="790" name="Door To Lobby" type="Portal" gid="4731" x="896" y="576" width="32" height="32">
-   <properties>
-    <property name="destinationId" value="Door To Storage"/>
-   </properties>
-  </object>
-  <object id="791" name="Unlocked Door" type="Door" gid="236" x="288" y="416" width="32" height="32"/>
-  <object id="792" name="Unlocked Door" type="Door" gid="236" x="320" y="416" width="32" height="32"/>
-  <object id="793" name="Unlocked Door" type="Door" gid="236" x="512" y="416" width="32" height="32"/>
-  <object id="794" name="Unlocked Door" type="Door" gid="236" x="544" y="416" width="32" height="32"/>
-  <object id="795" name="Unlocked Door" type="Door" gid="236" x="288" y="928" width="32" height="32"/>
-  <object id="796" name="Unlocked Door" type="Door" gid="236" x="736" y="896" width="32" height="32"/>
-  <object id="797" name="Unlocked Door" type="Door" gid="236" x="928" y="960" width="32" height="32"/>
-  <object id="798" name="Unlocked Door" type="Door" gid="236" x="1152" y="768" width="32" height="32"/>
-  <object id="799" name="Clay Pot" type="BreakableObstacle" gid="5113" x="448" y="576" width="32" height="32">
-   <properties>
-    <property name="HP" type="int" value="1"/>
-    <property name="gold" type="int" value="10"/>
-   </properties>
-  </object>
-  <object id="812" name="Unlocked Chest" type="Chest" gid="205" x="1376" y="448" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="813" name="Unlocked Chest" type="Chest" gid="205" x="736" y="352" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="814" name="Unlocked Chest" type="Chest" gid="205" x="96" y="704" width="32" height="32">
-   <properties>
-    <property name="gold" type="int" value="20"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="Loot"/>
- <objectgroup name="Items">
+ <objectgroup id="6" name="Loot"/>
+ <objectgroup id="7" name="Items">
   <object id="815" name="Chest A Key" type="Key" gid="389" x="448" y="608" width="32" height="32">
    <properties>
     <property name="usedWith" value="Locked Chest A"/>
@@ -7610,7 +7610,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Units">
+ <objectgroup id="8" name="Units">
   <object id="517" name="Ezra" type="Unit" gid="449" x="992" y="1056" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>

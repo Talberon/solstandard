@@ -1,4 +1,5 @@
-﻿using SolStandard.Containers.Contexts;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
@@ -22,20 +23,29 @@ namespace SolStandard.Utility.Events
         {
             unit.AddItemToInventory(item);
 
+            ItemToast(unit, item);
+            AssetManager.SkillBuffSFX.Play();
+            Complete = true;
+        }
+
+        public static void ItemToast(GameUnit unit, IItem item)
+        {
+            SpriteAtlas itemSpriteAtlas = item.Icon as SpriteAtlas;
+
+            IRenderable toastIcon = (itemSpriteAtlas != null) ? itemSpriteAtlas.Resize(new Vector2(16)) : item.Icon;
+
             IRenderable itemToast = new WindowContentGrid(
                 new[,]
                 {
                     {
-                        item.Icon,
-                        new RenderText(AssetManager.MapFont, GameContext.ActiveUnit.Id + " got " + item.Name + "!"),
+                        toastIcon,
+                        new RenderText(AssetManager.MapFont, unit.Id + " got " + item.Name + "!"),
                     }
                 },
                 1
             );
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);
-            AssetManager.SkillBuffSFX.Play();
-            Complete = true;
         }
     }
 }

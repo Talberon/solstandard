@@ -41,9 +41,13 @@ namespace SolStandard.Utility.Events
                 switch (seizingTeam)
                 {
                     case Team.Red:
+                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                            "Red team seizes the objective!", 100);
                         seize.RedSeizedObjective = true;
                         break;
                     case Team.Blue:
+                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                            "Blue team seizes the objective!", 100);
                         seize.BlueSeizedObjective = true;
                         break;
                     default:

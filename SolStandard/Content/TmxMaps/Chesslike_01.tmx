@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="755">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="755">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -594,7 +594,7 @@
   <tile id="2778" terrain="13,13,13,13"/>
   <tile id="2779" terrain="13,13,13,13"/>
  </tileset>
- <layer name="Terrain" width="20" height="20">
+ <layer id="1" name="Terrain" width="20" height="20">
   <data>
    <tile gid="15655"/>
    <tile gid="15655"/>
@@ -998,7 +998,7 @@
    <tile gid="15655"/>
   </data>
  </layer>
- <layer name="TerrainDecoration" width="20" height="20">
+ <layer id="2" name="TerrainDecoration" width="20" height="20">
   <data>
    <tile/>
    <tile/>
@@ -1402,7 +1402,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collide" width="20" height="20">
+ <layer id="3" name="Collide" width="20" height="20">
   <data>
    <tile gid="16430"/>
    <tile gid="16430"/>
@@ -1806,7 +1806,8 @@
    <tile gid="16430"/>
   </data>
  </layer>
- <layer name="Overlay" width="20" height="20">
+ <objectgroup id="5" name="Entities"/>
+ <layer id="4" name="Overlay" width="20" height="20">
   <data>
    <tile/>
    <tile/>
@@ -2210,10 +2211,9 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Entities"/>
- <objectgroup name="Loot"/>
- <objectgroup name="Items"/>
- <objectgroup name="Units">
+ <objectgroup id="6" name="Loot"/>
+ <objectgroup id="7" name="Items"/>
+ <objectgroup id="8" name="Units">
   <object id="520" name="Dooticus IV" type="Unit" gid="452" x="320" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>

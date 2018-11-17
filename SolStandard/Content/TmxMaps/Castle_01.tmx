@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="763">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="763">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -7,7 +7,7 @@
   <image source="F:/Pictures/Assets/Tactics Frontier/UI/Units3.png" width="128" height="96"/>
  </tileset>
  <tileset firstgid="461" source="overworld-32.tsx"/>
- <layer name="Terrain" width="46" height="40">
+ <layer id="1" name="Terrain" width="46" height="40">
   <data>
    <tile/>
    <tile/>
@@ -1851,7 +1851,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="TerrainDecoration" width="46" height="40">
+ <layer id="2" name="TerrainDecoration" width="46" height="40">
   <data>
    <tile/>
    <tile/>
@@ -3695,7 +3695,7 @@
    <tile/>
   </data>
  </layer>
- <layer name="Collide" width="46" height="40">
+ <layer id="3" name="Collide" width="46" height="40">
   <data>
    <tile gid="5836"/>
    <tile gid="5836"/>
@@ -5539,7 +5539,8 @@
    <tile gid="5836"/>
   </data>
  </layer>
- <layer name="Overlay" width="46" height="40">
+ <objectgroup id="5" name="Entities"/>
+ <layer id="4" name="Overlay" width="46" height="40">
   <data>
    <tile/>
    <tile/>
@@ -7383,10 +7384,9 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Entities"/>
- <objectgroup name="Loot"/>
- <objectgroup name="Items"/>
- <objectgroup name="Units">
+ <objectgroup id="6" name="Loot"/>
+ <objectgroup id="7" name="Items"/>
+ <objectgroup id="8" name="Units">
   <object id="517" name="Ezra" type="Unit" gid="449" x="800" y="896" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
