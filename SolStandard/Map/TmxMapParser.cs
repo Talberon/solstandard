@@ -493,7 +493,8 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["atkValue"]),
                                             Convert.ToInt32(currentProperties["luckModifier"]),
                                             currentProperties["atkRange"].Split(',').Select(n => Convert.ToInt32(n))
-                                                .ToArray()
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["usesRemaining"])
                                         );
                                         break;
                                     default:

@@ -38,23 +38,33 @@ namespace SolStandard.Entity.Unit.Actions.Item
             Queue<IEvent> eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            if (!stats.IsBroken)
             {
-                eventQueue.Enqueue(
-                    new StartCombatEvent(targetUnit, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
-                );
-                GlobalEventQueue.QueueEvents(eventQueue);
-            }
-            else if (TargetIsABreakableObstacleInRange(targetSlice))
-            {
-                BasicAttack.DamageTerrain(targetSlice);
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+                {
+                    stats.DecrementRemainingUses();
+                    eventQueue.Enqueue(
+                        new StartCombatEvent(targetUnit, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
+                    );
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else if (TargetIsABreakableObstacleInRange(targetSlice))
+                {
+                    stats.DecrementRemainingUses();
+                    BasicAttack.DamageTerrain(targetSlice);
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new EndTurnEvent());
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

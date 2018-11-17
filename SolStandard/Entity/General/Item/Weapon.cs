@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -18,11 +17,11 @@ namespace SolStandard.Entity.General.Item
         private WeaponStatistics WeaponStatistics { get; set; }
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
-            int atkValue, int luckModifier, int[] atkRange)
+            int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             Range = pickupRange;
-            WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange);
+            WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
         }
 
         public IRenderable Icon
@@ -62,7 +61,7 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Stats: " + Environment.NewLine + WeaponStatistics),
+                            new RenderText(AssetManager.WindowFont, WeaponStatistics.ToString()),
                             new RenderBlank()
                         }
                     },

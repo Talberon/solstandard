@@ -103,6 +103,6 @@
   <property name="atkValue" type="int" default="0"/>
   <property name="luckModifier" type="int" default="0"/>
   <property name="pickupRange" type="string" default="0,1"/>
-  <property name="retValue" type="int" default="0"/>
+  <property name="usesRemaining" type="int" default="10"/>
  </objecttype>
 </objecttypes>
