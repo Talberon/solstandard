@@ -17,7 +17,7 @@ namespace SolStandard.Containers.Contexts
         public static MenuOption[] GenerateActionMenuOptions(Color windowColour)
         {
             _contextualActions = FetchContextualActionsInRange();
-            foreach (UnitAction activeUnitSkill in GameContext.ActiveUnit.Skills)
+            foreach (UnitAction activeUnitSkill in GameContext.ActiveUnit.Actions)
             {
                 _contextualActions.Add(activeUnitSkill);
             }
@@ -34,6 +34,20 @@ namespace SolStandard.Containers.Contexts
         public static string GetActionDescriptionAtIndex(int currentOptionIndex)
         {
             return _contextualActions[currentOptionIndex].Description;
+        }
+
+        public static MenuOption[] GenerateInventoryMenuOptions(Color windowColour)
+        {
+            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count+1];
+
+            for (int i = 0; i < GameContext.ActiveUnit.InventoryActions.Count; i++)
+            {
+                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
+            }
+            
+            options[GameContext.ActiveUnit.InventoryActions.Count] = new SkillOption(windowColour, new Wait());
+
+            return options;
         }
 
         private static List<UnitAction> FetchContextualActionsInRange()

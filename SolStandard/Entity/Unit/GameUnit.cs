@@ -58,10 +58,12 @@ namespace SolStandard.Entity.Unit
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
 
         private readonly UnitStatistics stats;
+
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
         private bool Enabled { get; set; }
 
-        public List<UnitAction> Skills { get; private set; }
+        public List<UnitAction> Actions { get; private set; }
+        public List<UnitAction> InventoryActions { get; private set; }
         private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
@@ -72,13 +74,14 @@ namespace SolStandard.Entity.Unit
         private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> skills) :
+            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> actions) :
             base(id, unitEntity)
         {
             this.team = team;
             this.role = role;
             this.stats = stats;
-            Skills = skills;
+            Actions = actions;
+            InventoryActions = new List<UnitAction>();
             this.largePortrait =
                 new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
             this.mediumPortrait =
@@ -98,7 +101,7 @@ namespace SolStandard.Entity.Unit
                 resultsHealthBar
             };
 
-            armedUnitAction = skills.Find(skill => skill.GetType() == typeof(BasicAttack));
+            armedUnitAction = actions.Find(skill => skill.GetType() == typeof(BasicAttack));
 
             StatusEffects = new List<StatusEffect>();
             Inventory = new List<IItem>();
@@ -559,16 +562,16 @@ namespace SolStandard.Entity.Unit
         public void AddItemToInventory(IItem item)
         {
             Inventory.Add(item);
-            Skills.Insert(1, item.DropAction());
-            Skills.Insert(1, item.UseAction());
+            InventoryActions.Add(item.UseAction());
+            InventoryActions.Add(item.DropAction());
         }
 
         public bool RemoveItemFromInventory(IItem item)
         {
             if (Inventory.Contains(item))
             {
-                Skills.Remove(Skills.Find(skill => skill.Name == item.UseAction().Name));
-                Skills.Remove(Skills.Find(skill => skill.Name == item.DropAction().Name));
+                InventoryActions.Remove(InventoryActions.Find(skill => skill.Name == item.UseAction().Name));
+                InventoryActions.Remove(InventoryActions.Find(skill => skill.Name == item.DropAction().Name));
                 Inventory.Remove(item);
                 return true;
             }
@@ -672,7 +675,7 @@ namespace SolStandard.Entity.Unit
 
         public void ExecuteRoutines()
         {
-            foreach (UnitAction action in Skills)
+            foreach (UnitAction action in Actions)
             {
                 IRoutine routine = action as IRoutine;
                 if (routine != null)

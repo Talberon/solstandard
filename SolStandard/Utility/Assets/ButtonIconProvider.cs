@@ -18,7 +18,11 @@ namespace SolStandard.Utility.Assets
         LeftStick,
         RightStick,
         Windows,
-        Menu
+        Menu,
+        DpadUp,
+        DpadDown,
+        DpadLeft,
+        DpadRight
     }
     
     public static class ButtonIconProvider
@@ -38,6 +42,10 @@ namespace SolStandard.Utility.Assets
             ITexture2D textureX = buttonTextures.Find(texture => texture.Name.EndsWith("_X"));
             ITexture2D textureY = buttonTextures.Find(texture => texture.Name.EndsWith("_Y"));
             ITexture2D textureDpad = buttonTextures.Find(texture => texture.Name.EndsWith("_Dpad"));
+            ITexture2D textureDpadUp = buttonTextures.Find(texture => texture.Name.EndsWith("_Dpad_Up"));
+            ITexture2D textureDpadDown = buttonTextures.Find(texture => texture.Name.EndsWith("_Dpad_Down"));
+            ITexture2D textureDpadLeft = buttonTextures.Find(texture => texture.Name.EndsWith("_Dpad_Left"));
+            ITexture2D textureDpadRight = buttonTextures.Find(texture => texture.Name.EndsWith("_Dpad_Right"));
             ITexture2D textureRb = buttonTextures.Find(texture => texture.Name.EndsWith("_RB"));
             ITexture2D textureRt = buttonTextures.Find(texture => texture.Name.EndsWith("_RT"));
             ITexture2D textureLb = buttonTextures.Find(texture => texture.Name.EndsWith("_LB"));
@@ -54,6 +62,10 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.X, textureX},
                 {ButtonIcon.Y, textureY},
                 {ButtonIcon.Dpad, textureDpad},
+                {ButtonIcon.DpadUp, textureDpadUp},
+                {ButtonIcon.DpadDown, textureDpadDown},
+                {ButtonIcon.DpadLeft, textureDpadLeft},
+                {ButtonIcon.DpadRight, textureDpadRight},
                 {ButtonIcon.Lb, textureRb},
                 {ButtonIcon.Lt, textureRt},
                 {ButtonIcon.Rb, textureLb},

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="787">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="788">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="448" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2048"/>
  </tileset>
@@ -2802,6 +2802,12 @@
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
+  <object id="787" name="Orcish Axe" type="Weapon" gid="432" x="32" y="32" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="luckModifier" type="int" value="-1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="388" x="288" y="288" width="32" height="32">
@@ -2918,9 +2924,10 @@
     <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="750" name="Orc" type="Creep" gid="459" x="736" y="224" width="32" height="32">
+  <object id="750" name="Orc" type="Creep" gid="459" x="448" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="Item" value="Orcish Axe"/>
    </properties>
   </object>
   <object id="781" name="Orc" type="Creep" gid="459" x="800" y="224" width="32" height="32">

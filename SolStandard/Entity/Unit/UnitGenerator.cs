@@ -140,7 +140,7 @@ namespace SolStandard.Entity.Unit
             if (generatedUnit.Team == Team.Creep)
             {
                 string itemName = mapEntity.TiledProperties["Item"];
-                
+
                 if (itemName != string.Empty)
                 {
                     generatedUnit.AddItemToInventory(loot.Find(item => item.Name == itemName));
@@ -202,8 +202,8 @@ namespace SolStandard.Entity.Unit
         {
             return new List<UnitAction>
             {
-                new Bloodthirst(2),
                 new BasicAttack(),
+                new Bloodthirst(2),
                 new Tackle(),
                 new Shove(),
                 new Atrophy(2, 2),

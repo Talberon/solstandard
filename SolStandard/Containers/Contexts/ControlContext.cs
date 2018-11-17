@@ -284,6 +284,16 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
+            if (controlMapper.Press(Input.Right, PressType.Single))
+            {
+                GameContext.GameMapContext.ToggleCombatMenu();
+            }
+
+            if (controlMapper.Press(Input.Left, PressType.Single))
+            {
+                GameContext.GameMapContext.ToggleCombatMenu();
+            }
+
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 GameContext.GameMapContext.SelectActionMenuOption();

@@ -6,7 +6,6 @@ using SolStandard.Containers.View;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
-using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -29,6 +28,7 @@ namespace SolStandard.Containers.Contexts
             UnitActing,
             ResolvingTurn
         }
+
 
         public TurnState CurrentTurnState { get; set; }
         public GameUnit SelectedUnit { get; private set; }
@@ -168,7 +168,8 @@ namespace SolStandard.Containers.Contexts
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
-            GenerateActionMenu();
+            GameMapView.GenerateActionMenus();
+
             GenerateActionPreviewGrid();
         }
 
@@ -211,7 +212,7 @@ namespace SolStandard.Containers.Contexts
         {
             GameContext.ActiveUnit.CancelArmedSkill();
             ResetCursorToActiveUnit();
-            GenerateActionMenu();
+            GameMapView.GenerateActionMenus();
             RevertToPreviousState();
         }
 
@@ -390,8 +391,8 @@ namespace SolStandard.Containers.Contexts
 
         public void MoveActionMenuCursor(VerticalMenu.MenuCursorDirection direction)
         {
-            GameMapView.ActionMenu.MoveMenuCursor(direction);
-            GameMapView.GenerateActionMenuDescription();
+            GameMapView.CurrentMenu.MoveMenuCursor(direction);
+            GameMapView.GenerateCurrentMenuDescription();
 
             GenerateActionPreviewGrid();
         }
@@ -399,7 +400,7 @@ namespace SolStandard.Containers.Contexts
         public void SelectActionMenuOption()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.ActionMenu.CurrentOption.Execute();
+            GameMapView.CurrentMenu.CurrentOption.Execute();
             GameMapView.CloseCombatMenu();
 
             ProceedToNextState();
@@ -452,27 +453,23 @@ namespace SolStandard.Containers.Contexts
             PauseScreenView.CurrentMenu.SelectOption();
         }
 
-        private void GenerateActionPreviewGrid()
+        public void ToggleCombatMenu()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            SkillOption skillOption = GameMapView.ActionMenu.CurrentOption as SkillOption;
+            GameMapView.ToggleCombatMenu();
+            GameMapView.GenerateCurrentMenuDescription();
+            GenerateActionPreviewGrid();
+            AssetManager.MenuMoveSFX.Play();
+        }
+
+        private static void GenerateActionPreviewGrid()
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            SkillOption skillOption = GameMapView.CurrentMenu.CurrentOption as SkillOption;
             if (skillOption != null)
             {
                 skillOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
-        }
-
-        private static void GenerateActionMenu()
-        {
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
-
-            MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColour);
-
-            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
-
-            GameMapView.ActionMenu = new VerticalMenu(options, cursorSprite, windowColour);
-            GameMapView.GenerateActionMenuDescription();
         }
     }
 }
