@@ -9,6 +9,7 @@ namespace SolStandard.HUD.Window.Content
 {
     public class WindowContentGrid : IRenderable
     {
+        public Color DefaultColor { get; set; }
         private readonly List<List<IRenderable>> contentGrid;
         private readonly int padding;
 
@@ -19,6 +20,7 @@ namespace SolStandard.HUD.Window.Content
             this.contentGrid = contentGrid;
             this.padding = padding;
             HorizontalAlignment = alignment;
+            DefaultColor = Color.White;
         }
 
         public WindowContentGrid(IRenderable[,] contentGrid, int padding,
@@ -54,7 +56,7 @@ namespace SolStandard.HUD.Window.Content
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
-            Draw(spriteBatch, coordinates, Color.White);
+            Draw(spriteBatch, coordinates, DefaultColor);
         }
 
 

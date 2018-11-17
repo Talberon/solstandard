@@ -50,7 +50,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 
         public override IRenderable Clone()
         {
-            return new ConcedeOption(Color);
+            return new ConcedeOption(DefaultColor);
         }
     }
 }

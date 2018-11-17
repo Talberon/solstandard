@@ -11,8 +11,9 @@ namespace SolStandard.HUD.Window.Content.Health
         private static readonly Color BorderColor = new Color(50, 50, 50, 200);
         public bool Active { get; set; }
         public Vector2 Size { get; set; }
-        private readonly Color activeColor;
+        private Color activeColor;
         private readonly Color inactiveColor;
+
         private readonly ITexture2D whitePixel;
 
         public BarPoint(Vector2 size, Color activeColor, Color inactiveColor)
@@ -22,6 +23,12 @@ namespace SolStandard.HUD.Window.Content.Health
             this.activeColor = activeColor;
             this.inactiveColor = inactiveColor;
             Active = true;
+        }
+
+        public Color DefaultColor
+        {
+            get { return (Active) ? activeColor : inactiveColor; }
+            set { activeColor = value; }
         }
 
         public int Height
@@ -36,7 +43,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, (Active) ? activeColor : inactiveColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

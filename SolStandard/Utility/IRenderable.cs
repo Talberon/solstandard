@@ -9,6 +9,7 @@ namespace SolStandard.Utility
         int Width { get; }
         void Draw(SpriteBatch spriteBatch, Vector2 position);
         void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride);
+        Color DefaultColor { set; }
         IRenderable Clone();
     }
 }

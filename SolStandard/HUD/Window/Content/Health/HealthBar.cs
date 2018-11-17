@@ -19,6 +19,7 @@ namespace SolStandard.HUD.Window.Content.Health
         private const int MaxPointsPerRow = 10;
         private Vector2 pipSize;
         private Vector2 barSize;
+        public Color DefaultColor { get; set; }
 
         public HealthBar(int maxArmor, int maxHp, Vector2 barSize)
         {
@@ -33,6 +34,7 @@ namespace SolStandard.HUD.Window.Content.Health
             UpdatePips(healthPips, currentHp);
 
             BarSize = barSize;
+            DefaultColor = Color.White;
         }
 
         private List<IResourcePoint> GenerateArmorPips(int maxPips)
@@ -150,7 +152,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -163,6 +165,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             DrawPips(spriteBatch, position, healthPips, pipOffset);
         }
+
 
         public IRenderable Clone()
         {

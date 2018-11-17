@@ -8,6 +8,7 @@ namespace SolStandard.HUD.Window.Content
     {
         public int Height { get; private set; }
         public int Width { get; private set; }
+        public Color DefaultColor { get; set; }
 
         public RenderBlank()
         {

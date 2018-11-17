@@ -23,6 +23,11 @@ namespace SolStandard.Entity.General.Item
             Range = range;
         }
 
+        public bool IsBroken
+        {
+            get { return false; }
+        }
+
         public IRenderable Icon
         {
             get { return Sprite; }

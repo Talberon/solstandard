@@ -5,23 +5,23 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility
 {
-    public class SpriteAtlas : IRenderable
+    public class SpriteAtlas : IRenderable, IResizable
     {
         private readonly ITexture2D image;
         private readonly Vector2 cellSize;
         private readonly Vector2 renderSize;
-        public Color RenderColor { private get; set; }
+        public Color DefaultColor { get; set; }
         private Rectangle sourceRectangle;
         private int cellIndex;
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color renderColor)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color color)
         {
             if (cellIndex < 0) throw new InvalidCellIndexException();
 
             this.image = image;
             this.cellSize = cellSize;
             this.renderSize = renderSize;
-            RenderColor = renderColor;
+            DefaultColor = color;
             SetCellIndex(cellIndex);
         }
 
@@ -89,7 +89,7 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, RenderColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -103,14 +103,14 @@ namespace SolStandard.Utility
             return "SpriteAtlas: <Name," + image.Name + "><cellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
 
-        public SpriteAtlas Resize(Vector2 newSize)
+        public IRenderable Resize(Vector2 newSize)
         {
-            return new SpriteAtlas(image, cellSize, newSize, cellIndex, RenderColor);
+            return new SpriteAtlas(image, cellSize, newSize, cellIndex, DefaultColor);
         }
         
         public IRenderable Clone()
         {
-            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, RenderColor);
+            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, DefaultColor);
         }
     }
 }

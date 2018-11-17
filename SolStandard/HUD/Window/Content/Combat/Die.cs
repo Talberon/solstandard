@@ -38,14 +38,13 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private readonly SpriteAtlas dieAtlas;
         private DieSides currentSide;
-        private Color color;
-
+        public Color DefaultColor { get; set; }
         public bool Enabled { get; private set; }
 
         public Die(DieSides initialSide, int size, Color color)
         {
             currentSide = initialSide;
-            this.color = color;
+            DefaultColor = color;
             dieAtlas = new SpriteAtlas(AssetManager.DiceTexture, new Vector2(AssetManager.DiceTexture.Height),
                 new Vector2(size));
             Enabled = true;
@@ -76,12 +75,12 @@ namespace SolStandard.HUD.Window.Content.Combat
         public void Disable(Color disabledColor)
         {
             Enabled = false;
-            color = disabledColor;
+            DefaultColor = disabledColor;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, color);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -91,7 +90,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public IRenderable Clone()
         {
-            return new Die(currentSide, Height, color);
+            return new Die(currentSide, Height, DefaultColor);
         }
 
         public override string ToString()

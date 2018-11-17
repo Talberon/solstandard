@@ -406,10 +406,10 @@ namespace SolStandard.Entity.Unit
             UnitAnimationState animation = UnitAnimationState.Idle)
         {
             UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
-            clonedSpriteSheet.Resize(size);
             clonedSpriteSheet.SetAnimation(animation);
             clonedSpriteSheet.Color = color;
-            return clonedSpriteSheet;
+            IRenderable resizedSprite = clonedSpriteSheet.Resize(size);
+            return resizedSprite;
         }
 
         public void ArmUnitSkill(UnitAction action)
@@ -562,7 +562,16 @@ namespace SolStandard.Entity.Unit
         public void AddItemToInventory(IItem item)
         {
             Inventory.Add(item);
-            InventoryActions.Add(item.UseAction());
+
+            if (!item.IsBroken)
+            {
+                InventoryActions.Add(item.UseAction());
+            }
+            else
+            {
+                item.Icon.DefaultColor = DeadPortraitColor;
+            }
+
             InventoryActions.Add(item.DropAction());
         }
 
@@ -586,9 +595,9 @@ namespace SolStandard.Entity.Unit
             if (stats.CurrentHP <= 0 && MapEntity != null)
             {
                 DropSpoils();
-                largePortrait.RenderColor = DeadPortraitColor;
-                mediumPortrait.RenderColor = DeadPortraitColor;
-                smallPortrait.RenderColor = DeadPortraitColor;
+                largePortrait.DefaultColor = DeadPortraitColor;
+                mediumPortrait.DefaultColor = DeadPortraitColor;
+                smallPortrait.DefaultColor = DeadPortraitColor;
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
                 MapEntity = null;

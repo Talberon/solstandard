@@ -10,10 +10,12 @@ namespace SolStandard.HUD.Window.Content.Health
         public bool Active { get; set; }
         private SpriteAtlas activeSprite;
         private SpriteAtlas inactiveSprite;
+        public Color DefaultColor { get; set; }
 
         public ArmorPoint(Vector2 size)
         {
             Size = size;
+            DefaultColor = Color.White;
         }
 
         public Vector2 Size
@@ -37,7 +39,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

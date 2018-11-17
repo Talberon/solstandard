@@ -24,6 +24,11 @@ namespace SolStandard.Entity.General.Item
             WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
         }
 
+        public bool IsBroken
+        {
+            get { return WeaponStatistics.IsBroken; }
+        }
+        
         public IRenderable Icon
         {
             get { return Sprite; }

@@ -20,7 +20,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public override IRenderable Clone()
         {
-            return new QuitGameOption(Color);
+            return new QuitGameOption(DefaultColor);
         }
     }
 }

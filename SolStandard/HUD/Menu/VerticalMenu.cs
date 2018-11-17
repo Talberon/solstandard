@@ -21,17 +21,17 @@ namespace SolStandard.HUD.Menu
         private Vector2 cursorPosition;
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
-        public int CurrentOptionIndex { get; private set; }
-        private readonly Color backgroundColor;
+        private int CurrentOptionIndex { get; set; }
+        public Color DefaultColor { get; set; }
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
         public bool IsVisible { get; set; }
 
-        public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color backgroundColor)
+        public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color color)
         {
             this.options = options;
             this.cursorSprite = cursorSprite;
-            this.backgroundColor = backgroundColor;
+            DefaultColor = color;
             CurrentOptionIndex = 0;
             cursorPosition = Vector2.Zero;
             optionCoordinates = MapOptionCoordinates();
@@ -53,7 +53,7 @@ namespace SolStandard.HUD.Menu
 
             WindowContentGrid optionsContent = new WindowContentGrid(optionWindows, Padding);
 
-            return new Window.Window(optionsContent, backgroundColor);
+            return new Window.Window(optionsContent, DefaultColor);
         }
 
         private static void ResizeOptionsToWidestWidth(MenuOption[] options)
@@ -166,7 +166,7 @@ namespace SolStandard.HUD.Menu
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, backgroundColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -178,7 +178,7 @@ namespace SolStandard.HUD.Menu
 
         public IRenderable Clone()
         {
-            return new VerticalMenu(options, cursorSprite, backgroundColor);
+            return new VerticalMenu(options, cursorSprite, DefaultColor);
         }
     }
 }

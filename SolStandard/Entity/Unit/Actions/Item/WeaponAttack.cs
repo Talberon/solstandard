@@ -42,7 +42,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             {
                 if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
                 {
-                    stats.DecrementRemainingUses();
+                    UseWeapon();
+
                     eventQueue.Enqueue(
                         new StartCombatEvent(targetUnit, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
                     );
@@ -67,6 +68,17 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        private void UseWeapon()
+        {
+            stats.DecrementRemainingUses();
+            if (!stats.IsBroken) return;
+
+            GameContext.ActiveUnit.InventoryActions.Remove(this);
+
+            SpriteAtlas icon = Icon as SpriteAtlas;
+            if (icon != null) icon.DefaultColor = GameUnit.DeadPortraitColor;
         }
     }
 }

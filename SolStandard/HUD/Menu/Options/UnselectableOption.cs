@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Menu.Options
 
         public override IRenderable Clone()
         {
-            return new UnselectableOption(LabelContent, Color);
+            return new UnselectableOption(LabelContent, DefaultColor);
         }
     }
 }

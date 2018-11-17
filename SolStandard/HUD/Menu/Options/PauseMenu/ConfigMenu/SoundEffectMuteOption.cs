@@ -27,7 +27,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
 
         public override IRenderable Clone()
         {
-            return new SoundEffectMuteOption(Color);
+            return new SoundEffectMuteOption(DefaultColor);
         }
     }
 }
