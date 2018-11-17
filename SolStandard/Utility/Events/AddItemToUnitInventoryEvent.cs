@@ -30,7 +30,7 @@ namespace SolStandard.Utility.Events
 
         public static void ItemToast(GameUnit unit, IItem item)
         {
-            SpriteAtlas itemSpriteAtlas = item.Icon as SpriteAtlas;
+            IResizable itemSpriteAtlas = item.Icon as IResizable;
 
             IRenderable toastIcon = (itemSpriteAtlas != null) ? itemSpriteAtlas.Resize(new Vector2(16)) : item.Icon;
 
