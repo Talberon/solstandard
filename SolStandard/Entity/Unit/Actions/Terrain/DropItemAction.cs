@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Drop: " + item.Name,
             description: "Drop this item on an empty item tile.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0, 1}
         )
         {
             this.item = item;

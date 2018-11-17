@@ -169,6 +169,7 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
 
             GameMapView.GenerateActionMenus();
+            GameMapView.GenerateCurrentMenuDescription();
 
             GenerateActionPreviewGrid();
         }

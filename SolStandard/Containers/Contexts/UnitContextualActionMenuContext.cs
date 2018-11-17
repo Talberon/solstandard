@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -31,20 +33,26 @@ namespace SolStandard.Containers.Contexts
             return options;
         }
 
-        public static string GetActionDescriptionAtIndex(int currentOptionIndex)
+        public static string GetActionDescriptionAtIndex(VerticalMenu actionMenu)
         {
-            return _contextualActions[currentOptionIndex].Description;
+            SkillOption action = actionMenu.CurrentOption as SkillOption;
+            if (action != null)
+            {
+                return action.Action.Description;
+            }
+
+            throw new SkillDescriptionNotFoundException();
         }
 
         public static MenuOption[] GenerateInventoryMenuOptions(Color windowColour)
         {
-            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count+1];
+            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count + 1];
 
             for (int i = 0; i < GameContext.ActiveUnit.InventoryActions.Count; i++)
             {
                 options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
             }
-            
+
             options[GameContext.ActiveUnit.InventoryActions.Count] = new SkillOption(windowColour, new Wait());
 
             return options;

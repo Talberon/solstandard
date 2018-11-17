@@ -2918,13 +2918,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="743" name="Troll" type="Creep" gid="458" x="768" y="256" width="32" height="32">
+  <object id="743" name="Troll" type="Creep" gid="458" x="800" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="750" name="Orc" type="Creep" gid="459" x="448" y="352" width="32" height="32">
+  <object id="750" name="Orc" type="Creep" gid="459" x="192" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="Item" value="Orcish Axe"/>
@@ -2936,7 +2936,7 @@
     <property name="Independent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="784" name="Slime" type="Creep" gid="457" x="416" y="320" width="32" height="32">
+  <object id="784" name="Slime" type="Creep" gid="457" x="128" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Item" value="Chest LK1 Key"/>

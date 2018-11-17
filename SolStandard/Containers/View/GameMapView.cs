@@ -146,29 +146,33 @@ namespace SolStandard.Containers.View
         private void GenerateMenuDescriptionWindow(MenuType menuType, Color windowColor)
         {
             string menuName;
+            IRenderable buttonIcon;
+            RenderText windowText;
 
             switch (menuType)
             {
                 case MenuType.ActionMenu:
                     menuName = "Unit Actions";
+                    windowText = new RenderText(AssetManager.HeaderFont, menuName);
+                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadRight, new Vector2(windowText.Height));
                     break;
                 case MenuType.InventoryMenu:
                     menuName = "Inventory";
+                    windowText = new RenderText(AssetManager.HeaderFont, menuName);
+                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadLeft, new Vector2(windowText.Height));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("menuType", menuType, null);
             }
 
-            RenderText windowText = new RenderText(AssetManager.HeaderFont, menuName);
 
             MenuDescriptionWindow = new Window(
                 new WindowContentGrid(
-                    new IRenderable[,]
+                    new [,]
                     {
                         {
-                            ButtonIconProvider.GetButton(ButtonIcon.DpadLeft, new Vector2(windowText.Height)),
-                            windowText,
-                            ButtonIconProvider.GetButton(ButtonIcon.DpadRight, new Vector2(windowText.Height))
+                            buttonIcon,
+                            windowText
                         }
                     },
                     3,
@@ -221,7 +225,7 @@ namespace SolStandard.Containers.View
             ActionMenuDescriptionWindow = new Window(
                 new RenderText(
                     AssetManager.WindowFont,
-                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu.CurrentOptionIndex)
+                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu)
                 ),
                 windowColor
             );
@@ -232,7 +236,7 @@ namespace SolStandard.Containers.View
             InventoryMenuDescriptionWindow = new Window(
                 new RenderText(
                     AssetManager.WindowFont,
-                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(InventoryMenu.CurrentOptionIndex)
+                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(InventoryMenu)
                 ),
                 windowColor
             );
