@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General.Item
     public class BlinkItem : TerrainEntity, IItem, IActionTile
     {
         public int[] BlinkRange { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
         public int UsesRemaining { get; set; }
 
         public BlinkItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General.Item
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             BlinkRange = blinkRange;
-            Range = pickupRange;
+            InteractRange = pickupRange;
             UsesRemaining = usesRemaining;
         }
 

@@ -503,6 +503,21 @@ namespace SolStandard.Entity.Unit
             healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
+
+        public void RecoverHP(int amountToRecover)
+        {
+            if (amountToRecover + Stats.CurrentHP > Stats.MaxHP)
+            {
+                Stats.CurrentHP = Stats.MaxHP;
+            }
+            else
+            {
+                Stats.CurrentHP += amountToRecover;
+            }
+
+            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+        }
+
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;

@@ -73,6 +73,8 @@
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
+    <Compile Include="Entity\General\Item\HealthPotion.cs" />
+    <Compile Include="Entity\General\Item\IConsumable.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
@@ -238,6 +241,7 @@
     <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\PushBlockEvent.cs" />
     <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
+    <Compile Include="Utility\Events\RegenerateHealthEvent.cs" />
     <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />

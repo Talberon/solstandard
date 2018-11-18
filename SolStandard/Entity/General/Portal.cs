@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General
     {
         private readonly bool canMove;
         private readonly string destinationId;
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, bool canMove, string destinationId, int[] range) :
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General
         {
             this.canMove = canMove;
             this.destinationId = destinationId;
-            Range = range;
+            InteractRange = range;
         }
 
         public UnitAction TileAction()
@@ -52,7 +52,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             new RenderText(AssetManager.WindowFont,
-                                string.Format("Range: [{0}]", string.Join(",", Range))),
+                                string.Format("Range: [{0}]", string.Join(",", InteractRange))),
                             new RenderBlank()
                         }
                     },

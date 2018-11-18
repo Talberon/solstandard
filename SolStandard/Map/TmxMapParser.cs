@@ -6,6 +6,8 @@ using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions.Item;
+using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Exceptions;
@@ -56,7 +58,8 @@ namespace SolStandard.Map
             {"Trap", EntityTypes.Trap},
             {"Creep", EntityTypes.Creep},
             {"Weapon", EntityTypes.Weapon},
-            {"Blink", EntityTypes.Blink}
+            {"Blink", EntityTypes.Blink},
+            {"HP Potion", EntityTypes.HealthPotion}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -509,6 +512,17 @@ namespace SolStandard.Map
                                             currentProperties["blinkRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
+                                    case EntityTypes.HealthPotion:
+                                        entityGrid[col, row] = new HealthPotion(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["hpHealed"])
                                         );
                                         break;
                                     default:

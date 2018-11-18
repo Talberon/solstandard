@@ -15,14 +15,14 @@ namespace SolStandard.Entity.General.Item
         public const string CurrencyAbbreviation = "G";
 
         public int Value { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public Currency(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, int value, int[] range) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             Value = value;
-            Range = range;
+            InteractRange = range;
         }
 
         public UnitAction TileAction()

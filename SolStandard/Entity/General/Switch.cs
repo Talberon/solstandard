@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General
 {
     public class Switch : TerrainEntity, IActionTile
     {
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
         private string TriggersId { get; set; }
         private bool active;
         private static readonly Color ActiveColor = new Color(180, 180, 180);
@@ -24,7 +24,7 @@ namespace SolStandard.Entity.General
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             TriggersId = triggersId;
-            Range = new[] {1};
+            InteractRange = new[] {1};
             CanMove = false;
             active = false;
         }

@@ -17,7 +17,7 @@ namespace SolStandard.Entity.General
         public int Gold { get; private set; }
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
         private static readonly Color InactiveColor = new Color(50, 50, 50);
 
         public List<IItem> Items { get; private set; }
@@ -30,7 +30,7 @@ namespace SolStandard.Entity.General
             CanMove = canMove;
             IsLocked = isLocked;
             IsOpen = isOpen;
-            Range = range;
+            InteractRange = range;
             Gold = gold;
 
             Items = new List<IItem>();

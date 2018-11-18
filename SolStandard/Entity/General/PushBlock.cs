@@ -9,14 +9,14 @@ namespace SolStandard.Entity.General
 {
     public class PushBlock : TerrainEntity, IActionTile
     {
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public PushBlock(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             CanMove = false;
-            Range = new[] {1};
+            InteractRange = new[] {1};
         }
 
         public UnitAction TileAction()

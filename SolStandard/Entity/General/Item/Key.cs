@@ -13,14 +13,14 @@ namespace SolStandard.Entity.General.Item
     public class Key : TerrainEntity, IItem, IActionTile
     {
         public string UsedWith { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, string usedWith, int[] range) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             UsedWith = usedWith;
-            Range = range;
+            InteractRange = range;
         }
 
         public bool IsBroken

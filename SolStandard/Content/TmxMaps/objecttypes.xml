@@ -53,6 +53,10 @@
   <property name="canMove" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
  </objecttype>
+ <objecttype name="HP Potion" color="#b93246">
+  <property name="hpHealed" type="int" default="3"/>
+  <property name="pickupRange" type="string" default="0"/>
+ </objecttype>
  <objecttype name="Key" color="#ffaa00">
   <property name="range" type="string" default="0"/>
   <property name="usedWith" type="string" default="Door A1"/>

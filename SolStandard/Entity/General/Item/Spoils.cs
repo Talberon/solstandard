@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General.Item
     {
         public int Gold { get; private set; }
         public List<IItem> Items { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public Spoils(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, int gold, List<IItem> items) :
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General.Item
         {
             Gold = gold;
             Items = items;
-            Range = new[] {0, 1};
+            InteractRange = new[] {0, 1};
         }
 
         public UnitAction TileAction()

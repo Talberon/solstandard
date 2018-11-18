@@ -12,7 +12,7 @@ namespace SolStandard.Entity.General
 {
     public class Railgun : TerrainEntity, IActionTile
     {
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
         public int AtkRange { get; private set; }
 
         public Railgun(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
@@ -21,7 +21,7 @@ namespace SolStandard.Entity.General
         {
             CanMove = canMove;
             AtkRange = atkRange;
-            Range = new[] {0};
+            InteractRange = new[] {0};
         }
 
         public UnitAction TileAction()

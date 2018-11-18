@@ -97,7 +97,7 @@ namespace SolStandard.Containers.Contexts
 
             foreach (MapDistanceTile distanceTile in distanceTiles)
             {
-                foreach (int range in entityActionTile.Range)
+                foreach (int range in entityActionTile.InteractRange)
                 {
                     //If the tile's range aligns with the current range of the unit, add the action to the action list
                     if (distanceTile.MapCoordinates != entityActionTile.MapCoordinates) continue;

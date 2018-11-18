@@ -32,7 +32,8 @@ namespace SolStandard.Entity.General
         Trap,
         Creep,
         Weapon,
-        Blink
+        Blink,
+        HealthPotion
     }
 
     public class TerrainEntity : MapEntity
