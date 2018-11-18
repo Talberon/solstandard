@@ -31,7 +31,8 @@ namespace SolStandard.Entity.General
         PressurePlate,
         Trap,
         Creep,
-        Weapon
+        Weapon,
+        Blink
     }
 
     public class TerrainEntity : MapEntity

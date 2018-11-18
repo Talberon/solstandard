@@ -4,6 +4,11 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="range" type="string" default="3,4"/>
  </objecttype>
+ <objecttype name="Blink" color="#b93246">
+  <property name="blinkRange" type="string" default="1,2,3"/>
+  <property name="pickupRange" type="string" default="0,1"/>
+  <property name="usesRemaining" type="int" default="3"/>
+ </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
   <property name="HP" type="int" default="0"/>
   <property name="canMove" type="bool" default="false"/>

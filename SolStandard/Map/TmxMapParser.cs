@@ -55,7 +55,8 @@ namespace SolStandard.Map
             {"PressurePlate", EntityTypes.PressurePlate},
             {"Trap", EntityTypes.Trap},
             {"Creep", EntityTypes.Creep},
-            {"Weapon", EntityTypes.Weapon}
+            {"Weapon", EntityTypes.Weapon},
+            {"Blink", EntityTypes.Blink}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -493,6 +494,19 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["atkValue"]),
                                             Convert.ToInt32(currentProperties["luckModifier"]),
                                             currentProperties["atkRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
+                                    case EntityTypes.Blink:
+                                        entityGrid[col, row] = new BlinkItem(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["blinkRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["usesRemaining"])
                                         );
