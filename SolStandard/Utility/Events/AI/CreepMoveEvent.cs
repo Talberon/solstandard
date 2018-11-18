@@ -22,7 +22,9 @@ namespace SolStandard.Utility.Events.AI
         {
             unitToMove.MoveUnitInDirection(directionToMove);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
-            AssetManager.MapUnitMoveSFX.Play();
+
+            if (directionToMove != Direction.None) AssetManager.MapUnitMoveSFX.Play();
+
             Complete = true;
         }
     }
