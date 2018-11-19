@@ -6,8 +6,6 @@ using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Exceptions;
@@ -59,7 +57,8 @@ namespace SolStandard.Map
             {"Creep", EntityTypes.Creep},
             {"Weapon", EntityTypes.Weapon},
             {"Blink", EntityTypes.Blink},
-            {"HP Potion", EntityTypes.HealthPotion}
+            {"HP Potion", EntityTypes.HealthPotion},
+            {"BuffItem", EntityTypes.BuffItem}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -523,6 +522,17 @@ namespace SolStandard.Map
                                             currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["hpHealed"])
+                                        );
+                                        break;
+                                    case EntityTypes.BuffItem:
+                                        entityGrid[col, row] = new BuffItem(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["stat"],
+                                            Convert.ToInt32(currentProperties["modifier"]),
+                                            Convert.ToInt32(currentProperties["duration"])
                                         );
                                         break;
                                     default:

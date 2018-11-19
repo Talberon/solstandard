@@ -73,6 +73,7 @@
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
+    <Compile Include="Entity\General\Item\BuffItem.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />

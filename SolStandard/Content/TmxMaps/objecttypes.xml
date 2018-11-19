@@ -16,6 +16,11 @@
   <property name="isBroken" type="bool" default="false"/>
   <property name="item" type="string"/>
  </objecttype>
+ <objecttype name="BuffItem" color="#b93246">
+  <property name="duration" type="int" default="3"/>
+  <property name="modifier" type="int" default="1"/>
+  <property name="stat" type="string" default="ATK"/>
+ </objecttype>
  <objecttype name="BuffTile" color="#2ca42a">
   <property name="Modifier" type="int" default="0"/>
   <property name="Stat" type="string"/>

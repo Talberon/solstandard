@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="796">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="801">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="F:/Pictures/Assets/PAID/CustomWonder/Terrain/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1940,7 +1940,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="601" name="Fort" type="BuffTile" gid="59" x="352" y="320" width="32" height="32">
+  <object id="601" name="Fort" type="BuffTile" gid="59" x="448" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="ATK"/>
@@ -2051,7 +2051,7 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="702" name="House" type="BuffTile" gid="45" x="480" y="320" width="32" height="32">
+  <object id="702" name="House" type="BuffTile" gid="45" x="576" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="DEF"/>
@@ -2059,19 +2059,19 @@
   </object>
   <object id="703" name="Drawbridge A" type="Drawbridge" gid="48" x="416" y="480" width="32" height="32"/>
   <object id="704" name="Bridge" type="Movable" gid="61" x="192" y="256" width="32" height="32"/>
-  <object id="705" name="Fort" type="BuffTile" gid="60" x="384" y="320" width="32" height="32">
+  <object id="705" name="Fort" type="BuffTile" gid="60" x="480" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="ATK"/>
    </properties>
   </object>
-  <object id="706" name="House" type="BuffTile" gid="51" x="448" y="320" width="32" height="32">
+  <object id="706" name="House" type="BuffTile" gid="51" x="544" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="DEF"/>
    </properties>
   </object>
-  <object id="707" name="House" type="BuffTile" gid="44" x="416" y="320" width="32" height="32">
+  <object id="707" name="House" type="BuffTile" gid="44" x="512" y="160" width="32" height="32">
    <properties>
     <property name="Modifier" type="int" value="1"/>
     <property name="Stat" value="DEF"/>
@@ -2218,7 +2218,7 @@
     <property name="usesRemaining" type="int" value="1"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="450" x="384" y="576" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="450" x="448" y="416" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="4"/>
@@ -2226,20 +2226,20 @@
     <property name="usesRemaining" type="int" value="1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="447" x="320" y="576" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="447" x="384" y="224" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="5"/>
    </properties>
   </object>
-  <object id="790" name="Hammer" type="Weapon" gid="425" x="320" y="352" width="32" height="32">
+  <object id="790" name="Hammer" type="Weapon" gid="425" x="352" y="576" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="-2"/>
     <property name="usesRemaining" type="int" value="0"/>
    </properties>
   </object>
-  <object id="791" name="Wand" type="Weapon" gid="451" x="448" y="384" width="32" height="32">
+  <object id="791" name="Wand" type="Weapon" gid="451" x="384" y="576" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3"/>
     <property name="atkValue" type="int" value="4"/>
@@ -2247,14 +2247,35 @@
     <property name="usesRemaining" type="int" value="0"/>
    </properties>
   </object>
-  <object id="792" name="Blink Bone" type="Blink" gid="424" x="384" y="352" width="32" height="32"/>
-  <object id="793" name="Blink Bone" type="Blink" gid="424" x="448" y="288" width="32" height="32">
+  <object id="792" name="Blink Bone" type="Blink" gid="424" x="416" y="576" width="32" height="32"/>
+  <object id="794" name="Mega Potion" type="HP Potion" gid="395" x="480" y="576" width="32" height="32">
    <properties>
-    <property name="blinkRange" value="3,4"/>
+    <property name="hpHealed" type="int" value="8"/>
    </properties>
   </object>
-  <object id="794" name="Red Potion" type="HP Potion" gid="393" x="480" y="384" width="32" height="32"/>
-  <object id="795" name="Red Potion" type="HP Potion" gid="393" x="384" y="224" width="32" height="32"/>
+  <object id="795" name="Healthy Potion" type="HP Potion" gid="393" x="512" y="576" width="32" height="32"/>
+  <object id="796" name="Mighty Meat" type="BuffItem" gid="422" x="416" y="320" width="32" height="32"/>
+  <object id="797" name="Lucky Apple" type="BuffItem" gid="408" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="LCK"/>
+   </properties>
+  </object>
+  <object id="798" name="Alert Berries" type="BuffItem" gid="409" x="384" y="320" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="RET"/>
+   </properties>
+  </object>
+  <object id="799" name="Swift Cheese" type="BuffItem" gid="400" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
   <object id="517" name="Horatio" type="Unit" gid="477" x="480" y="352" width="32" height="32">
