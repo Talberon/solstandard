@@ -405,14 +405,10 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color,
             UnitAnimationState animation = UnitAnimationState.Idle)
         {
-            IRenderable resizedUnitSprite = unitSpriteSheet.Resize(size);
-            UnitSpriteSheet clonedSpriteSheet = resizedUnitSprite as UnitSpriteSheet;
-
-            if (clonedSpriteSheet == null) return resizedUnitSprite;
-
+            UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
             clonedSpriteSheet.SetAnimation(animation);
-            clonedSpriteSheet.Color = color;
-            return clonedSpriteSheet;
+            clonedSpriteSheet.DefaultColor = color;
+            return clonedSpriteSheet.Resize(size);
         }
 
         public void ArmUnitSkill(UnitAction action)

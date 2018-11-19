@@ -141,7 +141,7 @@ namespace SolStandard.Utility
             return rendercell;
         }
 
-        public IRenderable Resize(Vector2 newSize)
+        public virtual IRenderable Resize(Vector2 newSize)
         {
             return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor);
         }
