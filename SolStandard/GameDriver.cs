@@ -62,6 +62,7 @@ namespace SolStandard
             Window.IsBorderless = false;
         }
 
+        // ReSharper disable once UnusedMember.Local
         private void UseBorderlessFullscreen()
         {
             graphics = new GraphicsDeviceManager(this)
