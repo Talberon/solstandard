@@ -24,7 +24,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new Wait();
+            return new DeployBarricadeAction(this);
         }
     }
 }
