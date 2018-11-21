@@ -4,6 +4,9 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="range" type="string" default="3,4"/>
  </objecttype>
+ <objecttype name="Barricade" color="#b93246">
+  <property name="HP" type="int" default="1"/>
+ </objecttype>
  <objecttype name="Blink" color="#b93246">
   <property name="blinkRange" type="string" default="1,2,3"/>
   <property name="pickupRange" type="string" default="0,1"/>

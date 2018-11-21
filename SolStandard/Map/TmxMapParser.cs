@@ -58,7 +58,8 @@ namespace SolStandard.Map
             {"Weapon", EntityTypes.Weapon},
             {"Blink", EntityTypes.Blink},
             {"HP Potion", EntityTypes.HealthPotion},
-            {"BuffItem", EntityTypes.BuffItem}
+            {"BuffItem", EntityTypes.BuffItem},
+            {"Barricade", EntityTypes.Barricade}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -533,6 +534,15 @@ namespace SolStandard.Map
                                             currentProperties["stat"],
                                             Convert.ToInt32(currentProperties["modifier"]),
                                             Convert.ToInt32(currentProperties["duration"])
+                                        );
+                                        break;
+                                    case EntityTypes.Barricade:
+                                        entityGrid[col, row] = new Barricade(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToInt32(currentProperties["HP"])
                                         );
                                         break;
                                     default:
