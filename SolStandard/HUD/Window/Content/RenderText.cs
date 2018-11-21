@@ -10,13 +10,13 @@ namespace SolStandard.HUD.Window.Content
         private readonly ISpriteFont font;
         private readonly string message;
         private const string Space = " ";
-        private readonly Color defaultColor;
+        public Color DefaultColor { get; set; }
 
-        public RenderText(ISpriteFont font, string message, Color defaultColor)
+        public RenderText(ISpriteFont font, string message, Color color)
         {
             this.font = font;
             this.message = message;
-            this.defaultColor = defaultColor;
+            DefaultColor = color;
         }
 
         public RenderText(ISpriteFont font, string message) : this(font, message, Color.White)
@@ -36,7 +36,7 @@ namespace SolStandard.HUD.Window.Content
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, defaultColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -46,7 +46,7 @@ namespace SolStandard.HUD.Window.Content
 
         public IRenderable Clone()
         {
-            return new RenderText(font, message, defaultColor);
+            return new RenderText(font, message, DefaultColor);
         }
     }
 }

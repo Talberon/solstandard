@@ -39,7 +39,7 @@ namespace SolStandard.Containers.Contexts
                 if (tile == null) continue;
 
                 //Generate attack tiles for the perimeter of the grid
-                GenerateTargetingGrid(tile.MapCoordinates, unit.Stats.AtkRange, Layer.Preview);
+                GenerateTargetingGrid(tile.MapCoordinates, unit.Stats.CurrentAtkRange, Layer.Preview);
             }
 
             //Clean up overlapping tiles

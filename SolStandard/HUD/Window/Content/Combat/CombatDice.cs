@@ -14,6 +14,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         public static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
         public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
         public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);
+        public Color DefaultColor { get; set; }
 
         private readonly List<Die> dice;
         private readonly int maxRowSize;
@@ -23,14 +24,13 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public CombatDice(int baseDice, int bonusDice, int maxRowSize, int dieSize)
         {
-            this.baseDice = baseDice;
-            this.bonusDice = bonusDice;
+            this.baseDice = (baseDice > 0) ? baseDice : 0;
+            this.bonusDice = (bonusDice > 0) ? bonusDice : 0;
             this.dieSize = dieSize;
-            if (baseDice < 1) throw new ArgumentOutOfRangeException();
-            if (bonusDice < 0) throw new ArgumentOutOfRangeException();
 
             this.maxRowSize = maxRowSize;
             dice = PopulateDice();
+            DefaultColor = Color.White;
         }
 
         private List<Die> PopulateDice()
@@ -54,6 +54,8 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             get
             {
+                if (dice.Count < 1) return 0;
+                
                 int totalRows = (int) Math.Ceiling((float) dice.Count / maxRowSize);
                 return totalRows * dice.First().Height;
             }
@@ -63,6 +65,8 @@ namespace SolStandard.HUD.Window.Content.Combat
         {
             get
             {
+                if (dice.Count < 1) return 0;
+                
                 int rowSize = (dice.Count > maxRowSize) ? maxRowSize : dice.Count;
                 return rowSize * dice.First().Width;
             }
@@ -151,21 +155,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            Vector2 dieOffset = new Vector2();
-
-            for (int i = 0; i < dice.Count; i++)
-            {
-                //Drop dice to the next row after maxRowSize reached.
-                if (i != 0 && i % maxRowSize == 0)
-                {
-                    dieOffset.X = 0;
-                    dieOffset.Y += dice[i].Height;
-                }
-
-                dice[i].Draw(spriteBatch, position + dieOffset, colorOverride);
-
-                dieOffset.X += dice[i].Width;
-            }
+            throw new InvalidOperationException("Do not draw combat dice all of the same color!");
         }
 
         public IRenderable Clone()

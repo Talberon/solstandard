@@ -21,13 +21,13 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            int[] atkRange = GameContext.ActiveUnit.Stats.AtkRange;
+            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
 
             //Add +1 to end of ranges
             for (int range = 1; range <= atkRangeModifier; range++)
             {
-                int extraRange = GameContext.ActiveUnit.Stats.AtkRange.Max() + range;
-                GameContext.ActiveUnit.Stats.AtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
+                int extraRange = GameContext.ActiveUnit.Stats.CurrentAtkRange.Max() + range;
+                GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
@@ -44,10 +44,10 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void RemoveEffect(GameUnit target)
         {
-            int[] atkRange = GameContext.ActiveUnit.Stats.AtkRange;
+            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
 
             //Remove the last range
-            GameContext.ActiveUnit.Stats.AtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
+            GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
         }
     }
 }

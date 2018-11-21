@@ -14,6 +14,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         private readonly List<AttackPoint> atkPoints;
         private CombatDice CombatDice { get; set; }
         private Window CombatDamageWindow { get; set; }
+        public Color DefaultColor { get; set; }
 
         private readonly int atk;
         private readonly int luck;
@@ -29,6 +30,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             atkPoints = InitializeAtkPoints(atk, pointSize);
             CombatDice = new CombatDice(luck, bonusDice, MaxRowSize, pointSize + DieSizeAdjustment);
             CombatDamageWindow = ConstructDamageWindow();
+            DefaultColor = Color.Transparent;
         }
 
         public int Height
@@ -193,7 +195,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.Transparent);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

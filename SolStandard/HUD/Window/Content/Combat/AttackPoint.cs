@@ -8,7 +8,7 @@ namespace SolStandard.HUD.Window.Content.Combat
     public class AttackPoint : IRenderable, ICombatPoint
     {
         public bool Enabled { get; private set; }
-        private Color color;
+        public Color DefaultColor { get; set; }
         private readonly SpriteAtlas pointSprite;
 
         private readonly int size;
@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Window.Content.Combat
         public AttackPoint(int size)
         {
             this.size = size;
-            color = Color.White;
+            DefaultColor = Color.White;
             Enabled = true;
             pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(size));
         }
@@ -34,18 +34,19 @@ namespace SolStandard.HUD.Window.Content.Combat
         public void Disable(Color disabledColor)
         {
             Enabled = false;
-            color = disabledColor;
+            DefaultColor = disabledColor;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, color);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             pointSprite.Draw(spriteBatch, position, colorOverride);
         }
+
 
         public IRenderable Clone()
         {

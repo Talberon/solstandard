@@ -21,20 +21,25 @@ namespace SolStandard.Map.Camera
         public enum ZoomLevel
         {
             Far,
-            Medium,
-            Close
+            Default,
+            Close,
+            Combat
         }
 
         private static readonly Dictionary<ZoomLevel, float> ZoomLevels = new Dictionary<ZoomLevel, float>
         {
             {ZoomLevel.Far, MinimumZoom},
-            {ZoomLevel.Medium, DefaultZoomLevel},
-            {ZoomLevel.Close, MaximumZoom}
+            {ZoomLevel.Default, DefaultZoomLevel},
+            {ZoomLevel.Close, MaximumZoom},
+            {ZoomLevel.Combat, CombatZoom}
         };
+
+        private const double FloatTolerance = 0.01;
 
         private const float MinimumZoom = 1.2f;
         private const float DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
+        private const float CombatZoom = 4;
 
         private const int TopCursorThreshold = 250;
         private const int HorizontalCursorThreshold = 300;
@@ -50,13 +55,15 @@ namespace SolStandard.Map.Camera
         private bool movingCameraToCursor;
 
         private bool centeringOnPoint;
+        private float lastZoom;
 
         public MapCamera(float panRate, float zoomRate)
         {
             currentPosition = new Vector2(0);
             targetPosition = new Vector2(0);
             CurrentZoom = DefaultZoomLevel;
-            TargetZoom = CurrentZoom;
+            TargetZoom = DefaultZoomLevel;
+            lastZoom = DefaultZoomLevel;
             centeringOnPoint = false;
             this.panRate = panRate;
             this.zoomRate = zoomRate;
@@ -81,6 +88,14 @@ namespace SolStandard.Map.Camera
             }
         }
 
+        public void RevertToPreviousZoomLevel()
+        {
+            if (Math.Abs(TargetZoom - lastZoom) > FloatTolerance)
+            {
+                ZoomToCursor(lastZoom);
+            }
+        }
+
         public void SetZoomLevel(ZoomLevel zoomLevel)
         {
             ZoomToCursor(ZoomLevels[zoomLevel]);
@@ -102,15 +117,20 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        public void ZoomToCursor(float zoomLevel)
+        private void ZoomToCursor(float zoomLevel)
         {
-            TargetZoom = zoomLevel;
+            if (Math.Abs(TargetZoom - zoomLevel) > FloatTolerance)
+            {
+                lastZoom = TargetZoom;
+                TargetZoom = zoomLevel;
+            }
+
             centeringOnPoint = true;
         }
 
         public void UpdateEveryFrame()
         {
-            if (targetPosition == currentPosition && Math.Abs(TargetZoom - CurrentZoom) < 0.01)
+            if (targetPosition == currentPosition && Math.Abs(TargetZoom - CurrentZoom) < FloatTolerance)
             {
                 centeringOnPoint = false;
             }
@@ -300,8 +320,11 @@ namespace SolStandard.Map.Camera
 
         private float WestBound
         {
-            get { return 0 + HorizontalCursorThreshold +
-                         (GameContext.MapCursor.RenderSprite.Width * CurrentZoom); }
+            get
+            {
+                return 0 + HorizontalCursorThreshold +
+                       (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
+            }
         }
 
         private float EastBound

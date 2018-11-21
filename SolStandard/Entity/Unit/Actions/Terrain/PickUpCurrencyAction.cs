@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Pick Up",
             description: "Add [" + currency.Value + "] to your unit's money count.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: currency.Range
+            range: currency.InteractRange
         )
         {
             this.currency = currency;

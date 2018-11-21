@@ -34,7 +34,7 @@ namespace SolStandard.Map.Elements
             ElementColor = color;
         }
 
-        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, bool textVisible = false) :
+        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance = 0, bool textVisible = false) :
             this(sprite, mapCoordinates, distance, Transparent, textVisible)
         {
         }

@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
             name: "Inspire",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
-                         " by [+" + statModifier + "] for [" + duration + " ] turns.",
+                         " by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )

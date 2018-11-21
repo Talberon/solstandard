@@ -9,8 +9,7 @@ namespace SolStandard.HUD.Window.Content.Health
     public class MiniHealthBar : IHealthBar
     {
         private static readonly Color ShieldColor = new Color(180, 180, 200);
-
-        private static readonly Color HealthyColor = new Color(50, 255, 50);
+        private static readonly Color HealthColor = new Color(50, 255, 50);
 
         private readonly List<IResourcePoint> armorPips;
         private int currentArmor;
@@ -62,7 +61,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < maxValue; i++)
             {
-                pips.Add(new BarPoint(GetPipSize(maxValue), HealthyColor, Color.Transparent));
+                pips.Add(new BarPoint(GetPipSize(maxValue), HealthColor, Color.Transparent));
             }
 
             return pips;
@@ -105,7 +104,7 @@ namespace SolStandard.HUD.Window.Content.Health
             get { return Convert.ToInt32(barSize.X); }
         }
 
-        private Color PipColor
+        public Color DefaultColor
         {
             get
             {
@@ -114,11 +113,15 @@ namespace SolStandard.HUD.Window.Content.Health
                 const int blue = 0;
                 return new Color(red, green, blue);
             }
+            set
+            {
+                throw new InvalidOperationException("Cannot set health bar color.");
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, PipColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

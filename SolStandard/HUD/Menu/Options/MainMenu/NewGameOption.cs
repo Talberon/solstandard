@@ -21,7 +21,7 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
 
         public override IRenderable Clone()
         {
-            return new NewGameOption(Color);
+            return new NewGameOption(DefaultColor);
         }
     }
 }

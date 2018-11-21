@@ -23,7 +23,7 @@ namespace SolStandard.Containers.Contexts
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0);
+            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited =
@@ -105,7 +105,14 @@ namespace SolStandard.Containers.Contexts
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
-            if (slice.UnitEntity != null && UnitSelector.SelectUnit(slice.UnitEntity).Team != team) return false;
+            if (slice.UnitEntity != null)
+            {
+                GameUnit unitAtTile = UnitSelector.SelectUnit(slice.UnitEntity);
+                if (unitAtTile.Team != team || unitAtTile.Team == Team.Creep)
+                {
+                    return false;
+                }
+            }
 
             if (visitedTiles.Any(tile => tile.MapCoordinates.Equals(coordinates))) return false;
 
@@ -128,7 +135,7 @@ namespace SolStandard.Containers.Contexts
         }
 
 
-        public static bool CanMoveAtCoordinates(Vector2 coordinates)
+        public static bool CanEndMoveAtCoordinates(Vector2 coordinates)
         {
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
 

@@ -24,7 +24,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 
         public override IRenderable Clone()
         {
-            return new ConfigOption(Color, pauseScreenView);
+            return new ConfigOption(DefaultColor, pauseScreenView);
         }
     }
 }

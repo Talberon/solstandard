@@ -21,17 +21,17 @@ namespace SolStandard.HUD.Window
         private readonly int windowCellSize;
         private readonly IRenderable windowContents;
         private WindowCell[,] windowCells;
-        private Color windowColor;
+        public Color DefaultColor { get; set; }
         private HorizontalAlignment HorizontalAlignment { get; set; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
 
 
-        public Window(IRenderable windowContent, Color windowColor, Vector2 pixelSizeOverride,
+        public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered)
         {
             windowTexture = AssetManager.WindowTexture;
-            this.windowColor = windowColor;
+            DefaultColor = color;
             windowContents = windowContent;
             windowCellSize = CalculateCellSize(windowTexture);
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
@@ -40,12 +40,12 @@ namespace SolStandard.HUD.Window
             HorizontalAlignment = horizontalAlignment;
         }
 
-        public Window(IRenderable windowContent, Color windowColor, HorizontalAlignment horizontalAlignment) :
-            this(windowContent, windowColor, Vector2.Zero, horizontalAlignment)
+        public Window(IRenderable windowContent, Color color, HorizontalAlignment horizontalAlignment) :
+            this(windowContent, color, Vector2.Zero, horizontalAlignment)
         {
         }
 
-        public Window(IRenderable windowContent, Color windowColor) : this(windowContent, windowColor, Vector2.Zero)
+        public Window(IRenderable windowContent, Color color) : this(windowContent, color, Vector2.Zero)
         {
         }
 
@@ -248,15 +248,9 @@ namespace SolStandard.HUD.Window
             return (float) Math.Round(contentRenderCoordinates);
         }
 
-
-        public int Alpha
-        {
-            set { windowColor.A = Convert.ToByte(value); }
-        }
-
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
-            Draw(spriteBatch, coordinates, windowColor);
+            Draw(spriteBatch, coordinates, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)
@@ -275,7 +269,7 @@ namespace SolStandard.HUD.Window
 
         public IRenderable Clone()
         {
-            return new Window(windowContents, windowColor, WindowPixelSize, HorizontalAlignment);
+            return new Window(windowContents, DefaultColor, WindowPixelSize, HorizontalAlignment);
         }
     }
 }

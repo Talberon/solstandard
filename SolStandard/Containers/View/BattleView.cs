@@ -92,9 +92,9 @@ namespace SolStandard.Containers.View
             AttackerBonusWindow = BonusWindow(luckStat, bonusLuck, attackerWindowColor);
         }
 
-        public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats)
+        public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats, Stats combatStat)
         {
-            AttackerAtkWindow = AtkStatWindow(windowColor, attackerStats);
+            AttackerAtkWindow = CombatStatWindow(windowColor, attackerStats, combatStat);
         }
 
         public void GenerateAttackerHpWindow(Color windowColor, GameUnit attacker)
@@ -140,9 +140,9 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderDefWindow(Color windowColor, UnitStatistics defenderStats)
+        public void GenerateDefenderRetWindow(Color windowColor, UnitStatistics defenderStats, Stats combatStat)
         {
-            DefenderAtkWindow = AtkStatWindow(windowColor, defenderStats);
+            DefenderAtkWindow = CombatStatWindow(windowColor, defenderStats, combatStat);
         }
 
 
@@ -227,17 +227,37 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private static Window AtkStatWindow(Color windowColor, UnitStatistics stats)
+        private static Window CombatStatWindow(Color windowColor, UnitStatistics stats, Stats combatStat)
         {
-            WindowContentGrid atkContentGrid = new WindowContentGrid(new IRenderable[,]
+            int statValue;
+            int baseStatValue;
+
+            switch (combatStat)
+            {
+                case Stats.Atk:
+                    statValue = stats.Atk;
+                    baseStatValue = stats.BaseAtk;
+                    break;
+                case Stats.Retribution:
+                    statValue = stats.Ret;
+                    baseStatValue = stats.BaseRet;
+                    break;
+                default:
+                    statValue = -1;
+                    baseStatValue = -1;
+                    break;
+            }
+
+            WindowContentGrid atkContentGrid = new WindowContentGrid(
+                new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
-                        new RenderText(AssetManager.WindowFont, "ATK: "),
+                        UnitStatistics.GetSpriteAtlas(combatStat, new Vector2(GameDriver.CellSize)),
+                        new RenderText(AssetManager.WindowFont, UnitStatistics.Abbreviation[combatStat] + ": "),
                         new RenderText(
                             AssetManager.WindowFont,
-                            stats.Atk.ToString(),
-                            UnitStatistics.DetermineStatColor(stats.Atk, stats.BaseAtk)
+                            statValue.ToString(),
+                            UnitStatistics.DetermineStatColor(statValue, baseStatValue)
                         )
                     }
                 },

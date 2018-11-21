@@ -6,11 +6,6 @@ namespace SolStandard.Utility.Events
 {
     public class EndTurnEvent : IEvent
     {
-        public EndTurnEvent()
-        {
-            Complete = false;
-        }
-
         public bool Complete { get; private set; }
 
         public void Continue()

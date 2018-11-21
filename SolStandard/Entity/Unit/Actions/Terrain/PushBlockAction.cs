@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
-                new MapDistanceTile(TileSprite, blockCoordinates, 0, false);
+                new MapDistanceTile(TileSprite, blockCoordinates);
             
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(blockCoordinates);
         }
@@ -71,7 +71,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 Vector2 oppositeCoordinates = Shove.DetermineShovePosition(
                     GameContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
 
-                return UnitMovingContext.CanMoveAtCoordinates(oppositeCoordinates) &&
+                return UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) &&
                        MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates).TerrainEntity == null;
             }
         }

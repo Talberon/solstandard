@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             MapContainer.GameGrid[(int) mapLayer][(int) spoils.MapCoordinates.X, (int) spoils.MapCoordinates.Y] =
-                new MapDistanceTile(TileSprite, spoils.MapCoordinates, 0);
+                new MapDistanceTile(TileSprite, spoils.MapCoordinates);
             
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(spoils.MapCoordinates);
         }

@@ -12,7 +12,7 @@ namespace SolStandard.Entity.General
 {
     public class SeizeEntity : TerrainEntity, IActionTile
     {
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
 
         public readonly bool CapturableByBlue;
         public readonly bool CapturableByRed;
@@ -23,7 +23,7 @@ namespace SolStandard.Entity.General
         {
             CapturableByBlue = capturableByBlue;
             CapturableByRed = capturableByRed;
-            Range = new[] {0};
+            InteractRange = new[] {0};
         }
 
         public UnitAction TileAction()

@@ -71,14 +71,12 @@ namespace SolStandard.Entity.Unit.Actions
 
         protected static bool TargetIsABreakableObstacleInRange(MapSlice targetSlice)
         {
-            return targetSlice.DynamicEntity != null &&
-                   targetSlice.TerrainEntity != null &&
-                   targetSlice.TerrainEntity.GetType() == typeof(BreakableObstacle);
+            return targetSlice.DynamicEntity != null && targetSlice.TerrainEntity is BreakableObstacle;
         }
 
         protected static bool CanMoveToTargetTile(MapSlice targetSlice)
         {
-            return UnitMovingContext.CanMoveAtCoordinates(targetSlice.MapCoordinates) &&
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null;
         }
 

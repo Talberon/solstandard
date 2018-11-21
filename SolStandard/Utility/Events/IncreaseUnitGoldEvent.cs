@@ -1,4 +1,5 @@
 ﻿using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General.Item;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -17,6 +18,9 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             GameContext.ActiveUnit.CurrentGold += gold;
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GameContext.ActiveUnit.Id + " got " + gold + Currency.CurrencyAbbreviation + "!", 50
+            );
             AssetManager.CoinSFX.Play();
             Complete = true;
         }

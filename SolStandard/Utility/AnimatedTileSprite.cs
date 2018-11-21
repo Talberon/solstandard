@@ -7,7 +7,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility
 {
-    public class AnimatedTileSprite : IRenderable
+    public class AnimatedTileSprite : IRenderable, IResizable
     {
         private const int DefaultFrameDelay = 10;
 
@@ -19,7 +19,8 @@ namespace SolStandard.Utility
         private readonly List<int> frameIds;
         private readonly List<SpriteAtlas> frameSprites;
         private readonly ITexture2D tileMapTexture;
-        private Vector2 cellSize;
+        private readonly Vector2 cellSize;
+        public Color DefaultColor { get; set; }
 
         public AnimatedTileSprite(ITexture2D tileMapTexture, List<int> frameIds, Vector2 cellSize,
             Vector2 renderSize, int frameDelay = DefaultFrameDelay)
@@ -31,6 +32,7 @@ namespace SolStandard.Utility
             this.frameDelay = frameDelay;
             currentFrameIndex = 0;
             frameSprites = BuildFrames(tileMapTexture, this.frameIds, cellSize, renderSize);
+            DefaultColor = Color.White;
         }
 
         public AnimatedTileSprite(ITexture2D tileMapTexture, List<int> frameIds, Vector2 renderSize)
@@ -75,7 +77,7 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color.White);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -84,9 +86,16 @@ namespace SolStandard.Utility
             frameSprites[currentFrameIndex].Draw(spriteBatch, position, colorOverride);
         }
 
+
+
         public IRenderable Clone()
         {
             return new AnimatedTileSprite(tileMapTexture, frameIds, cellSize, renderSize, frameDelay);
+        }
+
+        public IRenderable Resize(Vector2 newSize)
+        {
+            return new AnimatedTileSprite(tileMapTexture, frameIds, cellSize, newSize, frameDelay);
         }
     }
 }

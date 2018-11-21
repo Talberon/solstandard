@@ -1,7 +1,7 @@
 ﻿using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
-using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
@@ -29,6 +29,7 @@ namespace SolStandard.Utility.Events
 
             RemoveItemFromMap();
 
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Retrieved spoils!", 50);
             AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;

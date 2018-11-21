@@ -2,27 +2,33 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.General
+namespace SolStandard.Entity.General.Item
 {
-    public class Key : TerrainEntity, IItem, IActionTile
+    public class Weapon : TerrainEntity, IItem, IActionTile
     {
-        public string UsedWith { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
+        private WeaponStatistics WeaponStatistics { get; set; }
 
-        public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string usedWith, int[] range) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
+            int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
+            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
-            UsedWith = usedWith;
-            Range = range;
+            InteractRange = pickupRange;
+            WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
         }
 
+        public bool IsBroken
+        {
+            get { return WeaponStatistics.IsBroken; }
+        }
+        
         public IRenderable Icon
         {
             get { return Sprite; }
@@ -35,7 +41,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction UseAction()
         {
-            return new ToggleLockAction(this);
+            return new WeaponAttack(Sprite, Name, WeaponStatistics);
         }
 
         public UnitAction DropAction()
@@ -60,7 +66,7 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
+                            new RenderText(AssetManager.WindowFont, WeaponStatistics.ToString()),
                             new RenderBlank()
                         }
                     },

@@ -29,7 +29,13 @@ namespace SolStandard.Entity.General
         SelectMap,
         Unit,
         PressurePlate,
-        Trap
+        Trap,
+        Creep,
+        Weapon,
+        Blink,
+        HealthPotion,
+        BuffItem,
+        Barricade
     }
 
     public class TerrainEntity : MapEntity
@@ -37,10 +43,9 @@ namespace SolStandard.Entity.General
         public static readonly Color PositiveColor = new Color(30, 200, 30);
         public static readonly Color NegativeColor = new Color(250, 10, 10);
 
-
         protected IRenderable InfoHeader { get; private set; }
-        protected IRenderable NameText { get; private set; }
-        protected IRenderable TypeText { get; private set; }
+        private IRenderable NameText { get; set; }
+        private IRenderable TypeText { get; set; }
 
         public bool CanMove { get; protected set; }
 

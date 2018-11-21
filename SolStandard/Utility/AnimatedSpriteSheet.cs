@@ -4,7 +4,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility
 {
-    public class AnimatedSpriteSheet : IRenderable
+    public class AnimatedSpriteSheet : IRenderable, IResizable
     {
         protected readonly ITexture2D SpriteMap;
         protected readonly int CellSize;
@@ -17,10 +17,10 @@ namespace SolStandard.Utility
         protected readonly int DefaultFrameDelay;
         protected readonly bool Reversible;
         private bool reversing;
-        protected Color SpriteColor { get; set; }
+        public Color DefaultColor { get; set; }
 
         public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
-            bool reversible, Color spriteColor)
+            bool reversible, Color color)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
@@ -33,7 +33,7 @@ namespace SolStandard.Utility
             reversing = false;
             spriteFrameCount = CalculateSpriteFrameCount();
             RenderSize = renderSize;
-            SpriteColor = spriteColor;
+            DefaultColor = color;
         }
 
         public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(
@@ -111,14 +111,9 @@ namespace SolStandard.Utility
             get { return (int) RenderSize.X; }
         }
 
-        public void Resize(Vector2 newSize)
-        {
-            RenderSize = newSize;
-        }
-
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, SpriteColor);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
@@ -146,9 +141,14 @@ namespace SolStandard.Utility
             return rendercell;
         }
 
+        public virtual IRenderable Resize(Vector2 newSize)
+        {
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor);
+        }
+
         public virtual IRenderable Clone()
         {
-            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor);
         }
     }
 }

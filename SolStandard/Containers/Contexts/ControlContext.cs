@@ -149,7 +149,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Medium);
+                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
             }
 
             const float cameraPanRateOverride = 5;
@@ -282,6 +282,16 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Press(Input.Right, PressType.Single))
+            {
+                GameContext.GameMapContext.ToggleCombatMenu();
+            }
+
+            if (controlMapper.Press(Input.Left, PressType.Single))
+            {
+                GameContext.GameMapContext.ToggleCombatMenu();
             }
 
             if (controlMapper.Press(Input.A, PressType.Single))

@@ -34,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
 
         public override IRenderable Clone()
         {
-            return new SkillOption(Color, Action);
+            return new SkillOption(DefaultColor, Action);
         }
     }
 }

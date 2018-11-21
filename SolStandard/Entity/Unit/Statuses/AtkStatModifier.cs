@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            target.Stats.Atk += atkModifier;
+            target.Stats.AtkModifier += atkModifier;
             
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void RemoveEffect(GameUnit target)
         {
-            target.Stats.Atk -= atkModifier;
+            target.Stats.AtkModifier -= atkModifier;
         }
     }
 }

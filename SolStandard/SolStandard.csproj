@@ -66,14 +66,22 @@
     <Compile Include="Containers\View\StatusScreenView.cs" />
     <Compile Include="Containers\View\MapSelectScreenView.cs" />
     <Compile Include="Entity\GameEntity.cs" />
+    <Compile Include="Entity\General\Barricade.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\Door.cs" />
-    <Compile Include="Entity\General\Currency.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
-    <Compile Include="Entity\General\Key.cs" />
+    <Compile Include="Entity\General\Item\BlinkItem.cs" />
+    <Compile Include="Entity\General\Item\BuffItem.cs" />
+    <Compile Include="Entity\General\Item\HealthPotion.cs" />
+    <Compile Include="Entity\General\Item\IConsumable.cs" />
+    <Compile Include="Entity\General\Item\Weapon.cs" />
+    <Compile Include="Entity\General\Item\Currency.cs" />
+    <Compile Include="Entity\General\Item\Key.cs" />
+    <Compile Include="Entity\General\Item\Spoils.cs" />
+    <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\PressurePlate.cs" />
@@ -81,7 +89,6 @@
     <Compile Include="Entity\General\Railgun.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
-    <Compile Include="Entity\General\Spoils.cs" />
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
@@ -91,12 +98,22 @@
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\ITriggerable.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\LayTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
+    <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
+    <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
+    <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\Bulwark.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
@@ -127,8 +144,10 @@
     <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
@@ -188,6 +207,7 @@
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
+    <Compile Include="Utility\AStarAlgorithm.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
     <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
     <Compile Include="Utility\Buttons\RightBumperControl.cs" />
@@ -208,6 +228,9 @@
     <Compile Include="Utility\Buttons\UpControl.cs" />
     <Compile Include="Utility\Buttons\XControl.cs" />
     <Compile Include="Utility\Buttons\YControl.cs" />
+    <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
+    <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
+    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />
@@ -223,6 +246,7 @@
     <Compile Include="Utility\Events\PullEvent.cs" />
     <Compile Include="Utility\Events\PushBlockEvent.cs" />
     <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
+    <Compile Include="Utility\Events\RegenerateHealthEvent.cs" />
     <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\ShoveEvent.cs" />
     <Compile Include="Utility\Events\StartCombatEvent.cs" />
@@ -235,7 +259,9 @@
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
+    <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
+    <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
@@ -265,6 +291,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Priority Queue, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\OptimizedPriorityQueue.4.2.0\lib\net45\Priority Queue.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
       <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
       <Private>True</Private>
@@ -349,10 +379,19 @@
     <Content Include="Content\TmxMaps\Experimenting_05.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Forest_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Fortress_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Map_Select_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\MonsterArena_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">
@@ -373,6 +412,9 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entity\Unit\Actions\Creeps\Slime" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

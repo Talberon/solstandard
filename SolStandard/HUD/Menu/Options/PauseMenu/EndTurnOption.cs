@@ -27,7 +27,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
         
         public override IRenderable Clone()
         {
-            return new EndTurnOption(Color);
+            return new EndTurnOption(DefaultColor);
         }
     }
 }

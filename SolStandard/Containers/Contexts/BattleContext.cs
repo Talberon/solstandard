@@ -7,8 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
+using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -39,6 +42,11 @@ namespace SolStandard.Containers.Contexts
 
         private GameUnit attacker;
         private GameUnit defender;
+        private UnitStatistics attackerStats;
+        private UnitStatistics defenderStats;
+
+        private List<ICombatProc> attackerProcs;
+        private List<ICombatProc> defenderProcs;
 
         private int attackerDamageCounter;
         private int defenderDamageCounter;
@@ -60,10 +68,13 @@ namespace SolStandard.Containers.Contexts
             defenderDamageCounter = 0;
         }
 
-        public void StartNewCombat(GameUnit newAttacker, GameUnit newDefender)
+        public void StartNewCombat(GameUnit newAttacker, GameUnit newDefender, UnitStatistics newAttackerStats,
+            UnitStatistics newDefenderStats)
         {
             attacker = newAttacker;
             defender = newDefender;
+            attackerStats = newAttackerStats;
+            defenderStats = newDefenderStats;
 
             attacker.SetUnitAnimation(UnitAnimationState.Attack);
             defender.SetUnitAnimation(UnitAnimationState.Attack);
@@ -75,12 +86,33 @@ namespace SolStandard.Containers.Contexts
                 (defender.UnitEntity != null) ? defender.UnitEntity.MapCoordinates : new Vector2(-1);
 
             attackerInRange = true;
-            defenderInRange = CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defender.Stats.AtkRange);
+            defenderInRange =
+                CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defenderStats.CurrentAtkRange);
 
             SetupHelpWindow();
             SetupAttackerWindows();
             SetupDefenderWindows();
+
+            attackerProcs = new List<ICombatProc>();
+            foreach (StatusEffect effect in attacker.StatusEffects)
+            {
+                ICombatProc procEffect = effect as ICombatProc;
+                if (procEffect != null) attackerProcs.Add(procEffect);
+            }
+
+            defenderProcs = new List<ICombatProc>();
+            foreach (StatusEffect effect in defender.StatusEffects)
+            {
+                ICombatProc procEffect = effect as ICombatProc;
+                if (procEffect != null) defenderProcs.Add(procEffect);
+            }
+
+            attackerProcs.ForEach(proc => proc.OnCombatStart(attacker, defender));
+            defenderProcs.ForEach(proc => proc.OnCombatStart(attacker, defender));
+
             SetPromptWindowText("Start Combat!");
+
+            GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
         }
 
         public void ContinueCombat()
@@ -88,10 +120,21 @@ namespace SolStandard.Containers.Contexts
             switch (CurrentState)
             {
                 case BattleState.Start:
-                    if (TryProceedToState(BattleState.RollDice))
+                    //Skip the dice roll if neither unit has dice
+                    if (attackerDamage.CountBlanks() > 0 || defenderDamage.CountBlanks() > 0)
                     {
-                        AssetManager.MapUnitSelectSFX.Play();
-                        StartRollingDice();
+                        if (TryProceedToState(BattleState.RollDice))
+                        {
+                            AssetManager.MapUnitSelectSFX.Play();
+                            StartRollingDice();
+                        }
+                    }
+                    else
+                    {
+                        if (TryProceedToState(BattleState.ResolveCombat))
+                        {
+                            StartResolvingBlocks();
+                        }
                     }
 
                     break;
@@ -106,13 +149,19 @@ namespace SolStandard.Containers.Contexts
                 case BattleState.ResolveCombat:
                     if (TryProceedToState(BattleState.Start))
                     {
+                        attackerProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
+                        defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
+
                         AssetManager.MapUnitSelectSFX.Play();
                         GameContext.GameMapContext.ProceedToNextState();
+
+                        GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
 
                     break;
                 default:
                     GameContext.GameMapContext.ProceedToNextState();
+                    GameContext.MapCamera.RevertToPreviousZoomLevel();
                     return;
             }
         }
@@ -176,15 +225,16 @@ namespace SolStandard.Containers.Contexts
         private void SetupAttackerWindows()
         {
             int attackerTerrainBonus = DetermineTerrainBonus(attacker);
-            attackerDamage = new CombatDamage(attacker.Stats.Atk, attacker.Stats.Luck, attackerTerrainBonus, AttackPointSize);
+            attackerDamage = new CombatDamage(attackerStats.Atk, attackerStats.Luck, attackerTerrainBonus,
+                AttackPointSize);
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
 
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
             battleView.GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane);
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
-            battleView.GenerateAttackerAtkWindow(attackerWindowColor, attacker.Stats);
+            battleView.GenerateAttackerAtkWindow(attackerWindowColor, attackerStats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
-            battleView.GenerateAttackerBonusWindow(attacker.Stats.Luck, attackerTerrainBonus, attackerWindowColor);
+            battleView.GenerateAttackerBonusWindow(attackerStats.Luck, attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
             battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
         }
@@ -192,15 +242,16 @@ namespace SolStandard.Containers.Contexts
         private void SetupDefenderWindows()
         {
             int defenderTerrainBonus = DetermineTerrainBonus(defender);
-            defenderDamage = new CombatDamage(defender.Stats.Atk, defender.Stats.Luck, defenderTerrainBonus, AttackPointSize);
+            defenderDamage = new CombatDamage(defenderStats.Ret, defenderStats.Luck, defenderTerrainBonus,
+                AttackPointSize);
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
             battleView.GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane);
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
-            battleView.GenerateDefenderDefWindow(defenderWindowColor, defender.Stats);
+            battleView.GenerateDefenderRetWindow(defenderWindowColor, defenderStats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
-            battleView.GenerateDefenderBonusWindow(defender.Stats.Luck, defenderTerrainBonus, defenderWindowColor);
+            battleView.GenerateDefenderBonusWindow(defenderStats.Luck, defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
             battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
         }
@@ -296,12 +347,14 @@ namespace SolStandard.Containers.Contexts
                 {
                     attackerDamage.BlockAttackPoint();
                     defenderDamage.ResolveBlockDie();
+                    attackerProcs.ForEach(proc => proc.OnBlock(attacker, defender));
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else if (defenderInRange && defenderSwords > 0 && attackerShields > 0)
                 {
                     defenderDamage.BlockAttackPoint();
                     attackerDamage.ResolveBlockDie();
+                    defenderProcs.ForEach(proc => proc.OnBlock(defender, attacker));
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else
@@ -320,7 +373,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void StartResolvingDamage()
+        private void StartResolvingDamage()
         {
             if (!currentlyResolvingDamage)
             {
@@ -351,13 +404,19 @@ namespace SolStandard.Containers.Contexts
                 {
                     attackerDamage.ResolveDamagePoint();
                     defender.DamageUnit();
+
+                    attackerProcs.ForEach(proc => proc.OnDamage(attacker, defender));
+
                     attackerDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
-                else if (defenderSwords > 0 && defenderInRange && defender.Stats.Hp > 0)
+                else if (defenderSwords > 0 && defenderInRange && defenderStats.CurrentHP > 0)
                 {
                     defenderDamage.ResolveDamagePoint();
                     attacker.DamageUnit();
+
+                    defenderProcs.ForEach(proc => proc.OnCombatStart(defender, attacker));
+
                     defenderDamageCounter++;
                     AssetManager.CombatDamageSFX.Play();
                 }
@@ -371,14 +430,14 @@ namespace SolStandard.Containers.Contexts
                     ResetDamageCounters();
                 }
 
-                if (attacker.Stats.Hp <= 0)
+                if (attackerStats.CurrentHP <= 0)
                 {
                     battleView.GenerateAttackerSpriteWindow(attacker, GameUnit.DeadPortraitColor,
                         UnitAnimationState.Idle);
                     attackerDamage.DisableAllAttackPoints();
                 }
 
-                if (defender.Stats.Hp <= 0)
+                if (defenderStats.CurrentHP <= 0)
                 {
                     battleView.GenerateDefenderSpriteWindow(defender, GameUnit.DeadPortraitColor,
                         UnitAnimationState.Idle);
@@ -391,8 +450,8 @@ namespace SolStandard.Containers.Contexts
         {
             string damageReport = "Attacker " + attacker.Id + " deals " + attackerDamageCounter + " damage!\n";
             damageReport += "Defender " + defender.Id + " deals " + defenderDamageCounter + " damage!\n";
-            if (defender.Stats.Hp <= 0) damageReport += defender.Id + " is defeated!\n";
-            if (attacker.Stats.Hp <= 0) damageReport += attacker.Id + " is defeated!\n";
+            if (defenderStats.CurrentHP <= 0) damageReport += defender.Id + " is defeated!\n";
+            if (attackerStats.CurrentHP <= 0) damageReport += attacker.Id + " is defeated!\n";
             damageReport += "End Combat.";
             SetPromptWindowText(damageReport);
         }

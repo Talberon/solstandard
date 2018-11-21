@@ -41,6 +41,8 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> ButtonIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
+        
+        public static ITexture2D FireTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -121,6 +123,8 @@ namespace SolStandard.Utility.Assets
             ResultsFont = ContentLoader.LoadResultsFont(content);
             HeaderFont = ContentLoader.LoadHeaderFont(content);
             PromptFont = ContentLoader.LoadPromptFont(content);
+
+            FireTexture = ContentLoader.LoadFireAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);

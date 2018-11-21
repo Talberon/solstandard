@@ -7,13 +7,13 @@ namespace SolStandard.HUD.Menu.Options
 {
     public abstract class MenuOption : IRenderable
     {
-        protected readonly Color Color;
+        public Color DefaultColor { get; set; }
         protected IRenderable LabelContent;
         private Window.Window optionWindow;
 
         protected MenuOption(IRenderable labelContent, Color color)
         {
-            Color = color;
+            DefaultColor = color;
             LabelContent = labelContent;
             optionWindow = BuildOptionWindow();
         }
@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu.Options
         {
             return new Window.Window(
                 LabelContent,
-                Color,
+                DefaultColor,
                 HorizontalAlignment.Left
             );
         }
@@ -34,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options
             LabelContent = newContent;
             optionWindow = BuildOptionWindow();
         }
-        
+
         public int Height
         {
             get { return optionWindow.Height; }
@@ -49,7 +49,7 @@ namespace SolStandard.HUD.Menu.Options
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, Color);
+            Draw(spriteBatch, position, DefaultColor);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

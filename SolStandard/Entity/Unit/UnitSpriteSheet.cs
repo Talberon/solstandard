@@ -23,16 +23,10 @@ namespace SolStandard.Entity.Unit
         private UnitAnimationState currentState;
 
         public UnitSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible,
-            Color spriteColor) :
-            base(spriteMap, cellSize, renderSize, frameDelay, reversible, spriteColor)
+            Color color, UnitAnimationState animationState = UnitAnimationState.Idle) :
+            base(spriteMap, cellSize, renderSize, frameDelay, reversible, color)
         {
-            currentState = UnitAnimationState.Idle;
-        }
-
-        public Color Color
-        {
-            get { return SpriteColor; }
-            set { SpriteColor = value; }
+            SetAnimation(animationState);
         }
 
         public void SetFrameDelay(int frameDelay)
@@ -51,9 +45,16 @@ namespace SolStandard.Entity.Unit
             SetSpriteCell(0, (int) currentState);
         }
 
+        public override IRenderable Resize(Vector2 newSize)
+        {
+            return new UnitSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor,
+                currentState);
+        }
+
         public new UnitSpriteSheet Clone()
         {
-            return new UnitSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, SpriteColor);
+            return new UnitSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor,
+                currentState);
         }
     }
 }

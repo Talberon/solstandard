@@ -30,6 +30,9 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
+        private const string MapDirectory = "Content/TmxMaps/";
+        private const string MapSelectFile = "Map_Select_02.tmx";
+
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
         public static MapSelectContext MapSelectContext { get; private set; }
@@ -37,25 +40,16 @@ namespace SolStandard.Containers.Contexts
         public static InitiativeContext InitiativeContext { get; private set; }
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
-        private static float _oldZoom;
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
 
-        private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_02.tmx";
-
         public static void Initialize(MainMenuView mainMenuView)
         {
             MainMenuView = mainMenuView;
-
             BattleContext = new BattleContext(new BattleView());
-
             LoadMapSelect();
-
             CurrentGameState = GameState.MainMenu;
-            _oldZoom = MapCamera.CurrentZoom;
-
             ActivePlayer = PlayerIndex.One;
         }
 
@@ -195,13 +189,13 @@ namespace SolStandard.Containers.Contexts
                 new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
                 new GameMapView()
             );
-
         }
 
         private static void LoadInitiativeContext(TmxMapParser mapParser)
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
+                mapParser.LoadMapLoot(),
                 AssetManager.LargePortraitTextures,
                 AssetManager.MediumPortraitTextures,
                 AssetManager.SmallPortraitTextures
@@ -209,36 +203,12 @@ namespace SolStandard.Containers.Contexts
 
             //Randomize the team that goes first
             InitiativeContext =
-                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
+                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red);
         }
 
         public static void UpdateCamera()
         {
             MapCamera.UpdateEveryFrame();
-
-            if (CurrentGameState != GameState.InGame) return;
-
-            switch (GameMapContext.CurrentTurnState)
-            {
-                case GameMapContext.TurnState.SelectUnit:
-                    break;
-                case GameMapContext.TurnState.UnitMoving:
-                    break;
-                case GameMapContext.TurnState.UnitDecidingAction:
-                    break;
-                case GameMapContext.TurnState.UnitTargeting:
-                    _oldZoom = MapCamera.CurrentZoom;
-                    break;
-                case GameMapContext.TurnState.UnitActing:
-                    const float combatZoom = 4;
-                    GameMapContext.MapContainer.MapCamera.ZoomToCursor(combatZoom);
-                    break;
-                case GameMapContext.TurnState.ResolvingTurn:
-                    GameMapContext.MapContainer.MapCamera.ZoomToCursor(_oldZoom);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
     }
 }

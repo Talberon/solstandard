@@ -5,7 +5,7 @@ namespace SolStandard.Map.Elements
 {
     public interface IActionTile
     {
-        int[] Range { get; }
+        int[] InteractRange { get; }
         Vector2 MapCoordinates { get; }
         UnitAction TileAction();
     }

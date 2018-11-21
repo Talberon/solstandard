@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
-        public int[] Range { get; private set; }
+        public int[] InteractRange { get; private set; }
         private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
 
         public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
@@ -23,7 +23,7 @@ namespace SolStandard.Entity.General
         {
             IsLocked = isLocked;
             IsOpen = isOpen;
-            Range = range;
+            InteractRange = range;
             CanMove = canMove;
         }
 
