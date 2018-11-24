@@ -126,7 +126,7 @@
     <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\DropItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PushBlockAction.cs" />
@@ -253,6 +253,7 @@
     <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
+    <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
     <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
+    <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />

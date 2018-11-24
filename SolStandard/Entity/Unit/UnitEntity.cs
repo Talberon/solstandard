@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Map.Elements;
 
 namespace SolStandard.Entity.Unit
 {
-    public class UnitEntity : MapEntity
+    public class UnitEntity : MapEntity, IActionTile
     {
         public enum UnitEntityState
         {
@@ -43,13 +45,29 @@ namespace SolStandard.Entity.Unit
             get { return (UnitSpriteSheet) Sprite; }
         }
 
+        public int[] InteractRange
+        {
+            get { return new[] {1}; }
+        }
+
+        public List<UnitAction> TileActions()
+        {
+            return new List<UnitAction>
+            {
+                //TODO Add GiveGoldAction
+                //new ArtilleryAction(Sprite, new[] {3, 4, 5})
+                //new GiveGoldAction()
+            };
+        }
+
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             if (Visible)
             {
                 Sprite.Draw(
                     spriteBatch,
-                    MapCoordinates * GameDriver.CellSize - new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
+                    MapCoordinates * GameDriver.CellSize -
+                    new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
                     new Vector2(GameDriver.CellSize) / 2,
                     colorOverride
                 );

@@ -60,7 +60,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction DropAction()
         {
-            return new DropItemAction(this);
+            return new DropGiveItemAction(this);
         }
 
         public override IRenderable TerrainInfo

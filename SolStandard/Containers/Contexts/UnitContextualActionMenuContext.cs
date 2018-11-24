@@ -83,6 +83,9 @@ namespace SolStandard.Containers.Contexts
 
                 IActionTile itemActionTile = slice.ItemEntity as IActionTile;
                 AddEntityAction(itemActionTile, distanceTiles, contextualSkills);
+
+                IActionTile unitActionTile = slice.UnitEntity;
+                AddEntityAction(unitActionTile, distanceTiles, contextualSkills);
             }
 
             MapContainer.ClearDynamicAndPreviewGrids();

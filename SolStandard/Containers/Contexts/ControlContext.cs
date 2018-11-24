@@ -303,6 +303,15 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.CancelActionMenu();
             }
+
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                //TODO Decrement current action's value slider (Gold trade, etc.)
+            }
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            {
+                //TODO Increment current action's value slider (Gold trade, etc.)
+            }
         }
 
         private static void PauseMenuControl(GameControlMapper controlMapper)

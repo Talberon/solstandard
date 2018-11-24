@@ -19,6 +19,7 @@ namespace SolStandard.Containers
 {
     public class MapContainer
     {
+        public const int MapToastIconSize = 16;
         private static List<MapElement[,]> _gameGrid;
         public MapCursor MapCursor { get; private set; }
         public MapCamera MapCamera { get; private set; }

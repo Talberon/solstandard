@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
@@ -30,16 +31,12 @@ namespace SolStandard.Utility.Events
 
         public static void ItemToast(GameUnit unit, IItem item)
         {
-            IResizable itemSpriteAtlas = item.Icon as IResizable;
-
-            IRenderable toastIcon = (itemSpriteAtlas != null) ? itemSpriteAtlas.Resize(new Vector2(16)) : item.Icon;
-
             IRenderable itemToast = new WindowContentGrid(
                 new[,]
                 {
                     {
-                        toastIcon,
-                        new RenderText(AssetManager.MapFont, unit.Id + " got " + item.Name + "!"),
+                        SpriteResizer.TryResizeRenderable(item.Icon, new Vector2(MapContainer.MapToastIconSize)),
+                        new RenderText(AssetManager.MapFont, unit.Id + " got " + item.Name + "!")
                     }
                 },
                 1

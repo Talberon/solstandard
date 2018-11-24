@@ -3,6 +3,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
@@ -26,6 +27,19 @@ namespace SolStandard.Utility.Events
             if (GameContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
             {
                 DropItemAtCoordinates();
+
+                IRenderable toastContent = new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            SpriteResizer.TryResizeRenderable(itemTile.RenderSprite,
+                                new Vector2(MapContainer.MapToastIconSize)),
+                            new RenderText(AssetManager.MapFont, "Dropped " + itemTile.Name + "!")
+                        }
+                    },
+                    1
+                );
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
                 AssetManager.DropItemSFX.Play();
             }
 
