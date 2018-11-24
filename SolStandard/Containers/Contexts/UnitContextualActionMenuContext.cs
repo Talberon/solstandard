@@ -103,7 +103,7 @@ namespace SolStandard.Containers.Contexts
                     if (distanceTile.MapCoordinates != entityActionTile.MapCoordinates) continue;
                     if (distanceTile.Distance == range)
                     {
-                        contextualSkills.Add(entityActionTile.TileAction());
+                        contextualSkills.AddRange(entityActionTile.TileActions());
                     }
                 }
             }

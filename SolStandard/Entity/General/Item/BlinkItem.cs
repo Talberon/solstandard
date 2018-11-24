@@ -35,10 +35,13 @@ namespace SolStandard.Entity.General.Item
         {
             get { return Sprite; }
         }
-
-        public UnitAction TileAction()
+        
+        public List<UnitAction> TileActions()
         {
-            return new PickUpItemAction(this, MapCoordinates);
+            return new List<UnitAction>
+            {
+                new PickUpItemAction(this, MapCoordinates)
+            };
         }
 
         public UnitAction UseAction()

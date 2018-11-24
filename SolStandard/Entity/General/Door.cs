@@ -59,9 +59,12 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new UseDoorAction(this, MapCoordinates);
+            return new List<UnitAction>
+            {
+                new UseDoorAction(this, MapCoordinates)
+            };
         }
 
         public void Open()

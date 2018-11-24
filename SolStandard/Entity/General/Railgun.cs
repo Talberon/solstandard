@@ -23,10 +23,12 @@ namespace SolStandard.Entity.General
             AtkRange = atkRange;
             InteractRange = new[] {0};
         }
-
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new RailgunAction(Sprite, AtkRange);
+            return new List<UnitAction>
+            {
+                new RailgunAction(Sprite, AtkRange)
+            };
         }
 
         public override IRenderable TerrainInfo

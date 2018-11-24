@@ -25,9 +25,12 @@ namespace SolStandard.Entity.General.Item
             InteractRange = new[] {0, 1};
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new TakeSpoilsAction(this);
+            return new List<UnitAction>
+            {
+                new TakeSpoilsAction(this)
+            };
         }
 
         public override IRenderable TerrainInfo

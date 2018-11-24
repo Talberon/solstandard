@@ -25,9 +25,12 @@ namespace SolStandard.Entity.General.Item
             InteractRange = range;
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new PickUpCurrencyAction(this);
+            return new List<UnitAction>
+            {
+                new PickUpCurrencyAction(this)
+            };
         }
 
         public override IRenderable TerrainInfo
