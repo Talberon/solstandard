@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Map.Elements;
 
 namespace SolStandard.Entity.Unit
@@ -52,12 +51,8 @@ namespace SolStandard.Entity.Unit
 
         public List<UnitAction> TileActions()
         {
-            return new List<UnitAction>
-            {
-                //TODO Add GiveGoldAction
-                //new ArtilleryAction(Sprite, new[] {3, 4, 5})
-                //new GiveGoldAction()
-            };
+            //TODO Introduce contextual actions for proximity to certain units
+            return new List<UnitAction>();
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)

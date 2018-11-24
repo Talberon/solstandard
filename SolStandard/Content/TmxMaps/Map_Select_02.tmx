@@ -1836,7 +1836,7 @@
    <properties>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="valueTaxes" type="int" value="50"/>
+    <property name="valueTaxes" type="int" value="100"/>
    </properties>
   </object>
   <object id="536" name="Dungeon" type="SelectMap" gid="289" x="416" y="608" width="32" height="32">

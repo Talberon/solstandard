@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        protected int HP;
+        private int hp;
         public bool IsBroken { get; private set; }
         private int gold;
         private readonly List<IItem> items;
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General
             Dictionary<string, string> tiledProperties, int hp, bool canMove, bool isBroken, int gold,
             IItem item = null) : base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.HP = hp;
+            this.hp = hp;
             CanMove = canMove;
             IsBroken = isBroken;
             this.gold = gold;
@@ -33,13 +33,13 @@ namespace SolStandard.Entity.General
 
         public void DealDamage(int damage)
         {
-            HP -= damage;
+            hp -= damage;
             AssetManager.CombatDamageSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 Name + " takes " + damage + " damage!",
                 MapCoordinates, 50);
 
-            if (HP > 0) return;
+            if (hp > 0) return;
 
             DropSpoils();
             AssetManager.CombatDeathSFX.Play();
@@ -92,7 +92,6 @@ namespace SolStandard.Entity.General
                     "Spoils",
                     new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
                     MapCoordinates,
-                    new Dictionary<string, string>(),
                     gold,
                     new List<IItem>(items)
                 );
@@ -114,7 +113,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: " + HP)
+                            new RenderText(AssetManager.WindowFont, "HP: " + hp)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

@@ -194,6 +194,7 @@ namespace SolStandard.Entity.Unit
                 new HuntingTrap(5, 1),
                 new Harpoon(2),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -208,6 +209,7 @@ namespace SolStandard.Entity.Unit
                 new Shove(),
                 new Atrophy(2, 2),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -221,6 +223,7 @@ namespace SolStandard.Entity.Unit
                 new Inferno(2, 3),
                 new Replace(),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -233,6 +236,7 @@ namespace SolStandard.Entity.Unit
                 new DoubleTime(2, 1),
                 new Inspire(2, 1),
                 new Bulwark(2, 2),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }

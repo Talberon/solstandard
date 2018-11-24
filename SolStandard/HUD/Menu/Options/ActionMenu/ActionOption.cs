@@ -7,11 +7,11 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.ActionMenu
 {
-    public class SkillOption : MenuOption
+    public class ActionOption : MenuOption
     {
         public UnitAction Action { get; private set; }
 
-        public SkillOption(Color windowColor, UnitAction action) : base(
+        public ActionOption(Color windowColor, UnitAction action) : base(
             new WindowContentGrid(
                 new[,]
                 {
@@ -26,6 +26,22 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
             Action = action;
         }
 
+        public override void Refresh()
+        {
+            LabelContent = new WindowContentGrid(
+                new[,]
+                {
+                    {
+                        Action.Icon,
+                        new RenderText(AssetManager.WindowFont, Action.Name),
+                    }
+                },
+                1
+            );
+
+            base.Refresh();
+        }
+
         public override void Execute()
         {
             Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
@@ -34,7 +50,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
 
         public override IRenderable Clone()
         {
-            return new SkillOption(DefaultColor, Action);
+            return new ActionOption(DefaultColor, Action);
         }
     }
 }

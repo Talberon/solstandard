@@ -8,7 +8,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -660,7 +659,6 @@ namespace SolStandard.Entity.Unit
                     "Spoils",
                     new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
                     MapEntity.MapCoordinates,
-                    new Dictionary<string, string>(),
                     CurrentGold,
                     new List<IItem>(Inventory)
                 );

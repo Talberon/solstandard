@@ -8,7 +8,7 @@ namespace SolStandard.HUD.Menu.Options
     public abstract class MenuOption : IRenderable
     {
         public Color DefaultColor { get; set; }
-        protected IRenderable LabelContent;
+        protected IRenderable LabelContent { get; set; }
         private Window.Window optionWindow;
 
         protected MenuOption(IRenderable labelContent, Color color)
@@ -25,6 +25,11 @@ namespace SolStandard.HUD.Menu.Options
                 DefaultColor,
                 HorizontalAlignment.Left
             );
+        }
+
+        public virtual void Refresh()
+        {
+            optionWindow = BuildOptionWindow();
         }
 
         public abstract void Execute();

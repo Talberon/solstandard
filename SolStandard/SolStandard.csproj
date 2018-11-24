@@ -104,8 +104,10 @@
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
+    <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
@@ -154,7 +156,7 @@
     <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
-    <Compile Include="HUD\Menu\Options\ActionMenu\SkillOption.cs" />
+    <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
@@ -253,6 +255,7 @@
     <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
+    <Compile Include="Utility\Events\TransferUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
     <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
