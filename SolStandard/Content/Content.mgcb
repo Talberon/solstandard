@@ -2203,6 +2203,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Small/Monarch.png
 
+#begin Graphics/Images/Portraits/Creep/Large/Merchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Large/Merchant.png
+
 #begin Graphics/Images/Portraits/Creep/Large/Orc.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2239,6 +2251,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Large/Troll.png
 
+#begin Graphics/Images/Portraits/Creep/Medium/Merchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Medium/Merchant.png
+
 #begin Graphics/Images/Portraits/Creep/Medium/Orc.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2274,6 +2298,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Medium/Troll.png
+
+#begin Graphics/Images/Portraits/Creep/Small/Merchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Small/Merchant.png
 
 #begin Graphics/Images/Portraits/Creep/Small/Orc.png
 /importer:TextureImporter
@@ -2718,6 +2754,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueMonarch.png
+
+#begin Graphics/Map/Units/Creep/CreepMerchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepMerchant.png
 
 #begin Graphics/Map/Units/Creep/CreepOrc.png
 /importer:TextureImporter

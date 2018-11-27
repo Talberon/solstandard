@@ -29,7 +29,8 @@ namespace SolStandard.Entity.Unit
         Monarch,
         Slime,
         Troll,
-        Orc
+        Orc,
+        Merchant
     }
 
     public enum Team

@@ -15,8 +15,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
     public class RoamingRoutine : UnitAction, IRoutine
     {
         private readonly bool independent;
+        private readonly bool aggressive;
 
-        public RoamingRoutine(bool independent = false)
+        public RoamingRoutine(bool independent = false, bool aggressive = true)
             : base(
                 icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
                 name: "Roaming Routine",
@@ -26,6 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             )
         {
             this.independent = independent;
+            this.aggressive = aggressive;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -37,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             Queue<IEvent> aiEventQueue = new Queue<IEvent>();
             aiEventQueue.Enqueue(new WaitFramesEvent(60));
 
-            if (targetsInRange.Count > 0)
+            if (targetsInRange.Count > 0 && aggressive)
             {
                 GameUnit targetUnit = targetsInRange[GameDriver.Random.Next(targetsInRange.Count)];
 

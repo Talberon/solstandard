@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit
 
         private enum Routine
         {
-            Roam
+            Roam,
+            Wander
         }
 
         private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
@@ -36,12 +37,14 @@ namespace SolStandard.Entity.Unit
             {"Monarch", Role.Monarch},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
-            {"Orc", Role.Orc}
+            {"Orc", Role.Orc},
+            {"Merchant", Role.Merchant}
         };
 
         private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
         {
-            {"Roam", Routine.Roam}
+            {"Roam", Routine.Roam},
+            {"Wander", Routine.Wander}
         };
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
@@ -107,6 +110,10 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectOrcStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
+                case Role.Merchant:
+                    unitStats = SelectMerchantStats();
+                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
@@ -133,6 +140,9 @@ namespace SolStandard.Entity.Unit
                 case Role.Orc:
                     generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
                     break;
+                case Role.Merchant:
+                    generatedUnit.CurrentGold += 30 + GameDriver.Random.Next(8);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -140,10 +150,14 @@ namespace SolStandard.Entity.Unit
             if (generatedUnit.Team == Team.Creep)
             {
                 string itemName = mapEntity.TiledProperties["Item"];
-
                 if (itemName != string.Empty)
                 {
-                    generatedUnit.AddItemToInventory(loot.Find(item => item.Name == itemName));
+                    string[] unitInventory = itemName.Split('|');
+
+                    foreach (string unitItem in unitInventory)
+                    {
+                        generatedUnit.AddItemToInventory(loot.Find(item => item.Name == unitItem));
+                    }
                 }
             }
 
@@ -183,6 +197,11 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectOrcStats()
         {
             return new UnitStatistics(15, 0, 5, 4, 0, 4, new[] {1});
+        }
+
+        private static UnitStatistics SelectMerchantStats()
+        {
+            return new UnitStatistics(20, 15, 5, 8, 3, 6, new[] {1});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -249,6 +268,9 @@ namespace SolStandard.Entity.Unit
             {
                 case Routine.Roam:
                     actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"])));
+                    break;
+                case Routine.Wander:
+                    actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"]), false));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
