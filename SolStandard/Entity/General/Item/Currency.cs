@@ -25,6 +25,11 @@ namespace SolStandard.Entity.General.Item
             InteractRange = range;
         }
 
+        public static IRenderable GoldIcon(Vector2 size)
+        {
+            return new SpriteAtlas(AssetManager.GoldIcon, size);
+        }
+
         public List<UnitAction> TileActions()
         {
             return new List<UnitAction>

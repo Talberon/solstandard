@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions
         public int Value { get; private set; }
 
         public DropGiveGoldAction(int value = 0) : base(
-            icon: new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+            icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
             description: "Drop " + value + Currency.CurrencyAbbreviation +
                          " on an empty item tile or give it to an ally.",

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map.Elements;
+using SolStandard.Utility;
 
 namespace SolStandard.Entity.Unit
 {
@@ -52,7 +53,9 @@ namespace SolStandard.Entity.Unit
         public List<UnitAction> TileActions()
         {
             //TODO Introduce contextual actions for proximity to certain units
-            return new List<UnitAction>();
+            
+            GameUnit thisUnit = UnitSelector.SelectUnit(this);
+            return thisUnit.ContextualActions;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)

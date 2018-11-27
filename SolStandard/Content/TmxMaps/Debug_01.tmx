@@ -2174,23 +2174,23 @@
     <property name="HP" type="int" value="3"/>
    </properties>
   </object>
-  <object id="792" name="Blink Bone" type="Blink" gid="424" x="640" y="288" width="32" height="32"/>
-  <object id="791" name="Wand" type="Weapon" gid="451" x="640" y="256" width="32" height="32">
+  <object id="792" name="Blink Bone" type="Blink" gid="424" x="768" y="160" width="32" height="32"/>
+  <object id="791" name="Wand" type="Weapon" gid="451" x="768" y="128" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="luckModifier" type="int" value="0"/>
-    <property name="usesRemaining" type="int" value="0"/>
+    <property name="usesRemaining" type="int" value="3"/>
    </properties>
   </object>
-  <object id="790" name="Hammer" type="Weapon" gid="425" x="672" y="288" width="32" height="32">
+  <object id="790" name="Hammer" type="Weapon" gid="425" x="800" y="160" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="-2"/>
-    <property name="usesRemaining" type="int" value="0"/>
+    <property name="usesRemaining" type="int" value="3"/>
    </properties>
   </object>
-  <object id="794" name="Mega Potion" type="HP Potion" gid="395" x="672" y="256" width="32" height="32">
+  <object id="794" name="Mega Potion" type="HP Potion" gid="395" x="800" y="128" width="32" height="32">
    <properties>
     <property name="hpHealed" type="int" value="8"/>
    </properties>
@@ -2362,7 +2362,7 @@
     <property name="Item" value="Chest LK1 Key"/>
    </properties>
   </object>
-  <object id="804" name="Merchant" type="Creep" gid="488" x="640" y="320" width="32" height="32">
+  <object id="804" name="Merchant" type="Creep" gid="488" x="512" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Merchant"/>
     <property name="Independent" type="bool" value="true"/>

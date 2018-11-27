@@ -121,32 +121,6 @@ namespace SolStandard.Entity.Unit
             GameUnit generatedUnit = new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait,
                 mediumPortrait, smallPortrait, unitSkills);
 
-            switch (generatedUnit.Role)
-            {
-                case Role.Champion:
-                    break;
-                case Role.Archer:
-                    break;
-                case Role.Mage:
-                    break;
-                case Role.Monarch:
-                    break;
-                case Role.Slime:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Troll:
-                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Orc:
-                    generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Merchant:
-                    generatedUnit.CurrentGold += 30 + GameDriver.Random.Next(8);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
             if (generatedUnit.Team == Team.Creep)
             {
                 string itemName = mapEntity.TiledProperties["Item"];
@@ -159,6 +133,34 @@ namespace SolStandard.Entity.Unit
                         generatedUnit.AddItemToInventory(loot.Find(item => item.Name == unitItem));
                     }
                 }
+            }
+
+            switch (generatedUnit.Role)
+            {
+                case Role.Champion:
+                    break;
+                case Role.Archer:
+                    break;
+                case Role.Mage:
+                    break;
+                case Role.Monarch: 
+                    break;
+                case Role.Slime:
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
+                    break;
+                case Role.Troll:
+                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(5);
+                    break;
+                case Role.Orc:
+                    generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Merchant:
+                    generatedUnit.CurrentGold += 30 + GameDriver.Random.Next(8);
+                    //TODO Implement BuyItemAction and add Price property to Merchant Creep
+                    generatedUnit.Inventory.ForEach(item => generatedUnit.AddContextualAction(new BuyItemAction(item, 5)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             return generatedUnit;

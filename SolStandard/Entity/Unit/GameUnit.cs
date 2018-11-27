@@ -65,6 +65,7 @@ namespace SolStandard.Entity.Unit
 
         public List<UnitAction> Actions { get; private set; }
         public List<UnitAction> InventoryActions { get; private set; }
+        public List<UnitAction> ContextualActions { get; private set; }
         private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
@@ -83,6 +84,7 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Actions = actions;
             InventoryActions = new List<UnitAction>();
+            ContextualActions = new List<UnitAction>();
             this.largePortrait =
                 new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
             this.mediumPortrait =
@@ -398,6 +400,12 @@ namespace SolStandard.Entity.Unit
             }
         }
 
+
+        public void AddContextualAction(UnitAction action)
+        {
+            ContextualActions.Add(action);
+        }
+
         public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
         {
             return GetMapSprite(size, Color.White, animation);
@@ -707,7 +715,5 @@ namespace SolStandard.Entity.Unit
                 }
             }
         }
-
-
     }
 }
