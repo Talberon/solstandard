@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public BuyItemAction(IItem item, int price) : base(
             icon: item.Icon,
-            name: "Purchase: " + item.Name + " " + price + Currency.CurrencyAbbreviation,
+            name: "Purchase " + item.Name + ": " + price + Currency.CurrencyAbbreviation,
             description: "Effect:" + Environment.NewLine + item.UseAction().Description,
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1}
@@ -67,13 +67,13 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 }
                 else
                 {
-                    GameContext.MapSelectContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can not afford item!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.MapSelectContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

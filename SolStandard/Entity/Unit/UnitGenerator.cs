@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Monarch;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -123,16 +125,7 @@ namespace SolStandard.Entity.Unit
 
             if (generatedUnit.Team == Team.Creep)
             {
-                string itemName = mapEntity.TiledProperties["Item"];
-                if (itemName != string.Empty)
-                {
-                    string[] unitInventory = itemName.Split('|');
-
-                    foreach (string unitItem in unitInventory)
-                    {
-                        generatedUnit.AddItemToInventory(loot.Find(item => item.Name == unitItem));
-                    }
-                }
+                PopulateUnitInventoryAndTradeActions(mapEntity, loot, generatedUnit);
             }
 
             switch (generatedUnit.Role)
@@ -143,7 +136,7 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Mage:
                     break;
-                case Role.Monarch: 
+                case Role.Monarch:
                     break;
                 case Role.Slime:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
@@ -156,14 +149,48 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Merchant:
                     generatedUnit.CurrentGold += 30 + GameDriver.Random.Next(8);
-                    //TODO Implement BuyItemAction and add Price property to Merchant Creep
-                    generatedUnit.Inventory.ForEach(item => generatedUnit.AddContextualAction(new BuyItemAction(item, 5)));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             return generatedUnit;
+        }
+
+        private static void PopulateUnitInventoryAndTradeActions(MapEntity mapEntity, List<IItem> loot,
+            GameUnit generatedUnit)
+        {
+            string itemNameProp = mapEntity.TiledProperties["Item"];
+            if (itemNameProp == string.Empty) return;
+            string[] unitInventory = itemNameProp.Split('|');
+
+
+            string itemPricesProp = mapEntity.TiledProperties["ItemPrice"];
+            int[] itemPrices = (itemPricesProp != string.Empty)
+                ? itemPricesProp.Split('|').Select(int.Parse).ToArray()
+                : new int[0];
+
+            for (int i = 0; i < unitInventory.Length; i++)
+            {
+                IItem unitItem = loot.Find(item => item.Name == unitInventory[i]);
+
+                generatedUnit.AddItemToInventory(unitItem);
+
+                if (UnitHasItemsToTrade(mapEntity, itemPrices))
+                {
+                    int itemPrice = itemPrices[i];
+
+                    if (itemPrice > 0)
+                    {
+                        generatedUnit.AddContextualAction(new BuyItemAction(unitItem, itemPrices[i]));
+                    }
+                }
+            }
+        }
+
+        private static bool UnitHasItemsToTrade(MapEntity mapEntity, int[] itemPrices)
+        {
+            return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Length > 0;
         }
 
         private static UnitStatistics SelectArcherStats()

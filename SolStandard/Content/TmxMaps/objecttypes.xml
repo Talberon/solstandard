@@ -41,8 +41,10 @@
   <property name="Class" type="string"/>
   <property name="Independent" type="bool" default="false"/>
   <property name="Item" type="string"/>
+  <property name="ItemPrice" type="string"/>
   <property name="Routine" type="string" default="Roam"/>
   <property name="Team" type="string" default="Creep"/>
+  <property name="WillTrade" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
