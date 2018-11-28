@@ -106,19 +106,22 @@ namespace SolStandard.Containers.Contexts
 
             TriggerEffectTilesTurnStart();
 
-            if (!GameContext.Units.TrueForAll(unit => unit.Stats.CurrentHP <= 0))
+            if (NotEveryUnitIsDead())
             {
                 EndTurnIfUnitIsDead();
             }
 
             GameContext.StatusScreenView.UpdateWindows();
 
-            AssetManager.MapUnitSelectSFX.Play();
-
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
                 ExecuteAIActions();
             }
+        }
+
+        private static bool NotEveryUnitIsDead()
+        {
+            return !GameContext.Units.TrueForAll(unit => unit.Stats.CurrentHP <= 0);
         }
 
         private void UpdateTurnCounters()
@@ -181,7 +184,6 @@ namespace SolStandard.Containers.Contexts
             {
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
                 MapContainer.MapCamera.CenterCameraToCursor();
-                AssetManager.MapUnitCancelSFX.Play();
             }
         }
 
@@ -414,7 +416,7 @@ namespace SolStandard.Containers.Contexts
         {
             GameMapView.CurrentMenu.CurrentOption.Refresh();
         }
-        
+
         public void IncrementCurrentAdjustableAction(int value)
         {
             IIncrementableAction incrementableAction = CurrentIncrementableAction();

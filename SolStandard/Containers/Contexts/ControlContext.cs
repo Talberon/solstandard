@@ -221,6 +221,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.X, PressType.Single))
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
+                AssetManager.MapUnitCancelSFX.Play();
             }
 
             CameraControl(controlMapper);
@@ -366,6 +367,7 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
                 GameContext.MapCamera.CenterCameraToCursor();
+                AssetManager.MapUnitCancelSFX.Play();
             }
 
             CameraControl(controlMapper);
@@ -394,6 +396,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 GameContext.GameMapContext.ResolveTurn();
+                AssetManager.MapUnitSelectSFX.Play();
             }
         }
     }

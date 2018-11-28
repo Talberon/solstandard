@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="549">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="550">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1836,7 +1836,6 @@
    <properties>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="valueTaxes" type="int" value="100"/>
    </properties>
   </object>
   <object id="536" name="Dungeon" type="SelectMap" gid="289" x="416" y="608" width="32" height="32">
@@ -1920,6 +1919,14 @@
     <property name="mapFileName" value="Forest_01.tmx"/>
     <property name="mapSong" value="SnowyMountainTheme"/>
     <property name="modeSeize" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="549" name="Assault on Cobalt Keep" type="SelectMap" gid="289" x="672" y="384" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Grassland_02.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
