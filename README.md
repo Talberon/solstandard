@@ -11,8 +11,8 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 #### Merchant
 ![Merchant](https://i.imgur.com/Z8prGJw.gif)
 
-#### Combat + AI Units
-![Orc AI Unit](https://imgur.com/gUMVZao.gif)
+#### Combat + Weapon Items
+![Combat](https://imgur.com/hoV5xwB.gif)
 
 #### Items
 ![Items](https://imgur.com/eMaxPL4.gif)
