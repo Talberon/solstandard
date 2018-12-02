@@ -57,6 +57,11 @@ namespace SolStandard.Entity.General.Item
             return new DropGiveItemAction(this);
         }
 
+        public IItem Duplicate()
+        {
+            return new HealthPotion(Name, Type, Sprite, MapCoordinates, InteractRange, HPHealed);
+        }
+
         public override IRenderable TerrainInfo
         {
             get

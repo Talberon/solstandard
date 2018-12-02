@@ -54,6 +54,11 @@ namespace SolStandard.Entity.General.Item
             return new DropGiveItemAction(this);
         }
 
+        public IItem Duplicate()
+        {
+            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining);
+        }
+
         public override IRenderable TerrainInfo
         {
             get

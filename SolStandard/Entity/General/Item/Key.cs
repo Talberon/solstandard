@@ -51,6 +51,11 @@ namespace SolStandard.Entity.General.Item
             return new DropGiveItemAction(this);
         }
 
+        public IItem Duplicate()
+        {
+            return new Key(Name, Type, Sprite, MapCoordinates, TiledProperties, UsedWith, InteractRange);
+        }
+
         public override IRenderable TerrainInfo
         {
             get

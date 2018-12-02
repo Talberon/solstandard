@@ -63,6 +63,11 @@ namespace SolStandard.Entity.General.Item
             return new DropGiveItemAction(this);
         }
 
+        public IItem Duplicate()
+        {
+            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString(), statModifier, buffDuration);
+        }
+
         public override IRenderable TerrainInfo
         {
             get

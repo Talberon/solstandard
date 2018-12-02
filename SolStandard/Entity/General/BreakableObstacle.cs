@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        private int hp;
+        public int HP { get; private set; }
         public bool IsBroken { get; private set; }
         private int gold;
         private readonly List<IItem> items;
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General
             Dictionary<string, string> tiledProperties, int hp, bool canMove, bool isBroken, int gold,
             IItem item = null) : base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.hp = hp;
+            HP = hp;
             CanMove = canMove;
             IsBroken = isBroken;
             this.gold = gold;
@@ -33,13 +33,13 @@ namespace SolStandard.Entity.General
 
         public void DealDamage(int damage)
         {
-            hp -= damage;
+            HP -= damage;
             AssetManager.CombatDamageSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 Name + " takes " + damage + " damage!",
                 MapCoordinates, 50);
 
-            if (hp > 0) return;
+            if (HP > 0) return;
 
             DropSpoils();
             AssetManager.CombatDeathSFX.Play();
@@ -113,7 +113,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: " + hp)
+                            new RenderText(AssetManager.WindowFont, "HP: " + HP)
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),

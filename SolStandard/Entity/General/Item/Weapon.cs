@@ -52,6 +52,12 @@ namespace SolStandard.Entity.General.Item
             return new DropGiveItemAction(this);
         }
 
+        public IItem Duplicate()
+        {
+            return new Weapon(Name, Type, Sprite, MapCoordinates, InteractRange, WeaponStatistics.AtkValue,
+                WeaponStatistics.LuckModifier, WeaponStatistics.AtkRange, WeaponStatistics.UsesRemaining);
+        }
+
         public override IRenderable TerrainInfo
         {
             get
