@@ -9,7 +9,7 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 ### Gameplay Samples
 
 #### Combat
-![Combat](https://imgur.com/Cmtkibi.gif)
+![Combat](https://imgur.com/vDSxbhr.gif)
 
 #### Merchant
 ![Merchant](https://i.imgur.com/Z8prGJw.gif)
