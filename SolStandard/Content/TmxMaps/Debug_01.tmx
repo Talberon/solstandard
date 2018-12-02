@@ -2231,15 +2231,10 @@
   </object>
   <object id="644" name="Treasure" type="Currency" gid="415" x="352" y="288" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="10"/>
-   </properties>
-  </object>
-  <object id="645" name="Treasure" type="Currency" gid="429" x="320" y="288" width="32" height="32">
-   <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="646" name="Treasure" type="Currency" gid="386" x="512" y="288" width="32" height="32">
+  <object id="646" name="Treasure" type="Currency" gid="386" x="640" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="100"/>
    </properties>
@@ -2251,7 +2246,7 @@
   </object>
   <object id="648" name="Treasure" type="Currency" gid="414" x="416" y="288" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="25"/>
+    <property name="value" type="int" value="20"/>
    </properties>
   </object>
   <object id="649" name="Treasure" type="Currency" gid="417" x="448" y="288" width="32" height="32">
@@ -2261,7 +2256,7 @@
   </object>
   <object id="650" name="Treasure" type="Currency" gid="416" x="384" y="288" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="20"/>
+    <property name="value" type="int" value="10"/>
    </properties>
   </object>
   <object id="785" name="Axe" type="Weapon" gid="432" x="448" y="576" width="32" height="32">

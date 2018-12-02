@@ -148,7 +148,7 @@ namespace SolStandard.Entity.Unit
                     generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
                     break;
                 case Role.Merchant:
-                    generatedUnit.CurrentGold += 30 + GameDriver.Random.Next(8);
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -230,7 +230,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMerchantStats()
         {
-            return new UnitStatistics(20, 15, 5, 8, 3, 6, new[] {1});
+            return new UnitStatistics(20, 15, 5, 8, 3, 6, new[] {1, 2});
         }
 
         private static List<UnitAction> SelectArcherSkills()
