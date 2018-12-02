@@ -8,14 +8,14 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 
 ### Gameplay Samples
 
+#### Merchant
+![Merchant](https://i.imgur.com/Z8prGJw.gif)
+
 #### Combat + AI Units
-![Orc AI Unit](https://imgur.com/U4zVDMf.gif)
+![Orc AI Unit](https://imgur.com/gUMVZao.gif)
 
 #### Items
 ![Items](https://imgur.com/eMaxPL4.gif)
-
-#### Interactable Objects
-![Pushable Blocks](https://imgur.com/dpexLcv.gif)
 
 ## A Note About Art Assets
 Art assets are amalgamated from a variety of self-made, public domain and paid resources, so none of the art/sound assets are included in this repository for redistribution.
