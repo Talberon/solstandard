@@ -8,11 +8,11 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 
 ### Gameplay Samples
 
+#### Combat
+![Combat](https://imgur.com/Cmtkibi.gif)
+
 #### Merchant
 ![Merchant](https://i.imgur.com/Z8prGJw.gif)
-
-#### Combat + Weapon Items
-![Combat](https://imgur.com/hoV5xwB.gif)
 
 #### Items
 ![Items](https://imgur.com/eMaxPL4.gif)
