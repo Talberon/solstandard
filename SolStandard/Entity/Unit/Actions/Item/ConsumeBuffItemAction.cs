@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         public ConsumeBuffItemAction(IConsumable item, Stats statistic, int statModifier, int buffDuration,
             int[] range) : base(
             icon: item.Icon,
-            name: "Recover HP: " + item.Name,
+            name: "Consume: " + item.Name,
             description: string.Format("Single use. Target modifies {0} by [{1}] for [{2}] turns.",
                 UnitStatistics.Abbreviation[statistic], statModifier, buffDuration),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

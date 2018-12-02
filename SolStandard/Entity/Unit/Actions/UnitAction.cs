@@ -12,8 +12,8 @@ namespace SolStandard.Entity.Unit.Actions
     public abstract class UnitAction
     {
         public IRenderable Icon { get; private set; }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; protected set; }
 

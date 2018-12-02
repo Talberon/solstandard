@@ -101,11 +101,14 @@
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
+    <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
@@ -126,7 +129,7 @@
     <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
     <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\DropItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PushBlockAction.cs" />
@@ -154,7 +157,7 @@
     <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
-    <Compile Include="HUD\Menu\Options\ActionMenu\SkillOption.cs" />
+    <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
@@ -253,6 +256,8 @@
     <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
     <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
+    <Compile Include="Utility\Events\TransferUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
     <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
@@ -265,6 +270,7 @@
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
+    <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
@@ -346,6 +352,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Beach_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Castle_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -386,6 +395,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Grassland_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_02.tmx">

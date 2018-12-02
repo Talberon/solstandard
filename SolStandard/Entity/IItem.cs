@@ -10,5 +10,6 @@ namespace SolStandard.Entity
         string Name { get; }
         UnitAction UseAction();
         UnitAction DropAction();
+        IItem Duplicate();
     }
 }

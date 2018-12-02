@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
@@ -105,19 +106,22 @@ namespace SolStandard.Containers.Contexts
 
             TriggerEffectTilesTurnStart();
 
-            if (!GameContext.Units.TrueForAll(unit => unit.Stats.CurrentHP <= 0))
+            if (NotEveryUnitIsDead())
             {
                 EndTurnIfUnitIsDead();
             }
 
             GameContext.StatusScreenView.UpdateWindows();
 
-            AssetManager.MapUnitSelectSFX.Play();
-
             if (GameContext.ActiveUnit.UnitEntity != null)
             {
                 ExecuteAIActions();
             }
+        }
+
+        private static bool NotEveryUnitIsDead()
+        {
+            return !GameContext.Units.TrueForAll(unit => unit.Stats.CurrentHP <= 0);
         }
 
         private void UpdateTurnCounters()
@@ -180,7 +184,6 @@ namespace SolStandard.Containers.Contexts
             {
                 MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
                 MapContainer.MapCamera.CenterCameraToCursor();
-                AssetManager.MapUnitCancelSFX.Play();
             }
         }
 
@@ -409,6 +412,30 @@ namespace SolStandard.Containers.Contexts
             AssetManager.MapUnitSelectSFX.Play();
         }
 
+        public void RefreshCurrentActionMenuOption()
+        {
+            GameMapView.CurrentMenu.CurrentOption.Refresh();
+        }
+
+        public void IncrementCurrentAdjustableAction(int value)
+        {
+            IIncrementableAction incrementableAction = CurrentIncrementableAction();
+            if (incrementableAction != null) incrementableAction.Increment(value);
+        }
+
+        public void DecrementCurrentAdjustableAction(int value)
+        {
+            IIncrementableAction incrementableAction = CurrentIncrementableAction();
+            if (incrementableAction != null) incrementableAction.Decrement(value);
+        }
+
+        private static IIncrementableAction CurrentIncrementableAction()
+        {
+            ActionOption currentActionOption = GameMapView.CurrentMenu.CurrentOption as ActionOption;
+            if (currentActionOption == null) return null;
+            return currentActionOption.Action as IIncrementableAction;
+        }
+
         public void ExecuteAIActions()
         {
             GameContext.ActiveUnit.ExecuteRoutines();
@@ -466,10 +493,10 @@ namespace SolStandard.Containers.Contexts
         private static void GenerateActionPreviewGrid()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            SkillOption skillOption = GameMapView.CurrentMenu.CurrentOption as SkillOption;
-            if (skillOption != null)
+            ActionOption actionOption = GameMapView.CurrentMenu.CurrentOption as ActionOption;
+            if (actionOption != null)
             {
-                skillOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
+                actionOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
         }
     }

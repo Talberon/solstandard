@@ -35,10 +35,13 @@ namespace SolStandard.Entity.General.Item
         {
             get { return Sprite; }
         }
-
-        public UnitAction TileAction()
+        
+        public List<UnitAction> TileActions()
         {
-            return new PickUpItemAction(this, MapCoordinates);
+            return new List<UnitAction>
+            {
+                new PickUpItemAction(this, MapCoordinates)
+            };
         }
 
         public UnitAction UseAction()
@@ -48,7 +51,12 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction DropAction()
         {
-            return new DropItemAction(this);
+            return new DropGiveItemAction(this);
+        }
+
+        public IItem Duplicate()
+        {
+            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining);
         }
 
         public override IRenderable TerrainInfo

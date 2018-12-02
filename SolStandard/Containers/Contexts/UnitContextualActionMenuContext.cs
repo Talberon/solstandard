@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Contexts
             MenuOption[] options = new MenuOption[_contextualActions.Count];
             for (int i = 0; i < _contextualActions.Count; i++)
             {
-                options[i] = new SkillOption(windowColour, _contextualActions[i]);
+                options[i] = new ActionOption(windowColour, _contextualActions[i]);
             }
 
             return options;
@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts
 
         public static string GetActionDescriptionAtIndex(VerticalMenu actionMenu)
         {
-            SkillOption action = actionMenu.CurrentOption as SkillOption;
+            ActionOption action = actionMenu.CurrentOption as ActionOption;
             if (action != null)
             {
                 return action.Action.Description;
@@ -50,10 +50,10 @@ namespace SolStandard.Containers.Contexts
 
             for (int i = 0; i < GameContext.ActiveUnit.InventoryActions.Count; i++)
             {
-                options[i] = new SkillOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
+                options[i] = new ActionOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
             }
 
-            options[GameContext.ActiveUnit.InventoryActions.Count] = new SkillOption(windowColour, new Wait());
+            options[GameContext.ActiveUnit.InventoryActions.Count] = new ActionOption(windowColour, new Wait());
 
             return options;
         }
@@ -83,6 +83,9 @@ namespace SolStandard.Containers.Contexts
 
                 IActionTile itemActionTile = slice.ItemEntity as IActionTile;
                 AddEntityAction(itemActionTile, distanceTiles, contextualSkills);
+
+                IActionTile unitActionTile = slice.UnitEntity;
+                AddEntityAction(unitActionTile, distanceTiles, contextualSkills);
             }
 
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -103,7 +106,7 @@ namespace SolStandard.Containers.Contexts
                     if (distanceTile.MapCoordinates != entityActionTile.MapCoordinates) continue;
                     if (distanceTile.Distance == range)
                     {
-                        contextualSkills.Add(entityActionTile.TileAction());
+                        contextualSkills.AddRange(entityActionTile.TileActions());
                     }
                 }
             }

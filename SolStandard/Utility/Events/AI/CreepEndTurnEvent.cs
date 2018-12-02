@@ -1,6 +1,7 @@
 ﻿using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.AI
 {
@@ -18,6 +19,7 @@ namespace SolStandard.Utility.Events.AI
             }
 
             GameContext.GameMapContext.ResolveTurn();
+            AssetManager.MapUnitCancelSFX.Play();
             Complete = true;
         }
     }

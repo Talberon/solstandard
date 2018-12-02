@@ -18,10 +18,12 @@ namespace SolStandard.Entity.General
             CanMove = false;
             InteractRange = new[] {1};
         }
-
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new PushBlockAction(this, MapCoordinates);
+            return new List<UnitAction>
+            {
+                new PushBlockAction(this, MapCoordinates)
+            };
         }
     }
 }

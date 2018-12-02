@@ -141,13 +141,13 @@ namespace SolStandard.Containers.View
 
         private static IRenderable[,] LeaderContent(GameUnit leader)
         {
-            IRenderable[,] redLeaderContent =
+            IRenderable[,] leaderContent =
             {
                 {
                     leader.LargePortrait
                 },
             };
-            return redLeaderContent;
+            return leaderContent;
         }
 
 

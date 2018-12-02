@@ -5,7 +5,7 @@ namespace SolStandard.Entity.General.Item
 {
     public class WeaponStatistics
     {
-        private int UsesRemaining { get; set; }
+        public int UsesRemaining { get; private set; }
         public int AtkValue { get; private set; }
         public int LuckModifier { get; private set; }
         public int[] AtkRange { get; private set; }

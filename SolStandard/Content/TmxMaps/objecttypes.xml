@@ -41,8 +41,10 @@
   <property name="Class" type="string"/>
   <property name="Independent" type="bool" default="false"/>
   <property name="Item" type="string"/>
+  <property name="ItemPrice" type="string"/>
   <property name="Routine" type="string" default="Roam"/>
   <property name="Team" type="string" default="Creep"/>
+  <property name="WillTrade" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
@@ -119,7 +121,7 @@
   <property name="atkRange" type="string" default="1"/>
   <property name="atkValue" type="int" default="0"/>
   <property name="luckModifier" type="int" default="0"/>
-  <property name="pickupRange" type="string" default="0,1"/>
+  <property name="pickupRange" type="string" default="0"/>
   <property name="usesRemaining" type="int" default="10"/>
  </objecttype>
 </objecttypes>

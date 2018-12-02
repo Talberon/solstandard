@@ -16,18 +16,21 @@ namespace SolStandard.Entity.General.Item
         public List<IItem> Items { get; private set; }
         public int[] InteractRange { get; private set; }
 
-        public Spoils(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, int gold, List<IItem> items) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Spoils(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int gold,
+            List<IItem> items) :
+            base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             Gold = gold;
             Items = items;
             InteractRange = new[] {0, 1};
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new TakeSpoilsAction(this);
+            return new List<UnitAction>
+            {
+                new TakeSpoilsAction(this)
+            };
         }
 
         public override IRenderable TerrainInfo

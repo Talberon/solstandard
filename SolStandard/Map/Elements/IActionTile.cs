@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 
 namespace SolStandard.Map.Elements
@@ -7,6 +8,6 @@ namespace SolStandard.Map.Elements
     {
         int[] InteractRange { get; }
         Vector2 MapCoordinates { get; }
-        UnitAction TileAction();
+        List<UnitAction> TileActions();
     }
 }

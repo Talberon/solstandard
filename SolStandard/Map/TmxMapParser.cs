@@ -277,6 +277,7 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["gold"]),
                                             (currentProperties["item"] != string.Empty)
                                                 ? mapLoot.Single(item => item.Name == currentProperties["item"])
+                                                    .Duplicate()
                                                 : null
                                         );
                                         break;
@@ -307,6 +308,7 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0, 5),
                                             (currentProperties["item"] != string.Empty)
                                                 ? mapLoot.Single(item => item.Name == currentProperties["item"])
+                                                    .Duplicate()
                                                 : null
                                         );
                                         break;

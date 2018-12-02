@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        protected int HP;
+        public int HP { get; private set; }
         public bool IsBroken { get; private set; }
         private int gold;
         private readonly List<IItem> items;
@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General
             Dictionary<string, string> tiledProperties, int hp, bool canMove, bool isBroken, int gold,
             IItem item = null) : base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.HP = hp;
+            HP = hp;
             CanMove = canMove;
             IsBroken = isBroken;
             this.gold = gold;
@@ -92,7 +92,6 @@ namespace SolStandard.Entity.General
                     "Spoils",
                     new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
                     MapCoordinates,
-                    new Dictionary<string, string>(),
                     gold,
                     new List<IItem>(items)
                 );

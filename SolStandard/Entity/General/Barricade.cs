@@ -7,7 +7,7 @@ namespace SolStandard.Entity.General
 {
     public class Barricade : BreakableObstacle, IItem
     {
-        public Barricade(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp) : 
+        public Barricade(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp) :
             base(name, type, sprite, mapCoordinates, new Dictionary<string, string>(), hp, false, hp < 1, 0)
         {
         }
@@ -24,7 +24,12 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new Wait();
+            return new DeployBarricadeAction(this);
+        }
+
+        public IItem Duplicate()
+        {
+            return new Barricade(Name, Type, Sprite, MapCoordinates, HP);
         }
     }
 }

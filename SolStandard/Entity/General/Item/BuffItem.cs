@@ -45,9 +45,12 @@ namespace SolStandard.Entity.General.Item
             GameContext.ActiveUnit.RemoveItemFromInventory(this);
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
-            return new PickUpItemAction(this, MapCoordinates);
+            return new List<UnitAction>
+            {
+                new PickUpItemAction(this, MapCoordinates)
+            };
         }
 
         public UnitAction UseAction()
@@ -57,7 +60,12 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction DropAction()
         {
-            return new DropItemAction(this);
+            return new DropGiveItemAction(this);
+        }
+
+        public IItem Duplicate()
+        {
+            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString(), statModifier, buffDuration);
         }
 
         public override IRenderable TerrainInfo

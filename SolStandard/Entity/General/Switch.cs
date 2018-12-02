@@ -29,10 +29,13 @@ namespace SolStandard.Entity.General
             active = false;
         }
 
-        public UnitAction TileAction()
+        public List<UnitAction> TileActions()
         {
             List<ITriggerable> targetTriggerables = FindTriggerables();
-            return new ToggleSwitchAction(this, targetTriggerables);
+            return new List<UnitAction>
+            {
+                new ToggleSwitchAction(this, targetTriggerables)
+            };
         }
 
         private List<ITriggerable> FindTriggerables()

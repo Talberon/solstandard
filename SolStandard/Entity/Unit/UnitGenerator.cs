@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Monarch;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -18,7 +20,8 @@ namespace SolStandard.Entity.Unit
 
         private enum Routine
         {
-            Roam
+            Roam,
+            Wander
         }
 
         private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
@@ -36,12 +39,14 @@ namespace SolStandard.Entity.Unit
             {"Monarch", Role.Monarch},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
-            {"Orc", Role.Orc}
+            {"Orc", Role.Orc},
+            {"Merchant", Role.Merchant}
         };
 
         private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
         {
-            {"Roam", Routine.Roam}
+            {"Roam", Routine.Roam},
+            {"Wander", Routine.Wander}
         };
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
@@ -107,12 +112,21 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectOrcStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
+                case Role.Merchant:
+                    unitStats = SelectMerchantStats();
+                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
             GameUnit generatedUnit = new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait,
                 mediumPortrait, smallPortrait, unitSkills);
+
+            if (generatedUnit.Team == Team.Creep)
+            {
+                PopulateUnitInventoryAndTradeActions(mapEntity, loot, generatedUnit);
+            }
 
             switch (generatedUnit.Role)
             {
@@ -133,21 +147,50 @@ namespace SolStandard.Entity.Unit
                 case Role.Orc:
                     generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
                     break;
+                case Role.Merchant:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (generatedUnit.Team == Team.Creep)
-            {
-                string itemName = mapEntity.TiledProperties["Item"];
+            return generatedUnit;
+        }
 
-                if (itemName != string.Empty)
+        private static void PopulateUnitInventoryAndTradeActions(MapEntity mapEntity, List<IItem> loot,
+            GameUnit generatedUnit)
+        {
+            string itemNameProp = mapEntity.TiledProperties["Item"];
+            if (itemNameProp == string.Empty) return;
+            string[] unitInventory = itemNameProp.Split('|');
+
+
+            string itemPricesProp = mapEntity.TiledProperties["ItemPrice"];
+            int[] itemPrices = (itemPricesProp != string.Empty)
+                ? itemPricesProp.Split('|').Select(int.Parse).ToArray()
+                : new int[0];
+
+            for (int i = 0; i < unitInventory.Length; i++)
+            {
+                IItem unitItem = loot.Find(item => item.Name == unitInventory[i]);
+
+                generatedUnit.AddItemToInventory(unitItem);
+
+                if (UnitHasItemsToTrade(mapEntity, itemPrices))
                 {
-                    generatedUnit.AddItemToInventory(loot.Find(item => item.Name == itemName));
+                    int itemPrice = itemPrices[i];
+
+                    if (itemPrice > 0)
+                    {
+                        generatedUnit.AddContextualAction(new BuyItemAction(unitItem, itemPrices[i]));
+                    }
                 }
             }
+        }
 
-            return generatedUnit;
+        private static bool UnitHasItemsToTrade(MapEntity mapEntity, int[] itemPrices)
+        {
+            return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Length > 0;
         }
 
         private static UnitStatistics SelectArcherStats()
@@ -185,6 +228,11 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(15, 0, 5, 4, 0, 4, new[] {1});
         }
 
+        private static UnitStatistics SelectMerchantStats()
+        {
+            return new UnitStatistics(20, 15, 5, 8, 3, 6, new[] {1, 2});
+        }
+
         private static List<UnitAction> SelectArcherSkills()
         {
             return new List<UnitAction>
@@ -194,6 +242,7 @@ namespace SolStandard.Entity.Unit
                 new HuntingTrap(5, 1),
                 new Harpoon(2),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -208,6 +257,7 @@ namespace SolStandard.Entity.Unit
                 new Shove(),
                 new Atrophy(2, 2),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -221,6 +271,7 @@ namespace SolStandard.Entity.Unit
                 new Inferno(2, 3),
                 new Replace(),
                 new Guard(3),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -233,6 +284,7 @@ namespace SolStandard.Entity.Unit
                 new DoubleTime(2, 1),
                 new Inspire(2, 1),
                 new Bulwark(2, 2),
+                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -245,6 +297,9 @@ namespace SolStandard.Entity.Unit
             {
                 case Routine.Roam:
                     actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"])));
+                    break;
+                case Routine.Wander:
+                    actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"]), false));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -221,6 +221,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.X, PressType.Single))
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
+                AssetManager.MapUnitCancelSFX.Play();
             }
 
             CameraControl(controlMapper);
@@ -303,6 +304,17 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.CancelActionMenu();
             }
+
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                //TODO Decrement current action's value slider (Gold trade, etc.)
+                GameContext.GameMapContext.DecrementCurrentAdjustableAction(1);
+            }
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            {
+                //TODO Increment current action's value slider (Gold trade, etc.)
+                GameContext.GameMapContext.IncrementCurrentAdjustableAction(1);
+            }
         }
 
         private static void PauseMenuControl(GameControlMapper controlMapper)
@@ -355,6 +367,7 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
                 GameContext.MapCamera.CenterCameraToCursor();
+                AssetManager.MapUnitCancelSFX.Play();
             }
 
             CameraControl(controlMapper);
@@ -383,6 +396,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.A, PressType.Single))
             {
                 GameContext.GameMapContext.ResolveTurn();
+                AssetManager.MapUnitSelectSFX.Play();
             }
         }
     }
