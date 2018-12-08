@@ -36,6 +36,7 @@ namespace SolStandard.Entity.Unit
             {"Archer", Role.Archer},
             {"Champion", Role.Champion},
             {"Mage", Role.Mage},
+            {"Lancer", Role.Lancer},
             {"Monarch", Role.Monarch},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
@@ -96,6 +97,10 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectMageStats();
                     unitSkills = SelectMageSkills();
                     break;
+                case Role.Lancer:
+                    unitStats = SelectLancerStats();
+                    unitSkills = SelectLancerSkills();
+                    break;
                 case Role.Monarch:
                     unitStats = SelectMonarchStats();
                     unitSkills = SelectMonarchSkills();
@@ -135,6 +140,8 @@ namespace SolStandard.Entity.Unit
                 case Role.Archer:
                     break;
                 case Role.Mage:
+                    break;
+                case Role.Lancer:
                     break;
                 case Role.Monarch:
                     break;
@@ -207,6 +214,11 @@ namespace SolStandard.Entity.Unit
         {
             return new UnitStatistics(5, 3, 6, 3, 2, 5, new[] {1, 2});
         }
+        
+        private static UnitStatistics SelectLancerStats()
+        {
+            return new UnitStatistics(9, 5, 6, 4, 2, 6, new[] {1});
+        }
 
         private static UnitStatistics SelectMonarchStats()
         {
@@ -270,6 +282,17 @@ namespace SolStandard.Entity.Unit
                 new Ignite(2, 3),
                 new Inferno(2, 3),
                 new Replace(),
+                new Guard(3),
+                new DropGiveGoldAction(),
+                new Wait()
+            };
+        }
+        
+        private static List<UnitAction> SelectLancerSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
                 new Guard(3),
                 new DropGiveGoldAction(),
                 new Wait()

@@ -30,7 +30,8 @@ namespace SolStandard.Entity.Unit
         Slime,
         Troll,
         Orc,
-        Merchant
+        Merchant,
+        Lancer
     }
 
     public enum Team
