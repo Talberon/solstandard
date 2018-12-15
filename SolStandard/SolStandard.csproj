@@ -113,6 +113,8 @@
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\Rend.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
@@ -365,6 +368,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Debug_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Desert_01.tmx">

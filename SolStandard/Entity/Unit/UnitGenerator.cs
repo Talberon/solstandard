@@ -5,6 +5,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
+using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Monarch;
 using SolStandard.Map.Elements;
@@ -214,7 +215,7 @@ namespace SolStandard.Entity.Unit
         {
             return new UnitStatistics(5, 3, 6, 3, 2, 5, new[] {1, 2});
         }
-        
+
         private static UnitStatistics SelectLancerStats()
         {
             return new UnitStatistics(9, 5, 6, 4, 2, 6, new[] {1});
@@ -287,12 +288,14 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
         }
-        
+
         private static List<UnitAction> SelectLancerSkills()
         {
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new Execute(3),
+                new Rend(2, 5),
                 new Guard(3),
                 new DropGiveGoldAction(),
                 new Wait()

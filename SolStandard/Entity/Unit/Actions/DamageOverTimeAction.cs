@@ -15,8 +15,10 @@ namespace SolStandard.Entity.Unit.Actions
     {
         private readonly int damagePerTurn;
         private readonly int duration;
+        private readonly string toastMessage;
 
-        protected DamageOverTimeAction(SkillIcon icon, string name, int duration, int damagePerTurn, int[] range) :
+        protected DamageOverTimeAction(SkillIcon icon, string name, int duration, int damagePerTurn, int[] range,
+            string toastMessage) :
             base(
                 icon: SkillIconProvider.GetSkillIcon(icon, new Vector2(GameDriver.CellSize)),
                 name: name,
@@ -27,6 +29,7 @@ namespace SolStandard.Entity.Unit.Actions
             )
         {
             this.damagePerTurn = damagePerTurn;
+            this.toastMessage = toastMessage;
             this.duration = duration;
         }
 
@@ -41,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit,
-                        new DamageOverTimeStatus(Icon, duration, damagePerTurn, "Burning!"))
+                        new DamageOverTimeStatus(Icon, duration, damagePerTurn, toastMessage))
                 );
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

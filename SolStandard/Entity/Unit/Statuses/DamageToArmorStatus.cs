@@ -13,7 +13,8 @@ namespace SolStandard.Entity.Unit.Statuses
         public DamageToArmorStatus(IRenderable icon, int turnDuration, int damageThreshold) : base(
             statusIcon: icon,
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Siphon!",
-            description: "Recovers armor for each " + damageThreshold + " damage dealt.",
+            description: "Recovers " + UnitStatistics.Abbreviation[Stats.Armor] + " for each " + damageThreshold +
+                         " damage dealt.",
             turnDuration: turnDuration
         )
         {
@@ -62,7 +63,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)
         {
             //Remove status
-            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect is DamageToArmorStatus);
+            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

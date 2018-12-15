@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="551">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="552">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1832,7 +1832,7 @@
     <property name="mapSong" value="BossTheme"/>
    </properties>
   </object>
-  <object id="535" name="Debug" type="SelectMap" gid="289" x="480" y="352" width="32" height="32">
+  <object id="535" name="Debug Dungeon" type="SelectMap" gid="289" x="480" y="320" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
@@ -1935,6 +1935,11 @@
     <property name="mapSong" value="BossTheme"/>
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="551" name="Debug Arena" type="SelectMap" gid="289" x="480" y="384" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Debug_02.tmx"/>
    </properties>
   </object>
  </objectgroup>
