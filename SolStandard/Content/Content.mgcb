@@ -1843,6 +1843,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Bulwark.png
 
+#begin Graphics/Images/Icons/Skill/Charge.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Charge.png
+
 #begin Graphics/Images/Icons/Skill/Cover.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1878,6 +1890,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Draw.png
+
+#begin Graphics/Images/Icons/Skill/Execute.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Execute.png
 
 #begin Graphics/Images/Icons/Skill/Harpoon.png
 /importer:TextureImporter
@@ -1926,6 +1950,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Inspire.png
+
+#begin Graphics/Images/Icons/Skill/PoisonTip.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/PoisonTip.png
 
 #begin Graphics/Images/Icons/Skill/Shove.png
 /importer:TextureImporter
@@ -2071,30 +2107,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Large/Archer.png
 
-#begin Graphics/Images/Portraits/Blue/Large/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Large/Archer.png
-
-#begin Graphics/Images/Portraits/Blue/Large/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Large/Champion.png
-
 #begin Graphics/Images/Portraits/Blue/Large/Champion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2131,30 +2143,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Large/Mage.png
 
-#begin Graphics/Images/Portraits/Blue/Large/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Large/Mage.png
-
-#begin Graphics/Images/Portraits/Blue/Large/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Large/Monarch.png
-
 #begin Graphics/Images/Portraits/Blue/Large/Monarch.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2178,30 +2166,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Medium/Archer.png
-
-#begin Graphics/Images/Portraits/Blue/Medium/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Medium/Archer.png
-
-#begin Graphics/Images/Portraits/Blue/Medium/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Medium/Champion.png
 
 #begin Graphics/Images/Portraits/Blue/Medium/Champion.png
 /importer:TextureImporter
@@ -2239,30 +2203,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Medium/Mage.png
 
-#begin Graphics/Images/Portraits/Blue/Medium/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Medium/Mage.png
-
-#begin Graphics/Images/Portraits/Blue/Medium/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Medium/Monarch.png
-
 #begin Graphics/Images/Portraits/Blue/Medium/Monarch.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2286,30 +2226,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Small/Archer.png
-
-#begin Graphics/Images/Portraits/Blue/Small/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Small/Archer.png
-
-#begin Graphics/Images/Portraits/Blue/Small/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Small/Champion.png
 
 #begin Graphics/Images/Portraits/Blue/Small/Champion.png
 /importer:TextureImporter
@@ -2346,30 +2262,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Small/Mage.png
-
-#begin Graphics/Images/Portraits/Blue/Small/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Small/Mage.png
-
-#begin Graphics/Images/Portraits/Blue/Small/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Blue/Small/Monarch.png
 
 #begin Graphics/Images/Portraits/Blue/Small/Monarch.png
 /importer:TextureImporter
@@ -2539,30 +2431,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Large/Archer.png
 
-#begin Graphics/Images/Portraits/Red/Large/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Large/Archer.png
-
-#begin Graphics/Images/Portraits/Red/Large/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Large/Champion.png
-
 #begin Graphics/Images/Portraits/Red/Large/Champion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2599,30 +2467,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Large/Mage.png
 
-#begin Graphics/Images/Portraits/Red/Large/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Large/Mage.png
-
-#begin Graphics/Images/Portraits/Red/Large/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Large/Monarch.png
-
 #begin Graphics/Images/Portraits/Red/Large/Monarch.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2646,30 +2490,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Medium/Archer.png
-
-#begin Graphics/Images/Portraits/Red/Medium/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Medium/Archer.png
-
-#begin Graphics/Images/Portraits/Red/Medium/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Medium/Champion.png
 
 #begin Graphics/Images/Portraits/Red/Medium/Champion.png
 /importer:TextureImporter
@@ -2707,30 +2527,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Medium/Mage.png
 
-#begin Graphics/Images/Portraits/Red/Medium/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Medium/Mage.png
-
-#begin Graphics/Images/Portraits/Red/Medium/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Medium/Monarch.png
-
 #begin Graphics/Images/Portraits/Red/Medium/Monarch.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2754,30 +2550,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Small/Archer.png
-
-#begin Graphics/Images/Portraits/Red/Small/Archer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Small/Archer.png
-
-#begin Graphics/Images/Portraits/Red/Small/Champion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Small/Champion.png
 
 #begin Graphics/Images/Portraits/Red/Small/Champion.png
 /importer:TextureImporter
@@ -2814,30 +2586,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Small/Mage.png
-
-#begin Graphics/Images/Portraits/Red/Small/Mage.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Small/Mage.png
-
-#begin Graphics/Images/Portraits/Red/Small/Monarch.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Portraits/Red/Small/Monarch.png
 
 #begin Graphics/Images/Portraits/Red/Small/Monarch.png
 /importer:TextureImporter

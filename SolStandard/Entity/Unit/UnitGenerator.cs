@@ -295,7 +295,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Execute(3),
-                new Rend(2, 5),
+                new PoisonTip(2, 5),
                 new Charge(3),
                 new Guard(3),
                 new DropGiveGoldAction(),

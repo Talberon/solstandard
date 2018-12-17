@@ -17,8 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private readonly int chargeDistance;
 
         public Charge(int chargeDistance) : base(
-            //TODO Add Charge Skill Icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, new Vector2(GameDriver.CellSize)),
             name: "Charge",
             description: "Dash towards a target and attack!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

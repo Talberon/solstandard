@@ -115,7 +115,7 @@
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\Rend.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\PoisonTip.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />

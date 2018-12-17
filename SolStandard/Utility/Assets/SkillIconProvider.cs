@@ -21,7 +21,10 @@ namespace SolStandard.Utility.Assets
         Atrophy,
         Trap,
         Bloodthirst,
-        Inferno
+        Inferno,
+        PoisonTip,
+        Execute,
+        Charge
     }
 
     public static class SkillIconProvider
@@ -52,6 +55,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D trap = skillIconTextures.Find(texture => texture.Name.EndsWith("Trap"));
             ITexture2D bloodthirst = skillIconTextures.Find(texture => texture.Name.EndsWith("Bloodthirst"));
             ITexture2D inferno = skillIconTextures.Find(texture => texture.Name.EndsWith("Inferno"));
+            ITexture2D poisonTip = skillIconTextures.Find(texture => texture.Name.EndsWith("PoisonTip"));
+            ITexture2D execute = skillIconTextures.Find(texture => texture.Name.EndsWith("Execute"));
+            ITexture2D charge = skillIconTextures.Find(texture => texture.Name.EndsWith("Charge"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -70,7 +76,10 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Atrophy, atrophy},
                 {SkillIcon.Trap, trap},
                 {SkillIcon.Bloodthirst, bloodthirst},
-                {SkillIcon.Inferno, inferno}
+                {SkillIcon.Inferno, inferno},
+                {SkillIcon.PoisonTip, poisonTip},
+                {SkillIcon.Execute, execute},
+                {SkillIcon.Charge, charge}
             };
         }
     }

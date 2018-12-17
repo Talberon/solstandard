@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public Execute(int damageToDeal) : base(
             //TODO Add Execute Skill Icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Execute, new Vector2(GameDriver.CellSize)),
             name: "Execute",
             description: "Deal a finishing blow to target. If target dies, regenerate all " +
                          UnitStatistics.Abbreviation[Stats.Armor] + " and gain an " +

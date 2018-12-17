@@ -384,6 +384,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Trap"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Bloodthirst"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inferno"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/PoisonTip"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Execute"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Charge"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();
