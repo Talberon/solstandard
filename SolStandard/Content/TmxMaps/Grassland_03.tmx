@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="816">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="828">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -209,8 +209,8 @@
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
-   <tile gid="532"/>
-   <tile gid="615"/>
+   <tile gid="495"/>
+   <tile gid="612"/>
    <tile gid="613"/>
    <tile gid="614"/>
    <tile gid="495"/>
@@ -240,9 +240,9 @@
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
-   <tile gid="532"/>
-   <tile gid="615"/>
-   <tile gid="614"/>
+   <tile gid="495"/>
+   <tile gid="495"/>
+   <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
@@ -272,8 +272,8 @@
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
-   <tile gid="572"/>
-   <tile gid="574"/>
+   <tile gid="532"/>
+   <tile gid="534"/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
@@ -316,8 +316,8 @@
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="532"/>
-   <tile gid="535"/>
+   <tile gid="495"/>
+   <tile gid="572"/>
    <tile gid="574"/>
    <tile gid="732"/>
    <tile gid="1293"/>
@@ -348,8 +348,8 @@
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="572"/>
-   <tile gid="576"/>
+   <tile gid="495"/>
+   <tile gid="612"/>
    <tile gid="614"/>
    <tile gid="495"/>
    <tile gid="1293"/>
@@ -379,9 +379,9 @@
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="532"/>
-   <tile gid="535"/>
-   <tile gid="574"/>
+   <tile gid="495"/>
+   <tile gid="495"/>
+   <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="1293"/>
@@ -411,9 +411,9 @@
    <tile gid="495"/>
    <tile gid="532"/>
    <tile gid="533"/>
-   <tile gid="535"/>
-   <tile gid="576"/>
-   <tile gid="614"/>
+   <tile gid="533"/>
+   <tile gid="534"/>
+   <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
@@ -821,7 +821,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="955"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1465,7 +1465,7 @@
    <tile gid="953"/>
    <tile gid="953"/>
    <tile gid="956"/>
-   <tile gid="994"/>
+   <tile gid="954"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1497,7 +1497,7 @@
    <tile gid="953"/>
    <tile gid="956"/>
    <tile gid="994"/>
-   <tile/>
+   <tile gid="552"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1529,8 +1529,8 @@
    <tile gid="953"/>
    <tile gid="954"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="593"/>
+   <tile gid="515"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1562,39 +1562,7 @@
    <tile gid="994"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="952"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="953"/>
-   <tile gid="954"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="592"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1671,6 +1639,38 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile gid="952"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="953"/>
+   <tile gid="954"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="633"/>
+   <tile gid="634"/>
+   <tile gid="515"/>
    <tile/>
    <tile gid="952"/>
    <tile gid="953"/>
@@ -1702,9 +1702,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="912"/>
-   <tile gid="915"/>
+   <tile gid="593"/>
+   <tile gid="634"/>
+   <tile gid="648"/>
    <tile gid="953"/>
    <tile gid="953"/>
    <tile gid="953"/>
@@ -1735,8 +1735,8 @@
    <tile/>
    <tile/>
    <tile gid="912"/>
+   <tile gid="913"/>
    <tile gid="915"/>
-   <tile gid="953"/>
    <tile gid="953"/>
    <tile gid="953"/>
    <tile gid="953"/>
@@ -1939,56 +1939,108 @@
    <tile gid="953"/>
   </data>
  </layer>
- <objectgroup id="5" name="Entities"/>
- <objectgroup id="6" name="Loot" opacity="0.75"/>
- <objectgroup id="7" name="Items"/>
+ <objectgroup id="5" name="Entities">
+  <object id="823" name="Chest LK1" type="Chest" gid="206" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+    <property name="item" value="Healthy Potion"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Loot" opacity="0.75">
+  <object id="818" name="Healthy Potion" type="HP Potion" gid="393" x="448" y="288" width="32" height="32">
+   <properties>
+    <property name="hpHealed" type="int" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Items">
+  <object id="819" name="Mighty Meat" type="BuffItem" gid="422" x="416" y="544" width="32" height="32"/>
+  <object id="822" name="Swift Cheese" type="BuffItem" gid="400" x="416" y="96" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
+  <object id="824" name="Chest LK1 Key" type="Key" gid="389" x="224" y="288" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Chest LK1"/>
+   </properties>
+  </object>
+  <object id="825" name="Chest LK1 Key" type="Key" gid="389" x="704" y="352" width="32" height="32">
+   <properties>
+    <property name="usedWith" value="Chest LK1"/>
+   </properties>
+  </object>
+  <object id="826" name="Mighty Meat" type="BuffItem" gid="422" x="480" y="96" width="32" height="32"/>
+  <object id="827" name="Swift Cheese" type="BuffItem" gid="400" x="480" y="544" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="517" name="Horatio" type="Unit" gid="478" x="512" y="384" width="32" height="32">
+  <object id="517" name="Walthorn" type="Unit" gid="478" x="512" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Fracturius I" type="Unit" gid="480" x="448" y="416" width="32" height="32">
+  <object id="520" name="Fracturius I" type="Unit" gid="480" x="448" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="485" x="448" y="192" width="32" height="32">
+  <object id="521" name="Marrowon II" type="Unit" gid="485" x="448" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="524" name="Eckhart" type="Unit" gid="483" x="384" y="256" width="32" height="32">
+  <object id="524" name="Eckhart" type="Unit" gid="483" x="384" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="527" name="Kenneth" type="Unit" gid="482" x="512" y="256" width="32" height="32">
+  <object id="527" name="Kenneth" type="Unit" gid="482" x="512" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="528" name="Gildenstern" type="Unit" gid="479" x="384" y="384" width="32" height="32">
+  <object id="528" name="Gaius" type="Unit" gid="479" x="480" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="814" name="Ethan" type="Unit" gid="481" x="448" y="352" width="32" height="32">
+  <object id="814" name="Ethan" type="Unit" gid="481" x="416" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="815" name="Casey" type="Unit" gid="486" x="448" y="288" width="32" height="32">
+  <object id="815" name="Casey" type="Unit" gid="486" x="480" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="816" name="Talbot" type="Unit" gid="484" x="416" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Champion"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="817" name="Yorrick" type="Unit" gid="477" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
  </objectgroup>

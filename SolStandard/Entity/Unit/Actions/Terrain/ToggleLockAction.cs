@@ -32,24 +32,16 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             if (KeyWorksOnLock(targetSlice, targetUnlockable))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new ToggleLockEvent(targetUnlockable));
-                eventQueue.Enqueue(new WaitFramesEvent(5));
-                eventQueue.Enqueue(new ToggleOpenEvent(targetSlice.TerrainEntity as IOpenable));
-
                 Chest targetChest = targetUnlockable as Chest;
                 if (targetChest != null)
                 {
-                    eventQueue.Enqueue(new IncreaseUnitGoldEvent(targetChest.Gold));
-                    eventQueue.Enqueue(new WaitFramesEvent(5));
-                    //Keys are one-time use; delete the key after using it.
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new ToggleLockEvent(targetUnlockable));
                     eventQueue.Enqueue(new DeleteItemEvent(key));
+                    GlobalEventQueue.QueueEvents(eventQueue);
                 }
 
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                new OpenChestAction(targetChest, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
             }
             else
             {
