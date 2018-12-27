@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Lidgren.Network;
-using SharpDX.Direct3D11;
 
 namespace SolStandard.Utility.Network
 {
@@ -65,7 +64,31 @@ namespace SolStandard.Utility.Network
                         // handle connection status messages
                         switch (received.SenderConnection.Status)
                         {
-                            /* .. */
+                            case NetConnectionStatus.None:
+                                break;
+                            case NetConnectionStatus.InitiatedConnect:
+                                Trace.WriteLine("Intiating connection...");
+                                break;
+                            case NetConnectionStatus.ReceivedInitiation:
+                                Trace.WriteLine("Received Invitation...");
+                                break;
+                            case NetConnectionStatus.RespondedAwaitingApproval:
+                                Trace.WriteLine("Awaiting Approval...");
+                                break;
+                            case NetConnectionStatus.RespondedConnect:
+                                Trace.WriteLine("Connecting...");
+                                break;
+                            case NetConnectionStatus.Connected:
+                                Trace.WriteLine("Connected!");
+                                break;
+                            case NetConnectionStatus.Disconnecting:
+                                Trace.WriteLine("Disconnecting...");
+                                break;
+                            case NetConnectionStatus.Disconnected:
+                                Trace.WriteLine("Disconnected!");
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
 
                         break;
@@ -79,6 +102,7 @@ namespace SolStandard.Utility.Network
                     /* .. */
                     default:
                         Trace.WriteLine("unhandled message with type: " + received.MessageType);
+                        Trace.WriteLine(received.ReadString());
                         break;
                 }
             }
