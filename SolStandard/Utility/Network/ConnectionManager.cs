@@ -17,8 +17,13 @@ namespace SolStandard.Utility.Network
                 Port = 4444
             };
 
-            if (client != null || server != null) return;
+            if (client != null || server != null)
+            {
+                Trace.WriteLine("Server or client already started!");
+                return;
+            }
 
+            Trace.WriteLine("Starting server!");
             server = new NetServer(config);
             server.Start();
         }
@@ -27,8 +32,13 @@ namespace SolStandard.Utility.Network
         {
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
 
-            if (client != null || server != null) return;
+            if (client != null || server != null)
+            {
+                Trace.WriteLine("Server or client already started!");
+                return;
+            }
 
+            Trace.WriteLine("Starting client!");
             client = new NetClient(config);
             client.Start();
             client.Connect(host, port);
@@ -67,7 +77,7 @@ namespace SolStandard.Utility.Network
                             case NetConnectionStatus.None:
                                 break;
                             case NetConnectionStatus.InitiatedConnect:
-                                Trace.WriteLine("Intiating connection...");
+                                Trace.WriteLine("Initiating connection...");
                                 break;
                             case NetConnectionStatus.ReceivedInitiation:
                                 Trace.WriteLine("Received Invitation...");
@@ -86,6 +96,7 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Trace.WriteLine("Disconnected!");
+                                Trace.WriteLine(received.ReadString());
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();
@@ -110,6 +121,7 @@ namespace SolStandard.Utility.Network
 
         public void SendMessageAsClient(string textMessage)
         {
+            Trace.WriteLine("Sending message to server!");
             NetOutgoingMessage message = client.CreateMessage();
             message.Write(textMessage);
             client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
@@ -117,6 +129,7 @@ namespace SolStandard.Utility.Network
 
         public void SendMessageAsServer(string textMessage)
         {
+            Trace.WriteLine("Sending message to client!");
             NetOutgoingMessage message = server.CreateMessage();
             message.Write(textMessage);
             server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);

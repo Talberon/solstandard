@@ -196,14 +196,12 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
             {
                 //Start Server
-                Trace.WriteLine("Starting server!");
                 connectionManager.StartServer();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
             {
                 //Send Message From Server to Client
-                Trace.WriteLine("Sending message to client!");
                 connectionManager.SendMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
             }
 
@@ -211,14 +209,12 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
             {
                 //Start Client
-                Trace.WriteLine("Starting client!");
                 connectionManager.StartClient("127.0.0.1", 4444);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
             {
                 //Start Server
-                Trace.WriteLine("Sending message to server!");
                 connectionManager.SendMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
             }
 
