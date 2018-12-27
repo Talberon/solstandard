@@ -65,7 +65,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString(), statModifier, buffDuration);
+            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString().ToUpper(), statModifier, buffDuration);
         }
 
         public override IRenderable TerrainInfo

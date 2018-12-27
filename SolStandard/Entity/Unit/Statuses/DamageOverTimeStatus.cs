@@ -11,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage, string applyMessage) : base(
             statusIcon: statusIcon,
-            name: "Damage Over Time [" + damage + "] DMG",
+            name: "[" + damage + "] Damage per Turn",
             description: "Deals damage to the afflicted at the beginning of each turn.",
             turnDuration: turnDuration
         )

@@ -9,7 +9,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             name: "Ignite",
             duration: duration,
             damagePerTurn: damagePerTurn,
-            range: new[] {1, 2}
+            range: new[] {1, 2},
+            toastMessage: "Burning!"
         )
         {
         }
