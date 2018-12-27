@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using Lidgren.Network;
+using SharpDX.Direct3D11;
 
 namespace SolStandard.Utility.Network
 {
@@ -13,17 +15,40 @@ namespace SolStandard.Utility.Network
         {
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard")
             {
-                Port = 12345
+                Port = 4444
             };
 
             if (client != null || server != null) return;
 
             server = new NetServer(config);
             server.Start();
-            StartListening(server);
         }
 
-        private void StartListening(NetPeer peer)
+        public void StartClient(string host, int port)
+        {
+            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
+
+            if (client != null || server != null) return;
+
+            client = new NetClient(config);
+            client.Start();
+            client.Connect(host, port);
+        }
+
+        public void Listen()
+        {
+            if (client != null)
+            {
+                Listen(client);
+            }
+
+            if (server != null)
+            {
+                Listen(server);
+            }
+        }
+
+        private static void Listen(NetPeer peer)
         {
             NetIncomingMessage received;
             while ((received = peer.ReadMessage()) != null)
@@ -33,7 +58,7 @@ namespace SolStandard.Utility.Network
                     case NetIncomingMessageType.Data:
                         // handle custom messages
                         string data = received.ReadString();
-                        Console.WriteLine("RECEIVED:" + data);
+                        Trace.WriteLine("RECEIVED:" + data);
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
@@ -48,29 +73,15 @@ namespace SolStandard.Utility.Network
                     case NetIncomingMessageType.DebugMessage:
                         // handle debug messages
                         // (only received when compiled in DEBUG mode)
-                        Console.WriteLine(received.ReadString());
+                        Trace.WriteLine(received.ReadString());
                         break;
 
                     /* .. */
                     default:
-                        Console.WriteLine("unhandled message with type: "
-                                          + received.MessageType);
+                        Trace.WriteLine("unhandled message with type: " + received.MessageType);
                         break;
                 }
             }
-        }
-
-        public void StartClient(string host, int port)
-        {
-            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
-
-            if (client != null || server != null) return;
-            
-            client = new NetClient(config);
-            client.Start();
-            client.Connect(host, port);
-
-            StartListening(client);
         }
 
         public void SendMessageAsClient(string textMessage)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -165,6 +166,8 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            connectionManager.Listen();
+
             if (_quitting)
             {
                 Exit();
@@ -193,11 +196,14 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
             {
                 //Start Server
+                Trace.WriteLine("Starting server!");
                 connectionManager.StartServer();
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
             {
                 //Send Message From Server to Client
+                Trace.WriteLine("Sending message to client!");
                 connectionManager.SendMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
             }
 
@@ -205,15 +211,18 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
             {
                 //Start Client
+                Trace.WriteLine("Starting client!");
                 connectionManager.StartClient("127.0.0.1", 4444);
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
             {
                 //Start Server
+                Trace.WriteLine("Sending message to server!");
                 connectionManager.SendMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
             }
 
-            
+
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
                 MusicBox.Pause();
