@@ -28,7 +28,7 @@ namespace SolStandard
     {
         // ReSharper disable once NotAccessedField.Local
         private GraphicsDeviceManager graphics;
-        
+
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
@@ -38,6 +38,7 @@ namespace SolStandard
         private SpriteBatch spriteBatch;
         private GameControlMapper p1ControlMapper;
         private GameControlMapper p2ControlMapper;
+        private ConnectionManager connectionManager;
 
         private static bool _quitting;
 
@@ -134,7 +135,7 @@ namespace SolStandard
                 mainMenuBackgroundSprite));
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 
-            new ConnectionManager().StartServer();
+            connectionManager = new ConnectionManager();
         }
 
         /// <summary>
@@ -189,6 +190,30 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+            {
+                //Start Server
+                connectionManager.StartServer();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+            {
+                //Send Message From Server to Client
+                connectionManager.SendMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+            }
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+            {
+                //Start Client
+                connectionManager.StartClient("127.0.0.1", 4444);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+            {
+                //Start Server
+                connectionManager.SendMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+            }
+
+            
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
                 MusicBox.Pause();
