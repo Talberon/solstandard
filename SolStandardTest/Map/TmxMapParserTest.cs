@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -9,7 +9,7 @@ using TiledSharp;
 
 namespace SolStandardTest.Map
 {
-    [TestClass]
+    [TestFixture]
     public class TmxMapParserTest
     {
         private TmxMapParser objectUnderTest;
@@ -19,7 +19,7 @@ namespace SolStandardTest.Map
         private string worldTileSetTextureName;
         private string terrainTextureName;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             const string objectTypesXmlPath = "Resources/objecttypes.xml";
@@ -45,13 +45,14 @@ namespace SolStandardTest.Map
             }
 
             objectUnderTest =
-                new TmxMapParser(tmxMap, new FakeTexture2D(worldTileSetTextureName), new FakeTexture2D(terrainTextureName),
+                new TmxMapParser(tmxMap, new FakeTexture2D(worldTileSetTextureName),
+                    new FakeTexture2D(terrainTextureName),
                     unitSprites, objectTypesXmlPath);
             mapGrid = objectUnderTest.LoadMapGrid();
             unitsFromMap = objectUnderTest.LoadUnits();
         }
 
-        [TestMethod]
+        [Test]
         public void TestUnits()
         {
             foreach (MapEntity unit in unitsFromMap)
@@ -63,7 +64,7 @@ namespace SolStandardTest.Map
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestEntities()
         {
             MapEntity[,] entitiesGrid = (MapEntity[,]) mapGrid[(int) Layer.Entities];
@@ -137,7 +138,7 @@ namespace SolStandardTest.Map
             Assert.AreEqual("false", entitiesGrid[xCoord, yMovables].TiledProperties["canMove"]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCollideLayer()
         {
             for (int col = 0; col < mapGrid[(int) Layer.Collide].GetLength(0); col++)
@@ -146,35 +147,35 @@ namespace SolStandardTest.Map
                 Assert.IsNull(mapGrid[(int) Layer.Collide][col, 0]);
                 Assert.IsNull(mapGrid[(int) Layer.Collide][col, 1]);
                 Assert.IsNull(mapGrid[(int) Layer.Collide][col, 2]);
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Collide][col, 3], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Collide][col, 4], typeof(MapTile));
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Collide][col, 3].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Collide][col, 4].GetType());
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestTerrainDecorationLayer()
         {
             for (int col = 0; col < mapGrid[(int) Layer.TerrainDecoration].GetLength(0); col++)
             {
                 //The 2nd, 3rd and 4th rows of tiles should all exist
                 Assert.IsNull(mapGrid[(int) Layer.TerrainDecoration][col, 0]);
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 1], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 2], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.TerrainDecoration][col, 3], typeof(MapTile));
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.TerrainDecoration][col, 1].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.TerrainDecoration][col, 2].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.TerrainDecoration][col, 3].GetType());
                 Assert.IsNull(mapGrid[(int) Layer.TerrainDecoration][col, 4]);
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestTerrainLayer()
         {
             for (int col = 0; col < mapGrid[(int) Layer.Terrain].GetLength(0); col++)
             {
                 //The 1st, 2nd, 3rd and 4th rows of tiles should all exist
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 0], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 1], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 2], typeof(MapTile));
-                Assert.IsInstanceOfType(mapGrid[(int) Layer.Terrain][col, 3], typeof(MapTile));
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Terrain][col, 0].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Terrain][col, 1].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Terrain][col, 2].GetType());
+                Assert.AreEqual(typeof(MapTile), mapGrid[(int) Layer.Terrain][col, 3].GetType());
                 Assert.IsNull(mapGrid[(int) Layer.Terrain][col, 4]);
             }
         }

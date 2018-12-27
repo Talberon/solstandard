@@ -274,6 +274,7 @@
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
+    <Compile Include="Utility\Network\ConnectionManager.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
@@ -296,6 +297,10 @@
     <Compile Include="Utility\UnitSelector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network, Version=2012.1.7.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Lidgren.Network.1.0.2\lib\net451\Lidgren.Network.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.0.1681, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>

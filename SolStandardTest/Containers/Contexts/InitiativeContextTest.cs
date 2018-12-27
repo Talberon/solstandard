@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -7,7 +7,7 @@ using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.Containers.Contexts
 {
-    [TestClass]
+    [TestFixture]
     public class InitiativeContextTest
     {
         private static readonly GameUnit BlueUnit =
@@ -18,7 +18,7 @@ namespace SolStandardTest.Containers.Contexts
             new GameUnit("RedGuy", Team.Red, Role.Monarch, null, new UnitStatistics(10, 2, 2, 2, 2, 2, new[] {1}),
                 new FakeTexture2D(""), new FakeTexture2D(""), new FakeTexture2D(""), new List<UnitAction>());
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v3_BlueFirst()
         {
             List<GameUnit> unitList = GenerateUnitList(3, 3);
@@ -33,7 +33,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[5].Team);
         }
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v3_RedFirst()
         {
             List<GameUnit> unitList = GenerateUnitList(3, 3);
@@ -48,7 +48,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[5].Team);
         }
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v5_BlueMajority()
         {
             List<GameUnit> unitList = GenerateUnitList(redUnits: 3, blueUnits: 5);
@@ -65,7 +65,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[7].Team);
         }
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v5_RedMajority()
         {
             List<GameUnit> unitList = GenerateUnitList(redUnits: 5, blueUnits: 3);
@@ -82,7 +82,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(RedUnit.Team, initiativeContext.InitiativeList[7].Team);
         }
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v8()
         {
             List<GameUnit> unitList = GenerateUnitList(redUnits: 3, blueUnits: 8);
@@ -102,7 +102,7 @@ namespace SolStandardTest.Containers.Contexts
             Assert.AreEqual(BlueUnit.Team, initiativeContext.InitiativeList[10].Team);
         }
 
-        [TestMethod]
+        [Test]
         public void testInitiativeListRandomizer_3v11()
         {
             List<GameUnit> unitList = GenerateUnitList(redUnits: 11, blueUnits: 3);

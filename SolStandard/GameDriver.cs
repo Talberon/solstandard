@@ -16,6 +16,7 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
+using SolStandard.Utility.Network;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
@@ -132,6 +133,8 @@ namespace SolStandard
             GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
                 mainMenuBackgroundSprite));
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
+
+            new ConnectionManager().StartServer();
         }
 
         /// <summary>

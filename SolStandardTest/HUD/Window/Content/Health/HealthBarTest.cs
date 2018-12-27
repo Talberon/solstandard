@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using NUnit.Framework;
 
 namespace SolStandardTest.HUD.Window.Content.Health
 {
-    [TestClass]
+    [TestFixture]
     public class HealthBarTest
     {
-        [TestMethod]
+        [Test]
         public void TestDealOneDamageFromFull()
         {
             int maxHp = 5;
@@ -22,7 +22,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
             Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDealMultipleDamageFromFull()
         {
             int maxHp = 5;
@@ -38,7 +38,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
             Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGenerateLessThanFullHp()
         {
             int maxHp = 5;
@@ -53,7 +53,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
             Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDealDamageFromLessThanFull()
         {
             int maxHp = 5;
@@ -69,7 +69,7 @@ namespace SolStandardTest.HUD.Window.Content.Health
             Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
         }
 
-        [TestMethod]
+        [Test]
         public void TestDealDamageMoreThanFullFromFull()
         {
             int maxHp = 5;
