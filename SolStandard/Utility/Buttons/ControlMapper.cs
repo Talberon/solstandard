@@ -1,3 +1,5 @@
+using SolStandard.Utility.Buttons.Gamepad;
+
 namespace SolStandard.Utility.Buttons
 {
     public enum PressType

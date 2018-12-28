@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace SolStandard.Utility.Buttons
+namespace SolStandard.Utility.Buttons.Gamepad
 {
     public abstract class GameControl
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.Gamepad;
 
 namespace SolStandard.Utility.Network
 {
@@ -41,28 +42,28 @@ namespace SolStandard.Utility.Network
         {
             buttonMap = new Dictionary<Input, GameControl>
             {
-                {Input.Up, new UpControl(playerIndex)},
-                {Input.Down, new DownControl(playerIndex)},
-                {Input.Left, new LeftControl(playerIndex)},
-                {Input.Right, new RightControl(playerIndex)},
+                {Input.Up, new GamepadUp(playerIndex)},
+                {Input.Down, new GamepadDown(playerIndex)},
+                {Input.Left, new GamepadLeft(playerIndex)},
+                {Input.Right, new GamepadRight(playerIndex)},
 
-                {Input.RsUp, new RsUpControl(playerIndex)},
-                {Input.RsDown, new RsDownControl(playerIndex)},
-                {Input.RsLeft, new RsLeftControl(playerIndex)},
-                {Input.RsRight, new RsRightControl(playerIndex)},
+                {Input.RsUp, new GamepadRsUp(playerIndex)},
+                {Input.RsDown, new GamepadRsDown(playerIndex)},
+                {Input.RsLeft, new GamepadRsLeft(playerIndex)},
+                {Input.RsRight, new GamepadRsRight(playerIndex)},
 
-                {Input.Start, new StartControl(playerIndex)},
-                {Input.Select, new SelectControl(playerIndex)},
+                {Input.Start, new GamepadStart(playerIndex)},
+                {Input.Select, new GamepadSelect(playerIndex)},
 
-                {Input.A, new AControl(playerIndex)},
-                {Input.B, new BControl(playerIndex)},
-                {Input.X, new XControl(playerIndex)},
-                {Input.Y, new YControl(playerIndex)},
+                {Input.A, new GamepadA(playerIndex)},
+                {Input.B, new GamepadB(playerIndex)},
+                {Input.X, new GamepadX(playerIndex)},
+                {Input.Y, new GamepadY(playerIndex)},
 
-                {Input.LeftBumper, new LeftBumperControl(playerIndex)},
-                {Input.RightBumper, new RightBumperControl(playerIndex)},
-                {Input.LeftTrigger, new LeftTriggerControl(playerIndex)},
-                {Input.RightTrigger, new RightTriggerControl(playerIndex)},
+                {Input.LeftBumper, new GamepadLeftBumper(playerIndex)},
+                {Input.RightBumper, new GamepadRightBumper(playerIndex)},
+                {Input.LeftTrigger, new GamepadLeftTrigger(playerIndex)},
+                {Input.RightTrigger, new GamepadRightTrigger(playerIndex)},
             };
         }
 
