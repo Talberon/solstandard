@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -214,7 +213,7 @@ namespace SolStandard
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
             {
-                //Start Server
+                //Send message from client to server
                 connectionManager.SendMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
             }
 

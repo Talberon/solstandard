@@ -216,6 +216,7 @@
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
     <Compile Include="Utility\Buttons\AControl.cs" />
+    <Compile Include="Utility\Buttons\ControlMapper.cs" />
     <Compile Include="Utility\Buttons\LeftBumperControl.cs" />
     <Compile Include="Utility\Buttons\RightBumperControl.cs" />
     <Compile Include="Utility\Buttons\RsDownControl.cs" />
@@ -275,6 +276,8 @@
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
     <Compile Include="Utility\Network\ConnectionManager.cs" />
+    <Compile Include="Utility\Network\NetworkControlParser.cs" />
+    <Compile Include="Utility\Network\NetworkControlState.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
@@ -439,6 +442,11 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utility\Buttons\Controller" />
+    <Folder Include="Utility\Buttons\Keyboard" />
+    <Folder Include="Utility\Buttons\Network" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

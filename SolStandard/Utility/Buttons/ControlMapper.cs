@@ -1,0 +1,98 @@
+namespace SolStandard.Utility.Buttons
+{
+    public enum PressType
+    {
+        DelayedRepeat,
+        InstantRepeat,
+        Single
+    }
+
+    public enum Input
+    {
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+        RsUp,
+        RsDown,
+        RsLeft,
+        RsRight,
+        A,
+        B,
+        X,
+        Y,
+        Select,
+        Start,
+        LeftBumper,
+        LeftTrigger,
+        RightBumper,
+        RightTrigger
+    }
+
+    public abstract class ControlMapper
+    {
+        public const float StickThreshold = 0.2f;
+        protected const int InitialInputDelayInFrames = 15;
+        protected const int RepeatInputDelayInFrames = 5;
+        
+        public abstract bool Press(Input input, PressType pressType);
+        public abstract bool Released(Input input);
+
+        protected static bool InstantRepeat(GameControl control)
+        {
+            return control.Pressed;
+        }
+
+        protected static bool SinglePress(GameControl control)
+        {
+            //Press just once on input down; do not repeat
+            if (control.Pressed)
+            {
+                if (control.InputCounter == 0)
+                {
+                    control.IncrementInputCounter();
+                    return true;
+                }
+            }
+
+            if (control.Released)
+            {
+                control.ResetInputCounter();
+            }
+
+            return false;
+        }
+
+        protected static bool DelayedRepeat(GameControl control)
+        {
+            //Hold Down (Previous state matches the current state)
+            if (control.Pressed)
+            {
+                control.IncrementInputCounter();
+
+                //Act on tap
+                if (control.InputCounter - 1 == 0)
+                {
+                    return true;
+                }
+
+                //If the counter is over [initialInputDelay], start tapping every [repeatInputDelay] frames
+                if (control.InputCounter > InitialInputDelayInFrames)
+                {
+                    if (control.InputCounter % RepeatInputDelayInFrames == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (control.Released)
+            {
+                control.ResetInputCounter();
+            }
+
+            return false;
+        }
+    }
+}

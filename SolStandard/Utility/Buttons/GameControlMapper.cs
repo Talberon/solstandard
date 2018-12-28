@@ -4,42 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace SolStandard.Utility.Buttons
 {
-    public enum PressType
+    public class GameControlMapper : ControlMapper
     {
-        DelayedRepeat,
-        InstantRepeat,
-        Single
-    }
-
-    public enum Input
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        RsUp,
-        RsDown,
-        RsLeft,
-        RsRight,
-        A,
-        B,
-        X,
-        Y,
-        Select,
-        Start,
-        LeftBumper,
-        LeftTrigger,
-        RightBumper,
-        RightTrigger
-    }
-
-    public class GameControlMapper
-    {
-        public const float StickThreshold = 0.2f;
-
-        private const int InitialInputDelayInFrames = 15;
-        private const int RepeatInputDelayInFrames = 5;
-
         private readonly Dictionary<Input, GameControl> buttonMap;
 
         public GameControlMapper(PlayerIndex playerIndex)
@@ -106,7 +72,7 @@ namespace SolStandard.Utility.Buttons
             return output;
         }
 
-        public bool Press(Input input, PressType pressType)
+        public override bool Press(Input input, PressType pressType)
         {
             switch (pressType)
             {
@@ -121,65 +87,9 @@ namespace SolStandard.Utility.Buttons
             }
         }
 
-        public bool Released(Input input)
+        public override bool Released(Input input)
         {
             return (buttonMap[input].Released);
-        }
-
-        private static bool InstantRepeat(GameControl control)
-        {
-            return control.Pressed;
-        }
-
-        private static bool SinglePress(GameControl control)
-        {
-            //Press just once on input down; do not repeat
-            if (control.Pressed)
-            {
-                if (control.InputCounter == 0)
-                {
-                    control.IncrementInputCounter();
-                    return true;
-                }
-            }
-
-            if (control.Released)
-            {
-                control.ResetInputCounter();
-            }
-
-            return false;
-        }
-
-        private static bool DelayedRepeat(GameControl control)
-        {
-            //Hold Down (Previous state matches the current state)
-            if (control.Pressed)
-            {
-                control.IncrementInputCounter();
-
-                //Act on tap
-                if (control.InputCounter - 1 == 0)
-                {
-                    return true;
-                }
-
-                //If the counter is over [initialInputDelay], start tapping every [repeatInputDelay] frames
-                if (control.InputCounter > InitialInputDelayInFrames)
-                {
-                    if (control.InputCounter % RepeatInputDelayInFrames == 0)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            if (control.Released)
-            {
-                control.ResetInputCounter();
-            }
-
-            return false;
         }
     }
 }

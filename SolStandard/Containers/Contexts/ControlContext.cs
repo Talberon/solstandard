@@ -10,7 +10,7 @@ namespace SolStandard.Containers.Contexts
 {
     public static class ControlContext
     {
-        public static void ListenForInputs(GameControlMapper controlMapper)
+        public static void ListenForInputs(ControlMapper controlMapper)
         {
             switch (GameContext.CurrentGameState)
             {
@@ -38,7 +38,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void ResultsControls(GameControlMapper controlMapper)
+        private static void ResultsControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Select, PressType.Single))
             {
@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts
         }
 
 
-        private static void MapSelectControls(GameControlMapper controlMapper)
+        private static void MapSelectControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -75,7 +75,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MainMenuControls(GameControlMapper controlMapper, VerticalMenu verticalMenu)
+        private static void MainMenuControls(ControlMapper controlMapper, VerticalMenu verticalMenu)
         {
             if (controlMapper.Press(Input.Down, PressType.Single))
             {
@@ -93,7 +93,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MapControls(GameControlMapper controlMapper)
+        private static void MapControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Select, PressType.Single))
             {
@@ -125,7 +125,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void CameraControl(GameControlMapper controlMapper)
+        private static void CameraControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Y, PressType.Single))
             {
@@ -196,7 +196,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void SelectUnitControl(GameControlMapper controlMapper)
+        private static void SelectUnitControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -238,7 +238,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MoveUnitControl(GameControlMapper controlMapper)
+        private static void MoveUnitControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -273,7 +273,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void DecideActionControl(GameControlMapper controlMapper)
+        private static void DecideActionControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -317,7 +317,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void PauseMenuControl(GameControlMapper controlMapper)
+        private static void PauseMenuControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -341,7 +341,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void UnitTargetingControl(GameControlMapper controlMapper)
+        private static void UnitTargetingControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
             {
@@ -383,7 +383,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void UnitActingControl(GameControlMapper controlMapper)
+        private static void UnitActingControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.A, PressType.Single))
             {
@@ -391,7 +391,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void ResolvingTurnControl(GameControlMapper controlMapper)
+        private static void ResolvingTurnControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.A, PressType.Single))
             {
