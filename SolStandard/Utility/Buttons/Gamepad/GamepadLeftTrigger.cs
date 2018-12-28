@@ -11,7 +11,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
         public override bool Pressed
         {
-            get { return GamePad.GetState(PlayerIndex).Triggers.Left > 0.2f; }
+            get { return GamePad.GetState(PlayerIndex).Triggers.Left > ControlMapper.TriggerDeadzone; }
         }
     }
 }

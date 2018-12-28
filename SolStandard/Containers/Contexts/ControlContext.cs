@@ -40,7 +40,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void ResultsControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Select, PressType.Single))
+            if (controlMapper.Press(Input.Status, PressType.Single))
             {
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
@@ -69,7 +69,7 @@ namespace SolStandard.Containers.Contexts
                 GameContext.MapCursor.MoveCursorInDirection(Direction.Right);
             }
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.MapSelectContext.SelectMap();
             }
@@ -87,7 +87,7 @@ namespace SolStandard.Containers.Contexts
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 verticalMenu.SelectOption();
             }
@@ -95,7 +95,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void MapControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Select, PressType.Single))
+            if (controlMapper.Press(Input.Status, PressType.Single))
             {
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
@@ -127,7 +127,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void CameraControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Y, PressType.Single))
+            if (controlMapper.Press(Input.CenterCamera, PressType.Single))
             {
                 GameContext.MapCamera.CenterCameraToCursor();
             }
@@ -154,43 +154,43 @@ namespace SolStandard.Containers.Contexts
 
             const float cameraPanRateOverride = 5;
 
-            if (controlMapper.Press(Input.RsDown, PressType.InstantRepeat))
+            if (controlMapper.Press(Input.CameraDown, PressType.InstantRepeat))
             {
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
-            if (controlMapper.Press(Input.RsLeft, PressType.InstantRepeat))
+            if (controlMapper.Press(Input.CameraLeft, PressType.InstantRepeat))
             {
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
-            if (controlMapper.Press(Input.RsRight, PressType.InstantRepeat))
+            if (controlMapper.Press(Input.CameraRight, PressType.InstantRepeat))
             {
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
-            if (controlMapper.Press(Input.RsUp, PressType.InstantRepeat))
+            if (controlMapper.Press(Input.CameraUp, PressType.InstantRepeat))
             {
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
 
 
-            if (controlMapper.Released(Input.RsDown))
+            if (controlMapper.Released(Input.CameraDown))
             {
                 GameContext.MapCamera.StopMovingCamera();
             }
 
-            if (controlMapper.Released(Input.RsLeft))
+            if (controlMapper.Released(Input.CameraLeft))
             {
                 GameContext.MapCamera.StopMovingCamera();
             }
 
-            if (controlMapper.Released(Input.RsRight))
+            if (controlMapper.Released(Input.CameraRight))
             {
                 GameContext.MapCamera.StopMovingCamera();
             }
 
-            if (controlMapper.Released(Input.RsUp))
+            if (controlMapper.Released(Input.CameraUp))
             {
                 GameContext.MapCamera.StopMovingCamera();
             }
@@ -218,7 +218,7 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
-            if (controlMapper.Press(Input.X, PressType.Single))
+            if (controlMapper.Press(Input.ResetToUnit, PressType.Single))
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
                 AssetManager.MapUnitCancelSFX.Play();
@@ -226,13 +226,13 @@ namespace SolStandard.Containers.Contexts
 
             CameraControl(controlMapper);
 
-            if (controlMapper.Press(Input.Start, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.Menu, PressType.DelayedRepeat))
             {
                 AssetManager.MenuConfirmSFX.Play();
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.SelectUnitAndStartMoving();
             }
@@ -262,12 +262,12 @@ namespace SolStandard.Containers.Contexts
 
             CameraControl(controlMapper);
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.FinishMoving();
             }
 
-            if (controlMapper.Press(Input.B, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GameContext.GameMapContext.CancelMove();
             }
@@ -295,12 +295,12 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.ToggleCombatMenu();
             }
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.SelectActionMenuOption();
             }
             
-            if (controlMapper.Press(Input.B, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GameContext.GameMapContext.CancelActionMenu();
             }
@@ -329,12 +329,12 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.SelectPauseMenuOption();
             }
 
-            if (controlMapper.Press(Input.Start, PressType.Single))
+            if (controlMapper.Press(Input.Menu, PressType.Single))
             {
                 GameContext.GameMapContext.PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
@@ -363,7 +363,7 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
-            if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.ResetToUnit, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.ResetCursorToActiveUnit();
                 GameContext.MapCamera.CenterCameraToCursor();
@@ -372,12 +372,12 @@ namespace SolStandard.Containers.Contexts
 
             CameraControl(controlMapper);
 
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.ExecuteAction();
             }
 
-            if (controlMapper.Press(Input.B, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GameContext.GameMapContext.CancelAction();
             }
@@ -385,7 +385,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void UnitActingControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.BattleContext.ContinueCombat();
             }
@@ -393,7 +393,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void ResolvingTurnControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.A, PressType.Single))
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.GameMapContext.ResolveTurn();
                 AssetManager.MapUnitSelectSFX.Play();

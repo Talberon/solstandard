@@ -14,6 +14,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.KeyboardInput;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
@@ -36,8 +37,8 @@ namespace SolStandard
         public static readonly Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private SpriteBatch spriteBatch;
-        private GameControlMapper p1ControlMapper;
-        private GameControlMapper p2ControlMapper;
+        private GameControlParser p1ControlMapper;
+        private GameControlParser p2ControlMapper;
         private ConnectionManager connectionManager;
 
         private static bool _quitting;
@@ -128,8 +129,8 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            p1ControlMapper = new GameControlMapper(PlayerIndex.One);
-            p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
+            p1ControlMapper = new GameControlParser(new KeyboardController(PlayerIndex.One));
+            p2ControlMapper = new GameControlParser(new KeyboardController(PlayerIndex.One));
 
             GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
                 mainMenuBackgroundSprite));

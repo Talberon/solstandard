@@ -14,7 +14,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             get
             {
                 return GamePad.GetState(PlayerIndex).DPad.Left == ButtonState.Pressed ||
-                       GamePad.GetState(PlayerIndex).ThumbSticks.Left.X < (-GameControlMapper.StickThreshold);
+                       GamePad.GetState(PlayerIndex).ThumbSticks.Left.X < (-ControlMapper.StickDeadzone);
             }
         }
     }

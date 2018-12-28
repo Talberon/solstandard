@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
         public abstract bool Pressed { get; }
 
-        public bool Released
+        public virtual bool Released
         {
             get { return !Pressed && InputCounter > 0; }
         }

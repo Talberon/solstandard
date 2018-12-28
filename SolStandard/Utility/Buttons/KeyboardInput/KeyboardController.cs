@@ -10,7 +10,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
         {
             Confirm = new InputKey(playerIndex, Keys.Space);
             Cancel = new InputKey(playerIndex, Keys.LeftShift);
-            ActiveUnit = new InputKey(playerIndex, Keys.Tab);
+            ResetToUnit = new InputKey(playerIndex, Keys.Tab);
             CenterCamera = new InputKey(playerIndex, Keys.OemTilde);
 
             CursorUp = new InputKey(playerIndex, Keys.W);
@@ -34,7 +34,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
 
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
-        public GameControl ActiveUnit { get; private set; }
+        public GameControl ResetToUnit { get; private set; }
         public GameControl CenterCamera { get; private set; }
 
         public GameControl CursorUp { get; private set; }

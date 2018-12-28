@@ -16,16 +16,16 @@ namespace SolStandard.Utility.Buttons
         Down,
         Left,
         Right,
-        RsUp,
-        RsDown,
-        RsLeft,
-        RsRight,
-        A,
-        B,
-        X,
-        Y,
-        Select,
-        Start,
+        CameraUp,
+        CameraDown,
+        CameraLeft,
+        CameraRight,
+        Confirm,
+        Cancel,
+        ResetToUnit,
+        CenterCamera,
+        Status,
+        Menu,
         LeftBumper,
         LeftTrigger,
         RightBumper,
@@ -34,7 +34,8 @@ namespace SolStandard.Utility.Buttons
 
     public abstract class ControlMapper
     {
-        public const float StickThreshold = 0.2f;
+        public const float StickDeadzone = 0.2f;
+        public const float TriggerDeadzone = 0.2f;
         protected const int InitialInputDelayInFrames = 15;
         protected const int RepeatInputDelayInFrames = 5;
         

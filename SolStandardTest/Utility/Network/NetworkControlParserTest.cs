@@ -47,50 +47,50 @@ namespace SolStandardTest.Utility.Network
         [Test]
         public void testNetworkInput_RsUp()
         {
-            Assert.AreEqual(Input.RsUp, NetworkControlParser.ReadNetworkInput("RS_UP"));
+            Assert.AreEqual(Input.CameraUp, NetworkControlParser.ReadNetworkInput("RS_UP"));
         }
 
         [Test]
         public void testNetworkInput_RsDown()
         {
-            Assert.AreEqual(Input.RsDown, NetworkControlParser.ReadNetworkInput("RS_DOWN"));
+            Assert.AreEqual(Input.CameraDown, NetworkControlParser.ReadNetworkInput("RS_DOWN"));
         }
 
         [Test]
         public void testNetworkInput_RsLeft()
         {
-            Assert.AreEqual(Input.RsLeft, NetworkControlParser.ReadNetworkInput("RS_LEFT"));
+            Assert.AreEqual(Input.CameraLeft, NetworkControlParser.ReadNetworkInput("RS_LEFT"));
         }
 
         [Test]
         public void testNetworkInput_RsRight()
         {
-            Assert.AreEqual(Input.RsRight, NetworkControlParser.ReadNetworkInput("RS_RIGHT"));
+            Assert.AreEqual(Input.CameraRight, NetworkControlParser.ReadNetworkInput("RS_RIGHT"));
         }
 
 
         [Test]
         public void testNetworkInput_A()
         {
-            Assert.AreEqual(Input.A, NetworkControlParser.ReadNetworkInput("A"));
+            Assert.AreEqual(Input.Confirm, NetworkControlParser.ReadNetworkInput("A"));
         }
 
         [Test]
         public void testNetworkInput_B()
         {
-            Assert.AreEqual(Input.B, NetworkControlParser.ReadNetworkInput("B"));
+            Assert.AreEqual(Input.Cancel, NetworkControlParser.ReadNetworkInput("B"));
         }
 
         [Test]
         public void testNetworkInput_X()
         {
-            Assert.AreEqual(Input.X, NetworkControlParser.ReadNetworkInput("X"));
+            Assert.AreEqual(Input.ResetToUnit, NetworkControlParser.ReadNetworkInput("X"));
         }
 
         [Test]
         public void testNetworkInput_Y()
         {
-            Assert.AreEqual(Input.Y, NetworkControlParser.ReadNetworkInput("Y"));
+            Assert.AreEqual(Input.CenterCamera, NetworkControlParser.ReadNetworkInput("Y"));
         }
 
 

@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
         {
             Confirm = new GamepadA(playerIndex);
             Cancel = new GamepadB(playerIndex);
-            ActiveUnit = new GamepadX(playerIndex);
+            ResetToUnit = new GamepadX(playerIndex);
             CenterCamera = new GamepadY(playerIndex);
 
             CursorUp = new GamepadUp(playerIndex);
@@ -32,7 +32,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
-        public GameControl ActiveUnit { get; private set; }
+        public GameControl ResetToUnit { get; private set; }
         public GameControl CenterCamera { get; private set; }
 
         public GameControl CursorUp { get; private set; }

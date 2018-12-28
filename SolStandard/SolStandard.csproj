@@ -215,13 +215,13 @@
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
+    <Compile Include="Utility\Buttons\GameControlParser.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadA.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadB.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadDown.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GameControl.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadController.cs" />
     <Compile Include="Utility\Buttons\ControlMapper.cs" />
-    <Compile Include="Utility\Buttons\GameControlMapper.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadLeftBumper.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadLeft.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadLeftTrigger.cs" />
@@ -240,6 +240,7 @@
     <Compile Include="Utility\Buttons\IController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\KeyboardController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\InputKey.cs" />
+    <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
@@ -449,7 +450,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utility\Buttons\Legacy" />
-    <Folder Include="Utility\Buttons\Network" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

@@ -6,7 +6,7 @@ namespace SolStandard.Utility.Buttons
     {
         GameControl Confirm { get; }
         GameControl Cancel { get; }
-        GameControl ActiveUnit { get; }
+        GameControl ResetToUnit { get; }
         GameControl CenterCamera { get; }
 
         GameControl CursorUp { get; }

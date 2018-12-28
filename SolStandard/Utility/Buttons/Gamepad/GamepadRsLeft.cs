@@ -11,7 +11,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
         public override bool Pressed
         {
-            get { return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X < (-GameControlMapper.StickThreshold); }
+            get { return GamePad.GetState(PlayerIndex).ThumbSticks.Right.X < (-ControlMapper.StickDeadzone); }
         }
     }
 }
