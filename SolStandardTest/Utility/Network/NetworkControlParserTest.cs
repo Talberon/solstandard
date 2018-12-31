@@ -22,25 +22,25 @@ namespace SolStandardTest.Utility.Network
         [Test]
         public void testNetworkInput_Up()
         {
-            Assert.AreEqual(Input.Up, NetworkControlParser.ReadNetworkInput("UP"));
+            Assert.AreEqual(Input.CursorUp, NetworkControlParser.ReadNetworkInput("UP"));
         }
 
         [Test]
         public void testNetworkInput_Down()
         {
-            Assert.AreEqual(Input.Down, NetworkControlParser.ReadNetworkInput("DOWN"));
+            Assert.AreEqual(Input.CursorDown, NetworkControlParser.ReadNetworkInput("DOWN"));
         }
 
         [Test]
         public void testNetworkInput_Left()
         {
-            Assert.AreEqual(Input.Left, NetworkControlParser.ReadNetworkInput("LEFT"));
+            Assert.AreEqual(Input.CursorLeft, NetworkControlParser.ReadNetworkInput("LEFT"));
         }
 
         [Test]
         public void testNetworkInput_Right()
         {
-            Assert.AreEqual(Input.Right, NetworkControlParser.ReadNetworkInput("RIGHT"));
+            Assert.AreEqual(Input.CursorRight, NetworkControlParser.ReadNetworkInput("RIGHT"));
         }
 
 

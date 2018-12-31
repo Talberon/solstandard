@@ -12,10 +12,10 @@ namespace SolStandard.Utility.Buttons
     public enum Input
     {
         None,
-        Up,
-        Down,
-        Left,
-        Right,
+        CursorUp,
+        CursorDown,
+        CursorLeft,
+        CursorRight,
         CameraUp,
         CameraDown,
         CameraLeft,
@@ -38,7 +38,7 @@ namespace SolStandard.Utility.Buttons
         public const float TriggerDeadzone = 0.2f;
         protected const int InitialInputDelayInFrames = 15;
         protected const int RepeatInputDelayInFrames = 5;
-        
+
         public abstract bool Press(Input input, PressType pressType);
         public abstract bool Released(Input input);
 

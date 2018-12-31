@@ -202,7 +202,7 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
             {
                 //Send Message From Server to Client
-                connectionManager.SendMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+                connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
             }
 
 
@@ -215,7 +215,7 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
             {
                 //Send message from client to server
-                connectionManager.SendMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+                connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
             }
 
 

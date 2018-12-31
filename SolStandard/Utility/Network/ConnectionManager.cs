@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Lidgren.Network;
+using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
 {
@@ -9,6 +10,14 @@ namespace SolStandard.Utility.Network
     {
         private NetServer server;
         private NetClient client;
+
+        public const string PacketTypeHeader = "PACKET_TYPE";
+
+        public enum PacketType
+        {
+            Text,
+            ControlInput
+        }
 
         public void StartServer()
         {
@@ -66,6 +75,9 @@ namespace SolStandard.Utility.Network
                 {
                     case NetIncomingMessageType.Data:
                         // handle custom messages
+
+                        byte[] packet = received.ReadBytes(1);
+
                         string data = received.ReadString();
                         Trace.WriteLine("RECEIVED:" + data);
                         break;
@@ -119,20 +131,30 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        public void SendMessageAsClient(string textMessage)
+        public void SendTextMessageAsClient(string textMessage)
         {
-            Trace.WriteLine("Sending message to server!");
+            Trace.WriteLine("Sending text message to server!");
             NetOutgoingMessage message = client.CreateMessage();
             message.Write(textMessage);
             client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
         }
 
-        public void SendMessageAsServer(string textMessage)
+        public void SendTextMessageAsServer(string textMessage)
         {
-            Trace.WriteLine("Sending message to client!");
+            Trace.WriteLine("Sending text message to client!");
             NetOutgoingMessage message = server.CreateMessage();
             message.Write(textMessage);
             server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
+        }
+
+        public void SendControlMessageAsClient(NetworkController control)
+        {
+            Trace.WriteLine("Sending control message to server!");
+        }
+
+        public void SendControlMessageAsServer(NetworkController control)
+        {
+            Trace.WriteLine("Sending control message to client!");
         }
 
         public void CloseServer()

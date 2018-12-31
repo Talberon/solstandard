@@ -240,6 +240,7 @@
     <Compile Include="Utility\Buttons\IController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\KeyboardController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\InputKey.cs" />
+    <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />

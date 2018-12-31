@@ -13,10 +13,10 @@ namespace SolStandard.Utility.Network
 
         private static readonly Dictionary<string, Input> MessageInputMap = new Dictionary<string, Input>
         {
-            {"UP", Input.Up},
-            {"DOWN", Input.Down},
-            {"LEFT", Input.Left},
-            {"RIGHT", Input.Right},
+            {"UP", Input.CursorUp},
+            {"DOWN", Input.CursorDown},
+            {"LEFT", Input.CursorLeft},
+            {"RIGHT", Input.CursorRight},
 
             {"RS_UP", Input.CameraUp},
             {"RS_DOWN", Input.CameraDown},
@@ -42,10 +42,10 @@ namespace SolStandard.Utility.Network
         {
             buttonMap = new Dictionary<Input, GameControl>
             {
-                {Input.Up, new GamepadUp(playerIndex)},
-                {Input.Down, new GamepadDown(playerIndex)},
-                {Input.Left, new GamepadLeft(playerIndex)},
-                {Input.Right, new GamepadRight(playerIndex)},
+                {Input.CursorUp, new GamepadUp(playerIndex)},
+                {Input.CursorDown, new GamepadDown(playerIndex)},
+                {Input.CursorLeft, new GamepadLeft(playerIndex)},
+                {Input.CursorRight, new GamepadRight(playerIndex)},
 
                 {Input.CameraUp, new GamepadRsUp(playerIndex)},
                 {Input.CameraDown, new GamepadRsDown(playerIndex)},

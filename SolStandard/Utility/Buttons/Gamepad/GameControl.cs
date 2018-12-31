@@ -5,7 +5,6 @@ namespace SolStandard.Utility.Buttons.Gamepad
     public abstract class GameControl
     {
         protected readonly PlayerIndex PlayerIndex;
-
         public int InputCounter { get; private set; }
 
         protected GameControl(PlayerIndex playerIndex)

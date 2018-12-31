@@ -49,22 +49,22 @@ namespace SolStandard.Containers.Contexts
 
         private static void MapSelectControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.MapCursor.MoveCursorInDirection(Direction.Up);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.MapCursor.MoveCursorInDirection(Direction.Down);
             }
 
-            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
                 GameContext.MapCursor.MoveCursorInDirection(Direction.Left);
             }
 
-            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.MapCursor.MoveCursorInDirection(Direction.Right);
             }
@@ -77,12 +77,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void MainMenuControls(ControlMapper controlMapper, VerticalMenu verticalMenu)
         {
-            if (controlMapper.Press(Input.Down, PressType.Single))
+            if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Press(Input.Up, PressType.Single))
+            if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
                 verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
@@ -198,22 +198,22 @@ namespace SolStandard.Containers.Contexts
 
         private static void SelectUnitControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
             }
 
-            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
             }
 
-            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
@@ -240,22 +240,22 @@ namespace SolStandard.Containers.Contexts
 
         private static void MoveUnitControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
             }
 
-            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
             }
 
-            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
             }
@@ -275,22 +275,22 @@ namespace SolStandard.Containers.Contexts
 
         private static void DecideActionControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Press(Input.Right, PressType.Single))
+            if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
                 GameContext.GameMapContext.ToggleCombatMenu();
             }
 
-            if (controlMapper.Press(Input.Left, PressType.Single))
+            if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
                 GameContext.GameMapContext.ToggleCombatMenu();
             }
@@ -319,12 +319,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void PauseMenuControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
@@ -343,22 +343,22 @@ namespace SolStandard.Containers.Contexts
 
         private static void UnitTargetingControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Up, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
             }
 
-            if (controlMapper.Press(Input.Down, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
             }
 
-            if (controlMapper.Press(Input.Left, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
             }
 
-            if (controlMapper.Press(Input.Right, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }

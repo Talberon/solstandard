@@ -12,10 +12,10 @@ namespace SolStandard.Utility.Buttons
         {
             buttonMap = new Dictionary<Input, GameControl>
             {
-                {Input.Up, controller.CursorUp},
-                {Input.Down, controller.CursorDown},
-                {Input.Left, controller.CursorLeft},
-                {Input.Right, controller.CursorRight},
+                {Input.CursorUp, controller.CursorUp},
+                {Input.CursorDown, controller.CursorDown},
+                {Input.CursorLeft, controller.CursorLeft},
+                {Input.CursorRight, controller.CursorRight},
 
                 {Input.CameraUp, controller.CameraUp},
                 {Input.CameraDown, controller.CameraDown},
