@@ -64,30 +64,23 @@ namespace SolStandard.Utility.Buttons.Network
             };
         }
 
-        public NetworkController(SerializationInfo info, StreamingContext context)
+        public NetworkController(SerializationInfo info, StreamingContext context) : this(PlayerIndex.One)
         {
-            Confirm = (InputNet) info.GetValue(Input.Confirm.ToString(), typeof(InputNet));
-            Cancel = (InputNet) info.GetValue(Input.Cancel.ToString(), typeof(InputNet));
-            ResetToUnit = (InputNet) info.GetValue(Input.ResetToUnit.ToString(), typeof(InputNet));
-            CenterCamera = (InputNet) info.GetValue(Input.CenterCamera.ToString(), typeof(InputNet));
+            foreach (Input input in Enum.GetValues(typeof(Input)))
+            {
+                if (input == Input.None) continue;
 
-            CursorUp = (InputNet) info.GetValue(Input.CursorUp.ToString(), typeof(InputNet));
-            CursorDown = (InputNet) info.GetValue(Input.CursorDown.ToString(), typeof(InputNet));
-            CursorLeft = (InputNet) info.GetValue(Input.CursorLeft.ToString(), typeof(InputNet));
-            CursorRight = (InputNet) info.GetValue(Input.CursorRight.ToString(), typeof(InputNet));
+                bool pressed = (bool) info.GetValue(input.ToString(), typeof(bool));
 
-            CameraUp = (InputNet) info.GetValue(Input.CameraUp.ToString(), typeof(InputNet));
-            CameraDown = (InputNet) info.GetValue(Input.CameraDown.ToString(), typeof(InputNet));
-            CameraLeft = (InputNet) info.GetValue(Input.CameraLeft.ToString(), typeof(InputNet));
-            CameraRight = (InputNet) info.GetValue(Input.CameraRight.ToString(), typeof(InputNet));
-
-            Menu = (InputNet) info.GetValue(Input.Menu.ToString(), typeof(InputNet));
-            Status = (InputNet) info.GetValue(Input.Status.ToString(), typeof(InputNet));
-
-            SetWideZoom = (InputNet) info.GetValue(Input.LeftBumper.ToString(), typeof(InputNet));
-            SetCloseZoom = (InputNet) info.GetValue(Input.RightBumper.ToString(), typeof(InputNet));
-            AdjustZoomOut = (InputNet) info.GetValue(Input.LeftTrigger.ToString(), typeof(InputNet));
-            AdjustZoomIn = (InputNet) info.GetValue(Input.RightTrigger.ToString(), typeof(InputNet));
+                if (pressed)
+                {
+                    inputs[input].Press();
+                }
+                else
+                {
+                    inputs[input].Release();
+                }
+            }
         }
 
         public void Press(Input input)
@@ -127,28 +120,24 @@ namespace SolStandard.Utility.Buttons.Network
         {
             info.AddValue(ConnectionManager.PacketTypeHeader, ConnectionManager.PacketType.ControlInput);
 
-            info.AddValue(Input.Confirm.ToString(), Confirm);
-            info.AddValue(Input.Cancel.ToString(), Cancel);
-            info.AddValue(Input.ResetToUnit.ToString(), ResetToUnit);
-            info.AddValue(Input.CenterCamera.ToString(), CenterCamera);
-
-            info.AddValue(Input.CursorUp.ToString(), CursorUp);
-            info.AddValue(Input.CursorDown.ToString(), CursorDown);
-            info.AddValue(Input.CursorLeft.ToString(), CursorLeft);
-            info.AddValue(Input.CursorRight.ToString(), CursorRight);
-
-            info.AddValue(Input.CameraUp.ToString(), CameraUp);
-            info.AddValue(Input.CameraDown.ToString(), CameraDown);
-            info.AddValue(Input.CameraLeft.ToString(), CameraLeft);
-            info.AddValue(Input.CameraRight.ToString(), CameraRight);
-
-            info.AddValue(Input.Menu.ToString(), Menu);
-            info.AddValue(Input.Status.ToString(), Status);
-
-            info.AddValue(Input.LeftBumper.ToString(), SetWideZoom);
-            info.AddValue(Input.RightBumper.ToString(), SetCloseZoom);
-            info.AddValue(Input.LeftTrigger.ToString(), AdjustZoomOut);
-            info.AddValue(Input.RightTrigger.ToString(), AdjustZoomIn);
+            info.AddValue(Input.Confirm.ToString(), Confirm.Pressed);
+            info.AddValue(Input.Cancel.ToString(), Cancel.Pressed);
+            info.AddValue(Input.ResetToUnit.ToString(), ResetToUnit.Pressed);
+            info.AddValue(Input.CenterCamera.ToString(), CenterCamera.Pressed);
+            info.AddValue(Input.CursorUp.ToString(), CursorUp.Pressed);
+            info.AddValue(Input.CursorDown.ToString(), CursorDown.Pressed);
+            info.AddValue(Input.CursorLeft.ToString(), CursorLeft.Pressed);
+            info.AddValue(Input.CursorRight.ToString(), CursorRight.Pressed);
+            info.AddValue(Input.CameraUp.ToString(), CameraUp.Pressed);
+            info.AddValue(Input.CameraDown.ToString(), CameraDown.Pressed);
+            info.AddValue(Input.CameraLeft.ToString(), CameraLeft.Pressed);
+            info.AddValue(Input.CameraRight.ToString(), CameraRight.Pressed);
+            info.AddValue(Input.Menu.ToString(), Menu.Pressed);
+            info.AddValue(Input.Status.ToString(), Status.Pressed);
+            info.AddValue(Input.LeftBumper.ToString(), SetWideZoom.Pressed);
+            info.AddValue(Input.RightBumper.ToString(), SetCloseZoom.Pressed);
+            info.AddValue(Input.LeftTrigger.ToString(), AdjustZoomOut.Pressed);
+            info.AddValue(Input.RightTrigger.ToString(), AdjustZoomIn.Pressed);
         }
 
         public override string ToString()

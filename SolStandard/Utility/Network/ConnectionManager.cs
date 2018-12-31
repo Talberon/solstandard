@@ -150,11 +150,16 @@ namespace SolStandard.Utility.Network
         public void SendControlMessageAsClient(NetworkController control)
         {
             Trace.WriteLine("Sending control message to server!");
+            NetOutgoingMessage message = client.CreateMessage();
+            //TODO Implement
+            throw new NotImplementedException();
         }
 
         public void SendControlMessageAsServer(NetworkController control)
         {
             Trace.WriteLine("Sending control message to client!");
+            //TODO Implement
+            throw new NotImplementedException();
         }
 
         public void CloseServer()
