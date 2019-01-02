@@ -12,6 +12,7 @@ namespace SolStandard.Utility.Buttons.Network
     {
         private readonly Dictionary<Input, InputNet> inputs;
         private readonly PlayerIndex playerIndex;
+        private const string NCPrefix = "NC";
 
         public NetworkController(PlayerIndex playerIndex)
         {
@@ -73,7 +74,8 @@ namespace SolStandard.Utility.Buttons.Network
             {
                 if (input == Input.None) continue;
 
-                bool pressed = (bool) info.GetValue(input.ToString(), typeof(bool));
+                //Extract each GameControl type based on the prefix plus the integer value of the enum, e.g. NC12
+                bool pressed = (bool) info.GetValue(NCPrefix + (int) input, typeof(bool));
 
                 if (pressed)
                 {
@@ -124,24 +126,24 @@ namespace SolStandard.Utility.Buttons.Network
             info.AddValue(ConnectionManager.PacketTypeHeader, (int) ConnectionManager.PacketType.ControlInput);
             info.AddValue("PLAYER", (int) playerIndex);
 
-            info.AddValue(Input.Confirm.ToString(), Confirm.Pressed);
-            info.AddValue(Input.Cancel.ToString(), Cancel.Pressed);
-            info.AddValue(Input.ResetToUnit.ToString(), ResetToUnit.Pressed);
-            info.AddValue(Input.CenterCamera.ToString(), CenterCamera.Pressed);
-            info.AddValue(Input.CursorUp.ToString(), CursorUp.Pressed);
-            info.AddValue(Input.CursorDown.ToString(), CursorDown.Pressed);
-            info.AddValue(Input.CursorLeft.ToString(), CursorLeft.Pressed);
-            info.AddValue(Input.CursorRight.ToString(), CursorRight.Pressed);
-            info.AddValue(Input.CameraUp.ToString(), CameraUp.Pressed);
-            info.AddValue(Input.CameraDown.ToString(), CameraDown.Pressed);
-            info.AddValue(Input.CameraLeft.ToString(), CameraLeft.Pressed);
-            info.AddValue(Input.CameraRight.ToString(), CameraRight.Pressed);
-            info.AddValue(Input.Menu.ToString(), Menu.Pressed);
-            info.AddValue(Input.Status.ToString(), Status.Pressed);
-            info.AddValue(Input.LeftBumper.ToString(), SetWideZoom.Pressed);
-            info.AddValue(Input.RightBumper.ToString(), SetCloseZoom.Pressed);
-            info.AddValue(Input.LeftTrigger.ToString(), AdjustZoomOut.Pressed);
-            info.AddValue(Input.RightTrigger.ToString(), AdjustZoomIn.Pressed);
+            info.AddValue(NCPrefix + (int) Input.Confirm, Confirm.Pressed);
+            info.AddValue(NCPrefix + (int) Input.Cancel, Cancel.Pressed);
+            info.AddValue(NCPrefix + (int) Input.ResetToUnit, ResetToUnit.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CenterCamera, CenterCamera.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CursorUp, CursorUp.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CursorDown, CursorDown.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CursorLeft, CursorLeft.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CursorRight, CursorRight.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CameraUp, CameraUp.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CameraDown, CameraDown.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CameraLeft, CameraLeft.Pressed);
+            info.AddValue(NCPrefix + (int) Input.CameraRight, CameraRight.Pressed);
+            info.AddValue(NCPrefix + (int) Input.Menu, Menu.Pressed);
+            info.AddValue(NCPrefix + (int) Input.Status, Status.Pressed);
+            info.AddValue(NCPrefix + (int) Input.LeftBumper, SetWideZoom.Pressed);
+            info.AddValue(NCPrefix + (int) Input.RightBumper, SetCloseZoom.Pressed);
+            info.AddValue(NCPrefix + (int) Input.LeftTrigger, AdjustZoomOut.Pressed);
+            info.AddValue(NCPrefix + (int) Input.RightTrigger, AdjustZoomIn.Pressed);
         }
 
         public override string ToString()
