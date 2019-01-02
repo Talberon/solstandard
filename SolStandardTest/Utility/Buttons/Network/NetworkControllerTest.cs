@@ -28,6 +28,8 @@ namespace SolStandardTest.Utility.Buttons.Network
                 IFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(writeStream, controller);
 
+                Console.WriteLine("Stream length: " + writeStream.Length + Environment.NewLine);
+
                 writeStream.Seek(0, SeekOrigin.Begin);
                 readController = (NetworkController) formatter.Deserialize(writeStream);
 

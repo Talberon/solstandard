@@ -1,6 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using SolStandard.Utility.Buttons.Network;
 
@@ -11,7 +14,7 @@ namespace SolStandard.Utility.Network
         private NetServer server;
         private NetClient client;
 
-        public const string PacketTypeHeader = "PACKET_TYPE";
+        public const string PacketTypeHeader = "PT";
 
         public enum PacketType
         {
@@ -76,7 +79,23 @@ namespace SolStandard.Utility.Network
                     case NetIncomingMessageType.Data:
                         // handle custom messages
 
-                        byte[] packet = received.ReadBytes(1);
+                        byte[] packetSignature = received.ReadBytes(1);
+
+                        Trace.WriteLine("RECEIVED First byte (Packet Signature): " + packetSignature);
+
+                        foreach (PacketType input in Enum.GetValues(typeof(PacketType)))
+                        {
+                            switch (input)
+                            {
+                                case PacketType.Text:
+                                    break;
+                                case PacketType.ControlInput:
+                                    ReadNetworkControllerInput(received);
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
 
                         string data = received.ReadString();
                         Trace.WriteLine("RECEIVED:" + data);
@@ -131,6 +150,19 @@ namespace SolStandard.Utility.Network
             }
         }
 
+        private static void ReadNetworkControllerInput(NetBuffer received)
+        {
+            byte[] messageBytes = received.ReadBytes(received.LengthBytes);
+
+            using (Stream memoryStream = new MemoryStream(messageBytes))
+            {
+                IFormatter formatter = new BinaryFormatter();
+                NetworkController receivedNetworkControls = (NetworkController) formatter.Deserialize(memoryStream);
+                Trace.WriteLine("Received control:" + receivedNetworkControls);
+                //TODO Interpret network controller input in the game
+            }
+        }
+
         public void SendTextMessageAsClient(string textMessage)
         {
             Trace.WriteLine("Sending text message to server!");
@@ -150,16 +182,29 @@ namespace SolStandard.Utility.Network
         public void SendControlMessageAsClient(NetworkController control)
         {
             Trace.WriteLine("Sending control message to server!");
-            NetOutgoingMessage message = client.CreateMessage();
-            //TODO Implement
-            throw new NotImplementedException();
+            const int controlBytes = 314;
+            NetOutgoingMessage message = client.CreateMessage(controlBytes);
+
+            using (Stream memoryStream = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(memoryStream, control);
+                message.Write(memoryStream.ToString());
+                client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
+            }
         }
 
         public void SendControlMessageAsServer(NetworkController control)
         {
             Trace.WriteLine("Sending control message to client!");
-            //TODO Implement
-            throw new NotImplementedException();
+            const int controlBytes = 314;
+            NetOutgoingMessage message = server.CreateMessage(controlBytes);
+
+            using (Stream memoryStream = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(memoryStream, control);
+                message.Write(memoryStream.ToString());
+                server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
+            }
         }
 
         public void CloseServer()

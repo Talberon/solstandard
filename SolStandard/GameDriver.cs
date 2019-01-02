@@ -15,6 +15,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.KeyboardInput;
+using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
@@ -203,6 +204,7 @@ namespace SolStandard
             {
                 //Send Message From Server to Client
                 connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+                connectionManager.SendControlMessageAsServer(new NetworkController(PlayerIndex.One));
             }
 
 
@@ -216,6 +218,7 @@ namespace SolStandard
             {
                 //Send message from client to server
                 connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+                connectionManager.SendControlMessageAsClient(new NetworkController(PlayerIndex.One));
             }
 
 
