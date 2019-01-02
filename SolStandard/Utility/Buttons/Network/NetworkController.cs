@@ -10,10 +10,13 @@ namespace SolStandard.Utility.Buttons.Network
     [Serializable]
     public class NetworkController : IController, ISerializable
     {
-        private Dictionary<Input, InputNet> inputs;
+        private readonly Dictionary<Input, InputNet> inputs;
+        private readonly PlayerIndex playerIndex;
 
         public NetworkController(PlayerIndex playerIndex)
         {
+            this.playerIndex = playerIndex;
+
             Confirm = new InputNet(playerIndex);
             Cancel = new InputNet(playerIndex);
             ResetToUnit = new InputNet(playerIndex);
@@ -118,7 +121,8 @@ namespace SolStandard.Utility.Buttons.Network
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(ConnectionManager.PacketTypeHeader, ConnectionManager.PacketType.ControlInput);
+            info.AddValue(ConnectionManager.PacketTypeHeader, (int) ConnectionManager.PacketType.ControlInput);
+            info.AddValue("PLAYER", (int) playerIndex);
 
             info.AddValue(Input.Confirm.ToString(), Confirm.Pressed);
             info.AddValue(Input.Cancel.ToString(), Cancel.Pressed);
@@ -143,6 +147,8 @@ namespace SolStandard.Utility.Buttons.Network
         public override string ToString()
         {
             string description = "NetworkController {";
+            description += Environment.NewLine;
+            description += string.Format("Player Index: {0}", playerIndex);
             description += Environment.NewLine;
             description += string.Format("<{0}: {1}>, ", Input.Confirm.ToString(), Confirm);
             description += string.Format("<{0}: {1}>, ", Input.Cancel.ToString(), Cancel);
