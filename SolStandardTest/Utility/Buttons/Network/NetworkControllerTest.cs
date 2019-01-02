@@ -21,14 +21,18 @@ namespace SolStandardTest.Utility.Buttons.Network
             controller.Press(Input.CursorUp);
             controller.Release(Input.CursorDown);
 
-            Stream writeStream = new MemoryStream();
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(writeStream, controller);
+            NetworkController readController;
 
-            writeStream.Seek(0, SeekOrigin.Begin);
-            NetworkController readController = (NetworkController) formatter.Deserialize(writeStream);
+            using (Stream writeStream = new MemoryStream())
+            {
+                IFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(writeStream, controller);
 
-            writeStream.Close();
+                writeStream.Seek(0, SeekOrigin.Begin);
+                readController = (NetworkController) formatter.Deserialize(writeStream);
+
+                writeStream.Close();
+            }
 
             Console.WriteLine(readController);
 
