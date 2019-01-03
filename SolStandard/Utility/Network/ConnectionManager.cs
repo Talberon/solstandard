@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
@@ -79,26 +80,16 @@ namespace SolStandard.Utility.Network
                     case NetIncomingMessageType.Data:
                         // handle custom messages
 
-                        byte[] packetSignature = received.ReadBytes(1);
-
-                        Trace.WriteLine("RECEIVED First byte (Packet Signature): " + packetSignature);
-
-                        foreach (PacketType input in Enum.GetValues(typeof(PacketType)))
+                        if (received.PeekString().Equals(""))
                         {
-                            switch (input)
-                            {
-                                case PacketType.Text:
-                                    break;
-                                case PacketType.ControlInput:
-                                    ReadNetworkControllerInput(received);
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
+                            ReadNetworkControllerInput(received);
+                        }
+                        else
+                        {
+                            string data = received.ReadString();
+                            Trace.WriteLine("RECEIVED:" + data);
                         }
 
-                        string data = received.ReadString();
-                        Trace.WriteLine("RECEIVED:" + data);
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
@@ -152,6 +143,7 @@ namespace SolStandard.Utility.Network
 
         private static void ReadNetworkControllerInput(NetBuffer received)
         {
+            Trace.WriteLine("Reading control input...");
             byte[] messageBytes = received.ReadBytes(received.LengthBytes);
 
             using (Stream memoryStream = new MemoryStream(messageBytes))
