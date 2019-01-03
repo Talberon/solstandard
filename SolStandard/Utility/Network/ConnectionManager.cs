@@ -196,13 +196,14 @@ namespace SolStandard.Utility.Network
         public void SendControlMessageAsServer(NetworkController control)
         {
             Trace.WriteLine("Sending control message to client!");
-            const int controlBytes = 314;
-            NetOutgoingMessage message = server.CreateMessage(controlBytes);
+            NetOutgoingMessage message = server.CreateMessage();
 
-            using (Stream memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(memoryStream, control);
-                message.Write(memoryStream.ToString());
+                byte[] controlBytes = memoryStream.ToArray();
+                Trace.WriteLine(string.Format("Sending message: {0}. Size: {1}", controlBytes, memoryStream.Length));
+                message.Write(controlBytes);
                 server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
             }
         }
