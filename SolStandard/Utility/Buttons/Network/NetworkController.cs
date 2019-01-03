@@ -98,6 +98,11 @@ namespace SolStandard.Utility.Buttons.Network
             inputs[input].Release();
         }
 
+        public GameControl GetInput(Input input)
+        {
+            return inputs[input];
+        }
+
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
         public GameControl ResetToUnit { get; private set; }

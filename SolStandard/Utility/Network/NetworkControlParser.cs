@@ -1,40 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
 using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Buttons.Gamepad;
+using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
 {
     public class NetworkControlParser : ControlMapper
     {
-        public static Input ReadNetworkInput(string message)
-        {
-            /*
-             * TODO Consider turning the Control classes into serializable objects with state that can be sent as
-             * objects over network instead of interpreting strings here.
-             */
-            try
-            {
-                return Input.None;
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.StackTrace);
-            }
+        private readonly NetworkController controller;
 
-            return Input.None;
+        public NetworkControlParser(NetworkController controller)
+        {
+            this.controller = controller;
         }
 
         public override bool Press(Input input, PressType pressType)
         {
-            throw new NotImplementedException();
+            //TODO Figure out how pressType will be handled
+            return controller.GetInput(input).Pressed;
         }
 
         public override bool Released(Input input)
         {
-            throw new NotImplementedException();
+            return controller.GetInput(input).Released;
         }
     }
 }
