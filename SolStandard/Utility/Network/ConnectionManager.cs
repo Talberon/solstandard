@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
@@ -174,13 +173,14 @@ namespace SolStandard.Utility.Network
         public void SendControlMessageAsClient(NetworkController control)
         {
             Trace.WriteLine("Sending control message to server!");
-            const int controlBytes = 314;
-            NetOutgoingMessage message = client.CreateMessage(controlBytes);
+            NetOutgoingMessage message = client.CreateMessage();
 
-            using (Stream memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(memoryStream, control);
-                message.Write(memoryStream.ToString());
+                byte[] controlBytes = memoryStream.ToArray();
+                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                message.Write(controlBytes);
                 client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
             }
         }
@@ -194,7 +194,7 @@ namespace SolStandard.Utility.Network
             {
                 new BinaryFormatter().Serialize(memoryStream, control);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine(string.Format("Sending message: {0}. Size: {1}", controlBytes, memoryStream.Length));
+                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
                 message.Write(controlBytes);
                 server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
             }
