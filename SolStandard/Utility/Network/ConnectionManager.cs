@@ -25,7 +25,11 @@ namespace SolStandard.Utility.Network
 
         public bool ConnectedAsServer
         {
-            get { return server != null && server.Connections.First().Status == NetConnectionStatus.Connected; }
+            get
+            {
+                return server != null && server.ConnectionsCount > 0 &&
+                       server.Connections.First().Status == NetConnectionStatus.Connected;
+            }
         }
 
         public bool ConnectedAsClient

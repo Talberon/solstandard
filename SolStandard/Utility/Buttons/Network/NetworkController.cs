@@ -103,21 +103,35 @@ namespace SolStandard.Utility.Buttons.Network
             return inputs[input];
         }
 
-        public void MimicInput(IController controllerToMimic)
+        /// <summary>
+        /// Duplicate the input state of a given GameControlParser
+        /// </summary>
+        /// <param name="controllerToMimic"></param>
+        /// <returns>true if any inputs are different than previous state</returns>
+        public bool MimicInput(GameControlParser controllerToMimic)
         {
+            bool inputIsDifferent = false;
+
             foreach (Input input in Enum.GetValues(typeof(Input)))
             {
                 if (input == Input.None) continue;
 
-                if (controllerToMimic.GetInput(input).Pressed)
+                if (controllerToMimic.Press(input, PressType.DelayedRepeat))
                 {
+                    if (inputs[input].Released) inputIsDifferent = true;
+
                     Press(input);
                 }
-                else
+
+                if (controllerToMimic.Released(input))
                 {
+                    if (inputs[input].Pressed) inputIsDifferent = true;
+
                     Release(input);
                 }
             }
+
+            return inputIsDifferent;
         }
 
         public GameControl Confirm { get; private set; }

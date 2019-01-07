@@ -40,6 +40,7 @@ namespace SolStandard
         private SpriteBatch spriteBatch;
         private GameControlParser p1ControlMapper;
         private GameControlParser p2ControlMapper;
+        private NetworkController networkController;
         private ConnectionManager connectionManager;
 
         private static bool _quitting;
@@ -198,6 +199,7 @@ namespace SolStandard
             {
                 //Start Server
                 connectionManager.StartServer();
+                networkController = new NetworkController(PlayerIndex.One);
             }
 
             if (connectionManager.ConnectedAsServer)
@@ -210,6 +212,7 @@ namespace SolStandard
                 //Start Client
                 //TODO Update this to take an argument instead of a hard-coded IP
                 connectionManager.StartClient("127.0.0.1", 4444);
+                networkController = new NetworkController(PlayerIndex.Two);
             }
 
             if (connectionManager.ConnectedAsClient)
@@ -293,24 +296,24 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-//Send Message From Server to Client
+            //Send Message From Server to Client
             connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
 
-            NetworkController testContoller = new NetworkController(PlayerIndex.One);
-            testContoller.MimicInput(p1ControlMapper.Controller);
-
-            connectionManager.SendControlMessageAsServer(testContoller);
+            if (networkController.MimicInput(p1ControlMapper))
+            {
+                connectionManager.SendControlMessageAsServer(networkController);
+            }
         }
 
         private void SendClientControls()
         {
-//Send message from client to server
+            //Send message from client to server
             connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
 
-            NetworkController testContoller = new NetworkController(PlayerIndex.Two);
-            testContoller.MimicInput(p2ControlMapper.Controller);
-
-            connectionManager.SendControlMessageAsClient(testContoller);
+            if (networkController.MimicInput(p1ControlMapper))
+            {
+                connectionManager.SendControlMessageAsClient(networkController);
+            }
         }
 
         /// <summary>
