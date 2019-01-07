@@ -122,8 +122,7 @@ namespace SolStandard.Utility.Buttons.Network
 
                     Press(input);
                 }
-
-                if (controllerToMimic.Released(input))
+                else
                 {
                     if (inputs[input].Pressed) inputIsDifferent = true;
 

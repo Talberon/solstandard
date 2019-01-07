@@ -296,22 +296,20 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-            //Send Message From Server to Client
-            connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
-
             if (networkController.MimicInput(p1ControlMapper))
             {
+                //Send Message From Server to Client
+                connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
                 connectionManager.SendControlMessageAsServer(networkController);
             }
         }
 
         private void SendClientControls()
         {
-            //Send message from client to server
-            connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
-
             if (networkController.MimicInput(p1ControlMapper))
             {
+                //Send message from client to server
+                connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
                 connectionManager.SendControlMessageAsClient(networkController);
             }
         }
