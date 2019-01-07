@@ -8,8 +8,11 @@ namespace SolStandard.Utility.Buttons
     {
         private readonly Dictionary<Input, GameControl> buttonMap;
 
+        public IController Controller { get; private set; }
+
         public GameControlParser(IController controller)
         {
+            this.Controller = controller;
             buttonMap = new Dictionary<Input, GameControl>
             {
                 {Input.CursorUp, controller.CursorUp},

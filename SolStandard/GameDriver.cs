@@ -205,9 +205,8 @@ namespace SolStandard
                 //Send Message From Server to Client
                 connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
 
-                //TODO Replace me with actual controller state
                 NetworkController testContoller = new NetworkController(PlayerIndex.One);
-                testContoller.Press(Input.CursorUp);
+                testContoller.MimicInput(p1ControlMapper.Controller);
 
                 connectionManager.SendControlMessageAsServer(testContoller);
             }
@@ -224,9 +223,8 @@ namespace SolStandard
                 //Send message from client to server
                 connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
 
-                //TODO Replace me with actual controller state
-                NetworkController testContoller = new NetworkController(PlayerIndex.One);
-                testContoller.Press(Input.Confirm);
+                NetworkController testContoller = new NetworkController(PlayerIndex.Two);
+                testContoller.MimicInput(p2ControlMapper.Controller);
 
                 connectionManager.SendControlMessageAsClient(testContoller);
             }

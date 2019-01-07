@@ -103,6 +103,23 @@ namespace SolStandard.Utility.Buttons.Network
             return inputs[input];
         }
 
+        public void MimicInput(IController controllerToMimic)
+        {
+            foreach (Input input in Enum.GetValues(typeof(Input)))
+            {
+                if (input == Input.None) continue;
+
+                if (controllerToMimic.GetInput(input).Pressed)
+                {
+                    Press(input);
+                }
+                else
+                {
+                    Release(input);
+                }
+            }
+        }
+
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
         public GameControl ResetToUnit { get; private set; }

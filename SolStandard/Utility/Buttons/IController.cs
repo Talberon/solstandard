@@ -4,7 +4,7 @@ namespace SolStandard.Utility.Buttons
 {
     public interface IController
     {
-        
+        GameControl GetInput(Input input);
         
         GameControl Confirm { get; }
         GameControl Cancel { get; }

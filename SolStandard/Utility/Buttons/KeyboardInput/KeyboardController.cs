@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Utility.Buttons.Gamepad;
@@ -6,6 +7,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class KeyboardController : IController
     {
+        private readonly Dictionary<Input, InputKey> inputs;
         public KeyboardController(PlayerIndex playerIndex)
         {
             Confirm = new InputKey(playerIndex, Keys.Space);
@@ -30,6 +32,37 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             SetCloseZoom = new InputKey(playerIndex, Keys.LeftAlt);
             AdjustZoomOut = new InputKey(playerIndex, Keys.Q);
             AdjustZoomIn = new InputKey(playerIndex, Keys.E);
+            
+            inputs = new Dictionary<Input, InputKey>
+            {
+                {Input.Confirm, (InputKey) Confirm},
+                {Input.Cancel, (InputKey) Cancel},
+                {Input.ResetToUnit, (InputKey) ResetToUnit},
+                {Input.CenterCamera, (InputKey) CenterCamera},
+
+                {Input.CursorUp, (InputKey) CursorUp},
+                {Input.CursorDown, (InputKey) CursorDown},
+                {Input.CursorLeft, (InputKey) CursorLeft},
+                {Input.CursorRight, (InputKey) CursorRight},
+
+                {Input.CameraUp, (InputKey) CameraUp},
+                {Input.CameraDown, (InputKey) CameraDown},
+                {Input.CameraLeft, (InputKey) CameraLeft},
+                {Input.CameraRight, (InputKey) CameraRight},
+
+                {Input.Menu, (InputKey) Menu},
+                {Input.Status, (InputKey) Status},
+
+                {Input.LeftBumper, (InputKey) SetWideZoom},
+                {Input.RightBumper, (InputKey) SetCloseZoom},
+                {Input.LeftTrigger, (InputKey) AdjustZoomOut},
+                {Input.RightTrigger, (InputKey) AdjustZoomIn},
+            };
+        }
+
+        public GameControl GetInput(Input input)
+        {
+            return inputs[input];
         }
 
         public GameControl Confirm { get; private set; }

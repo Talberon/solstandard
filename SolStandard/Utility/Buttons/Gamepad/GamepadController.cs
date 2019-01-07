@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadController : IController
     {
+        private readonly Dictionary<Input, GameControl> inputs;
+
         public GamepadController(PlayerIndex playerIndex)
         {
             Confirm = new GamepadA(playerIndex);
@@ -28,6 +31,37 @@ namespace SolStandard.Utility.Buttons.Gamepad
             SetCloseZoom = new GamepadRightBumper(playerIndex);
             AdjustZoomOut = new GamepadLeftTrigger(playerIndex);
             AdjustZoomIn = new GamepadRightTrigger(playerIndex);
+
+            inputs = new Dictionary<Input, GameControl>
+            {
+                {Input.Confirm, Confirm},
+                {Input.Cancel, Cancel},
+                {Input.ResetToUnit, ResetToUnit},
+                {Input.CenterCamera, CenterCamera},
+
+                {Input.CursorUp, CursorUp},
+                {Input.CursorDown, CursorDown},
+                {Input.CursorLeft, CursorLeft},
+                {Input.CursorRight, CursorRight},
+
+                {Input.CameraUp, CameraUp},
+                {Input.CameraDown, CameraDown},
+                {Input.CameraLeft, CameraLeft},
+                {Input.CameraRight, CameraRight},
+
+                {Input.Menu, Menu},
+                {Input.Status, Status},
+
+                {Input.LeftBumper, SetWideZoom},
+                {Input.RightBumper, SetCloseZoom},
+                {Input.LeftTrigger, AdjustZoomOut},
+                {Input.RightTrigger, AdjustZoomIn},
+            };
+        }
+
+        public GameControl GetInput(Input input)
+        {
+            return inputs[input];
         }
 
         public GameControl Confirm { get; private set; }
