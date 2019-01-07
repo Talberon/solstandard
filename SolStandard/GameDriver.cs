@@ -200,35 +200,22 @@ namespace SolStandard
                 connectionManager.StartServer();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+            if (connectionManager.ConnectedAsServer)
             {
-                //Send Message From Server to Client
-                connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
-
-                NetworkController testContoller = new NetworkController(PlayerIndex.One);
-                testContoller.MimicInput(p1ControlMapper.Controller);
-
-                connectionManager.SendControlMessageAsServer(testContoller);
+                SendServerControls();
             }
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
             {
                 //Start Client
+                //TODO Update this to take an argument instead of a hard-coded IP
                 connectionManager.StartClient("127.0.0.1", 4444);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+            if (connectionManager.ConnectedAsClient)
             {
-                //Send message from client to server
-                connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
-
-                NetworkController testContoller = new NetworkController(PlayerIndex.Two);
-                testContoller.MimicInput(p2ControlMapper.Controller);
-
-                connectionManager.SendControlMessageAsClient(testContoller);
+                SendClientControls();
             }
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
@@ -302,6 +289,28 @@ namespace SolStandard
             }
 
             base.Update(gameTime);
+        }
+
+        private void SendServerControls()
+        {
+//Send Message From Server to Client
+            connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+
+            NetworkController testContoller = new NetworkController(PlayerIndex.One);
+            testContoller.MimicInput(p1ControlMapper.Controller);
+
+            connectionManager.SendControlMessageAsServer(testContoller);
+        }
+
+        private void SendClientControls()
+        {
+//Send message from client to server
+            connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+
+            NetworkController testContoller = new NetworkController(PlayerIndex.Two);
+            testContoller.MimicInput(p2ControlMapper.Controller);
+
+            connectionManager.SendControlMessageAsClient(testContoller);
         }
 
         /// <summary>

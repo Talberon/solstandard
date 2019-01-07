@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using SolStandard.Containers.Contexts;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
@@ -22,6 +21,16 @@ namespace SolStandard.Utility.Network
         {
             Text,
             ControlInput
+        }
+
+        public bool ConnectedAsServer
+        {
+            get { return server != null && server.Connections.First().Status == NetConnectionStatus.Connected; }
+        }
+
+        public bool ConnectedAsClient
+        {
+            get { return client != null && client.ConnectionStatus == NetConnectionStatus.Connected; }
         }
 
         public void StartServer()
@@ -152,7 +161,7 @@ namespace SolStandard.Utility.Network
                 IFormatter formatter = new BinaryFormatter();
                 NetworkController receivedNetworkControls = (NetworkController) formatter.Deserialize(memoryStream);
                 Trace.WriteLine("Received control:" + receivedNetworkControls);
-                
+
                 ControlContext.ListenForInputs(new NetworkControlParser(receivedNetworkControls));
                 //TODO Interpret network controller input in the game
             }
