@@ -126,6 +126,8 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.Connected:
                                 Trace.WriteLine("Connected!");
+                                //TODO Replace this with a unique seed
+                                GameDriver.Random = new Random(12345);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");

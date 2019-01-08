@@ -35,7 +35,7 @@ namespace SolStandard
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
-        public static readonly Random Random = new Random();
+        public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private SpriteBatch spriteBatch;
         private GameControlParser p1ControlMapper;
@@ -195,29 +195,34 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
-            {
-                //Start Server
-                connectionManager.StartServer();
-                networkController = new NetworkController(PlayerIndex.One);
-            }
 
             if (connectionManager.ConnectedAsServer)
             {
                 SendServerControls();
             }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+            else
             {
-                //Start Client
-                //TODO Update this to take an argument instead of a hard-coded IP
-                connectionManager.StartClient("127.0.0.1", 4444);
-                networkController = new NetworkController(PlayerIndex.Two);
+                if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                {
+                    //Start Server
+                    connectionManager.StartServer();
+                    networkController = new NetworkController(PlayerIndex.One);
+                }
             }
 
             if (connectionManager.ConnectedAsClient)
             {
                 SendClientControls();
+            }
+            else
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                {
+                    //Start Client
+                    //TODO Update this to take an argument instead of a hard-coded IP
+                    connectionManager.StartClient("127.0.0.1", 4444);
+                    networkController = new NetworkController(PlayerIndex.Two);
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
