@@ -38,8 +38,8 @@ namespace SolStandard
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private SpriteBatch spriteBatch;
-        private ControlMapper p1ControlMapper;
-        private ControlMapper p2ControlMapper;
+        private ControlMapper blueTeamControlMapper;
+        private ControlMapper redTeamControlMapper;
         private NetworkController networkController;
         private ConnectionManager connectionManager;
 
@@ -131,8 +131,8 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            p1ControlMapper = new GameControlParser(new KeyboardController());
-            p2ControlMapper = new GameControlParser(new KeyboardController());
+            blueTeamControlMapper = new GameControlParser(new KeyboardController());
+            redTeamControlMapper = new GameControlParser(new KeyboardController());
 
             GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
                 mainMenuBackgroundSprite));
@@ -243,10 +243,15 @@ namespace SolStandard
                         if (connectionManager.ConnectedAsServer)
                         {
                             SendServerControls();
+                            ControlContext.ListenForInputs(blueTeamControlMapper);
                         }
-                        else if (!connectionManager.ConnectedAsClient)
+                        else if (connectionManager.ConnectedAsClient)
                         {
-                            ControlContext.ListenForInputs(p1ControlMapper);
+                            //Do nothing
+                        }
+                        else
+                        {
+                            ControlContext.ListenForInputs(blueTeamControlMapper);
                         }
 
                         break;
@@ -254,21 +259,26 @@ namespace SolStandard
                         if (connectionManager.ConnectedAsClient)
                         {
                             SendClientControls();
+                            ControlContext.ListenForInputs(redTeamControlMapper);
                         }
-                        else if (!connectionManager.ConnectedAsServer)
+                        else if (connectionManager.ConnectedAsServer)
                         {
-                            ControlContext.ListenForInputs(p2ControlMapper);
+                            //Do nothing
+                        }
+                        else
+                        {
+                            ControlContext.ListenForInputs(redTeamControlMapper);
                         }
 
                         break;
                     case PlayerIndex.Three:
-                        ControlContext.ListenForInputs(p1ControlMapper);
+                        ControlContext.ListenForInputs(blueTeamControlMapper);
                         if (connectionManager.ConnectedAsServer)
                         {
                             SendServerControls();
                         }
 
-                        ControlContext.ListenForInputs(p2ControlMapper);
+                        ControlContext.ListenForInputs(redTeamControlMapper);
                         if (connectionManager.ConnectedAsClient)
                         {
                             SendClientControls();
@@ -313,7 +323,7 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-            if (networkController.MimicInput(p1ControlMapper))
+            if (networkController.MimicInput(blueTeamControlMapper))
             {
                 //Send Message From Server to Client
                 connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
@@ -323,7 +333,7 @@ namespace SolStandard
 
         private void SendClientControls()
         {
-            if (networkController.MimicInput(p2ControlMapper))
+            if (networkController.MimicInput(redTeamControlMapper))
             {
                 //Send message from client to server
                 connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
