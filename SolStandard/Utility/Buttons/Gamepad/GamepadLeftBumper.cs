@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
-    public class GamepadLeftBumper : GameControl
+    public class GamepadLeftBumper: GamePadControl
     {
         public GamepadLeftBumper(PlayerIndex playerIndex) : base(playerIndex)
         {

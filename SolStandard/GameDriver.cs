@@ -131,8 +131,8 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            p1ControlMapper = new GameControlParser(new KeyboardController(PlayerIndex.One));
-            p2ControlMapper = new GameControlParser(new KeyboardController(PlayerIndex.One));
+            p1ControlMapper = new GameControlParser(new KeyboardController());
+            p2ControlMapper = new GameControlParser(new KeyboardController());
 
             GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
                 mainMenuBackgroundSprite));
@@ -311,7 +311,7 @@ namespace SolStandard
 
         private void SendClientControls()
         {
-            if (networkController.MimicInput(p1ControlMapper))
+            if (networkController.MimicInput(p2ControlMapper))
             {
                 //Send message from client to server
                 connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");

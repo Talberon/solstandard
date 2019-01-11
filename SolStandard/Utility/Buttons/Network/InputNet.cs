@@ -5,8 +5,6 @@ namespace SolStandard.Utility.Buttons.Network
 {
     public class InputNet : GameControl
     {
-        public const string PlayerIndexHeader = "PlayerIndex";
-
         public enum ControlState
         {
             Pressed,
@@ -15,7 +13,7 @@ namespace SolStandard.Utility.Buttons.Network
 
         private bool pressed;
 
-        public InputNet(PlayerIndex playerIndex) : base(playerIndex)
+        public InputNet()
         {
             pressed = false;
         }

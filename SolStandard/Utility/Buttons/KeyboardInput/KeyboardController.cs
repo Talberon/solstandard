@@ -1,37 +1,35 @@
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Utility.Buttons.Gamepad;
 
 namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class KeyboardController : IController
     {
         private readonly Dictionary<Input, InputKey> inputs;
-        public KeyboardController(PlayerIndex playerIndex)
+        public KeyboardController()
         {
-            Confirm = new InputKey(playerIndex, Keys.Space);
-            Cancel = new InputKey(playerIndex, Keys.LeftShift);
-            ResetToUnit = new InputKey(playerIndex, Keys.Tab);
-            CenterCamera = new InputKey(playerIndex, Keys.OemTilde);
+            Confirm = new InputKey(Keys.Space);
+            Cancel = new InputKey(Keys.LeftShift);
+            ResetToUnit = new InputKey(Keys.Tab);
+            CenterCamera = new InputKey(Keys.OemTilde);
 
-            CursorUp = new InputKey(playerIndex, Keys.W);
-            CursorDown = new InputKey(playerIndex, Keys.S);
-            CursorLeft = new InputKey(playerIndex, Keys.A);
-            CursorRight = new InputKey(playerIndex, Keys.D);
+            CursorUp = new InputKey(Keys.W);
+            CursorDown = new InputKey(Keys.S);
+            CursorLeft = new InputKey(Keys.A);
+            CursorRight = new InputKey(Keys.D);
 
-            CameraUp = new InputKey(playerIndex, Keys.Up);
-            CameraDown = new InputKey(playerIndex, Keys.Down);
-            CameraLeft = new InputKey(playerIndex, Keys.Left);
-            CameraRight = new InputKey(playerIndex, Keys.Right);
+            CameraUp = new InputKey(Keys.Up);
+            CameraDown = new InputKey(Keys.Down);
+            CameraLeft = new InputKey(Keys.Left);
+            CameraRight = new InputKey(Keys.Right);
 
-            Menu = new InputKey(playerIndex, Keys.Enter);
-            Status = new InputKey(playerIndex, Keys.Escape);
+            Menu = new InputKey(Keys.Enter);
+            Status = new InputKey(Keys.Escape);
 
-            SetWideZoom = new InputKey(playerIndex, Keys.LeftControl);
-            SetCloseZoom = new InputKey(playerIndex, Keys.LeftAlt);
-            AdjustZoomOut = new InputKey(playerIndex, Keys.Q);
-            AdjustZoomIn = new InputKey(playerIndex, Keys.E);
+            SetWideZoom = new InputKey(Keys.LeftControl);
+            SetCloseZoom = new InputKey(Keys.LeftAlt);
+            AdjustZoomOut = new InputKey(Keys.Q);
+            AdjustZoomIn = new InputKey(Keys.E);
             
             inputs = new Dictionary<Input, InputKey>
             {

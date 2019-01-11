@@ -215,11 +215,12 @@
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
+    <Compile Include="Utility\Buttons\GameControl.cs" />
     <Compile Include="Utility\Buttons\GameControlParser.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadA.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadB.cs" />
+    <Compile Include="Utility\Buttons\Gamepad\GamePadControl.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadDown.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GameControl.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadController.cs" />
     <Compile Include="Utility\Buttons\ControlMapper.cs" />
     <Compile Include="Utility\Buttons\Gamepad\GamepadLeftBumper.cs" />

@@ -1,6 +1,4 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Utility.Buttons.Gamepad;
 
 namespace SolStandard.Utility.Buttons.KeyboardInput
 {
@@ -8,7 +6,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
     {
         private readonly Keys key;
 
-        public InputKey(PlayerIndex playerIndex, Keys key) : base(playerIndex)
+        public InputKey(Keys key)
         {
             this.key = key;
         }

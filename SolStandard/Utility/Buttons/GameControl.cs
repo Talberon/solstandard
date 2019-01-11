@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace SolStandard.Utility.Buttons.Gamepad
+﻿namespace SolStandard.Utility.Buttons
 {
     public abstract class GameControl
     {
-        protected readonly PlayerIndex PlayerIndex;
         public int InputCounter { get; private set; }
 
-        protected GameControl(PlayerIndex playerIndex)
+        protected GameControl()
         {
-            PlayerIndex = playerIndex;
             InputCounter = 0;
         }
 

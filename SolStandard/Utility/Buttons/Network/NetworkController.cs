@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
-using SolStandard.Utility.Buttons.Gamepad;
 using SolStandard.Utility.Network;
 
 namespace SolStandard.Utility.Buttons.Network
@@ -18,28 +17,28 @@ namespace SolStandard.Utility.Buttons.Network
         {
             this.playerIndex = playerIndex;
 
-            Confirm = new InputNet(playerIndex);
-            Cancel = new InputNet(playerIndex);
-            ResetToUnit = new InputNet(playerIndex);
-            CenterCamera = new InputNet(playerIndex);
+            Confirm = new InputNet();
+            Cancel = new InputNet();
+            ResetToUnit = new InputNet();
+            CenterCamera = new InputNet();
 
-            CursorUp = new InputNet(playerIndex);
-            CursorDown = new InputNet(playerIndex);
-            CursorLeft = new InputNet(playerIndex);
-            CursorRight = new InputNet(playerIndex);
+            CursorUp = new InputNet();
+            CursorDown = new InputNet();
+            CursorLeft = new InputNet();
+            CursorRight = new InputNet();
 
-            CameraUp = new InputNet(playerIndex);
-            CameraDown = new InputNet(playerIndex);
-            CameraLeft = new InputNet(playerIndex);
-            CameraRight = new InputNet(playerIndex);
+            CameraUp = new InputNet();
+            CameraDown = new InputNet();
+            CameraLeft = new InputNet();
+            CameraRight = new InputNet();
 
-            Menu = new InputNet(playerIndex);
-            Status = new InputNet(playerIndex);
+            Menu = new InputNet();
+            Status = new InputNet();
 
-            SetWideZoom = new InputNet(playerIndex);
-            SetCloseZoom = new InputNet(playerIndex);
-            AdjustZoomOut = new InputNet(playerIndex);
-            AdjustZoomIn = new InputNet(playerIndex);
+            SetWideZoom = new InputNet();
+            SetCloseZoom = new InputNet();
+            AdjustZoomOut = new InputNet();
+            AdjustZoomIn = new InputNet();
 
             inputs = new Dictionary<Input, InputNet>
             {

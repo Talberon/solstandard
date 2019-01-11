@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
-    public class GamepadB : GameControl
+    public class GamepadB: GamePadControl
     {
         public GamepadB(PlayerIndex playerIndex) : base(playerIndex)
         {
