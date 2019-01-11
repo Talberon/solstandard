@@ -38,8 +38,8 @@ namespace SolStandard
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private SpriteBatch spriteBatch;
-        private GameControlParser p1ControlMapper;
-        private GameControlParser p2ControlMapper;
+        private ControlMapper p1ControlMapper;
+        private ControlMapper p2ControlMapper;
         private NetworkController networkController;
         private ConnectionManager connectionManager;
 
@@ -196,33 +196,19 @@ namespace SolStandard
             }
 
 
-            if (connectionManager.ConnectedAsServer)
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
             {
-                SendServerControls();
-            }
-            else
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
-                {
-                    //Start Server
-                    connectionManager.StartServer();
-                    networkController = new NetworkController(PlayerIndex.One);
-                }
+                //Start Server
+                connectionManager.StartServer();
+                networkController = new NetworkController(PlayerIndex.One);
             }
 
-            if (connectionManager.ConnectedAsClient)
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
             {
-                SendClientControls();
-            }
-            else
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
-                {
-                    //Start Client
-                    //TODO Update this to take an argument instead of a hard-coded IP
-                    connectionManager.StartClient("127.0.0.1", 4444);
-                    networkController = new NetworkController(PlayerIndex.Two);
-                }
+                //Start Client
+                //TODO Update this to take an argument instead of a hard-coded IP
+                connectionManager.StartClient("127.0.0.1", 4444);
+                networkController = new NetworkController(PlayerIndex.Two);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
@@ -235,10 +221,10 @@ namespace SolStandard
             {
                 switch (GameContext.ActiveUnit.Team)
                 {
-                    case Team.Red:
+                    case Team.Blue:
                         GameContext.ActivePlayer = PlayerIndex.One;
                         break;
-                    case Team.Blue:
+                    case Team.Red:
                         GameContext.ActivePlayer = PlayerIndex.Two;
                         break;
                     case Team.Creep:
@@ -254,14 +240,40 @@ namespace SolStandard
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
-                        ControlContext.ListenForInputs(p1ControlMapper);
+                        if (connectionManager.ConnectedAsServer)
+                        {
+                            SendServerControls();
+                        }
+                        else if (!connectionManager.ConnectedAsClient)
+                        {
+                            ControlContext.ListenForInputs(p1ControlMapper);
+                        }
+
                         break;
                     case PlayerIndex.Two:
-                        ControlContext.ListenForInputs(p2ControlMapper);
+                        if (connectionManager.ConnectedAsClient)
+                        {
+                            SendClientControls();
+                        }
+                        else if (!connectionManager.ConnectedAsServer)
+                        {
+                            ControlContext.ListenForInputs(p2ControlMapper);
+                        }
+
                         break;
                     case PlayerIndex.Three:
                         ControlContext.ListenForInputs(p1ControlMapper);
+                        if (connectionManager.ConnectedAsServer)
+                        {
+                            SendServerControls();
+                        }
+
                         ControlContext.ListenForInputs(p2ControlMapper);
+                        if (connectionManager.ConnectedAsClient)
+                        {
+                            SendClientControls();
+                        }
+
                         break;
                     case PlayerIndex.Four:
                         break;

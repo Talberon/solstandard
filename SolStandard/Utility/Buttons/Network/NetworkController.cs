@@ -107,7 +107,7 @@ namespace SolStandard.Utility.Buttons.Network
         /// </summary>
         /// <param name="controllerToMimic"></param>
         /// <returns>true if any inputs are different than previous state</returns>
-        public bool MimicInput(GameControlParser controllerToMimic)
+        public bool MimicInput(ControlMapper controllerToMimic)
         {
             bool inputIsDifferent = false;
 
