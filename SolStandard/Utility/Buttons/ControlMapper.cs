@@ -38,7 +38,7 @@ namespace SolStandard.Utility.Buttons
         protected const int RepeatInputDelayInFrames = 5;
 
         public abstract bool Press(Input input, PressType pressType);
-        public abstract bool PeekPress(Input input, PressType pressType);
+        public abstract bool Peek(Input input, PressType pressType);
         public abstract bool Released(Input input);
 
         protected static bool InstantRepeat(GameControl control)
@@ -46,14 +46,14 @@ namespace SolStandard.Utility.Buttons
             return control.Pressed;
         }
 
-        protected static bool SinglePress(GameControl control)
+        protected static bool SinglePress(GameControl control, bool incrementInputCounter)
         {
             //Press just once on input down; do not repeat
             if (control.Pressed)
             {
                 if (control.InputCounter == 0)
                 {
-                    control.IncrementInputCounter();
+                    if (incrementInputCounter) control.IncrementInputCounter();
                     return true;
                 }
             }
@@ -66,12 +66,12 @@ namespace SolStandard.Utility.Buttons
             return false;
         }
 
-        protected static bool DelayedRepeat(GameControl control)
+        protected static bool DelayedRepeat(GameControl control, bool incrementInputCounter)
         {
             //Hold Down (Previous state matches the current state)
             if (control.Pressed)
             {
-                control.IncrementInputCounter();
+                if (incrementInputCounter) control.IncrementInputCounter();
 
                 //Act on tap
                 if (control.InputCounter - 1 == 0)

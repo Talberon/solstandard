@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -324,7 +323,7 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-            if (networkController.MimicInput(blueTeamControlMapper))
+            if (networkController.NextInputIsDifferent(blueTeamControlMapper))
             {
                 //Send Message From Server to Client
                 connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
@@ -334,7 +333,7 @@ namespace SolStandard
 
         private void SendClientControls()
         {
-            if (networkController.MimicInput(redTeamControlMapper))
+            if (networkController.NextInputIsDifferent(redTeamControlMapper))
             {
                 //Send message from client to server
                 connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");

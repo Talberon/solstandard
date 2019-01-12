@@ -105,9 +105,9 @@ namespace SolStandard.Utility.Buttons.Network
         /// <summary>
         /// Duplicate the input state of a given GameControlParser
         /// </summary>
-        /// <param name="controllerToMimic"></param>
+        /// <param name="nextInput"></param>
         /// <returns>true if any inputs are different than previous state</returns>
-        public bool MimicInput(ControlMapper controllerToMimic)
+        public bool NextInputIsDifferent(ControlMapper nextInput)
         {
             bool inputIsDifferent = false;
 
@@ -116,7 +116,7 @@ namespace SolStandard.Utility.Buttons.Network
                 if (input == Input.None) continue;
 
                 //TODO Replace the hard-coded DelayedRepeat value with the appropriate input type based on context to prevent desync
-                if (controllerToMimic.PeekPress(input, PressType.DelayedRepeat))
+                if (nextInput.Peek(input, PressType.DelayedRepeat))
                 {
                     if (inputs[input].Released) inputIsDifferent = true;
 
