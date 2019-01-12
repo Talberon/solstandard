@@ -1,5 +1,3 @@
-using SolStandard.Utility.Buttons.Gamepad;
-
 namespace SolStandard.Utility.Buttons
 {
     public enum PressType
@@ -40,6 +38,7 @@ namespace SolStandard.Utility.Buttons
         protected const int RepeatInputDelayInFrames = 5;
 
         public abstract bool Press(Input input, PressType pressType);
+        public abstract bool PeekPress(Input input, PressType pressType);
         public abstract bool Released(Input input);
 
         protected static bool InstantRepeat(GameControl control)

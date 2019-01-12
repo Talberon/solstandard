@@ -18,6 +18,11 @@ namespace SolStandard.Utility.Network
             return controller.GetInput(input).Pressed;
         }
 
+        public override bool PeekPress(Input input, PressType pressType)
+        {
+            return Press(input, pressType);
+        }
+
         public override bool Released(Input input)
         {
             return controller.GetInput(input).Released;

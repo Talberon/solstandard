@@ -2,7 +2,7 @@
 {
     public abstract class GameControl
     {
-        public int InputCounter { get; private set; }
+        public int InputCounter { get; set; }
 
         protected GameControl()
         {

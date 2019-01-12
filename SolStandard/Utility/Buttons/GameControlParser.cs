@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using SolStandard.Utility.Buttons.Gamepad;
 
 namespace SolStandard.Utility.Buttons
 {
@@ -50,6 +49,17 @@ namespace SolStandard.Utility.Buttons
                 default:
                     throw new ArgumentOutOfRangeException("pressType", pressType, null);
             }
+        }
+
+        public override bool PeekPress(Input input, PressType pressType)
+        {
+            int originalValue = buttonMap[input].InputCounter;
+
+            bool pressed = Press(input, pressType);
+
+            buttonMap[input].InputCounter = originalValue;
+
+            return pressed;
         }
 
         public override bool Released(Input input)

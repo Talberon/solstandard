@@ -242,8 +242,8 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (connectionManager.ConnectedAsServer)
                         {
-                            SendServerControls();
                             ControlContext.ListenForInputs(blueTeamControlMapper);
+                            SendServerControls();
                         }
                         else if (connectionManager.ConnectedAsClient)
                         {
@@ -258,8 +258,8 @@ namespace SolStandard
                     case PlayerIndex.Two:
                         if (connectionManager.ConnectedAsClient)
                         {
-                            SendClientControls();
                             ControlContext.ListenForInputs(redTeamControlMapper);
+                            SendClientControls();
                         }
                         else if (connectionManager.ConnectedAsServer)
                         {
