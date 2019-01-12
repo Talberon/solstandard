@@ -53,13 +53,8 @@ namespace SolStandard.Utility.Buttons
 
         public override bool PeekPress(Input input, PressType pressType)
         {
-            int originalValue = buttonMap[input].InputCounter;
-
-            bool pressed = Press(input, pressType);
-
-            buttonMap[input].InputCounter = originalValue;
-
-            return pressed;
+            buttonMap[input].InputCounter--;
+            return Press(input, pressType);
         }
 
         public override bool Released(Input input)
