@@ -325,7 +325,7 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-            if (lastNetworkControlSent != null && !lastNetworkControlSent.Equals(networkController)) return;
+            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
 
             //Send Message From Server to Client
             connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
@@ -335,7 +335,7 @@ namespace SolStandard
 
         private void SendClientControls()
         {
-            if (lastNetworkControlSent != null && !lastNetworkControlSent.Equals(networkController)) return;
+            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
 
             //Send message from client to server
             connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
