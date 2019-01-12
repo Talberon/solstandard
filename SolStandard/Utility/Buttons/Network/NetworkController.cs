@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.Xna.Framework;
 using SolStandard.Utility.Network;
 
 namespace SolStandard.Utility.Buttons.Network
@@ -10,13 +9,10 @@ namespace SolStandard.Utility.Buttons.Network
     public class NetworkController : IController, ISerializable
     {
         private readonly Dictionary<Input, InputNet> inputs;
-        private readonly PlayerIndex playerIndex;
         private const string NCPrefix = "NC";
 
-        public NetworkController(PlayerIndex playerIndex)
+        public NetworkController()
         {
-            this.playerIndex = playerIndex;
-
             Confirm = new InputNet();
             Cancel = new InputNet();
             ResetToUnit = new InputNet();
@@ -67,7 +63,7 @@ namespace SolStandard.Utility.Buttons.Network
             };
         }
 
-        public NetworkController(SerializationInfo info, StreamingContext context) : this(PlayerIndex.One)
+        public NetworkController(SerializationInfo info, StreamingContext context) : this()
         {
             foreach (Input input in Enum.GetValues(typeof(Input)))
             {
@@ -102,37 +98,6 @@ namespace SolStandard.Utility.Buttons.Network
             return inputs[input];
         }
 
-        /// <summary>
-        /// Duplicate the input state of a given GameControlParser
-        /// </summary>
-        /// <param name="nextInput"></param>
-        /// <returns>true if any inputs are different than previous state</returns>
-        public bool NextInputIsDifferent(ControlMapper nextInput)
-        {
-            bool inputIsDifferent = false;
-
-            foreach (Input input in Enum.GetValues(typeof(Input)))
-            {
-                if (input == Input.None) continue;
-
-                //TODO Replace the hard-coded DelayedRepeat value with the appropriate input type based on context to prevent desync
-                if (nextInput.Peek(input, PressType.DelayedRepeat))
-                {
-                    if (inputs[input].Released) inputIsDifferent = true;
-
-                    Press(input);
-                }
-                else
-                {
-                    if (inputs[input].Pressed) inputIsDifferent = true;
-
-                    Release(input);
-                }
-            }
-
-            return inputIsDifferent;
-        }
-
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
         public GameControl ResetToUnit { get; private set; }
@@ -159,7 +124,6 @@ namespace SolStandard.Utility.Buttons.Network
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(ConnectionManager.PacketTypeHeader, (int) ConnectionManager.PacketType.ControlInput);
-            info.AddValue("PLAYER", (int) playerIndex);
 
             info.AddValue(NCPrefix + (int) Input.Confirm, Confirm.Pressed);
             info.AddValue(NCPrefix + (int) Input.Cancel, Cancel.Pressed);
@@ -181,11 +145,24 @@ namespace SolStandard.Utility.Buttons.Network
             info.AddValue(NCPrefix + (int) Input.RightTrigger, AdjustZoomIn.Pressed);
         }
 
+        public override bool Equals(object networkController)
+        {
+            NetworkController otherController = networkController as NetworkController;
+
+            if (otherController == null) return false;
+
+            foreach (Input input in Enum.GetValues(typeof(Input)))
+            {
+                if (input == Input.None) continue;
+                if (otherController.GetInput(input).Pressed != inputs[input].Pressed) return false;
+            }
+
+            return true;
+        }
+
         public override string ToString()
         {
             string description = "NetworkController {";
-            description += Environment.NewLine;
-            description += string.Format("Player Index: {0}", playerIndex);
             description += Environment.NewLine;
             description += string.Format("<{0}: {1}>, ", Input.Confirm.ToString(), Confirm);
             description += string.Format("<{0}: {1}>, ", Input.Cancel.ToString(), Cancel);

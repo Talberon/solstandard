@@ -5,17 +5,20 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Containers.Contexts
 {
     public static class ControlContext
     {
-        public static void ListenForInputs(ControlMapper controlMapper)
+        public static NetworkController ListenForInputs(ControlMapper controlMapper)
         {
+            NetworkController networkController = new NetworkController();
+
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    MainMenuControls(controlMapper, GameContext.MainMenuView.MainMenu);
+                    MainMenuControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -36,6 +39,8 @@ namespace SolStandard.Containers.Contexts
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            return networkController;
         }
 
         private static void ResultsControls(ControlMapper controlMapper)
@@ -75,21 +80,24 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void MainMenuControls(ControlMapper controlMapper, VerticalMenu verticalMenu)
+        private static void MainMenuControls(ControlMapper controlMapper, NetworkController networkController)
         {
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                networkController.Press(Input.CursorDown);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                verticalMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                networkController.Press(Input.CursorUp);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                verticalMenu.SelectOption();
+                networkController.Press(Input.Confirm);
+                GameContext.MainMenuView.MainMenu.SelectOption();
             }
         }
 
@@ -299,7 +307,7 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.SelectActionMenuOption();
             }
-            
+
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GameContext.GameMapContext.CancelActionMenu();
@@ -310,6 +318,7 @@ namespace SolStandard.Containers.Contexts
                 //TODO Decrement current action's value slider (Gold trade, etc.)
                 GameContext.GameMapContext.DecrementCurrentAdjustableAction(1);
             }
+
             if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
                 //TODO Increment current action's value slider (Gold trade, etc.)

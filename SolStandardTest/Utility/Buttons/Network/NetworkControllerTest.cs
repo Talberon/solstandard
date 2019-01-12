@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Network;
@@ -15,7 +14,7 @@ namespace SolStandardTest.Utility.Buttons.Network
         [Test]
         public void TestSerialization()
         {
-            NetworkController controller = new NetworkController(PlayerIndex.One);
+            NetworkController controller = new NetworkController();
 
             controller.Press(Input.Confirm);
             controller.Press(Input.CursorUp);

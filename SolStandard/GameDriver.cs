@@ -41,6 +41,7 @@ namespace SolStandard
         private ControlMapper blueTeamControlMapper;
         private ControlMapper redTeamControlMapper;
         private NetworkController networkController;
+        private NetworkController lastNetworkControlSent;
         private ConnectionManager connectionManager;
 
         private static bool _quitting;
@@ -117,6 +118,8 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
+
+            networkController = new NetworkController();
 
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -200,7 +203,6 @@ namespace SolStandard
             {
                 //Start Server
                 connectionManager.StartServer();
-                networkController = new NetworkController(PlayerIndex.One);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
@@ -208,7 +210,6 @@ namespace SolStandard
                 //Start Client
                 //TODO Update this to take an argument instead of a hard-coded IP
                 connectionManager.StartClient("127.0.0.1", 4444);
-                networkController = new NetworkController(PlayerIndex.Two);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
@@ -242,7 +243,7 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (connectionManager.ConnectedAsServer)
                         {
-                            ControlContext.ListenForInputs(blueTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
                             SendServerControls();
                         }
                         else if (connectionManager.ConnectedAsClient)
@@ -258,7 +259,7 @@ namespace SolStandard
                     case PlayerIndex.Two:
                         if (connectionManager.ConnectedAsClient)
                         {
-                            ControlContext.ListenForInputs(redTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(redTeamControlMapper);
                             SendClientControls();
                         }
                         else if (connectionManager.ConnectedAsServer)
@@ -272,13 +273,14 @@ namespace SolStandard
 
                         break;
                     case PlayerIndex.Three:
-                        ControlContext.ListenForInputs(blueTeamControlMapper);
+                        networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+
                         if (connectionManager.ConnectedAsServer)
                         {
                             SendServerControls();
                         }
 
-                        ControlContext.ListenForInputs(redTeamControlMapper);
+                        networkController = ControlContext.ListenForInputs(redTeamControlMapper);
                         if (connectionManager.ConnectedAsClient)
                         {
                             SendClientControls();
@@ -323,22 +325,22 @@ namespace SolStandard
 
         private void SendServerControls()
         {
-            if (networkController.NextInputIsDifferent(blueTeamControlMapper))
-            {
-                //Send Message From Server to Client
-                connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
-                connectionManager.SendControlMessageAsServer(networkController);
-            }
+            if (lastNetworkControlSent != null && !lastNetworkControlSent.Equals(networkController)) return;
+
+            //Send Message From Server to Client
+            connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+            connectionManager.SendControlMessageAsServer(networkController);
+            lastNetworkControlSent = networkController;
         }
 
         private void SendClientControls()
         {
-            if (networkController.NextInputIsDifferent(redTeamControlMapper))
-            {
-                //Send message from client to server
-                connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
-                connectionManager.SendControlMessageAsClient(networkController);
-            }
+            if (lastNetworkControlSent != null && !lastNetworkControlSent.Equals(networkController)) return;
+
+            //Send message from client to server
+            connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+            connectionManager.SendControlMessageAsClient(networkController);
+            lastNetworkControlSent = networkController;
         }
 
         /// <summary>
