@@ -1,49 +1,45 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.HUD.Menu;
-using SolStandard.HUD.Menu.Options;
-using SolStandard.HUD.Menu.Options.MainMenu;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.View
 {
-    public class MainMenuView : IUserInterface
+    public class NetworkMenuView : IUserInterface
     {
-        private readonly VerticalMenu mainMenu;
-        public static readonly Color MenuColor = new Color(20, 45, 60, 100);
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
         private bool visible;
+        private readonly Window networkStatusMenu;
 
-        public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
+        public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
         {
             this.title = title;
             this.logo = logo;
             this.background = background;
             visible = true;
-            mainMenu = GenerateMainMenu();
+            networkStatusMenu =
+                new Window(new WindowContentGrid(
+                        new IRenderable[,]
+                        {
+                            { new RenderText(AssetManager.MainMenuFont, "___.___.___.___") },
+                            { new RenderText(AssetManager.MainMenuFont, "Waiting for connection...") }
+                        },
+                        2,
+                        HorizontalAlignment.Centered
+                    ),
+                    MainMenuView.MenuColor, HorizontalAlignment.Centered
+                );
         }
 
-        public VerticalMenu MainMenu
+        public void EnterNumber()
         {
-            get { return mainMenu; }
-        }
-
-        private VerticalMenu GenerateMainMenu()
-        {
-            MenuOption[] options =
-            {
-                new NewGameOption(MenuColor),
-                new HostGameOption(MenuColor),
-                new JoinGameOption(MenuColor),
-                new QuitGameOption(MenuColor)
-            };
-            IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
-                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
-
-            return new VerticalMenu(options, cursorSprite, MenuColor);
+            //TODO Read keyboard input and update IP Address based on input
+            //TODO Read any digit or period "." input
+            //TODO Read backspace to undo character input
         }
 
         public void ToggleVisible()
@@ -67,10 +63,10 @@ namespace SolStandard.Containers.View
                 title.Draw(spriteBatch, titlePosition + new Vector2(100));
 
                 const int titlePadding = 200;
-                Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
+                Vector2 mainMenuCenter = new Vector2(networkStatusMenu.Width, networkStatusMenu.Height) / 2;
                 Vector2 mainMenuPosition =
                     new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
-                mainMenu.Draw(spriteBatch, mainMenuPosition);
+                networkStatusMenu.Draw(spriteBatch, mainMenuPosition);
             }
         }
     }

@@ -96,6 +96,7 @@ namespace SolStandard
         {
             //Start Server
             _connectionManager.StartServer();
+            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
         public static void JoinGame()
@@ -103,6 +104,7 @@ namespace SolStandard
             //Start Client
             //TODO Update this to take an argument instead of a hard-coded IP
             _connectionManager.StartClient("127.0.0.1", 4444);
+            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
         public static void QuitGame()
@@ -151,8 +153,10 @@ namespace SolStandard
             blueTeamControlMapper = new GameControlParser(new KeyboardController());
             redTeamControlMapper = new GameControlParser(new KeyboardController());
 
-            GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
-                mainMenuBackgroundSprite));
+            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+            
+            GameContext.Initialize(mainMenu, networkMenu);
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 
             _connectionManager = new ConnectionManager();
@@ -299,6 +303,8 @@ namespace SolStandard
             {
                 case GameContext.GameState.MainMenu:
                     break;
+                case GameContext.GameState.NetworkMenu:
+                    break;
                 case GameContext.GameState.ModeSelect:
                     break;
                 case GameContext.GameState.ArmyDraft:
@@ -358,6 +364,9 @@ namespace SolStandard
                 case GameContext.GameState.MainMenu:
                     DrawMainMenu();
                     break;
+                case GameContext.GameState.NetworkMenu:
+                    DrawNetworkMenu();
+                    break;
                 case GameContext.GameState.ModeSelect:
                     break;
                 case GameContext.GameState.ArmyDraft:
@@ -407,6 +416,17 @@ namespace SolStandard
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
             GameContext.MainMenuView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawNetworkMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            GameContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

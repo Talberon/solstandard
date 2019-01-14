@@ -20,6 +20,8 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.MainMenu:
                     MainMenuControls(controlMapper, networkController);
                     break;
+                case GameContext.GameState.NetworkMenu:
+                    break;
                 case GameContext.GameState.ModeSelect:
                     break;
                 case GameContext.GameState.ArmyDraft:

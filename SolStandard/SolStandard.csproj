@@ -62,6 +62,7 @@
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
+    <Compile Include="Containers\View\NetworkMenuView.cs" />
     <Compile Include="Containers\View\PauseScreenView.cs" />
     <Compile Include="Containers\View\StatusScreenView.cs" />
     <Compile Include="Containers\View\MapSelectScreenView.cs" />
