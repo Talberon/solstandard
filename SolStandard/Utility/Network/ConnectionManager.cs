@@ -41,22 +41,26 @@ namespace SolStandard.Utility.Network
 
         public IPAddress StartServer()
         {
+            StopClientAndServer();
+
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard")
             {
                 Port = NetworkPort,
                 EnableUPnP = true
             };
 
-            if (client != null || server != null)
-            {
-                Trace.WriteLine("Server or client already started!");
-                return null;
-            }
-
-            //TODO Enable way to close server
             Trace.WriteLine("Starting server!");
             server = new NetServer(config);
-            server.Start();
+
+            try
+            {
+                server.Start();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.Message);
+            }
+
             server.UPnP.ForwardPort(NetworkPort, "Forward Server Port for internet connections.");
 
             return server.UPnP.GetExternalIP();
@@ -64,19 +68,27 @@ namespace SolStandard.Utility.Network
 
         public void StartClient(string host, int port)
         {
+            StopClientAndServer();
+
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
 
-            if (client != null || server != null)
-            {
-                Trace.WriteLine("Server or client already started!");
-                return;
-            }
-
-            //TODO Enable way to close client
             Trace.WriteLine("Starting client!");
             client = new NetClient(config);
             client.Start();
             client.Connect(host, port);
+        }
+
+        private void StopClientAndServer()
+        {
+            if (client != null)
+            {
+                client.Shutdown("Closing client.");
+            }
+
+            if (server != null)
+            {
+                server.Shutdown("Closing server.");
+            }
         }
 
         public void Listen()

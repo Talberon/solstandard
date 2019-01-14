@@ -174,6 +174,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
+    <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
