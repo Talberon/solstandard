@@ -50,6 +50,12 @@ namespace SolStandard.Containers.Contexts
                 networkController.Press(Input.Status);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
+
+            if (controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                networkController.Press(Input.Menu);
+                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            }
         }
 
 

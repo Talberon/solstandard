@@ -178,6 +178,7 @@ namespace SolStandard
                 Exit();
             }
 
+            //TODO Remove Debug actions
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;
@@ -197,7 +198,6 @@ namespace SolStandard
             {
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
             {
