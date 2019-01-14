@@ -18,7 +18,7 @@ namespace SolStandard.Containers.View
         private readonly SpriteAtlas background;
         private bool visible;
         private Window networkStatusWindow;
-        private TwoDimensionalMenu DialMenu;
+        public TwoDimensionalMenu DialMenu { get; private set; }
 
         public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
         {

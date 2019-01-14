@@ -34,6 +34,7 @@ namespace SolStandard.HUD.Menu
         private const int Padding = 2;
 
         private readonly Window.Window menuWindow;
+        private Vector2 optionSize;
 
         public bool IsVisible { get; set; }
 
@@ -45,6 +46,7 @@ namespace SolStandard.HUD.Menu
             IsVisible = true;
 
             menuWindow = BuildMenuWindow();
+            SetCursorPosition(0, 0);
         }
 
         public int Height
@@ -57,10 +59,14 @@ namespace SolStandard.HUD.Menu
             get { return menuWindow.Width; }
         }
 
-        private Vector2 SetCursorPosition(MenuOption option)
+        private void SetCursorPosition(int row, int column)
         {
-            //TODO Set this to a menu option position
-            return Vector2.One;
+            Vector2 optionPosition = new Vector2(column * optionSize.X, row * optionSize.Y);
+
+            Vector2 centerLeft =
+                new Vector2(cursorSprite.Width, ((float) cursorSprite.Height / 2) - (optionSize.Y / 2));
+
+            cursorPosition = optionPosition - centerLeft;
         }
 
         private Window.Window BuildMenuWindow()
@@ -72,11 +78,13 @@ namespace SolStandard.HUD.Menu
             return new Window.Window(menuContent, DefaultColor);
         }
 
-        private static void EqualizeOptionSizes(MenuOption[,] optionWindows)
+        private void EqualizeOptionSizes(MenuOption[,] optionWindows)
         {
             List<MenuOption> flattened = optionWindows.Cast<MenuOption>().ToList();
             int maxHeight = flattened.Max(option => option.Height);
             int maxWidth = flattened.Max(option => option.Width);
+
+            optionSize = new Vector2(maxWidth, maxHeight);
 
             foreach (MenuOption option in optionWindows)
             {
@@ -96,17 +104,55 @@ namespace SolStandard.HUD.Menu
             switch (direction)
             {
                 case MenuCursorDirection.Up:
-                    //TODO Handle menu movement in 4 directions
+                    if (CurrentOptionRow > 0)
+                    {
+                        CurrentOptionRow--;
+                    }
+                    else
+                    {
+                        CurrentOptionRow = options.GetLength(0) - 1;
+                    }
+
                     break;
                 case MenuCursorDirection.Down:
+                    if (CurrentOptionRow < options.GetLength(0) - 1)
+                    {
+                        CurrentOptionRow++;
+                    }
+                    else
+                    {
+                        CurrentOptionRow = 0;
+                    }
+
                     break;
                 case MenuCursorDirection.Left:
+                    if (CurrentOptionColumn > 0)
+                    {
+                        CurrentOptionColumn--;
+                    }
+                    else
+                    {
+                        CurrentOptionColumn = options.GetLength(1) - 1;
+                    }
+
                     break;
                 case MenuCursorDirection.Right:
+                    if (CurrentOptionColumn < options.GetLength(1) - 1)
+                    {
+                        CurrentOptionColumn++;
+                    }
+                    else
+                    {
+                        CurrentOptionColumn = 0;
+                    }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
+
+            SetCursorPosition(CurrentOptionRow, CurrentOptionColumn);
+            AssetManager.MenuMoveSFX.Play();
         }
 
 

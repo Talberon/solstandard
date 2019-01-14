@@ -21,6 +21,7 @@ namespace SolStandard.Containers.Contexts
                     MainMenuControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.NetworkMenu:
+                    NetworkMenuControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -43,6 +44,39 @@ namespace SolStandard.Containers.Contexts
             }
 
             return networkController;
+        }
+
+        private static void NetworkMenuControls(ControlMapper controlMapper, NetworkController networkController)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.Single))
+            {
+                networkController.Press(Input.CursorUp);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.Single))
+            {
+                networkController.Press(Input.CursorDown);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.Single))
+            {
+                networkController.Press(Input.CursorLeft);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.Single))
+            {
+                networkController.Press(Input.CursorRight);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.NetworkMenuView.DialMenu.SelectOption();
+            }
         }
 
         private static void ResultsControls(ControlMapper controlMapper, NetworkController networkController)
