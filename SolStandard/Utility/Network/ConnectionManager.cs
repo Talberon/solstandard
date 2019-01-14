@@ -50,6 +50,7 @@ namespace SolStandard.Utility.Network
                 return;
             }
 
+            //TODO Enable way to close server
             Trace.WriteLine("Starting server!");
             server = new NetServer(config);
             server.Start();
@@ -65,6 +66,7 @@ namespace SolStandard.Utility.Network
                 return;
             }
 
+            //TODO Enable way to close client
             Trace.WriteLine("Starting client!");
             client = new NetClient(config);
             client.Start();

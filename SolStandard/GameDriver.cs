@@ -37,12 +37,13 @@ namespace SolStandard
 
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
+        private static ConnectionManager _connectionManager;
+        
         private SpriteBatch spriteBatch;
         private ControlMapper blueTeamControlMapper;
         private ControlMapper redTeamControlMapper;
         private NetworkController networkController;
         private NetworkController lastNetworkControlSent;
-        private ConnectionManager connectionManager;
 
         private static bool _quitting;
 
@@ -89,6 +90,19 @@ namespace SolStandard
         public static void NewGame(string mapName, Scenario scenario)
         {
             GameContext.StartGame(mapName, scenario);
+        }
+
+        public static void HostGame()
+        {
+            //Start Server
+            _connectionManager.StartServer();
+        }
+
+        public static void JoinGame()
+        {
+            //Start Client
+            //TODO Update this to take an argument instead of a hard-coded IP
+            _connectionManager.StartClient("127.0.0.1", 4444);
         }
 
         public static void QuitGame()
@@ -141,7 +155,7 @@ namespace SolStandard
                 mainMenuBackgroundSprite));
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 
-            connectionManager = new ConnectionManager();
+            _connectionManager = new ConnectionManager();
         }
 
         /// <summary>
@@ -171,7 +185,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            connectionManager.Listen();
+            _connectionManager.Listen();
 
             if (_quitting)
             {
@@ -197,19 +211,6 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.D4))
             {
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
-            {
-                //Start Server
-                connectionManager.StartServer();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
-            {
-                //Start Client
-                //TODO Update this to take an argument instead of a hard-coded IP
-                connectionManager.StartClient("127.0.0.1", 4444);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
@@ -241,12 +242,12 @@ namespace SolStandard
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
-                        if (connectionManager.ConnectedAsServer)
+                        if (_connectionManager.ConnectedAsServer)
                         {
                             networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
                             SendServerControls();
                         }
-                        else if (connectionManager.ConnectedAsClient)
+                        else if (_connectionManager.ConnectedAsClient)
                         {
                             //Do nothing
                         }
@@ -257,12 +258,12 @@ namespace SolStandard
 
                         break;
                     case PlayerIndex.Two:
-                        if (connectionManager.ConnectedAsClient)
+                        if (_connectionManager.ConnectedAsClient)
                         {
                             networkController = ControlContext.ListenForInputs(redTeamControlMapper);
                             SendClientControls();
                         }
-                        else if (connectionManager.ConnectedAsServer)
+                        else if (_connectionManager.ConnectedAsServer)
                         {
                             //Do nothing
                         }
@@ -275,7 +276,7 @@ namespace SolStandard
                     case PlayerIndex.Three:
                         networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
 
-                        if (connectionManager.ConnectedAsServer)
+                        if (_connectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
                             SendServerControls();
@@ -328,8 +329,8 @@ namespace SolStandard
             if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
 
             //Send Message From Server to Client
-            connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
-            connectionManager.SendControlMessageAsServer(networkController);
+            _connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+            _connectionManager.SendControlMessageAsServer(networkController);
             lastNetworkControlSent = networkController;
         }
 
@@ -338,8 +339,8 @@ namespace SolStandard
             if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
 
             //Send message from client to server
-            connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
-            connectionManager.SendControlMessageAsClient(networkController);
+            _connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+            _connectionManager.SendControlMessageAsClient(networkController);
             lastNetworkControlSent = networkController;
         }
 

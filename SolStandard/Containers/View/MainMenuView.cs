@@ -36,6 +36,8 @@ namespace SolStandard.Containers.View
             MenuOption[] options =
             {
                 new NewGameOption(MenuColor),
+                new HostGameOption(MenuColor),
+                new JoinGameOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,

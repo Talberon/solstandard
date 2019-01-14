@@ -190,6 +190,8 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
