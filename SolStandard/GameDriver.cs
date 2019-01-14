@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
@@ -38,7 +39,7 @@ namespace SolStandard
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private static ConnectionManager _connectionManager;
-        
+
         private SpriteBatch spriteBatch;
         private ControlMapper blueTeamControlMapper;
         private ControlMapper redTeamControlMapper;
@@ -95,7 +96,9 @@ namespace SolStandard
         public static void HostGame()
         {
             //Start Server
-            _connectionManager.StartServer();
+            IPAddress serverIP = _connectionManager.StartServer();
+            string serverIPAddress = (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP.";
+            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true);
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
@@ -103,7 +106,10 @@ namespace SolStandard
         {
             //Start Client
             //TODO Update this to take an argument instead of a hard-coded IP
-            _connectionManager.StartClient("127.0.0.1", 4444);
+            const string serverIPAddress = "127.0.0.1";
+            
+            _connectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
+            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
@@ -153,9 +159,11 @@ namespace SolStandard
             blueTeamControlMapper = new GameControlParser(new KeyboardController());
             redTeamControlMapper = new GameControlParser(new KeyboardController());
 
-            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
-            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
-            
+            MainMenuView mainMenu =
+                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+            NetworkMenuView networkMenu =
+                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+
             GameContext.Initialize(mainMenu, networkMenu);
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
@@ -16,6 +17,7 @@ namespace SolStandard.Utility.Network
         private NetClient client;
 
         public const string PacketTypeHeader = "PT";
+        public const int NetworkPort = 4444;
 
         public enum PacketType
         {
@@ -37,23 +39,27 @@ namespace SolStandard.Utility.Network
             get { return client != null && client.ConnectionStatus == NetConnectionStatus.Connected; }
         }
 
-        public void StartServer()
+        public IPAddress StartServer()
         {
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard")
             {
-                Port = 4444
+                Port = NetworkPort,
+                EnableUPnP = true
             };
 
             if (client != null || server != null)
             {
                 Trace.WriteLine("Server or client already started!");
-                return;
+                return null;
             }
 
             //TODO Enable way to close server
             Trace.WriteLine("Starting server!");
             server = new NetServer(config);
             server.Start();
+            server.UPnP.ForwardPort(NetworkPort, "Forward Server Port for internet connections.");
+
+            return server.UPnP.GetExternalIP();
         }
 
         public void StartClient(string host, int port)
@@ -130,6 +136,7 @@ namespace SolStandard.Utility.Network
                                 Trace.WriteLine("Connected!");
                                 //TODO Replace this with a unique seed
                                 GameDriver.Random = new Random(12345);
+                                GameContext.LoadMapSelect();
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");
@@ -221,10 +228,7 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        
-        
-        
-        
+
         public void CloseServer()
         {
             if (server != null)

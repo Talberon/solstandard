@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
@@ -13,7 +14,7 @@ namespace SolStandard.Containers.View
         private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
         private bool visible;
-        private readonly Window networkStatusMenu;
+        private Window networkStatusWindow;
 
         public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
         {
@@ -21,19 +22,34 @@ namespace SolStandard.Containers.View
             this.logo = logo;
             this.background = background;
             visible = true;
-            networkStatusMenu =
-                new Window(new WindowContentGrid(
-                        new IRenderable[,]
-                        {
-                            { new RenderText(AssetManager.MainMenuFont, "___.___.___.___") },
-                            { new RenderText(AssetManager.MainMenuFont, "Waiting for connection...") }
-                        },
-                        2,
-                        HorizontalAlignment.Centered
-                    ),
-                    MainMenuView.MenuColor, HorizontalAlignment.Centered
-                );
+            networkStatusWindow = GenerateStatusWindow();
         }
+
+        public void UpdateStatus(string ipAddress, bool hosting)
+        {
+            networkStatusWindow = GenerateStatusWindow(ipAddress, hosting);
+        }
+
+        private static Window GenerateStatusWindow(string ipAddress = null, bool hosting = true)
+        {
+            string displayIpAddress = ipAddress ?? "___.___.___.___";
+            string statusMessage = (hosting) ? "Waiting for connection..." : "Attempting to connect to host...";
+
+            return new Window(new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new RenderText(AssetManager.MainMenuFont, displayIpAddress)
+                        },
+                        {new RenderText(AssetManager.MainMenuFont, statusMessage)}
+                    },
+                    2,
+                    HorizontalAlignment.Centered
+                ),
+                MainMenuView.MenuColor, HorizontalAlignment.Centered
+            );
+        }
+
 
         public void EnterNumber()
         {
@@ -63,10 +79,10 @@ namespace SolStandard.Containers.View
                 title.Draw(spriteBatch, titlePosition + new Vector2(100));
 
                 const int titlePadding = 200;
-                Vector2 mainMenuCenter = new Vector2(networkStatusMenu.Width, networkStatusMenu.Height) / 2;
+                Vector2 mainMenuCenter = new Vector2(networkStatusWindow.Width, networkStatusWindow.Height) / 2;
                 Vector2 mainMenuPosition =
                     new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
-                networkStatusMenu.Draw(spriteBatch, mainMenuPosition);
+                networkStatusWindow.Draw(spriteBatch, mainMenuPosition);
             }
         }
     }
