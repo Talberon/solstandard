@@ -277,13 +277,13 @@ namespace SolStandard
 
                         if (connectionManager.ConnectedAsServer)
                         {
+                            //Only allow host to proceed through AI phase
                             SendServerControls();
                         }
-
-                        networkController = ControlContext.ListenForInputs(redTeamControlMapper);
-                        if (connectionManager.ConnectedAsClient)
+                        else
                         {
-                            SendClientControls();
+                            //Either player can proceed offline
+                            ControlContext.ListenForInputs(redTeamControlMapper);
                         }
 
                         break;
