@@ -17,7 +17,6 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
         public override void Execute()
         {
             GameDriver.HostGame();
-            //TODO Update screen to show "Waiting for Connection"
         }
 
         public override IRenderable Clone()

@@ -1,6 +1,3 @@
-using Microsoft.Xna.Framework;
-using SolStandard.Utility.Buttons.Gamepad;
-
 namespace SolStandard.Utility.Buttons.Network
 {
     public class InputNet : GameControl

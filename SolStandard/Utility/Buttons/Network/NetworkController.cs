@@ -160,6 +160,33 @@ namespace SolStandard.Utility.Buttons.Network
             return true;
         }
 
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (inputs != null ? inputs.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Confirm != null ? Confirm.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Cancel != null ? Cancel.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (ResetToUnit != null ? ResetToUnit.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CenterCamera != null ? CenterCamera.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CursorUp != null ? CursorUp.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CursorDown != null ? CursorDown.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CursorLeft != null ? CursorLeft.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CursorRight != null ? CursorRight.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CameraUp != null ? CameraUp.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CameraDown != null ? CameraDown.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CameraLeft != null ? CameraLeft.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (CameraRight != null ? CameraRight.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Menu != null ? Menu.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Status != null ? Status.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (SetWideZoom != null ? SetWideZoom.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (SetCloseZoom != null ? SetCloseZoom.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (AdjustZoomOut != null ? AdjustZoomOut.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (AdjustZoomIn != null ? AdjustZoomIn.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
         public override string ToString()
         {
             string description = "NetworkController {";

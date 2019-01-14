@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Window;
