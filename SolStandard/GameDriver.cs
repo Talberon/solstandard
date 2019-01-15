@@ -102,12 +102,9 @@ namespace SolStandard
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
-        public static void JoinGame()
+        public static void JoinGame(string serverIPAddress = "127.0.0.1")
         {
             //Start Client
-            //TODO Update this to take an argument instead of a hard-coded IP
-            const string serverIPAddress = "127.0.0.1";
-            
             _connectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;

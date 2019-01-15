@@ -163,6 +163,10 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />

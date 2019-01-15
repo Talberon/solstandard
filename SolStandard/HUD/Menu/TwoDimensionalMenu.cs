@@ -25,7 +25,6 @@ namespace SolStandard.HUD.Menu
         private Vector2 cursorPosition;
 
         private readonly MenuOption[,] options;
-        private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
 
         private int CurrentOptionRow { get; set; }
         private int CurrentOptionColumn { get; set; }
