@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
@@ -14,8 +15,11 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.KeyboardInput;
+using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
+using SolStandard.Utility.Network;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
@@ -27,16 +31,20 @@ namespace SolStandard
     {
         // ReSharper disable once NotAccessedField.Local
         private GraphicsDeviceManager graphics;
-        
+
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
-        public static readonly Random Random = new Random();
+        public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
+        private static ConnectionManager _connectionManager;
+
         private SpriteBatch spriteBatch;
-        private GameControlMapper p1ControlMapper;
-        private GameControlMapper p2ControlMapper;
+        private ControlMapper blueTeamControlMapper;
+        private ControlMapper redTeamControlMapper;
+        private NetworkController networkController;
+        private NetworkController lastNetworkControlSent;
 
         private static bool _quitting;
 
@@ -85,6 +93,25 @@ namespace SolStandard
             GameContext.StartGame(mapName, scenario);
         }
 
+        public static void HostGame()
+        {
+            //Start Server
+            IPAddress serverIP = _connectionManager.StartServer();
+            string serverIPAddress = (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP.";
+            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true);
+            GameContext.NetworkMenuView.RemoveDialMenu();
+            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+        }
+
+        public static void JoinGame(string serverIPAddress = "127.0.0.1")
+        {
+            //Start Client
+            _connectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
+            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
+            GameContext.NetworkMenuView.GenerateDialMenu();
+            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+        }
+
         public static void QuitGame()
         {
             _quitting = true;
@@ -113,6 +140,8 @@ namespace SolStandard
         {
             base.Initialize();
 
+            networkController = new NetworkController();
+
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -126,12 +155,18 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            p1ControlMapper = new GameControlMapper(PlayerIndex.One);
-            p2ControlMapper = new GameControlMapper(PlayerIndex.Two);
+            blueTeamControlMapper = new GameControlParser(new KeyboardController());
+            redTeamControlMapper = new GameControlParser(new KeyboardController());
 
-            GameContext.Initialize(new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet,
-                mainMenuBackgroundSprite));
+            MainMenuView mainMenu =
+                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+            NetworkMenuView networkMenu =
+                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+
+            GameContext.Initialize(mainMenu, networkMenu);
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
+
+            _connectionManager = new ConnectionManager();
         }
 
         /// <summary>
@@ -161,11 +196,14 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            _connectionManager.Listen();
+
             if (_quitting)
             {
                 Exit();
             }
 
+            //TODO Remove Debug actions
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;
@@ -196,10 +234,10 @@ namespace SolStandard
             {
                 switch (GameContext.ActiveUnit.Team)
                 {
-                    case Team.Red:
+                    case Team.Blue:
                         GameContext.ActivePlayer = PlayerIndex.One;
                         break;
-                    case Team.Blue:
+                    case Team.Red:
                         GameContext.ActivePlayer = PlayerIndex.Two;
                         break;
                     case Team.Creep:
@@ -215,14 +253,56 @@ namespace SolStandard
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
-                        ControlContext.ListenForInputs(p1ControlMapper);
+                        if (_connectionManager.ConnectedAsServer)
+                        {
+                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            SendServerControls();
+                        }
+                        else if (_connectionManager.ConnectedAsClient)
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            ControlContext.ListenForInputs(blueTeamControlMapper);
+                        }
+
                         break;
                     case PlayerIndex.Two:
-                        ControlContext.ListenForInputs(p2ControlMapper);
+                        if (_connectionManager.ConnectedAsClient)
+                        {
+                            networkController = ControlContext.ListenForInputs(redTeamControlMapper);
+                            SendClientControls();
+                        }
+                        else if (_connectionManager.ConnectedAsServer)
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            ControlContext.ListenForInputs(redTeamControlMapper);
+                        }
+
                         break;
                     case PlayerIndex.Three:
-                        ControlContext.ListenForInputs(p1ControlMapper);
-                        ControlContext.ListenForInputs(p2ControlMapper);
+
+                        if (_connectionManager.ConnectedAsServer)
+                        {
+                            //Only allow host to proceed through AI phase
+                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            SendServerControls();
+                        }
+                        else if (_connectionManager.ConnectedAsClient)
+                        {
+                            //Do nothing
+                        }
+                        else
+                        {
+                            //Either player can proceed offline
+                            ControlContext.ListenForInputs(blueTeamControlMapper);
+                            ControlContext.ListenForInputs(redTeamControlMapper);
+                        }
+
                         break;
                     case PlayerIndex.Four:
                         break;
@@ -234,6 +314,8 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    break;
+                case GameContext.GameState.NetworkMenu:
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -260,6 +342,26 @@ namespace SolStandard
             base.Update(gameTime);
         }
 
+        private void SendServerControls()
+        {
+            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
+
+            //Send Message From Server to Client
+            _connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
+            _connectionManager.SendControlMessageAsServer(networkController);
+            lastNetworkControlSent = networkController;
+        }
+
+        private void SendClientControls()
+        {
+            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
+
+            //Send message from client to server
+            _connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
+            _connectionManager.SendControlMessageAsClient(networkController);
+            lastNetworkControlSent = networkController;
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -273,6 +375,9 @@ namespace SolStandard
             {
                 case GameContext.GameState.MainMenu:
                     DrawMainMenu();
+                    break;
+                case GameContext.GameState.NetworkMenu:
+                    DrawNetworkMenu();
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -323,6 +428,17 @@ namespace SolStandard
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp, null, null, null, null);
             GameContext.MainMenuView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawNetworkMenu()
+        {
+            //Render Main Menu
+            spriteBatch.Begin(
+                SpriteSortMode
+                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, null);
+            GameContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

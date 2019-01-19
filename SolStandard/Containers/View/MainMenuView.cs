@@ -11,7 +11,7 @@ namespace SolStandard.Containers.View
     public class MainMenuView : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
-        private static readonly Color MenuColor = new Color(20, 45, 60, 100);
+        public static readonly Color MenuColor = new Color(20, 45, 60, 100);
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
@@ -36,6 +36,8 @@ namespace SolStandard.Containers.View
             MenuOption[] options =
             {
                 new NewGameOption(MenuColor),
+                new HostGameOption(MenuColor),
+                new JoinGameOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,

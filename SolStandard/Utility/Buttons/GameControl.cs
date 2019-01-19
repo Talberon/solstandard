@@ -1,22 +1,17 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace SolStandard.Utility.Buttons
+﻿namespace SolStandard.Utility.Buttons
 {
     public abstract class GameControl
     {
-        protected readonly PlayerIndex PlayerIndex;
+        public int InputCounter { get; set; }
 
-        public int InputCounter { get; private set; }
-
-        protected GameControl(PlayerIndex playerIndex)
+        protected GameControl()
         {
-            PlayerIndex = playerIndex;
             InputCounter = 0;
         }
 
         public abstract bool Pressed { get; }
 
-        public bool Released
+        public virtual bool Released
         {
             get { return !Pressed && InputCounter > 0; }
         }

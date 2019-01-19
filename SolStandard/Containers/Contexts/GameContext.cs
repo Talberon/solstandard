@@ -18,6 +18,7 @@ namespace SolStandard.Containers.Contexts
         public enum GameState
         {
             MainMenu,
+            NetworkMenu,
             ModeSelect,
             ArmyDraft,
             MapSelect,
@@ -40,13 +41,15 @@ namespace SolStandard.Containers.Contexts
         public static InitiativeContext InitiativeContext { get; private set; }
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
+        public static NetworkMenuView NetworkMenuView { get; private set; }
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
 
-        public static void Initialize(MainMenuView mainMenuView)
+        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
             MainMenuView = mainMenuView;
+            NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
@@ -60,6 +63,8 @@ namespace SolStandard.Containers.Contexts
                 switch (CurrentGameState)
                 {
                     case GameState.MainMenu:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.ModeSelect:
                         return MapSelectContext.MapContainer.MapCursor;
@@ -86,6 +91,8 @@ namespace SolStandard.Containers.Contexts
                 switch (CurrentGameState)
                 {
                     case GameState.MainMenu:
+                        return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.ModeSelect:
                         return MapSelectContext.MapContainer.MapCamera;
