@@ -21,7 +21,7 @@ namespace SolStandard.Containers.Contexts
                     MainMenuControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.NetworkMenu:
-                    NetworkMenuControls(controlMapper, networkController);
+                    NetworkMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.ModeSelect:
                     break;
@@ -46,35 +46,37 @@ namespace SolStandard.Containers.Contexts
             return networkController;
         }
 
-        private static void NetworkMenuControls(ControlMapper controlMapper, NetworkController networkController)
+        private static void NetworkMenuControls(ControlMapper controlMapper)
         {
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.NetworkMenuView.Exit();
+            }
+
+            if (GameContext.NetworkMenuView.DialMenu == null) return;
+
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                networkController.Press(Input.CursorUp);
                 GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                networkController.Press(Input.CursorDown);
                 GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
-                networkController.Press(Input.CursorLeft);
                 GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
-                networkController.Press(Input.CursorRight);
                 GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
                 GameContext.NetworkMenuView.DialMenu.SelectOption();
             }
         }

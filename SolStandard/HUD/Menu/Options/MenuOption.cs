@@ -10,11 +10,14 @@ namespace SolStandard.HUD.Menu.Options
         public Color DefaultColor { get; set; }
         protected IRenderable LabelContent { get; set; }
         private Window.Window optionWindow;
+        private readonly HorizontalAlignment horizontalAlignment;
 
-        protected MenuOption(IRenderable labelContent, Color color)
+        protected MenuOption(IRenderable labelContent, Color color,
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left)
         {
             DefaultColor = color;
             LabelContent = labelContent;
+            this.horizontalAlignment = horizontalAlignment;
             optionWindow = BuildOptionWindow();
         }
 
@@ -23,7 +26,7 @@ namespace SolStandard.HUD.Menu.Options
             return new Window.Window(
                 LabelContent,
                 DefaultColor,
-                HorizontalAlignment.Left
+                horizontalAlignment
             );
         }
 

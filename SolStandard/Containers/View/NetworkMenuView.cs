@@ -1,10 +1,10 @@
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DialMenu;
-using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -29,8 +29,13 @@ namespace SolStandard.Containers.View
             this.background = background;
             visible = true;
             networkStatusWindow = GenerateStatusWindow();
-            inputIPAddress = "";
+            inputIPAddress = string.Empty;
 
+            GenerateDialMenu();
+        }
+
+        public void GenerateDialMenu()
+        {
             Color menuColor = MainMenuView.MenuColor;
 
             DialMenu = new TwoDimensionalMenu(
@@ -65,6 +70,11 @@ namespace SolStandard.Containers.View
                 new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(GameDriver.CellSize)),
                 menuColor
             );
+        }
+
+        public void RemoveDialMenu()
+        {
+            DialMenu = null;
         }
 
         public void UpdateStatus(string ipAddress, bool hosting)
@@ -121,6 +131,11 @@ namespace SolStandard.Containers.View
             }
         }
 
+        public void ResetIPAddress()
+        {
+            inputIPAddress = string.Empty;
+        }
+
         public void AttemptConnection()
         {
             Regex ipAddressRegex =
@@ -135,6 +150,13 @@ namespace SolStandard.Containers.View
             {
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        public void Exit()
+        {
+            GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            AssetManager.MapUnitCancelSFX.Play();
+            ResetIPAddress();
         }
 
         public void ToggleVisible()

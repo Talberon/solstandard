@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -12,7 +13,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
         private NetworkMenuView NetworkMenuView { get; set; }
 
         public CharacterOption(char character, Color color, NetworkMenuView networkMenuView) : base(
-            new RenderText(AssetManager.MainMenuFont, character.ToString()), color
+            new RenderText(AssetManager.MainMenuFont, character.ToString()), color, HorizontalAlignment.Centered
         )
         {
             this.character = character;

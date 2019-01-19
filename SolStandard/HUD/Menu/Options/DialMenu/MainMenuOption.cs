@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.View;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -13,7 +14,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
         private const string MainMenu = "Menu";
 
         public MainMenuOption(Color color, NetworkMenuView networkMenuView) : base(
-            new RenderText(AssetManager.WindowFont, MainMenu), color
+            new RenderText(AssetManager.WindowFont, MainMenu), color, HorizontalAlignment.Centered
         )
         {
             NetworkMenuView = networkMenuView;
@@ -22,6 +23,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
         public override void Execute()
         {
             GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            NetworkMenuView.ResetIPAddress();
         }
 
         public override IRenderable Clone()

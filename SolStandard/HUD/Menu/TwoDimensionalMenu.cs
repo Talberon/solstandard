@@ -72,6 +72,7 @@ namespace SolStandard.HUD.Menu
         {
             EqualizeOptionSizes(options);
 
+            // ReSharper disable once CoVariantArrayConversion
             WindowContentGrid menuContent = new WindowContentGrid(options, Padding, HorizontalAlignment.Centered);
 
             return new Window.Window(menuContent, DefaultColor);

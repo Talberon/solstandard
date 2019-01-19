@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -12,7 +13,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
         private const string Connect = "Connect";
 
         public ConnectOption(Color color, NetworkMenuView networkMenuView) : base(
-            new RenderText(AssetManager.WindowFont, Connect), color
+            new RenderText(AssetManager.WindowFont, Connect), color, HorizontalAlignment.Centered
         )
         {
             NetworkMenuView = networkMenuView;
