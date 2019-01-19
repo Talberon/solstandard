@@ -36,6 +36,8 @@ namespace SolStandard
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
+        private static readonly Color BackgroundColor = new Color(20, 11, 40);
+        private static readonly Color ActionFade = new Color(0, 0, 0, 190);
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private static ConnectionManager _connectionManager;
@@ -47,7 +49,6 @@ namespace SolStandard
         private NetworkController lastNetworkControlSent;
 
         private static bool _quitting;
-
 
         public GameDriver()
         {
@@ -71,6 +72,7 @@ namespace SolStandard
         }
 
         // ReSharper disable once UnusedMember.Local
+
         private void UseBorderlessFullscreen()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -368,8 +370,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(38, 43, 64));
-
+            GraphicsDevice.Clear(BackgroundColor);
 
             switch (GameContext.CurrentGameState)
             {
@@ -395,7 +396,7 @@ namespace SolStandard
                     DrawInGameMap();
                     if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
                     {
-                        DrawColorEntireScreen(new Color(0, 0, 0, 190));
+                        DrawColorEntireScreen(ActionFade);
                     }
 
                     DrawInGameHUD();
