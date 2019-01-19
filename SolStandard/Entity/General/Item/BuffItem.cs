@@ -25,10 +25,10 @@ namespace SolStandard.Entity.General.Item
         private readonly int buffDuration;
 
         public BuffItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string statistic,
-            int statModifier, int buffDuration)
+            int statModifier, int buffDuration, int[] pickupRange)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
-            InteractRange = new[] {0};
+            InteractRange = pickupRange;
             this.statistic = UnitStatistics.Abbreviation.First(key => key.Value == statistic).Key;
             this.statModifier = statModifier;
             this.buffDuration = buffDuration;
@@ -65,7 +65,8 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString().ToUpper(), statModifier, buffDuration);
+            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString().ToUpper(), statModifier,
+                buffDuration, InteractRange);
         }
 
         public override IRenderable TerrainInfo

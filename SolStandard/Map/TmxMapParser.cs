@@ -535,7 +535,9 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties["stat"],
                                             Convert.ToInt32(currentProperties["modifier"]),
-                                            Convert.ToInt32(currentProperties["duration"])
+                                            Convert.ToInt32(currentProperties["duration"]),
+                                        currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                            .ToArray()
                                         );
                                         break;
                                     case EntityTypes.Barricade:

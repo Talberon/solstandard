@@ -3235,12 +3235,21 @@
   <object id="949" name="Healthy Potion" type="HP Potion" gid="393" x="672" y="96" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="930" name="Mighty Meat" type="BuffItem" gid="422" x="448" y="448" width="32" height="32"/>
-  <object id="932" name="Mighty Meat" type="BuffItem" gid="422" x="480" y="480" width="32" height="32"/>
+  <object id="930" name="Mighty Meat" type="BuffItem" gid="422" x="448" y="448" width="32" height="32">
+   <properties>
+    <property name="pickupRange" value="1"/>
+   </properties>
+  </object>
+  <object id="932" name="Mighty Meat" type="BuffItem" gid="422" x="480" y="480" width="32" height="32">
+   <properties>
+    <property name="pickupRange" value="1"/>
+   </properties>
+  </object>
   <object id="934" name="Swift Cheese" type="BuffItem" gid="400" x="448" y="480" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
+    <property name="pickupRange" value="1"/>
     <property name="stat" value="MV"/>
    </properties>
   </object>
@@ -3248,6 +3257,7 @@
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
+    <property name="pickupRange" value="1"/>
     <property name="stat" value="MV"/>
    </properties>
   </object>
@@ -3289,7 +3299,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="823" name="Emberion" type="Unit" gid="485" x="192" y="448" width="32" height="32">
+  <object id="823" name="Emberion" type="Unit" gid="485" x="416" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
