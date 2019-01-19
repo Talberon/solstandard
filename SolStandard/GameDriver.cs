@@ -285,16 +285,21 @@ namespace SolStandard
 
                         break;
                     case PlayerIndex.Three:
-                        networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
 
                         if (_connectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
+                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
                             SendServerControls();
+                        }
+                        else if (_connectionManager.ConnectedAsClient)
+                        {
+                            //Do nothing
                         }
                         else
                         {
                             //Either player can proceed offline
+                            ControlContext.ListenForInputs(blueTeamControlMapper);
                             ControlContext.ListenForInputs(redTeamControlMapper);
                         }
 
