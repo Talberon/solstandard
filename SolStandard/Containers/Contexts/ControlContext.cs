@@ -92,7 +92,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
                 networkController.Press(Input.Menu);
-                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+                GameContext.CurrentGameState = GameContext.GameState.MapSelect;
             }
         }
 
