@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="555">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="556">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -313,8 +313,8 @@
    <tile gid="1293"/>
    <tile gid="1272"/>
    <tile gid="1273"/>
-   <tile gid="1273"/>
    <tile gid="1274"/>
+   <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1352"/>
@@ -344,9 +344,9 @@
    <tile gid="1312"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="1276"/>
-   <tile gid="1273"/>
-   <tile gid="1274"/>
+   <tile gid="1293"/>
+   <tile gid="1293"/>
+   <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
@@ -376,7 +376,7 @@
    <tile gid="495"/>
    <tile gid="493"/>
    <tile gid="495"/>
-   <tile gid="1314"/>
+   <tile gid="1274"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1293"/>
@@ -464,9 +464,9 @@
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="493"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
+   <tile gid="652"/>
+   <tile gid="653"/>
+   <tile gid="654"/>
    <tile gid="495"/>
    <tile gid="1314"/>
    <tile gid="1293"/>
@@ -494,9 +494,9 @@
    <tile gid="495"/>
    <tile gid="493"/>
    <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
+   <tile gid="692"/>
+   <tile gid="693"/>
+   <tile gid="694"/>
    <tile gid="493"/>
    <tile gid="495"/>
    <tile gid="1274"/>
@@ -521,12 +521,12 @@
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1312"/>
-   <tile gid="1313"/>
+   <tile gid="1316"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="494"/>
-   <tile gid="495"/>
+   <tile gid="732"/>
+   <tile gid="733"/>
+   <tile gid="734"/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="1314"/>
@@ -551,9 +551,9 @@
    <tile gid="1293"/>
    <tile gid="1293"/>
    <tile gid="1352"/>
-   <tile gid="1353"/>
-   <tile gid="1353"/>
-   <tile gid="1315"/>
+   <tile gid="1354"/>
+   <tile gid="1293"/>
+   <tile gid="1312"/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
@@ -949,7 +949,7 @@
    <tile/>
    <tile/>
    <tile gid="992"/>
-   <tile gid="993"/>
+   <tile gid="608"/>
    <tile gid="955"/>
    <tile gid="953"/>
    <tile gid="956"/>
@@ -979,7 +979,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="552"/>
    <tile gid="992"/>
    <tile gid="955"/>
    <tile gid="916"/>
@@ -1009,7 +1009,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="552"/>
    <tile/>
    <tile gid="952"/>
    <tile gid="953"/>
@@ -1037,9 +1037,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="513"/>
+   <tile gid="634"/>
+   <tile gid="595"/>
    <tile/>
    <tile gid="992"/>
    <tile gid="955"/>
@@ -1067,7 +1067,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="552"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1097,7 +1097,7 @@
    <tile gid="914"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="552"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1126,8 +1126,8 @@
    <tile gid="953"/>
    <tile gid="916"/>
    <tile gid="914"/>
-   <tile/>
-   <tile/>
+   <tile gid="513"/>
+   <tile gid="595"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1156,7 +1156,7 @@
    <tile gid="953"/>
    <tile gid="953"/>
    <tile gid="916"/>
-   <tile gid="913"/>
+   <tile gid="688"/>
    <tile gid="914"/>
    <tile/>
    <tile/>
@@ -1899,6 +1899,13 @@
     <property name="mapFileName" value="Arena_Dungeon_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeSeize" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="555" name="Tower of Arzon" type="SelectMap" gid="289" x="768" y="576" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Arena_Tower_01.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
