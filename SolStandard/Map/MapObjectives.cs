@@ -32,10 +32,10 @@ namespace SolStandard.Map
                 Dictionary<VictoryConditions, Objective> objectives =
                     new Dictionary<VictoryConditions, Objective> {{VictoryConditions.Surrender, new Surrender()}};
 
-                if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
-                if (modeRoutArmy) objectives.Add(VictoryConditions.LastMan, new RoutArmy());
-                if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
                 if (modeTaxes) objectives.Add(VictoryConditions.Taxes, new Taxes(valueTaxes));
+                if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
+                if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
+                if (modeRoutArmy) objectives.Add(VictoryConditions.RoutArmy, new RoutArmy());
 
 
                 return new Scenario(objectives);

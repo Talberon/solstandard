@@ -12,7 +12,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Taxes : Objective
     {
-        public static int TargetGold { get; private set; }
+        private static int TargetGold { get; set; }
 
         public Taxes(int targetGold)
         {
@@ -21,15 +21,16 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         protected override IRenderable VictoryLabelContent
         {
-            get { return GetGoldWindow(AssetManager.ResultsFont); }
+            get { return BuildObjectiveWindow(AssetManager.ResultsFont); }
         }
+
 
         public override IRenderable ObjectiveInfo
         {
-            get { return GetGoldWindow(AssetManager.WindowFont); }
+            get { return BuildObjectiveWindow(AssetManager.WindowFont); }
         }
 
-        private static IRenderable GetGoldWindow(ISpriteFont font)
+        private static Window BuildObjectiveWindow(ISpriteFont font)
         {
             Window blueGoldWindow = new Window(
                 new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + "G"),
@@ -44,8 +45,13 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 {
                     {
                         blueGoldWindow,
-                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize),
-                            new Vector2(blueGoldWindow.Height)),
+                        new SpriteAtlas(
+                            AssetManager.ObjectiveIcons,
+                            new Vector2(16),
+                            new Vector2(GameDriver.CellSize),
+                            (int) VictoryConditions.Taxes,
+                            Color.White
+                        ),
                         redGoldWindow,
                     }
                 },

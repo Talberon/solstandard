@@ -544,6 +544,15 @@ namespace SolStandard.Utility.Load
             return textureWrapper;
         }
 
+        public static ITexture2D LoadObjectiveIcons(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
         public static ISoundEffect LoadCoinSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");

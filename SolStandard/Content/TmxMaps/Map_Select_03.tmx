@@ -1830,12 +1830,16 @@
    <properties>
     <property name="mapFileName" value="Scotia_Hill_Redux_01.tmx"/>
     <property name="mapSong" value="PlainsTheme"/>
+    <property name="modeSeize" type="bool" value="false"/>
    </properties>
   </object>
   <object id="540" name="Chess Board" type="SelectMap" gid="289" x="896" y="448" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Chesslike_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
+    <property name="modeRoutArmy" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
   <object id="541" name="Kelladon Dungeon" type="SelectMap" gid="289" x="64" y="512" width="32" height="32">
@@ -1848,6 +1852,7 @@
    <properties>
     <property name="mapFileName" value="Village_01.tmx"/>
     <property name="mapSong" value="IslandTheme"/>
+    <property name="modeSeize" type="bool" value="false"/>
     <property name="valueTaxes" type="int" value="150"/>
    </properties>
   </object>
@@ -1855,6 +1860,8 @@
    <properties>
     <property name="mapFileName" value="Crossroads_01.tmx"/>
     <property name="mapSong" value="DesertTheme"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
     <property name="valueTaxes" type="int" value="50"/>
    </properties>
   </object>
@@ -1869,7 +1876,7 @@
    <properties>
     <property name="mapFileName" value="Grassland_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="modeSeize" type="bool" value="true"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
@@ -1884,6 +1891,8 @@
   <object id="551" name="Debug Arena" type="SelectMap" gid="289" x="480" y="352" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Debug_02.tmx"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
   <object id="553" name="ARENA Troll Toll" type="SelectMap" gid="289" x="320" y="384" width="32" height="32">
