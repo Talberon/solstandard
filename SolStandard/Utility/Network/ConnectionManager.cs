@@ -190,7 +190,6 @@ namespace SolStandard.Utility.Network
                 Trace.WriteLine("Received control:" + receivedNetworkControls);
 
                 ControlContext.ListenForInputs(new NetworkControlParser(receivedNetworkControls));
-                //TODO Interpret network controller input in the game
             }
         }
 

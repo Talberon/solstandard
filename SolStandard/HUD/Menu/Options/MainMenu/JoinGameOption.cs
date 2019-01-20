@@ -17,7 +17,6 @@ namespace SolStandard.HUD.Menu.Options.MainMenu
         public override void Execute()
         {
             GameDriver.JoinGame();
-            //TODO Give user a way to set the IP address they will connect to
         }
 
         public override IRenderable Clone()

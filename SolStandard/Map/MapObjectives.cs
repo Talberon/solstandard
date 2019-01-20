@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Entity.General.Item;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Map
 {
