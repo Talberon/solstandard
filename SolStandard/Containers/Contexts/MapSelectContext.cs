@@ -54,7 +54,8 @@ namespace SolStandard.Containers.Contexts
                 if (cursorSlice.TerrainEntity.GetType() == typeof(SelectMapEntity))
                 {
                     SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
-                    GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
+                    GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario,
+                        selectMapEntity.TurnOrder);
                     AssetManager.MenuConfirmSFX.Play();
                     PlayMapSong(selectMapEntity);
                 }

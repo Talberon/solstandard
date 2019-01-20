@@ -443,7 +443,8 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
                                                 Convert.ToInt32(currentProperties["valueTaxes"])
-                                            )
+                                            ),
+                                            Convert.ToString(currentProperties["turnType"])
                                         );
                                         break;
                                     case EntityTypes.Seize:

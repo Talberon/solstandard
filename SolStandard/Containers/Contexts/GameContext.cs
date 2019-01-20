@@ -122,11 +122,11 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartGame(string mapPath, Scenario scenario)
+        public static void StartGame(string mapPath, Scenario scenario, TurnOrder turnOrder)
         {
             Scenario = scenario;
 
-            LoadMap(mapPath);
+            LoadMap(mapPath, turnOrder);
 
             foreach (GameUnit unit in Units)
             {
@@ -166,7 +166,7 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        private static void LoadMap(string mapFile)
+        private static void LoadMap(string mapFile, TurnOrder turnOrder)
         {
             string mapPath = MapDirectory + mapFile;
 
@@ -179,7 +179,7 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            LoadInitiativeContext(mapParser);
+            LoadInitiativeContext(mapParser, turnOrder);
             LoadStatusUI();
         }
 
@@ -198,7 +198,7 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        private static void LoadInitiativeContext(TmxMapParser mapParser)
+        private static void LoadInitiativeContext(TmxMapParser mapParser, TurnOrder turnOrder = TurnOrder.UnitByUnit)
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
@@ -208,9 +208,8 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.SmallPortraitTextures
             );
 
-            //Randomize the team that goes first
             InitiativeContext =
-                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red);
+                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red, turnOrder);
         }
 
         public static void UpdateCamera()

@@ -104,6 +104,7 @@
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="true"/>
   <property name="modeTaxes" type="bool" default="true"/>
+  <property name="turnType" type="string" default="UnitByUnit"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">

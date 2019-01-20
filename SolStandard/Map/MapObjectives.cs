@@ -44,27 +44,7 @@ namespace SolStandard.Map
 
         public IRenderable Preview
         {
-            get
-            {
-                return new WindowContentGrid(new IRenderable[,]
-                    {
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeAssassinate) ? "Assassinate" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeRoutArmy) ? "Rout Army" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeSeize) ? "Seize Objective" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont,
-                                (modeTaxes) ? "Collect Gold: " + valueTaxes + Currency.CurrencyAbbreviation : ""),
-                        }
-                    },
-                    1
-                );
-            }
+            get { return Scenario.ScenarioInfo; }
         }
     }
 }
