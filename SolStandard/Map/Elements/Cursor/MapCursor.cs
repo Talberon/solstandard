@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -32,15 +33,6 @@ namespace SolStandard.Map.Elements.Cursor
             SlideSpeed = BaseSlideSpeed;
             this.mapSize = mapSize;
             _cursorSize = new Vector2(sprite.Width, sprite.Height);
-        }
-
-        public static Vector2 ScreenCoordinates
-        {
-            get
-            {
-                return (_currentPixelCoordinates + GameContext.MapCamera.TargetPosition) *
-                       GameContext.MapCamera.TargetZoom;
-            }
         }
 
         public static Vector2 CenterCursorScreenCoordinates
@@ -102,6 +94,25 @@ namespace SolStandard.Map.Elements.Cursor
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
             GameContext.MapCamera.StartMovingCameraToCursor();
+        }
+
+        public bool IsOnScreen
+        {
+            get
+            {
+                Vector2 cursorCoordinates = MapCoordinates * GameDriver.CellSize * GameContext.MapCamera.TargetZoom;
+                Vector2 screenPosition = -GameContext.MapCamera.CurrentPosition;
+                Vector2 screenBounds = screenPosition + GameDriver.ScreenSize;
+
+                bool isOnScreen = cursorCoordinates.X > screenPosition.X &&
+                                  cursorCoordinates.Y > screenPosition.Y &&
+                                  cursorCoordinates.X < screenBounds.X &&
+                                  cursorCoordinates.Y < screenBounds.Y;
+
+                Trace.WriteLine(string.Format("[isOnScreen={0}] Cursor: {1}, Screen NW: {2}, Screen SE: {3}",
+                    isOnScreen, cursorCoordinates, screenPosition, screenBounds));
+                return isOnScreen;
+            }
         }
 
         private void PreventCursorLeavingMapBounds()

@@ -94,14 +94,20 @@ namespace SolStandard.Containers.Contexts
             GameContext.ActiveUnit.ActivateUnit();
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
-            MapContainer.MapCamera.CenterCameraToCursor();
+
+            if (MapContainer.MapCursor.IsOnScreen)
+            {
+                MapContainer.MapCamera.CenterCameraToCursor();
+            }
+            else
+            {
+                MapContainer.MapCamera.SnapCameraCenterToCursor();
+            }
 
             TriggerEffectTilesTurnEnd();
-
             EndTurn();
 
             UpdateTurnCounters();
-
             TriggerEffectTilesTurnStart();
 
             if (NotEveryUnitIsDead())
