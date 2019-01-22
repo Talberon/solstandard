@@ -3120,7 +3120,7 @@
   </object>
   <object id="888" name="Chest" type="Chest" gid="205" x="704" y="96" width="32" height="32">
    <properties>
-    <property name="gold" type="int" value="5"/>
+    <property name="gold" type="int" value="20"/>
    </properties>
   </object>
   <object id="889" name="Locked Chest" type="Chest" gid="206" x="640" y="416" width="32" height="32">
@@ -3129,17 +3129,17 @@
     <property name="item" value="Oathbreaker"/>
    </properties>
   </object>
-  <object id="890" name="Chest" type="Chest" gid="205" x="224" y="672" width="32" height="32">
+  <object id="890" name="Chest" type="Chest" gid="205" x="992" y="704" width="32" height="32">
    <properties>
-    <property name="gold" type="int" value="20"/>
+    <property name="gold" type="int" value="25"/>
    </properties>
   </object>
-  <object id="891" name="Chest" type="Chest" gid="205" x="512" y="736" width="32" height="32">
+  <object id="891" name="Chest" type="Chest" gid="205" x="224" y="672" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="10"/>
    </properties>
   </object>
-  <object id="892" name="Chest Key" type="Key" gid="445" x="992" y="736" width="32" height="32">
+  <object id="892" name="Chest Key" type="Key" gid="389" x="512" y="736" width="32" height="32">
    <properties>
     <property name="usedWith" value="Locked Chest"/>
    </properties>
@@ -3222,10 +3222,9 @@
    <properties>
     <property name="atkValue" type="int" value="8"/>
     <property name="luckModifier" type="int" value="1"/>
-    <property name="usesRemaining" type="int" value="3"/>
+    <property name="usesRemaining" type="int" value="5"/>
    </properties>
   </object>
-  <object id="938" name="Blink Bone" type="Blink" gid="424" x="960" y="704" width="32" height="32"/>
   <object id="947" name="Longbow" type="Weapon" gid="450" x="672" y="64" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3"/>
@@ -3261,21 +3260,22 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
+  <object id="938" name="Blink Bone" type="Blink" gid="424" x="992" y="736" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="817" name="Arthur" type="Unit" gid="484" x="224" y="416" width="32" height="32">
+  <object id="817" name="Arthur" type="Unit" gid="484" x="288" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="818" name="Bartholomew" type="Unit" gid="484" x="224" y="480" width="32" height="32">
+  <object id="818" name="Bartholomew" type="Unit" gid="484" x="288" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="819" name="Christopher" type="Unit" gid="486" x="288" y="256" width="32" height="32">
+  <object id="819" name="Christopher" type="Unit" gid="486" x="224" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Red"/>
@@ -3293,13 +3293,13 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="822" name="Ewark" type="Unit" gid="482" x="320" y="288" width="32" height="32">
+  <object id="822" name="Ewark" type="Unit" gid="482" x="224" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="823" name="Emberion" type="Unit" gid="485" x="192" y="448" width="32" height="32">
+  <object id="823" name="Emberion" type="Unit" gid="485" x="256" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Monarch"/>
     <property name="Team" value="Red"/>
@@ -3353,13 +3353,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="832" name="Henry" type="Unit" gid="483" x="288" y="288" width="32" height="32">
+  <object id="832" name="Henry" type="Unit" gid="483" x="224" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="833" name="Gaius" type="Unit" gid="483" x="224" y="448" width="32" height="32">
+  <object id="833" name="Gaius" type="Unit" gid="483" x="288" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
@@ -3386,7 +3386,7 @@
     <property name="Class" value="Orc"/>
    </properties>
   </object>
-  <object id="908" name="Boss Orc" type="Creep" gid="489" x="448" y="416" width="32" height="32">
+  <object id="908" name="Orc Boss" type="Creep" gid="489" x="448" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="Item" value="Orcish Axe"/>
@@ -3411,7 +3411,6 @@
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
-    <property name="Item" value="Blink Bone"/>
    </properties>
   </object>
   <object id="924" name="Slime" type="Creep" gid="487" x="800" y="704" width="32" height="32">

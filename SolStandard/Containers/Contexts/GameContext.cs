@@ -132,7 +132,7 @@ namespace SolStandard.Containers.Contexts
             {
                 unit.DisableExhaustedUnit();
             }
-
+            
             ActiveUnit.ActivateUnit();
             GameMapContext.ResetCursorToActiveUnit();
             MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();

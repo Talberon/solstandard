@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
 {
     public enum TurnOrder
     {
         TeamByTeam,
-        UnitByUnit
+        UnitByUnit,
+        ExhaustTeamByTeam
     }
 
     public class InitiativeContext
@@ -28,6 +30,9 @@ namespace SolStandard.Containers.Contexts
                 case TurnOrder.TeamByTeam:
                     InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
                     break;
+                case TurnOrder.ExhaustTeamByTeam:
+                    InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("turnOrder", turnOrder, null);
             }
@@ -35,10 +40,36 @@ namespace SolStandard.Containers.Contexts
             CurrentActiveUnit = InitiativeList[0];
         }
 
+
         public void PassTurnToNextUnit()
         {
             SetNextUnitInList();
             RotateUnitList();
+        }
+
+        public void ExhaustUnit(GameUnit unit) //TODO Use me
+        {
+            if (InitiativeList.Contains(unit))
+            {
+                SetNextUnitInList();
+                RotateSpecificUnit(unit);
+            }
+            else
+            {
+                throw new UnitNotFoundInInitiativeListException();
+            }
+        }
+
+        public void SelectActiveUnit(GameUnit unit) //TODO Use me
+        {
+            if (InitiativeList.Contains(unit))
+            {
+                CurrentActiveUnit = unit;
+            }
+            else
+            {
+                throw new UnitNotFoundInInitiativeListException();
+            }
         }
 
         private void SetNextUnitInList()
@@ -60,6 +91,13 @@ namespace SolStandard.Containers.Contexts
             GameUnit firstUnit = InitiativeList[0];
             InitiativeList.RemoveAt(0);
             InitiativeList.Add(firstUnit);
+        }
+
+        private void RotateSpecificUnit(GameUnit unit)
+        {
+            int unitIndex = InitiativeList.IndexOf(unit);
+            InitiativeList.RemoveAt(unitIndex);
+            InitiativeList.Add(unit);
         }
 
 
