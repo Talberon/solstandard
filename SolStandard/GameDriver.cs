@@ -15,6 +15,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.Gamepad;
 using SolStandard.Utility.Buttons.KeyboardInput;
 using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
@@ -43,8 +44,8 @@ namespace SolStandard
         private static ConnectionManager _connectionManager;
 
         private SpriteBatch spriteBatch;
-        private ControlMapper blueTeamControlMapper;
-        private ControlMapper redTeamControlMapper;
+        private static ControlMapper _blueTeamControlMapper;
+        private static ControlMapper _redTeamControlMapper;
         private NetworkController networkController;
         private NetworkController lastNetworkControlSent;
 
@@ -157,8 +158,13 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            blueTeamControlMapper = new GameControlParser(new KeyboardController());
-            redTeamControlMapper = new GameControlParser(new KeyboardController());
+            
+            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
+            GameControlParser p1ControllerParser = new GameControlParser(new GamepadController(PlayerIndex.One));
+            GameControlParser p2ControllerParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+            
+            _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1ControllerParser);
+            _redTeamControlMapper = new MultiControlParser(keyboardParser, p2ControllerParser);
 
             MainMenuView mainMenu =
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
@@ -257,7 +263,7 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (_connectionManager.ConnectedAsServer)
                         {
-                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
                             SendServerControls();
                         }
                         else if (_connectionManager.ConnectedAsClient)
@@ -266,14 +272,14 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(blueTeamControlMapper);
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
 
                         break;
                     case PlayerIndex.Two:
                         if (_connectionManager.ConnectedAsClient)
                         {
-                            networkController = ControlContext.ListenForInputs(redTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_redTeamControlMapper);
                             SendClientControls();
                         }
                         else if (_connectionManager.ConnectedAsServer)
@@ -282,7 +288,7 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(redTeamControlMapper);
+                            ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
 
                         break;
@@ -291,7 +297,7 @@ namespace SolStandard
                         if (_connectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
                             SendServerControls();
                         }
                         else if (_connectionManager.ConnectedAsClient)
@@ -301,8 +307,8 @@ namespace SolStandard
                         else
                         {
                             //Either player can proceed offline
-                            ControlContext.ListenForInputs(blueTeamControlMapper);
-                            ControlContext.ListenForInputs(redTeamControlMapper);
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
+                            ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
 
                         break;

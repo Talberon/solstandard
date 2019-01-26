@@ -4706,7 +4706,7 @@
     <property name="triggersId" value="3F Gate"/>
    </properties>
   </object>
-  <object id="900" name="1F Gate Switch" type="Switch" gid="250" x="704" y="1088" width="32" height="32">
+  <object id="900" name="1F Gate Switch" type="Switch" gid="250" x="704" y="1056" width="32" height="32">
    <properties>
     <property name="triggersId" value="1F Gate"/>
    </properties>
