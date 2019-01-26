@@ -115,6 +115,27 @@ namespace SolStandard
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
+        public static void SetControllerConfig(Team playerOneTeam)
+        {
+            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
+            GameControlParser p1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
+            GameControlParser p2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+
+            switch (playerOneTeam)
+            {
+                case Team.Blue:
+                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    break;
+                case Team.Red:
+                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("playerOneTeam", playerOneTeam, null);
+            }
+        }
+
         public static void QuitGame()
         {
             _quitting = true;
@@ -158,13 +179,7 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            
-            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
-            GameControlParser p1ControllerParser = new GameControlParser(new GamepadController(PlayerIndex.One));
-            GameControlParser p2ControllerParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
-            
-            _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1ControllerParser);
-            _redTeamControlMapper = new MultiControlParser(keyboardParser, p2ControllerParser);
+            SetControllerConfig(Team.Blue);
 
             MainMenuView mainMenu =
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
