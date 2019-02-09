@@ -14,7 +14,6 @@ namespace SolStandard.Utility.Network
 
         public override bool Press(Input input, PressType pressType)
         {
-            //TODO Figure out how pressType will be handled
             return controller.GetInput(input).Pressed;
         }
 

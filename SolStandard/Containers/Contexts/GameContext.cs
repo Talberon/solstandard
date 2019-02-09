@@ -32,7 +32,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_02.tmx";
+        private const string MapSelectFile = "Map_Select_03.tmx";
 
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
@@ -122,17 +122,17 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartGame(string mapPath, Scenario scenario)
+        public static void StartGame(string mapPath, Scenario scenario, TurnOrder turnOrder)
         {
             Scenario = scenario;
 
-            LoadMap(mapPath);
+            LoadMap(mapPath, turnOrder);
 
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
             }
-
+            
             ActiveUnit.ActivateUnit();
             GameMapContext.ResetCursorToActiveUnit();
             MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
@@ -166,7 +166,7 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        private static void LoadMap(string mapFile)
+        private static void LoadMap(string mapFile, TurnOrder turnOrder)
         {
             string mapPath = MapDirectory + mapFile;
 
@@ -179,7 +179,7 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            LoadInitiativeContext(mapParser);
+            LoadInitiativeContext(mapParser, turnOrder);
             LoadStatusUI();
         }
 
@@ -198,19 +198,16 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        private static void LoadInitiativeContext(TmxMapParser mapParser)
+        private static void LoadInitiativeContext(TmxMapParser mapParser, TurnOrder turnOrder = TurnOrder.UnitByUnit)
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
                 mapParser.LoadMapLoot(),
-                AssetManager.LargePortraitTextures,
-                AssetManager.MediumPortraitTextures,
                 AssetManager.SmallPortraitTextures
             );
 
-            //Randomize the team that goes first
             InitiativeContext =
-                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red);
+                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red, turnOrder);
         }
 
         public static void UpdateCamera()

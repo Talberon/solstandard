@@ -15,6 +15,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Buttons.Gamepad;
 using SolStandard.Utility.Buttons.KeyboardInput;
 using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
@@ -36,18 +37,19 @@ namespace SolStandard
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
+        private static readonly Color BackgroundColor = new Color(20, 11, 40);
+        private static readonly Color ActionFade = new Color(0, 0, 0, 190);
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
         private static ConnectionManager _connectionManager;
 
         private SpriteBatch spriteBatch;
-        private ControlMapper blueTeamControlMapper;
-        private ControlMapper redTeamControlMapper;
+        private static ControlMapper _blueTeamControlMapper;
+        private static ControlMapper _redTeamControlMapper;
         private NetworkController networkController;
         private NetworkController lastNetworkControlSent;
 
         private static bool _quitting;
-
 
         public GameDriver()
         {
@@ -71,6 +73,7 @@ namespace SolStandard
         }
 
         // ReSharper disable once UnusedMember.Local
+
         private void UseBorderlessFullscreen()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -88,9 +91,9 @@ namespace SolStandard
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame(string mapName, Scenario scenario)
+        public static void NewGame(string mapName, Scenario scenario, TurnOrder turnOrder)
         {
-            GameContext.StartGame(mapName, scenario);
+            GameContext.StartGame(mapName, scenario, turnOrder);
         }
 
         public static void HostGame()
@@ -110,6 +113,27 @@ namespace SolStandard
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.NetworkMenuView.GenerateDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+        }
+
+        public static void SetControllerConfig(Team playerOneTeam)
+        {
+            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
+            GameControlParser p1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
+            GameControlParser p2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+
+            switch (playerOneTeam)
+            {
+                case Team.Blue:
+                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    break;
+                case Team.Red:
+                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("playerOneTeam", playerOneTeam, null);
+            }
         }
 
         public static void QuitGame()
@@ -155,8 +179,7 @@ namespace SolStandard
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
 
-            blueTeamControlMapper = new GameControlParser(new KeyboardController());
-            redTeamControlMapper = new GameControlParser(new KeyboardController());
+            SetControllerConfig(Team.Blue);
 
             MainMenuView mainMenu =
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
@@ -255,7 +278,7 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (_connectionManager.ConnectedAsServer)
                         {
-                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
                             SendServerControls();
                         }
                         else if (_connectionManager.ConnectedAsClient)
@@ -264,14 +287,14 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(blueTeamControlMapper);
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
 
                         break;
                     case PlayerIndex.Two:
                         if (_connectionManager.ConnectedAsClient)
                         {
-                            networkController = ControlContext.ListenForInputs(redTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_redTeamControlMapper);
                             SendClientControls();
                         }
                         else if (_connectionManager.ConnectedAsServer)
@@ -280,7 +303,7 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(redTeamControlMapper);
+                            ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
 
                         break;
@@ -289,7 +312,7 @@ namespace SolStandard
                         if (_connectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            networkController = ControlContext.ListenForInputs(blueTeamControlMapper);
+                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
                             SendServerControls();
                         }
                         else if (_connectionManager.ConnectedAsClient)
@@ -299,8 +322,8 @@ namespace SolStandard
                         else
                         {
                             //Either player can proceed offline
-                            ControlContext.ListenForInputs(blueTeamControlMapper);
-                            ControlContext.ListenForInputs(redTeamControlMapper);
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
+                            ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
 
                         break;
@@ -368,8 +391,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(38, 43, 64));
-
+            GraphicsDevice.Clear(BackgroundColor);
 
             switch (GameContext.CurrentGameState)
             {
@@ -395,7 +417,7 @@ namespace SolStandard
                     DrawInGameMap();
                     if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
                     {
-                        DrawColorEntireScreen(new Color(0, 0, 0, 190));
+                        DrawColorEntireScreen(ActionFade);
                     }
 
                     DrawInGameHUD();

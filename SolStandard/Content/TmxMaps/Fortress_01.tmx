@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="861">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="863">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -5568,13 +5568,13 @@
  <objectgroup id="8" name="Units">
   <object id="520" name="Fracturius I" type="Unit" gid="480" x="1024" y="800" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Marrowon II" type="Unit" gid="485" x="288" y="64" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -5742,6 +5742,18 @@
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="861" name="Hanlon" type="Unit" gid="486" x="256" y="128" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="862" name="Occam" type="Unit" gid="481" x="928" y="864" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
  </objectgroup>

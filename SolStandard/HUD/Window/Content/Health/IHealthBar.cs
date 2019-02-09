@@ -6,7 +6,7 @@ namespace SolStandard.HUD.Window.Content.Health
     public interface IHealthBar : IRenderable
     {
         Vector2 BarSize { set; }
-        void Update(int armor, int hp);
+        void SetArmorAndHp(int armor, int hp);
         
     }
 }

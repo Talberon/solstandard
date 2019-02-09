@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
 using SolStandard.Utility.Buttons.Network;
 
 namespace SolStandard.Utility.Network
@@ -149,6 +150,8 @@ namespace SolStandard.Utility.Network
                                 //TODO Replace this with a unique seed
                                 GameDriver.Random = new Random(12345);
                                 GameContext.LoadMapSelect();
+
+                                GameDriver.SetControllerConfig(peer is NetClient ? Team.Red : Team.Blue);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");
@@ -190,7 +193,6 @@ namespace SolStandard.Utility.Network
                 Trace.WriteLine("Received control:" + receivedNetworkControls);
 
                 ControlContext.ListenForInputs(new NetworkControlParser(receivedNetworkControls));
-                //TODO Interpret network controller input in the game
             }
         }
 

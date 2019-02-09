@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -8,9 +10,41 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Assassinate : Objective
     {
+        private Window objectiveWindow;
+
         protected override IRenderable VictoryLabelContent
         {
             get { return new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED"); }
+        }
+
+        public override IRenderable ObjectiveInfo
+        {
+            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
+        }
+
+        private static Window BuildObjectiveWindow()
+        {
+            return new Window(
+                new WindowContentGrid(
+                    new IRenderable[,]
+                    {
+                        {
+                            new SpriteAtlas(
+                                AssetManager.ObjectiveIcons,
+                                new Vector2(16),
+                                new Vector2(GameDriver.CellSize),
+                                (int) VictoryConditions.Assassinate,
+                                Color.White
+                            ),
+                            new RenderText(AssetManager.WindowFont, "Assassinate"),
+                        }
+                    },
+                    2,
+                    HorizontalAlignment.Centered
+                ),
+                ObjectiveWindowColor,
+                HorizontalAlignment.Centered
+            );
         }
 
         public override bool ConditionsMet()
@@ -42,7 +76,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private static bool TeamMonarchsAreAllDead(List<GameUnit> team)
         {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role == Role.Monarch);
+            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role == Role.Bard);
 
             foreach (GameUnit monarch in teamMonarchs)
             {

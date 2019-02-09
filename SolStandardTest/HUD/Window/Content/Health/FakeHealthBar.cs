@@ -2,27 +2,51 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content.Health;
+using SolStandard.Utility;
+using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.HUD.Window.Content.Health
 {
     public class FakeHealthBar : HealthBar
     {
-
         public FakeHealthBar(int maxHp, int currentHp, Vector2 barSize) : base(maxHp, currentHp, barSize)
         {
         }
 
-        public List<IResourcePoint> HealthPips
+        protected override void AddHealthPoint(List<IResourcePoint> points)
         {
-            get { return new List<IResourcePoint>(); }
+            points.Add(
+                new ResourcePoint(
+                    Vector2.One,
+                    new SpriteAtlas(new FakeTexture2D(""), Vector2.One),
+                    new SpriteAtlas(new FakeTexture2D(""), Vector2.One)
+                )
+            );
         }
-        
-        public List<string> PipValues
+
+        protected override void AddArmorPoint(List<IResourcePoint> points)
         {
-            get
-            {
-                return HealthPips.Select(pip => pip.Active.ToString()).ToList();
-            }
+            AddHealthPoint(points);
+        }
+
+        public List<IResourcePoint> GetHealthPips
+        {
+            get { return HealthPips; }
+        }
+
+        public List<IResourcePoint> GetArmorPips
+        {
+            get { return ArmorPips; }
+        }
+
+        public List<string> HealthPipValues
+        {
+            get { return GetHealthPips.Select(pip => pip.Active.ToString()).ToList(); }
+        }
+
+        public List<string> ArmorPipValues
+        {
+            get { return GetArmorPips.Select(pip => pip.Active.ToString()).ToList(); }
         }
     }
 }

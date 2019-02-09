@@ -3635,13 +3635,13 @@
   </object>
   <object id="520" name="Mandible I" type="Unit" gid="480" x="512" y="736" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Calfius III" type="Unit" gid="484" x="480" y="192" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

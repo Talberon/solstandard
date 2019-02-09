@@ -8,17 +8,17 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public enum VictoryConditions
     {
-        Surrender,
         Assassinate,
+        RoutArmy,
+        Seize,
         Taxes,
-        LastMan,
-        Seize
+        Surrender
     }
-    
+
     public abstract class Objective
     {
         protected abstract IRenderable VictoryLabelContent { get; }
-        protected static Color ObjectiveWindowColor = new Color(60, 60, 60, 180);
+        public static Color ObjectiveWindowColor = new Color(60, 60, 60, 180);
         protected bool BlueTeamWins;
         protected bool RedTeamWins;
         protected bool GameIsADraw;

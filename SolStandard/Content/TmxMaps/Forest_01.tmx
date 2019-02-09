@@ -2266,13 +2266,13 @@
   </object>
   <object id="520" name="Frostbane II" type="Unit" gid="480" x="864" y="448" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Bloodvire I" type="Unit" gid="485" x="224" y="416" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

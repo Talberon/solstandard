@@ -52,8 +52,6 @@ namespace SolStandard.Entity.Unit
 
         public List<UnitAction> TileActions()
         {
-            //TODO Introduce contextual actions for proximity to certain units
-            
             GameUnit thisUnit = UnitSelector.SelectUnit(this);
             return thisUnit.ContextualActions;
         }

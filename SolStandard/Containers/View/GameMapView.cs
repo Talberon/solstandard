@@ -43,7 +43,6 @@ namespace SolStandard.Containers.View
         private Window TurnWindow { get; set; }
         private Window InitiativeWindow { get; set; }
         private Window EntityWindow { get; set; }
-        private Window HelpTextWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
 
         private Window UserPromptWindow { get; set; }
@@ -345,25 +344,6 @@ namespace SolStandard.Containers.View
                 new Color(50, 50, 50, 150));
         }
 
-        public void GenerateHelpWindow(string helpText)
-        {
-            Color helpWindowColor = new Color(30, 30, 30, 150);
-
-            IRenderable textToRender = new RenderText(AssetManager.WindowFont, helpText);
-
-
-            WindowContentGrid helpWindowContentGrid = new WindowContentGrid(
-                new IRenderable[,]
-                {
-                    {new Window(textToRender, helpWindowColor)},
-                },
-                1
-            );
-
-            HelpTextWindow = new Window(helpWindowContentGrid,
-                Color.Transparent);
-        }
-
         public void GenerateObjectiveWindow()
         {
             ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
@@ -648,7 +628,7 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private Vector2 HelpTextWindowPosition()
+        private Vector2 ObjectiveWindowPosition()
         {
             //Top-left
             return new Vector2(WindowEdgeBuffer);
@@ -661,11 +641,6 @@ namespace SolStandard.Containers.View
                 GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
                 GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2
             );
-        }
-
-        private Vector2 ObjectiveWindowPosition()
-        {
-            return new Vector2(GameDriver.ScreenSize.X / 2 - (float) ObjectiveWindow.Width / 2, WindowEdgeBuffer);
         }
 
         private Vector2 MenuDescriptionWindowPosition(Vector2 menuPosition)
@@ -683,11 +658,6 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-
-            if (HelpTextWindow != null)
-            {
-                HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());
-            }
 
             if (EntityWindow != null)
             {

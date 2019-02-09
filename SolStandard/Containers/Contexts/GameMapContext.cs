@@ -35,7 +35,6 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         private readonly MapContainer mapContainer;
-        private const string HelpText = "Select a unit.";
         public static GameMapView GameMapView { get; private set; }
         public PauseScreenView PauseScreenView { get; private set; }
         public int TurnCounter { get; private set; }
@@ -70,7 +69,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView.GenerateTurnWindow();
 
             //Help Window
-            GameMapView.GenerateHelpWindow(HelpText);
             GameMapView.GenerateObjectiveWindow();
         }
 
@@ -96,14 +94,20 @@ namespace SolStandard.Containers.Contexts
             GameContext.ActiveUnit.ActivateUnit();
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
-            MapContainer.MapCamera.CenterCameraToCursor();
+
+            if (MapContainer.MapCursor.IsOnScreen)
+            {
+                MapContainer.MapCamera.CenterCameraToCursor();
+            }
+            else
+            {
+                MapContainer.MapCamera.SnapCameraCenterToCursor();
+            }
 
             TriggerEffectTilesTurnEnd();
-
             EndTurn();
 
             UpdateTurnCounters();
-
             TriggerEffectTilesTurnStart();
 
             if (NotEveryUnitIsDead())

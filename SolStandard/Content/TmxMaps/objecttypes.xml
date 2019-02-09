@@ -22,6 +22,7 @@
  <objecttype name="BuffItem" color="#b93246">
   <property name="duration" type="int" default="3"/>
   <property name="modifier" type="int" default="1"/>
+  <property name="pickupRange" type="string" default="0"/>
   <property name="stat" type="string" default="ATK"/>
  </objecttype>
  <objecttype name="BuffTile" color="#2ca42a">
@@ -63,6 +64,9 @@
   <property name="canMove" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
  </objecttype>
+ <objecttype name="Enemy" color="#aa0000">
+  <property name="Type" type="string" default="Slime"/>
+ </objecttype>
  <objecttype name="HP Potion" color="#b93246">
   <property name="hpHealed" type="int" default="3"/>
   <property name="pickupRange" type="string" default="0"/>
@@ -74,6 +78,7 @@
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
+ <objecttype name="Player" color="#0000ff"/>
  <objecttype name="Portal" color="#aaaaff">
   <property name="canMove" type="bool" default="true"/>
   <property name="destinationId" type="string" default="DEFAULT"/>
@@ -99,6 +104,7 @@
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="true"/>
   <property name="modeTaxes" type="bool" default="true"/>
+  <property name="turnType" type="string" default="UnitByUnit"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">

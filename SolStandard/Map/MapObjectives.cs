@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Entity.General.Item;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Map
 {
@@ -32,10 +29,10 @@ namespace SolStandard.Map
                 Dictionary<VictoryConditions, Objective> objectives =
                     new Dictionary<VictoryConditions, Objective> {{VictoryConditions.Surrender, new Surrender()}};
 
-                if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
-                if (modeRoutArmy) objectives.Add(VictoryConditions.LastMan, new RoutArmy());
-                if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
                 if (modeTaxes) objectives.Add(VictoryConditions.Taxes, new Taxes(valueTaxes));
+                if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
+                if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
+                if (modeRoutArmy) objectives.Add(VictoryConditions.RoutArmy, new RoutArmy());
 
 
                 return new Scenario(objectives);
@@ -44,27 +41,7 @@ namespace SolStandard.Map
 
         public IRenderable Preview
         {
-            get
-            {
-                return new WindowContentGrid(new IRenderable[,]
-                    {
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeAssassinate) ? "Assassinate" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeRoutArmy) ? "Rout Army" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (modeSeize) ? "Seize Objective" : ""),
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont,
-                                (modeTaxes) ? "Collect Gold: " + valueTaxes + Currency.CurrencyAbbreviation : ""),
-                        }
-                    },
-                    1
-                );
-            }
+            get { return Scenario.ScenarioInfo; }
         }
     }
 }

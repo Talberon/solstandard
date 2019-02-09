@@ -188,12 +188,11 @@
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
     <Compile Include="HUD\Window\Content\Combat\Die.cs" />
     <Compile Include="HUD\Window\Content\Combat\ICombatPoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\ArmorPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\BarPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\IHealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\HeartPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\ResourcePoint.cs" />
     <Compile Include="HUD\Window\Content\Health\MiniHealthBar.cs" />
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
@@ -249,6 +248,7 @@
     <Compile Include="Utility\Buttons\IController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\KeyboardController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\InputKey.cs" />
+    <Compile Include="Utility\Buttons\MultiControlParser.cs" />
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
@@ -286,7 +286,9 @@
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
+    <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
     <Compile Include="Utility\IResizable.cs" />
+    <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
@@ -379,6 +381,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\TmxMaps\Arena_Dungeon_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Arena_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Arena_Tower_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Beach_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -434,6 +445,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Map_Select_03.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\MonsterArena_01.tmx">

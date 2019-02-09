@@ -3501,13 +3501,13 @@
   </object>
   <object id="520" name="Dooticus IV" type="Unit" gid="452" x="288" y="448" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Calcius II" type="Unit" gid="456" x="672" y="192" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

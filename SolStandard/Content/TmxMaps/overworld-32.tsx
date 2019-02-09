@@ -1474,11 +1474,11 @@
  <tile id="5473" terrain=",,39,"/>
  <tile id="5474" terrain="39,39,39,"/>
  <tile id="5475" terrain="39,39,,39"/>
- <tile id="5484" terrain="27,27,27,28"/>
- <tile id="5485" terrain="27,27,28,28"/>
- <tile id="5486" terrain="27,27,28,27"/>
- <tile id="5487" terrain="27,28,28,28"/>
- <tile id="5488" terrain="28,27,28,28"/>
+ <tile id="5484" terrain=",,,28"/>
+ <tile id="5485" terrain=",,28,28"/>
+ <tile id="5486" terrain=",,28,"/>
+ <tile id="5487" terrain=",28,28,28"/>
+ <tile id="5488" terrain="28,,28,28"/>
  <tile id="5489" terrain=",,,27"/>
  <tile id="5490" terrain=",,27,27"/>
  <tile id="5491" terrain=",,27,"/>
@@ -1494,11 +1494,11 @@
  <tile id="5513" terrain="39,,39,"/>
  <tile id="5514" terrain="39,,39,39"/>
  <tile id="5515" terrain=",39,39,39"/>
- <tile id="5524" terrain="27,28,27,28"/>
+ <tile id="5524" terrain=",28,,28"/>
  <tile id="5525" terrain="28,28,28,28"/>
- <tile id="5526" terrain="28,27,28,27"/>
- <tile id="5527" terrain="28,28,27,28"/>
- <tile id="5528" terrain="28,28,28,27"/>
+ <tile id="5526" terrain="28,,28,"/>
+ <tile id="5527" terrain="28,28,,28"/>
+ <tile id="5528" terrain="28,28,28,"/>
  <tile id="5529" terrain=",27,,27"/>
  <tile id="5530" terrain="27,27,27,27"/>
  <tile id="5531" terrain="27,,27,"/>
@@ -1512,9 +1512,9 @@
  <tile id="5551" terrain=",39,,"/>
  <tile id="5552" terrain="39,39,,"/>
  <tile id="5553" terrain="39,,,"/>
- <tile id="5564" terrain="27,28,27,27"/>
- <tile id="5565" terrain="28,28,27,27"/>
- <tile id="5566" terrain="28,27,27,27"/>
+ <tile id="5564" terrain=",28,,"/>
+ <tile id="5565" terrain="28,28,,"/>
+ <tile id="5566" terrain="28,,,"/>
  <tile id="5569" terrain=",27,,"/>
  <tile id="5570" terrain="27,27,,"/>
  <tile id="5571" terrain="27,,,"/>

@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit
         Champion,
         Archer,
         Mage,
-        Monarch,
+        Bard,
         Slime,
         Troll,
         Orc,
@@ -36,8 +36,8 @@ namespace SolStandard.Entity.Unit
 
     public enum Team
     {
-        Red,
         Blue,
+        Red,
         Creep
     }
 
@@ -77,7 +77,7 @@ namespace SolStandard.Entity.Unit
         private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> actions) :
+            ITexture2D portrait, List<UnitAction> actions) :
             base(id, unitEntity)
         {
             this.team = team;
@@ -86,12 +86,12 @@ namespace SolStandard.Entity.Unit
             Actions = actions;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
-            this.largePortrait =
-                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
-            this.mediumPortrait =
-                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height));
-            this.smallPortrait =
-                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height));
+            largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(256));
+            mediumPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(128));
+            smallPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(64));
             combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
@@ -111,7 +111,8 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSpriteSheet = unitEntity.UnitSpriteSheet;
+
+            unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
         }
 
         public UnitEntity UnitEntity
@@ -491,7 +492,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentHP--;
             }
 
-            healthbars.ForEach(healthbar => healthbar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(healthbar => healthbar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
             KillIfDead();
         }
 
@@ -506,7 +507,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentArmor += amountToRecover;
             }
 
-            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
 
@@ -521,7 +522,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentHP += amountToRecover;
             }
 
-            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
         public void ActivateUnit()
@@ -698,6 +699,16 @@ namespace SolStandard.Entity.Unit
             {
                 MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1);
             }
+        }
+
+        private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
+        {
+            //TODO Find a cleaner way to test so that this isn't necessary
+            
+            if (entity != null) return entity.UnitSpriteSheet;
+
+            Trace.TraceWarning("No unitEntity for unit " + this + "!");
+            return new UnitSpriteSheet(new BlankTexture(), 1, Vector2.One, 100, false, Color.White);
         }
 
         public override string ToString()

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
     public class HealthBar : IHealthBar
     {
-        private readonly List<IResourcePoint> armorPips;
+        protected readonly List<IResourcePoint> ArmorPips;
         private readonly int maxArmor;
         private int currentArmor;
 
-        private readonly List<IResourcePoint> healthPips;
+        protected readonly List<IResourcePoint> HealthPips;
         private readonly int maxHp;
         private int currentHp;
 
@@ -25,16 +26,38 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             this.maxArmor = maxArmor;
             currentArmor = maxArmor;
-            armorPips = GenerateArmorPips(maxArmor);
-            UpdatePips(armorPips, currentArmor);
+            ArmorPips = GenerateArmorPips(maxArmor);
+            UpdatePips(ArmorPips, currentArmor);
 
             this.maxHp = maxHp;
             currentHp = maxHp;
-            healthPips = GenerateHpPips(maxHp);
-            UpdatePips(healthPips, currentHp);
+            HealthPips = GenerateHpPips(maxHp);
+            UpdatePips(HealthPips, currentHp);
 
             BarSize = barSize;
             DefaultColor = Color.White;
+        }
+
+        protected virtual void AddArmorPoint(List<IResourcePoint> points)
+        {
+            points.Add(
+                new ResourcePoint(
+                    pipSize,
+                    UnitStatistics.GetSpriteAtlas(Stats.Armor),
+                    UnitStatistics.GetSpriteAtlas(Stats.EmptyArmor)
+                )
+            );
+        }
+
+        protected virtual void AddHealthPoint(List<IResourcePoint> points)
+        {
+            points.Add(
+                new ResourcePoint(
+                    pipSize,
+                    UnitStatistics.GetSpriteAtlas(Stats.Hp),
+                    UnitStatistics.GetSpriteAtlas(Stats.EmptyHp)
+                )
+            );
         }
 
         private List<IResourcePoint> GenerateArmorPips(int maxPips)
@@ -43,7 +66,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < maxPips; i++)
             {
-                pips.Add(new ArmorPoint(pipSize));
+                AddArmorPoint(pips);
             }
 
             return pips;
@@ -55,7 +78,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < maxPips; i++)
             {
-                pips.Add(new HeartPoint(pipSize));
+                AddHealthPoint(pips);
             }
 
             return pips;
@@ -76,12 +99,12 @@ namespace SolStandard.HUD.Window.Content.Health
             {
                 pipSize = value;
 
-                foreach (IResourcePoint pip in healthPips)
+                foreach (IResourcePoint pip in HealthPips)
                 {
                     pip.Size = value;
                 }
 
-                foreach (IResourcePoint pip in armorPips)
+                foreach (IResourcePoint pip in ArmorPips)
                 {
                     pip.Size = value;
                 }
@@ -107,7 +130,7 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             get
             {
-                List<IResourcePoint> greaterPips = (healthPips.Count > armorPips.Count) ? healthPips : armorPips;
+                List<IResourcePoint> greaterPips = (HealthPips.Count > ArmorPips.Count) ? HealthPips : ArmorPips;
                 float colCount = (greaterPips.Count > MaxPointsPerRow) ? MaxPointsPerRow : greaterPips.Count;
                 return colCount;
             }
@@ -117,7 +140,7 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             get
             {
-                float armorRowCount = Convert.ToSingle(Math.Ceiling((float) armorPips.Count / MaxPointsPerRow));
+                float armorRowCount = Convert.ToSingle(Math.Ceiling((float) ArmorPips.Count / MaxPointsPerRow));
                 return armorRowCount;
             }
         }
@@ -126,7 +149,7 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             get
             {
-                float healthRowCount = Convert.ToSingle(Math.Ceiling((float) healthPips.Count / MaxPointsPerRow));
+                float healthRowCount = Convert.ToSingle(Math.Ceiling((float) HealthPips.Count / MaxPointsPerRow));
                 return healthRowCount;
             }
         }
@@ -141,13 +164,13 @@ namespace SolStandard.HUD.Window.Content.Health
             get { return Convert.ToInt32(barSize.X); }
         }
 
-        public void Update(int armor, int hp)
+        public void SetArmorAndHp(int armor, int hp)
         {
             currentArmor = armor;
-            UpdatePips(armorPips, currentArmor);
+            UpdatePips(ArmorPips, currentArmor);
 
             currentHp = hp;
-            UpdatePips(healthPips, currentHp);
+            UpdatePips(HealthPips, currentHp);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -159,11 +182,11 @@ namespace SolStandard.HUD.Window.Content.Health
         {
             Vector2 pipOffset = Vector2.Zero;
 
-            DrawPips(spriteBatch, position, armorPips, pipOffset);
+            DrawPips(spriteBatch, position, ArmorPips, pipOffset);
 
             pipOffset.Y += pipSize.Y * ArmorRowCount;
 
-            DrawPips(spriteBatch, position, healthPips, pipOffset);
+            DrawPips(spriteBatch, position, HealthPips, pipOffset);
         }
 
 

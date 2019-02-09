@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="553">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="555">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1951,6 +1951,21 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
+  <object id="553" name="ARENA Troll Toll" type="SelectMap" gid="289" x="352" y="128" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Arena_Grassland_01.tmx"/>
+    <property name="mapSong" value="PlainsTheme"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="554" name="ARENA King's Feast" type="SelectMap" gid="289" x="832" y="480" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Arena_Dungeon_01.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="modeSeize" type="bool" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="4" name="Overlay" width="30" height="20">
   <data>
@@ -2561,7 +2576,7 @@
  <objectgroup id="8" name="Units">
   <object id="532" name="Player One" type="Unit" gid="480" x="0" y="32" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

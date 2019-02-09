@@ -443,7 +443,8 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
                                                 Convert.ToInt32(currentProperties["valueTaxes"])
-                                            )
+                                            ),
+                                            Convert.ToString(currentProperties["turnType"])
                                         );
                                         break;
                                     case EntityTypes.Seize:
@@ -535,7 +536,9 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties["stat"],
                                             Convert.ToInt32(currentProperties["modifier"]),
-                                            Convert.ToInt32(currentProperties["duration"])
+                                            Convert.ToInt32(currentProperties["duration"]),
+                                        currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                            .ToArray()
                                         );
                                         break;
                                     case EntityTypes.Barricade:

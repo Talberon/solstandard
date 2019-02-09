@@ -399,14 +399,12 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
             {
                 networkController.Press(Input.LeftBumper);
-                //TODO Decrement current action's value slider (Gold trade, etc.)
                 GameContext.GameMapContext.DecrementCurrentAdjustableAction(1);
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
                 networkController.Press(Input.RightBumper);
-                //TODO Increment current action's value slider (Gold trade, etc.)
                 GameContext.GameMapContext.IncrementCurrentAdjustableAction(1);
             }
         }

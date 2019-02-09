@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public Execute(int damageToDeal) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Execute, new Vector2(GameDriver.CellSize)),
             name: "Execute",
-            description: "Deal a finishing blow to target. If target dies, regenerate all " +
+            description: "Deal a finishing blow [" + damageToDeal + " DMG] to target. If target dies, regenerate all " +
                          UnitStatistics.Abbreviation[Stats.Armor] + " and gain an " +
                          UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

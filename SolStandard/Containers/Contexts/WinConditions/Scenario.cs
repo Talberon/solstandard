@@ -22,17 +22,13 @@ namespace SolStandard.Containers.Contexts.WinConditions
             {
                 IRenderable[,] objectives = new IRenderable[Objectives.Count, 1];
 
-                for (int i = 0; i < objectives.Length; i++)
+                for (int i = 0; i < Objectives.Count; i++)
                 {
                     objectives[i, 0] = Objectives.Values.ToList()[i].ObjectiveInfo;
                 }
 
                 return new Window(
-                    new WindowContentGrid(
-                        objectives,
-                        0,
-                        HorizontalAlignment.Centered
-                    ),
+                    new WindowContentGrid(objectives, 1),
                     Color.Transparent,
                     HorizontalAlignment.Centered
                 );
