@@ -1,30 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Health
 {
-    public class HeartPoint : IResourcePoint
+    public class ResourcePoint : IResourcePoint
     {
         public bool Active { get; set; }
         public Color DefaultColor { get; set; }
         private SpriteAtlas activeSprite;
         private SpriteAtlas inactiveSprite;
 
-        public HeartPoint(Vector2 size)
+        public ResourcePoint(Vector2 size, SpriteAtlas activeSprite, SpriteAtlas inactiveSprite)
         {
-            Size = size;
             DefaultColor = Color.White;
+            this.activeSprite = activeSprite;
+            this.inactiveSprite = inactiveSprite;
+            Size = size;
+        }
+
+        private void ResizePips(Vector2 newSize)
+        {
+            activeSprite = activeSprite.Resize(newSize) as SpriteAtlas;
+            inactiveSprite = inactiveSprite.Resize(newSize) as SpriteAtlas;
         }
 
         public Vector2 Size
         {
-            set
-            {
-                activeSprite = UnitStatistics.GetSpriteAtlas(Stats.Hp, value);
-                inactiveSprite = UnitStatistics.GetSpriteAtlas(Stats.EmptyHp, value);
-            }
+            set { ResizePips(value); }
         }
 
         public int Height
@@ -56,7 +59,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public IRenderable Clone()
         {
-            return new HeartPoint(new Vector2(Width, Height));
+            return new ResourcePoint(new Vector2(Width, Height), activeSprite, inactiveSprite);
         }
 
         public override string ToString()

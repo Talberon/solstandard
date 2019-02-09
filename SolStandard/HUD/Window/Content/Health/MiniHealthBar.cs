@@ -85,7 +85,7 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
-        public void Update(int armor, int hp)
+        public void SetArmorAndHp(int armor, int hp)
         {
             currentArmor = armor;
             UpdatePips(armorPips, currentArmor);

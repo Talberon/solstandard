@@ -188,12 +188,11 @@
     <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
     <Compile Include="HUD\Window\Content\Combat\Die.cs" />
     <Compile Include="HUD\Window\Content\Combat\ICombatPoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\ArmorPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\BarPoint.cs" />
     <Compile Include="HUD\Window\Content\Health\IHealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\HeartPoint.cs" />
+    <Compile Include="HUD\Window\Content\Health\ResourcePoint.cs" />
     <Compile Include="HUD\Window\Content\Health\MiniHealthBar.cs" />
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />

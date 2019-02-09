@@ -9,80 +9,47 @@ namespace SolStandardTest.HUD.Window.Content.Health
         [Test]
         public void TestDealOneDamageFromFull()
         {
-            int maxHp = 5;
-            int hp = 5;
-            FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
+            const int maxArmor = 5;
+            const int maxHp = 5;
+            FakeHealthBar testHealthBar = new FakeHealthBar(maxArmor, maxHp, Vector2.One);
 
-            testHealthBar.Update(0, 1);
-            string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
+            testHealthBar.SetArmorAndHp(4, 5);
+            string pipsString = string.Join(",", testHealthBar.HealthPipValues);
+
+            Assert.IsTrue(testHealthBar.GetArmorPips[0].Active, "Armor bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetArmorPips[1].Active, "Armor bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetArmorPips[2].Active, "Armor bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetArmorPips[3].Active, "Armor bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetArmorPips[4].Active, "Armor bar: " + pipsString);
+
+            Assert.IsTrue(testHealthBar.GetHealthPips[0].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[1].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[2].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[3].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[4].Active, "Health bar: " + pipsString);
         }
 
         [Test]
         public void TestDealMultipleDamageFromFull()
         {
-            int maxHp = 5;
-            int hp = 5;
-            FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
+            const int maxArmor = 5;
+            const int maxHp = 5;
+            FakeHealthBar testHealthBar = new FakeHealthBar(maxArmor, maxHp, Vector2.One);
 
-            testHealthBar.Update(0, 3);
-            string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
-        }
+            testHealthBar.SetArmorAndHp(0, 3);
+            string pipsString = string.Join(",", testHealthBar.HealthPipValues);
 
-        [Test]
-        public void TestGenerateLessThanFullHp()
-        {
-            int maxHp = 5;
-            int hp = 3;
-            FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
+            Assert.IsFalse(testHealthBar.GetArmorPips[0].Active, "Armor bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetArmorPips[1].Active, "Armor bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetArmorPips[2].Active, "Armor bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetArmorPips[3].Active, "Armor bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetArmorPips[4].Active, "Armor bar: " + pipsString);
 
-            string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[2].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
-        }
-
-        [Test]
-        public void TestDealDamageFromLessThanFull()
-        {
-            int maxHp = 5;
-            int hp = 3;
-            FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
-
-            testHealthBar.Update(0, 2);
-            string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
-            Assert.IsTrue(testHealthBar.HealthPips[0].Active, pipsString);
-        }
-
-        [Test]
-        public void TestDealDamageMoreThanFullFromFull()
-        {
-            int maxHp = 5;
-            int hp = 5;
-            FakeHealthBar testHealthBar = new FakeHealthBar(maxHp, hp, Vector2.One);
-
-            testHealthBar.Update(0, 10);
-            string pipsString = string.Join(",", testHealthBar.PipValues);
-            Assert.IsFalse(testHealthBar.HealthPips[4].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[3].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[2].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[1].Active, pipsString);
-            Assert.IsFalse(testHealthBar.HealthPips[0].Active, pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[0].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[1].Active, "Health bar: " + pipsString);
+            Assert.IsTrue(testHealthBar.GetHealthPips[2].Active, "Health bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetHealthPips[3].Active, "Health bar: " + pipsString);
+            Assert.IsFalse(testHealthBar.GetHealthPips[4].Active, "Health bar: " + pipsString);
         }
     }
 }

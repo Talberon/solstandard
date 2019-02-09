@@ -491,7 +491,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentHP--;
             }
 
-            healthbars.ForEach(healthbar => healthbar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(healthbar => healthbar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
             KillIfDead();
         }
 
@@ -506,7 +506,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentArmor += amountToRecover;
             }
 
-            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
 
@@ -521,7 +521,7 @@ namespace SolStandard.Entity.Unit
                 Stats.CurrentHP += amountToRecover;
             }
 
-            healthbars.ForEach(bar => bar.Update(Stats.CurrentArmor, Stats.CurrentHP));
+            healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
         }
 
         public void ActivateUnit()

@@ -20,12 +20,12 @@ namespace SolStandardTest.Utility.Monogame
 
         public int Height
         {
-            get { return 0; }
+            get { return 1; }
         }
 
         public int Width
         {
-            get { return 0; }
+            get { return 1; }
         }
 
         public string Name
