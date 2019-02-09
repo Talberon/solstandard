@@ -111,7 +111,8 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSpriteSheet = unitEntity.UnitSpriteSheet;
+
+            unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
         }
 
         public UnitEntity UnitEntity
@@ -698,6 +699,16 @@ namespace SolStandard.Entity.Unit
             {
                 MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1);
             }
+        }
+
+        private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
+        {
+            //TODO Find a cleaner way to test so that this isn't necessary
+            
+            if (entity != null) return entity.UnitSpriteSheet;
+
+            Trace.TraceWarning("No unitEntity for unit " + this + "!");
+            return new UnitSpriteSheet(new BlankTexture(), 1, Vector2.One, 100, false, Color.White);
         }
 
         public override string ToString()

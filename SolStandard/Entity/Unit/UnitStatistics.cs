@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
@@ -148,7 +150,21 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
-            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(IconSizePixels), size, (int) stat);
+            ITexture2D statsTexture;
+
+            if (AssetManager.StatIcons == null)
+            {
+                //TODO Find a cleaner way to test so that this isn't necessary
+                Trace.TraceWarning("No texture for StatIcons could be found!");
+                int statCount = Enum.GetNames(typeof(Stats)).GetLength(0);
+                statsTexture = new BlankTexture((int) size.X * statCount, (int) size.Y * statCount);
+            }
+            else
+            {
+                statsTexture = AssetManager.StatIcons;
+            }
+
+            return new SpriteAtlas(statsTexture, new Vector2(IconSizePixels), size, (int) stat);
         }
 
         public override string ToString()
