@@ -5356,13 +5356,13 @@
   </object>
   <object id="520" name="Fracturius I" type="Unit" gid="452" x="800" y="512" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Marrowon II" type="Unit" gid="456" x="640" y="512" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

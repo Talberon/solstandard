@@ -76,7 +76,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private static bool AllUnitsDeadExceptMonarch(List<GameUnit> team)
         {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role != Role.Monarch);
+            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role != Role.Bard);
 
             foreach (GameUnit nonmonarch in teamMonarchs)
             {

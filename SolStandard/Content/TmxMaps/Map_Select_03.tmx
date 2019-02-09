@@ -1924,7 +1924,7 @@
  <objectgroup id="8" name="Units">
   <object id="532" name="Player One" type="Unit" gid="480" x="0" y="32" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

@@ -3001,7 +3001,7 @@
   </object>
   <object id="823" name="Emberion" type="Unit" gid="485" x="0" y="0" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -3067,7 +3067,7 @@
   </object>
   <object id="834" name="Aqueous" type="Unit" gid="480" x="832" y="0" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

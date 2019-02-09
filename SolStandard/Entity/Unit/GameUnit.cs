@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit
         Champion,
         Archer,
         Mage,
-        Monarch,
+        Bard,
         Slime,
         Troll,
         Orc,

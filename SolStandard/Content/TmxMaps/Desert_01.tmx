@@ -7182,13 +7182,13 @@
  <objectgroup id="8" name="Units" locked="1">
   <object id="520" name="Dooticus IV" type="Unit" gid="452" x="1088" y="1088" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Calcius II" type="Unit" gid="456" x="320" y="288" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

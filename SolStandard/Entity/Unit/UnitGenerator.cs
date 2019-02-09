@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit
             {"Champion", Role.Champion},
             {"Mage", Role.Mage},
             {"Lancer", Role.Lancer},
-            {"Monarch", Role.Monarch},
+            {"Bard", Role.Bard},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
@@ -91,7 +91,7 @@ namespace SolStandard.Entity.Unit
                     unitStats = SelectLancerStats();
                     unitSkills = SelectLancerSkills();
                     break;
-                case Role.Monarch:
+                case Role.Bard:
                     unitStats = SelectMonarchStats();
                     unitSkills = SelectMonarchSkills();
                     break;
@@ -133,7 +133,7 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Lancer:
                     break;
-                case Role.Monarch:
+                case Role.Bard:
                     break;
                 case Role.Slime:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);

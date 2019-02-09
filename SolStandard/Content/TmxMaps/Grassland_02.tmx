@@ -4054,7 +4054,7 @@
  <objectgroup id="8" name="Units">
   <object id="811" name="Anklius" type="Unit" gid="480" x="576" y="192" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -4127,7 +4127,7 @@
   </object>
   <object id="827" name="Usurper" type="Unit" gid="485" x="608" y="736" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

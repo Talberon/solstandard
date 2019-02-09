@@ -68,7 +68,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateBlueTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Monarch));
+            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Bard));
 
             BlueTeamLeaderPortrait = new Window(
                 new WindowContentGrid(blueLeaderContent, 1),
@@ -102,7 +102,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateRedTeamLeaderPortraitWindow()
         {
-            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Monarch));
+            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Bard));
 
             RedTeamLeaderPortrait = new Window(
                 new WindowContentGrid(redLeaderContent, 1),

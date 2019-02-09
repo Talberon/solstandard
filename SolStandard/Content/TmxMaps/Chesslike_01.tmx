@@ -2217,13 +2217,13 @@
  <objectgroup id="8" name="Units">
   <object id="520" name="Dooticus IV" type="Unit" gid="480" x="320" y="448" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Calcius II" type="Unit" gid="485" x="288" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Monarch"/>
+    <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
