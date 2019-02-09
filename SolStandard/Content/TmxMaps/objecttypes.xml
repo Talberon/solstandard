@@ -121,6 +121,7 @@
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>
+  <property name="Commander" type="bool" default="false"/>
   <property name="Team" type="string"/>
  </objecttype>
  <objecttype name="Weapon" color="#b93246">

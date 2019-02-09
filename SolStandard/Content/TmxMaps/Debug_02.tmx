@@ -1958,6 +1958,7 @@
   <object id="521" name="Marrowon II" type="Unit" gid="485" x="448" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -1976,6 +1977,7 @@
   <object id="528" name="Gildenstern" type="Unit" gid="479" x="384" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

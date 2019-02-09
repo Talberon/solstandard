@@ -68,7 +68,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateBlueTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Bard));
+            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue));
 
             BlueTeamLeaderPortrait = new Window(
                 new WindowContentGrid(blueLeaderContent, 1),
@@ -102,7 +102,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateRedTeamLeaderPortraitWindow()
         {
-            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Bard));
+            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red));
 
             RedTeamLeaderPortrait = new Window(
                 new WindowContentGrid(redLeaderContent, 1),
@@ -134,9 +134,9 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private static GameUnit FindTeamLeader(Team team, Role role)
+        private static GameUnit FindTeamLeader(Team team)
         {
-            return GameContext.Units.Find(unit => unit.Team == team && unit.Role == role);
+            return GameContext.Units.Find(unit => unit.Team == team && unit.IsCommander);
         }
 
         private static IRenderable[,] LeaderContent(GameUnit leader)

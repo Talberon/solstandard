@@ -52,19 +52,19 @@ namespace SolStandard.Containers.Contexts.WinConditions
             List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
             List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
 
-            if (TeamMonarchsAreAllDead(blueTeam) && TeamMonarchsAreAllDead(redTeam))
+            if (TeamCommandersAreAllDead(blueTeam) && TeamCommandersAreAllDead(redTeam))
             {
                 GameIsADraw = true;
                 return GameIsADraw;
             }
 
-            if (TeamMonarchsAreAllDead(blueTeam))
+            if (TeamCommandersAreAllDead(blueTeam))
             {
                 RedTeamWins = true;
                 return RedTeamWins;
             }
 
-            if (TeamMonarchsAreAllDead(redTeam))
+            if (TeamCommandersAreAllDead(redTeam))
             {
                 BlueTeamWins = true;
                 return BlueTeamWins;
@@ -74,11 +74,11 @@ namespace SolStandard.Containers.Contexts.WinConditions
         }
 
 
-        private static bool TeamMonarchsAreAllDead(List<GameUnit> team)
+        private static bool TeamCommandersAreAllDead(List<GameUnit> team)
         {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role == Role.Bard);
+            List<GameUnit> teamCommanders = team.FindAll(unit => unit.IsCommander);
 
-            foreach (GameUnit monarch in teamMonarchs)
+            foreach (GameUnit monarch in teamCommanders)
             {
                 //Return false if any Monarchs are alive.
                 if (monarch.Stats.CurrentHP > 0)

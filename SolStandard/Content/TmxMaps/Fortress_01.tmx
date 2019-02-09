@@ -5569,12 +5569,14 @@
   <object id="520" name="Fracturius I" type="Unit" gid="480" x="1024" y="800" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="521" name="Marrowon II" type="Unit" gid="485" x="288" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

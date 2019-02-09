@@ -1992,6 +1992,7 @@
   <object id="520" name="Fracturius I" type="Unit" gid="480" x="448" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="false"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -2016,6 +2017,7 @@
   <object id="528" name="Gaius" type="Unit" gid="479" x="480" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -2034,6 +2036,7 @@
   <object id="816" name="Talbot" type="Unit" gid="484" x="416" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

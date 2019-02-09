@@ -47,7 +47,8 @@ namespace SolStandard.Entity.Unit
             {"Wander", Routine.Wander}
         };
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot, List<ITexture2D> portraits)
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
+            List<ITexture2D> portraits)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
@@ -57,15 +58,16 @@ namespace SolStandard.Entity.Unit
 
                 Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
+                bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
 
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit,portraits,loot);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, portraits, loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
             return unitsFromMap;
         }
 
-        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass,
+        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool commander,
             UnitEntity mapEntity, List<ITexture2D> portraits, List<IItem> loot)
         {
             ITexture2D portrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString(), portraits);
@@ -116,7 +118,7 @@ namespace SolStandard.Entity.Unit
             }
 
             GameUnit generatedUnit =
-                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills);
+                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills, commander);
 
             if (generatedUnit.Team == Team.Creep)
             {

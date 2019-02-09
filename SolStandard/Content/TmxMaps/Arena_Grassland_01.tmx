@@ -2685,6 +2685,7 @@
   <object id="818" name="Bartholomew" type="Unit" gid="484" x="320" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2757,6 +2758,7 @@
   <object id="832" name="Kass" type="Unit" gid="481" x="928" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

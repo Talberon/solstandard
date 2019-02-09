@@ -1925,6 +1925,7 @@
   <object id="532" name="Player One" type="Unit" gid="480" x="0" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

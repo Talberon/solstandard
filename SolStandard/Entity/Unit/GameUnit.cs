@@ -46,6 +46,8 @@ namespace SolStandard.Entity.Unit
         private readonly Team team;
         private readonly Role role;
 
+        private readonly bool isCommander;
+
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -77,13 +79,14 @@ namespace SolStandard.Entity.Unit
         private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
-            ITexture2D portrait, List<UnitAction> actions) :
+            ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
             base(id, unitEntity)
         {
             this.team = team;
             this.role = role;
             this.stats = stats;
             Actions = actions;
+            this.isCommander = isCommander;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -133,6 +136,11 @@ namespace SolStandard.Entity.Unit
         public Role Role
         {
             get { return role; }
+        }
+
+        public bool IsCommander
+        {
+            get { return isCommander; }
         }
 
         public IRenderable LargePortrait
@@ -704,7 +712,7 @@ namespace SolStandard.Entity.Unit
         private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
         {
             //TODO Find a cleaner way to test so that this isn't necessary
-            
+
             if (entity != null) return entity.UnitSpriteSheet;
 
             Trace.TraceWarning("No unitEntity for unit " + this + "!");
