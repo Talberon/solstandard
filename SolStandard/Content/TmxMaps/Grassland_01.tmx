@@ -2338,14 +2338,14 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Fracturius I" type="Unit" gid="480" x="448" y="576" width="32" height="32">
+  <object id="520" name="Jenna" type="Unit" gid="480" x="448" y="576" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="485" x="800" y="224" width="32" height="32">
+  <object id="521" name="Wendy" type="Unit" gid="485" x="800" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>

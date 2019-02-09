@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
+using SolStandard.Entity.Unit.Actions.Bard;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
-using SolStandard.Entity.Unit.Actions.Monarch;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Monogame;
 
@@ -94,8 +94,8 @@ namespace SolStandard.Entity.Unit
                     unitSkills = SelectLancerSkills();
                     break;
                 case Role.Bard:
-                    unitStats = SelectMonarchStats();
-                    unitSkills = SelectMonarchSkills();
+                    unitStats = SelectBardStats();
+                    unitSkills = SelectBardSkills();
                     break;
                 case Role.Slime:
                     unitStats = SelectSlimeStats();
@@ -212,9 +212,9 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(9, 5, 6, 4, 2, 6, new[] {1});
         }
 
-        private static UnitStatistics SelectMonarchStats()
+        private static UnitStatistics SelectBardStats()
         {
-            return new UnitStatistics(20, 0, 4, 3, 1, 5, new[] {1});
+            return new UnitStatistics(8, 3, 4, 4, 2, 5, new[] {1, 2});
         }
 
         private static UnitStatistics SelectSlimeStats()
@@ -294,7 +294,7 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        private static List<UnitAction> SelectMonarchSkills()
+        private static List<UnitAction> SelectBardSkills()
         {
             return new List<UnitAction>
             {

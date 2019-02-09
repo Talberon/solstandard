@@ -40,6 +40,7 @@
  </objecttype>
  <objecttype name="Creep" color="#55857f">
   <property name="Class" type="string"/>
+  <property name="Commander" type="bool" default="false"/>
   <property name="Independent" type="bool" default="false"/>
   <property name="Item" type="string"/>
   <property name="ItemPrice" type="string"/>

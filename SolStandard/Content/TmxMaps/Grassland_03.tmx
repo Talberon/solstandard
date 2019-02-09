@@ -1989,14 +1989,14 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Fracturius I" type="Unit" gid="480" x="448" y="480" width="32" height="32">
+  <object id="520" name="Aqua" type="Unit" gid="480" x="448" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="false"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Marrowon II" type="Unit" gid="485" x="448" y="160" width="32" height="32">
+  <object id="521" name="Amber" type="Unit" gid="485" x="448" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>

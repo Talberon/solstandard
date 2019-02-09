@@ -2528,7 +2528,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="811" name="Anklius" type="Unit" gid="480" x="704" y="192" width="32" height="32">
+  <object id="811" name="Celeste" type="Unit" gid="480" x="704" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2547,7 +2547,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="827" name="Usurper" type="Unit" gid="485" x="160" y="512" width="32" height="32">
+  <object id="827" name="Amber" type="Unit" gid="485" x="160" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>

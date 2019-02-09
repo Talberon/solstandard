@@ -9,18 +9,17 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Monarch
+namespace SolStandard.Entity.Unit.Actions.Bard
 {
-    public class Bulwark : UnitAction
+    public class DoubleTime : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Bulwark(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
-            name: "Bulwark",
-            description: "Increase an ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " regeneration by " +
-                         "[+" + statModifier + "] for [" + duration + "] turns.",
+        public DoubleTime(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(GameDriver.CellSize)),
+            name: "Double Time",
+            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -38,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ArmorRegenerationUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
