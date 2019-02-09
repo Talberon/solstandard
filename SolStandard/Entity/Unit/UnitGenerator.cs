@@ -60,14 +60,15 @@ namespace SolStandard.Entity.Unit
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
                 bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
 
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, portraits, loot);
+                GameUnit unitToBuild =
+                    BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, portraits, loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
             return unitsFromMap;
         }
 
-        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool commander,
+        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
             UnitEntity mapEntity, List<ITexture2D> portraits, List<IItem> loot)
         {
             ITexture2D portrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString(), portraits);
@@ -78,39 +79,39 @@ namespace SolStandard.Entity.Unit
             switch (unitJobClass)
             {
                 case Role.Archer:
-                    unitStats = SelectArcherStats();
+                    unitStats = SelectArcherStats(isCommander);
                     unitSkills = SelectArcherSkills();
                     break;
                 case Role.Champion:
-                    unitStats = SelectChampionStats();
+                    unitStats = SelectChampionStats(isCommander);
                     unitSkills = SelectChampionSkills();
                     break;
                 case Role.Mage:
-                    unitStats = SelectMageStats();
+                    unitStats = SelectMageStats(isCommander);
                     unitSkills = SelectMageSkills();
                     break;
                 case Role.Lancer:
-                    unitStats = SelectLancerStats();
+                    unitStats = SelectLancerStats(isCommander);
                     unitSkills = SelectLancerSkills();
                     break;
                 case Role.Bard:
-                    unitStats = SelectBardStats();
+                    unitStats = SelectBardStats(isCommander);
                     unitSkills = SelectBardSkills();
                     break;
                 case Role.Slime:
-                    unitStats = SelectSlimeStats();
+                    unitStats = SelectSlimeStats(isCommander);
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Troll:
-                    unitStats = SelectTrollStats();
+                    unitStats = SelectTrollStats(isCommander);
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Orc:
-                    unitStats = SelectOrcStats();
+                    unitStats = SelectOrcStats(isCommander);
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Merchant:
-                    unitStats = SelectMerchantStats();
+                    unitStats = SelectMerchantStats(isCommander);
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 default:
@@ -118,7 +119,7 @@ namespace SolStandard.Entity.Unit
             }
 
             GameUnit generatedUnit =
-                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills, commander);
+                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills, isCommander);
 
             if (generatedUnit.Team == Team.Creep)
             {
@@ -187,54 +188,96 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        private static bool UnitHasItemsToTrade(MapEntity mapEntity, int[] itemPrices)
+        private static bool UnitHasItemsToTrade(MapEntity mapEntity, IReadOnlyCollection<int> itemPrices)
         {
-            return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Length > 0;
+            return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Count > 0;
         }
 
-        private static UnitStatistics SelectArcherStats()
+        private static UnitStatistics ApplyCommanderStats(UnitStatistics unitStatistics, bool isCommander)
         {
-            return new UnitStatistics(6, 4, 4, 3, 2, 5, new[] {2});
+            return isCommander
+                ? new UnitStatistics(
+                    hp: unitStatistics.MaxHP + 2,
+                    armor: unitStatistics.MaxArmor + 2,
+                    atk: unitStatistics.Atk + 2,
+                    ret: unitStatistics.Ret + 2,
+                    luck: unitStatistics.Luck + 1,
+                    mv: unitStatistics.Mv + 0,
+                    atkRange: unitStatistics.BaseAtkRange
+                )
+                : unitStatistics;
         }
 
-        private static UnitStatistics SelectChampionStats()
+        private static UnitStatistics SelectArcherStats(bool isCommander)
         {
-            return new UnitStatistics(7, 9, 5, 5, 1, 6, new[] {1});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 6, armor: 4, atk: 4, ret: 3, luck: 2, mv: 5, atkRange: new[] {2}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectMageStats()
+        private static UnitStatistics SelectChampionStats(bool isCommander)
         {
-            return new UnitStatistics(5, 3, 6, 3, 2, 5, new[] {1, 2});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectLancerStats()
+        private static UnitStatistics SelectMageStats(bool isCommander)
         {
-            return new UnitStatistics(9, 5, 6, 4, 2, 6, new[] {1});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 5, armor: 3, atk: 6, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectBardStats()
+        private static UnitStatistics SelectLancerStats(bool isCommander)
         {
-            return new UnitStatistics(8, 3, 4, 4, 2, 5, new[] {1, 2});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 9, armor: 5, atk: 6, ret: 4, luck: 2, mv: 6, atkRange: new[] {1}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectSlimeStats()
+        private static UnitStatistics SelectBardStats(bool isCommander)
         {
-            return new UnitStatistics(7, 0, 3, 3, 0, 3, new[] {1});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 8, armor: 3, atk: 4, ret: 4, luck: 2, mv: 5, atkRange: new[] {1, 2}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectTrollStats()
+        private static UnitStatistics SelectSlimeStats(bool isCommander)
         {
-            return new UnitStatistics(20, 3, 6, 4, 2, 4, new[] {1});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectOrcStats()
+        private static UnitStatistics SelectTrollStats(bool isCommander)
         {
-            return new UnitStatistics(15, 0, 5, 4, 0, 4, new[] {1});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1}),
+                isCommander
+            );
         }
 
-        private static UnitStatistics SelectMerchantStats()
+        private static UnitStatistics SelectOrcStats(bool isCommander)
         {
-            return new UnitStatistics(20, 15, 5, 8, 3, 6, new[] {1, 2});
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1}),
+                isCommander
+            );
+        }
+
+        private static UnitStatistics SelectMerchantStats(bool isCommander)
+        {
+            return ApplyCommanderStats(
+                new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2}),
+                isCommander
+            );
         }
 
         private static List<UnitAction> SelectArcherSkills()
