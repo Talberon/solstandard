@@ -77,7 +77,7 @@ namespace SolStandard.Entity.Unit
         private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
-            ITexture2D largePortrait, ITexture2D mediumPortrait, ITexture2D smallPortrait, List<UnitAction> actions) :
+            ITexture2D portrait, List<UnitAction> actions) :
             base(id, unitEntity)
         {
             this.team = team;
@@ -86,12 +86,12 @@ namespace SolStandard.Entity.Unit
             Actions = actions;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
-            this.largePortrait =
-                new SpriteAtlas(largePortrait, new Vector2(largePortrait.Width, largePortrait.Height));
-            this.mediumPortrait =
-                new SpriteAtlas(mediumPortrait, new Vector2(mediumPortrait.Width, mediumPortrait.Height));
-            this.smallPortrait =
-                new SpriteAtlas(smallPortrait, new Vector2(smallPortrait.Width, smallPortrait.Height));
+            largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(256));
+            mediumPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(128));
+            smallPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
+                new Vector2(64));
             combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
             hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);

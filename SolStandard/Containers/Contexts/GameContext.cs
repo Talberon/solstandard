@@ -203,8 +203,6 @@ namespace SolStandard.Containers.Contexts
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
                 mapParser.LoadMapLoot(),
-                AssetManager.LargePortraitTextures,
-                AssetManager.MediumPortraitTextures,
                 AssetManager.SmallPortraitTextures
             );
 

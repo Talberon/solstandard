@@ -15,10 +15,6 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
-        private static List<ITexture2D> _largePortraits;
-        private static List<ITexture2D> _mediumPortraits;
-        private static List<ITexture2D> _smallPortraits;
-
         private enum Routine
         {
             Roam,
@@ -51,13 +47,8 @@ namespace SolStandard.Entity.Unit
             {"Wander", Routine.Wander}
         };
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
-            List<ITexture2D> largePortraits, List<ITexture2D> mediumPortraits, List<ITexture2D> smallPortraits)
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot, List<ITexture2D> portraits)
         {
-            _largePortraits = largePortraits;
-            _mediumPortraits = mediumPortraits;
-            _smallPortraits = smallPortraits;
-
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
             foreach (UnitEntity unit in units)
@@ -67,7 +58,7 @@ namespace SolStandard.Entity.Unit
                 Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
 
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit, loot);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, unit,portraits,loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -75,11 +66,9 @@ namespace SolStandard.Entity.Unit
         }
 
         private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass,
-            UnitEntity mapEntity, List<IItem> loot)
+            UnitEntity mapEntity, List<ITexture2D> portraits, List<IItem> loot)
         {
-            ITexture2D smallPortrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString());
-            ITexture2D mediumPortrait = FindMediumPortrait(unitTeam.ToString(), unitJobClass.ToString());
-            ITexture2D largePortrait = FindLargePortrait(unitTeam.ToString(), unitJobClass.ToString());
+            ITexture2D portrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString(), portraits);
 
             UnitStatistics unitStats;
             List<UnitAction> unitSkills;
@@ -126,8 +115,8 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
             }
 
-            GameUnit generatedUnit = new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, largePortrait,
-                mediumPortrait, smallPortrait, unitSkills);
+            GameUnit generatedUnit =
+                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills);
 
             if (generatedUnit.Team == Team.Creep)
             {
@@ -335,22 +324,9 @@ namespace SolStandard.Entity.Unit
             return actions;
         }
 
-
-        private static ITexture2D FindLargePortrait(string unitTeam, string unitJobClass)
+        private static ITexture2D FindSmallPortrait(string unitTeam, string unitJobClass, List<ITexture2D> portraits)
         {
-            return _largePortraits.Find(texture =>
-                texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
-        }
-
-        private static ITexture2D FindMediumPortrait(string unitTeam, string unitJobClass)
-        {
-            return _mediumPortraits.Find(texture =>
-                texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
-        }
-
-        private static ITexture2D FindSmallPortrait(string unitTeam, string unitJobClass)
-        {
-            return _smallPortraits.Find(texture =>
+            return portraits.Find(texture =>
                 texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
         }
     }

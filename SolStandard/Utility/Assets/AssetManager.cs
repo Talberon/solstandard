@@ -67,8 +67,6 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D ObjectiveIcons { get; private set; }
 
         public static List<ITexture2D> UnitSprites { get; private set; }
-        public static List<ITexture2D> LargePortraitTextures { get; private set; }
-        public static List<ITexture2D> MediumPortraitTextures { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
 
         public static ITexture2D EntitiesTexture
@@ -132,8 +130,6 @@ namespace SolStandard.Utility.Assets
             MainMenuSunTexture = ContentLoader.LoadSolSpin(content);
             MainMenuBackground = ContentLoader.LoadTitleScreenBackground(content);
 
-            LargePortraitTextures = ContentLoader.LoadLargePortraits(content);
-            MediumPortraitTextures = ContentLoader.LoadMediumPortraits(content);
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);

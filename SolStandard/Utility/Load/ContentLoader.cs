@@ -158,67 +158,6 @@ namespace SolStandard.Utility.Load
             return spriteTextures;
         }
 
-        public static List<ITexture2D> LoadLargePortraits(ContentManager content)
-        {
-            List<Texture2D> loadPortraitTextures = new List<Texture2D>
-            {
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Monarch"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Large/Lancer"),
-
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Monarch"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Large/Lancer"),
-                
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Slime"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Troll"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Orc"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Large/Merchant"),
-            };
-
-            List<ITexture2D> portraitTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadPortraitTextures)
-            {
-                portraitTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return portraitTextures;
-        }
-
-        public static List<ITexture2D> LoadMediumPortraits(ContentManager content)
-        {
-            List<Texture2D> loadPortraitTextures = new List<Texture2D>
-            {
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Monarch"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Medium/Lancer"),
-
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Archer"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Champion"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Mage"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Monarch"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Medium/Lancer"),
-                
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Slime"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Troll"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Orc"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Medium/Merchant"),
-            };
-
-            List<ITexture2D> portraitTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadPortraitTextures)
-            {
-                portraitTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return portraitTextures;
-        }
 
         public static List<ITexture2D> LoadSmallPortraits(ContentManager content)
         {
