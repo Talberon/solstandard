@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -103,7 +105,9 @@ namespace SolStandard.Containers.Contexts
         private void UpdateUnitActivation()
         {
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
-            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && !unit.IsExhausted);
+            CurrentActiveUnit =
+                InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && !unit.IsExhausted);
+
 
             switch (CurrentActiveTeam)
             {
@@ -122,6 +126,14 @@ namespace SolStandard.Containers.Contexts
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            Queue<IEvent> activationEvents = new Queue<IEvent>();
+            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
+            activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
+            activationEvents.Enqueue(
+                new ToastAtCoordinatesEvent(activeUnitCoordinates, string.Format("{0} Turn Start!", CurrentActiveTeam))
+            );
+            GlobalEventQueue.QueueEvents(activationEvents);
         }
 
         private void DisableTeam(Team team)
@@ -144,6 +156,13 @@ namespace SolStandard.Containers.Contexts
             DisableTeam(OpposingTeam);
             DisableTeam(Team.Creep);
             CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam);
+
+            Queue<IEvent> newRoundEvents = new Queue<IEvent>();
+            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
+            newRoundEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
+            newRoundEvents.Enqueue(new ToastAtCoordinatesEvent(activeUnitCoordinates, "New Round!"));
+            newRoundEvents.Enqueue(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueEvents(newRoundEvents);
         }
 
         private void RefreshAllUnits()
@@ -157,20 +176,6 @@ namespace SolStandard.Containers.Contexts
 
             CurrentActiveUnit = unit;
             return true;
-        }
-
-        private void SetNextUnitInList()
-        {
-            int currentIndex = InitiativeList.FindIndex(unit => unit == CurrentActiveUnit);
-
-            if (currentIndex < InitiativeList.Count)
-            {
-                CurrentActiveUnit = InitiativeList[currentIndex + 1];
-            }
-            else
-            {
-                CurrentActiveUnit = InitiativeList[0];
-            }
         }
 
         private static List<GameUnit> TeamByTeamTurnOrder(IEnumerable<GameUnit> unitList, Team firstTurn)

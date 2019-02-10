@@ -17,6 +17,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -570,11 +571,11 @@ namespace SolStandard.Entity.Unit
         public void EnableUnit()
         {
             if (UnitEntity == null || IsExhausted) return;
-            
+
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
         }
-        
+
         public void DisableInactiveUnit()
         {
             if (UnitEntity == null || IsExhausted) return;
@@ -615,11 +616,17 @@ namespace SolStandard.Entity.Unit
 
         private void UpdateStatusEffects()
         {
+            Queue<IEvent> statusEffectEvents = new Queue<IEvent>();
+
             foreach (StatusEffect effect in StatusEffects)
             {
-                effect.UpdateEffect(this);
+                statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
+                statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
+                statusEffectEvents.Enqueue(new WaitFramesEvent(50));
             }
 
+            GlobalEventQueue.QueueEvents(statusEffectEvents);
+            
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 

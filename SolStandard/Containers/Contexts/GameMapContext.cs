@@ -98,15 +98,6 @@ namespace SolStandard.Containers.Contexts
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
 
-            if (MapContainer.MapCursor.IsOnScreen)
-            {
-                MapContainer.MapCamera.CenterCameraToCursor();
-            }
-            else
-            {
-                MapContainer.MapCamera.SnapCameraCenterToCursor();
-            }
-
             TriggerEffectTilesTurnEnd();
             EndTurn();
 

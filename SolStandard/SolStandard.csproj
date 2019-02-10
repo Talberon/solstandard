@@ -252,6 +252,9 @@
     <Compile Include="Utility\Buttons\MultiControlParser.cs" />
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
+    <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
