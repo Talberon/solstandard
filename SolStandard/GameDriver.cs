@@ -187,7 +187,6 @@ namespace SolStandard
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
 
             GameContext.Initialize(mainMenu, networkMenu);
-            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 
             _connectionManager = new ConnectionManager();
         }

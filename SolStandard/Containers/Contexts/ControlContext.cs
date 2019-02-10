@@ -92,7 +92,13 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
                 networkController.Press(Input.Menu);
-                GameContext.LoadMapSelect();
+                GameContext.GoToMainMenuIfGameIsOver();
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.GoToMainMenuIfGameIsOver();
             }
         }
 

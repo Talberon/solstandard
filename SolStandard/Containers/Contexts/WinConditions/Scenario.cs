@@ -10,10 +10,12 @@ namespace SolStandard.Containers.Contexts.WinConditions
     public class Scenario
     {
         public Dictionary<VictoryConditions, Objective> Objectives { get; private set; }
+        public bool GameIsOver { get; private set; }
 
         public Scenario(Dictionary<VictoryConditions, Objective> objectives)
         {
             Objectives = objectives;
+            GameIsOver = false;
         }
 
         public Window ScenarioInfo
@@ -37,11 +39,12 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public void CheckForWinState()
         {
-            foreach (Objective scenario in Objectives.Values)
+            foreach (Objective objective in Objectives.Values)
             {
-                if (scenario.ConditionsMet())
+                if (objective.ConditionsMet())
                 {
-                    scenario.EndGame();
+                    GameIsOver = true;
+                    objective.EndGame();
                 }
             }
         }

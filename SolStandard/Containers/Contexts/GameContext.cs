@@ -48,6 +48,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
@@ -132,7 +133,7 @@ namespace SolStandard.Containers.Contexts
             {
                 unit.DisableExhaustedUnit();
             }
-            
+
             ActiveUnit.ActivateUnit();
             GameMapContext.ResetCursorToActiveUnit();
             MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
@@ -213,6 +214,14 @@ namespace SolStandard.Containers.Contexts
         public static void UpdateCamera()
         {
             MapCamera.UpdateEveryFrame();
+        }
+
+        public static void GoToMainMenuIfGameIsOver()
+        {
+            if (!Scenario.GameIsOver) return;
+
+            AssetManager.MenuConfirmSFX.Play();
+            Initialize(MainMenuView, NetworkMenuView);
         }
     }
 }
