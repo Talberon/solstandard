@@ -239,12 +239,24 @@ namespace SolStandard.Entity.Unit
                 Color statPanelColor = new Color(10, 10, 10, 100);
                 Vector2 panelSizeOverride = new Vector2(180, 33);
 
+                const int crownIconSize = 24;
                 return new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {
                             new Window(
-                                new RenderText(AssetManager.HeaderFont, Id),
+                                new WindowContentGrid(
+                                    new[,]
+                                    {
+                                        {
+                                            isCommander
+                                                ? GetCommanderCrown(new Vector2(crownIconSize))
+                                                : new RenderBlank() as IRenderable,
+                                            new RenderText(AssetManager.HeaderFont, Id)
+                                        }
+                                    },
+                                    1
+                                ),
                                 statPanelColor, panelSizeOverride),
 
                             new Window(
@@ -734,6 +746,11 @@ namespace SolStandard.Entity.Unit
                     routine.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(UnitEntity.MapCoordinates));
                 }
             }
+        }
+
+        public static SpriteAtlas GetCommanderCrown(Vector2 size)
+        {
+            return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
     }
 }

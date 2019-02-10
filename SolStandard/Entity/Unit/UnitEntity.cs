@@ -18,11 +18,19 @@ namespace SolStandard.Entity.Unit
 
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(180, 180, 180);
+        private readonly bool isCommander;
+        private readonly SpriteAtlas commanderCrown;
 
         public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties) : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
         {
             ElementColor = ActiveColor;
+            isCommander = Convert.ToBoolean(tiledProperties[UnitGenerator.TmxCommanderTag]);
+
+            if (isCommander)
+            {
+                commanderCrown = GameUnit.GetCommanderCrown(new Vector2(8));
+            }
         }
 
         public void SetState(UnitEntityState state)
@@ -58,15 +66,23 @@ namespace SolStandard.Entity.Unit
 
         public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
-            if (Visible)
+            if (!Visible) return;
+
+            Sprite.Draw(spriteBatch, EntityRenderPosition, colorOverride);
+
+            if (isCommander && commanderCrown != null)
             {
-                Sprite.Draw(
-                    spriteBatch,
-                    MapCoordinates * GameDriver.CellSize -
-                    new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
-                    new Vector2(GameDriver.CellSize) / 2,
-                    colorOverride
-                );
+                commanderCrown.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
+            }
+        }
+
+        private Vector2 EntityRenderPosition
+        {
+            get
+            {
+                return MapCoordinates * GameDriver.CellSize -
+                       new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
+                       new Vector2(GameDriver.CellSize) / 2;
             }
         }
     }

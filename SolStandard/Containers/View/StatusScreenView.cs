@@ -166,18 +166,26 @@ namespace SolStandard.Containers.View
                 IRenderable portraitToUse =
                     (teamUnits.Count > MaxMediumPortraits) ? unit.SmallPortrait : unit.MediumPortrait;
 
+                const int crownIconSize = 24;
+                
                 IRenderable[,] unitContent =
                 {
                     {
+                        unit.IsCommander
+                            ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
+                            : new RenderBlank() as IRenderable,
                         new RenderText(AssetManager.WindowFont, unit.Id)
                     },
                     {
+                        new RenderBlank(),
                         portraitToUse
                     },
                     {
+                        new RenderBlank(),
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     },
                     {
+                        new RenderBlank(),
                         new Window(
                             new WindowContentGrid(
                                 new IRenderable[,]

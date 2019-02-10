@@ -147,7 +147,7 @@ namespace SolStandard.Entity.Unit
         {
             return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
         }
-
+        
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
             ITexture2D statsTexture;

@@ -47,6 +47,8 @@ namespace SolStandard.Entity.Unit
             {"Wander", Routine.Wander}
         };
 
+        public const string TmxCommanderTag = "Commander";
+
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
             List<ITexture2D> portraits)
         {
@@ -58,7 +60,7 @@ namespace SolStandard.Entity.Unit
 
                 Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
-                bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
+                bool commander = Convert.ToBoolean(unit.TiledProperties[TmxCommanderTag]);
 
                 GameUnit unitToBuild =
                     BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, portraits, loot);

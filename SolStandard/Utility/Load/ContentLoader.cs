@@ -208,6 +208,15 @@ namespace SolStandard.Utility.Load
             return fireTextureWrapper;
         }
 
+        public static ITexture2D LoadCommanderIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");

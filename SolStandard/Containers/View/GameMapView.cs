@@ -167,7 +167,7 @@ namespace SolStandard.Containers.View
 
             MenuDescriptionWindow = new Window(
                 new WindowContentGrid(
-                    new [,]
+                    new[,]
                     {
                         {
                             buttonIcon,
@@ -390,15 +390,20 @@ namespace SolStandard.Containers.View
 
         private static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
         {
+            const int crownIconSize = 12;
+            
             IRenderable[,] unitContent =
             {
                 {
+                    unit.IsCommander ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize)) : new RenderBlank() as IRenderable,
                     new RenderText(AssetManager.MapFont, unit.Id)
                 },
                 {
+                    new RenderBlank(),
                     unit.SmallPortrait
                 },
                 {
+                    new RenderBlank(),
                     unit.GetInitiativeHealthBar(new Vector2(unit.SmallPortrait.Width, initiativeHealthBarHeight))
                 }
             };
