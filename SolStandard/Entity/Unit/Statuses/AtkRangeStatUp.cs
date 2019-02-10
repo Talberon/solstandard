@@ -21,6 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
 
             //Add +1 to end of ranges

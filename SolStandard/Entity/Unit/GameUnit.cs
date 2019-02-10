@@ -649,6 +649,11 @@ namespace SolStandard.Entity.Unit
             }
         }
 
+        public bool IsAlive
+        {
+            get { return stats.CurrentHP > 0; }
+        }
+
         private void DropSpoils()
         {
             //Don't drop spoils if inventory is empty

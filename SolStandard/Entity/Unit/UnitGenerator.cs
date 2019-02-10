@@ -199,10 +199,10 @@ namespace SolStandard.Entity.Unit
         {
             return isCommander
                 ? new UnitStatistics(
-                    hp: unitStatistics.MaxHP + 2,
-                    armor: unitStatistics.MaxArmor + 2,
-                    atk: unitStatistics.Atk + 2,
-                    ret: unitStatistics.Ret + 2,
+                    hp: unitStatistics.MaxHP + 4,
+                    armor: unitStatistics.MaxArmor,
+                    atk: unitStatistics.Atk + 1,
+                    ret: unitStatistics.Ret + 1,
                     luck: unitStatistics.Luck + 1,
                     mv: unitStatistics.Mv + 0,
                     atkRange: unitStatistics.BaseAtkRange

@@ -21,6 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             target.Stats.MvModifier += mvModifier;
             target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FrameDelay);
 
