@@ -254,7 +254,7 @@ namespace SolStandard
             //Set the controller based on the active team
             if (GameContext.CurrentGameState >= GameContext.GameState.InGame)
             {
-                switch (GameContext.ActiveUnit.Team)
+                switch (GameContext.InitiativeContext.CurrentActiveTeam)
                 {
                     case Team.Blue:
                         GameContext.ActivePlayer = PlayerIndex.One;

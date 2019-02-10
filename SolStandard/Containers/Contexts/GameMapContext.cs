@@ -65,7 +65,8 @@ namespace SolStandard.Containers.Contexts
         public static void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            GameMapView.GenerateInitiativeWindow(GameContext.Units);
+            GameMapView.GenerateInitiativeWindow(Team.Blue);
+            GameMapView.GenerateInitiativeWindow(Team.Red);
 
             //Turn Window
             GameMapView.GenerateTurnWindow();
@@ -93,9 +94,7 @@ namespace SolStandard.Containers.Contexts
             UpdateUnitMorale(Team.Blue);
             UpdateUnitMorale(Team.Red);
             ConfirmPromptWindow();
-            GameContext.ActiveUnit.DisableExhaustedUnit();
             GameContext.InitiativeContext.PassTurnToNextUnit();
-            GameContext.ActiveUnit.ActivateUnit();
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
 
@@ -134,7 +133,7 @@ namespace SolStandard.Containers.Contexts
             bool hasLivingCommander = teamUnits.Any(unit => unit.IsCommander && unit.IsAlive);
 
             if (hasLivingCommander) return;
-            
+
             Queue<IEvent> statusEvents = new Queue<IEvent>();
 
             IEnumerable<GameUnit> livingUnits = teamUnits.Where(unit => unit.IsAlive);
@@ -291,16 +290,12 @@ namespace SolStandard.Containers.Contexts
             //Select the unit. Store it somewhere.
             SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
+            if (GameContext.InitiativeContext.SelectActiveUnit(SelectedUnit)) return true;
             //If the entity selected isn't the active unit, don't select it.
-            if (SelectedUnit != GameContext.ActiveUnit)
-            {
-                SelectedUnit = null;
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("Not the active unit!", 50);
-                return false;
-            }
-
-            return true;
+            SelectedUnit = null;
+            AssetManager.WarningSFX.Play();
+            MapContainer.AddNewToastAtMapCursor("Not an active unit!", 50);
+            return false;
         }
 
         public void ExecuteAction()

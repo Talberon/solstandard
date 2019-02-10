@@ -13,11 +13,13 @@ namespace SolStandard.Entity.Unit
         public enum UnitEntityState
         {
             Active,
-            Inactive
+            Inactive,
+            Exhausted
         }
 
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(180, 180, 180);
+        private static readonly Color ExhaustedColor = new Color(90, 90, 90);
         private readonly bool isCommander;
         private readonly SpriteAtlas commanderCrown;
 
@@ -42,6 +44,9 @@ namespace SolStandard.Entity.Unit
                     break;
                 case UnitEntityState.Inactive:
                     ElementColor = InactiveColor;
+                    break;
+                case UnitEntityState.Exhausted:
+                    ElementColor = ExhaustedColor;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("state", state, null);

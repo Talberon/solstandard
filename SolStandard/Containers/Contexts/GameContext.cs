@@ -134,7 +134,7 @@ namespace SolStandard.Containers.Contexts
                 unit.DisableExhaustedUnit();
             }
 
-            ActiveUnit.ActivateUnit();
+            InitiativeContext.StartFirstTurn();
             GameMapContext.ResetCursorToActiveUnit();
             MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             GameMapContext.EndTurn();

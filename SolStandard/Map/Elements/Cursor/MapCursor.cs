@@ -171,7 +171,7 @@ namespace SolStandard.Map.Elements.Cursor
 
         private void UpdateCursorTeam()
         {
-            switch (GameContext.ActiveUnit.Team)
+            switch (GameContext.InitiativeContext.CurrentActiveTeam)
             {
                 case Team.Red:
                     SpriteAtlas.SetCellIndex((int) CursorColor.Red);

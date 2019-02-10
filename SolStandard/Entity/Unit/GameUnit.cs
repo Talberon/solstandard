@@ -58,13 +58,11 @@ namespace SolStandard.Entity.Unit
         private readonly MiniHealthBar resultsHealthBar;
         private readonly List<IHealthBar> healthbars;
 
-
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
 
         private readonly UnitStatistics stats;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        private bool Enabled { get; set; }
+        public bool IsExhausted { get; private set; }
 
         public List<UnitAction> Actions { get; private set; }
         public List<UnitAction> InventoryActions { get; private set; }
@@ -141,6 +139,11 @@ namespace SolStandard.Entity.Unit
         public bool IsCommander
         {
             get { return isCommander; }
+        }
+
+        public bool IsActive
+        {
+            get { return GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted; }
         }
 
         public IRenderable LargePortrait
@@ -548,7 +551,7 @@ namespace SolStandard.Entity.Unit
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
-            Enabled = true;
+            IsExhausted = false;
             RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
@@ -559,7 +562,23 @@ namespace SolStandard.Entity.Unit
         {
             if (UnitEntity == null) return;
 
-            Enabled = false;
+            IsExhausted = true;
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
+            SetUnitAnimation(UnitAnimationState.Idle);
+        }
+
+        public void EnableUnit()
+        {
+            if (UnitEntity == null || IsExhausted) return;
+            
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
+            SetUnitAnimation(UnitAnimationState.Attack);
+        }
+        
+        public void DisableInactiveUnit()
+        {
+            if (UnitEntity == null || IsExhausted) return;
+
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
             SetUnitAnimation(UnitAnimationState.Idle);
         }

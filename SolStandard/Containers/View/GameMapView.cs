@@ -41,7 +41,8 @@ namespace SolStandard.Containers.View
         private Window RightUnitInventoryWindow { get; set; }
 
         private Window TurnWindow { get; set; }
-        private Window InitiativeWindow { get; set; }
+        private Window BlueTeamWindow { get; set; }
+        private Window RedTeamWindow { get; set; }
         private Window EntityWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
 
@@ -254,7 +255,7 @@ namespace SolStandard.Containers.View
         public void GenerateTurnWindow()
         {
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(300, InitiativeWindow.Height);
+            Vector2 turnWindowSize = new Vector2(300, BlueTeamWindow.Height);
 
             string turnInfo = "Turn: " + GameContext.GameMapContext.TurnCounter;
             turnInfo += Environment.NewLine;
@@ -349,26 +350,40 @@ namespace SolStandard.Containers.View
             ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
         }
 
-        public void GenerateInitiativeWindow(List<GameUnit> unitList)
+        public void GenerateInitiativeWindow(Team team)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
             const int maxInitiativeSize = 15;
 
+            List<GameUnit> unitList = GameContext.Units.FindAll(unit => unit.Team == team);
+
+
             int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
 
-            IRenderable[,] unitListGrid = new IRenderable[1, initiativeListLength];
+            IRenderable[,] unitListContent = new IRenderable[1, initiativeListLength];
             const int initiativeHealthBarHeight = 10;
 
-            GenerateFirstUnitInInitiativeList(unitList, initiativeHealthBarHeight, unitListGrid);
-            GenerateRestOfInitiativeList(unitList, unitListGrid, initiativeHealthBarHeight);
+            GenerateFirstUnitInInitiativeList(unitList, initiativeHealthBarHeight, unitListContent);
+            GenerateRestOfInitiativeList(unitList, unitListContent, initiativeHealthBarHeight);
 
 
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 3);
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListContent, 3);
 
-            InitiativeWindow = new Window(
-                unitListContentGrid,
-                new Color(100, 100, 100, 225)
-            );
+            Color initiativeWindowBackgroundColor = new Color(100, 100, 100, 225);
+            
+            switch (team)
+            {
+                case Team.Blue:
+                    BlueTeamWindow = new Window(unitListContentGrid, initiativeWindowBackgroundColor);
+                    break;
+                case Team.Red:
+                    RedTeamWindow = new Window(unitListContentGrid, initiativeWindowBackgroundColor);
+                    break;
+                case Team.Creep:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
         }
 
         private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
@@ -391,11 +406,13 @@ namespace SolStandard.Containers.View
         private static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
         {
             const int crownIconSize = 12;
-            
+
             IRenderable[,] unitContent =
             {
                 {
-                    unit.IsCommander ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize)) : new RenderBlank() as IRenderable,
+                    unit.IsCommander
+                        ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
+                        : new RenderBlank() as IRenderable,
                     new RenderText(AssetManager.MapFont, unit.Id)
                 },
                 {
@@ -498,7 +515,7 @@ namespace SolStandard.Containers.View
             //Center of screen, above Initiative List
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - ActionMenu.Width,
-                InitiativeWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
+                BlueTeamWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
             );
         }
 
@@ -507,7 +524,7 @@ namespace SolStandard.Containers.View
             //Center of screen, above Initiative List
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - InventoryMenu.Width,
-                InitiativeWindowPosition().Y - InventoryMenu.Height - WindowEdgeBuffer
+                BlueTeamWindowPosition().Y - InventoryMenu.Height - WindowEdgeBuffer
             );
         }
 
@@ -533,7 +550,7 @@ namespace SolStandard.Containers.View
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - InitiativeWindow.Height
+                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - BlueTeamWindow.Height
             );
         }
 
@@ -571,7 +588,7 @@ namespace SolStandard.Containers.View
             //Bottom-right, above intiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - InitiativeWindow.Height
+                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - BlueTeamWindow.Height
             );
         }
 
@@ -606,14 +623,22 @@ namespace SolStandard.Containers.View
         }
 
 
-        private Vector2 InitiativeWindowPosition()
+        private Vector2 RedTeamWindowPosition()
+        {
+            //Top-left
+            return new Vector2(WindowEdgeBuffer);
+        }
+
+
+        private Vector2 BlueTeamWindowPosition()
         {
             //Bottom-right
             return new Vector2(
-                GameDriver.ScreenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - InitiativeWindow.Height
+                GameDriver.ScreenSize.X - BlueTeamWindow.Width - WindowEdgeBuffer,
+                GameDriver.ScreenSize.Y - BlueTeamWindow.Height
             );
         }
+
 
         private Vector2 TurnWindowPosition()
         {
@@ -636,7 +661,7 @@ namespace SolStandard.Containers.View
         private Vector2 ObjectiveWindowPosition()
         {
             //Top-left
-            return new Vector2(WindowEdgeBuffer);
+            return new Vector2(WindowEdgeBuffer, WindowEdgeBuffer + RedTeamWindowPosition().Y + RedTeamWindow.Height);
         }
 
         private Vector2 UserPromptWindowPosition()
@@ -674,9 +699,10 @@ namespace SolStandard.Containers.View
                 TurnWindow.Draw(spriteBatch, TurnWindowPosition());
             }
 
-            if (InitiativeWindow != null)
+            if (BlueTeamWindow != null && RedTeamWindow != null)
             {
-                InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
+                BlueTeamWindow.Draw(spriteBatch, BlueTeamWindowPosition());
+                RedTeamWindow.Draw(spriteBatch, RedTeamWindowPosition());
 
                 if (LeftUnitPortraitWindow != null)
                 {

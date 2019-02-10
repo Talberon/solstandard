@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
-using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -10,18 +10,22 @@ namespace SolStandard.Containers.Contexts
     {
         TeamByTeam,
         UnitByUnit,
-        ExhaustTeamByTeam
+        AlternateExhaustingUnits
     }
 
     public class InitiativeContext
     {
         public List<GameUnit> InitiativeList { get; private set; }
         public GameUnit CurrentActiveUnit { get; private set; }
-
+        public Team CurrentActiveTeam { get; private set; }
+        private Team FirstPlayer { get; set; }
 
         public InitiativeContext(IEnumerable<GameUnit> unitList, Team firstTurn,
             TurnOrder turnOrder = TurnOrder.UnitByUnit)
         {
+            CurrentActiveTeam = firstTurn;
+            FirstPlayer = firstTurn;
+
             switch (turnOrder)
             {
                 case TurnOrder.UnitByUnit:
@@ -30,46 +34,129 @@ namespace SolStandard.Containers.Contexts
                 case TurnOrder.TeamByTeam:
                     InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
                     break;
-                case TurnOrder.ExhaustTeamByTeam:
+                case TurnOrder.AlternateExhaustingUnits:
                     InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("turnOrder", turnOrder, null);
             }
+        }
 
-            CurrentActiveUnit = InitiativeList[0];
+        public void StartFirstTurn()
+        {
+            StartNewRound();
         }
 
 
         public void PassTurnToNextUnit()
         {
-            SetNextUnitInList();
-            RotateUnitList();
-        }
+            Team opposingTeam = OpposingTeam;
 
-        public void ExhaustUnit(GameUnit unit) //TODO Use me
-        {
-            if (InitiativeList.Contains(unit))
+            CurrentActiveUnit.DisableExhaustedUnit();
+
+            if (TeamHasExhaustedAllUnits(opposingTeam))
             {
-                SetNextUnitInList();
-                RotateSpecificUnit(unit);
+                if (TeamHasExhaustedAllUnits(CurrentActiveTeam))
+                {
+                    if (TeamHasExhaustedAllUnits(Team.Creep))
+                    {
+                        RefreshAllUnits();
+                        StartNewRound();
+                    }
+                    else
+                    {
+                        CurrentActiveTeam = Team.Creep;
+                    }
+                }
             }
             else
             {
-                throw new UnitNotFoundInInitiativeListException();
+                CurrentActiveTeam = opposingTeam;
+            }
+
+            UpdateUnitActivation();
+        }
+
+        private Team OpposingTeam
+        {
+            get
+            {
+                Team opposingTeam;
+
+                switch (CurrentActiveTeam)
+                {
+                    case Team.Blue:
+                        opposingTeam = Team.Red;
+                        break;
+                    case Team.Red:
+                        opposingTeam = Team.Blue;
+                        break;
+                    default:
+                        opposingTeam = Team.Creep;
+                        break;
+                }
+
+                return opposingTeam;
             }
         }
 
-        public void SelectActiveUnit(GameUnit unit) //TODO Use me
+        private void UpdateUnitActivation()
         {
-            if (InitiativeList.Contains(unit))
+            InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
+            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && !unit.IsExhausted);
+
+            switch (CurrentActiveTeam)
             {
-                CurrentActiveUnit = unit;
+                case Team.Blue:
+                    DisableTeam(Team.Red);
+                    DisableTeam(Team.Creep);
+                    break;
+                case Team.Red:
+                    DisableTeam(Team.Blue);
+                    DisableTeam(Team.Creep);
+                    break;
+                case Team.Creep:
+                    DisableTeam(Team.Blue);
+                    DisableTeam(Team.Red);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            else
-            {
-                throw new UnitNotFoundInInitiativeListException();
-            }
+        }
+
+        private void DisableTeam(Team team)
+        {
+            InitiativeList.Where(unit => unit.Team == team).ToList().ForEach(unit => unit.DisableInactiveUnit());
+        }
+
+        private bool TeamHasExhaustedAllUnits(Team team)
+        {
+            return InitiativeList
+                .Where(unit => unit.Team == team)
+                .ToList()
+                .TrueForAll(unit => unit.IsExhausted);
+        }
+
+        private void StartNewRound()
+        {
+            CurrentActiveTeam = FirstPlayer;
+            RefreshAllUnits();
+            DisableTeam(OpposingTeam);
+            DisableTeam(Team.Creep);
+            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam);
+        }
+
+        private void RefreshAllUnits()
+        {
+            InitiativeList.ForEach(unit => unit.ActivateUnit());
+        }
+
+        public bool SelectActiveUnit(GameUnit unit)
+        {
+            if (!InitiativeList.Contains(unit) || unit.IsExhausted || CurrentActiveTeam != unit.Team) return false;
+
+            CurrentActiveUnit = unit;
+            return true;
         }
 
         private void SetNextUnitInList()
@@ -85,21 +172,6 @@ namespace SolStandard.Containers.Contexts
                 CurrentActiveUnit = InitiativeList[0];
             }
         }
-
-        private void RotateUnitList()
-        {
-            GameUnit firstUnit = InitiativeList[0];
-            InitiativeList.RemoveAt(0);
-            InitiativeList.Add(firstUnit);
-        }
-
-        private void RotateSpecificUnit(GameUnit unit)
-        {
-            int unitIndex = InitiativeList.IndexOf(unit);
-            InitiativeList.RemoveAt(unitIndex);
-            InitiativeList.Add(unit);
-        }
-
 
         private static List<GameUnit> TeamByTeamTurnOrder(IEnumerable<GameUnit> unitList, Team firstTurn)
         {
