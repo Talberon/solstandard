@@ -199,7 +199,7 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        private static void LoadInitiativeContext(TmxMapParser mapParser, TurnOrder turnOrder = TurnOrder.UnitByUnit)
+        private static void LoadInitiativeContext(TmxMapParser mapParser, TurnOrder turnOrder = TurnOrder.AlternateExhaustingUnits)
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),

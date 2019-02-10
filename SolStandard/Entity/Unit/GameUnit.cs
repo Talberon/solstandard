@@ -60,6 +60,8 @@ namespace SolStandard.Entity.Unit
         private readonly List<IHealthBar> healthbars;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
+        public static readonly Color ExhaustedPortraitColor = new Color(180, 180, 180);
+        public static readonly Color ActivePortraitColor = Color.White;
 
         private readonly UnitStatistics stats;
 
@@ -566,6 +568,9 @@ namespace SolStandard.Entity.Unit
             IsExhausted = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
             SetUnitAnimation(UnitAnimationState.Idle);
+            largePortrait.DefaultColor = ExhaustedPortraitColor;
+            mediumPortrait.DefaultColor = ExhaustedPortraitColor;
+            smallPortrait.DefaultColor = ExhaustedPortraitColor;
         }
 
         public void EnableUnit()
@@ -574,6 +579,9 @@ namespace SolStandard.Entity.Unit
 
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
+            largePortrait.DefaultColor = ActivePortraitColor;
+            mediumPortrait.DefaultColor = ActivePortraitColor;
+            smallPortrait.DefaultColor = ActivePortraitColor;
         }
 
         public void DisableInactiveUnit()

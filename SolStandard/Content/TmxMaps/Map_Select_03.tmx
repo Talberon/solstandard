@@ -1878,7 +1878,6 @@
     <property name="mapSong" value="BossTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="false"/>
-    <property name="turnType" value="TeamByTeam"/>
    </properties>
   </object>
   <object id="550" name="Jungle Beach" type="SelectMap" gid="289" x="448" y="576" width="32" height="32">
@@ -1910,7 +1909,6 @@
     <property name="mapFileName" value="Arena_Dungeon_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeSeize" type="bool" value="false"/>
-    <property name="turnType" value="TeamByTeam"/>
    </properties>
   </object>
   <object id="555" name="Tower of Arzon" type="SelectMap" gid="289" x="768" y="576" width="32" height="32">
