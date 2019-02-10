@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -46,48 +45,34 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 HorizontalAlignment.Centered
             );
         }
-        
+
         public override bool ConditionsMet()
         {
-            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
-            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
+            bool blueTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Blue)
+                .TrueForAll(unit => !unit.IsAlive);
 
-            if (AllUnitsDeadExceptMonarch(blueTeam) && AllUnitsDeadExceptMonarch(redTeam))
+            bool redTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Red)
+                .TrueForAll(unit => !unit.IsAlive);
+
+            if (blueTeamRouted && redTeamRouted)
             {
-                //Let the Commanders fight it out.
-                return false;
+                GameIsADraw = true;
+                return GameIsADraw;
             }
 
-            if (AllUnitsDeadExceptMonarch(blueTeam))
+            if (blueTeamRouted)
             {
                 RedTeamWins = true;
                 return RedTeamWins;
             }
 
-            if (AllUnitsDeadExceptMonarch(redTeam))
+            if (redTeamRouted)
             {
                 BlueTeamWins = true;
                 return BlueTeamWins;
             }
 
             return false;
-        }
-
-
-        private static bool AllUnitsDeadExceptMonarch(List<GameUnit> team)
-        {
-            List<GameUnit> teamMonarchs = team.FindAll(unit => unit.Role != Role.Bard);
-
-            foreach (GameUnit nonmonarch in teamMonarchs)
-            {
-                //Return false if any non-Monarchs are alive.
-                if (nonmonarch.Stats.CurrentHP > 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 }
