@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Events.AI
         public void Continue()
         {
             unitToMove.MoveUnitInDirection(directionToMove);
-            GameContext.GameMapContext.ResetCursorToActiveUnit();
+            GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
 
             if (directionToMove != Direction.None) AssetManager.MapUnitMoveSFX.Play();
 

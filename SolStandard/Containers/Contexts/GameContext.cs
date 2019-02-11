@@ -135,7 +135,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             InitiativeContext.StartFirstTurn();
-            GameMapContext.ResetCursorToActiveUnit();
+            GameMapContext.ResetCursorToNextUnitOnTeam();
             MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             GameMapContext.EndTurn();
 

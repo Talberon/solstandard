@@ -96,7 +96,7 @@ namespace SolStandard.Containers.Contexts
             ConfirmPromptWindow();
             GameContext.InitiativeContext.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
-            ResetCursorToActiveUnit();
+            ResetCursorToNextUnitOnTeam();
 
             EndTurn();
             UpdateTurnCounters();
@@ -107,7 +107,6 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
-
         }
 
         private static void UpdateUnitMorale(Team team)
@@ -188,13 +187,13 @@ namespace SolStandard.Containers.Contexts
             GenerateActionPreviewGrid();
         }
 
-        public void ResetCursorToActiveUnit()
+        public void ResetCursorToNextUnitOnTeam()
         {
-            if (GameContext.ActiveUnit.UnitEntity != null)
-            {
-                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                MapContainer.MapCamera.CenterCameraToCursor();
-            }
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            GameContext.InitiativeContext.SelectNextUnitOnActiveTeam();
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
         }
 
         public void CancelMove()
@@ -225,7 +224,7 @@ namespace SolStandard.Containers.Contexts
         public void CancelAction()
         {
             GameContext.ActiveUnit.CancelArmedSkill();
-            ResetCursorToActiveUnit();
+            ResetCursorToNextUnitOnTeam();
             GameMapView.GenerateActionMenus();
             RevertToPreviousState();
         }

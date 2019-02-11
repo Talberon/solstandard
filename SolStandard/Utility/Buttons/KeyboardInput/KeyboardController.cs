@@ -35,7 +35,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             {
                 {Input.Confirm, (InputKey) Confirm},
                 {Input.Cancel, (InputKey) Cancel},
-                {Input.ResetToUnit, (InputKey) ResetToUnit},
+                {Input.SelectNextUnit, (InputKey) ResetToUnit},
                 {Input.CenterCamera, (InputKey) CenterCamera},
 
                 {Input.CursorUp, (InputKey) CursorUp},

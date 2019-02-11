@@ -36,7 +36,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             {
                 {Input.Confirm, Confirm},
                 {Input.Cancel, Cancel},
-                {Input.ResetToUnit, ResetToUnit},
+                {Input.SelectNextUnit, ResetToUnit},
                 {Input.CenterCamera, CenterCamera},
 
                 {Input.CursorUp, CursorUp},

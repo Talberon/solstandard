@@ -41,6 +41,17 @@ namespace SolStandard.Containers.Contexts
             StartNewRound();
         }
 
+        public void SelectNextUnitOnActiveTeam()
+        {
+            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam);
+
+            int currentUnitIndex = teamUnits.FindIndex(unit => unit == CurrentActiveUnit);
+
+            int nextUnitIndex = (currentUnitIndex + 1 < teamUnits.Count) ? currentUnitIndex + 1 : 0;
+
+            CurrentActiveUnit = teamUnits[nextUnitIndex];
+        }
+
         public void PassTurnToNextUnit()
         {
             Team opposingTeam = OpposingTeam;
@@ -117,13 +128,17 @@ namespace SolStandard.Containers.Contexts
                     throw new ArgumentOutOfRangeException();
             }
 
+            string playerInstruction = (CurrentActiveTeam != Team.Creep)
+                ? Environment.NewLine + "Select a unit."
+                : string.Empty;
+
             Queue<IEvent> activationEvents = new Queue<IEvent>();
             Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
             activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
             activationEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
                     activeUnitCoordinates,
-                    string.Format("{0} Turn START!", CurrentActiveTeam),
+                    string.Format("{0} Turn START! {1}", CurrentActiveTeam, playerInstruction),
                     AssetManager.MenuConfirmSFX,
                     120
                 )

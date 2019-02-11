@@ -20,7 +20,7 @@ namespace SolStandard.Utility.Buttons
         CameraRight,
         Confirm,
         Cancel,
-        ResetToUnit,
+        SelectNextUnit,
         CenterCamera,
         Status,
         Menu,
