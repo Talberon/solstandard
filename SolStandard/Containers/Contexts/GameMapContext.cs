@@ -65,8 +65,7 @@ namespace SolStandard.Containers.Contexts
         public static void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            GameMapView.GenerateInitiativeWindow(Team.Blue);
-            GameMapView.GenerateInitiativeWindow(Team.Red);
+            GameMapView.GenerateInitiativeWindow();
 
             //Turn Window
             GameMapView.GenerateTurnWindow();
@@ -90,6 +89,7 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
+            TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);
             UpdateUnitMorale(Team.Red);
@@ -98,11 +98,8 @@ namespace SolStandard.Containers.Contexts
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
 
-            TriggerEffectTilesTurnEnd();
             EndTurn();
-
             UpdateTurnCounters();
-            TriggerEffectTilesTurnStart();
 
             if (NotEveryUnitIsDead())
             {
@@ -454,25 +451,48 @@ namespace SolStandard.Containers.Contexts
             GameContext.ActiveUnit.ExecuteRoutines();
         }
 
-        private static void TriggerEffectTilesTurnStart()
+        public static void TriggerEffectTilesTurnStart()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerStartOfTurn());
+            if (effectTiles.Count <= 0) return;
 
-            RemoveExpiredEffectTiles(effectTiles);
+            Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
+            startOfTurnEffectTileEvents.Enqueue(
+                new ToastAtCoordinatesEvent(MapCursor.CurrentPixelCoordinates, "Resolving Tile Effects...", 100)
+            );
+            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(100));
+
+            foreach (IEffectTile tile in effectTiles)
+            {
+                startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn));
+                startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(80));
+            }
+
+            startOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
+
+            GlobalEventQueue.QueueEvents(startOfTurnEffectTileEvents);
         }
 
         private static void TriggerEffectTilesTurnEnd()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerEndOfTurn());
+            if (effectTiles.Count <= 0) return;
 
-            RemoveExpiredEffectTiles(effectTiles);
+            Queue<IEvent> endOfTurnEffectTileEvents = new Queue<IEvent>();
+            foreach (IEffectTile tile in effectTiles)
+            {
+                endOfTurnEffectTileEvents.Enqueue(
+                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn)
+                );
+            }
+
+            endOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
+            GlobalEventQueue.QueueEvents(endOfTurnEffectTileEvents);
         }
 
-        private static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
+        public static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
         {
             foreach (IEffectTile effectTile in effectTiles)
             {

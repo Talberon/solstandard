@@ -253,6 +253,8 @@
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
+    <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />

@@ -23,11 +23,6 @@ namespace SolStandard.Utility.Events
             {
                 EventSequence.Enqueue(queuedEvent);
             }
-
-            if (EventSequence.Count > 0)
-            {
-                _currentEvent = EventSequence.Dequeue();
-            }
         }
 
         public static bool UpdateEventsEveryFrame()

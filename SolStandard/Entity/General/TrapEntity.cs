@@ -33,14 +33,16 @@ namespace SolStandard.Entity.General
             IsExpired = false;
         }
 
-        public void TriggerStartOfTurn()
+        public void Trigger(EffectTriggerTime triggerTime)
         {
+            if (triggerTime != EffectTriggerTime.StartOfTurn) return;
+            
             if (!enabled) return;
 
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
 
-            if (trapUnit == null || trapUnit != GameContext.ActiveUnit) return;
+            if (trapUnit == null) return;
 
             for (int i = 0; i < damage; i++)
             {
@@ -68,11 +70,6 @@ namespace SolStandard.Entity.General
                     50);
                 AssetManager.CombatDamageSFX.Play();
             }
-        }
-
-        public void TriggerEndOfTurn()
-        {
-            //Do nothing
         }
 
         public void Trigger()

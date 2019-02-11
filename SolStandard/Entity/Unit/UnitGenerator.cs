@@ -347,6 +347,7 @@ namespace SolStandard.Entity.Unit
                 new DoubleTime(2, 1),
                 new Inspire(2, 1),
                 new Bulwark(2, 2),
+                new Guard(3),
                 new DropGiveGoldAction(),
                 new Wait()
             };

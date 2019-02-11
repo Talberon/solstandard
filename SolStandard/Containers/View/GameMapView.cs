@@ -29,6 +29,7 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
+        private static readonly Color InitiativeWindowBackgroundColor = new Color(100, 100, 100, 225);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }
@@ -41,6 +42,7 @@ namespace SolStandard.Containers.View
         private Window RightUnitInventoryWindow { get; set; }
 
         private Window TurnWindow { get; set; }
+        private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
         private Window EntityWindow { get; set; }
@@ -255,7 +257,7 @@ namespace SolStandard.Containers.View
         public void GenerateTurnWindow()
         {
             //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(300, BlueTeamWindow.Height);
+            Vector2 turnWindowSize = new Vector2(300, 0);
 
             string turnInfo = "Turn: " + GameContext.GameMapContext.TurnCounter;
             turnInfo += Environment.NewLine;
@@ -265,7 +267,7 @@ namespace SolStandard.Containers.View
             turnInfo += Environment.NewLine;
             turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
 
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(
+            WindowContentGrid turnWindowContentGrid = new WindowContentGrid(
                 new[,]
                 {
                     {
@@ -276,8 +278,7 @@ namespace SolStandard.Containers.View
                 1
             );
 
-            TurnWindow = new Window(unitListContentGrid,
-                new Color(100, 100, 100, 225), turnWindowSize);
+            TurnWindow = new Window(turnWindowContentGrid, new Color(100, 100, 100, 225), turnWindowSize);
         }
 
         public void GenerateEntityWindow(MapSlice hoverSlice)
@@ -350,7 +351,22 @@ namespace SolStandard.Containers.View
             ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
         }
 
-        public void GenerateInitiativeWindow(Team team)
+        public void GenerateInitiativeWindow()
+        {
+            GenerateTeamInitiativeWindow(Team.Blue);
+            GenerateTeamInitiativeWindow(Team.Red);
+
+            InitiativeWindow = new Window(
+                new WindowContentGrid(
+                    new IRenderable[,] {{BlueTeamWindow}, {RedTeamWindow}},
+                    1,
+                    HorizontalAlignment.Right),
+                InitiativeWindowBackgroundColor,
+                HorizontalAlignment.Right
+            );
+        }
+
+        private void GenerateTeamInitiativeWindow(Team team)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
             const int maxInitiativeSize = 15;
@@ -369,15 +385,13 @@ namespace SolStandard.Containers.View
 
             WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListContent, 3);
 
-            Color initiativeWindowBackgroundColor = new Color(100, 100, 100, 225);
-            
             switch (team)
             {
                 case Team.Blue:
-                    BlueTeamWindow = new Window(unitListContentGrid, initiativeWindowBackgroundColor);
+                    BlueTeamWindow = new Window(unitListContentGrid, InitiativeWindowBackgroundColor);
                     break;
                 case Team.Red:
-                    RedTeamWindow = new Window(unitListContentGrid, initiativeWindowBackgroundColor);
+                    RedTeamWindow = new Window(unitListContentGrid, InitiativeWindowBackgroundColor);
                     break;
                 case Team.Creep:
                     break;
@@ -515,7 +529,7 @@ namespace SolStandard.Containers.View
             //Center of screen, above Initiative List
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - ActionMenu.Width,
-                BlueTeamWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
+                InitiativeWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
             );
         }
 
@@ -524,7 +538,7 @@ namespace SolStandard.Containers.View
             //Center of screen, above Initiative List
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - InventoryMenu.Width,
-                BlueTeamWindowPosition().Y - InventoryMenu.Height - WindowEdgeBuffer
+                InitiativeWindowPosition().Y - InventoryMenu.Height - WindowEdgeBuffer
             );
         }
 
@@ -622,20 +636,12 @@ namespace SolStandard.Containers.View
             );
         }
 
-
-        private Vector2 RedTeamWindowPosition()
-        {
-            //Top-left
-            return new Vector2(WindowEdgeBuffer);
-        }
-
-
-        private Vector2 BlueTeamWindowPosition()
+        private Vector2 InitiativeWindowPosition()
         {
             //Bottom-right
             return new Vector2(
-                GameDriver.ScreenSize.X - BlueTeamWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - BlueTeamWindow.Height
+                GameDriver.ScreenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
+                GameDriver.ScreenSize.Y - InitiativeWindow.Height
             );
         }
 
@@ -661,7 +667,7 @@ namespace SolStandard.Containers.View
         private Vector2 ObjectiveWindowPosition()
         {
             //Top-left
-            return new Vector2(WindowEdgeBuffer, WindowEdgeBuffer + RedTeamWindowPosition().Y + RedTeamWindow.Height);
+            return new Vector2(WindowEdgeBuffer);
         }
 
         private Vector2 UserPromptWindowPosition()
@@ -699,10 +705,9 @@ namespace SolStandard.Containers.View
                 TurnWindow.Draw(spriteBatch, TurnWindowPosition());
             }
 
-            if (BlueTeamWindow != null && RedTeamWindow != null)
+            if (InitiativeWindow != null)
             {
-                BlueTeamWindow.Draw(spriteBatch, BlueTeamWindowPosition());
-                RedTeamWindow.Draw(spriteBatch, RedTeamWindowPosition());
+                InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
 
                 if (LeftUnitPortraitWindow != null)
                 {

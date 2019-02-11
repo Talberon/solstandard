@@ -32,13 +32,10 @@ namespace SolStandard.Entity.General
             get { return false; }
         }
 
-        public void TriggerStartOfTurn()
+        public void Trigger(EffectTriggerTime triggerTime)
         {
-            //Do nothing
-        }
-
-        public void TriggerEndOfTurn()
-        {
+            if (triggerTime != EffectTriggerTime.EndOfTurn) return;
+            
             if (UnitIsStandingOnPressurePlate)
             {
                 if (!wasPressed)

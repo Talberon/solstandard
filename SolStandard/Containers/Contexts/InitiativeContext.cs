@@ -52,7 +52,6 @@ namespace SolStandard.Containers.Contexts
                 {
                     if (TeamHasExhaustedAllUnits(Team.Creep))
                     {
-                        RefreshAllUnits();
                         StartNewRound();
                     }
                     else
@@ -69,11 +68,37 @@ namespace SolStandard.Containers.Contexts
             UpdateUnitActivation();
         }
 
+        private void StartNewRound()
+        {
+            CurrentActiveTeam = FirstPlayer;
+            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam);
+
+            Queue<IEvent> newRoundEvents = new Queue<IEvent>();
+            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
+            newRoundEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
+            newRoundEvents.Enqueue(
+                new ToastAtCoordinatesEvent(
+                    activeUnitCoordinates,
+                    "ROUND " + GameContext.GameMapContext.RoundCounter + " START!",
+                    100
+                )
+            );
+            newRoundEvents.Enqueue(new WaitFramesEvent(100));
+            GlobalEventQueue.QueueEvents(newRoundEvents);
+
+            RefreshAllUnits();
+            DisableTeam(OpposingTeam);
+            DisableTeam(Team.Creep);
+            UpdateUnitActivation();
+
+            GameMapContext.TriggerEffectTilesTurnStart();
+        }
+
         private void UpdateUnitActivation()
         {
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
             CurrentActiveUnit =
-                InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+                InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
 
 
             switch (CurrentActiveTeam)
@@ -98,7 +123,8 @@ namespace SolStandard.Containers.Contexts
             Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
             activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
             activationEvents.Enqueue(
-                new ToastAtCoordinatesEvent(activeUnitCoordinates, string.Format("{0} Turn Start!", CurrentActiveTeam))
+                new ToastAtCoordinatesEvent(activeUnitCoordinates, string.Format("{0} Turn START", CurrentActiveTeam),
+                    120)
             );
             GlobalEventQueue.QueueEvents(activationEvents);
         }
@@ -139,25 +165,17 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private void StartNewRound()
-        {
-            CurrentActiveTeam = FirstPlayer;
-            RefreshAllUnits();
-            DisableTeam(OpposingTeam);
-            DisableTeam(Team.Creep);
-            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam);
-            UpdateUnitActivation();
-
-            Queue<IEvent> newRoundEvents = new Queue<IEvent>();
-            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
-            newRoundEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
-            newRoundEvents.Enqueue(new ToastAtCoordinatesEvent(activeUnitCoordinates, "New Round!"));
-            newRoundEvents.Enqueue(new WaitFramesEvent(50));
-            GlobalEventQueue.QueueEvents(newRoundEvents);
-        }
-
         private void RefreshAllUnits()
         {
+            Queue<IEvent> refreshEvents = new Queue<IEvent>();
+            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
+            refreshEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
+            refreshEvents.Enqueue(
+                new ToastAtCoordinatesEvent(activeUnitCoordinates, "Activating Units...", 100)
+            );
+            refreshEvents.Enqueue(new WaitFramesEvent(100));
+            GlobalEventQueue.QueueEvents(refreshEvents);
+            
             InitiativeList.ForEach(unit => unit.ActivateUnit());
         }
 
@@ -226,6 +244,5 @@ namespace SolStandard.Containers.Contexts
                 }
             }
         }
-
     }
 }

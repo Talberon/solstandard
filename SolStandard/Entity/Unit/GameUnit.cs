@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit
         private readonly List<IHealthBar> healthbars;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
-        public static readonly Color ExhaustedPortraitColor = new Color(180, 180, 180);
+        public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
         public static readonly Color ActivePortraitColor = Color.White;
 
         private readonly UnitStatistics stats;
@@ -559,6 +559,9 @@ namespace SolStandard.Entity.Unit
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
             UpdateStatusEffects();
+            largePortrait.DefaultColor = ActivePortraitColor;
+            mediumPortrait.DefaultColor = ActivePortraitColor;
+            smallPortrait.DefaultColor = ActivePortraitColor;
         }
 
         public void DisableExhaustedUnit()
@@ -630,7 +633,7 @@ namespace SolStandard.Entity.Unit
             {
                 statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
                 statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
-                statusEffectEvents.Enqueue(new WaitFramesEvent(50));
+                statusEffectEvents.Enqueue(new WaitFramesEvent(100));
             }
 
             GlobalEventQueue.QueueEvents(statusEffectEvents);

@@ -42,8 +42,7 @@ namespace SolStandard.Containers.View
                     new ContinueOption(OptionsColor),
                     new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
-                    new EndTurnOption(OptionsColor),
-                    new ConcedeOption(OptionsColor),
+                    new ConcedeOption(OptionsColor)
                 },
                 cursorSprite,
                 OptionsColor
