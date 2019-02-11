@@ -123,7 +123,7 @@ namespace SolStandard.Containers.Contexts
             activationEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
                     activeUnitCoordinates,
-                    string.Format("{0} Turn START", CurrentActiveTeam),
+                    string.Format("{0} Turn START!", CurrentActiveTeam),
                     AssetManager.MenuConfirmSFX,
                     120
                 )
@@ -134,6 +134,7 @@ namespace SolStandard.Containers.Contexts
             {
                 if (GameContext.ActiveUnit.UnitEntity != null)
                 {
+                    GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
                     GameContext.ActiveUnit.ExecuteRoutines();
                 }
             }

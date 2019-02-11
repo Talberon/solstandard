@@ -43,8 +43,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 GameUnit targetUnit = targetsInRange[GameDriver.Random.Next(targetsInRange.Count)];
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
-                    "Targetting " + targetUnit.Id + "!", roamer.UnitEntity.MapCoordinates, 50
+                GlobalEventQueue.QueueSingleEvent(
+                    new ToastAtCoordinatesEvent(
+                        roamer.UnitEntity.MapCoordinates,
+                        "Targetting " + targetUnit.Id + "!",
+                        50
+                    )
                 );
 
                 List<Direction> directions = AStarAlgorithm.DirectionsToDestination(roamer.UnitEntity.MapCoordinates,
@@ -63,10 +67,13 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
-                    "Roaming...", roamer.UnitEntity.MapCoordinates, 50
+                GlobalEventQueue.QueueSingleEvent(
+                    new ToastAtCoordinatesEvent(
+                        roamer.UnitEntity.MapCoordinates,
+                        "Roaming...",
+                        50
+                    )
                 );
-
                 //Move randomly up to max movement
                 for (int i = 0; i < roamer.Stats.Mv; i++)
                 {
