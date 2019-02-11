@@ -31,21 +31,21 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<ITriggerable> targetTriggerables = FindTriggerables();
+            List<IRemotelyTriggerable> targetTriggerables = FindTriggerables();
             return new List<UnitAction>
             {
                 new ToggleSwitchAction(this, targetTriggerables)
             };
         }
 
-        private List<ITriggerable> FindTriggerables()
+        private List<IRemotelyTriggerable> FindTriggerables()
         {
-            List<ITriggerable> lockables = new List<ITriggerable>();
+            List<IRemotelyTriggerable> lockables = new List<IRemotelyTriggerable>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
                 MapEntity entity = (MapEntity) mapElement;
-                ITriggerable lockable = mapElement as ITriggerable;
+                IRemotelyTriggerable lockable = mapElement as IRemotelyTriggerable;
                 if (lockable != null)
                 {
                     if (entity.Name == TriggersId)

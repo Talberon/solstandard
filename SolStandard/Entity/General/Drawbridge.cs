@@ -7,7 +7,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Drawbridge : TerrainEntity, IOpenable, ILockable, ITriggerable
+    public class Drawbridge : TerrainEntity, IOpenable, ILockable, IRemotelyTriggerable
     {
         public bool IsOpen { get; private set; }
         public bool IsLocked { get; private set; }
@@ -92,7 +92,7 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public void Trigger()
+        public void RemoteTrigger()
         {
             ToggleOpen();
         }

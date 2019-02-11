@@ -446,7 +446,7 @@ namespace SolStandard.Containers.Contexts
             return currentActionOption.Action as IIncrementableAction;
         }
 
-        public void ExecuteAIActions()
+        private void ExecuteAIActions()
         {
             GameContext.ActiveUnit.ExecuteRoutines();
         }
@@ -459,14 +459,18 @@ namespace SolStandard.Containers.Contexts
 
             Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
             startOfTurnEffectTileEvents.Enqueue(
-                new ToastAtCoordinatesEvent(MapCursor.CurrentPixelCoordinates, "Resolving Tile Effects...", 100)
+                new ToastAtCoordinatesEvent(
+                    MapCursor.CurrentPixelCoordinates,
+                    "Resolving Tile Effects...",
+                    AssetManager.MenuConfirmSFX,
+                    100
+                )
             );
             startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(100));
 
             foreach (IEffectTile tile in effectTiles)
             {
                 startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn));
-                startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(80));
             }
 
             startOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));

@@ -10,7 +10,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
+    public class Door : TerrainEntity, IActionTile, IOpenable, ILockable, IRemotelyTriggerable
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
@@ -101,7 +101,7 @@ namespace SolStandard.Entity.General
             IsLocked = !IsLocked;
         }
 
-        public void Trigger()
+        public void RemoteTrigger()
         {
             ToggleOpen();
         }

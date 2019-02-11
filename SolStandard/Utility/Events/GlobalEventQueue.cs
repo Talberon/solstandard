@@ -21,8 +21,13 @@ namespace SolStandard.Utility.Events
         {
             foreach (IEvent queuedEvent in eventSequence)
             {
-                EventSequence.Enqueue(queuedEvent);
+                QueueSingleEvent(queuedEvent);
             }
+        }
+
+        public static void QueueSingleEvent(IEvent eventToQueue)
+        {
+            EventSequence.Enqueue(eventToQueue);
         }
 
         public static bool UpdateEventsEveryFrame()

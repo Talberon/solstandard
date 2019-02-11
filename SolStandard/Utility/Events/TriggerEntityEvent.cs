@@ -4,17 +4,17 @@ namespace SolStandard.Utility.Events
 {
     public class TriggerEntityEvent : IEvent
     {
-        private readonly ITriggerable triggerable;
+        private readonly IRemotelyTriggerable remotelyTriggerable;
 
-        public TriggerEntityEvent(ITriggerable triggerable)
+        public TriggerEntityEvent(IRemotelyTriggerable remotelyTriggerable)
         {
-            this.triggerable = triggerable;
+            this.remotelyTriggerable = remotelyTriggerable;
         }
         
         public bool Complete { get; private set; }
         public void Continue()
         {
-            triggerable.Trigger();
+            remotelyTriggerable.RemoteTrigger();
             Complete = true;
         }
     }

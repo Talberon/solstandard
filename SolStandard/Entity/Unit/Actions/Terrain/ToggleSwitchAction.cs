@@ -13,10 +13,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class ToggleSwitchAction : UnitAction
     {
-        private readonly List<ITriggerable> targetTriggerables;
+        private readonly List<IRemotelyTriggerable> targetTriggerables;
         private readonly Switch switchTile;
 
-        public ToggleSwitchAction(Switch switchTile, List<ITriggerable> targetTriggerables) : base(
+        public ToggleSwitchAction(Switch switchTile, List<IRemotelyTriggerable> targetTriggerables) : base(
             icon: switchTile.RenderSprite,
             name: "Use: " + switchTile.Name,
             description: "Opens or closes the target triggerable.",
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                foreach (ITriggerable triggerable in targetTriggerables)
+                foreach (IRemotelyTriggerable triggerable in targetTriggerables)
                 {
                     eventQueue.Enqueue(new TriggerEntityEvent(triggerable));
                 }
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private bool NothingObstructingSwitchTarget()
         {
             //Don't allow the switch to be triggered if any target tiles have a unit on them
-            foreach (ITriggerable triggerable in targetTriggerables)
+            foreach (IRemotelyTriggerable triggerable in targetTriggerables)
             {
                 TerrainEntity entity = triggerable as TerrainEntity;
                 if (entity == null) continue;

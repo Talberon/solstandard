@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Containers.Contexts
@@ -87,11 +88,10 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueEvents(newRoundEvents);
 
             RefreshAllUnits();
+            GameMapContext.TriggerEffectTilesTurnStart();
+            UpdateUnitActivation();
             DisableTeam(OpposingTeam);
             DisableTeam(Team.Creep);
-            UpdateUnitActivation();
-
-            GameMapContext.TriggerEffectTilesTurnStart();
         }
 
         private void UpdateUnitActivation()
@@ -123,8 +123,12 @@ namespace SolStandard.Containers.Contexts
             Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
             activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
             activationEvents.Enqueue(
-                new ToastAtCoordinatesEvent(activeUnitCoordinates, string.Format("{0} Turn START", CurrentActiveTeam),
-                    120)
+                new ToastAtCoordinatesEvent(
+                    activeUnitCoordinates,
+                    string.Format("{0} Turn START", CurrentActiveTeam),
+                    AssetManager.MenuConfirmSFX,
+                    120
+                )
             );
             GlobalEventQueue.QueueEvents(activationEvents);
         }
@@ -167,15 +171,6 @@ namespace SolStandard.Containers.Contexts
 
         private void RefreshAllUnits()
         {
-            Queue<IEvent> refreshEvents = new Queue<IEvent>();
-            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
-            refreshEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
-            refreshEvents.Enqueue(
-                new ToastAtCoordinatesEvent(activeUnitCoordinates, "Activating Units...", 100)
-            );
-            refreshEvents.Enqueue(new WaitFramesEvent(100));
-            GlobalEventQueue.QueueEvents(refreshEvents);
-            
             InitiativeList.ForEach(unit => unit.ActivateUnit());
         }
 

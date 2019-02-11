@@ -11,7 +11,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class TrapEntity : TerrainEntity, IEffectTile, ITriggerable
+    public class TrapEntity : TerrainEntity, IEffectTile, IRemotelyTriggerable
     {
         private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
 
@@ -33,16 +33,16 @@ namespace SolStandard.Entity.General
             IsExpired = false;
         }
 
-        public void Trigger(EffectTriggerTime triggerTime)
+        public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return;
+            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
             
-            if (!enabled) return;
+            if (!enabled) return false;
 
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
 
-            if (trapUnit == null) return;
+            if (trapUnit == null) return false;
 
             for (int i = 0; i < damage; i++)
             {
@@ -70,9 +70,13 @@ namespace SolStandard.Entity.General
                     50);
                 AssetManager.CombatDamageSFX.Play();
             }
+
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+            return true;
         }
 
-        public void Trigger()
+        public void RemoteTrigger()
         {
             enabled = !enabled;
 
