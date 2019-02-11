@@ -39,7 +39,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private Vector2 GetPipSize(int maxStatValue)
         {
-            return new Vector2(barSize.X / maxStatValue, barSize.Y / 2);
+            return new Vector2((float) Math.Floor(barSize.X / maxStatValue), barSize.Y / 2);
         }
 
         private List<IResourcePoint> GenerateArmorPips(int maxValue)
@@ -113,10 +113,7 @@ namespace SolStandard.HUD.Window.Content.Health
                 const int blue = 0;
                 return new Color(red, green, blue);
             }
-            set
-            {
-                throw new InvalidOperationException("Cannot set health bar color.");
-            }
+            set { throw new InvalidOperationException("Cannot set health bar color."); }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

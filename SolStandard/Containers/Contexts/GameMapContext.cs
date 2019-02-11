@@ -186,9 +186,10 @@ namespace SolStandard.Containers.Contexts
 
         public void ResetCursorToNextUnitOnTeam()
         {
+            GameContext.InitiativeContext.SelectNextUnitOnActiveTeam();
+            
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            GameContext.InitiativeContext.SelectNextUnitOnActiveTeam();
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }

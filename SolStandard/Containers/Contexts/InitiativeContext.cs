@@ -83,7 +83,7 @@ namespace SolStandard.Containers.Contexts
         private void StartNewRound()
         {
             CurrentActiveTeam = FirstPlayer;
-            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam);
+            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
 
             Queue<IEvent> newRoundEvents = new Queue<IEvent>();
             Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;

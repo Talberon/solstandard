@@ -566,8 +566,8 @@ namespace SolStandard.Entity.Unit
 
         public void DisableExhaustedUnit()
         {
-            if (UnitEntity == null) return;
 
+            if (UnitEntity == null) return;
             IsExhausted = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
             SetUnitAnimation(UnitAnimationState.Idle);
@@ -637,7 +637,7 @@ namespace SolStandard.Entity.Unit
             }
 
             GlobalEventQueue.QueueEvents(statusEffectEvents);
-            
+
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
@@ -676,6 +676,7 @@ namespace SolStandard.Entity.Unit
         {
             if (stats.CurrentHP <= 0 && MapEntity != null)
             {
+                IsExhausted = true;
                 DropSpoils();
                 largePortrait.DefaultColor = DeadPortraitColor;
                 mediumPortrait.DefaultColor = DeadPortraitColor;
