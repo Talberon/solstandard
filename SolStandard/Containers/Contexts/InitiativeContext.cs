@@ -80,7 +80,7 @@ namespace SolStandard.Containers.Contexts
             newRoundEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
                     activeUnitCoordinates,
-                    "ROUND " + GameContext.GameMapContext.RoundCounter + " START!",
+                    "ROUND " + GameContext.GameMapContext.RoundCounter + " STARTING...",
                     100
                 )
             );
@@ -90,8 +90,6 @@ namespace SolStandard.Containers.Contexts
             RefreshAllUnits();
             GameMapContext.TriggerEffectTilesTurnStart();
             UpdateUnitActivation();
-            DisableTeam(OpposingTeam);
-            DisableTeam(Team.Creep);
         }
 
         private void UpdateUnitActivation()
@@ -131,6 +129,14 @@ namespace SolStandard.Containers.Contexts
                 )
             );
             GlobalEventQueue.QueueEvents(activationEvents);
+
+            if (CurrentActiveTeam == Team.Creep)
+            {
+                if (GameContext.ActiveUnit.UnitEntity != null)
+                {
+                    GameContext.ActiveUnit.ExecuteRoutines();
+                }
+            }
         }
 
         private void DisableTeam(Team team)

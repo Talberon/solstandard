@@ -108,10 +108,6 @@ namespace SolStandard.Containers.Contexts
 
             GameContext.StatusScreenView.UpdateWindows();
 
-            if (GameContext.ActiveUnit.UnitEntity != null)
-            {
-                ExecuteAIActions();
-            }
         }
 
         private static void UpdateUnitMorale(Team team)
@@ -446,11 +442,6 @@ namespace SolStandard.Containers.Contexts
             return currentActionOption.Action as IIncrementableAction;
         }
 
-        private void ExecuteAIActions()
-        {
-            GameContext.ActiveUnit.ExecuteRoutines();
-        }
-
         public static void TriggerEffectTilesTurnStart()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
@@ -460,7 +451,7 @@ namespace SolStandard.Containers.Contexts
             Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
             startOfTurnEffectTileEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
-                    MapCursor.CurrentPixelCoordinates,
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
                     "Resolving Tile Effects...",
                     AssetManager.MenuConfirmSFX,
                     100
@@ -488,7 +479,7 @@ namespace SolStandard.Containers.Contexts
             foreach (IEffectTile tile in effectTiles)
             {
                 endOfTurnEffectTileEvents.Enqueue(
-                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn)
+                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 0)
                 );
             }
 
