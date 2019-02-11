@@ -67,9 +67,6 @@ namespace SolStandard.Containers.Contexts
             //Initiative Window
             GameMapView.GenerateInitiativeWindow();
 
-            //Turn Window
-            GameMapView.GenerateTurnWindow();
-
             //Help Window
             GameMapView.GenerateObjectiveWindow();
         }
@@ -96,7 +93,7 @@ namespace SolStandard.Containers.Contexts
             ConfirmPromptWindow();
             GameContext.InitiativeContext.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
-            ResetCursorToNextUnitOnTeam();
+            ResetCursorToActiveUnit();
 
             EndTurn();
             UpdateTurnCounters();
@@ -196,6 +193,14 @@ namespace SolStandard.Containers.Contexts
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
+        public void ResetCursorToActiveUnit()
+        {
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
+        }
+
         public void CancelMove()
         {
             if (CurrentTurnState == TurnState.UnitMoving)
@@ -224,7 +229,7 @@ namespace SolStandard.Containers.Contexts
         public void CancelAction()
         {
             GameContext.ActiveUnit.CancelArmedSkill();
-            ResetCursorToNextUnitOnTeam();
+            ResetCursorToActiveUnit();
             GameMapView.GenerateActionMenus();
             RevertToPreviousState();
         }

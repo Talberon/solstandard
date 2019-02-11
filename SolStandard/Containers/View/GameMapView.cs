@@ -29,7 +29,7 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
-        private static readonly Color InitiativeWindowBackgroundColor = new Color(100, 100, 100, 225);
+        private static readonly Color TeamListWindowBackgroundColor = new Color(100, 100, 100, 225);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }
@@ -41,7 +41,6 @@ namespace SolStandard.Containers.View
         private Window RightUnitStatusWindow { get; set; }
         private Window RightUnitInventoryWindow { get; set; }
 
-        private Window TurnWindow { get; set; }
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
@@ -254,33 +253,6 @@ namespace SolStandard.Containers.View
             );
         }
 
-        public void GenerateTurnWindow()
-        {
-            //FIXME Stop hardcoding the X-Value of the Turn Window
-            Vector2 turnWindowSize = new Vector2(300, 0);
-
-            string turnInfo = "Turn: " + GameContext.GameMapContext.TurnCounter;
-            turnInfo += Environment.NewLine;
-            turnInfo += "Round: " + GameContext.GameMapContext.RoundCounter;
-            turnInfo += Environment.NewLine;
-            turnInfo += "Active Team: " + GameContext.ActiveUnit.Team;
-            turnInfo += Environment.NewLine;
-            turnInfo += "Active Unit: " + GameContext.ActiveUnit.Id;
-
-            WindowContentGrid turnWindowContentGrid = new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        GameContext.ActiveUnit.GetMapSprite(new Vector2(100)),
-                        new RenderText(AssetManager.WindowFont, turnInfo)
-                    }
-                },
-                1
-            );
-
-            TurnWindow = new Window(turnWindowContentGrid, new Color(100, 100, 100, 225), turnWindowSize);
-        }
-
         public void GenerateEntityWindow(MapSlice hoverSlice)
         {
             WindowContentGrid terrainContentGrid;
@@ -357,12 +329,9 @@ namespace SolStandard.Containers.View
             GenerateTeamInitiativeWindow(Team.Red);
 
             InitiativeWindow = new Window(
-                new WindowContentGrid(
-                    new IRenderable[,] {{BlueTeamWindow}, {RedTeamWindow}},
-                    1,
-                    HorizontalAlignment.Right),
-                InitiativeWindowBackgroundColor,
-                HorizontalAlignment.Right
+                new WindowContentGrid(new IRenderable[,] {{BlueTeamWindow, RedTeamWindow}},1),
+                Color.Transparent,
+                HorizontalAlignment.Centered
             );
         }
 
@@ -388,10 +357,10 @@ namespace SolStandard.Containers.View
             switch (team)
             {
                 case Team.Blue:
-                    BlueTeamWindow = new Window(unitListContentGrid, InitiativeWindowBackgroundColor);
+                    BlueTeamWindow = new Window(unitListContentGrid, TeamListWindowBackgroundColor);
                     break;
                 case Team.Red:
-                    RedTeamWindow = new Window(unitListContentGrid, InitiativeWindowBackgroundColor);
+                    RedTeamWindow = new Window(unitListContentGrid, TeamListWindowBackgroundColor);
                     break;
                 case Team.Creep:
                     break;
@@ -526,19 +495,19 @@ namespace SolStandard.Containers.View
 
         private Vector2 ActionMenuPosition()
         {
-            //Center of screen, above Initiative List
+            //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 2 - ActionMenu.Width,
-                InitiativeWindowPosition().Y - ActionMenu.Height - WindowEdgeBuffer
+                GameDriver.ScreenSize.X / 3 - ActionMenu.Width,
+                (GameDriver.ScreenSize.Y / 2) - ((float) ActionMenu.Height / 2)
             );
         }
 
         private Vector2 InventoryMenuPosition()
         {
-            //Center of screen, above Initiative List
+            //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 2 - InventoryMenu.Width,
-                InitiativeWindowPosition().Y - InventoryMenu.Height - WindowEdgeBuffer
+                GameDriver.ScreenSize.X / 3 - InventoryMenu.Width,
+                (GameDriver.ScreenSize.Y / 2) - ((float) InventoryMenu.Height / 2)
             );
         }
 
@@ -638,20 +607,11 @@ namespace SolStandard.Containers.View
 
         private Vector2 InitiativeWindowPosition()
         {
-            //Bottom-right
+            //Bottom-center
             return new Vector2(
-                GameDriver.ScreenSize.X - InitiativeWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - InitiativeWindow.Height
-            );
-        }
-
-
-        private Vector2 TurnWindowPosition()
-        {
-            //Bottom-right
-            return new Vector2(
-                WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - TurnWindow.Height
+                GameDriver.ScreenSize.X / 2 -
+                (float) InitiativeWindow.Width / 2,
+                GameDriver.ScreenSize.Y - BlueTeamWindow.Height
             );
         }
 
@@ -698,11 +658,6 @@ namespace SolStandard.Containers.View
             if (EntityWindow != null)
             {
                 EntityWindow.Draw(spriteBatch, EntityWindowPosition());
-            }
-
-            if (TurnWindow != null)
-            {
-                TurnWindow.Draw(spriteBatch, TurnWindowPosition());
             }
 
             if (InitiativeWindow != null)
