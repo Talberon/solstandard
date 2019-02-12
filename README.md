@@ -9,13 +9,13 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 ### Gameplay Samples
 
 #### Combat
-![Combat](https://imgur.com/LNsSaRm.gif)
+![Combat](https://i.imgur.com/RRRqux0.gif)
 
-#### Merchant
-![Merchant](https://i.imgur.com/Z8prGJw.gif)
+#### Turn Resolution
+![Turn Resolution](https://i.imgur.com/pbYdZy6.gif)
 
-#### Items
-![Items](https://imgur.com/eMaxPL4.gif)
+#### Unit Action
+![Unit Action](https://i.imgur.com/Fqr8UsU.gif)
 
 ## A Note About Art Assets
 Art assets are amalgamated from a variety of self-made, public domain and paid resources, so none of the art/sound assets are included in this repository for redistribution.
