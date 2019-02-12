@@ -329,7 +329,7 @@ namespace SolStandard.Containers.View
             GenerateTeamInitiativeWindow(Team.Red);
 
             InitiativeWindow = new Window(
-                new WindowContentGrid(new IRenderable[,] {{BlueTeamWindow, RedTeamWindow}},1),
+                new WindowContentGrid(new IRenderable[,] {{BlueTeamWindow, RedTeamWindow}}, 1),
                 Color.Transparent,
                 HorizontalAlignment.Centered
             );
@@ -338,7 +338,7 @@ namespace SolStandard.Containers.View
         private void GenerateTeamInitiativeWindow(Team team)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
-            const int maxInitiativeSize = 15;
+            const int maxInitiativeSize = 12;
 
             List<GameUnit> unitList = GameContext.Units.FindAll(unit => unit.Team == team);
 
@@ -348,11 +348,9 @@ namespace SolStandard.Containers.View
             IRenderable[,] unitListContent = new IRenderable[1, initiativeListLength];
             const int initiativeHealthBarHeight = 10;
 
-            GenerateFirstUnitInInitiativeList(unitList, initiativeHealthBarHeight, unitListContent);
-            GenerateRestOfInitiativeList(unitList, unitListContent, initiativeHealthBarHeight);
+            GenerateInitiativeList(unitList, unitListContent, initiativeHealthBarHeight);
 
-
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListContent, 3);
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListContent, 0);
 
             switch (team)
             {
@@ -369,17 +367,10 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private void GenerateFirstUnitInInitiativeList(List<GameUnit> unitList, int initiativeHealthBarHeight,
-            IRenderable[,] unitListGrid)
-        {
-            IRenderable firstSingleUnitContent = SingleUnitContent(unitList[0], initiativeHealthBarHeight);
-            unitListGrid[0, 0] = firstSingleUnitContent;
-        }
-
-        private static void GenerateRestOfInitiativeList(List<GameUnit> unitList, IRenderable[,] unitListGrid,
+        private static void GenerateInitiativeList(IReadOnlyList<GameUnit> unitList, IRenderable[,] unitListGrid,
             int initiativeHealthBarHeight)
         {
-            for (int i = 1; i < unitListGrid.GetLength(1); i++)
+            for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
                 IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight);
                 unitListGrid[0, i] = singleUnitContent;

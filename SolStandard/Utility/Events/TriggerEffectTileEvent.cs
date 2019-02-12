@@ -10,7 +10,7 @@ namespace SolStandard.Utility.Events
         private readonly int delayTime;
         private int delayTicker;
 
-        public TriggerEffectTileEvent(IEffectTile effectTile, EffectTriggerTime effectTriggerTime, int delayTime = 50)
+        public TriggerEffectTileEvent(IEffectTile effectTile, EffectTriggerTime effectTriggerTime, int delayTime = 100)
         {
             this.effectTile = effectTile;
             this.effectTriggerTime = effectTriggerTime;

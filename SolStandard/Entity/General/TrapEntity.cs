@@ -36,7 +36,7 @@ namespace SolStandard.Entity.General
         public bool Trigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
-            
+
             if (!enabled) return false;
 
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
