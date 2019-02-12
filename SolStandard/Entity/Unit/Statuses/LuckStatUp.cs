@@ -32,7 +32,12 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            //Do nothing
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                target.Id + " has status " + Name,
+                50
+            );
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         public override void RemoveEffect(GameUnit target)
