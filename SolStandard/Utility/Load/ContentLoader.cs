@@ -218,7 +218,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 
@@ -227,7 +227,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadSolSpin(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin-White");
 
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
@@ -236,7 +236,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerFlag");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
 
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
