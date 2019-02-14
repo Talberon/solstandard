@@ -19,4 +19,4 @@ Sol Standard started as a continuation of [@Talberon](https://github.com/Talbero
 
 
 ## A Note About Art Assets
-Art assets are amalgamated from a variety of self-made, public domain and paid resources, so none of the art/sound assets are included in this repository for redistribution.
+Art assets are amalgamated from a variety of self-made, public domain and paid resources, so none of the art/sound assets are included in this repository for redistribution. Check out `CREDITS.md` for info on licensing and credit for asset work.
