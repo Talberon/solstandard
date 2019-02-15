@@ -265,6 +265,13 @@
 /processorParam:Quality=Best
 /build:Audio/SFX/Interface/sfx_weapon_singleshot4.wav
 
+#begin Fonts/HeavyText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/HeavyText.spritefont
+
 #begin Fonts/MainMenuText.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -2334,18 +2341,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
-
-#begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
 
 #begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
 /importer:TextureImporter
