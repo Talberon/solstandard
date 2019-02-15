@@ -91,9 +91,9 @@ namespace SolStandard
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame(string mapName, Scenario scenario, TurnOrder turnOrder)
+        public static void NewGame(string mapName, Scenario scenario)
         {
-            GameContext.StartGame(mapName, scenario, turnOrder);
+            GameContext.StartGame(mapName, scenario);
         }
 
         public static void HostGame()
@@ -187,7 +187,6 @@ namespace SolStandard
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
 
             GameContext.Initialize(mainMenu, networkMenu);
-            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
 
             _connectionManager = new ConnectionManager();
         }
@@ -255,7 +254,7 @@ namespace SolStandard
             //Set the controller based on the active team
             if (GameContext.CurrentGameState >= GameContext.GameState.InGame)
             {
-                switch (GameContext.ActiveUnit.Team)
+                switch (GameContext.InitiativeContext.CurrentActiveTeam)
                 {
                     case Team.Blue:
                         GameContext.ActivePlayer = PlayerIndex.One;

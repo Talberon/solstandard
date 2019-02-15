@@ -4818,6 +4818,7 @@
   <object id="823" name="Emberion" type="Unit" gid="485" x="416" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -4884,6 +4885,7 @@
   <object id="834" name="Aqueous" type="Unit" gid="480" x="672" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>

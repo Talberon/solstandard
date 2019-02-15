@@ -48,6 +48,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
@@ -122,26 +123,25 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartGame(string mapPath, Scenario scenario, TurnOrder turnOrder)
+        public static void StartGame(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
 
-            LoadMap(mapPath, turnOrder);
-
+            LoadMap(mapPath);
+            
+            CurrentGameState = GameState.InGame;
+            
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
             }
-            
-            ActiveUnit.ActivateUnit();
-            GameMapContext.ResetCursorToActiveUnit();
-            MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
+
+            InitiativeContext.StartFirstTurn();
             GameMapContext.EndTurn();
 
             GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
 
-            CurrentGameState = GameState.InGame;
         }
 
         public static void LoadMapSelect()
@@ -161,12 +161,13 @@ namespace SolStandard.Containers.Contexts
             MapCursor.SnapCursorToCoordinates(MapSelectContext.MapCenter);
             MapCamera.CenterCameraToCursor();
 
-            LoadInitiativeContext(mapParser);
+            //Player 1 (Blue) always controls map select screen
+            LoadInitiativeContext(mapParser, Team.Blue);
 
             CurrentGameState = GameState.MapSelect;
         }
 
-        private static void LoadMap(string mapFile, TurnOrder turnOrder)
+        private static void LoadMap(string mapFile)
         {
             string mapPath = MapDirectory + mapFile;
 
@@ -179,7 +180,7 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            LoadInitiativeContext(mapParser, turnOrder);
+            LoadInitiativeContext(mapParser, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
             LoadStatusUI();
         }
 
@@ -198,7 +199,7 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        private static void LoadInitiativeContext(TmxMapParser mapParser, TurnOrder turnOrder = TurnOrder.UnitByUnit)
+        private static void LoadInitiativeContext(TmxMapParser mapParser, Team firstTeam)
         {
             List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
                 mapParser.LoadUnits(),
@@ -206,13 +207,20 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.SmallPortraitTextures
             );
 
-            InitiativeContext =
-                new InitiativeContext(unitsFromMap, (GameDriver.Random.Next(1) == 0) ? Team.Blue : Team.Red, turnOrder);
+            InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
         }
 
         public static void UpdateCamera()
         {
             MapCamera.UpdateEveryFrame();
+        }
+
+        public static void GoToMainMenuIfGameIsOver()
+        {
+            if (!Scenario.GameIsOver) return;
+
+            AssetManager.MenuConfirmSFX.Play();
+            Initialize(MainMenuView, NetworkMenuView);
         }
     }
 }

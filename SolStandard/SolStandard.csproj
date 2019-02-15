@@ -98,7 +98,7 @@
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
-    <Compile Include="Entity\ITriggerable.cs" />
+    <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
@@ -122,7 +122,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
-    <Compile Include="Entity\Unit\Actions\Monarch\Bulwark.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Bulwark.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
@@ -130,8 +130,8 @@
     <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
-    <Compile Include="Entity\Unit\Actions\Monarch\DoubleTime.cs" />
-    <Compile Include="Entity\Unit\Actions\Monarch\Inspire.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\DoubleTime.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Inspire.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
@@ -154,6 +154,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
@@ -251,6 +252,11 @@
     <Compile Include="Utility\Buttons\MultiControlParser.cs" />
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
+    <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
+    <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
+    <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
@@ -393,9 +399,6 @@
     <Content Include="Content\TmxMaps\Beach_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Castle_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Chesslike_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -408,28 +411,7 @@
     <Content Include="Content\TmxMaps\Debug_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Desert_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Dungeon_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Experimenting_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Experimenting_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Experimenting_03.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Experimenting_04.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Experimenting_05.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Forest_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Fortress_01.tmx">
@@ -438,19 +420,7 @@
     <Content Include="Content\TmxMaps\Grassland_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Grassland_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Grassland_03.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Map_Select_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Map_Select_03.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\MonsterArena_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

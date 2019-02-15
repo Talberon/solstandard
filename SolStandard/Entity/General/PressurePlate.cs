@@ -32,18 +32,15 @@ namespace SolStandard.Entity.General
             get { return false; }
         }
 
-        public void TriggerStartOfTurn()
+        public bool Trigger(EffectTriggerTime triggerTime)
         {
-            //Do nothing
-        }
-
-        public void TriggerEndOfTurn()
-        {
+            if (triggerTime != EffectTriggerTime.EndOfTurn) return false;
+            
             if (UnitIsStandingOnPressurePlate)
             {
                 if (!wasPressed)
                 {
-                    TriggerTiles.ForEach(tile => tile.Trigger());
+                    TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                     wasPressed = true;
                 }
             }
@@ -51,23 +48,25 @@ namespace SolStandard.Entity.General
             {
                 if (wasPressed && triggerOnRelease)
                 {
-                    TriggerTiles.ForEach(tile => tile.Trigger());
+                    TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                 }
 
                 wasPressed = false;
             }
+
+            return true;
         }
 
-        private List<ITriggerable> TriggerTiles
+        private List<IRemotelyTriggerable> TriggerTiles
         {
             get
             {
-                List<ITriggerable> fetchedTiles = new List<ITriggerable>();
+                List<IRemotelyTriggerable> fetchedTiles = new List<IRemotelyTriggerable>();
 
                 foreach (MapElement element in MapContainer.GameGrid[(int) Layer.Entities])
                 {
                     MapEntity entity = element as MapEntity;
-                    ITriggerable triggerTile = entity as ITriggerable;
+                    IRemotelyTriggerable triggerTile = entity as IRemotelyTriggerable;
 
                     if (triggerTile != null && entity.Name == triggersId)
                     {

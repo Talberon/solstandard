@@ -40,6 +40,7 @@
  </objecttype>
  <objecttype name="Creep" color="#55857f">
   <property name="Class" type="string"/>
+  <property name="Commander" type="bool" default="false"/>
   <property name="Independent" type="bool" default="false"/>
   <property name="Item" type="string"/>
   <property name="ItemPrice" type="string"/>
@@ -104,7 +105,7 @@
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="true"/>
   <property name="modeTaxes" type="bool" default="true"/>
-  <property name="turnType" type="string" default="UnitByUnit"/>
+  <property name="turnType" type="string" default="AlternateExhaustingUnits"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">
@@ -121,6 +122,7 @@
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>
+  <property name="Commander" type="bool" default="false"/>
   <property name="Team" type="string"/>
  </objecttype>
  <objecttype name="Weapon" color="#b93246">

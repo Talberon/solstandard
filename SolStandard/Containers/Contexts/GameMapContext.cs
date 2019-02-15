@@ -6,6 +6,7 @@ using SolStandard.Containers.View;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
@@ -14,6 +15,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
@@ -63,10 +65,7 @@ namespace SolStandard.Containers.Contexts
         public static void UpdateWindowsEachTurn()
         {
             //Initiative Window
-            GameMapView.GenerateInitiativeWindow(GameContext.Units);
-
-            //Turn Window
-            GameMapView.GenerateTurnWindow();
+            GameMapView.GenerateInitiativeWindow();
 
             //Help Window
             GameMapView.GenerateObjectiveWindow();
@@ -87,28 +86,17 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
+            TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
+            UpdateUnitMorale(Team.Blue);
+            UpdateUnitMorale(Team.Red);
             ConfirmPromptWindow();
-            GameContext.ActiveUnit.DisableExhaustedUnit();
             GameContext.InitiativeContext.PassTurnToNextUnit();
-            GameContext.ActiveUnit.ActivateUnit();
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
 
-            if (MapContainer.MapCursor.IsOnScreen)
-            {
-                MapContainer.MapCamera.CenterCameraToCursor();
-            }
-            else
-            {
-                MapContainer.MapCamera.SnapCameraCenterToCursor();
-            }
-
-            TriggerEffectTilesTurnEnd();
             EndTurn();
-
             UpdateTurnCounters();
-            TriggerEffectTilesTurnStart();
 
             if (NotEveryUnitIsDead())
             {
@@ -116,11 +104,25 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
+        }
 
-            if (GameContext.ActiveUnit.UnitEntity != null)
+        private static void UpdateUnitMorale(Team team)
+        {
+            List<GameUnit> teamUnits = GameContext.Units.Where(unit => unit.Team == team).ToList();
+
+            bool hasLivingCommander = teamUnits.Any(unit => unit.IsCommander && unit.IsAlive);
+
+            if (hasLivingCommander) return;
+
+            Queue<IEvent> statusEvents = new Queue<IEvent>();
+
+            IEnumerable<GameUnit> livingUnits = teamUnits.Where(unit => unit.IsAlive);
+            foreach (GameUnit unit in livingUnits)
             {
-                ExecuteAIActions();
+                statusEvents.Enqueue(new CastStatusEffectEvent(unit, new MoraleBrokenStatus(99, unit)));
             }
+
+            GlobalEventQueue.QueueEvents(statusEvents);
         }
 
         private static bool NotEveryUnitIsDead()
@@ -182,13 +184,22 @@ namespace SolStandard.Containers.Contexts
             GenerateActionPreviewGrid();
         }
 
+        public void ResetCursorToNextUnitOnTeam()
+        {
+            GameContext.InitiativeContext.SelectNextUnitOnActiveTeam();
+            
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
+        }
+
         public void ResetCursorToActiveUnit()
         {
-            if (GameContext.ActiveUnit.UnitEntity != null)
-            {
-                MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                MapContainer.MapCamera.CenterCameraToCursor();
-            }
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
         }
 
         public void CancelMove()
@@ -268,16 +279,12 @@ namespace SolStandard.Containers.Contexts
             //Select the unit. Store it somewhere.
             SelectedUnit = UnitSelector.SelectUnit(MapContainer.GetMapSliceAtCursor().UnitEntity);
 
+            if (GameContext.InitiativeContext.SelectActiveUnit(SelectedUnit)) return true;
             //If the entity selected isn't the active unit, don't select it.
-            if (SelectedUnit != GameContext.ActiveUnit)
-            {
-                SelectedUnit = null;
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("Not the active unit!", 50);
-                return false;
-            }
-
-            return true;
+            SelectedUnit = null;
+            AssetManager.WarningSFX.Play();
+            MapContainer.AddNewToastAtMapCursor("Not an active unit!", 50);
+            return false;
         }
 
         public void ExecuteAction()
@@ -440,30 +447,52 @@ namespace SolStandard.Containers.Contexts
             return currentActionOption.Action as IIncrementableAction;
         }
 
-        public void ExecuteAIActions()
-        {
-            GameContext.ActiveUnit.ExecuteRoutines();
-        }
-
-        private static void TriggerEffectTilesTurnStart()
+        public static void TriggerEffectTilesTurnStart()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerStartOfTurn());
+            if (effectTiles.Count <= 0) return;
 
-            RemoveExpiredEffectTiles(effectTiles);
+            Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
+            startOfTurnEffectTileEvents.Enqueue(
+                new ToastAtCoordinatesEvent(
+                    GameContext.MapCursor.MapCoordinates,
+                    "Resolving Tile Effects...",
+                    AssetManager.MenuConfirmSFX,
+                    100
+                )
+            );
+            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(100));
+
+            foreach (IEffectTile tile in effectTiles)
+            {
+                startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn));
+            }
+
+            startOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
+
+            GlobalEventQueue.QueueEvents(startOfTurnEffectTileEvents);
         }
 
         private static void TriggerEffectTilesTurnEnd()
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
 
-            effectTiles.ForEach(tile => tile.TriggerEndOfTurn());
+            if (effectTiles.Count <= 0) return;
 
-            RemoveExpiredEffectTiles(effectTiles);
+            Queue<IEvent> endOfTurnEffectTileEvents = new Queue<IEvent>();
+            foreach (IEffectTile tile in effectTiles)
+            {
+                endOfTurnEffectTileEvents.Enqueue(
+                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 0)
+                );
+            }
+
+            endOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
+            GlobalEventQueue.QueueEvents(endOfTurnEffectTileEvents);
         }
 
-        private static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
+        public static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
         {
             foreach (IEffectTile effectTile in effectTiles)
             {

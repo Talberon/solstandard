@@ -17,6 +17,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -46,6 +47,8 @@ namespace SolStandard.Entity.Unit
         private readonly Team team;
         private readonly Role role;
 
+        private readonly bool isCommander;
+
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -56,13 +59,13 @@ namespace SolStandard.Entity.Unit
         private readonly MiniHealthBar resultsHealthBar;
         private readonly List<IHealthBar> healthbars;
 
-
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
+        public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
+        public static readonly Color ActivePortraitColor = Color.White;
 
         private readonly UnitStatistics stats;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        private bool Enabled { get; set; }
+        public bool IsExhausted { get; private set; }
 
         public List<UnitAction> Actions { get; private set; }
         public List<UnitAction> InventoryActions { get; private set; }
@@ -77,13 +80,14 @@ namespace SolStandard.Entity.Unit
         private readonly UnitSpriteSheet unitSpriteSheet;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
-            ITexture2D portrait, List<UnitAction> actions) :
+            ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
             base(id, unitEntity)
         {
             this.team = team;
             this.role = role;
             this.stats = stats;
             Actions = actions;
+            this.isCommander = isCommander;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -133,6 +137,16 @@ namespace SolStandard.Entity.Unit
         public Role Role
         {
             get { return role; }
+        }
+
+        public bool IsCommander
+        {
+            get { return isCommander; }
+        }
+
+        public bool IsActive
+        {
+            get { return GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted; }
         }
 
         public IRenderable LargePortrait
@@ -231,12 +245,24 @@ namespace SolStandard.Entity.Unit
                 Color statPanelColor = new Color(10, 10, 10, 100);
                 Vector2 panelSizeOverride = new Vector2(180, 33);
 
+                const int crownIconSize = 24;
                 return new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {
                             new Window(
-                                new RenderText(AssetManager.HeaderFont, Id),
+                                new WindowContentGrid(
+                                    new[,]
+                                    {
+                                        {
+                                            isCommander
+                                                ? GetCommanderCrown(new Vector2(crownIconSize))
+                                                : new RenderBlank() as IRenderable,
+                                            new RenderText(AssetManager.HeaderFont, Id)
+                                        }
+                                    },
+                                    1
+                                ),
                                 statPanelColor, panelSizeOverride),
 
                             new Window(
@@ -528,18 +554,43 @@ namespace SolStandard.Entity.Unit
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
-            Enabled = true;
+            IsExhausted = false;
             RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
             UpdateStatusEffects();
+            largePortrait.DefaultColor = ActivePortraitColor;
+            mediumPortrait.DefaultColor = ActivePortraitColor;
+            smallPortrait.DefaultColor = ActivePortraitColor;
         }
 
         public void DisableExhaustedUnit()
         {
-            if (UnitEntity == null) return;
 
-            Enabled = false;
+            if (UnitEntity == null) return;
+            IsExhausted = true;
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
+            SetUnitAnimation(UnitAnimationState.Idle);
+            largePortrait.DefaultColor = ExhaustedPortraitColor;
+            mediumPortrait.DefaultColor = ExhaustedPortraitColor;
+            smallPortrait.DefaultColor = ExhaustedPortraitColor;
+        }
+
+        public void EnableUnit()
+        {
+            if (UnitEntity == null || IsExhausted) return;
+
+            UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
+            SetUnitAnimation(UnitAnimationState.Attack);
+            largePortrait.DefaultColor = ActivePortraitColor;
+            mediumPortrait.DefaultColor = ActivePortraitColor;
+            smallPortrait.DefaultColor = ActivePortraitColor;
+        }
+
+        public void DisableInactiveUnit()
+        {
+            if (UnitEntity == null || IsExhausted) return;
+
             UnitEntity.SetState(UnitEntity.UnitEntityState.Inactive);
             SetUnitAnimation(UnitAnimationState.Idle);
         }
@@ -576,10 +627,16 @@ namespace SolStandard.Entity.Unit
 
         private void UpdateStatusEffects()
         {
+            Queue<IEvent> statusEffectEvents = new Queue<IEvent>();
+
             foreach (StatusEffect effect in StatusEffects)
             {
-                effect.UpdateEffect(this);
+                statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
+                statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
+                statusEffectEvents.Enqueue(new WaitFramesEvent(100));
             }
+
+            GlobalEventQueue.QueueEvents(statusEffectEvents);
 
             StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
@@ -619,6 +676,7 @@ namespace SolStandard.Entity.Unit
         {
             if (stats.CurrentHP <= 0 && MapEntity != null)
             {
+                IsExhausted = true;
                 DropSpoils();
                 largePortrait.DefaultColor = DeadPortraitColor;
                 mediumPortrait.DefaultColor = DeadPortraitColor;
@@ -627,6 +685,11 @@ namespace SolStandard.Entity.Unit
                 AssetManager.CombatDeathSFX.Play();
                 MapEntity = null;
             }
+        }
+
+        public bool IsAlive
+        {
+            get { return stats.CurrentHP > 0; }
         }
 
         private void DropSpoils()
@@ -704,7 +767,7 @@ namespace SolStandard.Entity.Unit
         private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
         {
             //TODO Find a cleaner way to test so that this isn't necessary
-            
+
             if (entity != null) return entity.UnitSpriteSheet;
 
             Trace.TraceWarning("No unitEntity for unit " + this + "!");
@@ -726,6 +789,11 @@ namespace SolStandard.Entity.Unit
                     routine.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(UnitEntity.MapCoordinates));
                 }
             }
+        }
+
+        public static SpriteAtlas GetCommanderCrown(Vector2 size)
+        {
+            return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
     }
 }

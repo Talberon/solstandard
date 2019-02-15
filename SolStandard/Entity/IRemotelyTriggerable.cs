@@ -2,9 +2,9 @@
 
 namespace SolStandard.Entity
 {
-    public interface ITriggerable
+    public interface IRemotelyTriggerable
     {
-        void Trigger();
+        void RemoteTrigger();
         Vector2 MapCoordinates { get; }
     }
 }

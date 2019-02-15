@@ -9,18 +9,25 @@ namespace SolStandard.Utility.Events
          * For example, play out a series of animations before starting combat.
          */
 
-        private static Queue<IEvent> _eventSequence = new Queue<IEvent>();
+        private static readonly Queue<IEvent> EventSequence = new Queue<IEvent>();
         private static IEvent _currentEvent;
 
-        public static bool AllActionsComplete
+        private static bool AllActionsComplete
         {
-            get { return _eventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete); }
+            get { return EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete); }
         }
 
         public static void QueueEvents(Queue<IEvent> eventSequence)
         {
-            _eventSequence = eventSequence;
-            _currentEvent = eventSequence.Dequeue();
+            foreach (IEvent queuedEvent in eventSequence)
+            {
+                QueueSingleEvent(queuedEvent);
+            }
+        }
+
+        public static void QueueSingleEvent(IEvent eventToQueue)
+        {
+            EventSequence.Enqueue(eventToQueue);
         }
 
         public static bool UpdateEventsEveryFrame()
@@ -29,9 +36,9 @@ namespace SolStandard.Utility.Events
             {
                 _currentEvent.Continue();
             }
-            else if (_eventSequence.Count > 0)
+            else if (EventSequence.Count > 0)
             {
-                _currentEvent = _eventSequence.Dequeue();
+                _currentEvent = EventSequence.Dequeue();
             }
 
             return AllActionsComplete;

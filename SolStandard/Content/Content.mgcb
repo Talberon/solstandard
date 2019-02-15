@@ -1675,30 +1675,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Cursor/MenuCursorArrow_64.png
 
-#begin Graphics/HUD/Cursor/MenuCursorPointer_32.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/HUD/Cursor/MenuCursorPointer_32.png
-
-#begin Graphics/HUD/Cursor/MenuCursorPointer_64.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/HUD/Cursor/MenuCursorPointer_64.png
-
 #begin Graphics/HUD/Window/GreyWindow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1734,6 +1710,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Dice/AttackDiceAtlas.png
+
+#begin Graphics/Images/Icons/Misc/CommanderCrown.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/CommanderCrown.png
 
 #begin Graphics/Images/Icons/Misc/Fire.png
 /importer:TextureImporter
@@ -2083,6 +2071,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatusEffect/hpUp.png
 
+#begin Graphics/Images/Icons/StatusEffect/moraleBroken.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/moraleBroken.png
+
 #begin Graphics/Images/Icons/StatusEffect/mvUp.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2299,7 +2299,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/ButtonMap-Xbox.png
 
-#begin Graphics/Images/Screens/SolSpin.png
+#begin Graphics/Images/Screens/SolSpin-White.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2309,9 +2309,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolSpin.png
+/build:Graphics/Images/Screens/SolSpin-White.png
 
-#begin Graphics/Images/Screens/SolStandard-Logo.png
+#begin Graphics/Images/Screens/SolStandard-Logo v2.1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2321,9 +2321,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolStandard-Logo.png
+/build:Graphics/Images/Screens/SolStandard-Logo v2.1.png
 
-#begin Graphics/Images/Screens/SolStandard-Logo2_500.png
+#begin Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2333,43 +2333,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolStandard-Logo2_500.png
-
-#begin Graphics/Images/Screens/SolStandard-LogoText_350.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolStandard-LogoText_350.png
-
-#begin Graphics/Images/Screens/SolStandard-TitleScreen2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolStandard-TitleScreen2.png
-
-#begin Graphics/Images/Screens/SolStandard-Wallpaper.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/SolStandard-Wallpaper.png
+/build:Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
 
 #begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
 /importer:TextureImporter
@@ -2383,7 +2347,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
 
-#begin Graphics/Images/Screens/TitleBackground_BannerSky.png
+#begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2393,7 +2357,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Screens/TitleBackground_BannerSky.png
+/build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
+
+#begin Graphics/Images/Screens/TitleBackground_BannerStripe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/TitleBackground_BannerStripe.png
 
 #begin Graphics/Map/Cursor/Cursors.png
 /importer:TextureImporter

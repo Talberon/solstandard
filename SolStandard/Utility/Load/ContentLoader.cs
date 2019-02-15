@@ -1,13 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility.Load
 {
-    using Monogame;
-
     /**
      * ContentLoader
      * Holds a series of loader methods that are used for the game
@@ -208,9 +207,18 @@ namespace SolStandard.Utility.Load
             return fireTextureWrapper;
         }
 
+        public static ITexture2D LoadCommanderIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
+
+            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
+
+            return textureWrapper;
+        }
+
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350");
+            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 
@@ -219,7 +227,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadSolSpin(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin-White");
 
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
@@ -228,7 +236,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerFlag");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
 
             ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
 
@@ -347,6 +355,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/hpUp"),
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/mvUp"),
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/spUp"),
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/moraleBroken")
             };
 
             List<ITexture2D> statusTextures = new List<ITexture2D>();

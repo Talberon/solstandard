@@ -11,7 +11,8 @@ namespace SolStandard.Utility.Assets
         DefUp,
         HpUp,
         MvUp,
-        SpUp
+        SpUp,
+        MoraleBroken
     }
 
     public static class StatusIconProvider
@@ -32,6 +33,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D hpUp = skillIconTextures.Find(texture => texture.Name.EndsWith("hpUp"));
             ITexture2D mvUp = skillIconTextures.Find(texture => texture.Name.EndsWith("mvUp"));
             ITexture2D spUp = skillIconTextures.Find(texture => texture.Name.EndsWith("spUp"));
+            ITexture2D moraleBroken = skillIconTextures.Find(texture => texture.Name.EndsWith("moraleBroken"));
 
             _skillIconDictionary = new Dictionary<StatusIcon, ITexture2D>
             {
@@ -41,6 +43,7 @@ namespace SolStandard.Utility.Assets
                 {StatusIcon.HpUp, hpUp},
                 {StatusIcon.MvUp, mvUp},
                 {StatusIcon.SpUp, spUp},
+                {StatusIcon.MoraleBroken, moraleBroken},
             };
         }
     }

@@ -4,7 +4,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility.Monogame;
-using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.Containers.Contexts
 {
@@ -13,11 +12,11 @@ namespace SolStandardTest.Containers.Contexts
     {
         private static readonly GameUnit BlueUnit =
             new GameUnit("BlueGuy", Team.Blue, Role.Bard, null, new UnitStatistics(10, 2, 2, 2, 2, 2, new[] {1}),
-                new BlankTexture(), new List<UnitAction>());
+                new BlankTexture(), new List<UnitAction>(), true);
 
         private static readonly GameUnit RedUnit =
             new GameUnit("RedGuy", Team.Red, Role.Bard, null, new UnitStatistics(10, 2, 2, 2, 2, 2, new[] {1}),
-                new BlankTexture(), new List<UnitAction>());
+                new BlankTexture(), new List<UnitAction>(), true);
 
         [Test]
         public void testInitiativeListRandomizer_3v3_BlueFirst()

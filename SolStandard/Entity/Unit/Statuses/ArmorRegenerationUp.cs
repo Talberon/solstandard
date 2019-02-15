@@ -21,6 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,

@@ -8,8 +8,10 @@ namespace SolStandard.Entity.Unit.Statuses
     {
         private readonly int damage;
         private readonly string applyMessage;
+        private readonly string abilityName;
 
-        public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage, string applyMessage) : base(
+        public DamageOverTimeStatus(IRenderable statusIcon, int turnDuration, int damage, string applyMessage,
+            string abilityName) : base(
             statusIcon: statusIcon,
             name: "[" + damage + "] Damage per Turn",
             description: "Deals damage to the afflicted at the beginning of each turn.",
@@ -18,10 +20,12 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             this.damage = damage;
             this.applyMessage = applyMessage;
+            this.abilityName = abilityName;
         }
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 applyMessage,
@@ -39,7 +43,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
-                target.Id + " takes [" + damage + "] Damage!",
+                target.Id + " takes [" + damage + "] Damage from " + abilityName + "!",
                 50
             );
             AssetManager.CombatDamageSFX.Play();

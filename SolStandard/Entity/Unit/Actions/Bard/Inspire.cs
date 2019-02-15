@@ -9,7 +9,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Monarch
+namespace SolStandard.Entity.Unit.Actions.Bard
 {
     public class Inspire : UnitAction
     {
@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Monarch
         private readonly int duration;
 
         public Inspire(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(GameDriver.CellSize)),
             name: "Inspire",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
                          " by [+" + statModifier + "] for [" + duration + "] turns.",

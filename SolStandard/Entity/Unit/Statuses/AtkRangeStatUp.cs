@@ -21,6 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
 
             //Add +1 to end of ranges
@@ -39,7 +40,12 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            //Do nothing
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                target.Id + " has status " + Name,
+                50
+            );
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         public override void RemoveEffect(GameUnit target)

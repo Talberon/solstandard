@@ -68,7 +68,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateBlueTeamLeaderPortraitWindow()
         {
-            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue, Role.Bard));
+            IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue));
 
             BlueTeamLeaderPortrait = new Window(
                 new WindowContentGrid(blueLeaderContent, 1),
@@ -102,7 +102,7 @@ namespace SolStandard.Containers.View
 
         private void GenerateRedTeamLeaderPortraitWindow()
         {
-            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red, Role.Bard));
+            IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red));
 
             RedTeamLeaderPortrait = new Window(
                 new WindowContentGrid(redLeaderContent, 1),
@@ -134,9 +134,9 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private static GameUnit FindTeamLeader(Team team, Role role)
+        private static GameUnit FindTeamLeader(Team team)
         {
-            return GameContext.Units.Find(unit => unit.Team == team && unit.Role == role);
+            return GameContext.Units.Find(unit => unit.Team == team && unit.IsCommander);
         }
 
         private static IRenderable[,] LeaderContent(GameUnit leader)
@@ -166,18 +166,26 @@ namespace SolStandard.Containers.View
                 IRenderable portraitToUse =
                     (teamUnits.Count > MaxMediumPortraits) ? unit.SmallPortrait : unit.MediumPortrait;
 
+                const int crownIconSize = 24;
+                
                 IRenderable[,] unitContent =
                 {
                     {
+                        unit.IsCommander
+                            ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
+                            : new RenderBlank() as IRenderable,
                         new RenderText(AssetManager.WindowFont, unit.Id)
                     },
                     {
+                        new RenderBlank(),
                         portraitToUse
                     },
                     {
+                        new RenderBlank(),
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     },
                     {
+                        new RenderBlank(),
                         new Window(
                             new WindowContentGrid(
                                 new IRenderable[,]

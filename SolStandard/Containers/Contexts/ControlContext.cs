@@ -92,7 +92,13 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
                 networkController.Press(Input.Menu);
-                GameContext.LoadMapSelect();
+                GameContext.GoToMainMenuIfGameIsOver();
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.GoToMainMenuIfGameIsOver();
             }
         }
 
@@ -294,10 +300,10 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
-            if (controlMapper.Press(Input.ResetToUnit, PressType.Single))
+            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
             {
-                networkController.Press(Input.ResetToUnit);
-                GameContext.GameMapContext.ResetCursorToActiveUnit();
+                networkController.Press(Input.SelectNextUnit);
+                GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
                 AssetManager.MapUnitCancelSFX.Play();
             }
 
@@ -463,10 +469,10 @@ namespace SolStandard.Containers.Contexts
                 GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
             }
 
-            if (controlMapper.Press(Input.ResetToUnit, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.SelectNextUnit, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.ResetToUnit);
-                GameContext.GameMapContext.ResetCursorToActiveUnit();
+                networkController.Press(Input.SelectNextUnit);
+                GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
                 GameContext.MapCamera.CenterCameraToCursor();
                 AssetManager.MapUnitCancelSFX.Play();
             }

@@ -5689,15 +5689,17 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Mandible I" type="Unit" gid="480" x="864" y="640" width="32" height="32">
+  <object id="520" name="Mandi" type="Unit" gid="480" x="864" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Calfius III" type="Unit" gid="485" x="480" y="288" width="32" height="32">
+  <object id="521" name="Kelsey" type="Unit" gid="485" x="480" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

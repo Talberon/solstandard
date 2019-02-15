@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
@@ -19,8 +20,9 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
+            AssetManager.SkillBuffSFX.Play();
             target.Stats.AtkModifier += atkModifier;
-            
+
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
@@ -30,7 +32,12 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            //Do nothing
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                target.Id + " has status " + Name,
+                50
+            );
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         public override void RemoveEffect(GameUnit target)

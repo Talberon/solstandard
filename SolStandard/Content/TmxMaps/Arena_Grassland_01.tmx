@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="34" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="889">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="34" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="891">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -2682,9 +2682,10 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="818" name="Bartholomew" type="Unit" gid="484" x="320" y="352" width="32" height="32">
+  <object id="818" name="Bradley" type="Unit" gid="484" x="320" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2757,6 +2758,7 @@
   <object id="832" name="Kass" type="Unit" gid="481" x="928" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -2848,6 +2850,18 @@
   <object id="888" name="Orc" type="Creep" gid="489" x="672" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+   </properties>
+  </object>
+  <object id="889" name="Amber" type="Unit" gid="485" x="256" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Bard"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="890" name="Linda" type="Unit" gid="480" x="864" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Bard"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
  </objectgroup>

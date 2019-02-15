@@ -1,6 +1,5 @@
 ﻿using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -19,7 +18,6 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            AssetManager.SkillBuffSFX.Play();
             targetUnit.AddStatusEffect(statusEffect);
             Complete = true;
         }
