@@ -128,21 +128,20 @@ namespace SolStandard.Containers.Contexts
             Scenario = scenario;
 
             LoadMap(mapPath);
-
+            
+            CurrentGameState = GameState.InGame;
+            
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
             }
 
             InitiativeContext.StartFirstTurn();
-            GameMapContext.ResetCursorToActiveUnit();
-            MapSelectContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             GameMapContext.EndTurn();
 
             GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
 
-            CurrentGameState = GameState.InGame;
         }
 
         public static void LoadMapSelect()

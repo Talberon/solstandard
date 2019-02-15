@@ -84,13 +84,15 @@ namespace SolStandard.Containers.Contexts
         {
             CurrentActiveTeam = FirstPlayer;
             CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-
+            
+            GameContext.GameMapContext.ResetCursorToActiveUnit();
+            
             Queue<IEvent> newRoundEvents = new Queue<IEvent>();
-            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
-            newRoundEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
+            Vector2 cursorMapCoordinates = GameContext.MapCursor.MapCoordinates;
+            newRoundEvents.Enqueue(new CameraCursorPositionEvent(cursorMapCoordinates));
             newRoundEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
-                    activeUnitCoordinates,
+                    cursorMapCoordinates,
                     "ROUND " + GameContext.GameMapContext.RoundCounter + " STARTING...",
                     100
                 )
