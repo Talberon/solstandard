@@ -24,6 +24,7 @@ namespace SolStandard.Entity.Unit
 {
     public enum Role
     {
+        Silhouette,
         Champion,
         Archer,
         Mage,

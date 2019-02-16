@@ -12,6 +12,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
 {
@@ -43,9 +44,13 @@ namespace SolStandard.Containers.View
         {
             this.background = background;
 
-            //TODO Black Silhouette
-            BlueTeamCommander = new Window(new RenderBlank(), Color.Transparent);
-            RedTeamCommander = new Window(new RenderBlank(), Color.Transparent);
+            const int portraitSize = 128;
+            ITexture2D portraitTexture = UnitGenerator.GetUnitPortrait(Role.Silhouette, Team.Creep);
+            SpriteAtlas silhouette =
+                new SpriteAtlas(portraitTexture, new Vector2(portraitTexture.Width), new Vector2(portraitSize));
+
+            BlueTeamCommander = new Window(silhouette, TeamUtility.DetermineTeamColor(Team.Blue));
+            RedTeamCommander = new Window(silhouette, TeamUtility.DetermineTeamColor(Team.Red));
 
             HelpText = new Window(new RenderText(AssetManager.HeavyFont, "SELECT A UNIT"), Color.Transparent);
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
@@ -200,10 +205,11 @@ namespace SolStandard.Containers.View
             //Anchored above UnitSelect
             get
             {
+                const int extraPadding = 50;
                 Vector2 unitSelectPosition = UnitSelectPosition;
                 return new Vector2(
                     unitSelectPosition.X + ((float) UnitSelect.Width / 2) - ((float) VersusText.Width / 2),
-                    unitSelectPosition.Y - VersusText.Height - WindowPadding
+                    unitSelectPosition.Y - VersusText.Height - WindowPadding - extraPadding
                 );
             }
         }

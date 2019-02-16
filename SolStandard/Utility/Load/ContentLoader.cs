@@ -183,6 +183,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
