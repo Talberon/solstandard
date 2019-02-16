@@ -57,8 +57,7 @@ namespace SolStandard.Containers.View
             {
                 Vector2 centerScreen = GameDriver.ScreenSize / 2;
 
-                Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-                background.Draw(spriteBatch, centerScreen - backgroundCenter);
+                DrawBackground(spriteBatch, centerScreen);
 
                 const int titleVertCoordinate = 30;
                 Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
@@ -66,12 +65,23 @@ namespace SolStandard.Containers.View
                 logo.Draw(spriteBatch, titlePosition);
                 title.Draw(spriteBatch, titlePosition + new Vector2(100));
 
-                const int titlePadding = 200;
-                Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
-                Vector2 mainMenuPosition =
-                    new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
-                mainMenu.Draw(spriteBatch, mainMenuPosition);
+                DrawMenu(spriteBatch, centerScreen, titlePosition);
             }
+        }
+
+        private void DrawBackground(SpriteBatch spriteBatch, Vector2 centerScreen)
+        {
+            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
+            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+        }
+
+        private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
+        {
+            const int titlePadding = 200;
+            Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
+            Vector2 mainMenuPosition =
+                new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
+            mainMenu.Draw(spriteBatch, mainMenuPosition);
         }
     }
 }

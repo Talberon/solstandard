@@ -68,7 +68,8 @@ namespace SolStandard.Containers.View
                     }
                 },
                 new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(GameDriver.CellSize)),
-                menuColor
+                menuColor,
+                TwoDimensionalMenu.CursorType.Pointer
             );
         }
 

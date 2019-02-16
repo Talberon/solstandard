@@ -21,6 +21,12 @@ namespace SolStandard.HUD.Menu
             Right
         }
 
+        public enum CursorType
+        {
+            Pointer,
+            Frame
+        }
+
         private readonly IRenderable cursorSprite;
         private Vector2 cursorPosition;
 
@@ -35,13 +41,16 @@ namespace SolStandard.HUD.Menu
         private readonly Window.Window menuWindow;
         private Vector2 optionSize;
 
+        private readonly CursorType cursorType;
+
         public bool IsVisible { get; set; }
 
-        public TwoDimensionalMenu(MenuOption[,] options, IRenderable cursorSprite, Color color)
+        public TwoDimensionalMenu(MenuOption[,] options, IRenderable cursorSprite, Color color, CursorType cursorType)
         {
             this.options = options;
             this.cursorSprite = cursorSprite;
             DefaultColor = color;
+            this.cursorType = cursorType;
             IsVisible = true;
 
             menuWindow = BuildMenuWindow();
@@ -60,12 +69,21 @@ namespace SolStandard.HUD.Menu
 
         private void SetCursorPosition(int row, int column)
         {
-            Vector2 optionPosition = new Vector2(column * optionSize.X, row * optionSize.Y);
-
+            Vector2 optionPosition = new Vector2(column * (optionSize.X + Padding), row * optionSize.Y);
             Vector2 centerLeft =
                 new Vector2(cursorSprite.Width, ((float) cursorSprite.Height / 2) - (optionSize.Y / 2));
 
-            cursorPosition = optionPosition - centerLeft;
+            switch (cursorType)
+            {
+                case CursorType.Pointer:
+                    cursorPosition = optionPosition - centerLeft;
+                    break;
+                case CursorType.Frame:
+                    cursorPosition = optionPosition;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private Window.Window BuildMenuWindow()
@@ -170,7 +188,7 @@ namespace SolStandard.HUD.Menu
 
         public IRenderable Clone()
         {
-            return new TwoDimensionalMenu(options, cursorSprite, DefaultColor);
+            return new TwoDimensionalMenu(options, cursorSprite, DefaultColor, cursorType);
         }
     }
 }

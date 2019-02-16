@@ -1,5 +1,6 @@
 ﻿using System;
 using SolStandard.Containers.View;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -26,6 +27,7 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.ModeSelect:
                     break;
                 case GameContext.GameState.ArmyDraft:
+                    DraftMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.MapSelect:
                     MapSelectControls(controlMapper, networkController);
@@ -44,6 +46,29 @@ namespace SolStandard.Containers.Contexts
             }
 
             return networkController;
+        }
+
+        private static void DraftMenuControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.DraftContext.MoveCursor(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.DraftContext.MoveCursor(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.DraftContext.MoveCursor(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.DraftContext.MoveCursor(Direction.Right);
+            }
         }
 
         private static void NetworkMenuControls(ControlMapper controlMapper)
@@ -154,6 +179,14 @@ namespace SolStandard.Containers.Contexts
             {
                 networkController.Press(Input.Confirm);
                 GameContext.MainMenuView.MainMenu.SelectOption();
+            }
+
+
+            //TODO FIXME REMOVE ME \|/
+            if (controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                GameContext.DraftContext.StartNewDraft(10, 3, Team.Blue);
             }
         }
 

@@ -42,16 +42,18 @@ namespace SolStandard.Containers.Contexts
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
         public static NetworkMenuView NetworkMenuView { get; private set; }
+        public static DraftContext DraftContext { get; private set; }
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
 
-        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
+        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView, DraftView draftView)
         {
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
+            DraftContext = new DraftContext(draftView);
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
             ActivePlayer = PlayerIndex.One;
@@ -128,9 +130,9 @@ namespace SolStandard.Containers.Contexts
             Scenario = scenario;
 
             LoadMap(mapPath);
-            
+
             CurrentGameState = GameState.InGame;
-            
+
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
@@ -141,7 +143,6 @@ namespace SolStandard.Containers.Contexts
 
             GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
-
         }
 
         public static void LoadMapSelect()
@@ -220,7 +221,7 @@ namespace SolStandard.Containers.Contexts
             if (!Scenario.GameIsOver) return;
 
             AssetManager.MenuConfirmSFX.Play();
-            Initialize(MainMenuView, NetworkMenuView);
+            Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
         }
     }
 }

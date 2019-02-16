@@ -9,6 +9,7 @@ using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Map.Elements;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -376,6 +377,15 @@ namespace SolStandard.Entity.Unit
         {
             return portraits.Find(texture =>
                 texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
+        }
+
+        public static ITexture2D GetUnitPortrait(Team team, Role role)
+        {
+            return AssetManager.SmallPortraitTextures
+                .Find(texture =>
+                    texture.MonoGameTexture.Name.Contains(team.ToString()) &&
+                    texture.MonoGameTexture.Name.Contains(role.ToString())
+                );
         }
     }
 }

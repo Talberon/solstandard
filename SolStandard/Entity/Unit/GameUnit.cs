@@ -47,8 +47,6 @@ namespace SolStandard.Entity.Unit
         private readonly Team team;
         private readonly Role role;
 
-        private readonly bool isCommander;
-
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -73,6 +71,7 @@ namespace SolStandard.Entity.Unit
         private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
+        public bool IsCommander { get; set; }
 
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
@@ -87,7 +86,7 @@ namespace SolStandard.Entity.Unit
             this.role = role;
             this.stats = stats;
             Actions = actions;
-            this.isCommander = isCommander;
+            this.IsCommander = isCommander;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -139,10 +138,6 @@ namespace SolStandard.Entity.Unit
             get { return role; }
         }
 
-        public bool IsCommander
-        {
-            get { return isCommander; }
-        }
 
         public bool IsActive
         {
@@ -255,7 +250,7 @@ namespace SolStandard.Entity.Unit
                                     new[,]
                                     {
                                         {
-                                            isCommander
+                                            IsCommander
                                                 ? GetCommanderCrown(new Vector2(crownIconSize))
                                                 : new RenderBlank() as IRenderable,
                                             new RenderText(AssetManager.HeaderFont, Id)
@@ -566,7 +561,6 @@ namespace SolStandard.Entity.Unit
 
         public void DisableExhaustedUnit()
         {
-
             if (UnitEntity == null) return;
             IsExhausted = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
