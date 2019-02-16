@@ -44,7 +44,7 @@ namespace SolStandard.Containers.Contexts
 
             DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Blue);
             DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Red);
-            DraftView.UpdateUnitSelectMenu(firstTurn);
+            DraftView.UpdateUnitSelectMenu(firstTurn, GetRolesEnabled(blueUnitCount, maxDuplicateUnitType));
         }
 
         public void MoveCursor(Direction direction)
@@ -77,19 +77,7 @@ namespace SolStandard.Containers.Contexts
 
         public void AddUnitToList(Role role, Team team)
         {
-            Dictionary<Role, int> unitLimit;
-
-            switch (team)
-            {
-                case Team.Blue:
-                    unitLimit = blueUnitCount;
-                    break;
-                case Team.Red:
-                    unitLimit = redUnitCount;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
-            }
+            Dictionary<Role, int> unitLimit = GetUnitLimitForTeam(team);
 
             if (unitLimit.ContainsKey(role))
             {
@@ -118,14 +106,66 @@ namespace SolStandard.Containers.Contexts
                     BlueUnits.Add(generatedUnit);
                     List<IRenderable> blueUnitSprites = BlueUnits.Select(unit => unit.UnitEntity.RenderSprite).ToList();
                     DraftView.UpdateTeamUnitsWindow(blueUnitSprites, team);
+                    currentTurn = Team.Red;
                     break;
                 case Team.Red:
                     RedUnits.Add(generatedUnit);
                     List<IRenderable> redUnitSprites = RedUnits.Select(unit => unit.UnitEntity.RenderSprite).ToList();
                     DraftView.UpdateTeamUnitsWindow(redUnitSprites, team);
+                    currentTurn = Team.Blue;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
+            }
+
+            DraftView.UpdateUnitSelectMenu(
+                currentTurn,
+                GetRolesEnabled(GetUnitLimitForTeam(currentTurn), maxDuplicateUnitType)
+            );
+        }
+
+        private Dictionary<Role, int> GetUnitLimitForTeam(Team team)
+        {
+            Dictionary<Role, int> unitLimit;
+            switch (team)
+            {
+                case Team.Blue:
+                    unitLimit = blueUnitCount;
+                    break;
+                case Team.Red:
+                    unitLimit = redUnitCount;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
+
+            return unitLimit;
+        }
+
+        private static Dictionary<Role, bool> GetRolesEnabled(Dictionary<Role, int> roleCount, int limit)
+        {
+            Dictionary<Role, bool> enabledRoles = new Dictionary<Role, bool>();
+
+            foreach (KeyValuePair<Role, int> pair in roleCount)
+            {
+                enabledRoles.Add(pair.Key, (pair.Value < limit));
+            }
+
+            return enabledRoles;
+        }
+
+        public static List<Role> AvailableRoles
+        {
+            get
+            {
+                return new List<Role>
+                {
+                    Role.Champion,
+                    Role.Lancer,
+                    Role.Archer,
+                    Role.Mage,
+                    Role.Bard
+                };
             }
         }
     }

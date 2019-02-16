@@ -11,27 +11,31 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
     {
         private readonly Role role;
         private readonly Team team;
+        private readonly bool enabled;
         private const int PortraitSize = 128;
 
-        public DraftUnitOption(Role role, Team team)
+        public DraftUnitOption(Role role, Team team, bool enabled)
             : base(
-                DraftUnitLabelContent(role, team),
+                DraftUnitLabelContent(role, team, enabled),
                 TeamUtility.DetermineTeamColor(team),
                 HorizontalAlignment.Centered
             )
         {
             this.role = role;
             this.team = team;
+            this.enabled = enabled;
         }
 
-        private static IRenderable DraftUnitLabelContent(Role role, Team team)
+        private static IRenderable DraftUnitLabelContent(Role role, Team team, bool enabled)
         {
             ITexture2D unitPortraitTexture = UnitGenerator.GetUnitPortrait(role, team);
 
             return new SpriteAtlas(
                 unitPortraitTexture,
                 new Vector2(unitPortraitTexture.Width, unitPortraitTexture.Height),
-                new Vector2(PortraitSize)
+                new Vector2(PortraitSize),
+                0,
+                enabled ? Color.White : GameUnit.DeadPortraitColor
             );
         }
 
@@ -42,7 +46,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
 
         public override IRenderable Clone()
         {
-            return new DraftUnitOption(role, team);
+            return new DraftUnitOption(role, team, enabled);
         }
     }
 }

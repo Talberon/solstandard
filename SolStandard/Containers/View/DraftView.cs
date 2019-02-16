@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
@@ -79,10 +80,10 @@ namespace SolStandard.Containers.View
             CommanderSelect = null;
         }
 
-        public void UpdateUnitSelectMenu(Team team)
+        public void UpdateUnitSelectMenu(Team team, Dictionary<Role, bool> unitsExhausted)
         {
-            UnitSelect = new TwoDimensionalMenu(GetUnitOptionsForTeam(team), DraftCursor, DarkBackgroundColor,
-                TwoDimensionalMenu.CursorType.Frame);
+            UnitSelect = new TwoDimensionalMenu(GetUnitOptionsForTeam(team, unitsExhausted), DraftCursor,
+                DarkBackgroundColor, TwoDimensionalMenu.CursorType.Frame);
         }
 
         private static IRenderable DraftCursor
@@ -112,18 +113,21 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private static MenuOption[,] GetUnitOptionsForTeam(Team team)
+        private static MenuOption[,] GetUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
-            return new MenuOption[,]
+            List<Role> availableRoles = DraftContext.AvailableRoles;
+
+            MenuOption[,] options = new MenuOption[1, availableRoles.Count];
+
+            for (int i = 0; i < availableRoles.Count; i++)
             {
-                {
-                    new DraftUnitOption(Role.Champion, team),
-                    new DraftUnitOption(Role.Lancer, team),
-                    new DraftUnitOption(Role.Archer, team),
-                    new DraftUnitOption(Role.Mage, team),
-                    new DraftUnitOption(Role.Bard, team)
-                }
-            };
+                Role currentRole = availableRoles[i];
+                // ReSharper disable once SimplifyConditionalTernaryExpression
+                bool enabled = unitEnabled.ContainsKey(currentRole) ? unitEnabled[currentRole] : true;
+                options[0, i] = new DraftUnitOption(currentRole, team, enabled);
+            }
+
+            return options;
         }
 
         private static Window BuildUnitListWindow(IReadOnlyList<IRenderable> unitSprites)
