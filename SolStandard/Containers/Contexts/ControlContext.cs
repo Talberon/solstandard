@@ -69,6 +69,11 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.DraftContext.MoveCursor(Direction.Right);
             }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.DraftContext.ConfirmSelection();
+            }
         }
 
         private static void NetworkMenuControls(ControlMapper controlMapper)

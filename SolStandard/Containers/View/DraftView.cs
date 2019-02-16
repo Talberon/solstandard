@@ -132,7 +132,7 @@ namespace SolStandard.Containers.View
 
             int totalRows = (int) Math.Ceiling((float) unitSprites.Count / unitsPerRow);
 
-            IRenderable[,] unitCells = new IRenderable[unitsPerRow, totalRows];
+            IRenderable[,] unitCells = new IRenderable[totalRows, unitsPerRow];
 
             int unitIndex = 0;
 
@@ -142,11 +142,11 @@ namespace SolStandard.Containers.View
                 {
                     if (unitIndex >= unitSprites.Count)
                     {
-                        unitCells[column, row] = new RenderBlank();
+                        unitCells[row, column] = new RenderBlank();
                     }
                     else
                     {
-                        unitCells[column, row] = unitSprites[unitIndex];
+                        unitCells[row, column] = unitSprites[unitIndex];
                     }
 
                     unitIndex++;
@@ -177,7 +177,7 @@ namespace SolStandard.Containers.View
             get
             {
                 return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3 * 2) -
-                       new Vector2((float) UnitSelect.Width / 2, (float) UnitSelect.Height / 2);
+                       new Vector2((float) CommanderSelect.Width / 2, (float) CommanderSelect.Height / 2);
             }
         }
 
@@ -187,7 +187,7 @@ namespace SolStandard.Containers.View
             get
             {
                 return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3) -
-                       new Vector2((float) UnitSelect.Width / 2, (float) UnitSelect.Height / 2);
+                       new Vector2((float) HelpText.Width / 2, (float) HelpText.Height / 2);
             }
         }
 
@@ -198,7 +198,7 @@ namespace SolStandard.Containers.View
             {
                 Vector2 unitSelectPosition = UnitSelectPosition;
                 return new Vector2(
-                    unitSelectPosition.X + ((float) UnitSelect.Width / 2),
+                    unitSelectPosition.X + ((float) UnitSelect.Width / 2) - ((float) VersusText.Width / 2),
                     unitSelectPosition.Y - VersusText.Height - WindowPadding
                 );
             }

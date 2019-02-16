@@ -1,5 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.Utility;
@@ -26,7 +26,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
 
         private static IRenderable DraftUnitLabelContent(Role role, Team team)
         {
-            ITexture2D unitPortraitTexture = UnitGenerator.GetUnitPortrait(team, role);
+            ITexture2D unitPortraitTexture = UnitGenerator.GetUnitPortrait(role, team);
 
             return new SpriteAtlas(
                 unitPortraitTexture,
@@ -37,8 +37,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
 
         public override void Execute()
         {
-            //TODO Add unit to appropriate team
-            throw new NotImplementedException();
+            GameContext.DraftContext.AddUnitToList(role, team);
         }
 
         public override IRenderable Clone()

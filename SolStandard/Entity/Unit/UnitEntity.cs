@@ -24,10 +24,11 @@ namespace SolStandard.Entity.Unit
         private readonly SpriteAtlas commanderCrown;
 
         public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties) : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
+            bool isCommander, Dictionary<string, string> tiledProperties)
+            : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
         {
+            this.isCommander = isCommander;
             ElementColor = ActiveColor;
-            isCommander = Convert.ToBoolean(tiledProperties[UnitGenerator.TmxCommanderTag]);
 
             if (isCommander)
             {

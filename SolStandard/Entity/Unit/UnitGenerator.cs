@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
@@ -379,13 +380,89 @@ namespace SolStandard.Entity.Unit
                 texture.MonoGameTexture.Name.Contains(unitTeam) && texture.MonoGameTexture.Name.Contains(unitJobClass));
         }
 
-        public static ITexture2D GetUnitPortrait(Team team, Role role)
+        public static ITexture2D GetUnitPortrait(Role role, Team team)
         {
             return AssetManager.SmallPortraitTextures
                 .Find(texture =>
                     texture.MonoGameTexture.Name.Contains(team.ToString()) &&
                     texture.MonoGameTexture.Name.Contains(role.ToString())
                 );
+        }
+
+        public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
+        {
+            //TODO Generate Names
+            string generatedName = string.Empty;
+            const string type = "Unit";
+
+            UnitEntity entity = GenerateUnitEntity(generatedName, type, role, team, isCommander,
+                AssetManager.UnitSprites, Vector2.Zero, new Dictionary<string, string>());
+
+            ITexture2D portrait =
+                FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
+            UnitStatistics unitStatistics;
+            List<UnitAction> unitActions;
+            switch (role)
+            {
+                case Role.Archer:
+                    unitStatistics = SelectArcherStats(isCommander);
+                    unitActions = SelectArcherSkills();
+                    break;
+                case Role.Champion:
+                    unitStatistics = SelectChampionStats(isCommander);
+                    unitActions = SelectChampionSkills();
+                    break;
+                case Role.Mage:
+                    unitStatistics = SelectMageStats(isCommander);
+                    unitActions = SelectMageSkills();
+                    break;
+                case Role.Lancer:
+                    unitStatistics = SelectLancerStats(isCommander);
+                    unitActions = SelectLancerSkills();
+                    break;
+                case Role.Bard:
+                    unitStatistics = SelectBardStats(isCommander);
+                    unitActions = SelectBardSkills();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("role", role, null);
+            }
+
+            GameUnit unit =
+                new GameUnit(generatedName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+
+            return unit;
+        }
+
+
+        public static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
+            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+        {
+            ITexture2D unitSprite = FetchUnitGraphic(team.ToString(), role.ToString(), unitSprites);
+
+            Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
+            const int unitAnimationFrames = 4;
+            const int unitAnimationDelay = 12;
+
+            UnitSpriteSheet animatedSpriteSheet = new UnitSpriteSheet(
+                unitSprite,
+                unitSprite.Width / unitAnimationFrames,
+                unitScale,
+                unitAnimationDelay,
+                false,
+                Color.White
+            );
+
+            UnitEntity unitEntity = new UnitEntity(name, type,
+                animatedSpriteSheet, mapCoordinates, isCommander, unitProperties);
+
+            return unitEntity;
+        }
+
+        public static ITexture2D FetchUnitGraphic(string unitTeam, string role, List<ITexture2D> unitSprites)
+        {
+            string unitTeamAndClass = unitTeam + role;
+            return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));
         }
     }
 }
