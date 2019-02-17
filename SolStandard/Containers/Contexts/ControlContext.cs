@@ -24,6 +24,7 @@ namespace SolStandard.Containers.Contexts
                     NetworkMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.Deployment:
+                    DeploymentControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.ArmyDraft:
                     DraftMenuControls(controlMapper, networkController);
@@ -45,6 +46,51 @@ namespace SolStandard.Containers.Contexts
             }
 
             return networkController;
+        }
+
+        private static void DeploymentControls(ControlMapper controlMapper, NetworkController networkController)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorUp);
+                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorDown);
+                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorLeft);
+                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorRight);
+                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Right);
+            }
+
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.LeftBumper);
+                GameContext.DeploymentContext.SelectPreviousUnit();
+            }
+
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.RightBumper);
+                GameContext.DeploymentContext.SelectNextUnit();
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.DeploymentContext.TryDeployUnit();
+            }
         }
 
         private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)

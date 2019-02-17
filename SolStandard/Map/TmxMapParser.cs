@@ -59,7 +59,8 @@ namespace SolStandard.Map
             {"Blink", EntityTypes.Blink},
             {"HP Potion", EntityTypes.HealthPotion},
             {"BuffItem", EntityTypes.BuffItem},
-            {"Barricade", EntityTypes.Barricade}
+            {"Barricade", EntityTypes.Barricade},
+            {"Deployment", EntityTypes.Deploy}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -550,6 +551,16 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             Convert.ToInt32(currentProperties["HP"])
+                                        );
+                                        break;
+                                    case EntityTypes.Deploy:
+                                        entityGrid[col, row] = new DeployTile(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["Team"]),
+                                            currentProperties
                                         );
                                         break;
                                     default:

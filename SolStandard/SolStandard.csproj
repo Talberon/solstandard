@@ -62,6 +62,7 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
+    <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
+    <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />

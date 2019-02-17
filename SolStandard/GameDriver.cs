@@ -402,6 +402,8 @@ namespace SolStandard
                     DrawNetworkMenu();
                     break;
                 case GameContext.GameState.Deployment:
+                    DrawInGameMap();
+                    DrawDeploymentHUD();
                     break;
                 case GameContext.GameState.ArmyDraft:
                     DrawDraftMenu();
@@ -512,6 +514,15 @@ namespace SolStandard
             );
             spriteBatch.Draw(AssetManager.WhitePixel.MonoGameTexture,
                 new Rectangle(0, 0, (int) ScreenSize.X, (int) ScreenSize.Y), color);
+            spriteBatch.End();
+        }
+
+        private void DrawDeploymentHUD()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
+            GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

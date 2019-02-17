@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
@@ -38,14 +39,21 @@ namespace SolStandard.Containers.Contexts
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
 
+        private string mapFile;
+        private Scenario mapScenario;
+
+
         public DraftContext(DraftView draftView)
         {
             DraftView = draftView;
         }
 
-        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn)
+        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, string mapFile,
+            Scenario mapScenario)
         {
             NameGenerator.ClearNameHistory();
+            this.mapFile = mapFile;
+            this.mapScenario = mapScenario;
 
             currentPhase = DraftPhase.UnitSelect;
             unitsSelected = 0;
@@ -140,6 +148,8 @@ namespace SolStandard.Containers.Contexts
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
+            GameDriver.NewGame(mapFile, mapScenario);
+            GameContext.StartNewDeployment(BlueUnits, RedUnits, currentTurn);
             //TODO Load the selected units and commanders into the Deployment context
             //TODO Change phase to Deployment (add Deployment phase to GameState)
         }

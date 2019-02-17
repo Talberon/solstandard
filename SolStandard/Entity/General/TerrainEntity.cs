@@ -35,7 +35,8 @@ namespace SolStandard.Entity.General
         Blink,
         HealthPotion,
         BuffItem,
-        Barricade
+        Barricade,
+        Deploy
     }
 
     public class TerrainEntity : MapEntity

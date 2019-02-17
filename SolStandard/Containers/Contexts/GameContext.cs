@@ -43,6 +43,7 @@ namespace SolStandard.Containers.Contexts
         public static MainMenuView MainMenuView { get; private set; }
         public static NetworkMenuView NetworkMenuView { get; private set; }
         public static DraftContext DraftContext { get; private set; }
+        public static DeploymentContext DeploymentContext { get; private set; }
 
         public static GameState CurrentGameState;
         public static PlayerIndex ActivePlayer { get; set; }
@@ -123,6 +124,12 @@ namespace SolStandard.Containers.Contexts
         public static GameUnit ActiveUnit
         {
             get { return InitiativeContext.CurrentActiveUnit; }
+        }
+
+        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
+        {
+            DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
+            CurrentGameState = GameState.Deployment;
         }
 
         public static void StartGame(string mapPath, Scenario scenario)

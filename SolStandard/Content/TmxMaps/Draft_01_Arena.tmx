@@ -4,7 +4,7 @@
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
  <tileset firstgid="477" name="units-32" tilewidth="32" tileheight="32" tilecount="20" columns="5">
-  <image source="../Graphics/Map/Tiles/Units3.png" width="160" height="128"/>
+  <image source="../Graphics/Map/Tiles/Units3.png" width="160" height="96"/>
  </tileset>
  <tileset firstgid="497" source="overworld-32.tsx"/>
  <layer id="9" name="Terrain" width="35" height="28">
@@ -2960,62 +2960,62 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="847" name="Deploy" type="Deployment" gid="492" x="448" y="448" width="32" height="32">
+  <object id="847" name="Deploy" type="Deployment" gid="290" x="448" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="848" name="Deploy" type="Deployment" gid="492" x="384" y="384" width="32" height="32">
+  <object id="848" name="Deploy" type="Deployment" gid="290" x="384" y="384" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="849" name="Deploy" type="Deployment" gid="492" x="416" y="480" width="32" height="32">
+  <object id="849" name="Deploy" type="Deployment" gid="290" x="416" y="480" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="850" name="Deploy" type="Deployment" gid="492" x="448" y="512" width="32" height="32">
+  <object id="850" name="Deploy" type="Deployment" gid="290" x="448" y="512" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="851" name="Deploy" type="Deployment" gid="492" x="416" y="416" width="32" height="32">
+  <object id="851" name="Deploy" type="Deployment" gid="290" x="416" y="416" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="852" name="Deploy" type="Deployment" gid="492" x="384" y="512" width="32" height="32">
+  <object id="852" name="Deploy" type="Deployment" gid="290" x="384" y="512" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="853" name="Deploy" type="Deployment" gid="493" x="640" y="416" width="32" height="32">
+  <object id="853" name="Deploy" type="Deployment" gid="291" x="640" y="416" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="854" name="Deploy" type="Deployment" gid="493" x="672" y="448" width="32" height="32">
+  <object id="854" name="Deploy" type="Deployment" gid="291" x="672" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="855" name="Deploy" type="Deployment" gid="493" x="704" y="416" width="32" height="32">
+  <object id="855" name="Deploy" type="Deployment" gid="291" x="704" y="416" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="856" name="Deploy" type="Deployment" gid="493" x="704" y="544" width="32" height="32">
+  <object id="856" name="Deploy" type="Deployment" gid="291" x="704" y="544" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="857" name="Deploy" type="Deployment" gid="493" x="640" y="480" width="32" height="32">
+  <object id="857" name="Deploy" type="Deployment" gid="291" x="640" y="480" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="858" name="Deploy" type="Deployment" gid="493" x="672" y="512" width="32" height="32">
+  <object id="858" name="Deploy" type="Deployment" gid="291" x="672" y="512" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
