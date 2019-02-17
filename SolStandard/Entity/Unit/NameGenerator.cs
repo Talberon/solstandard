@@ -3,9 +3,14 @@ using System.Collections.Generic;
 
 namespace SolStandard.Entity.Unit
 {
-    public class NameGenerator
+    public static class NameGenerator
     {
-        private static List<string> UsedNames { get; set; }
+        private static List<string> _usedNames;
+
+        private static List<string> UsedNames
+        {
+            get { return _usedNames ?? (_usedNames = new List<string>()); }
+        }
 
         private enum NameType
         {
@@ -14,12 +19,12 @@ namespace SolStandard.Entity.Unit
             Beast
         }
 
-        public NameGenerator()
+        public static void ClearNameHistory()
         {
-            UsedNames = new List<string>();
+            UsedNames.Clear();
         }
 
-        private static string GenerateUnitName(Role role)
+        public static string GenerateUnitName(Role role)
         {
             switch (role)
             {

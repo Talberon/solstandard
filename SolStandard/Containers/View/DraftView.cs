@@ -33,7 +33,7 @@ namespace SolStandard.Containers.View
         private Window VersusText { get; set; }
 
         public TwoDimensionalMenu UnitSelect { get; private set; }
-        public VerticalMenu CommanderSelect { get; private set; }
+        public TwoDimensionalMenu CommanderSelect { get; private set; }
 
         private static IRenderable _draftCursor;
         private static IRenderable _commanderCursor;
@@ -68,11 +68,18 @@ namespace SolStandard.Containers.View
 
         public void UpdateCommanderSelect(IEnumerable<GameUnit> units, Team team)
         {
-            MenuOption[] unitCommanderOptions =
+            MenuOption[] unitOptions =
                 units.Select(unit => new SelectCommanderOption(unit)).Cast<MenuOption>().ToArray();
 
-            CommanderSelect = new VerticalMenu(unitCommanderOptions, CommanderCursor,
-                TeamUtility.DetermineTeamColor(team));
+            MenuOption[,] commanderOptions = new MenuOption[1, unitOptions.Length];
+
+            for (int i = 0; i < unitOptions.Length; i++)
+            {
+                commanderOptions[0, i] = unitOptions[i];
+            }
+
+            CommanderSelect = new TwoDimensionalMenu(commanderOptions, CommanderCursor,
+                TeamUtility.DetermineTeamColor(team), TwoDimensionalMenu.CursorType.Pointer);
         }
 
         public void HideUnitSelect()

@@ -45,6 +45,8 @@ namespace SolStandard.Containers.Contexts
 
         public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn)
         {
+            NameGenerator.ClearNameHistory();
+
             currentPhase = DraftPhase.UnitSelect;
             unitsSelected = 0;
             maxUnitsPerTeam = maxUnits;
@@ -66,10 +68,10 @@ namespace SolStandard.Containers.Contexts
             switch (currentPhase)
             {
                 case DraftPhase.UnitSelect:
-                    MoveUnitSelectCursor(direction);
+                    MoveMenuCursor(direction);
                     break;
                 case DraftPhase.CommanderSelect:
-                    MoveCommanderSelectCursor(direction);
+                    MoveMenuCursor(direction);
                     break;
                 case DraftPhase.DraftComplete:
                     break;
@@ -78,47 +80,42 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private void MoveUnitSelectCursor(Direction direction)
+        private void MoveMenuCursor(Direction direction)
         {
             switch (direction)
             {
                 case Direction.None:
                     break;
                 case Direction.Up:
-                    DraftView.UnitSelect.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
                     break;
                 case Direction.Right:
-                    DraftView.UnitSelect.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
                     break;
                 case Direction.Down:
-                    DraftView.UnitSelect.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
                     break;
                 case Direction.Left:
-                    DraftView.UnitSelect.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
         }
 
-        private void MoveCommanderSelectCursor(Direction direction)
+        private TwoDimensionalMenu ActiveMenu
         {
-            switch (direction)
+            get
             {
-                case Direction.None:
-                    break;
-                case Direction.Up:
-                    DraftView.CommanderSelect.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
-                    break;
-                case Direction.Down:
-                    DraftView.CommanderSelect.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
-                    break;
-                case Direction.Right:
-                    break;
-                case Direction.Left:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                switch (currentPhase)
+                {
+                    case DraftPhase.UnitSelect:
+                        return DraftView.UnitSelect;
+                    case DraftPhase.CommanderSelect:
+                        return DraftView.CommanderSelect;
+                    default:
+                        return DraftView.UnitSelect;
+                }
             }
         }
 

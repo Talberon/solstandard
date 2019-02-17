@@ -391,8 +391,7 @@ namespace SolStandard.Entity.Unit
 
         public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
         {
-            //TODO Generate Names
-            string generatedName = string.Empty;
+            string generatedName = NameGenerator.GenerateUnitName(role);
             const string type = "Unit";
 
             UnitEntity entity = GenerateUnitEntity(generatedName, type, role, team, isCommander,
