@@ -18,7 +18,7 @@ namespace SolStandard.Containers.View
 {
     public class DraftView : IUserInterface
     {
-        private static readonly Color DarkBackgroundColor = new Color(100, 100, 100, 225);
+        private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
 
         private const int WindowPadding = 10;
         private const int PortraitSize = 128;
@@ -94,7 +94,7 @@ namespace SolStandard.Containers.View
 
         public void UpdateHelpWindow(string message)
         {
-            HelpText = new Window(new RenderText(AssetManager.HeavyFont, message), Color.Transparent);
+            HelpText = new Window(new RenderText(AssetManager.HeavyFont, message), DarkBackgroundColor);
         }
 
         public void UpdateUnitSelectMenu(Team team, Dictionary<Role, bool> unitsExhausted)

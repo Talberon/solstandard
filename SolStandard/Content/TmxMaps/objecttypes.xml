@@ -54,6 +54,9 @@
   <property name="value" type="int" default="1"/>
  </objecttype>
  <objecttype name="Decoration" color="#ffaaff"/>
+ <objecttype name="Deployment" color="#00ffff">
+  <property name="Team" type="string" default="Blue"/>
+ </objecttype>
  <objecttype name="Door" color="#625232">
   <property name="canMove" type="bool" default="false"/>
   <property name="isBroken" type="bool" default="false"/>
@@ -99,13 +102,16 @@
   <property name="capturableByRed" type="bool" default="false"/>
  </objecttype>
  <objecttype name="SelectMap" color="#fe2973">
+  <property name="draftUnits" type="bool" default="false"/>
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
+  <property name="maxDuplicateUnits" type="int" default="3"/>
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
-  <property name="modeSeize" type="bool" default="true"/>
-  <property name="modeTaxes" type="bool" default="true"/>
+  <property name="modeSeize" type="bool" default="false"/>
+  <property name="modeTaxes" type="bool" default="false"/>
   <property name="turnType" type="string" default="AlternateExhaustingUnits"/>
+  <property name="unitsPerTeam" type="int" default="0"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">

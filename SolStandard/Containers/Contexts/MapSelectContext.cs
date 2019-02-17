@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
+using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -54,9 +55,23 @@ namespace SolStandard.Containers.Contexts
                 if (cursorSlice.TerrainEntity.GetType() == typeof(SelectMapEntity))
                 {
                     SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
-                    GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
-                    AssetManager.MenuConfirmSFX.Play();
-                    PlayMapSong(selectMapEntity);
+
+                    if (selectMapEntity.Draft)
+                    {
+                        AssetManager.MenuConfirmSFX.Play();
+                        GameContext.DraftContext.StartNewDraft(
+                            selectMapEntity.UnitsPerTeam,
+                            selectMapEntity.MaxDuplicateUnits,
+                            (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red
+                        );
+                        GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                    }
+                    else
+                    {
+                        GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
+                        AssetManager.MenuConfirmSFX.Play();
+                        PlayMapSong(selectMapEntity);
+                    }
                 }
             }
         }

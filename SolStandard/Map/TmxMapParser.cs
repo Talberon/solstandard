@@ -443,7 +443,10 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
                                                 Convert.ToInt32(currentProperties["valueTaxes"])
-                                            )
+                                            ),
+                                            Convert.ToBoolean(currentProperties["draftUnits"]),
+                                            Convert.ToInt32(currentProperties["unitsPerTeam"]),
+                                            Convert.ToInt32(currentProperties["maxDuplicateUnits"])
                                         );
                                         break;
                                     case EntityTypes.Seize:
