@@ -19,8 +19,8 @@ namespace SolStandard.Containers.Contexts
         {
             MainMenu,
             NetworkMenu,
-            ModeSelect,
             ArmyDraft,
+            Deployment,
             MapSelect,
             PauseScreen,
             InGame,
@@ -69,7 +69,7 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.ModeSelect:
+                    case GameState.Deployment:
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.ArmyDraft:
                         return MapSelectContext.MapContainer.MapCursor;
@@ -97,7 +97,7 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.ModeSelect:
+                    case GameState.Deployment:
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.ArmyDraft:
                         return MapSelectContext.MapContainer.MapCamera;

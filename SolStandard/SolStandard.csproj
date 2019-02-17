@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
+    <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />

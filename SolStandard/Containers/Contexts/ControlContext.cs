@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.NetworkMenu:
                     NetworkMenuControls(controlMapper);
                     break;
-                case GameContext.GameState.ModeSelect:
+                case GameContext.GameState.Deployment:
                     break;
                 case GameContext.GameState.ArmyDraft:
                     DraftMenuControls(controlMapper);
@@ -191,7 +191,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
                 GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
-                GameContext.DraftContext.StartNewDraft(10, 3, Team.Blue);
+                GameContext.DraftContext.StartNewDraft(6, 3, Team.Blue);
             }
         }
 

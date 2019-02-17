@@ -8,17 +8,28 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.Contexts
 {
     public class DraftContext
     {
+        private enum DraftPhase
+        {
+            UnitSelect,
+            CommanderSelect,
+            DraftComplete
+        }
+
+        private DraftPhase currentPhase;
+
         public DraftView DraftView { get; private set; }
 
         private List<GameUnit> BlueUnits { get; set; }
         private List<GameUnit> RedUnits { get; set; }
 
         private int maxUnitsPerTeam;
+        private int unitsSelected;
         private int maxDuplicateUnitType;
 
         private Team currentTurn;
@@ -31,10 +42,12 @@ namespace SolStandard.Containers.Contexts
             DraftView = draftView;
         }
 
-        public void StartNewDraft(int maxUnitsPerTeam, int maxDuplicateUnitType, Team firstTurn)
+        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn)
         {
-            this.maxUnitsPerTeam = maxUnitsPerTeam;
-            this.maxDuplicateUnitType = maxDuplicateUnitType;
+            currentPhase = DraftPhase.UnitSelect;
+            unitsSelected = 0;
+            maxUnitsPerTeam = maxUnits;
+            maxDuplicateUnitType = maxUnitDuplicates;
             currentTurn = firstTurn;
 
             BlueUnits = new List<GameUnit>();
@@ -48,6 +61,23 @@ namespace SolStandard.Containers.Contexts
         }
 
         public void MoveCursor(Direction direction)
+        {
+            switch (currentPhase)
+            {
+                case DraftPhase.UnitSelect:
+                    MoveUnitSelectCursor(direction);
+                    break;
+                case DraftPhase.CommanderSelect:
+                    MoveCommanderSelectCursor(direction);
+                    break;
+                case DraftPhase.DraftComplete:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void MoveUnitSelectCursor(Direction direction)
         {
             switch (direction)
             {
@@ -70,9 +100,68 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private void MoveCommanderSelectCursor(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.None:
+                    break;
+                case Direction.Up:
+                    DraftView.CommanderSelect.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                    break;
+                case Direction.Down:
+                    DraftView.CommanderSelect.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                    break;
+                case Direction.Right:
+                    break;
+                case Direction.Left:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("direction", direction, null);
+            }
+        }
+
         public void ConfirmSelection()
         {
-            DraftView.UnitSelect.SelectOption();
+            switch (currentPhase)
+            {
+                case DraftPhase.UnitSelect:
+                    DraftView.UnitSelect.SelectOption();
+                    break;
+                case DraftPhase.CommanderSelect:
+                    DraftView.CommanderSelect.SelectOption();
+                    break;
+                case DraftPhase.DraftComplete:
+                    FinishDraftPhase();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void FinishDraftPhase()
+        {
+            AssetManager.MenuConfirmSFX.Play();
+            //TODO Load the selected units and commanders into the Deployment context
+            //TODO Change phase to Deployment (add Deployment phase to GameState)
+        }
+
+        public void SelectCommander(GameUnit unit)
+        {
+            unit.IsCommander = true;
+            DraftView.UpdateCommanderPortrait(unit.Role, unit.Team);
+            PassTurn();
+
+            if (!BothTeamsHaveCommanders)
+            {
+                DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
+            }
+            else
+            {
+                currentPhase = DraftPhase.DraftComplete;
+                DraftView.UpdateHelpWindow("DRAFT COMPLETE." + Environment.NewLine +
+                                           "PRESS " + Input.Confirm.ToString().ToUpper() + " TO CONTINUE.");
+            }
         }
 
         public void AddUnitToList(Role role, Team team)
@@ -97,31 +186,25 @@ namespace SolStandard.Containers.Contexts
                 unitLimit.Add(role, 1);
             }
 
-
             GameUnit generatedUnit = UnitGenerator.GenerateDraftUnit(role, team, false);
-
-            switch (team)
-            {
-                case Team.Blue:
-                    BlueUnits.Add(generatedUnit);
-                    List<IRenderable> blueUnitSprites = BlueUnits.Select(unit => unit.UnitEntity.RenderSprite).ToList();
-                    DraftView.UpdateTeamUnitsWindow(blueUnitSprites, team);
-                    currentTurn = Team.Red;
-                    break;
-                case Team.Red:
-                    RedUnits.Add(generatedUnit);
-                    List<IRenderable> redUnitSprites = RedUnits.Select(unit => unit.UnitEntity.RenderSprite).ToList();
-                    DraftView.UpdateTeamUnitsWindow(redUnitSprites, team);
-                    currentTurn = Team.Blue;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
-            }
+            GetTeamUnits(team).Add(generatedUnit);
+            List<IRenderable> unitSprites = GetTeamUnits(team).Select(unit => unit.UnitEntity.RenderSprite).ToList();
+            DraftView.UpdateTeamUnitsWindow(unitSprites, team);
+            PassTurn();
 
             DraftView.UpdateUnitSelectMenu(
                 currentTurn,
                 GetRolesEnabled(GetUnitLimitForTeam(currentTurn), maxDuplicateUnitType)
             );
+
+            unitsSelected++;
+
+            if (unitsSelected >= maxUnitsPerTeam * 2)
+            {
+                DraftView.HideUnitSelect();
+                DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
+                currentPhase = DraftPhase.CommanderSelect;
+            }
         }
 
         private Dictionary<Role, int> GetUnitLimitForTeam(Team team)
@@ -152,6 +235,43 @@ namespace SolStandard.Containers.Contexts
             }
 
             return enabledRoles;
+        }
+
+        private List<GameUnit> GetTeamUnits(Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    return BlueUnits;
+                case Team.Red:
+                    return RedUnits;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
+        }
+
+        private void PassTurn()
+        {
+            switch (currentTurn)
+            {
+                case Team.Blue:
+                    currentTurn = Team.Red;
+                    break;
+                case Team.Red:
+                    currentTurn = Team.Blue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private bool BothTeamsHaveCommanders
+        {
+            get
+            {
+                return BlueUnits.Count(blueUnit => blueUnit.IsCommander) > 0 &&
+                       RedUnits.Count(redUnit => redUnit.IsCommander) > 0;
+            }
         }
 
         public static List<Role> AvailableRoles

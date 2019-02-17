@@ -1,3 +1,4 @@
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -10,7 +11,8 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         private readonly GameUnit unit;
 
         public SelectCommanderOption(GameUnit unit)
-            : base(new RenderText(AssetManager.WindowFont, unit.Id), TeamUtility.DetermineTeamColor(unit.Team))
+            : base(new RenderText(AssetManager.WindowFont, unit.Role.ToString()),
+                TeamUtility.DetermineTeamColor(unit.Team))
         {
             this.unit = unit;
         }
@@ -18,7 +20,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         public override void Execute()
         {
             AssetManager.MenuConfirmSFX.Play();
-            unit.IsCommander = true;
+            GameContext.DraftContext.SelectCommander(unit);
         }
 
         public override IRenderable Clone()

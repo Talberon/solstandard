@@ -340,7 +340,7 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.NetworkMenu:
                     break;
-                case GameContext.GameState.ModeSelect:
+                case GameContext.GameState.Deployment:
                     break;
                 case GameContext.GameState.ArmyDraft:
                     break;
@@ -401,7 +401,7 @@ namespace SolStandard
                 case GameContext.GameState.NetworkMenu:
                     DrawNetworkMenu();
                     break;
-                case GameContext.GameState.ModeSelect:
+                case GameContext.GameState.Deployment:
                     break;
                 case GameContext.GameState.ArmyDraft:
                     DrawDraftMenu();

@@ -21,6 +21,7 @@ namespace SolStandard.Containers.View
         private static readonly Color DarkBackgroundColor = new Color(100, 100, 100, 225);
 
         private const int WindowPadding = 10;
+        private const int PortraitSize = 128;
 
         private Window BlueTeamUnits { get; set; }
         private Window RedTeamUnits { get; set; }
@@ -44,15 +45,9 @@ namespace SolStandard.Containers.View
         {
             this.background = background;
 
-            const int portraitSize = 128;
-            ITexture2D portraitTexture = UnitGenerator.GetUnitPortrait(Role.Silhouette, Team.Creep);
-            SpriteAtlas silhouette =
-                new SpriteAtlas(portraitTexture, new Vector2(portraitTexture.Width), new Vector2(portraitSize));
+            UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
 
-            BlueTeamCommander = new Window(silhouette, TeamUtility.DetermineTeamColor(Team.Blue));
-            RedTeamCommander = new Window(silhouette, TeamUtility.DetermineTeamColor(Team.Red));
-
-            HelpText = new Window(new RenderText(AssetManager.HeavyFont, "SELECT A UNIT"), Color.Transparent);
+            UpdateHelpWindow("SELECT A UNIT");
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
         }
 
@@ -80,15 +75,44 @@ namespace SolStandard.Containers.View
                 TeamUtility.DetermineTeamColor(team));
         }
 
-        public void ClearCommanderSelect()
+        public void HideUnitSelect()
         {
-            CommanderSelect = null;
+            UnitSelect.IsVisible = false;
+        }
+
+        public void UpdateHelpWindow(string message)
+        {
+            HelpText = new Window(new RenderText(AssetManager.HeavyFont, message), Color.Transparent);
         }
 
         public void UpdateUnitSelectMenu(Team team, Dictionary<Role, bool> unitsExhausted)
         {
             UnitSelect = new TwoDimensionalMenu(GetUnitOptionsForTeam(team, unitsExhausted), DraftCursor,
                 DarkBackgroundColor, TwoDimensionalMenu.CursorType.Frame);
+        }
+
+        public void UpdateCommanderPortrait(Role role, Team team)
+        {
+            ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role, team);
+            SpriteAtlas commanderPortrait =
+                new SpriteAtlas(unitPortrait, new Vector2(unitPortrait.Width, unitPortrait.Height),
+                    new Vector2(PortraitSize));
+
+            switch (team)
+            {
+                case Team.Blue:
+                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(team));
+                    break;
+                case Team.Red:
+                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(team));
+                    break;
+                case Team.Creep:
+                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(Team.Red));
+                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(Team.Blue));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
         }
 
         private static IRenderable DraftCursor
