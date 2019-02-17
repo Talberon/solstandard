@@ -150,6 +150,7 @@
     <Compile Include="Entity\Unit\Actions\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
+    <Compile Include="Entity\Unit\NameGenerator.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />

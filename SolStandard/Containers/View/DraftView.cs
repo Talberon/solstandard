@@ -80,6 +80,11 @@ namespace SolStandard.Containers.View
             UnitSelect.IsVisible = false;
         }
 
+        public void HideCommanderSelect()
+        {
+            CommanderSelect.IsVisible = false;
+        }
+
         public void UpdateHelpWindow(string message)
         {
             HelpText = new Window(new RenderText(AssetManager.HeavyFont, message), Color.Transparent);

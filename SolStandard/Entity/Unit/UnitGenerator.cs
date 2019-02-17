@@ -464,5 +464,6 @@ namespace SolStandard.Entity.Unit
             string unitTeamAndClass = unitTeam + role;
             return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));
         }
+        
     }
 }

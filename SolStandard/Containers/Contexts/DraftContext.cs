@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
@@ -158,6 +159,7 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
+                DraftView.HideCommanderSelect();
                 currentPhase = DraftPhase.DraftComplete;
                 DraftView.UpdateHelpWindow("DRAFT COMPLETE." + Environment.NewLine +
                                            "PRESS " + Input.Confirm.ToString().ToUpper() + " TO CONTINUE.");
@@ -186,10 +188,7 @@ namespace SolStandard.Containers.Contexts
                 unitLimit.Add(role, 1);
             }
 
-            GameUnit generatedUnit = UnitGenerator.GenerateDraftUnit(role, team, false);
-            GetTeamUnits(team).Add(generatedUnit);
-            List<IRenderable> unitSprites = GetTeamUnits(team).Select(unit => unit.UnitEntity.RenderSprite).ToList();
-            DraftView.UpdateTeamUnitsWindow(unitSprites, team);
+            UpdateSelectedUnitWindow(role, team);
             PassTurn();
 
             DraftView.UpdateUnitSelectMenu(
@@ -201,10 +200,29 @@ namespace SolStandard.Containers.Contexts
 
             if (unitsSelected >= maxUnitsPerTeam * 2)
             {
-                DraftView.HideUnitSelect();
-                DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
-                currentPhase = DraftPhase.CommanderSelect;
+                StartCommanderSelectPhase();
             }
+        }
+
+        private void UpdateSelectedUnitWindow(Role role, Team team)
+        {
+            GameUnit generatedUnit = UnitGenerator.GenerateDraftUnit(role, team, false);
+            GetTeamUnits(team).Add(generatedUnit);
+            const int spriteSize = 128;
+            List<IRenderable> unitSprites =
+                GetTeamUnits(team)
+                    .Select(unit => unit.UnitEntity.UnitSpriteSheet.Resize(new Vector2(spriteSize)))
+                    .ToList();
+
+            DraftView.UpdateTeamUnitsWindow(unitSprites, team);
+        }
+
+        private void StartCommanderSelectPhase()
+        {
+            DraftView.HideUnitSelect();
+            DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
+            DraftView.UpdateHelpWindow("SELECT A COMMANDER.");
+            currentPhase = DraftPhase.CommanderSelect;
         }
 
         private Dictionary<Role, int> GetUnitLimitForTeam(Team team)
