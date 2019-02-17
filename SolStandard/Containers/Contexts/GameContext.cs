@@ -46,7 +46,34 @@ namespace SolStandard.Containers.Contexts
         public static DeploymentContext DeploymentContext { get; private set; }
 
         public static GameState CurrentGameState;
-        public static PlayerIndex ActivePlayer { get; set; }
+
+        public static PlayerIndex ActivePlayer
+        {
+            get
+            {
+                switch (CurrentGameState)
+                {
+                    case GameState.MainMenu:
+                        return PlayerIndex.One;
+                    case GameState.NetworkMenu:
+                        return PlayerIndex.One;
+                    case GameState.ArmyDraft:
+                        return GetPlayerForTeam(DraftContext.CurrentTurn);
+                    case GameState.Deployment:
+                        return GetPlayerForTeam(DeploymentContext.CurrentTurn);
+                    case GameState.MapSelect:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.PauseScreen:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.InGame:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.Results:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView, DraftView draftView)
         {
@@ -57,7 +84,6 @@ namespace SolStandard.Containers.Contexts
             DraftContext = new DraftContext(draftView);
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
-            ActivePlayer = PlayerIndex.One;
         }
 
         public static MapCursor MapCursor
@@ -126,8 +152,11 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
+        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn,
+            string mapPath, Scenario scenario)
         {
+            Scenario = scenario;
+            LoadMap(mapPath);
             DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
             CurrentGameState = GameState.Deployment;
         }
@@ -229,6 +258,21 @@ namespace SolStandard.Containers.Contexts
 
             AssetManager.MenuConfirmSFX.Play();
             Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
+        }
+
+        public static PlayerIndex GetPlayerForTeam(Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    return PlayerIndex.One;
+                case Team.Red:
+                    return PlayerIndex.Two;
+                case Team.Creep:
+                    return PlayerIndex.Three;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
         private int unitsSelected;
         private int maxDuplicateUnitType;
 
-        private Team currentTurn;
+        public Team CurrentTurn { get; private set; }
 
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
@@ -59,7 +59,7 @@ namespace SolStandard.Containers.Contexts
             unitsSelected = 0;
             maxUnitsPerTeam = maxUnits;
             maxDuplicateUnitType = maxUnitDuplicates;
-            currentTurn = firstTurn;
+            CurrentTurn = firstTurn;
 
             BlueUnits = new List<GameUnit>();
             RedUnits = new List<GameUnit>();
@@ -148,10 +148,7 @@ namespace SolStandard.Containers.Contexts
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameDriver.NewGame(mapFile, mapScenario);
-            GameContext.StartNewDeployment(BlueUnits, RedUnits, currentTurn);
-            //TODO Load the selected units and commanders into the Deployment context
-            //TODO Change phase to Deployment (add Deployment phase to GameState)
+            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn, mapFile, mapScenario);
         }
 
         public void SelectCommander(GameUnit unit)
@@ -163,7 +160,7 @@ namespace SolStandard.Containers.Contexts
 
             if (!BothTeamsHaveCommanders)
             {
-                DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
+                DraftView.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
             }
             else
             {
@@ -200,8 +197,8 @@ namespace SolStandard.Containers.Contexts
             PassTurn();
 
             DraftView.UpdateUnitSelectMenu(
-                currentTurn,
-                GetRolesEnabled(GetUnitLimitForTeam(currentTurn), maxDuplicateUnitType)
+                CurrentTurn,
+                GetRolesEnabled(GetUnitLimitForTeam(CurrentTurn), maxDuplicateUnitType)
             );
 
             unitsSelected++;
@@ -228,7 +225,7 @@ namespace SolStandard.Containers.Contexts
         private void StartCommanderSelectPhase()
         {
             DraftView.HideUnitSelect();
-            DraftView.UpdateCommanderSelect(GetTeamUnits(currentTurn), currentTurn);
+            DraftView.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
             DraftView.UpdateHelpWindow("SELECT A COMMANDER.");
             currentPhase = DraftPhase.CommanderSelect;
         }
@@ -278,13 +275,13 @@ namespace SolStandard.Containers.Contexts
 
         private void PassTurn()
         {
-            switch (currentTurn)
+            switch (CurrentTurn)
             {
                 case Team.Blue:
-                    currentTurn = Team.Red;
+                    CurrentTurn = Team.Red;
                     break;
                 case Team.Red:
-                    currentTurn = Team.Blue;
+                    CurrentTurn = Team.Blue;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

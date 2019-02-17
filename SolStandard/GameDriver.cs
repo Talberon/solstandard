@@ -252,25 +252,6 @@ namespace SolStandard
                 MusicBox.Pause();
             }
 
-            //Set the controller based on the active team
-            if (GameContext.CurrentGameState >= GameContext.GameState.InGame)
-            {
-                switch (GameContext.InitiativeContext.CurrentActiveTeam)
-                {
-                    case Team.Blue:
-                        GameContext.ActivePlayer = PlayerIndex.One;
-                        break;
-                    case Team.Red:
-                        GameContext.ActivePlayer = PlayerIndex.Two;
-                        break;
-                    case Team.Creep:
-                        GameContext.ActivePlayer = PlayerIndex.Three;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
             if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
                 switch (GameContext.ActivePlayer)
@@ -340,9 +321,10 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.NetworkMenu:
                     break;
-                case GameContext.GameState.Deployment:
-                    break;
                 case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.Deployment:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.MapSelect:
                     GameContext.UpdateCamera();

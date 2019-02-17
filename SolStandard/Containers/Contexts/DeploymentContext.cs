@@ -4,8 +4,10 @@ using System.Linq;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -16,25 +18,21 @@ namespace SolStandard.Containers.Contexts
         private readonly List<GameUnit> redArmy;
         private readonly MapContainer map;
         private GameUnit currentUnit;
-        private Team currentTurn;
+        public Team CurrentTurn { get; private set; }
 
         public DeploymentContext(List<GameUnit> blueArmy, List<GameUnit> redArmy, MapContainer map, Team firstTurn)
         {
             this.blueArmy = blueArmy;
             this.redArmy = redArmy;
             this.map = map;
-            currentTurn = firstTurn;
-            currentUnit = GetArmy(currentTurn).First();
+            CurrentTurn = firstTurn;
+            currentUnit = GetArmy(CurrentTurn).First();
             DeploymentView = new DeploymentView();
-            //TODO Load the map,
-            //TODO select a team to deploy a unit on a deployment tile
-            //TODO alternate until all units are deployed
-            //TODO start the GameMapContext
         }
 
         public void SelectNextUnit()
         {
-            List<GameUnit> activeArmy = GetArmy(currentTurn);
+            List<GameUnit> activeArmy = GetArmy(CurrentTurn);
             int currentUnitIndex = activeArmy.IndexOf(currentUnit);
 
             int nextIndex = (currentUnitIndex + 1 > activeArmy.Count) ? 0 : currentUnitIndex + 1;
@@ -44,7 +42,7 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectPreviousUnit()
         {
-            List<GameUnit> activeArmy = GetArmy(currentTurn);
+            List<GameUnit> activeArmy = GetArmy(CurrentTurn);
             int currentUnitIndex = activeArmy.IndexOf(currentUnit);
 
             int nextIndex = (currentUnitIndex - 1 < 0) ? activeArmy.Count - 1 : currentUnitIndex - 1;
@@ -56,18 +54,27 @@ namespace SolStandard.Containers.Contexts
         {
             if (TargetTileIsValidDeploymentTile)
             {
+                AssetManager.MapUnitCancelSFX.Play();
                 PlaceUnitInTile();
-                currentTurn = OpposingTeam(currentTurn);
+                PassTurn();
             }
             else
             {
+                AssetManager.WarningSFX.Play();
                 map.AddNewToastAtMapCursor("Place a unit at an unoccupied deployment tile for your team!", 50);
             }
         }
 
         private void PlaceUnitInTile()
         {
-            currentUnit.UnitEntity.MapCoordinates = map.MapCursor.MapCoordinates;
+            if (MapContainer.GetMapSliceAtCoordinates(map.MapCursor.MapCoordinates).TerrainEntity is DeployTile)
+            {
+                MapContainer.GameGrid[(int) Layer.Entities]
+                    [(int) map.MapCursor.MapCoordinates.X, (int) map.MapCursor.MapCoordinates.Y] = null;
+
+                currentUnit.UnitEntity.MapCoordinates = map.MapCursor.MapCoordinates;
+            }
+
             GameContext.Units.Add(currentUnit);
             GetArmy(currentUnit.Team).Remove(currentUnit);
         }
@@ -75,6 +82,31 @@ namespace SolStandard.Containers.Contexts
         public void MoveCursorOnMap(Direction direction)
         {
             map.MapCursor.MoveCursorInDirection(direction);
+        }
+
+        private void PassTurn()
+        {
+            CurrentTurn = OpposingTeam(CurrentTurn);
+
+            List<GameUnit> currentArmy = GetArmy(CurrentTurn);
+
+            if (currentArmy.Count == 0)
+            {
+                List<GameUnit> opposingArmy = GetArmy(OpposingTeam(CurrentTurn));
+                if (opposingArmy.Count == 0)
+                {
+                    GameContext.CurrentGameState = GameContext.GameState.InGame;
+                    GameContext.InitiativeContext.StartFirstTurn();
+                }
+                else
+                {
+                    PassTurn();
+                }
+            }
+            else
+            {
+                currentUnit = currentArmy.First();
+            }
         }
 
         private static Team OpposingTeam(Team team)
