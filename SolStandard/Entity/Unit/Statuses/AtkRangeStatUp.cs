@@ -22,13 +22,13 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            int[] atkRange = target.Stats.CurrentAtkRange;
 
             //Add +1 to end of ranges
             for (int range = 1; range <= atkRangeModifier; range++)
             {
-                int extraRange = GameContext.ActiveUnit.Stats.CurrentAtkRange.Max() + range;
-                GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
+                int extraRange = target.Stats.CurrentAtkRange.Max() + range;
+                target.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
