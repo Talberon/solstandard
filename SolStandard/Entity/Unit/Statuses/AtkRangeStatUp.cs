@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void RemoveEffect(GameUnit target)
         {
-            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            int[] atkRange = target.Stats.CurrentAtkRange;
 
             //Remove the last range
             GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
