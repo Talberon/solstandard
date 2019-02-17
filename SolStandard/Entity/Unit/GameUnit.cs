@@ -639,8 +639,6 @@ namespace SolStandard.Entity.Unit
             }
 
             GlobalEventQueue.QueueEvents(statusEffectEvents);
-
-            StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
         public void AddItemToInventory(IItem item)
