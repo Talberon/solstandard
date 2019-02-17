@@ -56,10 +56,10 @@ namespace SolStandard.Containers.View
             switch (team)
             {
                 case Team.Blue:
-                    BlueTeamUnits = BuildUnitListWindow(unitSprites);
+                    BlueTeamUnits = BuildUnitListWindow(unitSprites, team);
                     break;
                 case Team.Red:
-                    RedTeamUnits = BuildUnitListWindow(unitSprites);
+                    RedTeamUnits = BuildUnitListWindow(unitSprites, team);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
@@ -100,7 +100,7 @@ namespace SolStandard.Containers.View
         public void UpdateUnitSelectMenu(Team team, Dictionary<Role, bool> unitsExhausted)
         {
             UnitSelect = new TwoDimensionalMenu(GetUnitOptionsForTeam(team, unitsExhausted), DraftCursor,
-                DarkBackgroundColor, TwoDimensionalMenu.CursorType.Frame);
+                TeamUtility.DetermineTeamColor(team), TwoDimensionalMenu.CursorType.Frame);
         }
 
         public void UpdateCommanderPortrait(Role role, Team team)
@@ -171,7 +171,7 @@ namespace SolStandard.Containers.View
             return options;
         }
 
-        private static Window BuildUnitListWindow(IReadOnlyList<IRenderable> unitSprites)
+        private static Window BuildUnitListWindow(IReadOnlyList<IRenderable> unitSprites, Team team)
         {
             const int unitsPerRow = 4;
 
@@ -200,7 +200,7 @@ namespace SolStandard.Containers.View
 
             WindowContentGrid unitGrid = new WindowContentGrid(unitCells, 1, HorizontalAlignment.Centered);
 
-            return new Window(unitGrid, DarkBackgroundColor, HorizontalAlignment.Centered);
+            return new Window(unitGrid, TeamUtility.DetermineTeamColor(team), HorizontalAlignment.Centered);
         }
 
 

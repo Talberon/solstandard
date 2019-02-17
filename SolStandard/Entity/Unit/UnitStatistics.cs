@@ -39,6 +39,11 @@ namespace SolStandard.Entity.Unit
         };
 
 
+        const int commanderHpBonus = 4;
+        const int commanderAtkBonus = 1;
+        const int commanderRetBonus = 1;
+        const int commanderLuckBonus = 1;
+        const int commanderMvBonus = 0;
         private const int IconSizePixels = 16;
 
         public int MaxHP { get; private set; }
@@ -143,11 +148,37 @@ namespace SolStandard.Entity.Unit
             get { return BaseMv + MvModifier; }
         }
 
+        public UnitStatistics ApplyCommanderBonuses()
+        {
+            return new UnitStatistics(
+                hp: MaxHP + commanderHpBonus,
+                armor: MaxArmor,
+                atk: Atk + commanderAtkBonus,
+                ret: Ret + commanderRetBonus,
+                luck: Luck + commanderLuckBonus,
+                mv: Mv + commanderMvBonus,
+                atkRange: BaseAtkRange
+            );
+        }
+
+        public UnitStatistics RemoveCommanderBonuses()
+        {
+            return new UnitStatistics(
+                hp: MaxHP - commanderHpBonus,
+                armor: MaxArmor,
+                atk: Atk - commanderAtkBonus,
+                ret: Ret - commanderRetBonus,
+                luck: Luck - commanderLuckBonus,
+                mv: Mv - commanderMvBonus,
+                atkRange: BaseAtkRange
+            );
+        }
+
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
             return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
         }
-        
+
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
             ITexture2D statsTexture;

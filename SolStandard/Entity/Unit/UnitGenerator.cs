@@ -83,39 +83,39 @@ namespace SolStandard.Entity.Unit
             switch (unitJobClass)
             {
                 case Role.Archer:
-                    unitStats = SelectArcherStats(isCommander);
+                    unitStats = SelectArcherStats();
                     unitSkills = SelectArcherSkills();
                     break;
                 case Role.Champion:
-                    unitStats = SelectChampionStats(isCommander);
+                    unitStats = SelectChampionStats();
                     unitSkills = SelectChampionSkills();
                     break;
                 case Role.Mage:
-                    unitStats = SelectMageStats(isCommander);
+                    unitStats = SelectMageStats();
                     unitSkills = SelectMageSkills();
                     break;
                 case Role.Lancer:
-                    unitStats = SelectLancerStats(isCommander);
+                    unitStats = SelectLancerStats();
                     unitSkills = SelectLancerSkills();
                     break;
                 case Role.Bard:
-                    unitStats = SelectBardStats(isCommander);
+                    unitStats = SelectBardStats();
                     unitSkills = SelectBardSkills();
                     break;
                 case Role.Slime:
-                    unitStats = SelectSlimeStats(isCommander);
+                    unitStats = SelectSlimeStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Troll:
-                    unitStats = SelectTrollStats(isCommander);
+                    unitStats = SelectTrollStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Orc:
-                    unitStats = SelectOrcStats(isCommander);
+                    unitStats = SelectOrcStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 case Role.Merchant:
-                    unitStats = SelectMerchantStats(isCommander);
+                    unitStats = SelectMerchantStats();
                     unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
                     break;
                 default:
@@ -197,91 +197,57 @@ namespace SolStandard.Entity.Unit
             return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Count > 0;
         }
 
-        private static UnitStatistics ApplyCommanderStats(UnitStatistics unitStatistics, bool isCommander)
+        private static UnitStatistics SelectArcherStats()
         {
-            return isCommander
-                ? new UnitStatistics(
-                    hp: unitStatistics.MaxHP + 4,
-                    armor: unitStatistics.MaxArmor,
-                    atk: unitStatistics.Atk + 1,
-                    ret: unitStatistics.Ret + 1,
-                    luck: unitStatistics.Luck + 1,
-                    mv: unitStatistics.Mv + 0,
-                    atkRange: unitStatistics.BaseAtkRange
-                )
-                : unitStatistics;
+            return new UnitStatistics(hp: 6, armor: 4, atk: 4, ret: 3, luck: 2, mv: 5, atkRange: new[] {2});
         }
 
-        private static UnitStatistics SelectArcherStats(bool isCommander)
+        private static UnitStatistics SelectChampionStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 6, armor: 4, atk: 4, ret: 3, luck: 2, mv: 5, atkRange: new[] {2}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectChampionStats(bool isCommander)
+        private static UnitStatistics SelectMageStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 5, armor: 3, atk: 6, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
         }
 
-        private static UnitStatistics SelectMageStats(bool isCommander)
+        private static UnitStatistics SelectLancerStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 5, armor: 3, atk: 6, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 9, armor: 5, atk: 6, ret: 4, luck: 2, mv: 6, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectLancerStats(bool isCommander)
+        private static UnitStatistics SelectBardStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 9, armor: 5, atk: 6, ret: 4, luck: 2, mv: 6, atkRange: new[] {1}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 8, armor: 3, atk: 4, ret: 4, luck: 2, mv: 5, atkRange: new[] {1, 2});
         }
 
-        private static UnitStatistics SelectBardStats(bool isCommander)
+        private static UnitStatistics SelectSlimeStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 8, armor: 3, atk: 4, ret: 4, luck: 2, mv: 5, atkRange: new[] {1, 2}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectSlimeStats(bool isCommander)
+        private static UnitStatistics SelectTrollStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectTrollStats(bool isCommander)
+        private static UnitStatistics SelectOrcStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectOrcStats(bool isCommander)
+        private static UnitStatistics SelectMerchantStats()
         {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1}),
-                isCommander
-            );
-        }
-
-        private static UnitStatistics SelectMerchantStats(bool isCommander)
-        {
-            return ApplyCommanderStats(
-                new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2}),
-                isCommander
-            );
+            return
+                new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -404,23 +370,23 @@ namespace SolStandard.Entity.Unit
             switch (role)
             {
                 case Role.Archer:
-                    unitStatistics = SelectArcherStats(isCommander);
+                    unitStatistics = SelectArcherStats();
                     unitActions = SelectArcherSkills();
                     break;
                 case Role.Champion:
-                    unitStatistics = SelectChampionStats(isCommander);
+                    unitStatistics = SelectChampionStats();
                     unitActions = SelectChampionSkills();
                     break;
                 case Role.Mage:
-                    unitStatistics = SelectMageStats(isCommander);
+                    unitStatistics = SelectMageStats();
                     unitActions = SelectMageSkills();
                     break;
                 case Role.Lancer:
-                    unitStatistics = SelectLancerStats(isCommander);
+                    unitStatistics = SelectLancerStats();
                     unitActions = SelectLancerSkills();
                     break;
                 case Role.Bard:
-                    unitStatistics = SelectBardStats(isCommander);
+                    unitStatistics = SelectBardStats();
                     unitActions = SelectBardSkills();
                     break;
                 default:
@@ -463,6 +429,5 @@ namespace SolStandard.Entity.Unit
             string unitTeamAndClass = unitTeam + role;
             return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));
         }
-        
     }
 }

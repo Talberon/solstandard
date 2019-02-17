@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
         public static readonly Color ActivePortraitColor = Color.White;
 
-        private readonly UnitStatistics stats;
+        private UnitStatistics stats;
 
         public bool IsExhausted { get; private set; }
 
@@ -87,7 +87,7 @@ namespace SolStandard.Entity.Unit
             this.role = role;
             this.stats = stats;
             Actions = actions;
-            this.IsCommander = isCommander;
+            IsCommander = isCommander;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -117,6 +117,8 @@ namespace SolStandard.Entity.Unit
 
 
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
+
+            ApplyCommanderBonus();
         }
 
         public UnitEntity UnitEntity
@@ -605,6 +607,11 @@ namespace SolStandard.Entity.Unit
 
             StatusEffects.Add(statusEffect);
             statusEffect.ApplyEffect(this);
+        }
+
+        public void ApplyCommanderBonus()
+        {
+            if (IsCommander) stats = stats.ApplyCommanderBonuses();
         }
 
         private void RemoveDuplicateEffects(StatusEffect statusEffect)
