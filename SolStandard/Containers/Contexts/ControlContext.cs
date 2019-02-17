@@ -1,6 +1,5 @@
 ﻿using System;
 using SolStandard.Containers.View;
-using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -27,7 +26,7 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.Deployment:
                     break;
                 case GameContext.GameState.ArmyDraft:
-                    DraftMenuControls(controlMapper);
+                    DraftMenuControls(controlMapper, networkController);
                     break;
                 case GameContext.GameState.MapSelect:
                     MapSelectControls(controlMapper, networkController);
@@ -48,30 +47,35 @@ namespace SolStandard.Containers.Contexts
             return networkController;
         }
 
-        private static void DraftMenuControls(ControlMapper controlMapper)
+        private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
+                networkController.Press(Input.CursorUp);
                 GameContext.DraftContext.MoveCursor(Direction.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
+                networkController.Press(Input.CursorDown);
                 GameContext.DraftContext.MoveCursor(Direction.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
+                networkController.Press(Input.CursorLeft);
                 GameContext.DraftContext.MoveCursor(Direction.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
+                networkController.Press(Input.CursorRight);
                 GameContext.DraftContext.MoveCursor(Direction.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
+                networkController.Press(Input.Confirm);
                 GameContext.DraftContext.ConfirmSelection();
             }
         }
@@ -184,14 +188,6 @@ namespace SolStandard.Containers.Contexts
             {
                 networkController.Press(Input.Confirm);
                 GameContext.MainMenuView.MainMenu.SelectOption();
-            }
-
-
-            //TODO FIXME REMOVE ME \|/
-            if (controlMapper.Press(Input.Menu, PressType.Single))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
-                GameContext.DraftContext.StartNewDraft(6, 3, Team.Blue);
             }
         }
 
