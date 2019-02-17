@@ -67,6 +67,7 @@ namespace SolStandard.Containers.Contexts
                             selectMapEntity.MapObjectives.Scenario
                         );
                         GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                        PlayMapSong(selectMapEntity);
                     }
                     else
                     {

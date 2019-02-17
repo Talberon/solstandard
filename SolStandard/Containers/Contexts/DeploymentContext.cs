@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Contexts
             this.map = map;
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
-            DeploymentView = new DeploymentView();
+            DeploymentView = new DeploymentView(blueArmy, redArmy);
         }
 
         public void SelectNextUnit()
@@ -77,6 +77,7 @@ namespace SolStandard.Containers.Contexts
 
             GameContext.Units.Add(currentUnit);
             GetArmy(currentUnit.Team).Remove(currentUnit);
+            DeploymentView.UpdateRosterLists(blueArmy, redArmy);
         }
 
         public void MoveCursorOnMap(Direction direction)
@@ -97,6 +98,7 @@ namespace SolStandard.Containers.Contexts
                 {
                     GameContext.CurrentGameState = GameContext.GameState.InGame;
                     GameContext.InitiativeContext.StartFirstTurn();
+                    GameMapContext.UpdateWindowsEachTurn();
                 }
                 else
                 {

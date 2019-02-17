@@ -421,7 +421,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
             GameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -431,7 +431,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
             GameContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -441,7 +441,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
             GameContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -461,7 +461,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
             GameContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -471,7 +471,7 @@ namespace SolStandard
             spriteBatch.Begin(
                 SpriteSortMode
                     .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
             GameContext.DraftContext.DraftView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -480,7 +480,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
 
             GameContext.StatusScreenView.Draw(spriteBatch);
 
@@ -503,7 +503,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
+                null, SamplerState.PointClamp);
             GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -521,7 +521,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, null);
+                null, SamplerState.PointClamp);
 
             if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {

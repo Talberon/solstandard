@@ -377,7 +377,7 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
+        public static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
         {
             const int crownIconSize = 12;
 
