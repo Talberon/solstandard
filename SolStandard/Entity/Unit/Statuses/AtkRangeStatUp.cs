@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Statuses
             int[] atkRange = target.Stats.CurrentAtkRange;
 
             //Remove the last range
-            GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
+            target.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
         }
     }
 }
