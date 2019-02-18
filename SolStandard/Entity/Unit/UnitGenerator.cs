@@ -199,55 +199,47 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 6, luck: 1, mv: 5, atkRange: new[] {2});
+            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 4, luck: 1, mv: 5, atkRange: new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return
-                new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
         {
-            return
-                new UnitStatistics(hp: 6, armor: 4, atk: 6, ret: 3, luck: 1, mv: 5, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 6, armor: 4, atk: 6, ret: 3, luck: 1, mv: 5, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectLancerStats()
         {
-            return
-                new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBardStats()
         {
-            return
-                new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectSlimeStats()
         {
-            return
-                new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
+            return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectTrollStats()
         {
-            return
-                new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectOrcStats()
         {
-            return
-                new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectMerchantStats()
         {
-            return
-                new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2});
         }
 
         private static List<UnitAction> SelectArcherSkills()
