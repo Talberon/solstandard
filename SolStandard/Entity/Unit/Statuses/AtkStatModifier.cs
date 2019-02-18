@@ -12,7 +12,8 @@ namespace SolStandard.Entity.Unit.Statuses
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
             name: UnitStatistics.Abbreviation[Stats.Atk] + ((atkModifier >= 0) ? " Up!" : " Down!"),
             description: ((atkModifier >= 0) ? "In" : "De") + "creased attack power.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false
         )
         {
             this.atkModifier = atkModifier;
@@ -32,12 +33,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                target.UnitEntity,
-                target.Id + " has status " + Name,
-                50
-            );
-            AssetManager.MapUnitCancelSFX.Play();
+            //Do nothing.
         }
 
         public override void RemoveEffect(GameUnit target)

@@ -14,7 +14,8 @@ namespace SolStandard.Entity.Unit.Statuses
             description: "Regenerates all " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " at the end of combat if the target is killed and gains an " +
                          UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false
         )
         {
         }

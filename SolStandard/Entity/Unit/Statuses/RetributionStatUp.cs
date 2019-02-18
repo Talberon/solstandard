@@ -12,7 +12,8 @@ namespace SolStandard.Entity.Unit.Statuses
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Retribution, new Vector2(GameDriver.CellSize)),
             name: UnitStatistics.Abbreviation[Stats.Retribution] + " Up!",
             description: "Increased retribution.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false
         )
         {
             this.retModifier = retModifier;
@@ -28,12 +29,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                target.UnitEntity,
-                target.Id + " has status " + Name,
-                50
-            );
-            AssetManager.MapUnitCancelSFX.Play();
+            //Do nothing
         }
 
         public override void RemoveEffect(GameUnit target)

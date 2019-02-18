@@ -15,7 +15,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Siphon!",
             description: "Recovers " + UnitStatistics.Abbreviation[Stats.Armor] + " for each " + damageThreshold +
                          " damage dealt.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false
         )
         {
             this.damageThreshold = damageThreshold;

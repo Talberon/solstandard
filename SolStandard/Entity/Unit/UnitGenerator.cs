@@ -284,7 +284,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Ignite(2, 3),
+                new Ignite(3, 3),
                 new Inferno(2, 3),
                 new Replace(),
                 new Guard(3),
@@ -299,7 +299,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Execute(3),
-                new PoisonTip(2, 5),
+                new PoisonTip(2, 4),
                 new Charge(3),
                 new Guard(3),
                 new DropGiveGoldAction(),

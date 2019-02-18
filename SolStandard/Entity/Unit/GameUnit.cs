@@ -639,7 +639,8 @@ namespace SolStandard.Entity.Unit
             {
                 statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
                 statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
-                statusEffectEvents.Enqueue(new WaitFramesEvent(100));
+
+                if (effect.HasNotification) statusEffectEvents.Enqueue(new WaitFramesEvent(100));
             }
 
             GlobalEventQueue.QueueEvents(statusEffectEvents);

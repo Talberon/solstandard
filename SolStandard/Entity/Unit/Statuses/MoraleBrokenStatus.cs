@@ -13,7 +13,8 @@ namespace SolStandard.Entity.Unit.Statuses
                 new Vector2(GameDriver.CellSize)),
             name: "Morale Broken!",
             description: "Commander is defeated; statuses reduced.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false
         )
         {
             debuffStats = new UnitStatistics(
@@ -37,12 +38,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                target.UnitEntity,
-                target.Id + " has status " + Name,
-                50
-            );
-            AssetManager.MapUnitCancelSFX.Play();
+            //Do nothing
         }
 
         public override void RemoveEffect(GameUnit target)
