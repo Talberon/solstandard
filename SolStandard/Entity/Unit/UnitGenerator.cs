@@ -199,7 +199,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(hp: 6, armor: 4, atk: 4, ret: 3, luck: 2, mv: 5, atkRange: new[] {2});
+            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 6, luck: 1, mv: 5, atkRange: new[] {2});
         }
 
         private static UnitStatistics SelectChampionStats()
@@ -211,19 +211,19 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectMageStats()
         {
             return
-                new UnitStatistics(hp: 5, armor: 3, atk: 6, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
+                new UnitStatistics(hp: 6, armor: 4, atk: 6, ret: 3, luck: 1, mv: 5, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectLancerStats()
         {
             return
-                new UnitStatistics(hp: 9, armor: 5, atk: 6, ret: 4, luck: 2, mv: 6, atkRange: new[] {1});
+                new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBardStats()
         {
             return
-                new UnitStatistics(hp: 8, armor: 3, atk: 4, ret: 4, luck: 2, mv: 5, atkRange: new[] {1, 2});
+                new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectSlimeStats()

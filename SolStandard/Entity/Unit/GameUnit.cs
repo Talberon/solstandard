@@ -52,11 +52,11 @@ namespace SolStandard.Entity.Unit
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
 
-        private readonly HealthBar hoverWindowHealthBar;
-        private readonly HealthBar combatHealthBar;
-        private readonly MiniHealthBar initiativeHealthBar;
-        private readonly MiniHealthBar resultsHealthBar;
-        private readonly List<IHealthBar> healthbars;
+        private HealthBar hoverWindowHealthBar;
+        private HealthBar combatHealthBar;
+        private MiniHealthBar initiativeHealthBar;
+        private MiniHealthBar resultsHealthBar;
+        private List<IHealthBar> healthbars;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
@@ -96,18 +96,6 @@ namespace SolStandard.Entity.Unit
                 new Vector2(128));
             smallPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
                 new Vector2(64));
-            combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            resultsHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-
-            healthbars = new List<IHealthBar>
-            {
-                initiativeHealthBar,
-                combatHealthBar,
-                hoverWindowHealthBar,
-                resultsHealthBar
-            };
 
             armedUnitAction = actions.Find(skill => skill.GetType() == typeof(BasicAttack));
 
@@ -115,10 +103,10 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
 
             ApplyCommanderBonus();
+            ResetHealthBars();
         }
 
         public UnitEntity UnitEntity
@@ -503,6 +491,22 @@ namespace SolStandard.Entity.Unit
         {
             MapEntity.MapCoordinates = newCoordinates;
             PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
+        }
+
+        private void ResetHealthBars()
+        {
+            combatHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+
+            healthbars = new List<IHealthBar>
+            {
+                initiativeHealthBar,
+                combatHealthBar,
+                hoverWindowHealthBar,
+                resultsHealthBar
+            };
         }
 
         public void DamageUnit()
