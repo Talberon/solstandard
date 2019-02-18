@@ -69,6 +69,12 @@ namespace SolStandard.Containers.Contexts
             DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Blue);
             DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Red);
             DraftView.UpdateUnitSelectMenu(firstTurn, GetRolesEnabled(blueUnitCount, maxDuplicateUnitType));
+
+            DraftView.UpdateHelpWindow(
+                "SELECT A UNIT" + Environment.NewLine +
+                "Max Units: " + maxUnitsPerTeam + Environment.NewLine +
+                "Max Dupes: " + maxUnitDuplicates
+            );
         }
 
         public void MoveCursor(Direction direction)

@@ -2655,14 +2655,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6212"/>
+   <tile gid="6252"/>
    <tile/>
    <tile/>
-   <tile gid="6212"/>
-   <tile gid="5826"/>
-   <tile gid="5827"/>
-   <tile gid="5828"/>
-   <tile gid="6212"/>
+   <tile gid="6252"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6252"/>
    <tile/>
    <tile/>
    <tile gid="6212"/>
@@ -2690,14 +2690,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6252"/>
    <tile/>
    <tile/>
-   <tile gid="6212"/>
-   <tile gid="5906"/>
-   <tile gid="5869"/>
-   <tile gid="5868"/>
-   <tile gid="6212"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="6213"/>
@@ -2728,11 +2728,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6213"/>
-   <tile gid="6174"/>
-   <tile gid="5866"/>
-   <tile gid="5868"/>
-   <tile gid="6212"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6172"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2764,10 +2764,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6212"/>
-   <tile gid="5866"/>
-   <tile gid="5868"/>
-   <tile gid="6212"/>
+   <tile gid="6173"/>
+   <tile gid="6134"/>
+   <tile gid="6134"/>
+   <tile gid="6253"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2800,8 +2800,8 @@
    <tile gid="6134"/>
    <tile gid="6134"/>
    <tile gid="6214"/>
-   <tile gid="5866"/>
-   <tile gid="5868"/>
+   <tile gid="5826"/>
+   <tile gid="5828"/>
    <tile gid="6213"/>
    <tile gid="6134"/>
    <tile gid="6134"/>
@@ -2964,10 +2964,26 @@
   <object id="848" name="Unlocked Door" type="Door" gid="237" x="576" y="544" width="32" height="32"/>
   <object id="849" name="Unlocked Door" type="Door" gid="237" x="352" y="448" width="32" height="32"/>
   <object id="850" name="Unlocked Door" type="Door" gid="237" x="352" y="480" width="32" height="32"/>
-  <object id="851" name="Unlocked Door" type="Door" gid="236" x="448" y="320" width="32" height="32"/>
-  <object id="852" name="Unlocked Door" type="Door" gid="236" x="480" y="320" width="32" height="32"/>
-  <object id="853" name="Unlocked Door" type="Door" gid="236" x="448" y="608" width="32" height="32"/>
-  <object id="854" name="Unlocked Door" type="Door" gid="236" x="480" y="608" width="32" height="32"/>
+  <object id="851" name="Unlocked Door" type="Door" gid="236" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="isOpen" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="852" name="Unlocked Door" type="Door" gid="236" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="isOpen" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="853" name="Unlocked Door" type="Door" gid="236" x="448" y="608" width="32" height="32">
+   <properties>
+    <property name="isOpen" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="854" name="Unlocked Door" type="Door" gid="236" x="480" y="608" width="32" height="32">
+   <properties>
+    <property name="isOpen" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="855" name="Spike Trap" type="Trap" gid="6372" x="672" y="704" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
@@ -4139,42 +4155,42 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6492"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="6492"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="6492"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="6532"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6492"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6492"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

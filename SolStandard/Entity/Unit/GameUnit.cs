@@ -615,7 +615,10 @@ namespace SolStandard.Entity.Unit
 
         public void ApplyCommanderBonus()
         {
-            if (IsCommander) stats = stats.ApplyCommanderBonuses();
+            if (!IsCommander) return;
+            
+            stats = stats.ApplyCommanderBonuses();
+            ResetHealthBars();
         }
 
         private void RemoveDuplicateEffects(StatusEffect statusEffect)

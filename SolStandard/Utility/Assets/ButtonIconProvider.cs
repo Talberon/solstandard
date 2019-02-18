@@ -24,7 +24,7 @@ namespace SolStandard.Utility.Assets
         DpadLeft,
         DpadRight
     }
-    
+
     public static class ButtonIconProvider
     {
         private static Dictionary<ButtonIcon, ITexture2D> _buttonDictionary;
@@ -66,10 +66,10 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.DpadDown, textureDpadDown},
                 {ButtonIcon.DpadLeft, textureDpadLeft},
                 {ButtonIcon.DpadRight, textureDpadRight},
-                {ButtonIcon.Lb, textureRb},
-                {ButtonIcon.Lt, textureRt},
-                {ButtonIcon.Rb, textureLb},
-                {ButtonIcon.Rt, textureLt},
+                {ButtonIcon.Lb, textureLb},
+                {ButtonIcon.Lt, textureLt},
+                {ButtonIcon.Rb, textureRb},
+                {ButtonIcon.Rt, textureRt},
                 {ButtonIcon.LeftStick, textureRightStick},
                 {ButtonIcon.RightStick, textureLeftStick},
                 {ButtonIcon.Windows, textureWindows},

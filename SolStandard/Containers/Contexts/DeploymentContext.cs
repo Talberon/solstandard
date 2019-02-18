@@ -32,6 +32,8 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectNextUnit()
         {
+            AssetManager.MapUnitCancelSFX.Play();
+
             List<GameUnit> activeArmy = GetArmy(CurrentTurn);
             int currentUnitIndex = activeArmy.IndexOf(currentUnit);
 
@@ -43,6 +45,8 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectPreviousUnit()
         {
+            AssetManager.MapUnitCancelSFX.Play();
+
             List<GameUnit> activeArmy = GetArmy(CurrentTurn);
             int currentUnitIndex = activeArmy.IndexOf(currentUnit);
 
