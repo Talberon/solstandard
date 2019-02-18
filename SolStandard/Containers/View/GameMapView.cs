@@ -372,12 +372,13 @@ namespace SolStandard.Containers.View
         {
             for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
-                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight);
+                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight, null);
                 unitListGrid[0, i] = singleUnitContent;
             }
         }
 
-        public static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
+        public static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight,
+            Color? windowColorOverride)
         {
             const int crownIconSize = 12;
 
@@ -401,7 +402,7 @@ namespace SolStandard.Containers.View
 
             IRenderable singleUnitContent = new Window(
                 new WindowContentGrid(unitContent, 3, HorizontalAlignment.Centered),
-                TeamUtility.DetermineTeamColor(unit.Team)
+                windowColorOverride ?? TeamUtility.DetermineTeamColor(unit.Team)
             );
             return singleUnitContent;
         }

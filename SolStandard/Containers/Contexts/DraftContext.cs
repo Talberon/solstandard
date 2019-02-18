@@ -39,8 +39,8 @@ namespace SolStandard.Containers.Contexts
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
 
-        private string mapFile;
-        private Scenario mapScenario;
+        private string mapName;
+        private Scenario scenario;
 
 
         public DraftContext(DraftView draftView)
@@ -52,8 +52,8 @@ namespace SolStandard.Containers.Contexts
             Scenario mapScenario)
         {
             NameGenerator.ClearNameHistory();
-            this.mapFile = mapFile;
-            this.mapScenario = mapScenario;
+            mapName = mapFile;
+            scenario = mapScenario;
 
             currentPhase = DraftPhase.UnitSelect;
             unitsSelected = 0;
@@ -148,7 +148,7 @@ namespace SolStandard.Containers.Contexts
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn, mapFile, mapScenario);
+            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn, mapName, scenario);
         }
 
         public void SelectCommander(GameUnit unit)

@@ -17,28 +17,35 @@ namespace SolStandard.Containers.View
         private Window BlueDeployRoster { get; set; }
         private Window RedDeployRoster { get; set; }
 
-        public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy)
+        public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit)
         {
             visible = true;
 
-            UpdateRosterLists(blueArmy, redArmy);
+            UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
-        public void UpdateRosterLists(List<GameUnit> blueArmy, List<GameUnit> redArmy)
+        public void UpdateRosterLists(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit)
         {
-            //TODO highlight the current unit to be placed
-            BlueDeployRoster = BuildRosterList(blueArmy);
-            RedDeployRoster = BuildRosterList(redArmy);
+            BlueDeployRoster = BuildRosterList(blueArmy, currentUnit);
+            RedDeployRoster = BuildRosterList(redArmy, currentUnit);
         }
 
-        private static Window BuildRosterList(IReadOnlyList<GameUnit> unitList)
+        private static Window BuildRosterList(IReadOnlyList<GameUnit> unitList, GameUnit currentUnit)
         {
             IRenderable[,] units = new IRenderable[1, unitList.Count];
 
             for (int i = 0; i < unitList.Count; i++)
             {
                 const int hpBarHeight = 5;
-                units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight);
+
+                if (unitList[i] == currentUnit)
+                {
+                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, Color.Yellow);
+                }
+                else
+                {
+                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, null);
+                }
             }
 
             if (unitList.Count <= 0) return null;

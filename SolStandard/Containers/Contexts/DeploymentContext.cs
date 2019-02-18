@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Contexts
             this.map = map;
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
-            DeploymentView = new DeploymentView(blueArmy, redArmy);
+            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit);
         }
 
         public void SelectNextUnit()
@@ -35,9 +35,10 @@ namespace SolStandard.Containers.Contexts
             List<GameUnit> activeArmy = GetArmy(CurrentTurn);
             int currentUnitIndex = activeArmy.IndexOf(currentUnit);
 
-            int nextIndex = (currentUnitIndex + 1 > activeArmy.Count) ? 0 : currentUnitIndex + 1;
+            int nextIndex = (currentUnitIndex + 1 > activeArmy.Count - 1) ? 0 : currentUnitIndex + 1;
 
             currentUnit = activeArmy[nextIndex];
+            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void SelectPreviousUnit()
@@ -48,6 +49,7 @@ namespace SolStandard.Containers.Contexts
             int nextIndex = (currentUnitIndex - 1 < 0) ? activeArmy.Count - 1 : currentUnitIndex - 1;
 
             currentUnit = activeArmy[nextIndex];
+            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void TryDeployUnit()
@@ -57,6 +59,7 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MapUnitCancelSFX.Play();
                 PlaceUnitInTile();
                 PassTurn();
+                DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
             }
             else
             {
@@ -77,7 +80,7 @@ namespace SolStandard.Containers.Contexts
 
             GameContext.Units.Add(currentUnit);
             GetArmy(currentUnit.Team).Remove(currentUnit);
-            DeploymentView.UpdateRosterLists(blueArmy, redArmy);
+            DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
         }
 
         public void MoveCursorOnMap(Direction direction)

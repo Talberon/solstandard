@@ -39,11 +39,12 @@ namespace SolStandard.Entity.Unit
         };
 
 
-        const int commanderHpBonus = 4;
-        const int commanderAtkBonus = 1;
-        const int commanderRetBonus = 1;
-        const int commanderLuckBonus = 1;
-        const int commanderMvBonus = 0;
+        private const int CommanderAmrBonus = 1;
+        private const int CommanderHpBonus = 4;
+        private const int CommanderAtkBonus = 0;
+        private const int CommanderRetBonus = 0;
+        private const int CommanderLuckBonus = 0;
+        private const int CommanderMvBonus = 0;
         private const int IconSizePixels = 16;
 
         public int MaxHP { get; private set; }
@@ -151,12 +152,12 @@ namespace SolStandard.Entity.Unit
         public UnitStatistics ApplyCommanderBonuses()
         {
             return new UnitStatistics(
-                hp: MaxHP + commanderHpBonus,
-                armor: MaxArmor,
-                atk: Atk + commanderAtkBonus,
-                ret: Ret + commanderRetBonus,
-                luck: Luck + commanderLuckBonus,
-                mv: Mv + commanderMvBonus,
+                hp: MaxHP + CommanderHpBonus,
+                armor: MaxArmor + CommanderAmrBonus,
+                atk: Atk + CommanderAtkBonus,
+                ret: Ret + CommanderRetBonus,
+                luck: Luck + CommanderLuckBonus,
+                mv: Mv + CommanderMvBonus,
                 atkRange: BaseAtkRange
             );
         }
@@ -164,12 +165,12 @@ namespace SolStandard.Entity.Unit
         public UnitStatistics RemoveCommanderBonuses()
         {
             return new UnitStatistics(
-                hp: MaxHP - commanderHpBonus,
-                armor: MaxArmor,
-                atk: Atk - commanderAtkBonus,
-                ret: Ret - commanderRetBonus,
-                luck: Luck - commanderLuckBonus,
-                mv: Mv - commanderMvBonus,
+                hp: MaxHP - CommanderHpBonus,
+                armor: MaxArmor - CommanderAmrBonus,
+                atk: Atk - CommanderAtkBonus,
+                ret: Ret - CommanderRetBonus,
+                luck: Luck - CommanderLuckBonus,
+                mv: Mv - CommanderMvBonus,
                 atkRange: BaseAtkRange
             );
         }
