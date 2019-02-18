@@ -96,9 +96,9 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.Deployment:
-                        return MapSelectContext.MapContainer.MapCursor;
                     case GameState.ArmyDraft:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.Deployment:
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCursor;

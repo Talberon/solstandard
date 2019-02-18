@@ -1918,7 +1918,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="556" name="Draft Arena" type="SelectMap" gid="289" x="480" y="320" width="32" height="32">
+  <object id="556" name="Draft Arena" type="SelectMap" gid="288" x="480" y="320" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_01_Arena.tmx"/>
@@ -1929,7 +1929,7 @@
     <property name="unitsPerTeam" type="int" value="6"/>
    </properties>
   </object>
-  <object id="557" name="DRAFT Throne Capture Dungeon" type="SelectMap" gid="289" x="160" y="448" width="32" height="32">
+  <object id="557" name="DRAFT Throne Capture Dungeon" type="SelectMap" gid="288" x="160" y="448" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_02_Dungeon.tmx"/>
@@ -1937,7 +1937,6 @@
     <property name="maxDuplicateUnits" type="int" value="3"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="true"/>
-    <property name="modeTaxes" type="bool" value="false"/>
     <property name="unitsPerTeam" type="int" value="8"/>
    </properties>
   </object>

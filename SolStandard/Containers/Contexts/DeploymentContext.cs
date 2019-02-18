@@ -28,6 +28,7 @@ namespace SolStandard.Containers.Contexts
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
             DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit);
+            MoveToNextDeploymentTile();
         }
 
         public void SelectNextUnit()
@@ -64,6 +65,7 @@ namespace SolStandard.Containers.Contexts
                 PlaceUnitInTile();
                 PassTurn();
                 DeploymentView.UpdateRosterLists(blueArmy, redArmy, currentUnit);
+                MoveToNextDeploymentTile();
             }
             else
             {
@@ -91,6 +93,17 @@ namespace SolStandard.Containers.Contexts
         {
             map.MapCursor.MoveCursorInDirection(direction);
         }
+
+        public void MoveToNextDeploymentTile()
+        {
+            List<MapEntity> mapEntities = MapContainer.GetMapEntities();
+            List<MapEntity> deployTiles = mapEntities.Where(tile => tile is DeployTile).ToList();
+            if (deployTiles.Count == 0) return;
+
+            MapEntity nextTile = deployTiles.Cast<DeployTile>().First(tile => tile.DeployTeam == CurrentTurn);
+            map.MapCursor.SnapCursorToCoordinates(nextTile.MapCoordinates);
+        }
+
 
         private void PassTurn()
         {

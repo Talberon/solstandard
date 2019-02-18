@@ -40,9 +40,23 @@ namespace SolStandard.Containers.View
             IRenderable[,] promptTextContent =
             {
                 {
+                    new RenderText(AssetManager.HeaderFont, "Deployment Phase"),
+                    new RenderBlank(),
+                    new RenderBlank(),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
                     new RenderText(windowFont, "Press "),
                     ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " on a deployment tile to deploy a unit."),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderText(windowFont, " to snap to the first deploy tile."),
                     new RenderBlank(),
                     new RenderBlank()
                 },

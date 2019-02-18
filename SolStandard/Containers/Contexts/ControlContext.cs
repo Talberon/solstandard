@@ -91,6 +91,12 @@ namespace SolStandard.Containers.Contexts
                 networkController.Press(Input.Confirm);
                 GameContext.DeploymentContext.TryDeployUnit();
             }
+
+            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            {
+                networkController.Press(Input.SelectNextUnit);
+                GameContext.DeploymentContext.MoveToNextDeploymentTile();
+            }
         }
 
         private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)
