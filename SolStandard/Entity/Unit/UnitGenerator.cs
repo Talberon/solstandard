@@ -37,6 +37,7 @@ namespace SolStandard.Entity.Unit
             {"Mage", Role.Mage},
             {"Lancer", Role.Lancer},
             {"Bard", Role.Bard},
+            {"Pugilist", Role.Pugilist},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
@@ -101,6 +102,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Bard:
                     unitStats = SelectBardStats();
                     unitSkills = SelectBardSkills();
+                    break;
+                case Role.Pugilist:
+                    unitStats = SelectPugilistStats();
+                    unitSkills = SelectPugilistSkills();
                     break;
                 case Role.Slime:
                     unitStats = SelectSlimeStats();
@@ -222,6 +227,11 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, luck: 2, mv: 5, atkRange: new[] {1, 2});
         }
 
+        private static UnitStatistics SelectPugilistStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 4, atk: 7, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
+        }
+
         private static UnitStatistics SelectSlimeStats()
         {
             return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
@@ -313,6 +323,17 @@ namespace SolStandard.Entity.Unit
             };
         }
 
+        private static List<UnitAction> SelectPugilistSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Guard(3),
+                new DropGiveGoldAction(),
+                new Wait()
+            };
+        }
+
         private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
         {
             List<UnitAction> actions = new List<UnitAction>();
@@ -349,6 +370,7 @@ namespace SolStandard.Entity.Unit
 
         public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
         {
+            //FIXME Refactor so that this doesn't duplicate so much of GenerateUnitFromProperties()
             string generatedName = NameGenerator.GenerateUnitName(role);
             const string type = "Unit";
 
@@ -357,8 +379,10 @@ namespace SolStandard.Entity.Unit
 
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
+            
             UnitStatistics unitStatistics;
             List<UnitAction> unitActions;
+            
             switch (role)
             {
                 case Role.Archer:
@@ -380,6 +404,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Bard:
                     unitStatistics = SelectBardStats();
                     unitActions = SelectBardSkills();
+                    break;
+                case Role.Pugilist:
+                    unitStatistics = SelectPugilistStats();
+                    unitActions = SelectPugilistSkills();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);

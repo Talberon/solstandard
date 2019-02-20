@@ -140,13 +140,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueChampion"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueLancer"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePugilist"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedLancer"),
-                
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedPugilist"),
+
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
@@ -172,13 +174,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Lancer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Pugilist"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Lancer"),
-                
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Pugilist"),
+
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
@@ -224,7 +228,8 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
+            Texture2D backgroundTexture =
+                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 

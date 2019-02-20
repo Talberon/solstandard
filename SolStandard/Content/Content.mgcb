@@ -2174,6 +2174,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Mage.png
 
+#begin Graphics/Images/Portraits/Blue/Pugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Pugilist.png
+
 #begin Graphics/Images/Portraits/Creep/Merchant.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2293,6 +2305,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Mage.png
+
+#begin Graphics/Images/Portraits/Red/Pugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Pugilist.png
 
 #begin Graphics/Images/Screens/ButtonMap-PC.png
 /importer:TextureImporter
@@ -2546,6 +2570,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueMonarch.png
 
+#begin Graphics/Map/Units/Blue/BluePugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BluePugilist.png
+
 #begin Graphics/Map/Units/Creep/CreepMerchant.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2665,6 +2701,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedMonarch.png
+
+#begin Graphics/Map/Units/Red/RedPugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedPugilist.png
 
 #begin Graphics/WhitePixel.png
 /importer:TextureImporter
