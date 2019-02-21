@@ -129,6 +129,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
