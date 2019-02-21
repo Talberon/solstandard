@@ -129,6 +129,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />

@@ -25,7 +25,7 @@ namespace SolStandard.Utility.Events
                 effectToRemove.RemoveEffect(targetUnit);
                 targetUnit.StatusEffects.Remove(effectToRemove);
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                    "Cleansed status: " + effectToRemove.Name + "!",
+                    "Removed status: " + effectToRemove.Name,
                     50
                 );
             }
@@ -33,7 +33,7 @@ namespace SolStandard.Utility.Events
             {
                 AssetManager.WarningSFX.Play();
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                    "Unit can't cleanse status it does not have! <" + effectToRemove.Name + ">",
+                    "Can not remove status unit does not have! <" + effectToRemove.Name + ">",
                     50
                 );
             }

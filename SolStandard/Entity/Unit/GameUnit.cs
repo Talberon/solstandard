@@ -510,9 +510,9 @@ namespace SolStandard.Entity.Unit
             };
         }
 
-        public void DamageUnit()
+        public void DamageUnit(bool ignoreArmor = false)
         {
-            if (Stats.CurrentArmor > 0)
+            if (Stats.CurrentArmor > 0 && !ignoreArmor)
             {
                 Stats.CurrentArmor--;
             }
@@ -617,7 +617,7 @@ namespace SolStandard.Entity.Unit
         public void ApplyCommanderBonus()
         {
             if (!IsCommander) return;
-            
+
             stats = stats.ApplyCommanderBonuses();
             ResetHealthBars();
         }

@@ -334,6 +334,7 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Uppercut(),
                 new Meditate(),
+                new PressurePoint(),
                 new DropGiveGoldAction(),
                 new Wait()
             };
