@@ -13,7 +13,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: "Morale Broken!",
             description: "Commander is defeated; statuses reduced.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
             debuffStats = new UnitStatistics(

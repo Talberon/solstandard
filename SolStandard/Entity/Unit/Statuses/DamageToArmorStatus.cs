@@ -16,7 +16,8 @@ namespace SolStandard.Entity.Unit.Statuses
             description: "Recovers " + UnitStatistics.Abbreviation[Stats.Armor] + " for each " + damageThreshold +
                          " damage dealt.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.damageThreshold = damageThreshold;

@@ -9,6 +9,7 @@ using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
+using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -146,6 +147,8 @@ namespace SolStandard.Entity.Unit
                 case Role.Lancer:
                     break;
                 case Role.Bard:
+                    break;
+                case Role.Pugilist:
                     break;
                 case Role.Slime:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
@@ -329,6 +332,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Guard(3),
+                new Meditate(),
                 new DropGiveGoldAction(),
                 new Wait()
             };
@@ -379,10 +383,10 @@ namespace SolStandard.Entity.Unit
 
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
-            
+
             UnitStatistics unitStatistics;
             List<UnitAction> unitActions;
-            
+
             switch (role)
             {
                 case Role.Archer:

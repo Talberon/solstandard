@@ -13,7 +13,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.Retribution] + " Up!",
             description: "Increased retribution.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.retModifier = retModifier;

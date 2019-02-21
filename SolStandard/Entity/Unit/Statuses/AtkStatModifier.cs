@@ -13,7 +13,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.Atk] + ((atkModifier >= 0) ? " Up!" : " Down!"),
             description: ((atkModifier >= 0) ? "In" : "De") + "creased attack power.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: true
         )
         {
             this.atkModifier = atkModifier;

@@ -16,7 +16,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: "[" + damage + "] Damage per Turn",
             description: "Deals damage to the afflicted at the beginning of each turn.",
             turnDuration: turnDuration,
-            hasNotification: true
+            hasNotification: true,
+            canCleanse: true
         )
         {
             this.damage = damage;

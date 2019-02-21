@@ -14,7 +14,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Regen Up!",
             description: "Increased defensive power.",
             turnDuration: turnDuration,
-            hasNotification: true
+            hasNotification: true,
+            canCleanse: false
         )
         {
             this.armorModifier = armorModifier;

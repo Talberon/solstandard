@@ -14,7 +14,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.AtkRange] + " Up!",
             description: "Increased attack range.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.atkRangeModifier = atkRangeModifier;

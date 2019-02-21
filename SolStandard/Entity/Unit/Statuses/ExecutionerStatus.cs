@@ -15,7 +15,8 @@ namespace SolStandard.Entity.Unit.Statuses
                          " at the end of combat if the target is killed and gains an " +
                          UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
         }

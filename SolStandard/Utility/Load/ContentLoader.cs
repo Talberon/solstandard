@@ -328,7 +328,6 @@ namespace SolStandard.Utility.Load
             {
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cover"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Draw"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inspire"),
@@ -345,6 +344,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PoisonTip"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Execute"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Charge"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Meditate"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/PressurePoint"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

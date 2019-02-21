@@ -14,7 +14,8 @@ namespace SolStandard.Entity.Unit.Statuses
             name: UnitStatistics.Abbreviation[Stats.Mv] + " Up!",
             description: "Increased movement distance.",
             turnDuration: turnDuration,
-            hasNotification: false
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.mvModifier = mvModifier;

@@ -468,7 +468,8 @@ namespace SolStandard.Containers.View
                             {
                                 new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "T]"),
                                 effect.StatusIcon,
-                                new RenderText(AssetManager.WindowFont, effect.Name)
+                                new RenderText(AssetManager.WindowFont, effect.Name,
+                                    (effect.CanCleanse) ? Color.AliceBlue : Color.White)
                             }
                         },
                         1

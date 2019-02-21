@@ -9,14 +9,17 @@ namespace SolStandard.Entity.Unit.Statuses
         public string Description { get; protected set; }
         public int TurnDuration { get; private set; }
         public bool HasNotification { get; private set; }
+        public bool CanCleanse { get; private set; }
 
-        protected StatusEffect(IRenderable statusIcon, string name, string description, int turnDuration, bool hasNotification)
+        protected StatusEffect(IRenderable statusIcon, string name, string description, int turnDuration,
+            bool hasNotification, bool canCleanse)
         {
             StatusIcon = statusIcon;
             Name = name;
             Description = description;
             TurnDuration = turnDuration;
             HasNotification = hasNotification;
+            CanCleanse = canCleanse;
         }
 
         public abstract void ApplyEffect(GameUnit target);
