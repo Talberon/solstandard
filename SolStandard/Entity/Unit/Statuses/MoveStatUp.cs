@@ -13,7 +13,9 @@ namespace SolStandard.Entity.Unit.Statuses
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
             name: UnitStatistics.Abbreviation[Stats.Mv] + " Up!",
             description: "Increased movement distance.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.mvModifier = mvModifier;
@@ -34,12 +36,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                target.UnitEntity,
-                target.Id + " has status " + Name,
-                50
-            );
-            AssetManager.MapUnitCancelSFX.Play();
+            //Do nothing
         }
 
         public override void RemoveEffect(GameUnit target)

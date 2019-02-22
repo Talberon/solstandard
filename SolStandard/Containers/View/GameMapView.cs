@@ -372,12 +372,13 @@ namespace SolStandard.Containers.View
         {
             for (int i = 0; i < unitListGrid.GetLength(1); i++)
             {
-                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight);
+                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight, null);
                 unitListGrid[0, i] = singleUnitContent;
             }
         }
 
-        private static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight)
+        public static IRenderable SingleUnitContent(GameUnit unit, int initiativeHealthBarHeight,
+            Color? windowColorOverride)
         {
             const int crownIconSize = 12;
 
@@ -401,7 +402,7 @@ namespace SolStandard.Containers.View
 
             IRenderable singleUnitContent = new Window(
                 new WindowContentGrid(unitContent, 3, HorizontalAlignment.Centered),
-                TeamUtility.DetermineTeamColor(unit.Team)
+                windowColorOverride ?? TeamUtility.DetermineTeamColor(unit.Team)
             );
             return singleUnitContent;
         }
@@ -467,7 +468,8 @@ namespace SolStandard.Containers.View
                             {
                                 new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "T]"),
                                 effect.StatusIcon,
-                                new RenderText(AssetManager.WindowFont, effect.Name)
+                                new RenderText(AssetManager.WindowFont, effect.Name,
+                                    (effect.CanCleanse) ? Color.AliceBlue : Color.White)
                             }
                         },
                         1

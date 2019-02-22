@@ -59,7 +59,8 @@ namespace SolStandard.Map
             {"Blink", EntityTypes.Blink},
             {"HP Potion", EntityTypes.HealthPotion},
             {"BuffItem", EntityTypes.BuffItem},
-            {"Barricade", EntityTypes.Barricade}
+            {"Barricade", EntityTypes.Barricade},
+            {"Deployment", EntityTypes.Deploy}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -161,7 +162,7 @@ namespace SolStandard.Map
             unitLayer = new List<UnitEntity>();
             foreach (UnitEntity unit in ObtainUnitsFromLayer("Units"))
             {
-                unitLayer.Add(unit);
+                if (unit != null) unitLayer.Add(unit);
             }
 
             return unitLayer;
@@ -443,7 +444,10 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
                                                 Convert.ToInt32(currentProperties["valueTaxes"])
-                                            )
+                                            ),
+                                            Convert.ToBoolean(currentProperties["draftUnits"]),
+                                            Convert.ToInt32(currentProperties["unitsPerTeam"]),
+                                            Convert.ToInt32(currentProperties["maxDuplicateUnits"])
                                         );
                                         break;
                                     case EntityTypes.Seize:
@@ -549,6 +553,16 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["HP"])
                                         );
                                         break;
+                                    case EntityTypes.Deploy:
+                                        entityGrid[col, row] = new DeployTile(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["Team"]),
+                                            currentProperties
+                                        );
+                                        break;
                                     default:
                                         entityGrid[col, row] = new TerrainEntity(
                                             currentObject.Name,
@@ -591,24 +605,11 @@ namespace SolStandard.Map
                                 GetDefaultPropertiesAndOverrides(currentObject);
                             Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
                             Role role = ObtainUnitClass(currentProperties["Class"]);
+                            bool isCommander = Convert.ToBoolean(currentProperties["Commander"]);
 
-                            ITexture2D unitSprite = FetchUnitGraphic(unitTeam.ToString(), role.ToString());
-
-                            Vector2 unitScale = new Vector2(unitSprite.Width) / 2.5f;
-                            const int unitAnimationFrames = 4;
-                            const int unitAnimationDelay = 12;
-
-                            UnitSpriteSheet animatedSpriteSheet = new UnitSpriteSheet(
-                                unitSprite,
-                                unitSprite.Width / unitAnimationFrames,
-                                unitScale,
-                                unitAnimationDelay,
-                                false,
-                                Color.White
-                            );
-
-                            unitGrid[col, row] = new UnitEntity(currentObject.Name, currentObject.Type,
-                                animatedSpriteSheet, new Vector2(col, row), currentProperties);
+                            unitGrid[col, row] = UnitGenerator.GenerateUnitEntity(currentObject.Name,
+                                currentObject.Type, role,
+                                unitTeam, isCommander, unitSprites, new Vector2(col, row), currentProperties);
                         }
                     }
                 }
@@ -699,13 +700,6 @@ namespace SolStandard.Map
             );
 
             return tileSprite;
-        }
-
-
-        private ITexture2D FetchUnitGraphic(string unitTeam, string role)
-        {
-            string unitTeamAndClass = unitTeam + role;
-            return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));
         }
     }
 }

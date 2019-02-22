@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -171,13 +170,13 @@ namespace SolStandard.Map.Elements.Cursor
 
         private void UpdateCursorTeam()
         {
-            switch (GameContext.InitiativeContext.CurrentActiveTeam)
+            switch (GameContext.ActivePlayer)
             {
-                case Team.Red:
-                    SpriteAtlas.SetCellIndex((int) CursorColor.Red);
-                    break;
-                case Team.Blue:
+                case PlayerIndex.One:
                     SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
+                    break;
+                case PlayerIndex.Two:
+                    SpriteAtlas.SetCellIndex((int) CursorColor.Red);
                     break;
                 default:
                     SpriteAtlas.SetCellIndex((int) CursorColor.White);

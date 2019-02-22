@@ -135,6 +135,26 @@ namespace SolStandard.Containers
             return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }
 
+        public static List<MapEntity> GetMapEntities()
+        {
+            List<MapEntity> entities = new List<MapEntity>();
+
+            int mapHeight = (int) MapGridSize.Y;
+            int mapWidth = (int) MapGridSize.X;
+
+            for (int row = 0; row < mapHeight; row++)
+            {
+                for (int column = 0; column < mapWidth; column++)
+                {
+                    MapEntity currentTile = GameGrid[(int) Layer.Entities][column, row] as MapEntity;
+
+                    if (currentTile != null) entities.Add(currentTile);
+                }
+            }
+
+            return entities;
+        }
+
         public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
             if (GameMapContext.CoordinatesWithinMapBounds(coordinates))

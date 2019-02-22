@@ -8,7 +8,6 @@ namespace SolStandard.Utility.Assets
     {
         BasicAttack,
         Blink,
-        Cover,
         DoubleTime,
         Draw,
         Inspire,
@@ -24,7 +23,10 @@ namespace SolStandard.Utility.Assets
         Inferno,
         PoisonTip,
         Execute,
-        Charge
+        Charge,
+        Meditate,
+        Uppercut,
+        PressurePoint
     }
 
     public static class SkillIconProvider
@@ -41,7 +43,6 @@ namespace SolStandard.Utility.Assets
         {
             ITexture2D basicAttack = skillIconTextures.Find(texture => texture.Name.EndsWith("BasicAttack"));
             ITexture2D blink = skillIconTextures.Find(texture => texture.Name.EndsWith("Blink"));
-            ITexture2D cover = skillIconTextures.Find(texture => texture.Name.EndsWith("Cover"));
             ITexture2D doubleTime = skillIconTextures.Find(texture => texture.Name.EndsWith("DoubleTime"));
             ITexture2D draw = skillIconTextures.Find(texture => texture.Name.EndsWith("Draw"));
             ITexture2D inspire = skillIconTextures.Find(texture => texture.Name.EndsWith("Inspire"));
@@ -58,12 +59,14 @@ namespace SolStandard.Utility.Assets
             ITexture2D poisonTip = skillIconTextures.Find(texture => texture.Name.EndsWith("PoisonTip"));
             ITexture2D execute = skillIconTextures.Find(texture => texture.Name.EndsWith("Execute"));
             ITexture2D charge = skillIconTextures.Find(texture => texture.Name.EndsWith("Charge"));
+            ITexture2D meditate = skillIconTextures.Find(texture => texture.Name.EndsWith("Meditate"));
+            ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
+            ITexture2D pressurePoint = skillIconTextures.Find(texture => texture.Name.EndsWith("PressurePoint"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
                 {SkillIcon.BasicAttack, basicAttack},
                 {SkillIcon.Blink, blink},
-                {SkillIcon.Cover, cover},
                 {SkillIcon.DoubleTime, doubleTime},
                 {SkillIcon.Draw, draw},
                 {SkillIcon.Inspire, inspire},
@@ -79,7 +82,10 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Inferno, inferno},
                 {SkillIcon.PoisonTip, poisonTip},
                 {SkillIcon.Execute, execute},
-                {SkillIcon.Charge, charge}
+                {SkillIcon.Charge, charge},
+                {SkillIcon.Meditate, meditate},
+                {SkillIcon.Uppercut, uppercut},
+                {SkillIcon.PressurePoint, pressurePoint}
             };
         }
     }

@@ -1,27 +1,23 @@
-﻿using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class DamageToArmorStatus : StatusEffect, ICombatProc
+    public class IgnoreArmorCombatStatus : StatusEffect, ICombatProc
     {
-        private readonly int damageThreshold;
-        private int damageCounter;
+        private bool opponentHasArmor;
 
-        public DamageToArmorStatus(IRenderable icon, int turnDuration, int damageThreshold) : base(
+        public IgnoreArmorCombatStatus(IRenderable icon, int turnDuration) : base(
             statusIcon: icon,
-            name: UnitStatistics.Abbreviation[Stats.Armor] + " Siphon!",
-            description: "Recovers " + UnitStatistics.Abbreviation[Stats.Armor] + " for each " + damageThreshold +
-                         " damage dealt.",
+            name: "Ignore Armor!",
+            description: "Ignores opponent's " + UnitStatistics.Abbreviation[Stats.Armor] +
+                         " when dealing combat damage.",
             turnDuration: turnDuration,
             hasNotification: false,
             canCleanse: false
         )
         {
-            this.damageThreshold = damageThreshold;
-            damageCounter = 0;
         }
 
         public override void ApplyEffect(GameUnit target)
@@ -43,7 +39,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public void OnCombatStart(GameUnit attacker, GameUnit defender)
         {
-            //Do nothing
+            opponentHasArmor = defender.Stats.CurrentArmor > 0;
         }
 
         public void OnBlock(GameUnit damageDealer, GameUnit target)
@@ -53,13 +49,9 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public void OnDamage(GameUnit damageDealer, GameUnit target)
         {
-            damageCounter++;
-
-            if (damageCounter % damageThreshold == 0)
-            {
-                damageDealer.RecoverArmor(1);
-                AssetManager.SkillBuffSFX.Play();
-            }
+            if (!opponentHasArmor) return;
+            target.RecoverArmor(1);
+            target.DamageUnit(ignoreArmor: true);
         }
 
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)

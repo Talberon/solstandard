@@ -24,6 +24,7 @@ namespace SolStandard.Entity.Unit
 {
     public enum Role
     {
+        Silhouette,
         Champion,
         Archer,
         Mage,
@@ -32,7 +33,8 @@ namespace SolStandard.Entity.Unit
         Troll,
         Orc,
         Merchant,
-        Lancer
+        Lancer,
+        Pugilist
     }
 
     public enum Team
@@ -47,23 +49,21 @@ namespace SolStandard.Entity.Unit
         private readonly Team team;
         private readonly Role role;
 
-        private readonly bool isCommander;
-
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
 
-        private readonly HealthBar hoverWindowHealthBar;
-        private readonly HealthBar combatHealthBar;
-        private readonly MiniHealthBar initiativeHealthBar;
-        private readonly MiniHealthBar resultsHealthBar;
-        private readonly List<IHealthBar> healthbars;
+        private HealthBar hoverWindowHealthBar;
+        private HealthBar combatHealthBar;
+        private MiniHealthBar initiativeHealthBar;
+        private MiniHealthBar resultsHealthBar;
+        private List<IHealthBar> healthbars;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
         public static readonly Color ActivePortraitColor = Color.White;
 
-        private readonly UnitStatistics stats;
+        private UnitStatistics stats;
 
         public bool IsExhausted { get; private set; }
 
@@ -73,6 +73,7 @@ namespace SolStandard.Entity.Unit
         private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; private set; }
+        public bool IsCommander { get; set; }
 
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
@@ -87,7 +88,7 @@ namespace SolStandard.Entity.Unit
             this.role = role;
             this.stats = stats;
             Actions = actions;
-            this.isCommander = isCommander;
+            IsCommander = isCommander;
             InventoryActions = new List<UnitAction>();
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -96,18 +97,6 @@ namespace SolStandard.Entity.Unit
                 new Vector2(128));
             smallPortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
                 new Vector2(64));
-            combatHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            initiativeHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-            resultsHealthBar = new MiniHealthBar(this.stats.MaxArmor, this.stats.MaxHP, Vector2.One);
-
-            healthbars = new List<IHealthBar>
-            {
-                initiativeHealthBar,
-                combatHealthBar,
-                hoverWindowHealthBar,
-                resultsHealthBar
-            };
 
             armedUnitAction = actions.Find(skill => skill.GetType() == typeof(BasicAttack));
 
@@ -115,8 +104,10 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
+
+            ApplyCommanderBonus();
+            ResetHealthBars();
         }
 
         public UnitEntity UnitEntity
@@ -139,10 +130,6 @@ namespace SolStandard.Entity.Unit
             get { return role; }
         }
 
-        public bool IsCommander
-        {
-            get { return isCommander; }
-        }
 
         public bool IsActive
         {
@@ -255,7 +242,7 @@ namespace SolStandard.Entity.Unit
                                     new[,]
                                     {
                                         {
-                                            isCommander
+                                            IsCommander
                                                 ? GetCommanderCrown(new Vector2(crownIconSize))
                                                 : new RenderBlank() as IRenderable,
                                             new RenderText(AssetManager.HeaderFont, Id)
@@ -507,9 +494,25 @@ namespace SolStandard.Entity.Unit
             PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
-        public void DamageUnit()
+        private void ResetHealthBars()
         {
-            if (Stats.CurrentArmor > 0)
+            combatHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+
+            healthbars = new List<IHealthBar>
+            {
+                initiativeHealthBar,
+                combatHealthBar,
+                hoverWindowHealthBar,
+                resultsHealthBar
+            };
+        }
+
+        public void DamageUnit(bool ignoreArmor = false)
+        {
+            if (Stats.CurrentArmor > 0 && !ignoreArmor)
             {
                 Stats.CurrentArmor--;
             }
@@ -566,7 +569,6 @@ namespace SolStandard.Entity.Unit
 
         public void DisableExhaustedUnit()
         {
-
             if (UnitEntity == null) return;
             IsExhausted = true;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Exhausted);
@@ -612,6 +614,14 @@ namespace SolStandard.Entity.Unit
             statusEffect.ApplyEffect(this);
         }
 
+        public void ApplyCommanderBonus()
+        {
+            if (!IsCommander) return;
+
+            stats = stats.ApplyCommanderBonuses();
+            ResetHealthBars();
+        }
+
         private void RemoveDuplicateEffects(StatusEffect statusEffect)
         {
             foreach (StatusEffect effect in StatusEffects)
@@ -633,12 +643,11 @@ namespace SolStandard.Entity.Unit
             {
                 statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
                 statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
-                statusEffectEvents.Enqueue(new WaitFramesEvent(100));
+
+                if (effect.HasNotification) statusEffectEvents.Enqueue(new WaitFramesEvent(100));
             }
 
             GlobalEventQueue.QueueEvents(statusEffectEvents);
-
-            StatusEffects.RemoveAll(effect => effect.TurnDuration < 0);
         }
 
         public void AddItemToInventory(IItem item)

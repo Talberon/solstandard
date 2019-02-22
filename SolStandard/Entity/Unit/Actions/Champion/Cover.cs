@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         private readonly int armorPoints;
 
         public Cover(int armorPoints) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cover, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
             name: "Cover",
             description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " for an ally in range.",

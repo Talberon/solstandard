@@ -13,7 +13,9 @@ namespace SolStandard.Entity.Unit.Statuses
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkRangeUp, new Vector2(32)),
             name: UnitStatistics.Abbreviation[Stats.AtkRange] + " Up!",
             description: "Increased attack range.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: false,
+            canCleanse: false
         )
         {
             this.atkRangeModifier = atkRangeModifier;
@@ -22,13 +24,13 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            int[] atkRange = target.Stats.CurrentAtkRange;
 
             //Add +1 to end of ranges
             for (int range = 1; range <= atkRangeModifier; range++)
             {
-                int extraRange = GameContext.ActiveUnit.Stats.CurrentAtkRange.Max() + range;
-                GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
+                int extraRange = target.Stats.CurrentAtkRange.Max() + range;
+                target.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
@@ -40,20 +42,15 @@ namespace SolStandard.Entity.Unit.Statuses
 
         protected override void ExecuteEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                target.UnitEntity,
-                target.Id + " has status " + Name,
-                50
-            );
-            AssetManager.MapUnitCancelSFX.Play();
+            //Do nothing.
         }
 
         public override void RemoveEffect(GameUnit target)
         {
-            int[] atkRange = GameContext.ActiveUnit.Stats.CurrentAtkRange;
+            int[] atkRange = target.Stats.CurrentAtkRange;
 
             //Remove the last range
-            GameContext.ActiveUnit.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
+            target.Stats.CurrentAtkRange = atkRange.Take(atkRange.Length - atkRangeModifier).ToArray();
         }
     }
 }

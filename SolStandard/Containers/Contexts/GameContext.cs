@@ -19,8 +19,8 @@ namespace SolStandard.Containers.Contexts
         {
             MainMenu,
             NetworkMenu,
-            ModeSelect,
             ArmyDraft,
+            Deployment,
             MapSelect,
             PauseScreen,
             InGame,
@@ -42,19 +42,48 @@ namespace SolStandard.Containers.Contexts
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
         public static NetworkMenuView NetworkMenuView { get; private set; }
+        public static DraftContext DraftContext { get; private set; }
+        public static DeploymentContext DeploymentContext { get; private set; }
 
         public static GameState CurrentGameState;
-        public static PlayerIndex ActivePlayer { get; set; }
 
-        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
+        public static PlayerIndex ActivePlayer
+        {
+            get
+            {
+                switch (CurrentGameState)
+                {
+                    case GameState.MainMenu:
+                        return PlayerIndex.One;
+                    case GameState.NetworkMenu:
+                        return PlayerIndex.One;
+                    case GameState.ArmyDraft:
+                        return GetPlayerForTeam(DraftContext.CurrentTurn);
+                    case GameState.Deployment:
+                        return GetPlayerForTeam(DeploymentContext.CurrentTurn);
+                    case GameState.MapSelect:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.PauseScreen:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.InGame:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.Results:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView, DraftView draftView)
         {
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
+            DraftContext = new DraftContext(draftView);
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
-            ActivePlayer = PlayerIndex.One;
         }
 
         public static MapCursor MapCursor
@@ -67,9 +96,9 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.ModeSelect:
-                        return MapSelectContext.MapContainer.MapCursor;
                     case GameState.ArmyDraft:
+                        return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.Deployment:
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCursor;
@@ -95,7 +124,7 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.ModeSelect:
+                    case GameState.Deployment:
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.ArmyDraft:
                         return MapSelectContext.MapContainer.MapCamera;
@@ -123,14 +152,23 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
+        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn,
+            string mapPath, Scenario scenario)
+        {
+            Scenario = scenario;
+            LoadMap(mapPath);
+            DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
+            CurrentGameState = GameState.Deployment;
+        }
+
         public static void StartGame(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
 
             LoadMap(mapPath);
-            
+
             CurrentGameState = GameState.InGame;
-            
+
             foreach (GameUnit unit in Units)
             {
                 unit.DisableExhaustedUnit();
@@ -141,7 +179,6 @@ namespace SolStandard.Containers.Contexts
 
             GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
-
         }
 
         public static void LoadMapSelect()
@@ -201,11 +238,8 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadInitiativeContext(TmxMapParser mapParser, Team firstTeam)
         {
-            List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
-                mapParser.LoadUnits(),
-                mapParser.LoadMapLoot(),
-                AssetManager.SmallPortraitTextures
-            );
+            List<GameUnit> unitsFromMap =
+                UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits(), mapParser.LoadMapLoot());
 
             InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
         }
@@ -220,7 +254,22 @@ namespace SolStandard.Containers.Contexts
             if (!Scenario.GameIsOver) return;
 
             AssetManager.MenuConfirmSFX.Play();
-            Initialize(MainMenuView, NetworkMenuView);
+            Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
+        }
+
+        public static PlayerIndex GetPlayerForTeam(Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    return PlayerIndex.One;
+                case Team.Red:
+                    return PlayerIndex.Two;
+                case Team.Creep:
+                    return PlayerIndex.Three;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
         }
     }
 }

@@ -20,18 +20,28 @@ namespace SolStandard.Entity.Unit
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(170, 170, 170);
         private static readonly Color ExhaustedColor = new Color(70, 60, 60);
-        private readonly bool isCommander;
-        private readonly SpriteAtlas commanderCrown;
+
+        private SpriteAtlas commanderCrown;
+        private bool isCommander;
 
         public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties) : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
+            bool isCommander, Dictionary<string, string> tiledProperties)
+            : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
         {
             ElementColor = ActiveColor;
-            isCommander = Convert.ToBoolean(tiledProperties[UnitGenerator.TmxCommanderTag]);
 
-            if (isCommander)
+            IsCommander = isCommander;
+        }
+
+        public bool IsCommander
+        {
+            private get { return isCommander; }
+            set
             {
-                commanderCrown = GameUnit.GetCommanderCrown(new Vector2(8));
+                isCommander = value;
+
+                const int crownSize = 8;
+                commanderCrown = isCommander ? GameUnit.GetCommanderCrown(new Vector2(crownSize)) : null;
             }
         }
 
@@ -75,7 +85,7 @@ namespace SolStandard.Entity.Unit
 
             Sprite.Draw(spriteBatch, EntityRenderPosition, colorOverride);
 
-            if (isCommander && commanderCrown != null)
+            if (IsCommander && commanderCrown != null)
             {
                 commanderCrown.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
             }

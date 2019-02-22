@@ -15,7 +15,9 @@ namespace SolStandard.Entity.Unit.Statuses
             statusIcon: statusIcon,
             name: "[" + damage + "] Damage per Turn",
             description: "Deals damage to the afflicted at the beginning of each turn.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: true,
+            canCleanse: true
         )
         {
             this.damage = damage;

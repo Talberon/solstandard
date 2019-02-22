@@ -13,7 +13,9 @@ namespace SolStandard.Entity.Unit.Statuses
                 new Vector2(GameDriver.CellSize)),
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Regen Up!",
             description: "Increased defensive power.",
-            turnDuration: turnDuration
+            turnDuration: turnDuration,
+            hasNotification: true,
+            canCleanse: false
         )
         {
             this.armorModifier = armorModifier;

@@ -43,6 +43,11 @@ namespace SolStandard.Utility.Load
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MainMenuText"));
         }
 
+        public static ISpriteFont LoadHeavyFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/HeavyText"));
+        }
+
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
@@ -135,13 +140,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueChampion"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueLancer"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePugilist"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedChampion"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedLancer"),
-                
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedPugilist"),
+
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
@@ -167,17 +174,20 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Lancer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Pugilist"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Lancer"),
-                
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Pugilist"),
+
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -218,7 +228,8 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
-            Texture2D backgroundTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
+            Texture2D backgroundTexture =
+                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
 
             ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
 
@@ -317,7 +328,6 @@ namespace SolStandard.Utility.Load
             {
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cover"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Draw"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Inspire"),
@@ -334,6 +344,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PoisonTip"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Execute"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Charge"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Meditate"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/PressurePoint"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

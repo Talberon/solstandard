@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
+    <Compile Include="Containers\Contexts\DeploymentContext.cs" />
+    <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
@@ -60,6 +62,8 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
+    <Compile Include="Containers\View\DeploymentView.cs" />
+    <Compile Include="Containers\View\DraftView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
     <Compile Include="Containers\View\NetworkMenuView.cs" />
@@ -72,6 +76,7 @@
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
+    <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
@@ -123,6 +128,9 @@
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Bulwark.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
@@ -147,12 +155,14 @@
     <Compile Include="Entity\Unit\Actions\Terrain\Transport.cs" />
     <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
+    <Compile Include="Entity\Unit\NameGenerator.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
@@ -168,6 +178,8 @@
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
+    <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
@@ -254,6 +266,7 @@
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
+    <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
@@ -409,6 +422,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Debug_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_01_Arena.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_02_Dungeon.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Dungeon_01.tmx">

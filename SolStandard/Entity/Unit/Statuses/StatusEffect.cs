@@ -8,13 +8,18 @@ namespace SolStandard.Entity.Unit.Statuses
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public int TurnDuration { get; private set; }
+        public bool HasNotification { get; private set; }
+        public bool CanCleanse { get; private set; }
 
-        protected StatusEffect(IRenderable statusIcon, string name, string description, int turnDuration)
+        protected StatusEffect(IRenderable statusIcon, string name, string description, int turnDuration,
+            bool hasNotification, bool canCleanse)
         {
             StatusIcon = statusIcon;
             Name = name;
             Description = description;
             TurnDuration = turnDuration;
+            HasNotification = hasNotification;
+            CanCleanse = canCleanse;
         }
 
         public abstract void ApplyEffect(GameUnit target);
@@ -23,9 +28,10 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             TurnDuration--;
 
-            if (TurnDuration < 0)
+            if (TurnDuration < 1)
             {
                 RemoveEffect(target);
+                target.StatusEffects.Remove(this);
             }
             else
             {
