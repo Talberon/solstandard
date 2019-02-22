@@ -1790,7 +1790,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/ObjectiveIcons16.png
 
-#begin Graphics/Images/Icons/Skill/Atrophy.png
+#begin Graphics/Images/Icons/Skill/AtkBuff.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1800,7 +1800,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Atrophy.png
+/build:Graphics/Images/Icons/Skill/AtkBuff.png
 
 #begin Graphics/Images/Icons/Skill/Atrophy.png
 /importer:TextureImporter
@@ -1826,18 +1826,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/BasicAttack.png
 
-#begin Graphics/Images/Icons/Skill/BasicAttack.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/BasicAttack.png
-
 #begin Graphics/Images/Icons/Skill/Blink.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1849,30 +1837,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Blink.png
-
-#begin Graphics/Images/Icons/Skill/Blink.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Blink.png
-
-#begin Graphics/Images/Icons/Skill/Bloodthirst.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Bloodthirst.png
 
 #begin Graphics/Images/Icons/Skill/Bloodthirst.png
 /importer:TextureImporter
@@ -1898,18 +1862,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Bulwark.png
 
-#begin Graphics/Images/Icons/Skill/Bulwark.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Bulwark.png
-
 #begin Graphics/Images/Icons/Skill/Charge.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1921,30 +1873,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Charge.png
-
-#begin Graphics/Images/Icons/Skill/Charge.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Charge.png
-
-#begin Graphics/Images/Icons/Skill/DoubleTime.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/DoubleTime.png
 
 #begin Graphics/Images/Icons/Skill/DoubleTime.png
 /importer:TextureImporter
@@ -1970,18 +1898,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Draw.png
 
-#begin Graphics/Images/Icons/Skill/Draw.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Draw.png
-
 #begin Graphics/Images/Icons/Skill/Execute.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1993,30 +1909,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Execute.png
-
-#begin Graphics/Images/Icons/Skill/Execute.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Execute.png
-
-#begin Graphics/Images/Icons/Skill/Harpoon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Harpoon.png
 
 #begin Graphics/Images/Icons/Skill/Harpoon.png
 /importer:TextureImporter
@@ -2042,18 +1934,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Ignite.png
 
-#begin Graphics/Images/Icons/Skill/Ignite.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Ignite.png
-
 #begin Graphics/Images/Icons/Skill/Inferno.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2065,30 +1945,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Inferno.png
-
-#begin Graphics/Images/Icons/Skill/Inferno.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Inferno.png
-
-#begin Graphics/Images/Icons/Skill/Inspire.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Inspire.png
 
 #begin Graphics/Images/Icons/Skill/Inspire.png
 /importer:TextureImporter
@@ -2138,18 +1994,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/PoisonTip.png
 
-#begin Graphics/Images/Icons/Skill/PoisonTip.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/PoisonTip.png
-
 #begin Graphics/Images/Icons/Skill/PressurePoint.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2174,18 +2018,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Shove.png
 
-#begin Graphics/Images/Icons/Skill/Shove.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Shove.png
-
 #begin Graphics/Images/Icons/Skill/Tackle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2197,30 +2029,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Tackle.png
-
-#begin Graphics/Images/Icons/Skill/Tackle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Tackle.png
-
-#begin Graphics/Images/Icons/Skill/Trap.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Trap.png
 
 #begin Graphics/Images/Icons/Skill/Trap.png
 /importer:TextureImporter
@@ -2245,18 +2053,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Uppercut.png
-
-#begin Graphics/Images/Icons/Skill/Wait.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Wait.png
 
 #begin Graphics/Images/Icons/Skill/Wait.png
 /importer:TextureImporter

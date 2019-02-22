@@ -11,16 +11,15 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Bard
 {
-    public class Inspire : UnitAction
+    public class Accelerando : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Inspire(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(GameDriver.CellSize)),
-            name: "Inspire",
-            description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
-                         " by [+" + statModifier + "] for [" + duration + "] turns.",
+        public Accelerando(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(GameDriver.CellSize)),
+            name: "Accelerando",
+            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -38,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new LuckStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

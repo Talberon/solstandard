@@ -254,9 +254,9 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new DoubleTime(2, 1),
-                new Inspire(2, 1),
-                new Bulwark(2, 2),
+                new Crescendo(2, 1),
+                new Accelerando(2, 1),
+                new Capriccio(2, 1),
                 new Guard(3),
                 new DropGiveGoldAction(),
                 new Wait()

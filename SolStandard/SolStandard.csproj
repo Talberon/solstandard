@@ -105,6 +105,7 @@
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
@@ -138,8 +139,8 @@
     <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\DoubleTime.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Inspire.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Accelerando.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Capriccio.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />

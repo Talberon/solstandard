@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -11,15 +11,16 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Bard
 {
-    public class DoubleTime : UnitAction
+    public class Crescendo : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public DoubleTime(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(GameDriver.CellSize)),
-            name: "Double Time",
-            description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
+        public Crescendo(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, new Vector2(GameDriver.CellSize)),
+            name: "Crescendo",
+            description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Atk] +
+                         " by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -37,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkStatModifier(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
