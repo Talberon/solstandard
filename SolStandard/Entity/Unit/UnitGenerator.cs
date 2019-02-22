@@ -240,9 +240,9 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Execute(3),
+                new LeapStrike(3),
                 new PoisonTip(2, 4),
-                new Charge(3),
+                new Execute(3),
                 new Guard(3),
                 new DropGiveGoldAction(),
                 new Wait()

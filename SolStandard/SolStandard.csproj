@@ -122,6 +122,7 @@
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\PoisonTip.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
