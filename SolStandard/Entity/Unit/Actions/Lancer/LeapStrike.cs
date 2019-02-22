@@ -16,7 +16,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private readonly int leapDistance;
 
         public LeapStrike(int leapDistance) : base(
-            //TODO Pick Skill Icon
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, new Vector2(GameDriver.CellSize)),
             name: "Leap Strike",
             description: "Leap towards an enemy to attack them; even across impassible terrain!",
@@ -168,11 +167,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
             return !UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates);
-        }
-
-        private static bool SliceIsAtTargetUnit(MapSlice sliceToCheck, GameUnit targetUnit)
-        {
-            return sliceToCheck.UnitEntity != null && sliceToCheck.UnitEntity == targetUnit.UnitEntity;
         }
 
         private static bool TargetIsNorth(MapSlice targetSlice)

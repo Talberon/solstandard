@@ -89,7 +89,12 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Actions = actions;
             IsCommander = isCommander;
-            InventoryActions = new List<UnitAction>();
+            InventoryActions = new List<UnitAction>
+            {
+                new DropGiveGoldAction(),
+                new Wait()
+            };
+
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
                 new Vector2(256));
