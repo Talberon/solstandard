@@ -105,7 +105,9 @@
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\Immobilize.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
@@ -135,7 +137,6 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />

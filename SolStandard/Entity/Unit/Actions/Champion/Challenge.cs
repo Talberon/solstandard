@@ -9,16 +9,16 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Archer
+namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class Harpoon : UnitAction
+    public class Challenge : UnitAction
     {
         private readonly int skillRange;
 
-        public Harpoon(int skillRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Harpoon, new Vector2(GameDriver.CellSize)),
-            name: "Harpoon",
-            description: "Pull an enemy within range towards you, then attack.",
+        public Challenge(int skillRange) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Challenge, new Vector2(GameDriver.CellSize)),
+            name: "Challenge",
+            description: "Taunt an enemy within range towards you, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )

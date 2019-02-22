@@ -199,7 +199,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Draw(2, 1),
                 new HuntingTrap(5, 1),
-                new Harpoon(2),
+                new Immobilize(1),
                 new Guard(3),
                 new Wait()
             };
@@ -211,9 +211,9 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bloodthirst(2),
+                new Challenge(2),
                 new Tackle(),
                 new Shove(),
-                new Atrophy(2, 2),
                 new Guard(3),
                 new Wait()
             };

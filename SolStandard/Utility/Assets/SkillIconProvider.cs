@@ -27,7 +27,9 @@ namespace SolStandard.Utility.Assets
         Meditate,
         Uppercut,
         PressurePoint,
-        AtkBuff
+        AtkBuff,
+        Challenge,
+        Immobilize
     }
 
     public static class SkillIconProvider
@@ -64,6 +66,8 @@ namespace SolStandard.Utility.Assets
             ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
             ITexture2D pressurePoint = skillIconTextures.Find(texture => texture.Name.EndsWith("PressurePoint"));
             ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
+            ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
+            ITexture2D stunArrow = skillIconTextures.Find(texture => texture.Name.EndsWith("StunArrow"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -88,7 +92,9 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Meditate, meditate},
                 {SkillIcon.Uppercut, uppercut},
                 {SkillIcon.PressurePoint, pressurePoint},
-                {SkillIcon.AtkBuff, atkBuff}
+                {SkillIcon.AtkBuff, atkBuff},
+                {SkillIcon.Challenge, challenge},
+                {SkillIcon.Immobilize, stunArrow}
             };
         }
     }
