@@ -238,11 +238,8 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadInitiativeContext(TmxMapParser mapParser, Team firstTeam)
         {
-            List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(
-                mapParser.LoadUnits(),
-                mapParser.LoadMapLoot(),
-                AssetManager.SmallPortraitTextures
-            );
+            List<GameUnit> unitsFromMap =
+                UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits(), mapParser.LoadMapLoot());
 
             InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
         }

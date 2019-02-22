@@ -51,23 +51,21 @@ namespace SolStandard.Entity.Unit
             {"Wander", Routine.Wander}
         };
 
-        public const string TmxCommanderTag = "Commander";
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot,
-            List<ITexture2D> portraits)
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (UnitEntity unit in units)
             {
                 if (unit == null) continue;
 
                 Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
                 Role role = RoleDictionary[unit.TiledProperties["Class"]];
-                bool commander = Convert.ToBoolean(unit.TiledProperties[TmxCommanderTag]);
+                bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
 
-                GameUnit unitToBuild =
-                    BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, portraits, loot);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -75,81 +73,24 @@ namespace SolStandard.Entity.Unit
         }
 
         private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
-            UnitEntity mapEntity, List<ITexture2D> portraits, List<IItem> loot)
+            UnitEntity mapEntity, List<IItem> loot)
         {
-            ITexture2D portrait = FindSmallPortrait(unitTeam.ToString(), unitJobClass.ToString(), portraits);
-
-            UnitStatistics unitStats;
-            List<UnitAction> unitSkills;
-
-            switch (unitJobClass)
-            {
-                case Role.Archer:
-                    unitStats = SelectArcherStats();
-                    unitSkills = SelectArcherSkills();
-                    break;
-                case Role.Champion:
-                    unitStats = SelectChampionStats();
-                    unitSkills = SelectChampionSkills();
-                    break;
-                case Role.Mage:
-                    unitStats = SelectMageStats();
-                    unitSkills = SelectMageSkills();
-                    break;
-                case Role.Lancer:
-                    unitStats = SelectLancerStats();
-                    unitSkills = SelectLancerSkills();
-                    break;
-                case Role.Bard:
-                    unitStats = SelectBardStats();
-                    unitSkills = SelectBardSkills();
-                    break;
-                case Role.Pugilist:
-                    unitStats = SelectPugilistStats();
-                    unitSkills = SelectPugilistSkills();
-                    break;
-                case Role.Slime:
-                    unitStats = SelectSlimeStats();
-                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
-                    break;
-                case Role.Troll:
-                    unitStats = SelectTrollStats();
-                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
-                    break;
-                case Role.Orc:
-                    unitStats = SelectOrcStats();
-                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
-                    break;
-                case Role.Merchant:
-                    unitStats = SelectMerchantStats();
-                    unitSkills = SelectCreepRoutine(mapEntity.TiledProperties);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("unitJobClass", unitJobClass, null);
-            }
-
-            GameUnit generatedUnit =
-                new GameUnit(id, unitTeam, unitJobClass, mapEntity, unitStats, portrait, unitSkills, isCommander);
+            GameUnit generatedUnit = GenerateUnit(unitJobClass, unitTeam, id, isCommander, mapEntity,
+                mapEntity.TiledProperties);
 
             if (generatedUnit.Team == Team.Creep)
             {
                 PopulateUnitInventoryAndTradeActions(mapEntity, loot, generatedUnit);
+                AssignStartingGold(generatedUnit);
             }
 
+            return generatedUnit;
+        }
+
+        private static void AssignStartingGold(GameUnit generatedUnit)
+        {
             switch (generatedUnit.Role)
             {
-                case Role.Champion:
-                    break;
-                case Role.Archer:
-                    break;
-                case Role.Mage:
-                    break;
-                case Role.Lancer:
-                    break;
-                case Role.Bard:
-                    break;
-                case Role.Pugilist:
-                    break;
                 case Role.Slime:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
@@ -162,11 +103,7 @@ namespace SolStandard.Entity.Unit
                 case Role.Merchant:
                     generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-
-            return generatedUnit;
         }
 
         private static void PopulateUnitInventoryAndTradeActions(MapEntity mapEntity, List<IItem> loot,
@@ -376,13 +313,20 @@ namespace SolStandard.Entity.Unit
 
         public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
         {
-            //FIXME Refactor so that this doesn't duplicate so much of GenerateUnitFromProperties()
-            string generatedName = NameGenerator.GenerateUnitName(role);
+            string unitName = NameGenerator.GenerateUnitName(role);
             const string type = "Unit";
+            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
+            Vector2 mapCoordinates = Vector2.Zero;
 
-            UnitEntity entity = GenerateUnitEntity(generatedName, type, role, team, isCommander,
-                AssetManager.UnitSprites, Vector2.Zero, new Dictionary<string, string>());
+            UnitEntity generatedEntity = GenerateUnitEntity(unitName, type, role, team, isCommander,
+                AssetManager.UnitSprites, mapCoordinates, tiledProperties);
 
+            return GenerateUnit(role, team, unitName, isCommander, generatedEntity, tiledProperties);
+        }
+
+        private static GameUnit GenerateUnit(Role role, Team team, string unitName, bool isCommander, UnitEntity entity,
+            IReadOnlyDictionary<string, string> tiledProperties)
+        {
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
@@ -415,12 +359,28 @@ namespace SolStandard.Entity.Unit
                     unitStatistics = SelectPugilistStats();
                     unitActions = SelectPugilistSkills();
                     break;
+                case Role.Slime:
+                    unitStatistics = SelectSlimeStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Troll:
+                    unitStatistics = SelectTrollStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Orc:
+                    unitStatistics = SelectOrcStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Merchant:
+                    unitStatistics = SelectMerchantStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }
 
             GameUnit unit =
-                new GameUnit(generatedName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+                new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
 
             return unit;
         }
@@ -450,7 +410,7 @@ namespace SolStandard.Entity.Unit
             return unitEntity;
         }
 
-        public static ITexture2D FetchUnitGraphic(string unitTeam, string role, List<ITexture2D> unitSprites)
+        private static ITexture2D FetchUnitGraphic(string unitTeam, string role, List<ITexture2D> unitSprites)
         {
             string unitTeamAndClass = unitTeam + role;
             return unitSprites.Find(texture => texture.Name.Contains(unitTeamAndClass));

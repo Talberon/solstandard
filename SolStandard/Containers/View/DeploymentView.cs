@@ -143,7 +143,6 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //TODO Set positions for windows
             if (BlueDeployRoster != null) BlueDeployRoster.Draw(spriteBatch, BlueDeployRosterPosition);
             if (RedDeployRoster != null) RedDeployRoster.Draw(spriteBatch, RedDeployRosterPosition);
             if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);

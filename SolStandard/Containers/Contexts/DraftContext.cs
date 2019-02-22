@@ -188,13 +188,10 @@ namespace SolStandard.Containers.Contexts
                 if (unitLimit[role] >= maxDuplicateUnitType)
                 {
                     AssetManager.WarningSFX.Play();
-                    //TODO Display a warning that the unit has been selected too many times for that team
                     return;
                 }
-                else
-                {
-                    unitLimit[role]++;
-                }
+
+                unitLimit[role]++;
             }
             else
             {
