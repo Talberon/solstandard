@@ -99,5 +99,36 @@ namespace SolStandard.Entity.Unit.Actions
         {
             return sourceCoordinates.Y < targetCoordinates.Y;
         }
+
+        public static Vector2 DetermineOppositeTileOfUnit(Vector2 actorCoordinates, Vector2 targetCoordinates)
+        {
+            Vector2 oppositeCoordinates = targetCoordinates;
+
+            if (SourceNorthOfTarget(actorCoordinates, targetCoordinates))
+            {
+                //Move South
+                oppositeCoordinates.Y++;
+            }
+
+            if (SourceSouthOfTarget(actorCoordinates, targetCoordinates))
+            {
+                //Move North
+                oppositeCoordinates.Y--;
+            }
+
+            if (SourceEastOfTarget(actorCoordinates, targetCoordinates))
+            {
+                //Move West
+                oppositeCoordinates.X--;
+            }
+
+            if (SourceWestOfTarget(actorCoordinates, targetCoordinates))
+            {
+                //Move East
+                oppositeCoordinates.X++;
+            }
+
+            return oppositeCoordinates;
+        }
     }
 }

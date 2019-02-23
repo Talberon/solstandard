@@ -50,6 +50,8 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Male);
                 case Role.Pugilist:
                     return GenerateName(NameType.Female);
+                case Role.Duelist:
+                    return GenerateName(NameType.Male);
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }

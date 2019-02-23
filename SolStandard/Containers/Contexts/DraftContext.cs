@@ -313,7 +313,8 @@ namespace SolStandard.Containers.Contexts
                     Role.Archer,
                     Role.Mage,
                     Role.Bard,
-                    Role.Pugilist
+                    Role.Pugilist,
+                    Role.Duelist
                 };
             }
         }

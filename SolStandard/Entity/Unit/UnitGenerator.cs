@@ -7,6 +7,7 @@ using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Creeps;
+using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Pugilist;
@@ -39,6 +40,7 @@ namespace SolStandard.Entity.Unit
             {"Lancer", Role.Lancer},
             {"Bard", Role.Bard},
             {"Pugilist", Role.Pugilist},
+            {"Duelist", Role.Duelist},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
@@ -172,6 +174,11 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(hp: 9, armor: 4, atk: 7, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
         }
 
+        private static UnitStatistics SelectDuelistStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
+        }
+
         private static UnitStatistics SelectSlimeStats()
         {
             return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
@@ -271,6 +278,18 @@ namespace SolStandard.Entity.Unit
             };
         }
 
+        private static List<UnitAction> SelectDuelistSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new PhaseStrike(),
+                new Bloodthirst(2),
+                new Guard(3),
+                new Wait()
+            };
+        }
+
         private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
         {
             List<UnitAction> actions = new List<UnitAction>();
@@ -352,6 +371,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Pugilist:
                     unitStatistics = SelectPugilistStats();
                     unitActions = SelectPugilistSkills();
+                    break;
+                case Role.Duelist:
+                    unitStatistics = SelectDuelistStats();
+                    unitActions = SelectDuelistSkills();
                     break;
                 case Role.Slime:
                     unitStatistics = SelectSlimeStats();

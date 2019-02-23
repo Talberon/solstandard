@@ -54,41 +54,10 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
-            Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
+            Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
                    UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates);
-        }
-
-        public static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            Vector2 oppositeCoordinates = targetCoordinates;
-
-            if (SourceNorthOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move South
-                oppositeCoordinates.Y++;
-            }
-
-            if (SourceSouthOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move North
-                oppositeCoordinates.Y--;
-            }
-
-            if (SourceEastOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move West
-                oppositeCoordinates.X--;
-            }
-
-            if (SourceWestOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move East
-                oppositeCoordinates.X++;
-            }
-
-            return oppositeCoordinates;
         }
     }
 }
