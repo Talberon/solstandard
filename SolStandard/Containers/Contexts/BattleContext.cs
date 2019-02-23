@@ -15,6 +15,7 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -153,7 +154,7 @@ namespace SolStandard.Containers.Contexts
                         defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
 
                         AssetManager.MapUnitSelectSFX.Play();
-                        GameContext.GameMapContext.ProceedToNextState();
+                        GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
 
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }

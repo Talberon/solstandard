@@ -7,7 +7,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
      {
          public HuntingTrap(int damage, int maxTriggers) : base(
              skillIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Trap, new Vector2(GameDriver.CellSize)),
-             tileSprite: SkillIconProvider.GetSkillIcon(SkillIcon.Trap, new Vector2(GameDriver.CellSize)),
+             trapSprite: SkillIconProvider.GetSkillIcon(SkillIcon.Trap, new Vector2(GameDriver.CellSize)),
              title: "Hunting Trap",
              damage: damage,
              maxTriggers: maxTriggers

@@ -14,24 +14,25 @@ namespace SolStandard.Entity.Unit.Actions
 {
     public class LayTrap : UnitAction
     {
-        private readonly IRenderable tileSprite;
+        protected readonly IRenderable TrapSprite;
+        protected readonly int Damage;
+        protected readonly int MaxTriggers;
 
-        private readonly int damage;
-        private readonly int maxTriggers;
-
-        protected LayTrap(IRenderable skillIcon, IRenderable tileSprite, string title, int damage,
-            int maxTriggers) : base(
-            icon: skillIcon,
-            name: title,
-            description: "Place a tile that will deal [" + damage + "] damage to enemies that start their turn on it." +
-                         Environment.NewLine + "Max activations: [" + maxTriggers + "]",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
-        )
+        protected LayTrap(IRenderable skillIcon, IRenderable trapSprite, string title, int damage, int maxTriggers,
+            string description = null)
+            : base(
+                icon: skillIcon,
+                name: title,
+                description: description ?? ("Place a tile that will deal [" + damage +
+                                             "] damage to enemies that start their turn on it." + Environment.NewLine +
+                                             "Max activations: [" + maxTriggers + "]"),
+                tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+                range: new[] {1}
+            )
         {
-            this.damage = damage;
-            this.maxTriggers = maxTriggers;
-            this.tileSprite = tileSprite;
+            Damage = damage;
+            MaxTriggers = maxTriggers;
+            TrapSprite = trapSprite;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -40,8 +41,8 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 if (TargetIsNotObstructed(targetSlice))
                 {
-                    TrapEntity trap = new TrapEntity("Trap", tileSprite.Clone(), targetSlice.MapCoordinates, damage,
-                        maxTriggers, true, true);
+                    TrapEntity trap = new TrapEntity("Trap", TrapSprite.Clone(), targetSlice.MapCoordinates, Damage,
+                        MaxTriggers, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -63,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        private static bool TargetIsNotObstructed(MapSlice targetSlice)
+        protected static bool TargetIsNotObstructed(MapSlice targetSlice)
         {
             if (targetSlice.TerrainEntity != null) return false;
             if (targetSlice.CollideTile != null) return false;
@@ -71,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions
             return true;
         }
 
-        private static bool TargetIsInRange(MapSlice targetSlice)
+        protected static bool TargetIsInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null;
         }
