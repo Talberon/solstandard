@@ -198,8 +198,8 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Draw(2, 1),
-                new HuntingTrap(5, 1),
-                new Immobilize(1),
+                new PoisonArrow(2, 4),
+                new HuntingTrap(6, 1),
                 new Guard(3),
                 new Wait()
             };
@@ -225,7 +225,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Ignite(3, 3),
-                new Inferno(2, 3),
+                new Inferno(3, 2),
                 new Replace(),
                 new Guard(3),
                 new Wait()
@@ -238,7 +238,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(3),
-                new PoisonTip(2, 4),
+                new Cripple(1),
                 new Execute(3),
                 new Guard(3),
                 new Wait()

@@ -350,7 +350,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/AtkBuff"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Challenge"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/StunArrow"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/FreezeLance"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

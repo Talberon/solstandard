@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             title: "Inferno",
             damage: damage,
             maxTriggers: maxTriggers,
-            description: "Place up to 4 tiles around you that will deal [" + damage +
+            description: "Place up to 4 traps around you that will deal [" + damage +
                          "] damage to enemies that start their turn on it." + Environment.NewLine +
                          "Max activations: [" + maxTriggers + "]"
         )

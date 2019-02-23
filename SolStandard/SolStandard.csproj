@@ -105,7 +105,7 @@
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\Immobilize.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
@@ -124,8 +124,8 @@
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\Cripple.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\PoisonTip.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />

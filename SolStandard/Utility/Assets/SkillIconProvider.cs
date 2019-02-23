@@ -67,7 +67,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D pressurePoint = skillIconTextures.Find(texture => texture.Name.EndsWith("PressurePoint"));
             ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
             ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
-            ITexture2D stunArrow = skillIconTextures.Find(texture => texture.Name.EndsWith("StunArrow"));
+            ITexture2D freezeLance = skillIconTextures.Find(texture => texture.Name.EndsWith("FreezeLance"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -94,7 +94,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.PressurePoint, pressurePoint},
                 {SkillIcon.AtkBuff, atkBuff},
                 {SkillIcon.Challenge, challenge},
-                {SkillIcon.Immobilize, stunArrow}
+                {SkillIcon.Immobilize, freezeLance}
             };
         }
     }

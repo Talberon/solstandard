@@ -9,19 +9,19 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Archer
+namespace SolStandard.Entity.Unit.Actions.Lancer
 {
-    public class Immobilize : UnitAction
+    public class Cripple : UnitAction
     {
         private readonly int duration;
 
-        public Immobilize(int duration) : base(
+        public Cripple(int duration) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Immobilize, new Vector2(GameDriver.CellSize)),
-            name: "Immobilize",
+            name: "Cripple",
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by its base value for " + duration + " turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {2}
+            range: new[] {1}
         )
         {
             this.duration = duration;
