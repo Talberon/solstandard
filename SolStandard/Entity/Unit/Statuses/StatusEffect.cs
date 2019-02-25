@@ -7,7 +7,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public IRenderable StatusIcon { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
-        public int TurnDuration { get; private set; }
+        public int TurnDuration { get; protected set; }
         public bool HasNotification { get; private set; }
         public bool CanCleanse { get; private set; }
 

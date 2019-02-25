@@ -3,10 +3,10 @@
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
- <tileset firstgid="477" name="units-32" tilewidth="32" tileheight="32" tilecount="18" columns="6">
-  <image source="../Graphics/Map/Tiles/Units3.png" width="192" height="96"/>
+ <tileset firstgid="477" name="units-32" tilewidth="32" tileheight="32" tilecount="21" columns="7">
+  <image source="../Graphics/Map/Tiles/Units3.png" width="224" height="96"/>
  </tileset>
- <tileset firstgid="495" source="overworld-32.tsx"/>
+ <tileset firstgid="498" source="overworld-32.tsx"/>
  <layer id="9" name="Terrain" width="35" height="28">
   <data>
    <tile/>

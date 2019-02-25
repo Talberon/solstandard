@@ -632,13 +632,13 @@ namespace SolStandard.Entity.Unit
         {
             foreach (StatusEffect effect in StatusEffects)
             {
-                if (effect.Name == statusEffect.Name)
+                if (effect.GetType() == statusEffect.GetType())
                 {
                     effect.RemoveEffect(this);
                 }
             }
 
-            StatusEffects.RemoveAll(status => status.Name == statusEffect.Name);
+            StatusEffects.RemoveAll(status => status.GetType() == statusEffect.GetType());
         }
 
         private void UpdateStatusEffects()

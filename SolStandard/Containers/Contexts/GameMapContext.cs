@@ -41,6 +41,7 @@ namespace SolStandard.Containers.Contexts
         public PauseScreenView PauseScreenView { get; private set; }
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
+        public bool CanCancelAction { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -60,6 +61,7 @@ namespace SolStandard.Containers.Contexts
             PauseScreenView = new PauseScreenView();
             TurnCounter = 1;
             RoundCounter = 1;
+            CanCancelAction = true;
         }
 
         public static void UpdateWindowsEachTurn()
@@ -75,7 +77,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.ResolvingTurn)
             {
-                EndTurn();
+                ResetTurnState();
             }
             else
             {
@@ -95,7 +97,7 @@ namespace SolStandard.Containers.Contexts
             UpdateWindowsEachTurn();
             ResetCursorToActiveUnit();
 
-            EndTurn();
+            ResetTurnState();
             UpdateTurnCounters();
 
             if (NotEveryUnitIsDead())
@@ -104,6 +106,49 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
+            StartTurn();
+        }
+
+
+        public static void FinishTurn(bool skipProcs)
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            if (GameContext.GameMapContext.SelectedUnit != null)
+            {
+                GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
+
+                if (!skipProcs)
+                {
+                    IEnumerable<ITurnProc> activeUnitTurnProcs = GameContext.ActiveUnit.StatusEffects
+                        .Where(effect => effect is ITurnProc)
+                        .Cast<ITurnProc>();
+
+                    foreach (ITurnProc turnProc in activeUnitTurnProcs)
+                    {
+                        turnProc.OnTurnEnd();
+                    }
+                }
+            }
+
+            SetPromptWindowText("Confirm End Turn");
+            GameContext.GameMapContext.CurrentTurnState = TurnState.ResolvingTurn;
+        }
+
+        private void StartTurn()
+        {
+            CanCancelAction = true;
+
+            if (GameContext.GameMapContext.SelectedUnit == null) return;
+
+            IEnumerable<ITurnProc> activeUnitTurnProcs = GameContext.ActiveUnit.StatusEffects
+                .Where(effect => effect is ITurnProc)
+                .Cast<ITurnProc>();
+
+            foreach (ITurnProc turnProc in activeUnitTurnProcs)
+            {
+                turnProc.OnTurnStart();
+            }
         }
 
         private static void UpdateUnitMorale(Team team)
@@ -157,7 +202,7 @@ namespace SolStandard.Containers.Contexts
             Trace.WriteLine("Changing state: " + CurrentTurnState);
         }
 
-        public void EndTurn()
+        public void ResetTurnState()
         {
             CurrentTurnState = TurnState.SelectUnit;
             Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
@@ -178,6 +223,11 @@ namespace SolStandard.Containers.Contexts
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
             AssetManager.MapUnitSelectSFX.Play();
 
+            ShowActionMenu();
+        }
+
+        private static void ShowActionMenu()
+        {
             GameMapView.GenerateActionMenus();
             GameMapView.GenerateCurrentMenuDescription();
 
@@ -187,7 +237,7 @@ namespace SolStandard.Containers.Contexts
         public void ResetCursorToNextUnitOnTeam()
         {
             GameContext.InitiativeContext.SelectNextUnitOnActiveTeam();
-            
+
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
@@ -217,30 +267,56 @@ namespace SolStandard.Containers.Contexts
 
         public void CancelActionMenu()
         {
-            if (CurrentTurnState == TurnState.UnitDecidingAction)
+            if (CanCancelAction)
             {
+                if (CurrentTurnState != TurnState.UnitDecidingAction) return;
+
                 MapContainer.ClearDynamicAndPreviewGrids();
                 GameMapView.CloseCombatMenu();
 
                 RevertToPreviousState();
                 CancelMove();
             }
+            else
+            {
+                CancelExtraAction();
+            }
         }
 
-        public void CancelAction()
+        public void CancelTargetAction()
         {
-            GameContext.ActiveUnit.CancelArmedSkill();
-            ResetCursorToActiveUnit();
-            GameMapView.GenerateActionMenus();
-            RevertToPreviousState();
+            if (CanCancelAction)
+            {
+                GameContext.ActiveUnit.CancelArmedSkill();
+                ResetCursorToActiveUnit();
+                GameMapView.GenerateActionMenus();
+                RevertToPreviousState();
+            }
+            else
+            {
+                CancelExtraAction();
+            }
+        }
+
+        private void CancelExtraAction()
+        {
+            if (CurrentTurnState == TurnState.UnitTargeting)
+            {
+                GameContext.GameMapContext.ResetToActionMenu();
+                AssetManager.MapUnitCancelSFX.Play();
+            }
+            else
+            {
+                MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
+                AssetManager.WarningSFX.Play();
+            }
         }
 
         private void StartMoving()
         {
             if (SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " +
-                                SelectedUnit.Role);
+                Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
                 ProceedToNextState();
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
@@ -309,6 +385,16 @@ namespace SolStandard.Containers.Contexts
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
             GameMapView.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
+        }
+
+
+        public void ResetToActionMenu()
+        {
+            AssetManager.SkillBuffSFX.Play();
+            CurrentTurnState = TurnState.UnitDecidingAction;
+            CanCancelAction = false;
+            ShowActionMenu();
+            ConfirmPromptWindow();
         }
 
         private static void ConfirmPromptWindow()

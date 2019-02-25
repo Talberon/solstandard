@@ -286,7 +286,7 @@ namespace SolStandard.Entity.Unit
                 new PhaseStrike(),
                 new Bloodthirst(2),
                 new Guard(3),
-                new Wait()
+                new Focus(3)
             };
         }
 
