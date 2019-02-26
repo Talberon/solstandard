@@ -43,6 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                         GlobalEventQueue.QueueSingleEvent(
                             new CastStatusEffectEvent(targetUnit, new FocusStatus(currentFocus.FocusPoints + 1))
                         );
+                        GlobalEventQueue.QueueSingleEvent(new PlaySoundEffectEvent(AssetManager.SkillBuffSFX));
                         GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                     }
                     else

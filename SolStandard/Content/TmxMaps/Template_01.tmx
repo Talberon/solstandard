@@ -3,10 +3,10 @@
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
- <tileset firstgid="477" name="units-32" tilewidth="32" tileheight="32" tilecount="21" columns="7">
-  <image source="../Graphics/Map/Tiles/Units3.png" width="224" height="96"/>
+ <tileset firstgid="477" name="units-32" tilewidth="32" tileheight="32" tilecount="24" columns="8">
+  <image source="../Graphics/Map/Tiles/Units3.png" width="256" height="96"/>
  </tileset>
- <tileset firstgid="498" source="overworld-32.tsx"/>
+ <tileset firstgid="501" source="overworld-32.tsx"/>
  <layer id="9" name="Terrain" width="35" height="28">
   <data>
    <tile/>
@@ -2963,43 +2963,43 @@
  <objectgroup id="6" name="Loot" opacity="0.75"/>
  <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units">
-  <object id="817" name="Arthur" type="Unit" gid="486" x="32" y="0" width="32" height="32">
+  <object id="817" name="Arthur" type="Unit" gid="487" x="32" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="818" name="Bartholomew" type="Unit" gid="486" x="64" y="0" width="32" height="32">
+  <object id="818" name="Bartholomew" type="Unit" gid="487" x="64" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="819" name="Christopher" type="Unit" gid="488" x="96" y="0" width="32" height="32">
+  <object id="819" name="Christopher" type="Unit" gid="489" x="96" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="820" name="Darian" type="Unit" gid="488" x="128" y="0" width="32" height="32">
+  <object id="820" name="Darian" type="Unit" gid="489" x="128" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="821" name="Falken" type="Unit" gid="484" x="192" y="0" width="32" height="32">
+  <object id="821" name="Falken" type="Unit" gid="485" x="192" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="822" name="Ewark" type="Unit" gid="484" x="160" y="0" width="32" height="32">
+  <object id="822" name="Ewark" type="Unit" gid="485" x="160" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="823" name="Emberion" type="Unit" gid="487" x="0" y="0" width="32" height="32">
+  <object id="823" name="Emberion" type="Unit" gid="488" x="0" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Team" value="Red"/>
@@ -3053,13 +3053,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="832" name="Henry" type="Unit" gid="485" x="256" y="0" width="32" height="32">
+  <object id="832" name="Henry" type="Unit" gid="486" x="256" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="833" name="Gaius" type="Unit" gid="485" x="224" y="0" width="32" height="32">
+  <object id="833" name="Gaius" type="Unit" gid="486" x="224" y="0" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
