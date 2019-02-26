@@ -35,7 +35,8 @@ namespace SolStandard.Entity.Unit
         Merchant,
         Lancer,
         Pugilist,
-        Duelist
+        Duelist,
+        Cleric
     }
 
     public enum Team

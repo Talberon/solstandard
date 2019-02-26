@@ -11,6 +11,7 @@ namespace SolStandard.Utility.Events
             if (GameContext.ActiveUnit.IsAlive)
             {
                 GameContext.GameMapContext.ResetToActionMenu();
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Extra action!", 50);
             }
             else
             {

@@ -142,6 +142,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueLancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePugilist"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueDuelist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCleric"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
@@ -150,6 +151,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedLancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedPugilist"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedDuelist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedCleric"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
@@ -178,6 +180,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Lancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Pugilist"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Duelist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cleric"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Champion"),
@@ -186,6 +189,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Lancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Pugilist"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Duelist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cleric"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),

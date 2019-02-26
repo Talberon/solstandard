@@ -41,6 +41,7 @@ namespace SolStandard.Entity.Unit
             {"Bard", Role.Bard},
             {"Pugilist", Role.Pugilist},
             {"Duelist", Role.Duelist},
+            {"Cleric", Role.Cleric},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
@@ -179,6 +180,11 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
+        private static UnitStatistics SelectClericStats()
+        {
+            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, luck: 4, mv: 6, atkRange: new[] {1, 2});
+        }
+
         private static UnitStatistics SelectSlimeStats()
         {
             return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
@@ -290,6 +296,20 @@ namespace SolStandard.Entity.Unit
             };
         }
 
+        private static List<UnitAction> SelectClericSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Bulwark(3, 1),
+                new Replace(),
+                //TODO Implement a skill that cleanses other unit debuffs
+                new Meditate(),
+                new Guard(3),
+                new Wait()
+            };
+        }
+
         private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
         {
             List<UnitAction> actions = new List<UnitAction>();
@@ -375,6 +395,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Duelist:
                     unitStatistics = SelectDuelistStats();
                     unitActions = SelectDuelistSkills();
+                    break;
+                case Role.Cleric:
+                    unitStatistics = SelectClericStats();
+                    unitActions = SelectClericSkills();
                     break;
                 case Role.Slime:
                     unitStatistics = SelectSlimeStats();
