@@ -9,7 +9,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Bard
+namespace SolStandard.Entity.Unit.Actions.Cleric
 {
     public class Bulwark : UnitAction
     {

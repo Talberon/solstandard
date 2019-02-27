@@ -565,7 +565,6 @@ namespace SolStandard.Entity.Unit
         {
             if (UnitEntity == null) return;
             IsExhausted = false;
-            RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
             UpdateStatusEffects();
