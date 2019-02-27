@@ -338,6 +338,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_0.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_0.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -361,6 +373,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_1.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_1.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_10.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_10.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_10.png
 /importer:TextureImporter
@@ -410,6 +446,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_11.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_11.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_11.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_12.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -433,6 +481,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_12.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_12.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_12.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_2.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_2.png
 /importer:TextureImporter
@@ -482,6 +554,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_3.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_3.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_4.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -505,6 +589,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_4.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_4.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_5.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_5.png
 /importer:TextureImporter
@@ -554,6 +662,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_6.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_6.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_7.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -577,6 +697,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_7.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_7.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_7.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_8.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_8.png
 /importer:TextureImporter
@@ -626,6 +770,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_9.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_9.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_A.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -649,6 +805,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_A.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_A.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_A.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Alt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Alt.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Alt.png
 /importer:TextureImporter
@@ -698,6 +878,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Left.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -721,6 +913,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Left.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Left.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right.png
 /importer:TextureImporter
@@ -770,6 +986,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Up.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Up.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Asterisk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -793,6 +1021,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Asterisk.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Asterisk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Asterisk.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_B.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_B.png
 /importer:TextureImporter
@@ -842,6 +1094,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace_Alt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -865,6 +1129,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace_Alt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Left.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Left.png
 /importer:TextureImporter
@@ -914,6 +1202,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Right.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Right.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_C.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -937,6 +1237,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_C.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_C.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_C.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Caps_Lock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Caps_Lock.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Caps_Lock.png
 /importer:TextureImporter
@@ -986,6 +1310,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Command.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Command.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Command.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Ctrl.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1009,6 +1345,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Ctrl.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Ctrl.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Ctrl.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_D.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_D.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_D.png
 /importer:TextureImporter
@@ -1058,6 +1418,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Del.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Del.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Del.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_E.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1081,6 +1453,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_E.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_E.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_E.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_End.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_End.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_End.png
 /importer:TextureImporter
@@ -1130,6 +1526,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Alt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1153,6 +1561,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Alt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Tall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Tall.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter_Tall.png
 /importer:TextureImporter
@@ -1202,6 +1634,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1225,6 +1669,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F1.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F1.png
 /importer:TextureImporter
@@ -1274,6 +1742,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F10.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F10.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F10.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F11.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1297,6 +1777,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F11.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F11.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F11.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F12.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F12.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F12.png
 /importer:TextureImporter
@@ -1346,6 +1850,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F2.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F2.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1369,6 +1885,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F3.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F3.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F4.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F4.png
 /importer:TextureImporter
@@ -1418,6 +1958,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F5.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F5.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F6.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1441,6 +1993,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F6.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F6.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F7.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F7.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F7.png
 /importer:TextureImporter
@@ -1490,6 +2066,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F8.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F8.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F9.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1513,6 +2101,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F9.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F9.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_G.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_G.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_G.png
 /importer:TextureImporter
@@ -1562,6 +2174,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_H.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_H.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Home.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1585,6 +2209,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Home.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Home.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Home.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_I.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_I.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_I.png
 /importer:TextureImporter
@@ -1634,6 +2282,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Insert.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Insert.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Insert.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_J.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1657,6 +2317,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_J.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_J.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_J.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_K.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_K.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_K.png
 /importer:TextureImporter
@@ -1706,6 +2390,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_L.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_L.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_M.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1729,6 +2425,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_M.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_M.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_M.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Left.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Left.png
 /importer:TextureImporter
@@ -1778,6 +2498,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Right.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mark_Right.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Minus.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1801,6 +2533,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Minus.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Minus.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Minus.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Left.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Left.png
 /importer:TextureImporter
@@ -1850,6 +2606,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Middle.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Middle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Middle.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Right.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1873,6 +2641,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Right.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Right.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Simple.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Simple.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Mouse_Simple.png
 /importer:TextureImporter
@@ -1922,6 +2714,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_N.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_N.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_N.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Num_Lock.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1945,6 +2749,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Num_Lock.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Num_Lock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Num_Lock.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_O.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_O.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_O.png
 /importer:TextureImporter
@@ -1994,6 +2822,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_P.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_P.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_P.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Down.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2017,6 +2857,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Down.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Down.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Up.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Page_Up.png
 /importer:TextureImporter
@@ -2066,6 +2930,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus_Tall.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2089,6 +2965,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus_Tall.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus_Tall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Plus_Tall.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Print_Screen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Print_Screen.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Print_Screen.png
 /importer:TextureImporter
@@ -2138,6 +3038,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Q.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Q.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Q.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Question.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2161,6 +3073,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Question.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Question.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Question.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Quote.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Quote.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Quote.png
 /importer:TextureImporter
@@ -2210,6 +3146,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_R.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_R.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_R.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_S.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2233,6 +3181,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_S.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_S.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_S.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Semicolon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Semicolon.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Semicolon.png
 /importer:TextureImporter
@@ -2282,6 +3254,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift_Alt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2305,6 +3289,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift_Alt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift_Alt.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Slash.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Slash.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Slash.png
 /importer:TextureImporter
@@ -2354,6 +3362,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Space.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Space.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Space.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_T.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2377,6 +3397,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_T.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_T.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_T.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tab.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tab.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tab.png
 /importer:TextureImporter
@@ -2426,6 +3470,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tilda.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tilda.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tilda.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_U.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2449,6 +3505,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_U.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_U.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_U.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_V.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_V.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_V.png
 /importer:TextureImporter
@@ -2498,6 +3578,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_W.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_W.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_W.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Win.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2521,6 +3613,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Win.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Win.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Win.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_X.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_X.png
 
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_X.png
 /importer:TextureImporter
@@ -2570,6 +3686,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Y.png
 
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Y.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Y.png
+
 #begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Z.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2593,6 +3721,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Z.png
+
+#begin Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Z.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Z.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_A.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_A.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_A.png
 /importer:TextureImporter
@@ -2642,6 +3794,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_B.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_B.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2665,6 +3829,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Down.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Down.png
 /importer:TextureImporter
@@ -2714,6 +3902,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Left.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Left.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Right.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2737,6 +3937,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Right.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Right.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Up.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Dpad_Up.png
 /importer:TextureImporter
@@ -2786,6 +4010,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_LB.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_LB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_LB.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2809,6 +4045,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_LT.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_LT.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_LT.png
 /importer:TextureImporter
@@ -2858,6 +4118,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Menu.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Menu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Menu.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_RB.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2881,6 +4153,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_RB.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_RB.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_RB.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick.png
 /importer:TextureImporter
@@ -2930,6 +4226,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_RT.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_RT.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_RT.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_Windows.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2953,6 +4261,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Windows.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Windows.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Windows.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_X.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_X.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_X.png
 /importer:TextureImporter
@@ -3002,6 +4334,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Y.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Y.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Y.png
+
 #begin Graphics/HUD/Cursor/MenuCursorArrow_32.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3025,6 +4369,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Cursor/MenuCursorArrow_32.png
+
+#begin Graphics/HUD/Cursor/MenuCursorArrow_32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Cursor/MenuCursorArrow_32.png
+
+#begin Graphics/HUD/Cursor/MenuCursorArrow_64.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Cursor/MenuCursorArrow_64.png
 
 #begin Graphics/HUD/Cursor/MenuCursorArrow_64.png
 /importer:TextureImporter
@@ -3074,6 +4442,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Window/GreyWindow.png
 
+#begin Graphics/HUD/Window/GreyWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Window/GreyWindow.png
+
+#begin Graphics/HUD/Window/LightWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Window/LightWindow.png
+
 #begin Graphics/HUD/Window/LightWindow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3134,6 +4526,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Dice/AttackDiceAtlas.png
 
+#begin Graphics/Images/Dice/AttackDiceAtlas.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Dice/AttackDiceAtlas.png
+
+#begin Graphics/Images/Icons/Misc/CommanderCrown.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/CommanderCrown.png
+
 #begin Graphics/Images/Icons/Misc/CommanderCrown.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3169,6 +4585,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/CommanderCrown.png
+
+#begin Graphics/Images/Icons/Misc/Fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Fire.png
 
 #begin Graphics/Images/Icons/Misc/Fire.png
 /importer:TextureImporter
@@ -3242,6 +4670,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/gold.png
 
+#begin Graphics/Images/Icons/Misc/gold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/gold.png
+
+#begin Graphics/Images/Icons/Misc/old_spoils.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/old_spoils.png
+
 #begin Graphics/Images/Icons/Misc/old_spoils.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3277,6 +4729,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/old_spoils.png
+
+#begin Graphics/Images/Icons/Misc/spoils.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/spoils.png
 
 #begin Graphics/Images/Icons/Misc/spoils.png
 /importer:TextureImporter
@@ -3350,7 +4814,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/ObjectiveIcons16.png
 
-#begin Graphics/Images/Icons/Skill/AtkBuff.png
+#begin Graphics/Images/Icons/ObjectiveIcons16.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3360,7 +4824,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/AtkBuff.png
+/build:Graphics/Images/Icons/ObjectiveIcons16.png
 
 #begin Graphics/Images/Icons/Skill/AtkBuff.png
 /importer:TextureImporter
@@ -3409,6 +4873,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/AtkBuff.png
+
+#begin Graphics/Images/Icons/Skill/AtkBuff.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/AtkBuff.png
+
+#begin Graphics/Images/Icons/Skill/AtkBuff.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/AtkBuff.png
+
+#begin Graphics/Images/Icons/Skill/Atrophy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Atrophy.png
 
 #begin Graphics/Images/Icons/Skill/Atrophy.png
 /importer:TextureImporter
@@ -3530,7 +5030,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/BasicAttack.png
 
-#begin Graphics/Images/Icons/Skill/Blink.png
+#begin Graphics/Images/Icons/Skill/BasicAttack.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3540,7 +5040,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Blink.png
+/build:Graphics/Images/Icons/Skill/BasicAttack.png
 
 #begin Graphics/Images/Icons/Skill/Blink.png
 /importer:TextureImporter
@@ -3589,6 +5089,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Blink.png
+
+#begin Graphics/Images/Icons/Skill/Blink.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Blink.png
+
+#begin Graphics/Images/Icons/Skill/Blink.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Blink.png
+
+#begin Graphics/Images/Icons/Skill/Bloodthirst.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Bloodthirst.png
 
 #begin Graphics/Images/Icons/Skill/Bloodthirst.png
 /importer:TextureImporter
@@ -3710,6 +5246,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Bulwark.png
 
+#begin Graphics/Images/Icons/Skill/Bulwark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Bulwark.png
+
+#begin Graphics/Images/Icons/Skill/Challenge.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Challenge.png
+
 #begin Graphics/Images/Icons/Skill/Challenge.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3830,6 +5390,42 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Charge.png
 
+#begin Graphics/Images/Icons/Skill/Charge.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Charge.png
+
+#begin Graphics/Images/Icons/Skill/Cleanse.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Cleanse.png
+
+#begin Graphics/Images/Icons/Skill/DoubleTime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/DoubleTime.png
+
 #begin Graphics/Images/Icons/Skill/DoubleTime.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3949,6 +5545,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Draw.png
+
+#begin Graphics/Images/Icons/Skill/Draw.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Draw.png
+
+#begin Graphics/Images/Icons/Skill/Execute.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Execute.png
 
 #begin Graphics/Images/Icons/Skill/Execute.png
 /importer:TextureImporter
@@ -4034,7 +5654,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Focus.png
 
-#begin Graphics/Images/Icons/Skill/FreezeLance.png
+#begin Graphics/Images/Icons/Skill/Focus.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4044,7 +5664,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/FreezeLance.png
+/build:Graphics/Images/Icons/Skill/Focus.png
 
 #begin Graphics/Images/Icons/Skill/FreezeLance.png
 /importer:TextureImporter
@@ -4082,7 +5702,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/FreezeLance.png
 
-#begin Graphics/Images/Icons/Skill/Harpoon.png
+#begin Graphics/Images/Icons/Skill/FreezeLance.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4092,7 +5712,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Harpoon.png
+/build:Graphics/Images/Icons/Skill/FreezeLance.png
+
+#begin Graphics/Images/Icons/Skill/FreezeLance.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/FreezeLance.png
 
 #begin Graphics/Images/Icons/Skill/Harpoon.png
 /importer:TextureImporter
@@ -4141,6 +5773,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Harpoon.png
+
+#begin Graphics/Images/Icons/Skill/Harpoon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Harpoon.png
+
+#begin Graphics/Images/Icons/Skill/Harpoon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Harpoon.png
+
+#begin Graphics/Images/Icons/Skill/Ignite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Ignite.png
 
 #begin Graphics/Images/Icons/Skill/Ignite.png
 /importer:TextureImporter
@@ -4262,6 +5930,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Inferno.png
 
+#begin Graphics/Images/Icons/Skill/Inferno.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Inferno.png
+
+#begin Graphics/Images/Icons/Skill/Inspire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Inspire.png
+
 #begin Graphics/Images/Icons/Skill/Inspire.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4381,6 +6073,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Intervention.png
+
+#begin Graphics/Images/Icons/Skill/Intervention.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Intervention.png
+
+#begin Graphics/Images/Icons/Skill/Meditate.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Meditate.png
 
 #begin Graphics/Images/Icons/Skill/Meditate.png
 /importer:TextureImporter
@@ -4466,7 +6182,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/PhaseStrike.png
 
-#begin Graphics/Images/Icons/Skill/PoisonLance.png
+#begin Graphics/Images/Icons/Skill/PhaseStrike.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4476,7 +6192,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/PoisonLance.png
+/build:Graphics/Images/Icons/Skill/PhaseStrike.png
 
 #begin Graphics/Images/Icons/Skill/PoisonLance.png
 /importer:TextureImporter
@@ -4514,7 +6230,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/PoisonLance.png
 
-#begin Graphics/Images/Icons/Skill/PoisonTip.png
+#begin Graphics/Images/Icons/Skill/PoisonLance.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4524,7 +6240,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/PoisonTip.png
+/build:Graphics/Images/Icons/Skill/PoisonLance.png
+
+#begin Graphics/Images/Icons/Skill/PoisonLance.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/PoisonLance.png
 
 #begin Graphics/Images/Icons/Skill/PoisonTip.png
 /importer:TextureImporter
@@ -4573,6 +6301,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/PoisonTip.png
+
+#begin Graphics/Images/Icons/Skill/PoisonTip.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/PoisonTip.png
+
+#begin Graphics/Images/Icons/Skill/PoisonTip.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/PoisonTip.png
+
+#begin Graphics/Images/Icons/Skill/PressurePoint.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/PressurePoint.png
 
 #begin Graphics/Images/Icons/Skill/PressurePoint.png
 /importer:TextureImporter
@@ -4694,7 +6458,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Shove.png
 
-#begin Graphics/Images/Icons/Skill/StunArrow.png
+#begin Graphics/Images/Icons/Skill/Shove.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4704,7 +6468,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/StunArrow.png
+/build:Graphics/Images/Icons/Skill/Shove.png
 
 #begin Graphics/Images/Icons/Skill/StunArrow.png
 /importer:TextureImporter
@@ -4753,6 +6517,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/StunArrow.png
+
+#begin Graphics/Images/Icons/Skill/StunArrow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/StunArrow.png
+
+#begin Graphics/Images/Icons/Skill/StunArrow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/StunArrow.png
+
+#begin Graphics/Images/Icons/Skill/Tackle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Tackle.png
 
 #begin Graphics/Images/Icons/Skill/Tackle.png
 /importer:TextureImporter
@@ -4874,6 +6674,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Trap.png
 
+#begin Graphics/Images/Icons/Skill/Trap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Trap.png
+
+#begin Graphics/Images/Icons/Skill/Uppercut.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Uppercut.png
+
 #begin Graphics/Images/Icons/Skill/Uppercut.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4993,6 +6817,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Wait.png
+
+#begin Graphics/Images/Icons/Skill/Wait.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Wait.png
+
+#begin Graphics/Images/Icons/StatIcons.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatIcons.png
 
 #begin Graphics/Images/Icons/StatIcons.png
 /importer:TextureImporter
@@ -5054,6 +6902,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatIcons_Old.png
 
+#begin Graphics/Images/Icons/StatIcons_Old.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatIcons_Old.png
+
+#begin Graphics/Images/Icons/StatusEffect/atkRangeUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/atkRangeUp.png
+
 #begin Graphics/Images/Icons/StatusEffect/atkRangeUp.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5089,6 +6961,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatusEffect/atkRangeUp.png
+
+#begin Graphics/Images/Icons/StatusEffect/atkUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/atkUp.png
 
 #begin Graphics/Images/Icons/StatusEffect/atkUp.png
 /importer:TextureImporter
@@ -5162,6 +7046,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatusEffect/defUp.png
 
+#begin Graphics/Images/Icons/StatusEffect/defUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/defUp.png
+
+#begin Graphics/Images/Icons/StatusEffect/hpUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/hpUp.png
+
 #begin Graphics/Images/Icons/StatusEffect/hpUp.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5197,6 +7105,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatusEffect/hpUp.png
+
+#begin Graphics/Images/Icons/StatusEffect/moraleBroken.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/moraleBroken.png
 
 #begin Graphics/Images/Icons/StatusEffect/moraleBroken.png
 /importer:TextureImporter
@@ -5270,6 +7190,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/StatusEffect/mvUp.png
 
+#begin Graphics/Images/Icons/StatusEffect/mvUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/mvUp.png
+
+#begin Graphics/Images/Icons/StatusEffect/spUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/StatusEffect/spUp.png
+
 #begin Graphics/Images/Icons/StatusEffect/spUp.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5342,6 +7286,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Archer.png
 
+#begin Graphics/Images/Portraits/Blue/Archer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Archer.png
+
+#begin Graphics/Images/Portraits/Blue/Bard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Bard.png
+
 #begin Graphics/Images/Portraits/Blue/Bard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5377,6 +7345,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Bard.png
+
+#begin Graphics/Images/Portraits/Blue/Champion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Champion.png
 
 #begin Graphics/Images/Portraits/Blue/Champion.png
 /importer:TextureImporter
@@ -5426,6 +7406,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Cleric.png
 
+#begin Graphics/Images/Portraits/Blue/Cleric.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Cleric.png
+
+#begin Graphics/Images/Portraits/Blue/Duelist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Duelist.png
+
 #begin Graphics/Images/Portraits/Blue/Duelist.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5486,6 +7490,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Lancer.png
 
+#begin Graphics/Images/Portraits/Blue/Lancer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Lancer.png
+
+#begin Graphics/Images/Portraits/Blue/Mage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Mage.png
+
 #begin Graphics/Images/Portraits/Blue/Mage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5521,6 +7549,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Mage.png
+
+#begin Graphics/Images/Portraits/Blue/Pugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Pugilist.png
 
 #begin Graphics/Images/Portraits/Blue/Pugilist.png
 /importer:TextureImporter
@@ -5594,6 +7634,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Merchant.png
 
+#begin Graphics/Images/Portraits/Creep/Merchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Merchant.png
+
+#begin Graphics/Images/Portraits/Creep/Orc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Orc.png
+
 #begin Graphics/Images/Portraits/Creep/Orc.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5629,6 +7693,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Orc.png
+
+#begin Graphics/Images/Portraits/Creep/Silhouette.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Silhouette.png
 
 #begin Graphics/Images/Portraits/Creep/Silhouette.png
 /importer:TextureImporter
@@ -5702,6 +7778,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Slime.png
 
+#begin Graphics/Images/Portraits/Creep/Slime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Slime.png
+
+#begin Graphics/Images/Portraits/Creep/Troll.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Troll.png
+
 #begin Graphics/Images/Portraits/Creep/Troll.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5774,6 +7874,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Archer.png
 
+#begin Graphics/Images/Portraits/Red/Archer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Archer.png
+
+#begin Graphics/Images/Portraits/Red/Bard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Bard.png
+
 #begin Graphics/Images/Portraits/Red/Bard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5809,6 +7933,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Bard.png
+
+#begin Graphics/Images/Portraits/Red/Champion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Champion.png
 
 #begin Graphics/Images/Portraits/Red/Champion.png
 /importer:TextureImporter
@@ -5858,6 +7994,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Cleric.png
 
+#begin Graphics/Images/Portraits/Red/Cleric.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Cleric.png
+
+#begin Graphics/Images/Portraits/Red/Duelist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Duelist.png
+
 #begin Graphics/Images/Portraits/Red/Duelist.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5918,6 +8078,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Lancer.png
 
+#begin Graphics/Images/Portraits/Red/Lancer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Lancer.png
+
+#begin Graphics/Images/Portraits/Red/Mage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Mage.png
+
 #begin Graphics/Images/Portraits/Red/Mage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5953,6 +8137,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Mage.png
+
+#begin Graphics/Images/Portraits/Red/Pugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Pugilist.png
 
 #begin Graphics/Images/Portraits/Red/Pugilist.png
 /importer:TextureImporter
@@ -6026,6 +8222,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/ButtonMap-PC.png
 
+#begin Graphics/Images/Screens/ButtonMap-PC.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/ButtonMap-PC.png
+
+#begin Graphics/Images/Screens/ButtonMap-Xbox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/ButtonMap-Xbox.png
+
 #begin Graphics/Images/Screens/ButtonMap-Xbox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6061,6 +8281,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/ButtonMap-Xbox.png
+
+#begin Graphics/Images/Screens/SolSpin-White.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolSpin-White.png
 
 #begin Graphics/Images/Screens/SolSpin-White.png
 /importer:TextureImporter
@@ -6134,6 +8366,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/SolStandard-Logo v2.1.png
 
+#begin Graphics/Images/Screens/SolStandard-Logo v2.1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Logo v2.1.png
+
+#begin Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
+
 #begin Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6205,6 +8461,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
+
+#begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/TitleBackground_BannerFlag.png
+
+#begin Graphics/Images/Screens/TitleBackground_BannerStripe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/TitleBackground_BannerStripe.png
 
 #begin Graphics/Images/Screens/TitleBackground_BannerStripe.png
 /importer:TextureImporter
@@ -6266,6 +8546,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Cursor/Cursors.png
 
+#begin Graphics/Map/Cursor/Cursors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Cursor/Cursors.png
+
 #begin Graphics/Map/MapPreviews/Grass_03.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6289,6 +8581,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Grass_03.png
+
+#begin Graphics/Map/MapPreviews/Grass_03.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Grass_03.png
+
+#begin Graphics/Map/MapPreviews/Grass_04.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Grass_04.png
 
 #begin Graphics/Map/MapPreviews/Grass_04.png
 /importer:TextureImporter
@@ -6338,6 +8654,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/ActionTiles.png
 
+#begin Graphics/Map/Tiles/ActionTiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/ActionTiles.png
+
 #begin Graphics/Map/Tiles/entities-32.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6361,6 +8689,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/entities-32.png
+
+#begin Graphics/Map/Tiles/entities-32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/entities-32.png
+
+#begin Graphics/Map/Tiles/GridOutline.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/GridOutline.png
 
 #begin Graphics/Map/Tiles/GridOutline.png
 /importer:TextureImporter
@@ -6410,6 +8762,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Tiles/overworld-32.png
 
+#begin Graphics/Map/Tiles/overworld-32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/overworld-32.png
+
+#begin Graphics/Map/Tiles/Units3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Tiles/Units3.png
+
 #begin Graphics/Map/Tiles/Units3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6470,6 +8846,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueArcher.png
 
+#begin Graphics/Map/Units/Blue/BlueArcher.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueArcher.png
+
+#begin Graphics/Map/Units/Blue/BlueBard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueBard.png
+
 #begin Graphics/Map/Units/Blue/BlueBard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6505,6 +8905,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueBard.png
+
+#begin Graphics/Map/Units/Blue/BlueChampion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueChampion.png
 
 #begin Graphics/Map/Units/Blue/BlueChampion.png
 /importer:TextureImporter
@@ -6554,6 +8966,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueCleric.png
 
+#begin Graphics/Map/Units/Blue/BlueCleric.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueCleric.png
+
+#begin Graphics/Map/Units/Blue/BlueDuelist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueDuelist.png
+
 #begin Graphics/Map/Units/Blue/BlueDuelist.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6614,6 +9050,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueLancer.png
 
+#begin Graphics/Map/Units/Blue/BlueLancer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueLancer.png
+
+#begin Graphics/Map/Units/Blue/BlueMage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMage.png
+
 #begin Graphics/Map/Units/Blue/BlueMage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6649,6 +9109,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueMage.png
+
+#begin Graphics/Map/Units/Blue/BlueMonarch.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueMonarch.png
 
 #begin Graphics/Map/Units/Blue/BlueMonarch.png
 /importer:TextureImporter
@@ -6722,6 +9194,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BluePugilist.png
 
+#begin Graphics/Map/Units/Blue/BluePugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BluePugilist.png
+
+#begin Graphics/Map/Units/Creep/CreepMerchant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepMerchant.png
+
 #begin Graphics/Map/Units/Creep/CreepMerchant.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6757,6 +9253,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepMerchant.png
+
+#begin Graphics/Map/Units/Creep/CreepOrc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepOrc.png
 
 #begin Graphics/Map/Units/Creep/CreepOrc.png
 /importer:TextureImporter
@@ -6830,6 +9338,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepSlime.png
 
+#begin Graphics/Map/Units/Creep/CreepSlime.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepSlime.png
+
+#begin Graphics/Map/Units/Creep/CreepTroll.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepTroll.png
+
 #begin Graphics/Map/Units/Creep/CreepTroll.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6902,6 +9434,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedArcher.png
 
+#begin Graphics/Map/Units/Red/RedArcher.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedArcher.png
+
+#begin Graphics/Map/Units/Red/RedBard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedBard.png
+
 #begin Graphics/Map/Units/Red/RedBard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -6937,6 +9493,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedBard.png
+
+#begin Graphics/Map/Units/Red/RedChampion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedChampion.png
 
 #begin Graphics/Map/Units/Red/RedChampion.png
 /importer:TextureImporter
@@ -6986,6 +9554,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedCleric.png
 
+#begin Graphics/Map/Units/Red/RedCleric.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedCleric.png
+
+#begin Graphics/Map/Units/Red/RedDuelist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedDuelist.png
+
 #begin Graphics/Map/Units/Red/RedDuelist.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -7046,6 +9638,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedLancer.png
 
+#begin Graphics/Map/Units/Red/RedLancer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedLancer.png
+
+#begin Graphics/Map/Units/Red/RedMage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedMage.png
+
 #begin Graphics/Map/Units/Red/RedMage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -7118,6 +9734,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedMonarch.png
 
+#begin Graphics/Map/Units/Red/RedMonarch.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedMonarch.png
+
+#begin Graphics/Map/Units/Red/RedPugilist.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedPugilist.png
+
 #begin Graphics/Map/Units/Red/RedPugilist.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -7153,6 +9793,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedPugilist.png
+
+#begin Graphics/WhitePixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/WhitePixel.png
 
 #begin Graphics/WhitePixel.png
 /importer:TextureImporter

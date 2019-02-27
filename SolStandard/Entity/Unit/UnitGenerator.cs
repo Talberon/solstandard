@@ -240,6 +240,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Ignite(3, 3),
                 new Inferno(3, 2),
+                new Atrophy(2, 1),
                 new Replace(),
                 new Guard(3),
                 new Wait()
@@ -303,9 +304,8 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bulwark(3, 1),
+                new Cleanse(),
                 new Replace(),
-                //TODO Implement a skill that cleanses other unit debuffs
-                new Meditate(),
                 new Guard(3),
                 new Wait()
             };

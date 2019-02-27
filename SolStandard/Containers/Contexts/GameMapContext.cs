@@ -430,8 +430,10 @@ namespace SolStandard.Containers.Contexts
                     Layer.Preview);
         }
 
-        public void UpdateHoverContextWindows(MapSlice hoverSlice)
+        public void UpdateHoverContextWindows()
         {
+            MapSlice hoverSlice = MapContainer.GetMapSliceAtCursor();
+            
             GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             if (CurrentTurnState != TurnState.SelectUnit)

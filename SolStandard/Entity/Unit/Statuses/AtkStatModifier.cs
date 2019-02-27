@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Statuses
             description: ((atkModifier >= 0) ? "In" : "De") + "creased attack power.",
             turnDuration: turnDuration,
             hasNotification: false,
-            canCleanse: true
+            canCleanse: (atkModifier < 0)
         )
         {
             this.atkModifier = atkModifier;

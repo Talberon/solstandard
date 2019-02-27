@@ -2032,7 +2032,6 @@
   <object id="822" name="Maria" type="Unit" gid="492" x="416" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Cleric"/>
-    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

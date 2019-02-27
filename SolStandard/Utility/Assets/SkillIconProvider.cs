@@ -31,7 +31,8 @@ namespace SolStandard.Utility.Assets
         Challenge,
         Immobilize,
         PhaseStrike,
-        Focus
+        Focus,
+        Cleanse
     }
 
     public static class SkillIconProvider
@@ -72,6 +73,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D freezeLance = skillIconTextures.Find(texture => texture.Name.EndsWith("FreezeLance"));
             ITexture2D phaseStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("PhaseStrike"));
             ITexture2D focus = skillIconTextures.Find(texture => texture.Name.EndsWith("Focus"));
+            ITexture2D cleanse = skillIconTextures.Find(texture => texture.Name.EndsWith("Cleanse"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -100,7 +102,8 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Challenge, challenge},
                 {SkillIcon.Immobilize, freezeLance},
                 {SkillIcon.PhaseStrike, phaseStrike},
-                {SkillIcon.Focus, focus}
+                {SkillIcon.Focus, focus},
+                {SkillIcon.Cleanse, cleanse}
             };
         }
     }

@@ -11,7 +11,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
@@ -335,8 +334,7 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.InGame:
                     GameContext.UpdateCamera();
-                    MapSlice hoverTiles = GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
-                    GameContext.GameMapContext.UpdateHoverContextWindows(hoverTiles);
+                    GameContext.GameMapContext.UpdateHoverContextWindows();
                     break;
                 case GameContext.GameState.Results:
                     break;
