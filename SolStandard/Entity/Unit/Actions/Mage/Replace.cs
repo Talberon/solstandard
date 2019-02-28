@@ -6,6 +6,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
@@ -41,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 if (mapElement == null) continue;
 
-                if (!TargetIsAnotherUnit(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates)))
+                if (!TargetIsAnotherMovableUnit(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates)))
                 {
                     tilesToRemove.Add(mapElement);
                 }
@@ -55,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (TargetIsAnotherUnit(targetSlice))
+            if (TargetIsAnotherMovableUnit(targetSlice))
             {
                 Vector2 casterCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
 
@@ -89,10 +90,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
         }
 
-        private static bool TargetIsAnotherUnit(MapSlice targetSlice)
+        private static bool TargetIsAnotherMovableUnit(MapSlice targetSlice)
         {
+            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
+
             return (targetSlice.DynamicEntity != null || targetSlice.PreviewEntity != null) &&
-                   targetSlice.UnitEntity != null && targetSlice.UnitEntity != GameContext.ActiveUnit.UnitEntity;
+                   targetUnit != null &&
+                   targetUnit != GameContext.ActiveUnit &&
+                   targetUnit.IsMovable;
         }
     }
 }

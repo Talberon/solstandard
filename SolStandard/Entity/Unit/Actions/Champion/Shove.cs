@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
@@ -57,7 +57,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates);
+                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) && 
+                   targetUnit.IsMovable;
         }
     }
 }

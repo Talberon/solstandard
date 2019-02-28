@@ -77,6 +77,7 @@ namespace SolStandard.Entity.Unit
 
         public List<StatusEffect> StatusEffects { get; private set; }
         public bool IsCommander { get; set; }
+        public bool IsMovable { get; set; }
 
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
@@ -92,6 +93,7 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Actions = actions;
             IsCommander = isCommander;
+            IsMovable = true;
             InventoryActions = new List<UnitAction>
             {
                 new DropGiveGoldAction(),

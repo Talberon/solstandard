@@ -39,11 +39,11 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 {
                     if (currentFocus.FocusPoints < maxActions)
                     {
+                        AssetManager.SkillBuffSFX.Play();
                         AssetManager.MenuConfirmSFX.Play();
                         GlobalEventQueue.QueueSingleEvent(
                             new CastStatusEffectEvent(targetUnit, new FocusStatus(currentFocus.FocusPoints + 1))
                         );
-                        GlobalEventQueue.QueueSingleEvent(new PlaySoundEffectEvent(AssetManager.SkillBuffSFX));
                         GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                     }
                     else
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 }
                 else
                 {
-                    AssetManager.MenuConfirmSFX.Play();
+                    AssetManager.SkillBuffSFX.Play();
                     GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new FocusStatus(1)));
                     GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }

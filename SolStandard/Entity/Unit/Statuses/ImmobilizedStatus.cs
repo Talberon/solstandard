@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public ImmobilizedStatus(int turnDuration) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp,
                 new Vector2(GameDriver.CellSize)),
-            name: "Immobilized",
+            name: "Immobilized!",
             description: "Unit cannot move.",
             turnDuration: turnDuration,
             hasNotification: false,

@@ -368,6 +368,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PhaseStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Focus"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cleanse"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rage"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Guillotine"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Brace"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

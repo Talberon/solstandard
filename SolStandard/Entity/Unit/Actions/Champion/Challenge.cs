@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
@@ -79,13 +79,9 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
-                UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates))
-            {
-                return true;
-            }
-
-            return false;
+            return TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates) &&
+                   targetUnit.IsMovable;
         }
 
         public static Vector2 DeterminePullPosition(Vector2 actorCoordinates, Vector2 targetCoordinates)

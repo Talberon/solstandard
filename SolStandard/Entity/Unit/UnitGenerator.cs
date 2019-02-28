@@ -11,6 +11,7 @@ using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
+using SolStandard.Entity.Unit.Actions.Marauder;
 using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
@@ -322,11 +323,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                //TODO Add unique skills
-                new Bloodthirst(2),
-                new Challenge(2),
+                new Guillotine(),
+                new Rage(3, 2),
+                new Brace(3),
                 new Shove(),
-                new Guard(3),
                 new Wait()
             };
         }

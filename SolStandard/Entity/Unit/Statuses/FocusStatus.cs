@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -26,7 +27,12 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void ApplyEffect(GameUnit target)
         {
-            //Do nothing
+            AssetManager.SkillBuffSFX.Play();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                target.UnitEntity,
+                Name,
+                50
+            );
         }
 
         protected override void ExecuteEffect(GameUnit target)

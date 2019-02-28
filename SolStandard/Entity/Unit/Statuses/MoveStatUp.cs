@@ -11,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public MoveStatUp(int turnDuration, int mvModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
-            name: UnitStatistics.Abbreviation[Stats.Mv] + " Up!",
+            name: UnitStatistics.Abbreviation[Stats.Mv] + " Up! <+" + mvModifier + ">",
             description: "Increased movement distance.",
             turnDuration: turnDuration,
             hasNotification: false,
