@@ -185,12 +185,6 @@ namespace SolStandard.Containers.Contexts
 
             if (unitLimit.ContainsKey(role))
             {
-                if (unitLimit[role] >= maxDuplicateUnitType)
-                {
-                    AssetManager.WarningSFX.Play();
-                    return;
-                }
-
                 unitLimit[role]++;
             }
             else
@@ -315,7 +309,8 @@ namespace SolStandard.Containers.Contexts
                     Role.Bard,
                     Role.Pugilist,
                     Role.Duelist,
-                    Role.Cleric
+                    Role.Cleric,
+                    Role.Marauder
                 };
             }
         }

@@ -61,7 +61,14 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
 
         public override void Execute()
         {
-            GameContext.DraftContext.AddUnitToList(role, team);
+            if (enabled)
+            {
+                GameContext.DraftContext.AddUnitToList(role, team);
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+            }
         }
 
         public override IRenderable Clone()
