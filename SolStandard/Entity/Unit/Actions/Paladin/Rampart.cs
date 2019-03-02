@@ -9,20 +9,20 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Lancer
+namespace SolStandard.Entity.Unit.Actions.Paladin
 {
-    public class Cripple : UnitAction
+    public class Rampart : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Cripple(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Immobilize, new Vector2(GameDriver.CellSize)),
-            name: "Cripple",
-            description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
-                         " stat by [" + statModifier + "] for [" + duration + "] turn(s).",
+        public Rampart(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rampart, new Vector2(GameDriver.CellSize)),
+            name: "Rampart",
+            description: "Regenerate own " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" + statModifier +
+                         "] per turn for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {0}
         )
         {
             this.statModifier = statModifier;
@@ -33,18 +33,19 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
+                    new ArmorRegeneration(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

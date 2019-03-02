@@ -35,7 +35,10 @@ namespace SolStandard.Utility.Assets
         Cleanse,
         Rage,
         Guillotine,
-        Brace
+        Brace,
+        Rampart,
+        Intervention,
+        Stun
     }
 
     public static class SkillIconProvider
@@ -80,6 +83,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D rage = skillIconTextures.Find(texture => texture.Name.EndsWith("Rage"));
             ITexture2D guillotine = skillIconTextures.Find(texture => texture.Name.EndsWith("Guillotine"));
             ITexture2D brace = skillIconTextures.Find(texture => texture.Name.EndsWith("Brace"));
+            ITexture2D rampart = skillIconTextures.Find(texture => texture.Name.EndsWith("Rampart"));
+            ITexture2D intervention = skillIconTextures.Find(texture => texture.Name.EndsWith("Intervention"));
+            ITexture2D stun = skillIconTextures.Find(texture => texture.Name.EndsWith("Stun"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -112,7 +118,10 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Cleanse, cleanse},
                 {SkillIcon.Rage, rage},
                 {SkillIcon.Guillotine, guillotine},
-                {SkillIcon.Brace, brace}
+                {SkillIcon.Brace, brace},
+                {SkillIcon.Rampart, rampart},
+                {SkillIcon.Intervention, intervention},
+                {SkillIcon.Stun, stun}
             };
         }
     }

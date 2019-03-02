@@ -12,6 +12,7 @@ using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Marauder;
+using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
@@ -266,7 +267,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(3),
-                new Cripple(1),
+                new Cripple(2, -2),
                 new Execute(3),
                 new Guard(3),
                 new Wait()
@@ -342,9 +343,9 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Bulwark(3,2),
-                //TODO Make Intervention skill
-                new Tackle(),
+                new Rampart(3,2),
+                new Stun(1),
+                new Replace(),
                 new Shove(),
                 new Guard(3),
                 new Wait()

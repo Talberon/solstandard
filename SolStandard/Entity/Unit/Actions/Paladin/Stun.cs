@@ -9,23 +9,21 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Lancer
+namespace SolStandard.Entity.Unit.Actions.Paladin
 {
-    public class Cripple : UnitAction
+    public class Stun : UnitAction
     {
-        private readonly int statModifier;
         private readonly int duration;
 
-        public Cripple(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Immobilize, new Vector2(GameDriver.CellSize)),
-            name: "Cripple",
-            description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
-                         " stat by [" + statModifier + "] for [" + duration + "] turn(s).",
+        public Stun(int duration) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Stun, new Vector2(GameDriver.CellSize)),
+            name: "Stun",
+            description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] + " stat by its base value for [" +
+                         duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1}
         )
         {
-            this.statModifier = statModifier;
             this.duration = duration;
         }
 
@@ -38,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmobilizedStatus(duration)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

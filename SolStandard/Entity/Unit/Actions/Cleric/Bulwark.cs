@@ -19,8 +19,8 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
         public Bulwark(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
             name: "Bulwark",
-            description: "Increase an ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " regeneration by " +
-                         "[+" + statModifier + "] for [" + duration + "] turns.",
+            description: "Regenerate ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" +
+                         statModifier + "] per turn for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2}
         )
@@ -38,7 +38,8 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ArmorRegeneration(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
+                    new ArmorRegeneration(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
