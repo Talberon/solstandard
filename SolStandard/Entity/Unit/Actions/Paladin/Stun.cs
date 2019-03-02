@@ -35,8 +35,10 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
+                int statusDuration = (targetUnit.IsExhausted) ? duration + 1 : duration;
+
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmobilizedStatus(duration)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmobilizedStatus(statusDuration)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

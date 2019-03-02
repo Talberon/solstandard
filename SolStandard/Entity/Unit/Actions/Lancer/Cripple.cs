@@ -36,9 +36,11 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
+                
+                int statusDuration = (targetUnit.IsExhausted) ? duration + 1 : duration;
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatModifier(statusDuration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
