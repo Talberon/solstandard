@@ -45,6 +45,7 @@ namespace SolStandard.Entity.Unit
             {"Duelist", Role.Duelist},
             {"Cleric", Role.Cleric},
             {"Marauder", Role.Marauder},
+            {"Paladin", Role.Paladin},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
@@ -180,7 +181,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectDuelistStats()
         {
-            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectClericStats()
@@ -191,6 +192,11 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectMarauderStats()
         {
             return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
+        }
+
+        private static UnitStatistics SelectPaladinStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 8, atk: 5, ret: 6, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectSlimeStats()
@@ -324,9 +330,23 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Guillotine(),
-                new Rage(3, 2),
+                new Rage(3, 3),
                 new Brace(3),
                 new Shove(),
+                new Wait()
+            };
+        }
+
+        private static List<UnitAction> SelectPaladinSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Bulwark(3,2),
+                //TODO Make Intervention skill
+                new Tackle(),
+                new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -424,6 +444,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Marauder:
                     unitStatistics = SelectMarauderStats();
                     unitActions = SelectMarauderSkills();
+                    break;
+                case Role.Paladin:
+                    unitStatistics = SelectPaladinStats();
+                    unitActions = SelectPaladinSkills();
                     break;
                 case Role.Slime:
                     unitStatistics = SelectSlimeStats();

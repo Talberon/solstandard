@@ -310,7 +310,8 @@ namespace SolStandard.Containers.Contexts
                     Role.Pugilist,
                     Role.Duelist,
                     Role.Cleric,
-                    Role.Marauder
+                    Role.Marauder,
+                    Role.Paladin
                 };
             }
         }

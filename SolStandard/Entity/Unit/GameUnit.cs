@@ -37,7 +37,8 @@ namespace SolStandard.Entity.Unit
         Pugilist,
         Duelist,
         Cleric,
-        Marauder
+        Marauder,
+        Paladin
     }
 
     public enum Team

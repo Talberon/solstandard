@@ -56,6 +56,8 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Female);
                 case Role.Marauder:
                     return GenerateName(NameType.Male);
+                case Role.Paladin:
+                    return GenerateName(NameType.Female);
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }
