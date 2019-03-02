@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="558">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="563">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1857,7 +1857,7 @@
     <property name="valueTaxes" type="int" value="150"/>
    </properties>
   </object>
-  <object id="543" name="Crossroads" type="SelectMap" gid="289" x="704" y="192" width="32" height="32">
+  <object id="543" name="Crossroads" type="SelectMap" gid="289" x="736" y="192" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Crossroads_01.tmx"/>
     <property name="mapSong" value="DesertTheme"/>
@@ -1895,13 +1895,15 @@
     <property name="modeAssassinate" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="553" name="ARENA Troll Toll" type="SelectMap" gid="289" x="320" y="384" width="32" height="32">
+  <object id="553" name="DRAFT ARENA Troll Toll" type="SelectMap" gid="288" x="320" y="384" width="32" height="32">
    <properties>
-    <property name="mapFileName" value="Arena_Grassland_01.tmx"/>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Arena_Grassland_01.tmx"/>
     <property name="mapSong" value="PlainsTheme"/>
+    <property name="unitsPerTeam" type="int" value="10"/>
    </properties>
   </object>
-  <object id="554" name="King's Feast" type="SelectMap" gid="289" x="832" y="320" width="32" height="32">
+  <object id="554" name="King's Feast" type="SelectMap" gid="289" x="800" y="320" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Arena_Dungeon_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
@@ -1909,7 +1911,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="555" name="Tower of Arzon" type="SelectMap" gid="289" x="768" y="576" width="32" height="32">
+  <object id="555" name="Tower of Arzon" type="SelectMap" gid="289" x="736" y="576" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Arena_Tower_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
@@ -1938,6 +1940,55 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="true"/>
     <property name="unitsPerTeam" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="558" name="DRAFT Saturn Fortress" type="SelectMap" gid="288" x="256" y="256" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Fortress_01.tmx"/>
+    <property name="mapSong" value="MilitaryTheme"/>
+    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="unitsPerTeam" type="int" value="9"/>
+   </properties>
+  </object>
+  <object id="559" name="ARENA Troll Toll" type="SelectMap" gid="289" x="288" y="384" width="32" height="32">
+   <properties>
+    <property name="mapFileName" value="Arena_Grassland_01.tmx"/>
+    <property name="mapSong" value="PlainsTheme"/>
+   </properties>
+  </object>
+  <object id="560" name="DRAFT King's Feast" type="SelectMap" gid="288" x="864" y="320" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Arena_Dungeon_01.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="maxDuplicateUnits" type="int" value="2"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="unitsPerTeam" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="561" name="DRAFT Tower of Arzon" type="SelectMap" gid="288" x="800" y="576" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Arena_Tower_01.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="true"/>
+    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="unitsPerTeam" type="int" value="9"/>
+   </properties>
+  </object>
+  <object id="562" name="DRAFT Atheion Grassland" type="SelectMap" gid="288" x="672" y="160" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Grassland_01.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="maxDuplicateUnits" type="int" value="2"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="true"/>
+    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="unitsPerTeam" type="int" value="9"/>
    </properties>
   </object>
  </objectgroup>
