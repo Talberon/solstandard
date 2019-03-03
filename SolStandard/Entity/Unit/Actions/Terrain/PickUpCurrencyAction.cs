@@ -32,8 +32,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new WaitFramesEvent(30));
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

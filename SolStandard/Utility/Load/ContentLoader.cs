@@ -294,8 +294,19 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_03"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_04"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Beach_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Village_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Chesslike_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Crossroads_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Scotia_Hill_Redux_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();

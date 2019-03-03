@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -19,17 +20,19 @@ namespace SolStandard.Entity.General
         private readonly int damage;
         private readonly bool limitedTriggers;
         private bool enabled;
+        private readonly bool willSnare;
 
         public bool IsExpired { get; private set; }
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
-            bool limitedTriggers, bool enabled) :
+            bool limitedTriggers, bool enabled, bool willSnare = false) :
             base(name, "Trap", sprite, mapCoordinates, new Dictionary<string, string>())
         {
             this.damage = damage;
             this.triggersRemaining = triggersRemaining;
             this.limitedTriggers = limitedTriggers;
             this.enabled = enabled;
+            this.willSnare = willSnare;
             IsExpired = false;
         }
 
@@ -51,6 +54,12 @@ namespace SolStandard.Entity.General
 
             string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + damage +
                                  "] damage!";
+
+            if (willSnare)
+            {
+                trapUnit.AddStatusEffect(new ImmobilizedStatus(1));
+                trapMessage += Environment.NewLine + "Target is immobilized!";
+            }
 
             triggersRemaining--;
 

@@ -225,7 +225,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Draw(2, 1),
+                new Draw(3, 1),
                 new PoisonArrow(2, 4),
                 new HuntingTrap(6, 1),
                 new Guard(3),

@@ -29,19 +29,28 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             ILockable targetUnlockable = targetSlice.TerrainEntity as ILockable;
 
-            if (KeyWorksOnLock(targetSlice, targetUnlockable))
+            if (targetUnlockable != null && KeyWorksOnLock(targetSlice, targetUnlockable))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-                Chest targetChest = targetUnlockable as Chest;
-                if (targetChest != null)
+
+                targetUnlockable.ToggleLock();
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new DeleteItemEvent(key));
+
+                if (targetUnlockable is Chest)
                 {
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new ToggleLockEvent(targetUnlockable));
-                    eventQueue.Enqueue(new DeleteItemEvent(key));
-                    GlobalEventQueue.QueueEvents(eventQueue);
+                    Chest targetChest = targetUnlockable as Chest;
+                    new OpenChestAction(targetChest, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
+                }
+                else if (targetUnlockable is Door)
+                {
+                    Door targetDoor = targetUnlockable as Door;
+                    new UseDoorAction(targetDoor, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
                 }
 
-                new OpenChestAction(targetChest, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
+                eventQueue.Enqueue(new EndTurnEvent());
+                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
@@ -56,10 +65,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                    && targetSlice.DynamicEntity != null
                    && targetSlice.UnitEntity == null
                    && key.UsedWith == targetSlice.TerrainEntity.Name
-                   && (ChestIsNotOpen(targetUnlockable) || !(targetUnlockable is Chest));
+                   && (!(targetUnlockable is Chest) || ChestIsNotOpen(targetUnlockable));
         }
 
-        private bool ChestIsNotOpen(ILockable targetUnlockable)
+        private static bool ChestIsNotOpen(ILockable targetUnlockable)
         {
             Chest targetChest = targetUnlockable as Chest;
             return targetChest != null && !targetChest.IsOpen;

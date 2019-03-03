@@ -24,8 +24,8 @@ namespace SolStandard.Entity.Unit.Actions
                 icon: skillIcon,
                 name: title,
                 description: description ?? ("Place a tile that will deal [" + damage +
-                                             "] damage to enemies that start their turn on it." + Environment.NewLine +
-                                             "Max activations: [" + maxTriggers + "]"),
+                                             "] damage to enemies that start their turn on it and immobilize them." +
+                                             Environment.NewLine + "Max activations: [" + maxTriggers + "]"),
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: new[] {1}
             )
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions
                 if (TargetIsNotObstructed(targetSlice))
                 {
                     TrapEntity trap = new TrapEntity("Trap", TrapSprite.Clone(), targetSlice.MapCoordinates, Damage,
-                        MaxTriggers, true, true);
+                        MaxTriggers, true, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
 

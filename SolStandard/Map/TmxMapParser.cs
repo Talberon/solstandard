@@ -8,6 +8,7 @@ using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Parsing;
@@ -427,8 +428,8 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.SelectMap:
-                                        MapInfo derivedMapInfo = new MapInfo(currentObject.Name,
-                                            currentProperties["mapFileName"]);
+                                        string mapFileName = currentProperties["mapFileName"];
+                                        MapInfo derivedMapInfo = new MapInfo(currentObject.Name, mapFileName);
 
                                         entityGrid[col, row] = new SelectMapEntity(
                                             currentObject.Name,
@@ -447,7 +448,10 @@ namespace SolStandard.Map
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
                                             Convert.ToInt32(currentProperties["unitsPerTeam"]),
-                                            Convert.ToInt32(currentProperties["maxDuplicateUnits"])
+                                            Convert.ToInt32(currentProperties["maxDuplicateUnits"]),
+                                            AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
+                                                texture.Name.EndsWith("/" + mapFileName.Substring(0,
+                                                    mapFileName.Length - (".tmx").Length)))
                                         );
                                         break;
                                     case EntityTypes.Seize:

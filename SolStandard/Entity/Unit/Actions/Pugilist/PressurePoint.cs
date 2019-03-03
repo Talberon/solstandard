@@ -35,15 +35,13 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
                 //The rounded-up value will be subtracted from the attacker's ATK stat to result in half rounded-down damage.
                 int halfDamageRoundedUp = (int) Math.Ceiling((float) attacker.Stats.Atk / 2);
-                AtkStatModifier halfDamageStatus = new AtkStatModifier(0, -halfDamageRoundedUp);
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, halfDamageStatus));
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new IgnoreArmorCombatStatus(Icon, 0)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(attacker,
+                    new IgnoreArmorCombatStatus(Icon, 0, -halfDamageRoundedUp)));
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
-                eventQueue.Enqueue(new RemoveStatusEffectEvent(attacker, halfDamageStatus));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

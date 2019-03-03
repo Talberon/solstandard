@@ -303,15 +303,16 @@ namespace SolStandard.Containers.Contexts
                 return new List<Role>
                 {
                     Role.Champion,
+                    Role.Marauder,
+                    Role.Paladin,
+                    Role.Cleric,
+                    Role.Bard,
+                    
+                    Role.Duelist,
+                    Role.Pugilist,
                     Role.Lancer,
                     Role.Archer,
                     Role.Mage,
-                    Role.Bard,
-                    Role.Pugilist,
-                    Role.Duelist,
-                    Role.Cleric,
-                    Role.Marauder,
-                    Role.Paladin
                 };
             }
         }
