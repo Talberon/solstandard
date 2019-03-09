@@ -47,10 +47,13 @@ namespace SolStandard.Entity.Unit
             {"Cleric", Role.Cleric},
             {"Marauder", Role.Marauder},
             {"Paladin", Role.Paladin},
+            {"Merchant", Role.Merchant},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
-            {"Merchant", Role.Merchant}
+            {"Necromancer", Role.Necromancer},
+            {"Skeleton", Role.Skeleton},
+            {"Goblin", Role.Goblin}
         };
 
         private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
@@ -107,6 +110,12 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Orc:
                     generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Necromancer:
+                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Skeleton:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
                     break;
                 case Role.Merchant:
                     generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
@@ -213,6 +222,21 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectOrcStats()
         {
             return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectNecromancerStats()
+        {
+            return new UnitStatistics(hp: 15, armor: 5, atk: 5, ret: 5, luck: 1, mv: 4, atkRange: new[] {1, 2});
+        }
+        
+        private static UnitStatistics SelectSkeletonStats()
+        {
+            return new UnitStatistics(hp: 12, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectGoblinStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, luck: 1, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectMerchantStats()
@@ -462,6 +486,18 @@ namespace SolStandard.Entity.Unit
                     unitStatistics = SelectOrcStats();
                     unitActions = SelectCreepRoutine(tiledProperties);
                     break;
+                case Role.Necromancer:
+                    unitStatistics = SelectNecromancerStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Skeleton:
+                    unitStatistics = SelectSkeletonStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Goblin:
+                    unitStatistics = SelectGoblinStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
                 case Role.Merchant:
                     unitStatistics = SelectMerchantStats();
                     unitActions = SelectCreepRoutine(tiledProperties);
@@ -475,7 +511,6 @@ namespace SolStandard.Entity.Unit
 
             return unit;
         }
-
 
         public static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
             List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)

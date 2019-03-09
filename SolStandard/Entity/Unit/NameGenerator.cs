@@ -38,14 +38,6 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Male);
                 case Role.Bard:
                     return GenerateName(NameType.Female);
-                case Role.Slime:
-                    return GenerateName(NameType.Beast);
-                case Role.Troll:
-                    return GenerateName(NameType.Beast);
-                case Role.Orc:
-                    return GenerateName(NameType.Beast);
-                case Role.Merchant:
-                    return GenerateName(NameType.Male);
                 case Role.Lancer:
                     return GenerateName(NameType.Male);
                 case Role.Pugilist:
@@ -58,6 +50,20 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Male);
                 case Role.Paladin:
                     return GenerateName(NameType.Female);
+                case Role.Merchant:
+                    return GenerateName(NameType.Male);
+                case Role.Slime:
+                    return GenerateName(NameType.Beast);
+                case Role.Troll:
+                    return GenerateName(NameType.Beast);
+                case Role.Orc:
+                    return GenerateName(NameType.Beast);
+                case Role.Necromancer:
+                    return GenerateName(NameType.Beast);
+                case Role.Skeleton:
+                    return GenerateName(NameType.Beast);
+                case Role.Goblin:
+                    return GenerateName(NameType.Beast);
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }

@@ -240,6 +240,14 @@
    <frame tileid="194" duration="100"/>
   </animation>
  </tile>
+ <tile id="183">
+  <animation>
+   <frame tileid="183" duration="100"/>
+   <frame tileid="187" duration="100"/>
+   <frame tileid="191" duration="100"/>
+   <frame tileid="195" duration="100"/>
+  </animation>
+ </tile>
  <tile id="196">
   <animation>
    <frame tileid="196" duration="100"/>
@@ -273,6 +281,14 @@
    <frame tileid="226" duration="100"/>
    <frame tileid="230" duration="100"/>
    <frame tileid="234" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="223">
+  <animation>
+   <frame tileid="223" duration="100"/>
+   <frame tileid="227" duration="100"/>
+   <frame tileid="231" duration="100"/>
+   <frame tileid="235" duration="100"/>
   </animation>
  </tile>
  <tile id="236">
@@ -362,11 +378,83 @@
  <tile id="323" terrain="3,3,,3"/>
  <tile id="324" terrain="3,3,3,"/>
  <tile id="325" terrain="3,3,3,3"/>
+ <tile id="340">
+  <animation>
+   <frame tileid="340" duration="100"/>
+   <frame tileid="344" duration="100"/>
+   <frame tileid="348" duration="100"/>
+   <frame tileid="352" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="341">
+  <animation>
+   <frame tileid="341" duration="100"/>
+   <frame tileid="345" duration="100"/>
+   <frame tileid="349" duration="100"/>
+   <frame tileid="353" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="342">
+  <animation>
+   <frame tileid="342" duration="100"/>
+   <frame tileid="346" duration="100"/>
+   <frame tileid="350" duration="100"/>
+   <frame tileid="354" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="343">
+  <animation>
+   <frame tileid="343" duration="100"/>
+   <frame tileid="347" duration="100"/>
+   <frame tileid="351" duration="100"/>
+   <frame tileid="355" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="356">
+  <animation>
+   <frame tileid="356" duration="100"/>
+   <frame tileid="357" duration="100"/>
+   <frame tileid="358" duration="100"/>
+   <frame tileid="359" duration="100"/>
+  </animation>
+ </tile>
  <tile id="360" terrain=",3,,"/>
  <tile id="361" terrain="3,3,,"/>
  <tile id="362" terrain="3,,,"/>
  <tile id="363" terrain=",3,3,"/>
  <tile id="364" terrain="3,,,3"/>
+ <tile id="380">
+  <animation>
+   <frame tileid="380" duration="100"/>
+   <frame tileid="384" duration="100"/>
+   <frame tileid="388" duration="100"/>
+   <frame tileid="392" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="381">
+  <animation>
+   <frame tileid="381" duration="100"/>
+   <frame tileid="385" duration="100"/>
+   <frame tileid="389" duration="100"/>
+   <frame tileid="393" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="383">
+  <animation>
+   <frame tileid="383" duration="100"/>
+   <frame tileid="387" duration="100"/>
+   <frame tileid="391" duration="100"/>
+   <frame tileid="395" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="396">
+  <animation>
+   <frame tileid="396" duration="100"/>
+   <frame tileid="397" duration="100"/>
+   <frame tileid="398" duration="100"/>
+   <frame tileid="399" duration="100"/>
+  </animation>
+ </tile>
  <tile id="400" terrain=",,,5"/>
  <tile id="401" terrain=",,5,5"/>
  <tile id="402" terrain=",,5,"/>

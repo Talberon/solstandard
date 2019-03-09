@@ -26,19 +26,22 @@ namespace SolStandard.Entity.Unit
     {
         Silhouette,
         Champion,
-        Archer,
-        Mage,
+        Marauder,
+        Paladin,
         Bard,
+        Cleric,
+        Duelist,
+        Lancer,
+        Pugilist,
+        Mage,
+        Archer,
         Slime,
         Troll,
         Orc,
+        Necromancer,
+        Skeleton,
         Merchant,
-        Lancer,
-        Pugilist,
-        Duelist,
-        Cleric,
-        Marauder,
-        Paladin
+        Goblin
     }
 
     public enum Team

@@ -161,6 +161,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepMerchant"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepNecromancer"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSkeleton"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepGoblin"),
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -202,10 +205,13 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Paladin"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Necromancer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Skeleton"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Goblin"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
