@@ -164,6 +164,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepNecromancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSkeleton"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepGoblin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepRat"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepBat"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSpider"),
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -212,6 +215,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Necromancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Skeleton"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Goblin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Rat"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Bat"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Spider"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -313,6 +319,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();

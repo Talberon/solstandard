@@ -41,7 +41,10 @@ namespace SolStandard.Entity.Unit
         Necromancer,
         Skeleton,
         Merchant,
-        Goblin
+        Goblin,
+        Rat,
+        Bat,
+        Spider
     }
 
     public enum Team

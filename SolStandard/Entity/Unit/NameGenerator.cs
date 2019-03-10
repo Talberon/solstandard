@@ -64,6 +64,12 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Beast);
                 case Role.Goblin:
                     return GenerateName(NameType.Beast);
+                case Role.Rat:
+                    return GenerateName(NameType.Beast);
+                case Role.Bat:
+                    return GenerateName(NameType.Beast);
+                case Role.Spider:
+                    return GenerateName(NameType.Beast);
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }

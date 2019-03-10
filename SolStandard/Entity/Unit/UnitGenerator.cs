@@ -53,7 +53,10 @@ namespace SolStandard.Entity.Unit
             {"Orc", Role.Orc},
             {"Necromancer", Role.Necromancer},
             {"Skeleton", Role.Skeleton},
-            {"Goblin", Role.Goblin}
+            {"Goblin", Role.Goblin},
+            {"Rat", Role.Rat},
+            {"Bat", Role.Bat},
+            {"Spider", Role.Spider}
         };
 
         private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
@@ -116,6 +119,18 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Skeleton:
                     generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Goblin:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Rat:
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
+                    break;
+                case Role.Bat:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Spider:
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
                 case Role.Merchant:
                     generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
@@ -237,6 +252,21 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectGoblinStats()
         {
             return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, luck: 1, mv: 4, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectRatStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectBatStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectSpiderStats()
+        {
+            return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectMerchantStats()
@@ -496,6 +526,18 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Goblin:
                     unitStatistics = SelectGoblinStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Rat:
+                    unitStatistics = SelectRatStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Bat:
+                    unitStatistics = SelectBatStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Spider:
+                    unitStatistics = SelectSpiderStats();
                     unitActions = SelectCreepRoutine(tiledProperties);
                     break;
                 case Role.Merchant:
