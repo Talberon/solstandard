@@ -141,6 +141,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueLancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePugilist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueDuelist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCleric"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMarauder"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePaladin"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
@@ -148,11 +152,21 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedBard"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedLancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedPugilist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedDuelist"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedCleric"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedMarauder"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedPaladin"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepMerchant"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepNecromancer"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSkeleton"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepGoblin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepRat"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepBat"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSpider"),
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -169,25 +183,41 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> loadPortraitTextures = new List<Texture2D>
             {
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Silhouette"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Lancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Pugilist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Duelist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cleric"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Marauder"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Paladin"),
 
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Silhouette"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Archer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Champion"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Mage"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Bard"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Lancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Pugilist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Duelist"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cleric"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Marauder"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Paladin"),
 
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Necromancer"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Skeleton"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Goblin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Rat"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Bat"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Spider"),
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -276,8 +306,20 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_03"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Grass_04"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Beach_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Village_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Chesslike_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Crossroads_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Scotia_Hill_Redux_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -348,6 +390,18 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Meditate"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PressurePoint"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/AtkBuff"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Challenge"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/FreezeLance"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/PhaseStrike"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Focus"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Cleanse"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rage"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Guillotine"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Brace"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rampart"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Stun"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

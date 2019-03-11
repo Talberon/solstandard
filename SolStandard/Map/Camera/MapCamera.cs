@@ -36,7 +36,7 @@ namespace SolStandard.Map.Camera
 
         private const double FloatTolerance = 0.01;
 
-        private const float MinimumZoom = 1.2f;
+        private const float MinimumZoom = 1.4f;
         private const float DefaultZoomLevel = 2;
         private const float MaximumZoom = 4.0f;
         private const float CombatZoom = 4;

@@ -574,7 +574,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 networkController.Press(Input.Cancel);
-                GameContext.GameMapContext.CancelAction();
+                GameContext.GameMapContext.CancelTargetAction();
             }
         }
 

@@ -26,7 +26,19 @@ namespace SolStandard.Utility.Assets
         Charge,
         Meditate,
         Uppercut,
-        PressurePoint
+        PressurePoint,
+        AtkBuff,
+        Challenge,
+        Immobilize,
+        PhaseStrike,
+        Focus,
+        Cleanse,
+        Rage,
+        Guillotine,
+        Brace,
+        Rampart,
+        Intervention,
+        Stun
     }
 
     public static class SkillIconProvider
@@ -62,6 +74,18 @@ namespace SolStandard.Utility.Assets
             ITexture2D meditate = skillIconTextures.Find(texture => texture.Name.EndsWith("Meditate"));
             ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
             ITexture2D pressurePoint = skillIconTextures.Find(texture => texture.Name.EndsWith("PressurePoint"));
+            ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
+            ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
+            ITexture2D freezeLance = skillIconTextures.Find(texture => texture.Name.EndsWith("FreezeLance"));
+            ITexture2D phaseStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("PhaseStrike"));
+            ITexture2D focus = skillIconTextures.Find(texture => texture.Name.EndsWith("Focus"));
+            ITexture2D cleanse = skillIconTextures.Find(texture => texture.Name.EndsWith("Cleanse"));
+            ITexture2D rage = skillIconTextures.Find(texture => texture.Name.EndsWith("Rage"));
+            ITexture2D guillotine = skillIconTextures.Find(texture => texture.Name.EndsWith("Guillotine"));
+            ITexture2D brace = skillIconTextures.Find(texture => texture.Name.EndsWith("Brace"));
+            ITexture2D rampart = skillIconTextures.Find(texture => texture.Name.EndsWith("Rampart"));
+            ITexture2D intervention = skillIconTextures.Find(texture => texture.Name.EndsWith("Intervention"));
+            ITexture2D stun = skillIconTextures.Find(texture => texture.Name.EndsWith("Stun"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -85,7 +109,19 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Charge, charge},
                 {SkillIcon.Meditate, meditate},
                 {SkillIcon.Uppercut, uppercut},
-                {SkillIcon.PressurePoint, pressurePoint}
+                {SkillIcon.PressurePoint, pressurePoint},
+                {SkillIcon.AtkBuff, atkBuff},
+                {SkillIcon.Challenge, challenge},
+                {SkillIcon.Immobilize, freezeLance},
+                {SkillIcon.PhaseStrike, phaseStrike},
+                {SkillIcon.Focus, focus},
+                {SkillIcon.Cleanse, cleanse},
+                {SkillIcon.Rage, rage},
+                {SkillIcon.Guillotine, guillotine},
+                {SkillIcon.Brace, brace},
+                {SkillIcon.Rampart, rampart},
+                {SkillIcon.Intervention, intervention},
+                {SkillIcon.Stun, stun}
             };
         }
     }

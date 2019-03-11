@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Actions.Archer;
+using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Events
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
-            Vector2 pullCoordinates = Harpoon.DeterminePullPosition(actorCoordinates, targetCoordinates);
+            Vector2 pullCoordinates = Challenge.DeterminePullPosition(actorCoordinates, targetCoordinates);
             target.UnitEntity.MapCoordinates = pullCoordinates;
             AssetManager.CombatBlockSFX.Play();
             Complete = true;

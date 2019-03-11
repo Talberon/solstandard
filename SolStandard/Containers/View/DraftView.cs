@@ -156,16 +156,32 @@ namespace SolStandard.Containers.View
 
         private static MenuOption[,] GetUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
+            const int unitsPerRow = 5;
             List<Role> availableRoles = DraftContext.AvailableRoles;
 
-            MenuOption[,] options = new MenuOption[1, availableRoles.Count];
+            int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
 
-            for (int i = 0; i < availableRoles.Count; i++)
+            MenuOption[,] options = new MenuOption[totalRows, unitsPerRow];
+
+            int unitIndex = 0;
+            for (int row = 0; row < totalRows; row++)
             {
-                Role currentRole = availableRoles[i];
-                // ReSharper disable once SimplifyConditionalTernaryExpression
-                bool enabled = unitEnabled.ContainsKey(currentRole) ? unitEnabled[currentRole] : true;
-                options[0, i] = new DraftUnitOption(currentRole, team, enabled);
+                for (int column = 0; column < unitsPerRow; column++)
+                {
+                    if (unitIndex < availableRoles.Count)
+                    {
+                        Role currentRole = availableRoles[unitIndex];
+                        // ReSharper disable once SimplifyConditionalTernaryExpression
+                        bool enabled = unitEnabled.ContainsKey(currentRole) ? unitEnabled[currentRole] : true;
+                        options[row, column] = new DraftUnitOption(currentRole, team, enabled);
+                    }
+                    else
+                    {
+                        options[row, column] = new DraftUnitOption(Role.Silhouette, team, false);
+                    }
+
+                    unitIndex++;
+                }
             }
 
             return options;

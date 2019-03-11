@@ -1,14 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Actions.Cleric;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
@@ -30,18 +26,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
-
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-
-                foreach (StatusEffect effect in targetUnit.StatusEffects.Where(effect => effect.CanCleanse).ToList())
-                {
-                    eventQueue.Enqueue(new RemoveStatusEffectEvent(targetUnit, effect));
-                    eventQueue.Enqueue(new WaitFramesEvent(50));
-                }
-
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                Cleanse.CleanseAllCleansableStatuses(targetUnit);
             }
             else
             {

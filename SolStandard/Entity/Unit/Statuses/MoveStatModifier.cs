@@ -4,18 +4,22 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class MoveStatUp : StatusEffect
+    public class MoveStatModifier : StatusEffect
     {
         private readonly int mvModifier;
         private const int FrameDelay = 10;
 
-        public MoveStatUp(int turnDuration, int mvModifier) : base(
-            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp, new Vector2(32)),
-            name: UnitStatistics.Abbreviation[Stats.Mv] + " Up!",
-            description: "Increased movement distance.",
+        public MoveStatModifier(int turnDuration, int mvModifier) : base(
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
+            name: UnitStatistics.Abbreviation[Stats.Mv] + (
+                      (mvModifier < 0)
+                          ? " Down! <" + mvModifier + ">"
+                          : " Up! <+" + mvModifier + ">"
+                  ),
+            description: ((mvModifier < 0) ? "Decreased" : "Increased") + " movement distance.",
             turnDuration: turnDuration,
             hasNotification: false,
-            canCleanse: false
+            canCleanse: (mvModifier < 0)
         )
         {
             this.mvModifier = mvModifier;

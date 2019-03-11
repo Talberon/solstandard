@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
-using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -68,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                Vector2 oppositeCoordinates = Shove.DetermineShovePosition(
+                Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(
                     GameContext.ActiveUnit.UnitEntity.MapCoordinates, pushBlock.MapCoordinates);
 
                 return UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) &&

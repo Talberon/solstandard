@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -9,23 +9,20 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Bard
+namespace SolStandard.Entity.Unit.Actions.Marauder
 {
-    public class Bulwark : UnitAction
+    public class Brace : UnitAction
     {
-        private readonly int statModifier;
         private readonly int duration;
 
-        public Bulwark(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
-            name: "Bulwark",
-            description: "Increase an ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " regeneration by " +
-                         "[+" + statModifier + "] for [" + duration + "] turns.",
+        public Brace(int duration) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Brace, new Vector2(GameDriver.CellSize)),
+            name: "Brace",
+            description: "Prevent other units from moving this unit with abilities for <" + duration + "> turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {0}
         )
         {
-            this.statModifier = statModifier;
             this.duration = duration;
         }
 
@@ -33,18 +30,20 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnAllyInRange(targetSlice, targetUnit))
+            if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
+                AssetManager.SkillBuffSFX.Play();
+                
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ArmorRegenerationUp(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

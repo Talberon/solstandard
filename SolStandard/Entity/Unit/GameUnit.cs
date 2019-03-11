@@ -26,15 +26,25 @@ namespace SolStandard.Entity.Unit
     {
         Silhouette,
         Champion,
-        Archer,
-        Mage,
+        Marauder,
+        Paladin,
         Bard,
+        Cleric,
+        Duelist,
+        Lancer,
+        Pugilist,
+        Mage,
+        Archer,
         Slime,
         Troll,
         Orc,
+        Necromancer,
+        Skeleton,
         Merchant,
-        Lancer,
-        Pugilist
+        Goblin,
+        Rat,
+        Bat,
+        Spider
     }
 
     public enum Team
@@ -74,6 +84,7 @@ namespace SolStandard.Entity.Unit
 
         public List<StatusEffect> StatusEffects { get; private set; }
         public bool IsCommander { get; set; }
+        public bool IsMovable { get; set; }
 
         public List<IItem> Inventory { get; private set; }
         public int CurrentGold { get; set; }
@@ -89,7 +100,13 @@ namespace SolStandard.Entity.Unit
             this.stats = stats;
             Actions = actions;
             IsCommander = isCommander;
-            InventoryActions = new List<UnitAction>();
+            IsMovable = true;
+            InventoryActions = new List<UnitAction>
+            {
+                new DropGiveGoldAction(),
+                new Wait()
+            };
+
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
                 new Vector2(256));
@@ -558,7 +575,6 @@ namespace SolStandard.Entity.Unit
         {
             if (UnitEntity == null) return;
             IsExhausted = false;
-            RecoverArmor(1);
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
             SetUnitAnimation(UnitAnimationState.Attack);
             UpdateStatusEffects();
@@ -626,13 +642,13 @@ namespace SolStandard.Entity.Unit
         {
             foreach (StatusEffect effect in StatusEffects)
             {
-                if (effect.Name == statusEffect.Name)
+                if (effect.GetType() == statusEffect.GetType())
                 {
                     effect.RemoveEffect(this);
                 }
             }
 
-            StatusEffects.RemoveAll(status => status.Name == statusEffect.Name);
+            StatusEffects.RemoveAll(status => status.GetType() == statusEffect.GetType());
         }
 
         private void UpdateStatusEffects()

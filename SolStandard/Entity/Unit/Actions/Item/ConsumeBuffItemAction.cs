@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                         break;
                     case Stats.Mv:
                         eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
-                            new MoveStatUp(buffDuration, statModifier)));
+                            new MoveStatModifier(buffDuration, statModifier)));
                         break;
                     case Stats.AtkRange:
                         eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,

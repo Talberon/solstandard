@@ -1,24 +1,21 @@
-﻿using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit;
+﻿using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events
 {
     public class EndTurnEvent : IEvent
     {
         public bool Complete { get; private set; }
+        private readonly bool skipProcs;
+
+        public EndTurnEvent(bool skipProcs = false)
+        {
+            this.skipProcs = skipProcs;
+        }
 
         public void Continue()
         {
-            MapContainer.ClearDynamicAndPreviewGrids();
+            GameMapContext.FinishTurn(skipProcs);
 
-            if (GameContext.GameMapContext.SelectedUnit != null)
-            {
-                GameContext.GameMapContext.SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
-            }
-
-            GameMapContext.SetPromptWindowText("Confirm End Turn");
-            GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.ResolvingTurn;
             Complete = true;
         }
     }

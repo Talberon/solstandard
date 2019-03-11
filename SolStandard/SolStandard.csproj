@@ -105,15 +105,23 @@
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
+    <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
     <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
@@ -121,25 +129,29 @@
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\PoisonTip.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\Cripple.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Bulwark.cs" />
+    <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
+    <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
+    <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
+    <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
+    <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\Harpoon.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\DoubleTime.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Inspire.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Accelerando.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\Capriccio.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
@@ -159,13 +171,18 @@
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ArmorRegenerationUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\MoveStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
+    <Compile Include="Entity\Unit\Statuses\GuillotineStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
@@ -264,7 +281,9 @@
     <Compile Include="Utility\Buttons\MultiControlParser.cs" />
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
+    <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
@@ -428,6 +447,33 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_02_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Arena_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Arena_Tower_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Crossroads.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Dimpimple_Beach.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Island_Coast.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Tavern_Inn.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Dungeon_01.tmx">

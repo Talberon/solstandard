@@ -4,14 +4,14 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class ArmorRegenerationUp : StatusEffect
+    public class ArmorRegeneration : StatusEffect
     {
         private readonly int armorModifier;
 
-        public ArmorRegenerationUp(int turnDuration, int armorModifier) : base(
+        public ArmorRegeneration(int turnDuration, int armorModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.DefUp,
                 new Vector2(GameDriver.CellSize)),
-            name: UnitStatistics.Abbreviation[Stats.Armor] + " Regen Up!",
+            name: UnitStatistics.Abbreviation[Stats.Armor] + " Regen! <+" + armorModifier + "/turn>",
             description: "Increased defensive power.",
             turnDuration: turnDuration,
             hasNotification: true,
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
-                target.Id + " regenerates [" + armorModifier + "] extra " + UnitStatistics.Abbreviation[Stats.Armor] + "!",
+                target.Id + " regenerates [" + armorModifier + "] " + UnitStatistics.Abbreviation[Stats.Armor] + "!",
                 50
             );
 

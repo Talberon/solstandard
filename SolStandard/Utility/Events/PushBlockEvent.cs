@@ -2,7 +2,7 @@
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
-using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
@@ -23,7 +23,7 @@ namespace SolStandard.Utility.Events
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.MapCoordinates;
-            Vector2 oppositeCoordinates = Shove.DetermineShovePosition(actorCoordinates, targetCoordinates);
+            Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
             MoveTerrainEntityToPosition(Layer.Entities, targetCoordinates, oppositeCoordinates);
             AssetManager.CombatBlockSFX.Play();
             Complete = true;

@@ -8,13 +8,17 @@ namespace SolStandard.Entity.Unit.Statuses
     {
         private readonly int atkModifier;
 
-        public AtkStatModifier(int turnDuration, int atkModifier) : base(
+        public AtkStatModifier(int turnDuration, int atkModifier, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
-            name: UnitStatistics.Abbreviation[Stats.Atk] + ((atkModifier >= 0) ? " Up!" : " Down!"),
-            description: ((atkModifier >= 0) ? "In" : "De") + "creased attack power.",
+            name: name ?? UnitStatistics.Abbreviation[Stats.Atk] + (
+                      (atkModifier < 0)
+                          ? " Down! <" + atkModifier + ">"
+                          : " Up! <+" + atkModifier + ">"
+                  ),
+            description: ((atkModifier < 0) ? "Decreased" : "Increased") + " attack power.",
             turnDuration: turnDuration,
             hasNotification: false,
-            canCleanse: true
+            canCleanse: (atkModifier < 0)
         )
         {
             this.atkModifier = atkModifier;

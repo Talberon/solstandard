@@ -82,9 +82,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             if (TargetIsNorth(targetSlice))
             {
-                int distanceToTarget = Convert.ToInt32(
-                    origin.Y - targetSlice.MapCoordinates.Y
-                );
+                int distanceToTarget = Convert.ToInt32(origin.Y - targetSlice.MapCoordinates.Y);
 
                 for (int northDistance = 1; northDistance < distanceToTarget; northDistance++)
                 {
@@ -99,9 +97,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsSouth(targetSlice))
             {
-                int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.Y - GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
-                );
+                int distanceToTarget = Convert.ToInt32(targetSlice.MapCoordinates.Y - origin.Y);
 
                 for (int southDistance = 1; southDistance < distanceToTarget; southDistance++)
                 {
@@ -115,9 +111,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsEast(targetSlice))
             {
-                int distanceToTarget = Convert.ToInt32(
-                    targetSlice.MapCoordinates.X - GameContext.ActiveUnit.UnitEntity.MapCoordinates.X
-                );
+                int distanceToTarget = Convert.ToInt32(targetSlice.MapCoordinates.X - origin.X);
 
                 for (int eastDistance = 1; eastDistance < distanceToTarget; eastDistance++)
                 {
@@ -131,9 +125,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsWest(targetSlice))
             {
-                int distanceToTarget = Convert.ToInt32(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - targetSlice.MapCoordinates.X
-                );
+                int distanceToTarget = Convert.ToInt32(origin.X - targetSlice.MapCoordinates.X);
 
                 for (int westDistance = 1; westDistance < distanceToTarget; westDistance++)
                 {

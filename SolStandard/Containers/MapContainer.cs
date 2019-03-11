@@ -155,6 +155,26 @@ namespace SolStandard.Containers
             return entities;
         }
 
+        public static List<MapElement> GetMapElementsFromLayer(Layer layer)
+        {
+            List<MapElement> elements = new List<MapElement>();
+
+            int mapHeight = (int) MapGridSize.Y;
+            int mapWidth = (int) MapGridSize.X;
+
+            for (int row = 0; row < mapHeight; row++)
+            {
+                for (int column = 0; column < mapWidth; column++)
+                {
+                    MapElement currentTile = GameGrid[(int) layer][column, row];
+
+                    if (currentTile != null) elements.Add(currentTile);
+                }
+            }
+
+            return elements;
+        }
+
         public static MapSlice GetMapSliceAtCoordinates(Vector2 coordinates)
         {
             if (GameMapContext.CoordinatesWithinMapBounds(coordinates))

@@ -18,6 +18,7 @@ namespace SolStandard.Entity.Unit.Actions
         public DropGiveGoldAction(int value = 0) : base(
             icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
+            //TODO Show icons for increasing/decreasing gold count
             description: "Drop " + value + Currency.CurrencyAbbreviation +
                          " on an empty item tile or give it to an ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

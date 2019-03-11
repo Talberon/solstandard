@@ -6,9 +6,13 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
 using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Entity.Unit.Actions.Cleric;
 using SolStandard.Entity.Unit.Actions.Creeps;
+using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
+using SolStandard.Entity.Unit.Actions.Marauder;
+using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
@@ -39,10 +43,20 @@ namespace SolStandard.Entity.Unit
             {"Lancer", Role.Lancer},
             {"Bard", Role.Bard},
             {"Pugilist", Role.Pugilist},
+            {"Duelist", Role.Duelist},
+            {"Cleric", Role.Cleric},
+            {"Marauder", Role.Marauder},
+            {"Paladin", Role.Paladin},
+            {"Merchant", Role.Merchant},
             {"Slime", Role.Slime},
             {"Troll", Role.Troll},
             {"Orc", Role.Orc},
-            {"Merchant", Role.Merchant}
+            {"Necromancer", Role.Necromancer},
+            {"Skeleton", Role.Skeleton},
+            {"Goblin", Role.Goblin},
+            {"Rat", Role.Rat},
+            {"Bat", Role.Bat},
+            {"Spider", Role.Spider}
         };
 
         private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
@@ -99,6 +113,24 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Orc:
                     generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Necromancer:
+                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Skeleton:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Goblin:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Rat:
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
+                    break;
+                case Role.Bat:
+                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
+                    break;
+                case Role.Spider:
+                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
                 case Role.Merchant:
                     generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
@@ -172,6 +204,26 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(hp: 9, armor: 4, atk: 7, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
         }
 
+        private static UnitStatistics SelectDuelistStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
+        }
+
+        private static UnitStatistics SelectClericStats()
+        {
+            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, luck: 4, mv: 6, atkRange: new[] {1, 2});
+        }
+
+        private static UnitStatistics SelectMarauderStats()
+        {
+            return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
+        }
+
+        private static UnitStatistics SelectPaladinStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 8, atk: 5, ret: 6, luck: 1, mv: 6, atkRange: new[] {1});
+        }
+
         private static UnitStatistics SelectSlimeStats()
         {
             return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
@@ -186,6 +238,36 @@ namespace SolStandard.Entity.Unit
         {
             return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
+        
+        private static UnitStatistics SelectNecromancerStats()
+        {
+            return new UnitStatistics(hp: 15, armor: 5, atk: 5, ret: 5, luck: 1, mv: 4, atkRange: new[] {1, 2});
+        }
+        
+        private static UnitStatistics SelectSkeletonStats()
+        {
+            return new UnitStatistics(hp: 12, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectGoblinStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, luck: 1, mv: 4, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectRatStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectBatStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
+        }
+        
+        private static UnitStatistics SelectSpiderStats()
+        {
+            return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
+        }
 
         private static UnitStatistics SelectMerchantStats()
         {
@@ -197,11 +279,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Draw(2, 1),
-                new HuntingTrap(5, 1),
-                new Harpoon(2),
+                new Draw(3, 1),
+                new PoisonArrow(2, 4),
+                new HuntingTrap(6, 1),
                 new Guard(3),
-                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -212,11 +293,10 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bloodthirst(2),
+                new Challenge(2),
                 new Tackle(),
                 new Shove(),
-                new Atrophy(2, 2),
                 new Guard(3),
-                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -227,10 +307,10 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Ignite(3, 3),
-                new Inferno(2, 3),
+                new Inferno(3, 2),
+                new Atrophy(2, 1),
                 new Replace(),
                 new Guard(3),
-                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -240,11 +320,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new LeapStrike(3),
+                new Cripple(2, -2),
                 new Execute(3),
-                new PoisonTip(2, 4),
-                new Charge(3),
                 new Guard(3),
-                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -254,11 +333,10 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new DoubleTime(2, 1),
-                new Inspire(2, 1),
-                new Bulwark(2, 2),
+                new Crescendo(2, 1),
+                new Accelerando(2, 1),
+                new Capriccio(2, 1),
                 new Guard(3),
-                new DropGiveGoldAction(),
                 new Wait()
             };
         }
@@ -268,11 +346,62 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Guard(3),
                 new Uppercut(),
                 new PressurePoint(),
                 new Meditate(),
-                new DropGiveGoldAction(),
+                new Guard(3),
+                new Wait()
+            };
+        }
+
+        private static List<UnitAction> SelectDuelistSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new PhaseStrike(),
+                new Bloodthirst(2),
+                new Guard(3),
+                new Focus(3)
+            };
+        }
+
+        private static List<UnitAction> SelectClericSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Bulwark(3, 1),
+                new Cleanse(),
+                new Replace(),
+                new Guard(3),
+                new Wait()
+            };
+        }
+
+        private static List<UnitAction> SelectMarauderSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Guillotine(),
+                new Rage(3, 3),
+                new Brace(3),
+                new Shove(),
+                new Wait()
+            };
+        }
+
+        private static List<UnitAction> SelectPaladinSkills()
+        {
+            return new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Rampart(3,2),
+                new Stun(1),
+                new Replace(),
+                new Shove(),
+                new Guard(3),
                 new Wait()
             };
         }
@@ -359,6 +488,22 @@ namespace SolStandard.Entity.Unit
                     unitStatistics = SelectPugilistStats();
                     unitActions = SelectPugilistSkills();
                     break;
+                case Role.Duelist:
+                    unitStatistics = SelectDuelistStats();
+                    unitActions = SelectDuelistSkills();
+                    break;
+                case Role.Cleric:
+                    unitStatistics = SelectClericStats();
+                    unitActions = SelectClericSkills();
+                    break;
+                case Role.Marauder:
+                    unitStatistics = SelectMarauderStats();
+                    unitActions = SelectMarauderSkills();
+                    break;
+                case Role.Paladin:
+                    unitStatistics = SelectPaladinStats();
+                    unitActions = SelectPaladinSkills();
+                    break;
                 case Role.Slime:
                     unitStatistics = SelectSlimeStats();
                     unitActions = SelectCreepRoutine(tiledProperties);
@@ -369,6 +514,30 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Orc:
                     unitStatistics = SelectOrcStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Necromancer:
+                    unitStatistics = SelectNecromancerStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Skeleton:
+                    unitStatistics = SelectSkeletonStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Goblin:
+                    unitStatistics = SelectGoblinStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Rat:
+                    unitStatistics = SelectRatStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Bat:
+                    unitStatistics = SelectBatStats();
+                    unitActions = SelectCreepRoutine(tiledProperties);
+                    break;
+                case Role.Spider:
+                    unitStatistics = SelectSpiderStats();
                     unitActions = SelectCreepRoutine(tiledProperties);
                     break;
                 case Role.Merchant:
@@ -384,7 +553,6 @@ namespace SolStandard.Entity.Unit
 
             return unit;
         }
-
 
         public static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
             List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)

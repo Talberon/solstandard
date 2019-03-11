@@ -21,6 +21,15 @@ namespace SolStandard.Entity.General
             IsOpen = isOpen;
             IsLocked = true;
             CanMove = false;
+
+            if (IsOpen)
+            {
+                Open();
+            }
+            else
+            {
+                Close();
+            }
         }
 
         public void Open()
@@ -29,7 +38,6 @@ namespace SolStandard.Entity.General
             Visible = true;
             IsOpen = true;
             CanMove = true;
-            AssetManager.DoorSFX.Play();
         }
 
         public void Close()
@@ -38,7 +46,6 @@ namespace SolStandard.Entity.General
             Visible = false;
             IsOpen = false;
             CanMove = false;
-            AssetManager.DoorSFX.Play();
         }
 
         private void ToggleOpen()
@@ -51,6 +58,8 @@ namespace SolStandard.Entity.General
             {
                 Open();
             }
+            
+            AssetManager.DoorSFX.Play();
         }
 
         public void ToggleLock()

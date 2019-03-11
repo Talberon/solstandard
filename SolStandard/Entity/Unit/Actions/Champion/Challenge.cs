@@ -9,16 +9,16 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Archer
+namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class Harpoon : UnitAction
+    public class Challenge : UnitAction
     {
         private readonly int skillRange;
 
-        public Harpoon(int skillRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Harpoon, new Vector2(GameDriver.CellSize)),
-            name: "Harpoon",
-            description: "Pull an enemy within range towards you, then attack.",
+        public Challenge(int skillRange) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Challenge, new Vector2(GameDriver.CellSize)),
+            name: "Challenge",
+            description: "Taunt an enemy within range towards you, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
@@ -79,13 +79,9 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
-                UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates))
-            {
-                return true;
-            }
-
-            return false;
+            return TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates) &&
+                   targetUnit.IsMovable;
         }
 
         public static Vector2 DeterminePullPosition(Vector2 actorCoordinates, Vector2 targetCoordinates)

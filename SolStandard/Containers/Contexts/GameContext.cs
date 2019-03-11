@@ -175,7 +175,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             InitiativeContext.StartFirstTurn();
-            GameMapContext.EndTurn();
+            GameMapContext.ResetTurnState();
 
             GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();

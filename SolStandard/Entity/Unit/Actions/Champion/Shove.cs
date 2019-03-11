@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
     public class Shove : UnitAction
     {
         public Shove() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(GameDriver.CellSize)),
             name: "Shove",
             description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
@@ -54,41 +54,11 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         {
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
-            Vector2 oppositeCoordinates = DetermineShovePosition(actorCoordinates, targetCoordinates);
+            Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates);
-        }
-
-        public static Vector2 DetermineShovePosition(Vector2 actorCoordinates, Vector2 targetCoordinates)
-        {
-            Vector2 oppositeCoordinates = targetCoordinates;
-
-            if (SourceNorthOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move South
-                oppositeCoordinates.Y++;
-            }
-
-            if (SourceSouthOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move North
-                oppositeCoordinates.Y--;
-            }
-
-            if (SourceEastOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move West
-                oppositeCoordinates.X--;
-            }
-
-            if (SourceWestOfTarget(actorCoordinates, targetCoordinates))
-            {
-                //Move East
-                oppositeCoordinates.X++;
-            }
-
-            return oppositeCoordinates;
+                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) && 
+                   targetUnit.IsMovable;
         }
     }
 }

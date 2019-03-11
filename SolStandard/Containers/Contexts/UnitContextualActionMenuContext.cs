@@ -46,14 +46,12 @@ namespace SolStandard.Containers.Contexts
 
         public static MenuOption[] GenerateInventoryMenuOptions(Color windowColour)
         {
-            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count + 1];
+            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count];
 
             for (int i = 0; i < GameContext.ActiveUnit.InventoryActions.Count; i++)
             {
                 options[i] = new ActionOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
             }
-
-            options[GameContext.ActiveUnit.InventoryActions.Count] = new ActionOption(windowColour, new Wait());
 
             return options;
         }
