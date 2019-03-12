@@ -48,6 +48,95 @@ namespace SolStandard.Containers.Contexts
             return networkController;
         }
 
+        private static void MainMenuControls(ControlMapper controlMapper, NetworkController networkController)
+        {
+            if (controlMapper.Press(Input.CursorDown, PressType.Single))
+            {
+                networkController.Press(Input.CursorDown);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.Single))
+            {
+                networkController.Press(Input.CursorUp);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.MainMenuView.MainMenu.SelectOption();
+            }
+        }
+
+        private static void NetworkMenuControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.NetworkMenuView.Exit();
+            }
+
+            if (GameContext.NetworkMenuView.DialMenu == null) return;
+
+            if (controlMapper.Press(Input.CursorUp, PressType.Single))
+            {
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.Single))
+            {
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.Single))
+            {
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.Single))
+            {
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.NetworkMenuView.DialMenu.SelectOption();
+            }
+        }
+
+        private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorUp);
+                GameContext.DraftContext.MoveCursor(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorDown);
+                GameContext.DraftContext.MoveCursor(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorLeft);
+                GameContext.DraftContext.MoveCursor(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                networkController.Press(Input.CursorRight);
+                GameContext.DraftContext.MoveCursor(Direction.Right);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.DraftContext.ConfirmSelection();
+            }
+        }
+
         private static void DeploymentControls(ControlMapper controlMapper, NetworkController networkController)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
@@ -99,95 +188,6 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)
-        {
-            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorUp);
-                GameContext.DraftContext.MoveCursor(Direction.Up);
-            }
-
-            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorDown);
-                GameContext.DraftContext.MoveCursor(Direction.Down);
-            }
-
-            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorLeft);
-                GameContext.DraftContext.MoveCursor(Direction.Left);
-            }
-
-            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorRight);
-                GameContext.DraftContext.MoveCursor(Direction.Right);
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                networkController.Press(Input.Confirm);
-                GameContext.DraftContext.ConfirmSelection();
-            }
-        }
-
-        private static void NetworkMenuControls(ControlMapper controlMapper)
-        {
-            if (controlMapper.Press(Input.Cancel, PressType.Single))
-            {
-                GameContext.NetworkMenuView.Exit();
-            }
-
-            if (GameContext.NetworkMenuView.DialMenu == null) return;
-
-            if (controlMapper.Press(Input.CursorUp, PressType.Single))
-            {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
-            }
-
-            if (controlMapper.Press(Input.CursorDown, PressType.Single))
-            {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
-            }
-
-            if (controlMapper.Press(Input.CursorLeft, PressType.Single))
-            {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
-            }
-
-            if (controlMapper.Press(Input.CursorRight, PressType.Single))
-            {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                GameContext.NetworkMenuView.DialMenu.SelectOption();
-            }
-        }
-
-        private static void ResultsControls(ControlMapper controlMapper, NetworkController networkController)
-        {
-            if (controlMapper.Press(Input.Status, PressType.Single))
-            {
-                networkController.Press(Input.Status);
-                GameContext.CurrentGameState = GameContext.GameState.InGame;
-            }
-
-            if (controlMapper.Press(Input.Menu, PressType.Single))
-            {
-                networkController.Press(Input.Menu);
-                GameContext.GoToMainMenuIfGameIsOver();
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                networkController.Press(Input.Confirm);
-                GameContext.GoToMainMenuIfGameIsOver();
-            }
-        }
-
 
         private static void MapSelectControls(ControlMapper controlMapper, NetworkController networkController)
         {
@@ -219,27 +219,6 @@ namespace SolStandard.Containers.Contexts
             {
                 networkController.Press(Input.Confirm);
                 GameContext.MapSelectContext.SelectMap();
-            }
-        }
-
-        private static void MainMenuControls(ControlMapper controlMapper, NetworkController networkController)
-        {
-            if (controlMapper.Press(Input.CursorDown, PressType.Single))
-            {
-                networkController.Press(Input.CursorDown);
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
-            }
-
-            if (controlMapper.Press(Input.CursorUp, PressType.Single))
-            {
-                networkController.Press(Input.CursorUp);
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                networkController.Press(Input.Confirm);
-                GameContext.MainMenuView.MainMenu.SelectOption();
             }
         }
 
@@ -594,6 +573,27 @@ namespace SolStandard.Containers.Contexts
                 networkController.Press(Input.Confirm);
                 GameContext.GameMapContext.ResolveTurn();
                 AssetManager.MapUnitSelectSFX.Play();
+            }
+        }
+
+        private static void ResultsControls(ControlMapper controlMapper, NetworkController networkController)
+        {
+            if (controlMapper.Press(Input.Status, PressType.Single))
+            {
+                networkController.Press(Input.Status);
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+
+            if (controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                networkController.Press(Input.Menu);
+                GameContext.GoToMainMenuIfGameIsOver();
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                networkController.Press(Input.Confirm);
+                GameContext.GoToMainMenuIfGameIsOver();
             }
         }
     }
