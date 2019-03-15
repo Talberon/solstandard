@@ -106,6 +106,10 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
+            
+            //TODO (NETPLAY) Do not start the turn until the other player has confirmed that they have finished the turn
+            //TODO (NETPLAY) Compare the local map state vs the remote map state before continuing the next turn
+            
             StartTurn();
         }
 

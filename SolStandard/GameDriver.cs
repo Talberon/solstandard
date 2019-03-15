@@ -16,7 +16,6 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Gamepad;
 using SolStandard.Utility.Buttons.KeyboardInput;
-using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
@@ -45,8 +44,6 @@ namespace SolStandard
         private SpriteBatch spriteBatch;
         private static ControlMapper _blueTeamControlMapper;
         private static ControlMapper _redTeamControlMapper;
-        private NetworkController networkController;
-        private NetworkController lastNetworkControlSent;
 
         private static bool _quitting;
 
@@ -163,8 +160,6 @@ namespace SolStandard
         {
             base.Initialize();
 
-            networkController = new NetworkController();
-
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -258,8 +253,7 @@ namespace SolStandard
                     case PlayerIndex.One:
                         if (_connectionManager.ConnectedAsServer)
                         {
-                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
-                            SendServerControls();
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
                         else if (_connectionManager.ConnectedAsClient)
                         {
@@ -274,8 +268,7 @@ namespace SolStandard
                     case PlayerIndex.Two:
                         if (_connectionManager.ConnectedAsClient)
                         {
-                            networkController = ControlContext.ListenForInputs(_redTeamControlMapper);
-                            SendClientControls();
+                            ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
                         else if (_connectionManager.ConnectedAsServer)
                         {
@@ -292,8 +285,7 @@ namespace SolStandard
                         if (_connectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            networkController = ControlContext.ListenForInputs(_blueTeamControlMapper);
-                            SendServerControls();
+                            ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
                         else if (_connectionManager.ConnectedAsClient)
                         {
@@ -343,26 +335,6 @@ namespace SolStandard
             }
 
             base.Update(gameTime);
-        }
-
-        private void SendServerControls()
-        {
-            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
-
-            //Send Message From Server to Client
-            _connectionManager.SendTextMessageAsServer("MESSAGE FROM SERVER TO CLIENT :^)");
-            _connectionManager.SendControlMessageAsServer(networkController);
-            lastNetworkControlSent = networkController;
-        }
-
-        private void SendClientControls()
-        {
-            if (lastNetworkControlSent != null && lastNetworkControlSent.Equals(networkController)) return;
-
-            //Send message from client to server
-            _connectionManager.SendTextMessageAsClient("MESSAGE FROM CLIENT TO SERVER :D");
-            _connectionManager.SendControlMessageAsClient(networkController);
-            lastNetworkControlSent = networkController;
         }
 
         /// <summary>
@@ -417,8 +389,7 @@ namespace SolStandard
         private void DrawPauseMenu()
         {
             spriteBatch.Begin(
-                SpriteSortMode
-                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
@@ -427,8 +398,7 @@ namespace SolStandard
         private void DrawMainMenu()
         {
             spriteBatch.Begin(
-                SpriteSortMode
-                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
@@ -437,8 +407,7 @@ namespace SolStandard
         private void DrawNetworkMenu()
         {
             spriteBatch.Begin(
-                SpriteSortMode
-                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
@@ -467,8 +436,7 @@ namespace SolStandard
         private void DrawDraftMenu()
         {
             spriteBatch.Begin(
-                SpriteSortMode
-                    .Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.DraftContext.DraftView.Draw(spriteBatch);
             spriteBatch.End();
