@@ -14,7 +14,7 @@ namespace SolStandard.Utility
                 case Team.Red:
                     return new Color(100, 35, 35, 200);
                 default:
-                    return new Color(75, 150, 75, 200);
+                    return new Color(35, 100, 35, 200);
             }
         }
     }

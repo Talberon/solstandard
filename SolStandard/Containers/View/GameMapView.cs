@@ -30,6 +30,10 @@ namespace SolStandard.Containers.View
 
         private const int WindowEdgeBuffer = 5;
         private static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
+        private static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
+        private static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
+        private static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
+        private static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }
@@ -247,10 +251,9 @@ namespace SolStandard.Containers.View
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
-            Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window(
                 promptTextContent,
-                promptWindowColor,
+                UserPromptWindowColor,
                 sizeOverride
             );
         }
@@ -268,7 +271,7 @@ namespace SolStandard.Containers.View
                             (hoverSlice.TerrainEntity != null)
                                 ? new Window(
                                     hoverSlice.TerrainEntity.TerrainInfo,
-                                    new Color(100, 150, 100, 180)
+                                    EntityTerrainWindowColor
                                 ) as IRenderable
                                 : new RenderBlank()
                         },
@@ -276,7 +279,7 @@ namespace SolStandard.Containers.View
                             (hoverSlice.ItemEntity != null)
                                 ? new Window(
                                     hoverSlice.ItemEntity.TerrainInfo,
-                                    new Color(180, 180, 100, 180)
+                                    ItemTerrainWindowColor
                                 ) as IRenderable
                                 : new RenderBlank()
                         }
@@ -309,7 +312,7 @@ namespace SolStandard.Containers.View
                         {
                             new Window(
                                 noEntityContent,
-                                new Color(100, 100, 100, 180)
+                                BlankTerrainWindowColor
                             )
                         }
                     },
