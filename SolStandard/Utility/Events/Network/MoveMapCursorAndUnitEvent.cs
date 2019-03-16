@@ -4,6 +4,7 @@ using SolStandard.Map.Elements;
 
 namespace SolStandard.Utility.Events.Network
 {
+    [Serializable]
     public class MoveMapCursorAndUnitEvent : NetworkEvent
     {
         private readonly Direction direction;

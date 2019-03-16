@@ -103,26 +103,27 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.DraftContext.MoveCursor(Direction.Up);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Up));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                GameContext.DraftContext.MoveCursor(Direction.Down);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Down));
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                GameContext.DraftContext.MoveCursor(Direction.Left);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Left));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GameContext.DraftContext.MoveCursor(Direction.Right);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Right));
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GameContext.DraftContext.ConfirmSelection();
+                GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
             }
         }
 
@@ -136,7 +137,6 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Down, GameContext.CurrentGameState));
-
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
@@ -146,17 +146,18 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right, GameContext.CurrentGameState));
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new DraftSelectPreviousUnitEvent());
+                GlobalEventQueue.QueueSingleEvent(new DeploySelectPreviousUnitEvent());
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new DraftSelectNextUnitEvent());
+                GlobalEventQueue.QueueSingleEvent(new DeploySelectNextUnitEvent());
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -190,7 +191,8 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right, GameContext.CurrentGameState));
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -469,7 +471,8 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right, GameContext.CurrentGameState));
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.SelectNextUnit, PressType.DelayedRepeat))

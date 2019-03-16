@@ -289,8 +289,10 @@
     <Compile Include="Utility\Events\Network\ContinueCombatEvent.cs" />
     <Compile Include="Utility\Events\Network\DecrementCurrentAdjustableActionEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\DraftSelectNextUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\DraftSelectPreviousUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\DraftConfirmSelectionEvent.cs" />
+    <Compile Include="Utility\Events\Network\DraftMenuMoveEvent.cs" />
+    <Compile Include="Utility\Events\Network\DeploySelectNextUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\DeploySelectPreviousUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ExecuteActionEvent.cs" />
     <Compile Include="Utility\Events\Network\FinishMovingEvent.cs" />
     <Compile Include="Utility\Events\Network\IncrementCurrentAdjustableActionEvent.cs" />

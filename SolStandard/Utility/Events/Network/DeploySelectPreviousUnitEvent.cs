@@ -1,8 +1,10 @@
+using System;
 using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class DraftSelectPreviousUnitEvent : NetworkEvent
+    [Serializable]
+    public class DeploySelectPreviousUnitEvent : NetworkEvent
     {
         public override void Continue()
         {

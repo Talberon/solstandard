@@ -1,12 +1,14 @@
+using System;
 using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class DraftSelectNextUnitEvent : NetworkEvent
+    [Serializable]
+    public class DraftConfirmSelectionEvent : NetworkEvent
     {
         public override void Continue()
         {
-            GameContext.DeploymentContext.SelectNextUnit();
+            GameContext.DraftContext.ConfirmSelection();
             Complete = true;
         }
     }

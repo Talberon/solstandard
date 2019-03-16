@@ -4,11 +4,11 @@ using SolStandard.Containers.Contexts;
 namespace SolStandard.Utility.Events.Network
 {
     [Serializable]
-    public class FinishMovingEvent : NetworkEvent
+    public class DeploySelectNextUnitEvent : NetworkEvent
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.FinishMoving();
+            GameContext.DeploymentContext.SelectNextUnit();
             Complete = true;
         }
     }
