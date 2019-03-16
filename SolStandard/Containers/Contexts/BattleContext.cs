@@ -269,6 +269,9 @@ namespace SolStandard.Containers.Contexts
         {
             if (currentlyResolvingBlocks || currentlyResolvingDamage || currentlyRolling) return false;
 
+            PeerCanContinue = false;
+            SelfCanContinue = false;
+            
             CurrentState = state;
             Trace.WriteLine("Changing combat state: " + CurrentState);
             return true;
