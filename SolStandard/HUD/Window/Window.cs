@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Window
 
     public class Window : IRenderable
     {
-        private ITexture2D windowTexture;
+        private readonly ITexture2D windowTexture;
         private readonly int windowCellSize;
         private readonly IRenderable windowContents;
         private WindowCell[,] windowCells;
@@ -25,7 +25,7 @@ namespace SolStandard.HUD.Window
         private HorizontalAlignment HorizontalAlignment { get; set; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
-
+        private Vector2 lastPosition;
 
         public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered)
@@ -35,9 +35,10 @@ namespace SolStandard.HUD.Window
             windowContents = windowContent;
             windowCellSize = CalculateCellSize(windowTexture);
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
-            windowCells = ConstructWindowCells(WindowPixelSize);
+            windowCells = ConstructWindowCells(WindowPixelSize, windowTexture);
             Visible = true;
             HorizontalAlignment = horizontalAlignment;
+            lastPosition = Vector2.Zero;
         }
 
         public Window(IRenderable windowContent, Color color, HorizontalAlignment horizontalAlignment) :
@@ -98,7 +99,7 @@ namespace SolStandard.HUD.Window
          * [4][5][6]
          * [7][8][9]
          */
-        private WindowCell[,] ConstructWindowCells(Vector2 pixelSize)
+        private WindowCell[,] ConstructWindowCells(Vector2 pixelSize, ITexture2D windowTexture)
         {
             WindowCell[,] windowCellsToConstruct =
                 new WindowCell[(int) pixelSize.X / windowCellSize, (int) pixelSize.Y / windowCellSize];
@@ -164,7 +165,7 @@ namespace SolStandard.HUD.Window
                     }
 
                     windowCellsToConstruct[column, row] = new WindowCell(windowCellSize, cellIndex,
-                        new Vector2(column * windowCellSize, row * windowCellSize));
+                        new Vector2(column * windowCellSize, row * windowCellSize), windowTexture);
                 }
             }
 
@@ -177,7 +178,7 @@ namespace SolStandard.HUD.Window
             set
             {
                 WindowPixelSize = DeriveSizeFromContent(new Vector2(0, value));
-                windowCells = ConstructWindowCells(WindowPixelSize);
+                windowCells = ConstructWindowCells(WindowPixelSize, windowTexture);
             }
         }
 
@@ -187,7 +188,7 @@ namespace SolStandard.HUD.Window
             set
             {
                 WindowPixelSize = DeriveSizeFromContent(new Vector2(value, 0));
-                windowCells = ConstructWindowCells(WindowPixelSize);
+                windowCells = ConstructWindowCells(WindowPixelSize, windowTexture);
             }
         }
 
@@ -255,15 +256,23 @@ namespace SolStandard.HUD.Window
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates, Color colorOverride)
         {
-            if (Visible)
+            if (!Visible) return;
+
+            if (lastPosition != coordinates)
             {
+                lastPosition = coordinates;
                 foreach (WindowCell windowCell in windowCells)
                 {
-                    windowCell.Draw(spriteBatch, windowTexture, coordinates, colorOverride);
+                    windowCell.SetRelativePosition(lastPosition);
                 }
-
-                windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
             }
+            
+            foreach (WindowCell windowCell in windowCells)
+            {
+                windowCell.Draw(spriteBatch, colorOverride);
+            }
+
+            windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
         }
 
 

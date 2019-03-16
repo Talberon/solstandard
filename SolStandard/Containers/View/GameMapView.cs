@@ -409,6 +409,7 @@ namespace SolStandard.Containers.View
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
+            //TODO Do not regenerate if none of this unit's relevant properties have changed
             LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
@@ -417,6 +418,7 @@ namespace SolStandard.Containers.View
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
+            //TODO Do not regenerate if none of this unit's relevant properties have changed
             RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
             RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
             RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
