@@ -102,7 +102,6 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                GameContext.DraftContext.MoveCursor(Direction.Up);
                 GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Up));
             }
 
