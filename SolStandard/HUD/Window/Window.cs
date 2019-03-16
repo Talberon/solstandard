@@ -185,7 +185,8 @@ namespace SolStandard.HUD.Window
                 borderPane = new Rectangle((int) lastPosition.X, (int) lastPosition.Y, Width, Height);
             }
 
-            spriteBatch.Draw(windowTexture.MonoGameTexture, borderPane, InnerPaneColor);
+            if (colorOverride.A != 0) spriteBatch.Draw(windowTexture.MonoGameTexture, borderPane, InnerPaneColor);
+            
             spriteBatch.Draw(windowTexture.MonoGameTexture, innerPane, colorOverride);
             windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
         }
