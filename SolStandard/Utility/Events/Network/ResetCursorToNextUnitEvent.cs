@@ -3,10 +3,9 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class ResetCursorToNextUnitEvent : IEvent
+    public class ResetCursorToNextUnitEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
             GameContext.MapCamera.CenterCameraToCursor();

@@ -2,10 +2,9 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class FinishMovingEvent : IEvent
+    public class FinishMovingEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.FinishMoving();
             Complete = true;

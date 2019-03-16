@@ -2,17 +2,15 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class DecrementCurrentAdjustableActionEvent : IEvent
+    public class DecrementCurrentAdjustableActionEvent : NetworkEvent
     {
         private readonly int value;
-        public bool Complete { get; private set; }
-
         public DecrementCurrentAdjustableActionEvent(int value)
         {
             this.value = value;
         }
         
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.DecrementCurrentAdjustableAction(value);
             Complete = true;

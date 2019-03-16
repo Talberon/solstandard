@@ -286,7 +286,6 @@
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
-    <Compile Include="Utility\Events\Network\ConfirmWindowEvent.cs" />
     <Compile Include="Utility\Events\Network\ContinueCombatEvent.cs" />
     <Compile Include="Utility\Events\Network\DecrementCurrentAdjustableActionEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployUnitEvent.cs" />
@@ -295,10 +294,10 @@
     <Compile Include="Utility\Events\Network\ExecuteActionEvent.cs" />
     <Compile Include="Utility\Events\Network\FinishMovingEvent.cs" />
     <Compile Include="Utility\Events\Network\IncrementCurrentAdjustableActionEvent.cs" />
+    <Compile Include="Utility\Events\Network\NetworkEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
-    <Compile Include="Utility\Events\Network\MoveMenuCursorEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
     <Compile Include="Utility\Events\Network\ResolveTurnEvent.cs" />

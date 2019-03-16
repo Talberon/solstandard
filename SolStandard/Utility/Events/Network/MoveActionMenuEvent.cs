@@ -3,17 +3,16 @@ using SolStandard.HUD.Menu;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class MoveActionMenuEvent: IEvent
+    public class MoveActionMenuEvent: NetworkEvent
     {
         private readonly VerticalMenu.MenuCursorDirection direction;
-        public bool Complete { get; private set; }
 
         public MoveActionMenuEvent(VerticalMenu.MenuCursorDirection direction)
         {
             this.direction = direction;
         }
         
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.MoveActionMenuCursor(direction);
             

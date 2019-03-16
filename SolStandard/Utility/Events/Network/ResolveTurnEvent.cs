@@ -3,10 +3,9 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class ResolveTurnEvent : IEvent
+    public class ResolveTurnEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.ResolveTurn();
             AssetManager.MapUnitSelectSFX.Play();

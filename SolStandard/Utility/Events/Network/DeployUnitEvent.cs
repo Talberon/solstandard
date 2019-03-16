@@ -2,10 +2,9 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class DeployUnitEvent : IEvent
+    public class DeployUnitEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-        public void Continue()
+        public override void Continue()
         {
             GameContext.DeploymentContext.TryDeployUnit();
             Complete = true;

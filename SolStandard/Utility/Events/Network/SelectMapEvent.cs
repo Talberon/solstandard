@@ -2,10 +2,9 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class SelectMapEvent : IEvent
+    public class SelectMapEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-        public void Continue()
+        public override void Continue()
         {
             GameContext.MapSelectContext.SelectMap();
             Complete = true;

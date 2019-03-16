@@ -39,7 +39,7 @@ namespace SolStandard
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
         public static Random Random = new Random();
         public static Vector2 ScreenSize { get; private set; }
-        private static ConnectionManager _connectionManager;
+        public static ConnectionManager ConnectionManager;
 
         private SpriteBatch spriteBatch;
         private static ControlMapper _blueTeamControlMapper;
@@ -95,7 +95,7 @@ namespace SolStandard
         public static void HostGame()
         {
             //Start Server
-            IPAddress serverIP = _connectionManager.StartServer();
+            IPAddress serverIP = ConnectionManager.StartServer();
             string serverIPAddress = (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP.";
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true);
             GameContext.NetworkMenuView.RemoveDialMenu();
@@ -105,10 +105,20 @@ namespace SolStandard
         public static void JoinGame(string serverIPAddress = "127.0.0.1")
         {
             //Start Client
-            _connectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
+            ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.NetworkMenuView.GenerateDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+        }
+
+        public static bool ConnectedAsServer
+        {
+            get { return ConnectionManager.ConnectedAsServer; }
+        }
+
+        public static bool ConnectedAsClient
+        {
+            get { return ConnectionManager.ConnectedAsClient; }
         }
 
         public static void SetControllerConfig(Team playerOneTeam)
@@ -183,7 +193,7 @@ namespace SolStandard
 
             GameContext.Initialize(mainMenu, networkMenu, draftView);
 
-            _connectionManager = new ConnectionManager();
+            ConnectionManager = new ConnectionManager();
         }
 
         /// <summary>
@@ -213,7 +223,7 @@ namespace SolStandard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            _connectionManager.Listen();
+            ConnectionManager.Listen();
 
             if (_quitting)
             {
@@ -251,11 +261,11 @@ namespace SolStandard
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
-                        if (_connectionManager.ConnectedAsServer)
+                        if (ConnectionManager.ConnectedAsServer)
                         {
                             ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
-                        else if (_connectionManager.ConnectedAsClient)
+                        else if (ConnectionManager.ConnectedAsClient)
                         {
                             //Do nothing
                         }
@@ -266,11 +276,11 @@ namespace SolStandard
 
                         break;
                     case PlayerIndex.Two:
-                        if (_connectionManager.ConnectedAsClient)
+                        if (ConnectionManager.ConnectedAsClient)
                         {
                             ControlContext.ListenForInputs(_redTeamControlMapper);
                         }
-                        else if (_connectionManager.ConnectedAsServer)
+                        else if (ConnectionManager.ConnectedAsServer)
                         {
                             //Do nothing
                         }
@@ -282,12 +292,12 @@ namespace SolStandard
                         break;
                     case PlayerIndex.Three:
 
-                        if (_connectionManager.ConnectedAsServer)
+                        if (ConnectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
                             ControlContext.ListenForInputs(_blueTeamControlMapper);
                         }
-                        else if (_connectionManager.ConnectedAsClient)
+                        else if (ConnectionManager.ConnectedAsClient)
                         {
                             //Do nothing
                         }

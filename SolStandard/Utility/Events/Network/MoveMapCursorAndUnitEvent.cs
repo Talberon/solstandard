@@ -4,7 +4,7 @@ using SolStandard.Map.Elements;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class MoveMapCursorAndUnitEvent : IEvent
+    public class MoveMapCursorAndUnitEvent : NetworkEvent
     {
         private readonly Direction direction;
         private readonly GameContext.GameState gameState;
@@ -14,8 +14,8 @@ namespace SolStandard.Utility.Events.Network
             this.direction = direction;
             this.gameState = gameState;
         }
-        public bool Complete { get; private set; }
-        public void Continue()
+        
+        public override void Continue()
         {
             switch (gameState)
             {

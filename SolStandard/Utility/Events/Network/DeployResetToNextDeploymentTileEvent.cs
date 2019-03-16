@@ -2,11 +2,9 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class DeployResetToNextDeploymentTileEvent : IEvent
+    public class DeployResetToNextDeploymentTileEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-
-        public void Continue()
+        public override void Continue()
         {
             GameContext.DeploymentContext.MoveToNextDeploymentTile();
             Complete = true;

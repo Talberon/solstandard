@@ -2,11 +2,9 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events.Network
 {
-    public class SelectUnitEvent : IEvent
+    public class SelectUnitEvent : NetworkEvent
     {
-        public bool Complete { get; private set; }
-
-        public void Continue()
+        public override void Continue()
         {
             GameContext.GameMapContext.SelectUnitAndStartMoving();
             Complete = true;

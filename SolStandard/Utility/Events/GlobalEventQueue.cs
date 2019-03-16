@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SolStandard.Utility.Events.Network;
 
 namespace SolStandard.Utility.Events
 {
@@ -27,6 +28,21 @@ namespace SolStandard.Utility.Events
 
         public static void QueueSingleEvent(IEvent eventToQueue)
         {
+            NetworkEvent networkEvent = eventToQueue as NetworkEvent;
+            if (networkEvent != null)
+            {
+                if (networkEvent.FromServer && GameDriver.ConnectedAsServer)
+                {
+                    //Send to client
+                    GameDriver.ConnectionManager.SendEventMessageAsServer(networkEvent);
+                }
+
+                if (!networkEvent.FromServer && GameDriver.ConnectedAsClient)
+                {
+                    //Send to server
+                    GameDriver.ConnectionManager.SendEventMessageAsClient(networkEvent);
+                }
+            }
             EventSequence.Enqueue(eventToQueue);
         }
 
