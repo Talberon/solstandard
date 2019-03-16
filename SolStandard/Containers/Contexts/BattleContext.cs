@@ -16,6 +16,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -39,7 +40,7 @@ namespace SolStandard.Containers.Contexts
         private bool currentlyResolvingBlocks;
         private bool currentlyResolvingDamage;
 
-        private BattleState CurrentState { get; set; }
+        public BattleState CurrentState { get; private set; }
 
         private GameUnit attacker;
         private GameUnit defender;
@@ -53,6 +54,10 @@ namespace SolStandard.Containers.Contexts
         private int defenderDamageCounter;
         private bool attackerInRange;
         private bool defenderInRange;
+
+        //Network-Related
+        public bool PeerCanContinue;
+        private bool SelfCanContinue { get; set; }
 
         private const int AttackPointSize = 40;
 
@@ -68,6 +73,7 @@ namespace SolStandard.Containers.Contexts
             attackerDamageCounter = 0;
             defenderDamageCounter = 0;
         }
+
 
         public void StartNewCombat(GameUnit newAttacker, GameUnit newDefender, UnitStatistics newAttackerStats,
             UnitStatistics newDefenderStats)
@@ -114,6 +120,8 @@ namespace SolStandard.Containers.Contexts
             SetPromptWindowText("Start Combat!");
 
             GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Combat);
+            SelfCanContinue = true;
+            GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
         }
 
         public void ContinueCombat()
@@ -313,6 +321,8 @@ namespace SolStandard.Containers.Contexts
                 currentlyRolling = false;
 
                 SetPromptWindowText("Resolve dice.");
+                SelfCanContinue = true;
+                GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
             }
 
             const int renderDelay = 3;
@@ -429,6 +439,8 @@ namespace SolStandard.Containers.Contexts
                     attacker.SetUnitAnimation(UnitAnimationState.Idle);
                     defender.SetUnitAnimation(UnitAnimationState.Idle);
                     ResetDamageCounters();
+                    
+                    GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
                 }
 
                 if (attackerStats.CurrentHP <= 0)
@@ -454,6 +466,7 @@ namespace SolStandard.Containers.Contexts
             if (defenderStats.CurrentHP <= 0) damageReport += defender.Id + " is defeated!\n";
             if (attackerStats.CurrentHP <= 0) damageReport += attacker.Id + " is defeated!\n";
             damageReport += "End Combat.";
+            SelfCanContinue = true;
             SetPromptWindowText(damageReport);
         }
 
@@ -484,6 +497,19 @@ namespace SolStandard.Containers.Contexts
             else if (currentlyResolvingDamage)
             {
                 ResolveDamage();
+            }
+        }
+
+        public bool CombatCanContinue
+        {
+            get
+            {   
+                if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
+                {
+                    return PeerCanContinue && SelfCanContinue;
+                }
+
+                return SelfCanContinue;
             }
         }
 

@@ -496,7 +496,10 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new ContinueCombatEvent());
+                if (GameContext.BattleContext.CombatCanContinue)
+                {
+                    GlobalEventQueue.QueueSingleEvent(new ContinueCombatEvent());
+                }
             }
         }
 
