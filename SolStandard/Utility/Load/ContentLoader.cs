@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -114,21 +115,13 @@ namespace SolStandard.Utility.Load
             return cursorTextures;
         }
 
-        public static List<ITexture2D> LoadWindowTextures(ContentManager content)
+        public static ITexture2D LoadWindowTexture(ContentManager content)
         {
-            List<Texture2D> loadWindowTextures = new List<Texture2D>
-            {
-                content.Load<Texture2D>("Graphics/HUD/Window/GreyWindow"),
-                content.Load<Texture2D>("Graphics/HUD/Window/LightWindow")
-            };
+            Texture2D windowTexture = content.Load<Texture2D>("Graphics/WhitePixel");
 
-            List<ITexture2D> windowTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadWindowTextures)
-            {
-                windowTextures.Add(new Texture2DWrapper(texture));
-            }
+            ITexture2D windowTextureWrapper = new Texture2DWrapper(windowTexture);
 
-            return windowTextures;
+            return windowTextureWrapper;
         }
 
         public static List<ITexture2D> LoadUnitSpriteTextures(ContentManager content)

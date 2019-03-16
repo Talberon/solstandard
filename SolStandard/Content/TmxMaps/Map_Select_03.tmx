@@ -1848,6 +1848,7 @@
   </object>
   <object id="543" name="Crossroads" type="SelectMap" gid="288" x="704" y="192" width="32" height="32">
    <properties>
+    <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Crossroads.tmx"/>
     <property name="mapSong" value="DesertTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
@@ -1904,6 +1905,7 @@
   </object>
   <object id="554" name="King's Feast" type="SelectMap" gid="288" x="832" y="320" width="32" height="32">
    <properties>
+    <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Dungeon_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeSeize" type="bool" value="false"/>

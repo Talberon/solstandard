@@ -29,7 +29,7 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
-        private static readonly Color TeamListWindowBackgroundColor = new Color(100, 100, 100, 225);
+        private static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }

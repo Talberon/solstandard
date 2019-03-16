@@ -14,6 +14,7 @@ namespace SolStandard.Containers.View
     public class DeploymentView : IUserInterface
     {
         private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
+        private static readonly Color HighlightColor = new Color(135, 125, 13);
 
         private const int WindowEdgePadding = 10;
         private bool visible;
@@ -90,7 +91,7 @@ namespace SolStandard.Containers.View
 
                 if (unitList[i] == currentUnit)
                 {
-                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, Color.Yellow);
+                    units[0, i] = GameMapView.SingleUnitContent(unitList[i], hpBarHeight, HighlightColor);
                 }
                 else
                 {

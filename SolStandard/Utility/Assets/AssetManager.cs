@@ -33,7 +33,7 @@ namespace SolStandard.Utility.Assets
 
         public static List<Song> MusicTracks { get; private set; }
 
-        private static List<ITexture2D> WindowTextures { get; set; }
+        public static ITexture2D WindowTexture { get; private set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
         public static List<ITexture2D> MapPreviewTextures { get; private set; }
         private static List<ITexture2D> GuiTextures { get; set; }
@@ -99,10 +99,6 @@ namespace SolStandard.Utility.Assets
             }
         }
 
-        public static ITexture2D WindowTexture
-        {
-            get { return WindowTextures.Find(texture => texture.MonoGameTexture.Name.Contains("LightWindow")); }
-        }
 
         public static void LoadContent(ContentManager content)
         {
@@ -116,7 +112,7 @@ namespace SolStandard.Utility.Assets
             UnitSprites = ContentLoader.LoadUnitSpriteTextures(content);
 
             GuiTextures = ContentLoader.LoadCursorTextures(content);
-            WindowTextures = ContentLoader.LoadWindowTextures(content);
+            WindowTexture = ContentLoader.LoadWindowTexture(content);
             MapPreviewTextures = ContentLoader.LoadMapPreviews(content);
 
             WindowFont = ContentLoader.LoadWindowFont(content);

@@ -11,7 +11,7 @@ namespace SolStandard.Containers.View
     public class MainMenuView : IUserInterface
     {
         private readonly VerticalMenu mainMenu;
-        public static readonly Color MenuColor = new Color(20, 45, 60, 100);
+        public static readonly Color MenuColor = new Color(10, 35, 50, 100);
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
         private readonly SpriteAtlas background;
