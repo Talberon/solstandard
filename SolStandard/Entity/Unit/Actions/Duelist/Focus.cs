@@ -54,7 +54,6 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 }
                 else
                 {
-                    AssetManager.SkillBuffSFX.Play();
                     GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new FocusStatus(1)));
                     GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }
