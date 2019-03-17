@@ -1448,13 +1448,13 @@
   </animation>
  </tile>
  <tile id="3253" terrain=",,,33"/>
- <tile id="3254" terrain=",,33,33"/>
+ <tile id="3254" terrain="33,33,,"/>
  <tile id="3255" terrain=",,33,"/>
  <tile id="3256" terrain="33,33,33,33"/>
  <tile id="3293" terrain=",33,,33"/>
  <tile id="3295" terrain="33,,33,"/>
  <tile id="3333" terrain=",33,,"/>
- <tile id="3334" terrain="33,33,,"/>
+ <tile id="3334" terrain=",,33,33"/>
  <tile id="3335" terrain="33,,,"/>
  <tile id="4040" terrain="21,21,21,20"/>
  <tile id="4041" terrain="21,21,20,20"/>
