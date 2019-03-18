@@ -82,7 +82,7 @@ namespace SolStandard.Containers.Contexts
 
         private void StartNewRound()
         {
-            CurrentActiveTeam = FirstPlayer;
+            CurrentActiveTeam = TeamWithLessRemainingUnits();
             CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
 
             GameContext.GameMapContext.ResetCursorToActiveUnit();
@@ -103,6 +103,16 @@ namespace SolStandard.Containers.Contexts
             RefreshAllUnits();
             GameMapContext.TriggerEffectTilesTurnStart();
             UpdateUnitActivation();
+        }
+
+        private Team TeamWithLessRemainingUnits()
+        {
+            int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
+            int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
+
+            if (redTeamUnits == blueTeamUnits) return FirstPlayer;
+            
+            return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 
         private void UpdateUnitActivation()
