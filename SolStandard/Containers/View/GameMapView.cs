@@ -39,13 +39,11 @@ namespace SolStandard.Containers.View
         private Window LeftUnitDetailWindow { get; set; }
         private Window LeftUnitStatusWindow { get; set; }
         private Window LeftUnitInventoryWindow { get; set; }
-        private GameUnit LeftUnit { get; set; }
 
         private Window RightUnitPortraitWindow { get; set; }
         private Window RightUnitDetailWindow { get; set; }
         private Window RightUnitStatusWindow { get; set; }
         private Window RightUnitInventoryWindow { get; set; }
-        private GameUnit RightUnit { get; set; }
 
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
@@ -414,20 +412,15 @@ namespace SolStandard.Containers.View
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            //TODO Do not regenerate if none of this unit's relevant properties have changed
             if (hoverMapUnit == null)
             {
                 LeftUnitPortraitWindow = null;
                 LeftUnitDetailWindow = null;
                 LeftUnitStatusWindow = null;
                 LeftUnitInventoryWindow = null;
-                LeftUnit = null;
             }
             else
             {
-                if (LeftUnit != null && UnitHasSameProperties(hoverMapUnit, LeftUnit)) return;
-
-                LeftUnit = hoverMapUnit;
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
                 LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
@@ -438,20 +431,15 @@ namespace SolStandard.Containers.View
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            //TODO Do not regenerate if none of this unit's relevant properties have changed
             if (hoverMapUnit == null)
             {
                 RightUnitPortraitWindow = null;
                 RightUnitDetailWindow = null;
                 RightUnitStatusWindow = null;
                 RightUnitInventoryWindow = null;
-                RightUnit = null;
             }
             else
             {
-                if (RightUnit != null && !UnitHasSameProperties(hoverMapUnit, RightUnit)) return;
-
-                RightUnit = hoverMapUnit;
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
                 RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
@@ -460,11 +448,6 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private static bool UnitHasSameProperties(GameUnit newUnit, GameUnit existingUnit)
-        {
-            return (existingUnit.Stats == newUnit.Stats && existingUnit.Inventory == newUnit.Inventory &&
-                    existingUnit.StatusEffects == newUnit.StatusEffects);
-        }
 
         private static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
         {

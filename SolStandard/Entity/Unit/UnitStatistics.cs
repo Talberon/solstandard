@@ -229,5 +229,51 @@ namespace SolStandard.Entity.Unit
 
             return Color.White;
         }
+
+        public override bool Equals(object obj)
+        {
+            UnitStatistics other = obj as UnitStatistics;
+            return other != null && Equals(other);
+        }
+
+        private bool Equals(UnitStatistics other)
+        {
+            return MaxHP == other.MaxHP &&
+                   MaxArmor == other.MaxArmor &&
+                   Equals(BaseAtkRange, other.BaseAtkRange) &&
+                   BaseAtk == other.BaseAtk &&
+                   BaseRet == other.BaseRet &&
+                   BaseLuck == other.BaseLuck &&
+                   BaseMv == other.BaseMv &&
+                   CurrentHP == other.CurrentHP &&
+                   CurrentArmor == other.CurrentArmor &&
+                   Equals(CurrentAtkRange, other.CurrentAtkRange) &&
+                   AtkModifier == other.AtkModifier &&
+                   RetModifier == other.RetModifier &&
+                   LuckModifier == other.LuckModifier &&
+                   MvModifier == other.MvModifier;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = MaxHP;
+                hashCode = (hashCode * 397) ^ MaxArmor;
+                hashCode = (hashCode * 397) ^ (BaseAtkRange != null ? BaseAtkRange.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ BaseAtk;
+                hashCode = (hashCode * 397) ^ BaseRet;
+                hashCode = (hashCode * 397) ^ BaseLuck;
+                hashCode = (hashCode * 397) ^ BaseMv;
+                hashCode = (hashCode * 397) ^ CurrentHP;
+                hashCode = (hashCode * 397) ^ CurrentArmor;
+                hashCode = (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ AtkModifier;
+                hashCode = (hashCode * 397) ^ RetModifier;
+                hashCode = (hashCode * 397) ^ LuckModifier;
+                hashCode = (hashCode * 397) ^ MvModifier;
+                return hashCode;
+            }
+        }
     }
 }
