@@ -278,7 +278,6 @@ namespace SolStandard.Utility.Network
         public void CloseServer()
         {
             if (server == null) return;
-            
             server.Shutdown("Closing server...");
             server = null;
         }
@@ -287,6 +286,7 @@ namespace SolStandard.Utility.Network
         {
             if (client == null) return;
             
+            client.Disconnect("Disconnecting from host...");
             client.Shutdown("Shutting client connection down...");
             client = null;
         }
