@@ -47,19 +47,21 @@ namespace SolStandard.Entity.General
 
             if (trapUnit == null) return false;
 
-            for (int i = 0; i < damage; i++)
-            {
-                trapUnit.DamageUnit();
-            }
-
             string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + damage +
                                  "] damage!";
-
+            
             if (willSnare)
             {
                 trapUnit.AddStatusEffect(new ImmobilizedStatus(1));
                 trapMessage += Environment.NewLine + "Target is immobilized!";
             }
+            
+            for (int i = 0; i < damage; i++)
+            {
+                trapUnit.DamageUnit();
+            }
+
+
 
             triggersRemaining--;
 
