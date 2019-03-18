@@ -81,6 +81,13 @@ namespace SolStandard.Entity.General.Item
                             new RenderBlank()
                         },
                         {
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            ),
+                            new RenderBlank()
+                        },
+                        {
                             new RenderText(AssetManager.WindowFont,
                                 "Uses Remaining: [" + UsesRemaining + "]"),
                             new RenderBlank()

@@ -28,12 +28,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     new IRenderable[,]
                     {
                         {
-                            new SpriteAtlas(
-                                AssetManager.ObjectiveIcons,
-                                new Vector2(16),
-                                new Vector2(GameDriver.CellSize),
-                                (int) VictoryConditions.RoutArmy,
-                                Color.White
+                            ObjectiveIconProvider.GetObjectiveIcon(
+                                VictoryConditions.RoutArmy,
+                                new Vector2(GameDriver.CellSize)
                             ),
                             new RenderText(AssetManager.WindowFont, "Rout Army"),
                         }

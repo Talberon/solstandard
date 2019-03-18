@@ -54,6 +54,13 @@ namespace SolStandard.Entity.General.Item
                             new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
                         },
                         {
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            ),
+                            new RenderBlank()
+                        },
+                        {
                             ItemDetails,
                             new RenderBlank()
                         }

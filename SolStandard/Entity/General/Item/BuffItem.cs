@@ -92,6 +92,13 @@ namespace SolStandard.Entity.General.Item
                             UnitStatistics.GetSpriteAtlas(statistic)
                         },
                         {
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            ),
+                            new RenderBlank()
+                        },
+                        {
                             new RenderText(AssetManager.WindowFont,
                                 string.Format("[{0}] Turns", buffDuration)
                             ),

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -68,7 +69,10 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Gold: "),
+                            ObjectiveIconProvider.GetObjectiveIcon(
+                                VictoryConditions.Taxes,
+                                new Vector2(GameDriver.CellSize)
+                            ),
                             new RenderText(AssetManager.WindowFont,
                                 (IsOpen) ? Gold + Currency.CurrencyAbbreviation : "????")
                         },

@@ -29,12 +29,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     new IRenderable[,]
                     {
                         {
-                            new SpriteAtlas(
-                                AssetManager.ObjectiveIcons,
-                                new Vector2(16),
-                                new Vector2(GameDriver.CellSize),
-                                (int) VictoryConditions.Seize,
-                                Color.White
+                            ObjectiveIconProvider.GetObjectiveIcon(
+                                VictoryConditions.Seize,
+                                new Vector2(GameDriver.CellSize)
                             ),
                             new RenderText(AssetManager.WindowFont, "Seize Objective"),
                         }

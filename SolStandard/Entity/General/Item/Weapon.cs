@@ -75,6 +75,13 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            ),
+                            new RenderBlank()
+                        },
+                        {
                             new RenderText(AssetManager.WindowFont, WeaponStatistics.ToString()),
                             new RenderBlank()
                         }

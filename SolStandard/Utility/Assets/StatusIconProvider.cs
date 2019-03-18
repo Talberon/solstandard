@@ -12,7 +12,8 @@ namespace SolStandard.Utility.Assets
         HpUp,
         MvUp,
         SpUp,
-        MoraleBroken
+        MoraleBroken,
+        Gold
     }
 
     public static class StatusIconProvider
