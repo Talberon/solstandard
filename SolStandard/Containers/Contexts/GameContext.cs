@@ -68,7 +68,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Results:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return PlayerIndex.Four;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

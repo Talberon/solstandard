@@ -311,6 +311,8 @@ namespace SolStandard
 
                         break;
                     case PlayerIndex.Four:
+                        ControlContext.ListenForInputs(_blueTeamControlMapper);
+                        ControlContext.ListenForInputs(_redTeamControlMapper);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
