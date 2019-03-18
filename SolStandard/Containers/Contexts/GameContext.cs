@@ -68,7 +68,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Results:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return PlayerIndex.Four;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -253,6 +253,12 @@ namespace SolStandard.Containers.Contexts
         {
             if (!Scenario.GameIsOver) return;
 
+            if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
+            {
+                GameDriver.ConnectionManager.CloseServer();
+                GameDriver.ConnectionManager.DisconnectClient();
+            }
+            
             AssetManager.MenuConfirmSFX.Play();
             Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
         }

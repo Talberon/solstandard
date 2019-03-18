@@ -18,7 +18,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
     public abstract class Objective
     {
         protected abstract IRenderable VictoryLabelContent { get; }
-        public static Color ObjectiveWindowColor = new Color(60, 60, 60, 180);
+        public static Color ObjectiveWindowColor = new Color(30, 30, 30, 180);
         protected bool BlueTeamWins;
         protected bool RedTeamWins;
         protected bool GameIsADraw;

@@ -9,6 +9,8 @@ using Lidgren.Network;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Buttons.Network;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
 
 namespace SolStandard.Utility.Network
 {
@@ -18,12 +20,13 @@ namespace SolStandard.Utility.Network
         private NetClient client;
 
         public const string PacketTypeHeader = "PT";
-        public const int NetworkPort = 4444;
+        public const int NetworkPort = 1993;
 
         public enum PacketType
         {
             Text,
-            ControlInput
+            ControlInput,
+            Event
         }
 
         public bool ConnectedAsServer
@@ -83,12 +86,12 @@ namespace SolStandard.Utility.Network
         {
             if (client != null)
             {
-                client.Shutdown("Closing client.");
+                DisconnectClient();
             }
 
             if (server != null)
             {
-                server.Shutdown("Closing server.");
+                CloseServer();
             }
         }
 
@@ -117,7 +120,7 @@ namespace SolStandard.Utility.Network
 
                         if (received.PeekString().Equals(""))
                         {
-                            ReadNetworkControllerInput(received);
+                            ReadNetworkEvent(received);
                         }
                         else
                         {
@@ -181,18 +184,18 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        private static void ReadNetworkControllerInput(NetBuffer received)
+        private static void ReadNetworkEvent(NetBuffer received)
         {
-            Trace.WriteLine("Reading control input...");
+            Trace.WriteLine("Reading network event...");
             byte[] messageBytes = received.ReadBytes(received.LengthBytes);
 
             using (Stream memoryStream = new MemoryStream(messageBytes))
             {
                 IFormatter formatter = new BinaryFormatter();
-                NetworkController receivedNetworkControls = (NetworkController) formatter.Deserialize(memoryStream);
-                Trace.WriteLine("Received control:" + receivedNetworkControls);
+                NetworkEvent receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
+                Trace.WriteLine("Received event:" + receivedNetworkEvent);
 
-                ControlContext.ListenForInputs(new NetworkControlParser(receivedNetworkControls));
+                GlobalEventQueue.QueueSingleEvent(receivedNetworkEvent);
             }
         }
 
@@ -242,14 +245,50 @@ namespace SolStandard.Utility.Network
             }
         }
 
+        public void SendEventMessageAsClient(NetworkEvent networkEvent)
+        {
+            Trace.WriteLine("Sending event to server!");
+            NetOutgoingMessage message = client.CreateMessage();
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(memoryStream, networkEvent);
+                byte[] controlBytes = memoryStream.ToArray();
+                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                message.Write(controlBytes);
+                client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
+        public void SendEventMessageAsServer(NetworkEvent networkEvent)
+        {
+            Trace.WriteLine("Sending event to client!");
+            NetOutgoingMessage message = server.CreateMessage();
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(memoryStream, networkEvent);
+                byte[] controlBytes = memoryStream.ToArray();
+                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                message.Write(controlBytes);
+                server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
+            }
+        }
 
         public void CloseServer()
         {
-            if (server != null)
-            {
-                server.Shutdown("Closing server...");
-                server = null;
-            }
+            if (server == null) return;
+            server.Shutdown("Closing server...");
+            server = null;
+        }
+
+        public void DisconnectClient()
+        {
+            if (client == null) return;
+            
+            client.Disconnect("Disconnecting from host...");
+            client.Shutdown("Shutting client connection down...");
+            client = null;
         }
     }
 }

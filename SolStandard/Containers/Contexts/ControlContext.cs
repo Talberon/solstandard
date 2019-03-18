@@ -5,130 +5,61 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Buttons.Network;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
 
 namespace SolStandard.Containers.Contexts
 {
     public static class ControlContext
     {
-        public static NetworkController ListenForInputs(ControlMapper controlMapper)
+        public static void ListenForInputs(ControlMapper controlMapper)
         {
-            NetworkController networkController = new NetworkController();
-
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
-                    MainMenuControls(controlMapper, networkController);
+                    MainMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.NetworkMenu:
                     NetworkMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.Deployment:
-                    DeploymentControls(controlMapper, networkController);
+                    DeploymentControls(controlMapper);
                     break;
                 case GameContext.GameState.ArmyDraft:
-                    DraftMenuControls(controlMapper, networkController);
+                    DraftMenuControls(controlMapper);
                     break;
                 case GameContext.GameState.MapSelect:
-                    MapSelectControls(controlMapper, networkController);
+                    MapSelectControls(controlMapper);
                     break;
                 case GameContext.GameState.PauseScreen:
-                    PauseMenuControl(controlMapper, networkController);
+                    PauseMenuControl(controlMapper);
                     break;
                 case GameContext.GameState.InGame:
-                    MapControls(controlMapper, networkController);
+                    MapControls(controlMapper);
                     break;
                 case GameContext.GameState.Results:
-                    ResultsControls(controlMapper, networkController);
+                    ResultsControls(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            return networkController;
         }
 
-        private static void DeploymentControls(ControlMapper controlMapper, NetworkController networkController)
+        private static void MainMenuControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Up);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
-            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Down);
-            }
-
-            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorLeft);
-                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Left);
-            }
-
-            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorRight);
-                GameContext.DeploymentContext.MoveCursorOnMap(Direction.Right);
-            }
-
-            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.LeftBumper);
-                GameContext.DeploymentContext.SelectPreviousUnit();
-            }
-
-            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.RightBumper);
-                GameContext.DeploymentContext.SelectNextUnit();
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.DeploymentContext.TryDeployUnit();
-            }
-
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
-            {
-                networkController.Press(Input.SelectNextUnit);
-                GameContext.DeploymentContext.MoveToNextDeploymentTile();
-            }
-        }
-
-        private static void DraftMenuControls(ControlMapper controlMapper, NetworkController networkController)
-        {
-            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorUp);
-                GameContext.DraftContext.MoveCursor(Direction.Up);
-            }
-
-            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorDown);
-                GameContext.DraftContext.MoveCursor(Direction.Down);
-            }
-
-            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorLeft);
-                GameContext.DraftContext.MoveCursor(Direction.Left);
-            }
-
-            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
-            {
-                networkController.Press(Input.CursorRight);
-                GameContext.DraftContext.MoveCursor(Direction.Right);
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                networkController.Press(Input.Confirm);
-                GameContext.DraftContext.ConfirmSelection();
+                GameContext.MainMenuView.MainMenu.SelectOption();
             }
         }
 
@@ -167,144 +98,164 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void ResultsControls(ControlMapper controlMapper, NetworkController networkController)
-        {
-            if (controlMapper.Press(Input.Status, PressType.Single))
-            {
-                networkController.Press(Input.Status);
-                GameContext.CurrentGameState = GameContext.GameState.InGame;
-            }
-
-            if (controlMapper.Press(Input.Menu, PressType.Single))
-            {
-                networkController.Press(Input.Menu);
-                GameContext.GoToMainMenuIfGameIsOver();
-            }
-
-            if (controlMapper.Press(Input.Confirm, PressType.Single))
-            {
-                networkController.Press(Input.Confirm);
-                GameContext.GoToMainMenuIfGameIsOver();
-            }
-        }
-
-
-        private static void MapSelectControls(ControlMapper controlMapper, NetworkController networkController)
+        private static void DraftMenuControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.MapCursor.MoveCursorInDirection(Direction.Up);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Up));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.MapCursor.MoveCursorInDirection(Direction.Down);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Down));
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorLeft);
-                GameContext.MapCursor.MoveCursorInDirection(Direction.Left);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Left));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorRight);
-                GameContext.MapCursor.MoveCursorInDirection(Direction.Right);
+                GlobalEventQueue.QueueSingleEvent(new DraftMenuMoveEvent(Direction.Right));
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.MapSelectContext.SelectMap();
+                GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
             }
         }
 
-        private static void MainMenuControls(ControlMapper controlMapper, NetworkController networkController)
+        private static void DeploymentControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.CursorDown, PressType.Single))
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Up, GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.CursorUp, PressType.Single))
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Down, GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Left, GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new DeploySelectPreviousUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new DeploySelectNextUnitEvent());
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.MainMenuView.MainMenu.SelectOption();
+                GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
             }
         }
 
-        private static void MapControls(ControlMapper controlMapper, NetworkController networkController)
+
+        private static void MapSelectControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Up, GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Down, GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Left, GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
+            }
+        }
+
+        private static void MapControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Status, PressType.Single))
             {
-                networkController.Press(Input.Status);
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
             switch (GameContext.GameMapContext.CurrentTurnState)
             {
                 case GameMapContext.TurnState.SelectUnit:
-                    SelectUnitControl(controlMapper, networkController);
+                    SelectUnitControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.UnitMoving:
-                    MoveUnitControl(controlMapper, networkController);
+                    MoveUnitControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.UnitDecidingAction:
-                    DecideActionControl(controlMapper, networkController);
+                    DecideActionControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.UnitTargeting:
-                    UnitTargetingControl(controlMapper, networkController);
+                    UnitTargetingControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.UnitActing:
-                    UnitActingControl(controlMapper, networkController);
+                    UnitActingControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.ResolvingTurn:
-                    ResolvingTurnControl(controlMapper, networkController);
+                    ResolvingTurnControl(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private static void CameraControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void CameraControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CenterCamera, PressType.Single))
             {
-                networkController.Press(Input.CenterCamera);
                 GameContext.MapCamera.CenterCameraToCursor();
             }
 
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.LeftTrigger);
                 GameContext.MapCamera.ZoomOut(0.1f);
             }
 
             if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.RightTrigger);
                 GameContext.MapCamera.ZoomIn(0.1f);
             }
 
             if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
-                networkController.Press(Input.LeftBumper);
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
-                networkController.Press(Input.RightBumper);
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
             }
 
@@ -312,288 +263,269 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.CameraDown, PressType.InstantRepeat))
             {
-                networkController.Press(Input.CameraDown);
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Down, cameraPanRateOverride);
             }
 
             if (controlMapper.Press(Input.CameraLeft, PressType.InstantRepeat))
             {
-                networkController.Press(Input.CameraLeft);
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Left, cameraPanRateOverride);
             }
 
             if (controlMapper.Press(Input.CameraRight, PressType.InstantRepeat))
             {
-                networkController.Press(Input.CameraRight);
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Right, cameraPanRateOverride);
             }
 
             if (controlMapper.Press(Input.CameraUp, PressType.InstantRepeat))
             {
-                networkController.Press(Input.CameraUp);
                 GameContext.MapCamera.MoveCameraInDirection(CameraDirection.Up, cameraPanRateOverride);
             }
 
 
             if (controlMapper.Released(Input.CameraDown))
             {
-                networkController.Press(Input.CameraDown);
                 GameContext.MapCamera.StopMovingCamera();
             }
 
             if (controlMapper.Released(Input.CameraLeft))
             {
-                networkController.Press(Input.CameraLeft);
                 GameContext.MapCamera.StopMovingCamera();
             }
 
             if (controlMapper.Released(Input.CameraRight))
             {
-                networkController.Press(Input.CameraRight);
                 GameContext.MapCamera.StopMovingCamera();
             }
 
             if (controlMapper.Released(Input.CameraUp))
             {
-                networkController.Press(Input.CursorUp);
                 GameContext.MapCamera.StopMovingCamera();
             }
         }
 
-        private static void SelectUnitControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void SelectUnitControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Up, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Down, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorLeft);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Left, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorRight);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
             {
-                networkController.Press(Input.SelectNextUnit);
-                GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
-                AssetManager.MapUnitCancelSFX.Play();
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
 
-            CameraControl(controlMapper, networkController);
+            CameraControl(controlMapper);
 
             if (controlMapper.Press(Input.Menu, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.Menu);
                 AssetManager.MenuConfirmSFX.Play();
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.GameMapContext.SelectUnitAndStartMoving();
+                GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
             }
         }
 
-        private static void MoveUnitControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void MoveUnitControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Up);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorAndUnitEvent(Direction.Up,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Down);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorAndUnitEvent(Direction.Down,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorLeft);
-                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Left);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorAndUnitEvent(Direction.Left,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorRight);
-                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(Direction.Right);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorAndUnitEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
-            CameraControl(controlMapper, networkController);
+            CameraControl(controlMapper);
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.GameMapContext.FinishMoving();
+                GlobalEventQueue.QueueSingleEvent(new FinishMovingEvent());
             }
 
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
-                networkController.Press(Input.Cancel);
-                GameContext.GameMapContext.CancelMove();
+                GlobalEventQueue.QueueSingleEvent(new CancelMoveEvent());
             }
         }
 
-        private static void DecideActionControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void DecideActionControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(VerticalMenu.MenuCursorDirection.Backward));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.GameMapContext.MoveActionMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(VerticalMenu.MenuCursorDirection.Forward));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
-                networkController.Press(Input.CursorRight);
-                GameContext.GameMapContext.ToggleCombatMenu();
+                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
-                networkController.Press(Input.CursorLeft);
-                GameContext.GameMapContext.ToggleCombatMenu();
+                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.GameMapContext.SelectActionMenuOption();
+                GlobalEventQueue.QueueSingleEvent(new SelectActionMenuOptionEvent());
             }
 
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
-                networkController.Press(Input.Cancel);
-                GameContext.GameMapContext.CancelActionMenu();
+                GlobalEventQueue.QueueSingleEvent(new CancelActionMenuEvent());
             }
 
             if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.LeftBumper);
-                GameContext.GameMapContext.DecrementCurrentAdjustableAction(1);
+                GlobalEventQueue.QueueSingleEvent(new DecrementCurrentAdjustableActionEvent(1));
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.RightBumper);
-                GameContext.GameMapContext.IncrementCurrentAdjustableAction(1);
+                GlobalEventQueue.QueueSingleEvent(new IncrementCurrentAdjustableActionEvent(1));
             }
         }
 
-        private static void PauseMenuControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void PauseMenuControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
                 GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
                 GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
                 GameContext.GameMapContext.SelectPauseMenuOption();
             }
 
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
-                networkController.Press(Input.Menu);
                 GameContext.GameMapContext.PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
         }
 
-        private static void UnitTargetingControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void UnitTargetingControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorUp);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Up);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Up, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorDown);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Down);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Down, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorLeft);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Left);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Left, GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.CursorRight);
-                GameContext.GameMapContext.MoveCursorOnMap(Direction.Right);
+                GlobalEventQueue.QueueSingleEvent(new MoveMapCursorEvent(Direction.Right,
+                    GameContext.CurrentGameState));
             }
 
             if (controlMapper.Press(Input.SelectNextUnit, PressType.DelayedRepeat))
             {
-                networkController.Press(Input.SelectNextUnit);
-                GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
-                GameContext.MapCamera.CenterCameraToCursor();
-                AssetManager.MapUnitCancelSFX.Play();
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
 
-            CameraControl(controlMapper, networkController);
+            CameraControl(controlMapper);
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.GameMapContext.ExecuteAction();
+                GlobalEventQueue.QueueSingleEvent(new ExecuteActionEvent());
             }
 
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
-                networkController.Press(Input.Cancel);
-                GameContext.GameMapContext.CancelTargetAction();
+                GlobalEventQueue.QueueSingleEvent(new CancelActionEvent());
             }
         }
 
-        private static void UnitActingControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void UnitActingControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.BattleContext.ContinueCombat();
+                if (GameContext.BattleContext.CombatCanContinue)
+                {
+                    GlobalEventQueue.QueueSingleEvent(new ContinueCombatEvent());
+                }
             }
         }
 
-        private static void ResolvingTurnControl(ControlMapper controlMapper, NetworkController networkController)
+        private static void ResolvingTurnControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                networkController.Press(Input.Confirm);
-                GameContext.GameMapContext.ResolveTurn();
-                AssetManager.MapUnitSelectSFX.Play();
+                GlobalEventQueue.QueueSingleEvent(new ResolveTurnEvent());
+            }
+        }
+
+        private static void ResultsControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Status, PressType.Single))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+
+            if (controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                GameContext.GoToMainMenuIfGameIsOver();
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.GoToMainMenuIfGameIsOver();
             }
         }
     }

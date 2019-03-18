@@ -29,7 +29,11 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
-        private static readonly Color TeamListWindowBackgroundColor = new Color(100, 100, 100, 225);
+        private static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
+        private static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
+        private static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
+        private static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
+        private static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }
@@ -245,10 +249,9 @@ namespace SolStandard.Containers.View
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
-            Color promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window(
                 promptTextContent,
-                promptWindowColor,
+                UserPromptWindowColor,
                 sizeOverride
             );
         }
@@ -266,7 +269,7 @@ namespace SolStandard.Containers.View
                             (hoverSlice.TerrainEntity != null)
                                 ? new Window(
                                     hoverSlice.TerrainEntity.TerrainInfo,
-                                    new Color(100, 150, 100, 180)
+                                    EntityTerrainWindowColor
                                 ) as IRenderable
                                 : new RenderBlank()
                         },
@@ -274,7 +277,7 @@ namespace SolStandard.Containers.View
                             (hoverSlice.ItemEntity != null)
                                 ? new Window(
                                     hoverSlice.ItemEntity.TerrainInfo,
-                                    new Color(180, 180, 100, 180)
+                                    ItemTerrainWindowColor
                                 ) as IRenderable
                                 : new RenderBlank()
                         }
@@ -307,7 +310,7 @@ namespace SolStandard.Containers.View
                         {
                             new Window(
                                 noEntityContent,
-                                new Color(100, 100, 100, 180)
+                                BlankTerrainWindowColor
                             )
                         }
                     },
@@ -409,57 +412,63 @@ namespace SolStandard.Containers.View
 
         public void UpdateLeftPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
-            LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
-            LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
-            LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
+            if (hoverMapUnit == null)
+            {
+                LeftUnitPortraitWindow = null;
+                LeftUnitDetailWindow = null;
+                LeftUnitStatusWindow = null;
+                LeftUnitInventoryWindow = null;
+            }
+            else
+            {
+                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+            }
         }
 
         public void UpdateRightPortraitAndDetailWindows(GameUnit hoverMapUnit)
         {
-            RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit);
-            RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit);
-            RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit);
-            RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit);
+            if (hoverMapUnit == null)
+            {
+                RightUnitPortraitWindow = null;
+                RightUnitDetailWindow = null;
+                RightUnitStatusWindow = null;
+                RightUnitInventoryWindow = null;
+            }
+            else
+            {
+                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+            }
         }
 
-        private static Window GenerateUnitPortraitWindow(GameUnit selectedUnit)
-        {
-            if (selectedUnit == null) return null;
 
-            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-            return new Window(selectedUnit.UnitPortraitPane, windowColor);
+        private static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
+        {
+            return new Window(unitPortraitPane, windowColor);
         }
 
-        private Window GenerateUnitDetailWindow(GameUnit selectedUnit)
+        private static Window GenerateUnitDetailWindow(IRenderable selectedUnitInfo, Color windowColor)
         {
-            if (selectedUnit == null) return null;
-
-            IRenderable selectedUnitInfo = selectedUnit.DetailPane;
-
-            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
             return new Window(selectedUnitInfo, windowColor);
         }
 
-        private static Window GenerateUnitInventoryWindow(GameUnit selectedUnit)
+        private static Window GenerateUnitStatusWindow(IReadOnlyList<StatusEffect> statusEffects, Color windowColor)
         {
-            if (selectedUnit == null || selectedUnit.InventoryPane == null) return null;
+            if (statusEffects.Count < 1) return null;
 
-            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-            return new Window(selectedUnit.InventoryPane, windowColor);
-        }
 
-        private static Window GenerateUnitStatusWindow(GameUnit selectedUnit)
-        {
-            if (selectedUnit == null || selectedUnit.StatusEffects.Count < 1) return null;
+            IRenderable[,] selectedUnitStatuses = new IRenderable[statusEffects.Count, 1];
 
-            Color windowColor = TeamUtility.DetermineTeamColor(selectedUnit.Team);
-
-            IRenderable[,] selectedUnitStatuses = new IRenderable[selectedUnit.StatusEffects.Count, 1];
-
-            for (int i = 0; i < selectedUnit.StatusEffects.Count; i++)
+            for (int i = 0; i < statusEffects.Count; i++)
             {
-                StatusEffect effect = selectedUnit.StatusEffects[i];
+                StatusEffect effect = statusEffects[i];
 
                 selectedUnitStatuses[i, 0] = new Window(
                     new WindowContentGrid(
@@ -479,6 +488,11 @@ namespace SolStandard.Containers.View
             }
 
             return new Window(new WindowContentGrid(selectedUnitStatuses, 1), windowColor);
+        }
+
+        private static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)
+        {
+            return (inventoryPane == null) ? null : new Window(inventoryPane, windowColor);
         }
 
         #endregion Generation

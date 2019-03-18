@@ -10,11 +10,11 @@ namespace SolStandard.Utility
             switch (team)
             {
                 case Team.Blue:
-                    return new Color(75, 75, 150, 200);
+                    return new Color(40, 40, 100, 200);
                 case Team.Red:
-                    return new Color(150, 75, 75, 200);
+                    return new Color(100, 35, 35, 200);
                 default:
-                    return new Color(75, 150, 75, 200);
+                    return new Color(35, 100, 35, 200);
             }
         }
     }

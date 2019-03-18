@@ -10,12 +10,18 @@ namespace SolStandard.HUD.Window
         private readonly int cellSize;
         private readonly int cellIndex;
         private readonly Vector2 coordinates;
+        private readonly ITexture2D windowTexture;
+        private readonly Rectangle renderCell;
+        private Rectangle positionRectangle;
 
-        public WindowCell(int cellSize, int cellIndex, Vector2 coordinates)
+        public WindowCell(int cellSize, int cellIndex, Vector2 coordinates, ITexture2D windowTexture)
         {
             this.cellSize = cellSize;
             this.cellIndex = cellIndex;
             this.coordinates = coordinates;
+            this.windowTexture = windowTexture;
+            renderCell = RenderCell(windowTexture);
+            SetRelativePosition(Vector2.Zero);
         }
 
         public int Height
@@ -63,12 +69,15 @@ namespace SolStandard.HUD.Window
             return "WindowCell: <CellIndex," + cellIndex + "><CellSize," + cellSize + ">";
         }
 
-        public void Draw(SpriteBatch spriteBatch, ITexture2D image, Vector2 offset, Color color)
+        public void SetRelativePosition(Vector2 origin)
         {
-            Vector2 relativePosition = new Vector2(coordinates.X + offset.X, coordinates.Y + offset.Y);
-            spriteBatch.Draw(image.MonoGameTexture, DrawRectangle((int) relativePosition.X, (int) relativePosition.Y),
-                RenderCell(image),
-                color);
+            Vector2 relativePosition = new Vector2(coordinates.X + origin.X, coordinates.Y + origin.Y);
+            positionRectangle = DrawRectangle((int) relativePosition.X, (int) relativePosition.Y);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            spriteBatch.Draw(windowTexture.MonoGameTexture, positionRectangle, renderCell, color);
         }
     }
 }

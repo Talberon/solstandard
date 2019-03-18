@@ -42,6 +42,7 @@ namespace SolStandard.Containers.Contexts
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
         public bool CanCancelAction { get; set; }
+        private GameUnit HoverUnit { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -106,6 +107,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
+            
             StartTurn();
         }
 
@@ -423,7 +425,10 @@ namespace SolStandard.Containers.Contexts
             SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
             SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
             AssetManager.MapUnitMoveSFX.Play();
+        }
 
+        public void UpdateUnitAttackRangePreview()
+        {
             MapContainer.ClearPreviewGrid();
             new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                 .GenerateTargetingGrid(SelectedUnit.UnitEntity.MapCoordinates, SelectedUnit.Stats.CurrentAtkRange,
@@ -450,12 +455,18 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
                 if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
                 {
-                    new UnitTargetingContext(
-                        MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack)
-                    ).GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                    if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count == 0 || HoverUnit != hoverMapUnit)
+                    {
+                        MapContainer.ClearDynamicAndPreviewGrids();
+                        new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                    }
+                }
+                else
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
                 }
 
                 GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
@@ -464,6 +475,8 @@ namespace SolStandard.Containers.Contexts
 
             //Terrain (Entity) Window
             GameMapView.GenerateEntityWindow(hoverSlice);
+            
+            HoverUnit = hoverMapUnit;
         }
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
