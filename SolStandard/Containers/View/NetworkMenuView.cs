@@ -93,8 +93,9 @@ namespace SolStandard.Containers.View
             string tipText1 = (serverIpFound)
                 ? ""
                 : "You can get your public IP address by searching online for \"What is my IP?\"";
-            string tipText2 = "If your peer cannot connect, check to make sure you have port forwarding enabled on your router for port " +
-                  ConnectionManager.NetworkPort + ".";
+            string tipText2 =
+                "If your peer cannot connect, check to make sure you have port forwarding enabled on your router for port " +
+                ConnectionManager.NetworkPort + ".";
 
             return new Window(
                 new WindowContentGrid(

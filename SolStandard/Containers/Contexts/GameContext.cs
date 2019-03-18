@@ -253,6 +253,12 @@ namespace SolStandard.Containers.Contexts
         {
             if (!Scenario.GameIsOver) return;
 
+            if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
+            {
+                GameDriver.ConnectionManager.CloseServer();
+                GameDriver.ConnectionManager.DisconnectClient();
+            }
+            
             AssetManager.MenuConfirmSFX.Play();
             Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
         }

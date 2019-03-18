@@ -86,12 +86,12 @@ namespace SolStandard.Utility.Network
         {
             if (client != null)
             {
-                client.Shutdown("Closing client.");
+                DisconnectClient();
             }
 
             if (server != null)
             {
-                server.Shutdown("Closing server.");
+                CloseServer();
             }
         }
 
@@ -277,11 +277,18 @@ namespace SolStandard.Utility.Network
 
         public void CloseServer()
         {
-            if (server != null)
-            {
-                server.Shutdown("Closing server...");
-                server = null;
-            }
+            if (server == null) return;
+            
+            server.Shutdown("Closing server...");
+            server = null;
+        }
+
+        public void DisconnectClient()
+        {
+            if (client == null) return;
+            
+            client.Shutdown("Shutting client connection down...");
+            client = null;
         }
     }
 }
