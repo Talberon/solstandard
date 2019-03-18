@@ -34,6 +34,7 @@ namespace SolStandard.Utility.Events.Network
                     break;
                 case GameContext.GameState.InGame:
                     GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
+                    GameContext.GameMapContext.UpdateUnitAttackRangePreview();
                     break;
                 case GameContext.GameState.Results:
                     break;

@@ -184,21 +184,6 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        private static void ReadNetworkControllerInput(NetBuffer received)
-        {
-            Trace.WriteLine("Reading control input...");
-            byte[] messageBytes = received.ReadBytes(received.LengthBytes);
-
-            using (Stream memoryStream = new MemoryStream(messageBytes))
-            {
-                IFormatter formatter = new BinaryFormatter();
-                NetworkController receivedNetworkControls = (NetworkController) formatter.Deserialize(memoryStream);
-                Trace.WriteLine("Received control:" + receivedNetworkControls);
-
-                ControlContext.ListenForInputs(new NetworkControlParser(receivedNetworkControls));
-            }
-        }
-
         private static void ReadNetworkEvent(NetBuffer received)
         {
             Trace.WriteLine("Reading network event...");
