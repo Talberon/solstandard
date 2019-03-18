@@ -96,8 +96,9 @@ namespace SolStandard
         {
             //Start Server
             IPAddress serverIP = ConnectionManager.StartServer();
-            string serverIPAddress = (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP.";
-            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true);
+            string serverIPAddress =
+                (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP automatically.";
+            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true, serverIP != null);
             GameContext.NetworkMenuView.RemoveDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }

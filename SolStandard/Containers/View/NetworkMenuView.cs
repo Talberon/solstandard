@@ -9,6 +9,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Network;
 
 namespace SolStandard.Containers.View
 {
@@ -78,21 +79,30 @@ namespace SolStandard.Containers.View
             DialMenu = null;
         }
 
-        public void UpdateStatus(string ipAddress, bool hosting)
+        public void UpdateStatus(string ipAddress, bool hosting, bool serverIpFound = true)
         {
-            networkStatusWindow = GenerateStatusWindow(ipAddress, hosting);
+            networkStatusWindow = GenerateStatusWindow(ipAddress, hosting, serverIpFound);
         }
 
-        private static Window GenerateStatusWindow(string ipAddress = null, bool hosting = true)
+        private static Window GenerateStatusWindow(string ipAddress = null, bool hosting = true,
+            bool serverIpFound = true)
         {
             string displayIpAddress = ipAddress ?? "___.___.___.___";
             string statusMessage = (hosting) ? "Waiting for connection..." : "Attempting to connect to host...";
+
+            string tipText1 = (serverIpFound)
+                ? ""
+                : "You can get your public IP address by searching online for \"What is my IP?\"";
+            string tipText2 = "If your peer cannot connect, check to make sure you have port forwarding enabled on your router for port " +
+                  ConnectionManager.NetworkPort + ".";
 
             return new Window(
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {new RenderText(AssetManager.MainMenuFont, displayIpAddress)},
+                        {new RenderText(AssetManager.WindowFont, tipText1)},
+                        {new RenderText(AssetManager.WindowFont, tipText2)},
                         {new RenderText(AssetManager.MainMenuFont, statusMessage)}
                     },
                     2,
