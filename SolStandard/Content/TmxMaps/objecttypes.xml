@@ -2,6 +2,7 @@
 <objecttypes>
  <objecttype name="Artillery" color="#f42ad9">
   <property name="canMove" type="bool" default="true"/>
+  <property name="damage" type="int" default="5"/>
   <property name="range" type="string" default="3,4"/>
  </objecttype>
  <objecttype name="Barricade" color="#b93246">
@@ -95,6 +96,7 @@
  <objecttype name="Pushable" color="#6672b5"/>
  <objecttype name="Railgun" color="#67ba67">
   <property name="canMove" type="bool" default="true"/>
+  <property name="damage" type="int" default="5"/>
   <property name="range" type="int" default="5"/>
  </objecttype>
  <objecttype name="Seize" color="#fff455">

@@ -14,20 +14,23 @@ namespace SolStandard.Entity.General
     {
         public int[] InteractRange { get; private set; }
         public int AtkRange { get; private set; }
+        private readonly int atkDamage;
 
         public Railgun(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove, int atkRange) :
+            Dictionary<string, string> tiledProperties, bool canMove, int atkRange, int atkDamage) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             CanMove = canMove;
             AtkRange = atkRange;
+            this.atkDamage = atkDamage;
             InteractRange = new[] {0};
         }
+
         public List<UnitAction> TileActions()
         {
             return new List<UnitAction>
             {
-                new RailgunAction(Sprite, AtkRange)
+                new RailgunAction(Sprite, AtkRange, atkDamage)
             };
         }
 
