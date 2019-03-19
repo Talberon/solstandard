@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
     public class Artillery : TerrainEntity, IActionTile
     {
         public int[] InteractRange { get; private set; }
-        public int[] AtkRange { get; private set; }
+        private int[] AtkRange { get; set; }
         private readonly int atkDamage;
 
         public Artillery(string name, string type, IRenderable sprite, Vector2 mapCoordinates,

@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
+    <Compile Include="Containers\Contexts\CodexContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
+    <Compile Include="Containers\View\CodexView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />

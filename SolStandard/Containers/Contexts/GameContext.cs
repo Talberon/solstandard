@@ -24,7 +24,8 @@ namespace SolStandard.Containers.Contexts
             MapSelect,
             PauseScreen,
             InGame,
-            Results
+            Results,
+            Codex
         }
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
@@ -44,6 +45,7 @@ namespace SolStandard.Containers.Contexts
         public static NetworkMenuView NetworkMenuView { get; private set; }
         public static DraftContext DraftContext { get; private set; }
         public static DeploymentContext DeploymentContext { get; private set; }
+        public static CodexContext CodexContext { get; private set; }
 
         public static GameState CurrentGameState;
 
@@ -67,6 +69,8 @@ namespace SolStandard.Containers.Contexts
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.Codex:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Results:
                         return PlayerIndex.Four;
                     default:
@@ -82,6 +86,7 @@ namespace SolStandard.Containers.Contexts
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
             DraftContext = new DraftContext(draftView);
+            CodexContext = new CodexContext();
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
         }

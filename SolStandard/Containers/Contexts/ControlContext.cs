@@ -37,11 +37,32 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.InGame:
                     MapControls(controlMapper);
                     break;
+                case GameContext.GameState.Codex:
+                    CodexControls(controlMapper);
+                    break;
                 case GameContext.GameState.Results:
                     ResultsControls(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void CodexControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.CodexContext.SelectUnit();
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.CodexContext.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.CodexContext.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
             }
         }
 

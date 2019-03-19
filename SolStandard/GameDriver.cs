@@ -252,6 +252,15 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
             }
 
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D4))
+            {
+                GameContext.CurrentGameState = GameContext.GameState.Codex;
+            }
+
+
+
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
                 MusicBox.Pause();
@@ -341,6 +350,8 @@ namespace SolStandard
                     GameContext.UpdateCamera();
                     GameContext.GameMapContext.UpdateHoverContextWindows();
                     break;
+                case GameContext.GameState.Codex:
+                    break;
                 case GameContext.GameState.Results:
                     break;
                 default:
@@ -389,6 +400,9 @@ namespace SolStandard
                     }
 
                     DrawInGameHUD();
+                    break;
+                case GameContext.GameState.Codex:
+                    DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
                     DrawGameResultsScreen();
@@ -484,6 +498,15 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawCodexScreen()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp);
+            GameContext.CodexContext.CodexView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

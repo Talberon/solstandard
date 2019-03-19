@@ -69,7 +69,7 @@ namespace SolStandard.HUD.Menu
 
         private void SetCursorPosition(int row, int column)
         {
-            Vector2 optionPosition = new Vector2(column * (optionSize.X + (Padding * Padding)), row * optionSize.Y);
+            Vector2 optionPosition = new Vector2(column * (optionSize.X + (Padding * 3)), row * optionSize.Y);
             Vector2 centerLeft =
                 new Vector2(cursorSprite.Width, ((float) cursorSprite.Height / 2) - (optionSize.Y / 2));
 
