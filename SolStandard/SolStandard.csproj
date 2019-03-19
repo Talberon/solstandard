@@ -177,6 +177,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
