@@ -119,6 +119,7 @@
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\Shift.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
@@ -318,7 +320,7 @@
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
-    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
+    <Compile Include="Utility\Events\AI\UnitMoveEvent.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />

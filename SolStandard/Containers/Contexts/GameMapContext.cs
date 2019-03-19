@@ -408,7 +408,7 @@ namespace SolStandard.Containers.Contexts
         {
             selectedUnitOriginalPosition = origin;
             UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
-            unitMovingContext.GenerateMoveGrid(origin, selectedUnit);
+            unitMovingContext.GenerateMoveGrid(origin, selectedUnit.Stats.Mv, selectedUnit.Team);
         }
 
         public void MoveCursorOnMap(Direction direction)

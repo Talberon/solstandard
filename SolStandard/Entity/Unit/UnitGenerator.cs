@@ -282,6 +282,7 @@ namespace SolStandard.Entity.Unit
                 new Draw(3, 1),
                 new PoisonArrow(2, 4),
                 new HuntingTrap(6, 1),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -296,6 +297,7 @@ namespace SolStandard.Entity.Unit
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -310,6 +312,7 @@ namespace SolStandard.Entity.Unit
                 new Inferno(3, 2),
                 new Atrophy(2, 1),
                 new Replace(),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -323,6 +326,7 @@ namespace SolStandard.Entity.Unit
                 new LeapStrike(3),
                 new Cripple(2, -2),
                 new Execute(3),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -336,6 +340,7 @@ namespace SolStandard.Entity.Unit
                 new Crescendo(2, 1),
                 new Accelerando(2, 1),
                 new Capriccio(2, 1),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -349,6 +354,7 @@ namespace SolStandard.Entity.Unit
                 new Uppercut(),
                 new PressurePoint(),
                 new Meditate(),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -361,6 +367,8 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new PhaseStrike(),
                 new Bloodthirst(2),
+                new Shift(1),
+                new Sprint(3),
                 new Guard(3),
                 new Focus(3)
             };
@@ -374,6 +382,7 @@ namespace SolStandard.Entity.Unit
                 new Bulwark(3, 1),
                 new Cleanse(),
                 new Replace(),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
@@ -387,6 +396,7 @@ namespace SolStandard.Entity.Unit
                 new Guillotine(),
                 new Rage(3, 3),
                 new Brace(2),
+                new Sprint(3),
                 new Shove(),
                 new Wait()
             };
@@ -401,6 +411,7 @@ namespace SolStandard.Entity.Unit
                 new Stun(1),
                 new Replace(),
                 new Shove(),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };

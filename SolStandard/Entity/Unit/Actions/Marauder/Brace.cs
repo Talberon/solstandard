@@ -39,10 +39,10 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 int halfOfUnitsBaseMv = -(targetUnit.Stats.BaseMv / 2);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, halfOfUnitsBaseMv))
                 );
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

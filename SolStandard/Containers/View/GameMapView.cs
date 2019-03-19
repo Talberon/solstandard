@@ -558,7 +558,7 @@ namespace SolStandard.Containers.View
             //Bottom-left, above portrait
             return new Vector2(
                 LeftUnitPortraitWindowPosition().X,
-                LeftUnitPortraitWindowPosition().Y - LeftUnitStatusWindow.Height - WindowEdgeBuffer
+                LeftUnitDetailWindowPosition().Y - LeftUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 
@@ -598,7 +598,7 @@ namespace SolStandard.Containers.View
             //Bottom-right, above portrait
             return new Vector2(
                 RightUnitPortraitWindowPosition().X + RightUnitPortraitWindow.Width - RightUnitStatusWindow.Width,
-                RightUnitPortraitWindowPosition().Y - RightUnitStatusWindow.Height - WindowEdgeBuffer
+                RightUnitDetailWindowPosition().Y - RightUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 

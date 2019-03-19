@@ -29,7 +29,7 @@ namespace SolStandard.Containers.Contexts
         public void GenerateThreatGrid(Vector2 origin, GameUnit unit)
         {
             new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
-                .GenerateMoveGrid(origin, unit);
+                .GenerateMoveGrid(origin, unit.Stats.Mv, unit.Team);
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
