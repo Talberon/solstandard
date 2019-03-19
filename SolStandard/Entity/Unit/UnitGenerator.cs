@@ -386,7 +386,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Guillotine(),
                 new Rage(3, 3),
-                new Brace(3),
+                new Brace(2),
                 new Shove(),
                 new Wait()
             };
