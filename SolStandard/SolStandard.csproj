@@ -205,6 +205,7 @@
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />

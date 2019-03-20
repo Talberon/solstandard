@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
 using SolStandard.Utility;
@@ -40,6 +41,7 @@ namespace SolStandard.Containers.View
                 new MenuOption[]
                 {
                     new ContinueOption(OptionsColor),
+                    new OpenCodexOption(OptionsColor),
                     new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
                     new ConcedeOption(OptionsColor)

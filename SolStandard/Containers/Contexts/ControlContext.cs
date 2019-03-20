@@ -55,6 +55,11 @@ namespace SolStandard.Containers.Contexts
                 GameContext.CodexContext.SelectUnit();
             }
 
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.CodexContext.CloseMenu();
+            }
+
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
                 GameContext.CodexContext.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);

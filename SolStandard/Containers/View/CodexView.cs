@@ -19,6 +19,7 @@ namespace SolStandard.Containers.View
         public readonly TwoDimensionalMenu UnitListMenu;
         private Window unitActionListWindow;
         private Window unitDetailWindow;
+        private readonly SpriteAtlas background;
 
         private const int WindowEdgeBuffer = 10;
 
@@ -30,6 +31,9 @@ namespace SolStandard.Containers.View
         {
             UnitListMenu = BuildUnitMenu(unitArchetypes);
             visible = true;
+            background = new SpriteAtlas(AssetManager.MainMenuBackground,
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                GameDriver.ScreenSize);
         }
 
         public void ToggleVisible()
@@ -47,44 +51,53 @@ namespace SolStandard.Containers.View
 
         private static Window GenerateActionWindow(IReadOnlyList<UnitAction> actions)
         {
-            IRenderable[,] actionElements = new IRenderable[actions.Count, 3];
+            IRenderable[,] actionElements = new IRenderable[actions.Count, 4];
 
+            const int iconIndex = 0;
+            const int nameIndex = 1;
+            const int rangeIndex = 2;
+            const int descriptionIndex = 3;
+            
             int largestNameWidth = 0;
             int largestRangeWidth = 0;
             int largestDescriptionWidth = 0;
 
             for (int i = 0; i < actions.Count; i++)
             {
-                actionElements[i, 0] =
-                    new Window(new RenderText(AssetManager.WindowFont, actions[i].Name), CodexWindowColor);
 
-                actionElements[i, 1] = new Window(
+                actionElements[i, iconIndex] = actions[i].Icon;
+
+                actionElements[i, nameIndex] =
+                    new Window(new RenderText(AssetManager.WindowFont, actions[i].Name), Color.Transparent);
+
+                actionElements[i, rangeIndex] = new Window(
                     new RenderText(
                         AssetManager.WindowFont,
                         actions[i].Range == null
-                            ? "N/A"
+                            ? "Range: N/A"
                             : string.Format("Range: [{0}]", string.Join(",", actions[i].Range))
                     ),
-                    CodexWindowColor
+                    Color.Transparent
                 );
 
-                actionElements[i, 2] = new Window(new RenderText(AssetManager.WindowFont, actions[i].Description),
+                actionElements[i, descriptionIndex] = new Window(
+                    new RenderText(AssetManager.WindowFont, actions[i].Description),
                     CodexWindowColor);
 
                 //Remember the largest width for aligning later
-                if (actionElements[i, 0].Width > largestNameWidth)
+                if (actionElements[i, nameIndex].Width > largestNameWidth)
                 {
-                    largestNameWidth = actionElements[i, 0].Width;
+                    largestNameWidth = actionElements[i, nameIndex].Width;
                 }
 
-                if (actionElements[i, 1].Width > largestRangeWidth)
+                if (actionElements[i, rangeIndex].Width > largestRangeWidth)
                 {
-                    largestRangeWidth = actionElements[i, 1].Width;
+                    largestRangeWidth = actionElements[i, rangeIndex].Width;
                 }
 
-                if (actionElements[i, 2].Width > largestDescriptionWidth)
+                if (actionElements[i, descriptionIndex].Width > largestDescriptionWidth)
                 {
-                    largestDescriptionWidth = actionElements[i, 2].Width;
+                    largestDescriptionWidth = actionElements[i, descriptionIndex].Width;
                 }
             }
 
@@ -92,9 +105,9 @@ namespace SolStandard.Containers.View
             for (int i = 0; i < actions.Count; i++)
             {
                 //Fill space so that all the elements have the same width like a grid
-                ((Window) actionElements[i, 0]).Width = largestNameWidth;
-                ((Window) actionElements[i, 1]).Width = largestRangeWidth;
-                ((Window) actionElements[i, 2]).Width = largestDescriptionWidth;
+                ((Window) actionElements[i, nameIndex]).Width = largestNameWidth;
+                ((Window) actionElements[i, rangeIndex]).Width = largestRangeWidth;
+                ((Window) actionElements[i, descriptionIndex]).Width = largestDescriptionWidth;
             }
 
             Window skillTable = new Window(new WindowContentGrid(actionElements, 5), CodexWindowColor);
@@ -197,6 +210,10 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 centerScreen = GameDriver.ScreenSize / 2;
+            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
+            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+
             if (UnitListMenu != null) UnitListMenu.Draw(spriteBatch, UnitListMenuPosition());
 
             if (unitDetailWindow != null)

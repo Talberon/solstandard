@@ -3,12 +3,14 @@ using System.Linq;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
 {
     public class CodexContext
     {
         public readonly CodexView CodexView;
+        private GameContext.GameState previousGameState;
 
         public CodexContext()
         {
@@ -27,6 +29,20 @@ namespace SolStandard.Containers.Contexts
             }
 
             return units;
+        }
+
+        public void OpenMenu()
+        {
+            if (GameContext.CurrentGameState == GameContext.GameState.Codex) return;
+
+            previousGameState = GameContext.CurrentGameState;
+            GameContext.CurrentGameState = GameContext.GameState.Codex;
+        }
+
+        public void CloseMenu()
+        {
+            AssetManager.MapUnitCancelSFX.Play();
+            GameContext.CurrentGameState = previousGameState;
         }
 
         public void MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection direction)
