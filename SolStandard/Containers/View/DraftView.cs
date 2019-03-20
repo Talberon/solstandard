@@ -244,10 +244,10 @@ namespace SolStandard.Containers.View
 
         private Vector2 HelpTextPosition
         {
-            //Hori-Center, Upper Quarter
+            //Hori-Center, Upper Fifth
             get
             {
-                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 4) -
+                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 5) -
                        new Vector2((float) HelpText.Width / 2, (float) HelpText.Height / 2);
             }
         }
