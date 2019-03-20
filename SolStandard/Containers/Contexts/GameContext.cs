@@ -157,11 +157,14 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn,
-            string mapPath, Scenario scenario)
+        public static void StartNewDraft(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
             LoadMap(mapPath);
+        }
+
+        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
+        {
             DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
             CurrentGameState = GameState.Deployment;
         }

@@ -59,12 +59,16 @@ namespace SolStandard.Containers.Contexts
                     if (selectMapEntity.Draft)
                     {
                         AssetManager.MenuConfirmSFX.Play();
+
+                        GameContext.StartNewDraft(
+                            selectMapEntity.MapInfo.FileName,
+                            selectMapEntity.MapObjectives.Scenario
+                        );
+
                         GameContext.DraftContext.StartNewDraft(
                             selectMapEntity.UnitsPerTeam,
                             selectMapEntity.MaxDuplicateUnits,
-                            (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
-                            selectMapEntity.MapInfo.FileName, 
-                            selectMapEntity.MapObjectives.Scenario
+                            (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red
                         );
                         GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
                         PlayMapSong(selectMapEntity);

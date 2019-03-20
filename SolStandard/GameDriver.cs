@@ -382,6 +382,7 @@ namespace SolStandard
                     DrawDeploymentHUD();
                     break;
                 case GameContext.GameState.ArmyDraft:
+                    DrawInGameMap();
                     DrawDraftMenu();
                     break;
                 case GameContext.GameState.MapSelect:

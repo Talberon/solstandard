@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
@@ -39,21 +38,15 @@ namespace SolStandard.Containers.Contexts
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
 
-        private string mapName;
-        private Scenario scenario;
-
-
         public DraftContext(DraftView draftView)
         {
             DraftView = draftView;
         }
 
-        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, string mapFile,
-            Scenario mapScenario)
+        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn)
         {
+            
             NameGenerator.ClearNameHistory();
-            mapName = mapFile;
-            scenario = mapScenario;
 
             currentPhase = DraftPhase.UnitSelect;
             unitsSelected = 0;
@@ -155,7 +148,7 @@ namespace SolStandard.Containers.Contexts
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn, mapName, scenario);
+            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn);
         }
 
         public void SelectCommander(GameUnit unit)
