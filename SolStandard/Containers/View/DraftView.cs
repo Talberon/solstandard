@@ -30,6 +30,7 @@ namespace SolStandard.Containers.View
         private Window RedTeamCommander { get; set; }
 
         private Window HelpText { get; set; }
+        private Window ControlsText { get; set; }
         private Window VersusText { get; set; }
 
         public TwoDimensionalMenu UnitSelect { get; private set; }
@@ -49,6 +50,36 @@ namespace SolStandard.Containers.View
 
             UpdateHelpWindow("SELECT A UNIT");
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
+
+            ControlsText = GenerateControlsTextWindow();
+        }
+
+        private static Window GenerateControlsTextWindow()
+        {
+            ISpriteFont windowFont = AssetManager.WindowFont;
+
+            IRenderable[,] promptTextContent =
+            {
+                {
+                    new RenderText(AssetManager.HeaderFont, "Draft Phase"),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderText(windowFont, " to draft a unit."),
+                },
+                {
+                    new RenderText(windowFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderText(windowFont, " to view unit stats and skills."),
+                }
+            };
+            WindowContentGrid promptWindowContentGrid =
+                new WindowContentGrid(promptTextContent, 2, HorizontalAlignment.Right);
+
+            return new Window(promptWindowContentGrid, DarkBackgroundColor);
         }
 
         public void UpdateTeamUnitsWindow(List<IRenderable> unitSprites, Team team)
@@ -324,7 +355,16 @@ namespace SolStandard.Containers.View
             }
         }
 
-        #endregion
+        private Vector2 ControlsTextPosition
+        {
+            get
+            {
+                //Top-Right
+                return new Vector2(GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding, WindowPadding);
+            }
+        }
+
+        #endregion Positions
 
         public void ToggleVisible()
         {
@@ -346,6 +386,8 @@ namespace SolStandard.Containers.View
 
             if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
             if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
+
+            if (ControlsText != null) ControlsText.Draw(spriteBatch, ControlsTextPosition);
         }
 
         private void DrawBackground(SpriteBatch spriteBatch)

@@ -55,10 +55,14 @@ namespace SolStandard.Containers.Contexts
                 GameContext.CodexContext.SelectUnit();
             }
 
-            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single) ||
+                controlMapper.Press(Input.SelectNextUnit, PressType.Single) ||
+                controlMapper.Press(Input.Status, PressType.Single) ||
+                controlMapper.Press(Input.Menu, PressType.Single))
             {
                 GameContext.CodexContext.CloseMenu();
             }
+
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
@@ -149,6 +153,11 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
+            }
+
+            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            {
+                GameContext.CodexContext.OpenMenu();
             }
         }
 
