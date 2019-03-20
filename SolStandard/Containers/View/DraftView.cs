@@ -38,14 +38,12 @@ namespace SolStandard.Containers.View
 
         private static IRenderable _draftCursor;
         private static IRenderable _commanderCursor;
-        private readonly IRenderable background;
 
         private bool visible;
 
-        public DraftView(IRenderable background)
+        public DraftView()
         {
-            this.background = background;
-
+            visible = true;
             UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
 
             UpdateHelpWindow("SELECT A UNIT");
@@ -61,19 +59,29 @@ namespace SolStandard.Containers.View
             IRenderable[,] promptTextContent =
             {
                 {
-                    new RenderText(AssetManager.HeaderFont, "Draft Phase"),
+                    new RenderText(AssetManager.HeaderFont, "~Draft Phase~"),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
-                    new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
-                    new RenderText(windowFont, " to draft a unit."),
+                    new RenderText(windowFont, "Move Draft Cursor: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.Dpad, new Vector2(windowFont.MeasureString("A").Y)),
+                    ButtonIconProvider.GetButton(ButtonIcon.LeftStick, new Vector2(windowFont.MeasureString("A").Y)),
                 },
                 {
-                    new RenderText(windowFont, "Press "),
+                    new RenderText(windowFont, "Draft a unit: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "View Unit Codex: "),
                     ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
-                    new RenderText(windowFont, " to view unit stats and skills."),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Move Map Camera: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.RightStick, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank()
                 }
             };
             WindowContentGrid promptWindowContentGrid =
@@ -373,27 +381,23 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //DrawBackground(spriteBatch);
 
-            if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);
-            if (RedTeamUnits != null) RedTeamUnits.Draw(spriteBatch, RedTeamUnitsPosition);
+            if (visible)
+            {
+                if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);
+                if (RedTeamUnits != null) RedTeamUnits.Draw(spriteBatch, RedTeamUnitsPosition);
 
-            if (BlueTeamCommander != null) BlueTeamCommander.Draw(spriteBatch, BlueTeamCommanderPosition);
-            if (RedTeamCommander != null) RedTeamCommander.Draw(spriteBatch, RedTeamCommanderPosition);
+                if (BlueTeamCommander != null) BlueTeamCommander.Draw(spriteBatch, BlueTeamCommanderPosition);
+                if (RedTeamCommander != null) RedTeamCommander.Draw(spriteBatch, RedTeamCommanderPosition);
 
-            if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
-            if (VersusText != null) VersusText.Draw(spriteBatch, VersusTextPosition);
+                if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
+                if (VersusText != null) VersusText.Draw(spriteBatch, VersusTextPosition);
 
-            if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
-            if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
+                if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
+                if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
+            }
 
             if (ControlsText != null) ControlsText.Draw(spriteBatch, ControlsTextPosition);
-        }
-
-        private void DrawBackground(SpriteBatch spriteBatch)
-        {
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, GameDriver.ScreenSize / 2 - backgroundCenter);
         }
     }
 }

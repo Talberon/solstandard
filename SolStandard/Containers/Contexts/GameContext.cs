@@ -129,12 +129,12 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.Deployment:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.ArmyDraft:
-                        return MapSelectContext.MapContainer.MapCamera;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.Deployment:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.ArmyDraft:
+                        return GameMapContext.MapContainer.MapCamera;
                     case GameState.PauseScreen:
                         return GameMapContext.MapContainer.MapCamera;
                     case GameState.InGame:
@@ -157,7 +157,7 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartNewDraft(string mapPath, Scenario scenario)
+        public static void LoadMapAndScenario(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
             LoadMap(mapPath);

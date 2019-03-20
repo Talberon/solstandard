@@ -60,7 +60,7 @@ namespace SolStandard.Containers.Contexts
                     {
                         AssetManager.MenuConfirmSFX.Play();
 
-                        GameContext.StartNewDraft(
+                        GameContext.LoadMapAndScenario(
                             selectMapEntity.MapInfo.FileName,
                             selectMapEntity.MapObjectives.Scenario
                         );

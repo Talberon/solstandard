@@ -70,8 +70,8 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.Lt, textureLt},
                 {ButtonIcon.Rb, textureRb},
                 {ButtonIcon.Rt, textureRt},
-                {ButtonIcon.LeftStick, textureRightStick},
-                {ButtonIcon.RightStick, textureLeftStick},
+                {ButtonIcon.LeftStick, textureLeftStick},
+                {ButtonIcon.RightStick, textureRightStick},
                 {ButtonIcon.Windows, textureWindows},
                 {ButtonIcon.Menu, textureMenu}
             };

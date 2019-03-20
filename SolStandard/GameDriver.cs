@@ -190,7 +190,7 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
-            DraftView draftView = new DraftView(mainMenuBackgroundSprite);
+            DraftView draftView = new DraftView();
 
             GameContext.Initialize(mainMenu, networkMenu, draftView);
 
@@ -335,6 +335,7 @@ namespace SolStandard
                 case GameContext.GameState.NetworkMenu:
                     break;
                 case GameContext.GameState.ArmyDraft:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.Deployment:
                     GameContext.UpdateCamera();

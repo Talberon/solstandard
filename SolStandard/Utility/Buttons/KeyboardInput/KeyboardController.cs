@@ -10,8 +10,8 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
         {
             Confirm = new InputKey(Keys.Space);
             Cancel = new InputKey(Keys.LeftShift);
-            ResetToUnit = new InputKey(Keys.Tab);
-            CenterCamera = new InputKey(Keys.OemTilde);
+            ResetToUnit = new InputKey(Keys.Q);
+            CenterCamera = new InputKey(Keys.E);
 
             CursorUp = new InputKey(Keys.W);
             CursorDown = new InputKey(Keys.S);
@@ -26,17 +26,17 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             Menu = new InputKey(Keys.Enter);
             Status = new InputKey(Keys.Escape);
 
-            SetWideZoom = new InputKey(Keys.LeftControl);
-            SetCloseZoom = new InputKey(Keys.LeftAlt);
-            AdjustZoomOut = new InputKey(Keys.Q);
-            AdjustZoomIn = new InputKey(Keys.E);
+            SetWideZoom = new InputKey(Keys.Tab);
+            SetCloseZoom = new InputKey(Keys.R);
+            AdjustZoomOut = new InputKey(Keys.LeftControl);
+            AdjustZoomIn = new InputKey(Keys.LeftAlt);
             
             inputs = new Dictionary<Input, InputKey>
             {
                 {Input.Confirm, (InputKey) Confirm},
                 {Input.Cancel, (InputKey) Cancel},
-                {Input.SelectNextUnit, (InputKey) ResetToUnit},
-                {Input.CenterCamera, (InputKey) CenterCamera},
+                {Input.X, (InputKey) ResetToUnit},
+                {Input.Y, (InputKey) CenterCamera},
 
                 {Input.CursorUp, (InputKey) CursorUp},
                 {Input.CursorDown, (InputKey) CursorDown},

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.HUD.Window
@@ -19,8 +18,9 @@ namespace SolStandard.HUD.Window
     {
         private static readonly Color InnerPaneColor = new Color(0, 0, 0, 50);
         private readonly ITexture2D windowTexture;
-        private readonly int windowCellSize;
         private readonly IRenderable windowContents;
+        public int InsidePadding { get; private set; }
+        public int ElementSpacing { get; private set; }
         public Color DefaultColor { get; set; }
         private HorizontalAlignment HorizontalAlignment { get; set; }
         private Vector2 WindowPixelSize { get; set; }
@@ -28,19 +28,18 @@ namespace SolStandard.HUD.Window
         private Vector2 lastPosition;
         private Rectangle innerPane;
         private Rectangle borderPane;
-        private readonly int padding;
 
         public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
-            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int padding = 2)
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int elementSpacing = 2, int insidePadding = 2)
         {
             windowTexture = AssetManager.WindowTexture;
             DefaultColor = color;
             windowContents = windowContent;
-            windowCellSize = CalculateCellSize(windowTexture);
+            InsidePadding = insidePadding;
+            ElementSpacing = elementSpacing;
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
             Visible = true;
             HorizontalAlignment = horizontalAlignment;
-            this.padding = padding;
             lastPosition = Vector2.Zero;
         }
 
@@ -53,24 +52,13 @@ namespace SolStandard.HUD.Window
         {
         }
 
-        private int CalculateCellSize(ITexture2D windowTextureTemplate)
-        {
-            //Window Texture must be a square
-            if (windowTextureTemplate.Width == windowTextureTemplate.Height)
-            {
-                return windowTexture.Height / 3;
-            }
-
-            throw new InvalidWindowTextureException();
-        }
-
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
             Vector2 calculatedSize = new Vector2();
             Vector2 contentGridSize = new Vector2(windowContents.Width, windowContents.Height);
 
             //Adjust for border
-            int borderSize = windowCellSize * 2;
+            int borderSize = InsidePadding * 2;
 
             //Default to content size if size is set to 0
             if (Math.Abs(sizeOverride.X) < .001)
@@ -99,13 +87,13 @@ namespace SolStandard.HUD.Window
 
         public int Height
         {
-            get { return (int) WindowPixelSize.Y + (padding * 2); }
+            get { return (int) WindowPixelSize.Y + (InsidePadding * 2); }
             set { WindowPixelSize = DeriveSizeFromContent(new Vector2(0, value)); }
         }
 
         public int Width
         {
-            get { return (int) WindowPixelSize.X + (padding * 2); }
+            get { return (int) WindowPixelSize.X + (InsidePadding * 2); }
             set { WindowPixelSize = DeriveSizeFromContent(new Vector2(value, 0)); }
         }
 
@@ -128,7 +116,7 @@ namespace SolStandard.HUD.Window
         private Vector2 LeftAlignedContentCoordinates(Vector2 windowCoordinates)
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
-            contentRenderCoordinates.X += windowCellSize;
+            contentRenderCoordinates.X += InsidePadding;
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
 
             return contentRenderCoordinates;
@@ -151,7 +139,7 @@ namespace SolStandard.HUD.Window
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X = windowCoordinates.X + Width - windowContents.Width - windowCellSize;
+            contentRenderCoordinates.X = windowCoordinates.X + Width - windowContents.Width - InsidePadding;
 
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
 
@@ -179,8 +167,8 @@ namespace SolStandard.HUD.Window
             {
                 lastPosition = coordinates;
                 innerPane = new Rectangle(
-                    (int) lastPosition.X + padding, (int) lastPosition.Y + padding,
-                    Width - (padding * 2), Height - (padding * 2)
+                    (int) lastPosition.X + ElementSpacing, (int) lastPosition.Y + ElementSpacing,
+                    Width - (ElementSpacing * 2), Height - (ElementSpacing * 2)
                 );
                 borderPane = new Rectangle((int) lastPosition.X, (int) lastPosition.Y, Width, Height);
             }

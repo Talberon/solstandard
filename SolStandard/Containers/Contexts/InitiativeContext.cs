@@ -43,11 +43,22 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectNextUnitOnActiveTeam()
         {
-            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam);
+            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam && unit.IsActive);
 
             int currentUnitIndex = teamUnits.FindIndex(unit => unit == CurrentActiveUnit);
 
             int nextUnitIndex = (currentUnitIndex + 1 < teamUnits.Count) ? currentUnitIndex + 1 : 0;
+
+            CurrentActiveUnit = teamUnits[nextUnitIndex];
+        }
+        
+        public void SelectPreviousUnitOnActiveTeam()
+        {
+            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam && unit.IsActive);
+
+            int currentUnitIndex = teamUnits.FindIndex(unit => unit == CurrentActiveUnit);
+
+            int nextUnitIndex = (currentUnitIndex - 1 >= 0) ? currentUnitIndex - 1 : teamUnits.Count - 1;
 
             CurrentActiveUnit = teamUnits[nextUnitIndex];
         }

@@ -56,7 +56,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             if (controlMapper.Press(Input.Cancel, PressType.Single) ||
-                controlMapper.Press(Input.SelectNextUnit, PressType.Single) ||
+                controlMapper.Press(Input.X, PressType.Single) ||
                 controlMapper.Press(Input.Status, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
@@ -155,10 +155,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            if (controlMapper.Press(Input.X, PressType.Single))
             {
                 GameContext.CodexContext.OpenMenu();
             }
+
+            CameraControl(controlMapper);
         }
 
         private static void DeploymentControls(ControlMapper controlMapper)
@@ -199,10 +201,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            if (controlMapper.Press(Input.X, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
             }
+            
+            CameraControl(controlMapper);
         }
 
 
@@ -269,27 +273,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void CameraControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.CenterCamera, PressType.Single))
-            {
-                GameContext.MapCamera.CenterCameraToCursor();
-            }
-
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
-            {
-                GameContext.MapCamera.ZoomOut(0.1f);
-            }
-
-            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
-            {
-                GameContext.MapCamera.ZoomIn(0.1f);
-            }
-
-            if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.Single))
+            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
             }
@@ -361,7 +350,12 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToPreviousUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
@@ -509,7 +503,7 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }

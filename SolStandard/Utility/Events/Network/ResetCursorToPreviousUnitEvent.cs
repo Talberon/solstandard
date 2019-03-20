@@ -5,11 +5,11 @@ using SolStandard.Utility.Assets;
 namespace SolStandard.Utility.Events.Network
 {
     [Serializable]
-    public class ResetCursorToNextUnitEvent : NetworkEvent
+    public class ResetCursorToPreviousUnitEvent : NetworkEvent
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
+            GameContext.GameMapContext.ResetCursorToPreviousUnitOnTeam();
             AssetManager.MapUnitCancelSFX.Play();
             Complete = true;
         }

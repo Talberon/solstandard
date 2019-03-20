@@ -245,6 +245,17 @@ namespace SolStandard.Containers.Contexts
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
+        
+        public void ResetCursorToPreviousUnitOnTeam()
+        {
+            GameContext.InitiativeContext.SelectPreviousUnitOnActiveTeam();
+
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
+        }
+
 
         public void ResetCursorToActiveUnit()
         {
