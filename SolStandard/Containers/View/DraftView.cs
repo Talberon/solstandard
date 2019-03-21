@@ -32,6 +32,7 @@ namespace SolStandard.Containers.View
         private Window HelpText { get; set; }
         private Window ControlsText { get; set; }
         private Window VersusText { get; set; }
+        private Window ObjectivesWindow { get; set; }
 
         public TwoDimensionalMenu UnitSelect { get; private set; }
         public TwoDimensionalMenu CommanderSelect { get; private set; }
@@ -103,6 +104,11 @@ namespace SolStandard.Containers.View
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
             }
+        }
+
+        public void UpdateObjectivesWindow(Window objectivesWindow)
+        {
+            ObjectivesWindow = objectivesWindow;
         }
 
         public void UpdateCommanderSelect(IEnumerable<GameUnit> units, Team team)
@@ -367,8 +373,23 @@ namespace SolStandard.Containers.View
         {
             get
             {
-                //Top-Right
-                return new Vector2(GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding, WindowPadding);
+                //Bottom-Right
+                return new Vector2(
+                    GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding, 
+                    GameDriver.ScreenSize.Y - ControlsText.Height - WindowPadding
+                );
+            }
+        }
+
+        private Vector2 ObjectivesWindowPosition
+        {
+            get
+            {
+                //Bottom-Left
+                return new Vector2(
+                    WindowPadding, 
+                    GameDriver.ScreenSize.Y - ObjectivesWindow.Height - WindowPadding
+                );
             }
         }
 
@@ -398,6 +419,7 @@ namespace SolStandard.Containers.View
             }
 
             if (ControlsText != null) ControlsText.Draw(spriteBatch, ControlsTextPosition);
+            if (ObjectivesWindow != null) ObjectivesWindow.Draw(spriteBatch, ObjectivesWindowPosition);
         }
     }
 }

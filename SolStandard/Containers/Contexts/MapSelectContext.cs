@@ -50,36 +50,37 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
 
-            if (CursorAtMapSelectFeature(cursorSlice))
+            if (!CursorAtMapSelectFeature(cursorSlice)) return;
+
+            if (cursorSlice.TerrainEntity.GetType() != typeof(SelectMapEntity)) return;
+
+            SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
+
+            if (selectMapEntity.Draft)
             {
-                if (cursorSlice.TerrainEntity.GetType() == typeof(SelectMapEntity))
-                {
-                    SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
+                AssetManager.MenuConfirmSFX.Play();
 
-                    if (selectMapEntity.Draft)
-                    {
-                        AssetManager.MenuConfirmSFX.Play();
+                GameContext.LoadMapAndScenario(
+                    selectMapEntity.MapInfo.FileName,
+                    selectMapEntity.MapObjectives.Scenario
+                );
 
-                        GameContext.LoadMapAndScenario(
-                            selectMapEntity.MapInfo.FileName,
-                            selectMapEntity.MapObjectives.Scenario
-                        );
-
-                        GameContext.DraftContext.StartNewDraft(
-                            selectMapEntity.UnitsPerTeam,
-                            selectMapEntity.MaxDuplicateUnits,
-                            (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red
-                        );
-                        GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
-                        PlayMapSong(selectMapEntity);
-                    }
-                    else
-                    {
-                        GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
-                        AssetManager.MenuConfirmSFX.Play();
-                        PlayMapSong(selectMapEntity);
-                    }
-                }
+                GameContext.DraftContext.StartNewDraft(
+                    selectMapEntity.UnitsPerTeam,
+                    selectMapEntity.MaxDuplicateUnits,
+                    (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
+                    selectMapEntity.MapObjectives.Scenario
+                );
+                
+                GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                GameContext.CenterCursorAndCamera();
+                PlayMapSong(selectMapEntity);
+            }
+            else
+            {
+                GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
+                AssetManager.MenuConfirmSFX.Play();
+                PlayMapSong(selectMapEntity);
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
@@ -43,9 +44,8 @@ namespace SolStandard.Containers.Contexts
             DraftView = draftView;
         }
 
-        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn)
+        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, Scenario scenario)
         {
-            
             NameGenerator.ClearNameHistory();
 
             currentPhase = DraftPhase.UnitSelect;
@@ -69,6 +69,8 @@ namespace SolStandard.Containers.Contexts
                 "Max Units: " + maxUnitsPerTeam + Environment.NewLine +
                 "Max Dupes: " + maxUnitDuplicates
             );
+
+            DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo);
         }
 
         public void MoveCursor(Direction direction)
@@ -300,7 +302,7 @@ namespace SolStandard.Containers.Contexts
                     Role.Paladin,
                     Role.Cleric,
                     Role.Bard,
-                    
+
                     Role.Duelist,
                     Role.Pugilist,
                     Role.Lancer,

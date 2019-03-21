@@ -101,12 +101,12 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.ArmyDraft:
-                        return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.Deployment:
-                        return MapSelectContext.MapContainer.MapCursor;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.Deployment:
+                        return GameMapContext.MapContainer.MapCursor;
+                    case GameState.ArmyDraft:
+                        return GameMapContext.MapContainer.MapCursor;
                     case GameState.PauseScreen:
                         return GameMapContext.MapContainer.MapCursor;
                     case GameState.InGame:
@@ -155,6 +155,15 @@ namespace SolStandard.Containers.Contexts
         public static GameUnit ActiveUnit
         {
             get { return InitiativeContext.CurrentActiveUnit; }
+        }
+
+        public static void CenterCursorAndCamera()
+        {
+            MapCursor.SnapCursorToCoordinates(new Vector2(
+                (int) (MapContainer.MapGridSize.X / 2),
+                (int) (MapContainer.MapGridSize.Y / 2))
+            );
+            MapCamera.CenterCameraToCursor();
         }
 
         public static void LoadMapAndScenario(string mapPath, Scenario scenario)
@@ -266,7 +275,7 @@ namespace SolStandard.Containers.Contexts
                 GameDriver.ConnectionManager.CloseServer();
                 GameDriver.ConnectionManager.DisconnectClient();
             }
-            
+
             AssetManager.MenuConfirmSFX.Play();
             Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
         }
