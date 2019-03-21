@@ -35,8 +35,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new RegenerateHealthEvent(targetUnit, hpHealed));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new WaitFramesEvent(50));
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

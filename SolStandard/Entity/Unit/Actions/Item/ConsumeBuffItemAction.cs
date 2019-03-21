@@ -72,7 +72,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
                         throw new ArgumentOutOfRangeException();
                 }
 
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new WaitFramesEvent(50));
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
 
