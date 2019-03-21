@@ -1,5 +1,9 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.General.Item
 {
@@ -40,6 +44,30 @@ namespace SolStandard.Entity.General.Item
                 UnitStatistics.Abbreviation[Stats.Luck], ((LuckModifier > 0) ? "+" : string.Empty) + LuckModifier,
                 UnitStatistics.Abbreviation[Stats.AtkRange], string.Join(",", AtkRange)
             );
+        }
+
+        public WindowContentGrid GenerateStatGrid(ISpriteFont textFont)
+        {
+            IRenderable[,] statGrid =
+            {
+                {
+                    UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                    new RenderText(textFont, UnitStatistics.Abbreviation[Stats.Atk] + ": " + AtkValue)
+                },
+                {
+                    UnitStatistics.GetSpriteAtlas(Stats.Luck, new Vector2(GameDriver.CellSize)),
+                    new RenderText(textFont,
+                        UnitStatistics.Abbreviation[Stats.Luck] + ": " + ((LuckModifier > 0) ? "+" : string.Empty) +
+                        LuckModifier)
+                },
+                {
+                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
+                    new RenderText(textFont,
+                        UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]")
+                },
+            };
+
+            return new WindowContentGrid(statGrid, 3);
         }
     }
 }
