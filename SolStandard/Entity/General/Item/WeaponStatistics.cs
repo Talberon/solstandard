@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.General.Item
@@ -64,6 +65,10 @@ namespace SolStandard.Entity.General.Item
                     UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
                     new RenderText(textFont,
                         UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]")
+                },
+                {
+                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, new Vector2(GameDriver.CellSize)),
+                    new RenderText(textFont,"Uses : [" + UsesRemaining + "]")
                 },
             };
 

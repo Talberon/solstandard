@@ -24,7 +24,18 @@ namespace SolStandard.Entity.General.Item
         {
             InteractRange = pickupRange;
             WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
-            statWindow = new Window(WeaponStatistics.GenerateStatGrid(AssetManager.WindowFont), Color.Transparent);
+            statWindow = BuildStatWindow(WeaponStatistics);
+        }
+
+        private static Window BuildStatWindow(WeaponStatistics weaponStatistics)
+        {
+            IRenderable[,] statWindowGrid =
+            {
+                {new RenderText(AssetManager.WindowFont, "-Stats-")},
+                {weaponStatistics.GenerateStatGrid(AssetManager.WindowFont)}
+            };
+
+            return new Window(new WindowContentGrid(statWindowGrid, 2, HorizontalAlignment.Centered), InnerWindowColor);
         }
 
         public bool IsBroken
@@ -78,11 +89,11 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
                             new RenderText(
                                 AssetManager.WindowFont,
-                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            ),
-                            new RenderBlank()
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
                         },
                         {
                             statWindow,

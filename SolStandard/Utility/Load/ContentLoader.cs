@@ -415,7 +415,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/hpUp"),
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/mvUp"),
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/spUp"),
-                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/moraleBroken")
+                content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/moraleBroken"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/clock"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability"),
             };
 
             List<ITexture2D> statusTextures = new List<ITexture2D>();
@@ -596,5 +599,6 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
             return new SoundEffectWrapper(effect, 1f);
         }
+
     }
 }

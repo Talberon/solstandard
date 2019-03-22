@@ -5,6 +5,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -49,18 +50,17 @@ namespace SolStandard.Entity.General
 
             string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + damage +
                                  "] damage!";
-            
+
             if (willSnare)
             {
                 trapUnit.AddStatusEffect(new ImmobilizedStatus(1));
                 trapMessage += Environment.NewLine + "Target is immobilized!";
             }
-            
+
             for (int i = 0; i < damage; i++)
             {
                 trapUnit.DamageUnit();
             }
-
 
 
             triggersRemaining--;
@@ -106,18 +106,24 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                            new RenderText(AssetManager.WindowFont, "Damage: " + damage)
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont,
-                                (limitedTriggers) ? "Triggers Left: " + triggersRemaining : "Permanent")
-                        },
-                        {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            new Window(new IRenderable[,]
+                            {
+                                {
+                                    UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                                    new RenderText(AssetManager.WindowFont, "Damage: " + damage)
+                                },
+                                {
+                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                    new RenderText(AssetManager.WindowFont,
+                                        (limitedTriggers) ? "Triggers Left: " + triggersRemaining : "Permanent")
+                                }
+                            }, InnerWindowColor),
+                            new RenderBlank()
                         }
                     },
                     1

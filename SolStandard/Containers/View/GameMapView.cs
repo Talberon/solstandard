@@ -475,13 +475,14 @@ namespace SolStandard.Containers.View
                         new[,]
                         {
                             {
-                                new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "T]"),
+                                StatusIconProvider.GetStatusIcon(StatusIcon.Time, new Vector2(GameDriver.CellSize)),
+                                new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "] "),
                                 effect.StatusIcon,
                                 new RenderText(AssetManager.WindowFont, effect.Name,
                                     (effect.CanCleanse) ? Color.Red : Color.LightGreen)
                             }
                         },
-                        1
+                        0
                     ),
                     windowColor
                 );

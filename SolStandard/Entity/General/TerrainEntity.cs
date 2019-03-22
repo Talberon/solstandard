@@ -43,6 +43,7 @@ namespace SolStandard.Entity.General
     {
         public static readonly Color PositiveColor = new Color(30, 200, 30);
         public static readonly Color NegativeColor = new Color(250, 10, 10);
+        protected static readonly Color InnerWindowColor = new Color(25, 25, 25, 80);
 
         protected IRenderable InfoHeader { get; private set; }
         private IRenderable NameText { get; set; }
@@ -57,6 +58,7 @@ namespace SolStandard.Entity.General
 
             NameText = new RenderText(AssetManager.HeaderFont, Name);
             TypeText = new RenderText(AssetManager.WindowFont, "[" + Type + "]");
+            
             InfoHeader = new Window(
                 new WindowContentGrid(
                     new[,]
@@ -73,7 +75,7 @@ namespace SolStandard.Entity.General
                     ,
                     1
                 ),
-                new Color(25, 25, 25, 80),
+                InnerWindowColor,
                 HorizontalAlignment.Right
             );
         }
@@ -95,7 +97,8 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         }
                     },
-                    1
+                    1,
+                    HorizontalAlignment.Centered
                 );
             }
         }

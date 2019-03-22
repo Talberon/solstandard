@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -50,19 +51,23 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
-                            new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
-                        },
-                        {
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
                             new RenderText(
                                 AssetManager.WindowFont,
-                                "Pick-Up Range: " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            ),
-                            new RenderBlank()
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
                         },
                         {
-                            ItemDetails,
-                            new RenderBlank()
+                            new Window(new [,]
+                            {
+                                {
+                                    new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize))
+                                },
+                                {
+                                    ItemDetails
+                                }
+                            }, InnerWindowColor),
+                            new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
                         }
                     },
                     1

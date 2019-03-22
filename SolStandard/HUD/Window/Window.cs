@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -30,7 +31,8 @@ namespace SolStandard.HUD.Window
         private Rectangle borderPane;
 
         public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
-            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int elementSpacing = 2, int insidePadding = 2)
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int elementSpacing = 2,
+            int insidePadding = 2)
         {
             windowTexture = AssetManager.WindowTexture;
             DefaultColor = color;
@@ -49,6 +51,20 @@ namespace SolStandard.HUD.Window
         }
 
         public Window(IRenderable windowContent, Color color) : this(windowContent, color, Vector2.Zero)
+        {
+        }
+
+        public Window(IRenderable[,] windowContentGrid, Color color,
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left,
+            int elementSpacing = 2, int insidePadding = 2)
+            : this(
+                new WindowContentGrid(windowContentGrid, 1),
+                color,
+                Vector2.Zero,
+                horizontalAlignment,
+                elementSpacing,
+                insidePadding
+            )
         {
         }
 
@@ -174,7 +190,7 @@ namespace SolStandard.HUD.Window
             }
 
             if (colorOverride.A != 0) spriteBatch.Draw(windowTexture.MonoGameTexture, borderPane, InnerPaneColor);
-            
+
             spriteBatch.Draw(windowTexture.MonoGameTexture, innerPane, colorOverride);
             windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
         }
