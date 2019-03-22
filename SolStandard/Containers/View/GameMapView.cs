@@ -341,19 +341,37 @@ namespace SolStandard.Containers.View
         private void GenerateTeamInitiativeWindow(Team team)
         {
             //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
-            const int maxInitiativeSize = 12;
+            const int unitsPerRow = 10;
+            const int initiativeHealthBarHeight = 10;
+
 
             List<GameUnit> unitList = GameContext.Units.FindAll(unit => unit.Team == team);
 
+            int rows = Convert.ToInt32(Math.Ceiling((float) unitList.Count / unitsPerRow));
 
-            int initiativeListLength = (unitList.Count > maxInitiativeSize) ? maxInitiativeSize : unitList.Count;
+            IRenderable[,] unitListGrid = new IRenderable[rows, unitsPerRow];
 
-            IRenderable[,] unitListContent = new IRenderable[1, initiativeListLength];
-            const int initiativeHealthBarHeight = 10;
+            int unitIndex = 0;
 
-            GenerateInitiativeList(unitList, unitListContent, initiativeHealthBarHeight);
+            for (int row = 0; row < rows; row++)
+            {
+                for (int column = 0; column < unitsPerRow; column++)
+                {
+                    if (unitIndex < unitList.Count)
+                    {
+                        unitListGrid[row, column] =
+                            SingleUnitContent(unitList[unitIndex], initiativeHealthBarHeight, null);
+                    }
+                    else
+                    {
+                        unitListGrid[row, column] = new RenderBlank();
+                    }
 
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListContent, 0);
+                    unitIndex++;
+                }
+            }
+
+            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 0, HorizontalAlignment.Centered);
 
             switch (team)
             {
@@ -367,16 +385,6 @@ namespace SolStandard.Containers.View
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
-            }
-        }
-
-        private static void GenerateInitiativeList(IReadOnlyList<GameUnit> unitList, IRenderable[,] unitListGrid,
-            int initiativeHealthBarHeight)
-        {
-            for (int i = 0; i < unitListGrid.GetLength(1); i++)
-            {
-                IRenderable singleUnitContent = SingleUnitContent(unitList[i], initiativeHealthBarHeight, null);
-                unitListGrid[0, i] = singleUnitContent;
             }
         }
 
