@@ -242,24 +242,6 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D3))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D4))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
-            }
-
-
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D4))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.Codex;
-            }
-
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
