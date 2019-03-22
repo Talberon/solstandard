@@ -10,19 +10,23 @@ namespace SolStandard.Utility.Assets
         B,
         X,
         Y,
+        
         Dpad,
+        DpadUp,
+        DpadDown,
+        DpadLeft,
+        DpadRight,
+        LeftStick,
+        
+        Windows,
+        Menu,
+        
+        RightStick,
+        
         Lb,
         Lt,
         Rb,
         Rt,
-        LeftStick,
-        RightStick,
-        Windows,
-        Menu,
-        DpadUp,
-        DpadDown,
-        DpadLeft,
-        DpadRight
     }
 
     public static class ButtonIconProvider
@@ -31,8 +35,11 @@ namespace SolStandard.Utility.Assets
 
         public static SpriteAtlas GetButton(ButtonIcon icon, Vector2 iconSize)
         {
-            return new SpriteAtlas(_buttonDictionary[icon],
-                new Vector2(_buttonDictionary[icon].Width, _buttonDictionary[icon].Height), iconSize);
+            return new SpriteAtlas(
+                _buttonDictionary[icon],
+                new Vector2(_buttonDictionary[icon].Width, _buttonDictionary[icon].Height),
+                iconSize
+            );
         }
 
         public static void LoadButtons(List<ITexture2D> buttonTextures)

@@ -39,6 +39,7 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> GuiTextures { get; set; }
 
         private static List<ITexture2D> ButtonIcons { get; set; }
+        private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
         
@@ -139,6 +140,9 @@ namespace SolStandard.Utility.Assets
 
             ButtonIcons = ContentLoader.LoadButtonIcons(content);
             ButtonIconProvider.LoadButtons(ButtonIcons);
+
+            KeyboardIcons = ContentLoader.LoadKeyboardIcons(content);
+            KeyboardIconProvider.LoadIcons(KeyboardIcons);
 
             SkillIcons = ContentLoader.LoadSkillIcons(content);
             SkillIconProvider.LoadSkillIcons(SkillIcons);

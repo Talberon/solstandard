@@ -212,6 +212,8 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControllerOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
@@ -256,6 +258,7 @@
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
+    <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
     <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />

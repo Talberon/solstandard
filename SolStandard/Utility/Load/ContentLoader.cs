@@ -358,6 +358,39 @@ namespace SolStandard.Utility.Load
             return buttonIconITextures;
         }
 
+        public static List<ITexture2D> LoadKeyboardIcons(ContentManager content)
+        {
+            List<Texture2D> buttonIconTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Space"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Shift"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Q"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_E"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tab"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_R"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Ctrl"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Alt"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_W"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_A"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_S"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_D"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Up"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc"),
+            };
+
+            List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in buttonIconTextures)
+            {
+                buttonIconITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return buttonIconITextures;
+        }
+
 
         public static List<ITexture2D> LoadSkillIcons(ContentManager content)
         {
