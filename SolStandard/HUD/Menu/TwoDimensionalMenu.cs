@@ -11,15 +11,8 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu
 {
-    public class TwoDimensionalMenu : IRenderable
+    public class TwoDimensionalMenu : IMenu
     {
-        public enum MenuCursorDirection
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
 
         public enum CursorType
         {

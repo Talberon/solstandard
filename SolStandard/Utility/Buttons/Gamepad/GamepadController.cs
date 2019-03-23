@@ -1,11 +1,39 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadController : IController
     {
         private readonly Dictionary<Input, GameControl> inputs;
+
+        private readonly Dictionary<Input, ButtonIcon> icons = new Dictionary<Input, ButtonIcon>
+        {
+            {Input.Confirm, ButtonIcon.A},
+            {Input.Cancel, ButtonIcon.B},
+            {Input.X, ButtonIcon.X},
+            {Input.Y, ButtonIcon.Y},
+
+            {Input.CursorUp, ButtonIcon.DpadUp},
+            {Input.CursorDown, ButtonIcon.DpadDown},
+            {Input.CursorLeft, ButtonIcon.DpadLeft},
+            {Input.CursorRight, ButtonIcon.DpadRight},
+
+            {Input.CameraUp, ButtonIcon.RightStick},
+            {Input.CameraDown, ButtonIcon.RightStick},
+            {Input.CameraLeft, ButtonIcon.RightStick},
+            {Input.CameraRight, ButtonIcon.RightStick},
+
+            {Input.Menu, ButtonIcon.Menu},
+            {Input.Status, ButtonIcon.Windows},
+
+            {Input.LeftBumper, ButtonIcon.Lb},
+            {Input.RightBumper, ButtonIcon.Rb},
+            {Input.LeftTrigger, ButtonIcon.Lt},
+            {Input.RightTrigger, ButtonIcon.Rt},
+        };
 
         public GamepadController(PlayerIndex playerIndex)
         {
@@ -62,6 +90,13 @@ namespace SolStandard.Utility.Buttons.Gamepad
         public GameControl GetInput(Input input)
         {
             return inputs[input];
+        }
+
+        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
+        {
+            if (input == Input.None) return new RenderBlank();
+            
+            return ButtonIconProvider.GetButton(icons[input], iconSize);
         }
 
         public GameControl Confirm { get; private set; }

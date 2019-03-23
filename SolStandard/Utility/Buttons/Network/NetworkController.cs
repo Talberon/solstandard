@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Network;
 
 namespace SolStandard.Utility.Buttons.Network
@@ -96,6 +98,11 @@ namespace SolStandard.Utility.Buttons.Network
         public GameControl GetInput(Input input)
         {
             return inputs[input];
+        }
+
+        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
+        {
+            return new RenderBlank();
         }
 
         public GameControl Confirm { get; private set; }

@@ -25,8 +25,8 @@ namespace SolStandard.Utility.Buttons
         Status,
         Menu,
         LeftBumper,
-        LeftTrigger,
         RightBumper,
+        LeftTrigger,
         RightTrigger
     }
 

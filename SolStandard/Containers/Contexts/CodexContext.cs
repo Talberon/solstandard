@@ -45,7 +45,7 @@ namespace SolStandard.Containers.Contexts
             GameContext.CurrentGameState = previousGameState;
         }
 
-        public void MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection direction)
+        public void MoveMenuCursor(MenuCursorDirection direction)
         {
             CodexView.UnitListMenu.MoveMenuCursor(direction);
         }

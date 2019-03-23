@@ -1,11 +1,41 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class KeyboardController : IController
     {
         private readonly Dictionary<Input, InputKey> inputs;
+
+        private static readonly Dictionary<Input, KeyboardIcon> Icons = new Dictionary<Input, KeyboardIcon>
+        {
+            {Input.Confirm, KeyboardIcon.Space},
+            {Input.Cancel, KeyboardIcon.LeftShift},
+            {Input.X, KeyboardIcon.Q},
+            {Input.Y, KeyboardIcon.E},
+
+            {Input.CursorUp, KeyboardIcon.W},
+            {Input.CursorDown, KeyboardIcon.S},
+            {Input.CursorLeft, KeyboardIcon.A},
+            {Input.CursorRight, KeyboardIcon.D},
+
+            {Input.CameraUp, KeyboardIcon.Up},
+            {Input.CameraDown, KeyboardIcon.Down},
+            {Input.CameraLeft, KeyboardIcon.Left},
+            {Input.CameraRight, KeyboardIcon.Right},
+
+            {Input.Menu, KeyboardIcon.Enter},
+            {Input.Status, KeyboardIcon.Escape},
+
+            {Input.LeftBumper, KeyboardIcon.Tab},
+            {Input.RightBumper, KeyboardIcon.R},
+            {Input.LeftTrigger, KeyboardIcon.LeftCtrl},
+            {Input.RightTrigger, KeyboardIcon.LeftAlt},
+        };
+
         public KeyboardController()
         {
             Confirm = new InputKey(Keys.Space);
@@ -30,7 +60,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             SetCloseZoom = new InputKey(Keys.R);
             AdjustZoomOut = new InputKey(Keys.LeftControl);
             AdjustZoomIn = new InputKey(Keys.LeftAlt);
-            
+
             inputs = new Dictionary<Input, InputKey>
             {
                 {Input.Confirm, (InputKey) Confirm},
@@ -61,6 +91,13 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
         public GameControl GetInput(Input input)
         {
             return inputs[input];
+        }
+
+        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
+        {
+            if (input == Input.None) return new RenderBlank();
+
+            return KeyboardIconProvider.GetKeyboardIcon(Icons[input], iconSize);
         }
 
         public GameControl Confirm { get; private set; }

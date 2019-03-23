@@ -27,6 +27,8 @@ namespace SolStandard.Utility.Assets
         Lt,
         Rb,
         Rt,
+        
+        None
     }
 
     public static class ButtonIconProvider
@@ -81,6 +83,7 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.RightStick, textureRightStick},
                 {ButtonIcon.Windows, textureWindows},
                 {ButtonIcon.Menu, textureMenu}
+                
             };
         }
     }

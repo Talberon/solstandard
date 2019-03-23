@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu.Options;
@@ -9,14 +8,8 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu
 {
-    public class VerticalMenu : IRenderable
+    public class VerticalMenu : IMenu
     {
-        public enum MenuCursorDirection
-        {
-            Forward,
-            Backward
-        }
-
         private readonly IRenderable cursorSprite;
         private Vector2 cursorPosition;
         private readonly MenuOption[] options;
@@ -117,7 +110,7 @@ namespace SolStandard.HUD.Menu
         {
             switch (direction)
             {
-                case MenuCursorDirection.Forward:
+                case MenuCursorDirection.Down:
                     if (CurrentOptionIndex < options.Length - 1)
                     {
                         CurrentOptionIndex++;
@@ -130,7 +123,7 @@ namespace SolStandard.HUD.Menu
                     PositionCursorToOption();
                     AssetManager.MenuMoveSFX.Play();
                     break;
-                case MenuCursorDirection.Backward:
+                case MenuCursorDirection.Up:
                     if (CurrentOptionIndex > 0)
                     {
                         CurrentOptionIndex--;
@@ -145,7 +138,8 @@ namespace SolStandard.HUD.Menu
 
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    //Do nothing
+                    return;
             }
         }
 

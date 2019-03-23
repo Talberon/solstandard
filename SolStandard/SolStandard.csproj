@@ -195,6 +195,7 @@
     <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
+    <Compile Include="HUD\Menu\IMenu.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
     <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
@@ -212,9 +213,10 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControllerOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />

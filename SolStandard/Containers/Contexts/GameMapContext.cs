@@ -516,7 +516,7 @@ namespace SolStandard.Containers.Contexts
             MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
-        public void MoveActionMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        public void MoveActionMenuCursor(MenuCursorDirection direction)
         {
             GameMapView.CurrentMenu.MoveMenuCursor(direction);
             GameMapView.GenerateCurrentMenuDescription();
@@ -616,7 +616,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void MovePauseMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        public void MovePauseMenuCursor(MenuCursorDirection direction)
         {
             PauseScreenView.CurrentMenu.MoveMenuCursor(direction);
         }

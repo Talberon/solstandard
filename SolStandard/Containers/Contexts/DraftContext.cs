@@ -97,16 +97,16 @@ namespace SolStandard.Containers.Contexts
                 case Direction.None:
                     break;
                 case Direction.Up:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Up);
                     break;
                 case Direction.Right:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Right);
                     break;
                 case Direction.Down:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Down);
                     break;
                 case Direction.Left:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Left);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
