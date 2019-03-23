@@ -6,7 +6,7 @@ namespace SolStandard.Entity.Unit.Statuses
             base(
                 turnDuration: turnDuration,
                 mvModifier: mvModifier,
-                name: "Exhausted!",
+                name: "Exhausted!"
             )
         {
         }
