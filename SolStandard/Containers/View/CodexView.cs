@@ -15,7 +15,7 @@ namespace SolStandard.Containers.View
 {
     public class CodexView : IUserInterface
     {
-        public static readonly Color CodexWindowColor = new Color(50, 50, 80, 200);
+        public static readonly Color CodexWindowColor = new Color(50, 50, 50, 180);
         public readonly TwoDimensionalMenu UnitListMenu;
         private Window unitActionListWindow;
         private Window unitDetailWindow;
@@ -45,11 +45,12 @@ namespace SolStandard.Containers.View
 
         public void ShowUnitDetails(GameUnit unit)
         {
-            unitActionListWindow = GenerateActionWindow(unit.Actions);
+            Color windowColor = TeamUtility.DetermineTeamColor(unit.Team);
+            unitActionListWindow = GenerateActionWindow(unit.Actions, windowColor);
             unitDetailWindow = GenerateUnitDetailWindow(unit);
         }
 
-        private static Window GenerateActionWindow(IReadOnlyList<UnitAction> actions)
+        private static Window GenerateActionWindow(IReadOnlyList<UnitAction> actions, Color windowColor)
         {
             IRenderable[,] actionElements = new IRenderable[actions.Count, 4];
 
@@ -57,14 +58,13 @@ namespace SolStandard.Containers.View
             const int nameIndex = 1;
             const int rangeIndex = 2;
             const int descriptionIndex = 3;
-            
+
             int largestNameWidth = 0;
             int largestRangeWidth = 0;
             int largestDescriptionWidth = 0;
 
             for (int i = 0; i < actions.Count; i++)
             {
-
                 actionElements[i, iconIndex] = actions[i].Icon;
 
                 actionElements[i, nameIndex] =
@@ -80,9 +80,8 @@ namespace SolStandard.Containers.View
                     Color.Transparent
                 );
 
-                actionElements[i, descriptionIndex] = new Window(
-                    new RenderText(AssetManager.WindowFont, actions[i].Description),
-                    CodexWindowColor);
+                actionElements[i, descriptionIndex] =
+                    new Window(new RenderText(AssetManager.WindowFont, actions[i].Description), windowColor);
 
                 //Remember the largest width for aligning later
                 if (actionElements[i, nameIndex].Width > largestNameWidth)
@@ -110,7 +109,7 @@ namespace SolStandard.Containers.View
                 ((Window) actionElements[i, descriptionIndex]).Width = largestDescriptionWidth;
             }
 
-            Window skillTable = new Window(new WindowContentGrid(actionElements, 5), CodexWindowColor);
+            Window skillTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
 
 
             return new Window(new WindowContentGrid(new IRenderable[,]
@@ -124,7 +123,7 @@ namespace SolStandard.Containers.View
                 },
                 3,
                 HorizontalAlignment.Centered
-            ), CodexWindowColor);
+            ), windowColor);
         }
 
         private static Window GenerateUnitDetailWindow(GameUnit unit)
@@ -143,7 +142,9 @@ namespace SolStandard.Containers.View
                 }
             };
 
-            return new Window(new WindowContentGrid(windowContent, 2), CodexWindowColor);
+            Color windowColor = TeamUtility.DetermineTeamColor(unit.Team);
+
+            return new Window(new WindowContentGrid(windowContent, 2), windowColor);
         }
 
 

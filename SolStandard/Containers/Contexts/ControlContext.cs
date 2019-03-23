@@ -372,6 +372,11 @@ namespace SolStandard.Containers.Contexts
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
             }
+
+            if (controlMapper.Press(Input.X, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
+            }
         }
 
         private static void MoveUnitControl(ControlMapper controlMapper)
