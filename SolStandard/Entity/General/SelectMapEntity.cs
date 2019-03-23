@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility;
@@ -48,7 +49,8 @@ namespace SolStandard.Entity.General
                         {MapObjectives.Preview},
                         {mapPreview}
                     },
-                    3
+                    3,
+                    HorizontalAlignment.Centered
                 );
             }
         }

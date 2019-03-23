@@ -92,6 +92,7 @@ namespace SolStandard.Entity.Unit.Actions
                 else if (CanPlaceItemAtSlice(targetSlice))
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Value));
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent(
                         GenerateMoneyBag(targetSlice.MapCoordinates), Layer.Items, AssetManager.DropItemSFX)
                     );

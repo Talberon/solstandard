@@ -58,16 +58,20 @@ namespace SolStandard.Entity.General.Item
                             )
                         },
                         {
-                            new Window(new [,]
-                            {
+                            new Window(new[,]
                                 {
-                                    new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize))
+                                    {
+                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                        new RenderText(AssetManager.WindowFont,"Gold: " + Gold + Currency.CurrencyAbbreviation)
+                                    },
+                                    {
+                                        ItemDetails,
+                                        new RenderBlank()
+                                    }
                                 },
-                                {
-                                    ItemDetails
-                                }
-                            }, InnerWindowColor),
-                            new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
+                                InnerWindowColor
+                            ),
+                            new RenderBlank()
                         }
                     },
                     1

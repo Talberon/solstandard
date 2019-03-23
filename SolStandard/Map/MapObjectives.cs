@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.HUD.Window;
 using SolStandard.Utility;
 
 namespace SolStandard.Map
@@ -41,7 +42,7 @@ namespace SolStandard.Map
 
         public IRenderable Preview
         {
-            get { return Scenario.ScenarioInfo; }
+            get { return Scenario.ScenarioInfo(HorizontalAlignment.Centered); }
         }
     }
 }

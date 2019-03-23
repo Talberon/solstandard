@@ -456,6 +456,7 @@ namespace SolStandard.Containers.Contexts
             {
                 if (hoverMapUnit != GameContext.ActiveUnit)
                 {
+                    GameMapView.UpdateLeftPortraitAndDetailWindows(GameContext.ActiveUnit);
                     GameMapView.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
                 }
                 else

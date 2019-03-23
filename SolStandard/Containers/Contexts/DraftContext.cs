@@ -70,7 +70,7 @@ namespace SolStandard.Containers.Contexts
                 "Max Dupes: " + maxUnitDuplicates
             );
 
-            DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo);
+            DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo());
         }
 
         public void MoveCursor(Direction direction)

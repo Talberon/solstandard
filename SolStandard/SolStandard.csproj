@@ -296,6 +296,7 @@
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />

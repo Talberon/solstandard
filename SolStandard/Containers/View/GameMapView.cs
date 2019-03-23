@@ -323,7 +323,7 @@ namespace SolStandard.Containers.View
 
         public void GenerateObjectiveWindow()
         {
-            ObjectiveWindow = GameContext.Scenario.ScenarioInfo;
+            ObjectiveWindow = GameContext.Scenario.ScenarioInfo();
         }
 
         public void GenerateInitiativeWindow()

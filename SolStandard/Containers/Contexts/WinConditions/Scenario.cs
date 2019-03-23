@@ -18,23 +18,20 @@ namespace SolStandard.Containers.Contexts.WinConditions
             GameIsOver = false;
         }
 
-        public Window ScenarioInfo
+        public Window ScenarioInfo(HorizontalAlignment alignment = HorizontalAlignment.Left)
         {
-            get
+            IRenderable[,] objectives = new IRenderable[Objectives.Count, 1];
+
+            for (int i = 0; i < Objectives.Count; i++)
             {
-                IRenderable[,] objectives = new IRenderable[Objectives.Count, 1];
-
-                for (int i = 0; i < Objectives.Count; i++)
-                {
-                    objectives[i, 0] = Objectives.Values.ToList()[i].ObjectiveInfo;
-                }
-
-                return new Window(
-                    new WindowContentGrid(objectives, 1),
-                    Color.Transparent,
-                    HorizontalAlignment.Centered
-                );
+                objectives[i, 0] = Objectives.Values.ToList()[i].ObjectiveInfo;
             }
+
+            return new Window(
+                new WindowContentGrid(objectives, 1, alignment),
+                Color.Transparent,
+                HorizontalAlignment.Centered
+            );
         }
 
         public void CheckForWinState()
