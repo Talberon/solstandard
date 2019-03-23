@@ -13,7 +13,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
         {
             {Input.Confirm, ButtonIcon.A},
             {Input.Cancel, ButtonIcon.B},
-            {Input.X, ButtonIcon.X},
+            {Input.PreviewUnit, ButtonIcon.X},
             {Input.Y, ButtonIcon.Y},
 
             {Input.CursorUp, ButtonIcon.DpadUp},
@@ -64,7 +64,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             {
                 {Input.Confirm, Confirm},
                 {Input.Cancel, Cancel},
-                {Input.X, ResetToUnit},
+                {Input.PreviewUnit, ResetToUnit},
                 {Input.Y, CenterCamera},
 
                 {Input.CursorUp, CursorUp},

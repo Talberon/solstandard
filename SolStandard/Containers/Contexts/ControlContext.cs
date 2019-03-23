@@ -56,7 +56,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             if (controlMapper.Press(Input.Cancel, PressType.Single) ||
-                controlMapper.Press(Input.X, PressType.Single) ||
+                controlMapper.Press(Input.PreviewUnit, PressType.Single) ||
                 controlMapper.Press(Input.Status, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
@@ -155,7 +155,7 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
             }
 
-            if (controlMapper.Press(Input.X, PressType.Single))
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GameContext.CodexContext.OpenMenu();
             }
@@ -201,7 +201,7 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
             }
 
-            if (controlMapper.Press(Input.X, PressType.Single))
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
             }
@@ -373,9 +373,14 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
             }
 
-            if (controlMapper.Press(Input.X, PressType.Single))
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
+            }
+
+            if (controlMapper.Press(Input.Y, PressType.Single))
+            {
+                //TODO Find a use for this button
             }
         }
 
@@ -518,7 +523,7 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.X, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.PreviewUnit, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }

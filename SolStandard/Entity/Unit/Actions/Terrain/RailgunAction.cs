@@ -14,20 +14,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class RailgunAction : UnitAction
     {
-        private readonly int range;
         private readonly WeaponStatistics weaponStatistics;
+        private readonly int range;
 
-        public RailgunAction(IRenderable tileIcon, int range, int atkDamage) : base(
+        public RailgunAction(IRenderable tileIcon, int range, WeaponStatistics weaponStatistics) : base(
             icon: tileIcon,
             name: "Railgun",
-            description: "Attack a target at an extended linear range based on the range of this weapon." +
-                         "\nAttack using your own attack statistic.",
+            description: "Attack a target at an extended linear range based on the range of this weapon.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )
         {
             this.range = range;
-            weaponStatistics = new WeaponStatistics(atkDamage, -100, new int[0], 100);
+            this.weaponStatistics = weaponStatistics;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)

@@ -12,16 +12,15 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
     {
         private readonly WeaponStatistics weaponStatistics;
 
-        public ArtilleryAction(IRenderable tileIcon, int[] range, int atkDamage) : base(
+        public ArtilleryAction(IRenderable tileIcon, int[] range, WeaponStatistics weaponStatistics) : base(
             icon: tileIcon,
             name: "Artillery",
-            description: "Attack a target at an extended range based on the range of this weapon." +
-                         "\nAttack using your own attack statistic.",
+            description: "Attack a target at an extended range based on the range of this weapon.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: range
         )
         {
-            weaponStatistics = new WeaponStatistics(atkDamage, -100, range, 100);
+            this.weaponStatistics = weaponStatistics;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

@@ -73,7 +73,8 @@ namespace SolStandard.Entity.General
                         }
                     }
                     ,
-                    1
+                    1,
+                    HorizontalAlignment.Centered
                 ),
                 InnerWindowColor,
                 HorizontalAlignment.Right

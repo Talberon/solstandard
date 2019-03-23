@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -14,23 +16,25 @@ namespace SolStandard.Entity.General
     {
         public int[] InteractRange { get; private set; }
         private int[] AtkRange { get; set; }
-        private readonly int atkDamage;
+        private readonly WeaponStatistics weaponStatistics;
+        private readonly Window statWindow;
 
         public Artillery(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, bool canMove, int[] atkRange, int atkDamage) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
-            this.atkDamage = atkDamage;
             CanMove = canMove;
             AtkRange = atkRange;
             InteractRange = new[] {0};
+            weaponStatistics = new WeaponStatistics(atkDamage, -100, AtkRange, 100);
+            statWindow = Weapon.BuildStatWindow(weaponStatistics);
         }
 
         public List<UnitAction> TileActions()
         {
             return new List<UnitAction>
             {
-                new ArtilleryAction(Sprite, AtkRange, atkDamage)
+                new ArtilleryAction(Sprite, AtkRange, weaponStatistics)
             };
         }
 
@@ -46,15 +50,13 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont,
-                                "Range: " + string.Format("[{0}]", string.Join(",", AtkRange))
-                            )
-                        },
-                        {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            statWindow,
+                            new RenderBlank()
                         }
                     },
                     1

@@ -27,7 +27,7 @@ namespace SolStandard.Entity.General.Item
             statWindow = BuildStatWindow(WeaponStatistics);
         }
 
-        private static Window BuildStatWindow(WeaponStatistics weaponStatistics)
+        public static Window BuildStatWindow(WeaponStatistics weaponStatistics)
         {
             IRenderable[,] statWindowGrid =
             {
