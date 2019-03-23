@@ -30,25 +30,65 @@ namespace SolStandard.Containers.View
         private Window RedTeamCommander { get; set; }
 
         private Window HelpText { get; set; }
+        private Window ControlsText { get; set; }
         private Window VersusText { get; set; }
+        private Window ObjectivesWindow { get; set; }
 
         public TwoDimensionalMenu UnitSelect { get; private set; }
         public TwoDimensionalMenu CommanderSelect { get; private set; }
 
         private static IRenderable _draftCursor;
         private static IRenderable _commanderCursor;
-        private readonly IRenderable background;
 
         private bool visible;
 
-        public DraftView(IRenderable background)
+        public DraftView()
         {
-            this.background = background;
-
+            visible = true;
             UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
 
             UpdateHelpWindow("SELECT A UNIT");
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
+
+            ControlsText = GenerateControlsTextWindow();
+        }
+
+        private static Window GenerateControlsTextWindow()
+        {
+            ISpriteFont windowFont = AssetManager.WindowFont;
+
+            IRenderable[,] promptTextContent =
+            {
+                {
+                    new RenderText(AssetManager.HeaderFont, "~Draft Phase~"),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Move Draft Cursor: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.Dpad, new Vector2(windowFont.MeasureString("A").Y)),
+                    ButtonIconProvider.GetButton(ButtonIcon.LeftStick, new Vector2(windowFont.MeasureString("A").Y)),
+                },
+                {
+                    new RenderText(windowFont, "Draft a unit: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "View Unit Codex: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Move Map Camera: "),
+                    ButtonIconProvider.GetButton(ButtonIcon.RightStick, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank()
+                }
+            };
+            WindowContentGrid promptWindowContentGrid =
+                new WindowContentGrid(promptTextContent, 2, HorizontalAlignment.Right);
+
+            return new Window(promptWindowContentGrid, DarkBackgroundColor);
         }
 
         public void UpdateTeamUnitsWindow(List<IRenderable> unitSprites, Team team)
@@ -64,6 +104,11 @@ namespace SolStandard.Containers.View
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
             }
+        }
+
+        public void UpdateObjectivesWindow(Window objectivesWindow)
+        {
+            ObjectivesWindow = objectivesWindow;
         }
 
         public void UpdateCommanderSelect(IEnumerable<GameUnit> units, Team team)
@@ -244,10 +289,10 @@ namespace SolStandard.Containers.View
 
         private Vector2 HelpTextPosition
         {
-            //Hori-Center, Upper Quarter
+            //Hori-Center, Upper Fifth
             get
             {
-                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 4) -
+                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 5) -
                        new Vector2((float) HelpText.Width / 2, (float) HelpText.Height / 2);
             }
         }
@@ -324,7 +369,31 @@ namespace SolStandard.Containers.View
             }
         }
 
-        #endregion
+        private Vector2 ControlsTextPosition
+        {
+            get
+            {
+                //Bottom-Right
+                return new Vector2(
+                    GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding, 
+                    GameDriver.ScreenSize.Y - ControlsText.Height - WindowPadding
+                );
+            }
+        }
+
+        private Vector2 ObjectivesWindowPosition
+        {
+            get
+            {
+                //Bottom-Left
+                return new Vector2(
+                    WindowPadding, 
+                    GameDriver.ScreenSize.Y - ObjectivesWindow.Height - WindowPadding
+                );
+            }
+        }
+
+        #endregion Positions
 
         public void ToggleVisible()
         {
@@ -333,25 +402,24 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawBackground(spriteBatch);
 
-            if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);
-            if (RedTeamUnits != null) RedTeamUnits.Draw(spriteBatch, RedTeamUnitsPosition);
+            if (visible)
+            {
+                if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);
+                if (RedTeamUnits != null) RedTeamUnits.Draw(spriteBatch, RedTeamUnitsPosition);
 
-            if (BlueTeamCommander != null) BlueTeamCommander.Draw(spriteBatch, BlueTeamCommanderPosition);
-            if (RedTeamCommander != null) RedTeamCommander.Draw(spriteBatch, RedTeamCommanderPosition);
+                if (BlueTeamCommander != null) BlueTeamCommander.Draw(spriteBatch, BlueTeamCommanderPosition);
+                if (RedTeamCommander != null) RedTeamCommander.Draw(spriteBatch, RedTeamCommanderPosition);
 
-            if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
-            if (VersusText != null) VersusText.Draw(spriteBatch, VersusTextPosition);
+                if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
+                if (VersusText != null) VersusText.Draw(spriteBatch, VersusTextPosition);
 
-            if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
-            if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
-        }
+                if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
+                if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
+            }
 
-        private void DrawBackground(SpriteBatch spriteBatch)
-        {
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, GameDriver.ScreenSize / 2 - backgroundCenter);
+            if (ControlsText != null) ControlsText.Draw(spriteBatch, ControlsTextPosition);
+            if (ObjectivesWindow != null) ObjectivesWindow.Draw(spriteBatch, ObjectivesWindowPosition);
         }
     }
 }

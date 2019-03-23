@@ -18,7 +18,7 @@ namespace SolStandard.Containers.Contexts
             this.spriteAtlas = spriteAtlas;
         }
 
-        public void GenerateMoveGrid(Vector2 origin, GameUnit unit, bool showNumbers = false)
+        public void GenerateMoveGrid(Vector2 origin, int maxDistance, Team team, bool showNumbers = false)
         {
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Contexts
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited =
-                DetermineMovableTiles(unit.Stats.Mv, startTile, frontier, unit.Team, showNumbers);
+                DetermineMovableTiles(maxDistance, startTile, frontier, team, showNumbers);
 
             AddVisitedTilesToGameGrid(visited, Layer.Dynamic);
         }

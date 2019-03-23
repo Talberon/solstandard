@@ -7,6 +7,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions
@@ -20,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
             //TODO Show icons for increasing/decreasing gold count
             description: "Drop " + value + Currency.CurrencyAbbreviation +
-                         " on an empty item tile or give it to an ally.",
+                         " on an empty item tile or give it to an ally.\n" +
+                         "Adjust value to give with <" + Input.LeftBumper + "> and <" + Input.RightBumper + ">",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1}
         )
@@ -90,6 +92,7 @@ namespace SolStandard.Entity.Unit.Actions
                 else if (CanPlaceItemAtSlice(targetSlice))
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Value));
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent(
                         GenerateMoneyBag(targetSlice.MapCoordinates), Layer.Items, AssetManager.DropItemSFX)
                     );

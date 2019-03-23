@@ -4,6 +4,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -35,7 +36,7 @@ namespace SolStandard.Entity.General.Item
         {
             get { return Sprite; }
         }
-        
+
         public List<UnitAction> TileActions()
         {
             return new List<UnitAction>
@@ -76,13 +77,30 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont,
-                                "Blink Range: [" + string.Join(",", BlinkRange) + "]"),
-                            new RenderBlank()
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
                         },
                         {
-                            new RenderText(AssetManager.WindowFont,
-                                "Uses Remaining: [" + UsesRemaining + "]"),
+                            new Window(new IRenderable[,]
+                                {
+                                    {
+                                        SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
+                                            new Vector2(GameDriver.CellSize)),
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Blink Range: [" + string.Join(",", BlinkRange) + "]")
+                                    },
+                                    {
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Uses Remaining: [" + UsesRemaining + "]"),
+                                        new RenderBlank(),
+                                    }
+                                },
+                                InnerWindowColor,
+                                HorizontalAlignment.Centered
+                            ),
                             new RenderBlank()
                         }
                     },

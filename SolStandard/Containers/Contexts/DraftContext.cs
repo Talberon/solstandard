@@ -39,21 +39,14 @@ namespace SolStandard.Containers.Contexts
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
 
-        private string mapName;
-        private Scenario scenario;
-
-
         public DraftContext(DraftView draftView)
         {
             DraftView = draftView;
         }
 
-        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, string mapFile,
-            Scenario mapScenario)
+        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, Scenario scenario)
         {
             NameGenerator.ClearNameHistory();
-            mapName = mapFile;
-            scenario = mapScenario;
 
             currentPhase = DraftPhase.UnitSelect;
             unitsSelected = 0;
@@ -76,6 +69,8 @@ namespace SolStandard.Containers.Contexts
                 "Max Units: " + maxUnitsPerTeam + Environment.NewLine +
                 "Max Dupes: " + maxUnitDuplicates
             );
+
+            DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo());
         }
 
         public void MoveCursor(Direction direction)
@@ -102,16 +97,16 @@ namespace SolStandard.Containers.Contexts
                 case Direction.None:
                     break;
                 case Direction.Up:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Up);
                     break;
                 case Direction.Right:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Right);
                     break;
                 case Direction.Down:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Down);
                     break;
                 case Direction.Left:
-                    ActiveMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+                    ActiveMenu.MoveMenuCursor(MenuCursorDirection.Left);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("direction", direction, null);
@@ -155,7 +150,7 @@ namespace SolStandard.Containers.Contexts
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn, mapName, scenario);
+            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn);
         }
 
         public void SelectCommander(GameUnit unit)
@@ -307,7 +302,7 @@ namespace SolStandard.Containers.Contexts
                     Role.Paladin,
                     Role.Cleric,
                     Role.Bard,
-                    
+
                     Role.Duelist,
                     Role.Pugilist,
                     Role.Lancer,

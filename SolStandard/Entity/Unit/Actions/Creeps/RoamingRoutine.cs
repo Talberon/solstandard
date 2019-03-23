@@ -58,11 +58,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 {
                     if (direction == Direction.None) continue;
 
-                    aiEventQueue.Enqueue(new CreepMoveEvent(roamer, direction));
+                    aiEventQueue.Enqueue(new UnitMoveEvent(roamer, direction));
                     aiEventQueue.Enqueue(new WaitFramesEvent(15));
                 }
 
-                aiEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
+                aiEventQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));
                 aiEventQueue.Enqueue(new StartCombatEvent(targetUnit));
             }
             else
@@ -80,11 +80,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     Direction randomDirection =
                         (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
-                    aiEventQueue.Enqueue(new CreepMoveEvent(roamer, randomDirection));
+                    aiEventQueue.Enqueue(new UnitMoveEvent(roamer, randomDirection));
                     aiEventQueue.Enqueue(new WaitFramesEvent(20));
                 }
 
-                aiEventQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
+                aiEventQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));
                 aiEventQueue.Enqueue(new WaitFramesEvent(30));
                 aiEventQueue.Enqueue(new CreepEndTurnEvent());
             }

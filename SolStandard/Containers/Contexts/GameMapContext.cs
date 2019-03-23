@@ -107,7 +107,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             GameContext.StatusScreenView.UpdateWindows();
-            
+
             StartTurn();
         }
 
@@ -245,6 +245,17 @@ namespace SolStandard.Containers.Contexts
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
+
+        public void ResetCursorToPreviousUnitOnTeam()
+        {
+            GameContext.InitiativeContext.SelectPreviousUnitOnActiveTeam();
+
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+
+            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCamera.CenterCameraToCursor();
+        }
+
 
         public void ResetCursorToActiveUnit()
         {
@@ -408,7 +419,7 @@ namespace SolStandard.Containers.Contexts
         {
             selectedUnitOriginalPosition = origin;
             UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
-            unitMovingContext.GenerateMoveGrid(origin, selectedUnit);
+            unitMovingContext.GenerateMoveGrid(origin, selectedUnit.Stats.Mv, selectedUnit.Team);
         }
 
         public void MoveCursorOnMap(Direction direction)
@@ -438,13 +449,14 @@ namespace SolStandard.Containers.Contexts
         public void UpdateHoverContextWindows()
         {
             MapSlice hoverSlice = MapContainer.GetMapSliceAtCursor();
-            
+
             GameUnit hoverMapUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
 
             if (CurrentTurnState != TurnState.SelectUnit)
             {
                 if (hoverMapUnit != GameContext.ActiveUnit)
                 {
+                    GameMapView.UpdateLeftPortraitAndDetailWindows(GameContext.ActiveUnit);
                     GameMapView.UpdateRightPortraitAndDetailWindows(hoverMapUnit);
                 }
                 else
@@ -475,7 +487,7 @@ namespace SolStandard.Containers.Contexts
 
             //Terrain (Entity) Window
             GameMapView.GenerateEntityWindow(hoverSlice);
-            
+
             HoverUnit = hoverMapUnit;
         }
 
@@ -505,7 +517,7 @@ namespace SolStandard.Containers.Contexts
             MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
         }
 
-        public void MoveActionMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        public void MoveActionMenuCursor(MenuCursorDirection direction)
         {
             GameMapView.CurrentMenu.MoveMenuCursor(direction);
             GameMapView.GenerateCurrentMenuDescription();
@@ -556,14 +568,13 @@ namespace SolStandard.Containers.Contexts
 
             Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
             startOfTurnEffectTileEvents.Enqueue(
-                new ToastAtCoordinatesEvent(
-                    GameContext.MapCursor.MapCoordinates,
+                new ToastAtCursorEvent(
                     "Resolving Tile Effects...",
                     AssetManager.MenuConfirmSFX,
                     100
                 )
             );
-            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(100));
+            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(50));
 
             foreach (IEffectTile tile in effectTiles)
             {
@@ -605,7 +616,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void MovePauseMenuCursor(VerticalMenu.MenuCursorDirection direction)
+        public void MovePauseMenuCursor(MenuCursorDirection direction)
         {
             PauseScreenView.CurrentMenu.MoveMenuCursor(direction);
         }
@@ -632,6 +643,19 @@ namespace SolStandard.Containers.Contexts
             {
                 actionOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
+        }
+
+        public void ShowUnitCodexEntry()
+        {
+            MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
+
+            GameUnit selectedUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
+
+            if (selectedUnit == null) return;
+
+            GameContext.CodexContext.OpenMenu();
+            GameContext.CodexContext.ShowUnitDetails(selectedUnit);
+            AssetManager.MapUnitSelectSFX.Play();
         }
     }
 }

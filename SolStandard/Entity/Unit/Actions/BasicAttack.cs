@@ -17,8 +17,8 @@ namespace SolStandard.Entity.Unit.Actions
         public BasicAttack() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
             name: "Basic Attack",
-            description: "Attack a target with dice based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
-                         " statistic.",
+            description: "Attack a target based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
+                         " and " + UnitStatistics.Abbreviation[Stats.Luck] + " statistics.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )

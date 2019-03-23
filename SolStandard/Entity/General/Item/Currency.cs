@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -55,7 +57,24 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, "Value: " + Value + CurrencyAbbreviation),
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
+                        },
+                        {
+                            new Window(new IRenderable[,]
+                                {
+                                    {
+                                        new RenderText(AssetManager.WindowFont, "Value: " + Value),
+                                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes,
+                                            new Vector2(GameDriver.CellSize))
+                                    }
+                                },
+                                InnerWindowColor,
+                                HorizontalAlignment.Centered
+                            ),
                             new RenderBlank()
                         }
                     },

@@ -413,7 +413,8 @@ namespace SolStandard.Map
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
-                                                .ToArray()
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["damage"])
                                         );
                                         break;
                                     case EntityTypes.Railgun:
@@ -424,7 +425,8 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
-                                            Convert.ToInt32(currentProperties["range"])
+                                            Convert.ToInt32(currentProperties["range"]),
+                                            Convert.ToInt32(currentProperties["damage"])
                                         );
                                         break;
                                     case EntityTypes.SelectMap:

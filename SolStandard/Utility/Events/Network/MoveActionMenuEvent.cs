@@ -7,9 +7,9 @@ namespace SolStandard.Utility.Events.Network
     [Serializable]
     public class MoveActionMenuEvent: NetworkEvent
     {
-        private readonly VerticalMenu.MenuCursorDirection direction;
+        private readonly MenuCursorDirection direction;
 
-        public MoveActionMenuEvent(VerticalMenu.MenuCursorDirection direction)
+        public MoveActionMenuEvent(MenuCursorDirection direction)
         {
             this.direction = direction;
         }

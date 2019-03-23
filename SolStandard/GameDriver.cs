@@ -190,7 +190,7 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
-            DraftView draftView = new DraftView(mainMenuBackgroundSprite);
+            DraftView draftView = new DraftView();
 
             GameContext.Initialize(mainMenu, networkMenu, draftView);
 
@@ -242,15 +242,6 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D3))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.Results;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D4))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
-            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D0))
             {
@@ -326,6 +317,7 @@ namespace SolStandard
                 case GameContext.GameState.NetworkMenu:
                     break;
                 case GameContext.GameState.ArmyDraft:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.Deployment:
                     GameContext.UpdateCamera();
@@ -333,13 +325,14 @@ namespace SolStandard
                 case GameContext.GameState.MapSelect:
                     GameContext.UpdateCamera();
                     GameContext.MapSelectContext.HoverOverEntity();
-
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
                     GameContext.UpdateCamera();
                     GameContext.GameMapContext.UpdateHoverContextWindows();
+                    break;
+                case GameContext.GameState.Codex:
                     break;
                 case GameContext.GameState.Results:
                     break;
@@ -371,6 +364,7 @@ namespace SolStandard
                     DrawDeploymentHUD();
                     break;
                 case GameContext.GameState.ArmyDraft:
+                    DrawInGameMap();
                     DrawDraftMenu();
                     break;
                 case GameContext.GameState.MapSelect:
@@ -389,6 +383,9 @@ namespace SolStandard
                     }
 
                     DrawInGameHUD();
+                    break;
+                case GameContext.GameState.Codex:
+                    DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
                     DrawGameResultsScreen();
@@ -484,6 +481,15 @@ namespace SolStandard
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
             GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawCodexScreen()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp);
+            GameContext.CodexContext.CodexView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

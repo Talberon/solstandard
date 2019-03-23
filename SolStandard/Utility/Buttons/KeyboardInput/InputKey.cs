@@ -4,16 +4,16 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class InputKey : GameControl
     {
-        private readonly Keys key;
+        public readonly Keys Key;
 
         public InputKey(Keys key)
         {
-            this.key = key;
+            Key = key;
         }
 
         public override bool Pressed
         {
-            get { return Keyboard.GetState().IsKeyDown(key); }
+            get { return Keyboard.GetState().IsKeyDown(Key); }
         }
     }
 }

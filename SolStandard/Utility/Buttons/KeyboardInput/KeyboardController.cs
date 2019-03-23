@@ -1,17 +1,47 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class KeyboardController : IController
     {
         private readonly Dictionary<Input, InputKey> inputs;
+
+        private static readonly Dictionary<Input, KeyboardIcon> Icons = new Dictionary<Input, KeyboardIcon>
+        {
+            {Input.Confirm, KeyboardIcon.Space},
+            {Input.Cancel, KeyboardIcon.LeftShift},
+            {Input.PreviewUnit, KeyboardIcon.Q},
+            {Input.ResetCursor, KeyboardIcon.E},
+
+            {Input.CursorUp, KeyboardIcon.W},
+            {Input.CursorDown, KeyboardIcon.S},
+            {Input.CursorLeft, KeyboardIcon.A},
+            {Input.CursorRight, KeyboardIcon.D},
+
+            {Input.CameraUp, KeyboardIcon.Up},
+            {Input.CameraDown, KeyboardIcon.Down},
+            {Input.CameraLeft, KeyboardIcon.Left},
+            {Input.CameraRight, KeyboardIcon.Right},
+
+            {Input.Menu, KeyboardIcon.Enter},
+            {Input.Status, KeyboardIcon.Escape},
+
+            {Input.LeftBumper, KeyboardIcon.Tab},
+            {Input.RightBumper, KeyboardIcon.R},
+            {Input.LeftTrigger, KeyboardIcon.LeftCtrl},
+            {Input.RightTrigger, KeyboardIcon.LeftAlt},
+        };
+
         public KeyboardController()
         {
             Confirm = new InputKey(Keys.Space);
             Cancel = new InputKey(Keys.LeftShift);
-            ResetToUnit = new InputKey(Keys.Tab);
-            CenterCamera = new InputKey(Keys.OemTilde);
+            ResetToUnit = new InputKey(Keys.Q);
+            CenterCamera = new InputKey(Keys.E);
 
             CursorUp = new InputKey(Keys.W);
             CursorDown = new InputKey(Keys.S);
@@ -26,17 +56,17 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             Menu = new InputKey(Keys.Enter);
             Status = new InputKey(Keys.Escape);
 
-            SetWideZoom = new InputKey(Keys.LeftControl);
-            SetCloseZoom = new InputKey(Keys.LeftAlt);
-            AdjustZoomOut = new InputKey(Keys.Q);
-            AdjustZoomIn = new InputKey(Keys.E);
-            
+            SetWideZoom = new InputKey(Keys.Tab);
+            SetCloseZoom = new InputKey(Keys.R);
+            AdjustZoomOut = new InputKey(Keys.LeftControl);
+            AdjustZoomIn = new InputKey(Keys.LeftAlt);
+
             inputs = new Dictionary<Input, InputKey>
             {
                 {Input.Confirm, (InputKey) Confirm},
                 {Input.Cancel, (InputKey) Cancel},
-                {Input.SelectNextUnit, (InputKey) ResetToUnit},
-                {Input.CenterCamera, (InputKey) CenterCamera},
+                {Input.PreviewUnit, (InputKey) ResetToUnit},
+                {Input.ResetCursor, (InputKey) CenterCamera},
 
                 {Input.CursorUp, (InputKey) CursorUp},
                 {Input.CursorDown, (InputKey) CursorDown},
@@ -61,6 +91,13 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
         public GameControl GetInput(Input input)
         {
             return inputs[input];
+        }
+
+        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
+        {
+            if (input == Input.None) return new RenderBlank();
+
+            return KeyboardIconProvider.GetKeyboardIcon(Icons[input], iconSize);
         }
 
         public GameControl Confirm { get; private set; }

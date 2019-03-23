@@ -20,13 +20,13 @@ namespace SolStandard.Utility.Buttons
         CameraRight,
         Confirm,
         Cancel,
-        SelectNextUnit,
-        CenterCamera,
+        PreviewUnit,
+        ResetCursor,
         Status,
         Menu,
         LeftBumper,
-        LeftTrigger,
         RightBumper,
+        LeftTrigger,
         RightTrigger
     }
 
@@ -34,8 +34,8 @@ namespace SolStandard.Utility.Buttons
     {
         public const float StickDeadzone = 0.2f;
         public const float TriggerDeadzone = 0.2f;
-        protected const int InitialInputDelayInFrames = 15;
-        protected const int RepeatInputDelayInFrames = 5;
+        private const int InitialInputDelayInFrames = 15;
+        private const int RepeatInputDelayInFrames = 5;
 
         public abstract bool Press(Input input, PressType pressType);
         public abstract bool Peek(Input input, PressType pressType);

@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         public Brace(int duration) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Brace, new Vector2(GameDriver.CellSize)),
             name: "Brace",
-            description: "Prevent other units from moving this unit with abilities for <" + duration + "> turns.",
+            description: "Reduce movement by half and prevent other units from moving this " +
+                         "unit with abilities for <" + duration + "> turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0}
         )
@@ -35,8 +36,12 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 AssetManager.SkillBuffSFX.Play();
-                
+                int halfOfUnitsBaseMv = -(targetUnit.Stats.BaseMv / 2);
+
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, halfOfUnitsBaseMv))
+                );
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

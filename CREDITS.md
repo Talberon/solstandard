@@ -21,6 +21,12 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >#### License
 >Credit https://worldofnoel.itch.io/
 
+### Canari Games | https://canarigames.itch.io/
+>#### Work
+>Tilesets - 8 Bit Canari Pack Topdown
+>#### License
+>Credit https://canarigames.itch.io/
+
 ### Kacper "ThKaspar" Woźniak | https://thkaspar.itch.io/
 >#### Work
 >Unit Sprites - Tiny, Tiny Heroes Armies

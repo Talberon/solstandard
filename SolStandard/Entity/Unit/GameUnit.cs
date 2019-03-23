@@ -657,7 +657,11 @@ namespace SolStandard.Entity.Unit
 
             foreach (StatusEffect effect in StatusEffects)
             {
-                statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
+                if (effect.HasNotification)
+                {
+                    statusEffectEvents.Enqueue(new CameraCursorPositionEvent(UnitEntity.MapCoordinates));
+                }
+
                 statusEffectEvents.Enqueue(new UpdateStatusEffectEvent(effect, this));
 
                 if (effect.HasNotification) statusEffectEvents.Enqueue(new WaitFramesEvent(100));

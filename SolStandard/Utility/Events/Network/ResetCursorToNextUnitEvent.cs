@@ -10,7 +10,6 @@ namespace SolStandard.Utility.Events.Network
         public override void Continue()
         {
             GameContext.GameMapContext.ResetCursorToNextUnitOnTeam();
-            GameContext.MapCamera.CenterCameraToCursor();
             AssetManager.MapUnitCancelSFX.Play();
             Complete = true;
         }

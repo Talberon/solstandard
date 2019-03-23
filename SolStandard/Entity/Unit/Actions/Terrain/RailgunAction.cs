@@ -2,27 +2,31 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class RailgunAction : UnitAction
     {
+        private readonly WeaponStatistics weaponStatistics;
         private readonly int range;
 
-        public RailgunAction(IRenderable tileIcon, int range) : base(
+        public RailgunAction(IRenderable tileIcon, int range, WeaponStatistics weaponStatistics) : base(
             icon: tileIcon,
             name: "Railgun",
-            description: "Attack a target at an extended linear range based on the range of this weapon." +
-                         "\nAttack using your own attack statistic.",
+            description: "Attack a target at an extended linear range based on the range of this weapon.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null
         )
         {
             this.range = range;
+            this.weaponStatistics = weaponStatistics;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -32,7 +36,22 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            new BasicAttack().ExecuteAction(targetSlice);
+            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
+
+            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            {
+                GlobalEventQueue.QueueSingleEvent(
+                    new StartCombatEvent(
+                        targetUnit,
+                        GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
+                    )
+                );
+            }
+            else
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid target!", 50);
+                AssetManager.WarningSFX.Play();
+            }
         }
 
         private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)

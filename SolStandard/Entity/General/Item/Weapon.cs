@@ -4,6 +4,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -15,6 +16,7 @@ namespace SolStandard.Entity.General.Item
     {
         public int[] InteractRange { get; private set; }
         private WeaponStatistics WeaponStatistics { get; set; }
+        private readonly Window statWindow;
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
@@ -22,6 +24,18 @@ namespace SolStandard.Entity.General.Item
         {
             InteractRange = pickupRange;
             WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
+            statWindow = BuildStatWindow(WeaponStatistics);
+        }
+
+        public static Window BuildStatWindow(WeaponStatistics weaponStatistics)
+        {
+            IRenderable[,] statWindowGrid =
+            {
+                {new RenderText(AssetManager.WindowFont, "-Stats-")},
+                {weaponStatistics.GenerateStatGrid(AssetManager.WindowFont)}
+            };
+
+            return new Window(new WindowContentGrid(statWindowGrid, 2, HorizontalAlignment.Centered), InnerWindowColor);
         }
 
         public bool IsBroken
@@ -75,7 +89,14 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, WeaponStatistics.ToString()),
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
+                        },
+                        {
+                            statWindow,
                             new RenderBlank()
                         }
                     },

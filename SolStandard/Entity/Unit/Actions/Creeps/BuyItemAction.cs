@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     eventQueue.Enqueue(new WaitFramesEvent(25));
                     eventQueue.Enqueue(new TransferUnitItemEvent(targetUnit, actingUnit, item));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

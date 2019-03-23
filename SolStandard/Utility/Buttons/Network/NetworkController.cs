@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.Xna.Framework;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Network;
 
 namespace SolStandard.Utility.Buttons.Network
@@ -40,8 +42,8 @@ namespace SolStandard.Utility.Buttons.Network
             {
                 {Input.Confirm, (InputNet) Confirm},
                 {Input.Cancel, (InputNet) Cancel},
-                {Input.SelectNextUnit, (InputNet) ResetToUnit},
-                {Input.CenterCamera, (InputNet) CenterCamera},
+                {Input.PreviewUnit, (InputNet) ResetToUnit},
+                {Input.ResetCursor, (InputNet) CenterCamera},
 
                 {Input.CursorUp, (InputNet) CursorUp},
                 {Input.CursorDown, (InputNet) CursorDown},
@@ -98,6 +100,11 @@ namespace SolStandard.Utility.Buttons.Network
             return inputs[input];
         }
 
+        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
+        {
+            return new RenderBlank();
+        }
+
         public GameControl Confirm { get; private set; }
         public GameControl Cancel { get; private set; }
         public GameControl ResetToUnit { get; private set; }
@@ -127,8 +134,8 @@ namespace SolStandard.Utility.Buttons.Network
 
             info.AddValue(NCPrefix + (int) Input.Confirm, Confirm.Pressed);
             info.AddValue(NCPrefix + (int) Input.Cancel, Cancel.Pressed);
-            info.AddValue(NCPrefix + (int) Input.SelectNextUnit, ResetToUnit.Pressed);
-            info.AddValue(NCPrefix + (int) Input.CenterCamera, CenterCamera.Pressed);
+            info.AddValue(NCPrefix + (int) Input.PreviewUnit, ResetToUnit.Pressed);
+            info.AddValue(NCPrefix + (int) Input.ResetCursor, CenterCamera.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorUp, CursorUp.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorDown, CursorDown.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorLeft, CursorLeft.Pressed);
@@ -193,8 +200,8 @@ namespace SolStandard.Utility.Buttons.Network
             description += Environment.NewLine;
             description += string.Format("<{0}: {1}>, ", Input.Confirm.ToString(), Confirm);
             description += string.Format("<{0}: {1}>, ", Input.Cancel.ToString(), Cancel);
-            description += string.Format("<{0}: {1}>, ", Input.SelectNextUnit.ToString(), ResetToUnit);
-            description += string.Format("<{0}: {1}>, ", Input.CenterCamera.ToString(), CenterCamera);
+            description += string.Format("<{0}: {1}>, ", Input.PreviewUnit.ToString(), ResetToUnit);
+            description += string.Format("<{0}: {1}>, ", Input.ResetCursor.ToString(), CenterCamera);
             description += Environment.NewLine;
             description += string.Format("<{0}: {1}>, ", Input.CursorUp.ToString(), CursorUp);
             description += string.Format("<{0}: {1}>, ", Input.CursorDown.ToString(), CursorDown);

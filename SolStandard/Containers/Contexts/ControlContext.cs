@@ -37,6 +37,9 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.InGame:
                     MapControls(controlMapper);
                     break;
+                case GameContext.GameState.Codex:
+                    CodexControls(controlMapper);
+                    break;
                 case GameContext.GameState.Results:
                     ResultsControls(controlMapper);
                     break;
@@ -45,16 +48,43 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private static void CodexControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.CodexContext.SelectUnit();
+            }
+
+            if (controlMapper.Press(Input.Cancel, PressType.Single) ||
+                controlMapper.Press(Input.PreviewUnit, PressType.Single) ||
+                controlMapper.Press(Input.Status, PressType.Single) ||
+                controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                GameContext.CodexContext.CloseMenu();
+            }
+
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.CodexContext.MoveMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.CodexContext.MoveMenuCursor(MenuCursorDirection.Right);
+            }
+        }
+
         private static void MainMenuControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                GameContext.MainMenuView.MainMenu.MoveMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                GameContext.MainMenuView.MainMenu.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -74,22 +104,22 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Up);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Down);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Left);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(TwoDimensionalMenu.MenuCursorDirection.Right);
+                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -124,6 +154,13 @@ namespace SolStandard.Containers.Contexts
             {
                 GlobalEventQueue.QueueSingleEvent(new DraftConfirmSelectionEvent());
             }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            {
+                GameContext.CodexContext.OpenMenu();
+            }
+
+            CameraControl(controlMapper);
         }
 
         private static void DeploymentControls(ControlMapper controlMapper)
@@ -164,10 +201,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
             }
+
+            CameraControl(controlMapper);
         }
 
 
@@ -234,27 +273,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void CameraControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.CenterCamera, PressType.Single))
-            {
-                GameContext.MapCamera.CenterCameraToCursor();
-            }
-
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
-            {
-                GameContext.MapCamera.ZoomOut(0.1f);
-            }
-
-            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
-            {
-                GameContext.MapCamera.ZoomIn(0.1f);
-            }
-
-            if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.Single))
+            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
                 GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
             }
@@ -326,7 +350,12 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.Single))
+            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToPreviousUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
@@ -342,6 +371,16 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
+            }
+
+            if (controlMapper.Press(Input.ResetCursor, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
         }
 
@@ -388,12 +427,12 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(VerticalMenu.MenuCursorDirection.Backward));
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Up));
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(VerticalMenu.MenuCursorDirection.Forward));
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Down));
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
@@ -431,12 +470,22 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Backward);
+                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(VerticalMenu.MenuCursorDirection.Forward);
+                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -474,9 +523,9 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.SelectNextUnit, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.ResetCursor, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToActiveUnitEvent());
             }
 
             CameraControl(controlMapper);

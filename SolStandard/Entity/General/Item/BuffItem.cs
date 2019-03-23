@@ -6,6 +6,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -23,6 +24,7 @@ namespace SolStandard.Entity.General.Item
         private readonly int statModifier;
         private readonly Stats statistic;
         private readonly int buffDuration;
+        private readonly Window buffWindow;
 
         public BuffItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string statistic,
             int statModifier, int buffDuration, int[] pickupRange)
@@ -32,6 +34,30 @@ namespace SolStandard.Entity.General.Item
             this.statistic = UnitStatistics.Abbreviation.First(key => key.Value == statistic).Key;
             this.statModifier = statModifier;
             this.buffDuration = buffDuration;
+            buffWindow = GenerateBuffWindow();
+        }
+
+        private Window GenerateBuffWindow()
+        {
+            return new Window(new WindowContentGrid(new IRenderable[,]
+                {
+                    {
+                        new RenderText(AssetManager.HeaderFont, "~Buff~"),
+                        new RenderBlank(), new RenderBlank(), new RenderBlank(), new RenderBlank()
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            string.Format("[{0}{1}]", (statModifier > 0) ? "+" : "-", statModifier)
+                        ),
+                        UnitStatistics.GetSpriteAtlas(statistic),
+                        new RenderText(AssetManager.WindowFont, "/"),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.Time, new Vector2(GameDriver.CellSize)),
+                        new RenderText(AssetManager.WindowFont, string.Format("[{0}]", buffDuration))
+                    }
+                }, 1, HorizontalAlignment.Centered),
+                InnerWindowColor,
+                HorizontalAlignment.Centered
+            );
         }
 
         public IRenderable Icon
@@ -86,15 +112,14 @@ namespace SolStandard.Entity.General.Item
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("[{0}{1}]", (statModifier > 0) ? "+" : "-", statModifier)
-                            ),
-                            UnitStatistics.GetSpriteAtlas(statistic)
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
                         },
                         {
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("[{0}] Turns", buffDuration)
-                            ),
+                            buffWindow,
                             new RenderBlank()
                         }
                     },

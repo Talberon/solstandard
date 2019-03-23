@@ -24,7 +24,8 @@ namespace SolStandard.Containers.Contexts
             MapSelect,
             PauseScreen,
             InGame,
-            Results
+            Results,
+            Codex
         }
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
@@ -44,6 +45,7 @@ namespace SolStandard.Containers.Contexts
         public static NetworkMenuView NetworkMenuView { get; private set; }
         public static DraftContext DraftContext { get; private set; }
         public static DeploymentContext DeploymentContext { get; private set; }
+        public static CodexContext CodexContext { get; private set; }
 
         public static GameState CurrentGameState;
 
@@ -67,6 +69,8 @@ namespace SolStandard.Containers.Contexts
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                    case GameState.Codex:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Results:
                         return PlayerIndex.Four;
                     default:
@@ -82,6 +86,7 @@ namespace SolStandard.Containers.Contexts
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
             DraftContext = new DraftContext(draftView);
+            CodexContext = new CodexContext();
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
         }
@@ -96,12 +101,12 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCursor;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.ArmyDraft:
-                        return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.Deployment:
-                        return MapSelectContext.MapContainer.MapCursor;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCursor;
+                    case GameState.Deployment:
+                        return GameMapContext.MapContainer.MapCursor;
+                    case GameState.ArmyDraft:
+                        return GameMapContext.MapContainer.MapCursor;
                     case GameState.PauseScreen:
                         return GameMapContext.MapContainer.MapCursor;
                     case GameState.InGame:
@@ -124,12 +129,12 @@ namespace SolStandard.Containers.Contexts
                         return MapSelectContext.MapContainer.MapCamera;
                     case GameState.NetworkMenu:
                         return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.Deployment:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.ArmyDraft:
-                        return MapSelectContext.MapContainer.MapCamera;
                     case GameState.MapSelect:
                         return MapSelectContext.MapContainer.MapCamera;
+                    case GameState.Deployment:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.ArmyDraft:
+                        return GameMapContext.MapContainer.MapCamera;
                     case GameState.PauseScreen:
                         return GameMapContext.MapContainer.MapCamera;
                     case GameState.InGame:
@@ -152,11 +157,23 @@ namespace SolStandard.Containers.Contexts
             get { return InitiativeContext.CurrentActiveUnit; }
         }
 
-        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn,
-            string mapPath, Scenario scenario)
+        public static void CenterCursorAndCamera()
+        {
+            MapCursor.SnapCursorToCoordinates(new Vector2(
+                (int) (MapContainer.MapGridSize.X / 2),
+                (int) (MapContainer.MapGridSize.Y / 2))
+            );
+            MapCamera.CenterCameraToCursor();
+        }
+
+        public static void LoadMapAndScenario(string mapPath, Scenario scenario)
         {
             Scenario = scenario;
             LoadMap(mapPath);
+        }
+
+        public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
+        {
             DeploymentContext = new DeploymentContext(blueArmy, redArmy, GameMapContext.MapContainer, firstTurn);
             CurrentGameState = GameState.Deployment;
         }
@@ -258,7 +275,7 @@ namespace SolStandard.Containers.Contexts
                 GameDriver.ConnectionManager.CloseServer();
                 GameDriver.ConnectionManager.DisconnectClient();
             }
-            
+
             AssetManager.MenuConfirmSFX.Play();
             Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
         }

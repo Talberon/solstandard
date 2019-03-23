@@ -9,9 +9,9 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int mvModifier;
         private const int FrameDelay = 10;
 
-        public MoveStatModifier(int turnDuration, int mvModifier) : base(
+        public MoveStatModifier(int turnDuration, int mvModifier, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
-            name: UnitStatistics.Abbreviation[Stats.Mv] + (
+            name: name ?? UnitStatistics.Abbreviation[Stats.Mv] + (
                       (mvModifier < 0)
                           ? " Down! <" + mvModifier + ">"
                           : " Up! <+" + mvModifier + ">"

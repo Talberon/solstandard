@@ -3,10 +3,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
+using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons.Gamepad;
+using SolStandard.Utility.Buttons.KeyboardInput;
 
 namespace SolStandard.Containers.View
 {
@@ -22,7 +26,7 @@ namespace SolStandard.Containers.View
         private static readonly Color OptionsColor = new Color(40, 40, 40, 180);
         private VerticalMenu PauseMenu { get; set; }
         private VerticalMenu ConfigMenu { get; set; }
-        private VerticalMenu ControlsMenu { get; set; }
+        private TwoDimensionalMenu ControlsMenu { get; set; }
         private PauseMenus currentMenu;
         private bool visible;
 
@@ -31,15 +35,11 @@ namespace SolStandard.Containers.View
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
-            SpriteAtlas gamepadHelp = new SpriteAtlas(AssetManager.GamepadControlHelp,
-                new Vector2(AssetManager.GamepadControlHelp.Width, AssetManager.GamepadControlHelp.Height));
-            SpriteAtlas keyboardHelp = new SpriteAtlas(AssetManager.KeyboardControlHelp,
-                new Vector2(AssetManager.KeyboardControlHelp.Width, AssetManager.KeyboardControlHelp.Height));
-
             PauseMenu = new VerticalMenu(
                 new MenuOption[]
                 {
                     new ContinueOption(OptionsColor),
+                    new OpenCodexOption(OptionsColor),
                     new ControlsOption(OptionsColor, this),
                     new ConfigOption(OptionsColor, this),
                     new ConcedeOption(OptionsColor)
@@ -59,22 +59,25 @@ namespace SolStandard.Containers.View
                 OptionsColor
             );
 
-            ControlsMenu = new VerticalMenu(
-                new MenuOption[]
+            ControlsMenu = new TwoDimensionalMenu(
+                new MenuOption[,]
                 {
-                    new ReturnToPauseMenuOption(OptionsColor, this),
-                    new UnselectableOption(gamepadHelp, OptionsColor),
-                    new UnselectableOption(keyboardHelp, OptionsColor),
+                    {
+                        new ReturnToPauseMenuOption(OptionsColor, this),
+                        new GamepadOption(new GamepadController(PlayerIndex.Four), OptionsColor),
+                        new KeyboardOption(new KeyboardController(), OptionsColor),
+                    }
                 },
                 cursorSprite,
-                OptionsColor
+                OptionsColor,
+                TwoDimensionalMenu.CursorType.Pointer
             );
 
             visible = true;
             currentMenu = PauseMenus.Primary;
         }
 
-        public VerticalMenu CurrentMenu
+        public IMenu CurrentMenu
         {
             get
             {

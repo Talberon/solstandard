@@ -12,7 +12,10 @@ namespace SolStandard.Utility.Assets
         HpUp,
         MvUp,
         SpUp,
-        MoraleBroken
+        MoraleBroken,
+        PickupRange,
+        Time,
+        Durability
     }
 
     public static class StatusIconProvider
@@ -34,6 +37,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D mvUp = skillIconTextures.Find(texture => texture.Name.EndsWith("mvUp"));
             ITexture2D spUp = skillIconTextures.Find(texture => texture.Name.EndsWith("spUp"));
             ITexture2D moraleBroken = skillIconTextures.Find(texture => texture.Name.EndsWith("moraleBroken"));
+            ITexture2D pickupRange = skillIconTextures.Find(texture => texture.Name.EndsWith("hand"));
+            ITexture2D time = skillIconTextures.Find(texture => texture.Name.EndsWith("clock"));
+            ITexture2D durability = skillIconTextures.Find(texture => texture.Name.EndsWith("durability"));
 
             _skillIconDictionary = new Dictionary<StatusIcon, ITexture2D>
             {
@@ -44,6 +50,9 @@ namespace SolStandard.Utility.Assets
                 {StatusIcon.MvUp, mvUp},
                 {StatusIcon.SpUp, spUp},
                 {StatusIcon.MoraleBroken, moraleBroken},
+                {StatusIcon.PickupRange, pickupRange},
+                {StatusIcon.Time, time},
+                {StatusIcon.Durability, durability}
             };
         }
     }

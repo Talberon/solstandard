@@ -43,11 +43,22 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectNextUnitOnActiveTeam()
         {
-            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam);
+            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam && unit.IsActive);
 
             int currentUnitIndex = teamUnits.FindIndex(unit => unit == CurrentActiveUnit);
 
             int nextUnitIndex = (currentUnitIndex + 1 < teamUnits.Count) ? currentUnitIndex + 1 : 0;
+
+            CurrentActiveUnit = teamUnits[nextUnitIndex];
+        }
+        
+        public void SelectPreviousUnitOnActiveTeam()
+        {
+            List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam && unit.IsActive);
+
+            int currentUnitIndex = teamUnits.FindIndex(unit => unit == CurrentActiveUnit);
+
+            int nextUnitIndex = (currentUnitIndex - 1 >= 0) ? currentUnitIndex - 1 : teamUnits.Count - 1;
 
             CurrentActiveUnit = teamUnits[nextUnitIndex];
         }
@@ -82,7 +93,7 @@ namespace SolStandard.Containers.Contexts
 
         private void StartNewRound()
         {
-            CurrentActiveTeam = FirstPlayer;
+            CurrentActiveTeam = TeamWithLessRemainingUnits();
             CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
 
             GameContext.GameMapContext.ResetCursorToActiveUnit();
@@ -103,6 +114,16 @@ namespace SolStandard.Containers.Contexts
             RefreshAllUnits();
             GameMapContext.TriggerEffectTilesTurnStart();
             UpdateUnitActivation();
+        }
+
+        private Team TeamWithLessRemainingUnits()
+        {
+            int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
+            int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
+
+            if (redTeamUnits == blueTeamUnits) return FirstPlayer;
+            
+            return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 
         private void UpdateUnitActivation()
@@ -195,6 +216,18 @@ namespace SolStandard.Containers.Contexts
 
         private void RefreshAllUnits()
         {
+            
+            Queue<IEvent> refreshUnitEvents = new Queue<IEvent>();
+            refreshUnitEvents.Enqueue(
+                new ToastAtCursorEvent(
+                    "Refreshing units...",
+                    AssetManager.MenuConfirmSFX,
+                    100
+                )
+            );
+            refreshUnitEvents.Enqueue(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueEvents(refreshUnitEvents);
+            
             InitiativeList.ForEach(unit => unit.ActivateUnit());
         }
 

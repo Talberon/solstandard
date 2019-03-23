@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Containers\Contexts\BattleContext.cs" />
+    <Compile Include="Containers\Contexts\CodexContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
+    <Compile Include="Containers\View\CodexView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\Shift.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
@@ -190,7 +195,9 @@
     <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
+    <Compile Include="HUD\Menu\IMenu.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
@@ -199,13 +206,17 @@
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
@@ -249,6 +260,8 @@
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
+    <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
+    <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
@@ -283,6 +296,7 @@
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
+    <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
@@ -302,8 +316,11 @@
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
+    <Compile Include="Utility\Events\Network\PreviewUnitSkillsEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResetCursorToActiveUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ResolveTurnEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
@@ -312,12 +329,13 @@
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
+    <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
-    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
+    <Compile Include="Utility\Events\AI\UnitMoveEvent.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />

@@ -45,12 +45,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 {
                     {
                         blueGoldWindow,
-                        new SpriteAtlas(
-                            AssetManager.ObjectiveIcons,
-                            new Vector2(16),
-                            new Vector2(GameDriver.CellSize),
-                            (int) VictoryConditions.Taxes,
-                            Color.White
+                        ObjectiveIconProvider.GetObjectiveIcon(
+                            VictoryConditions.Taxes,
+                            new Vector2(GameDriver.CellSize)
                         ),
                         redGoldWindow,
                     }

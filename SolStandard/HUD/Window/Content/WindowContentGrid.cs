@@ -11,21 +11,21 @@ namespace SolStandard.HUD.Window.Content
     {
         public Color DefaultColor { get; set; }
         private readonly List<List<IRenderable>> contentGrid;
-        private readonly int padding;
+        private readonly int spacing;
 
         private HorizontalAlignment HorizontalAlignment { get; set; }
 
-        private WindowContentGrid(List<List<IRenderable>> contentGrid, int padding, HorizontalAlignment alignment)
+        private WindowContentGrid(List<List<IRenderable>> contentGrid, int spacing, HorizontalAlignment alignment)
         {
             this.contentGrid = contentGrid;
-            this.padding = padding;
+            this.spacing = spacing;
             HorizontalAlignment = alignment;
             DefaultColor = Color.White;
         }
 
-        public WindowContentGrid(IRenderable[,] contentGrid, int padding,
+        public WindowContentGrid(IRenderable[,] contentGrid, int spacing,
             HorizontalAlignment alignment = HorizontalAlignment.Left)
-            : this(ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid), padding, alignment)
+            : this(ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid), spacing, alignment)
         {
         }
 
@@ -39,16 +39,16 @@ namespace SolStandard.HUD.Window.Content
             get { return (int) GridSizeInPixels().X; }
         }
 
-        public Vector2 GridSizeInPixels()
+        private Vector2 GridSizeInPixels()
         {
             float totalWidth = 0f;
             float totalHeight = 0;
 
             foreach (List<IRenderable> row in contentGrid)
             {
-                int rowWidth = row.Sum(item => item.Width);
-                if (rowWidth > totalWidth) totalWidth = rowWidth + row.Count * padding;
-                totalHeight += row.Max(item => item.Height) + padding;
+                int rowWidth = row.Sum(item => item.Width) + row.Count * spacing;
+                if (rowWidth > totalWidth) totalWidth = rowWidth;
+                totalHeight += row.Max(item => item.Height) + spacing;
             }
 
             return new Vector2(totalWidth, totalHeight);
@@ -97,13 +97,13 @@ namespace SolStandard.HUD.Window.Content
                         throw new ArgumentOutOfRangeException();
                 }
 
-                previousHeight += row.Max(item => item.Height) + padding;
+                previousHeight += row.Max(item => item.Height) + spacing;
             }
         }
 
         public IRenderable Clone()
         {
-            return new WindowContentGrid(contentGrid, padding, HorizontalAlignment);
+            return new WindowContentGrid(contentGrid, spacing, HorizontalAlignment);
         }
 
         private void DrawRow(SpriteBatch spriteBatch, IEnumerable<IRenderable> row, Vector2 coordinates)
@@ -112,7 +112,7 @@ namespace SolStandard.HUD.Window.Content
             foreach (IRenderable item in row)
             {
                 item.Draw(spriteBatch, new Vector2(coordinates.X + horizontalOffset, coordinates.Y));
-                horizontalOffset += item.Width + padding;
+                horizontalOffset += item.Width + spacing;
             }
         }
     }
