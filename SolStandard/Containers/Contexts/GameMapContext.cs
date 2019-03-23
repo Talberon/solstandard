@@ -574,7 +574,7 @@ namespace SolStandard.Containers.Contexts
                     100
                 )
             );
-            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(100));
+            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(50));
 
             foreach (IEffectTile tile in effectTiles)
             {
