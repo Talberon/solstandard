@@ -567,8 +567,7 @@ namespace SolStandard.Containers.Contexts
 
             Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
             startOfTurnEffectTileEvents.Enqueue(
-                new ToastAtCoordinatesEvent(
-                    GameContext.MapCursor.MapCoordinates,
+                new ToastAtCursorEvent(
                     "Resolving Tile Effects...",
                     AssetManager.MenuConfirmSFX,
                     100

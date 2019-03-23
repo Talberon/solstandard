@@ -216,6 +216,18 @@ namespace SolStandard.Containers.Contexts
 
         private void RefreshAllUnits()
         {
+            
+            Queue<IEvent> refreshUnitEvents = new Queue<IEvent>();
+            refreshUnitEvents.Enqueue(
+                new ToastAtCursorEvent(
+                    "Refreshing units...",
+                    AssetManager.MenuConfirmSFX,
+                    100
+                )
+            );
+            refreshUnitEvents.Enqueue(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueEvents(refreshUnitEvents);
+            
             InitiativeList.ForEach(unit => unit.ActivateUnit());
         }
 

@@ -326,6 +326,7 @@
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
+    <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
