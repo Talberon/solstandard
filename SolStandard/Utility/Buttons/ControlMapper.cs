@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Buttons
         Confirm,
         Cancel,
         PreviewUnit,
-        Y,
+        ResetCursor,
         Status,
         Menu,
         LeftBumper,

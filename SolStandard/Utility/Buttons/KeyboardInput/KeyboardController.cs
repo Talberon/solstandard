@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             {Input.Confirm, KeyboardIcon.Space},
             {Input.Cancel, KeyboardIcon.LeftShift},
             {Input.PreviewUnit, KeyboardIcon.Q},
-            {Input.Y, KeyboardIcon.E},
+            {Input.ResetCursor, KeyboardIcon.E},
 
             {Input.CursorUp, KeyboardIcon.W},
             {Input.CursorDown, KeyboardIcon.S},
@@ -66,7 +66,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
                 {Input.Confirm, (InputKey) Confirm},
                 {Input.Cancel, (InputKey) Cancel},
                 {Input.PreviewUnit, (InputKey) ResetToUnit},
-                {Input.Y, (InputKey) CenterCamera},
+                {Input.ResetCursor, (InputKey) CenterCamera},
 
                 {Input.CursorUp, (InputKey) CursorUp},
                 {Input.CursorDown, (InputKey) CursorDown},

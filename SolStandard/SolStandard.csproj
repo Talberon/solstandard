@@ -317,6 +317,7 @@
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
     <Compile Include="Utility\Events\Network\PreviewUnitSkillsEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResetCursorToActiveUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />

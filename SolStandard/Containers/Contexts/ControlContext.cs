@@ -205,7 +205,7 @@ namespace SolStandard.Containers.Contexts
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
             }
-            
+
             CameraControl(controlMapper);
         }
 
@@ -378,9 +378,9 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
             }
 
-            if (controlMapper.Press(Input.Y, PressType.Single))
+            if (controlMapper.Press(Input.ResetCursor, PressType.Single))
             {
-                //TODO Find a use for this button
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
         }
 
@@ -523,9 +523,9 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.PreviewUnit, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.ResetCursor, PressType.DelayedRepeat))
             {
-                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
+                GlobalEventQueue.QueueSingleEvent(new ResetCursorToActiveUnitEvent());
             }
 
             CameraControl(controlMapper);
