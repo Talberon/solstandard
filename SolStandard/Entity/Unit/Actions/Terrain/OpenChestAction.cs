@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     }
 
 
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
