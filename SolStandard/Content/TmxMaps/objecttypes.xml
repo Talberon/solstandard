@@ -107,7 +107,7 @@
   <property name="draftUnits" type="bool" default="false"/>
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
-  <property name="maxDuplicateUnits" type="int" default="3"/>
+  <property name="maxDuplicateUnits" type="int" default="2"/>
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
