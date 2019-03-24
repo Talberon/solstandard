@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit;
@@ -10,6 +11,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
 
 namespace SolStandard.Containers.View
 {
@@ -33,7 +35,7 @@ namespace SolStandard.Containers.View
             visible = true;
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                GameDriver.ScreenSize);
+                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
         }
 
         public void ToggleVisible()

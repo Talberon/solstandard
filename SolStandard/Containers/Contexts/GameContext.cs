@@ -79,13 +79,13 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView, DraftView draftView)
+        public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
-            DraftContext = new DraftContext(draftView);
+            DraftContext = new DraftContext();
             CodexContext = new CodexContext();
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
@@ -277,7 +277,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             AssetManager.MenuConfirmSFX.Play();
-            Initialize(MainMenuView, NetworkMenuView, DraftContext.DraftView);
+            Initialize(MainMenuView, NetworkMenuView);
         }
 
         public static PlayerIndex GetPlayerForTeam(Team team)
