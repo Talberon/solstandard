@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -69,8 +71,17 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
-                    AssetManager.LockedSFX.Play();
+                    Key matchingKey = ActiveUnitMatchingKey(targetSlice);
+                    
+                    if (matchingKey != null)
+                    {
+                        new ToggleLockAction(matchingKey).ExecuteAction(targetSlice);
+                    }
+                    else
+                    {
+                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
+                        AssetManager.LockedSFX.Play();
+                    }
                 }
             }
             else
@@ -78,6 +89,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        private static Key ActiveUnitMatchingKey(MapSlice targetSlice)
+        {
+            return GameContext.ActiveUnit.Inventory.Where(item => item is Key).Cast<Key>()
+                .FirstOrDefault(key => key.UsedWith == targetSlice.TerrainEntity.Name);
         }
 
         private bool TargetIsUnopenedChest(MapSlice targetSlice)
