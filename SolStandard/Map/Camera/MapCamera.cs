@@ -413,13 +413,13 @@ namespace SolStandard.Map.Camera
 
         private void CenterVertically()
         {
-            currentPosition.Y = (GameDriver.ScreenSize.Y - MapContainer.MapScreenSizeInPixels.Y) / 4;
+            currentPosition.Y = (GameDriver.ScreenSize.Y - MapContainer.MapScreenSizeInPixels.Y) / 3;
             targetPosition.Y = currentPosition.Y;
         }
 
         private void CenterHorizontally()
         {
-            currentPosition.X = (GameDriver.ScreenSize.X - MapContainer.MapScreenSizeInPixels.X) / 4;
+            currentPosition.X = (GameDriver.ScreenSize.X - MapContainer.MapScreenSizeInPixels.X) / 3;
             targetPosition.X = currentPosition.X;
         }
 

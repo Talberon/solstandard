@@ -1824,6 +1824,7 @@
    <properties>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
