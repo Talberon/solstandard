@@ -61,7 +61,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static bool CanPlaceItemAtSlice(TerrainEntity itemTile, MapSlice targetSlice)
         {
-            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null;
+            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

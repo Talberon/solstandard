@@ -12,6 +12,7 @@ namespace SolStandard.Utility.Events
             {
                 GameContext.GameMapContext.ResetToActionMenu();
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Extra action!", 50);
+                GameMapContext.UpdateWindowsEachTurn();
             }
             else
             {
