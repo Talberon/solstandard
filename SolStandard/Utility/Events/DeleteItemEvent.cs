@@ -16,9 +16,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.Inventory.Remove(
-                GameContext.ActiveUnit.Inventory.Find(item => item.Name == itemToDelete.Name)
-            );
+            GameContext.ActiveUnit.RemoveItemFromInventory(itemToDelete);
             AssetManager.MenuConfirmSFX.Play();
             Complete = true;
         }

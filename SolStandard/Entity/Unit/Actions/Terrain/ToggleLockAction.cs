@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SolStandard.Containers;
+﻿using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
@@ -35,8 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 targetUnlockable.ToggleLock();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new DeleteItemEvent(key));
+                GlobalEventQueue.QueueSingleEvent(new DeleteItemEvent(key));
 
                 if (targetUnlockable is Chest)
                 {
@@ -48,9 +46,6 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Door targetDoor = targetUnlockable as Door;
                     new UseDoorAction(targetDoor, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
                 }
-
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
