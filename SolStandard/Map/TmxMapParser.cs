@@ -296,33 +296,26 @@ namespace SolStandard.Map
                                         );
                                         break;
                                     case EntityTypes.Chest:
-                                        string itemPool = currentProperties["itemPool"];
-                                        List<IItem> poolItems = mapLoot.FindAll(item => item.ItemPool == itemPool && item.ItemPool != string.Empty);
-
-                                        IItem itemFromPool = null;
-                                        
-                                        if (poolItems.Count > 0)
-                                        {
-                                            itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count - 1)];
-                                            mapLoot.Remove(itemFromPool);
-                                        }
-
 
                                         IItem specificChestItem = (currentProperties["item"] != string.Empty)
                                             ? mapLoot.Single(item => item.Name == currentProperties["item"]).Duplicate()
                                             : null;
 
-                                        IItem itemToInsert;
+                                        IItem chestItem = null;
 
-                                        if (itemFromPool != null)
+                                        //Prioritize the more-specific chest item
+                                        if (specificChestItem != null)
                                         {
-                                            itemToInsert = itemFromPool;
+                                            chestItem = specificChestItem;
                                         }
                                         else
                                         {
-                                            itemToInsert = currentProperties["item"] != string.Empty
-                                                ? specificChestItem
-                                                : null;
+                                            IItem itemFromPool =
+                                                TakeRandomItemFromPool(mapLoot, currentProperties["itemPool"]);
+                                            if (itemFromPool != null)
+                                            {
+                                                chestItem = itemFromPool;
+                                            }
                                         }
 
                                         entityGrid[col, row] = new Chest(
@@ -337,7 +330,7 @@ namespace SolStandard.Map
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
                                             Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0, 5),
-                                            itemToInsert
+                                            chestItem
                                         );
 
                                         break;
@@ -655,6 +648,18 @@ namespace SolStandard.Map
             }
 
             return unitGrid;
+        }
+
+        private static IItem TakeRandomItemFromPool(List<IItem> mapLoot, string itemPool)
+        {
+            List<IItem> poolItems = mapLoot.FindAll(item => item.ItemPool == itemPool && item.ItemPool != string.Empty);
+
+            if (poolItems.Count <= 0) return null;
+
+            IItem itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count - 1)];
+            mapLoot.Remove(itemFromPool);
+
+            return itemFromPool;
         }
 
 
