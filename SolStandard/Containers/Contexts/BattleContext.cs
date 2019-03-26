@@ -234,8 +234,14 @@ namespace SolStandard.Containers.Contexts
         private void SetupAttackerWindows()
         {
             int attackerTerrainBonus = DetermineTerrainBonus(attacker);
-            attackerDamage = new CombatDamage(attackerStats.Atk, attackerStats.Luck, attackerTerrainBonus,
-                AttackPointSize);
+            attackerDamage = new CombatDamage(
+                attackerStats.Atk,
+                0, attackerStats.Luck,
+                0,
+                0,
+                attackerTerrainBonus,
+                AttackPointSize
+            );
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
 
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
@@ -251,8 +257,15 @@ namespace SolStandard.Containers.Contexts
         private void SetupDefenderWindows()
         {
             int defenderTerrainBonus = DetermineTerrainBonus(defender);
-            defenderDamage = new CombatDamage(defenderStats.Ret, defenderStats.Luck, defenderTerrainBonus,
-                AttackPointSize);
+            defenderDamage = new CombatDamage(
+                defenderStats.Ret,
+                0,
+                defenderStats.Luck,
+                0,
+                0,
+                defenderTerrainBonus,
+                AttackPointSize
+            );
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
@@ -271,7 +284,7 @@ namespace SolStandard.Containers.Contexts
 
             PeerCanContinue = false;
             SelfCanContinue = false;
-            
+
             CurrentState = state;
             Trace.WriteLine("Changing combat state: " + CurrentState);
             return true;
@@ -414,7 +427,7 @@ namespace SolStandard.Containers.Contexts
                     defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     attackerDamage.DisableRemainingShields();
                     defenderDamage.DisableRemainingShields();
-                    
+
                     AssetManager.DisableDiceSFX.Play();
                 }
                 else if (attackerSwords > 0 && attackerInRange)
@@ -445,7 +458,7 @@ namespace SolStandard.Containers.Contexts
                     attacker.SetUnitAnimation(UnitAnimationState.Idle);
                     defender.SetUnitAnimation(UnitAnimationState.Idle);
                     ResetDamageCounters();
-                    
+
                     GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
                 }
 
@@ -509,7 +522,7 @@ namespace SolStandard.Containers.Contexts
         public bool CombatCanContinue
         {
             get
-            {   
+            {
                 if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
                 {
                     return PeerCanContinue && SelfCanContinue;

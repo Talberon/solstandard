@@ -18,19 +18,25 @@ namespace SolStandard.HUD.Window.Content.Combat
         public Color DefaultColor { get; set; }
 
         private readonly int atk;
+        private readonly int block;
         private readonly int luck;
-        private readonly int bonusDice;
+        private readonly int bonusAtk;
+        private readonly int bonusBlock;
+        private readonly int bonusLuck;
         private readonly int pointSize;
 
-        public CombatDamage(int atk, int luck, int bonusDice, int pointSize)
+        public CombatDamage(int atk, int block, int luck, int bonusAtk, int bonusBlock, int bonusLuck, int pointSize)
         {
             this.atk = atk;
+            this.block = block;
             this.luck = luck;
-            this.bonusDice = bonusDice;
+            this.bonusAtk = bonusAtk;
+            this.bonusBlock = bonusBlock;
+            this.bonusLuck = bonusLuck;
             this.pointSize = pointSize;
             atkPoints = InitializeAtkPoints(atk, pointSize);
-            blockPoints = InitializeBlockPoints(1, pointSize);
-            CombatDice = new CombatDice(luck, bonusDice, MaxRowSize, pointSize + DieSizeAdjustment);
+            blockPoints = InitializeBlockPoints(block, pointSize);
+            CombatDice = new CombatDice(luck, bonusLuck, MaxRowSize, pointSize + DieSizeAdjustment);
             CombatDamageWindow = ConstructDamageWindow();
             DefaultColor = Color.Transparent;
         }
@@ -145,7 +151,8 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public void DisableRemainingShields()
         {
-            blockPoints.Where(point => point.Enabled).ToList().ForEach(point => point.Disable(CombatDice.IgnoredDieColor));
+            blockPoints.Where(point => point.Enabled).ToList()
+                .ForEach(point => point.Disable(CombatDice.IgnoredDieColor));
         }
 
         public void RollDice()
@@ -257,7 +264,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public IRenderable Clone()
         {
-            return new CombatDamage(atk, luck, bonusDice, pointSize);
+            return new CombatDamage(atk, block, luck, bonusAtk, bonusBlock, bonusLuck, pointSize);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
