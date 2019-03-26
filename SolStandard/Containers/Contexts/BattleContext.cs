@@ -360,14 +360,14 @@ namespace SolStandard.Containers.Contexts
                 if (attackerInRange && attackerSwords > 0 && defenderShields > 0)
                 {
                     attackerDamage.BlockAttackPoint();
-                    defenderDamage.ResolveBlockDie();
+                    defenderDamage.ResolveBlockPoint();
                     attackerProcs.ForEach(proc => proc.OnBlock(attacker, defender));
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else if (defenderInRange && defenderSwords > 0 && attackerShields > 0)
                 {
                     defenderDamage.BlockAttackPoint();
-                    attackerDamage.ResolveBlockDie();
+                    attackerDamage.ResolveBlockPoint();
                     defenderProcs.ForEach(proc => proc.OnBlock(defender, attacker));
                     AssetManager.CombatBlockSFX.Play();
                 }
@@ -405,13 +405,16 @@ namespace SolStandard.Containers.Contexts
             const int renderDelay = 12;
             if (frameCounter % renderDelay == 0)
             {
-                if (NonSwordDiceRemain())
+                if (NonSwordPointsRemain())
                 {
                     //Disable blank dice after all other dice resolved
                     attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
                     defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
                     attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
+                    attackerDamage.DisableRemainingShields();
+                    defenderDamage.DisableRemainingShields();
+                    
                     AssetManager.DisableDiceSFX.Play();
                 }
                 else if (attackerSwords > 0 && attackerInRange)
@@ -479,7 +482,7 @@ namespace SolStandard.Containers.Contexts
             defenderDamageCounter = 0;
         }
 
-        private bool NonSwordDiceRemain()
+        private bool NonSwordPointsRemain()
         {
             bool blanksLeft = (attackerDamage.CountBlanks() > 0 || defenderDamage.CountBlanks() > 0);
             bool shieldsLeft = (attackerDamage.CountShields() > 0 || defenderDamage.CountShields() > 0);
