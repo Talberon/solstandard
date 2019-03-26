@@ -17,25 +17,25 @@ namespace SolStandard.HUD.Window.Content.Combat
         private Window CombatDamageWindow { get; set; }
         public Color DefaultColor { get; set; }
 
-        private readonly int atk;
+        private readonly int damage;
         private readonly int block;
         private readonly int luck;
-        private readonly int bonusAtk;
+        private readonly int bonusDamage;
         private readonly int bonusBlock;
         private readonly int bonusLuck;
         private readonly int pointSize;
 
-        public CombatDamage(int atk, int block, int luck, int bonusAtk, int bonusBlock, int bonusLuck, int pointSize)
+        public CombatDamage(int damage, int block, int luck, int bonusDamage, int bonusBlock, int bonusLuck, int pointSize)
         {
-            this.atk = atk;
+            this.damage = damage;
             this.block = block;
             this.luck = luck;
-            this.bonusAtk = bonusAtk;
+            this.bonusDamage = bonusDamage;
             this.bonusBlock = bonusBlock;
             this.bonusLuck = bonusLuck;
             this.pointSize = pointSize;
-            atkPoints = InitializeAtkPoints(atk, pointSize);
-            blockPoints = InitializeBlockPoints(block, pointSize);
+            atkPoints = InitializeAtkPoints(damage, bonusDamage, pointSize);
+            blockPoints = InitializeBlockPoints(block, bonusBlock, pointSize);
             CombatDice = new CombatDice(luck, bonusLuck, MaxRowSize, pointSize + DieSizeAdjustment);
             CombatDamageWindow = ConstructDamageWindow();
             DefaultColor = Color.Transparent;
@@ -51,23 +51,32 @@ namespace SolStandard.HUD.Window.Content.Combat
             get { return CombatDamageWindow.Width; }
         }
 
-        private static List<AttackPoint> InitializeAtkPoints(int atk, int pointSize)
+        private static List<AttackPoint> InitializeAtkPoints(int atk, int bonusAtk, int pointSize)
         {
             List<AttackPoint> points = new List<AttackPoint>();
             for (int i = 0; i < atk; i++)
             {
-                points.Add(new AttackPoint(pointSize));
+                points.Add(new AttackPoint(pointSize, Color.White));
+            }
+
+            for (int i = 0; i < bonusAtk; i++)
+            {
+                points.Add(new AttackPoint(pointSize, CombatDice.BonusDieColor));
             }
 
             return points;
         }
 
-        private static List<BlockPoint> InitializeBlockPoints(int block, int pointSize)
+        private static List<BlockPoint> InitializeBlockPoints(int block, int bonusBlock, int pointSize)
         {
             List<BlockPoint> points = new List<BlockPoint>();
             for (int i = 0; i < block; i++)
             {
-                points.Add(new BlockPoint(pointSize));
+                points.Add(new BlockPoint(pointSize, Color.White));
+            }
+            for (int i = 0; i < bonusBlock; i++)
+            {
+                points.Add(new BlockPoint(pointSize, CombatDice.BonusDieColor));
             }
 
             return points;
@@ -264,7 +273,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public IRenderable Clone()
         {
-            return new CombatDamage(atk, block, luck, bonusAtk, bonusBlock, bonusLuck, pointSize);
+            return new CombatDamage(damage, block, luck, bonusDamage, bonusBlock, bonusLuck, pointSize);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

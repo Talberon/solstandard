@@ -13,10 +13,10 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private readonly int size;
 
-        public AttackPoint(int size)
+        public AttackPoint(int size, Color? color)
         {
             this.size = size;
-            DefaultColor = Color.White;
+            DefaultColor = color ?? Color.White;
             Enabled = true;
             pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(size));
         }
@@ -50,7 +50,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public IRenderable Clone()
         {
-            return new AttackPoint(size);
+            return new AttackPoint(size, DefaultColor);
         }
     }
 }

@@ -290,8 +290,10 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
-                                            Convert.ToInt32(currentProperties["Modifier"]),
-                                            currentProperties["Stat"],
+                                            Convert.ToInt32(currentProperties["atkBonus"]),
+                                            Convert.ToInt32(currentProperties["retBonus"]),
+                                            Convert.ToInt32(currentProperties["blockBonus"]),
+                                            Convert.ToInt32(currentProperties["luckBonus"]),
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;

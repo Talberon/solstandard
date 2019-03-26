@@ -30,9 +30,11 @@
   <property name="stat" type="string" default="ATK"/>
  </objecttype>
  <objecttype name="BuffTile" color="#2ca42a">
-  <property name="Modifier" type="int" default="0"/>
-  <property name="Stat" type="string"/>
+  <property name="atkBonus" type="int" default="0"/>
+  <property name="blockBonus" type="int" default="0"/>
   <property name="canMove" type="bool" default="true"/>
+  <property name="luckBonus" type="int" default="0"/>
+  <property name="retBonus" type="int" default="0"/>
  </objecttype>
  <objecttype name="Chest" color="#a66b47">
   <property name="canMove" type="bool" default="false"/>

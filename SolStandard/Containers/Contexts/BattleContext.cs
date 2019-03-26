@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
@@ -233,13 +234,13 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupAttackerWindows()
         {
-            int attackerTerrainBonus = DetermineTerrainBonus(attacker);
+            TerrainBonus attackerTerrainBonus = DetermineTerrainBonusForUnit(attacker);
             attackerDamage = new CombatDamage(
                 attackerStats.Atk,
                 0, attackerStats.Luck,
-                0,
-                0,
-                attackerTerrainBonus,
+                attackerTerrainBonus.AtkBonus,
+                attackerTerrainBonus.BlockBonus,
+                attackerTerrainBonus.LuckBonus,
                 AttackPointSize
             );
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
@@ -249,21 +250,21 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, attackerStats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
-            battleView.GenerateAttackerBonusWindow(attackerStats.Luck, attackerTerrainBonus, attackerWindowColor);
+            battleView.GenerateAttackerBonusWindow(attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
             battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
         }
 
         private void SetupDefenderWindows()
         {
-            int defenderTerrainBonus = DetermineTerrainBonus(defender);
+            TerrainBonus defenderTerrainBonus = DetermineTerrainBonusForUnit(defender);
             defenderDamage = new CombatDamage(
                 defenderStats.Ret,
                 0,
                 defenderStats.Luck,
-                0,
-                0,
-                defenderTerrainBonus,
+                defenderTerrainBonus.RetBonus,
+                defenderTerrainBonus.BlockBonus,
+                defenderTerrainBonus.LuckBonus,
                 AttackPointSize
             );
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
@@ -273,7 +274,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
             battleView.GenerateDefenderRetWindow(defenderWindowColor, defenderStats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
-            battleView.GenerateDefenderBonusWindow(defenderStats.Luck, defenderTerrainBonus, defenderWindowColor);
+            battleView.GenerateDefenderBonusWindow(defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
             battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
         }
@@ -301,21 +302,13 @@ namespace SolStandard.Containers.Contexts
             return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
-        private int DetermineTerrainBonus(GameUnit unit)
+        private static TerrainBonus DetermineTerrainBonusForUnit(GameUnit unit)
         {
-            int terrainAttackBonus = 0;
-
             MapSlice unitSlice = MapContainer.GetMapSliceAtCoordinates(unit.UnitEntity.MapCoordinates);
 
             BuffTile buffTile = unitSlice.TerrainEntity as BuffTile;
 
-            if (buffTile == null) return terrainAttackBonus;
-
-            if (unit.Equals(attacker) && buffTile.BuffStat == Stats.Atk) terrainAttackBonus = buffTile.Modifier;
-
-            if (unit.Equals(defender) && buffTile.BuffStat == Stats.Armor) terrainAttackBonus = buffTile.Modifier;
-
-            return terrainAttackBonus;
+            return buffTile == null ? new TerrainBonus() : buffTile.TerrainBonus;
         }
 
         public void StartRollingDice()
