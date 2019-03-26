@@ -63,13 +63,13 @@ namespace SolStandard.Containers.Contexts
 
             List<MapSlice> mapSlicesInRange = new List<MapSlice>();
             List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();
+            
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
-                if (mapElement != null)
-                {
-                    distanceTiles.Add(mapElement as MapDistanceTile);
-                    mapSlicesInRange.Add(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates));
-                }
+                if (mapElement == null) continue;
+                
+                distanceTiles.Add(mapElement as MapDistanceTile);
+                mapSlicesInRange.Add(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates));
             }
 
             List<UnitAction> contextualSkills = new List<UnitAction>();
