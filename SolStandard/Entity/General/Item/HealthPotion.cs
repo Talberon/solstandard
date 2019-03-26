@@ -20,13 +20,15 @@ namespace SolStandard.Entity.General.Item
         public int[] InteractRange { get; private set; }
         private int HPHealed { get; set; }
         public bool IsBroken { get; set; }
+        public string ItemPool { get; private set; }
 
         public HealthPotion(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
-            int hpHealed)
+            int hpHealed, string itemPool)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             InteractRange = pickupRange;
             HPHealed = hpHealed;
+            ItemPool = itemPool;
         }
 
         public IRenderable Icon
@@ -60,7 +62,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new HealthPotion(Name, Type, Sprite, MapCoordinates, InteractRange, HPHealed);
+            return new HealthPotion(Name, Type, Sprite, MapCoordinates, InteractRange, HPHealed, ItemPool);
         }
 
         public override IRenderable TerrainInfo
