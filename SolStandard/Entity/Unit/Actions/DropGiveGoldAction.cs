@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -127,8 +128,7 @@ namespace SolStandard.Entity.Unit.Actions
         private void UpdateNameAndDescription()
         {
             Name = "Drop/Give: " + Value + Currency.CurrencyAbbreviation;
-            Description = "Drop " + Value + Currency.CurrencyAbbreviation +
-                          " on an empty item tile or give it to an ally.";
+            SetTextDescription("Drop " + Value + Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally.");
 
             GameContext.GameMapContext.RefreshCurrentActionMenuOption();
         }

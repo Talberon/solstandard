@@ -7,6 +7,7 @@ using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
@@ -33,7 +34,7 @@ namespace SolStandard.Containers.Contexts
             return options;
         }
 
-        public static string GetActionDescriptionAtIndex(VerticalMenu actionMenu)
+        public static IRenderable GetActionDescriptionAtIndex(VerticalMenu actionMenu)
         {
             ActionOption action = actionMenu.CurrentOption as ActionOption;
             if (action != null)

@@ -83,7 +83,7 @@ namespace SolStandard.Containers.View
                 );
 
                 actionElements[i, descriptionIndex] =
-                    new Window(new RenderText(AssetManager.WindowFont, actions[i].Description), windowColor);
+                    new Window(actions[i].Description, windowColor);
 
                 //Remember the largest width for aligning later
                 if (actionElements[i, nameIndex].Width > largestNameWidth)

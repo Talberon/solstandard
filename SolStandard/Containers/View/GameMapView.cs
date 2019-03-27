@@ -228,10 +228,7 @@ namespace SolStandard.Containers.View
         private void GenerateActionMenuDescription(Color windowColor)
         {
             ActionMenuDescriptionWindow = new Window(
-                new RenderText(
-                    AssetManager.WindowFont,
-                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu)
-                ),
+                UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu),
                 windowColor
             );
         }
@@ -239,10 +236,7 @@ namespace SolStandard.Containers.View
         private void GenerateInventoryMenuDescription(Color windowColor)
         {
             InventoryMenuDescriptionWindow = new Window(
-                new RenderText(
-                    AssetManager.WindowFont,
-                    UnitContextualActionMenuContext.GetActionDescriptionAtIndex(InventoryMenu)
-                ),
+                UnitContextualActionMenuContext.GetActionDescriptionAtIndex(InventoryMenu),
                 windowColor
             );
         }

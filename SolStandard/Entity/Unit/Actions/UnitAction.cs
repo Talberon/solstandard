@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.View;
 using SolStandard.Entity.General;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -13,17 +16,33 @@ namespace SolStandard.Entity.Unit.Actions
     {
         public IRenderable Icon { get; private set; }
         public string Name { get; protected set; }
-        public string Description { get; protected set; }
+        public IRenderable Description { get; protected set; }
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; protected set; }
 
-        protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range)
+        protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite, int[] range)
         {
             Icon = icon;
             Name = name;
             Description = description;
             TileSprite = tileSprite;
             Range = range;
+        }
+
+        protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite,
+            int[] range) : this (icon, name, DescriptionRenderText(description), tileSprite, range)
+        {
+            
+        }
+
+        private static RenderText DescriptionRenderText(string description)
+        {
+            return new RenderText(AssetManager.WindowFont, description);
+        }
+
+        protected void SetTextDescription(string description)
+        {
+            Description = DescriptionRenderText(description);
         }
 
         public virtual void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
