@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General.Item;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -8,7 +9,6 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions
@@ -20,15 +20,38 @@ namespace SolStandard.Entity.Unit.Actions
         public DropGiveGoldAction(int value = 0) : base(
             icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
-            //TODO Show icons for increasing/decreasing gold count
-            description: "Drop " + value + Currency.CurrencyAbbreviation +
-                         " on an empty item tile or give it to an ally.\n" +
-                         "Adjust value to give with <" + Input.LeftBumper + "> and <" + Input.RightBumper + ">",
+            description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1}
         )
         {
             Value = value;
+        }
+
+        private static WindowContentGrid GenerateActionDescription()
+        {
+            Vector2 iconSize = new Vector2(GameDriver.CellSize);
+
+            return new WindowContentGrid(new IRenderable[,]
+                {
+                    {
+                        new RenderText(AssetManager.WindowFont,"Drop"),
+                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
+                        new RenderText(AssetManager.WindowFont,
+                            Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
+                        new RenderBlank(),
+                        new RenderBlank(),
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
+                        ButtonIconProvider.GetButton(ButtonIcon.Lb, iconSize),
+                        new RenderText(AssetManager.WindowFont, " and "),
+                        ButtonIconProvider.GetButton(ButtonIcon.Rb, iconSize),
+                        new RenderText(AssetManager.WindowFont, ""),
+                    }
+                },
+                2
+            );
         }
 
         private Spoils GenerateMoneyBag(Vector2 mapCoordinates)
@@ -128,7 +151,7 @@ namespace SolStandard.Entity.Unit.Actions
         private void UpdateNameAndDescription()
         {
             Name = "Drop/Give: " + Value + Currency.CurrencyAbbreviation;
-            SetTextDescription("Drop " + Value + Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally.");
+            Description = GenerateActionDescription();
 
             GameContext.GameMapContext.RefreshCurrentActionMenuOption();
         }

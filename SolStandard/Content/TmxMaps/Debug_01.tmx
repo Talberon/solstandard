@@ -2289,7 +2289,7 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="414" x="704" y="224" width="32" height="32">
+  <object id="648" name="Treasure" type="Currency" gid="414" x="448" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2299,7 +2299,7 @@
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="650" name="Treasure" type="Currency" gid="416" x="672" y="224" width="32" height="32">
+  <object id="650" name="Treasure" type="Currency" gid="416" x="448" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
