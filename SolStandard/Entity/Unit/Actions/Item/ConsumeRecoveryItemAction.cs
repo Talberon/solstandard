@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             description: "Single use. Target recovers [" + hpHealed + "] HP.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
-            freeAction: false
+            freeAction: true
         )
         {
             this.item = item;

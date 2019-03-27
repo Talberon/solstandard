@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 UnitStatistics.Abbreviation[statistic], statModifier, buffDuration),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
-            freeAction: false
+            freeAction: true
         )
         {
             this.item = item;

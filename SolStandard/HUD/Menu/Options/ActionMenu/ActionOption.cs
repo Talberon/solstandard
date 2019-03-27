@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                 {
                     {
                         action.Icon,
-                        new RenderText(AssetManager.WindowFont, action.Name),
+                        new RenderText(AssetManager.WindowFont, action.Name, action.FreeAction ? GameContext.PositiveColor : Color.White),
                     }
                 },
                 1
