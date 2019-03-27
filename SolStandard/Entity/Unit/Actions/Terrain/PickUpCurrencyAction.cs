@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Pick Up",
             description: "Add [" + currency.Value + "] to your unit's money count.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: currency.InteractRange
+            range: currency.InteractRange,
+            freeAction: true
         )
         {
             this.currency = currency;

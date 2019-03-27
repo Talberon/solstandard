@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Seize",
             description: "Seize the objective and win the battle.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.tileCoordinates = tileCoordinates;

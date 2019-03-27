@@ -19,7 +19,8 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             name: "Cleanse",
             description: "Remove all cleansable status effects from target ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {1, 2},
+            freeAction: false
         )
         {
         }

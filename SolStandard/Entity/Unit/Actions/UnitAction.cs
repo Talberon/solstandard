@@ -19,18 +19,20 @@ namespace SolStandard.Entity.Unit.Actions
         public IRenderable Description { get; protected set; }
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; protected set; }
+        public bool FreeAction { get; private set; }
 
-        protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite, int[] range)
+        protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite, int[] range, bool freeAction)
         {
             Icon = icon;
             Name = name;
             Description = description;
             TileSprite = tileSprite;
             Range = range;
+            FreeAction = freeAction;
         }
 
         protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite,
-            int[] range) : this (icon, name, DescriptionRenderText(description), tileSprite, range)
+            int[] range, bool freeAction) : this (icon, name, DescriptionRenderText(description), tileSprite, range, freeAction)
         {
             
         }

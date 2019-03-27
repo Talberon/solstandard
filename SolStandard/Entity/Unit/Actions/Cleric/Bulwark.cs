@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             description: "Regenerate ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" +
                          statModifier + "] per turn for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {1, 2},
+            freeAction: false
         )
         {
             this.statModifier = statModifier;

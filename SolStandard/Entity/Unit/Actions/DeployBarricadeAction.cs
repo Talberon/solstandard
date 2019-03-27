@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Place Obstacle",
             description: "Place a breakable obstacle on an unoccupied tile.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.barricade = barricade;

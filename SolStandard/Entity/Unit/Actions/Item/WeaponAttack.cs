@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             name: "Attack: " + weaponName,
             description:  WeaponDescription(stats),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.stats = stats;

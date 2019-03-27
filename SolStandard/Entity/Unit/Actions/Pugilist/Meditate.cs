@@ -15,7 +15,8 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             name: "Meditate",
             description: "Remove all cleansable status effects on self.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
         }

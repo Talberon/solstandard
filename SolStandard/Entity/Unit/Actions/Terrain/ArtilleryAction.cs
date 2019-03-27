@@ -17,7 +17,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Artillery",
             description: "Attack a target at an extended range based on the range of this weapon.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: range
+            range: range,
+            freeAction: false
         )
         {
             this.weaponStatistics = weaponStatistics;

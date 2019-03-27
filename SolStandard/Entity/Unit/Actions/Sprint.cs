@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions
             description: "Move an extra " + maxDistance + " spaces at the expense of losing " +
                          maxDistance + " " + UnitStatistics.Abbreviation[Stats.Mv] + " for a turn.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.maxDistance = maxDistance;

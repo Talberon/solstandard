@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                          UnitStatistics.Abbreviation[Stats.Armor] + " and gain an " +
                          UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.damageToDeal = damageToDeal;

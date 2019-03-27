@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             name: "Replace",
             description: "Swap with another unit within [" + SkillRange.Min() + "-" + SkillRange.Max() + "] spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: SkillRange
+            range: SkillRange,
+            freeAction: false
         )
         {
         }

@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             description: "Reduce an enemy's " + UnitStatistics.Abbreviation[Stats.Atk] + " by [" + statModifier + "]" +
                          " for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {1, 2},
+            freeAction: false
         )
         {
             this.statModifier = -statModifier;

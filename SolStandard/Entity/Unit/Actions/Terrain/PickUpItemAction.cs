@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Pick Up",
             description: "Add the item to the active unit's inventory.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: true
         )
         {
             this.item = item;

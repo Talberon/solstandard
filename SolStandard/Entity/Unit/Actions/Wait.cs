@@ -16,7 +16,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Wait",
             description: "Take no action and end your turn.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
         }

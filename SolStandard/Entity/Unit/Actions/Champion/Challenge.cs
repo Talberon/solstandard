@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             name: "Challenge",
             description: "Taunt an enemy within range towards you, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.skillRange = skillRange;

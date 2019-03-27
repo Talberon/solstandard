@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Push",
             description: "Push the target a tile away from your unit's position.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: true
         )
         {
             this.pushBlock = pushBlock;
@@ -47,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new PushBlockEvent(pushBlock));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Use Door",
             description: "Opens or closes the door.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: true
         )
         {
             this.door = door;

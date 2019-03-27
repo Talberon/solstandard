@@ -19,7 +19,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Transport",
             description: "Moves unit to another space.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.targetLabel = targetLabel;

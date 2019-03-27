@@ -24,7 +24,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                          missingHpPerPoint + " missing " + UnitStatistics.Abbreviation[Stats.Hp] + " for " +
                          duration + " turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
             this.missingHpPerPoint = missingHpPerPoint;

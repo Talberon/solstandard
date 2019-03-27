@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Use: " + key.Name,
             description: "Locks or unlocks the target if you have the appropriate key.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.key = key;

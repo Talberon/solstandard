@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             description: "Reduce movement by half and prevent other units from moving this " +
                          "unit with abilities for <" + duration + "> turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
             this.duration = duration;

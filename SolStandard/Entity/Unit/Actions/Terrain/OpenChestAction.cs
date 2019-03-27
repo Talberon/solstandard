@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Open Chest",
             description: "Opens a chest if able.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: true
         )
         {
             this.chest = chest;

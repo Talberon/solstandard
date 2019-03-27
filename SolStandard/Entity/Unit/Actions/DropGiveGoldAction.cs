@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
             description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1}
+            range: new[] {0, 1},
+            freeAction: false
         )
         {
             Value = value;

@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                          UnitStatistics.Abbreviation[Stats.Armor] + " point for each [" + damageThreshold +
                          "] damage dealt.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.damageThreshold = damageThreshold;

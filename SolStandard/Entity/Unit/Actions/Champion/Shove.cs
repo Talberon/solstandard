@@ -17,7 +17,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             name: "Shove",
             description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
         }

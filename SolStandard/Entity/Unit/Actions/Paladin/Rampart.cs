@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
             description: "Regenerate own " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" + statModifier +
                          "] per turn for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
             this.statModifier = statModifier;
