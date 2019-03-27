@@ -46,26 +46,26 @@
  <tile id="3" terrain="0,0,0,0"/>
  <tile id="20">
   <animation>
-   <frame tileid="20" duration="100"/>
-   <frame tileid="24" duration="100"/>
-   <frame tileid="28" duration="100"/>
    <frame tileid="32" duration="100"/>
+   <frame tileid="28" duration="100"/>
+   <frame tileid="24" duration="100"/>
+   <frame tileid="20" duration="100"/>
   </animation>
  </tile>
  <tile id="21">
   <animation>
-   <frame tileid="21" duration="100"/>
-   <frame tileid="25" duration="100"/>
-   <frame tileid="29" duration="100"/>
    <frame tileid="33" duration="100"/>
+   <frame tileid="29" duration="100"/>
+   <frame tileid="25" duration="100"/>
+   <frame tileid="21" duration="100"/>
   </animation>
  </tile>
  <tile id="22">
   <animation>
-   <frame tileid="22" duration="100"/>
-   <frame tileid="26" duration="100"/>
-   <frame tileid="30" duration="100"/>
    <frame tileid="34" duration="100"/>
+   <frame tileid="30" duration="100"/>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="22" duration="100"/>
   </animation>
  </tile>
  <tile id="23">
@@ -93,34 +93,33 @@
  <tile id="46" terrain="1,1,1,1"/>
  <tile id="60">
   <animation>
-   <frame tileid="60" duration="100"/>
-   <frame tileid="64" duration="100"/>
-   <frame tileid="68" duration="100"/>
    <frame tileid="72" duration="100"/>
+   <frame tileid="68" duration="100"/>
+   <frame tileid="64" duration="100"/>
+   <frame tileid="60" duration="100"/>
   </animation>
  </tile>
  <tile id="61">
   <animation>
-   <frame tileid="61" duration="100"/>
-   <frame tileid="65" duration="100"/>
-   <frame tileid="69" duration="100"/>
    <frame tileid="73" duration="100"/>
+   <frame tileid="69" duration="100"/>
+   <frame tileid="65" duration="100"/>
+   <frame tileid="61" duration="100"/>
   </animation>
  </tile>
  <tile id="62">
   <animation>
-   <frame tileid="62" duration="100"/>
-   <frame tileid="66" duration="100"/>
-   <frame tileid="70" duration="100"/>
    <frame tileid="74" duration="100"/>
+   <frame tileid="70" duration="100"/>
+   <frame tileid="66" duration="100"/>
+   <frame tileid="62" duration="100"/>
   </animation>
  </tile>
  <tile id="63">
   <animation>
-   <frame tileid="63" duration="100"/>
-   <frame tileid="67" duration="100"/>
-   <frame tileid="71" duration="100"/>
    <frame tileid="75" duration="100"/>
+   <frame tileid="71" duration="100"/>
+   <frame tileid="67" duration="100"/>
   </animation>
  </tile>
  <tile id="76">
@@ -140,26 +139,26 @@
  <tile id="86" terrain="1,1,1,1"/>
  <tile id="100">
   <animation>
-   <frame tileid="100" duration="100"/>
-   <frame tileid="104" duration="100"/>
-   <frame tileid="108" duration="100"/>
    <frame tileid="112" duration="100"/>
+   <frame tileid="108" duration="100"/>
+   <frame tileid="104" duration="100"/>
+   <frame tileid="100" duration="100"/>
   </animation>
  </tile>
  <tile id="101">
   <animation>
-   <frame tileid="101" duration="100"/>
-   <frame tileid="105" duration="100"/>
-   <frame tileid="109" duration="100"/>
    <frame tileid="113" duration="100"/>
+   <frame tileid="109" duration="100"/>
+   <frame tileid="105" duration="100"/>
+   <frame tileid="101" duration="100"/>
   </animation>
  </tile>
  <tile id="102">
   <animation>
-   <frame tileid="102" duration="100"/>
-   <frame tileid="106" duration="100"/>
-   <frame tileid="110" duration="100"/>
    <frame tileid="114" duration="100"/>
+   <frame tileid="110" duration="100"/>
+   <frame tileid="106" duration="100"/>
+   <frame tileid="102" duration="100"/>
   </animation>
  </tile>
  <tile id="103">
