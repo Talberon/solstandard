@@ -43,12 +43,14 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (CanMoveToTargetTile(targetSlice))
             {
+                const bool walkThroughAllies = true;
+                
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 GameUnit actingUnit = GameContext.ActiveUnit;
 
                 List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                    actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates
+                    actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies
                 );
 
                 Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
@@ -56,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions
                 {
                     if (direction == Direction.None) continue;
 
-                    pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, direction));
+                    pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, direction, walkThroughAllies));
                     pathingEventQueue.Enqueue(new WaitFramesEvent(5));
                 }
 

@@ -467,7 +467,7 @@ namespace SolStandard.Entity.Unit
             armedUnitAction.CancelAction();
         }
 
-        public void MoveUnitInDirection(Direction direction)
+        public void MoveUnitInDirection(Direction direction, bool ignoreCollision)
         {
             Vector2 destination = UnitEntity.MapCoordinates;
             switch (direction)
@@ -495,7 +495,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
 
-            if (UnitMovingContext.CanEndMoveAtCoordinates(destination))
+            if (UnitMovingContext.CanEndMoveAtCoordinates(destination) || ignoreCollision)
             {
                 MoveUnitToCoordinates(destination);
             }
