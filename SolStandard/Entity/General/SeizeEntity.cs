@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
@@ -54,19 +55,21 @@ namespace SolStandard.Entity.General
                             )
                         },
                         {
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                (CapturableByBlue) ? "Capturable by Blue" : "",
-                                (CapturableByBlue) ? TeamUtility.DetermineTeamColor(Team.Blue) : NegativeColor
-                            ),
+                            (CapturableByBlue)
+                                ? new Window(
+                                    new RenderText(AssetManager.WindowFont, "Capturable by Blue"),
+                                    TeamUtility.DetermineTeamColor(Team.Blue)
+                                )
+                                : new RenderBlank() as IRenderable,
                             new RenderBlank()
                         },
                         {
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                (CapturableByRed) ? "Capturable by Red" : "",
-                                (CapturableByRed) ? TeamUtility.DetermineTeamColor(Team.Red) : NegativeColor
-                            ),
+                            (CapturableByRed)
+                                ? new Window(
+                                    new RenderText(AssetManager.WindowFont, "Capturable by Red"),
+                                    TeamUtility.DetermineTeamColor(Team.Red)
+                                )
+                                : new RenderBlank() as IRenderable,
                             new RenderBlank()
                         }
                     },
