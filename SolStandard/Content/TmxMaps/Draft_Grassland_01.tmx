@@ -2241,92 +2241,77 @@
   </object>
   <object id="786" name="Fort" type="BuffTile" gid="59" x="576" y="384" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="787" name="Fort" type="BuffTile" gid="59" x="448" y="480" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="788" name="Fort" type="BuffTile" gid="59" x="832" y="352" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="789" name="Fort" type="BuffTile" gid="59" x="896" y="448" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="790" name="Fort" type="BuffTile" gid="59" x="640" y="288" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="791" name="Fort" type="BuffTile" gid="59" x="352" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="792" name="House" type="BuffTile" gid="1075" x="800" y="192" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="795" name="House" type="BuffTile" gid="996" x="864" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="796" name="House" type="BuffTile" gid="1034" x="320" y="192" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="798" name="House" type="BuffTile" gid="994" x="896" y="192" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="799" name="House" type="BuffTile" gid="997" x="768" y="192" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="800" name="House" type="BuffTile" gid="1075" x="160" y="608" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="801" name="House" type="BuffTile" gid="996" x="320" y="544" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="802" name="House" type="BuffTile" gid="994" x="416" y="576" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="803" name="House" type="BuffTile" gid="997" x="256" y="576" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="821" name="Deploy Blue" type="Deployment" gid="290" x="384" y="544" width="32" height="32">

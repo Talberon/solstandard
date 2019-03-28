@@ -2577,40 +2577,30 @@
   <object id="841" name="Bridge" type="Movable" gid="48" x="512" y="576" width="32" height="32"/>
   <object id="842" name="Bridge" type="Movable" gid="48" x="416" y="544" width="32" height="32"/>
   <object id="843" name="Bridge" type="Movable" gid="55" x="640" y="224" width="32" height="32"/>
-  <object id="845" name="House" type="BuffTile" gid="50" x="512" y="512" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
+  <object id="845" name="House" type="BuffTile" gid="50" x="512" y="512" width="32" height="32"/>
   <object id="846" name="Fort" type="BuffTile" gid="59" x="640" y="416" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="847" name="House" type="BuffTile" gid="44" x="320" y="448" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="848" name="House" type="BuffTile" gid="51" x="864" y="480" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="849" name="House" type="BuffTile" gid="58" x="544" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="850" name="House" type="BuffTile" gid="46" x="224" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="852" name="Log" type="BreakableObstacle" gid="165" x="544" y="384" width="32" height="32">
@@ -2626,20 +2616,17 @@
   <object id="857" name="Bridge" type="Movable" gid="55" x="704" y="128" width="32" height="32"/>
   <object id="858" name="Fort" type="BuffTile" gid="59" x="544" y="352" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="859" name="Fort" type="BuffTile" gid="60" x="512" y="416" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="860" name="Fort" type="BuffTile" gid="60" x="672" y="352" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="870" name="Log" type="BreakableObstacle" gid="165" x="544" y="544" width="32" height="32">
