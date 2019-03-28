@@ -318,7 +318,6 @@
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
-    <Compile Include="Utility\Events\Network\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToActiveUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
@@ -329,6 +328,7 @@
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
+    <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
