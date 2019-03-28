@@ -352,6 +352,14 @@
    <frame tileid="275" duration="100"/>
   </animation>
  </tile>
+ <tile id="276">
+  <animation>
+   <frame tileid="276" duration="100"/>
+   <frame tileid="277" duration="100"/>
+   <frame tileid="278" duration="100"/>
+   <frame tileid="279" duration="100"/>
+  </animation>
+ </tile>
  <tile id="280" terrain=",,,3"/>
  <tile id="281" terrain=",,3,3"/>
  <tile id="282" terrain=",,3,"/>
