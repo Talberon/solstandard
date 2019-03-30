@@ -1878,7 +1878,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="true"/>
-    <property name="unitsPerTeam" type="int" value="9"/>
+    <property name="unitsPerTeam" type="int" value="7"/>
    </properties>
   </object>
   <object id="550" name="Jungle Beach" type="SelectMap" gid="288" x="448" y="576" width="32" height="32">

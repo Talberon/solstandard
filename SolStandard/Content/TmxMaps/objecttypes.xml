@@ -66,6 +66,7 @@
   <property name="Team" type="string" default="Blue"/>
  </objecttype>
  <objecttype name="Door" color="#625232">
+  <property name="HP" type="int" default="10"/>
   <property name="canMove" type="bool" default="false"/>
   <property name="isBroken" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
