@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { FeaturesComponent } from './features/features.component';
 import { MediaComponent } from './media/media.component';
 import { DownloadComponent } from './download/download.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'about', component: AboutComponent },
+  { path: 'features', component: FeaturesComponent },
   { path: 'media', component: MediaComponent },
   { path: 'download', component: DownloadComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
+    FeaturesComponent,
     MediaComponent,
     DownloadComponent,
     PageNotFoundComponent

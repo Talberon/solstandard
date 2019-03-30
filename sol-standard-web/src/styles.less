@@ -3,5 +3,21 @@
 @import "~font-awesome/css/font-awesome.css";
 
 body {
-    background-image: url('src\res\images\background.png');
+    background-image: url('src\assets\images\background.png');
+}
+
+.container {
+    background   : white;
+    border-radius: 0.3rem;
+    padding      : 1rem;
+
+    &.main {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+.centered {
+    display     : block;
+    margin-left : auto;
+    margin-right: auto;
 }
