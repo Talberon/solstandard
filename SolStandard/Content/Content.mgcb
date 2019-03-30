@@ -2870,18 +2870,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Beach_01.png
 
-#begin Graphics/Map/MapPreviews/Beach_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Beach_01.png
-
 #begin Graphics/Map/MapPreviews/Chesslike_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2905,30 +2893,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Chesslike_01.png
-
-#begin Graphics/Map/MapPreviews/Chesslike_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Chesslike_01.png
-
-#begin Graphics/Map/MapPreviews/Crossroads_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Crossroads_01.png
 
 #begin Graphics/Map/MapPreviews/Crossroads_01.png
 /importer:TextureImporter
@@ -2978,18 +2942,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_01_Arena.png
 
-#begin Graphics/Map/MapPreviews/Draft_01_Arena.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_01_Arena.png
-
 #begin Graphics/Map/MapPreviews/Draft_02_Dungeon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3013,30 +2965,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-
-#begin Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-
-#begin Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
 
 #begin Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
 /importer:TextureImporter
@@ -3086,18 +3014,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
 
-#begin Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
-
 #begin Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3121,30 +3037,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Crossroads.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Crossroads.png
 
 #begin Graphics/Map/MapPreviews/Draft_Crossroads.png
 /importer:TextureImporter
@@ -3182,7 +3074,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
 
-#begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
+#begin Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3192,7 +3084,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Fortress_01.png
+/build:Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
 
 #begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
 /importer:TextureImporter
@@ -3242,18 +3134,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
 
-#begin Graphics/Map/MapPreviews/Draft_Grassland_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
-
 #begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3278,7 +3158,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Island_Coast.png
 
-#begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
+#begin Graphics/Map/MapPreviews/Draft_Jirai_Archipelago.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3288,7 +3168,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Island_Coast.png
+/build:Graphics/Map/MapPreviews/Draft_Jirai_Archipelago.png
 
 #begin Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
 /importer:TextureImporter
@@ -3338,18 +3218,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Dungeon_01.png
 
-#begin Graphics/Map/MapPreviews/Dungeon_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Dungeon_01.png
-
 #begin Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3373,30 +3241,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-
-#begin Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-
-#begin Graphics/Map/MapPreviews/Village_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Village_01.png
 
 #begin Graphics/Map/MapPreviews/Village_01.png
 /importer:TextureImporter
