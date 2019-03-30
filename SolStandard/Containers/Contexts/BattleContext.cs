@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
@@ -233,9 +234,15 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupAttackerWindows()
         {
-            int attackerTerrainBonus = DetermineTerrainBonus(attacker);
-            attackerDamage = new CombatDamage(attackerStats.Atk, attackerStats.Luck, attackerTerrainBonus,
-                AttackPointSize);
+            TerrainBonus attackerTerrainBonus = DetermineTerrainBonusForUnit(attacker);
+            attackerDamage = new CombatDamage(
+                attackerStats.Atk,
+                0, attackerStats.Luck,
+                attackerTerrainBonus.AtkBonus,
+                attackerTerrainBonus.BlockBonus,
+                attackerTerrainBonus.LuckBonus,
+                AttackPointSize
+            );
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
 
             battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
@@ -243,16 +250,23 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, attackerStats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
-            battleView.GenerateAttackerBonusWindow(attackerStats.Luck, attackerTerrainBonus, attackerWindowColor);
+            battleView.GenerateAttackerBonusWindow(attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
             battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
         }
 
         private void SetupDefenderWindows()
         {
-            int defenderTerrainBonus = DetermineTerrainBonus(defender);
-            defenderDamage = new CombatDamage(defenderStats.Ret, defenderStats.Luck, defenderTerrainBonus,
-                AttackPointSize);
+            TerrainBonus defenderTerrainBonus = DetermineTerrainBonusForUnit(defender);
+            defenderDamage = new CombatDamage(
+                defenderStats.Ret,
+                0,
+                defenderStats.Luck,
+                defenderTerrainBonus.RetBonus,
+                defenderTerrainBonus.BlockBonus,
+                defenderTerrainBonus.LuckBonus,
+                AttackPointSize
+            );
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
             battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
@@ -260,7 +274,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
             battleView.GenerateDefenderRetWindow(defenderWindowColor, defenderStats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
-            battleView.GenerateDefenderBonusWindow(defenderStats.Luck, defenderTerrainBonus, defenderWindowColor);
+            battleView.GenerateDefenderBonusWindow(defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
             battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
         }
@@ -271,7 +285,7 @@ namespace SolStandard.Containers.Contexts
 
             PeerCanContinue = false;
             SelfCanContinue = false;
-            
+
             CurrentState = state;
             Trace.WriteLine("Changing combat state: " + CurrentState);
             return true;
@@ -288,21 +302,13 @@ namespace SolStandard.Containers.Contexts
             return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
-        private int DetermineTerrainBonus(GameUnit unit)
+        private static TerrainBonus DetermineTerrainBonusForUnit(GameUnit unit)
         {
-            int terrainAttackBonus = 0;
-
             MapSlice unitSlice = MapContainer.GetMapSliceAtCoordinates(unit.UnitEntity.MapCoordinates);
 
             BuffTile buffTile = unitSlice.TerrainEntity as BuffTile;
 
-            if (buffTile == null) return terrainAttackBonus;
-
-            if (unit.Equals(attacker) && buffTile.BuffStat == Stats.Atk) terrainAttackBonus = buffTile.Modifier;
-
-            if (unit.Equals(defender) && buffTile.BuffStat == Stats.Armor) terrainAttackBonus = buffTile.Modifier;
-
-            return terrainAttackBonus;
+            return buffTile == null ? new TerrainBonus() : buffTile.TerrainBonus;
         }
 
         public void StartRollingDice()
@@ -360,14 +366,14 @@ namespace SolStandard.Containers.Contexts
                 if (attackerInRange && attackerSwords > 0 && defenderShields > 0)
                 {
                     attackerDamage.BlockAttackPoint();
-                    defenderDamage.ResolveBlockDie();
+                    defenderDamage.ResolveBlockPoint();
                     attackerProcs.ForEach(proc => proc.OnBlock(attacker, defender));
                     AssetManager.CombatBlockSFX.Play();
                 }
                 else if (defenderInRange && defenderSwords > 0 && attackerShields > 0)
                 {
                     defenderDamage.BlockAttackPoint();
-                    attackerDamage.ResolveBlockDie();
+                    attackerDamage.ResolveBlockPoint();
                     defenderProcs.ForEach(proc => proc.OnBlock(defender, attacker));
                     AssetManager.CombatBlockSFX.Play();
                 }
@@ -405,13 +411,16 @@ namespace SolStandard.Containers.Contexts
             const int renderDelay = 12;
             if (frameCounter % renderDelay == 0)
             {
-                if (NonSwordDiceRemain())
+                if (NonSwordPointsRemain())
                 {
                     //Disable blank dice after all other dice resolved
                     attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
                     defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Blank);
                     attackerDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
                     defenderDamage.DisableAllDiceWithValue(Die.FaceValue.Shield);
+                    attackerDamage.DisableRemainingShields();
+                    defenderDamage.DisableRemainingShields();
+
                     AssetManager.DisableDiceSFX.Play();
                 }
                 else if (attackerSwords > 0 && attackerInRange)
@@ -442,7 +451,7 @@ namespace SolStandard.Containers.Contexts
                     attacker.SetUnitAnimation(UnitAnimationState.Idle);
                     defender.SetUnitAnimation(UnitAnimationState.Idle);
                     ResetDamageCounters();
-                    
+
                     GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));
                 }
 
@@ -479,7 +488,7 @@ namespace SolStandard.Containers.Contexts
             defenderDamageCounter = 0;
         }
 
-        private bool NonSwordDiceRemain()
+        private bool NonSwordPointsRemain()
         {
             bool blanksLeft = (attackerDamage.CountBlanks() > 0 || defenderDamage.CountBlanks() > 0);
             bool shieldsLeft = (attackerDamage.CountShields() > 0 || defenderDamage.CountShields() > 0);
@@ -506,7 +515,7 @@ namespace SolStandard.Containers.Contexts
         public bool CombatCanContinue
         {
             get
-            {   
+            {
                 if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
                 {
                     return PeerCanContinue && SelfCanContinue;

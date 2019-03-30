@@ -17,12 +17,14 @@ namespace SolStandard.Entity.General.Item
         public int[] InteractRange { get; private set; }
         private WeaponStatistics WeaponStatistics { get; set; }
         private readonly Window statWindow;
+        public string ItemPool { get; private set; }
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
-            int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
+            int atkValue, int luckModifier, int[] atkRange, int usesRemaining, string itemPool)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             InteractRange = pickupRange;
+            ItemPool = itemPool;
             WeaponStatistics = new WeaponStatistics(atkValue, luckModifier, atkRange, usesRemaining);
             statWindow = BuildStatWindow(WeaponStatistics);
         }
@@ -69,7 +71,7 @@ namespace SolStandard.Entity.General.Item
         public IItem Duplicate()
         {
             return new Weapon(Name, Type, Sprite, MapCoordinates, InteractRange, WeaponStatistics.AtkValue,
-                WeaponStatistics.LuckModifier, WeaponStatistics.AtkRange, WeaponStatistics.UsesRemaining);
+                WeaponStatistics.LuckModifier, WeaponStatistics.AtkRange, WeaponStatistics.UsesRemaining, ItemPool);
         }
 
         public override IRenderable TerrainInfo

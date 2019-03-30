@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="34" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="913">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="34" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="957">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -88,7 +88,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="519"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -122,10 +122,10 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
+   <tile gid="600"/>
+   <tile gid="642"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="508"/>
+   <tile gid="707"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -153,7 +153,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -188,7 +188,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="508"/>
-   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="508"/>
@@ -196,7 +196,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="639"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -236,8 +236,8 @@
    <tile gid="510"/>
    <tile gid="642"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="640"/>
+   <tile gid="642"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -261,6 +261,8 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
+   <tile gid="747"/>
+   <tile gid="748"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -269,10 +271,8 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="748"/>
+   <tile gid="748"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -288,28 +288,28 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="508"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="508"/>
    <tile gid="510"/>
    <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="748"/>
+   <tile gid="748"/>
+   <tile gid="508"/>
+   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -321,6 +321,25 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="509"/>
+   <tile gid="749"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="1308"/>
+   <tile gid="1308"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="519"/>
+   <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -330,31 +349,12 @@
    <tile gid="510"/>
    <tile gid="1308"/>
    <tile gid="1308"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
    <tile gid="1308"/>
    <tile gid="1308"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -371,12 +371,12 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="519"/>
-   <tile gid="509"/>
+   <tile gid="520"/>
+   <tile gid="602"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -388,7 +388,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="709"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -405,7 +405,7 @@
    <tile gid="521"/>
    <tile gid="641"/>
    <tile gid="601"/>
-   <tile gid="522"/>
+   <tile gid="562"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -422,7 +422,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="508"/>
@@ -444,7 +444,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -458,7 +458,7 @@
    <tile gid="1151"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="519"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="600"/>
@@ -492,8 +492,8 @@
    <tile gid="1188"/>
    <tile gid="1151"/>
    <tile gid="510"/>
-   <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="600"/>
+   <tile gid="642"/>
    <tile gid="510"/>
    <tile gid="509"/>
    <tile gid="510"/>
@@ -544,7 +544,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="599"/>
    <tile gid="510"/>
@@ -577,7 +577,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="509"/>
    <tile gid="510"/>
@@ -600,7 +600,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="599"/>
+   <tile gid="559"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -610,7 +610,7 @@
    <tile gid="508"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -634,7 +634,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="599"/>
    <tile gid="510"/>
    <tile gid="599"/>
    <tile gid="599"/>
@@ -642,7 +642,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="748"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -675,7 +675,7 @@
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
-   <tile gid="510"/>
+   <tile gid="749"/>
    <tile gid="510"/>
    <tile gid="510"/>
    <tile gid="510"/>
@@ -712,12 +712,12 @@
    <tile gid="1308"/>
    <tile gid="1308"/>
    <tile gid="1308"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
-   <tile gid="1308"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
+   <tile gid="510"/>
    <tile gid="1308"/>
    <tile gid="1308"/>
    <tile gid="1311"/>
@@ -1804,12 +1804,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="172"/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="567"/>
-   <tile gid="833"/>
-   <tile gid="793"/>
+   <tile/>
+   <tile/>
    <tile gid="172"/>
    <tile gid="787"/>
    <tile gid="789"/>
@@ -1844,7 +1844,7 @@
    <tile gid="567"/>
    <tile/>
    <tile/>
-   <tile gid="793"/>
+   <tile/>
    <tile gid="867"/>
    <tile gid="869"/>
    <tile gid="1087"/>
@@ -1873,13 +1873,13 @@
    <tile/>
    <tile/>
    <tile gid="172"/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="528"/>
    <tile gid="610"/>
    <tile gid="172"/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="172"/>
    <tile gid="1127"/>
    <tile gid="1090"/>
@@ -1897,7 +1897,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="793"/>
+   <tile/>
    <tile gid="867"/>
    <tile gid="869"/>
    <tile/>
@@ -1906,10 +1906,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="793"/>
+   <tile/>
    <tile gid="528"/>
    <tile gid="610"/>
-   <tile gid="833"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2007,10 +2007,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="528"/>
    <tile gid="610"/>
-   <tile gid="833"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2018,8 +2018,8 @@
    <tile gid="992"/>
    <tile gid="989"/>
    <tile/>
-   <tile gid="787"/>
-   <tile gid="789"/>
+   <tile gid="1080"/>
+   <tile gid="1082"/>
    <tile gid="172"/>
    <tile gid="967"/>
    <tile gid="968"/>
@@ -2035,7 +2035,7 @@
    <tile gid="869"/>
    <tile/>
    <tile/>
-   <tile gid="793"/>
+   <tile/>
    <tile gid="927"/>
    <tile gid="929"/>
    <tile/>
@@ -2044,7 +2044,6 @@
    <tile gid="528"/>
    <tile gid="610"/>
    <tile gid="172"/>
-   <tile gid="793"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2052,9 +2051,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="867"/>
-   <tile gid="871"/>
-   <tile gid="789"/>
+   <tile/>
+   <tile gid="1160"/>
+   <tile gid="1164"/>
+   <tile gid="1082"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2076,7 +2076,7 @@
    <tile/>
    <tile/>
    <tile gid="567"/>
-   <tile gid="793"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2087,8 +2087,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="867"/>
-   <tile gid="869"/>
+   <tile gid="1120"/>
+   <tile gid="1122"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2097,7 +2097,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2120,9 +2120,9 @@
    <tile gid="789"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1080"/>
+   <tile gid="1163"/>
+   <tile gid="1162"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2154,9 +2154,9 @@
    <tile gid="869"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1160"/>
+   <tile gid="1164"/>
+   <tile gid="1082"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2175,7 +2175,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
+   <tile/>
    <tile gid="927"/>
    <tile gid="703"/>
    <tile gid="929"/>
@@ -2189,8 +2189,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1160"/>
+   <tile gid="1162"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2204,12 +2204,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="793"/>
+   <tile/>
+   <tile/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="969"/>
@@ -2222,9 +2222,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
-   <tile/>
-   <tile/>
+   <tile gid="1080"/>
+   <tile gid="1081"/>
+   <tile gid="1082"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2256,9 +2256,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1160"/>
+   <tile gid="1123"/>
+   <tile gid="1122"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2288,11 +2288,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1080"/>
+   <tile gid="1082"/>
+   <tile gid="1080"/>
+   <tile gid="1083"/>
+   <tile gid="1122"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2320,13 +2320,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="833"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1160"/>
+   <tile gid="1164"/>
+   <tile gid="1083"/>
+   <tile gid="1124"/>
+   <tile gid="1162"/>
    <tile gid="967"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2355,11 +2355,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1080"/>
+   <tile gid="1082"/>
+   <tile gid="1120"/>
+   <tile gid="1124"/>
+   <tile gid="1162"/>
    <tile gid="927"/>
    <tile gid="930"/>
    <tile gid="968"/>
@@ -2386,13 +2386,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1080"/>
+   <tile gid="1081"/>
+   <tile gid="1081"/>
+   <tile gid="1163"/>
+   <tile gid="1164"/>
+   <tile gid="1163"/>
+   <tile gid="1162"/>
    <tile gid="927"/>
    <tile gid="930"/>
    <tile gid="968"/>
@@ -2419,14 +2419,14 @@
    <tile gid="928"/>
    <tile gid="928"/>
    <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
-   <tile gid="928"/>
+   <tile gid="929"/>
+   <tile gid="1160"/>
+   <tile gid="1161"/>
+   <tile gid="1161"/>
+   <tile gid="1162"/>
+   <tile gid="1160"/>
+   <tile gid="1162"/>
+   <tile gid="927"/>
    <tile gid="930"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2453,14 +2453,14 @@
    <tile gid="968"/>
    <tile gid="968"/>
    <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
-   <tile gid="968"/>
+   <tile gid="931"/>
+   <tile gid="928"/>
+   <tile gid="928"/>
+   <tile gid="928"/>
+   <tile gid="928"/>
+   <tile gid="928"/>
+   <tile gid="928"/>
+   <tile gid="930"/>
    <tile gid="968"/>
    <tile gid="968"/>
    <tile gid="968"/>
@@ -2577,40 +2577,30 @@
   <object id="841" name="Bridge" type="Movable" gid="48" x="512" y="576" width="32" height="32"/>
   <object id="842" name="Bridge" type="Movable" gid="48" x="416" y="544" width="32" height="32"/>
   <object id="843" name="Bridge" type="Movable" gid="55" x="640" y="224" width="32" height="32"/>
-  <object id="845" name="House" type="BuffTile" gid="50" x="512" y="512" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
+  <object id="845" name="House" type="BuffTile" gid="50" x="512" y="512" width="32" height="32"/>
   <object id="846" name="Fort" type="BuffTile" gid="59" x="640" y="416" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="847" name="House" type="BuffTile" gid="44" x="320" y="448" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="848" name="House" type="BuffTile" gid="51" x="864" y="480" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="849" name="House" type="BuffTile" gid="58" x="544" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="850" name="House" type="BuffTile" gid="46" x="224" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="852" name="Log" type="BreakableObstacle" gid="165" x="544" y="384" width="32" height="32">
@@ -2626,20 +2616,17 @@
   <object id="857" name="Bridge" type="Movable" gid="55" x="704" y="128" width="32" height="32"/>
   <object id="858" name="Fort" type="BuffTile" gid="59" x="544" y="352" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="859" name="Fort" type="BuffTile" gid="60" x="512" y="416" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="860" name="Fort" type="BuffTile" gid="60" x="672" y="352" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="870" name="Log" type="BreakableObstacle" gid="165" x="544" y="544" width="32" height="32">
@@ -2657,17 +2644,17 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="894" name="Deploy Blue" type="Deployment" gid="290" x="672" y="608" width="32" height="32">
+  <object id="894" name="Deploy Blue" type="Deployment" gid="290" x="672" y="640" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="895" name="Deploy Blue" type="Deployment" gid="290" x="768" y="576" width="32" height="32">
+  <object id="895" name="Deploy Blue" type="Deployment" gid="290" x="800" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="896" name="Deploy Blue" type="Deployment" gid="290" x="896" y="544" width="32" height="32">
+  <object id="896" name="Deploy Blue" type="Deployment" gid="290" x="640" y="608" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2677,7 +2664,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="898" name="Deploy Blue" type="Deployment" gid="290" x="864" y="448" width="32" height="32">
+  <object id="898" name="Deploy Blue" type="Deployment" gid="290" x="736" y="224" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2687,17 +2674,17 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="900" name="Deploy Blue" type="Deployment" gid="290" x="928" y="448" width="32" height="32">
+  <object id="900" name="Deploy Blue" type="Deployment" gid="290" x="800" y="224" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="901" name="Deploy Blue" type="Deployment" gid="290" x="864" y="384" width="32" height="32">
+  <object id="901" name="Deploy Blue" type="Deployment" gid="290" x="832" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="902" name="Deploy Blue" type="Deployment" gid="290" x="800" y="288" width="32" height="32">
+  <object id="902" name="Deploy Blue" type="Deployment" gid="290" x="768" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2707,12 +2694,12 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="904" name="Deploy Red" type="Deployment" gid="291" x="352" y="416" width="32" height="32">
+  <object id="904" name="Deploy Red" type="Deployment" gid="291" x="352" y="512" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="905" name="Deploy Red" type="Deployment" gid="291" x="288" y="416" width="32" height="32">
+  <object id="905" name="Deploy Red" type="Deployment" gid="291" x="320" y="544" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -2722,7 +2709,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="907" name="Deploy Red" type="Deployment" gid="291" x="256" y="352" width="32" height="32">
+  <object id="907" name="Deploy Red" type="Deployment" gid="291" x="320" y="288" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -2732,24 +2719,229 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="909" name="Deploy Red" type="Deployment" gid="291" x="384" y="256" width="32" height="32">
+  <object id="909" name="Deploy Red" type="Deployment" gid="291" x="512" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="910" name="Deploy Red" type="Deployment" gid="291" x="480" y="256" width="32" height="32">
+  <object id="910" name="Deploy Red" type="Deployment" gid="291" x="512" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="911" name="Deploy Red" type="Deployment" gid="291" x="416" y="128" width="32" height="32">
+  <object id="911" name="Deploy Red" type="Deployment" gid="291" x="480" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="912" name="Deploy Red" type="Deployment" gid="291" x="320" y="256" width="32" height="32">
+  <object id="912" name="Deploy Red" type="Deployment" gid="291" x="320" y="320" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="913" name="Woods" type="BuffTile" gid="833" x="608" y="352" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="916" name="Woods" type="BuffTile" gid="793" x="672" y="320" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="917" name="Woods" type="BuffTile" gid="833" x="640" y="448" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="918" name="Woods" type="BuffTile" gid="833" x="608" y="576" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="919" name="Woods" type="BuffTile" gid="833" x="448" y="608" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="920" name="Woods" type="BuffTile" gid="793" x="352" y="640" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="921" name="Woods" type="BuffTile" gid="793" x="320" y="576" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="922" name="Woods" type="BuffTile" gid="833" x="352" y="544" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="923" name="Woods" type="BuffTile" gid="833" x="448" y="512" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="924" name="Woods" type="BuffTile" gid="793" x="512" y="448" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="925" name="Woods" type="BuffTile" gid="833" x="512" y="480" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="926" name="Woods" type="BuffTile" gid="833" x="576" y="288" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="927" name="Woods" type="BuffTile" gid="793" x="544" y="288" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="928" name="Woods" type="BuffTile" gid="833" x="608" y="192" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="929" name="Woods" type="BuffTile" gid="793" x="640" y="160" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="930" name="Woods" type="BuffTile" gid="833" x="672" y="96" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="931" name="Woods" type="BuffTile" gid="833" x="736" y="96" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="932" name="Woods" type="BuffTile" gid="833" x="800" y="128" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="933" name="Woods" type="BuffTile" gid="833" x="832" y="160" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="934" name="Woods" type="BuffTile" gid="793" x="768" y="96" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="935" name="Woods" type="BuffTile" gid="833" x="704" y="192" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="936" name="Woods" type="BuffTile" gid="793" x="832" y="256" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="937" name="Woods" type="BuffTile" gid="833" x="832" y="512" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="938" name="Woods" type="BuffTile" gid="833" x="736" y="384" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="939" name="Woods" type="BuffTile" gid="793" x="704" y="576" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="940" name="Woods" type="BuffTile" gid="793" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="941" name="Woods" type="BuffTile" gid="833" x="352" y="416" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="942" name="Woods" type="BuffTile" gid="833" x="288" y="384" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="943" name="Woods" type="BuffTile" gid="833" x="288" y="448" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="944" name="Woods" type="BuffTile" gid="793" x="192" y="384" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="945" name="Woods" type="BuffTile" gid="833" x="352" y="224" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="946" name="Woods" type="BuffTile" gid="833" x="256" y="224" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="947" name="Woods" type="BuffTile" gid="833" x="576" y="96" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="948" name="Woods" type="BuffTile" gid="833" x="480" y="192" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="949" name="Woods" type="BuffTile" gid="833" x="384" y="320" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="950" name="Woods" type="BuffTile" gid="833" x="448" y="288" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="951" name="House" type="BuffTile" gid="1074" x="736" y="320" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="952" name="House" type="BuffTile" gid="996" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="953" name="House" type="BuffTile" gid="51" x="224" y="480" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="954" name="House" type="BuffTile" gid="51" x="352" y="96" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="955" name="House" type="BuffTile" gid="1037" x="768" y="224" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -2797,12 +2989,12 @@
     <property name="Item" value="Healthy Potion [+5]"/>
    </properties>
   </object>
-  <object id="880" name="Orc" type="Creep" gid="499" x="928" y="544" width="32" height="32">
+  <object id="880" name="Orc" type="Creep" gid="499" x="800" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
    </properties>
   </object>
-  <object id="881" name="Orc" type="Creep" gid="499" x="832" y="608" width="32" height="32">
+  <object id="881" name="Orc" type="Creep" gid="499" x="768" y="576" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
    </properties>
@@ -2812,7 +3004,7 @@
     <property name="Class" value="Orc"/>
    </properties>
   </object>
-  <object id="883" name="Orc" type="Creep" gid="499" x="288" y="192" width="32" height="32">
+  <object id="883" name="Orc" type="Creep" gid="499" x="416" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
    </properties>
@@ -2822,12 +3014,12 @@
     <property name="Class" value="Orc"/>
    </properties>
   </object>
-  <object id="885" name="Orc" type="Creep" gid="499" x="928" y="384" width="32" height="32">
+  <object id="885" name="Orc" type="Creep" gid="499" x="896" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
    </properties>
   </object>
-  <object id="886" name="Orc" type="Creep" gid="499" x="544" y="192" width="32" height="32">
+  <object id="886" name="Orc" type="Creep" gid="499" x="608" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
    </properties>

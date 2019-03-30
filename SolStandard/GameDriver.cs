@@ -49,38 +49,35 @@ namespace SolStandard
 
         public GameDriver()
         {
+            graphics = new GraphicsDeviceManager(this);
             UseDebugResolution();
-            //UseBorderlessFullscreen();
+//            UseBorderlessFullscreen();
             Content.RootDirectory = "Content";
         }
 
         private void UseDebugResolution()
         {
-            graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = 1600,
-                PreferredBackBufferHeight = 900,
-                GraphicsProfile = GraphicsProfile.HiDef
-            };
-
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
             Window.IsBorderless = false;
+            graphics.ApplyChanges();
         }
 
         // ReSharper disable once UnusedMember.Local
 
         private void UseBorderlessFullscreen()
         {
-            graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
-                PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height,
-                GraphicsProfile = GraphicsProfile.HiDef
-            };
+            Screen currentScreen = Screen.FromPoint(new System.Drawing.Point(Window.Position.X, Window.Position.Y));
+            graphics.PreferredBackBufferWidth = currentScreen.Bounds.Width;
+            graphics.PreferredBackBufferHeight = currentScreen.Bounds.Height;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
             Window.Position = new Point(0, 0);
             Window.IsBorderless = true;
+            graphics.ApplyChanges();
         }
 
 
@@ -182,7 +179,8 @@ namespace SolStandard
                 new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
                     false);
             SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height), ScreenSize);
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
 
             SetControllerConfig(Team.Blue);
 
@@ -190,9 +188,9 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
-            DraftView draftView = new DraftView();
 
-            GameContext.Initialize(mainMenu, networkMenu, draftView);
+            
+            GameContext.Initialize(mainMenu, networkMenu);
 
             ConnectionManager = new ConnectionManager();
         }
@@ -240,6 +238,18 @@ namespace SolStandard
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+
+            if (new InputKey(Keys.F10).Pressed)
+            {
+                UseDebugResolution();
+                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            }
+
+            if (new InputKey(Keys.F11).Pressed)
+            {
+                UseBorderlessFullscreen();
+                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
 

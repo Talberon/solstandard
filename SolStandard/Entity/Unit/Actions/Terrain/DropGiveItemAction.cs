@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Drop/Give: " + item.Name,
             description: "Drop this item on an empty item tile or give it to an ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1}
+            range: new[] {0, 1},
+            freeAction: false
         )
         {
             this.item = item;
@@ -61,7 +62,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static bool CanPlaceItemAtSlice(TerrainEntity itemTile, MapSlice targetSlice)
         {
-            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null;
+            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

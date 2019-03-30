@@ -3111,80 +3111,68 @@
   </object>
   <object id="879" name="Residential" type="BuffTile" gid="44" x="480" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="880" name="Castle" type="BuffTile" gid="40" x="352" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="3"/>
-    <property name="Stat" value="DEF"/>
+    <property name="blockBonus" type="int" value="1"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="882" name="Residential" type="BuffTile" gid="44" x="512" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="883" name="Residential" type="BuffTile" gid="45" x="416" y="256" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="884" name="Residential" type="BuffTile" gid="45" x="288" y="288" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="885" name="Residential" type="BuffTile" gid="45" x="288" y="256" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="889" name="Residential" type="BuffTile" gid="45" x="416" y="288" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="892" name="Residential" type="BuffTile" gid="44" x="480" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="893" name="Residential" type="BuffTile" gid="44" x="512" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="894" name="Residential" type="BuffTile" gid="44" x="544" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="895" name="Residential" type="BuffTile" gid="44" x="544" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="896" name="Residential" type="BuffTile" gid="44" x="448" y="224" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="897" name="Residential" type="BuffTile" gid="44" x="448" y="160" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="898" name="Treasure" type="Chest" gid="205" x="224" y="128" width="32" height="32">
@@ -3254,20 +3242,17 @@
   </object>
   <object id="912" name="Residential" type="BuffTile" gid="45" x="288" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="914" name="Residential" type="BuffTile" gid="45" x="416" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="916" name="Tower" type="BuffTile" gid="1038" x="352" y="288" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="2"/>
-    <property name="Stat" value="ATK"/>
+    <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="917" name="NE Bridge Switch" type="Switch" gid="250" x="768" y="352" width="32" height="32">
@@ -3589,7 +3574,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="783"/>
    <tile/>
    <tile/>
    <tile/>

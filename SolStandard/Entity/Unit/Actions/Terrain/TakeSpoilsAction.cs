@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Claim Spoils",
             description: "Take all of the currency and items from the bag of spoils.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: true
         )
         {
             this.spoils = spoils;

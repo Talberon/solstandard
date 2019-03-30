@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions
             description: "Attack a target based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
                          " and " + UnitStatistics.Abbreviation[Stats.Luck] + " statistics.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
         }

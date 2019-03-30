@@ -7,9 +7,11 @@
  </objecttype>
  <objecttype name="Barricade" color="#b93246">
   <property name="HP" type="int" default="1"/>
+  <property name="itemPool" type="string"/>
  </objecttype>
  <objecttype name="Blink" color="#b93246">
   <property name="blinkRange" type="string" default="1,2,3"/>
+  <property name="itemPool" type="string"/>
   <property name="pickupRange" type="string" default="0,1"/>
   <property name="usesRemaining" type="int" default="3"/>
  </objecttype>
@@ -22,14 +24,17 @@
  </objecttype>
  <objecttype name="BuffItem" color="#b93246">
   <property name="duration" type="int" default="3"/>
+  <property name="itemPool" type="string"/>
   <property name="modifier" type="int" default="1"/>
   <property name="pickupRange" type="string" default="0"/>
   <property name="stat" type="string" default="ATK"/>
  </objecttype>
  <objecttype name="BuffTile" color="#2ca42a">
-  <property name="Modifier" type="int" default="0"/>
-  <property name="Stat" type="string"/>
+  <property name="atkBonus" type="int" default="0"/>
+  <property name="blockBonus" type="int" default="0"/>
   <property name="canMove" type="bool" default="true"/>
+  <property name="luckBonus" type="int" default="0"/>
+  <property name="retBonus" type="int" default="0"/>
  </objecttype>
  <objecttype name="Chest" color="#a66b47">
   <property name="canMove" type="bool" default="false"/>
@@ -37,6 +42,7 @@
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
   <property name="item" type="string"/>
+  <property name="itemPool" type="string"/>
   <property name="range" type="string" default="1"/>
  </objecttype>
  <objecttype name="Creep" color="#55857f">
@@ -51,6 +57,7 @@
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
+  <property name="itemPool" type="string"/>
   <property name="range" type="string" default="0"/>
   <property name="value" type="int" default="1"/>
  </objecttype>
@@ -59,6 +66,7 @@
   <property name="Team" type="string" default="Blue"/>
  </objecttype>
  <objecttype name="Door" color="#625232">
+  <property name="HP" type="int" default="10"/>
   <property name="canMove" type="bool" default="false"/>
   <property name="isBroken" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
@@ -74,9 +82,11 @@
  </objecttype>
  <objecttype name="HP Potion" color="#b93246">
   <property name="hpHealed" type="int" default="3"/>
+  <property name="itemPool" type="string"/>
   <property name="pickupRange" type="string" default="0"/>
  </objecttype>
  <objecttype name="Key" color="#ffaa00">
+  <property name="itemPool" type="string"/>
   <property name="range" type="string" default="0"/>
   <property name="usedWith" type="string" default="Door A1"/>
  </objecttype>
@@ -107,7 +117,7 @@
   <property name="draftUnits" type="bool" default="false"/>
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
-  <property name="maxDuplicateUnits" type="int" default="3"/>
+  <property name="maxDuplicateUnits" type="int" default="2"/>
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
@@ -136,6 +146,7 @@
  <objecttype name="Weapon" color="#b93246">
   <property name="atkRange" type="string" default="1"/>
   <property name="atkValue" type="int" default="0"/>
+  <property name="itemPool" type="string" default=""/>
   <property name="luckModifier" type="int" default="0"/>
   <property name="pickupRange" type="string" default="0"/>
   <property name="usesRemaining" type="int" default="10"/>

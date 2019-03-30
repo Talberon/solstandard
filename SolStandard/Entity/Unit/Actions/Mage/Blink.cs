@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             description: "Move to an unoccupied space within [" + item.BlinkRange.Min() + "-" + item.BlinkRange.Max() +
                          "] spaces." + Environment.NewLine + "Uses Remaining: [" + item.UsesRemaining + "]",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: item.BlinkRange
+            range: item.BlinkRange,
+            freeAction: false
         )
         {
             Item = item;

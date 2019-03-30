@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             name: "Recover HP: " + item.Name,
             description: "Single use. Target recovers [" + hpHealed + "] HP.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: range
+            range: range,
+            freeAction: true
         )
         {
             this.item = item;

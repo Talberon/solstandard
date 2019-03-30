@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             name: "Charge",
             description: "Dash towards a target and attack!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.chargeDistance = chargeDistance;

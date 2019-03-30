@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Use: " + switchTile.Name,
             description: "Opens or closes the target triggerable.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.switchTile = switchTile;

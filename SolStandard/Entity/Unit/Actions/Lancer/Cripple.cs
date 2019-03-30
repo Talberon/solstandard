@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by [" + statModifier + "] for [" + duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.statModifier = statModifier;

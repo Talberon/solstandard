@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             name: "Leap Strike",
             description: "Leap towards an enemy to attack them; even across impassible terrain!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.leapDistance = leapDistance;

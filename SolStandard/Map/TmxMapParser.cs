@@ -290,12 +290,36 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             currentProperties,
-                                            Convert.ToInt32(currentProperties["Modifier"]),
-                                            currentProperties["Stat"],
+                                            Convert.ToInt32(currentProperties["atkBonus"]),
+                                            Convert.ToInt32(currentProperties["retBonus"]),
+                                            Convert.ToInt32(currentProperties["blockBonus"]),
+                                            Convert.ToInt32(currentProperties["luckBonus"]),
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;
                                     case EntityTypes.Chest:
+
+                                        IItem specificChestItem = (currentProperties["item"] != string.Empty)
+                                            ? mapLoot.Single(item => item.Name == currentProperties["item"]).Duplicate()
+                                            : null;
+
+                                        IItem chestItem = null;
+
+                                        //Prioritize the more-specific chest item
+                                        if (specificChestItem != null)
+                                        {
+                                            chestItem = specificChestItem;
+                                        }
+                                        else
+                                        {
+                                            IItem itemFromPool =
+                                                TakeRandomItemFromPool(mapLoot, currentProperties["itemPool"]);
+                                            if (itemFromPool != null)
+                                            {
+                                                chestItem = itemFromPool;
+                                            }
+                                        }
+
                                         entityGrid[col, row] = new Chest(
                                             currentObject.Name,
                                             currentObject.Type,
@@ -308,11 +332,9 @@ namespace SolStandard.Map
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
                                             Convert.ToInt32(currentProperties["gold"]) + GameDriver.Random.Next(0, 5),
-                                            (currentProperties["item"] != string.Empty)
-                                                ? mapLoot.Single(item => item.Name == currentProperties["item"])
-                                                    .Duplicate()
-                                                : null
+                                            chestItem
                                         );
+
                                         break;
                                     case EntityTypes.Decoration:
                                         entityGrid[col, row] = new Decoration(
@@ -334,6 +356,7 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
+                                            Convert.ToInt32(currentProperties["HP"]),
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;
@@ -391,7 +414,8 @@ namespace SolStandard.Map
                                             currentProperties,
                                             currentProperties["usedWith"],
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
-                                                .ToArray()
+                                                .ToArray(),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Drawbridge:
@@ -453,7 +477,7 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["maxDuplicateUnits"]),
                                             AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
                                                 texture.Name.EndsWith("/" + mapFileName.Substring(0,
-                                                    mapFileName.Length - (".tmx").Length)))
+                                                                          mapFileName.Length - (".tmx").Length)))
                                         );
                                         break;
                                     case EntityTypes.Seize:
@@ -510,7 +534,8 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["luckModifier"]),
                                             currentProperties["atkRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
-                                            Convert.ToInt32(currentProperties["usesRemaining"])
+                                            Convert.ToInt32(currentProperties["usesRemaining"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Blink:
@@ -523,7 +548,8 @@ namespace SolStandard.Map
                                                 .ToArray(),
                                             currentProperties["blinkRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
-                                            Convert.ToInt32(currentProperties["usesRemaining"])
+                                            Convert.ToInt32(currentProperties["usesRemaining"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.HealthPotion:
@@ -534,7 +560,8 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
-                                            Convert.ToInt32(currentProperties["hpHealed"])
+                                            Convert.ToInt32(currentProperties["hpHealed"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.BuffItem:
@@ -547,7 +574,8 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["modifier"]),
                                             Convert.ToInt32(currentProperties["duration"]),
                                             currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
-                                                .ToArray()
+                                                .ToArray(),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Barricade:
@@ -556,7 +584,8 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            Convert.ToInt32(currentProperties["HP"])
+                                            Convert.ToInt32(currentProperties["HP"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Deploy:
@@ -622,6 +651,18 @@ namespace SolStandard.Map
             }
 
             return unitGrid;
+        }
+
+        private static IItem TakeRandomItemFromPool(List<IItem> mapLoot, string itemPool)
+        {
+            List<IItem> poolItems = mapLoot.FindAll(item => item.ItemPool == itemPool && item.ItemPool != string.Empty);
+
+            if (poolItems.Count <= 0) return null;
+
+            IItem itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count - 1)];
+            mapLoot.Remove(itemFromPool);
+
+            return itemFromPool;
         }
 
 

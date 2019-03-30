@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             name: "Uppercut",
             description: "Attack a unit and knock it back one tile if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
         }

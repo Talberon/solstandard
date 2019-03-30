@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             name: "Shift",
             description: "Move one additional space.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.maxDistance = maxDistance;

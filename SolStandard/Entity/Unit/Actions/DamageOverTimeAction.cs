@@ -25,7 +25,8 @@ namespace SolStandard.Entity.Unit.Actions
                 description: "Deal [" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
                              "] turns.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-                range: range
+                range: range,
+                freeAction: false
             )
         {
             this.damagePerTurn = damagePerTurn;

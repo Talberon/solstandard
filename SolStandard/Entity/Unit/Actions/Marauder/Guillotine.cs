@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                          "If currently enraged, regenerate <1/3> of missing " + UnitStatistics.Abbreviation[Stats.Hp] +
                          " instead, and lose enraged status.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
         }

@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             name: "Railgun",
             description: "Attack a target at an extended linear range based on the range of this weapon.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.range = range;

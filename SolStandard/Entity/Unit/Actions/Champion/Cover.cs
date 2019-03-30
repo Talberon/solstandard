@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " for an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.armorPoints = armorPoints;

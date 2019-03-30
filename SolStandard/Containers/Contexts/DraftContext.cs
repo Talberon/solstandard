@@ -39,9 +39,9 @@ namespace SolStandard.Containers.Contexts
         private Dictionary<Role, int> blueUnitCount;
         private Dictionary<Role, int> redUnitCount;
 
-        public DraftContext(DraftView draftView)
+        public DraftContext()
         {
-            DraftView = draftView;
+            DraftView = new DraftView();
         }
 
         public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, Scenario scenario)

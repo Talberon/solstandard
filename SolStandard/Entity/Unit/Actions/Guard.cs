@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Guard",
             description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
             this.armorPoints = armorPoints;

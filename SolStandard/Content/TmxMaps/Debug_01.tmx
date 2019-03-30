@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="823">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="832">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -1940,16 +1940,14 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="601" name="Fort" type="BuffTile" gid="59" x="448" y="160" width="32" height="32">
+  <object id="601" name="Fort" type="BuffTile" gid="59" x="384" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="626" name="Tower Base" type="BuffTile" gid="54" x="416" y="160" width="32" height="32">
+  <object id="626" name="Tower Base" type="BuffTile" gid="54" x="352" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="3"/>
-    <property name="Stat" value="DEF"/>
+    <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="635" name="Switch" type="Switch" gid="250" x="320" y="224" width="32" height="32">
@@ -1983,7 +1981,7 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="661" name="Chest LK1" type="Chest" gid="206" x="576" y="352" width="32" height="32">
+  <object id="661" name="Chest LK1" type="Chest" gid="206" x="640" y="352" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="25"/>
     <property name="isLocked" type="bool" value="true"/>
@@ -2001,7 +1999,7 @@
    </properties>
   </object>
   <object id="669" name="Drawbridge A" type="Drawbridge" gid="48" x="384" y="480" width="32" height="32"/>
-  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="576" y="288" width="32" height="32">
+  <object id="670" name="Unlocked Chest" type="Chest" gid="205" x="640" y="288" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
     <property name="item" value="Chest LK1 Key"/>
@@ -2051,30 +2049,21 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="702" name="House" type="BuffTile" gid="45" x="576" y="160" width="32" height="32">
+  <object id="702" name="House" type="BuffTile" gid="45" x="512" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="703" name="Drawbridge A" type="Drawbridge" gid="48" x="416" y="480" width="32" height="32"/>
   <object id="704" name="Bridge" type="Movable" gid="61" x="192" y="256" width="32" height="32"/>
-  <object id="705" name="Fort" type="BuffTile" gid="60" x="480" y="160" width="32" height="32">
+  <object id="705" name="Fort" type="BuffTile" gid="60" x="416" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="ATK"/>
+    <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="706" name="House" type="BuffTile" gid="51" x="544" y="160" width="32" height="32">
+  <object id="706" name="House" type="BuffTile" gid="51" x="480" y="320" width="32" height="32">
    <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
-   </properties>
-  </object>
-  <object id="707" name="House" type="BuffTile" gid="44" x="512" y="160" width="32" height="32">
-   <properties>
-    <property name="Modifier" type="int" value="1"/>
-    <property name="Stat" value="DEF"/>
+    <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="708" name="Pressure Plate" type="PressurePlate" gid="6184" x="576" y="512" width="32" height="32">
@@ -2126,16 +2115,6 @@
     <property name="item" value="Chest LK1 Key"/>
    </properties>
   </object>
-  <object id="755" name="Spike Trap" type="Trap" gid="6387" x="544" y="416" width="32" height="32">
-   <properties>
-    <property name="damage" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="756" name="Spike Trap" type="Trap" gid="6387" x="512" y="416" width="32" height="32">
-   <properties>
-    <property name="damage" type="int" value="3"/>
-   </properties>
-  </object>
   <object id="765" name="Spike Trap" type="Trap" gid="6387" x="224" y="96" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
@@ -2151,22 +2130,12 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="801" name="Unlocked Chest" type="Chest" gid="205" x="352" y="416" width="32" height="32">
+  <object id="801" name="Unlocked Chest" type="Chest" gid="205" x="288" y="576" width="32" height="32">
    <properties>
     <property name="item" value="Sandbag"/>
    </properties>
   </object>
-  <object id="810" name="Unlocked Chest" type="Chest" gid="205" x="384" y="416" width="32" height="32">
-   <properties>
-    <property name="item" value="Sandbag"/>
-   </properties>
-  </object>
-  <object id="811" name="Unlocked Chest" type="Chest" gid="205" x="448" y="192" width="32" height="32">
-   <properties>
-    <property name="item" value="Sandbag"/>
-   </properties>
-  </object>
-  <object id="812" name="Unlocked Chest" type="Chest" gid="205" x="480" y="192" width="32" height="32">
+  <object id="810" name="Unlocked Chest" type="Chest" gid="205" x="320" y="576" width="32" height="32">
    <properties>
     <property name="item" value="Sandbag"/>
    </properties>
@@ -2176,6 +2145,31 @@
     <property name="gold" type="int" value="25"/>
     <property name="isLocked" type="bool" value="true"/>
     <property name="item" value="Mighty Meat"/>
+   </properties>
+  </object>
+  <object id="827" name="Unlocked Chest A2" type="Chest" gid="205" x="736" y="416" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="A"/>
+   </properties>
+  </object>
+  <object id="828" name="Unlocked Chest A1" type="Chest" gid="205" x="704" y="416" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="A"/>
+   </properties>
+  </object>
+  <object id="829" name="Unlocked Chest B2" type="Chest" gid="205" x="736" y="480" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="B"/>
+   </properties>
+  </object>
+  <object id="830" name="Unlocked Chest B1" type="Chest" gid="205" x="704" y="480" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="B"/>
+   </properties>
+  </object>
+  <object id="831" name="Armor Rack" type="BuffTile" gid="5362" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -2191,7 +2185,7 @@
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="802" name="Sandbag" type="Barricade" gid="5119" x="352" y="384" width="32" height="32">
+  <object id="802" name="Sandbag" type="Barricade" gid="5119" x="288" y="544" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="3"/>
    </properties>
@@ -2239,19 +2233,48 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
+  <object id="823" name="Mighty Meat *" type="BuffItem" gid="422" x="704" y="448" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="B"/>
+   </properties>
+  </object>
+  <object id="824" name="Lucky Apple *" type="BuffItem" gid="408" x="736" y="448" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="itemPool" value="B"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="LCK"/>
+   </properties>
+  </object>
+  <object id="825" name="Alert Berries *" type="BuffItem" gid="409" x="736" y="384" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="itemPool" value="A"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="RET"/>
+   </properties>
+  </object>
+  <object id="826" name="Swift Cheese *" type="BuffItem" gid="400" x="704" y="384" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="itemPool" value="A"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="288" y="288" width="32" height="32">
+  <object id="657" name="Door LK1 Key" type="Key" gid="388" x="256" y="320" width="32" height="32">
    <properties>
     <property name="usedWith" value="Door LK1"/>
    </properties>
   </object>
-  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="544" y="352" width="32" height="32">
+  <object id="660" name="Chest LK1 Key" type="Key" gid="389" x="608" y="352" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="644" name="Treasure" type="Currency" gid="415" x="352" y="288" width="32" height="32">
+  <object id="644" name="Treasure" type="Currency" gid="415" x="640" y="224" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
@@ -2261,22 +2284,22 @@
     <property name="value" type="int" value="100"/>
    </properties>
   </object>
-  <object id="647" name="Treasure" type="Currency" gid="387" x="480" y="288" width="32" height="32">
+  <object id="647" name="Treasure" type="Currency" gid="387" x="768" y="224" width="32" height="32">
    <properties>
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="414" x="416" y="288" width="32" height="32">
+  <object id="648" name="Treasure" type="Currency" gid="414" x="448" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="649" name="Treasure" type="Currency" gid="417" x="448" y="288" width="32" height="32">
+  <object id="649" name="Treasure" type="Currency" gid="417" x="736" y="224" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="650" name="Treasure" type="Currency" gid="416" x="384" y="288" width="32" height="32">
+  <object id="650" name="Treasure" type="Currency" gid="416" x="448" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2288,43 +2311,43 @@
     <property name="usesRemaining" type="int" value="1"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="450" x="448" y="416" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="450" x="416" y="576" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="447" x="384" y="224" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="447" x="384" y="576" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="5"/>
    </properties>
   </object>
-  <object id="795" name="Healthy Potion" type="HP Potion" gid="393" x="480" y="320" width="32" height="32"/>
-  <object id="796" name="Mighty Meat" type="BuffItem" gid="422" x="416" y="320" width="32" height="32"/>
-  <object id="797" name="Lucky Apple" type="BuffItem" gid="408" x="448" y="320" width="32" height="32">
+  <object id="795" name="Healthy Potion" type="HP Potion" gid="393" x="768" y="256" width="32" height="32"/>
+  <object id="796" name="Mighty Meat" type="BuffItem" gid="422" x="704" y="256" width="32" height="32"/>
+  <object id="797" name="Lucky Apple" type="BuffItem" gid="408" x="736" y="256" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="LCK"/>
    </properties>
   </object>
-  <object id="798" name="Alert Berries" type="BuffItem" gid="409" x="384" y="320" width="32" height="32">
+  <object id="798" name="Alert Berries" type="BuffItem" gid="409" x="672" y="256" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="RET"/>
    </properties>
   </object>
-  <object id="799" name="Swift Cheese" type="BuffItem" gid="400" x="352" y="320" width="32" height="32">
+  <object id="799" name="Swift Cheese" type="BuffItem" gid="400" x="640" y="256" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="803" name="Boomerang" type="Weapon" gid="436" x="544" y="256" width="32" height="32">
+  <object id="803" name="Boomerang" type="Weapon" gid="436" x="480" y="576" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="3"/>
@@ -2413,7 +2436,7 @@
     <property name="WillTrade" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="805" name="Zack" type="Creep" gid="500" x="320" y="320" width="32" height="32">
+  <object id="805" name="Zack" type="Creep" gid="500" x="224" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Merchant"/>
     <property name="Independent" type="bool" value="true"/>
@@ -2423,32 +2446,32 @@
     <property name="WillTrade" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="819" name="Nosferatu" type="Creep" gid="506" x="512" y="352" width="32" height="32">
+  <object id="819" name="Nosferatu" type="Creep" gid="506" x="320" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
    </properties>
   </object>
-  <object id="820" name="Huey" type="Creep" gid="505" x="512" y="320" width="32" height="32">
+  <object id="820" name="Huey" type="Creep" gid="505" x="288" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="821" name="Kesk" type="Creep" gid="504" x="512" y="288" width="32" height="32">
+  <object id="821" name="Kesk" type="Creep" gid="504" x="288" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
    </properties>
   </object>
-  <object id="822" name="Bort" type="Creep" gid="503" x="512" y="256" width="32" height="32">
+  <object id="822" name="Bort" type="Creep" gid="503" x="288" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
    </properties>
   </object>
-  <object id="817" name="Skeltal" type="Creep" gid="502" x="640" y="288" width="32" height="32">
+  <object id="817" name="Skeltal" type="Creep" gid="502" x="320" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
    </properties>
   </object>
-  <object id="818" name="Skeleton King" type="Creep" gid="501" x="608" y="256" width="32" height="32">
+  <object id="818" name="Skeleton King" type="Creep" gid="501" x="320" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Necromancer"/>
    </properties>
@@ -2565,7 +2588,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2629,7 +2652,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="783"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2723,7 +2746,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="47"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2885,7 +2908,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="783"/>
    <tile/>
    <tile/>
    <tile/>

@@ -27,7 +27,8 @@ namespace SolStandard.Entity.Unit.Actions
                                              "] damage to enemies that start their turn on it and immobilize them." +
                                              Environment.NewLine + "Max activations: [" + maxTriggers + "]"),
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-                range: new[] {1}
+                range: new[] {1},
+                freeAction: false
             )
         {
             Damage = damage;

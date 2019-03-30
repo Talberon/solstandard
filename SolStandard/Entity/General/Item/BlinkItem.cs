@@ -17,14 +17,16 @@ namespace SolStandard.Entity.General.Item
         public int[] BlinkRange { get; private set; }
         public int[] InteractRange { get; private set; }
         public int UsesRemaining { get; set; }
+        public string ItemPool { get; private set; }
 
         public BlinkItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
-            int[] blinkRange, int usesRemaining)
+            int[] blinkRange, int usesRemaining, string itemPool)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             BlinkRange = blinkRange;
             InteractRange = pickupRange;
             UsesRemaining = usesRemaining;
+            ItemPool = itemPool;
         }
 
         public bool IsBroken
@@ -57,7 +59,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining);
+            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining, ItemPool);
         }
 
         public override IRenderable TerrainInfo

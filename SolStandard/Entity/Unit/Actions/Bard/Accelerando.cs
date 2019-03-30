@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             name: "Accelerando",
             description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2}
+            range: new[] {1, 2},
+            freeAction: false
         )
         {
             this.statModifier = statModifier;

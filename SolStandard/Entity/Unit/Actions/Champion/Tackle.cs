@@ -18,7 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
         }

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -19,12 +19,28 @@ namespace SolStandard.Entity.Unit.Actions.Item
         public WeaponAttack(IRenderable icon, string weaponName, WeaponStatistics stats) : base(
             icon: icon,
             name: "Attack: " + weaponName,
-            description: "Attack a target with dice based on your weapon's statistics." + Environment.NewLine + stats,
+            description:  WeaponDescription(stats),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null
+            range: null,
+            freeAction: false
         )
         {
             this.stats = stats;
+        }
+
+        private static WindowContentGrid WeaponDescription(WeaponStatistics stats)
+        {
+            return new WindowContentGrid(new IRenderable[,]
+                {
+                    {
+                        new RenderText(AssetManager.WindowFont, "Perform a basic attack against target based on your weapon's statistics."), 
+                    },
+                    {
+                        stats.GenerateStatGrid(AssetManager.WindowFont)
+                    }
+                },
+                2
+            );
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)

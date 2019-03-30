@@ -93,10 +93,11 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            return new List<UnitAction>
-            {
-                new OpenChestAction(this, MapCoordinates)
-            };
+            List<UnitAction> actions = new List<UnitAction>();
+
+            if (!IsOpen) actions.Add(new OpenChestAction(this, MapCoordinates));
+
+            return actions;
         }
 
         public void Open()

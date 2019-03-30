@@ -12,23 +12,31 @@ namespace SolStandard.HUD.Window.Content.Combat
         private const int MaxRowSize = 5;
         private const int DieSizeAdjustment = 16;
         private readonly List<AttackPoint> atkPoints;
+        private readonly List<BlockPoint> blockPoints;
         private CombatDice CombatDice { get; set; }
         private Window CombatDamageWindow { get; set; }
         public Color DefaultColor { get; set; }
 
-        private readonly int atk;
+        private readonly int damage;
+        private readonly int block;
         private readonly int luck;
-        private readonly int bonusDice;
+        private readonly int bonusDamage;
+        private readonly int bonusBlock;
+        private readonly int bonusLuck;
         private readonly int pointSize;
 
-        public CombatDamage(int atk, int luck, int bonusDice, int pointSize)
+        public CombatDamage(int damage, int block, int luck, int bonusDamage, int bonusBlock, int bonusLuck, int pointSize)
         {
-            this.atk = atk;
+            this.damage = damage;
+            this.block = block;
             this.luck = luck;
-            this.bonusDice = bonusDice;
+            this.bonusDamage = bonusDamage;
+            this.bonusBlock = bonusBlock;
+            this.bonusLuck = bonusLuck;
             this.pointSize = pointSize;
-            atkPoints = InitializeAtkPoints(atk, pointSize);
-            CombatDice = new CombatDice(luck, bonusDice, MaxRowSize, pointSize + DieSizeAdjustment);
+            atkPoints = InitializeAtkPoints(damage, bonusDamage, pointSize);
+            blockPoints = InitializeBlockPoints(block, bonusBlock, pointSize);
+            CombatDice = new CombatDice(luck, bonusLuck, MaxRowSize, pointSize + DieSizeAdjustment);
             CombatDamageWindow = ConstructDamageWindow();
             DefaultColor = Color.Transparent;
         }
@@ -43,12 +51,32 @@ namespace SolStandard.HUD.Window.Content.Combat
             get { return CombatDamageWindow.Width; }
         }
 
-        private static List<AttackPoint> InitializeAtkPoints(int atk, int pointSize)
+        private static List<AttackPoint> InitializeAtkPoints(int atk, int bonusAtk, int pointSize)
         {
             List<AttackPoint> points = new List<AttackPoint>();
             for (int i = 0; i < atk; i++)
             {
-                points.Add(new AttackPoint(pointSize));
+                points.Add(new AttackPoint(pointSize, Color.White));
+            }
+
+            for (int i = 0; i < bonusAtk; i++)
+            {
+                points.Add(new AttackPoint(pointSize, CombatDice.BonusDieColor));
+            }
+
+            return points;
+        }
+
+        private static List<BlockPoint> InitializeBlockPoints(int block, int bonusBlock, int pointSize)
+        {
+            List<BlockPoint> points = new List<BlockPoint>();
+            for (int i = 0; i < block; i++)
+            {
+                points.Add(new BlockPoint(pointSize, Color.White));
+            }
+            for (int i = 0; i < bonusBlock; i++)
+            {
+                points.Add(new BlockPoint(pointSize, CombatDice.BonusDieColor));
             }
 
             return points;
@@ -61,7 +89,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         public int CountShields()
         {
-            return CombatDice.CountFaceValue(Die.FaceValue.Shield, true);
+            return blockPoints.Count(point => point.Enabled) + CombatDice.CountFaceValue(Die.FaceValue.Shield, true);
         }
 
         public int CountBlanks()
@@ -69,9 +97,16 @@ namespace SolStandard.HUD.Window.Content.Combat
             return CombatDice.CountFaceValue(Die.FaceValue.Blank, true);
         }
 
-        public void ResolveBlockDie()
+        public void ResolveBlockPoint()
         {
-            CombatDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+            if (CombatDice.CountFaceValue(Die.FaceValue.Shield, true) > 0)
+            {
+                CombatDice.BlockNextDieWithValue(Die.FaceValue.Shield);
+            }
+            else if (blockPoints.Count(point => point.Enabled) > 0)
+            {
+                blockPoints.FindLast(point => point.Enabled).Disable(CombatDice.BlockedDieColor);
+            }
         }
 
         public void BlockAttackPoint()
@@ -123,6 +158,12 @@ namespace SolStandard.HUD.Window.Content.Combat
             CombatDice.DisableAllDiceWithValue(value);
         }
 
+        public void DisableRemainingShields()
+        {
+            blockPoints.Where(point => point.Enabled).ToList()
+                .ForEach(point => point.Disable(CombatDice.IgnoredDieColor));
+        }
+
         public void RollDice()
         {
             CombatDice.RollDice();
@@ -131,12 +172,14 @@ namespace SolStandard.HUD.Window.Content.Combat
         private Window ConstructDamageWindow()
         {
             WindowContentGrid attackPointGrid = ConstructAttackPointGrid();
+            WindowContentGrid blockPointGrid = ConstructBlockPointGrid();
 
             return new Window(
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {attackPointGrid},
+                        {blockPointGrid},
                         {CombatDice}
                     },
                     1,
@@ -187,10 +230,50 @@ namespace SolStandard.HUD.Window.Content.Combat
             return atkPointGrid;
         }
 
+        private WindowContentGrid ConstructBlockPointGrid()
+        {
+            int rows = Convert.ToInt32(Math.Ceiling((float) blockPoints.Count / MaxRowSize));
+            int columns = (MaxRowSize > blockPoints.Count) ? blockPoints.Count : MaxRowSize;
+
+            IRenderable[,] damagePoints = new IRenderable[rows, columns];
+
+            int pointCounter = 0;
+            bool allPointsCounted = false;
+
+            for (int row = 0; row < rows; row++)
+            {
+                for (int column = 0; column < columns; column++)
+                {
+                    if (pointCounter == blockPoints.Count)
+                    {
+                        allPointsCounted = true;
+                    }
+
+                    if (allPointsCounted)
+                    {
+                        damagePoints[row, column] = new RenderBlank();
+                    }
+                    else
+                    {
+                        damagePoints[row, column] = blockPoints[pointCounter];
+                    }
+
+                    pointCounter++;
+                }
+            }
+
+            WindowContentGrid blockPointGrid = new WindowContentGrid(
+                damagePoints,
+                2,
+                HorizontalAlignment.Centered
+            );
+            return blockPointGrid;
+        }
+
 
         public IRenderable Clone()
         {
-            return new CombatDamage(atk, luck, bonusDice, pointSize);
+            return new CombatDamage(damage, block, luck, bonusDamage, bonusBlock, bonusLuck, pointSize);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

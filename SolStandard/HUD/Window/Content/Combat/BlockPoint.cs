@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window.Content.Combat
 {
-    public class AttackPoint : IRenderable, ICombatPoint
+    public class BlockPoint : IRenderable, ICombatPoint
     {
         public bool Enabled { get; private set; }
         public Color DefaultColor { get; set; }
@@ -13,12 +13,12 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private readonly int size;
 
-        public AttackPoint(int size, Color? color)
+        public BlockPoint(int size, Color? color)
         {
             this.size = size;
             DefaultColor = color ?? Color.White;
             Enabled = true;
-            pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(size));
+            pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(size));
         }
 
         public int Height

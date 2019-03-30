@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             description: "Attack a unit for half damage (rounded down) and ignore target's " +
                          UnitStatistics.Abbreviation[Stats.Armor] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
         }

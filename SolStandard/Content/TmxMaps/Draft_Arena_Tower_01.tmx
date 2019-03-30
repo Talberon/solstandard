@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="35" height="43" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="941">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="35" height="43" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="954">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="476" columns="7">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="224" height="2176"/>
  </tileset>
@@ -3742,7 +3742,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="6145"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3781,7 +3781,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="6146"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4631,25 +4631,25 @@
     <property name="limitedTriggers" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="882" name="Trap" type="Trap" gid="378" x="448" y="1120" width="32" height="32">
+  <object id="882" name="Trap" type="Trap" gid="378" x="480" y="1120" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="5"/>
     <property name="limitedTriggers" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="883" name="Trap" type="Trap" gid="378" x="384" y="1120" width="32" height="32">
+  <object id="883" name="Trap" type="Trap" gid="378" x="416" y="1088" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="5"/>
     <property name="limitedTriggers" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="884" name="Trap" type="Trap" gid="378" x="640" y="160" width="32" height="32">
+  <object id="884" name="Trap" type="Trap" gid="378" x="544" y="320" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="5"/>
     <property name="limitedTriggers" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="885" name="Trap" type="Trap" gid="378" x="576" y="128" width="32" height="32">
+  <object id="885" name="Trap" type="Trap" gid="378" x="576" y="256" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="5"/>
     <property name="limitedTriggers" type="bool" value="true"/>
@@ -4664,21 +4664,25 @@
   <object id="891" name="Rubble" type="BreakableObstacle" gid="6436" x="512" y="672" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
    </properties>
   </object>
   <object id="892" name="Rubble" type="BreakableObstacle" gid="6436" x="576" y="704" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
    </properties>
   </object>
   <object id="893" name="Rubble" type="BreakableObstacle" gid="6436" x="512" y="768" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="10"/>
    </properties>
   </object>
   <object id="894" name="Rubble" type="BreakableObstacle" gid="6436" x="576" y="608" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="10"/>
    </properties>
   </object>
   <object id="895" name="3F Gate" type="Door" gid="238" x="736" y="608" width="32" height="32">
@@ -4701,22 +4705,22 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="899" name="3F Gate Switch" type="Switch" gid="250" x="352" y="256" width="32" height="32">
+  <object id="899" name="3F Gate Switch" type="Switch" gid="250" x="384" y="256" width="32" height="32">
    <properties>
     <property name="triggersId" value="3F Gate"/>
    </properties>
   </object>
-  <object id="900" name="1F Gate Switch" type="Switch" gid="250" x="704" y="1056" width="32" height="32">
+  <object id="900" name="1F Gate Switch" type="Switch" gid="250" x="704" y="1088" width="32" height="32">
    <properties>
     <property name="triggersId" value="1F Gate"/>
    </properties>
   </object>
-  <object id="901" name="Spike Trap" type="Trap" gid="6387" x="544" y="640" width="32" height="32">
+  <object id="901" name="Spike Trap" type="Trap" gid="6387" x="576" y="640" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="902" name="Spike Trap" type="Trap" gid="6387" x="544" y="736" width="32" height="32">
+  <object id="902" name="Spike Trap" type="Trap" gid="6387" x="512" y="736" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -4761,96 +4765,132 @@
     <property name="capturableByBlue" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="915" name="Deploy Blue" type="Deployment" gid="290" x="480" y="1216" width="32" height="32">
+  <object id="915" name="Deploy Blue" type="Deployment" gid="290" x="352" y="1184" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="916" name="Deploy Blue" type="Deployment" gid="290" x="416" y="1216" width="32" height="32">
+  <object id="916" name="Deploy Blue" type="Deployment" gid="290" x="384" y="1184" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="917" name="Deploy Blue" type="Deployment" gid="290" x="448" y="1248" width="32" height="32">
+  <object id="917" name="Deploy Blue" type="Deployment" gid="290" x="352" y="1152" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="918" name="Deploy Blue" type="Deployment" gid="290" x="448" y="1184" width="32" height="32">
+  <object id="918" name="Deploy Blue" type="Deployment" gid="290" x="320" y="1184" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="919" name="Deploy Blue" type="Deployment" gid="290" x="416" y="1184" width="32" height="32">
+  <object id="919" name="Deploy Blue" type="Deployment" gid="290" x="544" y="800" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="928" name="Deploy Blue" type="Deployment" gid="290" x="672" y="672" width="32" height="32">
+  <object id="928" name="Deploy Blue" type="Deployment" gid="290" x="608" y="800" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="929" name="Deploy Blue" type="Deployment" gid="290" x="704" y="704" width="32" height="32">
+  <object id="929" name="Deploy Blue" type="Deployment" gid="290" x="480" y="800" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="930" name="Deploy Blue" type="Deployment" gid="290" x="672" y="736" width="32" height="32">
+  <object id="930" name="Deploy Blue" type="Deployment" gid="290" x="672" y="800" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="931" name="Deploy Blue" type="Deployment" gid="290" x="640" y="704" width="32" height="32">
+  <object id="931" name="Deploy Blue" type="Deployment" gid="290" x="416" y="800" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="932" name="Deploy Red" type="Deployment" gid="291" x="416" y="672" width="32" height="32">
+  <object id="932" name="Deploy Red" type="Deployment" gid="291" x="672" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="933" name="Deploy Red" type="Deployment" gid="291" x="448" y="704" width="32" height="32">
+  <object id="933" name="Deploy Red" type="Deployment" gid="291" x="608" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="934" name="Deploy Red" type="Deployment" gid="291" x="416" y="736" width="32" height="32">
+  <object id="934" name="Deploy Red" type="Deployment" gid="291" x="480" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="935" name="Deploy Red" type="Deployment" gid="291" x="384" y="704" width="32" height="32">
+  <object id="935" name="Deploy Red" type="Deployment" gid="291" x="416" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="936" name="Deploy Red" type="Deployment" gid="291" x="672" y="160" width="32" height="32">
+  <object id="936" name="Deploy Red" type="Deployment" gid="291" x="544" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="937" name="Deploy Red" type="Deployment" gid="291" x="704" y="224" width="32" height="32">
+  <object id="937" name="Deploy Red" type="Deployment" gid="291" x="672" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="938" name="Deploy Red" type="Deployment" gid="291" x="672" y="192" width="32" height="32">
+  <object id="938" name="Deploy Red" type="Deployment" gid="291" x="640" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="939" name="Deploy Red" type="Deployment" gid="291" x="736" y="192" width="32" height="32">
+  <object id="939" name="Deploy Red" type="Deployment" gid="291" x="672" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="940" name="Deploy Red" type="Deployment" gid="291" x="704" y="160" width="32" height="32">
+  <object id="940" name="Deploy Red" type="Deployment" gid="291" x="608" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
+  <object id="942" name="Spike Trap" type="Trap" gid="6387" x="576" y="736" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="943" name="Spike Trap" type="Trap" gid="6387" x="512" y="640" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="944" name="Rubble" type="BreakableObstacle" gid="6436" x="416" y="704" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="945" name="Rubble" type="BreakableObstacle" gid="6436" x="672" y="672" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="1"/>
+    <property name="gold" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="946" name="Spike Trap" type="Trap" gid="6387" x="448" y="672" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="947" name="Spike Trap" type="Trap" gid="6387" x="640" y="704" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="949" name="Push Block" type="Pushable" gid="6102" x="448" y="704" width="32" height="32"/>
+  <object id="950" name="Push Block" type="Pushable" gid="6102" x="640" y="672" width="32" height="32"/>
+  <object id="951" name="Push Block" type="Pushable" gid="6103" x="416" y="640" width="32" height="32"/>
+  <object id="952" name="Push Block" type="Pushable" gid="6103" x="672" y="736" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.62">
   <object id="889" name="Mighty Meat" type="BuffItem" gid="422" x="576" y="192" width="32" height="32"/>
@@ -4869,49 +4909,49 @@
  </objectgroup>
  <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units">
-  <object id="863" name="Slime" type="Creep" gid="497" x="544" y="160" width="32" height="32">
+  <object id="863" name="Rat" type="Creep" gid="505" x="544" y="160" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="864" name="Slime" type="Creep" gid="497" x="512" y="288" width="32" height="32">
+  <object id="864" name="Rat" type="Creep" gid="505" x="512" y="288" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Rat"/>
     <property name="Item" value="Swift Cheese"/>
    </properties>
   </object>
-  <object id="865" name="Slime" type="Creep" gid="497" x="576" y="224" width="32" height="32">
+  <object id="865" name="Bat" type="Creep" gid="506" x="576" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Bat"/>
     <property name="Item" value="Mighty Meat"/>
    </properties>
   </object>
-  <object id="866" name="Slime" type="Creep" gid="497" x="576" y="1056" width="32" height="32">
+  <object id="866" name="Rat" type="Creep" gid="505" x="576" y="1056" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Rat"/>
     <property name="Item" value="Swift Cheese"/>
    </properties>
   </object>
-  <object id="867" name="Slime" type="Creep" gid="497" x="512" y="1088" width="32" height="32">
+  <object id="867" name="Bat" type="Creep" gid="506" x="512" y="1088" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Bat"/>
     <property name="Item" value="Mighty Meat"/>
    </properties>
   </object>
-  <object id="868" name="Slime" type="Creep" gid="497" x="448" y="1056" width="32" height="32">
+  <object id="868" name="Rat" type="Creep" gid="505" x="448" y="1056" width="32" height="32">
    <properties>
-    <property name="Class" value="Slime"/>
+    <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="869" name="Orc" type="Creep" gid="499" x="512" y="224" width="32" height="32">
+  <object id="869" name="Bat" type="Creep" gid="506" x="512" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Orc"/>
+    <property name="Class" value="Bat"/>
     <property name="Item" value="Door Key"/>
    </properties>
   </object>
-  <object id="870" name="Orc" type="Creep" gid="499" x="512" y="1056" width="32" height="32">
+  <object id="870" name="Bat" type="Creep" gid="506" x="512" y="1024" width="32" height="32">
    <properties>
-    <property name="Class" value="Orc"/>
+    <property name="Class" value="Bat"/>
     <property name="Item" value="Door Key"/>
    </properties>
   </object>
@@ -5115,7 +5155,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="783"/>
    <tile/>
    <tile/>
    <tile/>
@@ -6227,7 +6267,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="783"/>
    <tile/>
    <tile/>
    <tile/>

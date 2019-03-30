@@ -51,7 +51,7 @@ namespace SolStandard.Containers.Contexts
 
             CurrentActiveUnit = teamUnits[nextUnitIndex];
         }
-        
+
         public void SelectPreviousUnitOnActiveTeam()
         {
             List<GameUnit> teamUnits = InitiativeList.FindAll(unit => unit.Team == CurrentActiveTeam && unit.IsActive);
@@ -94,7 +94,8 @@ namespace SolStandard.Containers.Contexts
         private void StartNewRound()
         {
             CurrentActiveTeam = TeamWithLessRemainingUnits();
-            CurrentActiveUnit = InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+            //TODO FIX THIS; GAME CRASHES WHEN ALL UNITS ARE DEAD
+            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
 
             GameContext.GameMapContext.ResetCursorToActiveUnit();
 
@@ -122,7 +123,7 @@ namespace SolStandard.Containers.Contexts
             int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
 
             if (redTeamUnits == blueTeamUnits) return FirstPlayer;
-            
+
             return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 
@@ -156,7 +157,8 @@ namespace SolStandard.Containers.Contexts
                 : string.Empty;
 
             Queue<IEvent> activationEvents = new Queue<IEvent>();
-            Vector2 activeUnitCoordinates = CurrentActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 activeUnitCoordinates =
+                (CurrentActiveUnit != null) ? CurrentActiveUnit.UnitEntity.MapCoordinates : Vector2.Zero;
             activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
             activationEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
@@ -216,7 +218,6 @@ namespace SolStandard.Containers.Contexts
 
         private void RefreshAllUnits()
         {
-            
             Queue<IEvent> refreshUnitEvents = new Queue<IEvent>();
             refreshUnitEvents.Enqueue(
                 new ToastAtCursorEvent(
@@ -227,7 +228,7 @@ namespace SolStandard.Containers.Contexts
             );
             refreshUnitEvents.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(refreshUnitEvents);
-            
+
             InitiativeList.ForEach(unit => unit.ActivateUnit());
         }
 

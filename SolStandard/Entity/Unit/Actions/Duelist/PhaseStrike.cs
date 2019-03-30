@@ -17,7 +17,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             name: "Phase Strike",
             description: "Move through an enemy unit as you attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
         }

@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -87,9 +87,9 @@ namespace SolStandard.Containers.View
             AttackerRangeWindow = RangeWindow(attackerWindowColor, inRange);
         }
 
-        public void GenerateAttackerBonusWindow(int luckStat, int bonusLuck, Color attackerWindowColor)
+        public void GenerateAttackerBonusWindow(TerrainBonus terrainBonus, Color attackerWindowColor)
         {
-            AttackerBonusWindow = BonusWindow(luckStat, bonusLuck, attackerWindowColor);
+            AttackerBonusWindow = BonusWindow(terrainBonus, attackerWindowColor);
         }
 
         public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats, Stats combatStat)
@@ -134,9 +134,9 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderBonusWindow(int luckStat, int bonusLuck, Color defenderWindowColor)
+        public void GenerateDefenderBonusWindow(TerrainBonus terrainBonus, Color defenderWindowColor)
         {
-            DefenderBonusWindow = BonusWindow(luckStat, bonusLuck, defenderWindowColor);
+            DefenderBonusWindow = BonusWindow(terrainBonus, defenderWindowColor);
         }
 
 
@@ -187,22 +187,16 @@ namespace SolStandard.Containers.View
             return new Window(defenderRangeContentGrid, windowColor);
         }
 
-        private static Window BonusWindow(int luckStat, int bonusLuck, Color attackerWindowColor)
+        private static Window BonusWindow(TerrainBonus terrainBonus, Color attackerWindowColor)
         {
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    (Convert.ToInt32(bonusLuck) > 0)
+                    ((terrainBonus.AtkBonus + terrainBonus.RetBonus + terrainBonus.BlockBonus + terrainBonus.LuckBonus) > 0)
                         ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
                         : UnitStatistics.GetSpriteAtlas(Stats.Negative),
 
-                    new RenderText(AssetManager.WindowFont, "Bonus: " + luckStat),
-
-                    (bonusLuck > 0)
-                        ? new RenderText(AssetManager.WindowFont, " + " + bonusLuck,
-                                (bonusLuck > 0) ? GameContext.PositiveColor : GameContext.NeutralColor) as
-                            IRenderable
-                        : new RenderBlank() as IRenderable
+                    new RenderText(AssetManager.WindowFont, "Bonus"),
                 }
             };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);

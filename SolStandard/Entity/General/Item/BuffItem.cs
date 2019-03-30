@@ -20,6 +20,7 @@ namespace SolStandard.Entity.General.Item
 
         public int[] InteractRange { get; private set; }
         public bool IsBroken { get; private set; }
+        public string ItemPool { get; private set; }
 
         private readonly int statModifier;
         private readonly Stats statistic;
@@ -27,10 +28,11 @@ namespace SolStandard.Entity.General.Item
         private readonly Window buffWindow;
 
         public BuffItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string statistic,
-            int statModifier, int buffDuration, int[] pickupRange)
+            int statModifier, int buffDuration, int[] pickupRange, string itemPool)
             : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
         {
             InteractRange = pickupRange;
+            ItemPool = itemPool;
             this.statistic = UnitStatistics.Abbreviation.First(key => key.Value == statistic).Key;
             this.statModifier = statModifier;
             this.buffDuration = buffDuration;
@@ -92,7 +94,7 @@ namespace SolStandard.Entity.General.Item
         public IItem Duplicate()
         {
             return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString().ToUpper(), statModifier,
-                buffDuration, InteractRange);
+                buffDuration, InteractRange, ItemPool);
         }
 
         public override IRenderable TerrainInfo

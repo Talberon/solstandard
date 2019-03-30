@@ -25,7 +25,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             description: string.Format("Single use. Target modifies {0} by [{1}] for [{2}] turns.",
                 UnitStatistics.Abbreviation[statistic], statModifier, buffDuration),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: range
+            range: range,
+            freeAction: true
         )
         {
             this.item = item;

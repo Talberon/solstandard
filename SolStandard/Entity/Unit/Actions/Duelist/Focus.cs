@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             description: "End your action now and store it for later. Can store up to " + maxActions +
                          " actions at a time.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0}
+            range: new[] {0},
+            freeAction: false
         )
         {
             this.maxActions = maxActions;

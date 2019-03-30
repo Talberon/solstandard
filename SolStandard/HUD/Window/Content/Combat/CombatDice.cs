@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Window.Content.Combat
     public class CombatDice : IRenderable
     {
         private static readonly Color DefaultDieColor = Color.White;
-        private static readonly Color BonusDieColor = new Color(80, 200, 80);
+        public static readonly Color BonusDieColor = new Color(80, 200, 80);
         public static readonly Color IgnoredDieColor = new Color(80, 80, 80, 180);
         public static readonly Color DamageDieColor = new Color(200, 50, 50, 180);
         public static readonly Color BlockedDieColor = new Color(50, 50, 150, 180);

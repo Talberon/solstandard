@@ -21,7 +21,8 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] + " stat by its base value for [" +
                          duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1}
+            range: new[] {1},
+            freeAction: false
         )
         {
             this.duration = duration;

@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             name: "Purchase " + item.Name + ": " + price + Currency.CurrencyAbbreviation,
             description: "Effect:" + Environment.NewLine + item.UseAction().Description,
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1}
+            range: new[] {0, 1},
+            freeAction: true
         )
         {
             this.item = item;
