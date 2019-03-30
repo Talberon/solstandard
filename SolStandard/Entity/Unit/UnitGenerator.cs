@@ -241,7 +241,7 @@ namespace SolStandard.Entity.Unit
         
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 5, ret: 5, luck: 1, mv: 4, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1});
         }
         
         private static UnitStatistics SelectSkeletonStats()
