@@ -1913,7 +1913,7 @@
     <property name="mapSong" value="BossTheme"/>
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
-    <property name="unitsPerTeam" type="int" value="10"/>
+    <property name="unitsPerTeam" type="int" value="7"/>
    </properties>
   </object>
   <object id="555" name="Tower of Arzon" type="SelectMap" gid="288" x="768" y="576" width="32" height="32">
