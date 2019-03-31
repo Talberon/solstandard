@@ -1,6 +1,5 @@
 import { GithubService } from './../github.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
