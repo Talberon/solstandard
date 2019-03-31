@@ -1,4 +1,6 @@
+import { GithubService } from './../github.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  readme: string;
+
+  constructor(private githubService: GithubService) { }
 
   ngOnInit() {
+    this.githubService.getReadme().subscribe(response => {
+      console.log(response);
+      this.readme = response;
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 <img src="assets/images/banners/sol-standard-logo-banner.png" class="centered" name="Sol Standard Logo" />
-<div class="jumbotron">
+<div class="jumbotron" *ngIf="!readme">
   <h1>Sol Standard</h1>
   <p>
     Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
@@ -8,3 +8,4 @@
     Plenty of items and interactable tiles allow for vastly different gameplay experiences on different battle maps.
   </p>
 </div>
+<div id="solstandard-readme" class="readme" [innerHTML]="readme"></div>
