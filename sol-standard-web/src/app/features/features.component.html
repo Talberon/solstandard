@@ -10,9 +10,12 @@
 </ul>
 
 <h1>Units</h1>
-<div class="container" *ngFor="let unit of units">
-  <img src="{{unit.imagePath}}" />
-  <p>{{unit.name}}</p>
-  <p>{{unit.role}}</p>
-  <p>{{unit.description}}</p>
+<div class="media container unit-panel" *ngFor="let unit of units">
+    <img class="portrait align-self-center mr-3" src="{{getRedPortrait(unit)}}" />
+    <div class="media-body">
+        <h3 class="name">{{unit.name}}</h3>
+        <h4 class="role">{{unit.role}}</h4>
+        <p class="description">{{unit.description}}</p>
+    </div>
+    <img class="portrait align-self-center mr-3" src="{{getBluePortrait(unit)}}" />
 </div>

@@ -1,4 +1,4 @@
-import { Unit } from './../model/unit';
+import { Unit, Team } from './../model/unit';
 import { Component, OnInit } from '@angular/core';
 import { UNITS } from '../model/unit-list';
 
@@ -14,6 +14,14 @@ export class FeaturesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getBluePortrait(unit: Unit): string {
+    return unit.getPortrait(Team.Blue);
+  }
+
+  getRedPortrait(unit: Unit): string {
+    return unit.getPortrait(Team.Red);
   }
 
 }

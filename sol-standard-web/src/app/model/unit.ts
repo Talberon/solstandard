@@ -3,12 +3,19 @@ export class Unit {
     name: string;
     role: string;
     description: string;
-    imagePath: string;
 
     constructor(id: number, name: string, role: string, description: string) {
         this.name = name;
         this.role = role;
         this.description = description;
-        this.imagePath = `/assets/images/media/portraits/red/${name}.png`;
     }
+
+    getPortrait(team: Team): string {
+        return `/assets/images/media/portraits/${team.toString().toLowerCase()}/${this.name}.png`;
+    }
+}
+
+export enum Team {
+    Red = 'Red',
+    Blue = 'Blue'
 }
