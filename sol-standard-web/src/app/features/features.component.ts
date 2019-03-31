@@ -1,6 +1,6 @@
+import { UnitService } from './../unit.service';
 import { Unit, Team } from './../model/unit';
 import { Component, OnInit } from '@angular/core';
-import { UNITS } from '../model/unit-list';
 
 @Component({
   selector: 'app-features',
@@ -9,11 +9,16 @@ import { UNITS } from '../model/unit-list';
 })
 export class FeaturesComponent implements OnInit {
 
-  units: Unit[] = UNITS;
+  units: Unit[];
 
-  constructor() { }
+  constructor(private unitService: UnitService) { }
 
   ngOnInit() {
+    this.getUnits();
+  }
+
+  getUnits() {
+    this.unitService.getUnits().subscribe(units => this.units = units);
   }
 
   getBluePortrait(unit: Unit): string {
