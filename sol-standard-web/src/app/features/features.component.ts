@@ -1,4 +1,6 @@
+import { Unit } from './../model/unit';
 import { Component, OnInit } from '@angular/core';
+import { UNITS } from '../model/unit-list';
 
 @Component({
   selector: 'app-features',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./features.component.less']
 })
 export class FeaturesComponent implements OnInit {
+
+  units: Unit[] = UNITS;
 
   constructor() { }
 

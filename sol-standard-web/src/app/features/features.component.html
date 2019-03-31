@@ -8,3 +8,11 @@
     <li>Interactive terrain you can utilize to turn the tide of battle</li>
     <li>Neutral AI units that add a wrinkle to the battle plan</li>
 </ul>
+
+<h1>Units</h1>
+<div class="container" *ngFor="let unit of units">
+  <img src="{{unit.imagePath}}" />
+  <p>{{unit.name}}</p>
+  <p>{{unit.role}}</p>
+  <p>{{unit.description}}</p>
+</div>
