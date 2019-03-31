@@ -14,7 +14,7 @@ export class GithubService {
   constructor(private http: HttpClient) { }
 
   getReadme() {
-    return this.http.get<string>(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/readme`,
+    return this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/readme`,
       { headers: this.headers, responseType: 'text' }
     );
   }
