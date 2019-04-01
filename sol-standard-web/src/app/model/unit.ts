@@ -11,7 +11,7 @@ export class Unit {
     }
 
     getPortrait(team: Team): string {
-        return `/assets/images/media/portraits/${team.toString().toLowerCase()}/${this.name}.png`;
+        return `assets/images/media/portraits/${team.toString().toLowerCase()}/${this.name}.png`;
     }
 }
 
