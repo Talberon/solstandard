@@ -10,6 +10,7 @@ import { FeaturesComponent } from './features/features.component';
 import { MediaComponent } from './media/media.component';
 import { DownloadComponent } from './download/download.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     BrowserModule,
     UiModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

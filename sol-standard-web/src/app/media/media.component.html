@@ -1,2 +1,13 @@
 <h1>Media</h1>
-<p>TODO Implement media page</p>
+
+<carousel>
+  <slide *ngFor="let image of images">
+    <img class="carousel-image" src="{{image.source}}" />
+    <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-text">
+        <h3>{{image.title}}</h3>
+        <p>{{image.description}}</p>
+      </div>
+    </div>
+  </slide>
+</carousel>
