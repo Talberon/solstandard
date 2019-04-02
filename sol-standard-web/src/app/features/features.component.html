@@ -9,13 +9,4 @@
     <li>Neutral AI units that add a wrinkle to the battle plan</li>
 </ul>
 
-<h1>Units</h1>
-<div class="media container unit-panel" *ngFor="let unit of units">
-    <img class="portrait align-self-center mr-3" src="{{getRedPortrait(unit)}}" />
-    <div class="media-body">
-        <h3 class="name">{{unit.name}}</h3>
-        <h4 class="role">{{unit.role}}</h4>
-        <p class="description">{{unit.description}}</p>
-    </div>
-    <img class="portrait align-self-center mr-3" src="{{getBluePortrait(unit)}}" />
-</div>
+<app-unit-list></app-unit-list>

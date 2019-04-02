@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "deploy": "ng build --prod --base-href https://talberon.github.io/solstandard/ && ngh --dir=dist/sol-standard-web",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
