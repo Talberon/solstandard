@@ -1,10 +1,14 @@
 <h1>Units</h1>
-<div class="media container unit-panel" *ngFor="let unit of units">
-    <img class="portrait align-self-center mr-3" src="{{getRedPortrait(unit)}}" />
-    <div class="media-body">
-        <h3 class="name">{{unit.name}}</h3>
-        <h4 class="role">{{unit.role}}</h4>
-        <p class="description">{{unit.description}}</p>
+<div class="unit-panel row align-items-center" *ngFor="let role of roles()">
+    <div class="col-sm-2 col">
+        <h2 class="role">{{role}}</h2>
     </div>
-    <img class="portrait align-self-center mr-3" src="{{getBluePortrait(unit)}}" />
+    <div class="col-auto" *ngFor="let unit of getUnitsByRole(role)">
+        <div class="card unit-card">
+            <img class="card-img-top portrait" src="{{getRandomPortrait(unit)}}" />
+            <div class="card-body">
+                <h5 class="name card-title">{{unit.name}}</h5>
+            </div>
+        </div>
+    </div>
 </div>

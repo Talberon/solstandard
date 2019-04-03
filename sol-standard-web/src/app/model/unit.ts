@@ -19,3 +19,10 @@ export enum Team {
     Red = 'Red',
     Blue = 'Blue'
 }
+
+export enum Role {
+    Tank = 'Tank',
+    Melee = 'Melee',
+    Ranged = 'Ranged',
+    Support = 'Support'
+}

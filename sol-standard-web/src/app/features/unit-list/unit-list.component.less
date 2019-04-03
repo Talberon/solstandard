@@ -1,20 +1,38 @@
 .unit-panel {
-    background   : rgb(50, 50, 50);
-    margin-top   : 1em;
-    margin-bottom: 1em;
-
-    .portrait {
-        @portrait-size: 100px;
-        width         : @portrait-size;
-        height        : @portrait-size;
-    }
-
-    .name {}
+    background   : rgba(50, 50, 50, 0);
+    margin-bottom: 0.2rem;
+    text-align   : right;
 
     .role {
-        font-style: italic;
+        margin-top   : auto;
+        margin-bottom: auto;
+    }
+}
+
+.card {
+    width        : 8em;
+    background   : rgba(50, 50, 50, 0.8);
+    margin-bottom: 0.2em;
+
+    .portrait {
+        @portrait-size: 110px;
+        width         : @portrait-size;
+        height        : @portrait-size;
+        margin-left   : auto;
+        margin-right  : auto;
+        margin-top    : 0.3em;
     }
 
-    .description {}
+    .card-body {
+        padding: 0.5rem;
 
+        .card-title {
+            text-align   : center;
+            margin-bottom: 0px;
+        }
+    }
+
+    &:hover {
+        background: rgb(70, 70, 70);
+    }
 }
