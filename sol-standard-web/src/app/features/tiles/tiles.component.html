@@ -1,2 +1,5 @@
-<h1 *ngIf="false">Tiles</h1>
-<!--TODO Fill this with relevant detail-->
+<h1>Tiles</h1>
+<div class="container" *ngFor="let tile of gameTiles">
+  <h3>{{tile.name}}</h3>
+  <p>{{tile.description}}</p>
+</div>

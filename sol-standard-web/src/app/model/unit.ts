@@ -1,8 +1,8 @@
 export class Unit {
-    id: number;
-    name: string;
-    role: string;
-    description: string;
+    readonly id: number;
+    readonly name: string;
+    readonly role: string;
+    readonly description: string;
 
     constructor(id: number, name: string, role: string, description: string) {
         this.name = name;

@@ -1,4 +1,6 @@
+import { GameTileService } from './../game-tile.service';
 import { Component, OnInit } from '@angular/core';
+import { GameTile } from 'src/app/model/game-tile';
 
 @Component({
   selector: 'app-tiles',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TilesComponent implements OnInit {
 
-  constructor() { }
+  gameTiles: GameTile[];
+
+  constructor(private gameTileService: GameTileService) { }
 
   ngOnInit() {
+    this.getTiles();
+  }
+
+  getTiles() {
+    this.gameTileService.getTiles().subscribe(tiles => this.gameTiles = tiles);
   }
 
 }

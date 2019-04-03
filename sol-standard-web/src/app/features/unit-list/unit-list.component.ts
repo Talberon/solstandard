@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Unit, Team } from 'src/app/model/unit';
-import { UnitService } from 'src/app/unit.service';
+import { UnitService } from 'src/app/features/unit.service';
 
 @Component({
   selector: 'app-unit-list',

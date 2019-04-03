@@ -1,7 +1,7 @@
 export class CarouselImage {
-    source: string;
-    title: string;
-    description: string;
+    readonly source: string;
+    readonly title: string;
+    readonly description: string;
 
     constructor(source: string, title: string, description: string) {
         this.source = source;
