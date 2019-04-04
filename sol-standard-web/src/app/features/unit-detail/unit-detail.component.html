@@ -1,9 +1,15 @@
-<div class="media">
-  <img class="portrait align-self-center mr-3" src="{{unit.getPortrait('Red')}}" />
-  <div class="media-body">
-    <h1 class="mt-0" class="name">{{unit.name}}</h1>
-    <h4 class="role">{{unit.role}}</h4>
-    <p class="description">{{unit.description}}</p>
+<button id="back_button" class="btn btn-dark" [routerLink]="['/features']">
+  <span class="fa fa-backward"></span> Back to Features
+</button>
+
+<div class="container">
+  <div class="media">
+    <img class="portrait align-self-center mr-3" src="{{getRedPortrait(unit)}}" />
+    <div class="media-body">
+      <h1 class="mt-0" class="name">{{unit.name}}</h1>
+      <h4 class="role">{{unit.role}}</h4>
+      <p class="description">{{unit.description}}</p>
+    </div>
+    <img class="portrait align-self-center ml-3" src="{{getBluePortrait(unit)}}" />
   </div>
-  <img class="portrait align-self-center ml-3" src="{{unit.getPortrait('Blue')}}" />
 </div>

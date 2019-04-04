@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Unit } from 'src/app/model/unit';
+import { Unit, Team } from 'src/app/model/unit';
 import { UnitService } from '../unit.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -22,4 +22,11 @@ export class UnitDetailComponent implements OnInit {
     ).subscribe(unit => this.unit = unit);
   }
 
+  getBluePortrait(unit: Unit): string {
+    return unit.getPortrait(Team.Blue);
+  }
+
+  getRedPortrait(unit: Unit): string {
+    return unit.getPortrait(Team.Red);
+  }
 }
