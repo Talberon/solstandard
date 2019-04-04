@@ -4,11 +4,13 @@
         <h2 class="role">{{role}}</h2>
     </div>
     <div class="col-auto" *ngFor="let unit of getUnitsByRole(role)">
-        <div class="card unit-card">
-            <img class="card-img-top portrait" src="{{getRandomPortrait(unit)}}" />
-            <div class="card-body">
-                <h5 class="name card-title">{{unit.name}}</h5>
+        <a [routerLink]="['/features/unit', unit.id]">
+            <div class="card unit-card">
+                <img class="card-img-top portrait" src="{{getRandomPortrait(unit)}}" />
+                <div class="card-body">
+                    <h5 class="name card-title">{{unit.name}}</h5>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>

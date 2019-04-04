@@ -13,4 +13,8 @@ export class UnitService {
   getUnits(): Observable<Unit[]> {
     return of(UNITS);
   }
+
+  getUnit(id: number) {
+    return of(UNITS.find(unit => unit.id === id));
+  }
 }

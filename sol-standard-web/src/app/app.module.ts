@@ -1,3 +1,4 @@
+import { FeaturesRoutingModule } from './features/features-routing.module';
 import { FeaturesModule } from './features/features.module';
 import { FeaturesComponent } from './features/features.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,6 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'features', component: FeaturesComponent },
   { path: 'media', component: MediaComponent },
   { path: 'download', component: DownloadComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -37,7 +37,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     CarouselModule.forRoot(),
-    FeaturesModule
+    FeaturesModule,
+    FeaturesRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

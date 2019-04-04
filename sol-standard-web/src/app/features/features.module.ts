@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UnitListComponent } from './unit-list/unit-list.component';
 import { UnitDetailComponent } from './unit-detail/unit-detail.component';
 import { TilesComponent } from './tiles/tiles.component';
+import { FeaturesRoutingModule } from './features-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { TilesComponent } from './tiles/tiles.component';
     TilesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FeaturesRoutingModule
   ],
   exports: [
     FeaturesComponent
