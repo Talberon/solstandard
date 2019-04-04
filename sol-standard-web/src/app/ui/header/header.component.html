@@ -1,18 +1,19 @@
 <nav class="navbar navbar-dark bg-dark mb-5">
-    <a class="navbar-brand" href="home"><img src="assets/images/banners/sol-standard-logo-nav.png" name="Sol Standard" /></a>
-    <div class="navbar-expand mr-auto">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" [ngClass]="{'active': onRoute('home')}" href="home">Home</a>
-        <a class="nav-item nav-link" [ngClass]="{'active': onRoute('features')}" href="features">Features</a>
-        <a class="nav-item nav-link" [ngClass]="{'active': onRoute('media')}" href="media">Media</a>
-        <a class="nav-item nav-link" [ngClass]="{'active': onRoute('download')}" href="download">Download</a>
-      </div>
+  <a class="navbar-brand" href="home"><img src="assets/images/banners/sol-standard-logo-nav.png"
+      name="Sol Standard" /></a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+      <a class="nav-item nav-link" routerLink="/features" routerLinkActive="active">Features</a>
+      <a class="nav-item nav-link" routerLink="/media" routerLinkActive="active">Media</a>
+      <a class="nav-item nav-link" routerLink="/download" routerLinkActive="active">Download</a>
     </div>
-    <div class="navbar-expand ml-auto navbar-nav">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="https://github.com/Talberon" target="_blank">
-          <i class="fa fa-github"></i>
-        </a>
-      </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="https://github.com/Talberon" target="_blank">
+        <i class="fa fa-github"></i>
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>
