@@ -13,3 +13,15 @@
     <img class="portrait align-self-center ml-3" src="{{getBluePortrait(unit)}}" />
   </div>
 </div>
+
+<carousel>
+    <slide *ngFor="let gif of unit.getGifs()">
+      <img class="carousel-gif" src="{{gif.source}}" />
+      <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-text">
+          <h3>{{gif.title}}</h3>
+          <p>{{gif.description}}</p>
+        </div>
+      </div>
+    </slide>
+  </carousel>

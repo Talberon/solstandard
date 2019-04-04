@@ -1,6 +1,6 @@
-import { CarouselImage } from './../model/carousel-image';
+import { MediaImage } from '../model/media-image';
 import { Component, OnInit } from '@angular/core';
-import { IMAGES } from '../model/carousel-image-list';
+import { IMAGES } from '../model/media-image-list';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
 
 @Component({
@@ -13,7 +13,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 })
 export class MediaComponent implements OnInit {
 
-  images: CarouselImage[] = IMAGES;
+  images: MediaImage[] = IMAGES;
 
   constructor() { }
 

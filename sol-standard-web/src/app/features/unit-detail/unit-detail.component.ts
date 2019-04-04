@@ -1,3 +1,4 @@
+import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { Component, OnInit } from '@angular/core';
 import { Unit, Team } from 'src/app/model/unit';
 import { UnitService } from '../unit.service';
@@ -8,6 +9,9 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-unit-detail',
   templateUrl: './unit-detail.component.html',
   styleUrls: ['./unit-detail.component.less'],
+  providers: [
+    { provide: CarouselConfig, useValue: { interval: 30000, noPause: false, showIndicators: true } }
+  ]
 })
 export class UnitDetailComponent implements OnInit {
 

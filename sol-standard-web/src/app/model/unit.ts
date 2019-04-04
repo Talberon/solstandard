@@ -12,7 +12,15 @@ export class Unit {
     }
 
     getPortrait(team: Team): string {
-        return `assets/images/media/portraits/${team.toString().toLowerCase()}/${this.name}.png`;
+        return `assets/images/media/units/portraits/${team.toString().toLowerCase()}/${this.name}.png`;
+    }
+
+    getGifs(): string[] {
+        return [
+            `assets/images/media/units/gifs/${this.name}_01.png`,
+            `assets/images/media/units/gifs/${this.name}_02.png`,
+            `assets/images/media/units/gifs/${this.name}_03.png`,
+        ];
     }
 }
 

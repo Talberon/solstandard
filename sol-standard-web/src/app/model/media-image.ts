@@ -1,4 +1,4 @@
-export class CarouselImage {
+export class MediaImage {
     readonly source: string;
     readonly title: string;
     readonly description: string;
