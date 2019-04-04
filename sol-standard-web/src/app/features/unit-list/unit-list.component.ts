@@ -9,6 +9,7 @@ import { UnitService } from 'src/app/features/unit.service';
 })
 export class UnitListComponent implements OnInit {
   units: Unit[];
+  unitHovering: Map<Unit, boolean> = new Map();
 
   constructor(private unitService: UnitService) { }
 
@@ -22,6 +23,23 @@ export class UnitListComponent implements OnInit {
 
   roles() {
     return Object.keys(Role);
+  }
+
+  startHoverPortrait(unit: Unit) {
+    this.unitHovering.set(unit, true);
+  }
+
+  stopHoverPortrait(unit: Unit) {
+    this.unitHovering.set(unit, false);
+    console.log(`Stop hovering. Map: ${this.unitHovering}`);
+  }
+
+  unitIsHovered(unit: Unit) {
+    if (this.unitHovering.has(unit)) {
+      return this.unitHovering.get(unit);
+    } else {
+      return false;
+    }
   }
 
   getUnitsByRole(role: string): Unit[] {

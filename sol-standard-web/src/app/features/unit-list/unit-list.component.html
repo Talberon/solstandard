@@ -5,8 +5,9 @@
     </div>
     <div class="col-auto" *ngFor="let unit of getUnitsByRole(role)">
         <a [routerLink]="['/features/unit', unit.id]">
-            <div class="card unit-card">
-                <img class="card-img-top portrait" src="{{getRandomPortrait(unit)}}" />
+            <div class="card unit-card" (mouseover)="startHoverPortrait(unit)" (mouseout)="stopHoverPortrait(unit)">
+                <img *ngIf="!unitIsHovered(unit)" class="card-img-top portrait" src="{{getRedPortrait(unit)}}" />
+                <img *ngIf="unitIsHovered(unit)" class="card-img-top portrait portrait-hover" src="{{getBluePortrait(unit)}}" />
                 <div class="card-body">
                     <h5 class="name card-title">{{unit.name}}</h5>
                 </div>
