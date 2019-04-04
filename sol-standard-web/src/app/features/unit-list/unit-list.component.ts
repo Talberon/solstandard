@@ -31,7 +31,6 @@ export class UnitListComponent implements OnInit {
 
   stopHoverPortrait(unit: Unit) {
     this.unitHovering.set(unit, false);
-    console.log(`Stop hovering. Map: ${this.unitHovering}`);
   }
 
   unitIsHovered(unit: Unit) {
