@@ -2,6 +2,9 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
+@panel-background: rgba(50, 50, 50, 0.8);
+@panel-highlight : rgb(70, 70, 70);
+
 body {
     background-image: url('src\assets\images\background.png');
     color           : rgb(217, 215, 211);
@@ -37,4 +40,12 @@ body {
     display     : block;
     margin-left : auto;
     margin-right: auto;
+}
+
+.list-group-item {
+    background: @panel-background;
+
+    &:hover {
+        background: @panel-highlight;
+    }
 }

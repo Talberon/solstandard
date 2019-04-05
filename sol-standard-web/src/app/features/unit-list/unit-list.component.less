@@ -1,5 +1,7 @@
+@panel-background: rgba(50, 50, 50, 0.8);
+@panel-highlight: rgb(70, 70, 70);
+
 .unit-panel {
-    background   : rgba(50, 50, 50, 0);
     margin-bottom: 0.2rem;
     text-align   : right;
 
@@ -16,7 +18,7 @@
 
 .card {
     width        : 8em;
-    background   : rgba(50, 50, 50, 0.8);
+    background   : @panel-background;
     margin-bottom: 0.2em;
 
     .portrait {
@@ -38,6 +40,6 @@
     }
 
     &:hover {
-        background: rgb(70, 70, 70);
+        background: @panel-highlight;
     }
 }
