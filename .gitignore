@@ -1,11 +1,7 @@
 .vs/
-<<<<<<< HEAD
 obj/
 app.manifest/
 packages/
 .idea/
-=======
-.idea/
-packages/
 TestResults/
->>>>>>> SOL-4_flesh_out_unit_classes
+sol-standard-web/
