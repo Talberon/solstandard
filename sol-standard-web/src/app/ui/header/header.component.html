@@ -6,17 +6,13 @@
       <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">Home</a>
       <a class="nav-item nav-link" routerLink="/features" routerLinkActive="active">Features</a>
       <a class="nav-item nav-link" routerLink="/media" routerLinkActive="active">Media</a>
+      <a class="nav-item nav-link secret" routerLink="/secret" routerLinkActive="active" *ngIf="secretIsActivated()">Secret!</a>
       <!-- <a class="nav-item nav-link" routerLink="/download" routerLinkActive="active">Download</a> -->
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a class="nav-item nav-link">
-        <span class="fa fa-unlock"></span>
-      </a>
-      <a class="nav-item nav-link">
-        <span class="fa fa-lock"></span>
-      </a>
+      <app-egg class="nav-item nav-link"></app-egg>
       <a class="nav-item nav-link" href="https://github.com/Talberon" target="_blank">
         <span class="fa fa-github"></span>
       </a>

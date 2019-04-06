@@ -1,3 +1,5 @@
+import { EasterEggModule } from './easter-egg/easter-egg.module';
+import { EasterEggRoutingModule } from './easter-egg/easter-egg-routing.module';
 import { FeaturesRoutingModule } from './features/features-routing.module';
 import { FeaturesModule } from './features/features.module';
 import { FeaturesComponent } from './features/features.component';
@@ -38,7 +40,9 @@ const appRoutes: Routes = [
     HttpClientModule,
     CarouselModule.forRoot(),
     FeaturesModule,
-    FeaturesRoutingModule
+    FeaturesRoutingModule,
+    EasterEggModule,
+    EasterEggRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
