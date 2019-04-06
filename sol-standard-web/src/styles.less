@@ -2,16 +2,13 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
-@panel-background: rgba(50, 50, 50, 0.8);
-@panel-highlight : rgb(70, 70, 70);
+@panel-highlight : rgb(100, 100, 100);
 
 body {
-    background-image: url('src\assets\images\background.png');
-    color           : rgb(217, 215, 211);
+    color: rgb(217, 215, 211);
 }
 
 .container {
-    background   : rgb(23, 24, 28);
     border-radius: 0.3rem;
     padding      : 1rem;
 
@@ -43,9 +40,17 @@ body {
 }
 
 .list-group-item {
-    background: @panel-background;
-
     &:hover {
+        color     : white;
         background: @panel-highlight;
     }
+}
+
+.colorful {
+    background:
+        -webkit-linear-gradient(21deg, hsla(203.77, 78.57%, 33.58%, 1) 26%, hsla(203.77, 78.57%, 33.58%, 0) 93%),
+        -webkit-linear-gradient(23deg, hsla(0, 75.78%, 37.79%, 1) 100%, hsla(0, 75.78%, 37.79%, 0) 59%);
+    background:
+        linear-gradient(69deg, hsla(203.77, 78.57%, 33.58%, 1) 26%, hsla(203.77, 78.57%, 33.58%, 0) 93%),
+        linear-gradient(67deg, hsla(0, 75.78%, 37.79%, 1) 100%, hsla(0, 75.78%, 37.79%, 0) 59%);
 }
