@@ -31,6 +31,9 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         private GraphicsDeviceManager graphics;
 
+        //Project Site
+        public const string SolStandardUrl = "https://talberon.github.io/solstandard";
+        
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
@@ -344,6 +347,8 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.Codex:
                     break;
+                case GameContext.GameState.Credits:
+                    break;
                 case GameContext.GameState.Results:
                     break;
                 default:
@@ -399,6 +404,9 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.Results:
                     DrawGameResultsScreen();
+                    break;
+                case GameContext.GameState.Credits:
+                    DrawCreditsScreen();
                     break;
                 default:
                     base.Draw(gameTime);
@@ -472,6 +480,21 @@ namespace SolStandard
 
             spriteBatch.End();
         }
+
+
+
+        private void DrawCreditsScreen()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp);
+
+            GameContext.CreditsContext.CreditsView.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
+
+
 
         private void DrawColorEntireScreen(Color color)
         {

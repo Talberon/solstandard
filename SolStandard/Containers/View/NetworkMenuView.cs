@@ -185,7 +185,7 @@ namespace SolStandard.Containers.View
                 Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
                 background.Draw(spriteBatch, centerScreen - backgroundCenter);
 
-                const int titleVertCoordinate = 30;
+                const int titleVertCoordinate = 15;
                 Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
                 Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
                 logo.Draw(spriteBatch, titlePosition);

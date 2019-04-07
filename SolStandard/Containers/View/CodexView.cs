@@ -213,9 +213,7 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 centerScreen = GameDriver.ScreenSize / 2;
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+            DrawBackground(spriteBatch);
 
             if (UnitListMenu != null) UnitListMenu.Draw(spriteBatch, UnitListMenuPosition());
 
@@ -228,6 +226,13 @@ namespace SolStandard.Containers.View
                     unitActionListWindow.Draw(spriteBatch, UnitActionListWindowPosition());
                 }
             }
+        }
+
+        private void DrawBackground(SpriteBatch spriteBatch)
+        {
+            Vector2 centerScreen = GameDriver.ScreenSize / 2;
+            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
+            background.Draw(spriteBatch, centerScreen - backgroundCenter);
         }
     }
 }

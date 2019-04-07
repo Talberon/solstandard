@@ -43,8 +43,26 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.Results:
                     ResultsControls(controlMapper);
                     break;
+                case GameContext.GameState.Credits:
+                    CreditsControls(controlMapper);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void CreditsControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.CreditsContext.OpenBrowser();
+            }
+            
+            if (controlMapper.Press(Input.Cancel, PressType.Single) ||
+                controlMapper.Press(Input.Status, PressType.Single) ||
+                controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                GameContext.CreditsContext.ExitView();
             }
         }
 

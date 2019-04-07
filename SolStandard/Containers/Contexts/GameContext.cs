@@ -25,7 +25,8 @@ namespace SolStandard.Containers.Contexts
             PauseScreen,
             InGame,
             Results,
-            Codex
+            Codex,
+            Credits
         }
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
@@ -46,6 +47,7 @@ namespace SolStandard.Containers.Contexts
         public static DraftContext DraftContext { get; private set; }
         public static DeploymentContext DeploymentContext { get; private set; }
         public static CodexContext CodexContext { get; private set; }
+        public static CreditsContext CreditsContext { get; private set; }
 
         public static GameState CurrentGameState;
 
@@ -73,6 +75,8 @@ namespace SolStandard.Containers.Contexts
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Results:
                         return PlayerIndex.Four;
+                    case GameState.Credits:
+                        return PlayerIndex.One;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -87,6 +91,7 @@ namespace SolStandard.Containers.Contexts
             BattleContext = new BattleContext(new BattleView());
             DraftContext = new DraftContext();
             CodexContext = new CodexContext();
+            CreditsContext = new CreditsContext(new CreditsView());
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
         }
