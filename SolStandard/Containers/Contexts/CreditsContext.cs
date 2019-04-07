@@ -19,7 +19,6 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Credits) return;
 
-            Process.Start(GameDriver.SolStandardUrl + CreditsPath);
             previousGameState = GameContext.CurrentGameState;
             GameContext.CurrentGameState = GameContext.GameState.Credits;
         }
@@ -28,6 +27,12 @@ namespace SolStandard.Containers.Contexts
         {
             AssetManager.MapUnitCancelSFX.Play();
             GameContext.CurrentGameState = previousGameState;
+        }
+
+        public void OpenBrowser()
+        {
+            AssetManager.MenuConfirmSFX.Play();
+            Process.Start(GameDriver.SolStandardUrl + CreditsPath);
         }
     }
 }

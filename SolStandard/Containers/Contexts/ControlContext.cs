@@ -53,8 +53,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void CreditsControls(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.Confirm, PressType.Single) ||
-                controlMapper.Press(Input.Cancel, PressType.Single) ||
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.CreditsContext.OpenBrowser();
+            }
+            
+            if (controlMapper.Press(Input.Cancel, PressType.Single) ||
                 controlMapper.Press(Input.Status, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
