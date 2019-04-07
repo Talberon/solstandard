@@ -1,14 +1,19 @@
-<nav class="navbar navbar-dark bg-dark mb-5">
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark mb-5">
+  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarMain"
+    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <a class="navbar-brand" routerLink="/home"><img src="assets/images/banners/sol-standard-logo-nav.png"
       name="Sol Standard" /></a>
-  <div class="navbar-expand mr-auto">
+  <div class="collapse navbar-collapse mr-auto" id="navbarMain">
     <div class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">Home</a>
       <a class="nav-item nav-link" routerLink="/features" routerLinkActive="active">Features</a>
       <a class="nav-item nav-link" routerLink="/media" routerLinkActive="active">Media</a>
       <a class="nav-item nav-link" routerLink="/credits" routerLinkActive="active">Credits</a>
       <a class="nav-item nav-link" routerLink="/download" routerLinkActive="active">Download</a>
-      <a class="nav-item nav-link secret" routerLink="/secret" routerLinkActive="active" *ngIf="secretIsActivated()">Secret!</a>
+      <a class="nav-item nav-link secret" routerLink="/secret" routerLinkActive="active"
+        *ngIf="secretIsActivated()">Secret!</a>
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
