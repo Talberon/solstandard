@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EasterEggRoutingModule } from './easter-egg-routing.module';
 import { SecretPageComponent } from './secret-page/secret-page.component';
@@ -8,7 +9,8 @@ import { SecretPageComponent } from './secret-page/secret-page.component';
   declarations: [SecretPageComponent],
   imports: [
     CommonModule,
-    EasterEggRoutingModule
+    EasterEggRoutingModule,
+    BrowserAnimationsModule
   ]
 })
 export class EasterEggModule { }
