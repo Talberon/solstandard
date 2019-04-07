@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { PullRequestsComponent } from './pull-requests/pull-requests.component';
 import { DownloadComponent } from './download/download.component';
 import { GithubRoutingModule } from './github-routing.module';
+import { ReleaseComponent } from './release/release.component';
 
 @NgModule({
-  declarations: [PullRequestsComponent, DownloadComponent],
+  declarations: [PullRequestsComponent, DownloadComponent, ReleaseComponent],
   imports: [
     CommonModule,
     GithubRoutingModule,

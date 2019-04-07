@@ -1,13 +1,20 @@
-import { Injectable } from '@angular/core';
+import { ReleaseInfo } from './github.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { shareReplay, map } from 'rxjs/operators';
 
 export interface PullRequest {
   title: string;
   body: string;
+  merged_at: string;
 }
 
+export interface ReleaseInfo {
+  name: string;
+  body_html: string;
+  html_url: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +24,19 @@ export class GithubService {
   githubURL = 'https://api.github.com';
   ownerName = 'Talberon';
   repoName = 'solstandard';
-  headers = new HttpHeaders({ Accept: 'application/vnd.github.v3.html' });
+  markdownHeaders = new HttpHeaders({ Accept: 'application/vnd.github.v3.html' });
 
   readmeCache: Observable<string>;
   pullRequestsCache: Observable<PullRequest[]>;
   creditsCache: Observable<string>;
+  releaseCache: Observable<ReleaseInfo>;
 
   constructor(private http: HttpClient) { }
 
   getReadme(): Observable<string> {
     if (!this.readmeCache) {
       this.readmeCache = this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/readme`,
-        { headers: this.headers, responseType: 'text' }
+        { headers: this.markdownHeaders, responseType: 'text' }
       ).pipe(
         shareReplay()
       );
@@ -52,12 +60,23 @@ export class GithubService {
   getCredits(): Observable<string> {
     if (!this.creditsCache) {
       this.creditsCache = this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/contents/CREDITS.md`,
-        { headers: this.headers, responseType: 'text' }
+        { headers: this.markdownHeaders, responseType: 'text' }
       ).pipe(
         shareReplay()
       );
     }
 
     return this.creditsCache;
+  }
+
+  getLatestRelease(): Observable<ReleaseInfo> {
+    if (!this.releaseCache) {
+      this.releaseCache =
+        this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/releases/latest`,
+          { headers: this.markdownHeaders }
+        ).pipe(shareReplay()) as Observable<ReleaseInfo>;
+    }
+
+    return this.releaseCache;
   }
 }

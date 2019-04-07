@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    <h2 [innerText]="releaseInfo?.name"></h2>
+  </div>
+  <div class="card-body">
+    <div name="release-info-body" [innerHTML]="releaseInfo?.body_html"></div>
+
+    <a class="btn btn-primary" href="{{releaseInfo?.html_url}}" target="_blank">
+      <span class="fa fa-download"></span> Download on GitHub
+    </a>
+  </div>
+</div>

@@ -3,7 +3,10 @@
 <div *ngFor="let pullRequest of pullRequests">
   <div class="card">
     <div class="card-header">
-      <h2 [innerText]="pullRequest.title"></h2>
+      <span>
+        <p class="title" [innerText]="pullRequest.title"></p>
+        <p class="date" [innerText]="pullRequest.merged_at | date"></p>
+      </span>
     </div>
     <div class="card-body">
       <p [innerHTML]="pullRequest.body | markdown"></p>
