@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
   trigger,
-  state,
   style,
   animate,
   transition,
   keyframes
-  // ...
 } from '@angular/animations';
 
 @Component({
@@ -15,14 +13,13 @@ import {
   styleUrls: ['./secret-page.component.less'],
   animations: [
     trigger('colourStatus', [
-      state('true', style({
-        color: 'red'
-      })),
-      state('false', style({
-        color: 'rgb(80,80,255)'
-      })),
-      transition('red <=> blue', [
-        animate('2s', keyframes([
+      transition(':enter', [
+        animate('5s', keyframes([
+          style({ color: 'red' }),
+          style({ color: 'white' }),
+          style({ color: 'rgb(80,80,255)' }),
+          style({ color: 'white' }),
+          style({ color: 'red' }),
           style({ color: 'white' })
         ]))
       ]
