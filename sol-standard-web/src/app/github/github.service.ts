@@ -21,6 +21,7 @@ export class GithubService {
 
   readmeCache: Observable<string>;
   pullRequestsCache: Observable<PullRequest[]>;
+  creditsCache: Observable<string>;
 
   constructor(private http: HttpClient) { }
 
@@ -46,5 +47,17 @@ export class GithubService {
     }
 
     return this.pullRequestsCache;
+  }
+
+  getCredits(): Observable<string> {
+    if (!this.creditsCache) {
+      this.creditsCache = this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/contents/CREDITS.md`,
+        { headers: this.headers, responseType: 'text' }
+      ).pipe(
+        shareReplay()
+      );
+    }
+
+    return this.creditsCache;
   }
 }

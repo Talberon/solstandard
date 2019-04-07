@@ -1,3 +1,5 @@
+import { CreditsRoutingModule } from './credits/credits-routing.module';
+import { CreditsModule } from './credits/credits.module';
 import { GithubRoutingModule } from './github/github-routing.module';
 import { GithubModule } from './github/github.module';
 import { EasterEggModule } from './easter-egg/easter-egg.module';
@@ -44,7 +46,9 @@ const appRoutes: Routes = [
     EasterEggRoutingModule,
     GithubModule,
     GithubRoutingModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    CreditsModule,
+    CreditsRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
