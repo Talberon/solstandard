@@ -1,0 +1,12 @@
+<h1>Patch Notes</h1>
+
+<div *ngFor="let pullRequest of pullRequests">
+  <div class="card">
+    <div class="card-header">
+      <h2 [innerText]="pullRequest.title"></h2>
+    </div>
+    <div class="card-body">
+      <p [innerHTML]="pullRequest.body | markdown"></p>
+    </div>
+  </div>
+</div>
