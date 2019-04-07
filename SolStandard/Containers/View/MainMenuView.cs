@@ -39,6 +39,7 @@ namespace SolStandard.Containers.View
                 new HostGameOption(MenuColor),
                 new JoinGameOption(MenuColor),
                 new OpenCodexOption(MenuColor), 
+                new CreditsOption(MenuColor), 
                 new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
@@ -60,7 +61,7 @@ namespace SolStandard.Containers.View
 
                 DrawBackground(spriteBatch, centerScreen);
 
-                const int titleVertCoordinate = 30;
+                const int titleVertCoordinate = 20;
                 Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
                 Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
                 logo.Draw(spriteBatch, titlePosition);
@@ -78,7 +79,7 @@ namespace SolStandard.Containers.View
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
         {
-            const int titlePadding = 200;
+            const int titlePadding = 110;
             Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
             Vector2 mainMenuPosition =
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);

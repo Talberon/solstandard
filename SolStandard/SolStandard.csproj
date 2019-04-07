@@ -45,6 +45,7 @@
     <Compile Include="Containers\Contexts\CodexContext.cs" />
     <Compile Include="Containers\Contexts\Combat\TerrainBonus.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
+    <Compile Include="Containers\Contexts\CreditsContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\CodexView.cs" />
+    <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
