@@ -14,7 +14,7 @@ export class UnitService {
     return of(UNITS);
   }
 
-  getUnit(id: number) {
+  getUnit(id: number): Observable<Unit> {
     return of(UNITS.find(unit => unit.id === id));
   }
 }

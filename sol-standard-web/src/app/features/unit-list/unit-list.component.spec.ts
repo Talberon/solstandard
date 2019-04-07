@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UnitListComponent } from './unit-list.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UnitListComponent', () => {
   let component: UnitListComponent;
@@ -8,7 +9,10 @@ describe('UnitListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnitListComponent ]
+      declarations: [ UnitListComponent ],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
     })
     .compileComponents();
   }));

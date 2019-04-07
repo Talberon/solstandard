@@ -1,6 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
+import { MarkdownModule, MarkdownService, MarkedOptions } from 'ngx-markdown';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PullRequestsComponent } from './pull-requests.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('PullRequestsComponent', () => {
   let component: PullRequestsComponent;
@@ -8,9 +11,14 @@ describe('PullRequestsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PullRequestsComponent ]
+      declarations: [PullRequestsComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      imports: [MarkdownModule, HttpClientModule, MarkdownModule],
+      providers: [MarkdownService, MarkedOptions]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

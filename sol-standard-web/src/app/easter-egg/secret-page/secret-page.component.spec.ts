@@ -1,6 +1,8 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SecretPageComponent } from './secret-page.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SecretPageComponent', () => {
   let component: SecretPageComponent;
@@ -8,9 +10,13 @@ describe('SecretPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SecretPageComponent ]
+      declarations: [SecretPageComponent],
+      imports: [BrowserAnimationsModule],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

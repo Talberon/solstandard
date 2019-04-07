@@ -1,3 +1,4 @@
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MediaComponent } from './media.component';
@@ -8,7 +9,8 @@ describe('MediaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MediaComponent ]
+      declarations: [ MediaComponent ],
+      imports: [CarouselModule]
     })
     .compileComponents();
   }));

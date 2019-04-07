@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DownloadComponent } from './download.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DownloadComponent', () => {
   let component: DownloadComponent;
@@ -8,9 +9,10 @@ describe('DownloadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DownloadComponent ]
+      declarations: [DownloadComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
