@@ -30,6 +30,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
             if (TurnDuration < 1)
             {
+                ExecuteEffect(target);
                 RemoveEffect(target);
                 target.StatusEffects.Remove(this);
             }
