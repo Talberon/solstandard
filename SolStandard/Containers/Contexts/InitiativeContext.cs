@@ -38,6 +38,7 @@ namespace SolStandard.Containers.Contexts
 
         public void StartFirstTurn()
         {
+            SelectFirstTeam();
             StartNewRound();
         }
 
@@ -93,10 +94,6 @@ namespace SolStandard.Containers.Contexts
 
         private void StartNewRound()
         {
-            CurrentActiveTeam = TeamWithLessRemainingUnits();
-            //TODO FIX THIS; GAME CRASHES WHEN ALL UNITS ARE DEAD
-            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-
             GameContext.GameMapContext.ResetCursorToActiveUnit();
 
             Queue<IEvent> newRoundEvents = new Queue<IEvent>();
@@ -111,13 +108,22 @@ namespace SolStandard.Containers.Contexts
             );
             newRoundEvents.Enqueue(new WaitFramesEvent(100));
             GlobalEventQueue.QueueEvents(newRoundEvents);
+            
+            GameMapContext.TriggerEffectTilesTurnStart();
 
             RefreshAllUnits();
-            GameMapContext.TriggerEffectTilesTurnStart();
             UpdateUnitActivation();
+            
+            GlobalEventQueue.QueueSingleEvent(new SelectFirstTurnEvent(this));
         }
 
-        private Team TeamWithLessRemainingUnits()
+        public void SelectFirstTeam()
+        {
+            CurrentActiveTeam = TeamWithFewerRemainingUnits();
+            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+        }
+
+        private Team TeamWithFewerRemainingUnits()
         {
             int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
             int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
@@ -131,7 +137,7 @@ namespace SolStandard.Containers.Contexts
         {
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
             CurrentActiveUnit =
-                InitiativeList.First(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
+                InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
 
 
             switch (CurrentActiveTeam)

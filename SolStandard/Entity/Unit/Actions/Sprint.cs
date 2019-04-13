@@ -41,40 +41,54 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (CanMoveToTargetTile(targetSlice))
+            if (CanMove(UnitSelector.SelectUnit(targetSlice.UnitEntity)))
             {
-                const bool walkThroughAllies = true;
-                
-                MapContainer.ClearDynamicAndPreviewGrids();
-
-                GameUnit actingUnit = GameContext.ActiveUnit;
-
-                List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                    actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies
-                );
-
-                Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
-                foreach (Direction direction in directions)
+                if (CanMoveToTargetTile(targetSlice))
                 {
-                    if (direction == Direction.None) continue;
+                    const bool walkThroughAllies = true;
 
-                    pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, direction, walkThroughAllies));
-                    pathingEventQueue.Enqueue(new WaitFramesEvent(5));
+                    MapContainer.ClearDynamicAndPreviewGrids();
+
+                    GameUnit actingUnit = GameContext.ActiveUnit;
+
+                    List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
+                        actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies
+                    );
+
+                    Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
+                    foreach (Direction direction in directions)
+                    {
+                        if (direction == Direction.None) continue;
+
+                        pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, direction, walkThroughAllies));
+                        pathingEventQueue.Enqueue(new WaitFramesEvent(5));
+                    }
+
+                    pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, Direction.None));
+                    pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
+                        targetSlice.MapCoordinates));
+                    pathingEventQueue.Enqueue(new CastStatusEffectEvent(actingUnit,
+                        new ExhaustedStatus(2, -maxDistance)));
+                    pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
+                    pathingEventQueue.Enqueue(new EndTurnEvent());
+                    GlobalEventQueue.QueueEvents(pathingEventQueue);
                 }
-
-                pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, Direction.None));
-                pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
-                    targetSlice.MapCoordinates));
-                pathingEventQueue.Enqueue(new CastStatusEffectEvent(actingUnit, new ExhaustedStatus(2, -maxDistance)));
-                pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
-                pathingEventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(pathingEventQueue);
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a valid tile!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't move!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        private static bool CanMove(GameUnit unit)
+        {
+            return unit.Stats.Mv > 0;
         }
     }
 }
