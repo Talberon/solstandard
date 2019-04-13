@@ -117,6 +117,7 @@
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Accelerando.cs" />

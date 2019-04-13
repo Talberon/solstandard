@@ -368,7 +368,7 @@ namespace SolStandard.Entity.Unit
                 new Bloodthirst(2),
                 new Shift(1),
                 new Guard(3),
-                new Focus(3)
+                new Focus(2)
             };
         }
 
@@ -377,7 +377,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Bulwark(3, 1),
+                new Recover(3),
                 new Cleanse(),
                 new Replace(),
                 new Sprint(3),
