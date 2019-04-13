@@ -22,10 +22,11 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             name: "Rage",
             description: "Increase own " + UnitStatistics.Abbreviation[Stats.Atk] + " by 1 for every " +
                          missingHpPerPoint + " missing " + UnitStatistics.Abbreviation[Stats.Hp] + " for " +
-                         duration + " turns.",
+                         duration + " turns." + Environment.NewLine +
+                         "Reduces " + UnitStatistics.Abbreviation[Stats.Retribution] + " by the same amount.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
-            freeAction: false
+            freeAction: true
         )
         {
             this.missingHpPerPoint = missingHpPerPoint;
@@ -57,7 +58,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new CastStatusEffectEvent(targetUnit, new EnragedStatus(duration, halfMissingHP)));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new WaitFramesEvent(50));
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
             }

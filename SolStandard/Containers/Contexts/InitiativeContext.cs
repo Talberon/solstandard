@@ -38,7 +38,9 @@ namespace SolStandard.Containers.Contexts
 
         public void StartFirstTurn()
         {
-            SelectFirstTeam();
+            CurrentActiveTeam = TeamWithFewerRemainingUnits();
+            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+            
             StartNewRound();
         }
 
@@ -94,6 +96,7 @@ namespace SolStandard.Containers.Contexts
 
         private void StartNewRound()
         {
+            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
 
             Queue<IEvent> newRoundEvents = new Queue<IEvent>();
@@ -108,19 +111,17 @@ namespace SolStandard.Containers.Contexts
             );
             newRoundEvents.Enqueue(new WaitFramesEvent(100));
             GlobalEventQueue.QueueEvents(newRoundEvents);
-            
-            GameMapContext.TriggerEffectTilesTurnStart();
 
             RefreshAllUnits();
-            UpdateUnitActivation();
-            
-            GlobalEventQueue.QueueSingleEvent(new SelectFirstTurnEvent(this));
+            GameMapContext.TriggerEffectTilesTurnStart();
+
+            GlobalEventQueue.QueueSingleEvent(new UpdateTurnOrderEvent(this));
         }
 
-        public void SelectFirstTeam()
+        public void UpdateTurnOrder()
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits();
-            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+            UpdateUnitActivation();
         }
 
         private Team TeamWithFewerRemainingUnits()
@@ -133,8 +134,9 @@ namespace SolStandard.Containers.Contexts
             return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 
-        private void UpdateUnitActivation()
+        public void UpdateUnitActivation()
         {
+
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
             CurrentActiveUnit =
                 InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
