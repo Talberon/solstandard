@@ -11,7 +11,7 @@ namespace SolStandard.Entity.General
     {
         public bool IsOpen { get; private set; }
         public bool IsLocked { get; private set; }
-        private static readonly Color InactiveColor = new Color(100, 100, 100, 50);
+        private static readonly Color InactiveColor = new Color(180, 180, 180, 100);
 
         public Drawbridge(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, bool isOpen) :
