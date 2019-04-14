@@ -32,9 +32,11 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
+            int lowerMv = GameContext.ActiveUnit.Stats.Mv < maxDistance ? GameContext.ActiveUnit.Stats.Mv : maxDistance;
+            
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
-            unitMovingContext.GenerateMoveGrid(origin, maxDistance, GameContext.ActiveUnit.Team);
+            unitMovingContext.GenerateMoveGrid(origin, lowerMv, GameContext.ActiveUnit.Team);
 
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
         }

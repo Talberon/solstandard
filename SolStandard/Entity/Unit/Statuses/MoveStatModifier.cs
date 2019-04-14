@@ -7,7 +7,8 @@ namespace SolStandard.Entity.Unit.Statuses
     public class MoveStatModifier : StatusEffect
     {
         private readonly int mvModifier;
-        private const int FrameDelay = 10;
+        private const int FastFrameDelay = 10;
+        private const int SlowFrameDelay = 16;
 
         public MoveStatModifier(int turnDuration, int mvModifier, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
@@ -29,7 +30,9 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             AssetManager.SkillBuffSFX.Play();
             target.Stats.MvModifier += mvModifier;
-            target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FrameDelay);
+            target.UnitEntity.UnitSpriteSheet.SetFrameDelay(
+                (mvModifier >= 0) ? FastFrameDelay : SlowFrameDelay
+            );
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
