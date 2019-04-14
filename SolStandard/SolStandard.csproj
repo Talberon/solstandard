@@ -117,6 +117,7 @@
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Cover.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Accelerando.cs" />
@@ -176,7 +176,8 @@
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
     <Compile Include="Entity\Unit\NameGenerator.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\AtkStatModifier.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkStatDown.cs" />
+    <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\MoveStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\GuillotineStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
@@ -334,6 +336,7 @@
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
+    <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
@@ -529,6 +532,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Dungeon_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\entities-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Fortress_01.tmx">

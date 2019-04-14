@@ -1,31 +1,31 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class MoveStatModifier : StatusEffect
+    public class MoveStatDown : StatusEffect
     {
-        private readonly int pointsToIncrease;
-        private const int FastFrameDelay = 10;
+        private readonly int pointsToReduce;
+        private const int SlowFrameDelay = 16;
 
-        public MoveStatModifier(int turnDuration, int pointsToIncrease, string name = null) : base(
+        public MoveStatDown(int turnDuration, int pointsToReduce, string name = null) : base(
             statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
-            name: name ?? UnitStatistics.Abbreviation[Stats.Mv] + " Up! <+" + pointsToIncrease + ">",
-            description: "Increased movement distance.",
+            name: name ?? UnitStatistics.Abbreviation[Stats.Mv] + " Down! <-" + pointsToReduce + ">",
+            description: "Decreased movement distance.",
             turnDuration: turnDuration,
             hasNotification: false,
-            canCleanse: false
+            canCleanse: true
         )
         {
-            this.pointsToIncrease = pointsToIncrease;
+            this.pointsToReduce = pointsToReduce;
         }
 
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            target.Stats.MvModifier += pointsToIncrease;
-            target.UnitEntity.UnitSpriteSheet.SetFrameDelay(FastFrameDelay);
+            target.Stats.MvModifier -= pointsToReduce;
+            target.UnitEntity.UnitSpriteSheet.SetFrameDelay(SlowFrameDelay);
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public override void RemoveEffect(GameUnit target)
         {
-            target.Stats.MvModifier -= pointsToIncrease;
+            target.Stats.MvModifier += pointsToReduce;
             target.UnitEntity.UnitSpriteSheet.ResetFrameDelay();
         }
     }

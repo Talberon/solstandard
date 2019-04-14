@@ -174,6 +174,8 @@ namespace SolStandard.Entity.Unit
             return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Count > 0;
         }
 
+        //UNITS
+
         private static UnitStatistics SelectArcherStats()
         {
             return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 4, luck: 1, mv: 5, atkRange: new[] {2});
@@ -216,13 +218,15 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMarauderStats()
         {
-            return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 5, luck: 0, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectPaladinStats()
         {
             return new UnitStatistics(hp: 8, armor: 8, atk: 5, ret: 6, luck: 1, mv: 6, atkRange: new[] {1});
         }
+
+        //CREEPS
 
         private static UnitStatistics SelectSlimeStats()
         {
@@ -238,32 +242,32 @@ namespace SolStandard.Entity.Unit
         {
             return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectNecromancerStats()
         {
             return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectSkeletonStats()
         {
             return new UnitStatistics(hp: 12, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectGoblinStats()
         {
             return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, luck: 1, mv: 4, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectRatStats()
         {
             return new UnitStatistics(hp: 9, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectBatStats()
         {
             return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
         }
-        
+
         private static UnitStatistics SelectSpiderStats()
         {
             return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
@@ -293,7 +297,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Bloodthirst(2),
+                new Bloodthirst(1),
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
@@ -323,7 +327,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(3),
-                new Cripple(2, -2),
+                new Cripple(2, 2),
                 new Execute(3),
                 new Sprint(3),
                 new Guard(3),
@@ -351,7 +355,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Uppercut(),
-                new PressurePoint(),
+                new PressurePoint(60),
                 new Meditate(),
                 new Sprint(3),
                 new Guard(3),
@@ -368,7 +372,7 @@ namespace SolStandard.Entity.Unit
                 new Bloodthirst(2),
                 new Shift(1),
                 new Guard(3),
-                new Focus(3)
+                new Focus(2)
             };
         }
 
@@ -377,7 +381,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Bulwark(3, 1),
+                new Recover(3),
+                new Bulwark(2, 2),
                 new Cleanse(),
                 new Replace(),
                 new Sprint(3),
@@ -404,7 +409,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Rampart(3,2),
+                new Rampart(3, 2),
                 new Stun(1),
                 new Replace(),
                 new Shove(),

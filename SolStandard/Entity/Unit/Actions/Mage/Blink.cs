@@ -52,8 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
             foreach (MapElement tile in tilesToRemove)
             {
-                MapContainer.GameGrid[(int) mapLayer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] =
-                    null;
+                MapContainer.GameGrid[(int) mapLayer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = null;
             }
         }
 

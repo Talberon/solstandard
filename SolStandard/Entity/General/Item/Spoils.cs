@@ -74,7 +74,8 @@ namespace SolStandard.Entity.General.Item
                             new RenderBlank()
                         }
                     },
-                    1
+                    1,
+                    HorizontalAlignment.Centered
                 );
             }
         }

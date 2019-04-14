@@ -31,6 +31,33 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         {
         }
 
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
+            RemoveActionTilesOnUnplaceableSpaces(mapLayer);
+        }
+
+        private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
+        {
+            List<MapElement> tilesToRemove = new List<MapElement>();
+
+            List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
+
+            foreach (MapElement element in targetTiles)
+            {
+                if (TargetIsObstructed(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                {
+                    tilesToRemove.Add(element);
+                }
+            }
+
+            foreach (MapElement tile in tilesToRemove)
+            {
+                MapContainer.GameGrid[(int) mapLayer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = null;
+            }
+        }
+
         public override void ExecuteAction(MapSlice targetSlice)
         {
             if (TargetIsInRange(targetSlice))
@@ -43,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 {
                     MapSlice slice = MapContainer.GetMapSliceAtCoordinates(targetTile.MapCoordinates);
 
-                    if (!TargetIsNotObstructed(slice)) continue;
+                    if (TargetIsObstructed(slice)) continue;
 
                     TrapEntity trap = new TrapEntity("Fire", TrapSprite.Clone(), slice.MapCoordinates, Damage,
                         MaxTriggers, true, true);

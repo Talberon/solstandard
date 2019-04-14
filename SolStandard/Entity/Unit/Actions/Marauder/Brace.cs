@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                          "unit with abilities for <" + duration + "> turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
-            freeAction: false
+            freeAction: true
         )
         {
             this.duration = duration;
@@ -37,14 +37,14 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 AssetManager.SkillBuffSFX.Play();
-                int halfOfUnitsBaseMv = -(targetUnit.Stats.BaseMv / 2);
+                int halfOfUnitsBaseMv = targetUnit.Stats.BaseMv / 2;
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(targetUnit, new MoveStatModifier(duration, halfOfUnitsBaseMv))
+                    new CastStatusEffectEvent(targetUnit, new MoveStatDown(duration, halfOfUnitsBaseMv))
                 );
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

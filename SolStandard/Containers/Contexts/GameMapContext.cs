@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
@@ -656,6 +657,50 @@ namespace SolStandard.Containers.Contexts
             GameContext.CodexContext.OpenMenu();
             GameContext.CodexContext.ShowUnitDetails(selectedUnit);
             AssetManager.MapUnitSelectSFX.Play();
+        }
+
+        public void ToggleItemPreview()
+        {
+            if (ShowingItemPreview)
+            {
+                AssetManager.MapUnitCancelSFX.Play();
+                GameMapView.CloseItemDetailWindow();
+                GameContext.CurrentGameState = GameContext.GameState.InGame;
+                return;
+            }
+            
+            MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
+
+            List<IItem> items = new List<IItem>();
+
+            Spoils spoils = currentSlice.ItemEntity as Spoils;
+            if (spoils != null)
+            {
+                spoils.Items.ForEach(item => items.Add(item));
+            }
+
+            GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
+            if (sliceUnit != null)
+            {
+                sliceUnit.Inventory.ForEach(item => items.Add(item));
+            }
+
+            if (items.Count > 0)
+            {
+                AssetManager.MapUnitSelectSFX.Play();
+                GameMapView.GenerateItemDetailWindow(items);
+                GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("No inventory to preview!",50);
+            }
+        }
+
+        private static bool ShowingItemPreview
+        {
+            get { return GameMapView.ItemDetailWindow != null; }
         }
     }
 }

@@ -9,19 +9,19 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Champion
+namespace SolStandard.Entity.Unit.Actions.Cleric
 {
-    public class Cover : UnitAction
+    public class Recover : UnitAction
     {
         private readonly int armorPoints;
 
-        public Cover(int armorPoints) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(32)),
-            name: "Cover",
+        public Recover(int armorPoints) : base(
+            icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+            name: "Recover",
             description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " for an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1},
+            range: new[] {1, 2},
             freeAction: false
         )
         {
@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
 
-                string toastMessage = "Cover!" + Environment.NewLine +
+                string toastMessage = Name + "!" + Environment.NewLine +
                                       "Recovered [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                                       "!";
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastMessage, 50);

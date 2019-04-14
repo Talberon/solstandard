@@ -26,6 +26,7 @@ namespace SolStandard.Containers.Contexts
             InGame,
             Results,
             Codex,
+            ItemPreview,
             Credits
         }
 
@@ -77,6 +78,8 @@ namespace SolStandard.Containers.Contexts
                         return PlayerIndex.Four;
                     case GameState.Credits:
                         return PlayerIndex.One;
+                    case GameState.ItemPreview:
+                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -118,6 +121,8 @@ namespace SolStandard.Containers.Contexts
                         return GameMapContext.MapContainer.MapCursor;
                     case GameState.Results:
                         return GameMapContext.MapContainer.MapCursor;
+                    case GameState.ItemPreview:
+                        return GameMapContext.MapContainer.MapCursor;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -145,6 +150,8 @@ namespace SolStandard.Containers.Contexts
                     case GameState.InGame:
                         return GameMapContext.MapContainer.MapCamera;
                     case GameState.Results:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.ItemPreview:
                         return GameMapContext.MapContainer.MapCamera;
                     default:
                         throw new ArgumentOutOfRangeException();

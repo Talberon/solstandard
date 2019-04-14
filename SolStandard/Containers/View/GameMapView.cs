@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
@@ -22,7 +23,7 @@ namespace SolStandard.Containers.View
      */
     public class GameMapView : IUserInterface
     {
-        public enum MenuType
+        private enum MenuType
         {
             ActionMenu,
             InventoryMenu
@@ -51,6 +52,7 @@ namespace SolStandard.Containers.View
         private Window EntityWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
 
+        public Window ItemDetailWindow { get; private set; }
         private Window UserPromptWindow { get; set; }
 
         private VerticalMenu ActionMenu { get; set; }
@@ -129,6 +131,11 @@ namespace SolStandard.Containers.View
             UserPromptWindow = null;
         }
 
+        public void CloseItemDetailWindow()
+        {
+            ItemDetailWindow = null;
+        }
+
         public void CloseCombatMenu()
         {
             ActionMenu.IsVisible = false;
@@ -138,6 +145,69 @@ namespace SolStandard.Containers.View
         #endregion Close Windows
 
         #region Generation
+
+        public void GenerateItemDetailWindow(List<IItem> items)
+        {
+            ItemDetailWindow = GenerateItemsWindow(items, ItemTerrainWindowColor);
+        }
+
+        private static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
+        {
+            IRenderable[,] actionElements = new IRenderable[items.Count, 3];
+
+            const int iconIndex = 0;
+            const int nameIndex = 1;
+            const int descriptionIndex = 2;
+
+            int largestNameWidth = 0;
+            int largestDescriptionWidth = 0;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                actionElements[i, iconIndex] = items[i].Icon;
+
+                actionElements[i, nameIndex] =
+                    new Window(new RenderText(AssetManager.WindowFont, items[i].Name), Color.Transparent);
+
+                actionElements[i, descriptionIndex] =
+                    new Window(items[i].UseAction().Description, windowColor);
+
+                //Remember the largest width for aligning later
+                if (actionElements[i, nameIndex].Width > largestNameWidth)
+                {
+                    largestNameWidth = actionElements[i, nameIndex].Width;
+                }
+
+                if (actionElements[i, descriptionIndex].Width > largestDescriptionWidth)
+                {
+                    largestDescriptionWidth = actionElements[i, descriptionIndex].Width;
+                }
+            }
+
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                //Fill space so that all the elements have the same width like a grid
+                ((Window) actionElements[i, nameIndex]).Width = largestNameWidth;
+                ((Window) actionElements[i, descriptionIndex]).Width = largestDescriptionWidth;
+            }
+
+            Window itemTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
+
+
+            return new Window(new WindowContentGrid(new IRenderable[,]
+                {
+                    {
+                        new RenderText(AssetManager.HeaderFont, "ITEMS"),
+                    },
+                    {
+                        itemTable
+                    }
+                },
+                3,
+                HorizontalAlignment.Centered
+            ), windowColor);
+        }
 
         public void GenerateActionMenus()
         {
@@ -365,7 +435,8 @@ namespace SolStandard.Containers.View
                 }
             }
 
-            WindowContentGrid unitListContentGrid = new WindowContentGrid(unitListGrid, 0, HorizontalAlignment.Centered);
+            WindowContentGrid unitListContentGrid =
+                new WindowContentGrid(unitListGrid, 0, HorizontalAlignment.Centered);
 
             switch (team)
             {
@@ -578,7 +649,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 RightUnitPortraitWindowPosition()
         {
-            //Bottom-right, above intiative window
+            //Bottom-right, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
                 GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - BlueTeamWindow.Height
@@ -587,7 +658,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 RightUnitDetailWindowPosition()
         {
-            //Bottom-right, left of portrait, above intiative window
+            //Bottom-right, left of portrait, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitDetailWindow.Width - RightUnitPortraitWindow.Width -
                 WindowEdgeBuffer,
@@ -646,6 +717,15 @@ namespace SolStandard.Containers.View
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 - (float) UserPromptWindow.Width / 2,
                 GameDriver.ScreenSize.Y / 2 - (float) UserPromptWindow.Height / 2
+            );
+        }
+
+        private Vector2 ItemDetailWindowPosition()
+        {
+            //Middle of the screen
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) ItemDetailWindow.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) ItemDetailWindow.Height / 2
             );
         }
 
@@ -712,6 +792,11 @@ namespace SolStandard.Containers.View
                     {
                         RightUnitInventoryWindow.Draw(spriteBatch, RightUnitInventoryWindowPosition());
                     }
+                }
+
+                if (ItemDetailWindow != null)
+                {
+                    ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition());
                 }
 
                 if (UserPromptWindow != null)

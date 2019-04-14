@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsInRange(targetSlice))
             {
-                if (TargetIsNotObstructed(targetSlice))
+                if (!TargetIsObstructed(targetSlice))
                 {
                     TrapEntity trap = new TrapEntity("Trap", TrapSprite.Clone(), targetSlice.MapCoordinates, Damage,
                         MaxTriggers, true, true, true);
@@ -65,12 +65,9 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        protected static bool TargetIsNotObstructed(MapSlice targetSlice)
+        protected static bool TargetIsObstructed(MapSlice targetSlice)
         {
-            if (targetSlice.TerrainEntity != null) return false;
-            if (targetSlice.CollideTile != null) return false;
-
-            return true;
+            return (targetSlice.TerrainEntity != null) || (targetSlice.CollideTile != null);
         }
 
         protected static bool TargetIsInRange(MapSlice targetSlice)

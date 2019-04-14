@@ -14,16 +14,20 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
     public class PressurePoint : UnitAction
     {
-        public PressurePoint() : base(
+        private readonly float percent;
+
+        public PressurePoint(float percent) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.PressurePoint, new Vector2(GameDriver.CellSize)),
             name: "Pressure Point",
-            description: "Attack a unit for half damage (rounded down) and ignore target's " +
+            description: "Attack a unit for " + percent +
+                         "% damage (rounded up) and ignore target's " +
                          UnitStatistics.Abbreviation[Stats.Armor] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {1},
             freeAction: false
         )
         {
+            this.percent = percent;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -34,14 +38,19 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             {
                 GameUnit attacker = GameContext.ActiveUnit;
 
-                //The rounded-up value will be subtracted from the attacker's ATK stat to result in half rounded-down damage.
-                int halfDamageRoundedUp = (int) Math.Ceiling((float) attacker.Stats.Atk / 2);
+                //Subtract the remaining percent damage from Attacker's ATK stat
+                float remainingPercentage = 100 - percent;
+                int damageModifier = (int) Math.Ceiling(attacker.Stats.Atk * (remainingPercentage / 100));
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker,
-                    new IgnoreArmorCombatStatus(Icon, 0, -halfDamageRoundedUp)));
+                eventQueue.Enqueue(
+                    new CastStatusEffectEvent(
+                        attacker,
+                        new IgnoreArmorCombatStatus(Icon, 0, -damageModifier)
+                    )
+                );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
