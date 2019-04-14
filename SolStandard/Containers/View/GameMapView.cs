@@ -22,7 +22,7 @@ namespace SolStandard.Containers.View
      */
     public class GameMapView : IUserInterface
     {
-        public enum MenuType
+        private enum MenuType
         {
             ActionMenu,
             InventoryMenu
@@ -578,7 +578,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 RightUnitPortraitWindowPosition()
         {
-            //Bottom-right, above intiative window
+            //Bottom-right, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
                 GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - BlueTeamWindow.Height
@@ -587,7 +587,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 RightUnitDetailWindowPosition()
         {
-            //Bottom-right, left of portrait, above intiative window
+            //Bottom-right, left of portrait, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitDetailWindow.Width - RightUnitPortraitWindow.Width -
                 WindowEdgeBuffer,

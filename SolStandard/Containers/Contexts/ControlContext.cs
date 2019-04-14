@@ -398,6 +398,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.ResetCursor, PressType.Single))
             {
+                //TODO Toggle inventory descriptions
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
         }

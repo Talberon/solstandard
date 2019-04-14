@@ -2407,12 +2407,6 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="743" name="Troll" type="Creep" gid="550" x="800" y="416" width="32" height="32">
-   <properties>
-    <property name="Class" value="Troll"/>
-    <property name="Independent" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="750" name="Orc" type="Creep" gid="551" x="192" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
@@ -2444,36 +2438,6 @@
     <property name="ItemPrice" value="20|10|15|10"/>
     <property name="Routine" value="Wander"/>
     <property name="WillTrade" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="819" name="Nosferatu" type="Creep" gid="558" x="320" y="96" width="32" height="32">
-   <properties>
-    <property name="Class" value="Bat"/>
-   </properties>
-  </object>
-  <object id="820" name="Huey" type="Creep" gid="557" x="288" y="160" width="32" height="32">
-   <properties>
-    <property name="Class" value="Rat"/>
-   </properties>
-  </object>
-  <object id="821" name="Kesk" type="Creep" gid="556" x="288" y="128" width="32" height="32">
-   <properties>
-    <property name="Class" value="Spider"/>
-   </properties>
-  </object>
-  <object id="822" name="Bort" type="Creep" gid="555" x="288" y="96" width="32" height="32">
-   <properties>
-    <property name="Class" value="Goblin"/>
-   </properties>
-  </object>
-  <object id="817" name="Skeltal" type="Creep" gid="554" x="320" y="160" width="32" height="32">
-   <properties>
-    <property name="Class" value="Skeleton"/>
-   </properties>
-  </object>
-  <object id="818" name="Skeleton King" type="Creep" gid="553" x="320" y="128" width="32" height="32">
-   <properties>
-    <property name="Class" value="Necromancer"/>
    </properties>
   </object>
  </objectgroup>
