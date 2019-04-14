@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="884">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="46" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="885">
  <properties>
   <property name="unitsPerTeam" type="int" value="6"/>
  </properties>
@@ -5772,11 +5772,6 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="817" name="Coin" type="Currency" gid="490" x="928" y="1056" width="32" height="32">
-   <properties>
-    <property name="value" type="int" value="5"/>
-   </properties>
-  </object>
   <object id="818" name="Ruby" type="Currency" gid="473" x="1216" y="512" width="32" height="32">
    <properties>
     <property name="value" type="int" value="25"/>
@@ -5861,6 +5856,11 @@
   <object id="835" name="Coin" type="Currency" gid="492" x="352" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="884" name="Emerald" type="Currency" gid="474" x="928" y="1056" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
    </properties>
   </object>
  </objectgroup>
