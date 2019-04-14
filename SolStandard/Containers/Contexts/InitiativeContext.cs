@@ -96,6 +96,7 @@ namespace SolStandard.Containers.Contexts
 
         private void StartNewRound()
         {
+            CurrentActiveTeam = TeamWithFewerRemainingUnits();
             CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
 
