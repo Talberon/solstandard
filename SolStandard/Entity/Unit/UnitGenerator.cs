@@ -293,7 +293,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Bloodthirst(2),
+                new Bloodthirst(1),
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
@@ -351,7 +351,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Uppercut(),
-                new PressurePoint(),
+                new PressurePoint(60),
                 new Meditate(),
                 new Sprint(3),
                 new Guard(3),

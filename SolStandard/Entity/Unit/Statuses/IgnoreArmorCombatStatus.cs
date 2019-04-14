@@ -59,6 +59,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)
         {
             //Remove status
+            RemoveEffect(attacker);
             GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
