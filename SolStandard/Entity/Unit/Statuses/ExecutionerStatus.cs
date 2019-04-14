@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 eventQueue.Enqueue(new RegenerateArmorEvent(attacker, attacker.Stats.MaxArmor));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new AtkStatModifier(3, 2)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new AtkStatUp(3, 2)));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
 

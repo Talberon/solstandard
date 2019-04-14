@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions
                     pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
                         targetSlice.MapCoordinates));
                     pathingEventQueue.Enqueue(new CastStatusEffectEvent(actingUnit,
-                        new ExhaustedStatus(2, -maxDistance)));
+                        new ExhaustedStatus(2, maxDistance)));
                     pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
                     pathingEventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(pathingEventQueue);

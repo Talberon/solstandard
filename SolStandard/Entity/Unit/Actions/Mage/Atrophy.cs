@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             freeAction: false
         )
         {
-            this.statModifier = -statModifier;
+            this.statModifier = statModifier;
             this.duration = duration;
         }
 
@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkStatModifier(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkStatDown(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

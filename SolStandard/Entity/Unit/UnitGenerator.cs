@@ -327,7 +327,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(3),
-                new Cripple(2, -2),
+                new Cripple(2, 2),
                 new Execute(3),
                 new Sprint(3),
                 new Guard(3),

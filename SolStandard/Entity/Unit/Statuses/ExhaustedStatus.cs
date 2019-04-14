@@ -1,11 +1,11 @@
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class ExhaustedStatus : MoveStatModifier
+    public class ExhaustedStatus : MoveStatDown
     {
-        public ExhaustedStatus(int turnDuration, int mvModifier) :
+        public ExhaustedStatus(int turnDuration, int pointsToReduce) :
             base(
                 turnDuration: turnDuration,
-                mvModifier: mvModifier,
+                pointsToReduce: pointsToReduce,
                 name: "Exhausted!"
             )
         {
