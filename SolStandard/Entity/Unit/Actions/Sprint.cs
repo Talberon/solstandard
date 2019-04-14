@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (CanMove(UnitSelector.SelectUnit(targetSlice.UnitEntity)))
+            if (CanMove(GameContext.ActiveUnit))
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {

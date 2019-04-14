@@ -378,6 +378,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Recover(3),
+                new Bulwark(2, 2),
                 new Cleanse(),
                 new Replace(),
                 new Sprint(3),
@@ -392,7 +393,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Guillotine(),
-                new Rage(3, 4),
+                new Rage(3, 3),
                 new Brace(2),
                 new Shove(),
                 new Wait()
