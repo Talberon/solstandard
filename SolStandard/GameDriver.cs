@@ -351,6 +351,8 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.Results:
                     break;
+                case GameContext.GameState.ItemPreview:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -407,6 +409,11 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.Credits:
                     DrawCreditsScreen();
+                    break;
+                case GameContext.GameState.ItemPreview:
+                    DrawInGameMap();
+                    DrawColorEntireScreen(ActionFade);
+                    DrawInGameHUD();
                     break;
                 default:
                     base.Draw(gameTime);

@@ -46,6 +46,9 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.Credits:
                     CreditsControls(controlMapper);
                     break;
+                case GameContext.GameState.ItemPreview:
+                    ViewInventoryControl(controlMapper);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -57,7 +60,7 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.CreditsContext.OpenBrowser();
             }
-            
+
             if (controlMapper.Press(Input.Cancel, PressType.Single) ||
                 controlMapper.Press(Input.Status, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
@@ -398,8 +401,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.ResetCursor, PressType.Single))
             {
-                //TODO Toggle inventory descriptions
-                GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
+                GameContext.GameMapContext.ToggleItemPreview();
             }
         }
 
@@ -516,6 +518,17 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GameMapContext.PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
+            }
+        }
+
+        private static void ViewInventoryControl(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single) ||
+                controlMapper.Press(Input.ResetCursor, PressType.Single) ||
+                controlMapper.Press(Input.Cancel, PressType.Single) ||
+                controlMapper.Press(Input.Menu, PressType.Single))
+            {
+                GameContext.GameMapContext.ToggleItemPreview();
             }
         }
 
