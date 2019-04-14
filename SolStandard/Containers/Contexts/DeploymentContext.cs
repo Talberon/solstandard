@@ -7,6 +7,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
@@ -92,6 +93,21 @@ namespace SolStandard.Containers.Contexts
         public void MoveCursorOnMap(Direction direction)
         {
             map.MapCursor.MoveCursorInDirection(direction);
+            UpdateHoverView();
+        }
+
+        private static void UpdateHoverView()
+        {
+            MapSlice hoverSlice = GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
+            GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
+
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            if (hoverUnit != null)
+            {
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit);
+            }
         }
 
         public void MoveToNextDeploymentTile()
