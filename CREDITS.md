@@ -53,6 +53,12 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >#### License
 >http://creativecommons.org/publicdomain/zero/1.0/
 
+### @Namatnieks
+>#### Work
+> Item Icons
+>#### License
+>https://www.gamedevmarket.net/terms-conditions/#pro-licence
+
 ### Xelu | nick@thoseawesomeguys.com
 >#### Work
 >Button Icons
