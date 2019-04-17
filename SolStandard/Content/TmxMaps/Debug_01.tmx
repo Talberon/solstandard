@@ -2033,13 +2033,12 @@
     <property name="capturableByRed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="685" name="Throne" type="Seize" gid="6572" x="128" y="288" width="32" height="32">
+  <object id="685" name="Crown" type="Seize" gid="6991" x="128" y="288" width="32" height="32">
    <properties>
     <property name="capturableByBlue" type="bool" value="true"/>
     <property name="capturableByRed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="686" name="Throne" type="Decoration" gid="233" x="128" y="256" width="32" height="32"/>
   <object id="699" name="Stairs A1" type="Portal" gid="289" x="256" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A2"/>
