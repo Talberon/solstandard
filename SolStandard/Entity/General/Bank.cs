@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Activation;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -13,8 +18,8 @@ namespace SolStandard.Entity.General
     {
         public int[] InteractRange { get; private set; }
 
-        private int redMoney;
-        private int blueMoney;
+        public static int RedMoney { get; private set; }
+        public static int BlueMoney { get; private set; }
 
         public Bank(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
             int[] interactRange, Dictionary<string, string> tiledProperties) :
@@ -22,49 +27,147 @@ namespace SolStandard.Entity.General
         {
             CanMove = canMove;
             InteractRange = interactRange;
-            redMoney = 0;
-            blueMoney = 0;
+            RedMoney = 0;
+            BlueMoney = 0;
         }
 
-        public void Deposit(GameUnit depositer, int goldToDeposit)
+        public List<UnitAction> TileActions()
+        {
+            return new List<UnitAction>
+            {
+                new BankDeposit(this),
+                new BankWithdraw(this)
+            };
+        }
+
+        public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
             depositer.CurrentGold -= goldToDeposit;
 
             switch (depositer.Team)
             {
                 case Team.Blue:
-                    blueMoney += goldToDeposit;
+                    BlueMoney += goldToDeposit;
                     break;
                 case Team.Red:
-                    redMoney += goldToDeposit;
+                    RedMoney += goldToDeposit;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("team", depositer.Team, null);
             }
+
+            AssetManager.CoinSFX.Play();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                string.Format("{0} deposits {1}{2} to the bank!", depositer.Id, goldToDeposit,
+                    Currency.CurrencyAbbreviation),
+                50
+            );
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
         }
 
-        public void Withdraw(GameUnit depositer, int goldToWithdraw)
+        public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
             depositer.CurrentGold += goldToWithdraw;
 
             switch (depositer.Team)
             {
                 case Team.Blue:
-                    blueMoney -= goldToWithdraw;
+                    BlueMoney -= goldToWithdraw;
                     break;
                 case Team.Red:
-                    redMoney -= goldToWithdraw;
+                    RedMoney -= goldToWithdraw;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("team", depositer.Team, null);
             }
+
+            AssetManager.CoinSFX.Play();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                string.Format("{0} withdraws {1}{2} from the bank!", depositer.Id, goldToWithdraw,
+                    Currency.CurrencyAbbreviation),
+                50
+            );
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
         }
 
-        public List<UnitAction> TileActions()
+        public static int GetTeamGoldInBank(Team team)
         {
-            //TODO Implement Deposit and Withdraw actions
-            //TODO Apply bank total to team gold total in Taxes game mode
-            return new List<UnitAction>();
+            switch (team)
+            {
+                case Team.Blue:
+                    return BlueMoney;
+                case Team.Red:
+                    return RedMoney;
+                case Team.Creep:
+                    return 0;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
+        }
+
+
+        public override IRenderable TerrainInfo
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            InfoHeader,
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
+                        },
+                        {
+                            new Window(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        ObjectiveIconProvider.GetObjectiveIcon(
+                                            VictoryConditions.Taxes,
+                                            new Vector2(GameDriver.CellSize)
+                                        ),
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
+                                    }
+                                },
+                                TeamUtility.DetermineTeamColor(Team.Blue)
+                            ),
+                            new RenderBlank()
+                        },
+                        {
+                            new Window(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        ObjectiveIconProvider.GetObjectiveIcon(
+                                            VictoryConditions.Taxes,
+                                            new Vector2(GameDriver.CellSize)
+                                        ),
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)
+                                    }
+                                },
+                                TeamUtility.DetermineTeamColor(Team.Red)
+                            ),
+                            new RenderBlank()
+                        }
+                    },
+                    1,
+                    HorizontalAlignment.Centered
+                );
+            }
         }
     }
 }

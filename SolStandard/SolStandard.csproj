@@ -113,6 +113,8 @@
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
+    <Compile Include="Entity\Unit\Actions\BankDeposit.cs" />
+    <Compile Include="Entity\Unit\Actions\BankWithdraw.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
@@ -305,6 +307,8 @@
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
+    <Compile Include="Utility\Events\BankDepositEvent.cs" />
+    <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />

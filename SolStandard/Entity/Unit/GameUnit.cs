@@ -713,6 +713,7 @@ namespace SolStandard.Entity.Unit
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
                 MapEntity = null;
+                GameMapContext.GameMapView.GenerateObjectiveWindow();
             }
         }
 

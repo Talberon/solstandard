@@ -33,7 +33,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                 {
                     {
                         Action.Icon,
-                        new RenderText(AssetManager.WindowFont, Action.Name),
+                        new RenderText(AssetManager.WindowFont, Action.Name, Action.FreeAction ? GameContext.PositiveColor : Color.White),
                     }
                 },
                 1
