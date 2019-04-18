@@ -30,11 +30,11 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
-        private static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
-        private static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
-        private static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
-        private static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
-        private static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
+        public static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
+        public static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
+        public static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
+        public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
+        public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }

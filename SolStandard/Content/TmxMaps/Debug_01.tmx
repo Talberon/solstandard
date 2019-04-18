@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="832">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="840">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -2172,9 +2172,17 @@
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
+  <object id="837" name="Vending Machine" type="Vendor" gid="7151" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple"/>
+    <property name="prices" value="10|5|8|5"/>
+    <property name="quantities" value="1|1|1|2"/>
+   </properties>
+  </object>
+  <object id="838" name="ATM" type="Bank" gid="7152" x="416" y="288" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
-  <object id="748" name="Chest LK1 Key" type="Key" gid="444" x="576" y="352" width="32" height="32">
+  <object id="748" name="Chest LK1 Key" type="Key" gid="444" x="544" y="384" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
@@ -2289,7 +2297,7 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="473" x="448" y="352" width="32" height="32">
+  <object id="648" name="Treasure" type="Currency" gid="473" x="512" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2355,6 +2363,11 @@
     <property name="usesRemaining" type="int" value="3"/>
    </properties>
   </object>
+  <object id="839" name="Treasure" type="Currency" gid="473" x="384" y="288" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
   <object id="517" name="Horatio" type="Unit" gid="529" x="480" y="352" width="32" height="32">
@@ -2414,7 +2427,7 @@
     <property name="Item" value="Orcish Axe"/>
    </properties>
   </object>
-  <object id="784" name="Slime" type="Creep" gid="549" x="576" y="384" width="32" height="32">
+  <object id="784" name="Slime" type="Creep" gid="549" x="544" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Item" value="Chest LK1 Key"/>

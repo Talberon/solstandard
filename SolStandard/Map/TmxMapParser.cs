@@ -61,7 +61,9 @@ namespace SolStandard.Map
             {"HP Potion", EntityTypes.HealthPotion},
             {"BuffItem", EntityTypes.BuffItem},
             {"Barricade", EntityTypes.Barricade},
-            {"Deployment", EntityTypes.Deploy}
+            {"Deployment", EntityTypes.Deploy},
+            {"Bank", EntityTypes.Bank},
+            {"Vendor", EntityTypes.Vendor}
         };
 
         private readonly string objectTypesDefaultXmlPath;
@@ -595,6 +597,44 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             (Team) Enum.Parse(typeof(Team), currentProperties["Team"]),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.Bank:
+                                        entityGrid[col, row] = new Bank(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["interactRange"].Split(',')
+                                                .Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.Vendor:
+                                        string[] itemNames = currentProperties["items"].Split('|');
+
+                                        List<IItem> vendorItems = mapLoot.Where(item => itemNames.Contains(item.Name))
+                                            .ToList();
+
+                                        entityGrid[col, row] = new Vendor(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["interactRange"].Split(',')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
+                                            //Items
+                                            vendorItems,
+                                            //Prices
+                                            currentProperties["prices"].Split('|')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
+                                            //Quantities
+                                            currentProperties["quantities"].Split('|')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
                                             currentProperties
                                         );
                                         break;

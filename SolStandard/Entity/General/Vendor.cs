@@ -1,0 +1,134 @@
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using SolStandard.Containers.View;
+using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
+
+namespace SolStandard.Entity.General
+{
+    public class Vendor : TerrainEntity, IActionTile
+    {
+        public int[] InteractRange { get; private set; }
+        private readonly Dictionary<UnitAction, int> purchaseActions;
+        private IRenderable itemList;
+
+        public Vendor(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
+            int[] interactRange, IReadOnlyList<IItem> items, IReadOnlyList<int> prices, int[] quantities,
+            Dictionary<string, string> tiledProperties) :
+            base(name, type, sprite, mapCoordinates, tiledProperties)
+        {
+            if (items.Count != prices.Count || items.Count != quantities.Length)
+            {
+                throw new VendorMisconfiguredException("The vendor <" + name + "> entity " +
+                                                       "should have the same number of items, prices and quantities.");
+            }
+
+            CanMove = canMove;
+            InteractRange = interactRange;
+
+            purchaseActions = new Dictionary<UnitAction, int>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                purchaseActions.Add(new VendorPurchase(items[i], prices[i], this), quantities[i]);
+            }
+
+            itemList = GenerateItemList();
+        }
+
+        public void RemoveBuyActionForItem(IItem item)
+        {
+            UnitAction actionToRemove = null;
+
+            foreach (KeyValuePair<UnitAction, int> purchaseActionKeyPair in purchaseActions)
+            {
+                VendorPurchase buyAction = purchaseActionKeyPair.Key as VendorPurchase;
+                if (buyAction == null || buyAction.Item.Name != item.Name) continue;
+
+                purchaseActions[buyAction]--;
+
+                if (purchaseActions[buyAction] < 1)
+                {
+                    actionToRemove = buyAction;
+                }
+
+                break;
+            }
+
+            if (actionToRemove != null)
+            {
+                purchaseActions.Remove(actionToRemove);
+            }
+
+            itemList = GenerateItemList();
+        }
+
+        public List<UnitAction> TileActions()
+        {
+            return purchaseActions.Keys.ToList();
+        }
+
+        private IRenderable GenerateItemList()
+        {
+            IRenderable[,] itemDetailList = new IRenderable[purchaseActions.Count, 3];
+
+            List<VendorPurchase> purchaseActionsList = purchaseActions.Keys.Cast<VendorPurchase>().ToList();
+
+            for (int i = 0; i < purchaseActions.Count; i++)
+            {
+                itemDetailList[i, 0] = purchaseActionsList[i].Icon;
+                itemDetailList[i, 1] = new RenderText(AssetManager.WindowFont, purchaseActionsList[i].Item.Name);
+
+                //Quantity
+                itemDetailList[i, 2] = new RenderText(AssetManager.WindowFont,
+                    string.Format("[{0}]", purchaseActions[purchaseActionsList[i]]));
+            }
+
+            return new Window(
+                new WindowContentGrid(itemDetailList, 1, HorizontalAlignment.Centered),
+                GameMapView.ItemTerrainWindowColor,
+                HorizontalAlignment.Centered
+            );
+        }
+
+        public override IRenderable TerrainInfo
+        {
+            get
+            {
+                return new WindowContentGrid(
+                    new[,]
+                    {
+                        {
+                            InfoHeader,
+                            new RenderBlank()
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                                (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                            new RenderText(
+                                AssetManager.WindowFont,
+                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
+                            )
+                        },
+                        {
+                            itemList,
+                            new RenderBlank(),
+                        }
+                    },
+                    1,
+                    HorizontalAlignment.Centered
+                );
+            }
+        }
+    }
+}

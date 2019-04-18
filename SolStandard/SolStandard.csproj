@@ -76,6 +76,7 @@
     <Compile Include="Containers\View\StatusScreenView.cs" />
     <Compile Include="Containers\View\MapSelectScreenView.cs" />
     <Compile Include="Entity\GameEntity.cs" />
+    <Compile Include="Entity\General\Bank.cs" />
     <Compile Include="Entity\General\Barricade.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
     <Compile Include="Entity\General\TrapEntity.cs" />
+    <Compile Include="Entity\General\Vendor.cs" />
     <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
@@ -377,6 +380,7 @@
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
+    <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
