@@ -84,7 +84,7 @@
  <objecttype name="Enemy" color="#aa0000">
   <property name="Type" type="string" default="Slime"/>
  </objecttype>
- <objecttype name="HP Potion" color="#b93246">
+ <objecttype name="HealthPotion" color="#b93246">
   <property name="hpHealed" type="int" default="3"/>
   <property name="itemPool" type="string"/>
   <property name="pickupRange" type="string" default="0"/>
@@ -112,6 +112,10 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="damage" type="int" default="5"/>
   <property name="range" type="int" default="5"/>
+ </objecttype>
+ <objecttype name="RecoveryTile" color="#ff55ff">
+  <property name="amrPerTurn" type="int" default="0"/>
+  <property name="hpPerTurn" type="int" default="0"/>
  </objecttype>
  <objecttype name="Seize" color="#fff455">
   <property name="capturableByBlue" type="bool" default="false"/>

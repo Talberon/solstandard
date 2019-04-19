@@ -34,38 +34,6 @@ namespace SolStandard.Map
      */
     public class TmxMapParser
     {
-        private static readonly Dictionary<string, EntityTypes> EntityDictionary = new Dictionary<string, EntityTypes>
-        {
-            {"BreakableObstacle", EntityTypes.BreakableObstacle},
-            {"BuffTile", EntityTypes.BuffTile},
-            {"Chest", EntityTypes.Chest},
-            {"Decoration", EntityTypes.Decoration},
-            {"Door", EntityTypes.Door},
-            {"Drawbridge", EntityTypes.Drawbridge},
-            {"Movable", EntityTypes.Movable},
-            {"SelectMap", EntityTypes.SelectMap},
-            {"Unit", EntityTypes.Unit},
-            {"Portal", EntityTypes.Portal},
-            {"Switch", EntityTypes.Switch},
-            {"Currency", EntityTypes.Currency},
-            {"Key", EntityTypes.Key},
-            {"Artillery", EntityTypes.Artillery},
-            {"Railgun", EntityTypes.Railgun},
-            {"Seize", EntityTypes.Seize},
-            {"Pushable", EntityTypes.Pushable},
-            {"PressurePlate", EntityTypes.PressurePlate},
-            {"Trap", EntityTypes.Trap},
-            {"Creep", EntityTypes.Creep},
-            {"Weapon", EntityTypes.Weapon},
-            {"Blink", EntityTypes.Blink},
-            {"HP Potion", EntityTypes.HealthPotion},
-            {"BuffItem", EntityTypes.BuffItem},
-            {"Barricade", EntityTypes.Barricade},
-            {"Deployment", EntityTypes.Deploy},
-            {"Bank", EntityTypes.Bank},
-            {"Vendor", EntityTypes.Vendor}
-        };
-
         private readonly string objectTypesDefaultXmlPath;
         private readonly TmxMap tmxMap;
         private readonly ITexture2D worldTileSetSprite;
@@ -264,7 +232,8 @@ namespace SolStandard.Map
                                     tileSprite = GetAnimatedTile(animatedTile, currentObject.Tile);
                                 }
 
-                                EntityTypes tileEntityType = EntityDictionary[currentObject.Type];
+                                EntityTypes tileEntityType =
+                                    (EntityTypes) Enum.Parse(typeof(EntityTypes), currentObject.Type);
 
                                 switch (tileEntityType)
                                 {
@@ -590,7 +559,7 @@ namespace SolStandard.Map
                                             currentProperties["itemPool"]
                                         );
                                         break;
-                                    case EntityTypes.Deploy:
+                                    case EntityTypes.Deployment:
                                         entityGrid[col, row] = new DeployTile(
                                             currentObject.Name,
                                             currentObject.Type,
@@ -638,15 +607,21 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
-                                    default:
-                                        entityGrid[col, row] = new TerrainEntity(
+                                    case EntityTypes.RecoveryTile:
+                                        entityGrid[col, row] = new RecoveryTile(
                                             currentObject.Name,
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
+                                            Convert.ToInt32(currentProperties["amrPerTurn"]),
+                                            Convert.ToInt32(currentProperties["hpPerTurn"]),
                                             currentProperties
                                         );
                                         break;
+                                    default:
+                                        throw new IndexOutOfRangeException(
+                                            string.Format("Entity type {0} does not exist!", currentObject.Type)
+                                        );
                                 }
                             }
                         }

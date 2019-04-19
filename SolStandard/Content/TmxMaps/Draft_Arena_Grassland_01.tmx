@@ -2953,7 +2953,7 @@
     <property name="usesRemaining" type="int" value="3"/>
    </properties>
   </object>
-  <object id="875" name="Healthy Potion [+5]" type="HP Potion" gid="449" x="512" y="512" width="32" height="32">
+  <object id="875" name="Healthy Potion [+5]" type="HealthPotion" gid="449" x="512" y="512" width="32" height="32">
    <properties>
     <property name="hpHealed" type="int" value="5"/>
    </properties>

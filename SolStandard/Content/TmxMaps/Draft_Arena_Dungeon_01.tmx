@@ -3336,7 +3336,7 @@
     <property name="atkValue" type="int" value="5"/>
    </properties>
   </object>
-  <object id="949" name="Healthy Potion" type="HP Potion" gid="449" x="640" y="64" width="32" height="32"/>
+  <object id="949" name="Healthy Potion" type="HealthPotion" gid="449" x="640" y="64" width="32" height="32"/>
   <object id="938" name="Blink Bone" type="Blink" gid="484" x="672" y="64" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>

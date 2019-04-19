@@ -99,6 +99,7 @@
     <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />
     <Compile Include="Entity\General\Railgun.cs" />
+    <Compile Include="Entity\General\RecoveryTile.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\Switch.cs" />
