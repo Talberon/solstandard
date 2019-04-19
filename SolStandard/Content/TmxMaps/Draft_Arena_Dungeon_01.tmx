@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="35" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="992">
- <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
-  <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
- </tileset>
+ <tileset firstgid="1" source="entities-32-OLD.tsx"/>
  <tileset firstgid="529" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>

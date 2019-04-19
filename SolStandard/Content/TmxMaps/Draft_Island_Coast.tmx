@@ -3114,10 +3114,9 @@
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="880" name="Castle" type="BuffTile" gid="45" x="352" y="160" width="32" height="32">
+  <object id="880" name="Castle" type="RecoveryTile" gid="45" x="352" y="160" width="32" height="32">
    <properties>
-    <property name="blockBonus" type="int" value="1"/>
-    <property name="retBonus" type="int" value="1"/>
+    <property name="amrPerTurn" type="int" value="2"/>
    </properties>
   </object>
   <object id="882" name="Residential" type="BuffTile" gid="50" x="512" y="224" width="32" height="32">
