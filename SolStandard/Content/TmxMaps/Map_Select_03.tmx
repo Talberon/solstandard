@@ -7,6 +7,7 @@
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
  <tileset firstgid="559" source="overworld-32.tsx"/>
+ <tileset firstgid="6839" source="entities-32.tsx"/>
  <layer id="1" name="Terrain" width="30" height="20">
   <data>
    <tile gid="1360"/>
@@ -1829,7 +1830,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="540" name="Chess Board" type="SelectMap" gid="16" x="896" y="448" width="32" height="32">
+  <object id="540" name="Chess Board" type="SelectMap" gid="6862" x="896" y="448" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Chesslike_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
