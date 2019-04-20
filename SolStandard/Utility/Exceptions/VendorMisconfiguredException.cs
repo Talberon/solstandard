@@ -6,7 +6,7 @@ namespace SolStandard.Utility.Exceptions
     {
         public VendorMisconfiguredException(string message)
         {
-            throw new NotImplementedException();
+            throw new Exception(message);
         }
     }
 }

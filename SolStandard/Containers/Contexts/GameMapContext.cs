@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
+using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -668,7 +669,7 @@ namespace SolStandard.Containers.Contexts
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
                 return;
             }
-            
+
             MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
 
             List<IItem> items = new List<IItem>();
@@ -676,7 +677,13 @@ namespace SolStandard.Containers.Contexts
             Spoils spoils = currentSlice.ItemEntity as Spoils;
             if (spoils != null)
             {
-                spoils.Items.ForEach(item => items.Add(item));
+                items.AddRange(spoils.Items);
+            }
+
+            Vendor vendor = currentSlice.TerrainEntity as Vendor;
+            if (vendor != null)
+            {
+                items.AddRange(vendor.Items);
             }
 
             GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
@@ -694,7 +701,7 @@ namespace SolStandard.Containers.Contexts
             else
             {
                 AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("No inventory to preview!",50);
+                MapContainer.AddNewToastAtMapCursor("No inventory to preview!", 50);
             }
         }
 

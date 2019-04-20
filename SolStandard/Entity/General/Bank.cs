@@ -53,7 +53,7 @@ namespace SolStandard.Entity.General
                     RedMoney += goldToDeposit;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", depositer.Team, null);
+                    throw new ArgumentOutOfRangeException("depositer", depositer.Team, null);
             }
 
             AssetManager.CoinSFX.Play();
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.General
                     RedMoney -= goldToWithdraw;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", depositer.Team, null);
+                    throw new ArgumentOutOfRangeException("depositer", depositer.Team, null);
             }
 
             AssetManager.CoinSFX.Play();

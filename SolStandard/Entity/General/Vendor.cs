@@ -69,6 +69,11 @@ namespace SolStandard.Entity.General
             itemList = GenerateItemList();
         }
 
+        public List<IItem> Items
+        {
+            get { return purchaseActions.Keys.Cast<VendorPurchase>().Select(action => action.Item).ToList(); }
+        }
+
         public List<UnitAction> TileActions()
         {
             return purchaseActions.Keys.ToList();
