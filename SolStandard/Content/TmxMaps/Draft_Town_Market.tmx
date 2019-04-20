@@ -1997,7 +1997,7 @@
   <object id="980" name="Window" type="Decoration" gid="4517" x="224" y="128" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
-  <object id="981" name="Fighter's Blade" type="Weapon" gid="6823" x="448" y="192" width="32" height="32">
+  <object id="981" name="Fighter's Blade" type="Weapon" gid="6823" x="448" y="224" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
    </properties>
@@ -2084,7 +2084,7 @@
     <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="998" name="Wendy" type="Creep" gid="29" x="448" y="224" width="32" height="32">
+  <object id="998" name="Wendy" type="Creep" gid="29" x="448" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
    </properties>
