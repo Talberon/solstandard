@@ -1541,11 +1541,6 @@
  <tile id="4147" terrain=",26,26,26"/>
  <tile id="4148" terrain="26,,26,26"/>
  <tile id="4160" terrain="22,22,22,22"/>
- <tile id="4166" terrain="24,24,24,24"/>
- <tile id="4167" terrain="24,24,24,24"/>
- <tile id="4168" terrain="24,24,24,24"/>
- <tile id="4169" terrain="24,24,24,24"/>
- <tile id="4170" terrain="24,24,24,24"/>
  <tile id="4178" terrain="25,25,25,25"/>
  <tile id="4179" terrain="25,25,25,25"/>
  <tile id="4180" terrain="26,26,26,26"/>

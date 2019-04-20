@@ -237,6 +237,12 @@
    <frame tileid="215" duration="100"/>
   </animation>
  </tile>
+ <tile id="216">
+  <animation>
+   <frame tileid="216" duration="450"/>
+   <frame tileid="217" duration="200"/>
+  </animation>
+ </tile>
  <tile id="276">
   <animation>
    <frame tileid="276" duration="100"/>
