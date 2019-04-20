@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Window;
@@ -69,7 +71,7 @@ namespace SolStandard.Entity.General
             itemList = GenerateItemList();
         }
 
-        public List<IItem> Items
+        public IEnumerable<IItem> Items
         {
             get { return purchaseActions.Keys.Cast<VendorPurchase>().Select(action => action.Item).ToList(); }
         }
@@ -81,7 +83,7 @@ namespace SolStandard.Entity.General
 
         private IRenderable GenerateItemList()
         {
-            IRenderable[,] itemDetailList = new IRenderable[purchaseActions.Count, 3];
+            IRenderable[,] itemDetailList = new IRenderable[purchaseActions.Count, 5];
 
             List<VendorPurchase> purchaseActionsList = purchaseActions.Keys.Cast<VendorPurchase>().ToList();
 
@@ -90,8 +92,15 @@ namespace SolStandard.Entity.General
                 itemDetailList[i, 0] = purchaseActionsList[i].Icon;
                 itemDetailList[i, 1] = new RenderText(AssetManager.WindowFont, purchaseActionsList[i].Item.Name);
 
+                itemDetailList[i, 2] =
+                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(GameDriver.CellSize));
+
+                //Price
+                itemDetailList[i, 3] = new RenderText(AssetManager.WindowFont,
+                    string.Format("{0}{1}", purchaseActionsList[i].Price, Currency.CurrencyAbbreviation));
+
                 //Quantity
-                itemDetailList[i, 2] = new RenderText(AssetManager.WindowFont,
+                itemDetailList[i, 4] = new RenderText(AssetManager.WindowFont,
                     string.Format("[{0}]", purchaseActions[purchaseActionsList[i]]));
             }
 

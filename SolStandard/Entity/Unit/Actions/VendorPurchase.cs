@@ -88,6 +88,11 @@ namespace SolStandard.Entity.Unit.Actions
             get { return item; }
         }
 
+        public int Price
+        {
+            get { return price; }
+        }
+
         private bool ActiveUnitCanAffordItem()
         {
             return GameContext.ActiveUnit.CurrentGold >= price;
