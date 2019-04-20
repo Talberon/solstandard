@@ -7,7 +7,7 @@
  </objecttype>
  <objecttype name="Bank" color="#ffff00">
   <property name="canMove" type="bool" default="false"/>
-  <property name="interactRange" type="string" default="0,1"/>
+  <property name="interactRange" type="string" default="1"/>
  </objecttype>
  <objecttype name="Barricade" color="#b93246">
   <property name="HP" type="int" default="1"/>
@@ -153,7 +153,7 @@
  </objecttype>
  <objecttype name="Vendor" color="#8a3565">
   <property name="canMove" type="bool" default="false"/>
-  <property name="interactRange" type="string" default="0,1"/>
+  <property name="interactRange" type="string" default="1"/>
   <property name="items" type="string" default="item1|item2"/>
   <property name="prices" type="string" default="10|10"/>
   <property name="quantities" type="string" default="1|1"/>
