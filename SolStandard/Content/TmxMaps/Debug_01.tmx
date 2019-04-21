@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="850">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="860">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -1725,11 +1725,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6053"/>
+   <tile gid="6054"/>
+   <tile gid="6054"/>
+   <tile gid="6054"/>
+   <tile gid="6055"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1757,11 +1757,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6205"/>
-   <tile gid="6206"/>
-   <tile gid="6206"/>
-   <tile gid="6206"/>
-   <tile gid="6207"/>
+   <tile gid="6133"/>
+   <tile gid="6134"/>
+   <tile gid="6134"/>
+   <tile gid="6134"/>
+   <tile gid="6135"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1941,12 +1941,12 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="601" name="Fort" type="BuffTile" gid="67" x="384" y="320" width="32" height="32">
+  <object id="601" name="Fort" type="BuffTile" gid="67" x="480" y="96" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="626" name="Tower Base" type="BuffTile" gid="61" x="352" y="320" width="32" height="32">
+  <object id="626" name="Tower Base" type="BuffTile" gid="61" x="448" y="96" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
@@ -1962,7 +1962,7 @@
    </properties>
   </object>
   <object id="651" name="Bridge" type="Movable" gid="71" x="224" y="256" width="32" height="32"/>
-  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="7175" x="576" y="96" width="32" height="32">
+  <object id="652" name="Lumber Tree" type="BreakableObstacle" gid="7175" x="384" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="2"/>
    </properties>
@@ -1993,13 +1993,12 @@
     <property name="isLocked" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="667" name="Drawbridge A" type="Drawbridge" gid="54" x="448" y="480" width="32" height="32"/>
-  <object id="668" name="Drawbridge Switch" type="Switch" gid="285" x="480" y="448" width="32" height="32">
+  <object id="668" name="Drawbridge Switch" type="Switch" gid="285" x="480" y="416" width="32" height="32">
    <properties>
     <property name="triggersId" value="Drawbridge A"/>
    </properties>
   </object>
-  <object id="669" name="Drawbridge A" type="Drawbridge" gid="54" x="384" y="480" width="32" height="32"/>
+  <object id="669" name="Drawbridge A" type="Drawbridge" gid="6877" x="416" y="448" width="32" height="32"/>
   <object id="670" name="Unlocked Chest" type="Chest" gid="234" x="640" y="288" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
@@ -2021,13 +2020,13 @@
     <property name="range" value="4,5,6"/>
    </properties>
   </object>
-  <object id="679" name="Blue McGuffin" type="Seize" gid="506" x="416" y="448" width="32" height="32">
+  <object id="679" name="Blue McGuffin" type="Seize" gid="506" x="128" y="320" width="32" height="32">
    <properties>
     <property name="capturableByBlue" type="bool" value="true"/>
     <property name="capturableByRed" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="680" name="Red McGuffin" type="Seize" gid="505" x="416" y="192" width="32" height="32">
+  <object id="680" name="Red McGuffin" type="Seize" gid="505" x="128" y="352" width="32" height="32">
    <properties>
     <property name="capturableByBlue" type="bool" value="false"/>
     <property name="capturableByRed" type="bool" value="true"/>
@@ -2049,19 +2048,19 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="702" name="House" type="BuffTile" gid="51" x="512" y="320" width="32" height="32">
+  <object id="702" name="House" type="BuffTile" gid="51" x="608" y="96" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="703" name="Drawbridge A" type="Drawbridge" gid="54" x="416" y="480" width="32" height="32"/>
+  <object id="703" name="Drawbridge A" type="Drawbridge" gid="6893" x="416" y="480" width="32" height="32"/>
   <object id="704" name="Bridge" type="Movable" gid="69" x="192" y="256" width="32" height="32"/>
-  <object id="705" name="Fort" type="BuffTile" gid="68" x="416" y="320" width="32" height="32">
+  <object id="705" name="Fort" type="BuffTile" gid="68" x="512" y="96" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="706" name="House" type="BuffTile" gid="58" x="480" y="320" width="32" height="32">
+  <object id="706" name="House" type="BuffTile" gid="58" x="576" y="96" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
@@ -2078,7 +2077,7 @@
     <property name="triggersId" value="Plate Door"/>
    </properties>
   </object>
-  <object id="711" name="Rubble" type="BreakableObstacle" gid="6449" x="544" y="96" width="32" height="32">
+  <object id="711" name="Rubble" type="BreakableObstacle" gid="6449" x="416" y="96" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="5"/>
    </properties>
@@ -2098,18 +2097,18 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="744" name="Money Pot" type="BreakableObstacle" gid="6233" x="480" y="96" width="32" height="32">
+  <object id="744" name="Money Pot" type="BreakableObstacle" gid="6233" x="416" y="128" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
     <property name="gold" type="int" value="10"/>
    </properties>
   </object>
-  <object id="745" name="Honey Pot" type="BreakableObstacle" gid="6233" x="448" y="96" width="32" height="32">
+  <object id="745" name="Honey Pot" type="BreakableObstacle" gid="6233" x="384" y="128" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="749" name="MonKeyPot" type="BreakableObstacle" gid="6233" x="512" y="96" width="32" height="32">
+  <object id="749" name="MonKeyPot" type="BreakableObstacle" gid="6233" x="448" y="128" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="1"/>
     <property name="item" value="Chest LK1 Key"/>
@@ -2130,14 +2129,14 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="801" name="Unlocked Chest" type="Chest" gid="234" x="288" y="576" width="32" height="32">
+  <object id="801" name="Unlocked Chest" type="Chest" gid="234" x="736" y="192" width="32" height="32">
    <properties>
     <property name="item" value="Sandbag"/>
    </properties>
   </object>
-  <object id="810" name="Unlocked Chest" type="Chest" gid="234" x="320" y="576" width="32" height="32">
+  <object id="810" name="LadderBridge Chest" type="Chest" gid="234" x="352" y="416" width="32" height="32">
    <properties>
-    <property name="item" value="Sandbag"/>
+    <property name="itemPool" value="LadderBridge"/>
    </properties>
   </object>
   <object id="816" name="Chest LK1" type="Chest" gid="235" x="640" y="320" width="32" height="32">
@@ -2157,63 +2156,74 @@
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="829" name="Unlocked Chest B2" type="Chest" gid="234" x="736" y="480" width="32" height="32">
+  <object id="829" name="Unlocked Chest B2" type="Chest" gid="234" x="800" y="416" width="32" height="32">
    <properties>
     <property name="itemPool" value="B"/>
    </properties>
   </object>
-  <object id="830" name="Unlocked Chest B1" type="Chest" gid="234" x="704" y="480" width="32" height="32">
+  <object id="830" name="Unlocked Chest B1" type="Chest" gid="234" x="768" y="416" width="32" height="32">
    <properties>
     <property name="itemPool" value="B"/>
    </properties>
   </object>
-  <object id="831" name="Armor Rack" type="BuffTile" gid="5414" x="448" y="320" width="32" height="32">
+  <object id="831" name="Armor Rack" type="BuffTile" gid="5414" x="544" y="96" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="837" name="Vending Machine" type="Vendor" gid="7063" x="480" y="288" width="32" height="32">
+  <object id="837" name="Vending Machine" type="Vendor" gid="7063" x="416" y="160" width="32" height="32">
    <properties>
     <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple"/>
     <property name="prices" value="10|5|8|5"/>
     <property name="quantities" value="1|1|1|2"/>
    </properties>
   </object>
-  <object id="838" name="ATM" type="Bank" gid="7064" x="416" y="288" width="32" height="32"/>
-  <object id="840" name="Health Relic" type="RecoveryTile" gid="7155" x="384" y="256" width="32" height="32">
+  <object id="838" name="ATM" type="Bank" gid="7064" x="384" y="160" width="32" height="32"/>
+  <object id="840" name="Health Relic" type="RecoveryTile" gid="7155" x="512" y="128" width="32" height="32">
    <properties>
     <property name="hpPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="843" name="Shield Relic" type="RecoveryTile" gid="7151" x="384" y="352" width="32" height="32">
+  <object id="844" name="Shield Relic" type="RecoveryTile" gid="7151" x="480" y="128" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="844" name="Shield Relic" type="RecoveryTile" gid="7151" x="448" y="256" width="32" height="32">
+  <object id="853" name="LadderBridge Chest" type="Chest" gid="234" x="480" y="512" width="32" height="32">
    <properties>
-    <property name="amrPerTurn" type="int" value="1"/>
+    <property name="itemPool" value="LadderBridge"/>
    </properties>
   </object>
-  <object id="845" name="Health Relic" type="RecoveryTile" gid="7155" x="448" y="352" width="32" height="32">
+  <object id="854" name="Ladder Chest" type="Chest" gid="234" x="352" y="288" width="32" height="32">
    <properties>
-    <property name="hpPerTurn" type="int" value="1"/>
+    <property name="item" value="Ladder"/>
+    <property name="itemPool" value=""/>
+   </properties>
+  </object>
+  <object id="855" name="Bridge Chest" type="Chest" gid="234" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="item" value="DeployBridge"/>
+   </properties>
+  </object>
+  <object id="856" name="Ladder Chest" type="Chest" gid="234" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="item" value="Ladder"/>
+    <property name="itemPool" value=""/>
+   </properties>
+  </object>
+  <object id="857" name="Bridge Chest" type="Chest" gid="234" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="item" value="DeployBridge"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
-  <object id="748" name="Chest LK1 Key" type="Key" gid="444" x="544" y="384" width="32" height="32">
+  <object id="748" name="Chest LK1 Key" type="Key" gid="444" x="832" y="416" width="32" height="32">
    <properties>
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="787" name="Orcish Axe" type="Weapon" gid="493" x="576" y="224" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="luckModifier" type="int" value="-1"/>
-   </properties>
-  </object>
-  <object id="802" name="Sandbag" type="Barricade" gid="5171" x="288" y="544" width="32" height="32">
+  <object id="802" name="Sandbag" type="Barricade" gid="5171" x="736" y="160" width="32" height="32">
    <properties>
     <property name="HP" type="int" value="3"/>
    </properties>
@@ -2261,12 +2271,12 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="823" name="Mighty Meat *" type="BuffItem" gid="482" x="704" y="448" width="32" height="32">
+  <object id="823" name="Mighty Meat *" type="BuffItem" gid="482" x="768" y="384" width="32" height="32">
    <properties>
     <property name="itemPool" value="B"/>
    </properties>
   </object>
-  <object id="824" name="Lucky Apple *" type="BuffItem" gid="466" x="736" y="448" width="32" height="32">
+  <object id="824" name="Lucky Apple *" type="BuffItem" gid="466" x="800" y="384" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="itemPool" value="B"/>
@@ -2290,6 +2300,18 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
+  <object id="851" name="Ladder" type="LadderBridge" gid="7189" x="704" y="64" width="32" height="32"/>
+  <object id="852" name="DeployBridge" type="LadderBridge" gid="7190" x="672" y="64" width="32" height="32"/>
+  <object id="858" name="Ladder *" type="LadderBridge" gid="7189" x="704" y="96" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="LadderBridge"/>
+   </properties>
+  </object>
+  <object id="859" name="DeployBridge *" type="LadderBridge" gid="7190" x="672" y="96" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="LadderBridge"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="443" x="256" y="320" width="32" height="32">
@@ -2302,80 +2324,75 @@
     <property name="usedWith" value="Chest LK1"/>
    </properties>
   </object>
-  <object id="644" name="Treasure" type="Currency" gid="474" x="640" y="224" width="32" height="32">
+  <object id="644" name="Treasure" type="Currency" gid="474" x="448" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="646" name="Treasure" type="Currency" gid="441" x="640" y="416" width="32" height="32">
+  <object id="646" name="Treasure" type="Currency" gid="441" x="608" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="100"/>
    </properties>
   </object>
-  <object id="647" name="Treasure" type="Currency" gid="442" x="768" y="224" width="32" height="32">
+  <object id="647" name="Treasure" type="Currency" gid="442" x="576" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="648" name="Treasure" type="Currency" gid="473" x="512" y="288" width="32" height="32">
-   <properties>
-    <property name="value" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="649" name="Treasure" type="Currency" gid="476" x="736" y="224" width="32" height="32">
+  <object id="649" name="Treasure" type="Currency" gid="476" x="544" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="650" name="Treasure" type="Currency" gid="475" x="448" y="288" width="32" height="32">
+  <object id="650" name="Treasure" type="Currency" gid="475" x="480" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="785" name="Axe" type="Weapon" gid="493" x="448" y="576" width="32" height="32">
+  <object id="785" name="Axe" type="Weapon" gid="493" x="320" y="576" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-1"/>
     <property name="usesRemaining" type="int" value="1"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="514" x="416" y="576" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="514" x="288" y="576" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="510" x="384" y="576" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="510" x="256" y="576" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="5"/>
    </properties>
   </object>
-  <object id="795" name="Healthy Potion" type="HealthPotion" gid="449" x="768" y="256" width="32" height="32"/>
-  <object id="796" name="Mighty Meat" type="BuffItem" gid="482" x="704" y="256" width="32" height="32"/>
-  <object id="797" name="Lucky Apple" type="BuffItem" gid="466" x="736" y="256" width="32" height="32">
+  <object id="795" name="Healthy Potion" type="HealthPotion" gid="449" x="672" y="128" width="32" height="32"/>
+  <object id="796" name="Mighty Meat" type="BuffItem" gid="482" x="608" y="128" width="32" height="32"/>
+  <object id="797" name="Lucky Apple" type="BuffItem" gid="466" x="640" y="128" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="LCK"/>
    </properties>
   </object>
-  <object id="798" name="Alert Berries" type="BuffItem" gid="467" x="672" y="256" width="32" height="32">
+  <object id="798" name="Alert Berries" type="BuffItem" gid="467" x="576" y="128" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="RET"/>
    </properties>
   </object>
-  <object id="799" name="Swift Cheese" type="BuffItem" gid="457" x="640" y="256" width="32" height="32">
+  <object id="799" name="Swift Cheese" type="BuffItem" gid="457" x="544" y="128" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="803" name="Boomerang" type="Weapon" gid="498" x="480" y="576" width="32" height="32">
+  <object id="803" name="Boomerang" type="Weapon" gid="498" x="352" y="576" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="3"/>
@@ -2383,7 +2400,7 @@
     <property name="usesRemaining" type="int" value="3"/>
    </properties>
   </object>
-  <object id="839" name="Treasure" type="Currency" gid="473" x="384" y="288" width="32" height="32">
+  <object id="839" name="Treasure" type="Currency" gid="473" x="512" y="576" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2440,35 +2457,18 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="750" name="Orc" type="Creep" gid="551" x="576" y="256" width="32" height="32">
-   <properties>
-    <property name="Class" value="Orc"/>
-    <property name="Independent" type="bool" value="true"/>
-    <property name="Item" value="Orcish Axe"/>
-   </properties>
-  </object>
-  <object id="784" name="Slime" type="Creep" gid="549" x="544" y="416" width="32" height="32">
+  <object id="784" name="Slime" type="Creep" gid="549" x="832" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Item" value="Chest LK1 Key"/>
    </properties>
   </object>
-  <object id="804" name="Kaz" type="Creep" gid="552" x="800" y="224" width="32" height="32">
+  <object id="804" name="Kaz" type="Creep" gid="552" x="800" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Merchant"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="Item" value="Blink Bone|Wand|Hammer|Mega Potion"/>
     <property name="ItemPrice" value="25|15|15|10"/>
-    <property name="Routine" value="Wander"/>
-    <property name="WillTrade" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="805" name="Zack" type="Creep" gid="552" x="224" y="384" width="32" height="32">
-   <properties>
-    <property name="Class" value="Merchant"/>
-    <property name="Independent" type="bool" value="true"/>
-    <property name="Item" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple"/>
-    <property name="ItemPrice" value="20|10|15|10"/>
     <property name="Routine" value="Wander"/>
     <property name="WillTrade" type="bool" value="true"/>
    </properties>
@@ -2503,227 +2503,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="6565"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="835"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="6599"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="1896"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2838,6 +2617,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="6565"/>
    <tile/>
    <tile/>
@@ -2905,7 +2688,224 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="1896"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="835"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="835"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6565"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6599"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

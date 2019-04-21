@@ -3,7 +3,9 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Map;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility.Events
 {
@@ -22,17 +24,27 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             GameContext.ActiveUnit.AddItemToInventory(item);
-            RemoveItemFromMap();
+            RemoveItemFromMap(item, itemCoordinates);
             AssetManager.MenuConfirmSFX.Play();
-            
+
             AddItemToUnitInventoryEvent.ItemToast(GameContext.ActiveUnit, item);
-            
+
             Complete = true;
         }
 
-        private void RemoveItemFromMap()
+        private static void RemoveItemFromMap(IItem item, Vector2 coordinates)
         {
-            MapContainer.GameGrid[(int) Layer.Items][(int) itemCoordinates.X, (int) itemCoordinates.Y] = null;
+            MapContainer.GameGrid[
+                (int) GetLayerForItem(item, MapContainer.GetMapSliceAtCoordinates(coordinates))
+            ][(int) coordinates.X, (int) coordinates.Y] = null;
+        }
+
+        private static Layer GetLayerForItem(IItem item, MapSlice slice)
+        {
+            if (slice.ItemEntity == item) return Layer.Items;
+            if (slice.TerrainEntity == item) return Layer.Entities;
+
+            throw new ItemNotFoundException("No item available at coordinates: " + slice.MapCoordinates);
         }
     }
 }

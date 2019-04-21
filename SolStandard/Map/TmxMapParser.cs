@@ -618,6 +618,17 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
+                                    case EntityTypes.LadderBridge:
+                                        entityGrid[col, row] = new LadderBridge(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             string.Format("Entity type {0} does not exist!", currentObject.Type)

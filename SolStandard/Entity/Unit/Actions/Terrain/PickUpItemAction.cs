@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (SelectingItemAtUnitLocation(targetSlice))
+            if (SelectingItemInRange(targetSlice))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
         }
 
-        private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
+        private bool SelectingItemInRange(MapSlice targetSlice)
         {
             return itemCoordinates == targetSlice.MapCoordinates &&
                    targetSlice.DynamicEntity != null;

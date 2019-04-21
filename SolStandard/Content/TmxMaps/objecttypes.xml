@@ -94,6 +94,10 @@
   <property name="range" type="string" default="0"/>
   <property name="usedWith" type="string" default="Door A1"/>
  </objecttype>
+ <objecttype name="LadderBridge" color="#77a424">
+  <property name="canMove" type="bool" default="true"/>
+  <property name="itemPool" type="string"/>
+ </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>

@@ -39,7 +39,8 @@ namespace SolStandard.Entity.General
         Deployment,
         Bank,
         Vendor,
-        RecoveryTile
+        RecoveryTile,
+        LadderBridge
     }
 
     public class TerrainEntity : MapEntity

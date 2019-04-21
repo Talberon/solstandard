@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.General;
+using SolStandard.Map;
+using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+
+namespace SolStandard.Entity.Unit.Actions
+{
+    public class DeployLadderBridgeAction : UnitAction
+    {
+        private readonly LadderBridge ladderBridge;
+
+        public DeployLadderBridgeAction(LadderBridge ladderBridge) : base(
+            icon: ladderBridge.RenderSprite,
+            name: "Place Ladder/Bridge",
+            description: "Place a ladder/bridge on an unoccupied immovable tile." + Environment.NewLine +
+                         "Cannot be picked up once placed!",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+            range: new[] {1},
+            freeAction: false
+        )
+        {
+            this.ladderBridge = ladderBridge;
+        }
+
+        public override void ExecuteAction(MapSlice targetSlice)
+        {
+            if (CanPlaceLadderBridgeAtTarget(targetSlice))
+            {
+                ladderBridge.MapCoordinates = targetSlice.MapCoordinates;
+                GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new PlaceEntityOnMapEvent(ladderBridge.Duplicate() as LadderBridge, Layer.Entities,
+                    AssetManager.CombatBlockSFX));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new EndTurnEvent());
+                GlobalEventQueue.QueueEvents(eventQueue);
+            }
+            else
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    "Must place item on immovable empty space!",
+                    50
+                );
+                AssetManager.WarningSFX.Play();
+            }
+        }
+
+        private static bool CanPlaceLadderBridgeAtTarget(MapSlice targetSlice)
+        {
+            return !UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+                   targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
+        }
+    }
+}
