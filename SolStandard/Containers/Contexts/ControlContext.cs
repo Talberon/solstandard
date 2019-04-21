@@ -296,12 +296,12 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
+                GameContext.MapCamera.ZoomOut();
             }
 
             if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
+                GameContext.MapCamera.ZoomIn();
             }
 
             const float cameraPanRateOverride = 5;
