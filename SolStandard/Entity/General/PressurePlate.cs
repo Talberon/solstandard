@@ -35,8 +35,8 @@ namespace SolStandard.Entity.General
         public bool Trigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != EffectTriggerTime.EndOfTurn) return false;
-            
-            if (UnitIsStandingOnPressurePlate)
+
+            if (PressurePlateIsActivated)
             {
                 if (!wasPressed)
                 {
@@ -75,6 +75,20 @@ namespace SolStandard.Entity.General
                 }
 
                 return fetchedTiles;
+            }
+        }
+
+        private bool PressurePlateIsActivated
+        {
+            get { return UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate; }
+        }
+
+        private bool ItemIsOnPressurePlate
+        {
+            get
+            {
+                return MapContainer.GetMapElementsFromLayer(Layer.Items)
+                    .Any(item => item.MapCoordinates == MapCoordinates);
             }
         }
 
