@@ -40,7 +40,8 @@ namespace SolStandard.Entity.General
         Bank,
         Vendor,
         RecoveryTile,
-        LadderBridge
+        LadderBridge,
+        Magnet
     }
 
     public class TerrainEntity : MapEntity

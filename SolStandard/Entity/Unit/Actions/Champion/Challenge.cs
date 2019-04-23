@@ -80,7 +80,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 
-            return TargetIsAnEnemyInRange(targetSlice, targetUnit) &&
+            return TargetIsUnitInRange(targetSlice, targetUnit) &&
                    UnitMovingContext.CanEndMoveAtCoordinates(pullTileCoordinates) &&
                    targetUnit.IsMovable;
         }

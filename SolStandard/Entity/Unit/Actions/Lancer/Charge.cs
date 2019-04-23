@@ -142,7 +142,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         }
 
 
-        private static bool PathIsObstructed(MapSlice targetSlice, GameUnit targetUnit)
+        public static bool PathIsObstructed(MapSlice targetSlice, GameUnit targetUnit)
         {
             if (TargetIsNorth(targetSlice))
             {

@@ -89,6 +89,7 @@
     <Compile Include="Entity\General\Item\BuffItem.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
+    <Compile Include="Entity\General\Item\Magnet.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
+    <Compile Include="Entity\Unit\Actions\MagneticPullAction.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />

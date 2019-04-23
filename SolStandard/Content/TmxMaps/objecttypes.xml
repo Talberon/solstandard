@@ -98,6 +98,12 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="itemPool" type="string"/>
  </objecttype>
+ <objecttype name="Magnet" color="#1685a4">
+  <property name="itemPool" type="string"/>
+  <property name="pickupRange" type="string" default="0"/>
+  <property name="range" type="string" default="2,3"/>
+  <property name="usesRemaining" type="int" default="3"/>
+ </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
