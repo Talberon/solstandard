@@ -31,7 +31,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new DeployLadderBridgeAction(this);
+            return new TradeItemAction(this);
         }
 
         public IItem Duplicate()
