@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Events;
@@ -66,6 +68,9 @@ namespace SolStandard.Entity.Unit.Statuses
             {
                 const int enragedDenominator = 3;
                 hpToHeal = (int) Math.Floor(missingAttackerHP / enragedDenominator);
+                List<EnragedStatus> enragedStatuses = attacker.StatusEffects.Where(status => status is EnragedStatus)
+                    .Cast<EnragedStatus>().ToList();
+                enragedStatuses.ForEach(enrage => enrage.RemoveEffect(attacker));
                 attacker.StatusEffects.RemoveAll(status => status is EnragedStatus);
             }
             else
