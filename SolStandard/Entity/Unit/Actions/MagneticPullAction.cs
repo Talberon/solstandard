@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -28,6 +30,26 @@ namespace SolStandard.Entity.Unit.Actions
             this.magnet = magnet;
         }
 
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+
+            foreach (int skillRange in Range)
+            {
+                Vector2 northTile = new Vector2(origin.X, origin.Y - skillRange);
+                Vector2 southTile = new Vector2(origin.X, origin.Y + skillRange);
+                Vector2 eastTile = new Vector2(origin.X + skillRange, origin.Y);
+                Vector2 westTile = new Vector2(origin.X - skillRange, origin.Y);
+
+                AddTileWithinMapBounds(attackTiles, northTile, skillRange);
+                AddTileWithinMapBounds(attackTiles, southTile, skillRange);
+                AddTileWithinMapBounds(attackTiles, eastTile, skillRange);
+                AddTileWithinMapBounds(attackTiles, westTile, skillRange);
+            }
+
+            AddVisitedTilesToGameGrid(attackTiles, mapLayer);
+        }
+
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
@@ -43,10 +65,10 @@ namespace SolStandard.Entity.Unit.Actions
                         MapContainer.ClearDynamicAndPreviewGrids();
 
                         Queue<IEvent> eventQueue = new Queue<IEvent>();
-                        
+
                         //FIXME If a unit is diagonal from the magnet user, the unit should not be placed inside the user's space
                         eventQueue.Enqueue(new PullEvent(targetUnit));
-                        
+
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());
                         GlobalEventQueue.QueueEvents(eventQueue);
@@ -67,6 +89,23 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Item is broken!", 50);
                 AssetManager.WarningSFX.Play();
+            }
+        }
+
+
+        private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
+        {
+            if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
+            {
+                tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
+            }
+        }
+
+        private static void AddVisitedTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
+        {
+            foreach (MapDistanceTile tile in visitedTiles)
+            {
+                MapContainer.GameGrid[(int) layer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = tile;
             }
         }
     }
