@@ -568,7 +568,7 @@ namespace SolStandard.Containers.View
             return new Window(new WindowContentGrid(selectedUnitStatuses, 1), windowColor);
         }
 
-        public static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)
+        private static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)
         {
             return (inventoryPane == null) ? null : new Window(inventoryPane, windowColor);
         }

@@ -77,7 +77,6 @@
     <Compile Include="Containers\View\MapSelectScreenView.cs" />
     <Compile Include="Entity\GameEntity.cs" />
     <Compile Include="Entity\General\Bank.cs" />
-    <Compile Include="Entity\General\Barricade.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
@@ -85,17 +84,18 @@
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
+    <Compile Include="Entity\General\Item\Barricade.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
     <Compile Include="Entity\General\Item\BuffItem.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
+    <Compile Include="Entity\General\Item\LadderBridge.cs" />
     <Compile Include="Entity\General\Item\Magnet.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
     <Compile Include="Entity\General\Item\Spoils.cs" />
     <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
-    <Compile Include="Entity\General\LadderBridge.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\PressurePlate.cs" />

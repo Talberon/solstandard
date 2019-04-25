@@ -4,7 +4,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Utility;
 
-namespace SolStandard.Entity.General
+namespace SolStandard.Entity.General.Item
 {
     public class LadderBridge : Movable, IItem
     {
