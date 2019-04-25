@@ -475,8 +475,16 @@ namespace SolStandard.Containers.Contexts
                     {
                         MapContainer.ClearDynamicAndPreviewGrids();
                         new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
                     }
+                }
+                else if (hoverSlice.TerrainEntity is IThreatRange)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
+
+                    IThreatRange entityThreat = (IThreatRange) hoverSlice.TerrainEntity;
+                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                        .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
                 }
                 else
                 {

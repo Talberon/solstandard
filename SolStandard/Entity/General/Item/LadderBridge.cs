@@ -38,13 +38,5 @@ namespace SolStandard.Entity.General.Item
         {
             return new LadderBridge(Name, Type, Sprite, MapCoordinates, ItemPool, CanMove, TiledProperties);
         }
-
-        public List<UnitAction> TileActions()
-        {
-            return new List<UnitAction>
-            {
-                new PickUpItemAction(this, MapCoordinates)
-            };
-        }
     }
 }

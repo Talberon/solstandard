@@ -86,6 +86,7 @@
     <Compile Include="Entity\General\Drawbridge.cs" />
     <Compile Include="Entity\General\Item\Barricade.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
+    <Compile Include="Entity\General\Item\Bomb.cs" />
     <Compile Include="Entity\General\Item\BuffItem.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
+    <Compile Include="Entity\IThreatRange.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\BankDeposit.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployLadderBridgeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />

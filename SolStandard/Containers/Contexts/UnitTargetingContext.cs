@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -26,10 +27,10 @@ namespace SolStandard.Containers.Contexts
             AddVisitedTilesToGameGrid(visited, mapLayer);
         }
 
-        public void GenerateThreatGrid(Vector2 origin, GameUnit unit)
+        public void GenerateThreatGrid(Vector2 origin, IThreatRange threatRange, Team team = Team.Creep)
         {
             new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark))
-                .GenerateMoveGrid(origin, unit.Stats.Mv, unit.Team);
+                .GenerateMoveGrid(origin, threatRange.MvRange, team);
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
@@ -37,7 +38,7 @@ namespace SolStandard.Containers.Contexts
                 if (tile == null) continue;
 
                 //Generate attack tiles for the perimeter of the grid
-                GenerateTargetingGrid(tile.MapCoordinates, unit.Stats.CurrentAtkRange, Layer.Preview);
+                GenerateTargetingGrid(tile.MapCoordinates, threatRange.AtkRange, Layer.Preview);
             }
 
             //Clean up overlapping tiles

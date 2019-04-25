@@ -108,7 +108,7 @@ namespace SolStandard.Containers.Contexts
             if (hoverUnit != null)
             {
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit);
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit, hoverUnit.Team);
             }
 
             DeploymentView.UpdateHoverUnitWindows(hoverUnit);

@@ -10,32 +10,34 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions
 {
-    public class DeployLadderBridgeAction : UnitAction
+    public class DeployBombAction : UnitAction
     {
-        private readonly LadderBridge ladderBridge;
+        private readonly Bomb bombToDeploy;
 
-        public DeployLadderBridgeAction(LadderBridge ladderBridge) : base(
-            icon: ladderBridge.RenderSprite,
-            name: "Place Ladder/Bridge",
-            description: "Place a ladder/bridge on an unoccupied immovable tile." + Environment.NewLine +
+        public DeployBombAction(Bomb bombToDeploy) : base(
+            icon: bombToDeploy.RenderSprite,
+            name: "Set Bomb",
+            description: "Place a bomb on an unoccupied tile. Will detonate at the beginning of the next round." +
+                         Environment.NewLine +
+                         "Will detonate in a [" + bombToDeploy.Range + "] tile radius." + Environment.NewLine +
                          "Cannot be picked up once placed!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1},
+            range: new[] {0, 1},
             freeAction: false
         )
         {
-            this.ladderBridge = ladderBridge;
+            this.bombToDeploy = bombToDeploy;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (CanPlaceLadderBridgeAtTarget(targetSlice))
+            if (CanPlaceBombAtTarget(targetSlice))
             {
-                ladderBridge.MapCoordinates = targetSlice.MapCoordinates;
-                GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
-
+                bombToDeploy.MapCoordinates = targetSlice.MapCoordinates;
+                GameContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
+                
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new PlaceEntityOnMapEvent(ladderBridge.Duplicate() as LadderBridge, Layer.Entities,
+                eventQueue.Enqueue(new PlaceEntityOnMapEvent(bombToDeploy.Duplicate() as Bomb, Layer.Entities,
                     AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
@@ -51,10 +53,9 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        private static bool CanPlaceLadderBridgeAtTarget(MapSlice targetSlice)
+        private static bool CanPlaceBombAtTarget(MapSlice targetSlice)
         {
-            return !UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
-                   targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
+            return targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
         }
     }
 }

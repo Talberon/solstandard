@@ -643,6 +643,20 @@ namespace SolStandard.Map
                                             currentProperties["itemPool"]
                                         );
                                         break;
+                                    case EntityTypes.Bomb:
+                                        entityGrid[col, row] = new Bomb(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["damage"]),
+                                            currentProperties["itemPool"],
+                                            currentProperties
+                                        );
+                                        break;
+
                                     default:
                                         throw new IndexOutOfRangeException(
                                             string.Format("Entity type {0} does not exist!", currentObject.Type)

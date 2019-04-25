@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="862">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="869">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -1692,7 +1692,7 @@
    <tile gid="6206"/>
    <tile gid="6207"/>
    <tile/>
-   <tile gid="6608"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1998,7 +1998,7 @@
     <property name="triggersId" value="Drawbridge A"/>
    </properties>
   </object>
-  <object id="669" name="Drawbridge A" type="Drawbridge" gid="6877" x="416" y="448" width="32" height="32"/>
+  <object id="669" name="Drawbridge A" type="Drawbridge" gid="6877" x="448" y="448" width="32" height="32"/>
   <object id="670" name="Key Chest" type="Chest" gid="234" x="736" y="480" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
@@ -2053,7 +2053,7 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="703" name="Drawbridge A" type="Drawbridge" gid="6893" x="416" y="480" width="32" height="32"/>
+  <object id="703" name="Drawbridge A" type="Drawbridge" gid="6893" x="448" y="480" width="32" height="32"/>
   <object id="704" name="Bridge" type="Movable" gid="69" x="192" y="256" width="32" height="32"/>
   <object id="705" name="Fort" type="BuffTile" gid="68" x="512" y="96" width="32" height="32">
    <properties>
@@ -2134,7 +2134,7 @@
     <property name="item" value="Sandbag"/>
    </properties>
   </object>
-  <object id="810" name="LadderBridge Chest" type="Chest" gid="234" x="352" y="416" width="32" height="32">
+  <object id="810" name="LadderBridge Chest" type="Chest" gid="234" x="320" y="416" width="32" height="32">
    <properties>
     <property name="itemPool" value="LadderBridge"/>
    </properties>
@@ -2189,20 +2189,34 @@
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="853" name="LadderBridge Chest" type="Chest" gid="234" x="352" y="512" width="32" height="32">
+  <object id="853" name="LadderBridge Chest" type="Chest" gid="234" x="320" y="512" width="32" height="32">
    <properties>
     <property name="itemPool" value="LadderBridge"/>
    </properties>
   </object>
-  <object id="856" name="Ladder Chest" type="Chest" gid="234" x="384" y="416" width="32" height="32">
+  <object id="856" name="Ladder Chest" type="Chest" gid="234" x="416" y="416" width="32" height="32">
    <properties>
     <property name="item" value="Ladder"/>
     <property name="itemPool" value=""/>
    </properties>
   </object>
-  <object id="857" name="Bridge Chest" type="Chest" gid="234" x="384" y="512" width="32" height="32">
+  <object id="857" name="Bridge Chest" type="Chest" gid="234" x="416" y="512" width="32" height="32">
    <properties>
     <property name="item" value="DeployBridge"/>
+   </properties>
+  </object>
+  <object id="863" name="Vending Machine" type="Vendor" gid="7063" x="384" y="288" width="32" height="32">
+   <properties>
+    <property name="items" value="Giant Bomb|Regular Bomb"/>
+    <property name="prices" value="5|1"/>
+    <property name="quantities" value="10|10"/>
+   </properties>
+  </object>
+  <object id="865" name="Bomb Chest" type="Chest" gid="234" x="448" y="288" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="50"/>
+    <property name="item" value="Regular Bomb"/>
+    <property name="itemPool" value=""/>
    </properties>
   </object>
  </objectgroup>
@@ -2301,6 +2315,12 @@
     <property name="itemPool" value="LadderBridge"/>
    </properties>
   </object>
+  <object id="862" name="Giant Bomb" type="Bomb" gid="7023" x="736" y="96" width="32" height="32">
+   <properties>
+    <property name="range" value="0,1,2"/>
+   </properties>
+  </object>
+  <object id="864" name="Regular Bomb" type="Bomb" gid="7335" x="736" y="64" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="443" x="288" y="288" width="32" height="32">
@@ -2328,7 +2348,7 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="649" name="Treasure" type="Currency" gid="476" x="640" y="352" width="32" height="32">
+  <object id="649" name="Treasure" type="Currency" gid="476" x="352" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
@@ -2394,8 +2414,22 @@
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="860" name="Magnet" type="Magnet" gid="7354" x="480" y="288" width="32" height="32"/>
-  <object id="861" name="Magnet" type="Magnet" gid="7354" x="352" y="288" width="32" height="32"/>
+  <object id="861" name="Magnet" type="Magnet" gid="7354" x="544" y="320" width="32" height="32"/>
+  <object id="866" name="Treasure" type="Currency" gid="476" x="384" y="320" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="867" name="Treasure" type="Currency" gid="476" x="416" y="288" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="868" name="Treasure" type="Currency" gid="476" x="384" y="256" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="30"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
   <object id="517" name="Horatio" type="Unit" gid="529" x="480" y="320" width="32" height="32">
@@ -2404,13 +2438,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="520" name="Aqua" type="Unit" gid="532" x="416" y="352" width="32" height="32">
+  <object id="520" name="Aqua" type="Unit" gid="532" x="384" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="521" name="Rose" type="Unit" gid="542" x="416" y="224" width="32" height="32">
+  <object id="521" name="Rose" type="Unit" gid="542" x="384" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2448,13 +2482,13 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="784" name="Slime" type="Creep" gid="549" x="736" y="320" width="32" height="32">
+  <object id="784" name="Slime" type="Creep" gid="549" x="736" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Item" value="Chest LK1 Key"/>
    </properties>
   </object>
-  <object id="804" name="Kaz" type="Creep" gid="552" x="736" y="352" width="32" height="32">
+  <object id="804" name="Kaz" type="Creep" gid="552" x="736" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Merchant"/>
     <property name="Independent" type="bool" value="true"/>
@@ -2829,7 +2863,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6565"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2861,7 +2894,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6599"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
