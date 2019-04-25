@@ -222,9 +222,14 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
             }
 
-            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
             }
 
             CameraControl(controlMapper);
@@ -399,7 +404,7 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
             }
 
-            if (controlMapper.Press(Input.ResetCursor, PressType.Single))
+            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
             {
                 GameContext.GameMapContext.ToggleItemPreview();
             }
@@ -524,7 +529,7 @@ namespace SolStandard.Containers.Contexts
         private static void ViewInventoryControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single) ||
-                controlMapper.Press(Input.ResetCursor, PressType.Single) ||
+                controlMapper.Press(Input.PreviewItem, PressType.Single) ||
                 controlMapper.Press(Input.Cancel, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
@@ -555,7 +560,7 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.ResetCursor, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.PreviewItem, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToActiveUnitEvent());
             }

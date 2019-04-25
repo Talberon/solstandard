@@ -43,7 +43,7 @@ namespace SolStandard.Utility.Buttons.Network
                 {Input.Confirm, (InputNet) Confirm},
                 {Input.Cancel, (InputNet) Cancel},
                 {Input.PreviewUnit, (InputNet) ResetToUnit},
-                {Input.ResetCursor, (InputNet) CenterCamera},
+                {Input.PreviewItem, (InputNet) CenterCamera},
 
                 {Input.CursorUp, (InputNet) CursorUp},
                 {Input.CursorDown, (InputNet) CursorDown},
@@ -135,7 +135,7 @@ namespace SolStandard.Utility.Buttons.Network
             info.AddValue(NCPrefix + (int) Input.Confirm, Confirm.Pressed);
             info.AddValue(NCPrefix + (int) Input.Cancel, Cancel.Pressed);
             info.AddValue(NCPrefix + (int) Input.PreviewUnit, ResetToUnit.Pressed);
-            info.AddValue(NCPrefix + (int) Input.ResetCursor, CenterCamera.Pressed);
+            info.AddValue(NCPrefix + (int) Input.PreviewItem, CenterCamera.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorUp, CursorUp.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorDown, CursorDown.Pressed);
             info.AddValue(NCPrefix + (int) Input.CursorLeft, CursorLeft.Pressed);
@@ -201,7 +201,7 @@ namespace SolStandard.Utility.Buttons.Network
             description += string.Format("<{0}: {1}>, ", Input.Confirm.ToString(), Confirm);
             description += string.Format("<{0}: {1}>, ", Input.Cancel.ToString(), Cancel);
             description += string.Format("<{0}: {1}>, ", Input.PreviewUnit.ToString(), ResetToUnit);
-            description += string.Format("<{0}: {1}>, ", Input.ResetCursor.ToString(), CenterCamera);
+            description += string.Format("<{0}: {1}>, ", Input.PreviewItem.ToString(), CenterCamera);
             description += Environment.NewLine;
             description += string.Format("<{0}: {1}>, ", Input.CursorUp.ToString(), CursorUp);
             description += string.Format("<{0}: {1}>, ", Input.CursorDown.ToString(), CursorDown);

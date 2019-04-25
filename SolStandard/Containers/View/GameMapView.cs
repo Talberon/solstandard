@@ -151,7 +151,7 @@ namespace SolStandard.Containers.View
             ItemDetailWindow = GenerateItemsWindow(items, ItemTerrainWindowColor);
         }
 
-        private static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
+        public static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
         {
             IRenderable[,] actionElements = new IRenderable[items.Count, 3];
 
@@ -320,7 +320,12 @@ namespace SolStandard.Containers.View
             );
         }
 
-        public void GenerateEntityWindow(MapSlice hoverSlice)
+        public void SetEntityWindow(MapSlice hoverSlice)
+        {
+            EntityWindow = GenerateEntityWindow(hoverSlice);
+        }
+
+        public static Window GenerateEntityWindow(MapSlice hoverSlice)
         {
             WindowContentGrid terrainContentGrid;
 
@@ -381,8 +386,7 @@ namespace SolStandard.Containers.View
                     1);
             }
 
-            EntityWindow = new Window(terrainContentGrid,
-                new Color(50, 50, 50, 150));
+            return new Window(terrainContentGrid, new Color(50, 50, 50, 150));
         }
 
         public void GenerateObjectiveWindow()
@@ -522,12 +526,12 @@ namespace SolStandard.Containers.View
         }
 
 
-        private static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
+        public static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
         {
             return new Window(unitPortraitPane, windowColor);
         }
 
-        private static Window GenerateUnitDetailWindow(IRenderable selectedUnitInfo, Color windowColor)
+        public static Window GenerateUnitDetailWindow(IRenderable selectedUnitInfo, Color windowColor)
         {
             return new Window(selectedUnitInfo, windowColor);
         }
@@ -564,7 +568,7 @@ namespace SolStandard.Containers.View
             return new Window(new WindowContentGrid(selectedUnitStatuses, 1), windowColor);
         }
 
-        private static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)
+        public static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)
         {
             return (inventoryPane == null) ? null : new Window(inventoryPane, windowColor);
         }

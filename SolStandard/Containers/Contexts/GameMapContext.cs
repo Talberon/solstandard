@@ -488,7 +488,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             //Terrain (Entity) Window
-            GameMapView.GenerateEntityWindow(hoverSlice);
+            GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
         }
@@ -672,12 +672,34 @@ namespace SolStandard.Containers.Contexts
 
             MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
 
+            List<IItem> items = CollectItemsFromSlice(currentSlice);
+
+            if (items.Count > 0)
+            {
+                AssetManager.MapUnitSelectSFX.Play();
+                GameMapView.GenerateItemDetailWindow(items);
+                GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+                MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
+            }
+        }
+
+        public static List<IItem> CollectItemsFromSlice(MapSlice currentSlice)
+        {
             List<IItem> items = new List<IItem>();
 
             Spoils spoils = currentSlice.ItemEntity as Spoils;
             if (spoils != null)
             {
                 items.AddRange(spoils.Items);
+            }
+            else
+            {
+                IItem item = currentSlice.ItemEntity as IItem;
+                if (item != null) items.Add(item);
             }
 
             Vendor vendor = currentSlice.TerrainEntity as Vendor;
@@ -692,17 +714,7 @@ namespace SolStandard.Containers.Contexts
                 sliceUnit.Inventory.ForEach(item => items.Add(item));
             }
 
-            if (items.Count > 0)
-            {
-                AssetManager.MapUnitSelectSFX.Play();
-                GameMapView.GenerateItemDetailWindow(items);
-                GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
-            }
-            else
-            {
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("No inventory to preview!", 50);
-            }
+            return items;
         }
 
         private static bool ShowingItemPreview

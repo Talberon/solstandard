@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;
@@ -22,6 +24,13 @@ namespace SolStandard.Containers.View
         private Window BlueDeployRoster { get; set; }
         private Window RedDeployRoster { get; set; }
 
+        private Window UnitPortraitWindow { get; set; }
+        private Window UnitDetailWindow { get; set; }
+
+        public Window ItemDetailWindow { get; private set; }
+
+        private Window EntityWindow { get; set; }
+
         private Window HelpText { get; set; }
 
         public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit)
@@ -33,6 +42,25 @@ namespace SolStandard.Containers.View
             HelpText = GenerateHelpTextWindow();
         }
 
+        public void SetEntityWindow(MapSlice hoverSlice)
+        {
+            EntityWindow = GameMapView.GenerateEntityWindow(hoverSlice);
+        }
+
+        public void UpdateHoverUnitWindows(GameUnit hoverMapUnit)
+        {
+            if (hoverMapUnit == null)
+            {
+                UnitPortraitWindow = null;
+                UnitDetailWindow = null;
+            }
+            else
+            {
+                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                UnitPortraitWindow = GameMapView.GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                UnitDetailWindow = GameMapView.GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+            }
+        }
 
         private static Window GenerateHelpTextWindow()
         {
@@ -56,8 +84,15 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    ButtonIconProvider.GetButton(ButtonIcon.B, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to snap to the first deploy tile."),
+                    new RenderBlank(),
+                    new RenderBlank()
+                },
+                {
+                    new RenderText(windowFont, "Press "),
+                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderText(windowFont, " to preview selected unit in the codex."),
                     new RenderBlank(),
                     new RenderBlank()
                 },
@@ -69,8 +104,7 @@ namespace SolStandard.Containers.View
                     new RenderText(windowFont, " to cycle between units.")
                 }
             };
-            WindowContentGrid promptWindowContentGrid =
-                new WindowContentGrid(promptTextContent, 2, HorizontalAlignment.Right);
+            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
 
             return new Window(promptWindowContentGrid, DarkBackgroundColor);
         }
@@ -107,6 +141,16 @@ namespace SolStandard.Containers.View
             return new Window(unitContentGrid, windowColor);
         }
 
+        public void GenerateItemDetailWindow(List<IItem> items, Color color)
+        {
+            ItemDetailWindow = GameMapView.GenerateItemsWindow(items, color);
+        }
+
+        public void CloseItemDetailWindow()
+        {
+            ItemDetailWindow = null;
+        }
+
         #region WindowPositions
 
         private Vector2 BlueDeployRosterPosition
@@ -129,8 +173,60 @@ namespace SolStandard.Containers.View
         {
             get
             {
+                //Bottom-left
+                return new Vector2(WindowEdgePadding, GameDriver.ScreenSize.Y - HelpText.Height - WindowEdgePadding);
+            }
+        }
+
+        private Vector2 EntityWindowPosition
+        {
+            get
+            {
                 //Top-Right
-                return new Vector2(GameDriver.ScreenSize.X - HelpText.Width - WindowEdgePadding, WindowEdgePadding);
+                return new Vector2(GameDriver.ScreenSize.X - EntityWindow.Width - WindowEdgePadding, WindowEdgePadding);
+            }
+        }
+
+        private Vector2 UnitPortraitWindowPosition
+        {
+            get
+            {
+                //Bottom-left, above HelpText window
+                return new Vector2(WindowEdgePadding,
+                    HelpTextPosition.Y - UnitPortraitWindow.Height - WindowEdgePadding
+                );
+            }
+        }
+
+        private Vector2 UnitDetailWindowPosition
+        {
+            get
+            {
+                //Bottom-left, right of portrait, above initiative window
+                return new Vector2(
+                    WindowEdgePadding + UnitPortraitWindow.Width,
+                    UnitPortraitWindowPosition.Y + UnitPortraitWindow.Height - UnitDetailWindow.Height
+                );
+            }
+        }
+
+        private Vector2 ItemDetailWindowPosition
+        {
+            get
+            {
+                if (UnitDetailWindow == null || UnitPortraitWindow == null)
+                {
+                    //Bottom-left, above HelpText window
+                    return new Vector2(WindowEdgePadding,
+                        HelpTextPosition.Y - ItemDetailWindow.Height - WindowEdgePadding
+                    );
+                }
+
+                //Bottom-left, above portrait
+                return new Vector2(
+                    UnitPortraitWindowPosition.X,
+                    UnitDetailWindowPosition.Y - ItemDetailWindow.Height - WindowEdgePadding
+                );
             }
         }
 
@@ -147,6 +243,12 @@ namespace SolStandard.Containers.View
             if (BlueDeployRoster != null) BlueDeployRoster.Draw(spriteBatch, BlueDeployRosterPosition);
             if (RedDeployRoster != null) RedDeployRoster.Draw(spriteBatch, RedDeployRosterPosition);
             if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
+            if (EntityWindow != null) EntityWindow.Draw(spriteBatch, EntityWindowPosition);
+
+            if (UnitPortraitWindow != null) UnitPortraitWindow.Draw(spriteBatch, UnitPortraitWindowPosition);
+            if (UnitDetailWindow != null) UnitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition);
+
+            if (ItemDetailWindow != null) ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition);
         }
     }
 }
