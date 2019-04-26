@@ -386,7 +386,8 @@ namespace SolStandard.Map
                                             currentProperties["usedWith"],
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
-                                            currentProperties["itemPool"]
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["masterKey"])
                                         );
                                         break;
                                     case EntityTypes.Drawbridge:

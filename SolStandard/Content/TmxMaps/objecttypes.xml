@@ -96,6 +96,7 @@
  </objecttype>
  <objecttype name="Key" color="#ffaa00">
   <property name="itemPool" type="string"/>
+  <property name="masterKey" type="bool" default="false"/>
   <property name="range" type="string" default="0"/>
   <property name="usedWith" type="string" default="Door A1"/>
  </objecttype>
