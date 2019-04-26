@@ -657,7 +657,6 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
-
                                     default:
                                         throw new IndexOutOfRangeException(
                                             string.Format("Entity type {0} does not exist!", currentObject.Type)

@@ -17,6 +17,7 @@ namespace SolStandard.Entity.Unit.Actions
         protected readonly IRenderable TrapSprite;
         protected readonly int Damage;
         protected readonly int MaxTriggers;
+        private readonly TrapEntity trapItem;
 
         protected LayTrap(IRenderable skillIcon, IRenderable trapSprite, string title, int damage, int maxTriggers,
             string description = null)
@@ -36,19 +37,45 @@ namespace SolStandard.Entity.Unit.Actions
             TrapSprite = trapSprite;
         }
 
+        public LayTrap(TrapEntity trapItem)
+            : base(
+                icon: trapItem.RenderSprite,
+                name: "Place Trap",
+                description: "Place a tile that will deal [" + trapItem.Damage +
+                             "] damage to enemies that start their turn on it." + Environment.NewLine +
+                             "Max activations: [" + trapItem.TriggersRemaining + "]",
+                tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+                range: new[] {1},
+                freeAction: false
+            )
+        {
+            this.trapItem = trapItem;
+        }
+
         public override void ExecuteAction(MapSlice targetSlice)
         {
             if (TargetIsInRange(targetSlice))
             {
                 if (!TargetIsObstructed(targetSlice))
                 {
-                    TrapEntity trap = new TrapEntity("Trap", TrapSprite.Clone(), targetSlice.MapCoordinates, Damage,
-                        MaxTriggers, true, true, true);
+                    TrapEntity trapToPlace;
+
+                    if (trapItem != null)
+                    {
+                        GameContext.ActiveUnit.RemoveItemFromInventory(trapItem);
+                        trapItem.MapCoordinates = targetSlice.MapCoordinates;
+                        trapToPlace = trapItem;
+                    }
+                    else
+                    {
+                        trapToPlace = new TrapEntity("Trap", TrapSprite.Clone(), targetSlice.MapCoordinates, Damage,
+                            MaxTriggers, true, true, true);
+                    }
 
                     MapContainer.ClearDynamicAndPreviewGrids();
-
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
+                    eventQueue.Enqueue(new PlaceEntityOnMapEvent((TrapEntity) trapToPlace.Duplicate(), Layer.Entities,
+                        AssetManager.DropItemSFX));
                     eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }

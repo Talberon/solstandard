@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="875">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="876">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -2207,9 +2207,9 @@
   </object>
   <object id="863" name="Vending Machine" type="Vendor" gid="7063" x="384" y="288" width="32" height="32">
    <properties>
-    <property name="items" value="Giant Bomb|Regular Bomb"/>
-    <property name="prices" value="5|1"/>
-    <property name="quantities" value="10|10"/>
+    <property name="items" value="Giant Bomb|Regular Bomb|Hex"/>
+    <property name="prices" value="5|1|1"/>
+    <property name="quantities" value="10|10|16"/>
    </properties>
   </object>
   <object id="865" name="Bomb Chest" type="Chest" gid="234" x="448" y="288" width="32" height="32">
@@ -2336,6 +2336,12 @@
    </properties>
   </object>
   <object id="864" name="Regular Bomb" type="Bomb" gid="7335" x="736" y="64" width="32" height="32"/>
+  <object id="875" name="Hex" type="Trap" gid="7135" x="704" y="96" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="5"/>
+    <property name="limitedTriggers" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="443" x="288" y="288" width="32" height="32">

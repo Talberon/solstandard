@@ -19,7 +19,8 @@ namespace SolStandard.Entity.Unit.Actions
             name: "Set Bomb",
             description: "Place a bomb on an unoccupied tile. Will detonate at the beginning of the next round." +
                          Environment.NewLine +
-                         "Will detonate in a [" + bombToDeploy.Range + "] tile radius." + Environment.NewLine +
+                         "Will detonate in a [" + string.Join(",", bombToDeploy.Range) + "] tile range." +
+                         Environment.NewLine +
                          "Cannot be picked up once placed!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},
@@ -35,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 bombToDeploy.MapCoordinates = targetSlice.MapCoordinates;
                 GameContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
-                
+
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(bombToDeploy.Duplicate() as Bomb, Layer.Entities,
                     AssetManager.CombatBlockSFX));
