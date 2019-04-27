@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
 using SolStandard.Map.Elements;

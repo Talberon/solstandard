@@ -1,0 +1,75 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
+using SolStandard.Utility.Monogame;
+
+namespace SolStandard.Entity.Unit.Actions
+{
+    public class SpawnUnitAction : UnitAction
+    {
+        private readonly Role unitRole;
+        private readonly IItem spawnItem;
+
+        public SpawnUnitAction(Role unitRole, IItem spawnItem) : base(
+            icon: UnitIcon(unitRole),
+            name: "Spawn " + unitRole,
+            description: "Spawn a new ally with the [" + unitRole + "] role!",
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+            range: new[] {1},
+            freeAction: false
+        )
+        {
+            this.unitRole = unitRole;
+            this.spawnItem = spawnItem;
+        }
+
+        private static IRenderable UnitIcon(Role role)
+        {
+            ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role, GameContext.ActiveUnit.Team);
+            return new SpriteAtlas(unitPortrait,
+                new Vector2(unitPortrait.Width, unitPortrait.Height),
+                new Vector2(GameDriver.CellSize)
+            );
+        }
+
+        public override void ExecuteAction(MapSlice targetSlice)
+        {
+            if (TargetIsUnoccupiedTileInRange(targetSlice))
+            {
+                GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new SpawnUnitEvent(unitRole, GameContext.ActiveUnit.Team));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new EndTurnEvent());
+                GlobalEventQueue.QueueEvents(eventQueue);
+            }
+            else
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                AssetManager.WarningSFX.Play();
+            }
+        }
+
+        public static void PlaceUnitInTile(Role role, Team team)
+        {
+            GameUnit unitToSpawn = UnitGenerator.GenerateDraftUnit(role, team, false);
+            unitToSpawn.UnitEntity.MapCoordinates = GameContext.MapCursor.MapCoordinates;
+            GameContext.Units.Add(unitToSpawn);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            AssetManager.SkillBuffSFX.Play();
+        }
+
+        private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
+        {
+            return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+        }
+    }
+}

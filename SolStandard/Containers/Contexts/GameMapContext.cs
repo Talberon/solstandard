@@ -31,9 +31,9 @@ namespace SolStandard.Containers.Contexts
             UnitDecidingAction,
             UnitTargeting,
             UnitActing,
-            ResolvingTurn
+            ResolvingTurn,
+            AdHocDraft
         }
-
 
         public TurnState CurrentTurnState { get; set; }
         public GameUnit SelectedUnit { get; private set; }
@@ -74,19 +74,6 @@ namespace SolStandard.Containers.Contexts
 
             //Help Window
             GameMapView.GenerateObjectiveWindow();
-        }
-
-        public void ProceedToNextState()
-        {
-            if (CurrentTurnState == TurnState.ResolvingTurn)
-            {
-                ResetTurnState();
-            }
-            else
-            {
-                CurrentTurnState++;
-                Trace.WriteLine("Changing state: " + CurrentTurnState);
-            }
         }
 
         public void ResolveTurn()
@@ -221,7 +208,7 @@ namespace SolStandard.Containers.Contexts
                 return;
             }
 
-            ProceedToNextState();
+            CurrentTurnState = TurnState.UnitDecidingAction;
 
             MapContainer.ClearDynamicAndPreviewGrids();
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
@@ -332,7 +319,7 @@ namespace SolStandard.Containers.Contexts
             if (SelectedUnit != null)
             {
                 Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
-                ProceedToNextState();
+                CurrentTurnState = TurnState.UnitMoving;
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     SelectedUnit,
@@ -541,7 +528,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView.CurrentMenu.CurrentOption.Execute();
             GameMapView.CloseCombatMenu();
 
-            ProceedToNextState();
+            CurrentTurnState = TurnState.UnitTargeting;
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
             AssetManager.MapUnitSelectSFX.Play();
         }
@@ -634,6 +621,28 @@ namespace SolStandard.Containers.Contexts
         public void SelectPauseMenuOption()
         {
             PauseScreenView.CurrentMenu.SelectOption();
+        }
+
+        public void OpenDraftMenu()
+        {
+            CurrentTurnState = TurnState.AdHocDraft;
+            GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
+            AssetManager.MenuConfirmSFX.Play();
+        }
+
+        public void MoveDraftMenuCursor(MenuCursorDirection direction)
+        {
+            GameMapView.AdHocDraftMenu.MoveMenuCursor(direction);
+        }
+
+        public void SelectDraftMenuOption()
+        {
+            GameMapView.AdHocDraftMenu.SelectOption();
+        }
+
+        public void ClearDraftMenu()
+        {
+            GameMapView.CloseAdHocDraftMenu();
         }
 
         public void ToggleCombatMenu()

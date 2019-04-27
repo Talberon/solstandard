@@ -274,6 +274,9 @@ namespace SolStandard.Containers.Contexts
 
             switch (GameContext.GameMapContext.CurrentTurnState)
             {
+                case GameMapContext.TurnState.AdHocDraft:
+                    AdHocDraftControl(controlMapper);
+                    break;
                 case GameMapContext.TurnState.SelectUnit:
                     SelectUnitControl(controlMapper);
                     break;
@@ -294,6 +297,34 @@ namespace SolStandard.Containers.Contexts
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void AdHocDraftControl(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Right);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.SelectDraftMenuOption();
             }
         }
 

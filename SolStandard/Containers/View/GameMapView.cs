@@ -63,6 +63,8 @@ namespace SolStandard.Containers.View
 
         private Window MenuDescriptionWindow { get; set; }
 
+        public TwoDimensionalMenu AdHocDraftMenu { get; private set; }
+
         private MenuType visibleMenu;
         private bool visible;
 
@@ -142,9 +144,24 @@ namespace SolStandard.Containers.View
             InventoryMenu.IsVisible = false;
         }
 
+        public void CloseAdHocDraftMenu()
+        {
+            AdHocDraftMenu = null;
+        }
+
         #endregion Close Windows
 
         #region Generation
+
+        public void GenerateDraftMenu(Team team)
+        {
+            AdHocDraftMenu = new TwoDimensionalMenu(
+                DraftView.GetAdHocUnitOptionsForTeam(team, new Dictionary<Role, bool>()),
+                DraftView.DraftCursor,
+                TeamUtility.DetermineTeamColor(team),
+                TwoDimensionalMenu.CursorType.Frame
+            );
+        }
 
         public void GenerateItemDetailWindow(List<IItem> items)
         {
@@ -733,6 +750,15 @@ namespace SolStandard.Containers.View
             );
         }
 
+        private Vector2 AdHocDraftMenuPosition()
+        {
+            //Middle of the screen
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) AdHocDraftMenu.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) AdHocDraftMenu.Height / 2
+            );
+        }
+
         private Vector2 MenuDescriptionWindowPosition(Vector2 menuPosition)
         {
             return menuPosition - new Vector2(0, MenuDescriptionWindow.Height);
@@ -847,6 +873,11 @@ namespace SolStandard.Containers.View
             if (ObjectiveWindow != null)
             {
                 ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
+            }
+
+            if (AdHocDraftMenu != null)
+            {
+                AdHocDraftMenu.Draw(spriteBatch, AdHocDraftMenuPosition());
             }
         }
     }

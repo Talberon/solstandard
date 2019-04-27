@@ -54,6 +54,12 @@
   <property name="itemPool" type="string"/>
   <property name="range" type="string" default="1"/>
  </objecttype>
+ <objecttype name="Contract" color="#a42341">
+  <property name="forSpecificUnit" type="bool" default="true"/>
+  <property name="itemPool" type="string"/>
+  <property name="pickupRange" type="string" default="0"/>
+  <property name="specificRole" type="string" default="Champion"/>
+ </objecttype>
  <objecttype name="Creep" color="#55857f">
   <property name="Class" type="string"/>
   <property name="Commander" type="bool" default="false"/>

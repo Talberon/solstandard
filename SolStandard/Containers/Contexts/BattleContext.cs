@@ -146,7 +146,6 @@ namespace SolStandard.Containers.Contexts
                             StartResolvingBlocks();
                         }
                     }
-
                     break;
                 case BattleState.RollDice:
                     if (TryProceedToState(BattleState.ResolveCombat))
@@ -167,12 +166,9 @@ namespace SolStandard.Containers.Contexts
 
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
-
                     break;
                 default:
-                    GameContext.GameMapContext.ProceedToNextState();
-                    GameContext.MapCamera.RevertToPreviousZoomLevel();
-                    return;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

@@ -88,6 +88,7 @@
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
     <Compile Include="Entity\General\Item\Bomb.cs" />
     <Compile Include="Entity\General\Item\BuffItem.cs" />
+    <Compile Include="Entity\General\Item\Contract.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
     <Compile Include="Entity\General\Item\LadderBridge.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployLadderBridgeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\DraftMenu\AdHocDraftOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
@@ -320,9 +324,11 @@
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
+    <Compile Include="Utility\Events\Network\CloseAdHocDraftMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CombatNotifyStateCompleteEvent.cs" />
     <Compile Include="Utility\Events\Network\ConcedeEvent.cs" />
     <Compile Include="Utility\Events\Network\ContinueCombatEvent.cs" />
@@ -347,6 +353,7 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />

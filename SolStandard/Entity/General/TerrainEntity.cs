@@ -42,7 +42,8 @@ namespace SolStandard.Entity.General
         RecoveryTile,
         LadderBridge,
         Magnet,
-        Bomb
+        Bomb,
+        Contract
     }
 
     public class TerrainEntity : MapEntity

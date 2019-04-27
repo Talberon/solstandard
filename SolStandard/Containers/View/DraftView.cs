@@ -172,7 +172,7 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private static IRenderable DraftCursor
+        public static IRenderable DraftCursor
         {
             get
             {
@@ -198,6 +198,40 @@ namespace SolStandard.Containers.View
                        );
             }
         }
+
+        public static MenuOption[,] GetAdHocUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
+        {
+            const int unitsPerRow = 5;
+            List<Role> availableRoles = DraftContext.AvailableRoles;
+
+            int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
+
+            MenuOption[,] options = new MenuOption[totalRows, unitsPerRow];
+
+            int unitIndex = 0;
+            for (int row = 0; row < totalRows; row++)
+            {
+                for (int column = 0; column < unitsPerRow; column++)
+                {
+                    if (unitIndex < availableRoles.Count)
+                    {
+                        Role currentRole = availableRoles[unitIndex];
+                        // ReSharper disable once SimplifyConditionalTernaryExpression
+                        bool enabled = unitEnabled.ContainsKey(currentRole) ? unitEnabled[currentRole] : true;
+                        options[row, column] = new AdHocDraftOption(currentRole, team, enabled);
+                    }
+                    else
+                    {
+                        options[row, column] = new AdHocDraftOption(Role.Silhouette, team, false);
+                    }
+
+                    unitIndex++;
+                }
+            }
+
+            return options;
+        }
+
 
         private static MenuOption[,] GetUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
@@ -375,7 +409,7 @@ namespace SolStandard.Containers.View
             {
                 //Bottom-Right
                 return new Vector2(
-                    GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding, 
+                    GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding,
                     GameDriver.ScreenSize.Y - ControlsText.Height - WindowPadding
                 );
             }
@@ -387,7 +421,7 @@ namespace SolStandard.Containers.View
             {
                 //Bottom-Left
                 return new Vector2(
-                    WindowPadding, 
+                    WindowPadding,
                     GameDriver.ScreenSize.Y - ObjectivesWindow.Height - WindowPadding
                 );
             }
@@ -402,7 +436,6 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             if (visible)
             {
                 if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);

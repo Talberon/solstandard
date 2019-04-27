@@ -657,6 +657,21 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
+                                    case EntityTypes.Contract:
+                                        entityGrid[col, row] = new Contract(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["forSpecificUnit"]),
+                                            (currentProperties["specificRole"] != string.Empty)
+                                                ? (Role) Enum.Parse(typeof(Role), currentProperties["specificRole"])
+                                                : Role.Silhouette
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             string.Format("Entity type {0} does not exist!", currentObject.Type)
