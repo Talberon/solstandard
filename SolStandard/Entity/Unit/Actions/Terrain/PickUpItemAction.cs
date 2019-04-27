@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly Vector2 itemCoordinates;
 
         public PickUpItemAction(IItem item, Vector2 itemCoordinates) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Pick Up",
             description: "Add the item to the active unit's inventory.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
