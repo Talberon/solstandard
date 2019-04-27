@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions
                 description: "Pull target unit towards you.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: skillRange,
-                freeAction: false
+                freeAction: true
             )
         {
             this.magnet = magnet;

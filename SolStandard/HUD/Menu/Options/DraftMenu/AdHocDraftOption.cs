@@ -66,6 +66,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
             {
                 GlobalEventQueue.QueueSingleEvent(new SpawnUnitEvent(role, team));
                 GlobalEventQueue.QueueSingleEvent(new CloseAdHocDraftMenuEvent());
+                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
                 GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
             }
             else
