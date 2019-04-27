@@ -23,6 +23,9 @@ namespace SolStandard.Utility.Events
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                string.Format("{0} picked up {1}{2}!", GameContext.ActiveUnit.Id, currency.Value,
+                    Currency.CurrencyAbbreviation), 50);
             Complete = true;
         }
 

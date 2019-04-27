@@ -116,7 +116,7 @@ namespace SolStandard.Entity.Unit.Actions
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new BankDepositEvent(actingUnit, Value));
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
