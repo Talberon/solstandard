@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly IItem spawnItem;
 
         public DraftNewUnitAction(IItem spawnItem) : base(
-            icon: spawnItem.Icon,
+            icon: spawnItem.Icon.Clone(),
             name: "Draft Unit",
             description: "Draft a new ally to aid you in battle!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

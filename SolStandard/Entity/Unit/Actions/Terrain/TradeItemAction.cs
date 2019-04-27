@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly IItem item;
 
         public TradeItemAction(IItem item) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Give: " + item.Name,
             description: "Give this item to an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

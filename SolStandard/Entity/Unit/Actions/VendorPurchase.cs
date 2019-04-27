@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly Vendor vendor;
 
         public VendorPurchase(IItem item, int price, Vendor vendor) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Purchase " + item.Name + ": " + price + Currency.CurrencyAbbreviation,
             description: new WindowContentGrid(new[,]
                 {

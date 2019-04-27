@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly Bomb bombToDeploy;
 
         public DeployBombAction(Bomb bombToDeploy) : base(
-            icon: bombToDeploy.RenderSprite,
+            icon: bombToDeploy.RenderSprite.Clone(),
             name: "Set Bomb",
             description: "Place a bomb on an unoccupied tile. Will detonate at the beginning of the next round." +
                          Environment.NewLine +

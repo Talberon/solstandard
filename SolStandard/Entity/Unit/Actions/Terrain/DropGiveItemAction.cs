@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly IItem item;
 
         public DropGiveItemAction(IItem item) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Drop/Give: " + item.Name,
             description: "Drop this item on an empty item tile or give it to an ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
