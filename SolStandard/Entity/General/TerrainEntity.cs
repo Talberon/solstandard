@@ -43,7 +43,8 @@ namespace SolStandard.Entity.General
         LadderBridge,
         Magnet,
         Bomb,
-        Contract
+        Contract,
+        RecallCharm
     }
 
     public class TerrainEntity : MapEntity

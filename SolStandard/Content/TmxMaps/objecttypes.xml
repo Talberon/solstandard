@@ -135,6 +135,13 @@
   <property name="damage" type="int" default="5"/>
   <property name="range" type="int" default="5"/>
  </objecttype>
+ <objecttype name="RecallCharm" color="#ffaa00">
+  <property name="deployRange" type="string" default="0,1"/>
+  <property name="itemPool" type="string"/>
+  <property name="pickupRange" type="string" default="0"/>
+  <property name="recallId" type="string" default="UniqueId"/>
+  <property name="usesRemaining" type="int" default="3"/>
+ </objecttype>
  <objecttype name="RecoveryTile" color="#ff55ff">
   <property name="amrPerTurn" type="int" default="0"/>
   <property name="hpPerTurn" type="int" default="0"/>

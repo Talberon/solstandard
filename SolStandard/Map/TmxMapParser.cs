@@ -672,6 +672,21 @@ namespace SolStandard.Map
                                                 : Role.Silhouette
                                         );
                                         break;
+                                    case EntityTypes.RecallCharm:
+                                        entityGrid[col, row] = new RecallCharm(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["recallId"],
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"],
+                                            currentProperties["deployRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             string.Format("Entity type {0} does not exist!", currentObject.Type)

@@ -93,6 +93,7 @@
     <Compile Include="Entity\General\Item\IConsumable.cs" />
     <Compile Include="Entity\General\Item\LadderBridge.cs" />
     <Compile Include="Entity\General\Item\Magnet.cs" />
+    <Compile Include="Entity\General\Item\RecallCharm.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />
     <Compile Include="Entity\General\Railgun.cs" />
+    <Compile Include="Entity\General\RecallPoint.cs" />
     <Compile Include="Entity\General\RecoveryTile.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployLadderBridgeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployRecallPointAction.cs" />
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\ReturnToRecallPointAction.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
@@ -357,6 +361,7 @@
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
+    <Compile Include="Utility\Events\RemoveEntityFromMapEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />

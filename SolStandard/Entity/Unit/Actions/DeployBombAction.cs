@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                    "Must place item on immovable empty space!",
+                    "Must place item on empty space!",
                     50
                 );
                 AssetManager.WarningSFX.Play();
