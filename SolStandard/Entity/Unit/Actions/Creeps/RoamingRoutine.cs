@@ -101,7 +101,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             UnitTargetingContext rangeMovingContext =
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
 
-            rangeMovingContext.GenerateThreatGrid(creep.UnitEntity.MapCoordinates, creep);
+            rangeMovingContext.GenerateThreatGrid(creep.UnitEntity.MapCoordinates, creep, creep.Team);
 
             //If target is on a tile that has a non-null preview or dynamic tile, then add it to the list
 

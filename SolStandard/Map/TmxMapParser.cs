@@ -34,36 +34,6 @@ namespace SolStandard.Map
      */
     public class TmxMapParser
     {
-        private static readonly Dictionary<string, EntityTypes> EntityDictionary = new Dictionary<string, EntityTypes>
-        {
-            {"BreakableObstacle", EntityTypes.BreakableObstacle},
-            {"BuffTile", EntityTypes.BuffTile},
-            {"Chest", EntityTypes.Chest},
-            {"Decoration", EntityTypes.Decoration},
-            {"Door", EntityTypes.Door},
-            {"Drawbridge", EntityTypes.Drawbridge},
-            {"Movable", EntityTypes.Movable},
-            {"SelectMap", EntityTypes.SelectMap},
-            {"Unit", EntityTypes.Unit},
-            {"Portal", EntityTypes.Portal},
-            {"Switch", EntityTypes.Switch},
-            {"Currency", EntityTypes.Currency},
-            {"Key", EntityTypes.Key},
-            {"Artillery", EntityTypes.Artillery},
-            {"Railgun", EntityTypes.Railgun},
-            {"Seize", EntityTypes.Seize},
-            {"Pushable", EntityTypes.Pushable},
-            {"PressurePlate", EntityTypes.PressurePlate},
-            {"Trap", EntityTypes.Trap},
-            {"Creep", EntityTypes.Creep},
-            {"Weapon", EntityTypes.Weapon},
-            {"Blink", EntityTypes.Blink},
-            {"HP Potion", EntityTypes.HealthPotion},
-            {"BuffItem", EntityTypes.BuffItem},
-            {"Barricade", EntityTypes.Barricade},
-            {"Deployment", EntityTypes.Deploy}
-        };
-
         private readonly string objectTypesDefaultXmlPath;
         private readonly TmxMap tmxMap;
         private readonly ITexture2D worldTileSetSprite;
@@ -262,7 +232,8 @@ namespace SolStandard.Map
                                     tileSprite = GetAnimatedTile(animatedTile, currentObject.Tile);
                                 }
 
-                                EntityTypes tileEntityType = EntityDictionary[currentObject.Type];
+                                EntityTypes tileEntityType =
+                                    (EntityTypes) Enum.Parse(typeof(EntityTypes), currentObject.Type);
 
                                 switch (tileEntityType)
                                 {
@@ -415,7 +386,8 @@ namespace SolStandard.Map
                                             currentProperties["usedWith"],
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
-                                            currentProperties["itemPool"]
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["masterKey"])
                                         );
                                         break;
                                     case EntityTypes.Drawbridge:
@@ -588,7 +560,7 @@ namespace SolStandard.Map
                                             currentProperties["itemPool"]
                                         );
                                         break;
-                                    case EntityTypes.Deploy:
+                                    case EntityTypes.Deployment:
                                         entityGrid[col, row] = new DeployTile(
                                             currentObject.Name,
                                             currentObject.Type,
@@ -598,15 +570,127 @@ namespace SolStandard.Map
                                             currentProperties
                                         );
                                         break;
-                                    default:
-                                        entityGrid[col, row] = new TerrainEntity(
+                                    case EntityTypes.Bank:
+                                        entityGrid[col, row] = new Bank(
                                             currentObject.Name,
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["interactRange"].Split(',')
+                                                .Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
                                             currentProperties
                                         );
                                         break;
+                                    case EntityTypes.Vendor:
+                                        string[] itemNames = currentProperties["items"].Split('|');
+
+                                        List<IItem> vendorItems = mapLoot.Where(item => itemNames.Contains(item.Name))
+                                            .ToList();
+
+                                        entityGrid[col, row] = new Vendor(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties["interactRange"].Split(',')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
+                                            //Items
+                                            vendorItems,
+                                            //Prices
+                                            currentProperties["prices"].Split('|')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
+                                            //Quantities
+                                            currentProperties["quantities"].Split('|')
+                                                .Select(n => Convert.ToInt32(n)).ToArray(),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.RecoveryTile:
+                                        entityGrid[col, row] = new RecoveryTile(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            Convert.ToInt32(currentProperties["amrPerTurn"]),
+                                            Convert.ToInt32(currentProperties["hpPerTurn"]),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.LadderBridge:
+                                        entityGrid[col, row] = new LadderBridge(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["canMove"]),
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.Magnet:
+                                        entityGrid[col, row] = new Magnet(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["usesRemaining"]),
+                                            currentProperties["itemPool"]
+                                        );
+                                        break;
+                                    case EntityTypes.Bomb:
+                                        entityGrid[col, row] = new Bomb(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["damage"]),
+                                            currentProperties["itemPool"],
+                                            currentProperties
+                                        );
+                                        break;
+                                    case EntityTypes.Contract:
+                                        entityGrid[col, row] = new Contract(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"],
+                                            Convert.ToBoolean(currentProperties["forSpecificUnit"]),
+                                            (currentProperties["specificRole"] != string.Empty)
+                                                ? (Role) Enum.Parse(typeof(Role), currentProperties["specificRole"])
+                                                : Role.Silhouette
+                                        );
+                                        break;
+                                    case EntityTypes.RecallCharm:
+                                        entityGrid[col, row] = new RecallCharm(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["recallId"],
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"],
+                                            currentProperties["deployRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
+                                    default:
+                                        throw new IndexOutOfRangeException(
+                                            string.Format("Entity type {0} does not exist!", currentObject.Type)
+                                        );
                                 }
                             }
                         }

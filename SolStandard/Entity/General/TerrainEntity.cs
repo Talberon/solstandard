@@ -36,7 +36,15 @@ namespace SolStandard.Entity.General
         HealthPotion,
         BuffItem,
         Barricade,
-        Deploy
+        Deployment,
+        Bank,
+        Vendor,
+        RecoveryTile,
+        LadderBridge,
+        Magnet,
+        Bomb,
+        Contract,
+        RecallCharm
     }
 
     public class TerrainEntity : MapEntity

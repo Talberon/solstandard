@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Utility;
 
-namespace SolStandard.Entity.General
+namespace SolStandard.Entity.General.Item
 {
     public class Barricade : BreakableObstacle, IItem
     {
@@ -28,7 +29,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new DeployBarricadeAction(this);
+            return new TradeItemAction(this);
         }
 
         public IItem Duplicate()

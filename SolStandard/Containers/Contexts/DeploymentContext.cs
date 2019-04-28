@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -96,7 +98,7 @@ namespace SolStandard.Containers.Contexts
             UpdateHoverView();
         }
 
-        private static void UpdateHoverView()
+        private void UpdateHoverView()
         {
             MapSlice hoverSlice = GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor();
             GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
@@ -106,7 +108,34 @@ namespace SolStandard.Containers.Contexts
             if (hoverUnit != null)
             {
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit);
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverUnit, hoverUnit.Team);
+            }
+
+            DeploymentView.UpdateHoverUnitWindows(hoverUnit);
+            UpdateItemPreview(hoverSlice);
+
+            DeploymentView.SetEntityWindow(hoverSlice);
+        }
+
+        private void UpdateItemPreview(MapSlice hoverSlice)
+        {
+            List<IItem> items = GameMapContext.CollectItemsFromSlice(hoverSlice);
+
+            Color windowColor = GameMapView.ItemTerrainWindowColor;
+
+            GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
+            if (hoverUnit != null)
+            {
+                windowColor = TeamUtility.DetermineTeamColor(hoverUnit.Team);
+            }
+
+            if (items.Count > 0)
+            {
+                DeploymentView.GenerateItemDetailWindow(items, windowColor);
+            }
+            else
+            {
+                DeploymentView.CloseItemDetailWindow();
             }
         }
 
@@ -118,6 +147,8 @@ namespace SolStandard.Containers.Contexts
 
             MapEntity nextTile = deployTiles.Cast<DeployTile>().First(tile => tile.DeployTeam == CurrentTurn);
             map.MapCursor.SnapCursorToCoordinates(nextTile.MapCoordinates);
+            UpdateHoverView();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
 

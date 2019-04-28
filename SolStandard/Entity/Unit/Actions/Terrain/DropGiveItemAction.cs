@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly IItem item;
 
         public DropGiveItemAction(IItem item) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Drop/Give: " + item.Name,
             description: "Drop this item on an empty item tile or give it to an ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -31,13 +31,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             GameUnit actingUnit = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
+            if (TradeItemAction.CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new TransferUnitItemEvent(actingUnit, targetUnit, item));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                new TradeItemAction(item).ExecuteAction(targetSlice);
             }
             else if (CanPlaceItemAtSlice(itemTile, targetSlice))
             {
@@ -52,12 +48,6 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
-        }
-
-        private static bool CanGiveItemToAlly(GameUnit targetUnit, GameUnit actingUnit, MapSlice targetSlice)
-        {
-            return targetUnit != null && targetUnit.Team == actingUnit.Team && targetUnit != actingUnit &&
-                   targetSlice.DynamicEntity != null;
         }
 
         private static bool CanPlaceItemAtSlice(TerrainEntity itemTile, MapSlice targetSlice)

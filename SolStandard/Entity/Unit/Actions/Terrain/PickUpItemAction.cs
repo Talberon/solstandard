@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly Vector2 itemCoordinates;
 
         public PickUpItemAction(IItem item, Vector2 itemCoordinates) : base(
-            icon: item.Icon,
+            icon: item.Icon.Clone(),
             name: "Pick Up",
             description: "Add the item to the active unit's inventory.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (SelectingItemAtUnitLocation(targetSlice))
+            if (SelectingItemInRange(targetSlice))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
         }
 
-        private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
+        private bool SelectingItemInRange(MapSlice targetSlice)
         {
             return itemCoordinates == targetSlice.MapCoordinates &&
                    targetSlice.DynamicEntity != null;

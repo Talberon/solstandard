@@ -22,6 +22,7 @@ namespace SolStandard.Utility.Events
                 GameContext.ActiveUnit.Id + " got " + gold + Currency.CurrencyAbbreviation + "!", 50
             );
             AssetManager.CoinSFX.Play();
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
             Complete = true;
         }
     }

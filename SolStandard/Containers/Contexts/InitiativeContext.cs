@@ -110,7 +110,7 @@ namespace SolStandard.Containers.Contexts
                     100
                 )
             );
-            newRoundEvents.Enqueue(new WaitFramesEvent(100));
+            newRoundEvents.Enqueue(new WaitFramesEvent(80));
             GlobalEventQueue.QueueEvents(newRoundEvents);
 
             RefreshAllUnits();

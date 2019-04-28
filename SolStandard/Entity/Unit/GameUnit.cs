@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit
         Creep
     }
 
-    public class GameUnit : GameEntity
+    public class GameUnit : GameEntity, IThreatRange
     {
         private readonly Team team;
         private readonly Role role;
@@ -713,6 +713,7 @@ namespace SolStandard.Entity.Unit
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
                 MapEntity = null;
+                GameMapContext.GameMapView.GenerateObjectiveWindow();
             }
         }
 
@@ -823,6 +824,16 @@ namespace SolStandard.Entity.Unit
         public static SpriteAtlas GetCommanderCrown(Vector2 size)
         {
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
+        }
+
+        public int[] AtkRange
+        {
+            get { return Stats.CurrentAtkRange; }
+        }
+
+        public int MvRange
+        {
+            get { return Stats.Mv; }
         }
     }
 }

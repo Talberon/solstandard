@@ -76,7 +76,7 @@
     <Compile Include="Containers\View\StatusScreenView.cs" />
     <Compile Include="Containers\View\MapSelectScreenView.cs" />
     <Compile Include="Entity\GameEntity.cs" />
-    <Compile Include="Entity\General\Barricade.cs" />
+    <Compile Include="Entity\General\Bank.cs" />
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
@@ -84,10 +84,16 @@
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
+    <Compile Include="Entity\General\Item\Barricade.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
+    <Compile Include="Entity\General\Item\Bomb.cs" />
     <Compile Include="Entity\General\Item\BuffItem.cs" />
+    <Compile Include="Entity\General\Item\Contract.cs" />
     <Compile Include="Entity\General\Item\HealthPotion.cs" />
     <Compile Include="Entity\General\Item\IConsumable.cs" />
+    <Compile Include="Entity\General\Item\LadderBridge.cs" />
+    <Compile Include="Entity\General\Item\Magnet.cs" />
+    <Compile Include="Entity\General\Item\RecallCharm.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
@@ -98,19 +104,25 @@
     <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />
     <Compile Include="Entity\General\Railgun.cs" />
+    <Compile Include="Entity\General\RecallPoint.cs" />
+    <Compile Include="Entity\General\RecoveryTile.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
     <Compile Include="Entity\General\TrapEntity.cs" />
+    <Compile Include="Entity\General\Vendor.cs" />
     <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
+    <Compile Include="Entity\IThreatRange.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
+    <Compile Include="Entity\Unit\Actions\BankDeposit.cs" />
+    <Compile Include="Entity\Unit\Actions\BankWithdraw.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
@@ -122,6 +134,10 @@
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployBombAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployLadderBridgeAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DeployRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
@@ -143,6 +159,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
+    <Compile Include="Entity\Unit\Actions\MagneticPullAction.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
@@ -151,6 +168,10 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\ReturnToRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
@@ -207,6 +228,7 @@
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\DraftMenu\AdHocDraftOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
@@ -302,11 +324,15 @@
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
+    <Compile Include="Utility\Events\BankDepositEvent.cs" />
+    <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
+    <Compile Include="Utility\Events\Network\CloseAdHocDraftMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CombatNotifyStateCompleteEvent.cs" />
     <Compile Include="Utility\Events\Network\ConcedeEvent.cs" />
     <Compile Include="Utility\Events\Network\ContinueCombatEvent.cs" />
@@ -331,9 +357,11 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
+    <Compile Include="Utility\Events\RemoveEntityFromMapEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />
@@ -373,10 +401,12 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
+    <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
@@ -471,22 +501,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\TmxMaps\Arena_Dungeon_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Arena_Grassland_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Arena_Tower_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Beach_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Chesslike_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Crossroads_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">
@@ -528,19 +543,16 @@
     <Content Include="Content\TmxMaps\Draft_Jirai_Archipelago.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Tavern_Inn.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Dungeon_01.tmx">
+    <Content Include="Content\TmxMaps\Draft_Town_Market.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\entities-32.tsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Fortress_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Grassland_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_03.tmx">
@@ -551,12 +563,6 @@
     </Content>
     <Content Include="Content\TmxMaps\overworld-32.tsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Scotia_Hill_Redux_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Village_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>

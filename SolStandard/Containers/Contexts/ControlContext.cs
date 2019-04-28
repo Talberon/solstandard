@@ -222,9 +222,14 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new DeployUnitEvent());
             }
 
-            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeployResetToNextDeploymentTileEvent());
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
             }
 
             CameraControl(controlMapper);
@@ -269,6 +274,9 @@ namespace SolStandard.Containers.Contexts
 
             switch (GameContext.GameMapContext.CurrentTurnState)
             {
+                case GameMapContext.TurnState.AdHocDraft:
+                    AdHocDraftControl(controlMapper);
+                    break;
                 case GameMapContext.TurnState.SelectUnit:
                     SelectUnitControl(controlMapper);
                     break;
@@ -292,16 +300,44 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private static void AdHocDraftControl(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Right);
+            }
+
+            if (controlMapper.Press(Input.Confirm, PressType.DelayedRepeat))
+            {
+                GameContext.GameMapContext.SelectDraftMenuOption();
+            }
+        }
+
         private static void CameraControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
+                GameContext.MapCamera.ZoomOut();
             }
 
             if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
             {
-                GameContext.MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Default);
+                GameContext.MapCamera.ZoomIn();
             }
 
             const float cameraPanRateOverride = 5;
@@ -399,7 +435,7 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
             }
 
-            if (controlMapper.Press(Input.ResetCursor, PressType.Single))
+            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
             {
                 GameContext.GameMapContext.ToggleItemPreview();
             }
@@ -524,7 +560,7 @@ namespace SolStandard.Containers.Contexts
         private static void ViewInventoryControl(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single) ||
-                controlMapper.Press(Input.ResetCursor, PressType.Single) ||
+                controlMapper.Press(Input.PreviewItem, PressType.Single) ||
                 controlMapper.Press(Input.Cancel, PressType.Single) ||
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
@@ -555,7 +591,7 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.ResetCursor, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.PreviewItem, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToActiveUnitEvent());
             }

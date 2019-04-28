@@ -14,7 +14,7 @@ namespace SolStandard.Containers.Contexts
 {
     public static class UnitContextualActionMenuContext
     {
-        private static readonly int[] InteractionRange = {0, 1};
+        private static readonly int[] InteractionRangeLimit = {0, 1, 2};
         private static List<UnitAction> _contextualActions;
 
         public static MenuOption[] GenerateActionMenuOptions(Color windowColour)
@@ -60,7 +60,7 @@ namespace SolStandard.Containers.Contexts
         private static List<UnitAction> FetchContextualActionsInRange()
         {
             new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
-                .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRange);
+                .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRangeLimit);
 
             List<MapSlice> mapSlicesInRange = new List<MapSlice>();
             List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();

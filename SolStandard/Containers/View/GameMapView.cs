@@ -30,11 +30,11 @@ namespace SolStandard.Containers.View
         }
 
         private const int WindowEdgeBuffer = 5;
-        private static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
-        private static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
-        private static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
-        private static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
-        private static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
+        public static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
+        public static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
+        public static readonly Color ItemTerrainWindowColor = new Color(120, 120, 60, 180);
+        public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
+        public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
         private Window LeftUnitPortraitWindow { get; set; }
         private Window LeftUnitDetailWindow { get; set; }
@@ -62,6 +62,8 @@ namespace SolStandard.Containers.View
         private Window InventoryMenuDescriptionWindow { get; set; }
 
         private Window MenuDescriptionWindow { get; set; }
+
+        public TwoDimensionalMenu AdHocDraftMenu { get; private set; }
 
         private MenuType visibleMenu;
         private bool visible;
@@ -142,16 +144,31 @@ namespace SolStandard.Containers.View
             InventoryMenu.IsVisible = false;
         }
 
+        public void CloseAdHocDraftMenu()
+        {
+            AdHocDraftMenu = null;
+        }
+
         #endregion Close Windows
 
         #region Generation
+
+        public void GenerateDraftMenu(Team team)
+        {
+            AdHocDraftMenu = new TwoDimensionalMenu(
+                DraftView.GetAdHocUnitOptionsForTeam(team, new Dictionary<Role, bool>()),
+                DraftView.DraftCursor,
+                TeamUtility.DetermineTeamColor(team),
+                TwoDimensionalMenu.CursorType.Frame
+            );
+        }
 
         public void GenerateItemDetailWindow(List<IItem> items)
         {
             ItemDetailWindow = GenerateItemsWindow(items, ItemTerrainWindowColor);
         }
 
-        private static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
+        public static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
         {
             IRenderable[,] actionElements = new IRenderable[items.Count, 3];
 
@@ -320,7 +337,12 @@ namespace SolStandard.Containers.View
             );
         }
 
-        public void GenerateEntityWindow(MapSlice hoverSlice)
+        public void SetEntityWindow(MapSlice hoverSlice)
+        {
+            EntityWindow = GenerateEntityWindow(hoverSlice);
+        }
+
+        public static Window GenerateEntityWindow(MapSlice hoverSlice)
         {
             WindowContentGrid terrainContentGrid;
 
@@ -381,8 +403,7 @@ namespace SolStandard.Containers.View
                     1);
             }
 
-            EntityWindow = new Window(terrainContentGrid,
-                new Color(50, 50, 50, 150));
+            return new Window(terrainContentGrid, new Color(50, 50, 50, 150));
         }
 
         public void GenerateObjectiveWindow()
@@ -522,12 +543,12 @@ namespace SolStandard.Containers.View
         }
 
 
-        private static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
+        public static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
         {
             return new Window(unitPortraitPane, windowColor);
         }
 
-        private static Window GenerateUnitDetailWindow(IRenderable selectedUnitInfo, Color windowColor)
+        public static Window GenerateUnitDetailWindow(IRenderable selectedUnitInfo, Color windowColor)
         {
             return new Window(selectedUnitInfo, windowColor);
         }
@@ -729,6 +750,15 @@ namespace SolStandard.Containers.View
             );
         }
 
+        private Vector2 AdHocDraftMenuPosition()
+        {
+            //Middle of the screen
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) AdHocDraftMenu.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) AdHocDraftMenu.Height / 2
+            );
+        }
+
         private Vector2 MenuDescriptionWindowPosition(Vector2 menuPosition)
         {
             return menuPosition - new Vector2(0, MenuDescriptionWindow.Height);
@@ -843,6 +873,11 @@ namespace SolStandard.Containers.View
             if (ObjectiveWindow != null)
             {
                 ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
+            }
+
+            if (AdHocDraftMenu != null)
+            {
+                AdHocDraftMenu.Draw(spriteBatch, AdHocDraftMenuPosition());
             }
         }
     }

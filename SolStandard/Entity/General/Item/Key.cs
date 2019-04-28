@@ -14,16 +14,19 @@ namespace SolStandard.Entity.General.Item
     public class Key : TerrainEntity, IItem, IActionTile
     {
         public string UsedWith { get; private set; }
+        public bool IsMasterKey { get; private set; }
         public int[] InteractRange { get; private set; }
         public string ItemPool { get; private set; }
 
         public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string usedWith, int[] range, string itemPool) :
+            Dictionary<string, string> tiledProperties, string usedWith, int[] range, string itemPool,
+            bool isMasterKey) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             UsedWith = usedWith;
             InteractRange = range;
             ItemPool = itemPool;
+            IsMasterKey = isMasterKey;
         }
 
         public bool IsBroken
@@ -56,7 +59,8 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Key(Name, Type, Sprite, MapCoordinates, TiledProperties, UsedWith, InteractRange, ItemPool);
+            return new Key(Name, Type, Sprite, MapCoordinates, TiledProperties, UsedWith, InteractRange, ItemPool,
+                IsMasterKey);
         }
 
         public override IRenderable TerrainInfo

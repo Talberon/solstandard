@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -81,14 +83,32 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return false;
         }
 
-        public static int CollectedGold(Team team)
+        private static int CollectedGold(Team team)
         {
             List<GameUnit> teamUnitList = GameContext.Units.FindAll(unit => unit.Team == team);
 
-            return teamUnitList.Sum(unit => unit.CurrentGold);
+            int heldGold = teamUnitList.Sum(unit => unit.CurrentGold);
+
+            int bankedGold = 0;
+
+            switch (team)
+            {
+                case Team.Blue:
+                    bankedGold = Bank.BlueMoney;
+                    break;
+                case Team.Red:
+                    bankedGold = Bank.RedMoney;
+                    break;
+                case Team.Creep:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
+
+            return heldGold + bankedGold;
         }
 
-        private bool TeamHasCollectedTargetGold(Team team)
+        private static bool TeamHasCollectedTargetGold(Team team)
         {
             return CollectedGold(team) >= TargetGold;
         }

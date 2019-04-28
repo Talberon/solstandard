@@ -38,7 +38,7 @@ namespace SolStandard.Map.Camera
 
         private const float MinimumZoom = 1.4f;
         private const float DefaultZoomLevel = 2;
-        private const float MaximumZoom = 4.0f;
+        private const float MaximumZoom = 3;
         private const float CombatZoom = 4;
 
         private const int TopCursorThreshold = 250;
@@ -101,20 +101,21 @@ namespace SolStandard.Map.Camera
             ZoomToCursor(ZoomLevels[zoomLevel]);
         }
 
-        public void ZoomIn(float newTargetZoom)
+        public void ZoomIn()
         {
-            if (TargetZoom < MaximumZoom)
-            {
-                ZoomToCursor(TargetZoom + newTargetZoom);
-            }
+            if (CurrentZoom >= ZoomLevels[ZoomLevel.Close]) return;
+
+            if (CurrentZoom >= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Close);
+            else if (CurrentZoom >= ZoomLevels[ZoomLevel.Far]) SetZoomLevel(ZoomLevel.Default);
         }
 
-        public void ZoomOut(float newTargetZoom)
+        public void ZoomOut()
         {
-            if (TargetZoom > MinimumZoom)
-            {
-                ZoomToCursor(TargetZoom - newTargetZoom);
-            }
+            if (CurrentZoom <= ZoomLevels[ZoomLevel.Far]) return;
+
+            if (CurrentZoom <= ZoomLevels[ZoomLevel.Default]) SetZoomLevel(ZoomLevel.Far);
+            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Close]) SetZoomLevel(ZoomLevel.Default);
+            else if (CurrentZoom <= ZoomLevels[ZoomLevel.Combat]) SetZoomLevel(ZoomLevel.Close);
         }
 
         private void ZoomToCursor(float zoomLevel)

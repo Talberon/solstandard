@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="overworld-32" tilewidth="32" tileheight="32" tilecount="6280" columns="40">
+<tileset version="1.2" tiledversion="1.2.3" name="overworld-32" tilewidth="32" tileheight="32" tilecount="6280" columns="40">
  <image source="../Graphics/Map/Tiles/overworld-32.png" width="1280" height="5024"/>
  <terraintypes>
   <terrain name="Grass" tile="3"/>
@@ -1541,11 +1541,6 @@
  <tile id="4147" terrain=",26,26,26"/>
  <tile id="4148" terrain="26,,26,26"/>
  <tile id="4160" terrain="22,22,22,22"/>
- <tile id="4166" terrain="24,24,24,24"/>
- <tile id="4167" terrain="24,24,24,24"/>
- <tile id="4168" terrain="24,24,24,24"/>
- <tile id="4169" terrain="24,24,24,24"/>
- <tile id="4170" terrain="24,24,24,24"/>
  <tile id="4178" terrain="25,25,25,25"/>
  <tile id="4179" terrain="25,25,25,25"/>
  <tile id="4180" terrain="26,26,26,26"/>
@@ -1613,6 +1608,7 @@
  <tile id="5336" terrain=",,17,"/>
  <tile id="5337" terrain=",17,17,17"/>
  <tile id="5338" terrain="17,,17,17"/>
+ <tile id="5344" terrain="31,31,31,31"/>
  <tile id="5351" terrain=",,,29"/>
  <tile id="5352" terrain=",,29,29"/>
  <tile id="5353" terrain=",,29,"/>
@@ -1655,7 +1651,6 @@
  <tile id="5431" terrain=",29,,"/>
  <tile id="5432" terrain="29,29,,"/>
  <tile id="5433" terrain="29,,,"/>
- <tile id="5434" terrain="31,31,31,31"/>
  <tile id="5460" terrain=",31,,"/>
  <tile id="5461" terrain="31,31,,"/>
  <tile id="5462" terrain="31,,,"/>

@@ -2566,12 +2566,12 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="878" name="Healing Potion" type="HP Potion" gid="449" x="800" y="576" width="32" height="32">
+  <object id="878" name="Healing Potion" type="HealthPotion" gid="449" x="800" y="576" width="32" height="32">
    <properties>
     <property name="hpHealed" type="int" value="5"/>
    </properties>
   </object>
-  <object id="879" name="Healing Potion" type="HP Potion" gid="449" x="320" y="224" width="32" height="32">
+  <object id="879" name="Healing Potion" type="HealthPotion" gid="449" x="320" y="224" width="32" height="32">
    <properties>
     <property name="hpHealed" type="int" value="5"/>
    </properties>

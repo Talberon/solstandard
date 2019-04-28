@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
+using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -30,9 +31,9 @@ namespace SolStandard.Containers.Contexts
             UnitDecidingAction,
             UnitTargeting,
             UnitActing,
-            ResolvingTurn
+            ResolvingTurn,
+            AdHocDraft
         }
-
 
         public TurnState CurrentTurnState { get; set; }
         public GameUnit SelectedUnit { get; private set; }
@@ -73,19 +74,6 @@ namespace SolStandard.Containers.Contexts
 
             //Help Window
             GameMapView.GenerateObjectiveWindow();
-        }
-
-        public void ProceedToNextState()
-        {
-            if (CurrentTurnState == TurnState.ResolvingTurn)
-            {
-                ResetTurnState();
-            }
-            else
-            {
-                CurrentTurnState++;
-                Trace.WriteLine("Changing state: " + CurrentTurnState);
-            }
         }
 
         public void ResolveTurn()
@@ -220,7 +208,7 @@ namespace SolStandard.Containers.Contexts
                 return;
             }
 
-            ProceedToNextState();
+            CurrentTurnState = TurnState.UnitDecidingAction;
 
             MapContainer.ClearDynamicAndPreviewGrids();
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Idle);
@@ -331,7 +319,7 @@ namespace SolStandard.Containers.Contexts
             if (SelectedUnit != null)
             {
                 Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
-                ProceedToNextState();
+                CurrentTurnState = TurnState.UnitMoving;
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     SelectedUnit,
@@ -474,8 +462,16 @@ namespace SolStandard.Containers.Contexts
                     {
                         MapContainer.ClearDynamicAndPreviewGrids();
                         new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit);
+                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
                     }
+                }
+                else if (hoverSlice.TerrainEntity is IThreatRange)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
+
+                    IThreatRange entityThreat = (IThreatRange) hoverSlice.TerrainEntity;
+                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                        .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
                 }
                 else
                 {
@@ -487,7 +483,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             //Terrain (Entity) Window
-            GameMapView.GenerateEntityWindow(hoverSlice);
+            GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
         }
@@ -532,7 +528,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView.CurrentMenu.CurrentOption.Execute();
             GameMapView.CloseCombatMenu();
 
-            ProceedToNextState();
+            CurrentTurnState = TurnState.UnitTargeting;
             SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
             AssetManager.MapUnitSelectSFX.Play();
         }
@@ -627,6 +623,28 @@ namespace SolStandard.Containers.Contexts
             PauseScreenView.CurrentMenu.SelectOption();
         }
 
+        public void OpenDraftMenu()
+        {
+            CurrentTurnState = TurnState.AdHocDraft;
+            GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
+            AssetManager.MenuConfirmSFX.Play();
+        }
+
+        public void MoveDraftMenuCursor(MenuCursorDirection direction)
+        {
+            GameMapView.AdHocDraftMenu.MoveMenuCursor(direction);
+        }
+
+        public void SelectDraftMenuOption()
+        {
+            GameMapView.AdHocDraftMenu.SelectOption();
+        }
+
+        public void ClearDraftMenu()
+        {
+            GameMapView.CloseAdHocDraftMenu();
+        }
+
         public void ToggleCombatMenu()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -668,22 +686,10 @@ namespace SolStandard.Containers.Contexts
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
                 return;
             }
-            
+
             MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
 
-            List<IItem> items = new List<IItem>();
-
-            Spoils spoils = currentSlice.ItemEntity as Spoils;
-            if (spoils != null)
-            {
-                spoils.Items.ForEach(item => items.Add(item));
-            }
-
-            GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
-            if (sliceUnit != null)
-            {
-                sliceUnit.Inventory.ForEach(item => items.Add(item));
-            }
+            List<IItem> items = CollectItemsFromSlice(currentSlice);
 
             if (items.Count > 0)
             {
@@ -694,8 +700,38 @@ namespace SolStandard.Containers.Contexts
             else
             {
                 AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("No inventory to preview!",50);
+                MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
             }
+        }
+
+        public static List<IItem> CollectItemsFromSlice(MapSlice currentSlice)
+        {
+            List<IItem> items = new List<IItem>();
+
+            Spoils spoils = currentSlice.ItemEntity as Spoils;
+            if (spoils != null)
+            {
+                items.AddRange(spoils.Items);
+            }
+            else
+            {
+                IItem item = currentSlice.ItemEntity as IItem;
+                if (item != null) items.Add(item);
+            }
+
+            Vendor vendor = currentSlice.TerrainEntity as Vendor;
+            if (vendor != null)
+            {
+                items.AddRange(vendor.Items);
+            }
+
+            GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
+            if (sliceUnit != null)
+            {
+                sliceUnit.Inventory.ForEach(item => items.Add(item));
+            }
+
+            return items;
         }
 
         private static bool ShowingItemPreview

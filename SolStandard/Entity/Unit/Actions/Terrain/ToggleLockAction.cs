@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             description: "Locks or unlocks the target if you have the appropriate key.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
-            freeAction: false
+            freeAction: true
         )
         {
             this.key = key;
@@ -60,14 +60,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             return targetUnlockable != null
                    && targetSlice.DynamicEntity != null
                    && targetSlice.UnitEntity == null
-                   && key.UsedWith == targetSlice.TerrainEntity.Name
-                   && (!(targetUnlockable is Chest) || ChestIsNotOpen(targetUnlockable));
+                   && (key.IsMasterKey || key.UsedWith == targetSlice.TerrainEntity.Name)
+                   && (!(targetUnlockable is Chest) || LockedChestIsNotOpen(targetUnlockable));
         }
 
-        private static bool ChestIsNotOpen(ILockable targetUnlockable)
+        private static bool LockedChestIsNotOpen(ILockable targetUnlockable)
         {
             Chest targetChest = targetUnlockable as Chest;
-            return targetChest != null && !targetChest.IsOpen;
+            return targetChest != null && !targetChest.IsOpen && targetChest.IsLocked;
         }
     }
 }

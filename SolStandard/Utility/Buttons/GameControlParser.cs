@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Buttons
                 {Input.Confirm, controller.Confirm},
                 {Input.Cancel, controller.Cancel},
                 {Input.PreviewUnit, controller.ResetToUnit},
-                {Input.ResetCursor, controller.CenterCamera},
+                {Input.PreviewItem, controller.CenterCamera},
 
                 {Input.LeftBumper, controller.SetWideZoom},
                 {Input.RightBumper, controller.SetCloseZoom},
