@@ -65,10 +65,7 @@ namespace SolStandard.Entity.Unit.Actions
                         MapContainer.ClearDynamicAndPreviewGrids();
 
                         Queue<IEvent> eventQueue = new Queue<IEvent>();
-
-                        //FIXME If a unit is diagonal from the magnet user, the unit should not be placed inside the user's space
                         eventQueue.Enqueue(new PullEvent(targetUnit));
-
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());
                         GlobalEventQueue.QueueEvents(eventQueue);
