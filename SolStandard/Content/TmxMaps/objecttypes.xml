@@ -69,6 +69,18 @@
   <property name="Routine" type="string" default="Roam"/>
   <property name="Team" type="string" default="Creep"/>
   <property name="WillTrade" type="bool" default="false"/>
+  <property name="aiCamp" type="bool" default="false"/>
+  <property name="aiLogicGreedy" type="bool" default="false"/>
+  <property name="aiLogicHunter" type="bool" default="false"/>
+  <property name="aiLogicSelfDefense" type="bool" default="false"/>
+  <property name="aiLogicSniper" type="bool" default="false"/>
+  <property name="aiLogicTrickster" type="bool" default="false"/>
+  <property name="aiPatrol" type="bool" default="false"/>
+  <property name="aiRoam" type="bool" default="false"/>
+  <property name="aiSkillCrowdControl" type="bool" default="false"/>
+  <property name="aiSkillSummoner" type="bool" default="false"/>
+  <property name="aiSkillSupport" type="bool" default="false"/>
+  <property name="aiSkillThief" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>

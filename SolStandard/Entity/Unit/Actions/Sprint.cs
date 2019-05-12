@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions
                     GameUnit actingUnit = GameContext.ActiveUnit;
 
                     List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                        actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies
+                        actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies, true
                     );
 
                     Queue<IEvent> pathingEventQueue = new Queue<IEvent>();

@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 GameUnit actingUnit = GameContext.ActiveUnit;
 
                 List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                    actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates
+                    actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, false, true
                 );
 
                 Queue<IEvent> pathingEventQueue = new Queue<IEvent>();

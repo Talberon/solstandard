@@ -13,7 +13,8 @@ namespace SolStandard.Utility
 {
     public static class AStarAlgorithm
     {
-        public static List<Direction> DirectionsToDestination(Vector2 origin, Vector2 destination, bool walkThroughAllies = false)
+        public static List<Direction> DirectionsToDestination(Vector2 origin, Vector2 destination,
+            bool walkThroughAllies, bool ignoreLastStep)
         {
             SimplePriorityQueue<MapDistanceTile> frontier = new SimplePriorityQueue<MapDistanceTile>();
 
@@ -33,7 +34,7 @@ namespace SolStandard.Utility
 
                 if (current.MapCoordinates == destination)
                 {
-                    return DeriveDirectionsFromPath(current, cameFrom);
+                    return DeriveDirectionsFromPath(current, cameFrom, ignoreLastStep);
                 }
 
                 IEnumerable<MapDistanceTile> neighbours = GetNeighbours(current, destination, walkThroughAllies);
@@ -47,8 +48,6 @@ namespace SolStandard.Utility
                         costSoFar[neighbor] = newCost;
                         int priority = newCost + DistanceFromGoal(destination, neighbor.MapCoordinates);
                         frontier.Enqueue(neighbor, priority);
-
-
                         cameFrom[neighbor] = current;
                     }
                 }
@@ -58,7 +57,7 @@ namespace SolStandard.Utility
         }
 
         private static List<Direction> DeriveDirectionsFromPath(MapDistanceTile current,
-            IReadOnlyDictionary<MapDistanceTile, MapDistanceTile> cameFrom)
+            IReadOnlyDictionary<MapDistanceTile, MapDistanceTile> cameFrom, bool ignoreLastStep)
         {
             //Step backwards through the path and plot the directions from each of the nodes that map to the destination
             List<MapDistanceTile> path = new List<MapDistanceTile>();
@@ -66,10 +65,11 @@ namespace SolStandard.Utility
 
             MapDistanceTile nextTile = current;
 
+            if (!ignoreLastStep) path.Add(nextTile);
+
             while (cameFrom[nextTile] != null)
             {
                 nextTile = cameFrom[nextTile];
-
                 path.Add(nextTile);
             }
 
@@ -81,12 +81,8 @@ namespace SolStandard.Utility
             return directions;
         }
 
-        private static int DistanceFromGoal(Vector2 next, Vector2 current)
-        {
-            return Convert.ToInt32(Math.Abs(next.X - current.X) + Math.Abs(next.Y - current.Y));
-        }
-
-        private static IEnumerable<MapDistanceTile> GetNeighbours(MapElement currentTile, Vector2 destination, bool walkThroughAllies)
+        private static IEnumerable<MapDistanceTile> GetNeighbours(MapElement currentTile, Vector2 destination,
+            bool walkThroughAllies)
         {
             List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
 
@@ -97,7 +93,8 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(north) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination || FriendlyUnitIsStandingHere(north, walkThroughAllies))
+                (UnitMovingContext.CanEndMoveAtCoordinates(north) || north == destination ||
+                 FriendlyUnitIsStandingHere(north, walkThroughAllies))
             )
             {
                 neighbours.Add(
@@ -107,7 +104,8 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(south) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(south) || south == destination || FriendlyUnitIsStandingHere(south, walkThroughAllies))
+                (UnitMovingContext.CanEndMoveAtCoordinates(south) || south == destination ||
+                 FriendlyUnitIsStandingHere(south, walkThroughAllies))
             )
             {
                 neighbours.Add(
@@ -117,7 +115,8 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(east) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(east) || east == destination || FriendlyUnitIsStandingHere(east, walkThroughAllies))
+                (UnitMovingContext.CanEndMoveAtCoordinates(east) || east == destination ||
+                 FriendlyUnitIsStandingHere(east, walkThroughAllies))
             )
             {
                 neighbours.Add(
@@ -127,7 +126,8 @@ namespace SolStandard.Utility
 
             if (
                 GameMapContext.CoordinatesWithinMapBounds(west) &&
-                (UnitMovingContext.CanEndMoveAtCoordinates(west) || west == destination || FriendlyUnitIsStandingHere(west, walkThroughAllies))
+                (UnitMovingContext.CanEndMoveAtCoordinates(west) || west == destination ||
+                 FriendlyUnitIsStandingHere(west, walkThroughAllies))
             )
             {
                 neighbours.Add(
@@ -136,6 +136,11 @@ namespace SolStandard.Utility
             }
 
             return neighbours;
+        }
+
+        private static int DistanceFromGoal(Vector2 next, Vector2 current)
+        {
+            return Convert.ToInt32(Math.Abs(next.X - current.X) + Math.Abs(next.Y - current.Y));
         }
 
         private static bool FriendlyUnitIsStandingHere(Vector2 coordinates, bool walkThroughAllies)
