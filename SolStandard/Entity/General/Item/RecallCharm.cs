@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.Map.Elements;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.General.Item
