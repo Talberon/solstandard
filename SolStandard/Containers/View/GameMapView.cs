@@ -181,7 +181,7 @@ namespace SolStandard.Containers.View
 
             for (int i = 0; i < items.Count; i++)
             {
-                actionElements[i, iconIndex] = items[i].Icon;
+                actionElements[i, iconIndex] = items[i].Icon.Clone();
 
                 actionElements[i, nameIndex] =
                     new Window(new RenderText(AssetManager.WindowFont, items[i].Name), Color.Transparent);

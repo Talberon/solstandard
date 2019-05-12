@@ -29,7 +29,8 @@ namespace SolStandard.Entity.General
             if (items.Count != prices.Count || items.Count != quantities.Length)
             {
                 throw new VendorMisconfiguredException("The vendor <" + name + "> entity " +
-                                                       "should have the same number of items, prices and quantities.");
+                                                       "should have the same number of items, prices and quantities.",
+                    items.Count, prices.Count, quantities.Length);
             }
 
             CanMove = canMove;
@@ -89,7 +90,7 @@ namespace SolStandard.Entity.General
 
             for (int i = 0; i < purchaseActions.Count; i++)
             {
-                itemDetailList[i, 0] = purchaseActionsList[i].Icon;
+                itemDetailList[i, 0] = purchaseActionsList[i].Icon.Clone();
                 itemDetailList[i, 1] = new RenderText(AssetManager.WindowFont, purchaseActionsList[i].Item.Name);
 
                 itemDetailList[i, 2] =

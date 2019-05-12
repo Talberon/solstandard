@@ -113,6 +113,7 @@
     <Compile Include="Entity\General\Artillery.cs" />
     <Compile Include="Entity\General\TrapEntity.cs" />
     <Compile Include="Entity\General\Vendor.cs" />
+    <Compile Include="Entity\IActionTile.cs" />
     <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
@@ -274,7 +275,6 @@
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
     <Compile Include="Map\Elements\Direction.cs" />
-    <Compile Include="Map\Elements\IActionTile.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />
@@ -531,6 +531,9 @@
     <Content Include="Content\TmxMaps\Draft_Dimpimple_Beach.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Dusk_Temple.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -544,6 +547,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Snow_Zone.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Tavern_Inn.tmx">

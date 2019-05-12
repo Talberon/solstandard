@@ -39,6 +39,8 @@ namespace SolStandard.Entity.General
             this.willSnare = willSnare;
             ItemPool = itemPool;
             IsExpired = false;
+
+            if (!enabled) Disable();
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
@@ -91,10 +93,45 @@ namespace SolStandard.Entity.General
             return true;
         }
 
+        public bool WillTrigger(EffectTriggerTime triggerTime)
+        {
+            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            
+            MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+            GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
+
+            return trapUnit != null && enabled;
+        }
+
         public void RemoteTrigger()
         {
-            enabled = !enabled;
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
+            ToggleTrap();
+        }
+
+        private void ToggleTrap()
+        {
+            if (enabled) Disable();
+            else Enable();
+        }
+
+        private void Enable()
+        {
+            enabled = true;
+            UpdateSpriteColor();
+        }
+
+        private void Disable()
+        {
+            enabled = false;
+            UpdateSpriteColor();
+        }
+
+        private void UpdateSpriteColor()
+        {
             ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 

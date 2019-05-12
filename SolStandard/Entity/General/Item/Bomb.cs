@@ -101,6 +101,11 @@ namespace SolStandard.Entity.General.Item
             return true;
         }
 
+        public bool WillTrigger(EffectTriggerTime triggerTime)
+        {
+            return triggerTime == EffectTriggerTime.StartOfTurn;
+        }
+
         public override IRenderable TerrainInfo
         {
             get

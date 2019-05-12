@@ -40,7 +40,7 @@ namespace SolStandard.Entity.General
 
         private List<IRemotelyTriggerable> FindTriggerables()
         {
-            List<IRemotelyTriggerable> lockables = new List<IRemotelyTriggerable>();
+            List<IRemotelyTriggerable> remotelyTriggerables = new List<IRemotelyTriggerable>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
@@ -50,12 +50,12 @@ namespace SolStandard.Entity.General
                 {
                     if (entity.Name == TriggersId)
                     {
-                        lockables.Add(lockable);
+                        remotelyTriggerables.Add(lockable);
                     }
                 }
             }
 
-            return lockables;
+            return remotelyTriggerables;
         }
 
         public void ToggleActive()

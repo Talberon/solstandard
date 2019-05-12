@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -70,7 +73,7 @@ namespace SolStandard.Entity.General
                                                         (IsBroken) ? NegativeColor : PositiveColor),
                                                     new RenderBlank()
                                                 }
-                                            }, 
+                                            },
                                             InnerWindowColor,
                                             HorizontalAlignment.Centered
                                         ),
@@ -97,6 +100,27 @@ namespace SolStandard.Entity.General
             };
         }
 
+        public void RemoteTrigger()
+        {
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+
+            ToggleOpen();
+        }
+
+        private void ToggleOpen()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+            else
+            {
+                Open();
+            }
+        }
+
         public void Open()
         {
             AssetManager.DoorSFX.Play();
@@ -113,27 +137,19 @@ namespace SolStandard.Entity.General
             CanMove = false;
         }
 
-        private void ToggleOpen()
-        {
-            if (IsOpen)
-            {
-                Close();
-            }
-            else
-            {
-                Open();
-            }
-        }
-
         public void ToggleLock()
         {
             AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
         }
 
-        public void RemoteTrigger()
+        public bool IsObstructed
         {
-            ToggleOpen();
+            get
+            {
+                MapSlice doorSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+                return doorSlice.UnitEntity != null;
+            }
         }
     }
 }

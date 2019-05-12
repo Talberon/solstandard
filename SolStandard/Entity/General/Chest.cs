@@ -119,5 +119,10 @@ namespace SolStandard.Entity.General
             AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
         }
+
+        public bool IsObstructed
+        {
+            get { return false; }
+        }
     }
 }

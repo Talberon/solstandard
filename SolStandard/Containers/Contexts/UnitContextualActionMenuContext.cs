@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
