@@ -501,7 +501,7 @@ namespace SolStandard.Entity.Unit
             }
             else
             {
-                AssetManager.WarningSFX.Play();
+//                AssetManager.CombatBlockSFX.Play();
             }
         }
 

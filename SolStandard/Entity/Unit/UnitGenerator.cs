@@ -25,46 +25,9 @@ namespace SolStandard.Entity.Unit
         private enum Routine
         {
             Roam,
-            Wander
+            Wander,
+            Summoner
         }
-
-        private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
-        {
-            {"Red", Team.Red},
-            {"Blue", Team.Blue},
-            {"Creep", Team.Creep}
-        };
-
-        private static readonly Dictionary<string, Role> RoleDictionary = new Dictionary<string, Role>
-        {
-            {"Archer", Role.Archer},
-            {"Champion", Role.Champion},
-            {"Mage", Role.Mage},
-            {"Lancer", Role.Lancer},
-            {"Bard", Role.Bard},
-            {"Pugilist", Role.Pugilist},
-            {"Duelist", Role.Duelist},
-            {"Cleric", Role.Cleric},
-            {"Marauder", Role.Marauder},
-            {"Paladin", Role.Paladin},
-            {"Merchant", Role.Merchant},
-            {"Slime", Role.Slime},
-            {"Troll", Role.Troll},
-            {"Orc", Role.Orc},
-            {"Necromancer", Role.Necromancer},
-            {"Skeleton", Role.Skeleton},
-            {"Goblin", Role.Goblin},
-            {"Rat", Role.Rat},
-            {"Bat", Role.Bat},
-            {"Spider", Role.Spider}
-        };
-
-        private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
-        {
-            {"Roam", Routine.Roam},
-            {"Wander", Routine.Wander}
-        };
-
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
@@ -75,8 +38,8 @@ namespace SolStandard.Entity.Unit
             {
                 if (unit == null) continue;
 
-                Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
-                Role role = RoleDictionary[unit.TiledProperties["Class"]];
+                Team unitTeam = (Team) Enum.Parse(typeof(Team), unit.TiledProperties["Team"]);
+                Role role = (Role) Enum.Parse(typeof(Role), unit.TiledProperties["Class"]);
                 bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
 
                 GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, loot);
@@ -245,7 +208,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1,2});
+            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectSkeletonStats()
@@ -421,14 +384,17 @@ namespace SolStandard.Entity.Unit
         private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
         {
             List<UnitAction> actions = new List<UnitAction>();
-
-            switch (RoutineDictionary[tiledProperties["Routine"]])
+            Routine creepRoutine = (Routine) Enum.Parse(typeof(Routine), tiledProperties["Routine"]);
+            switch (creepRoutine)
             {
                 case Routine.Roam:
                     actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"])));
                     break;
                 case Routine.Wander:
                     actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"]), false));
+                    break;
+                case Routine.Summoner:
+                    actions.Add(new SummoningRoutine(Role.Skeleton));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -452,11 +418,18 @@ namespace SolStandard.Entity.Unit
                 );
         }
 
-        public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
+        public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
-            const string type = "Unit";
-            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
+
+            //TODO HACK Refactor the way AI units are generated so this hack for spawning creeps isn't necessary
+            string type = (team == Team.Creep) ? "Creep" : "Unit";
+            Dictionary<string, string> tiledProperties = new Dictionary<string, string>
+            {
+                {"Routine", "Roam"},
+                {"Independent", "false"}
+            };
+
             Vector2 mapCoordinates = Vector2.Zero;
 
             UnitEntity generatedEntity = GenerateUnitEntity(unitName, type, role, team, isCommander,

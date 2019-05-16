@@ -143,6 +143,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             return currentPreviewSlice.DynamicEntity != null && currentPreviewSlice.PreviewEntity != null;
         }
 
+        [Obsolete]
         private static List<GameUnit> UnitsWithinThreatRange(GameUnit creep, bool isIndependent)
         {
             //Use the threat range to determine if units are in range

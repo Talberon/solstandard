@@ -205,7 +205,7 @@ namespace SolStandard.Containers.Contexts
 
         private void UpdateSelectedUnitWindow(Role role, Team team)
         {
-            GameUnit generatedUnit = UnitGenerator.GenerateDraftUnit(role, team, false);
+            GameUnit generatedUnit = UnitGenerator.GenerateAdHocUnit(role, team, false);
             GetTeamUnits(team).Add(generatedUnit);
             const int spriteSize = 128;
             List<IRenderable> unitSprites =
