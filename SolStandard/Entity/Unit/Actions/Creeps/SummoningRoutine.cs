@@ -18,9 +18,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         private readonly int refreshTimeInTurns;
         private int turnTicker;
 
+        //TODO Add unique icon
+        private const SkillIcon RoutineIcon = SkillIcon.Focus;
+
         public SummoningRoutine(Role unitTypeToSpawn, int refreshTimeInTurns = 1)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
                 name: "Summoning Routine",
                 description: "Summon an ally within range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -33,6 +36,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             turnTicker = 0;
         }
 
+        public IRenderable MapIcon
+        {
+            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
+        }
+
         private void StartTickerTimer()
         {
             turnTicker = refreshTimeInTurns;
@@ -42,6 +50,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public void TickRefreshTime()
         {
             turnTicker--;
+        }
+
+        public bool CanExecute
+        {
+            get { return CanPlaceUnitOnAdjacentTile; }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

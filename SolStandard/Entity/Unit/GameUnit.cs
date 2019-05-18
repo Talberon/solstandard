@@ -499,10 +499,6 @@ namespace SolStandard.Entity.Unit
             {
                 MoveUnitToCoordinates(destination);
             }
-            else
-            {
-//                AssetManager.CombatBlockSFX.Play();
-            }
         }
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)
@@ -807,18 +803,6 @@ namespace SolStandard.Entity.Unit
         public override string ToString()
         {
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
-        }
-
-        public void ExecuteRoutines()
-        {
-            foreach (UnitAction action in Actions)
-            {
-                IRoutine routine = action as IRoutine;
-                if (routine != null)
-                {
-                    routine.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(UnitEntity.MapCoordinates));
-                }
-            }
         }
 
         public static SpriteAtlas GetCommanderCrown(Vector2 size)

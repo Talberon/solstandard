@@ -1965,9 +1965,10 @@
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="Routine" value="Summoner"/>
+    <property name="routine_summon" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="924" name="Deckard" type="Creep" gid="26" x="704" y="160" width="32" height="32">
+  <object id="924" name="Deckard" type="Creep" gid="26" x="672" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
    </properties>

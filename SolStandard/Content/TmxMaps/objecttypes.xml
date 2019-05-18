@@ -64,23 +64,13 @@
   <property name="Class" type="string"/>
   <property name="Commander" type="bool" default="false"/>
   <property name="Independent" type="bool" default="false"/>
-  <property name="Item" type="string"/>
-  <property name="ItemPrice" type="string"/>
-  <property name="Routine" type="string" default="Roam"/>
+  <property name="Items" type="string"/>
   <property name="Team" type="string" default="Creep"/>
-  <property name="WillTrade" type="bool" default="false"/>
-  <property name="aiCamp" type="bool" default="false"/>
-  <property name="aiLogicGreedy" type="bool" default="false"/>
-  <property name="aiLogicHunter" type="bool" default="false"/>
-  <property name="aiLogicSelfDefense" type="bool" default="false"/>
-  <property name="aiLogicSniper" type="bool" default="false"/>
-  <property name="aiLogicTrickster" type="bool" default="false"/>
-  <property name="aiPatrol" type="bool" default="false"/>
-  <property name="aiRoam" type="bool" default="false"/>
-  <property name="aiSkillCrowdControl" type="bool" default="false"/>
-  <property name="aiSkillSummoner" type="bool" default="false"/>
-  <property name="aiSkillSupport" type="bool" default="false"/>
-  <property name="aiSkillThief" type="bool" default="false"/>
+  <property name="fallback_routine" type="string" default="routine_wander"/>
+  <property name="routine_basicAttack" type="bool" default="true"/>
+  <property name="routine_summon" type="bool" default="false"/>
+  <property name="routine_summon.class" type="string" default="Skeleton"/>
+  <property name="routine_wander" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>

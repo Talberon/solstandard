@@ -40,7 +40,7 @@ namespace SolStandard.Containers.Contexts
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits();
             CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-            
+
             StartNewRound();
         }
 
@@ -135,9 +135,8 @@ namespace SolStandard.Containers.Contexts
             return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 
-        public void UpdateUnitActivation()
+        private void UpdateUnitActivation()
         {
-
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
             CurrentActiveUnit =
                 InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
@@ -179,13 +178,21 @@ namespace SolStandard.Containers.Contexts
             );
             GlobalEventQueue.QueueEvents(activationEvents);
 
-            if (CurrentActiveTeam == Team.Creep)
+            ExecuteCreepRoutine();
+        }
+
+        private void ExecuteCreepRoutine()
+        {
+            if (CurrentActiveTeam != Team.Creep) return;
+            if (GameContext.ActiveUnit.UnitEntity == null) return;
+            
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+            
+            CreepUnit activeCreep = GameContext.ActiveUnit as CreepUnit;
+            if (activeCreep != null)
             {
-                if (GameContext.ActiveUnit.UnitEntity != null)
-                {
-                    GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
-                    GameContext.ActiveUnit.ExecuteRoutines();
-                }
+                activeCreep.ExecuteNextRoutine();
+                activeCreep.ReadyNextRoutine();
             }
         }
 

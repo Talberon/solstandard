@@ -726,9 +726,9 @@ namespace SolStandard.Map
                             Role role = ObtainUnitClass(currentProperties["Class"]);
                             bool isCommander = Convert.ToBoolean(currentProperties["Commander"]);
 
-                            unitGrid[col, row] = UnitGenerator.GenerateUnitEntity(currentObject.Name,
-                                currentObject.Type, role,
-                                unitTeam, isCommander, unitSprites, new Vector2(col, row), currentProperties);
+                            unitGrid[col, row] = UnitGenerator.GenerateMapEntity(currentObject.Name,
+                                currentObject.Type, role, unitTeam, isCommander, unitSprites, new Vector2(col, row),
+                                currentProperties);
                         }
                     }
                 }
