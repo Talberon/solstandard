@@ -15,13 +15,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
     public class SummoningRoutine : UnitAction, IRoutine
     {
         private readonly Role unitTypeToSpawn;
-        private readonly int refreshTimeInTurns;
-        private int turnTicker;
 
         //TODO Add unique icon
         private const SkillIcon RoutineIcon = SkillIcon.Focus;
 
-        public SummoningRoutine(Role unitTypeToSpawn, int refreshTimeInTurns = 1)
+        public SummoningRoutine(Role unitTypeToSpawn)
             : base(
                 icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
                 name: "Summoning Routine",
@@ -32,24 +30,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             )
         {
             this.unitTypeToSpawn = unitTypeToSpawn;
-            this.refreshTimeInTurns = refreshTimeInTurns;
-            turnTicker = 0;
         }
 
         public IRenderable MapIcon
         {
             get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
-
-        private void StartTickerTimer()
-        {
-            turnTicker = refreshTimeInTurns;
-        }
-
-        //TODO Implement ICooldown interface to handle abilities with a cooldown period
-        public void TickRefreshTime()
-        {
-            turnTicker--;
         }
 
         public bool CanExecute
@@ -63,30 +48,15 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + unitTypeToSpawn + "!", 50)
             );
 
-            if (SkillIsAvailable)
+            if (CanPlaceUnitOnAdjacentTile)
             {
-                if (CanPlaceUnitOnAdjacentTile)
-                {
-                    //TODO Enable this once cooldowns are implemented
-                    //StartTickerTimer();
-
-                    PlaceUnitOnRandomValidAdjacentTile();
-                    GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
-                }
-                else
-                {
-                    EndTurnWithToastMessage("Can't place a unit nearby!");
-                }
+                PlaceUnitOnRandomValidAdjacentTile();
+                GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
             }
             else
             {
-                EndTurnWithToastMessage("Skill is on cooldown!");
+                EndTurnWithToastMessage("Can't place a unit nearby!");
             }
-        }
-
-        private bool SkillIsAvailable
-        {
-            get { return turnTicker <= 0; }
         }
 
         private bool CanPlaceUnitOnAdjacentTile

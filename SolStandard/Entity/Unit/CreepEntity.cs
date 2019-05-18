@@ -21,11 +21,12 @@ namespace SolStandard.Entity.Unit
             routineIcon = routine.MapIcon.Clone();
         }
 
-        private static Vector2 CenterTopOfTile(Vector2 tileCoordinates, float iconWidth)
+        private static Vector2 CenterTopOfTile(Vector2 tileCoordinates, float iconSize)
         {
             Vector2 centerCoordinates = tileCoordinates * GameDriver.CellSize;
             centerCoordinates.X += (float) GameDriver.CellSize / 2;
-            centerCoordinates.X -= iconWidth / 2;
+            centerCoordinates.X -= iconSize / 2;
+            centerCoordinates.Y -= iconSize / 2;
             return centerCoordinates;
         }
 
