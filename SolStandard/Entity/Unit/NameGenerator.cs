@@ -50,8 +50,6 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Male);
                 case Role.Paladin:
                     return GenerateName(NameType.Female);
-                case Role.Merchant:
-                    return GenerateName(NameType.Male);
                 case Role.Slime:
                     return GenerateName(NameType.Beast);
                 case Role.Troll:

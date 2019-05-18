@@ -40,7 +40,6 @@ namespace SolStandard.Entity.Unit
         Orc,
         Necromancer,
         Skeleton,
-        Merchant,
         Goblin,
         Rat,
         Bat,

@@ -111,9 +111,6 @@ namespace SolStandard.Entity.Unit
                 case Role.Spider:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
-                case Role.Merchant:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
-                    break;
             }
         }
 
@@ -228,11 +225,6 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectSpiderStats()
         {
             return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
-        }
-
-        private static UnitStatistics SelectMerchantStats()
-        {
-            return new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2});
         }
 
         private static List<UnitAction> SelectArcherSkills()
@@ -513,10 +505,6 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Role.Spider:
                     unitStatistics = SelectSpiderStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
-                    break;
-                case Role.Merchant:
-                    unitStatistics = SelectMerchantStats();
                     unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 default:
