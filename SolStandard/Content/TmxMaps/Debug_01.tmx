@@ -2568,16 +2568,6 @@
     <property name="Item" value="Chest LK1 Key"/>
    </properties>
   </object>
-  <object id="804" name="Kaz" type="Creep" gid="24" x="736" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Merchant"/>
-    <property name="Independent" type="bool" value="true"/>
-    <property name="Item" value="Blink Bone|Wand|Hammer|Mega Potion"/>
-    <property name="ItemPrice" value="25|15|15|10"/>
-    <property name="Routine" value="Wander"/>
-    <property name="WillTrade" type="bool" value="true"/>
-   </properties>
-  </object>
  </objectgroup>
  <layer id="4" name="Overlay" width="32" height="20">
   <data>
