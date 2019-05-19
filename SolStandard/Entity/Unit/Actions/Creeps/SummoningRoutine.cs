@@ -9,6 +9,8 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
+using SolStandard.Utility.Events.Network;
+using SolStandard.Utility.Model;
 
 namespace SolStandard.Entity.Unit.Actions.Creeps
 {
@@ -86,9 +88,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (!UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) continue;
 
-                new SpawnUnitAction(unitTypeToSpawn).ExecuteAction(
-                    MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)
-                );
+                SpawnCreep(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates), unitTypeToSpawn);
                 MapContainer.ClearDynamicAndPreviewGrids();
                 return;
             }
@@ -96,6 +96,64 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCursorEvent("Failed to place " + unitTypeToSpawn + "!", 50)
             );
+        }
+
+        private static void SpawnCreep(MapSlice targetSlice, Role unitType)
+        {
+            if (TargetIsUnoccupiedTileInRange(targetSlice))
+            {
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new SpawnCreepEvent(
+                        unitType,
+                        targetSlice.MapCoordinates,
+                        GenerateCreepProperties(unitType)
+                    )
+                );
+                eventQueue.Enqueue(new WaitFramesEvent(50));
+                eventQueue.Enqueue(new EndTurnEvent());
+                GlobalEventQueue.QueueEvents(eventQueue);
+            }
+            else
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                AssetManager.WarningSFX.Play();
+            }
+        }
+
+        private static Dictionary<string, string> GenerateCreepProperties(Role unitType)
+        {
+            //TODO Possibly consider how creeps can be configured with different routines per summoner
+            CreepModel basicCreepModel = new CreepModel(
+                unitType,
+                false,
+                false,
+                "",
+                Team.Creep,
+                Routine.Wander,
+                true,
+                false,
+                Role.Silhouette,
+                false
+            );
+
+            return basicCreepModel.EntityProperties;
+        }
+
+        public static void PlaceUnitInTile(Role role, Vector2 mapCoordinates,
+            Dictionary<string, string> entityProperties)
+        {
+            GameUnit unitToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
+            unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            GameContext.Units.Add(unitToSpawn);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            AssetManager.SkillBuffSFX.Play();
+        }
+
+        private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
+        {
+            return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
+                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
 
         private List<MapElement> GetTilesInRange(Vector2 origin)

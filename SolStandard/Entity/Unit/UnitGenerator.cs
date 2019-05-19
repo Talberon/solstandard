@@ -16,6 +16,7 @@ using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Model;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -25,19 +26,6 @@ namespace SolStandard.Entity.Unit
         private const string RoutinePrefix = "routine_";
         private const string RoutinePropertyDelimiter = ".";
 
-        private enum Routine
-        {
-            BasicAttack,
-            Wander,
-            Summon
-        }
-
-        private static readonly Dictionary<string, Routine> RoutineProperties = new Dictionary<string, Routine>
-        {
-            {"routine_basicAttack", Routine.BasicAttack},
-            {"routine_wander", Routine.Wander},
-            {"routine_summon", Routine.Summon}
-        };
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
@@ -380,7 +368,7 @@ namespace SolStandard.Entity.Unit
 
             foreach (string routineName in enabledRoutines)
             {
-                actions.Add(GenerateRoutine(RoutineProperties[routineName], creepProperties));
+                actions.Add(GenerateRoutine(CreepModel.GetRoutineByName(routineName), creepProperties));
             }
 
             return actions;
@@ -426,38 +414,31 @@ namespace SolStandard.Entity.Unit
                 );
         }
 
+        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties)
+        {
+            string unitName = NameGenerator.GenerateUnitName(role);
+            
+            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false,
+                AssetManager.UnitSprites, Vector2.Zero, entityProperties);
+
+            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity, entityProperties);
+        }
+
         public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
 
             if (team == Team.Creep)
             {
-                //TODO HACK Refactor the way AI units are generated so this hack for spawning creeps isn't necessary
-                Dictionary<string, string> tiledProperties = new Dictionary<string, string>
-                {
-                    {"routine_basicAttack", "true"},
-                    {"routine_summon", "false"},
-                    {"routine_wander", "false"},
-                    {"fallback_routine", "routine_wander"},
-                    {"Independent", "false"},
-                    {"Items", ""},
-                    {"Commander", "false"}
-                };
-
-                CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, team, isCommander,
-                    AssetManager.UnitSprites, Vector2.Zero, tiledProperties);
-
-                return GenerateCreep(role, team, unitName, isCommander, generatedEntity, tiledProperties);
+                throw new Exception("Cannot create creep as if it were a player unit!");
             }
-            else
-            {
-                Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
 
-                UnitEntity generatedEntity = GenerateUnitEntity(unitName, "Unit", role, team, isCommander,
-                    AssetManager.UnitSprites, Vector2.Zero, tiledProperties);
+            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
 
-                return GenerateUnit(role, team, unitName, isCommander, generatedEntity);
-            }
+            UnitEntity generatedEntity = GenerateUnitEntity(unitName, "Unit", role, team, isCommander,
+                AssetManager.UnitSprites, Vector2.Zero, tiledProperties);
+
+            return GenerateUnit(role, team, unitName, isCommander, generatedEntity);
         }
 
         private static CreepUnit GenerateCreep(Role role, Team team, string unitName, bool isCommander,
@@ -512,7 +493,7 @@ namespace SolStandard.Entity.Unit
             }
 
             UnitAction fallbackRoutine = GenerateRoutine(
-                RoutineProperties[tiledProperties["fallback_routine"]],
+                CreepModel.GetRoutineByName(tiledProperties[CreepModel.FallbackRoutineProp]),
                 tiledProperties
             );
 

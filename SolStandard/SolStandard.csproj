@@ -361,6 +361,7 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\SpawnCreepEvent.cs" />
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
@@ -412,6 +413,7 @@
     <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
+    <Compile Include="Utility\Model\CreepModel.cs" />
     <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />

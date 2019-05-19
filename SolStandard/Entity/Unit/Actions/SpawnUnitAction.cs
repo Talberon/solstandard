@@ -46,7 +46,13 @@ namespace SolStandard.Entity.Unit.Actions
                 if (spawnItem != null) GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new SpawnUnitEvent(unitRole, GameContext.ActiveUnit.Team, targetSlice.MapCoordinates));
+                eventQueue.Enqueue(
+                    new SpawnUnitEvent(
+                        unitRole,
+                        GameContext.ActiveUnit.Team,
+                        targetSlice.MapCoordinates
+                    )
+                );
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
