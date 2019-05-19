@@ -41,6 +41,8 @@ namespace SolStandard.Entity.Unit
 
         public void ReadyNextRoutine()
         {
+            //TODO This can be improved to give AI units some intelligent decision-making instead of just random options
+            
             UnitAction randomRoutine = Actions[GameDriver.Random.Next(Actions.Count)];
             UpdateUnitRoutine(randomRoutine as IRoutine);
         }

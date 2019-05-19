@@ -116,6 +116,8 @@ namespace SolStandard.Entity.Unit
             }
         }
 
+        #region Unit Statistics
+
         //UNITS
 
         private static UnitStatistics SelectArcherStats()
@@ -177,7 +179,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 20, armor: 0, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectOrcStats()
@@ -192,7 +194,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectSkeletonStats()
         {
-            return new UnitStatistics(hp: 12, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectGoblinStats()
@@ -202,7 +204,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectRatStats()
         {
-            return new UnitStatistics(hp: 9, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 8, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBatStats()
@@ -215,6 +217,9 @@ namespace SolStandard.Entity.Unit
             return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
+        #endregion Unit Statistics
+
+        #region Unit Skills
         private static List<UnitAction> SelectArcherSkills()
         {
             return new List<UnitAction>
@@ -354,6 +359,8 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
         }
+        
+        #endregion Unit Skills
 
         private static List<UnitAction> GenerateCreepRoutinesFromProperties(
             IReadOnlyDictionary<string, string> creepProperties
@@ -417,7 +424,7 @@ namespace SolStandard.Entity.Unit
         public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
-            
+
             CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false,
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
