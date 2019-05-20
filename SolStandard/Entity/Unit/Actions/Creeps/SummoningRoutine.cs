@@ -111,7 +111,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     )
                 );
                 eventQueue.Enqueue(new WaitFramesEvent(50));
-                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
@@ -134,6 +133,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 true,
                 false,
                 Role.Silhouette,
+                false,
                 false
             );
 
@@ -173,7 +173,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 )
             );
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
-            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
     }
 }

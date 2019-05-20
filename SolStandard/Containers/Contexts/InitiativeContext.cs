@@ -192,7 +192,7 @@ namespace SolStandard.Containers.Contexts
             if (activeCreep != null)
             {
                 activeCreep.ExecuteNextRoutine();
-                activeCreep.ReadyNextRoutine();
+                GlobalEventQueue.QueueSingleEvent(new ReadyAIRoutineEvent(activeCreep));
             }
         }
 

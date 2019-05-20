@@ -23,10 +23,6 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
-        private const string RoutinePrefix = "routine_";
-        private const string RoutinePropertyDelimiter = ".";
-
-
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
@@ -367,7 +363,7 @@ namespace SolStandard.Entity.Unit
         )
         {
             List<string> enabledRoutines = (from valuePair in creepProperties
-                where valuePair.Key.StartsWith(RoutinePrefix) && !valuePair.Key.Contains(RoutinePropertyDelimiter)
+                where CreepModel.GetRoutineByName(valuePair.Key) != Routine.None
                 where Convert.ToBoolean(valuePair.Value)
                 select valuePair.Key).ToList();
 
@@ -393,8 +389,10 @@ namespace SolStandard.Entity.Unit
                     return (new WanderRoutine());
                 case Routine.Summon:
                     return new SummoningRoutine(GetRoleByName(
-                        creepProperties[RoutinePrefix + "summon" + RoutinePropertyDelimiter + "class"]
+                        creepProperties[CreepModel.RoutineSummonClassProp]
                     ));
+                case Routine.TreasureHunter:
+                    return new TreasureHunterRoutine();
                 default:
                     throw new ArgumentOutOfRangeException();
             }

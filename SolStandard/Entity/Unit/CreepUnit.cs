@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map.Elements.Cursor;
+using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
@@ -35,6 +36,9 @@ namespace SolStandard.Entity.Unit
             }
             else
             {
+                GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Can't fulfill intentions!"));
+                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+
                 fallbackRoutine.ExecuteAction(creepSlice);
             }
         }
@@ -42,7 +46,7 @@ namespace SolStandard.Entity.Unit
         public void ReadyNextRoutine()
         {
             //TODO This can be improved to give AI units some intelligent decision-making instead of just random options
-            
+
             UnitAction randomRoutine = Actions[GameDriver.Random.Next(Actions.Count)];
             UpdateUnitRoutine(randomRoutine as IRoutine);
         }
