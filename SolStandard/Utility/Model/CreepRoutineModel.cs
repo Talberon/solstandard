@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Creeps;
 
 namespace SolStandard.Utility.Model
 {
@@ -13,20 +16,8 @@ namespace SolStandard.Utility.Model
         TreasureHunter
     }
 
-    public class CreepModel
+    public class CreepRoutineModel
     {
-        public static Routine GetRoutineByName(string routineName)
-        {
-            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
-
-            if (RoutineBasicAttackProp.EndsWith(routineName, true, invariantCulture)) return Routine.BasicAttack;
-            if (RoutineSummonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Summon;
-            if (RoutineWanderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wander;
-            if (RoutineTreasureHunterProp.EndsWith(routineName, true, invariantCulture)) return Routine.TreasureHunter;
-
-            return Routine.None;
-        }
-
         //Tiled Property Names
         public const string ClassProp = "Class";
         public const string CommanderProp = "Commander";
@@ -52,7 +43,7 @@ namespace SolStandard.Utility.Model
         private readonly bool routineWander;
         private readonly bool routineTreasureHunter;
 
-        public CreepModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
+        public CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, Role routineSummonClass,
             bool routineWander, bool routineTreasureHunter)
         {
@@ -67,6 +58,44 @@ namespace SolStandard.Utility.Model
             this.routineSummonClass = routineSummonClass;
             this.routineWander = routineWander;
             this.routineTreasureHunter = routineTreasureHunter;
+        }
+        
+        public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
+        {
+            bool isIndependent = Convert.ToBoolean(creepProperties[IndependentProp]);
+
+            switch (routine)
+            {
+                case Routine.BasicAttack:
+                    return new BasicAttackRoutine(isIndependent);
+                case Routine.Wander:
+                    return (new WanderRoutine());
+                case Routine.Summon:
+                    return new SummoningRoutine(GetRoleByName(
+                        creepProperties[RoutineSummonClassProp]
+                    ));
+                case Routine.TreasureHunter:
+                    return new TreasureHunterRoutine();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        private static Role GetRoleByName(string roleName)
+        {
+            return (Role) Enum.Parse(typeof(Role), roleName);
+        }
+        
+        public static Routine GetRoutineByName(string routineName)
+        {
+            CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+
+            if (RoutineBasicAttackProp.EndsWith(routineName, true, invariantCulture)) return Routine.BasicAttack;
+            if (RoutineSummonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Summon;
+            if (RoutineWanderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wander;
+            if (RoutineTreasureHunterProp.EndsWith(routineName, true, invariantCulture)) return Routine.TreasureHunter;
+
+            return Routine.None;
         }
 
         public Dictionary<string, string> EntityProperties

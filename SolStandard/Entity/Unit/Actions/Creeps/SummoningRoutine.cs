@@ -123,7 +123,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         private static Dictionary<string, string> GenerateCreepProperties(Role unitType)
         {
             //TODO Possibly consider how creeps can be configured with different routines per summoner
-            CreepModel basicCreepModel = new CreepModel(
+            CreepRoutineModel basicCreepRoutineModel = new CreepRoutineModel(
                 unitType,
                 false,
                 false,
@@ -137,7 +137,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 false
             );
 
-            return basicCreepModel.EntityProperties;
+            return basicCreepRoutineModel.EntityProperties;
         }
 
         public static void PlaceUnitInTile(Role role, Vector2 mapCoordinates,

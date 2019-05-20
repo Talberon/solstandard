@@ -7,7 +7,6 @@ using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Cleric;
-using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
@@ -363,7 +362,7 @@ namespace SolStandard.Entity.Unit
         )
         {
             List<string> enabledRoutines = (from valuePair in creepProperties
-                where CreepModel.GetRoutineByName(valuePair.Key) != Routine.None
+                where CreepRoutineModel.GetRoutineByName(valuePair.Key) != Routine.None
                 where Convert.ToBoolean(valuePair.Value)
                 select valuePair.Key).ToList();
 
@@ -371,38 +370,11 @@ namespace SolStandard.Entity.Unit
 
             foreach (string routineName in enabledRoutines)
             {
-                actions.Add(GenerateRoutine(CreepModel.GetRoutineByName(routineName), creepProperties));
+                actions.Add(CreepRoutineModel.GenerateRoutine(CreepRoutineModel.GetRoutineByName(routineName), creepProperties));
             }
 
             return actions;
         }
-
-        private static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
-        {
-            bool isIndependent = Convert.ToBoolean(creepProperties["Independent"]);
-
-            switch (routine)
-            {
-                case Routine.BasicAttack:
-                    return new BasicAttackRoutine(isIndependent);
-                case Routine.Wander:
-                    return (new WanderRoutine());
-                case Routine.Summon:
-                    return new SummoningRoutine(GetRoleByName(
-                        creepProperties[CreepModel.RoutineSummonClassProp]
-                    ));
-                case Routine.TreasureHunter:
-                    return new TreasureHunterRoutine();
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private static Role GetRoleByName(string roleName)
-        {
-            return (Role) Enum.Parse(typeof(Role), roleName);
-        }
-
 
         private static ITexture2D FindSmallPortrait(string unitTeam, string unitJobClass, List<ITexture2D> portraits)
         {
@@ -498,7 +470,7 @@ namespace SolStandard.Entity.Unit
             }
 
             UnitAction fallbackRoutine = GenerateRoutine(
-                CreepModel.GetRoutineByName(tiledProperties[CreepModel.FallbackRoutineProp]),
+                CreepRoutineModel.GetRoutineByName(tiledProperties[CreepRoutineModel.FallbackRoutineProp]),
                 tiledProperties
             );
 
