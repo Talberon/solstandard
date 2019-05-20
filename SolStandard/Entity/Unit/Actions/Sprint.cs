@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -20,8 +21,10 @@ namespace SolStandard.Entity.Unit.Actions
         public Sprint(int maxDistance) : base(
             icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
             name: "Sprint",
-            description: "Move an extra " + maxDistance + " spaces at the expense of losing " +
-                         maxDistance + " " + UnitStatistics.Abbreviation[Stats.Mv] + " for a turn.",
+            description: "Move up to " + maxDistance + " spaces at the expense of losing " +
+                         maxDistance + " " + UnitStatistics.Abbreviation[Stats.Mv] + " for a turn." +
+                         Environment.NewLine + "Can not move further than maximum " +
+                         UnitStatistics.Abbreviation[Stats.Mv] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
             freeAction: false
@@ -33,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             int lowerMv = GameContext.ActiveUnit.Stats.Mv < maxDistance ? GameContext.ActiveUnit.Stats.Mv : maxDistance;
-            
+
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
             unitMovingContext.GenerateMoveGrid(origin, lowerMv, GameContext.ActiveUnit.Team);
