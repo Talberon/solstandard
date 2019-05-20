@@ -469,7 +469,7 @@ namespace SolStandard.Entity.Unit
                     throw new ArgumentOutOfRangeException("role", role, null);
             }
 
-            UnitAction fallbackRoutine = GenerateRoutine(
+            UnitAction fallbackRoutine = CreepRoutineModel.GenerateRoutine(
                 CreepRoutineModel.GetRoutineByName(tiledProperties[CreepRoutineModel.FallbackRoutineProp]),
                 tiledProperties
             );
