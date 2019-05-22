@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -12,7 +14,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
-    public class Switch : TerrainEntity, IActionTile
+    public class Switch : TerrainEntity, IActionTile, ITriggerable
     {
         public int[] InteractRange { get; private set; }
         private string TriggersId { get; set; }
@@ -31,14 +33,14 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<IRemotelyTriggerable> targetTriggerables = FindTriggerables();
+            List<IRemotelyTriggerable> targetTriggerables = FindRemotelyTriggerables();
             return new List<UnitAction>
             {
                 new ToggleSwitchAction(this, targetTriggerables)
             };
         }
 
-        private List<IRemotelyTriggerable> FindTriggerables()
+        private List<IRemotelyTriggerable> FindRemotelyTriggerables()
         {
             List<IRemotelyTriggerable> remotelyTriggerables = new List<IRemotelyTriggerable>();
 
@@ -56,6 +58,21 @@ namespace SolStandard.Entity.General
             }
 
             return remotelyTriggerables;
+        }
+
+        public void Trigger()
+        {
+            if (!CanTrigger) return;
+
+            UnitAction toggleAction = TileActions().First();
+            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
+        public bool CanTrigger
+        {
+            get { return true; }
         }
 
         public void ToggleActive()

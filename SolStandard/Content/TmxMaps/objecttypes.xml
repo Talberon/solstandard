@@ -71,6 +71,7 @@
   <property name="routine_summon" type="bool" default="false"/>
   <property name="routine_summon.class" type="string" default="Skeleton"/>
   <property name="routine_treasureHunter" type="bool" default="false"/>
+  <property name="routine_triggerHappy" type="bool" default="false"/>
   <property name="routine_wander" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">

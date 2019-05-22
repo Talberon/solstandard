@@ -18,13 +18,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly Vector2 targetCoordinates;
         private readonly Chest chest;
 
-        public OpenChestAction(Chest chest, Vector2 targetCoordinates) : base(
+        public OpenChestAction(Chest chest, Vector2 targetCoordinates, bool freeAction = true) : base(
             icon: chest.RenderSprite,
             name: "Open Chest",
             description: "Opens a chest if able.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
-            freeAction: true
+            freeAction: freeAction
         )
         {
             this.chest = chest;
@@ -67,13 +67,21 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     }
 
 
-                    eventQueue.Enqueue(new AdditionalActionEvent());
+                    if (FreeAction)
+                    {
+                        eventQueue.Enqueue(new AdditionalActionEvent());
+                    }
+                    else
+                    {
+                        eventQueue.Enqueue(new EndTurnEvent());
+                    }
+
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
                     Key matchingKey = ActiveUnitMatchingKey(targetSlice);
-                    
+
                     if (matchingKey != null)
                     {
                         new ToggleLockAction(matchingKey).ExecuteAction(targetSlice);

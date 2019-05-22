@@ -16,13 +16,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly Vector2 targetCoordinates;
         private readonly Door door;
 
-        public UseDoorAction(Door door, Vector2 targetCoordinates) : base(
+        public UseDoorAction(Door door, Vector2 targetCoordinates, bool freeAction = true) : base(
             icon: door.RenderSprite,
             name: "Use Door",
             description: "Opens or closes the door.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
-            freeAction: true
+            freeAction: freeAction
         )
         {
             this.door = door;
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates);
-            
+
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(targetCoordinates);
         }
 
@@ -52,7 +52,16 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ToggleOpenEvent(door));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new AdditionalActionEvent());
+                    
+                    if (FreeAction)
+                    {
+                        eventQueue.Enqueue(new AdditionalActionEvent());
+                    }
+                    else
+                    {
+                        eventQueue.Enqueue(new EndTurnEvent());
+                    }
+
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

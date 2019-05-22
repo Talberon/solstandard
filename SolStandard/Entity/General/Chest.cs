@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
@@ -9,10 +11,12 @@ using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
-    public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable
+    public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
     {
         public int Gold { get; private set; }
         public bool IsLocked { get; private set; }
@@ -99,6 +103,18 @@ namespace SolStandard.Entity.General
             return actions;
         }
 
+
+        public void Trigger()
+        {
+            if (!CanTrigger) return;
+
+            UnitAction toggleAction = new OpenChestAction(this, MapCoordinates, false);
+            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
         public void Open()
         {
             AssetManager.DoorSFX.Play();
@@ -117,6 +133,11 @@ namespace SolStandard.Entity.General
         {
             AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
+        }
+
+        public bool CanTrigger
+        {
+            get { return !IsOpen && !IsLocked; }
         }
 
         public bool IsObstructed

@@ -10,10 +10,12 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : BreakableObstacle, IActionTile, IOpenable, ILockable, IRemotelyTriggerable
+    public class Door : BreakableObstacle, IActionTile, IOpenable, ILockable, ITriggerable, IRemotelyTriggerable
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
@@ -99,6 +101,18 @@ namespace SolStandard.Entity.General
             };
         }
 
+
+        public void Trigger()
+        {
+            if (!CanTrigger) return;
+
+            UnitAction toggleAction = new UseDoorAction(this, MapCoordinates, false);
+            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
         public void RemoteTrigger()
         {
             GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
@@ -149,6 +163,11 @@ namespace SolStandard.Entity.General
                 MapSlice doorSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
                 return doorSlice.UnitEntity != null;
             }
+        }
+
+        public bool CanTrigger
+        {
+            get { return !IsLocked; }
         }
     }
 }

@@ -13,7 +13,8 @@ namespace SolStandard.Utility.Model
         BasicAttack,
         Wander,
         Summon,
-        TreasureHunter
+        TreasureHunter,
+        TriggerHappy
     }
 
     public class CreepRoutineModel
@@ -30,6 +31,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineSummonClassProp = "routine_summon.class";
         public const string RoutineWanderProp = "routine_wander";
         public const string RoutineTreasureHunterProp = "routine_treasureHunter";
+        public const string RoutineTriggerHappyProp = "routine_triggerHappy";
 
         private readonly Role creepClass;
         private readonly bool isCommander;
@@ -42,10 +44,11 @@ namespace SolStandard.Utility.Model
         private readonly Role routineSummonClass;
         private readonly bool routineWander;
         private readonly bool routineTreasureHunter;
+        private readonly bool routineTriggerHappy;
 
         public CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, Role routineSummonClass,
-            bool routineWander, bool routineTreasureHunter)
+            bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy)
         {
             this.creepClass = creepClass;
             this.isCommander = isCommander;
@@ -58,8 +61,9 @@ namespace SolStandard.Utility.Model
             this.routineSummonClass = routineSummonClass;
             this.routineWander = routineWander;
             this.routineTreasureHunter = routineTreasureHunter;
+            this.routineTriggerHappy = routineTriggerHappy;
         }
-        
+
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
         {
             bool isIndependent = Convert.ToBoolean(creepProperties[IndependentProp]);
@@ -69,23 +73,23 @@ namespace SolStandard.Utility.Model
                 case Routine.BasicAttack:
                     return new BasicAttackRoutine(isIndependent);
                 case Routine.Wander:
-                    return (new WanderRoutine());
+                    return new WanderRoutine();
                 case Routine.Summon:
-                    return new SummoningRoutine(GetRoleByName(
-                        creepProperties[RoutineSummonClassProp]
-                    ));
+                    return new SummoningRoutine(GetRoleByName(creepProperties[RoutineSummonClassProp]));
                 case Routine.TreasureHunter:
                     return new TreasureHunterRoutine();
+                case Routine.TriggerHappy:
+                    return new TriggerHappyRoutine();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
         private static Role GetRoleByName(string roleName)
         {
             return (Role) Enum.Parse(typeof(Role), roleName);
         }
-        
+
         public static Routine GetRoutineByName(string routineName)
         {
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
@@ -94,6 +98,7 @@ namespace SolStandard.Utility.Model
             if (RoutineSummonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Summon;
             if (RoutineWanderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wander;
             if (RoutineTreasureHunterProp.EndsWith(routineName, true, invariantCulture)) return Routine.TreasureHunter;
+            if (RoutineTriggerHappyProp.EndsWith(routineName, true, invariantCulture)) return Routine.TriggerHappy;
 
             return Routine.None;
         }
@@ -114,7 +119,8 @@ namespace SolStandard.Utility.Model
                     {RoutineSummonProp, routineSummon.ToString()},
                     {RoutineSummonClassProp, routineSummonClass.ToString()},
                     {RoutineWanderProp, routineWander.ToString()},
-                    {RoutineTreasureHunterProp, routineTreasureHunter.ToString()}
+                    {RoutineTreasureHunterProp, routineTreasureHunter.ToString()},
+                    {RoutineTriggerHappyProp, routineTriggerHappy.ToString()}
                 };
             }
         }
