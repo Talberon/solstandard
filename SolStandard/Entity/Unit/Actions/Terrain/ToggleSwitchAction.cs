@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     eventQueue.Enqueue(new TriggerEntityEvent(triggerable));
                 }
 
-                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

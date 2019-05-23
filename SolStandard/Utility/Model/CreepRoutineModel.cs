@@ -14,7 +14,8 @@ namespace SolStandard.Utility.Model
         Wander,
         Summon,
         TreasureHunter,
-        TriggerHappy
+        TriggerHappy,
+        Defender
     }
 
     public class CreepRoutineModel
@@ -32,6 +33,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineWanderProp = "routine_wander";
         public const string RoutineTreasureHunterProp = "routine_treasureHunter";
         public const string RoutineTriggerHappyProp = "routine_triggerHappy";
+        public const string RoutineDefenderProp = "routine_defender";
 
         private readonly Role creepClass;
         private readonly bool isCommander;
@@ -45,10 +47,11 @@ namespace SolStandard.Utility.Model
         private readonly bool routineWander;
         private readonly bool routineTreasureHunter;
         private readonly bool routineTriggerHappy;
+        private readonly bool routineDefender;
 
         public CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, Role routineSummonClass,
-            bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy)
+            bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender)
         {
             this.creepClass = creepClass;
             this.isCommander = isCommander;
@@ -62,6 +65,7 @@ namespace SolStandard.Utility.Model
             this.routineWander = routineWander;
             this.routineTreasureHunter = routineTreasureHunter;
             this.routineTriggerHappy = routineTriggerHappy;
+            this.routineDefender = routineDefender;
         }
 
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
@@ -80,6 +84,8 @@ namespace SolStandard.Utility.Model
                     return new TreasureHunterRoutine();
                 case Routine.TriggerHappy:
                     return new TriggerHappyRoutine();
+                case Routine.Defender:
+                    return new DefenderRoutine();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -99,6 +105,7 @@ namespace SolStandard.Utility.Model
             if (RoutineWanderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wander;
             if (RoutineTreasureHunterProp.EndsWith(routineName, true, invariantCulture)) return Routine.TreasureHunter;
             if (RoutineTriggerHappyProp.EndsWith(routineName, true, invariantCulture)) return Routine.TriggerHappy;
+            if (RoutineDefenderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Defender;
 
             return Routine.None;
         }
@@ -120,7 +127,8 @@ namespace SolStandard.Utility.Model
                     {RoutineSummonClassProp, routineSummonClass.ToString()},
                     {RoutineWanderProp, routineWander.ToString()},
                     {RoutineTreasureHunterProp, routineTreasureHunter.ToString()},
-                    {RoutineTriggerHappyProp, routineTriggerHappy.ToString()}
+                    {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
+                    {RoutineDefenderProp, routineDefender.ToString()}
                 };
             }
         }

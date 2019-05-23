@@ -135,6 +135,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 Role.Silhouette,
                 false,
                 false,
+                false,
                 false
             );
 

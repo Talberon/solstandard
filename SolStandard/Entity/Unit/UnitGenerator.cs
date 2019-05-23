@@ -209,7 +209,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectSpiderStats()
         {
-            return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 4, armor: 5, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         #endregion Unit Statistics

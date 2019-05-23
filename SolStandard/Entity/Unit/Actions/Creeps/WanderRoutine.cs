@@ -42,10 +42,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             GameUnit roamer = GameContext.ActiveUnit;
             Roam(roamer);
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
 
 
-        private static void Roam(GameUnit roamer)
+        public static void Roam(GameUnit roamer)
         {
             Queue<IEvent> roamEventQueue = new Queue<IEvent>();
             GlobalEventQueue.QueueSingleEvent(
@@ -66,8 +68,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
 
             roamEventQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));
-            roamEventQueue.Enqueue(new WaitFramesEvent(30));
-            roamEventQueue.Enqueue(new CreepEndTurnEvent());
             GlobalEventQueue.QueueEvents(roamEventQueue);
         }
     }

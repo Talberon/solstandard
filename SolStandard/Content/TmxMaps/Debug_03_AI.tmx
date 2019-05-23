@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="944">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="945">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -2025,7 +2025,7 @@
   <object id="938" name="Healthy Potion" type="HealthPotion" gid="6759" x="448" y="416" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="902" name="Gaius" type="Unit" gid="3" x="576" y="320" width="32" height="32">
+  <object id="902" name="Gaius" type="Unit" gid="3" x="384" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2043,6 +2043,7 @@
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="Commander" type="bool" value="true"/>
+    <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
    </properties>
   </object>
@@ -2068,6 +2069,20 @@
     <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="918" name="Kesk" type="Creep" gid="28" x="384" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Spider"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_defender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="944" name="Kesk" type="Creep" gid="28" x="416" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Spider"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_defender" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="9" name="Disabled" opacity="0.43">
   <object id="913" name="Carl" type="Creep" gid="22" x="416" y="96" width="32" height="32">
@@ -2078,11 +2093,6 @@
   <object id="914" name="Grog" type="Creep" gid="23" x="448" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-   </properties>
-  </object>
-  <object id="918" name="Kesk" type="Creep" gid="28" x="544" y="96" width="32" height="32">
-   <properties>
-    <property name="Class" value="Spider"/>
    </properties>
   </object>
   <object id="920" name="Bruce" type="Creep" gid="30" x="608" y="96" width="32" height="32">

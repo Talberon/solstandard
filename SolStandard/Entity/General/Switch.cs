@@ -11,6 +11,8 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
@@ -68,6 +70,7 @@ namespace SolStandard.Entity.General
             toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
             MapContainer.ClearDynamicAndPreviewGrids();
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
 
         public bool CanTrigger
