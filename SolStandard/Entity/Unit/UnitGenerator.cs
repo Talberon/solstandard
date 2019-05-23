@@ -199,17 +199,17 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectRatStats()
         {
-            return new UnitStatistics(hp: 8, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBatStats()
         {
-            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectSpiderStats()
         {
-            return new UnitStatistics(hp: 4, armor: 5, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 6, armor: 6, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         #endregion Unit Statistics
