@@ -260,7 +260,7 @@ namespace SolStandard.Containers.Contexts
             ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
 
             GameMapContext = new GameMapContext(
-                new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture),
+                new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture, mapParser.LoadSummons()),
                 new GameMapView()
             );
         }

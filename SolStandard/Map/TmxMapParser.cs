@@ -148,6 +148,11 @@ namespace SolStandard.Map
             return loot;
         }
 
+        public List<CreepEntity> LoadSummons()
+        {
+            return ObtainUnitsFromLayer("Summons").Cast<CreepEntity>().Where(unit => unit != null).ToList();
+        }
+
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
         {
             MapElement[,] tileGrid = new MapElement[tmxMap.Width, tmxMap.Height];

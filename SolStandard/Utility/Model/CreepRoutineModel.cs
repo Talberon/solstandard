@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Creeps;
@@ -35,7 +36,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineTriggerHappyProp = "routine_triggerHappy";
         public const string RoutineDefenderProp = "routine_defender";
 
-        private readonly Role creepClass;
+        public Role CreepClass { get; private set; }
         private readonly bool isCommander;
         private readonly bool isIndependent;
         private readonly string items;
@@ -43,17 +44,17 @@ namespace SolStandard.Utility.Model
         private readonly Routine fallbackRoutine;
         private readonly bool routineBasicAttack;
         private readonly bool routineSummon;
-        private readonly Role routineSummonClass;
+        private readonly string routineSummonClass;
         private readonly bool routineWander;
         private readonly bool routineTreasureHunter;
         private readonly bool routineTriggerHappy;
         private readonly bool routineDefender;
 
-        public CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
-            Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, Role routineSummonClass,
+        private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
+            Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
             bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender)
         {
-            this.creepClass = creepClass;
+            this.CreepClass = creepClass;
             this.isCommander = isCommander;
             this.isIndependent = isIndependent;
             this.items = items;
@@ -79,7 +80,8 @@ namespace SolStandard.Utility.Model
                 case Routine.Wander:
                     return new WanderRoutine();
                 case Routine.Summon:
-                    return new SummoningRoutine(GetRoleByName(creepProperties[RoutineSummonClassProp]));
+                    CreepEntity creepToSummon = FindSummonByName(creepProperties[RoutineSummonClassProp]);
+                    return new SummoningRoutine(GetModelForCreep(creepToSummon));
                 case Routine.TreasureHunter:
                     return new TreasureHunterRoutine();
                 case Routine.TriggerHappy:
@@ -89,6 +91,36 @@ namespace SolStandard.Utility.Model
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private static CreepEntity FindSummonByName(string summonName)
+        {
+            return GameContext.GameMapContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
+        }
+
+        private static CreepRoutineModel GetModelForCreep(CreepEntity creepEntity)
+        {
+            Dictionary<string, string> creepProps = creepEntity.TiledProperties;
+            return new CreepRoutineModel(
+                GetRoleByName(creepProps[ClassProp]),
+                Convert.ToBoolean(creepProps[CommanderProp]),
+                Convert.ToBoolean(creepProps[IndependentProp]),
+                creepProps[ItemsProp],
+                GetTeamByName(creepProps[TeamProp]),
+                GetRoutineByName(creepProps[FallbackRoutineProp]),
+                Convert.ToBoolean(creepProps[RoutineBasicAttackProp]),
+                Convert.ToBoolean(creepProps[RoutineSummonProp]),
+                creepProps[RoutineSummonClassProp],
+                Convert.ToBoolean(creepProps[RoutineWanderProp]),
+                Convert.ToBoolean(creepProps[RoutineTreasureHunterProp]),
+                Convert.ToBoolean(creepProps[RoutineTriggerHappyProp]),
+                Convert.ToBoolean(creepProps[RoutineDefenderProp])
+            );
+        }
+
+        private static Team GetTeamByName(string teamName)
+        {
+            return (Team) Enum.Parse(typeof(Team), teamName);
         }
 
         private static Role GetRoleByName(string roleName)
@@ -116,7 +148,7 @@ namespace SolStandard.Utility.Model
             {
                 return new Dictionary<string, string>
                 {
-                    {ClassProp, creepClass.ToString()},
+                    {ClassProp, CreepClass.ToString()},
                     {CommanderProp, isCommander.ToString()},
                     {IndependentProp, isIndependent.ToString()},
                     {ItemsProp, items},

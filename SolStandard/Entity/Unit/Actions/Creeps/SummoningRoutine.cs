@@ -16,12 +16,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class SummoningRoutine : UnitAction, IRoutine
     {
-        private readonly Role unitTypeToSpawn;
+        private readonly CreepRoutineModel creepModel;
 
         //TODO Add unique icon
         private const SkillIcon RoutineIcon = SkillIcon.Focus;
 
-        public SummoningRoutine(Role unitTypeToSpawn)
+        public SummoningRoutine(CreepRoutineModel creepModel)
             : base(
                 icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
                 name: "Summoning Routine",
@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 freeAction: false
             )
         {
-            this.unitTypeToSpawn = unitTypeToSpawn;
+            this.creepModel = creepModel;
         }
 
         public IRenderable MapIcon
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GlobalEventQueue.QueueSingleEvent(
-                new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + unitTypeToSpawn + "!", 50)
+                new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + creepModel.CreepClass + "!", 50)
             );
 
             if (CanPlaceUnitOnAdjacentTile)
@@ -88,26 +88,26 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (!UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) continue;
 
-                SpawnCreep(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates), unitTypeToSpawn);
+                SpawnCreep(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates));
                 MapContainer.ClearDynamicAndPreviewGrids();
                 return;
             }
 
             GlobalEventQueue.QueueSingleEvent(
-                new ToastAtCursorEvent("Failed to place " + unitTypeToSpawn + "!", 50)
+                new ToastAtCursorEvent("Failed to place " + creepModel.CreepClass + "!", 50)
             );
         }
 
-        private static void SpawnCreep(MapSlice targetSlice, Role unitType)
+        private void SpawnCreep(MapSlice targetSlice)
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new SpawnCreepEvent(
-                        unitType,
+                        creepModel.CreepClass,
                         targetSlice.MapCoordinates,
-                        GenerateCreepProperties(unitType)
+                        creepModel.EntityProperties
                     )
                 );
                 eventQueue.Enqueue(new WaitFramesEvent(50));
@@ -118,28 +118,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
-        }
-
-        private static Dictionary<string, string> GenerateCreepProperties(Role unitType)
-        {
-            //TODO Possibly consider how creeps can be configured with different routines per summoner
-            CreepRoutineModel basicCreepRoutineModel = new CreepRoutineModel(
-                unitType,
-                false,
-                false,
-                "",
-                Team.Creep,
-                Routine.Wander,
-                true,
-                false,
-                Role.Silhouette,
-                false,
-                false,
-                false,
-                false
-            );
-
-            return basicCreepRoutineModel.EntityProperties;
         }
 
         public static void PlaceUnitInTile(Role role, Vector2 mapCoordinates,
