@@ -41,6 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit roamer = GameContext.ActiveUnit;
+            GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Wandering...", 50));
             Roam(roamer);
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
@@ -50,13 +51,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public static void Roam(GameUnit roamer)
         {
             Queue<IEvent> roamEventQueue = new Queue<IEvent>();
-            GlobalEventQueue.QueueSingleEvent(
-                new ToastAtCoordinatesEvent(
-                    roamer.UnitEntity.MapCoordinates,
-                    "Wandering...",
-                    50
-                )
-            );
             //Move randomly up to max movement
             for (int i = 0; i < roamer.Stats.Mv; i++)
             {
