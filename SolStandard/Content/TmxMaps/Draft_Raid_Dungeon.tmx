@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="29" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="931">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="29" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="931">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -2057,6 +2057,7 @@
   <object id="927" name="Door" type="Door" gid="6580" x="352" y="160" width="32" height="32"/>
   <object id="928" name="Door" type="Door" gid="6579" x="704" y="224" width="32" height="32"/>
  </objectgroup>
+ <objectgroup id="17" name="Summons"/>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="903" name="Mighty Meat" type="BuffItem" gid="6792" x="512" y="576" width="32" height="32">
    <properties>
