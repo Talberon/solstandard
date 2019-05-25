@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SolStandard.Containers;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map.Elements.Cursor;
@@ -45,10 +46,18 @@ namespace SolStandard.Entity.Unit
 
         public void ReadyNextRoutine()
         {
-            //TODO This can be improved to give AI units some intelligent decision-making instead of just random options
+            List<IRoutine> readyableActions =
+                Actions.Cast<IRoutine>().Where(routine => routine.CanBeReadied(this)).ToList();
 
-            UnitAction randomRoutine = Actions[GameDriver.Random.Next(Actions.Count)];
-            UpdateUnitRoutine(randomRoutine as IRoutine);
+            if (readyableActions.Count > 0)
+            {
+                IRoutine randomRoutine = readyableActions[GameDriver.Random.Next(readyableActions.Count)];
+                UpdateUnitRoutine(randomRoutine);
+            }
+            else
+            {
+                UpdateUnitRoutine(fallbackRoutine);
+            }
         }
 
         private void UpdateUnitRoutine(IRoutine newRoutine)

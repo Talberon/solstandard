@@ -35,23 +35,33 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
         }
 
+        public bool CanBeReadied(CreepUnit unit)
+        {
+            return FindTriggerableInRange(unit) != null;
+        }
+
         public bool CanExecute
         {
-            get { return FindTriggerableInRange() != null; }
+            get
+            {
+                GameUnit triggerer = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                return FindTriggerableInRange(triggerer) != null;
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            ITriggerable targetTriggerable = FindTriggerableInRange();
+            GameUnit activeUnit = GameContext.ActiveUnit;
+            ITriggerable targetTriggerable = FindTriggerableInRange(activeUnit);
 
             if (targetTriggerable != null)
             {
-                PathToTriggerableAndTrigger(targetTriggerable, GameContext.ActiveUnit);
+                PathToTriggerableAndTrigger(targetTriggerable, activeUnit);
             }
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
-                    GameContext.ActiveUnit.UnitEntity,
+                    activeUnit.UnitEntity,
                     "No targets in range to trigger!",
                     50
                 );
@@ -59,12 +69,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
         }
 
-        private ITriggerable FindTriggerableInRange()
+        private ITriggerable FindTriggerableInRange(GameUnit creep)
         {
-            GameUnit activeUnit = GameContext.ActiveUnit;
-            IThreatRange threatRange = new AdHocThreatRange(new[] {1}, activeUnit.MvRange);
+            IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
-            new UnitTargetingContext(TileSprite).GenerateThreatGrid(activeUnit.UnitEntity.MapCoordinates, threatRange);
+            new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
             List<MapElement> moveTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
             moveTiles.AddRange(MapContainer.GetMapElementsFromLayer(Layer.Preview));
             MapContainer.ClearDynamicAndPreviewGrids();

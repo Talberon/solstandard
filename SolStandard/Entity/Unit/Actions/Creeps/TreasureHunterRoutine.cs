@@ -37,9 +37,18 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
         }
 
+        public bool CanBeReadied(CreepUnit creepUnit)
+        {
+            return UnobstructedTreasureInRange(creepUnit);
+        }
+
         public bool CanExecute
         {
-            get { return UnobstructedTreasureInRange; }
+            get
+            {
+                GameUnit hunter = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                return UnobstructedTreasureInRange(hunter);
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -51,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             GameUnit activeUnit = GameContext.ActiveUnit;
 
-            if (activeUnit.UnitEntity != null && UnobstructedTreasureInRange)
+            if (activeUnit.UnitEntity != null && UnobstructedTreasureInRange(activeUnit))
             {
                 KeyValuePair<Currency, Vector2>? currencyToPickUp =
                     FindUnobstructedCurrencyInRange(activeUnit.UnitEntity.MapCoordinates, activeUnit.MvRange);
@@ -197,18 +206,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             return itemsInRange.First();
         }
 
-        private bool UnobstructedTreasureInRange
+        private bool UnobstructedTreasureInRange(GameUnit unitSearching)
         {
-            get
-            {
-                GameUnit activeUnit = GameContext.ActiveUnit;
-                if (activeUnit.UnitEntity == null) return false;
+            if (unitSearching.UnitEntity == null) return false;
 
-                return (
-                    FindUnobstructedItemInRange(activeUnit.UnitEntity.MapCoordinates, activeUnit.MvRange) != null ||
-                    FindUnobstructedCurrencyInRange(activeUnit.UnitEntity.MapCoordinates, activeUnit.MvRange) != null
-                );
-            }
+            return (
+                FindUnobstructedItemInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange) != null ||
+                FindUnobstructedCurrencyInRange(unitSearching.UnitEntity.MapCoordinates, unitSearching.MvRange) != null
+            );
         }
     }
 }

@@ -33,6 +33,12 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
         }
 
+
+        public bool CanBeReadied(CreepUnit unit)
+        {
+            return true;
+        }
+
         public bool CanExecute
         {
             get { return true; }

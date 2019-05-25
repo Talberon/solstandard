@@ -39,9 +39,18 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
         }
 
+        public bool CanBeReadied(CreepUnit creepUnit)
+        {
+            return CanPlaceUnitOnAdjacentTile(creepUnit);
+        }
+
         public bool CanExecute
         {
-            get { return CanPlaceUnitOnAdjacentTile; }
+            get
+            {
+                GameUnit summoner = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                return CanPlaceUnitOnAdjacentTile(summoner);
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -50,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + creepModel.CreepClass + "!", 50)
             );
 
-            if (CanPlaceUnitOnAdjacentTile)
+            if (CanPlaceUnitOnAdjacentTile(GameContext.ActiveUnit))
             {
                 PlaceUnitOnRandomValidAdjacentTile();
                 GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
@@ -61,22 +70,19 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
         }
 
-        private bool CanPlaceUnitOnAdjacentTile
+        private bool CanPlaceUnitOnAdjacentTile(GameUnit unitPlacingCreep)
         {
-            get
+            //This side-effect of altering the map could be icky later; keep this in mind if trying to
+            //manipulate the preview layer elsewhere.
+            List<MapElement> tilesInRange = GetTilesInRange(unitPlacingCreep.UnitEntity.MapCoordinates);
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            foreach (MapElement element in tilesInRange)
             {
-                //This side-effect of altering the map could be icky later; keep this in mind if trying to
-                //manipulate the preview layer elsewhere.
-                List<MapElement> tilesInRange = GetTilesInRange(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                MapContainer.ClearDynamicAndPreviewGrids();
-
-                foreach (MapElement element in tilesInRange)
-                {
-                    if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) return true;
-                }
-
-                return false;
+                if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates)) return true;
             }
+
+            return false;
         }
 
         private void PlaceUnitOnRandomValidAdjacentTile()
