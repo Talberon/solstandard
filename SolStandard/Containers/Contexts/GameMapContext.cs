@@ -594,7 +594,7 @@ namespace SolStandard.Containers.Contexts
             foreach (IEffectTile tile in effectTiles.Where(tile => tile.WillTrigger(EffectTriggerTime.EndOfTurn)))
             {
                 endOfTurnEffectTileEvents.Enqueue(
-                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 50)
+                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 80)
                 );
             }
 

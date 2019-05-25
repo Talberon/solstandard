@@ -40,7 +40,12 @@ namespace SolStandard.Containers.Contexts
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits();
             CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-
+            
+            foreach (CreepUnit creepUnit in GameContext.Units.Where(unit=>unit is CreepUnit).Cast<CreepUnit>())
+            {
+                creepUnit.ReadyNextRoutine();
+            }
+            
             StartNewRound();
         }
 

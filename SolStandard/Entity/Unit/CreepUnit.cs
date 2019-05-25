@@ -19,7 +19,6 @@ namespace SolStandard.Entity.Unit
             base(id, team, role, unitEntity, stats, portrait, actions, isBoss)
         {
             this.fallbackRoutine = fallbackRoutine;
-            ReadyNextRoutine();
         }
 
         private CreepEntity CreepEntity

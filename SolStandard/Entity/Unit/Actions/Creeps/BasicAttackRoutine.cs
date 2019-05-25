@@ -14,25 +14,27 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class BasicAttackRoutine : UnitAction, IRoutine
     {
-        private readonly bool independent;
-        private const SkillIcon RoutineIcon = SkillIcon.BasicAttack;
+        protected readonly bool Independent;
+        private readonly SkillIcon routineIcon;
 
-        public BasicAttackRoutine(bool independent)
+        public BasicAttackRoutine(bool independent, string name = null, string description = null,
+            SkillIcon routineIcon = SkillIcon.BasicAttack)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
-                name: "Basic Attack Routine",
-                description: "Attack nearby enemies in range.",
+                icon: SkillIconProvider.GetSkillIcon(routineIcon, new Vector2(GameDriver.CellSize)),
+                name: name ?? "Basic Attack Routine",
+                description: description ?? "Attacks a random enemy in range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
                 range: new[] {0},
                 freeAction: false
             )
         {
-            this.independent = independent;
+            Independent = independent;
+            this.routineIcon = routineIcon;
         }
 
         public IRenderable MapIcon
         {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
+            get { return SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
         }
 
         public virtual bool CanBeReadied(CreepUnit creepUnit)
@@ -42,14 +44,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public bool CanExecute
         {
-            get { return TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, independent).Count > 0; }
+            get { return TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0; }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit attacker = GameContext.ActiveUnit;
 
-            List<KeyValuePair<GameUnit, Vector2>> targetsInRange = TilesWithinThreatRangeForUnit(attacker, independent);
+            List<KeyValuePair<GameUnit, Vector2>> targetsInRange = TilesWithinThreatRangeForUnit(attacker, Independent);
 
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
             if (targetsInRange.Count > 0)
@@ -64,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
         }
 
-        private static void PathToTargetAndAttack(IReadOnlyList<KeyValuePair<GameUnit, Vector2>> targetsInRange,
+        protected static void PathToTargetAndAttack(IReadOnlyList<KeyValuePair<GameUnit, Vector2>> targetsInRange,
             GameUnit roamer)
         {
             KeyValuePair<GameUnit, Vector2> targetUnitCoordinatePair =
@@ -94,7 +96,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GlobalEventQueue.QueueEvents(pathAndAttackQueue);
         }
 
-        private static List<KeyValuePair<GameUnit, Vector2>> TilesWithinThreatRangeForUnit(GameUnit creep,
+        protected static List<KeyValuePair<GameUnit, Vector2>> TilesWithinThreatRangeForUnit(GameUnit creep,
             bool isIndependent)
         {
             //Check movement range

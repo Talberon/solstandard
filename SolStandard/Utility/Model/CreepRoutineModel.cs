@@ -17,7 +17,8 @@ namespace SolStandard.Utility.Model
         TreasureHunter,
         TriggerHappy,
         Defender,
-        Glutton
+        Glutton,
+        Assassin
     }
 
     public class CreepRoutineModel
@@ -37,6 +38,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineTriggerHappyProp = "routine_triggerHappy";
         public const string RoutineDefenderProp = "routine_defender";
         public const string RoutineGluttonProp = "routine_glutton";
+        public const string RoutineAssassinProp = "routine_assassin";
 
         public Role CreepClass { get; private set; }
         private readonly bool isCommander;
@@ -52,11 +54,12 @@ namespace SolStandard.Utility.Model
         private readonly bool routineTriggerHappy;
         private readonly bool routineDefender;
         private readonly bool routineGlutton;
+        private readonly bool routineAssassin;
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
             bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender,
-            bool routineGlutton)
+            bool routineGlutton, bool routineAssassin)
         {
             CreepClass = creepClass;
             this.isCommander = isCommander;
@@ -72,6 +75,7 @@ namespace SolStandard.Utility.Model
             this.routineTriggerHappy = routineTriggerHappy;
             this.routineDefender = routineDefender;
             this.routineGlutton = routineGlutton;
+            this.routineAssassin = routineAssassin;
         }
 
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
@@ -95,6 +99,8 @@ namespace SolStandard.Utility.Model
                     return new DefenderRoutine();
                 case Routine.Glutton:
                     return new GluttonRoutine();
+                case Routine.Assassin:
+                    return new AssassinRoutine(isIndependent);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -122,7 +128,8 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(creepProps[RoutineTreasureHunterProp]),
                 Convert.ToBoolean(creepProps[RoutineTriggerHappyProp]),
                 Convert.ToBoolean(creepProps[RoutineDefenderProp]),
-                Convert.ToBoolean(creepProps[RoutineGluttonProp])
+                Convert.ToBoolean(creepProps[RoutineGluttonProp]),
+                Convert.ToBoolean(creepProps[RoutineAssassinProp])
             );
         }
 
@@ -147,6 +154,7 @@ namespace SolStandard.Utility.Model
             if (RoutineTriggerHappyProp.EndsWith(routineName, true, invariantCulture)) return Routine.TriggerHappy;
             if (RoutineDefenderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Defender;
             if (RoutineGluttonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Glutton;
+            if (RoutineAssassinProp.EndsWith(routineName, true, invariantCulture)) return Routine.Assassin;
 
             return Routine.None;
         }
@@ -165,12 +173,13 @@ namespace SolStandard.Utility.Model
                     {FallbackRoutineProp, string.Format("routine_{0}", fallbackRoutine.ToString())},
                     {RoutineBasicAttackProp, routineBasicAttack.ToString()},
                     {RoutineSummonProp, routineSummon.ToString()},
-                    {RoutineSummonClassProp, routineSummonClass.ToString()},
+                    {RoutineSummonClassProp, routineSummonClass},
                     {RoutineWanderProp, routineWander.ToString()},
                     {RoutineTreasureHunterProp, routineTreasureHunter.ToString()},
                     {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
                     {RoutineDefenderProp, routineDefender.ToString()},
-                    {RoutineGluttonProp, routineGlutton.ToString()}
+                    {RoutineGluttonProp, routineGlutton.ToString()},
+                    {RoutineAssassinProp, routineAssassin.ToString()}
                 };
             }
         }
