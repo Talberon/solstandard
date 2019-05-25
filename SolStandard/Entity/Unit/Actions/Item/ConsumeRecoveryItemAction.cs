@@ -10,19 +10,19 @@ namespace SolStandard.Entity.Unit.Actions.Item
 {
     public class ConsumeRecoveryItemAction : UnitAction
     {
-        private readonly IConsumable item;
+        private readonly HealthPotion potion;
         private readonly int hpHealed;
 
-        public ConsumeRecoveryItemAction(IConsumable item, int hpHealed, int[] range) : base(
-            icon: item.Icon,
-            name: "Recover HP: " + item.Name,
+        public ConsumeRecoveryItemAction(HealthPotion potion, int hpHealed, int[] range) : base(
+            icon: potion.Icon,
+            name: "Recover HP: " + potion.Name,
             description: "Single use. Target recovers [" + hpHealed + "] HP.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
             freeAction: true
         )
         {
-            this.item = item;
+            this.potion = potion;
             this.hpHealed = hpHealed;
         }
 
@@ -32,10 +32,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit) || TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                item.Consume();
-
+                potion.Consume(targetUnit);
+                
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new RegenerateHealthEvent(targetUnit, hpHealed));
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

@@ -69,6 +69,7 @@
   <property name="fallback_routine" type="string" default="routine_wander"/>
   <property name="routine_basicAttack" type="bool" default="true"/>
   <property name="routine_defender" type="bool" default="false"/>
+  <property name="routine_glutton" type="bool" default="false"/>
   <property name="routine_summon" type="bool" default="false"/>
   <property name="routine_summon.class" type="string" default="Skeleton"/>
   <property name="routine_treasureHunter" type="bool" default="false"/>

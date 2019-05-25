@@ -9,6 +9,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.General.Item
 {
@@ -35,10 +36,11 @@ namespace SolStandard.Entity.General.Item
             get { return Sprite; }
         }
 
-        public void Consume()
+        public void Consume(GameUnit targetUnit)
         {
             IsBroken = true;
             GameContext.ActiveUnit.RemoveItemFromInventory(this);
+            GlobalEventQueue.QueueSingleEvent(new RegenerateHealthEvent(targetUnit, HPHealed));
         }
 
         public List<UnitAction> TileActions()
