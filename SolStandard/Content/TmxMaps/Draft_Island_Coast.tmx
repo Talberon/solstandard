@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="35" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="946">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="35" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="947">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -3293,7 +3293,13 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="13" name="Summons"/>
+ <objectgroup id="13" name="Summons" opacity="0.5">
+  <object id="946" name="Skeltal" type="Creep" gid="554" x="352" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="Skeleton"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75"/>
  <objectgroup id="7" name="Items">
   <object id="924" name="Mighty Meat" type="BuffItem" gid="482" x="864" y="544" width="32" height="32"/>
@@ -3368,26 +3374,37 @@
   <object id="876" name="Goblin" type="Creep" gid="555" x="832" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="877" name="Goblin" type="Creep" gid="555" x="704" y="608" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="878" name="Goblin" type="Creep" gid="555" x="832" y="608" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="891" name="Goblin" type="Creep" gid="555" x="704" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
-   </properties>
-  </object>
-  <object id="939" name="Skeltal" type="Creep" gid="554" x="608" y="192" width="32" height="32">
-   <properties>
-    <property name="Class" value="Skeleton"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="940" name="Skeltal" type="Creep" gid="554" x="640" y="224" width="32" height="32">
@@ -3396,11 +3413,6 @@
    </properties>
   </object>
   <object id="941" name="Skeltal" type="Creep" gid="554" x="640" y="160" width="32" height="32">
-   <properties>
-    <property name="Class" value="Skeleton"/>
-   </properties>
-  </object>
-  <object id="942" name="Skeltal" type="Creep" gid="554" x="352" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
    </properties>
@@ -3418,6 +3430,13 @@
   <object id="945" name="Skeleton King" type="Creep" gid="553" x="352" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Necromancer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Skeltal"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

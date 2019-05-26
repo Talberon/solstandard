@@ -2091,6 +2091,8 @@
   <object id="997" name="Rufus" type="Creep" gid="29" x="672" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="998" name="Wendy" type="Creep" gid="29" x="448" y="192" width="32" height="32">
@@ -2098,9 +2100,13 @@
     <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="1001" name="Dorc" type="Creep" gid="23" x="448" y="352" width="32" height="32">
+  <object id="1001" name="Dorc" type="Creep" gid="23" x="480" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

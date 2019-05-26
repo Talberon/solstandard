@@ -1848,7 +1848,7 @@
     <property name="unitsPerTeam" type="int" value="9"/>
    </properties>
   </object>
-  <object id="547" name="Atheion Grassland" type="SelectMap" gid="6326" x="160" y="288" width="32" height="32">
+  <object id="547" name="Atheion Grassland" type="SelectMap" gid="6326" x="128" y="224" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_01.tmx"/>
@@ -1922,7 +1922,7 @@
     <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
-  <object id="563" name="Lakefront Market" type="SelectMap" gid="6326" x="224" y="192" width="32" height="32">
+  <object id="563" name="Lakefront Market" type="SelectMap" gid="6326" x="192" y="384" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Town_Market.tmx"/>

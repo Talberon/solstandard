@@ -4913,47 +4913,63 @@
   <object id="863" name="Rat" type="Creep" gid="557" x="544" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="864" name="Rat" type="Creep" gid="557" x="512" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
-    <property name="Item" value="Swift Cheese"/>
+    <property name="Items" value="Swift Cheese"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="865" name="Bat" type="Creep" gid="558" x="576" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
-    <property name="Item" value="Mighty Meat"/>
+    <property name="Items" value="Mighty Meat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
   <object id="866" name="Rat" type="Creep" gid="557" x="576" y="1056" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
-    <property name="Item" value="Swift Cheese"/>
+    <property name="Items" value="Swift Cheese"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="867" name="Bat" type="Creep" gid="558" x="512" y="1088" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
-    <property name="Item" value="Mighty Meat"/>
+    <property name="Items" value="Mighty Meat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
   <object id="868" name="Rat" type="Creep" gid="557" x="448" y="1056" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="869" name="Bat" type="Creep" gid="558" x="512" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
-    <property name="Item" value="Door Key"/>
+    <property name="Items" value="Door Key"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
   <object id="870" name="Bat" type="Creep" gid="558" x="512" y="1024" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
-    <property name="Item" value="Door Key"/>
+    <property name="Items" value="Door Key"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
