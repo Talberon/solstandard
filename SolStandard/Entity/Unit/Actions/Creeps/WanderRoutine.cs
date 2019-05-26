@@ -13,8 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class WanderRoutine : UnitAction, IRoutine
     {
-        //TODO Add unique icon
-        private const SkillIcon RoutineIcon = SkillIcon.DoubleTime;
+        private const SkillIcon RoutineIcon = SkillIcon.Wander;
 
         public WanderRoutine()
             : base(

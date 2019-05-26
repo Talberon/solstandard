@@ -17,8 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class TreasureHunterRoutine : UnitAction, IRoutine
     {
-        //TODO Add unique icon
-        private const SkillIcon RoutineIcon = SkillIcon.Blink;
+        private const SkillIcon RoutineIcon = SkillIcon.TreasureHunter;
 
         public TreasureHunterRoutine()
             : base(

@@ -397,6 +397,7 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> textures = new List<Texture2D>
             {
+                //Skill Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
@@ -431,6 +432,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rampart"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Stun"),
+                //AI Routine Icons
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Assassin"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Defender"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/TriggerHappy"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/TreasureHunter"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Glutton"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Summon"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wander"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

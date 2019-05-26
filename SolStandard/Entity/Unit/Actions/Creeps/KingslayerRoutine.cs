@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             independent,
             "Kingslayer Routine",
             "Prefers to attack enemy Commanders in range. Will default to any enemy if no commanders are near.",
-            SkillIcon.Inspire
+            SkillIcon.Kingslayer
         )
         {
         }

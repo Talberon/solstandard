@@ -14,8 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class GluttonRoutine : UnitAction, IRoutine
     {
-        //TODO Add unique icon
-        private const SkillIcon RoutineIcon = SkillIcon.Cleanse;
+        private const SkillIcon RoutineIcon = SkillIcon.Glutton;
 
         public GluttonRoutine()
             : base(

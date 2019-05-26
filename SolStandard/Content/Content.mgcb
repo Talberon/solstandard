@@ -1826,6 +1826,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/ObjectiveIcons16.png
 
+#begin Graphics/Images/Icons/Skill/Assassin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Assassin.png
+
 #begin Graphics/Images/Icons/Skill/AtkBuff.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1946,6 +1958,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Cleanse.png
 
+#begin Graphics/Images/Icons/Skill/Defender.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Defender.png
+
 #begin Graphics/Images/Icons/Skill/DoubleTime.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2005,6 +2029,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/FreezeLance.png
+
+#begin Graphics/Images/Icons/Skill/Glutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Glutton.png
 
 #begin Graphics/Images/Icons/Skill/Guillotine.png
 /importer:TextureImporter
@@ -2077,6 +2113,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Intervention.png
+
+#begin Graphics/Images/Icons/Skill/Kingslayer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Kingslayer.png
 
 #begin Graphics/Images/Icons/Skill/Meditate.png
 /importer:TextureImporter
@@ -2198,6 +2246,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/StunArrow.png
 
+#begin Graphics/Images/Icons/Skill/Summon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Summon.png
+
 #begin Graphics/Images/Icons/Skill/Tackle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2222,6 +2282,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Trap.png
 
+#begin Graphics/Images/Icons/Skill/TreasureHunter.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/TreasureHunter.png
+
+#begin Graphics/Images/Icons/Skill/TriggerHappy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/TriggerHappy.png
+
 #begin Graphics/Images/Icons/Skill/Uppercut.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2245,6 +2329,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Wait.png
+
+#begin Graphics/Images/Icons/Skill/Wander.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Wander.png
 
 #begin Graphics/Images/Icons/StatIcons.png
 /importer:TextureImporter
@@ -2858,18 +2954,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Beach_01.png
 
-#begin Graphics/Map/MapPreviews/Beach_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Beach_01.png
-
 #begin Graphics/Map/MapPreviews/Chesslike_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2881,30 +2965,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Chesslike_01.png
-
-#begin Graphics/Map/MapPreviews/Chesslike_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Chesslike_01.png
-
-#begin Graphics/Map/MapPreviews/Crossroads_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Crossroads_01.png
 
 #begin Graphics/Map/MapPreviews/Crossroads_01.png
 /importer:TextureImporter
@@ -2930,18 +2990,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_01_Arena.png
 
-#begin Graphics/Map/MapPreviews/Draft_01_Arena.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_01_Arena.png
-
 #begin Graphics/Map/MapPreviews/Draft_02_Dungeon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2953,30 +3001,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-
-#begin Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_02_Dungeon.png
-
-#begin Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
 
 #begin Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
 /importer:TextureImporter
@@ -3002,18 +3026,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
 
-#begin Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
-
 #begin Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3025,30 +3037,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Arena_Tower_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Crossroads.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Crossroads.png
 
 #begin Graphics/Map/MapPreviews/Draft_Crossroads.png
 /importer:TextureImporter
@@ -3074,30 +3062,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
 
-#begin Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Dimpimple_Beach.png
-
-#begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Fortress_01.png
-
 #begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3121,30 +3085,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Grassland_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
-
-#begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Island_Coast.png
 
 #begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
 /importer:TextureImporter
@@ -3182,30 +3122,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
 
-#begin Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
-
-#begin Graphics/Map/MapPreviews/Dungeon_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Dungeon_01.png
-
 #begin Graphics/Map/MapPreviews/Dungeon_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3229,30 +3145,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-
-#begin Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Scotia_Hill_Redux_01.png
-
-#begin Graphics/Map/MapPreviews/Village_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Village_01.png
 
 #begin Graphics/Map/MapPreviews/Village_01.png
 /importer:TextureImporter

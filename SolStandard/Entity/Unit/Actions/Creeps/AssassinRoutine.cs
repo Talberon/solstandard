@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             "Assassinate Routine",
             "Attacks a random enemy in range with the lowest " + UnitStatistics.Abbreviation[Stats.Hp] + " and " +
             UnitStatistics.Abbreviation[Stats.Armor] + ".",
-            SkillIcon.Execute
+            SkillIcon.Assassin
         )
         {
         }

@@ -174,7 +174,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 20, armor: 0, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectOrcStats()

@@ -38,7 +38,15 @@ namespace SolStandard.Utility.Assets
         Brace,
         Rampart,
         Intervention,
-        Stun
+        Stun,
+        Assassin,
+        Kingslayer,
+        Defender,
+        TriggerHappy,
+        TreasureHunter,
+        Glutton,
+        Summon,
+        Wander
     }
 
     public static class SkillIconProvider
@@ -86,6 +94,14 @@ namespace SolStandard.Utility.Assets
             ITexture2D rampart = skillIconTextures.Find(texture => texture.Name.EndsWith("Rampart"));
             ITexture2D intervention = skillIconTextures.Find(texture => texture.Name.EndsWith("Intervention"));
             ITexture2D stun = skillIconTextures.Find(texture => texture.Name.EndsWith("Stun"));
+            ITexture2D assassin = skillIconTextures.Find(texture => texture.Name.EndsWith("Assassin"));
+            ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
+            ITexture2D defender = skillIconTextures.Find(texture => texture.Name.EndsWith("Defender"));
+            ITexture2D triggerHappy = skillIconTextures.Find(texture => texture.Name.EndsWith("TriggerHappy"));
+            ITexture2D treasureHunter = skillIconTextures.Find(texture => texture.Name.EndsWith("TreasureHunter"));
+            ITexture2D glutton = skillIconTextures.Find(texture => texture.Name.EndsWith("Glutton"));
+            ITexture2D summon = skillIconTextures.Find(texture => texture.Name.EndsWith("Summon"));
+            ITexture2D wander = skillIconTextures.Find(texture => texture.Name.EndsWith("Wander"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -121,7 +137,15 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Brace, brace},
                 {SkillIcon.Rampart, rampart},
                 {SkillIcon.Intervention, intervention},
-                {SkillIcon.Stun, stun}
+                {SkillIcon.Stun, stun},
+                {SkillIcon.Assassin, assassin},
+                {SkillIcon.Kingslayer, kingslayer},
+                {SkillIcon.Defender, defender},
+                {SkillIcon.TriggerHappy, triggerHappy},
+                {SkillIcon.TreasureHunter, treasureHunter},
+                {SkillIcon.Glutton, glutton},
+                {SkillIcon.Summon, summon},
+                                                          {SkillIcon.Wander, wander}
             };
         }
     }

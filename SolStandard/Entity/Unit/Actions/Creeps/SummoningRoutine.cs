@@ -18,8 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
     {
         private readonly CreepRoutineModel creepModel;
 
-        //TODO Add unique icon
-        private const SkillIcon RoutineIcon = SkillIcon.Focus;
+        private const SkillIcon RoutineIcon = SkillIcon.Summon;
 
         public SummoningRoutine(CreepRoutineModel creepModel)
             : base(

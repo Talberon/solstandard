@@ -15,8 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 {
     public class TriggerHappyRoutine : UnitAction, IRoutine
     {
-        //TODO Add unique icon
-        private const SkillIcon RoutineIcon = SkillIcon.Shove;
+        private const SkillIcon RoutineIcon = SkillIcon.TriggerHappy;
 
         public TriggerHappyRoutine()
             : base(
