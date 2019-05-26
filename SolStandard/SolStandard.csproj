@@ -137,6 +137,7 @@
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\DefenderRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\KingslayerRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\SummoningRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\TreasureHunterRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\TriggerHappyRoutine.cs" />

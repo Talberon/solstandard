@@ -18,7 +18,8 @@ namespace SolStandard.Utility.Model
         TriggerHappy,
         Defender,
         Glutton,
-        Assassin
+        Assassin,
+        Kingslayer
     }
 
     public class CreepRoutineModel
@@ -39,6 +40,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineDefenderProp = "routine_defender";
         public const string RoutineGluttonProp = "routine_glutton";
         public const string RoutineAssassinProp = "routine_assassin";
+        public const string RoutineKingslayerProp = "routine_kingslayer";
 
         public Role CreepClass { get; private set; }
         private readonly bool isCommander;
@@ -55,11 +57,12 @@ namespace SolStandard.Utility.Model
         private readonly bool routineDefender;
         private readonly bool routineGlutton;
         private readonly bool routineAssassin;
+        private readonly bool routineKingslayer;
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
             bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender,
-            bool routineGlutton, bool routineAssassin)
+            bool routineGlutton, bool routineAssassin, bool routineKingslayer)
         {
             CreepClass = creepClass;
             this.isCommander = isCommander;
@@ -76,6 +79,7 @@ namespace SolStandard.Utility.Model
             this.routineDefender = routineDefender;
             this.routineGlutton = routineGlutton;
             this.routineAssassin = routineAssassin;
+            this.routineKingslayer = routineKingslayer;
         }
 
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
@@ -101,6 +105,8 @@ namespace SolStandard.Utility.Model
                     return new GluttonRoutine();
                 case Routine.Assassin:
                     return new AssassinRoutine(isIndependent);
+                case Routine.Kingslayer:
+                    return new KingslayerRoutine(isIndependent);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -129,7 +135,8 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(creepProps[RoutineTriggerHappyProp]),
                 Convert.ToBoolean(creepProps[RoutineDefenderProp]),
                 Convert.ToBoolean(creepProps[RoutineGluttonProp]),
-                Convert.ToBoolean(creepProps[RoutineAssassinProp])
+                Convert.ToBoolean(creepProps[RoutineAssassinProp]),
+                Convert.ToBoolean(creepProps[RoutineKingslayerProp])
             );
         }
 
@@ -155,6 +162,7 @@ namespace SolStandard.Utility.Model
             if (RoutineDefenderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Defender;
             if (RoutineGluttonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Glutton;
             if (RoutineAssassinProp.EndsWith(routineName, true, invariantCulture)) return Routine.Assassin;
+            if (RoutineKingslayerProp.EndsWith(routineName, true, invariantCulture)) return Routine.Kingslayer;
 
             return Routine.None;
         }
@@ -179,7 +187,8 @@ namespace SolStandard.Utility.Model
                     {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
                     {RoutineDefenderProp, routineDefender.ToString()},
                     {RoutineGluttonProp, routineGlutton.ToString()},
-                    {RoutineAssassinProp, routineAssassin.ToString()}
+                    {RoutineAssassinProp, routineAssassin.ToString()},
+                    {RoutineKingslayerProp, routineKingslayer.ToString()}
                 };
             }
         }

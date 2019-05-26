@@ -2088,15 +2088,17 @@
   <object id="952" name="Glom Heckyell" type="Creep" gid="23" x="512" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_assassin" type="bool" value="true"/>
+    <property name="routine_assassin" type="bool" value="false"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
   <object id="953" name="Nargok" type="Creep" gid="23" x="512" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_assassin" type="bool" value="true"/>
+    <property name="routine_assassin" type="bool" value="false"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
