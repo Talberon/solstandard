@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_03.tmx";
+        private const string MapSelectFile = "Map_Select_04.tmx";
 
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }

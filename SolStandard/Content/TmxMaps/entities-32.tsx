@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
+<tileset version="1.2" tiledversion="1.2.4" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
  <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
+ <tile id="15">
+  <animation>
+   <frame tileid="220" duration="200"/>
+   <frame tileid="221" duration="200"/>
+   <frame tileid="222" duration="200"/>
+   <frame tileid="223" duration="200"/>
+  </animation>
+ </tile>
  <tile id="72">
   <animation>
    <frame tileid="72" duration="100"/>
