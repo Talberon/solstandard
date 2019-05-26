@@ -131,6 +131,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             CreepUnit creepToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
             creepToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
             creepToSpawn.ExhaustAndDisableUnit();
+            creepToSpawn.ReadyNextRoutine();
             GameContext.Units.Add(creepToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
