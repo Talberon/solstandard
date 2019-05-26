@@ -200,7 +200,7 @@ namespace SolStandard.Containers.Contexts
 
             foreach (GameUnit unit in Units)
             {
-                unit.DisableExhaustedUnit();
+                unit.ExhaustAndDisableUnit();
             }
 
             InitiativeContext.StartFirstTurn();

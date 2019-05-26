@@ -68,6 +68,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
             unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            unitToSpawn.ExhaustAndDisableUnit();
             GameContext.Units.Add(unitToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();

@@ -578,7 +578,7 @@ namespace SolStandard.Entity.Unit
             smallPortrait.DefaultColor = ActivePortraitColor;
         }
 
-        public void DisableExhaustedUnit()
+        public void ExhaustAndDisableUnit()
         {
             if (UnitEntity == null) return;
             IsExhausted = true;

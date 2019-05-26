@@ -20,7 +20,7 @@ namespace SolStandard.Utility.Events.Network
 
         public override void Continue()
         {
-            SummoningRoutine.PlaceUnitInTile(unitRole, coordinates, entityProperties);
+            SummoningRoutine.PlaceCreepInTile(unitRole, coordinates, entityProperties);
             Complete = true;
         }
     }

@@ -126,12 +126,13 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
         }
 
-        public static void PlaceUnitInTile(Role role, Vector2 mapCoordinates,
+        public static void PlaceCreepInTile(Role role, Vector2 mapCoordinates,
             Dictionary<string, string> entityProperties)
         {
-            GameUnit unitToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
-            unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
-            GameContext.Units.Add(unitToSpawn);
+            CreepUnit creepToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
+            creepToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            creepToSpawn.ExhaustAndDisableUnit();
+            GameContext.Units.Add(creepToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }

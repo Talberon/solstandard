@@ -75,7 +75,7 @@ namespace SolStandard.Containers.Contexts
         {
             Team opposingTeam = OpposingTeam;
 
-            CurrentActiveUnit.DisableExhaustedUnit();
+            CurrentActiveUnit.ExhaustAndDisableUnit();
 
             if (TeamHasExhaustedAllUnits(opposingTeam))
             {
