@@ -8,14 +8,14 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Creeps
 {
-    public class AssassinRoutine : BasicAttackRoutine
+    public class PreyRoutine : BasicAttackRoutine
     {
-        public AssassinRoutine(bool independent) : base(
+        public PreyRoutine(bool independent) : base(
             independent,
-            "Assassinate Routine",
+            "Prey Routine",
             "Attacks a random enemy in range with the lowest " + UnitStatistics.Abbreviation[Stats.Hp] + " and " +
             UnitStatistics.Abbreviation[Stats.Armor] + ".",
-            SkillIcon.Assassin
+            SkillIcon.Prey
         )
         {
         }

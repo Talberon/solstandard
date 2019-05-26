@@ -16,9 +16,9 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
         private readonly int armorPoints;
 
         public Recover(int armorPoints) : base(
-            icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Recover, new Vector2(GameDriver.CellSize)),
             name: "Recover",
-            description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
+            description: "Replenish [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " for an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2},

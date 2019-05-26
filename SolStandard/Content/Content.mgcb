@@ -1826,18 +1826,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/ObjectiveIcons16.png
 
-#begin Graphics/Images/Icons/Skill/Assassin.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Skill/Assassin.png
-
 #begin Graphics/Images/Icons/Skill/AtkBuff.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1993,6 +1981,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Draw.png
+
+#begin Graphics/Images/Icons/Skill/Execute.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Execute.png
 
 #begin Graphics/Images/Icons/Skill/Execute.png
 /importer:TextureImporter
@@ -2186,6 +2186,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/PressurePoint.png
 
+#begin Graphics/Images/Icons/Skill/Prey.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Prey.png
+
 #begin Graphics/Images/Icons/Skill/Rage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2209,6 +2221,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Rampart.png
+
+#begin Graphics/Images/Icons/Skill/Recover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Recover.png
 
 #begin Graphics/Images/Icons/Skill/Shove.png
 /importer:TextureImporter

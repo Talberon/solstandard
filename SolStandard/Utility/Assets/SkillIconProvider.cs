@@ -39,7 +39,8 @@ namespace SolStandard.Utility.Assets
         Rampart,
         Intervention,
         Stun,
-        Assassin,
+        Recover,
+        Prey,
         Kingslayer,
         Defender,
         TriggerHappy,
@@ -94,7 +95,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D rampart = skillIconTextures.Find(texture => texture.Name.EndsWith("Rampart"));
             ITexture2D intervention = skillIconTextures.Find(texture => texture.Name.EndsWith("Intervention"));
             ITexture2D stun = skillIconTextures.Find(texture => texture.Name.EndsWith("Stun"));
-            ITexture2D assassin = skillIconTextures.Find(texture => texture.Name.EndsWith("Assassin"));
+            ITexture2D recover = skillIconTextures.Find(texture => texture.Name.EndsWith("Recover"));
+
+            ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
             ITexture2D defender = skillIconTextures.Find(texture => texture.Name.EndsWith("Defender"));
             ITexture2D triggerHappy = skillIconTextures.Find(texture => texture.Name.EndsWith("TriggerHappy"));
@@ -138,14 +141,16 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Rampart, rampart},
                 {SkillIcon.Intervention, intervention},
                 {SkillIcon.Stun, stun},
-                {SkillIcon.Assassin, assassin},
+                {SkillIcon.Recover, recover},
+
+                {SkillIcon.Prey, prey},
                 {SkillIcon.Kingslayer, kingslayer},
                 {SkillIcon.Defender, defender},
                 {SkillIcon.TriggerHappy, triggerHappy},
                 {SkillIcon.TreasureHunter, treasureHunter},
                 {SkillIcon.Glutton, glutton},
                 {SkillIcon.Summon, summon},
-                                                          {SkillIcon.Wander, wander}
+                {SkillIcon.Wander, wander}
             };
         }
     }

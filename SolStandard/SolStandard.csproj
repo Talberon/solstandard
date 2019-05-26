@@ -132,7 +132,7 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\AssassinRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />

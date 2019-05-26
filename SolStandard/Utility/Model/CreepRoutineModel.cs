@@ -18,7 +18,7 @@ namespace SolStandard.Utility.Model
         TriggerHappy,
         Defender,
         Glutton,
-        Assassin,
+        Prey,
         Kingslayer
     }
 
@@ -39,7 +39,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineTriggerHappyProp = "routine_triggerHappy";
         public const string RoutineDefenderProp = "routine_defender";
         public const string RoutineGluttonProp = "routine_glutton";
-        public const string RoutineAssassinProp = "routine_assassin";
+        public const string RoutinePreyProp = "routine_prey";
         public const string RoutineKingslayerProp = "routine_kingslayer";
 
         public Role CreepClass { get; private set; }
@@ -56,13 +56,13 @@ namespace SolStandard.Utility.Model
         private readonly bool routineTriggerHappy;
         private readonly bool routineDefender;
         private readonly bool routineGlutton;
-        private readonly bool routineAssassin;
+        private readonly bool routinePrey;
         private readonly bool routineKingslayer;
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
             bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender,
-            bool routineGlutton, bool routineAssassin, bool routineKingslayer)
+            bool routineGlutton, bool routinePrey, bool routineKingslayer)
         {
             CreepClass = creepClass;
             this.isCommander = isCommander;
@@ -78,7 +78,7 @@ namespace SolStandard.Utility.Model
             this.routineTriggerHappy = routineTriggerHappy;
             this.routineDefender = routineDefender;
             this.routineGlutton = routineGlutton;
-            this.routineAssassin = routineAssassin;
+            this.routinePrey = routinePrey;
             this.routineKingslayer = routineKingslayer;
         }
 
@@ -103,8 +103,8 @@ namespace SolStandard.Utility.Model
                     return new DefenderRoutine();
                 case Routine.Glutton:
                     return new GluttonRoutine();
-                case Routine.Assassin:
-                    return new AssassinRoutine(isIndependent);
+                case Routine.Prey:
+                    return new PreyRoutine(isIndependent);
                 case Routine.Kingslayer:
                     return new KingslayerRoutine(isIndependent);
                 default:
@@ -135,7 +135,7 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(creepProps[RoutineTriggerHappyProp]),
                 Convert.ToBoolean(creepProps[RoutineDefenderProp]),
                 Convert.ToBoolean(creepProps[RoutineGluttonProp]),
-                Convert.ToBoolean(creepProps[RoutineAssassinProp]),
+                Convert.ToBoolean(creepProps[RoutinePreyProp]),
                 Convert.ToBoolean(creepProps[RoutineKingslayerProp])
             );
         }
@@ -161,7 +161,7 @@ namespace SolStandard.Utility.Model
             if (RoutineTriggerHappyProp.EndsWith(routineName, true, invariantCulture)) return Routine.TriggerHappy;
             if (RoutineDefenderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Defender;
             if (RoutineGluttonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Glutton;
-            if (RoutineAssassinProp.EndsWith(routineName, true, invariantCulture)) return Routine.Assassin;
+            if (RoutinePreyProp.EndsWith(routineName, true, invariantCulture)) return Routine.Prey;
             if (RoutineKingslayerProp.EndsWith(routineName, true, invariantCulture)) return Routine.Kingslayer;
 
             return Routine.None;
@@ -187,7 +187,7 @@ namespace SolStandard.Utility.Model
                     {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
                     {RoutineDefenderProp, routineDefender.ToString()},
                     {RoutineGluttonProp, routineGlutton.ToString()},
-                    {RoutineAssassinProp, routineAssassin.ToString()},
+                    {RoutinePreyProp, routinePrey.ToString()},
                     {RoutineKingslayerProp, routineKingslayer.ToString()}
                 };
             }
