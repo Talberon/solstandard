@@ -259,44 +259,36 @@
    <frame tileid="277" duration="100"/>
   </animation>
  </tile>
- <tile id="284">
-  <animation>
-   <frame tileid="284" duration="100"/>
-   <frame tileid="285" duration="100"/>
-   <frame tileid="286" duration="100"/>
-   <frame tileid="285" duration="100"/>
-  </animation>
- </tile>
  <tile id="296">
   <animation>
-   <frame tileid="296" duration="100"/>
-   <frame tileid="297" duration="100"/>
-   <frame tileid="298" duration="100"/>
-   <frame tileid="299" duration="100"/>
+   <frame tileid="296" duration="200"/>
+   <frame tileid="297" duration="200"/>
+   <frame tileid="298" duration="200"/>
+   <frame tileid="299" duration="200"/>
   </animation>
  </tile>
  <tile id="300">
   <animation>
-   <frame tileid="300" duration="100"/>
-   <frame tileid="301" duration="100"/>
-   <frame tileid="302" duration="100"/>
-   <frame tileid="303" duration="100"/>
+   <frame tileid="300" duration="200"/>
+   <frame tileid="301" duration="200"/>
+   <frame tileid="302" duration="200"/>
+   <frame tileid="303" duration="200"/>
   </animation>
  </tile>
  <tile id="304">
   <animation>
-   <frame tileid="304" duration="100"/>
-   <frame tileid="305" duration="100"/>
-   <frame tileid="306" duration="100"/>
-   <frame tileid="307" duration="100"/>
+   <frame tileid="304" duration="200"/>
+   <frame tileid="305" duration="200"/>
+   <frame tileid="306" duration="200"/>
+   <frame tileid="305" duration="200"/>
   </animation>
  </tile>
  <tile id="308">
   <animation>
-   <frame tileid="308" duration="100"/>
-   <frame tileid="309" duration="100"/>
-   <frame tileid="310" duration="100"/>
-   <frame tileid="311" duration="100"/>
+   <frame tileid="308" duration="200"/>
+   <frame tileid="309" duration="200"/>
+   <frame tileid="310" duration="200"/>
+   <frame tileid="311" duration="200"/>
   </animation>
  </tile>
  <tile id="312">
@@ -313,6 +305,12 @@
    <frame tileid="317" duration="100"/>
    <frame tileid="318" duration="100"/>
    <frame tileid="319" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="359">
+  <animation>
+   <frame tileid="359" duration="200"/>
+   <frame tileid="367" duration="200"/>
   </animation>
  </tile>
  <tile id="436">
