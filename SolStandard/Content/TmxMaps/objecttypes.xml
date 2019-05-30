@@ -22,7 +22,7 @@
  <objecttype name="Bomb" color="#2a2658">
   <property name="damage" type="int" default="10"/>
   <property name="itemPool" type="string"/>
-  <property name="range" type="string" default="0,1"/>
+  <property name="range" type="string" default="0,1,2"/>
  </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
   <property name="HP" type="int" default="0"/>

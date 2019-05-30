@@ -310,6 +310,8 @@
  <tile id="359">
   <animation>
    <frame tileid="359" duration="200"/>
+   <frame tileid="359" duration="200"/>
+   <frame tileid="367" duration="200"/>
    <frame tileid="367" duration="200"/>
   </animation>
  </tile>
