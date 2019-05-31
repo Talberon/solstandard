@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1139">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1140">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -2724,17 +2724,17 @@
     <property name="itemPool" value="Tools"/>
    </properties>
   </object>
-  <object id="1123" name="Blue Deploy" type="Deployment" gid="6342" x="128" y="256" width="32" height="32">
+  <object id="1123" name="Blue Deploy" type="Deployment" gid="6342" x="160" y="288" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1124" name="Red Deploy" type="Deployment" gid="6350" x="128" y="512" width="32" height="32">
+  <object id="1124" name="Red Deploy" type="Deployment" gid="6350" x="160" y="480" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="1125" name="Red Deploy" type="Deployment" gid="6350" x="128" y="544" width="32" height="32">
+  <object id="1125" name="Red Deploy" type="Deployment" gid="6350" x="160" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -2759,7 +2759,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="1130" name="Blue Deploy" type="Deployment" gid="6342" x="128" y="224" width="32" height="32">
+  <object id="1130" name="Blue Deploy" type="Deployment" gid="6342" x="160" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2952,7 +2952,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1089" name="Emerald" type="Currency" gid="6784" x="192" y="288" width="32" height="32">
+  <object id="1089" name="Emerald" type="Currency" gid="6784" x="352" y="224" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -3005,6 +3005,11 @@
   <object id="1102" name="Ruby" type="Currency" gid="6783" x="544" y="384" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
+   </properties>
+  </object>
+  <object id="1139" name="Sapphire" type="Currency" gid="6785" x="480" y="256" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="20"/>
    </properties>
   </object>
  </objectgroup>
@@ -3442,7 +3447,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="679"/>
    <tile/>
    <tile/>
    <tile/>
