@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -58,8 +61,6 @@ namespace SolStandard.Entity.General
             {
                 Open();
             }
-            
-            AssetManager.DoorSFX.Play();
         }
 
         public void ToggleLock()
@@ -103,7 +104,20 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+
             ToggleOpen();
+        }
+
+        public bool IsObstructed
+        {
+            get
+            {
+                MapSlice bridgeSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+                return bridgeSlice.UnitEntity != null;
+            }
         }
     }
 }

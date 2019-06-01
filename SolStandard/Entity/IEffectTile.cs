@@ -12,6 +12,7 @@ namespace SolStandard.Entity
     public interface IEffectTile
     {
         bool Trigger(EffectTriggerTime triggerTime);
+        bool WillTrigger(EffectTriggerTime triggerTime);
         bool IsExpired { get; }
         Vector2 MapCoordinates { get; }
     }

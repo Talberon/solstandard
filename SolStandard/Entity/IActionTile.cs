@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 
-namespace SolStandard.Map.Elements
+namespace SolStandard.Entity
 {
     public interface IActionTile
     {

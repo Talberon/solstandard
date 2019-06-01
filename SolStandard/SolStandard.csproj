@@ -113,12 +113,14 @@
     <Compile Include="Entity\General\Artillery.cs" />
     <Compile Include="Entity\General\TrapEntity.cs" />
     <Compile Include="Entity\General\Vendor.cs" />
+    <Compile Include="Entity\IActionTile.cs" />
     <Compile Include="Entity\IEffectTile.cs" />
     <Compile Include="Entity\IItem.cs" />
     <Compile Include="Entity\ILockable.cs" />
     <Compile Include="Entity\IOpenable.cs" />
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\IThreatRange.cs" />
+    <Compile Include="Entity\ITriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\BankDeposit.cs" />
@@ -130,9 +132,17 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\DefenderRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\KingslayerRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\SummoningRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\TreasureHunterRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\TriggerHappyRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\RoamingRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\WanderRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\DeployLadderBridgeAction.cs" />
@@ -173,6 +183,8 @@
     <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
+    <Compile Include="Entity\Unit\CreepEntity.cs" />
+    <Compile Include="Entity\Unit\CreepUnit.cs" />
     <Compile Include="Entity\Unit\GameUnit.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
     <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
@@ -274,7 +286,6 @@
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
     <Compile Include="Map\Elements\Direction.cs" />
-    <Compile Include="Map\Elements\IActionTile.cs" />
     <Compile Include="Map\Elements\MapDistanceTile.cs" />
     <Compile Include="Map\Elements\MapEntity.cs" />
     <Compile Include="Map\Elements\MapTile.cs" />
@@ -324,6 +335,7 @@
     <Compile Include="Utility\Buttons\Network\InputNet.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
+    <Compile Include="Utility\Events\AI\CreepTriggerTileEvent.cs" />
     <Compile Include="Utility\Events\BankDepositEvent.cs" />
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
@@ -357,10 +369,12 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\SpawnCreepEvent.cs" />
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
+    <Compile Include="Utility\Events\ReadyAIRoutineEvent.cs" />
     <Compile Include="Utility\Events\RemoveEntityFromMapEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
@@ -408,6 +422,7 @@
     <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
+    <Compile Include="Utility\Model\CreepRoutineModel.cs" />
     <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
@@ -434,6 +449,7 @@
     <Compile Include="Utility\Randomizer.cs" />
     <Compile Include="Utility\SpriteAtlas.cs" />
     <Compile Include="Utility\ArrayToList.cs" />
+    <Compile Include="Utility\AdHocThreatRange.cs" />
     <Compile Include="Utility\UnitSelector.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -510,6 +526,9 @@
     <Content Include="Content\TmxMaps\Debug_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Debug_03_AI.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_01_Arena.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -525,10 +544,16 @@
     <Content Include="Content\TmxMaps\Draft_Arena_Tower_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Collosseum_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Crossroads.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Dimpimple_Beach.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Dusk_Temple.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
@@ -543,7 +568,13 @@
     <Content Include="Content\TmxMaps\Draft_Jirai_Archipelago.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Master_Control.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Snow_Zone.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Tavern_Inn.tmx">
@@ -552,10 +583,16 @@
     <Content Include="Content\TmxMaps\Draft_Town_Market.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Verdant_Forest.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\entities-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_03.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Map_Select_04.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

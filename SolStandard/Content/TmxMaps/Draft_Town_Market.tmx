@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="29" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="1002">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="29" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="1004">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -1850,7 +1850,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="932" name="Deploy Red" type="Deployment" gid="6350" x="768" y="128" width="32" height="32">
+  <object id="932" name="Deploy Red" type="Deployment" gid="6350" x="736" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -1866,7 +1866,7 @@
   <object id="934" name="Blacksmith" type="Vendor" gid="6527" x="480" y="224" width="32" height="32">
    <properties>
     <property name="interactRange" value="1,2"/>
-    <property name="items" value="Fighter's Blade|Hunter's Longbow|Giant Bomb"/>
+    <property name="items" value="Fighter's Blade|Hunter's Longbow|Bomb"/>
     <property name="prices" value="15|20|30"/>
     <property name="quantities" value="2|2|2"/>
    </properties>
@@ -1897,27 +1897,27 @@
   <object id="951" name="Stool" type="Decoration" gid="4805" x="320" y="384" width="32" height="32"/>
   <object id="952" name="Stool" type="Decoration" gid="4805" x="320" y="480" width="32" height="32"/>
   <object id="953" name="Stool" type="Decoration" gid="4805" x="320" y="512" width="32" height="32"/>
-  <object id="954" name="Deploy Red" type="Deployment" gid="6350" x="736" y="160" width="32" height="32">
+  <object id="954" name="Deploy Red" type="Deployment" gid="6350" x="704" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="955" name="Deploy Red" type="Deployment" gid="6350" x="704" y="128" width="32" height="32">
+  <object id="955" name="Deploy Red" type="Deployment" gid="6350" x="672" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="956" name="Deploy Red" type="Deployment" gid="6350" x="768" y="96" width="32" height="32">
+  <object id="956" name="Deploy Red" type="Deployment" gid="6350" x="736" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="957" name="Deploy Red" type="Deployment" gid="6350" x="704" y="96" width="32" height="32">
+  <object id="957" name="Deploy Red" type="Deployment" gid="6350" x="672" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="958" name="Deploy Red" type="Deployment" gid="6350" x="736" y="96" width="32" height="32">
+  <object id="958" name="Deploy Red" type="Deployment" gid="6350" x="704" y="128" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -1948,7 +1948,11 @@
    </properties>
   </object>
   <object id="964" name="Unlocked Door" type="Door" gid="6579" x="448" y="416" width="32" height="32"/>
-  <object id="965" name="Unlocked Door" type="Door" gid="6579" x="704" y="256" width="32" height="32"/>
+  <object id="965" name="Unlocked Door" type="Door" gid="6579" x="704" y="256" width="32" height="32">
+   <properties>
+    <property name="isOpen" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="966" name="Crate" type="Pushable" gid="6563" x="576" y="288" width="32" height="32"/>
   <object id="967" name="Crate" type="Pushable" gid="6563" x="672" y="352" width="32" height="32"/>
   <object id="968" name="Crate" type="Pushable" gid="6563" x="608" y="352" width="32" height="32"/>
@@ -1996,6 +2000,7 @@
   <object id="979" name="Crate" type="Pushable" gid="6563" x="384" y="160" width="32" height="32"/>
   <object id="980" name="Window" type="Decoration" gid="4517" x="224" y="128" width="32" height="32"/>
  </objectgroup>
+ <objectgroup id="17" name="Summons"/>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="981" name="Fighter's Blade" type="Weapon" gid="6823" x="448" y="224" width="32" height="32">
    <properties>
@@ -2008,13 +2013,7 @@
     <property name="atkValue" type="int" value="6"/>
    </properties>
   </object>
-  <object id="983" name="Giant Bomb" type="Weapon" gid="6495" x="512" y="192" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="10"/>
-    <property name="luckModifier" type="int" value="-10"/>
-    <property name="usesRemaining" type="int" value="1"/>
-   </properties>
-  </object>
+  <object id="983" name="Bomb" type="Bomb" gid="6807" x="512" y="192" width="32" height="32"/>
   <object id="991" name="Health Potion" type="HealthPotion" gid="6759" x="320" y="192" width="32" height="32"/>
   <object id="992" name="Reflex Tonic" type="BuffItem" gid="6760" x="352" y="192" width="32" height="32">
    <properties>
@@ -2057,7 +2056,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="988" name="Purse" type="Currency" gid="6791" x="320" y="448" width="32" height="32">
+  <object id="988" name="Coinpurse" type="Currency" gid="6791" x="480" y="480" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
@@ -2072,9 +2071,19 @@
     <property name="gold" type="int" value="15"/>
    </properties>
   </object>
-  <object id="999" name="Purse" type="Currency" gid="6791" x="448" y="320" width="32" height="32">
+  <object id="999" name="Coinpurse" type="Currency" gid="6791" x="448" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
+   </properties>
+  </object>
+  <object id="1002" name="Emerald" type="Currency" gid="6784" x="704" y="224" width="32" height="32">
+   <properties>
+    <property name="value" type="int" value="10"/>
+   </properties>
+  </object>
+  <object id="1003" name="Unlocked Chest" type="Chest" gid="6544" x="672" y="288" width="32" height="32">
+   <properties>
+    <property name="gold" type="int" value="15"/>
    </properties>
   </object>
  </objectgroup>
@@ -2082,6 +2091,8 @@
   <object id="997" name="Rufus" type="Creep" gid="29" x="672" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="998" name="Wendy" type="Creep" gid="29" x="448" y="192" width="32" height="32">
@@ -2089,9 +2100,13 @@
     <property name="Class" value="Rat"/>
    </properties>
   </object>
-  <object id="1001" name="Dorc" type="Creep" gid="23" x="448" y="352" width="32" height="32">
+  <object id="1001" name="Dorc" type="Creep" gid="23" x="480" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

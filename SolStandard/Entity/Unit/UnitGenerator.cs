@@ -7,7 +7,6 @@ using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Cleric;
-using SolStandard.Entity.Unit.Actions.Creeps;
 using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Entity.Unit.Actions.Mage;
@@ -16,56 +15,13 @@ using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Model;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
-        private enum Routine
-        {
-            Roam,
-            Wander
-        }
-
-        private static readonly Dictionary<string, Team> TeamDictionary = new Dictionary<string, Team>
-        {
-            {"Red", Team.Red},
-            {"Blue", Team.Blue},
-            {"Creep", Team.Creep}
-        };
-
-        private static readonly Dictionary<string, Role> RoleDictionary = new Dictionary<string, Role>
-        {
-            {"Archer", Role.Archer},
-            {"Champion", Role.Champion},
-            {"Mage", Role.Mage},
-            {"Lancer", Role.Lancer},
-            {"Bard", Role.Bard},
-            {"Pugilist", Role.Pugilist},
-            {"Duelist", Role.Duelist},
-            {"Cleric", Role.Cleric},
-            {"Marauder", Role.Marauder},
-            {"Paladin", Role.Paladin},
-            {"Merchant", Role.Merchant},
-            {"Slime", Role.Slime},
-            {"Troll", Role.Troll},
-            {"Orc", Role.Orc},
-            {"Necromancer", Role.Necromancer},
-            {"Skeleton", Role.Skeleton},
-            {"Goblin", Role.Goblin},
-            {"Rat", Role.Rat},
-            {"Bat", Role.Bat},
-            {"Spider", Role.Spider}
-        };
-
-        private static readonly Dictionary<string, Routine> RoutineDictionary = new Dictionary<string, Routine>
-        {
-            {"Roam", Routine.Roam},
-            {"Wander", Routine.Wander}
-        };
-
-
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
@@ -75,11 +31,12 @@ namespace SolStandard.Entity.Unit
             {
                 if (unit == null) continue;
 
-                Team unitTeam = TeamDictionary[unit.TiledProperties["Team"]];
-                Role role = RoleDictionary[unit.TiledProperties["Class"]];
+                Team unitTeam = (Team) Enum.Parse(typeof(Team), unit.TiledProperties["Team"]);
+                Role role = (Role) Enum.Parse(typeof(Role), unit.TiledProperties["Class"]);
                 bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
 
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, loot);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, loot,
+                    unit.TiledProperties);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -87,15 +44,20 @@ namespace SolStandard.Entity.Unit
         }
 
         private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
-            UnitEntity mapEntity, List<IItem> loot)
+            UnitEntity mapEntity, List<IItem> loot, Dictionary<string, string> tiledProperties)
         {
-            GameUnit generatedUnit = GenerateUnit(unitJobClass, unitTeam, id, isCommander, mapEntity,
-                mapEntity.TiledProperties);
+            GameUnit generatedUnit;
 
-            if (generatedUnit.Team == Team.Creep)
+            if (unitTeam == Team.Creep)
             {
-                PopulateUnitInventoryAndTradeActions(mapEntity, loot, generatedUnit);
+                generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity,
+                    tiledProperties);
+                PopulateUnitInventory(mapEntity, loot, generatedUnit);
                 AssignStartingGold(generatedUnit);
+            }
+            else
+            {
+                generatedUnit = GenerateUnit(unitJobClass, unitTeam, id, isCommander, mapEntity);
             }
 
             return generatedUnit;
@@ -132,47 +94,24 @@ namespace SolStandard.Entity.Unit
                 case Role.Spider:
                     generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
                     break;
-                case Role.Merchant:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(10);
-                    break;
             }
         }
 
-        private static void PopulateUnitInventoryAndTradeActions(MapEntity mapEntity, List<IItem> loot,
-            GameUnit generatedUnit)
+        private static void PopulateUnitInventory(MapEntity mapEntity, List<IItem> loot, GameUnit unit)
         {
-            string itemNameProp = mapEntity.TiledProperties["Item"];
+            string itemNameProp = mapEntity.TiledProperties["Items"];
             if (itemNameProp == string.Empty) return;
             string[] unitInventory = itemNameProp.Split('|');
 
-
-            string itemPricesProp = mapEntity.TiledProperties["ItemPrice"];
-            int[] itemPrices = (itemPricesProp != string.Empty)
-                ? itemPricesProp.Split('|').Select(int.Parse).ToArray()
-                : new int[0];
-
-            for (int i = 0; i < unitInventory.Length; i++)
+            foreach (string itemName in unitInventory)
             {
-                IItem unitItem = loot.Find(item => item.Name == unitInventory[i]);
+                IItem unitItem = loot.Find(item => item.Name == itemName);
 
-                generatedUnit.AddItemToInventory(unitItem);
-
-                if (UnitHasItemsToTrade(mapEntity, itemPrices))
-                {
-                    int itemPrice = itemPrices[i];
-
-                    if (itemPrice > 0)
-                    {
-                        generatedUnit.AddContextualAction(new BuyItemAction(unitItem, itemPrices[i]));
-                    }
-                }
+                unit.AddItemToInventory(unitItem);
             }
         }
 
-        private static bool UnitHasItemsToTrade(MapEntity mapEntity, IReadOnlyCollection<int> itemPrices)
-        {
-            return Convert.ToBoolean(mapEntity.TiledProperties["WillTrade"]) && itemPrices.Count > 0;
-        }
+        #region Unit Statistics
 
         //UNITS
 
@@ -235,7 +174,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 20, armor: 3, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, luck: 2, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectOrcStats()
@@ -245,12 +184,12 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, luck: 1, mv: 4, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectSkeletonStats()
         {
-            return new UnitStatistics(hp: 12, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 0, mv: 4, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectGoblinStats()
@@ -260,24 +199,22 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectRatStats()
         {
-            return new UnitStatistics(hp: 9, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 0, atk: 3, ret: 3, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBatStats()
         {
-            return new UnitStatistics(hp: 10, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 0, atk: 4, ret: 4, luck: 1, mv: 5, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectSpiderStats()
         {
-            return new UnitStatistics(hp: 4, armor: 4, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 6, armor: 6, atk: 4, ret: 4, luck: 0, mv: 5, atkRange: new[] {1});
         }
 
-        private static UnitStatistics SelectMerchantStats()
-        {
-            return new UnitStatistics(hp: 20, armor: 15, atk: 5, ret: 8, luck: 3, mv: 6, atkRange: new[] {1, 2});
-        }
+        #endregion Unit Statistics
 
+        #region Unit Skills
         private static List<UnitAction> SelectArcherSkills()
         {
             return new List<UnitAction>
@@ -417,21 +354,23 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
         }
+        
+        #endregion Unit Skills
 
-        private static List<UnitAction> SelectCreepRoutine(IReadOnlyDictionary<string, string> tiledProperties)
+        private static List<UnitAction> GenerateCreepRoutinesFromProperties(
+            IReadOnlyDictionary<string, string> creepProperties
+        )
         {
+            List<string> enabledRoutines = (from valuePair in creepProperties
+                where CreepRoutineModel.GetRoutineByName(valuePair.Key) != Routine.None
+                where Convert.ToBoolean(valuePair.Value)
+                select valuePair.Key).ToList();
+
             List<UnitAction> actions = new List<UnitAction>();
 
-            switch (RoutineDictionary[tiledProperties["Routine"]])
+            foreach (string routineName in enabledRoutines)
             {
-                case Routine.Roam:
-                    actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"])));
-                    break;
-                case Routine.Wander:
-                    actions.Add(new RoamingRoutine(Convert.ToBoolean(tiledProperties["Independent"]), false));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                actions.Add(CreepRoutineModel.GenerateRoutine(CreepRoutineModel.GetRoutineByName(routineName), creepProperties));
             }
 
             return actions;
@@ -452,21 +391,94 @@ namespace SolStandard.Entity.Unit
                 );
         }
 
-        public static GameUnit GenerateDraftUnit(Role role, Team team, bool isCommander)
+        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
-            const string type = "Unit";
-            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
-            Vector2 mapCoordinates = Vector2.Zero;
 
-            UnitEntity generatedEntity = GenerateUnitEntity(unitName, type, role, team, isCommander,
-                AssetManager.UnitSprites, mapCoordinates, tiledProperties);
+            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false,
+                AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
-            return GenerateUnit(role, team, unitName, isCommander, generatedEntity, tiledProperties);
+            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity, entityProperties);
         }
 
-        private static GameUnit GenerateUnit(Role role, Team team, string unitName, bool isCommander, UnitEntity entity,
-            IReadOnlyDictionary<string, string> tiledProperties)
+        public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
+        {
+            string unitName = NameGenerator.GenerateUnitName(role);
+
+            if (team == Team.Creep)
+            {
+                throw new Exception("Cannot create creep as if it were a player unit!");
+            }
+
+            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
+
+            UnitEntity generatedEntity = GenerateUnitEntity(unitName, "Unit", role, team, isCommander,
+                AssetManager.UnitSprites, Vector2.Zero, tiledProperties);
+
+            return GenerateUnit(role, team, unitName, isCommander, generatedEntity);
+        }
+
+        private static CreepUnit GenerateCreep(Role role, Team team, string unitName, bool isCommander,
+            CreepEntity entity, IReadOnlyDictionary<string, string> tiledProperties)
+        {
+            ITexture2D portrait =
+                FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
+
+            UnitStatistics unitStatistics;
+            List<UnitAction> unitActions;
+
+            switch (role)
+            {
+                case Role.Slime:
+                    unitStatistics = SelectSlimeStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Troll:
+                    unitStatistics = SelectTrollStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Orc:
+                    unitStatistics = SelectOrcStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Necromancer:
+                    unitStatistics = SelectNecromancerStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Skeleton:
+                    unitStatistics = SelectSkeletonStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Goblin:
+                    unitStatistics = SelectGoblinStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Rat:
+                    unitStatistics = SelectRatStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Bat:
+                    unitStatistics = SelectBatStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                case Role.Spider:
+                    unitStatistics = SelectSpiderStats();
+                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("role", role, null);
+            }
+
+            UnitAction fallbackRoutine = CreepRoutineModel.GenerateRoutine(
+                CreepRoutineModel.GetRoutineByName(tiledProperties[CreepRoutineModel.FallbackRoutineProp]),
+                tiledProperties
+            );
+
+            return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander,
+                fallbackRoutine as IRoutine);
+        }
+
+        private static GameUnit GenerateUnit(Role role, Team team, string unitName, bool isCommander, UnitEntity entity)
         {
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
@@ -516,58 +528,44 @@ namespace SolStandard.Entity.Unit
                     unitStatistics = SelectPaladinStats();
                     unitActions = SelectPaladinSkills();
                     break;
-                case Role.Slime:
-                    unitStatistics = SelectSlimeStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Troll:
-                    unitStatistics = SelectTrollStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Orc:
-                    unitStatistics = SelectOrcStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Necromancer:
-                    unitStatistics = SelectNecromancerStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Skeleton:
-                    unitStatistics = SelectSkeletonStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Goblin:
-                    unitStatistics = SelectGoblinStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Rat:
-                    unitStatistics = SelectRatStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Bat:
-                    unitStatistics = SelectBatStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Spider:
-                    unitStatistics = SelectSpiderStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
-                case Role.Merchant:
-                    unitStatistics = SelectMerchantStats();
-                    unitActions = SelectCreepRoutine(tiledProperties);
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }
 
-            GameUnit unit =
-                new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
-
-            return unit;
+            return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
         }
 
-        public static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
+        public static UnitEntity GenerateMapEntity(string name, string type, Role role, Team team, bool isCommander,
             List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+        {
+            return team == Team.Creep
+                ? GenerateCreepEntity(name, type, role, team, isCommander, unitSprites, mapCoordinates, unitProperties)
+                : GenerateUnitEntity(name, type, role, team, isCommander, unitSprites, mapCoordinates, unitProperties);
+        }
+
+        private static CreepEntity GenerateCreepEntity(string name, string type, Role role, Team team, bool isCommander,
+            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+        {
+            UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
+
+            CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, isCommander,
+                unitProperties);
+
+            return creepEntity;
+        }
+
+        private static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
+            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+        {
+            UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
+
+            UnitEntity unitEntity = new UnitEntity(name, type, animatedSpriteSheet, mapCoordinates, isCommander,
+                unitProperties);
+
+            return unitEntity;
+        }
+
+        private static UnitSpriteSheet GenerateUnitSpriteSheet(Role role, Team team, List<ITexture2D> unitSprites)
         {
             ITexture2D unitSprite = FetchUnitGraphic(team.ToString(), role.ToString(), unitSprites);
 
@@ -583,11 +581,7 @@ namespace SolStandard.Entity.Unit
                 false,
                 Color.White
             );
-
-            UnitEntity unitEntity = new UnitEntity(name, type,
-                animatedSpriteSheet, mapCoordinates, isCommander, unitProperties);
-
-            return unitEntity;
+            return animatedSpriteSheet;
         }
 
         private static ITexture2D FetchUnitGraphic(string unitTeam, string role, List<ITexture2D> unitSprites)

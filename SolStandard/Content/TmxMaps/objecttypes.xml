@@ -22,10 +22,10 @@
  <objecttype name="Bomb" color="#2a2658">
   <property name="damage" type="int" default="10"/>
   <property name="itemPool" type="string"/>
-  <property name="range" type="string" default="0,1"/>
+  <property name="range" type="string" default="0,1,2"/>
  </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
-  <property name="HP" type="int" default="0"/>
+  <property name="HP" type="int" default="1"/>
   <property name="canMove" type="bool" default="false"/>
   <property name="gold" type="int" default="0"/>
   <property name="isBroken" type="bool" default="false"/>
@@ -64,11 +64,19 @@
   <property name="Class" type="string"/>
   <property name="Commander" type="bool" default="false"/>
   <property name="Independent" type="bool" default="false"/>
-  <property name="Item" type="string"/>
-  <property name="ItemPrice" type="string"/>
-  <property name="Routine" type="string" default="Roam"/>
+  <property name="Items" type="string"/>
   <property name="Team" type="string" default="Creep"/>
-  <property name="WillTrade" type="bool" default="false"/>
+  <property name="fallback_routine" type="string" default="routine_wander"/>
+  <property name="routine_basicAttack" type="bool" default="true"/>
+  <property name="routine_defender" type="bool" default="false"/>
+  <property name="routine_glutton" type="bool" default="false"/>
+  <property name="routine_kingslayer" type="bool" default="false"/>
+  <property name="routine_prey" type="bool" default="false"/>
+  <property name="routine_summon" type="bool" default="false"/>
+  <property name="routine_summon.class" type="string" default="Skeleton"/>
+  <property name="routine_treasureHunter" type="bool" default="false"/>
+  <property name="routine_triggerHappy" type="bool" default="false"/>
+  <property name="routine_wander" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
@@ -158,7 +166,9 @@
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
+  <property name="modeSoloDefeatBoss" type="bool" default="false"/>
   <property name="modeTaxes" type="bool" default="false"/>
+  <property name="soloTeam" type="string" default="Blue"/>
   <property name="turnType" type="string" default="AlternateExhaustingUnits"/>
   <property name="unitsPerTeam" type="int" default="0"/>
   <property name="valueTaxes" type="int" default="100"/>

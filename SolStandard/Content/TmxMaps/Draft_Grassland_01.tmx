@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="880">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="884">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -2577,64 +2577,105 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="9" name="Summons" opacity="0.5">
+  <object id="880" name="Slime" type="Creep" gid="549" x="896" y="512" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="7" name="Units">
   <object id="743" name="Boyle" type="Creep" gid="550" x="256" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
-    <property name="Item" value="The Butcher's Blade"/>
+    <property name="Items" value="The Butcher's Blade"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="750" name="Mucky" type="Creep" gid="551" x="736" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Item" value="Lucky Apple"/>
+    <property name="Items" value="Lucky Apple"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="758" name="Kesk" type="Creep" gid="556" x="352" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
-   </properties>
-  </object>
-  <object id="774" name="Slime" type="Creep" gid="549" x="160" y="288" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-   </properties>
-  </object>
-  <object id="775" name="Slime" type="Creep" gid="549" x="480" y="160" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
+    <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="781" name="Goblin" type="Creep" gid="555" x="672" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="804" name="Kesk" type="Creep" gid="556" x="256" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="805" name="Marky" type="Creep" gid="551" x="416" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="Item" value="Swift Cheese"/>
+    <property name="Items" value="Swift Cheese"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="806" name="Goblin" type="Creep" gid="555" x="512" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="839" name="Goblin" type="Creep" gid="555" x="512" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="840" name="Slime" type="Creep" gid="549" x="896" y="544" width="32" height="32">
+  <object id="881" name="Slime" type="Creep" gid="549" x="896" y="544" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="882" name="Slime" type="Creep" gid="549" x="480" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="883" name="Slime" type="Creep" gid="549" x="160" y="288" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

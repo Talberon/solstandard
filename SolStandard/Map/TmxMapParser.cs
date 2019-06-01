@@ -148,6 +148,11 @@ namespace SolStandard.Map
             return loot;
         }
 
+        public List<CreepEntity> LoadSummons()
+        {
+            return ObtainUnitsFromLayer("Summons").Cast<CreepEntity>().Where(unit => unit != null).ToList();
+        }
+
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
         {
             MapElement[,] tileGrid = new MapElement[tmxMap.Width, tmxMap.Height];
@@ -726,9 +731,9 @@ namespace SolStandard.Map
                             Role role = ObtainUnitClass(currentProperties["Class"]);
                             bool isCommander = Convert.ToBoolean(currentProperties["Commander"]);
 
-                            unitGrid[col, row] = UnitGenerator.GenerateUnitEntity(currentObject.Name,
-                                currentObject.Type, role,
-                                unitTeam, isCommander, unitSprites, new Vector2(col, row), currentProperties);
+                            unitGrid[col, row] = UnitGenerator.GenerateMapEntity(currentObject.Name,
+                                currentObject.Type, role, unitTeam, isCommander, unitSprites, new Vector2(col, row),
+                                currentProperties);
                         }
                     }
                 }

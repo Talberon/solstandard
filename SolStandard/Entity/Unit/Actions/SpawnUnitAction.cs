@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly Role unitRole;
         private readonly IItem spawnItem;
 
-        public SpawnUnitAction(Role unitRole, IItem spawnItem) : base(
+        public SpawnUnitAction(Role unitRole, IItem spawnItem = null) : base(
             icon: UnitIcon(unitRole),
             name: "Spawn " + unitRole,
             description: "Spawn a new ally with the [" + unitRole + "] role!",
@@ -43,11 +43,17 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
+                if (spawnItem != null) GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new SpawnUnitEvent(unitRole, GameContext.ActiveUnit.Team));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(
+                    new SpawnUnitEvent(
+                        unitRole,
+                        GameContext.ActiveUnit.Team,
+                        targetSlice.MapCoordinates
+                    )
+                );
+                eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
@@ -58,10 +64,11 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        public static void PlaceUnitInTile(Role role, Team team)
+        public static void PlaceUnitInTile(Role role, Team team, Vector2 mapCoordinates)
         {
-            GameUnit unitToSpawn = UnitGenerator.GenerateDraftUnit(role, team, false);
-            unitToSpawn.UnitEntity.MapCoordinates = GameContext.MapCursor.MapCoordinates;
+            GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
+            unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            unitToSpawn.ExhaustAndDisableUnit();
             GameContext.Units.Add(unitToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();

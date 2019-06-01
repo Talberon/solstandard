@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="890">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="41" height="31" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="894">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
  </tileset>
@@ -4298,6 +4298,16 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="9" name="Summons" opacity="0.4">
+  <object id="890" name="Slime" type="Creep" gid="549" x="832" y="544" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="6" name="Loot"/>
  <objectgroup id="7" name="Items">
   <object id="660" name="Chest LK1 Key" type="Key" gid="444" x="320" y="640" width="32" height="32">
@@ -4375,66 +4385,95 @@
   <object id="838" name="Kesk" type="Creep" gid="556" x="672" y="832" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="842" name="Slime" type="Creep" gid="549" x="832" y="576" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-   </properties>
-  </object>
-  <object id="844" name="Slime" type="Creep" gid="549" x="256" y="384" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-   </properties>
-  </object>
-  <object id="848" name="Slime" type="Creep" gid="549" x="288" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="851" name="Rudy" type="Creep" gid="555" x="800" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
-   </properties>
-  </object>
-  <object id="852" name="Slime" type="Creep" gid="549" x="928" y="672" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="855" name="Grog" type="Creep" gid="551" x="544" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
   <object id="856" name="Rat" type="Creep" gid="557" x="480" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="857" name="Gard" type="Creep" gid="551" x="352" y="736" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
   <object id="858" name="Darg" type="Creep" gid="551" x="288" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
   <object id="854" name="Greg" type="Creep" gid="551" x="672" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
   <object id="887" name="Rat" type="Creep" gid="557" x="704" y="640" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="888" name="Kesk" type="Creep" gid="556" x="256" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="routine_defender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="891" name="Slime" type="Creep" gid="549" x="928" y="672" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="892" name="Slime" type="Creep" gid="549" x="256" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="893" name="Slime" type="Creep" gid="549" x="288" y="672" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

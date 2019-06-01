@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
@@ -6,11 +7,12 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.General.Item
 {
@@ -67,10 +69,36 @@ namespace SolStandard.Entity.General.Item
             get { return Sprite; }
         }
 
-        public void Consume()
+        public void Consume(GameUnit targetUnit)
         {
             IsBroken = true;
             GameContext.ActiveUnit.RemoveItemFromInventory(this);
+
+            switch (statistic)
+            {
+                case Stats.Atk:
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                        new AtkStatUp(buffDuration, statModifier)));
+                    break;
+                case Stats.Mv:
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                        new MoveStatModifier(buffDuration, statModifier)));
+                    break;
+                case Stats.AtkRange:
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                        new AtkRangeStatUp(buffDuration, statModifier)));
+                    break;
+                case Stats.Luck:
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                        new LuckStatUp(buffDuration, statModifier)));
+                    break;
+                case Stats.Retribution:
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                        new RetributionStatUp(buffDuration, statModifier)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public List<UnitAction> TileActions()

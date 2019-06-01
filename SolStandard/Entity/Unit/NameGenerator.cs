@@ -5,6 +5,7 @@ namespace SolStandard.Entity.Unit
 {
     public static class NameGenerator
     {
+        private const int MaxCachedNames = 50;
         private static List<string> _usedNames;
 
         private static List<string> UsedNames
@@ -50,8 +51,6 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Male);
                 case Role.Paladin:
                     return GenerateName(NameType.Female);
-                case Role.Merchant:
-                    return GenerateName(NameType.Male);
                 case Role.Slime:
                     return GenerateName(NameType.Beast);
                 case Role.Troll:
@@ -78,6 +77,10 @@ namespace SolStandard.Entity.Unit
         private static string GenerateName(NameType nameType)
         {
             List<string> nameList = FetchNameList(nameType);
+
+            //Name generation should not break because too many units have spawned with generated names.
+            //Clear the cache after a significant number of units have spawned.
+            if (UsedNames.Count > MaxCachedNames) ClearNameHistory();
 
             while (true)
             {

@@ -84,6 +84,15 @@ namespace SolStandard.Entity.General
             return true;
         }
 
+        public bool WillTrigger(EffectTriggerTime triggerTime)
+        {
+            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            
+            MapSlice recoverySlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+            GameUnit unitOnTile = UnitSelector.SelectUnit(recoverySlice.UnitEntity);
+            return unitOnTile != null;
+        }
+
         public bool IsExpired
         {
             get { return false; }

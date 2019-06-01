@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -31,17 +32,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            MapContainer.GameGrid[(int) mapLayer][(int) switchTile.MapCoordinates.X, (int) switchTile.MapCoordinates.Y] =
+            MapContainer.GameGrid[(int) mapLayer][(int) switchTile.MapCoordinates.X,
+                    (int) switchTile.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, switchTile.MapCoordinates);
-            
+
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(switchTile.MapCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (TargetingSwitch(targetSlice) && NothingObstructingSwitchTarget())
+            if (TargetingSwitch(targetSlice) && NothingObstructingSwitchTarget(targetTriggerables))
             {
                 switchTile.ToggleActive();
+                AssetManager.DoorSFX.Play();
 
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
@@ -50,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     eventQueue.Enqueue(new TriggerEntityEvent(triggerable));
                 }
 
-                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
@@ -61,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a target switch!", 50);
                 }
 
-                if (!NothingObstructingSwitchTarget())
+                if (!NothingObstructingSwitchTarget(targetTriggerables))
                 {
                     GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Switch target is obstructed!", 50);
                 }
@@ -76,21 +79,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                    targetSlice.TerrainEntity is Switch;
         }
 
-        private bool NothingObstructingSwitchTarget()
+
+        public static bool NothingObstructingSwitchTarget(IEnumerable<IRemotelyTriggerable> targetTriggerables)
         {
-            //Don't allow the switch to be triggered if any target tiles have a unit on them
-            foreach (IRemotelyTriggerable triggerable in targetTriggerables)
-            {
-                TerrainEntity entity = triggerable as TerrainEntity;
-                if (entity == null) continue;
-
-                if (MapContainer.GetMapSliceAtCoordinates(entity.MapCoordinates).UnitEntity != null)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return targetTriggerables.OfType<IOpenable>().All(openable => !openable.IsObstructed);
         }
     }
 }

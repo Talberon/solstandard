@@ -316,6 +316,13 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dimpimple_Beach"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Crossroads"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Jirai_Archipelago"),
+                
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Master_Control"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Verdant_Forest"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Raid_Dungeon"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dusk_Temple"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Town_Market"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Collosseum_01"),
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -397,6 +404,7 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> textures = new List<Texture2D>
             {
+                //Skill Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BasicAttack"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Blink"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/DoubleTime"),
@@ -431,6 +439,16 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rampart"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Stun"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Recover"),
+                //AI Routine Icons
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Prey"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Defender"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/TriggerHappy"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/TreasureHunter"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Glutton"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Summon"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wander"),
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();

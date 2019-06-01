@@ -40,7 +40,6 @@ namespace SolStandard.Entity.Unit
         Orc,
         Necromancer,
         Skeleton,
-        Merchant,
         Goblin,
         Rat,
         Bat,
@@ -499,10 +498,6 @@ namespace SolStandard.Entity.Unit
             {
                 MoveUnitToCoordinates(destination);
             }
-            else
-            {
-                AssetManager.WarningSFX.Play();
-            }
         }
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)
@@ -583,7 +578,7 @@ namespace SolStandard.Entity.Unit
             smallPortrait.DefaultColor = ActivePortraitColor;
         }
 
-        public void DisableExhaustedUnit()
+        public void ExhaustAndDisableUnit()
         {
             if (UnitEntity == null) return;
             IsExhausted = true;
@@ -807,18 +802,6 @@ namespace SolStandard.Entity.Unit
         public override string ToString()
         {
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
-        }
-
-        public void ExecuteRoutines()
-        {
-            foreach (UnitAction action in Actions)
-            {
-                IRoutine routine = action as IRoutine;
-                if (routine != null)
-                {
-                    routine.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(UnitEntity.MapCoordinates));
-                }
-            }
         }
 
         public static SpriteAtlas GetCommanderCrown(Vector2 size)

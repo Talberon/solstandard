@@ -573,9 +573,10 @@ namespace SolStandard.Containers.Contexts
             );
             startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(50));
 
-            foreach (IEffectTile tile in effectTiles)
+            foreach (IEffectTile tile in effectTiles.Where(tile => tile.WillTrigger(EffectTriggerTime.StartOfTurn)))
             {
-                startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn));
+                startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn,
+                    50));
             }
 
             startOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
@@ -590,10 +591,10 @@ namespace SolStandard.Containers.Contexts
             if (effectTiles.Count <= 0) return;
 
             Queue<IEvent> endOfTurnEffectTileEvents = new Queue<IEvent>();
-            foreach (IEffectTile tile in effectTiles)
+            foreach (IEffectTile tile in effectTiles.Where(tile => tile.WillTrigger(EffectTriggerTime.EndOfTurn)))
             {
                 endOfTurnEffectTileEvents.Enqueue(
-                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 0)
+                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 80)
                 );
             }
 

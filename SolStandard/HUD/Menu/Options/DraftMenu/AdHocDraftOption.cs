@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -64,7 +65,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         {
             if (enabled)
             {
-                GlobalEventQueue.QueueSingleEvent(new SpawnUnitEvent(role, team));
+                GlobalEventQueue.QueueSingleEvent(new SpawnUnitEvent(role, team, GameContext.MapCursor.MapCoordinates));
                 GlobalEventQueue.QueueSingleEvent(new CloseAdHocDraftMenuEvent());
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
                 GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());

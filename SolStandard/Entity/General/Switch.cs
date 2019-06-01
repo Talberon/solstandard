@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -9,10 +11,12 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
-    public class Switch : TerrainEntity, IActionTile
+    public class Switch : TerrainEntity, IActionTile, ITriggerable
     {
         public int[] InteractRange { get; private set; }
         private string TriggersId { get; set; }
@@ -31,16 +35,16 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<IRemotelyTriggerable> targetTriggerables = FindTriggerables();
+            List<IRemotelyTriggerable> targetTriggerables = FindRemotelyTriggerables();
             return new List<UnitAction>
             {
                 new ToggleSwitchAction(this, targetTriggerables)
             };
         }
 
-        private List<IRemotelyTriggerable> FindTriggerables()
+        private List<IRemotelyTriggerable> FindRemotelyTriggerables()
         {
-            List<IRemotelyTriggerable> lockables = new List<IRemotelyTriggerable>();
+            List<IRemotelyTriggerable> remotelyTriggerables = new List<IRemotelyTriggerable>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
@@ -50,12 +54,28 @@ namespace SolStandard.Entity.General
                 {
                     if (entity.Name == TriggersId)
                     {
-                        lockables.Add(lockable);
+                        remotelyTriggerables.Add(lockable);
                     }
                 }
             }
 
-            return lockables;
+            return remotelyTriggerables;
+        }
+
+        public void Trigger()
+        {
+            if (!CanTrigger) return;
+
+            UnitAction toggleAction = TileActions().First();
+            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
+            MapContainer.ClearDynamicAndPreviewGrids();
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
+        }
+
+        public bool CanTrigger
+        {
+            get { return true; }
         }
 
         public void ToggleActive()

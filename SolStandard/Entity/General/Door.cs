@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
-    public class Door : BreakableObstacle, IActionTile, IOpenable, ILockable, IRemotelyTriggerable
+    public class Door : BreakableObstacle, IActionTile, IOpenable, ILockable, ITriggerable, IRemotelyTriggerable
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
@@ -70,7 +74,7 @@ namespace SolStandard.Entity.General
                                                         (IsBroken) ? NegativeColor : PositiveColor),
                                                     new RenderBlank()
                                                 }
-                                            }, 
+                                            },
                                             InnerWindowColor,
                                             HorizontalAlignment.Centered
                                         ),
@@ -97,6 +101,39 @@ namespace SolStandard.Entity.General
             };
         }
 
+
+        public void Trigger()
+        {
+            if (!CanTrigger) return;
+
+            UnitAction toggleAction = new UseDoorAction(this, MapCoordinates, false);
+            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
+        public void RemoteTrigger()
+        {
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+
+            ToggleOpen();
+        }
+
+        private void ToggleOpen()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+            else
+            {
+                Open();
+            }
+        }
+
         public void Open()
         {
             AssetManager.DoorSFX.Play();
@@ -113,27 +150,24 @@ namespace SolStandard.Entity.General
             CanMove = false;
         }
 
-        private void ToggleOpen()
-        {
-            if (IsOpen)
-            {
-                Close();
-            }
-            else
-            {
-                Open();
-            }
-        }
-
         public void ToggleLock()
         {
             AssetManager.UnlockSFX.Play();
             IsLocked = !IsLocked;
         }
 
-        public void RemoteTrigger()
+        public bool IsObstructed
         {
-            ToggleOpen();
+            get
+            {
+                MapSlice doorSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+                return doorSlice.UnitEntity != null;
+            }
+        }
+
+        public bool CanTrigger
+        {
+            get { return !IsLocked; }
         }
     }
 }

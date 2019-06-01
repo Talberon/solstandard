@@ -1,7 +1,9 @@
-﻿namespace SolStandard.Entity.General.Item
+﻿using SolStandard.Entity.Unit;
+
+namespace SolStandard.Entity.General.Item
 {
     public interface IConsumable : IItem
     {
-        void Consume();
+        void Consume(GameUnit targetUnit);
     }
 }

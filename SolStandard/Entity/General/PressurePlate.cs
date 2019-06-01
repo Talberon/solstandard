@@ -4,19 +4,24 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.General
 {
-    public class PressurePlate : TerrainEntity, IEffectTile
+    public class PressurePlate : TerrainEntity, IEffectTile, ITriggerable
     {
         private readonly string triggersId;
         private bool wasPressed;
         private readonly bool triggerOnRelease;
+        private const EffectTriggerTime TriggerTime = EffectTriggerTime.EndOfTurn;
 
         public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, string triggersId, bool triggerOnRelease) :
@@ -32,29 +37,43 @@ namespace SolStandard.Entity.General
             get { return false; }
         }
 
+        public bool WillTrigger(EffectTriggerTime triggerTime)
+        {
+            if (triggerTime != TriggerTime) return false;
+
+            return ((PressurePlateIsActivated && !wasPressed) || (!PressurePlateIsActivated && ReleasingPlate));
+        }
+
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.EndOfTurn) return false;
+            if (triggerTime != TriggerTime) return false;
 
             if (PressurePlateIsActivated)
             {
-                if (!wasPressed)
+                if (!wasPressed && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
+                    AssetManager.DoorSFX.Play();
                     wasPressed = true;
                 }
             }
             else
             {
-                if (wasPressed && triggerOnRelease)
+                if (ReleasingPlate && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
+                    AssetManager.DoorSFX.Play();
                 }
 
                 wasPressed = false;
             }
 
             return true;
+        }
+
+        private bool ReleasingPlate
+        {
+            get { return wasPressed && triggerOnRelease; }
         }
 
         private List<IRemotelyTriggerable> TriggerTiles
@@ -113,18 +132,49 @@ namespace SolStandard.Entity.General
                             new RenderBlank()
                         },
                         {
-                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "Triggers: " + triggersId)
-                        },
-                        {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),
                             new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                                 (CanMove) ? PositiveColor : NegativeColor)
+                        },
+                        {
+                            new Window(
+                                new IRenderable[,]
+                                {
+                                    {
+                                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                        new RenderText(AssetManager.WindowFont, "Triggers: " + triggersId)
+                                    },
+                                    {
+                                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                        new RenderText(
+                                            AssetManager.WindowFont,
+                                            (triggerOnRelease) ? "On Press/Release" : "On Press"
+                                        )
+                                    }
+                                },
+                                InnerWindowColor
+                            ),
+                            new RenderBlank()
                         }
                     },
                     1
                 );
             }
+        }
+
+        public bool CanTrigger
+        {
+            get { return true; }
+        }
+
+        public int[] InteractRange
+        {
+            get { return new[] {0}; }
+        }
+
+        public void Trigger()
+        {
+            GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
     }
 }

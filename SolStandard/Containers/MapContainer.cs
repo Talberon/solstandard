@@ -24,12 +24,19 @@ namespace SolStandard.Containers
         public MapCursor MapCursor { get; private set; }
         public MapCamera MapCamera { get; private set; }
         private static ToastWindow ToastWindow { get; set; }
+        public List<CreepEntity> MapSummons { get; private set; }
 
-        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
+        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons)
         {
+            MapSummons = mapSummons;
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
             MapCamera = new MapCamera(5, 0.05f);
+        }
+
+        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
+            : this(gameGrid, cursorTexture, new List<CreepEntity>())
+        {
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
