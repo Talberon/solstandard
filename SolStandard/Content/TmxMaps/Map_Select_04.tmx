@@ -309,7 +309,7 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
    <tile gid="675"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -339,7 +339,7 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
    <tile gid="713"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -369,8 +369,8 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
    <tile gid="673"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -399,9 +399,9 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
    <tile gid="675"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -429,10 +429,10 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
    <tile gid="675"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -460,9 +460,9 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
    <tile gid="713"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -491,9 +491,9 @@
    <tile gid="232"/>
    <tile gid="232"/>
    <tile gid="232"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
-   <tile gid="235"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
+   <tile gid="712"/>
    <tile gid="673"/>
    <tile gid="232"/>
    <tile gid="232"/>
@@ -1984,8 +1984,8 @@
     <property name="mapFileName" value="Draft_Collosseum_01.tmx"/>
     <property name="mapSong" value="DesertTheme"/>
     <property name="maxDuplicateUnits" type="int" value="1"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="unitsPerTeam" type="int" value="3"/>
+    <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
  </objectgroup>
