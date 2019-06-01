@@ -9,7 +9,7 @@
   <terrain name="Palm Trees" tile="694"/>
   <terrain name="GrassCliff" tile="481"/>
   <terrain name="SandCliff" tile="601"/>
-  <terrain name="SandedCliff" tile="244"/>
+  <terrain name="SandedCliff" tile="2250"/>
   <terrain name="Sand" tile="681"/>
   <terrain name="Lake" tile="621"/>
   <terrain name="ShallowShore" tile="501"/>
@@ -226,9 +226,6 @@
  <tile id="160" terrain=",,,2"/>
  <tile id="161" terrain=",,2,2"/>
  <tile id="162" terrain=",,2,"/>
- <tile id="163" terrain=",,,7"/>
- <tile id="164" terrain=",,7,7"/>
- <tile id="165" terrain=",,7,"/>
  <tile id="180">
   <animation>
    <frame tileid="180" duration="100"/>
@@ -272,9 +269,6 @@
  <tile id="200" terrain=",2,,2"/>
  <tile id="201" terrain="2,2,2,2"/>
  <tile id="202" terrain="2,,2,"/>
- <tile id="203" terrain=",7,,7"/>
- <tile id="204" terrain="7,7,7,7"/>
- <tile id="205" terrain="7,,7,"/>
  <tile id="220">
   <animation>
    <frame tileid="220" duration="100"/>
@@ -318,9 +312,6 @@
  <tile id="240" terrain=",2,,"/>
  <tile id="241" terrain="2,2,,"/>
  <tile id="242" terrain="2,,,"/>
- <tile id="243" terrain=",7,,"/>
- <tile id="244" terrain="7,7,,"/>
- <tile id="245" terrain="7,,,"/>
  <tile id="260">
   <animation>
    <frame tileid="260" duration="100"/>
@@ -1443,16 +1434,31 @@
    <frame tileid="2159" duration="100"/>
   </animation>
  </tile>
+ <tile id="2169" terrain=",,,7"/>
+ <tile id="2170" terrain=",,7,7"/>
+ <tile id="2171" terrain=",,7,"/>
+ <tile id="2172" terrain=",7,7,7"/>
+ <tile id="2173" terrain="7,,7,7"/>
  <tile id="2180" terrain=",,,40"/>
  <tile id="2181" terrain=",,40,40"/>
  <tile id="2182" terrain=",,40,"/>
  <tile id="2183" terrain=",40,40,40"/>
  <tile id="2184" terrain="40,,40,40"/>
+ <tile id="2209" terrain=",7,,7"/>
+ <tile id="2210" terrain="7,7,7,7"/>
+ <tile id="2211" terrain="7,,7,"/>
+ <tile id="2212" terrain="7,7,,7"/>
+ <tile id="2213" terrain="7,7,7,"/>
  <tile id="2220" terrain=",40,,40"/>
  <tile id="2221" terrain="40,40,40,40"/>
  <tile id="2222" terrain="40,,40,"/>
  <tile id="2223" terrain="40,40,,40"/>
  <tile id="2224" terrain="40,40,40,"/>
+ <tile id="2249" terrain=",7,,"/>
+ <tile id="2250" terrain="7,7,,"/>
+ <tile id="2251" terrain="7,,,"/>
+ <tile id="2252" terrain=",7,7,"/>
+ <tile id="2253" terrain="7,,,7"/>
  <tile id="2260" terrain=",40,,"/>
  <tile id="2261" terrain="40,40,,"/>
  <tile id="2262" terrain="40,,,"/>

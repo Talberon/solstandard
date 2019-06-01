@@ -25,7 +25,7 @@
   <property name="range" type="string" default="0,1,2"/>
  </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
-  <property name="HP" type="int" default="0"/>
+  <property name="HP" type="int" default="1"/>
   <property name="canMove" type="bool" default="false"/>
   <property name="gold" type="int" default="0"/>
   <property name="isBroken" type="bool" default="false"/>
