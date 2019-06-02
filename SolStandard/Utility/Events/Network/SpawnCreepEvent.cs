@@ -11,18 +11,20 @@ namespace SolStandard.Utility.Events.Network
     {
         private readonly Role unitRole;
         private readonly Dictionary<string, string> entityProperties;
-        private readonly Vector2 coordinates;
+        private readonly float x;
+        private readonly float y;
 
         public SpawnCreepEvent(Role unitRole, Vector2 coordinates, Dictionary<string, string> entityProperties)
         {
             this.unitRole = unitRole;
-            this.coordinates = coordinates;
             this.entityProperties = entityProperties;
+            x = coordinates.X;
+            y = coordinates.Y;
         }
 
         public override void Continue()
         {
-            SummoningRoutine.PlaceCreepInTile(unitRole, coordinates, entityProperties);
+            SummoningRoutine.PlaceCreepInTile(unitRole, new Vector2(x, y), entityProperties);
             Complete = true;
         }
     }
