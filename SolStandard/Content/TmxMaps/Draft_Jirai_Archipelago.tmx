@@ -7,6 +7,7 @@
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
  <tileset firstgid="559" source="overworld-32.tsx"/>
+ <tileset firstgid="6839" source="entities-32.tsx"/>
  <layer id="10" name="Terrain" width="32" height="23">
   <data>
    <tile gid="562"/>
@@ -2319,12 +2320,12 @@
     <property name="item" value="Cane of Deletion"/>
    </properties>
   </object>
-  <object id="913" name="West Tunnel" type="Portal" gid="351" x="352" y="352" width="32" height="32">
+  <object id="913" name="West Tunnel" type="Portal" gid="7221" x="352" y="352" width="32" height="32">
    <properties>
     <property name="destinationId" value="East Tunnel"/>
    </properties>
   </object>
-  <object id="914" name="East Tunnel" type="Portal" gid="351" x="704" y="288" width="32" height="32">
+  <object id="914" name="East Tunnel" type="Portal" gid="7221" x="704" y="288" width="32" height="32">
    <properties>
     <property name="destinationId" value="West Tunnel"/>
    </properties>
