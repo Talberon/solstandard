@@ -1,30 +1,27 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions.Creeps;
 
-namespace SolStandard.Utility.Events.Network
+namespace SolStandard.Utility.Events.AI
 {
-    [Serializable]
-    public class SpawnCreepEvent : NetworkEvent
+    public class SpawnCreepEvent : IEvent
     {
         private readonly Role unitRole;
         private readonly Dictionary<string, string> entityProperties;
-        private readonly float x;
-        private readonly float y;
+        private readonly Vector2 coordinates;
+        public bool Complete { get; private set; }
 
         public SpawnCreepEvent(Role unitRole, Vector2 coordinates, Dictionary<string, string> entityProperties)
         {
             this.unitRole = unitRole;
             this.entityProperties = entityProperties;
-            x = coordinates.X;
-            y = coordinates.Y;
+            this.coordinates = coordinates;
         }
 
-        public override void Continue()
+        public void Continue()
         {
-            SummoningRoutine.PlaceCreepInTile(unitRole, new Vector2(x, y), entityProperties);
+            SummoningRoutine.PlaceCreepInTile(unitRole, coordinates, entityProperties);
             Complete = true;
         }
     }
