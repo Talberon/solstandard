@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
@@ -5,6 +6,7 @@ using SolStandard.Entity.Unit.Actions.Creeps;
 
 namespace SolStandard.Utility.Events.Network
 {
+    [Serializable]
     public class SpawnCreepEvent : NetworkEvent
     {
         private readonly Role unitRole;
