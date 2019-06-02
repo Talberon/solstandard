@@ -52,6 +52,7 @@
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\SoloDefeatBoss.cs" />
     <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Scenario.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />

@@ -447,7 +447,9 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeRoutArmy"]),
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
-                                                Convert.ToInt32(currentProperties["valueTaxes"])
+                                                Convert.ToInt32(currentProperties["valueTaxes"]),
+                                                Convert.ToBoolean(currentProperties["modeSoloDefeatBoss"]),
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["soloTeam"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
                                             Convert.ToInt32(currentProperties["unitsPerTeam"]),

@@ -12,7 +12,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
         RoutArmy,
         Seize,
         Taxes,
-        Surrender
+        Surrender,
+        Escape,
+        SoloDefeatBoss
     }
 
     public abstract class Objective
@@ -22,6 +24,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         protected bool BlueTeamWins;
         protected bool RedTeamWins;
         protected bool GameIsADraw;
+        protected bool SoloGameLoss;
 
         public virtual IRenderable ObjectiveInfo
         {
@@ -52,6 +55,13 @@ namespace SolStandard.Containers.Contexts.WinConditions
             {
                 GameContext.StatusScreenView.BlueTeamResultText = "DRAW...";
                 GameContext.StatusScreenView.RedTeamResultText = "DRAW...";
+                TransferToResultsScreen();
+            }
+
+            if (GameIsADraw)
+            {
+                GameContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
+                GameContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";
                 TransferToResultsScreen();
             }
         }

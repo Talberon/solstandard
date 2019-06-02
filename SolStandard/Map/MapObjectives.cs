@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.Utility;
 
@@ -11,16 +12,21 @@ namespace SolStandard.Map
         private readonly bool modeRoutArmy;
         private readonly bool modeSeize;
         private readonly bool modeTaxes;
+        private readonly bool modeSoloDefeatBoss;
 
         private readonly int valueTaxes;
+        private readonly Team soloPlayerTeam;
 
-        public MapObjectives(bool modeAssassinate, bool modeRoutArmy, bool modeSeize, bool modeTaxes, int valueTaxes)
+        public MapObjectives(bool modeAssassinate, bool modeRoutArmy, bool modeSeize, bool modeTaxes, int valueTaxes,
+            bool modeSoloDefeatBoss, Team soloPlayerTeam)
         {
             this.modeAssassinate = modeAssassinate;
             this.modeRoutArmy = modeRoutArmy;
             this.modeSeize = modeSeize;
             this.modeTaxes = modeTaxes;
             this.valueTaxes = valueTaxes;
+            this.modeSoloDefeatBoss = modeSoloDefeatBoss;
+            this.soloPlayerTeam = soloPlayerTeam;
         }
 
         public Scenario Scenario
@@ -35,6 +41,10 @@ namespace SolStandard.Map
                 if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
                 if (modeRoutArmy) objectives.Add(VictoryConditions.RoutArmy, new RoutArmy());
 
+                if (modeSoloDefeatBoss)
+                {
+                    objectives.Add(VictoryConditions.SoloDefeatBoss, new SoloDefeatBoss(soloPlayerTeam));
+                }
 
                 return new Scenario(objectives);
             }

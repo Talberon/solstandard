@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -74,17 +75,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         private static bool TeamCommandersAreAllDead(List<GameUnit> team)
         {
             List<GameUnit> teamCommanders = team.FindAll(unit => unit.IsCommander);
-
-            foreach (GameUnit monarch in teamCommanders)
-            {
-                //Return false if any Monarchs are alive.
-                if (monarch.Stats.CurrentHP > 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return !teamCommanders.Any(commander => commander.IsAlive);
         }
     }
 }
