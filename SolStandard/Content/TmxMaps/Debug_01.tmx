@@ -2231,22 +2231,22 @@
     <property name="quantities" value="3|3|3|3|3|3|10"/>
    </properties>
   </object>
-  <object id="900" name="Tower Base" type="BuffTile" gid="6611" x="480" y="160" width="32" height="32">
+  <object id="900" name="Power Rune" type="BuffTile" gid="6611" x="480" y="160" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="901" name="Fort" type="BuffTile" gid="6619" x="512" y="160" width="32" height="32">
+  <object id="901" name="Counter Rune" type="BuffTile" gid="6619" x="512" y="160" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="902" name="House" type="BuffTile" gid="6615" x="576" y="160" width="32" height="32">
+  <object id="902" name="Fortune Rune" type="BuffTile" gid="6615" x="576" y="160" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="903" name="Armor Rack" type="BuffTile" gid="6607" x="544" y="160" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6607" x="544" y="160" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
