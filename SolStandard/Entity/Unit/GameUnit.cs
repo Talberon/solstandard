@@ -230,7 +230,7 @@ namespace SolStandard.Entity.Unit
 
                     for (int i = 0; i < Inventory.Count; i++)
                     {
-                        content[i + offset, 0] = Inventory[i].Icon;
+                        content[i + offset, 0] = Inventory[i].Icon.Clone();
                         content[i + offset, 1] = new RenderText(AssetManager.WindowFont, Inventory[i].Name);
                     }
 

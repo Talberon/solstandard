@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="904">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="915">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -2131,7 +2131,7 @@
     <property name="item" value="Sandbag"/>
    </properties>
   </object>
-  <object id="810" name="LadderBridge Chest" type="Chest" gid="6544" x="320" y="416" width="32" height="32">
+  <object id="810" name="LadderBridge Chest" type="Chest" gid="6544" x="256" y="544" width="32" height="32">
    <properties>
     <property name="itemPool" value="LadderBridge"/>
    </properties>
@@ -2186,12 +2186,12 @@
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="853" name="LadderBridge Chest" type="Chest" gid="6544" x="320" y="512" width="32" height="32">
+  <object id="853" name="LadderBridge Chest" type="Chest" gid="6544" x="256" y="576" width="32" height="32">
    <properties>
     <property name="itemPool" value="LadderBridge"/>
    </properties>
   </object>
-  <object id="856" name="Ladder Chest" type="Chest" gid="6544" x="416" y="416" width="32" height="32">
+  <object id="856" name="Ladder Chest" type="Chest" gid="6544" x="384" y="512" width="32" height="32">
    <properties>
     <property name="item" value="Ladder"/>
     <property name="itemPool" value=""/>
@@ -2249,6 +2249,62 @@
   <object id="903" name="Stalwart Rune" type="BuffTile" gid="6607" x="544" y="160" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="904" name="Bomb Chest" type="Chest" gid="6544" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="item" value="Giant Bomb"/>
+   </properties>
+  </object>
+  <object id="905" name="Rubble" type="BreakableObstacle" gid="6593" x="320" y="288" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="906" name="Rubble" type="BreakableObstacle" gid="6593" x="416" y="224" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="907" name="Rubble" type="BreakableObstacle" gid="6593" x="512" y="256" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="908" name="Rubble" type="BreakableObstacle" gid="6593" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="909" name="Rubble" type="BreakableObstacle" gid="6593" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="HP" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="910" name="Bomb Chest" type="Chest" gid="6544" x="384" y="224" width="32" height="32">
+   <properties>
+    <property name="item" value="Giant Bomb"/>
+   </properties>
+  </object>
+  <object id="911" name="Bomb Chest" type="Chest" gid="6544" x="384" y="352" width="32" height="32">
+   <properties>
+    <property name="item" value="Giant Bomb"/>
+   </properties>
+  </object>
+  <object id="912" name="Bomb Chest" type="Chest" gid="6544" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="item" value="Giant Bomb"/>
+   </properties>
+  </object>
+  <object id="913" name="Bomb Chest" type="Chest" gid="6544" x="320" y="256" width="32" height="32">
+   <properties>
+    <property name="item" value="Giant Bomb"/>
+   </properties>
+  </object>
+  <object id="914" name="Opened Door" type="Door" gid="6579" x="544" y="224" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="false"/>
+    <property name="isOpen" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
@@ -2349,7 +2405,7 @@
   </object>
   <object id="862" name="Giant Bomb" type="Bomb" gid="6495" x="736" y="96" width="32" height="32">
    <properties>
-    <property name="range" value="0,1,2"/>
+    <property name="range" value="0,1,2,3"/>
    </properties>
   </object>
   <object id="864" name="Regular Bomb" type="Bomb" gid="6807" x="736" y="64" width="32" height="32"/>
@@ -2516,17 +2572,17 @@
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="895" name="Arcane Flint" type="RecallCharm" gid="6809" x="480" y="288" width="32" height="32">
+  <object id="895" name="Arcane Flint" type="RecallCharm" gid="6809" x="160" y="160" width="32" height="32">
    <properties>
     <property name="recallId" value="F2"/>
    </properties>
   </object>
-  <object id="896" name="Arcane Flint" type="RecallCharm" gid="6809" x="352" y="288" width="32" height="32">
+  <object id="896" name="Arcane Flint" type="RecallCharm" gid="6809" x="128" y="160" width="32" height="32">
    <properties>
     <property name="recallId" value="Flint1"/>
    </properties>
   </object>
-  <object id="897" name="Arcane Flint" type="RecallCharm" gid="6809" x="416" y="288" width="32" height="32">
+  <object id="897" name="Arcane Flint" type="RecallCharm" gid="6809" x="192" y="160" width="32" height="32">
    <properties>
     <property name="recallId" value="DifferentFlint"/>
    </properties>
