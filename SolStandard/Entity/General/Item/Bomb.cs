@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
@@ -23,15 +24,17 @@ namespace SolStandard.Entity.General.Item
         public IRenderable Icon { get; private set; }
         public string ItemPool { get; private set; }
         public bool IsExpired { get; private set; }
+        private int turnsRemaining;
 
         public Bomb(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] range, int damage,
-            string itemPool, Dictionary<string, string> tiledProperties) :
+            int turnsRemaining, string itemPool, Dictionary<string, string> tiledProperties) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             Range = range;
             Damage = damage;
             Icon = sprite;
             ItemPool = itemPool;
+            this.turnsRemaining = turnsRemaining;
             IsExpired = false;
         }
 
@@ -42,7 +45,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction UseAction()
         {
-            return new DeployBombAction(this);
+            return new DeployBombAction(this, turnsRemaining);
         }
 
         public UnitAction DropAction()
@@ -52,53 +55,71 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Bomb(Name, Type, Sprite, MapCoordinates, Range, Damage, ItemPool, TiledProperties);
+            return new Bomb(Name, Type, Sprite, MapCoordinates, Range, Damage, turnsRemaining, ItemPool,
+                TiledProperties);
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
 
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
+            turnsRemaining--;
 
-            UnitTargetingContext bombTargetContext =
-                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
-
-            bombTargetContext.GenerateTargetingGrid(MapCoordinates, Range);
-
-            List<MapElement> rangeTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
-
-            string trapMessage = "Bomb exploded!" + Environment.NewLine;
-
-            foreach (MapElement rangeTile in rangeTiles)
+            if (turnsRemaining > 0)
             {
-                MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
-                GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
-
-                if (trapUnit != null)
-                {
-                    trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
-
-                    for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
-                }
-
-                if (EntityAtSliceCanTakeDamage(slice))
-                {
-                    BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
-                    breakableObstacle.DealDamage(Damage);
-                }
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+                    "Fuse is burning...",
+                    MapCoordinates,
+                    50
+                );
+                AssetManager.CombatBlockSFX.Play();
+                return true;
             }
+            else
+            {
+                GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+                GameContext.MapCamera.SnapCameraCenterToCursor();
 
-            MapContainer.ClearDynamicAndPreviewGrids();
+                UnitTargetingContext bombTargetContext =
+                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
 
-            IsExpired = true;
+                MapContainer.ClearDynamicAndPreviewGrids();
+                bombTargetContext.GenerateTargetingGrid(MapCoordinates, Range);
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates, 50);
-            AssetManager.CombatDeathSFX.Play();
+                List<MapElement> rangeTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
+
+                string trapMessage = "Bomb exploded!" + Environment.NewLine;
+
+                foreach (MapElement rangeTile in rangeTiles)
+                {
+                    MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
+                    GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
+
+                    if (trapUnit != null)
+                    {
+                        trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
+
+                        for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
+                    }
+
+                    if (EntityAtSliceCanTakeDamage(slice))
+                    {
+                        BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
+                        breakableObstacle.DealDamage(Damage);
+                    }
+                }
+
+                MapContainer.ClearDynamicAndPreviewGrids();
+
+                IsExpired = true;
+
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                    50);
+                AssetManager.CombatDeathSFX.Play();
 
 
-            return true;
+                return true;
+            }
         }
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
@@ -146,6 +167,35 @@ namespace SolStandard.Entity.General.Item
                     },
                     1
                 );
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Draw(spriteBatch, ElementColor);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        {
+            base.Draw(spriteBatch, colorOverride);
+            if (Visible)
+            {
+                Timer.Draw(spriteBatch, TimerCoordinates);
+            }
+        }
+
+        private IRenderable Timer
+        {
+            get { return new RenderText(AssetManager.MapFont, turnsRemaining.ToString(), Color.White); }
+        }
+
+        private Vector2 TimerCoordinates
+        {
+            get
+            {
+                Vector2 timerCoordinates = MapCoordinates * GameDriver.CellSize;
+                timerCoordinates.X += (GameDriver.CellSize / 2) - (Timer.Width / 2);
+                return timerCoordinates;
             }
         }
 

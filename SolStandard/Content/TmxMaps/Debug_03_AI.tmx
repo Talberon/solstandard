@@ -2047,25 +2047,41 @@
   <object id="951" name="Healthy Potion" type="HealthPotion" gid="6759" x="736" y="96" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="902" name="Gaius" type="Unit" gid="3" x="576" y="320" width="32" height="32">
+  <object id="902" name="Gaius" type="Unit" gid="3" x="544" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="903" name="Ethan" type="Unit" gid="5" x="608" y="320" width="32" height="32">
+  <object id="912" name="Slim Jim" type="Creep" gid="21" x="640" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Blue"/>
+    <property name="Class" value="Slime"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Squeezy Jim"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="904" name="Qorf" type="Unit" gid="1" x="576" y="352" width="32" height="32">
+  <object id="915" name="Marrowon" type="Creep" gid="25" x="512" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Blue"/>
+    <property name="Class" value="Necromancer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Deckard"/>
    </properties>
   </object>
+  <object id="909" name="Charlotte" type="Unit" gid="20" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Disabled" opacity="0.24">
   <object id="952" name="Glom Heckyell" type="Creep" gid="23" x="512" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
@@ -2104,15 +2120,6 @@
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="912" name="Slim Jim" type="Creep" gid="21" x="640" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_summon" type="bool" value="true"/>
-    <property name="routine_summon.class" value="Squeezy Jim"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="917" name="Qi'Ko" type="Creep" gid="27" x="384" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
@@ -2129,16 +2136,6 @@
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_triggerHappy" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="915" name="Marrowon" type="Creep" gid="25" x="512" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Necromancer"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_summon" type="bool" value="true"/>
-    <property name="routine_summon.class" value="Deckard"/>
    </properties>
   </object>
   <object id="913" name="Carl" type="Creep" gid="22" x="512" y="128" width="32" height="32">
@@ -2163,11 +2160,16 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="909" name="Charlotte" type="Unit" gid="20" x="448" y="320" width="32" height="32">
+  <object id="903" name="Ethan" type="Unit" gid="5" x="608" y="352" width="32" height="32">
    <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="904" name="Qorf" type="Unit" gid="1" x="576" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="901" name="Eckhart" type="Unit" gid="12" x="448" y="352" width="32" height="32">
@@ -2176,14 +2178,13 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="907" name="Maria" type="Unit" gid="18" x="416" y="320" width="32" height="32">
+  <object id="907" name="Maria" type="Unit" gid="18" x="416" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Cleric"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Disabled" opacity="0.24"/>
  <layer id="4" name="Overlay" width="32" height="20">
   <data>
    <tile/>

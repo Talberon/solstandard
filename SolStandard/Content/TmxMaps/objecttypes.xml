@@ -23,6 +23,7 @@
   <property name="damage" type="int" default="10"/>
   <property name="itemPool" type="string"/>
   <property name="range" type="string" default="0,1,2"/>
+  <property name="turnsRemaining" type="int" default="2"/>
  </objecttype>
  <objecttype name="BreakableObstacle" color="#640000">
   <property name="HP" type="int" default="1"/>
@@ -90,8 +91,6 @@
  </objecttype>
  <objecttype name="Door" color="#625232">
   <property name="HP" type="int" default="10"/>
-  <property name="canMove" type="bool" default="false"/>
-  <property name="isBroken" type="bool" default="false"/>
   <property name="isLocked" type="bool" default="false"/>
   <property name="isOpen" type="bool" default="false"/>
   <property name="range" type="string" default="1"/>

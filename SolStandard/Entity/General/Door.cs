@@ -23,13 +23,13 @@ namespace SolStandard.Entity.General
         private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
 
         public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, int[] range, int hp, bool canMove) :
-            base(name, type, sprite, mapCoordinates, tiledProperties, hp, canMove, false, 0)
+            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, int[] range, int hp) :
+            base(name, type, sprite, mapCoordinates, tiledProperties, hp, isOpen, false, 0)
         {
             IsLocked = isLocked;
-            IsOpen = isOpen;
             InteractRange = range;
-            CanMove = canMove;
+            IsOpen = isOpen;
+            ElementColor = (IsOpen) ? InactiveColor : Color.White;
         }
 
         public override IRenderable TerrainInfo

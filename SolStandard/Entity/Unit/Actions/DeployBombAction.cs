@@ -14,10 +14,10 @@ namespace SolStandard.Entity.Unit.Actions
     {
         private readonly Bomb bombToDeploy;
 
-        public DeployBombAction(Bomb bombToDeploy) : base(
+        public DeployBombAction(Bomb bombToDeploy, int fuseTurns) : base(
             icon: bombToDeploy.RenderSprite.Clone(),
             name: "Set Bomb",
-            description: "Place a bomb on an unoccupied tile. Will detonate at the beginning of the next round." +
+            description: "Place a bomb on an unoccupied tile. Will detonate after [" + fuseTurns + "] rounds." +
                          Environment.NewLine +
                          "Will detonate in a [" + string.Join(",", bombToDeploy.Range) + "] tile range." +
                          Environment.NewLine +

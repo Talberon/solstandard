@@ -30,7 +30,7 @@ namespace SolStandard.Containers.Contexts
             this.map = map;
             CurrentTurn = firstTurn;
             currentUnit = GetArmy(CurrentTurn).First();
-            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit);
+            DeploymentView = new DeploymentView(blueArmy, redArmy, currentUnit, GameContext.Scenario);
             MoveToNextDeploymentTile();
         }
 
