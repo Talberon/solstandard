@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
+using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
@@ -212,6 +213,8 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
+            Bank.ResetBank();
+            
             const string mapPath = MapDirectory + MapSelectFile;
 
             TmxMapParser mapParser = new TmxMapParser(

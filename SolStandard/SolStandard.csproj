@@ -337,6 +337,7 @@
     <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepTriggerTileEvent.cs" />
+    <Compile Include="Utility\Events\AI\SpawnCreepEvent.cs" />
     <Compile Include="Utility\Events\BankDepositEvent.cs" />
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
@@ -370,7 +371,6 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\SpawnCreepEvent.cs" />
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />

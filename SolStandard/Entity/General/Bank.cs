@@ -26,8 +26,7 @@ namespace SolStandard.Entity.General
         {
             CanMove = canMove;
             InteractRange = interactRange;
-            RedMoney = 0;
-            BlueMoney = 0;
+            ResetBank();
         }
 
         public List<UnitAction> TileActions()
@@ -102,6 +101,12 @@ namespace SolStandard.Entity.General
                 default:
                     throw new ArgumentOutOfRangeException("team", team, null);
             }
+        }
+
+        public static void ResetBank()
+        {
+            RedMoney = 0;
+            BlueMoney = 0;
         }
 
 

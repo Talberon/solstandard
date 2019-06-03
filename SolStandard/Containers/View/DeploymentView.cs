@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -29,15 +30,19 @@ namespace SolStandard.Containers.View
 
         public Window ItemDetailWindow { get; private set; }
 
+        public Window ObjectiveWindow { get; private set; }
+
         private Window EntityWindow { get; set; }
 
         private Window HelpText { get; set; }
 
-        public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit)
+        public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit, Scenario scenario)
         {
             visible = true;
 
             UpdateRosterLists(blueArmy, redArmy, currentUnit);
+
+            ObjectiveWindow = scenario.ScenarioInfo(HorizontalAlignment.Centered);
 
             HelpText = GenerateHelpTextWindow();
         }
@@ -230,6 +235,17 @@ namespace SolStandard.Containers.View
             }
         }
 
+        private Vector2 ObjectiveWindowPosition
+        {
+            get
+            {
+                return new Vector2(
+                    (GameDriver.ScreenSize.X / 2) - ((float) ObjectiveWindow.Width / 2),
+                    WindowEdgePadding
+                );
+            }
+        }
+
         #endregion
 
         //Show current unit being deployed
@@ -240,6 +256,8 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (ObjectiveWindow != null) ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition);
+
             if (BlueDeployRoster != null) BlueDeployRoster.Draw(spriteBatch, BlueDeployRosterPosition);
             if (RedDeployRoster != null) RedDeployRoster.Draw(spriteBatch, RedDeployRosterPosition);
             if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);

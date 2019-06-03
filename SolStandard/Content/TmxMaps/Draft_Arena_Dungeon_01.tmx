@@ -3127,23 +3127,23 @@
   <object id="884" name="Crate" type="Pushable" gid="254" x="832" y="256" width="32" height="32"/>
   <object id="885" name="Crate" type="Pushable" gid="253" x="864" y="224" width="32" height="32"/>
   <object id="886" name="Crate" type="Pushable" gid="254" x="896" y="256" width="32" height="32"/>
-  <object id="887" name="Chest" type="Chest" gid="234" x="192" y="192" width="32" height="32">
+  <object id="887" name="Money Chest" type="Chest" gid="234" x="192" y="192" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="15"/>
    </properties>
   </object>
-  <object id="888" name="Chest" type="Chest" gid="234" x="704" y="96" width="32" height="32">
+  <object id="888" name="Money Chest" type="Chest" gid="234" x="704" y="96" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="20"/>
    </properties>
   </object>
-  <object id="890" name="Chest" type="Chest" gid="234" x="992" y="704" width="32" height="32">
+  <object id="890" name="Weapon Chest" type="Chest" gid="234" x="992" y="704" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="25"/>
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="891" name="Chest" type="Chest" gid="234" x="224" y="672" width="32" height="32">
+  <object id="891" name="Money Chest" type="Chest" gid="234" x="224" y="672" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="15"/>
    </properties>
@@ -3270,7 +3270,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="977" name="Chest" type="Chest" gid="234" x="640" y="416" width="32" height="32">
+  <object id="977" name="Weapon Chest" type="Chest" gid="234" x="640" y="416" width="32" height="32">
    <properties>
     <property name="gold" type="int" value="25"/>
     <property name="itemPool" value="A"/>

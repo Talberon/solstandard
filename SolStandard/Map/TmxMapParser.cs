@@ -332,8 +332,7 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray(),
-                                            Convert.ToInt32(currentProperties["HP"]),
-                                            Convert.ToBoolean(currentProperties["canMove"])
+                                            Convert.ToInt32(currentProperties["HP"])
                                         );
                                         break;
                                     case EntityTypes.Movable:
@@ -660,6 +659,7 @@ namespace SolStandard.Map
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["damage"]),
+                                            Convert.ToInt32(currentProperties["turnsRemaining"]),
                                             currentProperties["itemPool"],
                                             currentProperties
                                         );
