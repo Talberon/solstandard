@@ -14,15 +14,17 @@ namespace SolStandard.Containers.Contexts.WinConditions
     {
         private Window objectiveWindow;
         private readonly Team playerTeam;
+        private string resultText;
 
         public SoloDefeatBoss(Team playerTeam)
         {
             this.playerTeam = playerTeam;
+            resultText = "Defeat the Boss!";
         }
 
         protected override IRenderable VictoryLabelContent
         {
-            get { return new RenderText(AssetManager.ResultsFont, "ALL BOSSES DEFEATED"); }
+            get { return new RenderText(AssetManager.ResultsFont, resultText); }
         }
 
         public override IRenderable ObjectiveInfo
@@ -49,10 +51,12 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
             if (AllPlayerUnitsAreDead)
             {
+                resultText = "DEFEAT!";
                 SoloGameLoss = true;
                 return SoloGameLoss;
             }
 
+            resultText = "ALL BOSSES DEFEATED!";
             switch (playerTeam)
             {
                 case Team.Blue:

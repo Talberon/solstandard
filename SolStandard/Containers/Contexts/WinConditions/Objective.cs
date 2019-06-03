@@ -58,7 +58,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 TransferToResultsScreen();
             }
 
-            if (GameIsADraw)
+            if (SoloGameLoss)
             {
                 GameContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
                 GameContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";

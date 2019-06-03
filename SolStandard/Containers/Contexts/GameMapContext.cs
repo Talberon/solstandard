@@ -78,6 +78,8 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
+            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+            
             TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);

@@ -2066,22 +2066,10 @@
     <property name="routine_summon.class" value="Deckard"/>
    </properties>
   </object>
-  <object id="909" name="Charlotte" type="Unit" gid="20" x="672" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
   <object id="901" name="Eckhart" type="Unit" gid="12" x="608" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="907" name="Maria" type="Unit" gid="18" x="640" y="288" width="32" height="32">
-   <properties>
-    <property name="Class" value="Cleric"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2103,8 +2091,6 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup id="9" name="Disabled" opacity="0.24">
   <object id="919" name="Wilson" type="Creep" gid="29" x="608" y="448" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
@@ -2113,6 +2099,20 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="920" name="Bruce" type="Creep" gid="30" x="704" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Bat"/>
+    <property name="routine_prey" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="907" name="Maria" type="Unit" gid="18" x="640" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Cleric"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Disabled" opacity="0.24">
   <object id="918" name="Kesk" type="Creep" gid="28" x="384" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
@@ -2151,12 +2151,6 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="920" name="Bruce" type="Creep" gid="30" x="704" y="256" width="32" height="32">
-   <properties>
-    <property name="Class" value="Bat"/>
-    <property name="routine_prey" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="914" name="Grog" type="Creep" gid="23" x="704" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
@@ -2182,6 +2176,12 @@
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="909" name="Charlotte" type="Unit" gid="20" x="672" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Team" value="Red"/>
    </properties>
   </object>
  </objectgroup>

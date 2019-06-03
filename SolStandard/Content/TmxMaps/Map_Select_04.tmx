@@ -1954,6 +1954,7 @@
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="false"/>
+    <property name="soloTeam" value="Red"/>
    </properties>
   </object>
   <object id="567" name="Master Control" type="SelectMap" gid="6326" x="320" y="384" width="32" height="32">
