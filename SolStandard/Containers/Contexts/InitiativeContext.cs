@@ -137,6 +137,9 @@ namespace SolStandard.Containers.Contexts
 
             if (redTeamUnits == blueTeamUnits) return FirstPlayer;
 
+            if (redTeamUnits == 0) return Team.Blue;
+            if (blueTeamUnits == 0) return Team.Red;
+
             return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
         }
 

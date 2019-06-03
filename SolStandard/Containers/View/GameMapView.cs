@@ -635,7 +635,7 @@ namespace SolStandard.Containers.View
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
 
@@ -673,7 +673,7 @@ namespace SolStandard.Containers.View
             //Bottom-right, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
 
@@ -713,10 +713,10 @@ namespace SolStandard.Containers.View
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 -
                 (float) InitiativeWindow.Width / 2,
-                GameDriver.ScreenSize.Y - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
-
+        
         private Vector2 EntityWindowPosition()
         {
             //Top-right

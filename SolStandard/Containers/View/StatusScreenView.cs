@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -48,13 +49,19 @@ namespace SolStandard.Containers.View
 
         public void UpdateWindows()
         {
-            GenerateBlueTeamLeaderPortraitWindow();
-            GenerateBlueTeamUnitRosterWindow();
-            GenerateBlueTeamResultWindow(BlueTeamResultText);
+            if (GameContext.Units.Any(unit => unit.Team == Team.Blue))
+            {
+                GenerateBlueTeamLeaderPortraitWindow();
+                GenerateBlueTeamUnitRosterWindow();
+                GenerateBlueTeamResultWindow(BlueTeamResultText);
+            }
 
-            GenerateRedTeamLeaderPortraitWindow();
-            GenerateRedTeamUnitRosterWindow();
-            GenerateRedTeamResultWindow(RedTeamResultText);
+            if (GameContext.Units.Any(unit => unit.Team == Team.Red))
+            {
+                GenerateRedTeamLeaderPortraitWindow();
+                GenerateRedTeamUnitRosterWindow();
+                GenerateRedTeamResultWindow(RedTeamResultText);
+            }
 
             GenerateResultsLabelWindow();
         }
@@ -167,7 +174,7 @@ namespace SolStandard.Containers.View
                     (teamUnits.Count > MaxMediumPortraits) ? unit.SmallPortrait : unit.MediumPortrait;
 
                 const int crownIconSize = 24;
-                
+
                 IRenderable[,] unitContent =
                 {
                     {
