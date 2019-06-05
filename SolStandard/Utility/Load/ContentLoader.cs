@@ -51,15 +51,12 @@ namespace SolStandard.Utility.Load
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {
             Texture2D spriteTextures = content.Load<Texture2D>("Graphics/WhitePixel");
-
             return new Texture2DWrapper(spriteTextures);
         }
 
         public static ITexture2D LoadWhiteGridOutline(ContentManager content)
         {
-            Texture2D spriteTextures = content.Load<Texture2D>("Graphics/Map/Tiles/GridOutline");
-
-            return new Texture2DWrapper(spriteTextures);
+            return new Texture2DWrapper(content.Load<Texture2D>("Graphics/Map/Tiles/GridOutline"));
         }
 
         public static List<ITexture2D> LoadTerrainSpriteTexture(ContentManager content)
@@ -81,20 +78,13 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadActionTiles(ContentManager content)
         {
-            Texture2D actionTilesTexture = content.Load<Texture2D>("Graphics/Map/Tiles/ActionTiles");
-
-            ITexture2D actionTiles = new Texture2DWrapper(actionTilesTexture);
-
-            return actionTiles;
+            return new Texture2DWrapper(content.Load<Texture2D>("Graphics/Map/Tiles/ActionTiles"));
         }
 
         public static ITexture2D LoadStatIcons(ContentManager content)
         {
             Texture2D statIconsTexture = content.Load<Texture2D>("Graphics/Images/Icons/StatIcons");
-
-            ITexture2D statIcons = new Texture2DWrapper(statIconsTexture);
-
-            return statIcons;
+            return new Texture2DWrapper(statIconsTexture);
         }
 
         public static List<ITexture2D> LoadCursorTextures(ContentManager content)
@@ -224,74 +214,50 @@ namespace SolStandard.Utility.Load
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
             Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
-
-            ITexture2D diceTextureWrapper = new Texture2DWrapper(diceTexture);
-
-            return diceTextureWrapper;
+            return new Texture2DWrapper(diceTexture);
         }
 
         public static ITexture2D LoadFireAtlas(ContentManager content)
         {
             Texture2D fireTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire");
-
-            ITexture2D fireTextureWrapper = new Texture2DWrapper(fireTexture);
-
-            return fireTextureWrapper;
+            return new Texture2DWrapper(fireTexture);
         }
 
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture =
                 content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
-
-            ITexture2D backgroundTextureWrapper = new Texture2DWrapper(backgroundTexture);
-
-            return backgroundTextureWrapper;
+            return new Texture2DWrapper(backgroundTexture);
         }
 
         public static ITexture2D LoadSolSpin(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin-White");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadGamepadKeyMap(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-Xbox");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadKeyboardKeyMap(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-PC");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static List<ITexture2D> LoadMapPreviews(ContentManager content)
@@ -316,7 +282,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dimpimple_Beach"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Crossroads"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Jirai_Archipelago"),
-                
+
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Master_Control"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Verdant_Forest"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Raid_Dungeon"),
@@ -595,28 +561,25 @@ namespace SolStandard.Utility.Load
         public static ITexture2D LoadGoldIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadSpoilsIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
-
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadObjectiveIcons(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");
+            return new Texture2DWrapper(loadTexture);
+        }
 
-            ITexture2D textureWrapper = new Texture2DWrapper(loadTexture);
-
-            return textureWrapper;
+        public static ITexture2D LoadTeamIcons(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/SolLunaTerra");
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ISoundEffect LoadCoinSFX(ContentManager content)
@@ -654,6 +617,5 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
             return new SoundEffectWrapper(effect, 1f);
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using SolStandard.Containers.View;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
@@ -262,6 +263,16 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
+            }
+
+            if (controlMapper.Press(Input.LeftBumper, PressType.Single))
+            {
+                GameContext.MapSelectContext.SelectTeam(Team.Red);
+            }
+
+            if (controlMapper.Press(Input.RightBumper, PressType.Single))
+            {
+                GameContext.MapSelectContext.SelectTeam(Team.Blue);
             }
         }
 

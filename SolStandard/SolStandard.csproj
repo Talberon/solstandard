@@ -305,6 +305,7 @@
     <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
+    <Compile Include="Utility\Assets\TeamIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
     <Compile Include="Utility\Buttons\GameControl.cs" />
     <Compile Include="Utility\Buttons\GameControlParser.cs" />
@@ -416,6 +417,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />

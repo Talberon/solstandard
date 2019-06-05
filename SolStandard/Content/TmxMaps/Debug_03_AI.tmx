@@ -2066,7 +2066,7 @@
     <property name="routine_summon.class" value="Deckard"/>
    </properties>
   </object>
-  <object id="901" name="Eckhart" type="Unit" gid="12" x="608" y="320" width="32" height="32">
+  <object id="901" name="Eckhart" type="Unit" gid="12" x="480" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2105,9 +2105,15 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="907" name="Maria" type="Unit" gid="18" x="640" y="320" width="32" height="32">
+  <object id="907" name="Maria" type="Unit" gid="18" x="512" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Cleric"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="909" name="Charlotte" type="Unit" gid="20" x="544" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2176,12 +2182,6 @@
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="909" name="Charlotte" type="Unit" gid="20" x="672" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Team" value="Red"/>
    </properties>
   </object>
  </objectgroup>

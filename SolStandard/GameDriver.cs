@@ -33,7 +33,7 @@ namespace SolStandard
 
         //Project Site
         public const string SolStandardUrl = "https://talberon.github.io/solstandard";
-        
+
         //Tile Size of Sprites
         public const int CellSize = 32;
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
@@ -53,12 +53,12 @@ namespace SolStandard
         public GameDriver()
         {
             graphics = new GraphicsDeviceManager(this);
-            UseDebugResolution();
+            UseDefaultResolution();
 //            UseBorderlessFullscreen();
             Content.RootDirectory = "Content";
         }
 
-        private void UseDebugResolution()
+        private void UseDefaultResolution()
         {
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -161,6 +161,19 @@ namespace SolStandard
             }
         }
 
+        private static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
+        {
+            switch (playerIndex)
+            {
+                case PlayerIndex.One:
+                    return (GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
+                case PlayerIndex.Two:
+                    return (GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
+                default:
+                    return GetControlMapperForPlayer(PlayerIndex.One);
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -185,15 +198,13 @@ namespace SolStandard
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                 new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
 
-            SetControllerConfig(Team.Blue);
-
             MainMenuView mainMenu =
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
 
-            
             GameContext.Initialize(mainMenu, networkMenu);
+            SetControllerConfig(GameContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
         }
@@ -238,14 +249,9 @@ namespace SolStandard
                 GameContext.CurrentGameState = GameContext.GameState.MainMenu;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D2))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.InGame;
-            }
-
             if (new InputKey(Keys.F10).Pressed)
             {
-                UseDebugResolution();
+                UseDefaultResolution();
                 ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
@@ -263,12 +269,13 @@ namespace SolStandard
 
             if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
+                ControlMapper activeController = GetControlMapperForPlayer(GameContext.ActivePlayer);
                 switch (GameContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
                         if (ConnectionManager.ConnectedAsServer)
                         {
-                            ControlContext.ListenForInputs(_blueTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -276,14 +283,14 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(_blueTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Two:
                         if (ConnectionManager.ConnectedAsClient)
                         {
-                            ControlContext.ListenForInputs(_redTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsServer)
                         {
@@ -291,7 +298,7 @@ namespace SolStandard
                         }
                         else
                         {
-                            ControlContext.ListenForInputs(_redTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
 
                         break;
@@ -300,7 +307,7 @@ namespace SolStandard
                         if (ConnectionManager.ConnectedAsServer)
                         {
                             //Only allow host to proceed through AI phase
-                            ControlContext.ListenForInputs(_blueTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
                         else if (ConnectionManager.ConnectedAsClient)
                         {
@@ -309,14 +316,12 @@ namespace SolStandard
                         else
                         {
                             //Either player can proceed offline
-                            ControlContext.ListenForInputs(_blueTeamControlMapper);
-                            ControlContext.ListenForInputs(_redTeamControlMapper);
+                            ControlContext.ListenForInputs(activeController);
                         }
 
                         break;
                     case PlayerIndex.Four:
-                        ControlContext.ListenForInputs(_blueTeamControlMapper);
-                        ControlContext.ListenForInputs(_redTeamControlMapper);
+                        ControlContext.ListenForInputs(activeController);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -489,7 +494,6 @@ namespace SolStandard
         }
 
 
-
         private void DrawCreditsScreen()
         {
             spriteBatch.Begin(
@@ -500,7 +504,6 @@ namespace SolStandard
 
             spriteBatch.End();
         }
-
 
 
         private void DrawColorEntireScreen(Color color)

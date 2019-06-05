@@ -2354,6 +2354,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Wander.png
 
+#begin Graphics/Images/Icons/SolLunaTerra.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/SolLunaTerra.png
+
 #begin Graphics/Images/Icons/StatIcons.png
 /importer:TextureImporter
 /processor:TextureProcessor

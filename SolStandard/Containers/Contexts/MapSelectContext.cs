@@ -19,6 +19,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
+            MapSelectScreenView.UpdateTeamSelectWindow();
         }
 
         public Vector2 MapCenter
@@ -71,7 +72,7 @@ namespace SolStandard.Containers.Contexts
                     (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
                     selectMapEntity.MapObjectives.Scenario
                 );
-                
+
                 GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
                 GameContext.CenterCursorAndCamera();
                 PlayMapSong(selectMapEntity);
@@ -82,6 +83,13 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MenuConfirmSFX.Play();
                 PlayMapSong(selectMapEntity);
             }
+        }
+
+        public void SelectTeam(Team team)
+        {
+            GameContext.SetP1Team(team);
+            MapSelectScreenView.UpdateTeamSelectWindow();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         private static void PlayMapSong(SelectMapEntity mapEntity)

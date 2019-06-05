@@ -9,6 +9,7 @@ using SolStandard.Map;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
 
@@ -50,6 +51,12 @@ namespace SolStandard.Containers.Contexts
         public static DeploymentContext DeploymentContext { get; private set; }
         public static CodexContext CodexContext { get; private set; }
         public static CreditsContext CreditsContext { get; private set; }
+        public static Team P1Team { get; private set; }
+
+        public static Team P2Team
+        {
+            get { return (P1Team == Team.Blue) ? Team.Red : Team.Blue; }
+        }
 
         public static GameState CurrentGameState;
 
@@ -63,12 +70,12 @@ namespace SolStandard.Containers.Contexts
                         return PlayerIndex.One;
                     case GameState.NetworkMenu:
                         return PlayerIndex.One;
+                    case GameState.MapSelect:
+                        return PlayerIndex.One;
                     case GameState.ArmyDraft:
                         return GetPlayerForTeam(DraftContext.CurrentTurn);
                     case GameState.Deployment:
                         return GetPlayerForTeam(DeploymentContext.CurrentTurn);
-                    case GameState.MapSelect:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.PauseScreen:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.InGame:
@@ -98,6 +105,16 @@ namespace SolStandard.Containers.Contexts
             CreditsContext = new CreditsContext(new CreditsView());
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
+            P1Team = Team.Red;
+        }
+
+        public static void SetP1Team(Team team)
+        {
+            if (team != Team.Red && team != Team.Blue) throw new InvalidTeamException();
+            P1Team = team;
+
+            //FIXME This can interrupt single-press controls by re-initializing the controller
+            GameDriver.SetControllerConfig(P1Team);
         }
 
         public static MapCursor MapCursor
@@ -214,7 +231,7 @@ namespace SolStandard.Containers.Contexts
         public static void LoadMapSelect()
         {
             Bank.ResetBank();
-            
+
             const string mapPath = MapDirectory + MapSelectFile;
 
             TmxMapParser mapParser = new TmxMapParser(
@@ -295,19 +312,11 @@ namespace SolStandard.Containers.Contexts
             Initialize(MainMenuView, NetworkMenuView);
         }
 
-        public static PlayerIndex GetPlayerForTeam(Team team)
+        private static PlayerIndex GetPlayerForTeam(Team team)
         {
-            switch (team)
-            {
-                case Team.Blue:
-                    return PlayerIndex.One;
-                case Team.Red:
-                    return PlayerIndex.Two;
-                case Team.Creep:
-                    return PlayerIndex.Three;
-                default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
-            }
+            if (P1Team == team) return PlayerIndex.One;
+            if (P2Team == team) return PlayerIndex.Two;
+            return PlayerIndex.Three;
         }
     }
 }
