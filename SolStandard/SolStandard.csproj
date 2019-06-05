@@ -347,6 +347,7 @@
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
+    <Compile Include="Utility\Events\Network\ChangePlayerTeamsEvent.cs" />
     <Compile Include="Utility\Events\Network\CloseAdHocDraftMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CombatNotifyStateCompleteEvent.cs" />
     <Compile Include="Utility\Events\Network\ConcedeEvent.cs" />
