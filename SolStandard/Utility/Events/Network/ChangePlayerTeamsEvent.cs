@@ -1,7 +1,9 @@
+using System;
 using SolStandard.Entity.Unit;
 
 namespace SolStandard.Utility.Events.Network
 {
+    [Serializable]
     public class ChangePlayerTeamsEvent : NetworkEvent
     {
         private readonly Team newP1Team;
