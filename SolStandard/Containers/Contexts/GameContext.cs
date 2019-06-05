@@ -10,7 +10,6 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
@@ -114,10 +113,10 @@ namespace SolStandard.Containers.Contexts
         {
             if (team != Team.Red && team != Team.Blue) throw new InvalidTeamException();
             P1Team = team;
-
-            //FIXME This can interrupt single-press controls by re-initializing the controller
-            GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(P1Team)); 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+            GameDriver.SetControllerConfig(team);
+            MapSelectContext.MapSelectScreenView.UpdateTeamSelectWindow();
+            AssetManager.MapUnitCancelSFX.Play();
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));
         }
 
         public static MapCursor MapCursor

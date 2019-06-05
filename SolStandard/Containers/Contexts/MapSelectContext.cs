@@ -85,13 +85,6 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void SelectTeam(Team team)
-        {
-            GameContext.SetP1Team(team);
-            MapSelectScreenView.UpdateTeamSelectWindow();
-            AssetManager.MapUnitCancelSFX.Play();
-        }
-
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
             Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));

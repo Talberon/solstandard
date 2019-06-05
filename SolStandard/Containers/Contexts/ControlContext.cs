@@ -267,12 +267,12 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
-                GameContext.MapSelectContext.SelectTeam(Team.Red);
+                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red)); 
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
-                GameContext.MapSelectContext.SelectTeam(Team.Blue);
+                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue)); 
             }
         }
 
