@@ -71,6 +71,7 @@ namespace SolStandard.Containers.Contexts
             );
 
             DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo());
+            DraftView.UpdateControlsTextWindow();
         }
 
         public void MoveCursor(Direction direction)

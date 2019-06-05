@@ -9,6 +9,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions
@@ -45,9 +46,9 @@ namespace SolStandard.Entity.Unit.Actions
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
-                        ButtonIconProvider.GetButton(ButtonIcon.Lb, iconSize),
+                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        ButtonIconProvider.GetButton(ButtonIcon.Rb, iconSize),
+                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

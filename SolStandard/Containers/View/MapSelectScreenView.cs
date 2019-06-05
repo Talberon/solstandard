@@ -6,6 +6,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.View
 {
@@ -35,7 +36,7 @@ namespace SolStandard.Containers.View
                     {
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
-                        ButtonIconProvider.GetButton(ButtonIcon.A,
+                        InputIconProvider.GetInputIcon(Input.Confirm,
                             new Vector2(AssetManager.WindowFont.MeasureString("A").Y))
                     }
                 },
@@ -57,7 +58,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid teamSelectContent = new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        ButtonIconProvider.GetButton(ButtonIcon.Lb, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.LeftBumper, new Vector2(iconSize)),
                         //SOL TEAM
                         new Window(new WindowContentGrid(new IRenderable[,]
                             {
@@ -102,7 +103,7 @@ namespace SolStandard.Containers.View
                                 },
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        ButtonIconProvider.GetButton(ButtonIcon.Rb, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.RightBumper, new Vector2(iconSize)),
                     }
                 }, 1, HorizontalAlignment.Centered
             );

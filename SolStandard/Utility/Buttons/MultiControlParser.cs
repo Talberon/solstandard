@@ -7,7 +7,7 @@ namespace SolStandard.Utility.Buttons
     {
         private readonly List<ControlMapper> controlMappers;
 
-        public MultiControlParser(params ControlMapper[] controlMappers)
+        public MultiControlParser(params ControlMapper[] controlMappers) : base(controlMappers.First().ControlType)
         {
             this.controlMappers = controlMappers.ToList();
         }

@@ -7,7 +7,7 @@ namespace SolStandard.Utility.Buttons
     {
         private readonly Dictionary<Input, GameControl> buttonMap;
 
-        public GameControlParser(IController controller)
+        public GameControlParser(IController controller) : base(controller.ControlType)
         {
             buttonMap = new Dictionary<Input, GameControl>
             {

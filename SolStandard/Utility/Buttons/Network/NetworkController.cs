@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using SolStandard.HUD.Window.Content;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Network;
 
 namespace SolStandard.Utility.Buttons.Network
@@ -93,6 +94,11 @@ namespace SolStandard.Utility.Buttons.Network
         public void Release(Input input)
         {
             inputs[input].Release();
+        }
+
+        public ControlType ControlType
+        {
+            get { return ControlType.Keyboard; }
         }
 
         public GameControl GetInput(Input input)

@@ -1,3 +1,4 @@
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Buttons.Network;
 
@@ -7,7 +8,7 @@ namespace SolStandard.Utility.Network
     {
         private readonly NetworkController controller;
 
-        public NetworkControlParser(NetworkController controller)
+        public NetworkControlParser(NetworkController controller) : base (ControlType.Keyboard)
         {
             this.controller = controller;
         }

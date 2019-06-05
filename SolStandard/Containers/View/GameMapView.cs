@@ -14,6 +14,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.View
 {
@@ -246,12 +247,12 @@ namespace SolStandard.Containers.View
                 case MenuType.ActionMenu:
                     menuName = "Unit Actions";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadRight, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowText.Height));
                     break;
                 case MenuType.InventoryMenu:
                     menuName = "Inventory";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadLeft, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowText.Height));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("menuType", menuType, null);

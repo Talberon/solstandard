@@ -10,6 +10,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
@@ -82,30 +83,30 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " on a deployment tile to deploy a unit."),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.B, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Cancel, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to snap to the first deploy tile."),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to preview selected unit in the codex."),
                     new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.Lb, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.LeftBumper, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " or "),
-                    ButtonIconProvider.GetButton(ButtonIcon.Rb, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.RightBumper, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to cycle between units.")
                 }
             };
