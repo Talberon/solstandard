@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
                 roamEventQueue.Enqueue(new UnitMoveEvent(roamer, randomDirection));
-                roamEventQueue.Enqueue(new WaitFramesEvent(20));
+                roamEventQueue.Enqueue(new WaitFramesEvent(15));
             }
 
             roamEventQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));

@@ -451,8 +451,10 @@ namespace SolStandard.Map
                                                 (Team) Enum.Parse(typeof(Team), currentProperties["soloTeam"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
-                                            Convert.ToInt32(currentProperties["unitsPerTeam"]),
+                                            Convert.ToInt32(currentProperties["maxUnitsBlue"]),
+                                            Convert.ToInt32(currentProperties["maxUnitsRed"]),
                                             Convert.ToInt32(currentProperties["maxDuplicateUnits"]),
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["soloTeam"]),
                                             AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
                                                 texture.Name.EndsWith("/" + mapFileName.Substring(0,
                                                                           mapFileName.Length - (".tmx").Length)))

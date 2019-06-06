@@ -50,6 +50,16 @@ namespace SolStandard.Map
             }
         }
 
+        public static bool IsSoloGame(Scenario scenario)
+        {
+            return scenario.Objectives.ContainsKey(VictoryConditions.SoloDefeatBoss);
+        }
+
+        public static bool IsMultiplayerGame(Scenario scenario)
+        {
+            return !IsSoloGame(scenario);
+        }
+
         public IRenderable Preview
         {
             get { return Scenario.ScenarioInfo(HorizontalAlignment.Centered); }
