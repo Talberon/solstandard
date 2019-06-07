@@ -37,7 +37,7 @@ namespace SolStandard.Entity.General
             MaxBlueUnits = maxBlueUnits;
             MaxRedUnits = maxRedUnits;
             MaxDuplicateUnits = maxDuplicateUnits;
-            this.SoloTeam = soloTeam;
+            SoloTeam = soloTeam;
             this.mapPreview = (mapPreview == null)
                 ? new RenderBlank()
                 : new SpriteAtlas(mapPreview, new Vector2(mapPreview.Width, mapPreview.Height),

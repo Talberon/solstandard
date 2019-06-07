@@ -50,7 +50,6 @@ namespace SolStandard.Containers.Contexts
 
         public void StartNewSoloDraft(int maxUnits, int maxDuplicates, Team soloPlayerTeam, Scenario scenario)
         {
-            //TODO    Use this somewhere
             StartNewDraft(
                 soloPlayerTeam == Team.Blue ? maxUnits : 0,
                 soloPlayerTeam == Team.Red ? maxUnits : 0,

@@ -86,6 +86,7 @@
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
+    <Compile Include="Entity\General\EscapeEntity.cs" />
     <Compile Include="Entity\General\Item\Barricade.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
     <Compile Include="Entity\General\Item\Bomb.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\Actions\ReturnToRecallPointAction.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
@@ -345,6 +347,7 @@
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />

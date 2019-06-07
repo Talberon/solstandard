@@ -1823,6 +1823,7 @@
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeEscape" type="bool" value="true"/>
     <property name="modeSeize" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
@@ -2011,9 +2012,9 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeSolo.team" value="Red"/>
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="false"/>
-    <property name="soloTeam" value="Red"/>
    </properties>
   </object>
  </objectgroup>

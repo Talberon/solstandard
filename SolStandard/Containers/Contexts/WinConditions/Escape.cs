@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -11,18 +13,59 @@ namespace SolStandard.Containers.Contexts.WinConditions
     public class Escape : Objective
     {
         private Window objectiveWindow;
-        private Team escapeTeam;
-        private Team hunterTeam;
+        private readonly Team escapeTeam;
+        private readonly Team hunterTeam;
+
+        public readonly List<GameUnit> EscapedUnits;
 
         public Escape(Team escapeTeam, Team hunterTeam)
         {
             this.escapeTeam = escapeTeam;
             this.hunterTeam = hunterTeam;
+            EscapedUnits = new List<GameUnit>();
         }
 
         protected override IRenderable VictoryLabelContent
         {
-            get { return new RenderText(AssetManager.ResultsFont, "ARMY ESCAPED"); }
+            get
+            {
+                string victoryText = "UNDECIDED";
+                if (RedTeamWins)
+                {
+                    switch (escapeTeam)
+                    {
+                        case Team.Blue:
+                            victoryText = "ESCAPEES ROUTED";
+                            break;
+                        case Team.Red:
+                            victoryText = "ARMY ESCAPED";
+                            break;
+                        case Team.Creep:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                if (BlueTeamWins)
+                {
+                    switch (escapeTeam)
+                    {
+                        case Team.Blue:
+                            victoryText = "ARMY ESCAPED";
+                            break;
+                        case Team.Red:
+                            victoryText = "ESCAPEES ROUTED";
+                            break;
+                        case Team.Creep:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                return new RenderText(AssetManager.ResultsFont, victoryText);
+            }
         }
 
         public override IRenderable ObjectiveInfo
@@ -30,7 +73,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
         }
 
-        private static Window BuildObjectiveWindow()
+        private Window BuildObjectiveWindow()
         {
             return new Window(
                 new WindowContentGrid(
@@ -41,7 +84,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                                 VictoryConditions.Escape,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Escape"),
+                            new RenderText(AssetManager.WindowFont, "Escape <" + escapeTeam + ">"),
                         }
                     },
                     2,
@@ -52,14 +95,52 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
+        public void AddUnitToEscapeeList(GameUnit unit)
+        {
+            EscapedUnits.Add(unit);
+        }
+
         public override bool ConditionsMet()
         {
-            //TODO Set up escape conditions
-            //TODO Escaping player must have their commander exit the map via an escape point
-            //TODO Hunter player must defeat the escaping commander before they escape
-            //TODO Implement new Escape tile entity
-            //TODO Set up asynchronous team sizes in Draft mode
-            throw new NotImplementedException();
+            //Escaping player must have their commander exit the map via an escape point
+            //Commander is not allowed to escape until all other units on the team are defeated or have escaped
+            List<GameUnit> remainingEscapeTeamUnits = GameContext.Units.Where(unit => unit.Team == escapeTeam).ToList();
+            EscapedUnits.ForEach(unit => remainingEscapeTeamUnits.Remove(unit));
+            bool allNonCommandersEscapedOrDefeated =
+                remainingEscapeTeamUnits.TrueForAll(unit => !unit.IsAlive && !unit.IsCommander);
+
+            if (allNonCommandersEscapedOrDefeated)
+            {
+                switch (escapeTeam)
+                {
+                    case Team.Blue:
+                        BlueTeamWins = true;
+                        return BlueTeamWins;
+                    case Team.Red:
+                        RedTeamWins = true;
+                        return RedTeamWins;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            //Hunter player must defeat all escaping commanders before they escape
+            if (remainingEscapeTeamUnits.Where(unit => unit.IsCommander).All(unit => !unit.IsAlive))
+            {
+                switch (hunterTeam)
+                {
+                    case Team.Blue:
+                        BlueTeamWins = true;
+                        return BlueTeamWins;
+                    case Team.Red:
+                        RedTeamWins = true;
+                        return RedTeamWins;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return false;
         }
     }
 }

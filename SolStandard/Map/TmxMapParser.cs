@@ -448,13 +448,15 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
                                                 Convert.ToInt32(currentProperties["valueTaxes"]),
                                                 Convert.ToBoolean(currentProperties["modeSoloDefeatBoss"]),
-                                                (Team) Enum.Parse(typeof(Team), currentProperties["soloTeam"])
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
+                                                Convert.ToBoolean(currentProperties["modeEscape"]),
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeEscape.team"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
                                             Convert.ToInt32(currentProperties["maxUnitsBlue"]),
                                             Convert.ToInt32(currentProperties["maxUnitsRed"]),
                                             Convert.ToInt32(currentProperties["maxDuplicateUnits"]),
-                                            (Team) Enum.Parse(typeof(Team), currentProperties["soloTeam"]),
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
                                             AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
                                                 texture.Name.EndsWith("/" + mapFileName.Substring(0,
                                                                           mapFileName.Length - (".tmx").Length)))
@@ -694,6 +696,16 @@ namespace SolStandard.Map
                                             currentProperties["deployRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
+                                    case EntityTypes.Escape:
+                                        entityGrid[col, row] = new EscapeEntity(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (currentProperties["team"].Equals(Team.Blue.ToString())),
+                                            (currentProperties["team"].Equals(Team.Red.ToString()))
                                         );
                                         break;
                                     default:

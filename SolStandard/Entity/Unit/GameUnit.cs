@@ -714,7 +714,17 @@ namespace SolStandard.Entity.Unit
 
         public bool IsAlive
         {
-            get { return stats.CurrentHP > 0; }
+            get { return stats.CurrentHP > 0 && MapEntity != null; }
+        }
+
+        public void Escape()
+        {
+            IsExhausted = true;
+            DropSpoils();
+            largePortrait.DefaultColor = DeadPortraitColor;
+            mediumPortrait.DefaultColor = DeadPortraitColor;
+            smallPortrait.DefaultColor = DeadPortraitColor;
+            MapEntity = null;
         }
 
         private void DropSpoils()

@@ -102,6 +102,9 @@
  <objecttype name="Enemy" color="#aa0000">
   <property name="Type" type="string" default="Slime"/>
  </objecttype>
+ <objecttype name="Escape" color="#ffff7f">
+  <property name="team" type="string" default="Blue"/>
+ </objecttype>
  <objecttype name="HealthPotion" color="#b93246">
   <property name="hpHealed" type="int" default="3"/>
   <property name="itemPool" type="string"/>
@@ -165,11 +168,13 @@
   <property name="maxUnitsBlue" type="int" default="0"/>
   <property name="maxUnitsRed" type="int" default="0"/>
   <property name="modeAssassinate" type="bool" default="true"/>
+  <property name="modeEscape" type="bool" default="false"/>
+  <property name="modeEscape.team" type="string" default="Blue"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
+  <property name="modeSolo.team" type="string" default="Blue"/>
   <property name="modeSoloDefeatBoss" type="bool" default="false"/>
   <property name="modeTaxes" type="bool" default="false"/>
-  <property name="soloTeam" type="string" default="Blue"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">

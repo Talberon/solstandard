@@ -13,12 +13,14 @@ namespace SolStandard.Map
         private readonly bool modeSeize;
         private readonly bool modeTaxes;
         private readonly bool modeSoloDefeatBoss;
+        private readonly bool modeEscape;
 
         private readonly int valueTaxes;
         private readonly Team soloPlayerTeam;
+        private readonly Team escapeTeam;
 
         public MapObjectives(bool modeAssassinate, bool modeRoutArmy, bool modeSeize, bool modeTaxes, int valueTaxes,
-            bool modeSoloDefeatBoss, Team soloPlayerTeam)
+            bool modeSoloDefeatBoss, Team soloPlayerTeam, bool modeEscape, Team escapeTeam)
         {
             this.modeAssassinate = modeAssassinate;
             this.modeRoutArmy = modeRoutArmy;
@@ -27,6 +29,8 @@ namespace SolStandard.Map
             this.valueTaxes = valueTaxes;
             this.modeSoloDefeatBoss = modeSoloDefeatBoss;
             this.soloPlayerTeam = soloPlayerTeam;
+            this.modeEscape = modeEscape;
+            this.escapeTeam = escapeTeam;
         }
 
         public Scenario Scenario
@@ -40,7 +44,13 @@ namespace SolStandard.Map
                 if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
                 if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
                 if (modeRoutArmy) objectives.Add(VictoryConditions.RoutArmy, new RoutArmy());
+                if (modeEscape)
+                {
+                    objectives.Add(VictoryConditions.Escape,
+                        new Escape(escapeTeam, (escapeTeam == Team.Blue) ? Team.Red : Team.Blue));
+                }
 
+                //SOLO OBJECTIVES
                 if (modeSoloDefeatBoss)
                 {
                     objectives.Add(VictoryConditions.SoloDefeatBoss, new SoloDefeatBoss(soloPlayerTeam));
