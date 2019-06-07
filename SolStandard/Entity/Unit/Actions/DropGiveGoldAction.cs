@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new IRenderable[,]
+            return new WindowContentGrid(new [,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont,"Drop"),

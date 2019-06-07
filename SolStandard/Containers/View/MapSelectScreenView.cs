@@ -31,7 +31,7 @@ namespace SolStandard.Containers.View
         private void SetUpWindows()
         {
             WindowContentGrid instructionContentGrid = new WindowContentGrid(
-                new IRenderable[,]
+                new [,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont,
@@ -55,7 +55,7 @@ namespace SolStandard.Containers.View
             Color solWindowColor = (GameContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
             Color lunaWindowColor = (GameContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
 
-            WindowContentGrid teamSelectContent = new WindowContentGrid(new IRenderable[,]
+            WindowContentGrid teamSelectContent = new WindowContentGrid(new [,]
                 {
                     {
                         InputIconProvider.GetInputIcon(Input.LeftBumper, new Vector2(iconSize)),

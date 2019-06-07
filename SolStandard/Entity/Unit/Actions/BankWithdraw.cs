@@ -9,7 +9,6 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
@@ -49,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new IRenderable[,]
+            return new WindowContentGrid(new [,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Withdraw"),

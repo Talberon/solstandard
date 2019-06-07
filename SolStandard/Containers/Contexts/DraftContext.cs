@@ -57,16 +57,16 @@ namespace SolStandard.Containers.Contexts
             );
         }
 
-        public void StartNewDraft(int blueMaxUnits, int redMaxUnits, int maxUnitDuplicates, Team firstTurn,
+        public void StartNewDraft(int blueTeamUnitMax, int redTeamUnitMax, int maxUnitDuplicates, Team firstTurn,
             Scenario scenario)
         {
             NameGenerator.ClearNameHistory();
 
             currentPhase = DraftPhase.UnitSelect;
             blueUnitsSelected = 0;
-            this.blueMaxUnits = blueMaxUnits;
+            blueMaxUnits = blueTeamUnitMax;
             redUnitsSelected = 0;
-            this.redMaxUnits = redMaxUnits;
+            redMaxUnits = redTeamUnitMax;
 
             maxDuplicateUnitType = maxUnitDuplicates;
             CurrentTurn = firstTurn;
@@ -83,7 +83,7 @@ namespace SolStandard.Containers.Contexts
 
             DraftView.UpdateHelpWindow(
                 "SELECT A UNIT" + Environment.NewLine +
-                "Max Units: " + Team.Blue + " " + this.blueMaxUnits + "/" + Team.Red + " " + this.redMaxUnits +
+                "Max Units: " + Team.Blue + " " + blueMaxUnits + "/" + Team.Red + " " + redMaxUnits +
                 Environment.NewLine +
                 "Max Dupes: " + maxUnitDuplicates
             );
