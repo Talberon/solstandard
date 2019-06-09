@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
@@ -450,7 +451,9 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeSoloDefeatBoss"]),
                                                 (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
                                                 Convert.ToBoolean(currentProperties["modeEscape"]),
-                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeEscape.team"])
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeEscape.team"]),
+                                                Convert.ToBoolean(currentProperties["modeRelic"]),
+                                                Convert.ToInt32(currentProperties["modeRelic.goal"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
                                             Convert.ToInt32(currentProperties["maxUnitsBlue"]),
@@ -706,6 +709,17 @@ namespace SolStandard.Map
                                             new Vector2(col, row),
                                             (currentProperties["team"].Equals(Team.Blue.ToString())),
                                             (currentProperties["team"].Equals(Team.Red.ToString()))
+                                        );
+                                        break;
+                                    case EntityTypes.Relic:
+                                        entityGrid[col, row] = new Relic(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     default:

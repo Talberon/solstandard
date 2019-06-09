@@ -156,6 +156,10 @@
   <property name="amrPerTurn" type="int" default="0"/>
   <property name="hpPerTurn" type="int" default="0"/>
  </objecttype>
+ <objecttype name="Relic" color="#5ccc00">
+  <property name="itemPool" type="string"/>
+  <property name="pickupRange" type="string" default="0,1"/>
+ </objecttype>
  <objecttype name="Seize" color="#fff455">
   <property name="capturableByBlue" type="bool" default="false"/>
   <property name="capturableByRed" type="bool" default="false"/>
@@ -170,6 +174,8 @@
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeEscape" type="bool" default="false"/>
   <property name="modeEscape.team" type="string" default="Blue"/>
+  <property name="modeRelic" type="bool" default="false"/>
+  <property name="modeRelic.goal" type="int" default="0"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
   <property name="modeSolo.team" type="string" default="Blue"/>

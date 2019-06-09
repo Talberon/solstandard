@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.Utility;
 
-namespace SolStandard.Map
+namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class MapObjectives
     {
@@ -14,13 +13,16 @@ namespace SolStandard.Map
         private readonly bool modeTaxes;
         private readonly bool modeSoloDefeatBoss;
         private readonly bool modeEscape;
+        private readonly bool modeCollectTheRelics;
 
         private readonly int valueTaxes;
         private readonly Team soloPlayerTeam;
         private readonly Team escapeTeam;
+        private readonly int relicsOnMap;
 
         public MapObjectives(bool modeAssassinate, bool modeRoutArmy, bool modeSeize, bool modeTaxes, int valueTaxes,
-            bool modeSoloDefeatBoss, Team soloPlayerTeam, bool modeEscape, Team escapeTeam)
+            bool modeSoloDefeatBoss, Team soloPlayerTeam, bool modeEscape, Team escapeTeam, bool modeCollectTheRelics,
+            int relicsOnMap)
         {
             this.modeAssassinate = modeAssassinate;
             this.modeRoutArmy = modeRoutArmy;
@@ -31,6 +33,8 @@ namespace SolStandard.Map
             this.soloPlayerTeam = soloPlayerTeam;
             this.modeEscape = modeEscape;
             this.escapeTeam = escapeTeam;
+            this.modeCollectTheRelics = modeCollectTheRelics;
+            this.relicsOnMap = relicsOnMap;
         }
 
         public Scenario Scenario
@@ -48,6 +52,11 @@ namespace SolStandard.Map
                 {
                     objectives.Add(VictoryConditions.Escape,
                         new Escape(escapeTeam, (escapeTeam == Team.Blue) ? Team.Red : Team.Blue));
+                }
+
+                if (modeCollectTheRelics)
+                {
+                    objectives.Add(VictoryConditions.CollectTheRelics, new CollectTheRelics(relicsOnMap));
                 }
 
                 //SOLO OBJECTIVES

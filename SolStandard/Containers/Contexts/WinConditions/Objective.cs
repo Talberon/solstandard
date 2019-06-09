@@ -14,7 +14,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         Taxes,
         Surrender,
         Escape,
-        SoloDefeatBoss
+        SoloDefeatBoss,
+        CollectTheRelics
     }
 
     public abstract class Objective

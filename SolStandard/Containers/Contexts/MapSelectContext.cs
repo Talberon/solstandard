@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
