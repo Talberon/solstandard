@@ -5,7 +5,6 @@ using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
-using SolStandard.Map;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Monogame;

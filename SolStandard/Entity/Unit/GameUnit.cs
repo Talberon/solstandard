@@ -431,17 +431,6 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-
-        public void AddContextualAction(UnitAction action)
-        {
-            ContextualActions.Add(action);
-        }
-
-        public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
-        {
-            return GetMapSprite(size, Color.White, animation);
-        }
-
         public IRenderable GetMapSprite(Vector2 size, Color color,
             UnitAnimationState animation = UnitAnimationState.Idle)
         {
