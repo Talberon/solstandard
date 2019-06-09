@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit
             else
             {
                 GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Can't fulfill intentions!"));
-                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 
                 fallbackRoutine.ExecuteAction(creepSlice);
             }

@@ -2131,5 +2131,25 @@
    <wangtile tileid="1662" wangid="0x1020102"/>
    <wangtile tileid="1663" wangid="0x1020202"/>
   </wangset>
+  <wangset name="Dirt Wall" tile="6120">
+   <wangedgecolor name="" color="#ff0000" tile="6163" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="6120" probability="1"/>
+   <wangtile tileid="6120" wangid="0x2020202"/>
+   <wangtile tileid="6121" wangid="0x2020102"/>
+   <wangtile tileid="6122" wangid="0x1020102"/>
+   <wangtile tileid="6123" wangid="0x1020202"/>
+   <wangtile tileid="6160" wangid="0x2010202"/>
+   <wangtile tileid="6161" wangid="0x2010102"/>
+   <wangtile tileid="6162" wangid="0x1010202"/>
+   <wangtile tileid="6163" wangid="0x1010101"/>
+   <wangtile tileid="6200" wangid="0x2010201"/>
+   <wangtile tileid="6201" wangid="0x2020101"/>
+   <wangtile tileid="6202" wangid="0x1020201"/>
+   <wangtile tileid="6203" wangid="0x1020101"/>
+   <wangtile tileid="6240" wangid="0x2020201"/>
+   <wangtile tileid="6241" wangid="0x1010201"/>
+   <wangtile tileid="6242" wangid="0x1010102"/>
+   <wangtile tileid="6243" wangid="0x2010101"/>
+  </wangset>
  </wangsets>
 </tileset>

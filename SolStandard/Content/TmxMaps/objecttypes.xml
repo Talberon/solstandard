@@ -158,7 +158,7 @@
  </objecttype>
  <objecttype name="Relic" color="#5ccc00">
   <property name="itemPool" type="string"/>
-  <property name="pickupRange" type="string" default="0,1"/>
+  <property name="pickupRange" type="string" default="0"/>
  </objecttype>
  <objecttype name="Seize" color="#fff455">
   <property name="capturableByBlue" type="bool" default="false"/>

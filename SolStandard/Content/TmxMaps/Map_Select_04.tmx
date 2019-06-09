@@ -2011,7 +2011,7 @@
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Solo_Alpha_Dungeon.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="maxUnitsRed" type="int" value="3"/>
+    <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>

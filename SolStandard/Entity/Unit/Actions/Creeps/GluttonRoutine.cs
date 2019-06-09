@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private static bool HasConsumableItemInInventory(GameUnit consumer)
         {
-            return consumer.Inventory.Select(item => item is IConsumable).Any();
+            return consumer.Inventory.Any(item => item is IConsumable);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

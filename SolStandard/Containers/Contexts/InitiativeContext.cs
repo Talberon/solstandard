@@ -194,7 +194,7 @@ namespace SolStandard.Containers.Contexts
             if (CurrentActiveTeam != Team.Creep) return;
             if (GameContext.ActiveUnit.UnitEntity == null) return;
             
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
             
             CreepUnit activeCreep = GameContext.ActiveUnit as CreepUnit;
             if (activeCreep != null)
