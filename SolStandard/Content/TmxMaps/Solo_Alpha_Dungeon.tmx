@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="28" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1122">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="28" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1128">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -321,9 +321,9 @@
    <tile gid="5361"/>
    <tile gid="5361"/>
    <tile gid="5361"/>
-   <tile gid="5683"/>
-   <tile gid="5362"/>
-   <tile/>
+   <tile gid="5361"/>
+   <tile gid="5361"/>
+   <tile gid="5402"/>
    <tile gid="5560"/>
    <tile gid="5511"/>
    <tile gid="5562"/>
@@ -373,12 +373,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5400"/>
-   <tile gid="5351"/>
-   <tile gid="5351"/>
-   <tile gid="5355"/>
-   <tile gid="5357"/>
-   <tile gid="5402"/>
+   <tile gid="5440"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
+   <tile gid="5442"/>
    <tile/>
    <tile/>
    <tile/>
@@ -401,12 +401,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5400"/>
-   <tile gid="5355"/>
-   <tile gid="5357"/>
-   <tile gid="5395"/>
-   <tile gid="5397"/>
-   <tile gid="5364"/>
+   <tile gid="5360"/>
+   <tile gid="5361"/>
+   <tile gid="5361"/>
+   <tile gid="5361"/>
+   <tile gid="5361"/>
+   <tile gid="5361"/>
    <tile gid="5361"/>
    <tile gid="5361"/>
    <tile gid="5361"/>
@@ -430,10 +430,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5359"/>
-   <tile gid="5358"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5351"/>
    <tile gid="5351"/>
    <tile gid="5351"/>
@@ -458,10 +458,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5404"/>
    <tile gid="5441"/>
    <tile gid="5441"/>
@@ -486,10 +486,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile/>
    <tile/>
@@ -514,10 +514,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile/>
    <tile gid="5520"/>
@@ -542,10 +542,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile/>
    <tile gid="5560"/>
@@ -570,10 +570,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile/>
    <tile gid="5560"/>
@@ -598,10 +598,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5395"/>
-   <tile gid="5396"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile gid="5688"/>
    <tile gid="5560"/>
@@ -626,10 +626,10 @@
    <tile/>
    <tile/>
    <tile gid="5400"/>
-   <tile gid="5435"/>
-   <tile gid="5398"/>
-   <tile gid="5396"/>
-   <tile gid="5397"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
+   <tile gid="5351"/>
    <tile gid="5402"/>
    <tile/>
    <tile gid="5560"/>
@@ -654,10 +654,10 @@
    <tile/>
    <tile/>
    <tile gid="5440"/>
-   <tile gid="5403"/>
-   <tile gid="5435"/>
-   <tile gid="5436"/>
-   <tile gid="5437"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
+   <tile gid="5441"/>
    <tile gid="5402"/>
    <tile/>
    <tile gid="5600"/>
@@ -1166,7 +1166,7 @@
    <tile gid="5682"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5682"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1869,9 +1869,9 @@
    <tile/>
    <tile/>
    <tile gid="5764"/>
-   <tile gid="5753"/>
+   <tile gid="5792"/>
    <tile/>
-   <tile gid="5718"/>
+   <tile gid="5679"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1897,9 +1897,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5751"/>
    <tile/>
    <tile/>
-   <tile gid="5756"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1925,9 +1925,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5677"/>
-   <tile gid="5678"/>
-   <tile gid="5797"/>
+   <tile gid="5791"/>
+   <tile/>
+   <tile gid="5679"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1952,10 +1952,10 @@
    <tile gid="5681"/>
    <tile/>
    <tile/>
-   <tile gid="5721"/>
-   <tile gid="5722"/>
-   <tile gid="5722"/>
-   <tile gid="5757"/>
+   <tile gid="5716"/>
+   <tile gid="5681"/>
+   <tile/>
+   <tile gid="5717"/>
    <tile gid="5678"/>
    <tile gid="5678"/>
    <tile gid="5679"/>
@@ -1980,10 +1980,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5756"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5756"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2008,10 +2008,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="6081"/>
-   <tile/>
-   <tile/>
+   <tile gid="5757"/>
+   <tile gid="5678"/>
+   <tile gid="5678"/>
+   <tile gid="5758"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2035,9 +2035,9 @@
    <tile gid="5756"/>
    <tile/>
    <tile/>
-   <tile gid="6152"/>
-   <tile gid="6153"/>
-   <tile gid="6193"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2065,7 +2065,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6231"/>
+   <tile/>
    <tile/>
    <tile gid="5717"/>
    <tile gid="5803"/>
@@ -2091,9 +2091,9 @@
    <tile gid="5756"/>
    <tile/>
    <tile/>
-   <tile gid="6152"/>
-   <tile gid="6153"/>
-   <tile gid="6233"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="5756"/>
    <tile/>
@@ -2413,7 +2413,7 @@
   <object id="981" name="Rubble" type="BreakableObstacle" gid="5958" x="352" y="320" width="32" height="32"/>
   <object id="982" name="Rubble" type="BreakableObstacle" gid="5958" x="384" y="256" width="32" height="32"/>
   <object id="983" name="Rubble" type="BreakableObstacle" gid="5958" x="384" y="352" width="32" height="32"/>
-  <object id="984" name="Rubble" type="BreakableObstacle" gid="5958" x="384" y="320" width="32" height="32"/>
+  <object id="984" name="Rubble" type="BreakableObstacle" gid="5958" x="416" y="320" width="32" height="32"/>
   <object id="985" name="Rubble" type="BreakableObstacle" gid="5958" x="352" y="352" width="32" height="32"/>
   <object id="987" name="Item Chest" type="Chest" gid="6005" x="320" y="384" width="32" height="32">
    <properties>
@@ -2425,9 +2425,9 @@
     <property name="itemPool" value="Items"/>
    </properties>
   </object>
-  <object id="989" name="Rubble" type="BreakableObstacle" gid="5958" x="224" y="320" width="32" height="32"/>
-  <object id="990" name="Rubble" type="BreakableObstacle" gid="5958" x="256" y="320" width="32" height="32"/>
-  <object id="991" name="Rubble" type="BreakableObstacle" gid="5958" x="288" y="384" width="32" height="32"/>
+  <object id="989" name="Rubble" type="BreakableObstacle" gid="5958" x="224" y="288" width="32" height="32"/>
+  <object id="990" name="Rubble" type="BreakableObstacle" gid="5958" x="256" y="288" width="32" height="32"/>
+  <object id="991" name="Rubble" type="BreakableObstacle" gid="5958" x="416" y="288" width="32" height="32"/>
   <object id="992" name="Rubble" type="BreakableObstacle" gid="5958" x="288" y="416" width="32" height="32"/>
   <object id="993" name="Rubble" type="BreakableObstacle" gid="5958" x="288" y="352" width="32" height="32"/>
   <object id="996" name="Item Chest" type="Chest" gid="6005" x="128" y="672" width="32" height="32">
@@ -2478,7 +2478,7 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1020" name="Spike Trap" type="Trap" gid="5911" x="256" y="480" width="32" height="32">
+  <object id="1020" name="Spike Trap" type="Trap" gid="5911" x="192" y="544" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -2513,7 +2513,7 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1028" name="Spike Trap" type="Trap" gid="5911" x="64" y="576" width="32" height="32">
+  <object id="1028" name="Spike Trap" type="Trap" gid="5911" x="64" y="704" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -2568,7 +2568,7 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1042" name="Spike Trap" type="Trap" gid="5911" x="64" y="608" width="32" height="32">
+  <object id="1042" name="Spike Trap" type="Trap" gid="5911" x="96" y="608" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -2578,12 +2578,12 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1045" name="Spike Trap" type="Trap" gid="5911" x="64" y="480" width="32" height="32">
+  <object id="1045" name="Spike Trap" type="Trap" gid="5911" x="160" y="608" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1046" name="Spike Trap" type="Trap" gid="5911" x="64" y="512" width="32" height="32">
+  <object id="1046" name="Spike Trap" type="Trap" gid="5911" x="128" y="576" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
@@ -2593,16 +2593,16 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1049" name="Rubble" type="BreakableObstacle" gid="6593" x="192" y="480" width="32" height="32"/>
+  <object id="1049" name="Rubble" type="BreakableObstacle" gid="6593" x="128" y="608" width="32" height="32"/>
   <object id="1051" name="Rubble" type="BreakableObstacle" gid="6593" x="64" y="672" width="32" height="32"/>
-  <object id="1052" name="Rubble" type="BreakableObstacle" gid="6593" x="224" y="480" width="32" height="32"/>
+  <object id="1052" name="Rubble" type="BreakableObstacle" gid="6593" x="224" y="544" width="32" height="32"/>
   <object id="1053" name="Spike Trap" type="Trap" gid="5911" x="96" y="704" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
   <object id="1054" name="Rubble" type="BreakableObstacle" gid="6593" x="96" y="640" width="32" height="32"/>
-  <object id="1055" name="Rubble" type="BreakableObstacle" gid="6593" x="160" y="480" width="32" height="32"/>
+  <object id="1055" name="Rubble" type="BreakableObstacle" gid="6593" x="160" y="576" width="32" height="32"/>
   <object id="1056" name="Holy Relic" type="RecoveryTile" gid="6627" x="448" y="96" width="32" height="32">
    <properties>
     <property name="hpPerTurn" type="int" value="1"/>
@@ -2631,11 +2631,6 @@
   <object id="1062" name="Power Rune" type="BuffTile" gid="6611" x="384" y="160" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="1068" name="Boss Door" type="Door" gid="6565" x="448" y="224" width="32" height="32">
-   <properties>
-    <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1069" name="Counter Rune" type="BuffTile" gid="6619" x="512" y="96" width="32" height="32">
@@ -2846,7 +2841,7 @@
     <property name="destinationId" value="To Spike Room Upper"/>
    </properties>
   </object>
-  <object id="1113" name="Gate" type="Door" gid="6581" x="192" y="384" width="32" height="32">
+  <object id="1113" name="Gate" type="Door" gid="6571" x="224" y="416" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
@@ -2861,7 +2856,7 @@
     <property name="destinationId" value="To Key Room"/>
    </properties>
   </object>
-  <object id="1116" name="To Key Room" type="Portal" gid="6602" x="160" y="576" width="32" height="32">
+  <object id="1116" name="To Key Room" type="Portal" gid="6574" x="192" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Spike Room Lower"/>
    </properties>
@@ -2876,7 +2871,22 @@
     <property name="amrPerTurn" type="int" value="3"/>
    </properties>
   </object>
-  <object id="986" name="Rubble" type="BreakableObstacle" gid="5958" x="416" y="256" width="32" height="32"/>
+  <object id="986" name="Rubble" type="BreakableObstacle" gid="5958" x="448" y="256" width="32" height="32"/>
+  <object id="1123" name="Boss Gate" type="Door" gid="6571" x="448" y="224" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1124" name="Boss Gate Switch" type="Switch" gid="6595" x="768" y="480" width="32" height="32">
+   <properties>
+    <property name="triggersId" value="Boss Gate"/>
+   </properties>
+  </object>
+  <object id="1127" name="Gate" type="Door" gid="6581" x="256" y="384" width="32" height="32">
+   <properties>
+    <property name="isLocked" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.61">
   <object id="963" name="Door 1 Key" type="Key" gid="6753" x="352" y="672" width="32" height="32">
@@ -2909,9 +2919,11 @@
     <property name="routine_summon.class" value="Squeezy Jim"/>
    </properties>
   </object>
-  <object id="924" name="Deckard" type="Creep" gid="26" x="0" y="64" width="32" height="32">
+  <object id="924" name="Skeleton" type="Creep" gid="26" x="0" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
+    <property name="fallback_routine" value="routine_wait"/>
+    <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_wander" type="bool" value="true"/>
    </properties>
   </object>
@@ -2921,11 +2933,6 @@
    <properties>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="RET"/>
-   </properties>
-  </object>
-  <object id="1067" name="Boss Door Key" type="Key" gid="6391" x="768" y="448" width="32" height="32">
-   <properties>
-    <property name="usedWith" value="Boss Door"/>
    </properties>
   </object>
   <object id="1073" name="Healthy Potion" type="HealthPotion" gid="6487" x="256" y="192" width="32" height="32">
@@ -2950,26 +2957,31 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
+  <object id="1126" name="Healthy Potion" type="HealthPotion" gid="6487" x="384" y="704" width="32" height="32">
+   <properties>
+    <property name="hpHealed" type="int" value="5"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="915" name="Marrowon" type="Creep" gid="25" x="448" y="128" width="32" height="32">
+  <object id="915" name="Marrowon" type="Creep" gid="25" x="448" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="Commander" type="bool" value="true"/>
+    <property name="fallback_routine" value="routine_wait"/>
     <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
-    <property name="routine_summon.class" value="Deckard"/>
+    <property name="routine_summon.class" value="Skeleton"/>
    </properties>
   </object>
   <object id="953" name="Orc" type="Creep" gid="23" x="352" y="704" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="Items" value="Door 1 Key"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="919" name="Field Rat" type="Creep" gid="29" x="672" y="576" width="32" height="32">
@@ -2992,7 +3004,7 @@
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="917" name="Qi'Ko" type="Creep" gid="27" x="416" y="736" width="32" height="32">
+  <object id="917" name="Qi'Ko" type="Creep" gid="27" x="128" y="736" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
@@ -3031,28 +3043,22 @@
   <object id="958" name="Orc" type="Creep" gid="23" x="480" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="959" name="Orc" type="Creep" gid="23" x="96" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="960" name="Orc" type="Creep" gid="23" x="224" y="512" width="32" height="32">
+  <object id="960" name="Orc" type="Creep" gid="23" x="288" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="961" name="Field Rat" type="Creep" gid="29" x="640" y="704" width="32" height="32">
@@ -3074,43 +3080,36 @@
   <object id="971" name="Slim Jim" type="Creep" gid="21" x="128" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Squeezy Jim"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="972" name="Slim Jim" type="Creep" gid="21" x="128" y="704" width="32" height="32">
+  <object id="972" name="Slim Jim" type="Creep" gid="21" x="416" y="736" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Squeezy Jim"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1063" name="Orc" type="Creep" gid="23" x="288" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1064" name="Orc" type="Creep" gid="23" x="128" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
-    <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1072" name="Bridge Troll" type="Creep" gid="22" x="192" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
+    <property name="fallback_routine" value="routine_wait"/>
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
@@ -3439,6 +3438,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5831"/>
+   <tile gid="5832"/>
+   <tile gid="5833"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3464,12 +3466,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5871"/>
+   <tile gid="5872"/>
+   <tile gid="5873"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3495,6 +3494,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6566"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3523,7 +3523,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6041"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3578,7 +3577,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6594"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
