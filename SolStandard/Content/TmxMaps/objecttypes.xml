@@ -193,8 +193,10 @@
  <objecttype name="Trap" color="#ff0000">
   <property name="damage" type="int" default="1"/>
   <property name="enabled" type="bool" default="true"/>
+  <property name="itemPool" type="string"/>
   <property name="limitedTriggers" type="bool" default="false"/>
   <property name="triggersRemaining" type="int" default="1"/>
+  <property name="willSnare" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Unit" color="#8500aa">
   <property name="Class" type="string"/>

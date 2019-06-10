@@ -36,6 +36,7 @@ namespace SolStandard.Entity.General.Item
             ItemPool = itemPool;
             this.turnsRemaining = turnsRemaining;
             IsExpired = false;
+            CanMove = false;
         }
 
         public bool IsBroken

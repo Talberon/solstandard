@@ -504,7 +504,9 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["damage"]),
                                             Convert.ToInt32(currentProperties["triggersRemaining"]),
                                             Convert.ToBoolean(currentProperties["limitedTriggers"]),
-                                            Convert.ToBoolean(currentProperties["enabled"])
+                                            Convert.ToBoolean(currentProperties["enabled"]),
+                                            Convert.ToBoolean(currentProperties["willSnare"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Weapon:

@@ -1973,12 +1973,12 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="980" name="Deploy Blue" type="Deployment" gid="6342" x="544" y="448" width="32" height="32">
+  <object id="980" name="Deploy Blue" type="Deployment" gid="6342" x="512" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="983" name="Deploy Blue" type="Deployment" gid="6342" x="896" y="448" width="32" height="32">
+  <object id="983" name="Deploy Blue" type="Deployment" gid="6342" x="864" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -1988,7 +1988,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="985" name="Deploy Blue" type="Deployment" gid="6342" x="576" y="544" width="32" height="32">
+  <object id="985" name="Deploy Blue" type="Deployment" gid="6342" x="544" y="544" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2368,7 +2368,7 @@
    <properties>
     <property name="items" value="Health Potion|Swift Cheese|Mighty Meat|Alert Berries|Lucky Lemon"/>
     <property name="prices" value="0|0|0|0|0"/>
-    <property name="quantities" value="3|2|2|3|3"/>
+    <property name="quantities" value="3|1|1|1|1"/>
    </properties>
   </object>
   <object id="1087" name="Power Rune" type="BuffTile" gid="6611" x="192" y="160" width="32" height="32">
@@ -2463,11 +2463,12 @@
     <property name="itemPool" value="Items"/>
    </properties>
   </object>
-  <object id="1047" name="Magic Trap ." type="Trap" gid="6755" x="96" y="64" width="32" height="32">
+  <object id="1047" name="Snaring Trap" type="Trap" gid="6740" x="96" y="64" width="32" height="32">
    <properties>
-    <property name="damage" type="int" value="5"/>
+    <property name="damage" type="int" value="3"/>
     <property name="itemPool" value="Items"/>
     <property name="limitedTriggers" type="bool" value="true"/>
+    <property name="willSnare" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1048" name="Sandbag .." type="Barricade" gid="4643" x="192" y="64" width="32" height="32">
