@@ -1853,7 +1853,6 @@
    <tile gid="5673"/>
    <tile gid="5673"/>
    <tile gid="5673"/>
-   <tile gid="5673"/>
    <tile gid="5715"/>
    <tile gid="5675"/>
    <tile gid="5958"/>
@@ -1861,6 +1860,7 @@
    <tile gid="5919"/>
    <tile gid="5715"/>
    <tile gid="5675"/>
+   <tile gid="5673"/>
    <tile gid="5673"/>
    <tile gid="5673"/>
    <tile gid="5673"/>

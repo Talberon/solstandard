@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -42,7 +41,6 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit roamer = GameContext.ActiveUnit;
             GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent("Waiting...", 50));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
