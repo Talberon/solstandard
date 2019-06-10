@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="571">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="574">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -1820,6 +1820,7 @@
  <objectgroup id="5" name="Entities">
   <object id="535" name="Debug Dungeon" type="SelectMap" gid="6334" x="480" y="32" width="32" height="32">
    <properties>
+    <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -1831,7 +1832,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="542" name="Bellriver Tavern" type="SelectMap" gid="6326" x="384" y="448" width="32" height="32">
+  <object id="542" name="Bellriver Tavern" type="SelectMap" gid="6311" x="384" y="448" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Tavern_Inn.tmx"/>
@@ -1843,7 +1844,7 @@
     <property name="valueTaxes" type="int" value="150"/>
    </properties>
   </object>
-  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6326" x="512" y="416" width="32" height="32">
+  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6311" x="512" y="416" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_01.tmx"/>
@@ -1854,7 +1855,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="547" name="Atheion Grassland" type="SelectMap" gid="6326" x="128" y="224" width="32" height="32">
+  <object id="547" name="Atheion Grassland" type="SelectMap" gid="6313" x="128" y="224" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_01.tmx"/>
@@ -1869,22 +1870,22 @@
   </object>
   <object id="551" name="Debug Arena" type="SelectMap" gid="6334" x="512" y="32" width="32" height="32">
    <properties>
+    <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_02.tmx"/>
     <property name="modeAssassinate" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="554" name="King's Feast" type="SelectMap" gid="6326" x="416" y="320" width="32" height="32">
+  <object id="554" name="King's Feast" type="SelectMap" gid="6311" x="416" y="320" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Dungeon_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="maxUnitsBlue" type="int" value="7"/>
     <property name="maxUnitsRed" type="int" value="7"/>
-    <property name="modeSeize" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="555" name="Tower of Arzon" type="SelectMap" gid="6326" x="864" y="160" width="32" height="32">
+  <object id="555" name="Tower of Arzon" type="SelectMap" gid="6311" x="864" y="160" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Tower_01.tmx"/>
@@ -1897,7 +1898,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="557" name="Dungeon Master" type="SelectMap" gid="6326" x="704" y="320" width="32" height="32">
+  <object id="557" name="Dungeon Master" type="SelectMap" gid="6313" x="800" y="288" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_02_Dungeon.tmx"/>
@@ -1909,7 +1910,7 @@
     <property name="modeSeize" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="561" name="Jirai Archipelago" type="SelectMap" gid="6326" x="512" y="544" width="32" height="32">
+  <object id="561" name="Jirai Archipelago" type="SelectMap" gid="6312" x="512" y="544" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Jirai_Archipelago.tmx"/>
@@ -1922,7 +1923,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="562" name="Raider's Cave" type="SelectMap" gid="6326" x="608" y="256" width="32" height="32">
+  <object id="562" name="Raider's Cave" type="SelectMap" gid="6314" x="608" y="320" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Raid_Dungeon.tmx"/>
@@ -1934,7 +1935,7 @@
     <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
-  <object id="563" name="Lakefront Market" type="SelectMap" gid="6326" x="192" y="384" width="32" height="32">
+  <object id="563" name="Lakefront Market" type="SelectMap" gid="6311" x="192" y="384" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Town_Market.tmx"/>
@@ -1947,7 +1948,7 @@
     <property name="valueTaxes" type="int" value="100"/>
    </properties>
   </object>
-  <object id="565" name="Dusk Temple" type="SelectMap" gid="6326" x="736" y="480" width="32" height="32">
+  <object id="565" name="Dusk Temple" type="SelectMap" gid="6311" x="736" y="480" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Dusk_Temple.tmx"/>
@@ -1961,6 +1962,7 @@
   </object>
   <object id="566" name="AI Debug" type="SelectMap" gid="6334" x="544" y="32" width="32" height="32">
    <properties>
+    <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_03_AI.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -1971,7 +1973,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="567" name="Master Control" type="SelectMap" gid="6326" x="320" y="384" width="32" height="32">
+  <object id="567" name="Master Control" type="SelectMap" gid="6311" x="320" y="384" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Master_Control.tmx"/>
@@ -1983,7 +1985,7 @@
     <property name="valueTaxes" type="int" value="300"/>
    </properties>
   </object>
-  <object id="568" name="Verdant Forest" type="SelectMap" gid="6326" x="480" y="192" width="32" height="32">
+  <object id="568" name="Verdant Forest" type="SelectMap" gid="6311" x="480" y="192" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Verdant_Forest.tmx"/>
@@ -1995,7 +1997,7 @@
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
-  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6326" x="672" y="288" width="32" height="32">
+  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6312" x="672" y="288" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Collosseum_01.tmx"/>
@@ -2003,6 +2005,7 @@
     <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="3"/>
     <property name="maxUnitsRed" type="int" value="3"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
@@ -2018,6 +2021,29 @@
     <property name="modeSolo.team" value="Red"/>
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="572" name="Hunting Grounds" type="SelectMap" gid="6320" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
+    <property name="maxUnitsBlue" type="int" value="6"/>
+    <property name="maxUnitsRed" type="int" value="6"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeRelic" type="bool" value="true"/>
+    <property name="modeRelic.goal" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="573" name="Prison Break" type="SelectMap" gid="6316" x="576" y="512" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Escape_Prison.tmx"/>
+    <property name="maxUnitsBlue" type="int" value="5"/>
+    <property name="maxUnitsRed" type="int" value="8"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeEscape" type="bool" value="true"/>
+    <property name="modeEscape.team" value="Blue"/>
+    <property name="modeRoutArmy" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

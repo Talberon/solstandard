@@ -166,7 +166,7 @@
   <property name="capturableByRed" type="bool" default="false"/>
  </objecttype>
  <objecttype name="SelectMap" color="#fe2973">
-  <property name="draftUnits" type="bool" default="false"/>
+  <property name="draftUnits" type="bool" default="true"/>
   <property name="mapFileName" type="string" default="Map_00.tmx"/>
   <property name="mapSong" type="string" default="MilitaryTheme"/>
   <property name="maxDuplicateUnits" type="int" default="2"/>
