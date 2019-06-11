@@ -39,19 +39,19 @@ namespace SolStandard.Utility.Buttons
         public const float TriggerDeadzone = 0.2f;
         private const int InitialInputDelayInFrames = 15;
         private const int RepeatInputDelayInFrames = 5;
-        
+
         protected ControlMapper(ControlType controlType)
         {
             ControlType = controlType;
         }
-        
+
         public abstract bool Press(Input input, PressType pressType);
         public abstract bool Peek(Input input, PressType pressType);
         public abstract bool Released(Input input);
 
         protected bool InstantRepeat(GameControl control)
         {
-            InputIconProvider.UpdateLastInputType(ControlType);
+            if (control.Pressed) InputIconProvider.UpdateLastInputType(ControlType);
             return control.Pressed;
         }
 
