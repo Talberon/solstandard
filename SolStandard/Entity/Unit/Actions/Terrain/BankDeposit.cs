@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -13,15 +14,15 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions
+namespace SolStandard.Entity.Unit.Actions.Terrain
 {
-    public class BankWithdraw : UnitAction, IIncrementableAction
+    public class BankDeposit : UnitAction, IIncrementableAction
     {
         private readonly Bank bank;
         public int Value { get; private set; }
-        private const string DescriptionTag = "Withdraw: ";
+        private const string DescriptionTag = "Deposit: ";
 
-        public BankWithdraw(Bank bank, int value = 0) : base(
+        public BankDeposit(Bank bank, int value = 0) : base(
             icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
             name: DescriptionTag + value + Currency.CurrencyAbbreviation,
             description: GenerateActionDescription(),
@@ -51,14 +52,17 @@ namespace SolStandard.Entity.Unit.Actions
             return new WindowContentGrid(new [,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont, "Withdraw"),
+                        new RenderText(AssetManager.WindowFont, "Deposit"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
-                        new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
+                        new RenderText(AssetManager.WindowFont,
+                            Currency.CurrencyAbbreviation +
+                            " in the bank." + Environment.NewLine +
+                            "Value will still count towards your total for Taxes victory."),
                         new RenderBlank(),
                         new RenderBlank(),
                     },
                     {
-                        new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),
+                        new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),
                         InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
@@ -71,11 +75,11 @@ namespace SolStandard.Entity.Unit.Actions
 
         public void Increment(int amountToIncrement)
         {
-            int bankCurrentGold = Bank.GetTeamGoldInBank(GameContext.ActiveUnit.Team);
+            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentGold;
 
-            if (Value + amountToIncrement > bankCurrentGold)
+            if (Value + amountToIncrement > activeUnitCurrentGold)
             {
-                Value = bankCurrentGold;
+                Value = activeUnitCurrentGold;
             }
             else
             {
@@ -110,23 +114,15 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 if (SelectedBankIsThisBank(selectedBank))
                 {
-                    if (Value <= Bank.GetTeamGoldInBank(actingUnit.Team))
-                    {
-                        Queue<IEvent> eventQueue = new Queue<IEvent>();
-                        eventQueue.Enqueue(new BankWithdrawEvent(actingUnit, Value));
-                        eventQueue.Enqueue(new WaitFramesEvent(10));
-                        eventQueue.Enqueue(new AdditionalActionEvent());
-                        GlobalEventQueue.QueueEvents(eventQueue);
-                    }
-                    else
-                    {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not enough Gold in bank!", 50);
-                        AssetManager.WarningSFX.Play();
-                    }
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(new BankDepositEvent(actingUnit, Value));
+                    eventQueue.Enqueue(new WaitFramesEvent(50));
+                    eventQueue.Enqueue(new AdditionalActionEvent());
+                    GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot withdraw Gold here!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot deposit Gold here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }

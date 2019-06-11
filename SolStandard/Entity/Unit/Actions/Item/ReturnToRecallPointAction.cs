@@ -12,7 +12,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions
+namespace SolStandard.Entity.Unit.Actions.Item
 {
     public class ReturnToRecallPointAction : UnitAction
     {
