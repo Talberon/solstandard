@@ -9,12 +9,12 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class CollectTheRelics : Objective
+    public class CoOpCollectTheRelics : Objective
     {
         private Window objectiveWindow;
         private readonly int relicsToCollect;
 
-        public CollectTheRelics(int relicsToCollect)
+        public CoOpCollectTheRelics(int relicsToCollect)
         {
             this.relicsToCollect = relicsToCollect;
         }
@@ -41,7 +41,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                                 VictoryConditions.CollectTheRelicsVS,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)"),
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (Co-Op)"),
                         }
                     },
                     2,
@@ -54,30 +54,24 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public override bool ConditionsMet()
         {
-            if (TeamHasCollectedTargetNumberOfRelics(Team.Red))
+            if (PlayerTeamsHaveCollectedEnoughRelics)
             {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
-
-            if (TeamHasCollectedTargetNumberOfRelics(Team.Blue))
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
+                CoOpVictory = true;
+                return CoOpVictory;
             }
 
             if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
             {
-                GameIsADraw = true;
-                return GameIsADraw;
+                AllPlayersLose = true;
+                return AllPlayersLose;
             }
 
             return false;
         }
 
-        private bool TeamHasCollectedTargetNumberOfRelics(Team team)
+        private bool PlayerTeamsHaveCollectedEnoughRelics
         {
-            return GetRelicCountForTeam(team) >= relicsToCollect;
+            get { return (GetRelicCountForTeam(Team.Red) + GetRelicCountForTeam(Team.Blue)) >= relicsToCollect; }
         }
 
         private static int GetRelicCountForTeam(Team team)

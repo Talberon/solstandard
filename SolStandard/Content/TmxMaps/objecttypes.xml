@@ -175,8 +175,9 @@
   <property name="modeAssassinate" type="bool" default="true"/>
   <property name="modeEscape" type="bool" default="false"/>
   <property name="modeEscape.team" type="string" default="Blue"/>
-  <property name="modeRelic" type="bool" default="false"/>
+  <property name="modeRelic.coop" type="bool" default="false"/>
   <property name="modeRelic.goal" type="int" default="0"/>
+  <property name="modeRelic.vs" type="bool" default="false"/>
   <property name="modeRoutArmy" type="bool" default="true"/>
   <property name="modeSeize" type="bool" default="false"/>
   <property name="modeSolo.team" type="string" default="Blue"/>

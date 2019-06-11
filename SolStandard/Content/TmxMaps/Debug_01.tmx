@@ -2165,7 +2165,7 @@
   </object>
   <object id="837" name="Vending Machine" type="Vendor" gid="6535" x="448" y="128" width="32" height="32">
    <properties>
-    <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple"/>
+    <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Lemon"/>
     <property name="prices" value="10|5|8|5"/>
     <property name="quantities" value="1|1|1|2"/>
    </properties>
@@ -2199,7 +2199,7 @@
   </object>
   <object id="863" name="Vending Machine" type="Vendor" gid="6535" x="256" y="160" width="32" height="32">
    <properties>
-    <property name="items" value="Giant Bomb|Regular Bomb|Hex"/>
+    <property name="items" value="Giant Bomb|Regular Bomb|Magic Trap"/>
     <property name="prices" value="5|1|1"/>
     <property name="quantities" value="10|10|16"/>
    </properties>

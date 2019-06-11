@@ -53,6 +53,7 @@
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
     <Compile Include="Containers\Contexts\WinConditions\CollectTheRelics.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\CoOpCollectTheRelics.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Escape.cs" />
     <Compile Include="Containers\Contexts\WinConditions\MapObjectives.cs" />
     <Compile Include="Containers\Contexts\WinConditions\SoloDefeatBoss.cs" />

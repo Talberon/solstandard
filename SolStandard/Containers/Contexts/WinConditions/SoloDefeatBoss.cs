@@ -52,8 +52,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
             if (AllPlayerUnitsAreDead)
             {
                 resultText = "DEFEAT!";
-                SoloGameLoss = true;
-                return SoloGameLoss;
+                AllPlayersLose = true;
+                return AllPlayersLose;
             }
 
             resultText = "ALL BOSSES DEFEATED!";

@@ -452,7 +452,8 @@ namespace SolStandard.Map
                                                 (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
                                                 Convert.ToBoolean(currentProperties["modeEscape"]),
                                                 (Team) Enum.Parse(typeof(Team), currentProperties["modeEscape.team"]),
-                                                Convert.ToBoolean(currentProperties["modeRelic"]),
+                                                Convert.ToBoolean(currentProperties["modeRelic.vs"]),
+                                                Convert.ToBoolean(currentProperties["modeRelic.coop"]),
                                                 Convert.ToInt32(currentProperties["modeRelic.goal"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),

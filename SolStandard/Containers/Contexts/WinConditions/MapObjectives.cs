@@ -13,7 +13,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         private readonly bool modeTaxes;
         private readonly bool modeSoloDefeatBoss;
         private readonly bool modeEscape;
-        private readonly bool modeCollectTheRelics;
+        private readonly bool modeCollectTheRelicsVs;
+        private readonly bool modeCollectTheRelicsCoOp;
 
         private readonly int valueTaxes;
         private readonly Team soloPlayerTeam;
@@ -21,8 +22,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         private readonly int relicsOnMap;
 
         public MapObjectives(bool modeAssassinate, bool modeRoutArmy, bool modeSeize, bool modeTaxes, int valueTaxes,
-            bool modeSoloDefeatBoss, Team soloPlayerTeam, bool modeEscape, Team escapeTeam, bool modeCollectTheRelics,
-            int relicsOnMap)
+            bool modeSoloDefeatBoss, Team soloPlayerTeam, bool modeEscape, Team escapeTeam, bool modeCollectTheRelicsVs,
+            bool modeCollectTheRelicsCoOp, int relicsOnMap)
         {
             this.modeAssassinate = modeAssassinate;
             this.modeRoutArmy = modeRoutArmy;
@@ -33,7 +34,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
             this.soloPlayerTeam = soloPlayerTeam;
             this.modeEscape = modeEscape;
             this.escapeTeam = escapeTeam;
-            this.modeCollectTheRelics = modeCollectTheRelics;
+            this.modeCollectTheRelicsVs = modeCollectTheRelicsVs;
+            this.modeCollectTheRelicsCoOp = modeCollectTheRelicsCoOp;
             this.relicsOnMap = relicsOnMap;
         }
 
@@ -54,9 +56,14 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         new Escape(escapeTeam, (escapeTeam == Team.Blue) ? Team.Red : Team.Blue));
                 }
 
-                if (modeCollectTheRelics)
+                if (modeCollectTheRelicsVs)
                 {
-                    objectives.Add(VictoryConditions.CollectTheRelics, new CollectTheRelics(relicsOnMap));
+                    objectives.Add(VictoryConditions.CollectTheRelicsVS, new CollectTheRelics(relicsOnMap));
+                }
+
+                if (modeCollectTheRelicsCoOp)
+                {
+                    objectives.Add(VictoryConditions.CollectTheRelicsCoOp, new CoOpCollectTheRelics(relicsOnMap));
                 }
 
                 //SOLO OBJECTIVES

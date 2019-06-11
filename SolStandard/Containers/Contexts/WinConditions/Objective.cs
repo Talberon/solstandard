@@ -15,7 +15,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         Surrender,
         Escape,
         SoloDefeatBoss,
-        CollectTheRelics
+        CollectTheRelicsVS,
+        CollectTheRelicsCoOp
     }
 
     public abstract class Objective
@@ -25,7 +26,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         protected bool BlueTeamWins;
         protected bool RedTeamWins;
         protected bool GameIsADraw;
-        protected bool SoloGameLoss;
+        protected bool CoOpVictory;
+        protected bool AllPlayersLose;
 
         public virtual IRenderable ObjectiveInfo
         {
@@ -59,7 +61,14 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 TransferToResultsScreen();
             }
 
-            if (SoloGameLoss)
+            if (CoOpVictory)
+            {
+                GameContext.StatusScreenView.BlueTeamResultText = "CO-OP VICTORY!";
+                GameContext.StatusScreenView.RedTeamResultText = "CO-OP VICTORY!";
+                TransferToResultsScreen();
+            }
+
+            if (AllPlayersLose)
             {
                 GameContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
                 GameContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";
