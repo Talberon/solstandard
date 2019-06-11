@@ -32,17 +32,17 @@ namespace SolStandard.Containers.Contexts.WinConditions
             get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
         }
 
-        private static Window BuildObjectiveWindow()
+        private Window BuildObjectiveWindow()
         {
             return new Window(new WindowContentGrid(new IRenderable[,]
                 {
                     {
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.SoloDefeatBoss,
                             new Vector2(GameDriver.CellSize)),
-                        new RenderText(AssetManager.WindowFont, "Solo Defeat Boss"),
+                        new RenderText(AssetManager.WindowFont, "Solo Defeat Boss [" + playerTeam + "]"),
                     }
                 }, 2, HorizontalAlignment.Centered
-            ), ObjectiveWindowColor, HorizontalAlignment.Centered);
+            ), TeamUtility.DetermineTeamColor(playerTeam), HorizontalAlignment.Centered);
         }
 
         public override bool ConditionsMet()

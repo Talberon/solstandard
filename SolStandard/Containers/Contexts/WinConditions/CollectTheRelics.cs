@@ -41,7 +41,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                                 VictoryConditions.CollectTheRelics,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Collect <" + relicsToCollect + "> Relics"),
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics"),
                         }
                     },
                     2,
