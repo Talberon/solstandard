@@ -52,6 +52,11 @@
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\CollectTheRelics.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\CoOpCollectTheRelics.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\Escape.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\MapObjectives.cs" />
+    <Compile Include="Containers\Contexts\WinConditions\SoloDefeatBoss.cs" />
     <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Scenario.cs" />
     <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
     <Compile Include="Entity\General\Drawbridge.cs" />
+    <Compile Include="Entity\General\EscapeEntity.cs" />
     <Compile Include="Entity\General\Item\Barricade.cs" />
     <Compile Include="Entity\General\Item\BlinkItem.cs" />
     <Compile Include="Entity\General\Item\Bomb.cs" />
@@ -94,6 +100,7 @@
     <Compile Include="Entity\General\Item\LadderBridge.cs" />
     <Compile Include="Entity\General\Item\Magnet.cs" />
     <Compile Include="Entity\General\Item\RecallCharm.cs" />
+    <Compile Include="Entity\General\Item\Relic.cs" />
     <Compile Include="Entity\General\Item\Weapon.cs" />
     <Compile Include="Entity\General\Item\Currency.cs" />
     <Compile Include="Entity\General\Item\Key.cs" />
@@ -141,6 +148,7 @@
     <Compile Include="Entity\Unit\Actions\Creeps\SummoningRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\TreasureHunterRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\TriggerHappyRoutine.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\WaitRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\WanderRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
@@ -180,6 +188,7 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\Actions\ReturnToRecallPointAction.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
@@ -291,7 +300,6 @@
     <Compile Include="Map\Elements\MapTile.cs" />
     <Compile Include="Map\Elements\MapElement.cs" />
     <Compile Include="Map\MapInfo.cs" />
-    <Compile Include="Map\MapObjectives.cs" />
     <Compile Include="Map\TmxMapParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -300,10 +308,12 @@
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
+    <Compile Include="Utility\Assets\InputIconProvider.cs" />
     <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
     <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
+    <Compile Include="Utility\Assets\TeamIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
     <Compile Include="Utility\Buttons\GameControl.cs" />
     <Compile Include="Utility\Buttons\GameControlParser.cs" />
@@ -341,10 +351,12 @@
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
     <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
+    <Compile Include="Utility\Events\Network\ChangePlayerTeamsEvent.cs" />
     <Compile Include="Utility\Events\Network\CloseAdHocDraftMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CombatNotifyStateCompleteEvent.cs" />
     <Compile Include="Utility\Events\Network\ConcedeEvent.cs" />
@@ -415,6 +427,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
@@ -556,10 +569,16 @@
     <Content Include="Content\TmxMaps\Draft_Dusk_Temple.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Escape_Prison.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Island_Coast.tmx">
@@ -601,15 +620,15 @@
     <Content Include="Content\TmxMaps\overworld-32.tsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Solo_Alpha_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utility\Buttons\Legacy" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

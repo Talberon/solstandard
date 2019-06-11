@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons
 {
     public interface IController
     {
+        ControlType ControlType { get; }
         GameControl GetInput(Input input);
         IRenderable GetInputIcon(Input input, Vector2 iconSize);
         

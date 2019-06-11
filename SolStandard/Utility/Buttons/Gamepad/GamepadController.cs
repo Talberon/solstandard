@@ -92,10 +92,15 @@ namespace SolStandard.Utility.Buttons.Gamepad
             return inputs[input];
         }
 
+        public ControlType ControlType
+        {
+            get { return ControlType.Gamepad; }
+        }
+
         public IRenderable GetInputIcon(Input input, Vector2 iconSize)
         {
             if (input == Input.None) return new RenderBlank();
-            
+
             return ButtonIconProvider.GetButton(icons[input], iconSize);
         }
 

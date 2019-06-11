@@ -19,7 +19,8 @@ namespace SolStandard.Utility.Model
         Defender,
         Glutton,
         Prey,
-        Kingslayer
+        Kingslayer,
+        Wait
     }
 
     public class CreepRoutineModel
@@ -41,6 +42,7 @@ namespace SolStandard.Utility.Model
         public const string RoutineGluttonProp = "routine_glutton";
         public const string RoutinePreyProp = "routine_prey";
         public const string RoutineKingslayerProp = "routine_kingslayer";
+        public const string RoutineWaitProp = "routine_wait";
 
         public Role CreepClass { get; private set; }
         private readonly bool isCommander;
@@ -58,11 +60,12 @@ namespace SolStandard.Utility.Model
         private readonly bool routineGlutton;
         private readonly bool routinePrey;
         private readonly bool routineKingslayer;
+        private readonly bool routineWait;
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
             bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender,
-            bool routineGlutton, bool routinePrey, bool routineKingslayer)
+            bool routineGlutton, bool routinePrey, bool routineKingslayer, bool routineWait)
         {
             CreepClass = creepClass;
             this.isCommander = isCommander;
@@ -80,6 +83,7 @@ namespace SolStandard.Utility.Model
             this.routineGlutton = routineGlutton;
             this.routinePrey = routinePrey;
             this.routineKingslayer = routineKingslayer;
+            this.routineWait = routineWait;
         }
 
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
@@ -107,6 +111,8 @@ namespace SolStandard.Utility.Model
                     return new PreyRoutine(isIndependent);
                 case Routine.Kingslayer:
                     return new KingslayerRoutine(isIndependent);
+                case Routine.Wait:
+                    return new WaitRoutine();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -136,7 +142,8 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(creepProps[RoutineDefenderProp]),
                 Convert.ToBoolean(creepProps[RoutineGluttonProp]),
                 Convert.ToBoolean(creepProps[RoutinePreyProp]),
-                Convert.ToBoolean(creepProps[RoutineKingslayerProp])
+                Convert.ToBoolean(creepProps[RoutineKingslayerProp]),
+                Convert.ToBoolean(creepProps[RoutineWaitProp])
             );
         }
 
@@ -163,6 +170,7 @@ namespace SolStandard.Utility.Model
             if (RoutineGluttonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Glutton;
             if (RoutinePreyProp.EndsWith(routineName, true, invariantCulture)) return Routine.Prey;
             if (RoutineKingslayerProp.EndsWith(routineName, true, invariantCulture)) return Routine.Kingslayer;
+            if (RoutineWaitProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wait;
 
             return Routine.None;
         }
@@ -188,7 +196,8 @@ namespace SolStandard.Utility.Model
                     {RoutineDefenderProp, routineDefender.ToString()},
                     {RoutineGluttonProp, routineGlutton.ToString()},
                     {RoutinePreyProp, routinePrey.ToString()},
-                    {RoutineKingslayerProp, routineKingslayer.ToString()}
+                    {RoutineKingslayerProp, routineKingslayer.ToString()},
+                    {RoutineWaitProp, routineWait.ToString()}
                 };
             }
         }

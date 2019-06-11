@@ -1745,7 +1745,6 @@
  <tile id="4466" terrain="28,,,"/>
  <tile id="4467" terrain=",28,28,"/>
  <tile id="4468" terrain="28,,,28"/>
- <tile id="5320" terrain="15,15,15,15"/>
  <tile id="5324" terrain=",,,16"/>
  <tile id="5325" terrain=",,16,16"/>
  <tile id="5326" terrain=",,16,"/>
@@ -1773,6 +1772,7 @@
  <tile id="5367" terrain="16,16,,16"/>
  <tile id="5368" terrain="16,16,16,"/>
  <tile id="5369" terrain=",15,,15"/>
+ <tile id="5370" terrain="15,15,15,15"/>
  <tile id="5371" terrain="15,,15,"/>
  <tile id="5372" terrain="15,15,,15"/>
  <tile id="5373" terrain="15,15,15,"/>
@@ -1811,7 +1811,6 @@
  <tile id="5473" terrain=",,30,"/>
  <tile id="5474" terrain="30,30,30,"/>
  <tile id="5475" terrain="30,30,,30"/>
- <tile id="5480" terrain="18,18,18,18"/>
  <tile id="5484" terrain=",,,19"/>
  <tile id="5485" terrain=",,19,19"/>
  <tile id="5486" terrain=",,19,"/>
@@ -1828,8 +1827,6 @@
  <tile id="5497" terrain=",20,20,20"/>
  <tile id="5498" terrain="20,,20,20"/>
  <tile id="5499" terrain="31,31,31,"/>
- <tile id="5500" terrain="31,31,,"/>
- <tile id="5501" terrain="31,31,,"/>
  <tile id="5502" terrain="31,31,,31"/>
  <tile id="5511" terrain=",30,,30"/>
  <tile id="5512" terrain="30,30,30,30"/>
@@ -1842,6 +1839,7 @@
  <tile id="5527" terrain="19,19,,19"/>
  <tile id="5528" terrain="19,19,19,"/>
  <tile id="5529" terrain=",18,,18"/>
+ <tile id="5530" terrain="18,18,18,18"/>
  <tile id="5531" terrain="18,,18,"/>
  <tile id="5532" terrain="18,18,,18"/>
  <tile id="5533" terrain="18,18,18,"/>
@@ -1850,8 +1848,6 @@
  <tile id="5536" terrain="20,,20,"/>
  <tile id="5537" terrain="20,20,,20"/>
  <tile id="5538" terrain="20,20,20,"/>
- <tile id="5539" terrain="31,,31,"/>
- <tile id="5542" terrain=",31,,31"/>
  <tile id="5551" terrain=",30,,"/>
  <tile id="5552" terrain="30,30,,"/>
  <tile id="5553" terrain="30,,,"/>
@@ -1865,8 +1861,6 @@
  <tile id="5575" terrain="20,20,,"/>
  <tile id="5576" terrain="20,,,"/>
  <tile id="5579" terrain="31,,31,31"/>
- <tile id="5580" terrain=",,31,31"/>
- <tile id="5581" terrain=",,31,31"/>
  <tile id="5582" terrain=",31,31,31"/>
  <tile id="5635">
   <animation>
@@ -2012,17 +2006,17 @@
    <wangedgecolor name="" color="#ff0000" tile="455" probability="1"/>
    <wangedgecolor name="" color="#00ff00" tile="533" probability="1"/>
    <wangtile tileid="413" wangid="0x2010202"/>
-   <wangtile tileid="414" wangid="0x2010102"/>
    <wangtile tileid="415" wangid="0x1010102"/>
-   <wangtile tileid="416" wangid="0x1010202"/>
+   <wangtile tileid="417" wangid="0x2010102"/>
+   <wangtile tileid="419" wangid="0x1010202"/>
    <wangtile tileid="453" wangid="0x2010201"/>
    <wangtile tileid="454" wangid="0x2010101"/>
    <wangtile tileid="455" wangid="0x1010101"/>
    <wangtile tileid="456" wangid="0x1010201"/>
    <wangtile tileid="493" wangid="0x2020201"/>
-   <wangtile tileid="494" wangid="0x2020101"/>
    <wangtile tileid="495" wangid="0x1020101"/>
-   <wangtile tileid="496" wangid="0x1020201"/>
+   <wangtile tileid="497" wangid="0x2020101"/>
+   <wangtile tileid="499" wangid="0x1020201"/>
    <wangtile tileid="533" wangid="0x2020202"/>
    <wangtile tileid="534" wangid="0x2020102"/>
    <wangtile tileid="535" wangid="0x1020102"/>
@@ -2130,6 +2124,26 @@
    <wangtile tileid="1661" wangid="0x2020102"/>
    <wangtile tileid="1662" wangid="0x1020102"/>
    <wangtile tileid="1663" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="Dirt Wall" tile="6120">
+   <wangedgecolor name="" color="#ff0000" tile="6163" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="6120" probability="1"/>
+   <wangtile tileid="6120" wangid="0x2020202"/>
+   <wangtile tileid="6121" wangid="0x2020102"/>
+   <wangtile tileid="6122" wangid="0x1020102"/>
+   <wangtile tileid="6123" wangid="0x1020202"/>
+   <wangtile tileid="6160" wangid="0x2010202"/>
+   <wangtile tileid="6161" wangid="0x2010102"/>
+   <wangtile tileid="6162" wangid="0x1010202"/>
+   <wangtile tileid="6163" wangid="0x1010101"/>
+   <wangtile tileid="6200" wangid="0x2010201"/>
+   <wangtile tileid="6201" wangid="0x2020101"/>
+   <wangtile tileid="6202" wangid="0x1020201"/>
+   <wangtile tileid="6203" wangid="0x1020101"/>
+   <wangtile tileid="6240" wangid="0x2020201"/>
+   <wangtile tileid="6241" wangid="0x1010201"/>
+   <wangtile tileid="6242" wangid="0x1010102"/>
+   <wangtile tileid="6243" wangid="0x2010101"/>
   </wangset>
  </wangsets>
 </tileset>

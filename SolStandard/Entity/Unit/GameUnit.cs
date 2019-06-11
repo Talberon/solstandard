@@ -230,7 +230,7 @@ namespace SolStandard.Entity.Unit
 
                     for (int i = 0; i < Inventory.Count; i++)
                     {
-                        content[i + offset, 0] = Inventory[i].Icon.Clone();
+                        content[i + offset, 0] = Inventory[i].Icon;
                         content[i + offset, 1] = new RenderText(AssetManager.WindowFont, Inventory[i].Name);
                     }
 
@@ -429,17 +429,6 @@ namespace SolStandard.Entity.Unit
                     2
                 );
             }
-        }
-
-
-        public void AddContextualAction(UnitAction action)
-        {
-            ContextualActions.Add(action);
-        }
-
-        public IRenderable GetMapSprite(Vector2 size, UnitAnimationState animation = UnitAnimationState.Idle)
-        {
-            return GetMapSprite(size, Color.White, animation);
         }
 
         public IRenderable GetMapSprite(Vector2 size, Color color,
@@ -714,7 +703,17 @@ namespace SolStandard.Entity.Unit
 
         public bool IsAlive
         {
-            get { return stats.CurrentHP > 0; }
+            get { return stats.CurrentHP > 0 && MapEntity != null; }
+        }
+
+        public void Escape()
+        {
+            IsExhausted = true;
+            DropSpoils();
+            largePortrait.DefaultColor = DeadPortraitColor;
+            mediumPortrait.DefaultColor = DeadPortraitColor;
+            smallPortrait.DefaultColor = DeadPortraitColor;
+            MapEntity = null;
         }
 
         private void DropSpoils()

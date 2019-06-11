@@ -14,6 +14,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Containers.View
 {
@@ -246,12 +247,12 @@ namespace SolStandard.Containers.View
                 case MenuType.ActionMenu:
                     menuName = "Unit Actions";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadRight, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowText.Height));
                     break;
                 case MenuType.InventoryMenu:
                     menuName = "Inventory";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = ButtonIconProvider.GetButton(ButtonIcon.DpadLeft, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowText.Height));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("menuType", menuType, null);
@@ -635,7 +636,7 @@ namespace SolStandard.Containers.View
         {
             //Bottom-left, above initiative window
             return new Vector2(WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - LeftUnitPortraitWindow.Height - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
 
@@ -673,7 +674,7 @@ namespace SolStandard.Containers.View
             //Bottom-right, above initiative window
             return new Vector2(
                 GameDriver.ScreenSize.X - RightUnitPortraitWindow.Width - WindowEdgeBuffer,
-                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - RightUnitPortraitWindow.Height - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
 
@@ -713,10 +714,10 @@ namespace SolStandard.Containers.View
             return new Vector2(
                 GameDriver.ScreenSize.X / 2 -
                 (float) InitiativeWindow.Width / 2,
-                GameDriver.ScreenSize.Y - BlueTeamWindow.Height
+                GameDriver.ScreenSize.Y - Math.Max(BlueTeamWindow.Height, RedTeamWindow.Height)
             );
         }
-
+        
         private Vector2 EntityWindowPosition()
         {
             //Top-right

@@ -68,6 +68,7 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D SpoilsIcon { get; private set; }
         public static ITexture2D ObjectiveIcons { get; private set; }
         public static ITexture2D CommanderIcon { get; private set; }
+        public static ITexture2D TeamIcons { get; private set; }
 
         public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
@@ -151,6 +152,7 @@ namespace SolStandard.Utility.Assets
             StatusIconProvider.LoadStatusIcons(StatusIcons);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
+            TeamIcons = ContentLoader.LoadTeamIcons(content);
 
             GamepadControlHelp = ContentLoader.LoadGamepadKeyMap(content);
             KeyboardControlHelp = ContentLoader.LoadKeyboardKeyMap(content);

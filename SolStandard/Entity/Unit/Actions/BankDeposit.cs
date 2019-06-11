@@ -10,8 +10,8 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new IRenderable[,]
+            return new WindowContentGrid(new [,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Deposit"),
@@ -63,9 +63,9 @@ namespace SolStandard.Entity.Unit.Actions
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),
-                        ButtonIconProvider.GetButton(ButtonIcon.Lb, iconSize),
+                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        ButtonIconProvider.GetButton(ButtonIcon.Rb, iconSize),
+                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

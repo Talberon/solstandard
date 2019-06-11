@@ -16,6 +16,7 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
 
@@ -185,7 +186,7 @@ namespace SolStandard.Containers.Contexts
                 {
                     new RenderText(AssetManager.PromptFont, "["),
                     new RenderText(AssetManager.PromptFont, "Press "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A,
+                    InputIconProvider.GetInputIcon(Input.Confirm,
                         new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
                     new RenderText(AssetManager.PromptFont, "]")
                 }

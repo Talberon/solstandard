@@ -17,6 +17,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
@@ -78,6 +79,8 @@ namespace SolStandard.Containers.Contexts
 
         public void ResolveTurn()
         {
+            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+            
             TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);
@@ -381,7 +384,7 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
-                    ButtonIconProvider.GetButton(ButtonIcon.A,
+                    InputIconProvider.GetInputIcon(Input.Confirm,
                         new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -173,10 +174,32 @@ namespace SolStandard.Map.Elements.Cursor
             switch (GameContext.ActivePlayer)
             {
                 case PlayerIndex.One:
-                    SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
+                    switch (GameContext.P1Team)
+                    {
+                        case Team.Blue:
+                            SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
+                            break;
+                        case Team.Red:
+                            SpriteAtlas.SetCellIndex((int) CursorColor.Red);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
                     break;
                 case PlayerIndex.Two:
-                    SpriteAtlas.SetCellIndex((int) CursorColor.Red);
+                    switch (GameContext.P2Team)
+                    {
+                        case Team.Blue:
+                            SpriteAtlas.SetCellIndex((int) CursorColor.Blue);
+                            break;
+                        case Team.Red:
+                            SpriteAtlas.SetCellIndex((int) CursorColor.Red);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
                     break;
                 default:
                     SpriteAtlas.SetCellIndex((int) CursorColor.White);

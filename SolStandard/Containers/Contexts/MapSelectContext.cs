@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
@@ -19,6 +20,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
+            MapSelectScreenView.UpdateTeamSelectWindow();
         }
 
         public Vector2 MapCenter
@@ -65,13 +67,28 @@ namespace SolStandard.Containers.Contexts
                     selectMapEntity.MapObjectives.Scenario
                 );
 
-                GameContext.DraftContext.StartNewDraft(
-                    selectMapEntity.UnitsPerTeam,
-                    selectMapEntity.MaxDuplicateUnits,
-                    (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
-                    selectMapEntity.MapObjectives.Scenario
-                );
-                
+                if (MapObjectives.IsMultiplayerGame(selectMapEntity.MapObjectives.Scenario))
+                {
+                    GameContext.DraftContext.StartNewDraft(
+                        selectMapEntity.MaxBlueUnits,
+                        selectMapEntity.MaxRedUnits,
+                        selectMapEntity.MaxDuplicateUnits,
+                        (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
+                        selectMapEntity.MapObjectives.Scenario
+                    );
+                }
+                else
+                {
+                    GameContext.DraftContext.StartNewSoloDraft(
+                        selectMapEntity.SoloTeam == Team.Blue
+                            ? selectMapEntity.MaxBlueUnits
+                            : selectMapEntity.MaxRedUnits,
+                        selectMapEntity.MaxDuplicateUnits,
+                        selectMapEntity.SoloTeam,
+                        selectMapEntity.MapObjectives.Scenario
+                    );
+                }
+
                 GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
                 GameContext.CenterCursorAndCamera();
                 PlayMapSong(selectMapEntity);

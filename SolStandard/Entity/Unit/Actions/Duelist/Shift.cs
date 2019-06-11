@@ -39,7 +39,6 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            //TODO Refactor this to be part of an "extra movement" skill and make Shift a child of that
             if (CanMoveToTargetTile(targetSlice))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();

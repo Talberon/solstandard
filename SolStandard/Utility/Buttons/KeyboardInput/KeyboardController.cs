@@ -93,6 +93,11 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             return inputs[input];
         }
 
+        public ControlType ControlType
+        {
+            get { return ControlType.Keyboard; }
+        }
+
         public IRenderable GetInputIcon(Input input, Vector2 iconSize)
         {
             if (input == Input.None) return new RenderBlank();

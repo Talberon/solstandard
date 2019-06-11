@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -9,21 +9,28 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts.WinConditions
 {
-    public class Assassinate : Objective
+    public class CollectTheRelics : Objective
     {
         private Window objectiveWindow;
+        private readonly int relicsToCollect;
+
+        public CollectTheRelics(int relicsToCollect)
+        {
+            this.relicsToCollect = relicsToCollect;
+        }
 
         protected override IRenderable VictoryLabelContent
         {
-            get { return new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED"); }
+            get { return new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS"); }
         }
+
 
         public override IRenderable ObjectiveInfo
         {
             get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
         }
 
-        private static Window BuildObjectiveWindow()
+        private Window BuildObjectiveWindow()
         {
             return new Window(
                 new WindowContentGrid(
@@ -31,10 +38,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     {
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
-                                VictoryConditions.Assassinate,
+                                VictoryConditions.CollectTheRelicsVS,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Assassinate"),
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)"),
                         }
                     },
                     2,
@@ -47,35 +54,41 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public override bool ConditionsMet()
         {
-            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
-            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
-
-            if (TeamCommandersAreAllDead(blueTeam) && TeamCommandersAreAllDead(redTeam))
-            {
-                GameIsADraw = true;
-                return GameIsADraw;
-            }
-
-            if (TeamCommandersAreAllDead(blueTeam))
+            if (TeamHasCollectedTargetNumberOfRelics(Team.Red))
             {
                 RedTeamWins = true;
                 return RedTeamWins;
             }
 
-            if (TeamCommandersAreAllDead(redTeam))
+            if (TeamHasCollectedTargetNumberOfRelics(Team.Blue))
             {
                 BlueTeamWins = true;
                 return BlueTeamWins;
             }
 
+            if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
+            {
+                GameIsADraw = true;
+                return GameIsADraw;
+            }
+
             return false;
         }
 
-
-        private static bool TeamCommandersAreAllDead(List<GameUnit> team)
+        private bool TeamHasCollectedTargetNumberOfRelics(Team team)
         {
-            List<GameUnit> teamCommanders = team.FindAll(unit => unit.IsCommander);
-            return !teamCommanders.Any(commander => commander.IsAlive);
+            return GetRelicCountForTeam(team) >= relicsToCollect;
+        }
+
+        private static int GetRelicCountForTeam(Team team)
+        {
+            return GameContext.Units.Where(unit => unit.Team == team)
+                .Sum(unit => unit.Inventory.Count(item => item is Relic));
+        }
+
+        private static bool TeamIsWipedOut(Team team)
+        {
+            return GameContext.Units.Where(unit => unit.Team == team).ToList().TrueForAll(unit => !unit.IsAlive);
         }
     }
 }

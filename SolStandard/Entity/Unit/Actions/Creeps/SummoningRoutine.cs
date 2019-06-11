@@ -9,7 +9,6 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
-using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Model;
 
 namespace SolStandard.Entity.Unit.Actions.Creeps

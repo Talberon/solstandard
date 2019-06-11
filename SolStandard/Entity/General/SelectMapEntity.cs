@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -15,23 +17,28 @@ namespace SolStandard.Entity.General
         public readonly MapObjectives MapObjectives;
         public readonly string MapSongName;
         public readonly bool Draft;
-        public readonly int UnitsPerTeam;
+        public readonly int MaxBlueUnits;
+        public readonly int MaxRedUnits;
         public readonly int MaxDuplicateUnits;
         private readonly IRenderable mapPreview;
+        public readonly Team SoloTeam;
 
         private static readonly Vector2 MaximumPreviewSize = new Vector2(300, 200);
 
         public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName,
-            MapObjectives mapObjectives, bool draft, int unitsPerTeam, int maxDuplicateUnits, ITexture2D mapPreview) :
+            MapObjectives mapObjectives, bool draft, int maxBlueUnits, int maxRedUnits, int maxDuplicateUnits,
+            Team soloTeam, ITexture2D mapPreview) :
             base(name, type, sprite, mapCoordinates, tiledProperties)
         {
             MapInfo = mapInfo;
             MapSongName = mapSongName;
             MapObjectives = mapObjectives;
             Draft = draft;
-            UnitsPerTeam = unitsPerTeam;
+            MaxBlueUnits = maxBlueUnits;
+            MaxRedUnits = maxRedUnits;
             MaxDuplicateUnits = maxDuplicateUnits;
+            SoloTeam = soloTeam;
             this.mapPreview = (mapPreview == null)
                 ? new RenderBlank()
                 : new SpriteAtlas(mapPreview, new Vector2(mapPreview.Width, mapPreview.Height),

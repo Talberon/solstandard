@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
@@ -446,11 +447,20 @@ namespace SolStandard.Map
                                                 Convert.ToBoolean(currentProperties["modeRoutArmy"]),
                                                 Convert.ToBoolean(currentProperties["modeSeize"]),
                                                 Convert.ToBoolean(currentProperties["modeTaxes"]),
-                                                Convert.ToInt32(currentProperties["valueTaxes"])
+                                                Convert.ToInt32(currentProperties["valueTaxes"]),
+                                                Convert.ToBoolean(currentProperties["modeSoloDefeatBoss"]),
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
+                                                Convert.ToBoolean(currentProperties["modeEscape"]),
+                                                (Team) Enum.Parse(typeof(Team), currentProperties["modeEscape.team"]),
+                                                Convert.ToBoolean(currentProperties["modeRelic.vs"]),
+                                                Convert.ToBoolean(currentProperties["modeRelic.coop"]),
+                                                Convert.ToInt32(currentProperties["modeRelic.goal"])
                                             ),
                                             Convert.ToBoolean(currentProperties["draftUnits"]),
-                                            Convert.ToInt32(currentProperties["unitsPerTeam"]),
+                                            Convert.ToInt32(currentProperties["maxUnitsBlue"]),
+                                            Convert.ToInt32(currentProperties["maxUnitsRed"]),
                                             Convert.ToInt32(currentProperties["maxDuplicateUnits"]),
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
                                             AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
                                                 texture.Name.EndsWith("/" + mapFileName.Substring(0,
                                                                           mapFileName.Length - (".tmx").Length)))
@@ -495,7 +505,9 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["damage"]),
                                             Convert.ToInt32(currentProperties["triggersRemaining"]),
                                             Convert.ToBoolean(currentProperties["limitedTriggers"]),
-                                            Convert.ToBoolean(currentProperties["enabled"])
+                                            Convert.ToBoolean(currentProperties["enabled"]),
+                                            Convert.ToBoolean(currentProperties["willSnare"]),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Weapon:
@@ -690,6 +702,27 @@ namespace SolStandard.Map
                                             currentProperties["deployRange"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["usesRemaining"])
+                                        );
+                                        break;
+                                    case EntityTypes.Escape:
+                                        entityGrid[col, row] = new EscapeEntity(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (currentProperties["team"].Equals(Team.Blue.ToString())),
+                                            (currentProperties["team"].Equals(Team.Red.ToString()))
+                                        );
+                                        break;
+                                    case EntityTypes.Relic:
+                                        entityGrid[col, row] = new Relic(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["pickupRange"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray(),
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     default:

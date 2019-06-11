@@ -12,6 +12,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
@@ -50,10 +51,9 @@ namespace SolStandard.Containers.View
             UpdateHelpWindow("SELECT A UNIT");
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
 
-            ControlsText = GenerateControlsTextWindow();
         }
 
-        private static Window GenerateControlsTextWindow()
+        public void UpdateControlsTextWindow()
         {
             ISpriteFont windowFont = AssetManager.WindowFont;
 
@@ -62,33 +62,43 @@ namespace SolStandard.Containers.View
                 {
                     new RenderText(AssetManager.HeaderFont, "~Draft Phase~"),
                     new RenderBlank(),
+                    new RenderBlank(),
+                    new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "Move Draft Cursor: "),
-                    ButtonIconProvider.GetButton(ButtonIcon.Dpad, new Vector2(windowFont.MeasureString("A").Y)),
-                    ButtonIconProvider.GetButton(ButtonIcon.LeftStick, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CursorUp, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CursorDown, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowFont.MeasureString("A").Y)),
                 },
                 {
                     new RenderText(windowFont, "Draft a unit: "),
-                    ButtonIconProvider.GetButton(ButtonIcon.A, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank(),
+                    new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "View Unit Codex: "),
-                    ButtonIconProvider.GetButton(ButtonIcon.X, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
+                    new RenderBlank(),
+                    new RenderBlank(),
                     new RenderBlank()
                 },
                 {
                     new RenderText(windowFont, "Move Map Camera: "),
-                    ButtonIconProvider.GetButton(ButtonIcon.RightStick, new Vector2(windowFont.MeasureString("A").Y)),
-                    new RenderBlank()
+                    InputIconProvider.GetInputIcon(Input.CameraUp, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CameraDown, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CameraLeft, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CameraRight, new Vector2(windowFont.MeasureString("A").Y))
                 }
             };
             WindowContentGrid promptWindowContentGrid =
                 new WindowContentGrid(promptTextContent, 2, HorizontalAlignment.Right);
 
-            return new Window(promptWindowContentGrid, DarkBackgroundColor);
+            ControlsText = new Window(promptWindowContentGrid, DarkBackgroundColor);
         }
 
         public void UpdateTeamUnitsWindow(List<IRenderable> unitSprites, Team team)

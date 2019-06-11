@@ -30,8 +30,12 @@ namespace SolStandard.Containers.Contexts
         private List<GameUnit> BlueUnits { get; set; }
         private List<GameUnit> RedUnits { get; set; }
 
-        private int maxUnitsPerTeam;
-        private int unitsSelected;
+        private int blueMaxUnits;
+        private int blueUnitsSelected;
+
+        private int redMaxUnits;
+        private int redUnitsSelected;
+
         private int maxDuplicateUnitType;
 
         public Team CurrentTurn { get; private set; }
@@ -44,13 +48,26 @@ namespace SolStandard.Containers.Contexts
             DraftView = new DraftView();
         }
 
-        public void StartNewDraft(int maxUnits, int maxUnitDuplicates, Team firstTurn, Scenario scenario)
+        public void StartNewSoloDraft(int maxUnits, int maxDuplicates, Team soloPlayerTeam, Scenario scenario)
+        {
+            StartNewDraft(
+                soloPlayerTeam == Team.Blue ? maxUnits : 0,
+                soloPlayerTeam == Team.Red ? maxUnits : 0,
+                maxDuplicates, soloPlayerTeam, scenario
+            );
+        }
+
+        public void StartNewDraft(int blueTeamUnitMax, int redTeamUnitMax, int maxUnitDuplicates, Team firstTurn,
+            Scenario scenario)
         {
             NameGenerator.ClearNameHistory();
 
             currentPhase = DraftPhase.UnitSelect;
-            unitsSelected = 0;
-            maxUnitsPerTeam = maxUnits;
+            blueUnitsSelected = 0;
+            blueMaxUnits = blueTeamUnitMax;
+            redUnitsSelected = 0;
+            redMaxUnits = redTeamUnitMax;
+
             maxDuplicateUnitType = maxUnitDuplicates;
             CurrentTurn = firstTurn;
 
@@ -66,11 +83,13 @@ namespace SolStandard.Containers.Contexts
 
             DraftView.UpdateHelpWindow(
                 "SELECT A UNIT" + Environment.NewLine +
-                "Max Units: " + maxUnitsPerTeam + Environment.NewLine +
+                "Max Units: " + Team.Blue + " " + blueMaxUnits + "/" + Team.Red + " " + redMaxUnits +
+                Environment.NewLine +
                 "Max Dupes: " + maxUnitDuplicates
             );
 
             DraftView.UpdateObjectivesWindow(scenario.ScenarioInfo());
+            DraftView.UpdateControlsTextWindow();
         }
 
         public void MoveCursor(Direction direction)
@@ -159,9 +178,9 @@ namespace SolStandard.Containers.Contexts
             unit.UnitEntity.IsCommander = true;
             unit.ApplyCommanderBonus();
             DraftView.UpdateCommanderPortrait(unit.Role, unit.Team);
-            PassTurn();
+            PassTurnCommanderSelect();
 
-            if (!BothTeamsHaveCommanders)
+            if (!AllCommandersHaveBeenSelected)
             {
                 DraftView.UpdateCommanderSelect(GetTeamUnits(CurrentTurn), CurrentTurn);
             }
@@ -176,7 +195,7 @@ namespace SolStandard.Containers.Contexts
 
         public void AddUnitToList(Role role, Team team)
         {
-            Dictionary<Role, int> unitLimit = GetUnitLimitForTeam(team);
+            Dictionary<Role, int> unitLimit = GetUnitTypeCountForTeam(team);
 
             if (unitLimit.ContainsKey(role))
             {
@@ -188,16 +207,26 @@ namespace SolStandard.Containers.Contexts
             }
 
             UpdateSelectedUnitWindow(role, team);
-            PassTurn();
+            PassTurnUnitSelect();
 
             DraftView.UpdateUnitSelectMenu(
                 CurrentTurn,
-                GetRolesEnabled(GetUnitLimitForTeam(CurrentTurn), maxDuplicateUnitType)
+                GetRolesEnabled(GetUnitTypeCountForTeam(CurrentTurn), maxDuplicateUnitType)
             );
 
-            unitsSelected++;
+            switch (team)
+            {
+                case Team.Blue:
+                    blueUnitsSelected++;
+                    break;
+                case Team.Red:
+                    redUnitsSelected++;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("team", team, null);
+            }
 
-            if (unitsSelected >= maxUnitsPerTeam * 2)
+            if (blueUnitsSelected >= blueMaxUnits && redUnitsSelected >= redMaxUnits)
             {
                 StartCommanderSelectPhase();
             }
@@ -224,7 +253,7 @@ namespace SolStandard.Containers.Contexts
             currentPhase = DraftPhase.CommanderSelect;
         }
 
-        private Dictionary<Role, int> GetUnitLimitForTeam(Team team)
+        private Dictionary<Role, int> GetUnitTypeCountForTeam(Team team)
         {
             Dictionary<Role, int> unitLimit;
             switch (team)
@@ -267,27 +296,42 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private void PassTurn()
+        private void PassTurnUnitSelect()
         {
             switch (CurrentTurn)
             {
                 case Team.Blue:
-                    CurrentTurn = Team.Red;
+                    CurrentTurn = redUnitsSelected >= redMaxUnits ? Team.Blue : Team.Red;
                     break;
                 case Team.Red:
-                    CurrentTurn = Team.Blue;
+                    CurrentTurn = blueUnitsSelected >= blueMaxUnits ? Team.Red : Team.Blue;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private bool BothTeamsHaveCommanders
+        private void PassTurnCommanderSelect()
+        {
+            switch (CurrentTurn)
+            {
+                case Team.Blue:
+                    CurrentTurn = redMaxUnits == 0 ? Team.Blue : Team.Red;
+                    break;
+                case Team.Red:
+                    CurrentTurn = blueMaxUnits == 0 ? Team.Red : Team.Blue;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private bool AllCommandersHaveBeenSelected
         {
             get
             {
-                return BlueUnits.Count(blueUnit => blueUnit.IsCommander) > 0 &&
-                       RedUnits.Count(redUnit => redUnit.IsCommander) > 0;
+                return (blueMaxUnits == 0 || BlueUnits.Count(blueUnit => blueUnit.IsCommander) > 0) &&
+                       (redMaxUnits == 0 || RedUnits.Count(redUnit => redUnit.IsCommander) > 0);
             }
         }
 

@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions
                          Environment.NewLine +
                          "Cannot be picked up once placed!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1},
+            range: new[] {1},
             freeAction: false
         )
         {

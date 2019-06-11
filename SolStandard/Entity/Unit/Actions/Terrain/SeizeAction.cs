@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly SeizeEntity seizeEntity;
 
         public SeizeAction(SeizeEntity seizeEntity, Vector2 tileCoordinates) : base(
-            icon: seizeEntity.RenderSprite,
+            icon: seizeEntity.RenderSprite.Clone(),
             name: "Seize",
             description: "Seize the objective and win the battle.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

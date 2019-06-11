@@ -44,7 +44,9 @@ namespace SolStandard.Entity.General
         Magnet,
         Bomb,
         Contract,
-        RecallCharm
+        RecallCharm,
+        Escape,
+        Relic
     }
 
     public class TerrainEntity : MapEntity

@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
             return new WindowContentGrid(
                 new[,]
                 {
-                    {unit.SmallPortrait},
+                    {unit.MediumPortrait},
                     {new RenderText(AssetManager.WindowFont, unit.Id)}
                 },
                 1,

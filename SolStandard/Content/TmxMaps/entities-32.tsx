@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.4" name="entities-32" tilewidth="32" tileheight="32" tilecount="528" columns="8">
- <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2112"/>
+<tileset version="1.2" tiledversion="1.2.4" name="entities-32" tilewidth="32" tileheight="32" tilecount="552" columns="8">
+ <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2208"/>
+ <tile id="0">
+  <animation>
+   <frame tileid="528" duration="200"/>
+   <frame tileid="536" duration="200"/>
+   <frame tileid="544" duration="200"/>
+   <frame tileid="536" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="1">
+  <animation>
+   <frame tileid="529" duration="200"/>
+   <frame tileid="537" duration="200"/>
+   <frame tileid="545" duration="200"/>
+   <frame tileid="537" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="2">
+  <animation>
+   <frame tileid="530" duration="200"/>
+   <frame tileid="538" duration="200"/>
+   <frame tileid="546" duration="200"/>
+   <frame tileid="538" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3">
+  <animation>
+   <frame tileid="531" duration="200"/>
+   <frame tileid="539" duration="200"/>
+   <frame tileid="547" duration="200"/>
+   <frame tileid="539" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="4">
+  <animation>
+   <frame tileid="532" duration="200"/>
+   <frame tileid="540" duration="200"/>
+   <frame tileid="548" duration="200"/>
+   <frame tileid="540" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="5">
+  <animation>
+   <frame tileid="533" duration="200"/>
+   <frame tileid="541" duration="200"/>
+   <frame tileid="549" duration="200"/>
+   <frame tileid="541" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="6">
+  <animation>
+   <frame tileid="534" duration="200"/>
+   <frame tileid="542" duration="200"/>
+   <frame tileid="550" duration="200"/>
+   <frame tileid="542" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="9">
+  <animation>
+   <frame tileid="535" duration="200"/>
+   <frame tileid="543" duration="200"/>
+   <frame tileid="551" duration="200"/>
+   <frame tileid="543" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="10">
+  <animation>
+   <frame tileid="511" duration="200"/>
+   <frame tileid="519" duration="200"/>
+   <frame tileid="527" duration="200"/>
+   <frame tileid="519" duration="200"/>
+  </animation>
+ </tile>
  <tile id="15">
   <animation>
    <frame tileid="220" duration="200"/>
