@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Containers\Contexts\InitiativeContextTest.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\ExecuteTest.cs" />
     <Compile Include="HUD\Window\Content\Health\FakeHealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBarTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

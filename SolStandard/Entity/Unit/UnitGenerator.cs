@@ -264,7 +264,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new Execute(3),
+                new Execute(60),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()

@@ -26,7 +26,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public LeapStrike() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, new Vector2(GameDriver.CellSize)),
             name: "Leap Strike",
-            description: "Leap towards an enemy to attack them; even across impassible terrain!",
+            description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
+                         "Select a target, then select a space to land on next to that target.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {1, 2, 3},
             freeAction: false
