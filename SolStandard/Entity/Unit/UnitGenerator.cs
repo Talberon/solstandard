@@ -132,7 +132,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectLancerStats()
         {
-            return new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 8, armor: 7, atk: 6, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectBardStats()
@@ -250,7 +250,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Ignite(3, 3),
                 new Inferno(3, 2),
-                new Atrophy(2, 1),
+                new Frostbite(2, 2),
                 new Replace(),
                 new Sprint(3),
                 new Guard(3),
@@ -263,8 +263,7 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new LeapStrike(3),
-                new Cripple(2, 2),
+                new LeapStrike(),
                 new Execute(3),
                 new Sprint(3),
                 new Guard(3),
@@ -320,8 +319,8 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Recover(3),
                 new Bulwark(2, 2),
+                new Atrophy(2, 1),
                 new Cleanse(),
-                new Replace(),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()

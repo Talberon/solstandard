@@ -170,10 +170,10 @@
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\Cripple.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />

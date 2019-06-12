@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public abstract void ExecuteAction(MapSlice targetSlice);
 
-        public void CancelAction()
+        public virtual void CancelAction()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
             AssetManager.MapUnitCancelSFX.Play();
