@@ -215,6 +215,7 @@ namespace SolStandard.Entity.Unit
         #endregion Unit Statistics
 
         #region Unit Skills
+
         private static List<UnitAction> SelectArcherSkills()
         {
             return new List<UnitAction>
@@ -265,6 +266,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new LeapStrike(),
                 new Execute(60),
+                new Venom(2, 2),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()
@@ -319,7 +321,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Recover(3),
                 new Bulwark(2, 2),
-                new Atrophy(2, 1),
+                new Atrophy(2, 2),
                 new Cleanse(),
                 new Sprint(3),
                 new Guard(3),
@@ -353,7 +355,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
         }
-        
+
         #endregion Unit Skills
 
         private static List<UnitAction> GenerateCreepRoutinesFromProperties(
@@ -369,7 +371,8 @@ namespace SolStandard.Entity.Unit
 
             foreach (string routineName in enabledRoutines)
             {
-                actions.Add(CreepRoutineModel.GenerateRoutine(CreepRoutineModel.GetRoutineByName(routineName), creepProperties));
+                actions.Add(CreepRoutineModel.GenerateRoutine(CreepRoutineModel.GetRoutineByName(routineName),
+                    creepProperties));
             }
 
             return actions;

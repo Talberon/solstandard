@@ -66,11 +66,11 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
         }
 
-        public static int DamageValueRoundedUp(int atk, int percentageDamage)
+        public static int DamageValueRoundedUp(int baseDamage, int percentToDeal)
         {
-            float remainingPercentage = 100 - percentageDamage;
-            int damageToRemove = (int) Math.Floor(atk * (remainingPercentage / 100));
-            return atk - damageToRemove;
+            float remainingPercentage = 100 - percentToDeal;
+            int damageToRemove = (int) Math.Floor(baseDamage * (remainingPercentage / 100));
+            return baseDamage - damageToRemove;
         }
     }
 }

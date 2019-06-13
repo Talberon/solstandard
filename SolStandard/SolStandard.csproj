@@ -168,6 +168,7 @@
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\Venom.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Entity\Unit\Statuses\MoveStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\GuillotineStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\RetributionStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
