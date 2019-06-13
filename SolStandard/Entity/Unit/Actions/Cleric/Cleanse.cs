@@ -32,6 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
                 CleanseAllCleansableStatuses(targetUnit);
+                GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
             }
             else
             {
@@ -52,7 +53,6 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 eventQueue.Enqueue(new WaitFramesEvent(50));
             }
 
-            eventQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(eventQueue);
         }
     }

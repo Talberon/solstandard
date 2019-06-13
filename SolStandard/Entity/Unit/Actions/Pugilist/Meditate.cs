@@ -5,6 +5,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
@@ -16,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             description: "Remove all cleansable status effects on self.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
-            freeAction: false
+            freeAction: true
         )
         {
         }
@@ -28,6 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 Cleanse.CleanseAllCleansableStatuses(targetUnit);
+                GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
             }
             else
             {
