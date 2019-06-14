@@ -16,9 +16,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
     {
         private readonly float percent;
 
-        //TODO Add new unique icon
         public BetwixtPlate(float percent) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BetwixtPlate, new Vector2(GameDriver.CellSize)),
             name: "Betwixt Plate",
             description: "Attack a unit for " + percent +
                          "% damage (rounded up) and ignore target's " +

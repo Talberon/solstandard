@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private UnitEntity targetUnitEntity;
 
         public LeapStrike() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.LeapStrike, new Vector2(GameDriver.CellSize)),
             name: "Leap Strike",
             description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
                          "Select a target, then select a space to land on next to that target.",
@@ -37,8 +37,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            //TODO Consider the phase when cancelling the action
-
             switch (currentPhase)
             {
                 case ActionPhase.SelectTarget:

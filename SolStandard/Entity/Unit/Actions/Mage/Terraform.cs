@@ -13,9 +13,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 {
     public class Terraform : UnitAction
     {
-        //TODO Add new skill icon
         public Terraform() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Terraform, new Vector2(GameDriver.CellSize)),
             name: "Geomancy - Terraform",
             description: "Raise a piece of destructible terrain within range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -39,7 +38,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
             foreach (MapElement element in targetTiles)
             {
-                if (!UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
+                MapSlice elementSlice = MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates);
+                if (!TargetIsUnoccupiedTileInRange(elementSlice))
                 {
                     tilesToRemove.Add(element);
                 }
@@ -83,7 +83,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         {
             return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
                    targetSlice.DynamicEntity != null && targetSlice.CollideTile == null &&
-                   targetSlice.UnitEntity == null;
+                   targetSlice.TerrainEntity == null && targetSlice.UnitEntity == null;
         }
     }
 }

@@ -22,14 +22,13 @@ namespace SolStandard.Utility.Assets
         Bloodthirst,
         Inferno,
         PoisonTip,
-        Execute,
+        Assassinate,
         Charge,
         Meditate,
         Uppercut,
         PressurePoint,
         AtkBuff,
         Challenge,
-        Immobilize,
         PhaseStrike,
         Focus,
         Cleanse,
@@ -40,6 +39,15 @@ namespace SolStandard.Utility.Assets
         Intervention,
         Stun,
         Recover,
+
+        BetwixtPlate,
+        FlowStrike,
+        Frostbite,
+        LeapStrike,
+        Suplex,
+        Terraform,
+
+        //AI Routines
         Prey,
         Kingslayer,
         Defender,
@@ -47,7 +55,8 @@ namespace SolStandard.Utility.Assets
         TreasureHunter,
         Glutton,
         Summon,
-        Wander
+        Wander,
+        Venom
     }
 
     public static class SkillIconProvider
@@ -78,14 +87,12 @@ namespace SolStandard.Utility.Assets
             ITexture2D bloodthirst = skillIconTextures.Find(texture => texture.Name.EndsWith("Bloodthirst"));
             ITexture2D inferno = skillIconTextures.Find(texture => texture.Name.EndsWith("Inferno"));
             ITexture2D poisonTip = skillIconTextures.Find(texture => texture.Name.EndsWith("PoisonTip"));
-            ITexture2D execute = skillIconTextures.Find(texture => texture.Name.EndsWith("Execute"));
+            ITexture2D assassinate = skillIconTextures.Find(texture => texture.Name.EndsWith("Assassinate"));
             ITexture2D charge = skillIconTextures.Find(texture => texture.Name.EndsWith("Charge"));
             ITexture2D meditate = skillIconTextures.Find(texture => texture.Name.EndsWith("Meditate"));
             ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
-            ITexture2D pressurePoint = skillIconTextures.Find(texture => texture.Name.EndsWith("PressurePoint"));
             ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
             ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
-            ITexture2D freezeLance = skillIconTextures.Find(texture => texture.Name.EndsWith("FreezeLance"));
             ITexture2D phaseStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("PhaseStrike"));
             ITexture2D focus = skillIconTextures.Find(texture => texture.Name.EndsWith("Focus"));
             ITexture2D cleanse = skillIconTextures.Find(texture => texture.Name.EndsWith("Cleanse"));
@@ -96,7 +103,14 @@ namespace SolStandard.Utility.Assets
             ITexture2D intervention = skillIconTextures.Find(texture => texture.Name.EndsWith("Intervention"));
             ITexture2D stun = skillIconTextures.Find(texture => texture.Name.EndsWith("Stun"));
             ITexture2D recover = skillIconTextures.Find(texture => texture.Name.EndsWith("Recover"));
-
+            ITexture2D betwixtPlate = skillIconTextures.Find(texture => texture.Name.EndsWith("BetwixtPlate"));
+            ITexture2D flowStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("FlowStrike"));
+            ITexture2D frostbite = skillIconTextures.Find(texture => texture.Name.EndsWith("Frostbite"));
+            ITexture2D leapStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("LeapStrike"));
+            ITexture2D suplex = skillIconTextures.Find(texture => texture.Name.EndsWith("Suplex"));
+            ITexture2D venom = skillIconTextures.Find(texture => texture.Name.EndsWith("Venom"));
+            ITexture2D terraform = skillIconTextures.Find(texture => texture.Name.EndsWith("Terraform"));
+            //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
             ITexture2D defender = skillIconTextures.Find(texture => texture.Name.EndsWith("Defender"));
@@ -124,14 +138,12 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Bloodthirst, bloodthirst},
                 {SkillIcon.Inferno, inferno},
                 {SkillIcon.PoisonTip, poisonTip},
-                {SkillIcon.Execute, execute},
+                {SkillIcon.Assassinate, assassinate},
                 {SkillIcon.Charge, charge},
                 {SkillIcon.Meditate, meditate},
                 {SkillIcon.Uppercut, uppercut},
-                {SkillIcon.PressurePoint, pressurePoint},
                 {SkillIcon.AtkBuff, atkBuff},
                 {SkillIcon.Challenge, challenge},
-                {SkillIcon.Immobilize, freezeLance},
                 {SkillIcon.PhaseStrike, phaseStrike},
                 {SkillIcon.Focus, focus},
                 {SkillIcon.Cleanse, cleanse},
@@ -142,7 +154,15 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Intervention, intervention},
                 {SkillIcon.Stun, stun},
                 {SkillIcon.Recover, recover},
+                {SkillIcon.BetwixtPlate, betwixtPlate},
+                {SkillIcon.FlowStrike, flowStrike},
+                {SkillIcon.Frostbite, frostbite},
+                {SkillIcon.LeapStrike, leapStrike},
+                {SkillIcon.Suplex, suplex},
+                {SkillIcon.Venom, venom},
+                {SkillIcon.Terraform, terraform},
 
+                //AI Routines
                 {SkillIcon.Prey, prey},
                 {SkillIcon.Kingslayer, kingslayer},
                 {SkillIcon.Defender, defender},

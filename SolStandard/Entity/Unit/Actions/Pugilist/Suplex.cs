@@ -12,9 +12,8 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
     public class Suplex : UnitAction
     {
-        //TODO Add unique icon for skill
         public Suplex() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Suplex, new Vector2(GameDriver.CellSize)),
             name: "Suplex",
             description: "Flip an enemy behind you if the opposite space is unoccupied, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
