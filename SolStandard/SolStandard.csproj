@@ -134,6 +134,7 @@
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
@@ -174,7 +175,6 @@
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />

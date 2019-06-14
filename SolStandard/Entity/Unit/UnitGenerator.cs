@@ -224,7 +224,7 @@ namespace SolStandard.Entity.Unit
                 new Draw(3, 1),
                 new PoisonArrow(2, 4),
                 new HuntingTrap(6, 1),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
@@ -254,7 +254,7 @@ namespace SolStandard.Entity.Unit
                 new Terraform(),
                 new Frostbite(2, 2),
                 new Replace(),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
@@ -269,7 +269,7 @@ namespace SolStandard.Entity.Unit
                 new BetwixtPlate(60),
                 new Execute(50),
                 new Venom(2, 2),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
@@ -283,7 +283,7 @@ namespace SolStandard.Entity.Unit
                 new Crescendo(2, 1),
                 new Accelerando(2, 1),
                 new Capriccio(2, 1),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
@@ -298,7 +298,7 @@ namespace SolStandard.Entity.Unit
                 new Uppercut(),
                 new Suplex(),
                 new Meditate(),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
@@ -326,7 +326,7 @@ namespace SolStandard.Entity.Unit
                 new Bulwark(2, 2),
                 new Atrophy(2, 2),
                 new Cleanse(),
-                new Sprint(3),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };

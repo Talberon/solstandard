@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by [" + mvToReduce + "] for [" + duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1},
+            range: new[] {1, 2},
             freeAction: false
         )
         {

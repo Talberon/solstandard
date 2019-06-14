@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
 
         public Bulwark(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
-            name: "Bulwark",
+            name: "Prayer - Bulwark",
             description: "Regenerate ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" +
                          statModifier + "] per turn for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

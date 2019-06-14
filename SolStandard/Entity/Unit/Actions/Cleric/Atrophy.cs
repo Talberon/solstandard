@@ -9,7 +9,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Mage
+namespace SolStandard.Entity.Unit.Actions.Cleric
 {
     public class Atrophy : UnitAction
     {
