@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly TrapEntity trapItem;
 
         protected LayTrap(IRenderable skillIcon, IRenderable trapSprite, string title, int damage, int maxTriggers,
-            string description = null)
+            string description = null, bool freeAction = false)
             : base(
                 icon: skillIcon,
                 name: title,
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions
                                              "Max activations: [" + maxTriggers + "]"),
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: new[] {1},
-                freeAction: false
+                freeAction: freeAction
             )
         {
             Damage = damage;

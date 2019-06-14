@@ -26,7 +26,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             maxTriggers: maxTriggers,
             description: "Place up to 4 traps around you that will deal [" + damage +
                          "] damage to enemies that start their turn on it." + Environment.NewLine +
-                         "Max activations: [" + maxTriggers + "]"
+                         "Max activations: [" + maxTriggers + "]",
+            freeAction: true
         )
         {
         }
@@ -88,7 +89,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new WaitFramesEvent(30));
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
             }
