@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsInRange(targetSlice))
             {
-                if (!TargetIsObstructed(targetSlice))
+                if (!TargetHasEntityOrWall(targetSlice))
                 {
                     TrapEntity trapToPlace;
 
@@ -92,7 +92,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        protected static bool TargetIsObstructed(MapSlice targetSlice)
+        protected static bool TargetHasEntityOrWall(MapSlice targetSlice)
         {
             return (targetSlice.TerrainEntity != null) || (targetSlice.CollideTile != null);
         }

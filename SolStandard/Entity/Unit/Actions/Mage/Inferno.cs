@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 AssetManager.FireTexture, AssetManager.FireTexture.Height, new Vector2(GameDriver.CellSize), 6, false,
                 Color.White
             ),
-            title: "Inferno",
+            title: "Pyromancy - Inferno",
             damage: damage,
             maxTriggers: maxTriggers,
             description: "Place up to 4 traps around you that will deal [" + damage +
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
             foreach (MapElement element in targetTiles)
             {
-                if (TargetIsObstructed(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                if (TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
                 {
                     tilesToRemove.Add(element);
                 }
@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 {
                     MapSlice slice = MapContainer.GetMapSliceAtCoordinates(targetTile.MapCoordinates);
 
-                    if (TargetIsObstructed(slice)) continue;
+                    if (TargetHasEntityOrWall(slice)) continue;
 
                     TrapEntity trap = new TrapEntity("Fire", TrapSprite.Clone(), slice.MapCoordinates, Damage,
                         MaxTriggers, true, true);

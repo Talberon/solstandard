@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public Atrophy(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Atrophy, new Vector2(GameDriver.CellSize)),
-            name: "Atrophy",
+            name: "Necromancy - Atrophy",
             description: "Reduce an enemy's " + UnitStatistics.Abbreviation[Stats.Atk] + " by [" + statModifier + "]" +
                          " for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

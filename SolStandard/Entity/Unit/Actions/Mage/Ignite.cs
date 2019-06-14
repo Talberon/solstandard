@@ -6,7 +6,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
     {
         public Ignite(int duration, int damagePerTurn) : base(
             icon: SkillIcon.Ignite,
-            name: "Ignite",
+            name: "Pyromancy - Ignite",
             duration: duration,
             damagePerTurn: damagePerTurn,
             range: new[] {1, 2},

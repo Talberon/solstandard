@@ -179,6 +179,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\Terraform.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />

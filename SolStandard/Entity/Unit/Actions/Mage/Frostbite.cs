@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public Frostbite(int duration, int mvToReduce) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Immobilize, new Vector2(GameDriver.CellSize)),
-            name: "Frostbite",
+            name: "Cryomancy - Frostbite",
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by [" + mvToReduce + "] for [" + duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

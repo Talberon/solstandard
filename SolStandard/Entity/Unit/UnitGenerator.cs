@@ -251,6 +251,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Ignite(3, 3),
                 new Inferno(3, 2),
+                new Terraform(),
                 new Frostbite(2, 2),
                 new Replace(),
                 new Sprint(3),
