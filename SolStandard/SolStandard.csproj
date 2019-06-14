@@ -168,6 +168,7 @@
     <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\BetwixtPlate.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Venom.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
@@ -183,8 +184,8 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\PressurePoint.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Entity\Unit\Statuses\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\FlowStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Entity\Unit\Statuses\RetributionStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
+    <Compile Include="Entity\Unit\Statuses\TempCombatStatus.cs" />
     <Compile Include="Entity\Unit\UnitGenerator.cs" />
     <Compile Include="Entity\Unit\UnitEntity.cs" />
     <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />

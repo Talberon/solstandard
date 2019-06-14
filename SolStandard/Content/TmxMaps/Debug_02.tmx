@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="833">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="836">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="552" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2208"/>
  </tileset>
@@ -1944,22 +1944,10 @@
  <objectgroup id="10" name="Summons" opacity="0.33"/>
  <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units">
-  <object id="520" name="Fran" type="Unit" gid="556" x="480" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Bard"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
   <object id="528" name="Gaius" type="Unit" gid="555" x="416" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="817" name="Benjamin" type="Unit" gid="553" x="416" y="192" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -1969,35 +1957,49 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="820" name="Rudolph" type="Unit" gid="559" x="384" y="224" width="32" height="32">
+  <object id="830" name="Benjamin" type="Unit" gid="567" x="448" y="352" width="32" height="32">
    <properties>
-    <property name="Class" value="Duelist"/>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="832" name="Edward" type="Unit" gid="557" x="480" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="822" name="Maria" type="Unit" gid="570" x="576" y="224" width="32" height="32">
+  <object id="834" name="Isadora" type="Unit" gid="558" x="384" y="288" width="32" height="32">
    <properties>
-    <property name="Class" value="Cleric"/>
-    <property name="Team" value="Red"/>
+    <property name="Class" value="Pugilist"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="825" name="Erasmus" type="Unit" gid="571" x="480" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Marauder"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="826" name="Charlotte" type="Unit" gid="572" x="512" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="830" name="Benjamin" type="Unit" gid="567" x="448" y="352" width="32" height="32">
+ </objectgroup>
+ <objectgroup id="11" name="Disabled" opacity="0.52">
+  <object id="520" name="Fran" type="Unit" gid="556" x="480" y="224" width="32" height="32">
    <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Red"/>
+    <property name="Class" value="Bard"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="817" name="Benjamin" type="Unit" gid="553" x="416" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="820" name="Rudolph" type="Unit" gid="559" x="384" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Duelist"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="831" name="Jules" type="Unit" gid="554" x="448" y="192" width="32" height="32">
@@ -2006,10 +2008,16 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="832" name="Edward" type="Unit" gid="557" x="480" y="256" width="32" height="32">
+  <object id="822" name="Maria" type="Unit" gid="570" x="512" y="416" width="32" height="32">
    <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Blue"/>
+    <property name="Class" value="Cleric"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="826" name="Charlotte" type="Unit" gid="572" x="512" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Team" value="Red"/>
    </properties>
   </object>
  </objectgroup>

@@ -122,7 +122,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 5, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 4, luck: 1, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectMageStats()
@@ -142,7 +142,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectPugilistStats()
         {
-            return new UnitStatistics(hp: 9, armor: 4, atk: 7, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 11, armor: 4, atk: 6, ret: 4, luck: 0, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectDuelistStats()
@@ -265,7 +265,8 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new Execute(60),
+                new BetwixtPlate(60),
+                new Execute(50),
                 new Venom(2, 2),
                 new Sprint(3),
                 new Guard(3),
@@ -292,8 +293,8 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
+                new FlowStrike(40, 3),
                 new Uppercut(),
-                new PressurePoint(60),
                 new Meditate(),
                 new Sprint(3),
                 new Guard(3),

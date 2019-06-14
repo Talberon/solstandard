@@ -10,15 +10,16 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Pugilist
+namespace SolStandard.Entity.Unit.Actions.Lancer
 {
-    public class PressurePoint : UnitAction
+    public class BetwixtPlate : UnitAction
     {
         private readonly float percent;
 
-        public PressurePoint(float percent) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.PressurePoint, new Vector2(GameDriver.CellSize)),
-            name: "Pressure Point",
+        //TODO Add new unique icon
+        public BetwixtPlate(float percent) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            name: "Betwixt Plate",
             description: "Attack a unit for " + percent +
                          "% damage (rounded up) and ignore target's " +
                          UnitStatistics.Abbreviation[Stats.Armor] + ".",
