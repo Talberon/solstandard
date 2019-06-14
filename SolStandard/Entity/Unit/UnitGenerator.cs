@@ -295,6 +295,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new FlowStrike(40, 3),
                 new Uppercut(),
+                new Suplex(),
                 new Meditate(),
                 new Sprint(3),
                 new Guard(3),

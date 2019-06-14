@@ -119,29 +119,29 @@ namespace SolStandard.Entity.Unit.Actions
             return sourceCoordinates.Y < targetCoordinates.Y;
         }
 
-        public static Vector2 DetermineOppositeTileOfUnit(Vector2 actorCoordinates, Vector2 targetCoordinates)
+        public static Vector2 DetermineOppositeTileOfUnit(Vector2 movingFrom, Vector2 movingAcross)
         {
-            Vector2 oppositeCoordinates = targetCoordinates;
+            Vector2 oppositeCoordinates = movingAcross;
 
-            if (SourceNorthOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceNorthOfTarget(movingFrom, movingAcross))
             {
                 //Move South
                 oppositeCoordinates.Y++;
             }
 
-            if (SourceSouthOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceSouthOfTarget(movingFrom, movingAcross))
             {
                 //Move North
                 oppositeCoordinates.Y--;
             }
 
-            if (SourceEastOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceEastOfTarget(movingFrom, movingAcross))
             {
                 //Move West
                 oppositeCoordinates.X--;
             }
 
-            if (SourceWestOfTarget(actorCoordinates, targetCoordinates))
+            if (SourceWestOfTarget(movingFrom, movingAcross))
             {
                 //Move East
                 oppositeCoordinates.X++;
