@@ -56,7 +56,8 @@ namespace SolStandard.Utility.Assets
         Glutton,
         Summon,
         Wander,
-        Venom
+        Venom,
+        Grapple
     }
 
     public static class SkillIconProvider
@@ -110,6 +111,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D suplex = skillIconTextures.Find(texture => texture.Name.EndsWith("Suplex"));
             ITexture2D venom = skillIconTextures.Find(texture => texture.Name.EndsWith("Venom"));
             ITexture2D terraform = skillIconTextures.Find(texture => texture.Name.EndsWith("Terraform"));
+            ITexture2D grapple = skillIconTextures.Find(texture => texture.Name.EndsWith("Grapple"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
@@ -161,6 +163,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Suplex, suplex},
                 {SkillIcon.Venom, venom},
                 {SkillIcon.Terraform, terraform},
+                {SkillIcon.Grapple, grapple},
 
                 //AI Routines
                 {SkillIcon.Prey, prey},
