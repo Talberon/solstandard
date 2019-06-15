@@ -11,8 +11,8 @@ namespace SolStandard.Entity.Unit.Statuses
         public FlowStatus(IRenderable icon, int turnDuration, int flowStacks,
             string buffName) : base(
             statusIcon: icon,
-            name: buffName + " State <+" + flowStacks + " " + UnitStatistics.Abbreviation[Stats.Atk] + "/" +
-                  UnitStatistics.Abbreviation[Stats.Retribution] + ">",
+            name: buffName + " State <+" + flowStacks + " " + UnitStatistics.Abbreviation[Stats.Atk] + "/+" +
+                  flowStacks + " " + UnitStatistics.Abbreviation[Stats.Retribution] + ">",
             description: "Increased attack/counter-attack power.",
             turnDuration: turnDuration,
             hasNotification: false,

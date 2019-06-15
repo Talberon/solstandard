@@ -246,7 +246,10 @@ namespace SolStandard.Entity.Unit
             get
             {
                 Color statPanelColor = new Color(10, 10, 10, 100);
-                Vector2 panelSizeOverride = new Vector2(180, 33);
+                const float panelWidth = 410;
+                const float panelHeight = 33;
+                Vector2 twoColumnPanel = new Vector2(panelWidth / 2, panelHeight);
+                Vector2 threeColumnPanel = new Vector2(panelWidth / 3 - 1, panelHeight);
 
                 const int crownIconSize = 24;
                 return new WindowContentGrid(
@@ -266,11 +269,16 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride),
+                                statPanelColor,
+                                twoColumnPanel
+                            ),
 
                             new Window(
                                 new RenderText(AssetManager.HeaderFont, Role.ToString()),
-                                statPanelColor, panelSizeOverride),
+                                statPanelColor,
+                                twoColumnPanel
+                            ),
+                            new RenderBlank()
                         },
                         {
                             new Window(
@@ -289,7 +297,8 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
+                                statPanelColor,
+                                threeColumnPanel
                             ),
                             new Window(
                                 new WindowContentGrid(
@@ -304,7 +313,23 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
+                                statPanelColor,
+                                threeColumnPanel
+                            ),
+                            new Window(
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                            new RenderText(AssetManager.WindowFont,
+                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor,
+                                threeColumnPanel
                             )
                         },
                         {
@@ -325,7 +350,8 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
+                                statPanelColor,
+                                threeColumnPanel
                             ),
                             new Window(
                                 new WindowContentGrid(
@@ -345,7 +371,27 @@ namespace SolStandard.Entity.Unit
                                     1
                                 ),
                                 statPanelColor,
-                                panelSizeOverride
+                                threeColumnPanel
+                            ),
+                            new Window(
+                                new WindowContentGrid(
+                                    new IRenderable[,]
+                                    {
+                                        {
+                                            UnitStatistics.GetSpriteAtlas(Unit.Stats.Block),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Unit.Stats.Block] + ": "),
+                                            new RenderText(
+                                                AssetManager.WindowFont,
+                                                Stats.Blk.ToString(),
+                                                UnitStatistics.DetermineStatColor(Stats.Blk, Stats.BaseBlk)
+                                            )
+                                        }
+                                    },
+                                    1
+                                ),
+                                statPanelColor,
+                                threeColumnPanel
                             )
                         },
                         {
@@ -366,25 +412,9 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
-                            ),
-                            new Window(
-                                new WindowContentGrid(
-                                    new IRenderable[,]
-                                    {
-                                        {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
-                                            new RenderText(AssetManager.WindowFont,
-                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
-                                        }
-                                    },
-                                    1
-                                ),
                                 statPanelColor,
-                                panelSizeOverride
-                            )
-                        },
-                        {
+                                threeColumnPanel
+                            ),
                             new Window(
                                 new WindowContentGrid(
                                     new IRenderable[,]
@@ -402,7 +432,8 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
+                                statPanelColor,
+                                threeColumnPanel
                             ),
                             new Window(
                                 new WindowContentGrid(
@@ -422,8 +453,9 @@ namespace SolStandard.Entity.Unit
                                     },
                                     1
                                 ),
-                                statPanelColor, panelSizeOverride
-                            )
+                                statPanelColor,
+                                threeColumnPanel
+                            ),
                         }
                     },
                     2

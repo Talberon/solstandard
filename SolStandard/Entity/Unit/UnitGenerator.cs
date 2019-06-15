@@ -142,7 +142,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectPugilistStats()
         {
-            return new UnitStatistics(hp: 11, armor: 4, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 5, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectDuelistStats()
