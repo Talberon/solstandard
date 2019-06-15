@@ -127,7 +127,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(hp: 6, armor: 4, atk: 6, ret: 3, luck: 1, mv: 5, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 8, armor: 4, atk: 6, ret: 3, luck: 1, mv: 5, atkRange: new[] {1, 2});
         }
 
         private static UnitStatistics SelectLancerStats()
@@ -249,7 +249,6 @@ namespace SolStandard.Entity.Unit
             return new List<UnitAction>
             {
                 new BasicAttack(),
-                new Ignite(3, 3),
                 new Inferno(3, 2),
                 new Terraform(),
                 new Frostbite(2, 2),
@@ -338,7 +337,8 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Guillotine(),
-                new Rage(3, 3),
+                new Rage(2, 3),
+                new Grapple(),
                 new Brace(2),
                 new Shove(),
                 new Wait()

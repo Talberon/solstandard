@@ -181,6 +181,7 @@
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Terraform.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
+    <Compile Include="Entity\Unit\Actions\Marauder\Grapple.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />

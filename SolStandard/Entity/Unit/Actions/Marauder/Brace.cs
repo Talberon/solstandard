@@ -43,7 +43,9 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new MoveStatDown(duration, halfOfUnitsBaseMv))
                 );
+                eventQueue.Enqueue(new WaitFramesEvent(20));
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
