@@ -147,6 +147,7 @@ namespace SolStandard.Containers.Contexts
                             StartResolvingBlocks();
                         }
                     }
+
                     break;
                 case BattleState.RollDice:
                     if (TryProceedToState(BattleState.ResolveCombat))
@@ -167,6 +168,7 @@ namespace SolStandard.Containers.Contexts
 
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -234,7 +236,8 @@ namespace SolStandard.Containers.Contexts
             TerrainBonus attackerTerrainBonus = DetermineTerrainBonusForUnit(attacker);
             attackerDamage = new CombatDamage(
                 attackerStats.Atk,
-                0, attackerStats.Luck,
+                attackerStats.Blk,
+                attackerStats.Luck,
                 attackerTerrainBonus.AtkBonus,
                 attackerTerrainBonus.BlockBonus,
                 attackerTerrainBonus.LuckBonus,
@@ -257,7 +260,7 @@ namespace SolStandard.Containers.Contexts
             TerrainBonus defenderTerrainBonus = DetermineTerrainBonusForUnit(defender);
             defenderDamage = new CombatDamage(
                 defenderStats.Ret,
-                0,
+                defenderStats.Blk,
                 defenderStats.Luck,
                 defenderTerrainBonus.RetBonus,
                 defenderTerrainBonus.BlockBonus,

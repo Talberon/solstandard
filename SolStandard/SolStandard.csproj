@@ -132,6 +132,8 @@
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Fortify.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\Intervention.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Atrophy.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\BlkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FlowStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\FortifiedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />

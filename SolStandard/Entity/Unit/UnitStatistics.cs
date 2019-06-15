@@ -22,7 +22,8 @@ namespace SolStandard.Entity.Unit
         EmptyArmor,
         Positive,
         Negative,
-        Retribution
+        Retribution,
+        Block
     }
 
     public class UnitStatistics
@@ -35,7 +36,8 @@ namespace SolStandard.Entity.Unit
             {Stats.Mv, "MV"},
             {Stats.AtkRange, "RNG"},
             {Stats.Luck, "LCK"},
-            {Stats.Retribution, "RET"}
+            {Stats.Retribution, "RET"},
+            {Stats.Block, "BLK"}
         };
 
 
@@ -45,6 +47,7 @@ namespace SolStandard.Entity.Unit
         private const int CommanderRetBonus = 0;
         private const int CommanderLuckBonus = 0;
         private const int CommanderMvBonus = 0;
+        private const int CommanderBlkBonus = 0;
         private const int IconSizePixels = 16;
 
         public int MaxHP { get; private set; }
@@ -55,6 +58,7 @@ namespace SolStandard.Entity.Unit
         public int BaseRet { get; private set; }
         public int BaseLuck { get; private set; }
         public int BaseMv { get; private set; }
+        public int BaseBlk { get; private set; }
 
         public int CurrentHP { get; set; }
         public int CurrentArmor { get; set; }
@@ -64,13 +68,15 @@ namespace SolStandard.Entity.Unit
         public int RetModifier { get; set; }
         public int LuckModifier { get; set; }
         public int MvModifier { get; set; }
+        public int BlkModifier { get; set; }
 
 
-        public UnitStatistics(int hp, int armor, int atk, int ret, int luck, int mv, int[] atkRange) : this(
+        public UnitStatistics(int hp, int armor, int atk, int ret, int blk, int luck, int mv, int[] atkRange) : this(
             maxHP: hp,
             maxArmor: armor,
             baseAtk: atk,
             baseRet: ret,
+            baseBlk: blk,
             baseLuck: luck,
             baseMv: mv,
             baseAtkRange: atkRange,
@@ -85,7 +91,7 @@ namespace SolStandard.Entity.Unit
         {
         }
 
-        private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseLuck, int baseMv,
+        private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseBlk, int baseLuck, int baseMv,
             int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int luckModifier,
             int mvModifier, int[] currentAtkRange
         )
@@ -105,6 +111,7 @@ namespace SolStandard.Entity.Unit
 
             BaseAtk = baseAtk;
             BaseRet = baseRet;
+            BaseBlk = baseBlk;
             BaseLuck = baseLuck;
             BaseMv = baseMv;
         }
@@ -116,6 +123,7 @@ namespace SolStandard.Entity.Unit
                 maxArmor: MaxArmor,
                 baseAtk: weaponStatistics.AtkValue,
                 baseRet: BaseRet,
+                baseBlk: BaseBlk,
                 baseLuck: BaseLuck,
                 baseMv: BaseMv,
                 baseAtkRange: BaseAtkRange,
@@ -149,6 +157,11 @@ namespace SolStandard.Entity.Unit
             get { return BaseMv + MvModifier; }
         }
 
+        public int Blk
+        {
+            get { return BaseBlk + BlkModifier; }
+        }
+
         public UnitStatistics ApplyCommanderBonuses()
         {
             return new UnitStatistics(
@@ -156,6 +169,7 @@ namespace SolStandard.Entity.Unit
                 armor: MaxArmor + CommanderAmrBonus,
                 atk: Atk + CommanderAtkBonus,
                 ret: Ret + CommanderRetBonus,
+                blk: Blk + CommanderBlkBonus,
                 luck: Luck + CommanderLuckBonus,
                 mv: Mv + CommanderMvBonus,
                 atkRange: BaseAtkRange
@@ -169,6 +183,7 @@ namespace SolStandard.Entity.Unit
                 armor: MaxArmor - CommanderAmrBonus,
                 atk: Atk - CommanderAtkBonus,
                 ret: Ret - CommanderRetBonus,
+                blk: Blk - CommanderBlkBonus,
                 luck: Luck - CommanderLuckBonus,
                 mv: Mv - CommanderMvBonus,
                 atkRange: BaseAtkRange
@@ -203,17 +218,19 @@ namespace SolStandard.Entity.Unit
         {
             string output = string.Empty;
 
-            output += Abbreviation[Stats.Hp] + ": " + CurrentHP.ToString() + "/" + MaxHP;
+            output += Abbreviation[Stats.Hp] + ": " + CurrentHP + "/" + MaxHP;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Armor] + ": " + CurrentArmor.ToString() + "/" + MaxArmor;
+            output += Abbreviation[Stats.Armor] + ": " + CurrentArmor + "/" + MaxArmor;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Atk] + ": " + Atk.ToString() + "/" + BaseAtk;
+            output += Abbreviation[Stats.Atk] + ": " + Atk + "/" + BaseAtk;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Retribution] + ": " + Ret.ToString() + "/" + BaseRet;
+            output += Abbreviation[Stats.Retribution] + ": " + Ret + "/" + BaseRet;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Luck] + ": " + Luck.ToString() + "/" + BaseLuck;
+            output += Abbreviation[Stats.Luck] + ": " + Luck + "/" + BaseLuck;
             output += Environment.NewLine;
-            output += Abbreviation[Stats.Mv] + ": " + Mv.ToString() + "/" + BaseMv;
+            output += Abbreviation[Stats.Block] + ": " + Blk + "/" + BaseBlk;
+            output += Environment.NewLine;
+            output += Abbreviation[Stats.Mv] + ": " + Mv + "/" + BaseMv;
             output += Environment.NewLine;
             output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", CurrentAtkRange),
                 string.Join(",", BaseAtkRange));
@@ -243,6 +260,7 @@ namespace SolStandard.Entity.Unit
                    Equals(BaseAtkRange, other.BaseAtkRange) &&
                    BaseAtk == other.BaseAtk &&
                    BaseRet == other.BaseRet &&
+                   BaseBlk == other.BaseBlk &&
                    BaseLuck == other.BaseLuck &&
                    BaseMv == other.BaseMv &&
                    CurrentHP == other.CurrentHP &&
@@ -264,6 +282,7 @@ namespace SolStandard.Entity.Unit
                 hashCode = (hashCode * 397) ^ BaseAtk;
                 hashCode = (hashCode * 397) ^ BaseRet;
                 hashCode = (hashCode * 397) ^ BaseLuck;
+                hashCode = (hashCode * 397) ^ BaseBlk;
                 hashCode = (hashCode * 397) ^ BaseMv;
                 hashCode = (hashCode * 397) ^ CurrentHP;
                 hashCode = (hashCode * 397) ^ CurrentArmor;

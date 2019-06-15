@@ -416,6 +416,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Terraform"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Venom"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Grapple"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 //AI Routine Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Prey"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),

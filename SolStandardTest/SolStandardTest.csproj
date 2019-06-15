@@ -151,9 +151,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Map" />
     <Folder Include="Resources\Output" />
-    <Folder Include="Utility\Network" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

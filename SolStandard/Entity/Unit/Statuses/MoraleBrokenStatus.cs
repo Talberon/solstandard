@@ -22,6 +22,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 armor: 0,
                 atk: unitToDebuff.Stats.BaseAtk / 2,
                 ret: unitToDebuff.Stats.BaseRet / 2,
+                blk: unitToDebuff.Stats.BaseBlk / 2,
                 luck: unitToDebuff.Stats.BaseLuck / 2,
                 mv: unitToDebuff.Stats.BaseMv / 2,
                 atkRange: new int[0]
