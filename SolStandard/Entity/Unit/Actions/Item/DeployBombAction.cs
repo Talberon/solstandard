@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                    "Must place item on empty space!",
+                    "Must place item on unoccupied space!",
                     50
                 );
                 AssetManager.WarningSFX.Play();
@@ -56,7 +56,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceBombAtTarget(MapSlice targetSlice)
         {
-            return targetSlice.TerrainEntity == null && targetSlice.DynamicEntity != null;
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
+                   targetSlice.DynamicEntity != null;
         }
     }
 }
