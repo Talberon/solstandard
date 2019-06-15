@@ -169,7 +169,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectSlimeStats()
         {
-            return new UnitStatistics(hp: 7, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
+            return new UnitStatistics(hp: 5, armor: 0, atk: 3, ret: 3, luck: 0, mv: 3, atkRange: new[] {1});
         }
 
         private static UnitStatistics SelectTrollStats()
