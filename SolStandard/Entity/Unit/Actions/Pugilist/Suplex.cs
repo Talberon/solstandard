@@ -40,6 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(targetUnit.UnitEntity, oppositeCoordinates));
+                    eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatBlockSFX));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                     GlobalEventQueue.QueueEvents(eventQueue);

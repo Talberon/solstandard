@@ -11,23 +11,22 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class Fortify : UnitAction
+    public class Intervention : UnitAction
     {
-        private readonly int pointsToTrade;
+        private readonly int blkBonus;
         private readonly int turnDuration;
 
-        public Fortify(int pointsToTrade, int turnDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, new Vector2(GameDriver.CellSize)),
-            name: "Fortify",
-            description: "Block [" + pointsToTrade + "] incoming damage for " + turnDuration +
-                         " turn(s) in exchange for [" + pointsToTrade + "] " + UnitStatistics.Abbreviation[Stats.Luck] +
-                         ".",
+        public Intervention(int blkBonus, int turnDuration) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Intervention, new Vector2(GameDriver.CellSize)),
+            name: "Intervention",
+            description: "Grant a [" + blkBonus + " " + UnitStatistics.Abbreviation[Stats.Block] +
+                         "] buff to an ally within range for [" + turnDuration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0},
-            freeAction: true
+            range: new[] {1},
+            freeAction: false
         )
         {
-            this.pointsToTrade = pointsToTrade;
+            this.blkBonus = blkBonus;
             this.turnDuration = turnDuration;
         }
 
@@ -35,19 +34,18 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsSelfInRange(targetSlice, targetUnit))
+            if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
-                    new FortifiedStatus(turnDuration, pointsToTrade)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new BlkStatUp(turnDuration, blkBonus)));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
-                eventQueue.Enqueue(new AdditionalActionEvent());
+                eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

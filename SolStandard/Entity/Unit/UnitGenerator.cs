@@ -240,6 +240,7 @@ namespace SolStandard.Entity.Unit
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
+                new Intervention(1, 1),
                 new Guard(3),
                 new Wait()
             };
