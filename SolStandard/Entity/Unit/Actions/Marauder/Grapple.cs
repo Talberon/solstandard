@@ -62,11 +62,18 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
-                selectedUnitEntity = targetUnit.UnitEntity;
-                AssetManager.MenuConfirmSFX.Play();
-                GeneratePlacemementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                return true;
+                if (targetUnit.IsMovable)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
+                    selectedUnitEntity = targetUnit.UnitEntity;
+                    AssetManager.MenuConfirmSFX.Play();
+                    GeneratePlacemementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    return true;
+                }
+
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
+                AssetManager.WarningSFX.Play();
+                return false;
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);

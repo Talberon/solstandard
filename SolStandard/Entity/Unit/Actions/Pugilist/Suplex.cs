@@ -30,24 +30,34 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(targetUnit.UnitEntity.MapCoordinates,
-                    actingUnit.UnitEntity.MapCoordinates);
-                MapSlice oppositeSlice = MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates);
-
-                if (OppositeTileIsMovable(oppositeSlice))
+                if (targetUnit.IsMovable)
                 {
-                    MapContainer.ClearDynamicAndPreviewGrids();
+                    Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(targetUnit.UnitEntity.MapCoordinates,
+                        actingUnit.UnitEntity.MapCoordinates);
+                    MapSlice oppositeSlice = MapContainer.GetMapSliceAtCoordinates(oppositeCoordinates);
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(targetUnit.UnitEntity, oppositeCoordinates));
-                    eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatBlockSFX));
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit));
-                    GlobalEventQueue.QueueEvents(eventQueue);
+                    if (OppositeTileIsMovable(oppositeSlice))
+                    {
+                        MapContainer.ClearDynamicAndPreviewGrids();
+
+                        Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(targetUnit.UnitEntity,
+                            oppositeCoordinates));
+                        eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatBlockSFX));
+                        eventQueue.Enqueue(new WaitFramesEvent(10));
+                        eventQueue.Enqueue(new StartCombatEvent(targetUnit));
+                        GlobalEventQueue.QueueEvents(eventQueue);
+                    }
+                    else
+                    {
+                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Opposite tile is obstructed!",
+                            50);
+                        AssetManager.WarningSFX.Play();
+                    }
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Opposite tile is obstructed!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
