@@ -41,8 +41,8 @@ namespace SolStandard.Entity.Unit
         };
 
 
-        private const int CommanderAmrBonus = 1;
-        private const int CommanderHpBonus = 4;
+        private const int CommanderAmrBonus = 0;
+        private const int CommanderHpBonus = 5;
         private const int CommanderAtkBonus = 0;
         private const int CommanderRetBonus = 0;
         private const int CommanderLuckBonus = 0;
