@@ -9,23 +9,26 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Marauder
+namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class Brace : UnitAction
+    public class Fortify : UnitAction
     {
-        private readonly int duration;
+        private readonly int pointsToTrade;
+        private readonly int turnDuration;
 
-        public Brace(int duration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Brace, new Vector2(GameDriver.CellSize)),
-            name: "Brace",
-            description: "Reduce movement by half and prevent other units from moving this " +
-                         "unit with abilities for <" + duration + "> turns.",
+        public Fortify(int pointsToTrade, int turnDuration) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, new Vector2(GameDriver.CellSize)),
+            name: "Fortify",
+            description: "Block [" + pointsToTrade + "] incoming damage for " + turnDuration +
+                         " turn(s) in exchange for [" + pointsToTrade + "] " + UnitStatistics.Abbreviation[Stats.Luck] +
+                         ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
             freeAction: true
         )
         {
-            this.duration = duration;
+            this.pointsToTrade = pointsToTrade;
+            this.turnDuration = turnDuration;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -35,16 +38,9 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-
-                AssetManager.SkillBuffSFX.Play();
-                int halfOfUnitsBaseMv = targetUnit.Stats.BaseMv / 2;
-
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(
-                    new CastStatusEffectEvent(targetUnit, new MoveStatDown(duration, halfOfUnitsBaseMv))
-                );
-                eventQueue.Enqueue(new WaitFramesEvent(20));
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ImmovableStatus(Icon, duration)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
+                    new FortifiedStatus(turnDuration, pointsToTrade)));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Containers\Contexts\InitiativeContextTest.cs" />
+    <Compile Include="Entity\Unit\Actions\Lancer\ExecuteTest.cs" />
     <Compile Include="HUD\Window\Content\Health\FakeHealthBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBarTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,9 +151,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Map" />
     <Folder Include="Resources\Output" />
-    <Folder Include="Utility\Network" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

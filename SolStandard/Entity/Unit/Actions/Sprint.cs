@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
@@ -21,10 +20,8 @@ namespace SolStandard.Entity.Unit.Actions
         public Sprint(int maxDistance) : base(
             icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
             name: "Sprint",
-            description: "Move up to " + maxDistance + " spaces at the expense of losing " +
-                         maxDistance + " " + UnitStatistics.Abbreviation[Stats.Mv] + " for a turn." +
-                         Environment.NewLine + "Can not move further than maximum " +
-                         UnitStatistics.Abbreviation[Stats.Mv] + ".",
+            description: "Move up to " + maxDistance + " additional spaces this turn." + Environment.NewLine +
+                         "Can not move further than maximum " + UnitStatistics.Abbreviation[Stats.Mv] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
             freeAction: false
@@ -40,6 +37,9 @@ namespace SolStandard.Entity.Unit.Actions
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
             unitMovingContext.GenerateMoveGrid(origin, lowerMv, GameContext.ActiveUnit.Team);
+
+            //Delete the origin space to prevent players standing still and wasting action.
+            MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
 
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
         }
@@ -72,8 +72,6 @@ namespace SolStandard.Entity.Unit.Actions
                     pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, Direction.None));
                     pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
                         targetSlice.MapCoordinates));
-                    pathingEventQueue.Enqueue(new CastStatusEffectEvent(actingUnit,
-                        new ExhaustedStatus(2, maxDistance)));
                     pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
                     pathingEventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(pathingEventQueue);

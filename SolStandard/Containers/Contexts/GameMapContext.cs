@@ -307,7 +307,9 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.UnitTargeting)
             {
-                GameContext.GameMapContext.ResetToActionMenu();
+                GameContext.ActiveUnit.CancelArmedSkill();
+                ResetCursorToActiveUnit();
+                ResetToActionMenu();
                 AssetManager.MapUnitCancelSFX.Play();
             }
             else

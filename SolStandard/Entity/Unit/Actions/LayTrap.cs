@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly TrapEntity trapItem;
 
         protected LayTrap(IRenderable skillIcon, IRenderable trapSprite, string title, int damage, int maxTriggers,
-            string description = null)
+            string description = null, bool freeAction = false)
             : base(
                 icon: skillIcon,
                 name: title,
@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions
                                              "Max activations: [" + maxTriggers + "]"),
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: new[] {1},
-                freeAction: false
+                freeAction: freeAction
             )
         {
             Damage = damage;
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             if (TargetIsInRange(targetSlice))
             {
-                if (!TargetIsObstructed(targetSlice))
+                if (!TargetHasEntityOrWall(targetSlice))
                 {
                     TrapEntity trapToPlace;
 
@@ -92,7 +92,7 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        protected static bool TargetIsObstructed(MapSlice targetSlice)
+        protected static bool TargetHasEntityOrWall(MapSlice targetSlice)
         {
             return (targetSlice.TerrainEntity != null) || (targetSlice.CollideTile != null);
         }

@@ -9,7 +9,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Mage
+namespace SolStandard.Entity.Unit.Actions.Cleric
 {
     public class Atrophy : UnitAction
     {
@@ -18,11 +18,11 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public Atrophy(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Atrophy, new Vector2(GameDriver.CellSize)),
-            name: "Atrophy",
+            name: "Necromancy - Atrophy",
             description: "Reduce an enemy's " + UnitStatistics.Abbreviation[Stats.Atk] + " by [" + statModifier + "]" +
                          " for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2},
+            range: new[] {1, 2, 3},
             freeAction: false
         )
         {

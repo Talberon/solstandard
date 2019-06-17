@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -13,155 +14,144 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 {
     public class LeapStrike : UnitAction
     {
-        private readonly int leapDistance;
+        private enum ActionPhase
+        {
+            SelectTarget,
+            SelectLandingSpace
+        }
 
-        public LeapStrike(int leapDistance) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, new Vector2(GameDriver.CellSize)),
+        private ActionPhase currentPhase = ActionPhase.SelectTarget;
+        private UnitEntity targetUnitEntity;
+
+        public LeapStrike() : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.LeapStrike, new Vector2(GameDriver.CellSize)),
             name: "Leap Strike",
-            description: "Leap towards an enemy to attack them; even across impassible terrain!",
+            description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
+                         "Select a target, then select a space to land on next to that target.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null,
+            range: new[] {1, 2, 3},
             freeAction: false
         )
         {
-            this.leapDistance = leapDistance;
-        }
-
-        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
-        {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
-
-
-            for (int i = leapDistance; i > 1; i--)
-            {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - i);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + i);
-                Vector2 eastTile = new Vector2(origin.X + i, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - i, origin.Y);
-                AddTileWithinMapBounds(attackTiles, northTile, i);
-                AddTileWithinMapBounds(attackTiles, southTile, i);
-                AddTileWithinMapBounds(attackTiles, eastTile, i);
-                AddTileWithinMapBounds(attackTiles, westTile, i);
-            }
-
-            AddAttackTilesToGameGrid(attackTiles, mapLayer);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
+        {
+            switch (currentPhase)
+            {
+                case ActionPhase.SelectTarget:
+                    if (SelectTarget(targetSlice)) currentPhase = ActionPhase.SelectLandingSpace;
+                    break;
+                case ActionPhase.SelectLandingSpace:
+                    if (SelectLandingSpace(targetSlice)) currentPhase = ActionPhase.SelectTarget;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public override void CancelAction()
+        {
+            targetUnitEntity = null;
+            currentPhase = ActionPhase.SelectTarget;
+            base.CancelAction();
+        }
+
+        private bool SelectTarget(MapSlice targetSlice)
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                if (!SpaceNextToUnitIsObstructed(targetSlice, targetUnit))
+                if (!SpaceAroundUnitIsEntirelyObstructed(targetUnit))
                 {
+                    //TODO Move this to an event so that it can work over network? Might not be necessary
+                    targetUnitEntity = targetUnit.UnitEntity;
                     MapContainer.ClearDynamicAndPreviewGrids();
+                    CreateLandingSpacesAroundTarget(targetUnit.UnitEntity.MapCoordinates);
+                    AssetManager.MenuConfirmSFX.Play();
+                    return true;
+                }
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue = MoveToTarget(eventQueue, targetSlice);
-                    eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit));
-                    GlobalEventQueue.QueueEvents(eventQueue);
-                }
-                else
-                {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
-                    AssetManager.WarningSFX.Play();
-                }
-            }
-            else
-            {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No space to land!", 50);
                 AssetManager.WarningSFX.Play();
-            }
-        }
-
-        private static Queue<IEvent> MoveToTarget(Queue<IEvent> eventQueue, MapSlice targetSlice)
-        {
-            Vector2 targetCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
-
-            if (TargetIsNorth(targetSlice))
-            {
-                targetCoordinates = new Vector2(
-                    targetSlice.MapCoordinates.X,
-                    targetSlice.MapCoordinates.Y + 1
-                );
-            }
-            else if (TargetIsSouth(targetSlice))
-            {
-                targetCoordinates = new Vector2(
-                    targetSlice.MapCoordinates.X,
-                    targetSlice.MapCoordinates.Y - 1
-                );
-            }
-            else if (TargetIsEast(targetSlice))
-            {
-                targetCoordinates = new Vector2(
-                    targetSlice.MapCoordinates.X - 1,
-                    targetSlice.MapCoordinates.Y
-                );
-            }
-            else if (TargetIsWest(targetSlice))
-            {
-                targetCoordinates = new Vector2(
-                    targetSlice.MapCoordinates.X + 1,
-                    targetSlice.MapCoordinates.Y
-                );
+                return false;
             }
 
-            eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetCoordinates));
-
-            return eventQueue;
-        }
-
-
-        private static bool SpaceNextToUnitIsObstructed(MapSlice targetSlice, GameUnit targetUnit)
-        {
-            //Check if the tile in front of the target is movable
-
-            if (TargetIsNorth(targetSlice))
-            {
-                Vector2 belowTarget = new Vector2(
-                    targetUnit.UnitEntity.MapCoordinates.X,
-                    targetUnit.UnitEntity.MapCoordinates.Y + 1
-                );
-
-                if (CoordinatesAreObstructed(belowTarget)) return true;
-            }
-
-            if (TargetIsSouth(targetSlice))
-            {
-                Vector2 aboveTarget = new Vector2(
-                    targetUnit.UnitEntity.MapCoordinates.X,
-                    targetUnit.UnitEntity.MapCoordinates.Y - 1
-                );
-
-                if (CoordinatesAreObstructed(aboveTarget)) return true;
-            }
-
-            if (TargetIsEast(targetSlice))
-            {
-                Vector2 leftOfTarget = new Vector2(
-                    targetUnit.UnitEntity.MapCoordinates.X - 1,
-                    targetUnit.UnitEntity.MapCoordinates.Y
-                );
-
-                if (CoordinatesAreObstructed(leftOfTarget)) return true;
-            }
-
-            if (TargetIsWest(targetSlice))
-            {
-                Vector2 rightOfTarget = new Vector2(
-                    targetUnit.UnitEntity.MapCoordinates.X + 1,
-                    targetUnit.UnitEntity.MapCoordinates.Y
-                );
-
-                if (CoordinatesAreObstructed(rightOfTarget)) return true;
-            }
-
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+            AssetManager.WarningSFX.Play();
             return false;
+        }
+
+        private bool SelectLandingSpace(MapSlice targetSlice)
+        {
+            if (targetSlice.DynamicEntity != null && !CoordinatesAreObstructed(targetSlice.MapCoordinates))
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+
+                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
+                    targetSlice.MapCoordinates));
+                eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new StartCombatEvent(UnitSelector.SelectUnit(targetUnitEntity)));
+                GlobalEventQueue.QueueEvents(eventQueue);
+                return true;
+            }
+
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid landing space!", 50);
+            AssetManager.WarningSFX.Play();
+            return false;
+        }
+
+
+        private static bool SpaceAroundUnitIsEntirelyObstructed(GameUnit targetUnit)
+        {
+            Vector2 unitCoordinates = targetUnit.UnitEntity.MapCoordinates;
+
+            return SouthOfTargetIsObstructed(unitCoordinates) && NorthOfTargetIsObstructed(unitCoordinates) &&
+                   WestOfTargetIsObstructed(unitCoordinates) && EastOfTargetIsObstructed(unitCoordinates);
+        }
+
+        private static bool EastOfTargetIsObstructed(Vector2 targetCoordinates)
+        {
+            Vector2 rightOfTarget = new Vector2(
+                targetCoordinates.X + 1,
+                targetCoordinates.Y
+            );
+
+            return CoordinatesAreObstructed(rightOfTarget);
+        }
+
+        private static bool WestOfTargetIsObstructed(Vector2 targetCoordinates)
+        {
+            Vector2 leftOfTarget = new Vector2(
+                targetCoordinates.X - 1,
+                targetCoordinates.Y
+            );
+
+            return CoordinatesAreObstructed(leftOfTarget);
+        }
+
+        private static bool NorthOfTargetIsObstructed(Vector2 targetCoordinates)
+        {
+            Vector2 aboveTarget = new Vector2(
+                targetCoordinates.X,
+                targetCoordinates.Y - 1
+            );
+
+            return CoordinatesAreObstructed(aboveTarget);
+        }
+
+        private static bool SouthOfTargetIsObstructed(Vector2 targetCoordinates)
+        {
+            Vector2 belowTarget = new Vector2(
+                targetCoordinates.X,
+                targetCoordinates.Y + 1
+            );
+
+            return CoordinatesAreObstructed(belowTarget);
         }
 
         private static bool CoordinatesAreObstructed(Vector2 coordinatesToCheck)
@@ -170,26 +160,28 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             return !UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates);
         }
 
-        private static bool TargetIsNorth(MapSlice targetSlice)
+        private void CreateLandingSpacesAroundTarget(Vector2 targetCoordinates)
         {
-            return targetSlice.MapCoordinates.Y < GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
-        }
+            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
-        private static bool TargetIsSouth(MapSlice targetSlice)
-        {
-            return targetSlice.MapCoordinates.Y > GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y;
-        }
+            const int distanceFromTarget = 1;
 
-        private static bool TargetIsEast(MapSlice targetSlice)
-        {
-            return targetSlice.MapCoordinates.X > GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
-        }
+            Vector2 northTile = new Vector2(targetCoordinates.X, targetCoordinates.Y - distanceFromTarget);
+            Vector2 southTile = new Vector2(targetCoordinates.X, targetCoordinates.Y + distanceFromTarget);
+            Vector2 eastTile = new Vector2(targetCoordinates.X + distanceFromTarget, targetCoordinates.Y);
+            Vector2 westTile = new Vector2(targetCoordinates.X - distanceFromTarget, targetCoordinates.Y);
 
-        private static bool TargetIsWest(MapSlice targetSlice)
-        {
-            return targetSlice.MapCoordinates.X < GameContext.ActiveUnit.UnitEntity.MapCoordinates.X;
-        }
+            if (!NorthOfTargetIsObstructed(targetCoordinates))
+                AddTileWithinMapBounds(attackTiles, northTile, distanceFromTarget);
+            if (!SouthOfTargetIsObstructed(targetCoordinates))
+                AddTileWithinMapBounds(attackTiles, southTile, distanceFromTarget);
+            if (!EastOfTargetIsObstructed(targetCoordinates))
+                AddTileWithinMapBounds(attackTiles, eastTile, distanceFromTarget);
+            if (!WestOfTargetIsObstructed(targetCoordinates))
+                AddTileWithinMapBounds(attackTiles, westTile, distanceFromTarget);
 
+            AddAttackTilesToGameGrid(attackTiles, Layer.Dynamic);
+        }
 
         private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {

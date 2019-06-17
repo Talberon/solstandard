@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
     {
         public Cleanse() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cleanse, new Vector2(GameDriver.CellSize)),
-            name: "Cleanse",
+            name: "Prayer - Cleanse",
             description: "Remove all cleansable status effects from target ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2},
@@ -32,6 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
                 CleanseAllCleansableStatuses(targetUnit);
+                GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
             }
             else
             {
@@ -52,7 +53,6 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                 eventQueue.Enqueue(new WaitFramesEvent(50));
             }
 
-            eventQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(eventQueue);
         }
     }

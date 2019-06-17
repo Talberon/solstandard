@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -9,25 +9,25 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Cleric
+namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class Bulwark : UnitAction
+    public class Intervention : UnitAction
     {
-        private readonly int statModifier;
-        private readonly int duration;
+        private readonly int blkBonus;
+        private readonly int turnDuration;
 
-        public Bulwark(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bulwark, new Vector2(GameDriver.CellSize)),
-            name: "Prayer - Bulwark",
-            description: "Regenerate ally's " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" +
-                         statModifier + "] per turn for [" + duration + "] turns.",
+        public Intervention(int blkBonus, int turnDuration) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Intervention, new Vector2(GameDriver.CellSize)),
+            name: "Intervention",
+            description: "Grant a [" + blkBonus + " " + UnitStatistics.Abbreviation[Stats.Block] +
+                         "] buff to an ally within range for [" + turnDuration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2},
+            range: new[] {1},
             freeAction: false
         )
         {
-            this.statModifier = statModifier;
-            this.duration = duration;
+            this.blkBonus = blkBonus;
+            this.turnDuration = turnDuration;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -37,16 +37,15 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
-                    new ArmorRegeneration(duration, statModifier)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new BlkStatUp(turnDuration, blkBonus)));
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

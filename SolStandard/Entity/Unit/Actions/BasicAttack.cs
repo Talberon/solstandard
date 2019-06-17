@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -18,7 +19,8 @@ namespace SolStandard.Entity.Unit.Actions
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
             name: "Basic Attack",
             description: "Attack a target based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
-                         " and " + UnitStatistics.Abbreviation[Stats.Luck] + " statistics.",
+                         " and " + UnitStatistics.Abbreviation[Stats.Luck] + " statistics." + Environment.NewLine +
+                         "Can be used against certain types of terrain.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false

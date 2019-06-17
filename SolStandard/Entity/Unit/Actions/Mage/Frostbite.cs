@@ -9,20 +9,20 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Lancer
+namespace SolStandard.Entity.Unit.Actions.Mage
 {
-    public class Cripple : UnitAction
+    public class Frostbite : UnitAction
     {
         private readonly int mvToReduce;
         private readonly int duration;
 
-        public Cripple(int duration, int mvToReduce) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Immobilize, new Vector2(GameDriver.CellSize)),
-            name: "Cripple",
+        public Frostbite(int duration, int mvToReduce) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Frostbite, new Vector2(GameDriver.CellSize)),
+            name: "Cryomancy - Frostbite",
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by [" + mvToReduce + "] for [" + duration + "] turn(s).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1},
+            range: new[] {1, 2},
             freeAction: false
         )
         {

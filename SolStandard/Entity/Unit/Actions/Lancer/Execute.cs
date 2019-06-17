@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
@@ -14,12 +15,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 {
     public class Execute : UnitAction
     {
-        private readonly int damageToDeal;
+        private readonly int percent;
 
-        public Execute(int damageToDeal) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Execute, new Vector2(GameDriver.CellSize)),
+        public Execute(int percent) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Assassinate, new Vector2(GameDriver.CellSize)),
             name: "Execute",
-            description: "Deal a finishing blow [" + damageToDeal + " DMG] to target. If target dies, regenerate all " +
+            description: "Attack a unit for " + percent + "% damage (rounded up)." + Environment.NewLine +
+                         "If target is defeated, regenerate all " +
                          UnitStatistics.Abbreviation[Stats.Armor] + " and gain an " +
                          UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
@@ -27,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             freeAction: false
         )
         {
-            this.damageToDeal = damageToDeal;
+            this.percent = percent;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -38,19 +40,21 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
+            GameUnit attacker = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
+            int atkDamage = DamageValueRoundedUp(attacker.Stats.Atk, percent);
             WeaponStatistics executionersKnife =
-                new WeaponStatistics(damageToDeal, 0, GameContext.ActiveUnit.Stats.CurrentAtkRange, 1);
+                new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(GameContext.ActiveUnit, new ExecutionerStatus(Icon, 0)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new ExecutionerStatus(Icon, 0)));
                 eventQueue.Enqueue(
                     new StartCombatEvent(
                         targetUnit,
-                        GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(executionersKnife)
+                        attacker.Stats.ApplyWeaponStatistics(executionersKnife)
                     )
                 );
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -60,6 +64,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        public static int DamageValueRoundedUp(int baseDamage, int percentToDeal)
+        {
+            float remainingPercentage = 100 - percentToDeal;
+            int damageToRemove = (int) Math.Floor(baseDamage * (remainingPercentage / 100));
+            return baseDamage - damageToRemove;
         }
     }
 }

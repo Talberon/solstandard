@@ -243,12 +243,6 @@ namespace SolStandard
                 Exit();
             }
 
-            //TODO Remove Debug actions
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
-            {
-                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
-            }
-
             if (new InputKey(Keys.F10).Pressed)
             {
                 UseDefaultResolution();

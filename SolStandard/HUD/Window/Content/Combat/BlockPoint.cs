@@ -18,7 +18,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             this.size = size;
             DefaultColor = color ?? Color.White;
             Enabled = true;
-            pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(size));
+            pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Block, new Vector2(size));
         }
 
         public int Height

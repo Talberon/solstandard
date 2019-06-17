@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
 
         public Recover(int armorPoints) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Recover, new Vector2(GameDriver.CellSize)),
-            name: "Recover",
+            name: "Prayer - Recover",
             description: "Replenish [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] +
                          " for an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

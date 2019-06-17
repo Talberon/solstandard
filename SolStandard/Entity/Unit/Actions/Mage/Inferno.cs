@@ -21,12 +21,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 AssetManager.FireTexture, AssetManager.FireTexture.Height, new Vector2(GameDriver.CellSize), 6, false,
                 Color.White
             ),
-            title: "Inferno",
+            title: "Pyromancy - Inferno",
             damage: damage,
             maxTriggers: maxTriggers,
             description: "Place up to 4 traps around you that will deal [" + damage +
                          "] damage to enemies that start their turn on it." + Environment.NewLine +
-                         "Max activations: [" + maxTriggers + "]"
+                         "Max activations: [" + maxTriggers + "]",
+            freeAction: true
         )
         {
         }
@@ -46,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
             foreach (MapElement element in targetTiles)
             {
-                if (TargetIsObstructed(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                if (TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
                 {
                     tilesToRemove.Add(element);
                 }
@@ -70,7 +71,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 {
                     MapSlice slice = MapContainer.GetMapSliceAtCoordinates(targetTile.MapCoordinates);
 
-                    if (TargetIsObstructed(slice)) continue;
+                    if (TargetHasEntityOrWall(slice)) continue;
 
                     TrapEntity trap = new TrapEntity("Fire", TrapSprite.Clone(), slice.MapCoordinates, Damage,
                         MaxTriggers, true, true);
@@ -88,7 +89,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 }
                 else
                 {
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new WaitFramesEvent(30));
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
             }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
@@ -17,10 +16,8 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         public Guillotine() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Guillotine, new Vector2(GameDriver.CellSize)),
             name: "Guillotine",
-            description: "Perform a basic attack. If the target unit is defeated, regenerate <1/4> of missing " +
-                         UnitStatistics.Abbreviation[Stats.Hp] + " (rounded down)." + Environment.NewLine +
-                         "If currently enraged, regenerate <1/3> of missing " + UnitStatistics.Abbreviation[Stats.Hp] +
-                         " instead, and lose enraged status.",
+            description: "Perform a basic attack. If the target unit is defeated, regenerate <1/3> of missing " +
+                         UnitStatistics.Abbreviation[Stats.Hp] + " (rounded down).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
@@ -40,11 +37,9 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                bool attackerIsEnraged = AttackerHasEnragedStatus();
-
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0, attackerIsEnraged))
+                    new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
@@ -54,11 +49,6 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
-        }
-
-        private static bool AttackerHasEnragedStatus()
-        {
-            return GameContext.ActiveUnit.StatusEffects.Exists(status => status is EnragedStatus);
         }
     }
 }

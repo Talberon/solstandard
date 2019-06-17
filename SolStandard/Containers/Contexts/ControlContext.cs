@@ -267,12 +267,12 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.LeftBumper, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red)); 
+                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red));
             }
 
             if (controlMapper.Press(Input.RightBumper, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue)); 
+                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue));
             }
         }
 
@@ -643,7 +643,14 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Status, PressType.Single))
             {
-                GameContext.CurrentGameState = GameContext.GameState.InGame;
+                if (GameContext.Scenario.GameIsOver)
+                {
+                    GameContext.GoToMainMenuIfGameIsOver();
+                }
+                else
+                {
+                    GameContext.CurrentGameState = GameContext.GameState.InGame;
+                }
             }
 
             if (controlMapper.Press(Input.Menu, PressType.Single))

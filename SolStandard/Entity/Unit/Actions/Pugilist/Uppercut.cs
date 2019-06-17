@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
         public Uppercut() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Uppercut, new Vector2(GameDriver.CellSize)),
             name: "Uppercut",
-            description: "Attack a unit and knock it back one tile if there is an unoccupied space behind them.",
+            description: "Push an enemy back one tile if there is an unoccupied space behind them, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {1},
             freeAction: false
@@ -35,9 +35,9 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new StartCombatEvent(targetUnit));
-                    eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
+                    eventQueue.Enqueue(new WaitFramesEvent(10));
+                    eventQueue.Enqueue(new StartCombatEvent(targetUnit));
 
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }

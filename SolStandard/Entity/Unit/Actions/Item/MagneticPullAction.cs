@@ -11,7 +11,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions
+namespace SolStandard.Entity.Unit.Actions.Item
 {
     public class MagneticPullAction : UnitAction
     {
