@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -15,9 +14,8 @@ namespace SolStandard.Entity.General
         public TerrainBonus TerrainBonus { get; private set; }
 
 
-        public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, int atkBonus, int retBonus, int blockBonus, int luckBonus,
-            bool canMove) : base(name, type, sprite, mapCoordinates, tiledProperties)
+        public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int atkBonus,
+            int retBonus, int blockBonus, int luckBonus, bool canMove) : base(name, type, sprite, mapCoordinates)
         {
             this.canMove = canMove;
             TerrainBonus = new TerrainBonus(atkBonus, retBonus, blockBonus, luckBonus);
@@ -52,18 +50,21 @@ namespace SolStandard.Entity.General
                                         },
                                         {
                                             UnitStatistics.GetSpriteAtlas(Stats.Retribution),
-                                            new RenderText(AssetManager.WindowFont, 
-                                                UnitStatistics.Abbreviation[Stats.Retribution] + ": +" + TerrainBonus.RetBonus),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Stats.Retribution] + ": +" +
+                                                TerrainBonus.RetBonus),
                                         },
                                         {
                                             UnitStatistics.GetSpriteAtlas(Stats.Armor),
-                                            new RenderText(AssetManager.WindowFont, 
-                                                UnitStatistics.Abbreviation[Stats.Armor] + ": +" + TerrainBonus.BlockBonus),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Stats.Armor] + ": +" +
+                                                TerrainBonus.BlockBonus),
                                         },
                                         {
                                             UnitStatistics.GetSpriteAtlas(Stats.Luck),
-                                            new RenderText(AssetManager.WindowFont, 
-                                                UnitStatistics.Abbreviation[Stats.Luck] + ": +" + TerrainBonus.LuckBonus),
+                                            new RenderText(AssetManager.WindowFont,
+                                                UnitStatistics.Abbreviation[Stats.Luck] + ": +" +
+                                                TerrainBonus.LuckBonus),
                                         }
                                     },
                                     0

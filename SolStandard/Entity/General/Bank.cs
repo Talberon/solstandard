@@ -22,8 +22,8 @@ namespace SolStandard.Entity.General
         public static int BlueMoney { get; private set; }
 
         public Bank(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
-            int[] interactRange, Dictionary<string, string> tiledProperties) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            int[] interactRange) :
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;
             InteractRange = interactRange;

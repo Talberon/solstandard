@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new [,]
+            return new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Withdraw"),

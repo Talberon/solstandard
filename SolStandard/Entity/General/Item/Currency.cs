@@ -18,9 +18,8 @@ namespace SolStandard.Entity.General.Item
         public int Value { get; private set; }
         public int[] InteractRange { get; private set; }
 
-        public Currency(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, int value, int[] range) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Currency(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int value, int[] range) :
+            base(name, type, sprite, mapCoordinates)
         {
             Value = value;
             InteractRange = range;

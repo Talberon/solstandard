@@ -23,9 +23,8 @@ namespace SolStandard.Entity.General
         private bool active;
         private static readonly Color ActiveColor = new Color(180, 180, 180);
 
-        public Switch(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string triggersId) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Switch(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string triggersId) :
+            base(name, type, sprite, mapCoordinates)
         {
             TriggersId = triggersId;
             InteractRange = new[] {1};

@@ -34,7 +34,8 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new RetributionStatDown(duration, retDebuffValue)));
+                GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit,
+                    new RetributionStatDown(duration, retDebuffValue)));
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
                 GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
             }

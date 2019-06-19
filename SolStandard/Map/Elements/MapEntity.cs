@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
 namespace SolStandard.Map.Elements
@@ -12,14 +11,11 @@ namespace SolStandard.Map.Elements
     {
         private readonly string name;
         private readonly string type;
-        private readonly Dictionary<string, string> tiledProperties;
 
-        public MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties)
+        public MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates)
         {
             this.name = name;
             this.type = type;
-            this.tiledProperties = tiledProperties;
             Sprite = spriteSheet;
             MapCoordinates = mapCoordinates;
         }
@@ -32,11 +28,6 @@ namespace SolStandard.Map.Elements
         public string Type
         {
             get { return type; }
-        }
-
-        public Dictionary<string, string> TiledProperties
-        {
-            get { return tiledProperties; }
         }
 
         public override string ToString()

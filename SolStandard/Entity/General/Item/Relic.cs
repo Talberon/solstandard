@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General.Item
 
         public Relic(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             string itemPool) :
-            base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            base(name, type, sprite, mapCoordinates)
         {
             ItemPool = itemPool;
             InteractRange = pickupRange;

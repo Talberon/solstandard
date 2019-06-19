@@ -17,9 +17,9 @@ namespace SolStandard.Entity.General
         public readonly bool CapturableByBlue;
         public readonly bool CapturableByRed;
 
-        public SeizeEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool capturableByBlue, bool capturableByRed) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public SeizeEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool capturableByBlue,
+            bool capturableByRed) :
+            base(name, type, sprite, mapCoordinates)
         {
             CapturableByBlue = capturableByBlue;
             CapturableByRed = capturableByRed;

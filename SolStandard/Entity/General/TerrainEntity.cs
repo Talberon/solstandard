@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -61,14 +60,14 @@ namespace SolStandard.Entity.General
 
         public bool CanMove { get; protected set; }
 
-        public TerrainEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties) : base(name, type, sprite, mapCoordinates, tiledProperties)
+        protected TerrainEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates) :
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = true;
 
             NameText = new RenderText(AssetManager.HeaderFont, Name);
             TypeText = new RenderText(AssetManager.WindowFont, "[" + Type + "]");
-            
+
             InfoHeader = new Window(
                 new WindowContentGrid(
                     new[,]

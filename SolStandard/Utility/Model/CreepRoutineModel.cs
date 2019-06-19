@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
@@ -26,23 +27,23 @@ namespace SolStandard.Utility.Model
     public class CreepRoutineModel
     {
         //Tiled Property Names
-        public const string ClassProp = "Class";
-        public const string CommanderProp = "Commander";
-        public const string IndependentProp = "Independent";
-        public const string ItemsProp = "Items";
-        public const string TeamProp = "Team";
-        public const string FallbackRoutineProp = "fallback_routine";
-        public const string RoutineBasicAttackProp = "routine_basicAttack";
-        public const string RoutineSummonProp = "routine_summon";
-        public const string RoutineSummonClassProp = "routine_summon.class";
-        public const string RoutineWanderProp = "routine_wander";
-        public const string RoutineTreasureHunterProp = "routine_treasureHunter";
-        public const string RoutineTriggerHappyProp = "routine_triggerHappy";
-        public const string RoutineDefenderProp = "routine_defender";
-        public const string RoutineGluttonProp = "routine_glutton";
-        public const string RoutinePreyProp = "routine_prey";
-        public const string RoutineKingslayerProp = "routine_kingslayer";
-        public const string RoutineWaitProp = "routine_wait";
+        private const string ClassProp = "Class";
+        private const string CommanderProp = "Commander";
+        private const string IndependentProp = "Independent";
+        private const string ItemsProp = "Items";
+        private const string TeamProp = "Team";
+        private const string FallbackRoutineProp = "fallback_routine";
+        private const string RoutineBasicAttackProp = "routine_basicAttack";
+        private const string RoutineSummonProp = "routine_summon";
+        private const string RoutineSummonClassProp = "routine_summon.class";
+        private const string RoutineWanderProp = "routine_wander";
+        private const string RoutineTreasureHunterProp = "routine_treasureHunter";
+        private const string RoutineTriggerHappyProp = "routine_triggerHappy";
+        private const string RoutineDefenderProp = "routine_defender";
+        private const string RoutineGluttonProp = "routine_glutton";
+        private const string RoutinePreyProp = "routine_prey";
+        private const string RoutineKingslayerProp = "routine_kingslayer";
+        private const string RoutineWaitProp = "routine_wait";
 
         public Role CreepClass { get; private set; }
         private readonly bool isCommander;
@@ -86,10 +87,50 @@ namespace SolStandard.Utility.Model
             this.routineWait = routineWait;
         }
 
+        public List<UnitAction> Actions
+        {
+            get { return GenerateCreepRoutinesFromProperties(EntityProperties); }
+        }
+
+        public IRoutine FallbackRoutine
+        {
+            get
+            {
+                return GenerateRoutine(GetRoutineByName(EntityProperties[FallbackRoutineProp]), EntityProperties) as
+                    IRoutine;
+            }
+        }
+
+        private static List<UnitAction> GenerateCreepRoutinesFromProperties(
+            IReadOnlyDictionary<string, string> creepProperties
+        )
+        {
+            List<string> enabledRoutines = (from valuePair in creepProperties
+                where GetRoutineByName(valuePair.Key) != Routine.None
+                where Convert.ToBoolean(valuePair.Value)
+                select valuePair.Key).ToList();
+
+            List<UnitAction> actions = new List<UnitAction>();
+
+            foreach (string routineName in enabledRoutines)
+            {
+                actions.Add(GenerateRoutine(GetRoutineByName(routineName), creepProperties));
+            }
+
+            return actions;
+        }
+
         public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
         {
-            bool isIndependent = Convert.ToBoolean(creepProperties[IndependentProp]);
+            return GenerateRoutine(
+                routine,
+                Convert.ToBoolean(creepProperties[IndependentProp]),
+                creepProperties[RoutineSummonClassProp]
+            );
+        }
 
+        private static UnitAction GenerateRoutine(Routine routine, bool isIndependent, string summonName)
+        {
             switch (routine)
             {
                 case Routine.BasicAttack:
@@ -97,8 +138,8 @@ namespace SolStandard.Utility.Model
                 case Routine.Wander:
                     return new WanderRoutine();
                 case Routine.Summon:
-                    CreepEntity creepToSummon = FindSummonByName(creepProperties[RoutineSummonClassProp]);
-                    return new SummoningRoutine(GetModelForCreep(creepToSummon));
+                    CreepEntity creepToSummon = FindSummonByName(summonName);
+                    return new SummoningRoutine(creepToSummon.Routines);
                 case Routine.TreasureHunter:
                     return new TreasureHunterRoutine();
                 case Routine.TriggerHappy:
@@ -123,27 +164,26 @@ namespace SolStandard.Utility.Model
             return GameContext.GameMapContext.MapContainer.MapSummons.Find(creep => creep.Name == summonName);
         }
 
-        private static CreepRoutineModel GetModelForCreep(CreepEntity creepEntity)
+        public static CreepRoutineModel GetModelForCreep(Dictionary<string, string> unitProperties)
         {
-            Dictionary<string, string> creepProps = creepEntity.TiledProperties;
             return new CreepRoutineModel(
-                GetRoleByName(creepProps[ClassProp]),
-                Convert.ToBoolean(creepProps[CommanderProp]),
-                Convert.ToBoolean(creepProps[IndependentProp]),
-                creepProps[ItemsProp],
-                GetTeamByName(creepProps[TeamProp]),
-                GetRoutineByName(creepProps[FallbackRoutineProp]),
-                Convert.ToBoolean(creepProps[RoutineBasicAttackProp]),
-                Convert.ToBoolean(creepProps[RoutineSummonProp]),
-                creepProps[RoutineSummonClassProp],
-                Convert.ToBoolean(creepProps[RoutineWanderProp]),
-                Convert.ToBoolean(creepProps[RoutineTreasureHunterProp]),
-                Convert.ToBoolean(creepProps[RoutineTriggerHappyProp]),
-                Convert.ToBoolean(creepProps[RoutineDefenderProp]),
-                Convert.ToBoolean(creepProps[RoutineGluttonProp]),
-                Convert.ToBoolean(creepProps[RoutinePreyProp]),
-                Convert.ToBoolean(creepProps[RoutineKingslayerProp]),
-                Convert.ToBoolean(creepProps[RoutineWaitProp])
+                GetRoleByName(unitProperties[ClassProp]),
+                Convert.ToBoolean(unitProperties[CommanderProp]),
+                Convert.ToBoolean(unitProperties[IndependentProp]),
+                unitProperties[ItemsProp],
+                GetTeamByName(unitProperties[TeamProp]),
+                GetRoutineByName(unitProperties[FallbackRoutineProp]),
+                Convert.ToBoolean(unitProperties[RoutineBasicAttackProp]),
+                Convert.ToBoolean(unitProperties[RoutineSummonProp]),
+                unitProperties[RoutineSummonClassProp],
+                Convert.ToBoolean(unitProperties[RoutineWanderProp]),
+                Convert.ToBoolean(unitProperties[RoutineTreasureHunterProp]),
+                Convert.ToBoolean(unitProperties[RoutineTriggerHappyProp]),
+                Convert.ToBoolean(unitProperties[RoutineDefenderProp]),
+                Convert.ToBoolean(unitProperties[RoutineGluttonProp]),
+                Convert.ToBoolean(unitProperties[RoutinePreyProp]),
+                Convert.ToBoolean(unitProperties[RoutineKingslayerProp]),
+                Convert.ToBoolean(unitProperties[RoutineWaitProp])
             );
         }
 
@@ -157,7 +197,7 @@ namespace SolStandard.Utility.Model
             return (Role) Enum.Parse(typeof(Role), roleName);
         }
 
-        public static Routine GetRoutineByName(string routineName)
+        private static Routine GetRoutineByName(string routineName)
         {
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 

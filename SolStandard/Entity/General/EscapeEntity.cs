@@ -14,7 +14,7 @@ namespace SolStandard.Entity.General
 
         public EscapeEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool useableByBlue,
             bool useableByRed)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             UseableByBlue = useableByBlue;
             UseableByRed = useableByRed;

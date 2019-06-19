@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         public WeaponAttack(IRenderable icon, string weaponName, WeaponStatistics stats) : base(
             icon: icon,
             name: "Attack: " + weaponName,
-            description:  WeaponDescription(stats),
+            description: WeaponDescription(stats),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
@@ -33,7 +33,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             return new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont, "Perform a basic attack against target based on your weapon's statistics."), 
+                        new RenderText(AssetManager.WindowFont,
+                            "Perform a basic attack against target based on your weapon's statistics."),
                     },
                     {
                         stats.GenerateStatGrid(AssetManager.WindowFont)

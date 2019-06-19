@@ -18,14 +18,14 @@ namespace SolStandard.Entity.General
         private readonly WeaponStatistics weaponStatistics;
         private readonly Window statWindow;
 
-        public Railgun(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove, int atkRange, int atkDamage) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Railgun(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove, int atkRange,
+            int atkDamage) :
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;
             AtkRange = atkRange;
             InteractRange = new[] {0};
-            weaponStatistics = new WeaponStatistics(atkDamage, -100, new []{AtkRange}, 100);
+            weaponStatistics = new WeaponStatistics(atkDamage, -100, new[] {AtkRange}, 100);
             statWindow = Weapon.BuildStatWindow(weaponStatistics);
         }
 

@@ -31,7 +31,7 @@ namespace SolStandard.Entity.General.Item
 
         public BuffItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string statistic,
             int statModifier, int buffDuration, int[] pickupRange, string itemPool)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             InteractRange = pickupRange;
             ItemPool = itemPool;

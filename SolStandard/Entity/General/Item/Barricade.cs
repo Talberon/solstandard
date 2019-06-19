@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
@@ -10,9 +9,10 @@ namespace SolStandard.Entity.General.Item
     public class Barricade : BreakableObstacle, IItem
     {
         public string ItemPool { get; private set; }
-        
-        public Barricade(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp, string itemPool) :
-            base(name, type, sprite, mapCoordinates, new Dictionary<string, string>(), hp, false, hp < 1, 0)
+
+        public Barricade(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp,
+            string itemPool) :
+            base(name, type, sprite, mapCoordinates, hp, false, hp < 1, 0)
         {
             ItemPool = itemPool;
         }

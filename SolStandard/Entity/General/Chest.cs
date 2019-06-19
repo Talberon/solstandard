@@ -26,10 +26,10 @@ namespace SolStandard.Entity.General
 
         public List<IItem> Items { get; private set; }
 
-        public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, bool canMove, int[] range,
+        public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
+            bool canMove, int[] range,
             int gold, IItem item = null) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;
             IsLocked = isLocked;

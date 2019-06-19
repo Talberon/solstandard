@@ -1,19 +1,21 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
+using SolStandard.Utility.Model;
 
 namespace SolStandard.Entity.Unit
 {
     public class CreepEntity : UnitEntity
     {
         private IRenderable routineIcon;
+        public CreepRoutineModel Routines { get; private set; }
 
-        public CreepEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
-            bool isCommander, Dictionary<string, string> tiledProperties)
-            : base(name, type, spriteSheet, mapCoordinates, isCommander, tiledProperties)
+        public CreepEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
+            Role role, bool isCommander, CreepRoutineModel creepRoutineRoutines, string[] initialInventory)
+            : base(name, type, spriteSheet, mapCoordinates, team, role, isCommander, initialInventory)
         {
+            Routines = creepRoutineRoutines;
         }
 
         public void UpdateRoutineIcon(IRoutine routine)
@@ -33,7 +35,7 @@ namespace SolStandard.Entity.Unit
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            
+
             if (routineIcon != null)
             {
                 routineIcon.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));

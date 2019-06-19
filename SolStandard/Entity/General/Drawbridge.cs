@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
@@ -16,9 +15,8 @@ namespace SolStandard.Entity.General
         public bool IsLocked { get; private set; }
         private static readonly Color InactiveColor = new Color(180, 180, 180, 100);
 
-        public Drawbridge(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool isOpen) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Drawbridge(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isOpen) :
+            base(name, type, sprite, mapCoordinates)
         {
             ElementColor = InactiveColor;
             IsOpen = isOpen;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -9,13 +8,12 @@ namespace SolStandard.Entity.General
 {
     public class Movable : TerrainEntity
     {
-        public Movable(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove) : base(name, type, sprite, mapCoordinates,
-            tiledProperties)
+        public Movable(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove) :
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;
         }
-        
+
         public override IRenderable TerrainInfo
         {
             get

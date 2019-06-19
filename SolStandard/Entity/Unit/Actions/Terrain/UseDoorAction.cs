@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ToggleOpenEvent(door));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    
+
                     if (FreeAction)
                     {
                         eventQueue.Enqueue(new AdditionalActionEvent());

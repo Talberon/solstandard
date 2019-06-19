@@ -23,19 +23,26 @@ namespace SolStandard.Entity.Unit
 
         private SpriteAtlas commanderCrown;
         private bool isCommander;
+        public Team Team { get; private set; }
+        public Role Role { get; private set; }
+        public string[] InitialInventory { get; private set; }
 
-        public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates,
-            bool isCommander, Dictionary<string, string> tiledProperties)
-            : base(name, type, spriteSheet, mapCoordinates, tiledProperties)
+        public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
+            Role role, bool isCommander, string[] initialInventory)
+            : base(name, type, spriteSheet, mapCoordinates)
         {
             ElementColor = ActiveColor;
 
+            Team = team;
+            Role = role;
             IsCommander = isCommander;
+            this.InitialInventory = initialInventory;
         }
+
 
         public bool IsCommander
         {
-            private get { return isCommander; }
+            get { return isCommander; }
             set
             {
                 isCommander = value;

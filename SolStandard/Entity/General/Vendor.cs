@@ -24,7 +24,7 @@ namespace SolStandard.Entity.General
         public Vendor(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
             int[] interactRange, IReadOnlyList<IItem> items, IReadOnlyList<int> prices, int[] quantities,
             Dictionary<string, string> tiledProperties) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            base(name, type, sprite, mapCoordinates)
         {
             if (items.Count != prices.Count || items.Count != quantities.Length)
             {

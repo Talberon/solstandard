@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) blockCoordinates.X, (int) blockCoordinates.Y] =
                 new MapDistanceTile(TileSprite, blockCoordinates);
-            
+
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(blockCoordinates);
         }
 

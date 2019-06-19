@@ -15,9 +15,9 @@ namespace SolStandard.Entity.General
         private readonly string destinationId;
         public int[] InteractRange { get; private set; }
 
-        public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool canMove, string destinationId, int[] range) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
+            string destinationId, int[] range) :
+            base(name, type, sprite, mapCoordinates)
         {
             this.canMove = canMove;
             this.destinationId = destinationId;

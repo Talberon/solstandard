@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -17,9 +16,8 @@ namespace SolStandard.Entity.General
         private readonly int hpPerTurn;
 
         public RecoveryTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int amrPerTurn,
-            int hpPerTurn,
-            Dictionary<string, string> tiledProperties) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            int hpPerTurn) :
+            base(name, type, sprite, mapCoordinates)
         {
             this.amrPerTurn = amrPerTurn;
             this.hpPerTurn = hpPerTurn;
@@ -87,7 +85,7 @@ namespace SolStandard.Entity.General
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
-            
+
             MapSlice recoverySlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit unitOnTile = UnitSelector.SelectUnit(recoverySlice.UnitEntity);
             return unitOnTile != null;

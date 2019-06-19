@@ -20,7 +20,7 @@ namespace SolStandard.Entity.General.Item
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int atkValue, int luckModifier, int[] atkRange, int usesRemaining, string itemPool)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             InteractRange = pickupRange;
             ItemPool = itemPool;
