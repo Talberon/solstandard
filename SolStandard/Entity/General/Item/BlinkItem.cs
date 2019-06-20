@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -20,7 +21,7 @@ namespace SolStandard.Entity.General.Item
 
         public BlinkItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int[] blinkRange, int usesRemaining, string itemPool)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             BlinkRange = blinkRange;
             InteractRange = pickupRange;
@@ -58,7 +59,8 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining, ItemPool);
+            return new BlinkItem(Name, Type, Sprite, MapCoordinates, InteractRange, BlinkRange, UsesRemaining,
+                ItemPool);
         }
 
         public override IRenderable TerrainInfo

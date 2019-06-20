@@ -81,7 +81,7 @@ namespace SolStandard.Map.Elements
             return textTarget;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
 

@@ -75,8 +75,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         private BreakableObstacle GenerateObstacle(Vector2 mapCoordinates)
         {
-            return new BreakableObstacle("Rubble", "BreakableObstacle", Icon, mapCoordinates,
-                new Dictionary<string, string>(), 1, false, false, 0);
+            return new BreakableObstacle("Rubble", "BreakableObstacle", Icon, mapCoordinates, 1, false, false, 0);
         }
 
         private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)

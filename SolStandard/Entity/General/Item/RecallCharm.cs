@@ -19,7 +19,7 @@ namespace SolStandard.Entity.General.Item
 
         public RecallCharm(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string recallId,
             int[] pickupRange, string itemPool, int[] deployRange, int usesRemaining)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             this.deployRange = deployRange;
             this.usesRemaining = usesRemaining;

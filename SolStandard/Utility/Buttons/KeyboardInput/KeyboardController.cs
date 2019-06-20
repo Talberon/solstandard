@@ -30,10 +30,10 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             {Input.Menu, KeyboardIcon.Enter},
             {Input.Status, KeyboardIcon.Escape},
 
-            {Input.LeftBumper, KeyboardIcon.Tab},
-            {Input.RightBumper, KeyboardIcon.R},
-            {Input.LeftTrigger, KeyboardIcon.LeftCtrl},
-            {Input.RightTrigger, KeyboardIcon.LeftAlt},
+            {Input.TabLeft, KeyboardIcon.Tab},
+            {Input.TabRight, KeyboardIcon.R},
+            {Input.ZoomOut, KeyboardIcon.LeftCtrl},
+            {Input.ZoomIn, KeyboardIcon.LeftAlt},
         };
 
         public KeyboardController()
@@ -81,10 +81,10 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
                 {Input.Menu, (InputKey) Menu},
                 {Input.Status, (InputKey) Status},
 
-                {Input.LeftBumper, (InputKey) SetWideZoom},
-                {Input.RightBumper, (InputKey) SetCloseZoom},
-                {Input.LeftTrigger, (InputKey) AdjustZoomOut},
-                {Input.RightTrigger, (InputKey) AdjustZoomIn},
+                {Input.TabLeft, (InputKey) SetWideZoom},
+                {Input.TabRight, (InputKey) SetCloseZoom},
+                {Input.ZoomOut, (InputKey) AdjustZoomOut},
+                {Input.ZoomIn, (InputKey) AdjustZoomIn},
             };
         }
 

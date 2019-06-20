@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
@@ -13,7 +12,6 @@ using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Marauder;
 using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
-using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Model;
 using SolStandard.Utility.Monogame;
@@ -30,13 +28,8 @@ namespace SolStandard.Entity.Unit
             foreach (UnitEntity unit in units)
             {
                 if (unit == null) continue;
-
-                Team unitTeam = (Team) Enum.Parse(typeof(Team), unit.TiledProperties["Team"]);
-                Role role = (Role) Enum.Parse(typeof(Role), unit.TiledProperties["Class"]);
-                bool commander = Convert.ToBoolean(unit.TiledProperties["Commander"]);
-
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unitTeam, role, commander, unit, loot,
-                    unit.TiledProperties);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unit.Team, unit.Role, unit.IsCommander, unit,
+                    loot);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -44,15 +37,14 @@ namespace SolStandard.Entity.Unit
         }
 
         private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
-            UnitEntity mapEntity, List<IItem> loot, Dictionary<string, string> tiledProperties)
+            UnitEntity mapEntity, List<IItem> loot)
         {
             GameUnit generatedUnit;
 
             if (unitTeam == Team.Creep)
             {
-                generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity,
-                    tiledProperties);
-                PopulateUnitInventory(mapEntity, loot, generatedUnit);
+                generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
+                PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
                 AssignStartingGold(generatedUnit);
             }
             else
@@ -97,13 +89,9 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        private static void PopulateUnitInventory(MapEntity mapEntity, List<IItem> loot, GameUnit unit)
+        private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)
         {
-            string itemNameProp = mapEntity.TiledProperties["Items"];
-            if (itemNameProp == string.Empty) return;
-            string[] unitInventory = itemNameProp.Split('|');
-
-            foreach (string itemName in unitInventory)
+            foreach (string itemName in inventoryItems)
             {
                 IItem unitItem = loot.Find(item => item.Name == itemName);
 
@@ -363,25 +351,6 @@ namespace SolStandard.Entity.Unit
 
         #endregion Unit Skills
 
-        private static List<UnitAction> GenerateCreepRoutinesFromProperties(
-            IReadOnlyDictionary<string, string> creepProperties
-        )
-        {
-            List<string> enabledRoutines = (from valuePair in creepProperties
-                where CreepRoutineModel.GetRoutineByName(valuePair.Key) != Routine.None
-                where Convert.ToBoolean(valuePair.Value)
-                select valuePair.Key).ToList();
-
-            List<UnitAction> actions = new List<UnitAction>();
-
-            foreach (string routineName in enabledRoutines)
-            {
-                actions.Add(CreepRoutineModel.GenerateRoutine(CreepRoutineModel.GetRoutineByName(routineName),
-                    creepProperties));
-            }
-
-            return actions;
-        }
 
         private static ITexture2D FindSmallPortrait(string unitTeam, string unitJobClass, List<ITexture2D> portraits)
         {
@@ -402,10 +371,10 @@ namespace SolStandard.Entity.Unit
         {
             string unitName = NameGenerator.GenerateUnitName(role);
 
-            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false,
+            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false, new string[0],
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
-            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity, entityProperties);
+            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
         }
 
         public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
@@ -417,72 +386,54 @@ namespace SolStandard.Entity.Unit
                 throw new Exception("Cannot create creep as if it were a player unit!");
             }
 
-            Dictionary<string, string> tiledProperties = new Dictionary<string, string>();
-
-            UnitEntity generatedEntity = GenerateUnitEntity(unitName, "Unit", role, team, isCommander,
-                AssetManager.UnitSprites, Vector2.Zero, tiledProperties);
+            UnitEntity generatedEntity = GenerateUnitEntity(unitName, "Unit", role, team, isCommander, new string[0],
+                AssetManager.UnitSprites, Vector2.Zero);
 
             return GenerateUnit(role, team, unitName, isCommander, generatedEntity);
         }
 
         private static CreepUnit GenerateCreep(Role role, Team team, string unitName, bool isCommander,
-            CreepEntity entity, IReadOnlyDictionary<string, string> tiledProperties)
+            CreepEntity entity)
         {
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
             UnitStatistics unitStatistics;
-            List<UnitAction> unitActions;
 
             switch (role)
             {
                 case Role.Slime:
                     unitStatistics = SelectSlimeStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Troll:
                     unitStatistics = SelectTrollStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Orc:
                     unitStatistics = SelectOrcStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Necromancer:
                     unitStatistics = SelectNecromancerStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Skeleton:
                     unitStatistics = SelectSkeletonStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Goblin:
                     unitStatistics = SelectGoblinStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Rat:
                     unitStatistics = SelectRatStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Bat:
                     unitStatistics = SelectBatStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 case Role.Spider:
                     unitStatistics = SelectSpiderStats();
-                    unitActions = GenerateCreepRoutinesFromProperties(tiledProperties);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("role", role, null);
             }
 
-            UnitAction fallbackRoutine = CreepRoutineModel.GenerateRoutine(
-                CreepRoutineModel.GetRoutineByName(tiledProperties[CreepRoutineModel.FallbackRoutineProp]),
-                tiledProperties
-            );
-
-            return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander,
-                fallbackRoutine as IRoutine);
+            return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, isCommander);
         }
 
         private static GameUnit GenerateUnit(Role role, Team team, string unitName, bool isCommander, UnitEntity entity)
@@ -543,31 +494,35 @@ namespace SolStandard.Entity.Unit
         }
 
         public static UnitEntity GenerateMapEntity(string name, string type, Role role, Team team, bool isCommander,
-            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+            string[] initialInventory, List<ITexture2D> unitSprites, Vector2 mapCoordinates,
+            Dictionary<string, string> unitProperties)
         {
             return team == Team.Creep
-                ? GenerateCreepEntity(name, type, role, team, isCommander, unitSprites, mapCoordinates, unitProperties)
-                : GenerateUnitEntity(name, type, role, team, isCommander, unitSprites, mapCoordinates, unitProperties);
+                ? GenerateCreepEntity(name, type, role, team, isCommander, initialInventory, unitSprites,
+                    mapCoordinates, unitProperties)
+                : GenerateUnitEntity(name, type, role, team, isCommander, initialInventory, unitSprites,
+                    mapCoordinates);
         }
 
         private static CreepEntity GenerateCreepEntity(string name, string type, Role role, Team team, bool isCommander,
-            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+            string[] initialInventory, List<ITexture2D> unitSprites, Vector2 mapCoordinates,
+            Dictionary<string, string> unitProperties)
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
-
-            CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, isCommander,
-                unitProperties);
+            CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(unitProperties);
+            CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
+                isCommander, creepRoutineModel, initialInventory);
 
             return creepEntity;
         }
 
         private static UnitEntity GenerateUnitEntity(string name, string type, Role role, Team team, bool isCommander,
-            List<ITexture2D> unitSprites, Vector2 mapCoordinates, Dictionary<string, string> unitProperties)
+            string[] initialInventory, List<ITexture2D> unitSprites, Vector2 mapCoordinates)
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
 
-            UnitEntity unitEntity = new UnitEntity(name, type, animatedSpriteSheet, mapCoordinates, isCommander,
-                unitProperties);
+            UnitEntity unitEntity = new UnitEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
+                isCommander, initialInventory);
 
             return unitEntity;
         }

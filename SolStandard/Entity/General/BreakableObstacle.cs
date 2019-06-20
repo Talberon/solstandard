@@ -18,9 +18,9 @@ namespace SolStandard.Entity.General
         private int gold;
         private readonly List<IItem> items;
 
-        public BreakableObstacle(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, int hp, bool canMove, bool isBroken, int gold,
-            IItem item = null) : base(name, type, sprite, mapCoordinates, tiledProperties)
+        public BreakableObstacle(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp,
+            bool canMove, bool isBroken, int gold, IItem item = null) :
+            base(name, type, sprite, mapCoordinates)
         {
             HP = hp;
             CanMove = canMove;

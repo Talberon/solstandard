@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
@@ -30,7 +30,7 @@ namespace SolStandard.Entity.General
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
             bool limitedTriggers, bool enabled, bool willSnare = false, string itemPool = null) :
-            base(name, "Trap", sprite, mapCoordinates, new Dictionary<string, string>())
+            base(name, "Trap", sprite, mapCoordinates)
         {
             Damage = damage;
             TriggersRemaining = triggersRemaining;
@@ -96,7 +96,7 @@ namespace SolStandard.Entity.General
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
-            
+
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
 

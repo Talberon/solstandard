@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             Vector2 oppositeCoordinates = DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
 
             return TargetIsUnitInRange(targetSlice, targetUnit) &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) && 
+                   UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) &&
                    targetUnit.IsMovable;
         }
     }

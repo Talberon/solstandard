@@ -53,7 +53,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!", 50);
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be seized by this team!",
+                        50);
                     AssetManager.WarningSFX.Play();
                 }
             }

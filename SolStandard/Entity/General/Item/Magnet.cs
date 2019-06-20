@@ -19,7 +19,7 @@ namespace SolStandard.Entity.General.Item
 
         public Magnet(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int[] actionRange, int usesRemaining, string itemPool)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             InteractRange = pickupRange;
             this.actionRange = actionRange;

@@ -13,7 +13,6 @@ namespace SolStandard.HUD.Menu
 {
     public class TwoDimensionalMenu : IMenu
     {
-
         public enum CursorType
         {
             Pointer,
@@ -63,7 +62,8 @@ namespace SolStandard.HUD.Menu
         private void SetCursorPosition(int row, int column)
         {
             Vector2 optionPosition = new Vector2(
-                (column * (optionSize.X + ((menuWindow.ElementSpacing + menuWindow.InsidePadding * 2)))) + menuWindow.ElementSpacing,
+                (column * (optionSize.X + ((menuWindow.ElementSpacing + menuWindow.InsidePadding * 2)))) +
+                menuWindow.ElementSpacing,
                 row * optionSize.Y
             );
             Vector2 centerLeft =
@@ -107,9 +107,14 @@ namespace SolStandard.HUD.Menu
             }
         }
 
+        public MenuOption CurrentOption
+        {
+            get { return options[CurrentOptionRow, CurrentOptionColumn]; }
+        }
+
         public void SelectOption()
         {
-            options[CurrentOptionRow, CurrentOptionColumn].Execute();
+            CurrentOption.Execute();
             AssetManager.MenuConfirmSFX.Play();
         }
 

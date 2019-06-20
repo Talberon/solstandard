@@ -15,17 +15,19 @@ namespace SolStandard.Entity.Unit.Actions.Item
     public class WeaponAttack : UnitAction
     {
         private readonly WeaponStatistics stats;
+        private readonly Weapon sourceWeapon;
 
-        public WeaponAttack(IRenderable icon, string weaponName, WeaponStatistics stats) : base(
+        public WeaponAttack(IRenderable icon, WeaponStatistics stats, Weapon sourceWeapon) : base(
             icon: icon,
-            name: "Attack: " + weaponName,
-            description:  WeaponDescription(stats),
+            name: "Attack",
+            description: WeaponDescription(stats),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
         )
         {
             this.stats = stats;
+            this.sourceWeapon = sourceWeapon;
         }
 
         private static WindowContentGrid WeaponDescription(WeaponStatistics stats)
@@ -33,7 +35,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             return new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont, "Perform a basic attack against target based on your weapon's statistics."), 
+                        new RenderText(AssetManager.WindowFont,
+                            "Perform a basic attack against target based on your weapon's statistics."),
                     },
                     {
                         stats.GenerateStatGrid(AssetManager.WindowFont)
@@ -91,7 +94,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
             stats.DecrementRemainingUses();
             if (!stats.IsBroken) return;
 
-            GameContext.ActiveUnit.InventoryActions.Remove(this);
+            GameContext.ActiveUnit.RemoveItemFromInventory(sourceWeapon);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
+            AssetManager.CombatDeathSFX.Play();
 
             SpriteAtlas icon = Icon as SpriteAtlas;
             if (icon != null) icon.DefaultColor = GameUnit.DeadPortraitColor;

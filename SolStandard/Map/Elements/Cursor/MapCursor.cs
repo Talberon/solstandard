@@ -212,7 +212,7 @@ namespace SolStandard.Map.Elements.Cursor
             Draw(spriteBatch, Color.White);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             UpdateCursorTeam();
             UpdateRenderCoordinates();

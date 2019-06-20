@@ -24,7 +24,7 @@ namespace SolStandard.Entity.General.Item
 
         public HealthPotion(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int hpHealed, string itemPool)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             InteractRange = pickupRange;
             HPHealed = hpHealed;

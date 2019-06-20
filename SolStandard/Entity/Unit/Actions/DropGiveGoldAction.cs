@@ -34,10 +34,10 @@ namespace SolStandard.Entity.Unit.Actions
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new [,]
+            return new WindowContentGrid(new[,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont,"Drop"),
+                        new RenderText(AssetManager.WindowFont, "Drop"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
@@ -46,9 +46,9 @@ namespace SolStandard.Entity.Unit.Actions
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
-                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

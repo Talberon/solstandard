@@ -23,9 +23,9 @@ namespace SolStandard.Entity.General
         private readonly bool triggerOnRelease;
         private const EffectTriggerTime TriggerTime = EffectTriggerTime.EndOfTurn;
 
-        public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string triggersId, bool triggerOnRelease) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string triggersId,
+            bool triggerOnRelease) :
+            base(name, type, sprite, mapCoordinates)
         {
             this.triggersId = triggersId;
             this.triggerOnRelease = triggerOnRelease;

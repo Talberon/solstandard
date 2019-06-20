@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -21,7 +22,7 @@ namespace SolStandard.Entity.General.Item
 
         public Contract(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] interactRange,
             string itemPool, bool forSpecificUnit, Role specificRole)
-            : base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            : base(name, type, sprite, mapCoordinates)
         {
             ItemPool = itemPool;
             InteractRange = interactRange;

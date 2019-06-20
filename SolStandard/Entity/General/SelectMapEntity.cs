@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -25,11 +24,10 @@ namespace SolStandard.Entity.General
 
         private static readonly Vector2 MaximumPreviewSize = new Vector2(300, 200);
 
-        public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, MapInfo mapInfo, string mapSongName,
-            MapObjectives mapObjectives, bool draft, int maxBlueUnits, int maxRedUnits, int maxDuplicateUnits,
-            Team soloTeam, ITexture2D mapPreview) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates, MapInfo mapInfo,
+            string mapSongName, MapObjectives mapObjectives, bool draft, int maxBlueUnits, int maxRedUnits,
+            int maxDuplicateUnits, Team soloTeam, ITexture2D mapPreview) :
+            base(name, type, sprite, mapCoordinates)
         {
             MapInfo = mapInfo;
             MapSongName = mapSongName;

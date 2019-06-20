@@ -18,7 +18,7 @@ namespace SolStandard.Entity.General.Item
 
         public Spoils(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int gold,
             List<IItem> items) :
-            base(name, type, sprite, mapCoordinates, new Dictionary<string, string>())
+            base(name, type, sprite, mapCoordinates)
         {
             Gold = gold;
             Items = items;
@@ -61,7 +61,8 @@ namespace SolStandard.Entity.General.Item
                                 {
                                     {
                                         new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
-                                        new RenderText(AssetManager.WindowFont,"Gold: " + Gold + Currency.CurrencyAbbreviation)
+                                        new RenderText(AssetManager.WindowFont,
+                                            "Gold: " + Gold + Currency.CurrencyAbbreviation)
                                     },
                                     {
                                         ItemDetails,

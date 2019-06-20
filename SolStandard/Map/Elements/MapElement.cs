@@ -26,7 +26,7 @@ namespace SolStandard.Map.Elements
             Draw(spriteBatch, ElementColor);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected virtual void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             if (Visible) Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
         }

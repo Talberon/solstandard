@@ -104,9 +104,9 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    InputIconProvider.GetInputIcon(Input.LeftBumper, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " or "),
-                    InputIconProvider.GetInputIcon(Input.RightBumper, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to cycle between units.")
                 }
             };

@@ -249,7 +249,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToInt32(currentProperties["HP"]),
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             Convert.ToBoolean(currentProperties["isBroken"]),
@@ -266,7 +265,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToInt32(currentProperties["atkBonus"]),
                                             Convert.ToInt32(currentProperties["retBonus"]),
                                             Convert.ToInt32(currentProperties["blockBonus"]),
@@ -302,7 +300,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["isLocked"]),
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             Convert.ToBoolean(currentProperties["canMove"]),
@@ -318,8 +315,7 @@ namespace SolStandard.Map
                                             currentObject.Name,
                                             currentObject.Type,
                                             tileSprite,
-                                            new Vector2(col, row),
-                                            currentProperties
+                                            new Vector2(col, row)
                                         );
                                         break;
                                     case EntityTypes.Door:
@@ -328,7 +324,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["isLocked"]),
                                             Convert.ToBoolean(currentProperties["isOpen"]),
                                             currentProperties["range"]
@@ -342,7 +337,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;
@@ -352,7 +346,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["destinationId"],
                                             currentProperties["range"]
@@ -365,7 +358,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToInt32(currentProperties["value"]),
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray()
@@ -377,7 +369,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             currentProperties["triggersId"]
                                         );
                                         break;
@@ -387,7 +378,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             currentProperties["usedWith"],
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
@@ -401,7 +391,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["isOpen"])
                                         );
                                         break;
@@ -411,7 +400,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["range"].Split(',').Select(n => Convert.ToInt32(n))
                                                 .ToArray(),
@@ -424,7 +412,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             Convert.ToInt32(currentProperties["range"]),
                                             Convert.ToInt32(currentProperties["damage"])
@@ -439,7 +426,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             derivedMapInfo,
                                             currentProperties["mapSong"],
                                             new MapObjectives(
@@ -472,7 +458,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             Convert.ToBoolean(currentProperties["capturableByBlue"]),
                                             Convert.ToBoolean(currentProperties["capturableByRed"])
                                         );
@@ -482,8 +467,7 @@ namespace SolStandard.Map
                                             currentObject.Name,
                                             currentObject.Type,
                                             tileSprite,
-                                            new Vector2(col, row),
-                                            currentProperties
+                                            new Vector2(col, row)
                                         );
                                         break;
                                     case EntityTypes.PressurePlate:
@@ -492,7 +476,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            currentProperties,
                                             currentProperties["triggersId"],
                                             Convert.ToBoolean(currentProperties["triggerOnRelease"])
                                         );
@@ -582,8 +565,7 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            (Team) Enum.Parse(typeof(Team), currentProperties["Team"]),
-                                            currentProperties
+                                            (Team) Enum.Parse(typeof(Team), currentProperties["Team"])
                                         );
                                         break;
                                     case EntityTypes.Bank:
@@ -595,8 +577,7 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["interactRange"].Split(',')
                                                 .Select(n => Convert.ToInt32(n))
-                                                .ToArray(),
-                                            currentProperties
+                                                .ToArray()
                                         );
                                         break;
                                     case EntityTypes.Vendor:
@@ -631,8 +612,7 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             Convert.ToInt32(currentProperties["amrPerTurn"]),
-                                            Convert.ToInt32(currentProperties["hpPerTurn"]),
-                                            currentProperties
+                                            Convert.ToInt32(currentProperties["hpPerTurn"])
                                         );
                                         break;
                                     case EntityTypes.LadderBridge:
@@ -642,8 +622,7 @@ namespace SolStandard.Map
                                             tileSprite,
                                             new Vector2(col, row),
                                             currentProperties["itemPool"],
-                                            Convert.ToBoolean(currentProperties["canMove"]),
-                                            currentProperties
+                                            Convert.ToBoolean(currentProperties["canMove"])
                                         );
                                         break;
                                     case EntityTypes.Magnet:
@@ -670,8 +649,7 @@ namespace SolStandard.Map
                                                 .ToArray(),
                                             Convert.ToInt32(currentProperties["damage"]),
                                             Convert.ToInt32(currentProperties["turnsRemaining"]),
-                                            currentProperties["itemPool"],
-                                            currentProperties
+                                            currentProperties["itemPool"]
                                         );
                                         break;
                                     case EntityTypes.Contract:
@@ -756,18 +734,20 @@ namespace SolStandard.Map
                             ((int) currentObject.Y - GameDriver.CellSize)) continue;
 
                         int objectTileId = currentObject.Tile.Gid;
-                        if (objectTileId != 0)
-                        {
-                            Dictionary<string, string> currentProperties =
-                                GetDefaultPropertiesAndOverrides(currentObject);
-                            Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
-                            Role role = ObtainUnitClass(currentProperties["Class"]);
-                            bool isCommander = Convert.ToBoolean(currentProperties["Commander"]);
+                        if (objectTileId == 0) continue;
 
-                            unitGrid[col, row] = UnitGenerator.GenerateMapEntity(currentObject.Name,
-                                currentObject.Type, role, unitTeam, isCommander, unitSprites, new Vector2(col, row),
-                                currentProperties);
-                        }
+                        Dictionary<string, string> currentProperties = GetDefaultPropertiesAndOverrides(currentObject);
+                        Team unitTeam = ObtainUnitTeam(currentProperties["Team"]);
+                        Role role = ObtainUnitClass(currentProperties["Class"]);
+                        bool isCommander = Convert.ToBoolean(currentProperties["Commander"]);
+                        string itemsList = (currentProperties.ContainsKey("Items"))
+                            ? currentProperties["Items"]
+                            : string.Empty;
+                        string[] unitInventory = (itemsList == string.Empty) ? new string[0] : itemsList.Split('|');
+
+                        unitGrid[col, row] = UnitGenerator.GenerateMapEntity(currentObject.Name,
+                            currentObject.Type, role, unitTeam, isCommander, unitInventory, unitSprites,
+                            new Vector2(col, row), currentProperties);
                     }
                 }
             }

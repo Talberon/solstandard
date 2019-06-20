@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private readonly Barricade barricade;
 
         public DeployBarricadeAction(Barricade barricade) : base(
-            icon: barricade.RenderSprite,
+            icon: barricade.RenderSprite.Clone(),
             name: "Place Obstacle",
             description: "Place a breakable obstacle on an unoccupied tile.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

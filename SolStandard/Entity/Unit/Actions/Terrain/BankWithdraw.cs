@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             Vector2 iconSize = new Vector2(GameDriver.CellSize);
 
-            return new WindowContentGrid(new [,]
+            return new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Withdraw"),
@@ -59,9 +59,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),
-                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

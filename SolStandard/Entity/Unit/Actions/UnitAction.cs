@@ -19,7 +19,8 @@ namespace SolStandard.Entity.Unit.Actions
         public int[] Range { get; protected set; }
         public bool FreeAction { get; private set; }
 
-        protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite, int[] range, bool freeAction)
+        protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite,
+            int[] range, bool freeAction)
         {
             Icon = icon;
             Name = name;
@@ -30,9 +31,9 @@ namespace SolStandard.Entity.Unit.Actions
         }
 
         protected UnitAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite,
-            int[] range, bool freeAction) : this (icon, name, DescriptionRenderText(description), tileSprite, range, freeAction)
+            int[] range, bool freeAction) : this(icon, name, DescriptionRenderText(description), tileSprite, range,
+            freeAction)
         {
-            
         }
 
         private static RenderText DescriptionRenderText(string description)

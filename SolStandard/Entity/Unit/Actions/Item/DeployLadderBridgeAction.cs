@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private readonly LadderBridge ladderBridge;
 
         public DeployLadderBridgeAction(LadderBridge ladderBridge) : base(
-            icon: ladderBridge.RenderSprite,
+            icon: ladderBridge.RenderSprite.Clone(),
             name: "Place Ladder/Bridge",
             description: "Place a ladder/bridge on an unoccupied immovable tile." + Environment.NewLine +
                          "Cannot be picked up once placed!",

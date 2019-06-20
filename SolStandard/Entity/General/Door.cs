@@ -22,9 +22,9 @@ namespace SolStandard.Entity.General
         public int[] InteractRange { get; private set; }
         private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
 
-        public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, bool isLocked, bool isOpen, int[] range, int hp) :
-            base(name, type, sprite, mapCoordinates, tiledProperties, hp, isOpen, false, 0)
+        public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
+            int[] range, int hp) :
+            base(name, type, sprite, mapCoordinates, hp, isOpen, false, 0)
         {
             IsLocked = isLocked;
             InteractRange = range;

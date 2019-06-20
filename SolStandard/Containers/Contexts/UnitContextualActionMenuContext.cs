@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts
             return options;
         }
 
-        public static IRenderable GetActionDescriptionAtIndex(VerticalMenu actionMenu)
+        public static IRenderable GetActionDescriptionAtIndex(IMenu actionMenu)
         {
             ActionOption action = actionMenu.CurrentOption as ActionOption;
             if (action != null)
@@ -46,13 +46,18 @@ namespace SolStandard.Containers.Contexts
             throw new SkillDescriptionNotFoundException();
         }
 
-        public static MenuOption[] GenerateInventoryMenuOptions(Color windowColour)
+        public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColour)
         {
-            MenuOption[] options = new MenuOption[GameContext.ActiveUnit.InventoryActions.Count];
+            const int columns = 2;
+            MenuOption[,] options = new MenuOption[GameContext.ActiveUnit.Inventory.Count + 1, columns];
 
-            for (int i = 0; i < GameContext.ActiveUnit.InventoryActions.Count; i++)
+            options[0, 0] = new ActionOption(windowColour, new DropGiveGoldAction());
+            options[0, 1] = new ActionOption(windowColour, new Wait());
+
+            for (int i = 0; i < GameContext.ActiveUnit.Inventory.Count; i++)
             {
-                options[i] = new ActionOption(windowColour, GameContext.ActiveUnit.InventoryActions[i]);
+                options[i + 1, 0] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].UseAction());
+                options[i + 1, 1] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].DropAction());
             }
 
             return options;
@@ -65,11 +70,11 @@ namespace SolStandard.Containers.Contexts
 
             List<MapSlice> mapSlicesInRange = new List<MapSlice>();
             List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();
-            
+
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
                 if (mapElement == null) continue;
-                
+
                 distanceTiles.Add(mapElement as MapDistanceTile);
                 mapSlicesInRange.Add(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates));
             }

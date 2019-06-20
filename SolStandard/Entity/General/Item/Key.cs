@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -18,9 +19,8 @@ namespace SolStandard.Entity.General.Item
         public string ItemPool { get; private set; }
 
         public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties, string usedWith, int[] range, string itemPool,
-            bool isMasterKey) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            string usedWith, int[] range, string itemPool, bool isMasterKey) :
+            base(name, type, sprite, mapCoordinates)
         {
             UsedWith = usedWith;
             InteractRange = range;
@@ -58,8 +58,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Key(Name, Type, Sprite, MapCoordinates, TiledProperties, UsedWith, InteractRange, ItemPool,
-                IsMasterKey);
+            return new Key(Name, Type, Sprite, MapCoordinates, UsedWith, InteractRange, ItemPool, IsMasterKey);
         }
 
         public override IRenderable TerrainInfo

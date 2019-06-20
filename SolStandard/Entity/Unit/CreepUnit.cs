@@ -15,10 +15,10 @@ namespace SolStandard.Entity.Unit
 
         // ReSharper disable once SuggestBaseTypeForParameter
         public CreepUnit(string id, Team team, Role role, CreepEntity unitEntity, UnitStatistics stats,
-            ITexture2D portrait, List<UnitAction> actions, bool isBoss, IRoutine fallbackRoutine) :
-            base(id, team, role, unitEntity, stats, portrait, actions, isBoss)
+            ITexture2D portrait, bool isBoss) :
+            base(id, team, role, unitEntity, stats, portrait, unitEntity.Routines.Actions, isBoss)
         {
-            this.fallbackRoutine = fallbackRoutine;
+            fallbackRoutine = unitEntity.Routines.FallbackRoutine;
         }
 
         private CreepEntity CreepEntity

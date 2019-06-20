@@ -10,13 +10,13 @@ namespace SolStandard.Entity.General
     {
         public int[] InteractRange { get; private set; }
 
-        public PushBlock(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
-            Dictionary<string, string> tiledProperties) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+        public PushBlock(string name, string type, IRenderable sprite, Vector2 mapCoordinates) :
+            base(name, type, sprite, mapCoordinates)
         {
             CanMove = false;
             InteractRange = new[] {1};
         }
+
         public List<UnitAction> TileActions()
         {
             return new List<UnitAction>

@@ -59,7 +59,7 @@ namespace SolStandard.Containers.View
         private VerticalMenu ActionMenu { get; set; }
         private Window ActionMenuDescriptionWindow { get; set; }
 
-        private VerticalMenu InventoryMenu { get; set; }
+        private TwoDimensionalMenu InventoryMenu { get; set; }
         private Window InventoryMenuDescriptionWindow { get; set; }
 
         private Window MenuDescriptionWindow { get; set; }
@@ -96,7 +96,7 @@ namespace SolStandard.Containers.View
             }
         }
 
-        public VerticalMenu CurrentMenu
+        public IMenu CurrentMenu
         {
             get
             {
@@ -247,12 +247,12 @@ namespace SolStandard.Containers.View
                 case MenuType.ActionMenu:
                     menuName = "Unit Actions";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(windowText.Height));
                     break;
                 case MenuType.InventoryMenu:
                     menuName = "Inventory";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowText.Height));
+                    buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("menuType", menuType, null);
@@ -288,12 +288,13 @@ namespace SolStandard.Containers.View
 
         private void GenerateInventoryMenu(Color windowColor)
         {
-            MenuOption[] options = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
+            MenuOption[,] options = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
 
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
-            InventoryMenu = new VerticalMenu(options, cursorSprite, windowColor);
+            InventoryMenu =
+                new TwoDimensionalMenu(options, cursorSprite, windowColor, TwoDimensionalMenu.CursorType.Pointer);
         }
 
         public void GenerateCurrentMenuDescription()
@@ -600,7 +601,7 @@ namespace SolStandard.Containers.View
         {
             //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 3 - ActionMenu.Width,
+                GameDriver.ScreenSize.X / 3 - (float) ActionMenu.Width / 2,
                 (GameDriver.ScreenSize.Y / 2) - ((float) ActionMenu.Height / 2)
             );
         }
@@ -609,7 +610,7 @@ namespace SolStandard.Containers.View
         {
             //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 3 - InventoryMenu.Width,
+                GameDriver.ScreenSize.X / 3 - (float) InventoryMenu.Width / 2,
                 (GameDriver.ScreenSize.Y / 2) - ((float) InventoryMenu.Height / 2)
             );
         }

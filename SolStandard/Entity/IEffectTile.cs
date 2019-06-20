@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace SolStandard.Entity
 {
@@ -8,7 +7,7 @@ namespace SolStandard.Entity
         StartOfTurn,
         EndOfTurn
     }
-    
+
     public interface IEffectTile
     {
         bool Trigger(EffectTriggerTime triggerTime);

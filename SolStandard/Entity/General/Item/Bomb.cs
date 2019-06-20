@@ -7,7 +7,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -28,8 +27,8 @@ namespace SolStandard.Entity.General.Item
         private int turnsRemaining;
 
         public Bomb(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] range, int damage,
-            int turnsRemaining, string itemPool, Dictionary<string, string> tiledProperties) :
-            base(name, type, sprite, mapCoordinates, tiledProperties)
+            int turnsRemaining, string itemPool) :
+            base(name, type, sprite, mapCoordinates)
         {
             Range = range;
             Damage = damage;
@@ -57,8 +56,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Bomb(Name, Type, Sprite, MapCoordinates, Range, Damage, turnsRemaining, ItemPool,
-                TiledProperties);
+            return new Bomb(Name, Type, Sprite.Clone(), MapCoordinates, Range, Damage, turnsRemaining, ItemPool);
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
@@ -177,7 +175,7 @@ namespace SolStandard.Entity.General.Item
             Draw(spriteBatch, ElementColor);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             base.Draw(spriteBatch, colorOverride);
             if (Visible)

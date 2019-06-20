@@ -68,7 +68,7 @@ namespace SolStandard.Entity.General.Item
                 },
                 {
                     StatusIconProvider.GetStatusIcon(StatusIcon.Durability, new Vector2(GameDriver.CellSize)),
-                    new RenderText(textFont,"Uses : [" + UsesRemaining + "]")
+                    new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
                 },
             };
 

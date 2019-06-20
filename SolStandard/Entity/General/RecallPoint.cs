@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Utility;
 
@@ -9,7 +8,7 @@ namespace SolStandard.Entity.General
         private readonly string recallId;
 
         public RecallPoint(string recallId, IRenderable sprite, Vector2 mapCoordinates) :
-            base(recallId + " Point", "RecallPoint", sprite, mapCoordinates, new Dictionary<string, string>())
+            base(recallId + " Point", "RecallPoint", sprite, mapCoordinates)
         {
             this.recallId = recallId;
         }
