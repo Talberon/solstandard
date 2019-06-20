@@ -163,8 +163,10 @@
     <Compile Include="Entity\Unit\Actions\Item\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployLadderBridgeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\MagneticPullAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ReturnToRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
     <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
     <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
@@ -196,7 +198,6 @@
     <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\CreepEntity.cs" />
@@ -209,7 +210,6 @@
     <Compile Include="Entity\Unit\Actions\Bard\Accelerando.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Capriccio.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PushBlockAction.cs" />

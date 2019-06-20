@@ -77,7 +77,6 @@ namespace SolStandard.Entity.Unit
         public bool IsExhausted { get; private set; }
 
         public List<UnitAction> Actions { get; private set; }
-        public List<UnitAction> InventoryActions { get; private set; }
         public List<UnitAction> ContextualActions { get; private set; }
         private UnitAction armedUnitAction;
 
@@ -100,11 +99,6 @@ namespace SolStandard.Entity.Unit
             Actions = actions;
             IsCommander = isCommander;
             IsMovable = true;
-            InventoryActions = new List<UnitAction>
-            {
-                new DropGiveGoldAction(),
-                new Wait()
-            };
 
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -690,24 +684,16 @@ namespace SolStandard.Entity.Unit
         {
             Inventory.Add(item);
 
-            if (!item.IsBroken)
-            {
-                InventoryActions.Add(item.UseAction());
-            }
-            else
+            if (item.IsBroken)
             {
                 item.Icon.DefaultColor = DeadPortraitColor;
             }
-
-            InventoryActions.Add(item.DropAction());
         }
 
         public bool RemoveItemFromInventory(IItem item)
         {
             if (Inventory.Contains(item))
             {
-                InventoryActions.Remove(InventoryActions.Find(skill => skill.Name == item.UseAction().Name));
-                InventoryActions.Remove(InventoryActions.Find(skill => skill.Name == item.DropAction().Name));
                 Inventory.Remove(item);
                 return true;
             }

@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Actions
         protected LayTrap(IRenderable skillIcon, IRenderable trapSprite, string title, int damage, int maxTriggers,
             string description = null, bool freeAction = false)
             : base(
-                icon: skillIcon,
+                icon: skillIcon.Clone(),
                 name: title,
                 description: description ?? ("Place a tile that will deal [" + damage +
                                              "] damage to enemies that start their turn on it." + Environment.NewLine +

@@ -102,7 +102,7 @@ namespace SolStandard.HUD.Menu
 
         public void SelectOption()
         {
-            options[CurrentOptionIndex].Execute();
+            CurrentOption.Execute();
             AssetManager.MenuConfirmSFX.Play();
         }
 

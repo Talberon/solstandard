@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public MagneticPullAction(Magnet magnet, IRenderable skillIcon, int[] skillRange) :
             base(
-                icon: skillIcon,
+                icon: skillIcon.Clone(),
                 name: "Pull Unit",
                 description: "Pull target unit towards you.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

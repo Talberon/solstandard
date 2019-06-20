@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Utility;
 
@@ -41,7 +42,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Relic(Name, Type, Sprite, MapCoordinates, InteractRange, ItemPool);
+            return new Relic(Name, Type, Sprite.Clone(), MapCoordinates, InteractRange, ItemPool);
         }
 
 

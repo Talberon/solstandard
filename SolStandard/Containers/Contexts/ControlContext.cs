@@ -503,12 +503,22 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Down));
             }
 
-            if (controlMapper.Press(Input.CursorRight, PressType.Single))
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Left));
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Right));
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
             }
 
-            if (controlMapper.Press(Input.CursorLeft, PressType.Single))
+            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
             }

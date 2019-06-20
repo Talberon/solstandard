@@ -1,3 +1,4 @@
+using SolStandard.HUD.Menu.Options;
 using SolStandard.Utility;
 
 namespace SolStandard.HUD.Menu
@@ -15,5 +16,6 @@ namespace SolStandard.HUD.Menu
         
         void MoveMenuCursor(MenuCursorDirection direction);
         void SelectOption();
+        MenuOption CurrentOption { get; }
     }
 }

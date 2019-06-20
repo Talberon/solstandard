@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new Bomb(Name, Type, Sprite, MapCoordinates, Range, Damage, turnsRemaining, ItemPool);
+            return new Bomb(Name, Type, Sprite.Clone(), MapCoordinates, Range, Damage, turnsRemaining, ItemPool);
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)

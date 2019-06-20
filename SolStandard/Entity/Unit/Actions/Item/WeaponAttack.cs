@@ -15,10 +15,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
     public class WeaponAttack : UnitAction
     {
         private readonly WeaponStatistics stats;
+        private readonly Weapon sourceWeapon;
 
-        public WeaponAttack(IRenderable icon, string weaponName, WeaponStatistics stats) : base(
+        public WeaponAttack(IRenderable icon, WeaponStatistics stats, Weapon sourceWeapon) : base(
             icon: icon,
-            name: "Attack: " + weaponName,
+            name: "Attack",
             description: WeaponDescription(stats),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
@@ -26,6 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         )
         {
             this.stats = stats;
+            this.sourceWeapon = sourceWeapon;
         }
 
         private static WindowContentGrid WeaponDescription(WeaponStatistics stats)
@@ -92,7 +94,9 @@ namespace SolStandard.Entity.Unit.Actions.Item
             stats.DecrementRemainingUses();
             if (!stats.IsBroken) return;
 
-            GameContext.ActiveUnit.InventoryActions.Remove(this);
+            GameContext.ActiveUnit.RemoveItemFromInventory(sourceWeapon);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
+            AssetManager.CombatDeathSFX.Play();
 
             SpriteAtlas icon = Icon as SpriteAtlas;
             if (icon != null) icon.DefaultColor = GameUnit.DeadPortraitColor;

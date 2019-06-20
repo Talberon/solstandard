@@ -13,8 +13,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private readonly HealthPotion potion;
 
         public ConsumeRecoveryItemAction(HealthPotion potion, int hpHealed, int[] range) : base(
-            icon: potion.Icon,
-            name: "Recover HP: " + potion.Name,
+            icon: potion.Icon.Clone(),
+            name: "Recover <" + hpHealed + "> HP",
             description: "Single use. Target recovers [" + hpHealed + "] HP.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,

@@ -59,7 +59,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction UseAction()
         {
-            return new WeaponAttack(Sprite, Name, WeaponStatistics);
+            return new WeaponAttack(Sprite, WeaponStatistics, this);
         }
 
         public UnitAction DropAction()
