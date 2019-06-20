@@ -7,7 +7,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -176,7 +175,7 @@ namespace SolStandard.Entity.General.Item
             Draw(spriteBatch, ElementColor);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             base.Draw(spriteBatch, colorOverride);
             if (Visible)

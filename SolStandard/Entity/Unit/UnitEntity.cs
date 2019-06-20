@@ -86,7 +86,7 @@ namespace SolStandard.Entity.Unit
             return thisUnit.ContextualActions;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color colorOverride)
+        protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
             if (!Visible) return;
 

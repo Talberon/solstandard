@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.General.Item
