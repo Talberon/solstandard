@@ -63,9 +63,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),
-                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

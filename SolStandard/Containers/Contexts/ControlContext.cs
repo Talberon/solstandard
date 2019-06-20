@@ -208,12 +208,12 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeploySelectPreviousUnitEvent());
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabRight, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new DeploySelectNextUnitEvent());
             }
@@ -265,12 +265,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
             }
 
-            if (controlMapper.Press(Input.LeftBumper, PressType.Single))
+            if (controlMapper.Press(Input.TabLeft, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red));
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.Single))
+            if (controlMapper.Press(Input.TabRight, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue));
             }
@@ -341,12 +341,12 @@ namespace SolStandard.Containers.Contexts
 
         private static void CameraControl(ControlMapper controlMapper)
         {
-            if (controlMapper.Press(Input.LeftTrigger, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.ZoomOut, PressType.DelayedRepeat))
             {
                 GameContext.MapCamera.ZoomOut();
             }
 
-            if (controlMapper.Press(Input.RightTrigger, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.ZoomIn, PressType.DelayedRepeat))
             {
                 GameContext.MapCamera.ZoomIn();
             }
@@ -418,12 +418,12 @@ namespace SolStandard.Containers.Contexts
                     GameContext.CurrentGameState));
             }
 
-            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToPreviousUnitEvent());
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabRight, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new ResetCursorToNextUnitEvent());
             }
@@ -533,12 +533,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new CancelActionMenuEvent());
             }
 
-            if (controlMapper.Press(Input.LeftBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new DecrementCurrentAdjustableActionEvent(1));
             }
 
-            if (controlMapper.Press(Input.RightBumper, PressType.DelayedRepeat))
+            if (controlMapper.Press(Input.TabRight, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new IncrementCurrentAdjustableActionEvent(1));
             }

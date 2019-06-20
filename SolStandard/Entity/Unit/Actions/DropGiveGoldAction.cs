@@ -46,9 +46,9 @@ namespace SolStandard.Entity.Unit.Actions
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
-                        InputIconProvider.GetInputIcon(Input.LeftBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        InputIconProvider.GetInputIcon(Input.RightBumper, iconSize),
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                         new RenderText(AssetManager.WindowFont, ""),
                     }
                 },

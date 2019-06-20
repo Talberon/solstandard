@@ -29,10 +29,10 @@ namespace SolStandard.Utility.Buttons
                 {Input.PreviewUnit, controller.ResetToUnit},
                 {Input.PreviewItem, controller.CenterCamera},
 
-                {Input.LeftBumper, controller.SetWideZoom},
-                {Input.RightBumper, controller.SetCloseZoom},
-                {Input.LeftTrigger, controller.AdjustZoomOut},
-                {Input.RightTrigger, controller.AdjustZoomIn},
+                {Input.TabLeft, controller.SetWideZoom},
+                {Input.TabRight, controller.SetCloseZoom},
+                {Input.ZoomOut, controller.AdjustZoomOut},
+                {Input.ZoomIn, controller.AdjustZoomIn},
             };
         }
 

@@ -58,7 +58,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid teamSelectContent = new WindowContentGrid(new [,]
                 {
                     {
-                        InputIconProvider.GetInputIcon(Input.LeftBumper, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(iconSize)),
                         //SOL TEAM
                         new Window(new WindowContentGrid(new IRenderable[,]
                             {
@@ -103,7 +103,7 @@ namespace SolStandard.Containers.View
                                 },
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        InputIconProvider.GetInputIcon(Input.RightBumper, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize)),
                     }
                 }, 1, HorizontalAlignment.Centered
             );

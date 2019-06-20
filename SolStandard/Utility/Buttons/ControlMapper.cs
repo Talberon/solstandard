@@ -26,10 +26,10 @@ namespace SolStandard.Utility.Buttons
         PreviewItem,
         Status,
         Menu,
-        LeftBumper,
-        RightBumper,
-        LeftTrigger,
-        RightTrigger
+        TabLeft,
+        TabRight,
+        ZoomOut,
+        ZoomIn
     }
 
     public abstract class ControlMapper

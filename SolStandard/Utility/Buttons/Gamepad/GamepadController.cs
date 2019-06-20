@@ -29,10 +29,10 @@ namespace SolStandard.Utility.Buttons.Gamepad
             {Input.Menu, ButtonIcon.Menu},
             {Input.Status, ButtonIcon.Windows},
 
-            {Input.LeftBumper, ButtonIcon.Lb},
-            {Input.RightBumper, ButtonIcon.Rb},
-            {Input.LeftTrigger, ButtonIcon.Lt},
-            {Input.RightTrigger, ButtonIcon.Rt},
+            {Input.TabLeft, ButtonIcon.Lb},
+            {Input.TabRight, ButtonIcon.Rb},
+            {Input.ZoomOut, ButtonIcon.Lt},
+            {Input.ZoomIn, ButtonIcon.Rt},
         };
 
         public GamepadController(PlayerIndex playerIndex)
@@ -80,10 +80,10 @@ namespace SolStandard.Utility.Buttons.Gamepad
                 {Input.Menu, Menu},
                 {Input.Status, Status},
 
-                {Input.LeftBumper, SetWideZoom},
-                {Input.RightBumper, SetCloseZoom},
-                {Input.LeftTrigger, AdjustZoomOut},
-                {Input.RightTrigger, AdjustZoomIn},
+                {Input.TabLeft, SetWideZoom},
+                {Input.TabRight, SetCloseZoom},
+                {Input.ZoomOut, AdjustZoomOut},
+                {Input.ZoomIn, AdjustZoomIn},
             };
         }
 

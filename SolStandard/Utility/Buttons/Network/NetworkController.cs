@@ -59,10 +59,10 @@ namespace SolStandard.Utility.Buttons.Network
                 {Input.Menu, (InputNet) Menu},
                 {Input.Status, (InputNet) Status},
 
-                {Input.LeftBumper, (InputNet) SetWideZoom},
-                {Input.RightBumper, (InputNet) SetCloseZoom},
-                {Input.LeftTrigger, (InputNet) AdjustZoomOut},
-                {Input.RightTrigger, (InputNet) AdjustZoomIn},
+                {Input.TabLeft, (InputNet) SetWideZoom},
+                {Input.TabRight, (InputNet) SetCloseZoom},
+                {Input.ZoomOut, (InputNet) AdjustZoomOut},
+                {Input.ZoomIn, (InputNet) AdjustZoomIn},
             };
         }
 
@@ -152,10 +152,10 @@ namespace SolStandard.Utility.Buttons.Network
             info.AddValue(NCPrefix + (int) Input.CameraRight, CameraRight.Pressed);
             info.AddValue(NCPrefix + (int) Input.Menu, Menu.Pressed);
             info.AddValue(NCPrefix + (int) Input.Status, Status.Pressed);
-            info.AddValue(NCPrefix + (int) Input.LeftBumper, SetWideZoom.Pressed);
-            info.AddValue(NCPrefix + (int) Input.RightBumper, SetCloseZoom.Pressed);
-            info.AddValue(NCPrefix + (int) Input.LeftTrigger, AdjustZoomOut.Pressed);
-            info.AddValue(NCPrefix + (int) Input.RightTrigger, AdjustZoomIn.Pressed);
+            info.AddValue(NCPrefix + (int) Input.TabLeft, SetWideZoom.Pressed);
+            info.AddValue(NCPrefix + (int) Input.TabRight, SetCloseZoom.Pressed);
+            info.AddValue(NCPrefix + (int) Input.ZoomOut, AdjustZoomOut.Pressed);
+            info.AddValue(NCPrefix + (int) Input.ZoomIn, AdjustZoomIn.Pressed);
         }
 
         public override bool Equals(object networkController)
@@ -222,10 +222,10 @@ namespace SolStandard.Utility.Buttons.Network
             description += string.Format("<{0}: {1}>, ", Input.Menu.ToString(), Menu);
             description += string.Format("<{0}: {1}>, ", Input.Status.ToString(), Status);
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.LeftBumper.ToString(), SetWideZoom);
-            description += string.Format("<{0}: {1}>, ", Input.RightBumper.ToString(), SetCloseZoom);
-            description += string.Format("<{0}: {1}>, ", Input.LeftTrigger.ToString(), AdjustZoomOut);
-            description += string.Format("<{0}: {1}>", Input.RightTrigger.ToString(), AdjustZoomIn);
+            description += string.Format("<{0}: {1}>, ", Input.TabLeft.ToString(), SetWideZoom);
+            description += string.Format("<{0}: {1}>, ", Input.TabRight.ToString(), SetCloseZoom);
+            description += string.Format("<{0}: {1}>, ", Input.ZoomOut.ToString(), AdjustZoomOut);
+            description += string.Format("<{0}: {1}>", Input.ZoomIn.ToString(), AdjustZoomIn);
             description += Environment.NewLine;
             description += "}";
 
