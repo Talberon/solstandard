@@ -11,7 +11,7 @@ namespace SolStandard.Map.Elements
         public Vector2 MapCoordinates { get; private set; }
         private Vector2 currentRenderCoordinates;
         private const int BaseSlideSpeed = 10;
-        protected int SlideSpeed { private get; set; }
+        private int SlideSpeed { get; set; }
         public bool Visible { protected get; set; }
 
         protected MapElement(IRenderable sprite, Vector2 mapCoordinates)
@@ -21,6 +21,40 @@ namespace SolStandard.Map.Elements
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
             currentRenderCoordinates = MapPixelCoordinates;
+        }
+
+        public static Vector2 UpdateCoordinatesToPosition(Vector2 currentPosition, int slideSpeed, Vector2 destination)
+        {
+            if (currentPosition == destination) return currentPosition;
+            Vector2 newPosition = currentPosition;
+
+            //Slide the cursor sprite to the actual tile coordinates for smooth animation
+            bool leftOfDestination = newPosition.X - slideSpeed < destination.X;
+            bool rightOfDestination = newPosition.X + slideSpeed > destination.X;
+            bool aboveDestination = newPosition.Y - slideSpeed < destination.Y;
+            bool belowDestionation = newPosition.Y + slideSpeed > destination.Y;
+
+            if (leftOfDestination) newPosition.X += slideSpeed;
+            if (rightOfDestination) newPosition.X -= slideSpeed;
+            if (aboveDestination) newPosition.Y += slideSpeed;
+            if (belowDestionation) newPosition.Y -= slideSpeed;
+
+            //Don't slide past the cursor's actual coordinates
+            bool slidingRightWouldPassMapCoordinates =
+                leftOfDestination && (newPosition.X + slideSpeed) > destination.X;
+            bool slidingLeftWouldPassMapCoordinates =
+                rightOfDestination && (newPosition.X - slideSpeed) < destination.X;
+            bool slidingDownWouldPassMapCoordinates =
+                aboveDestination && (newPosition.Y + slideSpeed) > destination.Y;
+            bool slidingUpWouldPassMapCoordinates =
+                belowDestionation && (newPosition.Y - slideSpeed) < destination.Y;
+
+            if (slidingRightWouldPassMapCoordinates) newPosition.X = destination.X;
+            if (slidingLeftWouldPassMapCoordinates) newPosition.X = destination.X;
+            if (slidingDownWouldPassMapCoordinates) newPosition.Y = destination.Y;
+            if (slidingUpWouldPassMapCoordinates) newPosition.Y = destination.Y;
+
+            return newPosition;
         }
 
         public IRenderable RenderSprite
@@ -51,33 +85,8 @@ namespace SolStandard.Map.Elements
 
         protected void UpdateRenderCoordinates()
         {
-            if (currentRenderCoordinates == MapPixelCoordinates) return;
-            
-            //Slide the cursor sprite to the actual tile coordinates for smooth animation
-            bool leftOfDestination = currentRenderCoordinates.X - SlideSpeed < MapPixelCoordinates.X;
-            bool rightOfDestination = currentRenderCoordinates.X + SlideSpeed > MapPixelCoordinates.X;
-            bool aboveDestination = currentRenderCoordinates.Y - SlideSpeed < MapPixelCoordinates.Y;
-            bool belowDestionation = currentRenderCoordinates.Y + SlideSpeed > MapPixelCoordinates.Y;
-
-            if (leftOfDestination) currentRenderCoordinates.X += SlideSpeed;
-            if (rightOfDestination) currentRenderCoordinates.X -= SlideSpeed;
-            if (aboveDestination) currentRenderCoordinates.Y += SlideSpeed;
-            if (belowDestionation) currentRenderCoordinates.Y -= SlideSpeed;
-
-            //Don't slide past the cursor's actual coordinates
-            bool slidingRightWouldPassMapCoordinates =
-                leftOfDestination && (currentRenderCoordinates.X + SlideSpeed) > MapPixelCoordinates.X;
-            bool slidingLeftWouldPassMapCoordinates =
-                rightOfDestination && (currentRenderCoordinates.X - SlideSpeed) < MapPixelCoordinates.X;
-            bool slidingDownWouldPassMapCoordinates =
-                aboveDestination && (currentRenderCoordinates.Y + SlideSpeed) > MapPixelCoordinates.Y;
-            bool slidingUpWouldPassMapCoordinates =
-                belowDestionation && (currentRenderCoordinates.Y - SlideSpeed) < MapPixelCoordinates.Y;
-
-            if (slidingRightWouldPassMapCoordinates) currentRenderCoordinates.X = MapPixelCoordinates.X;
-            if (slidingLeftWouldPassMapCoordinates) currentRenderCoordinates.X = MapPixelCoordinates.X;
-            if (slidingDownWouldPassMapCoordinates) currentRenderCoordinates.Y = MapPixelCoordinates.Y;
-            if (slidingUpWouldPassMapCoordinates) currentRenderCoordinates.Y = MapPixelCoordinates.Y;
+            currentRenderCoordinates =
+                UpdateCoordinatesToPosition(currentRenderCoordinates, SlideSpeed, MapPixelCoordinates);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

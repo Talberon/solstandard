@@ -24,7 +24,7 @@ namespace SolStandard.Map.Elements
         private readonly RenderText renderText;
         private readonly bool textVisible;
 
-        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance, Color color,
+        public MapDistanceTile(IRenderable sprite, Vector2 mapCoordinates, int distance, Color color,
             bool textVisible = true) :
             base(sprite, mapCoordinates)
         {
@@ -34,7 +34,7 @@ namespace SolStandard.Map.Elements
             ElementColor = color;
         }
 
-        public MapDistanceTile(SpriteAtlas sprite, Vector2 mapCoordinates, int distance = 0, bool textVisible = false) :
+        public MapDistanceTile(IRenderable sprite, Vector2 mapCoordinates, int distance = 0, bool textVisible = false) :
             this(sprite, mapCoordinates, distance, Transparent, textVisible)
         {
         }

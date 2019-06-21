@@ -50,6 +50,7 @@ namespace SolStandard.Map.Elements.Cursor
         public void SnapCursorToCoordinates(Vector2 coordinates)
         {
             SnapToCoordinates(coordinates);
+            if (GameContext.GameMapContext != null) GameContext.GameMapContext.UpdateHoverContextWindows();
             GameContext.MapCamera.StartMovingCameraToCursor();
         }
 
@@ -73,6 +74,7 @@ namespace SolStandard.Map.Elements.Cursor
                     throw new ArgumentOutOfRangeException("direction", direction, null);
             }
 
+            if (GameContext.GameMapContext != null) GameContext.GameMapContext.UpdateHoverContextWindows();
             PreventCursorLeavingMapBounds();
             AssetManager.MapCursorMoveSFX.Play();
             GameContext.MapCamera.StartMovingCameraToCursor();

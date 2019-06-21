@@ -601,8 +601,7 @@ namespace SolStandard.Map
                                                 .Select(n => Convert.ToInt32(n)).ToArray(),
                                             //Quantities
                                             currentProperties["quantities"].Split('|')
-                                                .Select(n => Convert.ToInt32(n)).ToArray(),
-                                            currentProperties
+                                                .Select(n => Convert.ToInt32(n)).ToArray()
                                         );
                                         break;
                                     case EntityTypes.RecoveryTile:

@@ -80,7 +80,7 @@ namespace SolStandard.Containers.Contexts
         public void ResolveTurn()
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
-            
+
             TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);
@@ -461,27 +461,7 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
-                {
-                    if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count == 0 || HoverUnit != hoverMapUnit)
-                    {
-                        MapContainer.ClearDynamicAndPreviewGrids();
-                        new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
-                    }
-                }
-                else if (hoverSlice.TerrainEntity is IThreatRange)
-                {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
-                    IThreatRange entityThreat = (IThreatRange) hoverSlice.TerrainEntity;
-                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                        .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
-                }
-                else
-                {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-                }
+                UpdateThreatRangePreview(hoverMapUnit, hoverSlice);
 
                 GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
                 GameMapView.UpdateRightPortraitAndDetailWindows(null);
@@ -491,6 +471,30 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
+        }
+
+        private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
+        {
+            if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
+            {
+                if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
+
+                MapContainer.ClearDynamicAndPreviewGrids();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
+            }
+            else if (hoverSlice.TerrainEntity is IThreatRange)
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+
+                IThreatRange entityThreat = (IThreatRange) hoverSlice.TerrainEntity;
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
+            }
+            else
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+            }
         }
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)

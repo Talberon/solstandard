@@ -342,7 +342,6 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.InGame:
                     GameContext.UpdateCamera();
-                    GameContext.GameMapContext.UpdateHoverContextWindows();
                     break;
                 case GameContext.GameState.Codex:
                     break;

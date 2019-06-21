@@ -130,8 +130,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     }
                 }
 
-                MapContainer.ClearPreviewGrid();
             }
+            
+            MapContainer.ClearDynamicAndPreviewGrids();
 
             return attackPositionsInRange;
 
