@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         {
             if (CanPlaceObstacleAtTarget(targetSlice))
             {
-                barricade.MapCoordinates = targetSlice.MapCoordinates;
+                barricade.SnapToCoordinates(targetSlice.MapCoordinates);
                 GameContext.ActiveUnit.RemoveItemFromInventory(barricade);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();

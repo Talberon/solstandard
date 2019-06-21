@@ -48,7 +48,7 @@ namespace SolStandard.Utility.Events
 
         private void DropItemAtCoordinates()
         {
-            itemTile.MapCoordinates = dropCoordinates;
+            itemTile.SnapToCoordinates(dropCoordinates);
             MapContainer.GameGrid[(int) Layer.Items][(int) dropCoordinates.X, (int) dropCoordinates.Y] = itemTile;
         }
     }

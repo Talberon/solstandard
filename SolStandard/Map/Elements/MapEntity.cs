@@ -12,12 +12,11 @@ namespace SolStandard.Map.Elements
         private readonly string name;
         private readonly string type;
 
-        public MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates)
+        protected MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates) :
+            base(spriteSheet, mapCoordinates)
         {
             this.name = name;
             this.type = type;
-            Sprite = spriteSheet;
-            MapCoordinates = mapCoordinates;
         }
 
         public string Name

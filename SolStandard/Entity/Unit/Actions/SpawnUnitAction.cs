@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions
         public static void PlaceUnitInTile(Role role, Team team, Vector2 mapCoordinates)
         {
             GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
-            unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            unitToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             unitToSpawn.ExhaustAndDisableUnit();
             GameContext.Units.Add(unitToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);

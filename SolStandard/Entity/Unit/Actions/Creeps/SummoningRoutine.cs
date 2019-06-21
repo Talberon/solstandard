@@ -128,7 +128,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             Dictionary<string, string> entityProperties)
         {
             CreepUnit creepToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
-            creepToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            creepToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             creepToSpawn.ReadyNextRoutine();
             GameContext.Units.Add(creepToSpawn);

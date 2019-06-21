@@ -515,8 +515,8 @@ namespace SolStandard.Containers.Contexts
 
         private void ReturnUnitToOriginalPosition()
         {
-            SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
-            MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+            SelectedUnit.UnitEntity.SnapToCoordinates(selectedUnitOriginalPosition);
+            MapContainer.MapCursor.SnapCursorToCoordinates(selectedUnitOriginalPosition);
         }
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)

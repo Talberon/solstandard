@@ -517,7 +517,7 @@ namespace SolStandard.Entity.Unit
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)
         {
-            MapEntity.MapCoordinates = newCoordinates;
+            MapEntity.SlideToCoordinates(newCoordinates);
             PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
@@ -787,22 +787,22 @@ namespace SolStandard.Entity.Unit
         {
             if (MapEntity.MapCoordinates.X < 0)
             {
-                MapEntity.MapCoordinates = new Vector2(0, MapEntity.MapCoordinates.Y);
+                MapEntity.SnapToCoordinates(new Vector2(0, MapEntity.MapCoordinates.Y));
             }
 
             if (MapEntity.MapCoordinates.X >= mapSize.X)
             {
-                MapEntity.MapCoordinates = new Vector2(mapSize.X - 1, MapEntity.MapCoordinates.Y);
+                MapEntity.SnapToCoordinates(new Vector2(mapSize.X - 1, MapEntity.MapCoordinates.Y));
             }
 
             if (MapEntity.MapCoordinates.Y < 0)
             {
-                MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, 0);
+                MapEntity.SnapToCoordinates(new Vector2(MapEntity.MapCoordinates.X, 0));
             }
 
             if (MapEntity.MapCoordinates.Y >= mapSize.Y)
             {
-                MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1);
+                MapEntity.SnapToCoordinates(new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1));
             }
         }
 

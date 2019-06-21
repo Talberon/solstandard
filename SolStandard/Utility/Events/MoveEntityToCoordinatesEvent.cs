@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            entity.MapCoordinates = targetCoordinates;
+            entity.SlideToCoordinates(targetCoordinates);
             AssetManager.MapUnitMoveSFX.Play();
             Complete = true;
         }

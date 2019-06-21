@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Map.Camera
 {
@@ -171,7 +170,7 @@ namespace SolStandard.Map.Camera
 
             Trace.WriteLine("Camera:" + targetPosition);
             Trace.WriteLine("TargetPoint:" + centerPoint);
-            Trace.WriteLine("Cursor:" + MapCursor.CurrentPixelCoordinates);
+            Trace.WriteLine("Cursor:" + GameContext.MapCursor.CurrentDrawCoordinates);
         }
 
         private void UpdateZoomLevel()
@@ -292,22 +291,22 @@ namespace SolStandard.Map.Camera
         {
             if (movingCameraToCursor)
             {
-                if (MapCursor.CenterCursorScreenCoordinates.X < WestBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
                 {
                     MoveCameraInDirection(CameraDirection.Left);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.X > EastBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
                 {
                     MoveCameraInDirection(CameraDirection.Right);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Up);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Down);
                 }

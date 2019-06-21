@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         {
             if (CanPlaceBombAtTarget(targetSlice))
             {
-                bombToDeploy.MapCoordinates = targetSlice.MapCoordinates;
+                bombToDeploy.SnapToCoordinates(targetSlice.MapCoordinates);
                 GameContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();

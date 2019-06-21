@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
             Vector2 pullCoordinates = Challenge.DeterminePullPosition(actorCoordinates, targetCoordinates);
-            target.UnitEntity.MapCoordinates = pullCoordinates;
+            target.UnitEntity.SlideToCoordinates(pullCoordinates);
             AssetManager.CombatBlockSFX.Play();
             Complete = true;
         }

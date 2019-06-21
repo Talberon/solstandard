@@ -84,7 +84,7 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.GameGrid[(int) Layer.Entities]
                     [(int) map.MapCursor.MapCoordinates.X, (int) map.MapCursor.MapCoordinates.Y] = null;
 
-                currentUnit.UnitEntity.MapCoordinates = map.MapCursor.MapCoordinates;
+                currentUnit.UnitEntity.SnapToCoordinates(map.MapCursor.MapCoordinates);
             }
 
             GameContext.Units.Add(currentUnit);

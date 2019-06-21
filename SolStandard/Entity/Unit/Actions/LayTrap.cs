@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions
                     if (trapItem != null)
                     {
                         GameContext.ActiveUnit.RemoveItemFromInventory(trapItem);
-                        trapItem.MapCoordinates = targetSlice.MapCoordinates;
+                        trapItem.SnapToCoordinates(targetSlice.MapCoordinates);
                         trapToPlace = trapItem;
                     }
                     else

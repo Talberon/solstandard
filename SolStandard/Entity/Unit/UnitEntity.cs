@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit
             Team = team;
             Role = role;
             IsCommander = isCommander;
-            this.InitialInventory = initialInventory;
+            InitialInventory = initialInventory;
         }
 
 
@@ -88,6 +88,8 @@ namespace SolStandard.Entity.Unit
 
         protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
+            UpdateRenderCoordinates();
+
             if (!Visible) return;
 
             Sprite.Draw(spriteBatch, EntityRenderPosition, colorOverride);
@@ -102,7 +104,7 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
-                return MapCoordinates * GameDriver.CellSize -
+                return CurrentDrawCoordinates -
                        new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
                        new Vector2(GameDriver.CellSize) / 2;
             }
