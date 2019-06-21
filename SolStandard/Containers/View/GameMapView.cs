@@ -76,7 +76,7 @@ namespace SolStandard.Containers.View
 
         private MenuType VisibleMenu
         {
-            get { return visibleMenu; }
+            get => visibleMenu;
             set
             {
                 visibleMenu = value;
@@ -91,7 +91,7 @@ namespace SolStandard.Containers.View
                         InventoryMenu.IsVisible = true;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException("value", value, null);
+                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
             }
         }
@@ -114,13 +114,14 @@ namespace SolStandard.Containers.View
 
         public void ToggleCombatMenu()
         {
-            if (VisibleMenu == MenuType.ActionMenu)
+            switch (VisibleMenu)
             {
-                VisibleMenu = MenuType.InventoryMenu;
-            }
-            else if (VisibleMenu == MenuType.InventoryMenu)
-            {
-                VisibleMenu = MenuType.ActionMenu;
+                case MenuType.ActionMenu:
+                    VisibleMenu = MenuType.InventoryMenu;
+                    break;
+                case MenuType.InventoryMenu:
+                    VisibleMenu = MenuType.ActionMenu;
+                    break;
             }
 
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
@@ -216,7 +217,7 @@ namespace SolStandard.Containers.View
             return new Window(new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.HeaderFont, "ITEMS"),
+                        new RenderText(AssetManager.HeaderFont, "ITEMS")
                     },
                     {
                         itemTable
@@ -255,7 +256,7 @@ namespace SolStandard.Containers.View
                     buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("menuType", menuType, null);
+                    throw new ArgumentOutOfRangeException(nameof(menuType), menuType, null);
             }
 
 
@@ -472,7 +473,7 @@ namespace SolStandard.Containers.View
                 case Team.Creep:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 

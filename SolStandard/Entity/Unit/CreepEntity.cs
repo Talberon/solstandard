@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit
     public class CreepEntity : UnitEntity
     {
         private IRenderable routineIcon;
-        public CreepRoutineModel Routines { get; private set; }
+        public CreepRoutineModel Routines { get; }
 
         public CreepEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
             Role role, bool isCommander, CreepRoutineModel creepRoutineRoutines, string[] initialInventory)
@@ -36,10 +36,7 @@ namespace SolStandard.Entity.Unit
         {
             base.Draw(spriteBatch);
 
-            if (routineIcon != null)
-            {
-                routineIcon.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));
-            }
+            routineIcon?.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));
         }
     }
 }

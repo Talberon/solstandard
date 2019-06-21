@@ -157,20 +157,6 @@ namespace SolStandard.Entity.Unit
             );
         }
 
-        public UnitStatistics RemoveCommanderBonuses()
-        {
-            return new UnitStatistics(
-                hp: MaxHP - CommanderHpBonus,
-                armor: MaxArmor - CommanderAmrBonus,
-                atk: Atk - CommanderAtkBonus,
-                ret: Ret - CommanderRetBonus,
-                blk: Blk - CommanderBlkBonus,
-                luck: Luck - CommanderLuckBonus,
-                mv: Mv - CommanderMvBonus,
-                atkRange: BaseAtkRange
-            );
-        }
-
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
             return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));

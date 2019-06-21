@@ -9,13 +9,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
         {
         }
 
-        public override bool Pressed
-        {
-            get
-            {
-                return GamePad.GetState(PlayerIndex).DPad.Down == ButtonState.Pressed ||
-                       GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y < (-ControlMapper.StickDeadzone);
-            }
-        }
+        public override bool Pressed =>
+            GamePad.GetState(PlayerIndex).DPad.Down == ButtonState.Pressed ||
+            GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y < (-ControlMapper.StickDeadzone);
     }
 }

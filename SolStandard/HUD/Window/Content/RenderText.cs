@@ -24,15 +24,9 @@ namespace SolStandard.HUD.Window.Content
             //Intentionally left blank
         }
 
-        public int Height
-        {
-            get { return (int) font.MeasureString(message).Y; }
-        }
+        public int Height => (int) font.MeasureString(message).Y;
 
-        public int Width
-        {
-            get { return (int) font.MeasureString(message + Space).X; }
-        }
+        public int Width => (int) font.MeasureString(message + Space).X;
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

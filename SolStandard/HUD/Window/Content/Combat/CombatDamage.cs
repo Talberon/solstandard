@@ -13,8 +13,8 @@ namespace SolStandard.HUD.Window.Content.Combat
         private const int DieSizeAdjustment = 16;
         private readonly List<AttackPoint> atkPoints;
         private readonly List<BlockPoint> blockPoints;
-        private CombatDice CombatDice { get; set; }
-        private Window CombatDamageWindow { get; set; }
+        private CombatDice CombatDice { get; }
+        private Window CombatDamageWindow { get; }
         public Color DefaultColor { get; set; }
 
         private readonly int damage;
@@ -41,15 +41,9 @@ namespace SolStandard.HUD.Window.Content.Combat
             DefaultColor = Color.Transparent;
         }
 
-        public int Height
-        {
-            get { return CombatDamageWindow.Height; }
-        }
+        public int Height => CombatDamageWindow.Height;
 
-        public int Width
-        {
-            get { return CombatDamageWindow.Width; }
-        }
+        public int Width => CombatDamageWindow.Width;
 
         private static List<AttackPoint> InitializeAtkPoints(int atk, int bonusAtk, int pointSize)
         {

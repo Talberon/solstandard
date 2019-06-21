@@ -26,7 +26,6 @@ namespace SolStandard.Utility.Assets
         Charge,
         Meditate,
         Uppercut,
-        PressurePoint,
         AtkBuff,
         Challenge,
         PhaseStrike,

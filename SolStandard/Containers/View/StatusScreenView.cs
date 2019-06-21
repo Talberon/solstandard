@@ -152,7 +152,7 @@ namespace SolStandard.Containers.View
             {
                 {
                     leader.LargePortrait
-                },
+                }
             };
             return leaderContent;
         }

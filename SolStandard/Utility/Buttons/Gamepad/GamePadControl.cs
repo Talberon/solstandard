@@ -6,7 +6,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
     {
         protected readonly PlayerIndex PlayerIndex;
 
-        public GamePadControl(PlayerIndex playerIndex)
+        protected GamePadControl(PlayerIndex playerIndex)
         {
             PlayerIndex = playerIndex;
         }

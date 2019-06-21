@@ -20,10 +20,10 @@ namespace SolStandard.HUD.Window
         private static readonly Color InnerPaneColor = new Color(0, 0, 0, 50);
         private readonly ITexture2D windowTexture;
         private readonly IRenderable windowContents;
-        public int InsidePadding { get; private set; }
-        public int ElementSpacing { get; private set; }
+        public int InsidePadding { get; }
+        public int ElementSpacing { get; }
         public Color DefaultColor { get; set; }
-        private HorizontalAlignment HorizontalAlignment { get; set; }
+        private HorizontalAlignment HorizontalAlignment { get; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
         private Vector2 lastPosition;
@@ -71,30 +71,31 @@ namespace SolStandard.HUD.Window
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
             Vector2 calculatedSize = new Vector2();
-            Vector2 contentGridSize = new Vector2(windowContents.Width, windowContents.Height);
+            (float width, float height) = new Vector2(windowContents.Width, windowContents.Height);
 
             //Adjust for border
             int borderSize = InsidePadding * 2;
 
             //Default to content size if size is set to 0
-            if (Math.Abs(sizeOverride.X) < .001)
+            (float overrideX, float overrideY) = sizeOverride;
+            if (Math.Abs(overrideX) < .001)
             {
-                calculatedSize.X = contentGridSize.X;
+                calculatedSize.X = width;
                 calculatedSize.X += borderSize;
             }
             else
             {
-                calculatedSize.X = sizeOverride.X;
+                calculatedSize.X = overrideX;
             }
 
-            if (Math.Abs(sizeOverride.Y) < .001)
+            if (Math.Abs(overrideY) < .001)
             {
-                calculatedSize.Y = contentGridSize.Y;
+                calculatedSize.Y = height;
                 calculatedSize.Y += borderSize;
             }
             else
             {
-                calculatedSize.Y = sizeOverride.Y;
+                calculatedSize.Y = overrideY;
             }
 
             return calculatedSize;
@@ -103,14 +104,14 @@ namespace SolStandard.HUD.Window
 
         public int Height
         {
-            get { return (int) WindowPixelSize.Y + (InsidePadding * 2); }
-            set { WindowPixelSize = DeriveSizeFromContent(new Vector2(0, value)); }
+            get => (int) WindowPixelSize.Y + (InsidePadding * 2);
+            set => WindowPixelSize = DeriveSizeFromContent(new Vector2(0, value));
         }
 
         public int Width
         {
-            get { return (int) WindowPixelSize.X + (InsidePadding * 2); }
-            set { WindowPixelSize = DeriveSizeFromContent(new Vector2(value, 0)); }
+            get => (int) WindowPixelSize.X + (InsidePadding * 2);
+            set => WindowPixelSize = DeriveSizeFromContent(new Vector2(value, 0));
         }
 
 

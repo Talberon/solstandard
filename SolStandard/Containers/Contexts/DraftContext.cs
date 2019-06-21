@@ -25,7 +25,7 @@ namespace SolStandard.Containers.Contexts
 
         private DraftPhase currentPhase;
 
-        public DraftView DraftView { get; private set; }
+        public DraftView DraftView { get; }
 
         private List<GameUnit> BlueUnits { get; set; }
         private List<GameUnit> RedUnits { get; set; }
@@ -128,7 +128,7 @@ namespace SolStandard.Containers.Contexts
                     ActiveMenu.MoveMenuCursor(MenuCursorDirection.Left);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
 
@@ -223,7 +223,7 @@ namespace SolStandard.Containers.Contexts
                     redUnitsSelected++;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
 
             if (blueUnitsSelected >= blueMaxUnits && redUnitsSelected >= redMaxUnits)
@@ -265,7 +265,7 @@ namespace SolStandard.Containers.Contexts
                     unitLimit = redUnitCount;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
 
             return unitLimit;
@@ -292,7 +292,7 @@ namespace SolStandard.Containers.Contexts
                 case Team.Red:
                     return RedUnits;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -335,25 +335,20 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public static List<Role> AvailableRoles
-        {
-            get
+        public static List<Role> AvailableRoles =>
+            new List<Role>
             {
-                return new List<Role>
-                {
-                    Role.Champion,
-                    Role.Marauder,
-                    Role.Paladin,
-                    Role.Cleric,
-                    Role.Bard,
+                Role.Champion,
+                Role.Marauder,
+                Role.Paladin,
+                Role.Cleric,
+                Role.Bard,
 
-                    Role.Duelist,
-                    Role.Pugilist,
-                    Role.Lancer,
-                    Role.Archer,
-                    Role.Mage,
-                };
-            }
-        }
+                Role.Duelist,
+                Role.Pugilist,
+                Role.Lancer,
+                Role.Archer,
+                Role.Mage
+            };
     }
 }

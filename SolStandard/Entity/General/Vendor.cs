@@ -17,7 +17,7 @@ namespace SolStandard.Entity.General
 {
     public class Vendor : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
         private readonly Dictionary<UnitAction, int> purchaseActions;
         private IRenderable itemList;
 
@@ -50,8 +50,7 @@ namespace SolStandard.Entity.General
 
             foreach (KeyValuePair<UnitAction, int> purchaseActionKeyPair in purchaseActions)
             {
-                VendorPurchase buyAction = purchaseActionKeyPair.Key as VendorPurchase;
-                if (buyAction == null || buyAction.Item.Name != item.Name) continue;
+                if (!(purchaseActionKeyPair.Key is VendorPurchase buyAction) || buyAction.Item.Name != item.Name) continue;
 
                 purchaseActions[buyAction]--;
 
@@ -97,11 +96,11 @@ namespace SolStandard.Entity.General
 
                 //Price
                 itemDetailList[i, 3] = new RenderText(AssetManager.WindowFont,
-                    string.Format("{0}{1}", purchaseActionsList[i].Price, Currency.CurrencyAbbreviation));
+                    $"{purchaseActionsList[i].Price}{Currency.CurrencyAbbreviation}");
 
                 //Quantity
                 itemDetailList[i, 4] = new RenderText(AssetManager.WindowFont,
-                    string.Format("[{0}]", purchaseActions[purchaseActionsList[i]]));
+                    $"[{purchaseActions[purchaseActionsList[i]]}]");
             }
 
             return new Window(
@@ -111,38 +110,33 @@ namespace SolStandard.Entity.General
             );
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            itemList,
-                            new RenderBlank(),
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        itemList,
+                        new RenderBlank()
+                    }
+                },
+                1,
+                HorizontalAlignment.Centered
+            );
     }
 }

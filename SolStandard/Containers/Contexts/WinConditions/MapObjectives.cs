@@ -86,9 +86,6 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return !IsSoloGame(scenario);
         }
 
-        public IRenderable Preview
-        {
-            get { return Scenario.ScenarioInfo(HorizontalAlignment.Centered); }
-        }
+        public IRenderable Preview => Scenario.ScenarioInfo(HorizontalAlignment.Centered);
     }
 }

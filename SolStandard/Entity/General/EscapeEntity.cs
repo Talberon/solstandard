@@ -8,7 +8,7 @@ namespace SolStandard.Entity.General
 {
     public class EscapeEntity : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
         public readonly bool UseableByBlue;
         public readonly bool UseableByRed;
 

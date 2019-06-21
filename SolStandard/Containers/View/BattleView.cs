@@ -196,7 +196,7 @@ namespace SolStandard.Containers.View
                         ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
                         : UnitStatistics.GetSpriteAtlas(Stats.Negative),
 
-                    new RenderText(AssetManager.WindowFont, "Bonus"),
+                    new RenderText(AssetManager.WindowFont, "Bonus")
                 }
             };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);
@@ -292,14 +292,6 @@ namespace SolStandard.Containers.View
             return referenceWindowYPosition + referenceWindow.Height - placingWindow.Height;
         }
 
-        private static float CenterHorizontally(IRenderable placingWindow, IRenderable referenceWindow,
-            float referenceWindowXPosition)
-        {
-            return referenceWindowXPosition +
-                   (float) referenceWindow.Width / 2 -
-                   (float) placingWindow.Width / 2;
-        }
-
         #region Attacker
 
         private Vector2 AttackerDetailWindowPosition()
@@ -390,11 +382,11 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderDetailWindowPosition()
         {
             //Anchored left of portrait window
-            Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
+            (float x, float y) = DefenderPortraitWindowPosition();
 
             return new Vector2(
-                defenderPortraitWindowPosition.X - DefenderDetailWindow.Width,
-                BottomAlignWindow(DefenderDetailWindow, DefenderPortraitWindow, defenderPortraitWindowPosition.Y)
+                x - DefenderDetailWindow.Width,
+                BottomAlignWindow(DefenderDetailWindow, DefenderPortraitWindow, y)
             );
         }
 
@@ -410,44 +402,44 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderHpWindowPosition()
         {
             //Anchored above Sprite window
-            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+            (float x, float y) = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderSpriteWindowPosition.X,
-                defenderSpriteWindowPosition.Y - DefenderHpWindow.Height - WindowSpacing
+                x,
+                y - DefenderHpWindow.Height - WindowSpacing
             );
         }
 
         private Vector2 DefenderAtkWindowPosition()
         {
             //Anchored below Range window
-            Vector2 defenderRangeWindowPosition = DefenderRangeWindowPosition();
+            (float x, float y) = DefenderRangeWindowPosition();
 
             return new Vector2(
-                defenderRangeWindowPosition.X,
-                defenderRangeWindowPosition.Y + DefenderRangeWindow.Height + WindowSpacing
+                x,
+                y + DefenderRangeWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderBonusWindowPosition()
         {
             //Anchored below Atk window
-            Vector2 defenderAtkWindowPosition = DefenderAtkWindowPosition();
+            (float x, float y) = DefenderAtkWindowPosition();
 
             return new Vector2(
-                defenderAtkWindowPosition.X,
-                defenderAtkWindowPosition.Y + DefenderAtkWindow.Height + WindowSpacing
+                x,
+                y + DefenderAtkWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderDiceWindowPosition()
         {
             //Anchored beneath Sprite Window
-            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+            (float x, float y) = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderSpriteWindowPosition.X,
-                defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
+                x,
+                y + DefenderSpriteWindow.Height + WindowSpacing
                 - ((float) DefenderSpriteWindow.Height / 3)
             );
         }
@@ -455,11 +447,11 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderRangeWindowPosition()
         {
             //Anchored beneath Dice Window
-            Vector2 defenderDiceWindowPosition = DefenderDiceWindowPosition();
+            (float x, float y) = DefenderDiceWindowPosition();
 
             return new Vector2(
-                defenderDiceWindowPosition.X,
-                defenderDiceWindowPosition.Y + DefenderDiceWindow.Height + WindowSpacing
+                x,
+                y + DefenderDiceWindow.Height + WindowSpacing
             );
         }
 
@@ -511,10 +503,7 @@ namespace SolStandard.Containers.View
                 }
             }
 
-            if (UserPromptWindow != null)
-            {
-                UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
-            }
+            UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
         }
     }
 }

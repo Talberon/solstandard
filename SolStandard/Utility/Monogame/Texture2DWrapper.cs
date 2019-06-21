@@ -5,36 +5,19 @@ namespace SolStandard.Utility.Monogame
 {
     public class Texture2DWrapper : ITexture2D
     {
-        private readonly Texture2D texture;
-
         public Texture2DWrapper(Texture2D texture)
         {
-            this.texture = texture;
+            MonoGameTexture = texture;
         }
 
-        public Rectangle Bounds
-        {
-            get { return texture.Bounds; }
-        }
+        public Rectangle Bounds => MonoGameTexture.Bounds;
 
-        public int Width
-        {
-            get { return texture.Width; }
-        }
+        public int Width => MonoGameTexture.Width;
 
-        public int Height
-        {
-            get { return texture.Height; }
-        }
+        public int Height => MonoGameTexture.Height;
 
-        public string Name
-        {
-            get { return texture.Name; }
-        }
+        public string Name => MonoGameTexture.Name;
 
-        public Texture2D MonoGameTexture
-        {
-            get { return texture; }
-        }
+        public Texture2D MonoGameTexture { get; }
     }
 }

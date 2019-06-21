@@ -21,16 +21,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
             TargetGold = targetGold;
         }
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return BuildObjectiveWindow(AssetManager.ResultsFont); }
-        }
+        protected override IRenderable VictoryLabelContent => BuildObjectiveWindow(AssetManager.ResultsFont);
 
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return BuildObjectiveWindow(AssetManager.WindowFont); }
-        }
+        public override IRenderable ObjectiveInfo => BuildObjectiveWindow(AssetManager.WindowFont);
 
         private static Window BuildObjectiveWindow(ISpriteFont font)
         {
@@ -51,7 +45,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                             VictoryConditions.Taxes,
                             new Vector2(GameDriver.CellSize)
                         ),
-                        redGoldWindow,
+                        redGoldWindow
                     }
                 },
                 2,
@@ -102,7 +96,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 case Team.Creep:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
 
             return heldGold + bankedGold;

@@ -12,7 +12,7 @@ namespace SolStandard.HUD.Window
         private static readonly Color ToastColor = new Color(40, 40, 40, 180);
 
 
-        private int MaxLifetimeInFrames { get; set; }
+        private int MaxLifetimeInFrames { get; }
         private int CurrentLifetimeInFrames { get; set; }
 
         private readonly Window window;

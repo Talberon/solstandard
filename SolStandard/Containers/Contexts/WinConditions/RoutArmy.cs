@@ -11,15 +11,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
     {
         private Window objectiveWindow;
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "ARMY ROUTED"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "ARMY ROUTED");
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private static Window BuildObjectiveWindow()
         {
@@ -32,7 +26,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                                 VictoryConditions.RoutArmy,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Rout Army"),
+                            new RenderText(AssetManager.WindowFont, "Rout Army")
                         }
                     },
                     2,

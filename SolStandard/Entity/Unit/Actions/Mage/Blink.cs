@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 {
     public class Blink : UnitAction
     {
-        private BlinkItem Item { get; set; }
+        private BlinkItem Item { get; }
 
         public Blink(BlinkItem item) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),

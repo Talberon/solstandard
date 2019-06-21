@@ -15,15 +15,9 @@ namespace SolStandard.Utility.Buttons.Network
             pressed = false;
         }
 
-        public override bool Pressed
-        {
-            get { return pressed; }
-        }
+        public override bool Pressed => pressed;
 
-        public override bool Released
-        {
-            get { return !pressed; }
-        }
+        public override bool Released => !pressed;
 
         public void Press()
         {

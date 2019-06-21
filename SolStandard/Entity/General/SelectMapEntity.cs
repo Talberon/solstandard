@@ -43,22 +43,17 @@ namespace SolStandard.Entity.General
                     FitImageToSize(MaximumPreviewSize, mapPreview)) as IRenderable;
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
-                    {
-                        {new RenderText(AssetManager.HeaderFont, MapInfo.Title)},
-                        {MapObjectives.Preview},
-                        {mapPreview}
-                    },
-                    3,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
+                    {new RenderText(AssetManager.HeaderFont, MapInfo.Title)},
+                    {MapObjectives.Preview},
+                    {mapPreview}
+                },
+                3,
+                HorizontalAlignment.Centered
+            );
 
         private static Vector2 FitImageToSize(Vector2 maximumSize, ITexture2D sourceImage)
         {
@@ -72,11 +67,9 @@ namespace SolStandard.Entity.General
                 float newHeight = imageSize.Y * maximumSize.X / imageSize.X;
                 return new Vector2(maximumSize.X, newHeight);
             }
-            else
-            {
-                float newWidth = imageSize.X * maximumSize.Y / imageSize.Y;
-                return new Vector2(newWidth, maximumSize.Y);
-            }
+
+            float newWidth = imageSize.X * maximumSize.Y / imageSize.Y;
+            return new Vector2(newWidth, maximumSize.Y);
         }
     }
 }

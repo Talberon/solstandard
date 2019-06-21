@@ -15,8 +15,8 @@ namespace SolStandard.Entity.General.Item
     {
         public const string CurrencyAbbreviation = "G";
 
-        public int Value { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public int Value { get; }
+        public int[] InteractRange { get; }
 
         public Currency(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int value, int[] range) :
             base(name, type, sprite, mapCoordinates)
@@ -38,47 +38,42 @@ namespace SolStandard.Entity.General.Item
             };
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            new Window(new IRenderable[,]
-                                {
-                                    {
-                                        new RenderText(AssetManager.WindowFont, "Value: " + Value),
-                                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes,
-                                            new Vector2(GameDriver.CellSize))
-                                    }
-                                },
-                                InnerWindowColor,
-                                HorizontalAlignment.Centered
-                            ),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        new Window(new IRenderable[,]
+                            {
+                                {
+                                    new RenderText(AssetManager.WindowFont, "Value: " + Value),
+                                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes,
+                                        new Vector2(GameDriver.CellSize))
+                                }
+                            },
+                            InnerWindowColor,
+                            HorizontalAlignment.Centered
+                        ),
+                        new RenderBlank()
+                    }
+                },
+                1
+            );
     }
 }

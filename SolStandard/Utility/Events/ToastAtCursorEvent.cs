@@ -25,7 +25,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (soundEffect != null) soundEffect.Play();
+            soundEffect?.Play();
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, duration);
             

@@ -9,7 +9,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Scenario
     {
-        public Dictionary<VictoryConditions, Objective> Objectives { get; private set; }
+        public Dictionary<VictoryConditions, Objective> Objectives { get; }
         public bool GameIsOver { get; private set; }
 
         public Scenario(Dictionary<VictoryConditions, Objective> objectives)

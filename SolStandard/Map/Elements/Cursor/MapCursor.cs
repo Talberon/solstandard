@@ -28,24 +28,13 @@ namespace SolStandard.Map.Elements.Cursor
             _cursorSize = new Vector2(sprite.Width, sprite.Height);
         }
 
-        public Vector2 CenterCursorScreenCoordinates
-        {
-            get
-            {
-                return (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
-                       GameContext.MapCamera.TargetZoom;
-            }
-        }
+        public Vector2 CenterCursorScreenCoordinates =>
+            (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
+            GameContext.MapCamera.TargetZoom;
 
-        public Vector2 CenterPixelPoint
-        {
-            get { return CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2); }
-        }
+        public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
 
-        private SpriteAtlas SpriteAtlas
-        {
-            get { return (SpriteAtlas) Sprite; }
-        }
+        private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
 
         public void SnapCursorToCoordinates(Vector2 coordinates)
         {
@@ -71,7 +60,7 @@ namespace SolStandard.Map.Elements.Cursor
                     SlideToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             if (GameContext.GameMapContext != null) GameContext.GameMapContext.UpdateHoverContextWindows();
@@ -93,8 +82,8 @@ namespace SolStandard.Map.Elements.Cursor
                                   cursorCoordinates.X < screenBounds.X &&
                                   cursorCoordinates.Y < screenBounds.Y;
 
-                Trace.WriteLine(string.Format("[isOnScreen={0}] Cursor: {1}, Screen NW: {2}, Screen SE: {3}",
-                    isOnScreen, cursorCoordinates, screenPosition, screenBounds));
+                Trace.WriteLine(
+                    $"[isOnScreen={isOnScreen}] Cursor: {cursorCoordinates}, Screen NW: {screenPosition}, Screen SE: {screenBounds}");
                 return isOnScreen;
             }
         }

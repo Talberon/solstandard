@@ -21,10 +21,7 @@ namespace SolStandard.Entity.Unit
             fallbackRoutine = unitEntity.Routines.FallbackRoutine;
         }
 
-        private CreepEntity CreepEntity
-        {
-            get { return UnitEntity as CreepEntity; }
-        }
+        private CreepEntity CreepEntity => UnitEntity as CreepEntity;
 
         public void ExecuteNextRoutine()
         {

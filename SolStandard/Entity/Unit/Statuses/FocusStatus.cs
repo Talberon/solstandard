@@ -71,10 +71,7 @@ namespace SolStandard.Entity.Unit.Statuses
             }
         }
 
-        private bool StatusWasAppliedThisTurn
-        {
-            get { return TurnDuration == InitialDuration; }
-        }
+        private bool StatusWasAppliedThisTurn => TurnDuration == InitialDuration;
 
         private void UpdateTitle()
         {

@@ -9,31 +9,22 @@ namespace SolStandard.Map.Elements
      */
     public class MapEntity : MapElement
     {
-        private readonly string name;
-        private readonly string type;
-
         protected MapEntity(string name, string type, IRenderable spriteSheet, Vector2 mapCoordinates) :
             base(spriteSheet, mapCoordinates)
         {
-            this.name = name;
-            this.type = type;
+            Name = name;
+            Type = type;
         }
 
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; }
 
-        public string Type
-        {
-            get { return type; }
-        }
+        public string Type { get; }
 
         public override string ToString()
         {
             string output = "";
 
-            output += "(" + name + "):{";
+            output += "(" + Name + "):{";
             output += "TileCell," + Sprite;
             output += "}";
 

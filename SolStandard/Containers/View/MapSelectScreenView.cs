@@ -67,18 +67,18 @@ namespace SolStandard.Containers.View
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Red) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamColor(Team.Red)
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(TeamIconProvider.GetTeamIcon(Team.Red, new Vector2(iconSize)),
                                         Color.Transparent
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Red Team"),
                                         TeamUtility.DetermineTeamColor(Team.Red)
-                                    ),
-                                },
+                                    )
+                                }
                             }, 1, HorizontalAlignment.Centered), solWindowColor
                         ),
                         //LUNA TEAM
@@ -89,21 +89,21 @@ namespace SolStandard.Containers.View
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Blue) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamColor(Team.Blue)
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(TeamIconProvider.GetTeamIcon(Team.Blue, new Vector2(iconSize)),
                                         Color.Transparent
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Blue Team"),
                                         TeamUtility.DetermineTeamColor(Team.Blue)
-                                    ),
-                                },
+                                    )
+                                }
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize))
                     }
                 }, 1, HorizontalAlignment.Centered
             );
@@ -113,14 +113,7 @@ namespace SolStandard.Containers.View
 
         public void UpdateMapInfoWindow(IRenderable terrainInfo)
         {
-            if (terrainInfo == null)
-            {
-                mapInfoWindow = null;
-            }
-            else
-            {
-                mapInfoWindow = new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
-            }
+            mapInfoWindow = terrainInfo == null ? null : new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
         }
 
         public void ToggleVisible()

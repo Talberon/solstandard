@@ -55,14 +55,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
                         new RenderBlank(),
-                        new RenderBlank(),
+                        new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, ""),
+                        new RenderText(AssetManager.WindowFont, "")
                     }
                 },
                 2

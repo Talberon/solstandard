@@ -2,8 +2,8 @@
 {
     public class MapInfo
     {
-        public string Title { get; private set; }
-        public string FileName { get; private set; }
+        public string Title { get; }
+        public string FileName { get; }
 
 
         public MapInfo(string title, string fileName)

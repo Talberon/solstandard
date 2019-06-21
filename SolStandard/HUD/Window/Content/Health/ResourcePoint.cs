@@ -27,18 +27,12 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public Vector2 Size
         {
-            set { ResizePips(value); }
+            set => ResizePips(value);
         }
 
-        public int Height
-        {
-            get { return activeSprite.Height; }
-        }
+        public int Height => activeSprite.Height;
 
-        public int Width
-        {
-            get { return activeSprite.Width; }
-        }
+        public int Width => activeSprite.Width;
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

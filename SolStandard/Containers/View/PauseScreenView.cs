@@ -24,9 +24,9 @@ namespace SolStandard.Containers.View
         }
 
         private static readonly Color OptionsColor = new Color(40, 40, 40, 180);
-        private VerticalMenu PauseMenu { get; set; }
-        private VerticalMenu ConfigMenu { get; set; }
-        private TwoDimensionalMenu ControlsMenu { get; set; }
+        private VerticalMenu PauseMenu { get; }
+        private VerticalMenu ConfigMenu { get; }
+        private TwoDimensionalMenu ControlsMenu { get; }
         private PauseMenus currentMenu;
         private bool visible;
 
@@ -65,7 +65,7 @@ namespace SolStandard.Containers.View
                     {
                         new ReturnToPauseMenuOption(OptionsColor, this),
                         new GamepadOption(new GamepadController(PlayerIndex.Four), OptionsColor),
-                        new KeyboardOption(new KeyboardController(), OptionsColor),
+                        new KeyboardOption(new KeyboardController(), OptionsColor)
                     }
                 },
                 cursorSprite,

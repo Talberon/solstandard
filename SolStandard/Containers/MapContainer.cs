@@ -21,10 +21,10 @@ namespace SolStandard.Containers
     {
         public const int MapToastIconSize = 16;
         private static List<MapElement[,]> _gameGrid;
-        public MapCursor MapCursor { get; private set; }
-        public MapCamera MapCamera { get; private set; }
+        public MapCursor MapCursor { get; }
+        public MapCamera MapCamera { get; }
         private static ToastWindow ToastWindow { get; set; }
-        public List<CreepEntity> MapSummons { get; private set; }
+        public List<CreepEntity> MapSummons { get; }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons)
         {
@@ -47,24 +47,13 @@ namespace SolStandard.Containers
         }
 
 
-        public static ReadOnlyCollection<MapElement[,]> GameGrid
-        {
-            get { return _gameGrid.AsReadOnly(); }
-        }
+        public static ReadOnlyCollection<MapElement[,]> GameGrid => _gameGrid.AsReadOnly();
 
-        public static Vector2 MapGridSize
-        {
-            get { return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1)); }
-        }
+        public static Vector2 MapGridSize => new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1));
 
-        public static Vector2 MapScreenSizeInPixels
-        {
-            get
-            {
-                return new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
-                       * GameDriver.CellSize * GameContext.MapCamera.CurrentZoom;
-            }
-        }
+        public static Vector2 MapScreenSizeInPixels =>
+            new Vector2(_gameGrid[0].GetLength(0), _gameGrid[0].GetLength(1))
+            * GameDriver.CellSize * GameContext.MapCamera.CurrentZoom;
 
         private static void AddNewToastAtMapPixelCoordinates(IRenderable content, Vector2 mapPixelCoordinates,
             int lifetimeInFrames)
@@ -153,9 +142,7 @@ namespace SolStandard.Containers
             {
                 for (int column = 0; column < mapWidth; column++)
                 {
-                    MapEntity currentTile = GameGrid[(int) Layer.Entities][column, row] as MapEntity;
-
-                    if (currentTile != null) entities.Add(currentTile);
+                    if (GameGrid[(int) Layer.Entities][column, row] is MapEntity currentTile) entities.Add(currentTile);
                 }
             }
 
@@ -222,60 +209,49 @@ namespace SolStandard.Containers
         {
             foreach (MapElement tile in _gameGrid[(int) Layer.Terrain])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.TerrainDecoration])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Collide])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             DrawMapGrid(spriteBatch);
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Entities])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Items])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Preview])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             foreach (GameUnit unit in GameContext.Units)
             {
-                if (unit.UnitEntity != null)
-                {
-                    unit.UnitEntity.Draw(spriteBatch);
-                }
+                unit.UnitEntity?.Draw(spriteBatch);
             }
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Overlay])
             {
-                if (tile != null)
-                    tile.Draw(spriteBatch);
+                tile?.Draw(spriteBatch);
             }
 
             if (ToastWindow != null)

@@ -19,10 +19,10 @@ namespace SolStandard.Entity.General.Item
 {
     public class Bomb : TerrainEntity, IItem, IEffectTile, IThreatRange
     {
-        public int[] Range { get; private set; }
-        public int Damage { get; private set; }
-        public IRenderable Icon { get; private set; }
-        public string ItemPool { get; private set; }
+        public int[] Range { get; }
+        public int Damage { get; }
+        public IRenderable Icon { get; }
+        public string ItemPool { get; }
         public bool IsExpired { get; private set; }
         private int turnsRemaining;
 
@@ -39,10 +39,7 @@ namespace SolStandard.Entity.General.Item
             CanMove = false;
         }
 
-        public bool IsBroken
-        {
-            get { return false; }
-        }
+        public bool IsBroken => false;
 
         public UnitAction UseAction()
         {
@@ -75,51 +72,49 @@ namespace SolStandard.Entity.General.Item
                 AssetManager.CombatBlockSFX.Play();
                 return true;
             }
-            else
+
+            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCamera.SnapCameraCenterToCursor();
+
+            UnitTargetingContext bombTargetContext =
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
+
+            MapContainer.ClearDynamicAndPreviewGrids();
+            bombTargetContext.GenerateTargetingGrid(MapCoordinates, Range);
+
+            List<MapElement> rangeTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
+
+            string trapMessage = "Bomb exploded!" + Environment.NewLine;
+
+            foreach (MapElement rangeTile in rangeTiles)
             {
-                GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
-                GameContext.MapCamera.SnapCameraCenterToCursor();
+                MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
+                GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
 
-                UnitTargetingContext bombTargetContext =
-                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
-
-                MapContainer.ClearDynamicAndPreviewGrids();
-                bombTargetContext.GenerateTargetingGrid(MapCoordinates, Range);
-
-                List<MapElement> rangeTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
-
-                string trapMessage = "Bomb exploded!" + Environment.NewLine;
-
-                foreach (MapElement rangeTile in rangeTiles)
+                if (trapUnit != null)
                 {
-                    MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
-                    GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
+                    trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
 
-                    if (trapUnit != null)
-                    {
-                        trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
-
-                        for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
-                    }
-
-                    if (EntityAtSliceCanTakeDamage(slice))
-                    {
-                        BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
-                        breakableObstacle.DealDamage(Damage);
-                    }
+                    for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
                 }
 
-                MapContainer.ClearDynamicAndPreviewGrids();
-
-                IsExpired = true;
-
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
-                    50);
-                AssetManager.CombatDeathSFX.Play();
-
-
-                return true;
+                if (EntityAtSliceCanTakeDamage(slice))
+                {
+                    BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
+                    breakableObstacle.DealDamage(Damage);
+                }
             }
+
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            IsExpired = true;
+
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
+                50);
+            AssetManager.CombatDeathSFX.Play();
+
+
+            return true;
         }
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
@@ -127,48 +122,43 @@ namespace SolStandard.Entity.General.Item
             return triggerTime == EffectTriggerTime.StartOfTurn;
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new Window(new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
-                                    new RenderText(
-                                        AssetManager.WindowFont,
-                                        UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
-                                    )
-                                },
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
-                                    new RenderText(
-                                        AssetManager.WindowFont,
-                                        UnitStatistics.Abbreviation[Stats.AtkRange]
-                                        + ": [" + string.Join(",", Range) + "]"
-                                    )
-                                }
-                            }, InnerWindowColor),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new Window(new IRenderable[,]
+                        {
+                            {
+                                UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                                new RenderText(
+                                    AssetManager.WindowFont,
+                                    UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
+                                )
+                            },
+                            {
+                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
+                                new RenderText(
+                                    AssetManager.WindowFont,
+                                    UnitStatistics.Abbreviation[Stats.AtkRange]
+                                    + ": [" + string.Join(",", Range) + "]"
+                                )
+                            }
+                        }, InnerWindowColor),
+                        new RenderBlank()
+                    }
+                },
+                1
+            );
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -184,10 +174,7 @@ namespace SolStandard.Entity.General.Item
             }
         }
 
-        private IRenderable Timer
-        {
-            get { return new RenderText(AssetManager.MapFont, turnsRemaining.ToString(), Color.White); }
-        }
+        private IRenderable Timer => new RenderText(AssetManager.MapFont, turnsRemaining.ToString(), Color.White);
 
         private Vector2 TimerCoordinates
         {
@@ -205,14 +192,8 @@ namespace SolStandard.Entity.General.Item
                    slice.TerrainEntity.GetType().IsAssignableFrom(typeof(BreakableObstacle));
         }
 
-        public int[] AtkRange
-        {
-            get { return Range; }
-        }
+        public int[] AtkRange => Range;
 
-        public int MvRange
-        {
-            get { return 0; }
-        }
+        public int MvRange => 0;
     }
 }

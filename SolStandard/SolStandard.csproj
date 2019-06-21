@@ -142,7 +142,6 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\BuyItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\DefenderRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\KingslayerRoutine.cs" />
@@ -278,7 +277,6 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\EndTurnOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
@@ -305,7 +303,6 @@
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
-    <Compile Include="HUD\Window\WindowCell.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
     <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
     <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
@@ -447,7 +444,6 @@
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\UnitNotFoundInInitiativeListException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Model\CreepRoutineModel.cs" />
@@ -456,17 +452,12 @@
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
     <Compile Include="Utility\Network\ConnectionManager.cs" />
-    <Compile Include="Utility\Network\NetworkControlParser.cs" />
-    <Compile Include="Utility\Network\NetworkControlState.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
-    <Compile Include="Utility\Exceptions\InvalidWindowTextureException.cs" />
     <Compile Include="Utility\Exceptions\TeamNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\TextureNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\UnitClassNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\UnitNotFoundOnMapException.cs" />
     <Compile Include="Utility\IRenderable.cs" />
     <Compile Include="Utility\Load\ContentLoader.cs" />
     <Compile Include="Utility\Monogame\ISpriteFont.cs" />

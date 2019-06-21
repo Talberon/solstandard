@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
     public class CharacterOption : MenuOption
     {
         private readonly char character;
-        private NetworkMenuView NetworkMenuView { get; set; }
+        private NetworkMenuView NetworkMenuView { get; }
 
         public CharacterOption(char character, Color color, NetworkMenuView networkMenuView) : base(
             new RenderText(AssetManager.MainMenuFont, character.ToString()), color, HorizontalAlignment.Centered

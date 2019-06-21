@@ -29,10 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit unit)
         {
@@ -82,8 +79,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             foreach (MapElement moveTile in moveTiles)
             {
                 MapSlice moveSlice = MapContainer.GetMapSliceAtCoordinates(moveTile.MapCoordinates);
-                ITriggerable triggerable = moveSlice.TerrainEntity as ITriggerable;
-                if (triggerable != null && triggerable.CanTrigger)
+                if (moveSlice.TerrainEntity is ITriggerable triggerable && triggerable.CanTrigger)
                 {
                     triggerables.Add(triggerable);
                 }

@@ -44,7 +44,7 @@ namespace SolStandard.Map
         private List<MapElement[,]> gameTileLayers;
         private List<UnitEntity> unitLayer;
 
-        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid { get; set; }
+        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid { get; }
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D worldTileSetSprite, ITexture2D terrainSprite,
             List<ITexture2D> unitSprites, string objectTypesDefaultXmlPath)
@@ -704,7 +704,7 @@ namespace SolStandard.Map
                                         break;
                                     default:
                                         throw new IndexOutOfRangeException(
-                                            string.Format("Entity type {0} does not exist!", currentObject.Type)
+                                            $"Entity type {currentObject.Type} does not exist!"
                                         );
                                 }
                             }

@@ -32,7 +32,7 @@ namespace SolStandard.Containers.View
 
         private Window HelpText { get; set; }
         private Window ControlsText { get; set; }
-        private Window VersusText { get; set; }
+        private Window VersusText { get; }
         private Window ObjectivesWindow { get; set; }
 
         public TwoDimensionalMenu UnitSelect { get; private set; }
@@ -70,7 +70,7 @@ namespace SolStandard.Containers.View
                     InputIconProvider.GetInputIcon(Input.CursorUp, new Vector2(windowFont.MeasureString("A").Y)),
                     InputIconProvider.GetInputIcon(Input.CursorDown, new Vector2(windowFont.MeasureString("A").Y)),
                     InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowFont.MeasureString("A").Y))
                 },
                 {
                     new RenderText(windowFont, "Draft a unit: "),
@@ -111,7 +111,7 @@ namespace SolStandard.Containers.View
                     RedTeamUnits = BuildUnitListWindow(unitSprites, team);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -177,36 +177,26 @@ namespace SolStandard.Containers.View
                     BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(Team.Blue));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
-        public static IRenderable DraftCursor
-        {
-            get
-            {
-                return _draftCursor ?? (
-                           _draftCursor = new SpriteAtlas(
-                               AssetManager.MapCursorTexture,
-                               new Vector2(GameDriver.CellSize),
-                               new Vector2(150)
-                           )
-                       );
-            }
-        }
+        public static IRenderable DraftCursor =>
+            _draftCursor ?? (
+                _draftCursor = new SpriteAtlas(
+                    AssetManager.MapCursorTexture,
+                    new Vector2(GameDriver.CellSize),
+                    new Vector2(150)
+                )
+            );
 
-        private static IRenderable CommanderCursor
-        {
-            get
-            {
-                return _commanderCursor ?? (
-                           _commanderCursor = new SpriteAtlas(
-                               AssetManager.MenuCursorTexture,
-                               new Vector2(AssetManager.MenuCursorTexture.Width)
-                           )
-                       );
-            }
-        }
+        private static IRenderable CommanderCursor =>
+            _commanderCursor ?? (
+                _commanderCursor = new SpriteAtlas(
+                    AssetManager.MenuCursorTexture,
+                    new Vector2(AssetManager.MenuCursorTexture.Width)
+                )
+            );
 
         public static MenuOption[,] GetAdHocUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
@@ -310,35 +300,17 @@ namespace SolStandard.Containers.View
 
         #region Positions
 
-        private Vector2 UnitSelectPosition
-        {
-            //Hori-Center, Lower Third
-            get
-            {
-                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3 * 2) -
-                       new Vector2((float) UnitSelect.Width / 2, (float) UnitSelect.Height / 2);
-            }
-        }
+        private Vector2 UnitSelectPosition =>
+            new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3 * 2) -
+            new Vector2((float) UnitSelect.Width / 2, (float) UnitSelect.Height / 2);
 
-        private Vector2 CommanderSelectPosition
-        {
-            //Hori-Center, Lower Third
-            get
-            {
-                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3 * 2) -
-                       new Vector2((float) CommanderSelect.Width / 2, (float) CommanderSelect.Height / 2);
-            }
-        }
+        private Vector2 CommanderSelectPosition =>
+            new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 3 * 2) -
+            new Vector2((float) CommanderSelect.Width / 2, (float) CommanderSelect.Height / 2);
 
-        private Vector2 HelpTextPosition
-        {
-            //Hori-Center, Upper Fifth
-            get
-            {
-                return new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 5) -
-                       new Vector2((float) HelpText.Width / 2, (float) HelpText.Height / 2);
-            }
-        }
+        private Vector2 HelpTextPosition =>
+            new Vector2(GameDriver.ScreenSize.X / 2, GameDriver.ScreenSize.Y / 5) -
+            new Vector2((float) HelpText.Width / 2, (float) HelpText.Height / 2);
 
         private Vector2 VersusTextPosition
         {
@@ -346,10 +318,10 @@ namespace SolStandard.Containers.View
             get
             {
                 const int extraPadding = 50;
-                Vector2 unitSelectPosition = UnitSelectPosition;
+                (float x, float y) = UnitSelectPosition;
                 return new Vector2(
-                    unitSelectPosition.X + ((float) UnitSelect.Width / 2) - ((float) VersusText.Width / 2),
-                    unitSelectPosition.Y - VersusText.Height - WindowPadding - extraPadding
+                    x + ((float) UnitSelect.Width / 2) - ((float) VersusText.Width / 2),
+                    y - VersusText.Height - WindowPadding - extraPadding
                 );
             }
         }
@@ -359,12 +331,11 @@ namespace SolStandard.Containers.View
             //Anchored Center-Left of VersusText
             get
             {
-                Vector2 vsTextCenter = VersusTextPosition +
-                                       (new Vector2(VersusText.Width, VersusText.Height) / 2);
+                (float x, float y) = VersusTextPosition + (new Vector2(VersusText.Width, VersusText.Height) / 2);
 
                 return new Vector2(
-                    vsTextCenter.X - VersusText.Width - BlueTeamCommander.Width - WindowPadding,
-                    vsTextCenter.Y - ((float) BlueTeamCommander.Height / 2)
+                    x - VersusText.Width - BlueTeamCommander.Width - WindowPadding,
+                    y - ((float) BlueTeamCommander.Height / 2)
                 );
             }
         }
@@ -374,11 +345,11 @@ namespace SolStandard.Containers.View
             //Anchored Upper-Left of BlueTeamCommander
             get
             {
-                Vector2 blueTeamCommanderPosition = BlueTeamCommanderPosition;
+                (float x, float y) = BlueTeamCommanderPosition;
 
                 return new Vector2(
-                    blueTeamCommanderPosition.X - BlueTeamUnits.Width - WindowPadding,
-                    blueTeamCommanderPosition.Y - BlueTeamUnits.Height + BlueTeamCommander.Height
+                    x - BlueTeamUnits.Width - WindowPadding,
+                    y - BlueTeamUnits.Height + BlueTeamCommander.Height
                 );
             }
         }
@@ -388,12 +359,11 @@ namespace SolStandard.Containers.View
             //Anchored Center-Right of VersusText
             get
             {
-                Vector2 vsTextCenter = VersusTextPosition +
-                                       (new Vector2(VersusText.Width, VersusText.Height) / 2);
+                (float x, float y) = VersusTextPosition + (new Vector2(VersusText.Width, VersusText.Height) / 2);
 
                 return new Vector2(
-                    vsTextCenter.X + VersusText.Width + WindowPadding,
-                    vsTextCenter.Y - ((float) RedTeamCommander.Height / 2)
+                    x + VersusText.Width + WindowPadding,
+                    y - ((float) RedTeamCommander.Height / 2)
                 );
             }
         }
@@ -403,38 +373,26 @@ namespace SolStandard.Containers.View
             //Anchored Upper-Right of RedTeamCommander
             get
             {
-                Vector2 redTeamCommanderPosition = RedTeamCommanderPosition;
+                (float x, float y) = RedTeamCommanderPosition;
 
                 return new Vector2(
-                    redTeamCommanderPosition.X + RedTeamCommander.Width + WindowPadding,
-                    redTeamCommanderPosition.Y - RedTeamUnits.Height + RedTeamCommander.Height
+                    x + RedTeamCommander.Width + WindowPadding,
+                    y - RedTeamUnits.Height + RedTeamCommander.Height
                 );
             }
         }
 
-        private Vector2 ControlsTextPosition
-        {
-            get
-            {
-                //Bottom-Right
-                return new Vector2(
-                    GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding,
-                    GameDriver.ScreenSize.Y - ControlsText.Height - WindowPadding
-                );
-            }
-        }
+        private Vector2 ControlsTextPosition =>
+            new Vector2(
+                GameDriver.ScreenSize.X - ControlsText.Width - WindowPadding,
+                GameDriver.ScreenSize.Y - ControlsText.Height - WindowPadding
+            );
 
-        private Vector2 ObjectivesWindowPosition
-        {
-            get
-            {
-                //Bottom-Left
-                return new Vector2(
-                    WindowPadding,
-                    GameDriver.ScreenSize.Y - ObjectivesWindow.Height - WindowPadding
-                );
-            }
-        }
+        private Vector2 ObjectivesWindowPosition =>
+            new Vector2(
+                WindowPadding,
+                GameDriver.ScreenSize.Y - ObjectivesWindow.Height - WindowPadding
+            );
 
         #endregion Positions
 

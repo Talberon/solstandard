@@ -62,7 +62,7 @@ namespace SolStandard.Utility.Buttons.Network
                 {Input.TabLeft, (InputNet) SetWideZoom},
                 {Input.TabRight, (InputNet) SetCloseZoom},
                 {Input.ZoomOut, (InputNet) AdjustZoomOut},
-                {Input.ZoomIn, (InputNet) AdjustZoomIn},
+                {Input.ZoomIn, (InputNet) AdjustZoomIn}
             };
         }
 
@@ -157,9 +157,7 @@ namespace SolStandard.Utility.Buttons.Network
 
         public override bool Equals(object networkController)
         {
-            NetworkController otherController = networkController as NetworkController;
-
-            if (otherController == null) return false;
+            if (!(networkController is NetworkController otherController)) return false;
 
             foreach (Input input in Enum.GetValues(typeof(Input)))
             {

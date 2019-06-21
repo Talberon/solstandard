@@ -42,14 +42,14 @@ namespace SolStandard.Entity.Unit.Actions
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
                         new RenderBlank(),
-                        new RenderBlank(),
+                        new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, ""),
+                        new RenderText(AssetManager.WindowFont, "")
                     }
                 },
                 2

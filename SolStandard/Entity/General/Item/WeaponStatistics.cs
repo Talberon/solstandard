@@ -11,9 +11,9 @@ namespace SolStandard.Entity.General.Item
     public class WeaponStatistics
     {
         public int UsesRemaining { get; private set; }
-        public int AtkValue { get; private set; }
-        public int LuckModifier { get; private set; }
-        public int[] AtkRange { get; private set; }
+        public int AtkValue { get; }
+        public int LuckModifier { get; }
+        public int[] AtkRange { get; }
 
         public WeaponStatistics(int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
         {
@@ -23,10 +23,7 @@ namespace SolStandard.Entity.General.Item
             UsesRemaining = usesRemaining;
         }
 
-        public bool IsBroken
-        {
-            get { return UsesRemaining < 1; }
-        }
+        public bool IsBroken => UsesRemaining < 1;
 
         public void DecrementRemainingUses()
         {
@@ -69,7 +66,7 @@ namespace SolStandard.Entity.General.Item
                 {
                     StatusIconProvider.GetStatusIcon(StatusIcon.Durability, new Vector2(GameDriver.CellSize)),
                     new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
-                },
+                }
             };
 
             return new WindowContentGrid(statGrid, 3);

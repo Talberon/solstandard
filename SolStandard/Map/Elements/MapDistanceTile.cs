@@ -20,7 +20,6 @@ namespace SolStandard.Map.Elements
         private const int TileAlpha = 160;
         private static readonly Color Transparent = new Color(255, 255, 255, TileAlpha);
 
-        private readonly int distance;
         private readonly RenderText renderText;
         private readonly bool textVisible;
 
@@ -28,7 +27,7 @@ namespace SolStandard.Map.Elements
             bool textVisible = true) :
             base(sprite, mapCoordinates)
         {
-            this.distance = distance;
+            Distance = distance;
             this.textVisible = textVisible;
             renderText = new RenderText(AssetManager.MapFont, distance.ToString());
             ElementColor = color;
@@ -44,15 +43,9 @@ namespace SolStandard.Map.Elements
             return new SpriteAtlas(AssetManager.ActionTiles, new Vector2(GameDriver.CellSize), (int) tileType);
         }
 
-        public int Distance
-        {
-            get { return distance; }
-        }
+        public int Distance { get; }
 
-        public SpriteAtlas SpriteAtlas
-        {
-            get { return (SpriteAtlas) Sprite; }
-        }
+        public SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
 
         public override string ToString()
         {

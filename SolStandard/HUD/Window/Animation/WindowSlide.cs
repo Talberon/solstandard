@@ -52,7 +52,7 @@ namespace SolStandard.HUD.Window.Animation
                     );
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("slideDirection", slideDirection, null);
+                    throw new ArgumentOutOfRangeException(nameof(slideDirection), slideDirection, null);
             }
         }
 

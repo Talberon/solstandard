@@ -59,14 +59,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                             " in the bank." + Environment.NewLine +
                             "Value will still count towards your total for Taxes victory."),
                         new RenderBlank(),
-                        new RenderBlank(),
+                        new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, ""),
+                        new RenderText(AssetManager.WindowFont, "")
                     }
                 },
                 2

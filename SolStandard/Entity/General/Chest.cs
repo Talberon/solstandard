@@ -18,13 +18,13 @@ namespace SolStandard.Entity.General
 {
     public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
     {
-        public int Gold { get; private set; }
+        public int Gold { get; }
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
         private static readonly Color InactiveColor = new Color(50, 50, 50);
 
-        public List<IItem> Items { get; private set; }
+        public List<IItem> Items { get; }
 
         public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
             bool canMove, int[] range,
@@ -135,14 +135,8 @@ namespace SolStandard.Entity.General
             IsLocked = !IsLocked;
         }
 
-        public bool CanTrigger
-        {
-            get { return !IsOpen && !IsLocked; }
-        }
+        public bool CanTrigger => !IsOpen && !IsLocked;
 
-        public bool IsObstructed
-        {
-            get { return false; }
-        }
+        public bool IsObstructed => false;
     }
 }

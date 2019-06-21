@@ -23,7 +23,7 @@ namespace SolStandard.Utility.Events
         {
             MapContainer.GameGrid[(int) mapLayer][(int) coordinatesToClear.X, (int) coordinatesToClear.Y] = null;
 
-            if (soundEffect != null) soundEffect.Play();
+            soundEffect?.Play();
 
             Complete = true;
         }

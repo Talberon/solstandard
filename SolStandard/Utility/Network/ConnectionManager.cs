@@ -29,19 +29,11 @@ namespace SolStandard.Utility.Network
             Event
         }
 
-        public bool ConnectedAsServer
-        {
-            get
-            {
-                return server != null && server.ConnectionsCount > 0 &&
-                       server.Connections.First().Status == NetConnectionStatus.Connected;
-            }
-        }
+        public bool ConnectedAsServer =>
+            server != null && server.ConnectionsCount > 0 &&
+            server.Connections.First().Status == NetConnectionStatus.Connected;
 
-        public bool ConnectedAsClient
-        {
-            get { return client != null && client.ConnectionStatus == NetConnectionStatus.Connected; }
-        }
+        public bool ConnectedAsClient => client != null && client.ConnectionStatus == NetConnectionStatus.Connected;
 
         public IPAddress StartServer()
         {
@@ -224,7 +216,7 @@ namespace SolStandard.Utility.Network
             {
                 new BinaryFormatter().Serialize(memoryStream, control);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
             }
@@ -239,7 +231,7 @@ namespace SolStandard.Utility.Network
             {
                 new BinaryFormatter().Serialize(memoryStream, control);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
             }
@@ -254,7 +246,7 @@ namespace SolStandard.Utility.Network
             {
                 new BinaryFormatter().Serialize(memoryStream, networkEvent);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
             }
@@ -269,7 +261,7 @@ namespace SolStandard.Utility.Network
             {
                 new BinaryFormatter().Serialize(memoryStream, networkEvent);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine(string.Format("Sending control message. Size: {0}", memoryStream.Length));
+                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
             }

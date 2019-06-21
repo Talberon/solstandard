@@ -35,7 +35,7 @@ namespace SolStandard.Utility.Events
                         SpriteResizer.TryResizeRenderable(itemToGive.Icon, new Vector2(MapContainer.MapToastIconSize)),
                         new RenderText(
                             AssetManager.MapFont,
-                            string.Format("{0} gave {1} to {2}!", givingUnit.Id, itemToGive.Name, receivingUnit.Id)
+                            $"{givingUnit.Id} gave {itemToGive.Name} to {receivingUnit.Id}!"
                         )
                     }
                 },

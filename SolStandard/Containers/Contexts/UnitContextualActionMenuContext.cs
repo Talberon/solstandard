@@ -37,8 +37,7 @@ namespace SolStandard.Containers.Contexts
 
         public static IRenderable GetActionDescriptionAtIndex(IMenu actionMenu)
         {
-            ActionOption action = actionMenu.CurrentOption as ActionOption;
-            if (action != null)
+            if (actionMenu.CurrentOption is ActionOption action)
             {
                 return action.Action.Description;
             }

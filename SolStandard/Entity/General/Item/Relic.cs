@@ -9,8 +9,8 @@ namespace SolStandard.Entity.General.Item
 {
     public class Relic : TerrainEntity, IItem, IActionTile
     {
-        public string ItemPool { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public string ItemPool { get; }
+        public int[] InteractRange { get; }
 
         public Relic(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             string itemPool) :
@@ -20,15 +20,9 @@ namespace SolStandard.Entity.General.Item
             InteractRange = pickupRange;
         }
 
-        public bool IsBroken
-        {
-            get { return false; }
-        }
+        public bool IsBroken => false;
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
 
         public UnitAction UseAction()
         {

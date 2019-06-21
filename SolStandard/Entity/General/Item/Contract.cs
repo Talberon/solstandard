@@ -17,8 +17,8 @@ namespace SolStandard.Entity.General.Item
     {
         private readonly bool forSpecificUnit;
         private readonly Role specificRole;
-        public string ItemPool { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public string ItemPool { get; }
+        public int[] InteractRange { get; }
 
         public Contract(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] interactRange,
             string itemPool, bool forSpecificUnit, Role specificRole)
@@ -56,15 +56,9 @@ namespace SolStandard.Entity.General.Item
                 specificRole);
         }
 
-        public bool IsBroken
-        {
-            get { return false; }
-        }
+        public bool IsBroken => false;
 
-        public IRenderable Icon
-        {
-            get { return RenderSprite; }
-        }
+        public IRenderable Icon => RenderSprite;
 
         private static Window SpecificUnitWindow(Role role, Team team)
         {
@@ -86,45 +80,37 @@ namespace SolStandard.Entity.General.Item
             );
         }
 
-        private static Window FreeContractWindow
-        {
-            get { return SpecificUnitWindow(Role.Silhouette, Team.Creep); }
-        }
+        private static Window FreeContractWindow => SpecificUnitWindow(Role.Silhouette, Team.Creep);
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            (forSpecificUnit)
-                                ? SpecificUnitWindow(specificRole, GameContext.ActiveUnit.Team)
-                                : FreeContractWindow,
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        (forSpecificUnit)
+                            ? SpecificUnitWindow(specificRole, GameContext.ActiveUnit.Team)
+                            : FreeContractWindow,
+                        new RenderBlank()
+                    }
+                },
+                3,
+                HorizontalAlignment.Centered
+            );
     }
 }

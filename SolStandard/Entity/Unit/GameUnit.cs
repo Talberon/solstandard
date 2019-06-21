@@ -55,9 +55,6 @@ namespace SolStandard.Entity.Unit
 
     public class GameUnit : GameEntity, IThreatRange
     {
-        private readonly Team team;
-        private readonly Role role;
-
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -72,19 +69,17 @@ namespace SolStandard.Entity.Unit
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
         public static readonly Color ActivePortraitColor = Color.White;
 
-        private UnitStatistics stats;
-
         public bool IsExhausted { get; private set; }
 
-        public List<UnitAction> Actions { get; private set; }
-        public List<UnitAction> ContextualActions { get; private set; }
+        public List<UnitAction> Actions { get; }
+        public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
 
-        public List<StatusEffect> StatusEffects { get; private set; }
+        public List<StatusEffect> StatusEffects { get; }
         public bool IsCommander { get; set; }
         public bool IsMovable { get; set; }
 
-        public List<IItem> Inventory { get; private set; }
+        public List<IItem> Inventory { get; }
         public int CurrentGold { get; set; }
 
         private readonly UnitSpriteSheet unitSpriteSheet;
@@ -93,9 +88,9 @@ namespace SolStandard.Entity.Unit
             ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
             base(id, unitEntity)
         {
-            this.team = team;
-            this.role = role;
-            this.stats = stats;
+            Team = team;
+            Role = role;
+            Stats = stats;
             Actions = actions;
             IsCommander = isCommander;
             IsMovable = true;
@@ -120,46 +115,22 @@ namespace SolStandard.Entity.Unit
             ResetHealthBars();
         }
 
-        public UnitEntity UnitEntity
-        {
-            get { return (UnitEntity) MapEntity; }
-        }
+        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
 
-        public UnitStatistics Stats
-        {
-            get { return stats; }
-        }
+        public UnitStatistics Stats { get; private set; }
 
-        public Team Team
-        {
-            get { return team; }
-        }
+        public Team Team { get; }
 
-        public Role Role
-        {
-            get { return role; }
-        }
+        public Role Role { get; }
 
 
-        public bool IsActive
-        {
-            get { return GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted; }
-        }
+        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
 
-        public IRenderable LargePortrait
-        {
-            get { return largePortrait; }
-        }
+        public IRenderable LargePortrait => largePortrait;
 
-        public IRenderable MediumPortrait
-        {
-            get { return mediumPortrait; }
-        }
+        public IRenderable MediumPortrait => mediumPortrait;
 
-        public IRenderable SmallPortrait
-        {
-            get { return smallPortrait; }
-        }
+        public IRenderable SmallPortrait => smallPortrait;
 
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
@@ -439,7 +410,7 @@ namespace SolStandard.Entity.Unit
                                                 UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                string.Format("[{0}]", string.Join(",", Stats.CurrentAtkRange)),
+                                                $"[{string.Join(",", Stats.CurrentAtkRange)}]",
                                                 UnitStatistics.DetermineStatColor(Stats.CurrentAtkRange.Max(),
                                                     Stats.BaseAtkRange.Max())
                                             )
@@ -449,7 +420,7 @@ namespace SolStandard.Entity.Unit
                                 ),
                                 statPanelColor,
                                 threeColumnPanel
-                            ),
+                            )
                         }
                     },
                     2
@@ -491,22 +462,22 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Direction.Down:
                     SetUnitAnimation(UnitAnimationState.WalkDown);
-                    destination.Y = destination.Y + 1;
+                    destination.Y += 1;
                     break;
                 case Direction.Right:
                     SetUnitAnimation(UnitAnimationState.WalkRight);
-                    destination.X = destination.X + 1;
+                    destination.X += 1;
                     break;
                 case Direction.Up:
                     SetUnitAnimation(UnitAnimationState.WalkUp);
-                    destination.Y = destination.Y - 1;
+                    destination.Y -= 1;
                     break;
                 case Direction.Left:
                     SetUnitAnimation(UnitAnimationState.WalkLeft);
-                    destination.X = destination.X - 1;
+                    destination.X -= 1;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             if (UnitMovingContext.CanEndMoveAtCoordinates(destination) || ignoreCollision)
@@ -523,10 +494,10 @@ namespace SolStandard.Entity.Unit
 
         private void ResetHealthBars()
         {
-            combatHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            initiativeHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            resultsHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            combatHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
 
             healthbars = new List<IHealthBar>
             {
@@ -625,10 +596,7 @@ namespace SolStandard.Entity.Unit
 
         public void SetUnitAnimation(UnitAnimationState state)
         {
-            if (UnitEntity != null)
-            {
-                UnitEntity.UnitSpriteSheet.SetAnimation(state);
-            }
+            UnitEntity?.UnitSpriteSheet.SetAnimation(state);
         }
 
         public void AddStatusEffect(StatusEffect statusEffect)
@@ -644,7 +612,7 @@ namespace SolStandard.Entity.Unit
         {
             if (!IsCommander) return;
 
-            stats = stats.ApplyCommanderBonuses();
+            Stats = Stats.ApplyCommanderBonuses();
             ResetHealthBars();
         }
 
@@ -705,7 +673,7 @@ namespace SolStandard.Entity.Unit
 
         private void KillIfDead()
         {
-            if (stats.CurrentHP <= 0 && MapEntity != null)
+            if (Stats.CurrentHP <= 0 && MapEntity != null)
             {
                 IsExhausted = true;
                 DropSpoils();
@@ -719,10 +687,7 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        public bool IsAlive
-        {
-            get { return stats.CurrentHP > 0 && MapEntity != null; }
-        }
+        public bool IsAlive => Stats.CurrentHP > 0 && MapEntity != null;
 
         public void Escape()
         {
@@ -740,32 +705,30 @@ namespace SolStandard.Entity.Unit
             if (CurrentGold == 0 && Inventory.Count == 0) return;
 
             //If on top of other Spoils, pick those up before dropping on top of them
-            Spoils spoilsAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                    (int) MapEntity.MapCoordinates.Y] as Spoils;
 
-            if (spoilsAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                (int) MapEntity.MapCoordinates.Y] is Spoils spoilsAtUnitPosition)
             {
                 CurrentGold += spoilsAtUnitPosition.Gold;
                 Inventory.AddRange(spoilsAtUnitPosition.Items);
             }
 
 
-            TerrainEntity itemAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                    (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
-
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (itemAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                (int) MapEntity.MapCoordinates.Y] is TerrainEntity itemAtUnitPosition)
             {
-                if (itemAtUnitPosition is IItem)
+                switch (itemAtUnitPosition)
                 {
-                    AddItemToInventory(itemAtUnitPosition as IItem);
-                }
-                else if (itemAtUnitPosition is Currency)
-                {
-                    Currency gold = itemAtUnitPosition as Currency;
-                    CurrentGold += gold.Value;
+                    case IItem item:
+                        AddItemToInventory(item);
+                        break;
+                    case Currency currency:
+                    {
+                        Currency gold = currency;
+                        CurrentGold += gold.Value;
+                        break;
+                    }
                 }
             }
 
@@ -826,14 +789,8 @@ namespace SolStandard.Entity.Unit
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
 
-        public int[] AtkRange
-        {
-            get { return Stats.CurrentAtkRange; }
-        }
+        public int[] AtkRange => Stats.CurrentAtkRange;
 
-        public int MvRange
-        {
-            get { return Stats.Mv; }
-        }
+        public int MvRange => Stats.Mv;
     }
 }

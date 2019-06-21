@@ -27,10 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
 
         public bool CanBeReadied(CreepUnit unit)
@@ -38,10 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             return true;
         }
 
-        public bool CanExecute
-        {
-            get { return true; }
-        }
+        public bool CanExecute => true;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {

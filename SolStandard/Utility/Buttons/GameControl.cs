@@ -11,10 +11,7 @@
 
         public abstract bool Pressed { get; }
 
-        public virtual bool Released
-        {
-            get { return !Pressed && InputCounter > 0; }
-        }
+        public virtual bool Released => !Pressed && InputCounter > 0;
 
         public void IncrementInputCounter()
         {

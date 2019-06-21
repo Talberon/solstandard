@@ -24,8 +24,7 @@ namespace SolStandard.Utility.Events
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                string.Format("{0} picked up {1}{2}!", GameContext.ActiveUnit.Id, currency.Value,
-                    Currency.CurrencyAbbreviation), 50);
+                $"{GameContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
             Complete = true;
         }
 

@@ -17,23 +17,14 @@ namespace SolStandard.Utility.Monogame
             Height = height;
         }
         
-        public Rectangle Bounds
-        {
-            get { return Rectangle.Empty; }
-        }
+        public Rectangle Bounds => Rectangle.Empty;
 
-        public int Width { get; private set; }
+        public int Width { get; }
 
-        public int Height { get; private set; }
+        public int Height { get; }
 
-        public string Name
-        {
-            get { return "BLANK_TEXTURE"; }
-        }
+        public string Name => "BLANK_TEXTURE";
 
-        public Texture2D MonoGameTexture
-        {
-            get { return new Texture2D(null, 1, 1); }
-        }
+        public Texture2D MonoGameTexture => new Texture2D(null, 1, 1);
     }
 }

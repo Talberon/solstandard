@@ -45,14 +45,14 @@ namespace SolStandard.HUD.Menu.Options
 
         public int Height
         {
-            get { return optionWindow.Height; }
-            set { optionWindow.Height = value; }
+            get => optionWindow.Height;
+            set => optionWindow.Height = value;
         }
 
         public int Width
         {
-            get { return optionWindow.Width; }
-            set { optionWindow.Width = value; }
+            get => optionWindow.Width;
+            set => optionWindow.Width = value;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

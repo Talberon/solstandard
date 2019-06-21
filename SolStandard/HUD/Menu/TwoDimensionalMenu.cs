@@ -49,15 +49,9 @@ namespace SolStandard.HUD.Menu
             SetCursorPosition(0, 0);
         }
 
-        public int Height
-        {
-            get { return menuWindow.Height; }
-        }
+        public int Height => menuWindow.Height;
 
-        public int Width
-        {
-            get { return menuWindow.Width; }
-        }
+        public int Width => menuWindow.Width;
 
         private void SetCursorPosition(int row, int column)
         {
@@ -107,10 +101,7 @@ namespace SolStandard.HUD.Menu
             }
         }
 
-        public MenuOption CurrentOption
-        {
-            get { return options[CurrentOptionRow, CurrentOptionColumn]; }
-        }
+        public MenuOption CurrentOption => options[CurrentOptionRow, CurrentOptionColumn];
 
         public void SelectOption()
         {
@@ -167,7 +158,7 @@ namespace SolStandard.HUD.Menu
 
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             SetCursorPosition(CurrentOptionRow, CurrentOptionColumn);

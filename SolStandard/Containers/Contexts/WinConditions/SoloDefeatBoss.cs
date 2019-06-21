@@ -22,15 +22,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
             resultText = "Defeat the Boss!";
         }
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, resultText); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, resultText);
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private Window BuildObjectiveWindow()
         {
@@ -39,7 +33,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     {
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.SoloDefeatBoss,
                             new Vector2(GameDriver.CellSize)),
-                        new RenderText(AssetManager.WindowFont, "Solo Defeat Boss [" + playerTeam + "]"),
+                        new RenderText(AssetManager.WindowFont, "Solo Defeat Boss [" + playerTeam + "]")
                     }
                 }, 2, HorizontalAlignment.Centered
             ), TeamUtility.DetermineTeamColor(playerTeam), HorizontalAlignment.Centered);

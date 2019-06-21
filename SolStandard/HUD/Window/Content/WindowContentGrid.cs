@@ -13,7 +13,7 @@ namespace SolStandard.HUD.Window.Content
         private readonly List<List<IRenderable>> contentGrid;
         private readonly int spacing;
 
-        private HorizontalAlignment HorizontalAlignment { get; set; }
+        private HorizontalAlignment HorizontalAlignment { get; }
 
         private WindowContentGrid(List<List<IRenderable>> contentGrid, int spacing, HorizontalAlignment alignment)
         {
@@ -29,15 +29,9 @@ namespace SolStandard.HUD.Window.Content
         {
         }
 
-        public int Height
-        {
-            get { return (int) GridSizeInPixels().Y; }
-        }
+        public int Height => (int) GridSizeInPixels().Y;
 
-        public int Width
-        {
-            get { return (int) GridSizeInPixels().X; }
-        }
+        public int Width => (int) GridSizeInPixels().X;
 
         private Vector2 GridSizeInPixels()
         {

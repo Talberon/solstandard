@@ -6,74 +6,37 @@ namespace SolStandard.Map.Elements.Cursor
 {
     public class MapSlice
     {
-        private readonly Vector2 mapCoordinates;
-        private readonly UnitEntity unitEntity;
-        private readonly MapElement previewEntity;
-        private readonly MapElement dynamicEntity;
-        private readonly TerrainEntity terrainEntity;
-        private readonly TerrainEntity itemEntity;
-        private readonly MapTile collideTile;
-        private readonly MapTile terrainDecorationTile;
-        private readonly MapTile terrainTile;
-
         public MapSlice(Vector2 mapCoordinates, UnitEntity unitEntity, MapElement previewEntity,
             MapElement dynamicEntity, TerrainEntity terrainEntity, TerrainEntity itemEntity, MapTile collideTile,
             MapTile terrainDecorationTile, MapTile terrainTile)
         {
-            this.unitEntity = unitEntity;
-            this.previewEntity = previewEntity;
-            this.dynamicEntity = dynamicEntity;
-            this.terrainEntity = terrainEntity;
-            this.itemEntity = itemEntity;
-            this.collideTile = collideTile;
-            this.terrainDecorationTile = terrainDecorationTile;
-            this.terrainTile = terrainTile;
-            this.mapCoordinates = mapCoordinates;
+            UnitEntity = unitEntity;
+            PreviewEntity = previewEntity;
+            DynamicEntity = dynamicEntity;
+            TerrainEntity = terrainEntity;
+            ItemEntity = itemEntity;
+            CollideTile = collideTile;
+            TerrainDecorationTile = terrainDecorationTile;
+            TerrainTile = terrainTile;
+            MapCoordinates = mapCoordinates;
         }
 
-        public UnitEntity UnitEntity
-        {
-            get { return unitEntity; }
-        }
+        public UnitEntity UnitEntity { get; }
 
-        public MapElement PreviewEntity
-        {
-            get { return previewEntity; }
-        }
+        public MapElement PreviewEntity { get; }
 
-        public MapElement DynamicEntity
-        {
-            get { return dynamicEntity; }
-        }
+        public MapElement DynamicEntity { get; }
 
-        public TerrainEntity TerrainEntity
-        {
-            get { return terrainEntity; }
-        }
+        public TerrainEntity TerrainEntity { get; }
 
-        public TerrainEntity ItemEntity
-        {
-            get { return itemEntity; }
-        }
+        public TerrainEntity ItemEntity { get; }
 
-        public MapTile CollideTile
-        {
-            get { return collideTile; }
-        }
+        public MapTile CollideTile { get; }
 
-        public MapTile TerrainDecorationTile
-        {
-            get { return terrainDecorationTile; }
-        }
+        public MapTile TerrainDecorationTile { get; }
 
-        public MapTile TerrainTile
-        {
-            get { return terrainTile; }
-        }
+        public MapTile TerrainTile { get; }
 
-        public Vector2 MapCoordinates
-        {
-            get { return mapCoordinates; }
-        }
+        public Vector2 MapCoordinates { get; }
     }
 }

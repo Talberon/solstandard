@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                         new FlowStatus(
                             Icon,
                             buffDuration,
-                            (currentFlow != null) ? currentFlow.FlowStacks + 1 : 1,
+                            currentFlow?.FlowStacks + 1 ?? 1,
                             BuffName
                         )
                     )

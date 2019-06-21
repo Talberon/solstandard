@@ -50,15 +50,9 @@ namespace SolStandard.HUD.Window.Content.Combat
             Enabled = true;
         }
 
-        public int Height
-        {
-            get { return dieAtlas.Height; }
-        }
+        public int Height => dieAtlas.Height;
 
-        public int Width
-        {
-            get { return dieAtlas.Width; }
-        }
+        public int Width => dieAtlas.Width;
 
         public void Roll()
         {

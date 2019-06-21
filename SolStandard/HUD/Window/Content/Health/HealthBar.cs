@@ -154,15 +154,9 @@ namespace SolStandard.HUD.Window.Content.Health
             }
         }
 
-        public int Height
-        {
-            get { return Convert.ToInt32(barSize.Y); }
-        }
+        public int Height => Convert.ToInt32(barSize.Y);
 
-        public int Width
-        {
-            get { return Convert.ToInt32(barSize.X); }
-        }
+        public int Width => Convert.ToInt32(barSize.X);
 
         public void SetArmorAndHp(int armor, int hp)
         {

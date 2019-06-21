@@ -34,7 +34,7 @@ namespace SolStandard.Utility.Events
             TerrainEntity entityToMove =
                 MapContainer.GameGrid[(int) mapLayer][(int) startPosition.X, (int) startPosition.Y] as TerrainEntity;
 
-            if (entityToMove != null) entityToMove.SlideToCoordinates(destination);
+            entityToMove?.SlideToCoordinates(destination);
 
             MapContainer.GameGrid[(int) mapLayer][(int) destination.X, (int) destination.Y] = entityToMove;
             MapContainer.GameGrid[(int) mapLayer][(int) startPosition.X, (int) startPosition.Y] = null;

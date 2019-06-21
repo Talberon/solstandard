@@ -29,6 +29,7 @@ namespace SolStandard
     public class GameDriver : Game
     {
         // ReSharper disable once NotAccessedField.Local
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
 
         //Project Site
@@ -112,15 +113,9 @@ namespace SolStandard
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
-        public static bool ConnectedAsServer
-        {
-            get { return ConnectionManager.ConnectedAsServer; }
-        }
+        public static bool ConnectedAsServer => ConnectionManager.ConnectedAsServer;
 
-        public static bool ConnectedAsClient
-        {
-            get { return ConnectionManager.ConnectedAsClient; }
-        }
+        public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
         public static void SetControllerConfig(Team playerOneTeam)
         {
@@ -139,7 +134,7 @@ namespace SolStandard
                     _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("playerOneTeam", playerOneTeam, null);
+                    throw new ArgumentOutOfRangeException(nameof(playerOneTeam), playerOneTeam, null);
             }
         }
 

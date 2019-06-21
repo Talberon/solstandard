@@ -32,7 +32,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             {Input.TabLeft, ButtonIcon.Lb},
             {Input.TabRight, ButtonIcon.Rb},
             {Input.ZoomOut, ButtonIcon.Lt},
-            {Input.ZoomIn, ButtonIcon.Rt},
+            {Input.ZoomIn, ButtonIcon.Rt}
         };
 
         public GamepadController(PlayerIndex playerIndex)
@@ -83,7 +83,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
                 {Input.TabLeft, SetWideZoom},
                 {Input.TabRight, SetCloseZoom},
                 {Input.ZoomOut, AdjustZoomOut},
-                {Input.ZoomIn, AdjustZoomIn},
+                {Input.ZoomIn, AdjustZoomIn}
             };
         }
 
@@ -92,10 +92,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             return inputs[input];
         }
 
-        public ControlType ControlType
-        {
-            get { return ControlType.Gamepad; }
-        }
+        public ControlType ControlType => ControlType.Gamepad;
 
         public IRenderable GetInputIcon(Input input, Vector2 iconSize)
         {
@@ -104,27 +101,27 @@ namespace SolStandard.Utility.Buttons.Gamepad
             return ButtonIconProvider.GetButton(icons[input], iconSize);
         }
 
-        public GameControl Confirm { get; private set; }
-        public GameControl Cancel { get; private set; }
-        public GameControl ResetToUnit { get; private set; }
-        public GameControl CenterCamera { get; private set; }
+        public GameControl Confirm { get; }
+        public GameControl Cancel { get; }
+        public GameControl ResetToUnit { get; }
+        public GameControl CenterCamera { get; }
 
-        public GameControl CursorUp { get; private set; }
-        public GameControl CursorDown { get; private set; }
-        public GameControl CursorLeft { get; private set; }
-        public GameControl CursorRight { get; private set; }
+        public GameControl CursorUp { get; }
+        public GameControl CursorDown { get; }
+        public GameControl CursorLeft { get; }
+        public GameControl CursorRight { get; }
 
-        public GameControl CameraUp { get; private set; }
-        public GameControl CameraDown { get; private set; }
-        public GameControl CameraLeft { get; private set; }
-        public GameControl CameraRight { get; private set; }
+        public GameControl CameraUp { get; }
+        public GameControl CameraDown { get; }
+        public GameControl CameraLeft { get; }
+        public GameControl CameraRight { get; }
 
-        public GameControl Menu { get; private set; }
-        public GameControl Status { get; private set; }
+        public GameControl Menu { get; }
+        public GameControl Status { get; }
 
-        public GameControl SetWideZoom { get; private set; }
-        public GameControl SetCloseZoom { get; private set; }
-        public GameControl AdjustZoomOut { get; private set; }
-        public GameControl AdjustZoomIn { get; private set; }
+        public GameControl SetWideZoom { get; }
+        public GameControl SetCloseZoom { get; }
+        public GameControl AdjustZoomOut { get; }
+        public GameControl AdjustZoomIn { get; }
     }
 }

@@ -65,15 +65,9 @@ namespace SolStandard.Utility
             frameDelayCounter++;
         }
 
-        public int Height
-        {
-            get { return Convert.ToInt32(renderSize.Y); }
-        }
+        public int Height => Convert.ToInt32(renderSize.Y);
 
-        public int Width
-        {
-            get { return Convert.ToInt32(renderSize.X); }
-        }
+        public int Width => Convert.ToInt32(renderSize.X);
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

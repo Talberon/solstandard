@@ -32,7 +32,7 @@ namespace SolStandard.Utility.Buttons
                 {Input.TabLeft, controller.SetWideZoom},
                 {Input.TabRight, controller.SetCloseZoom},
                 {Input.ZoomOut, controller.AdjustZoomOut},
-                {Input.ZoomIn, controller.AdjustZoomIn},
+                {Input.ZoomIn, controller.AdjustZoomIn}
             };
         }
 
@@ -47,7 +47,7 @@ namespace SolStandard.Utility.Buttons
                 case PressType.Single:
                     return SinglePress(buttonMap[input], true);
                 default:
-                    throw new ArgumentOutOfRangeException("pressType", pressType, null);
+                    throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null);
             }
         }
 
@@ -62,7 +62,7 @@ namespace SolStandard.Utility.Buttons
                 case PressType.Single:
                     return SinglePress(buttonMap[input], false);
                 default:
-                    throw new ArgumentOutOfRangeException("pressType", pressType, null);
+                    throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null);
             }
         }
 

@@ -9,7 +9,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
 {
     public class ActionOption : MenuOption
     {
-        public UnitAction Action { get; private set; }
+        public UnitAction Action { get; }
 
         public ActionOption(Color windowColor, UnitAction action) : base(
             new WindowContentGrid(
@@ -17,7 +17,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                 {
                     {
                         action.Icon,
-                        new RenderText(AssetManager.WindowFont, action.Name, action.FreeAction ? GameContext.PositiveColor : Color.White),
+                        new RenderText(AssetManager.WindowFont, action.Name, action.FreeAction ? GameContext.PositiveColor : Color.White)
                     }
                 },
                 1
@@ -33,7 +33,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                 {
                     {
                         Action.Icon,
-                        new RenderText(AssetManager.WindowFont, Action.Name, Action.FreeAction ? GameContext.PositiveColor : Color.White),
+                        new RenderText(AssetManager.WindowFont, Action.Name, Action.FreeAction ? GameContext.PositiveColor : Color.White)
                     }
                 },
                 1

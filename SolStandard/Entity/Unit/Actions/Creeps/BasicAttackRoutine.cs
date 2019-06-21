@@ -32,20 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.routineIcon = routineIcon;
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public virtual bool CanBeReadied(CreepUnit creepUnit)
         {
             return true;
         }
 
-        public bool CanExecute
-        {
-            get { return TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0; }
-        }
+        public bool CanExecute => TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {

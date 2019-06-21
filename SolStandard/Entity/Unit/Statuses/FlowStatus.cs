@@ -6,7 +6,7 @@ namespace SolStandard.Entity.Unit.Statuses
 {
     public class FlowStatus : StatusEffect
     {
-        public int FlowStacks { get; private set; }
+        public int FlowStacks { get; }
 
         public FlowStatus(IRenderable icon, int turnDuration, int flowStacks,
             string buffName) : base(

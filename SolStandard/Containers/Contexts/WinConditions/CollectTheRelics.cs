@@ -19,16 +19,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
             this.relicsToCollect = relicsToCollect;
         }
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS");
 
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private Window BuildObjectiveWindow()
         {
@@ -41,7 +35,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                                 VictoryConditions.CollectTheRelicsVS,
                                 new Vector2(GameDriver.CellSize)
                             ),
-                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)"),
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)")
                         }
                     },
                     2,

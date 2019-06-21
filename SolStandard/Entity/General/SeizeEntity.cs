@@ -12,7 +12,7 @@ namespace SolStandard.Entity.General
 {
     public class SeizeEntity : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
 
         public readonly bool CapturableByBlue;
         public readonly bool CapturableByRed;
@@ -34,47 +34,42 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor
-                            )
-                        },
-                        {
-                            (CapturableByBlue)
-                                ? new Window(
-                                    new RenderText(AssetManager.WindowFont, "Capturable by Blue"),
-                                    TeamUtility.DetermineTeamColor(Team.Blue)
-                                )
-                                : new RenderBlank() as IRenderable,
-                            new RenderBlank()
-                        },
-                        {
-                            (CapturableByRed)
-                                ? new Window(
-                                    new RenderText(AssetManager.WindowFont, "Capturable by Red"),
-                                    TeamUtility.DetermineTeamColor(Team.Red)
-                                )
-                                : new RenderBlank() as IRenderable,
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor
+                        )
+                    },
+                    {
+                        (CapturableByBlue)
+                            ? new Window(
+                                new RenderText(AssetManager.WindowFont, "Capturable by Blue"),
+                                TeamUtility.DetermineTeamColor(Team.Blue)
+                            )
+                            : new RenderBlank() as IRenderable,
+                        new RenderBlank()
+                    },
+                    {
+                        (CapturableByRed)
+                            ? new Window(
+                                new RenderText(AssetManager.WindowFont, "Capturable by Red"),
+                                TeamUtility.DetermineTeamColor(Team.Red)
+                            )
+                            : new RenderBlank() as IRenderable,
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
     }
 }

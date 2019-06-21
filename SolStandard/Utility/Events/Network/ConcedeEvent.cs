@@ -11,9 +11,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            Surrender surrender = GameContext.Scenario.Objectives[VictoryConditions.Surrender] as Surrender;
-
-            if (surrender != null)
+            if (GameContext.Scenario.Objectives[VictoryConditions.Surrender] is Surrender surrender)
             {
                 switch (GameContext.ActiveUnit.Team)
                 {

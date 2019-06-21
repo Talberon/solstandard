@@ -15,10 +15,10 @@ namespace SolStandard.Containers.Contexts
 
     public class InitiativeContext
     {
-        public List<GameUnit> InitiativeList { get; private set; }
+        public List<GameUnit> InitiativeList { get; }
         public GameUnit CurrentActiveUnit { get; private set; }
         public Team CurrentActiveTeam { get; private set; }
-        private Team FirstPlayer { get; set; }
+        private Team FirstPlayer { get; }
 
         public InitiativeContext(List<GameUnit> unitList, Team firstTurn,
             TurnOrder turnOrder = TurnOrder.AlternateExhaustingUnits)
@@ -32,7 +32,7 @@ namespace SolStandard.Containers.Contexts
                     InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("turnOrder", turnOrder, null);
+                    throw new ArgumentOutOfRangeException(nameof(turnOrder), turnOrder, null);
             }
         }
 
@@ -174,12 +174,12 @@ namespace SolStandard.Containers.Contexts
 
             Queue<IEvent> activationEvents = new Queue<IEvent>();
             Vector2 activeUnitCoordinates =
-                (CurrentActiveUnit != null) ? CurrentActiveUnit.UnitEntity.MapCoordinates : Vector2.Zero;
+                CurrentActiveUnit?.UnitEntity.MapCoordinates ?? Vector2.Zero;
             activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
             activationEvents.Enqueue(
                 new ToastAtCoordinatesEvent(
                     activeUnitCoordinates,
-                    string.Format("{0} Turn START! {1}", CurrentActiveTeam, playerInstruction),
+                    $"{CurrentActiveTeam} Turn START! {playerInstruction}",
                     AssetManager.MenuConfirmSFX,
                     120
                 )
@@ -195,9 +195,8 @@ namespace SolStandard.Containers.Contexts
             if (GameContext.ActiveUnit.UnitEntity == null) return;
             
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
-            
-            CreepUnit activeCreep = GameContext.ActiveUnit as CreepUnit;
-            if (activeCreep != null)
+
+            if (GameContext.ActiveUnit is CreepUnit activeCreep)
             {
                 activeCreep.ExecuteNextRoutine();
                 GlobalEventQueue.QueueSingleEvent(new ReadyAIRoutineEvent(activeCreep));
@@ -294,7 +293,7 @@ namespace SolStandard.Containers.Contexts
                     newInitiativeList.AddRange(blueTeam);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("firstTurn", firstTurn, null);
+                    throw new ArgumentOutOfRangeException(nameof(firstTurn), firstTurn, null);
             }
 
             return newInitiativeList;

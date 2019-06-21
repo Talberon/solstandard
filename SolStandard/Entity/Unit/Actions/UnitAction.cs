@@ -12,12 +12,12 @@ namespace SolStandard.Entity.Unit.Actions
 {
     public abstract class UnitAction
     {
-        public IRenderable Icon { get; private set; }
+        public IRenderable Icon { get; }
         public string Name { get; protected set; }
         public IRenderable Description { get; protected set; }
         protected readonly SpriteAtlas TileSprite;
         public int[] Range { get; protected set; }
-        public bool FreeAction { get; private set; }
+        public bool FreeAction { get; }
 
         protected UnitAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite,
             int[] range, bool freeAction)
@@ -39,11 +39,6 @@ namespace SolStandard.Entity.Unit.Actions
         private static RenderText DescriptionRenderText(string description)
         {
             return new RenderText(AssetManager.WindowFont, description);
-        }
-
-        protected void SetTextDescription(string description)
-        {
-            Description = DescriptionRenderText(description);
         }
 
         public virtual void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)

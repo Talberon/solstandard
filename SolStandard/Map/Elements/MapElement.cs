@@ -9,9 +9,8 @@ namespace SolStandard.Map.Elements
         protected readonly IRenderable Sprite;
         protected Color ElementColor = Color.White;
         public Vector2 MapCoordinates { get; private set; }
-        private Vector2 currentRenderCoordinates;
         private const int BaseSlideSpeed = 10;
-        private int SlideSpeed { get; set; }
+        private int SlideSpeed { get; }
         public bool Visible { protected get; set; }
 
         protected MapElement(IRenderable sprite, Vector2 mapCoordinates)
@@ -20,7 +19,7 @@ namespace SolStandard.Map.Elements
             SlideSpeed = BaseSlideSpeed;
             Sprite = sprite;
             MapCoordinates = mapCoordinates;
-            currentRenderCoordinates = MapPixelCoordinates;
+            CurrentDrawCoordinates = MapPixelCoordinates;
         }
 
         public static Vector2 UpdateCoordinatesToPosition(Vector2 currentPosition, int slideSpeed, Vector2 destination)
@@ -57,20 +56,11 @@ namespace SolStandard.Map.Elements
             return newPosition;
         }
 
-        public IRenderable RenderSprite
-        {
-            get { return Sprite; }
-        }
+        public IRenderable RenderSprite => Sprite;
 
-        public Vector2 CurrentDrawCoordinates
-        {
-            get { return currentRenderCoordinates; }
-        }
+        public Vector2 CurrentDrawCoordinates { get; private set; }
 
-        private Vector2 MapPixelCoordinates
-        {
-            get { return MapCoordinates * GameDriver.CellSize; }
-        }
+        private Vector2 MapPixelCoordinates => MapCoordinates * GameDriver.CellSize;
 
         public void SlideToCoordinates(Vector2 coordinates)
         {
@@ -80,13 +70,13 @@ namespace SolStandard.Map.Elements
         public void SnapToCoordinates(Vector2 coordinates)
         {
             MapCoordinates = coordinates;
-            currentRenderCoordinates = MapPixelCoordinates;
+            CurrentDrawCoordinates = MapPixelCoordinates;
         }
 
         protected void UpdateRenderCoordinates()
         {
-            currentRenderCoordinates =
-                UpdateCoordinatesToPosition(currentRenderCoordinates, SlideSpeed, MapPixelCoordinates);
+            CurrentDrawCoordinates =
+                UpdateCoordinatesToPosition(CurrentDrawCoordinates, SlideSpeed, MapPixelCoordinates);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -98,7 +88,7 @@ namespace SolStandard.Map.Elements
         {
             UpdateRenderCoordinates();
 
-            if (Visible) Sprite.Draw(spriteBatch, currentRenderCoordinates, colorOverride);
+            if (Visible) Sprite.Draw(spriteBatch, CurrentDrawCoordinates, colorOverride);
         }
     }
 }
