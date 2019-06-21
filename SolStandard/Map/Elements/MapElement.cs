@@ -51,6 +51,8 @@ namespace SolStandard.Map.Elements
 
         protected void UpdateRenderCoordinates()
         {
+            if (currentRenderCoordinates == MapPixelCoordinates) return;
+            
             //Slide the cursor sprite to the actual tile coordinates for smooth animation
             bool leftOfDestination = currentRenderCoordinates.X - SlideSpeed < MapPixelCoordinates.X;
             bool rightOfDestination = currentRenderCoordinates.X + SlideSpeed > MapPixelCoordinates.X;
