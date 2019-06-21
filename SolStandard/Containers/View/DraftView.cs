@@ -50,7 +50,6 @@ namespace SolStandard.Containers.View
 
             UpdateHelpWindow("SELECT A UNIT");
             VersusText = new Window(new RenderText(AssetManager.HeavyFont, "VS"), Color.Transparent);
-
         }
 
         public void UpdateControlsTextWindow()
@@ -448,21 +447,21 @@ namespace SolStandard.Containers.View
         {
             if (visible)
             {
-                if (BlueTeamUnits != null) BlueTeamUnits.Draw(spriteBatch, BlueTeamUnitsPosition);
-                if (RedTeamUnits != null) RedTeamUnits.Draw(spriteBatch, RedTeamUnitsPosition);
+                BlueTeamUnits?.Draw(spriteBatch, BlueTeamUnitsPosition);
+                RedTeamUnits?.Draw(spriteBatch, RedTeamUnitsPosition);
 
-                if (BlueTeamCommander != null) BlueTeamCommander.Draw(spriteBatch, BlueTeamCommanderPosition);
-                if (RedTeamCommander != null) RedTeamCommander.Draw(spriteBatch, RedTeamCommanderPosition);
+                BlueTeamCommander?.Draw(spriteBatch, BlueTeamCommanderPosition);
+                RedTeamCommander?.Draw(spriteBatch, RedTeamCommanderPosition);
 
-                if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
-                if (VersusText != null) VersusText.Draw(spriteBatch, VersusTextPosition);
+                HelpText?.Draw(spriteBatch, HelpTextPosition);
+                VersusText?.Draw(spriteBatch, VersusTextPosition);
 
-                if (UnitSelect != null) UnitSelect.Draw(spriteBatch, UnitSelectPosition);
-                if (CommanderSelect != null) CommanderSelect.Draw(spriteBatch, CommanderSelectPosition);
+                UnitSelect?.Draw(spriteBatch, UnitSelectPosition);
+                CommanderSelect?.Draw(spriteBatch, CommanderSelectPosition);
             }
 
-            if (ControlsText != null) ControlsText.Draw(spriteBatch, ControlsTextPosition);
-            if (ObjectivesWindow != null) ObjectivesWindow.Draw(spriteBatch, ObjectivesWindowPosition);
+            ControlsText?.Draw(spriteBatch, ControlsTextPosition);
+            ObjectivesWindow?.Draw(spriteBatch, ObjectivesWindowPosition);
         }
     }
 }

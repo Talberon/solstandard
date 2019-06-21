@@ -11,7 +11,6 @@ namespace SolStandard.Containers.View
 {
     public class MainMenuView : IUserInterface
     {
-        private readonly VerticalMenu mainMenu;
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
@@ -25,17 +24,14 @@ namespace SolStandard.Containers.View
             this.logo = logo;
             this.background = background;
             visible = true;
-            mainMenu = GenerateMainMenu();
+            MainMenu = GenerateMainMenu();
             copyright = new RenderText(AssetManager.WindowFont, "Copyright @Talberon 2019",
                 new Color(100, 100, 100, 100));
         }
 
-        public VerticalMenu MainMenu
-        {
-            get { return mainMenu; }
-        }
+        public VerticalMenu MainMenu { get; }
 
-        private VerticalMenu GenerateMainMenu()
+        private static VerticalMenu GenerateMainMenu()
         {
             MenuOption[] options =
             {
@@ -86,10 +82,10 @@ namespace SolStandard.Containers.View
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
         {
             const int titlePadding = 110;
-            Vector2 mainMenuCenter = new Vector2(mainMenu.Width, mainMenu.Height) / 2;
+            Vector2 mainMenuCenter = new Vector2(MainMenu.Width, MainMenu.Height) / 2;
             Vector2 mainMenuPosition =
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
-            mainMenu.Draw(spriteBatch, mainMenuPosition);
+            MainMenu.Draw(spriteBatch, mainMenuPosition);
         }
     }
 }

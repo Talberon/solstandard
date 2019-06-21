@@ -50,15 +50,15 @@ namespace SolStandard.Entity.Unit
         private const int CommanderBlkBonus = 0;
         private const int IconSizePixels = 16;
 
-        public int MaxHP { get; private set; }
-        public int MaxArmor { get; private set; }
-        public int[] BaseAtkRange { get; private set; }
+        public int MaxHP { get; }
+        public int MaxArmor { get; }
+        public int[] BaseAtkRange { get; }
 
-        public int BaseAtk { get; private set; }
-        public int BaseRet { get; private set; }
-        public int BaseLuck { get; private set; }
-        public int BaseMv { get; private set; }
-        public int BaseBlk { get; private set; }
+        public int BaseAtk { get; }
+        public int BaseRet { get; }
+        public int BaseLuck { get; }
+        public int BaseMv { get; }
+        public int BaseBlk { get; }
 
         public int CurrentHP { get; set; }
         public int CurrentArmor { get; set; }
@@ -137,30 +137,11 @@ namespace SolStandard.Entity.Unit
             );
         }
 
-        public int Atk
-        {
-            get { return BaseAtk + AtkModifier; }
-        }
-
-        public int Ret
-        {
-            get { return BaseRet + RetModifier; }
-        }
-
-        public int Luck
-        {
-            get { return BaseLuck + LuckModifier; }
-        }
-
-        public int Mv
-        {
-            get { return BaseMv + MvModifier; }
-        }
-
-        public int Blk
-        {
-            get { return BaseBlk + BlkModifier; }
-        }
+        public int Atk => BaseAtk + AtkModifier;
+        public int Ret => BaseRet + RetModifier;
+        public int Luck => BaseLuck + LuckModifier;
+        public int Mv => BaseMv + MvModifier;
+        public int Blk => BaseBlk + BlkModifier;
 
         public UnitStatistics ApplyCommanderBonuses()
         {
@@ -249,8 +230,7 @@ namespace SolStandard.Entity.Unit
 
         public override bool Equals(object obj)
         {
-            UnitStatistics other = obj as UnitStatistics;
-            return other != null && Equals(other);
+            return obj is UnitStatistics other && Equals(other);
         }
 
         private bool Equals(UnitStatistics other)
@@ -272,6 +252,7 @@ namespace SolStandard.Entity.Unit
                    MvModifier == other.MvModifier;
         }
 
+        // ReSharper disable NonReadonlyMemberInGetHashCode
         public override int GetHashCode()
         {
             unchecked
@@ -284,6 +265,7 @@ namespace SolStandard.Entity.Unit
                 hashCode = (hashCode * 397) ^ BaseLuck;
                 hashCode = (hashCode * 397) ^ BaseBlk;
                 hashCode = (hashCode * 397) ^ BaseMv;
+
                 hashCode = (hashCode * 397) ^ CurrentHP;
                 hashCode = (hashCode * 397) ^ CurrentArmor;
                 hashCode = (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);

@@ -96,10 +96,7 @@ namespace SolStandard.Utility.Buttons.Network
             inputs[input].Release();
         }
 
-        public ControlType ControlType
-        {
-            get { return ControlType.Keyboard; }
-        }
+        public ControlType ControlType => ControlType.Keyboard;
 
         public GameControl GetInput(Input input)
         {
@@ -111,28 +108,28 @@ namespace SolStandard.Utility.Buttons.Network
             return new RenderBlank();
         }
 
-        public GameControl Confirm { get; private set; }
-        public GameControl Cancel { get; private set; }
-        public GameControl ResetToUnit { get; private set; }
-        public GameControl CenterCamera { get; private set; }
+        public GameControl Confirm { get; }
+        public GameControl Cancel { get; }
+        public GameControl ResetToUnit { get; }
+        public GameControl CenterCamera { get; }
 
-        public GameControl CursorUp { get; private set; }
-        public GameControl CursorDown { get; private set; }
-        public GameControl CursorLeft { get; private set; }
-        public GameControl CursorRight { get; private set; }
+        public GameControl CursorUp { get; }
+        public GameControl CursorDown { get; }
+        public GameControl CursorLeft { get; }
+        public GameControl CursorRight { get; }
 
-        public GameControl CameraUp { get; private set; }
-        public GameControl CameraDown { get; private set; }
-        public GameControl CameraLeft { get; private set; }
-        public GameControl CameraRight { get; private set; }
+        public GameControl CameraUp { get; }
+        public GameControl CameraDown { get; }
+        public GameControl CameraLeft { get; }
+        public GameControl CameraRight { get; }
 
-        public GameControl Menu { get; private set; }
-        public GameControl Status { get; private set; }
+        public GameControl Menu { get; }
+        public GameControl Status { get; }
 
-        public GameControl SetWideZoom { get; private set; }
-        public GameControl SetCloseZoom { get; private set; }
-        public GameControl AdjustZoomOut { get; private set; }
-        public GameControl AdjustZoomIn { get; private set; }
+        public GameControl SetWideZoom { get; }
+        public GameControl SetCloseZoom { get; }
+        public GameControl AdjustZoomOut { get; }
+        public GameControl AdjustZoomIn { get; }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
@@ -178,7 +175,7 @@ namespace SolStandard.Utility.Buttons.Network
             unchecked
             {
                 int hashCode = (inputs != null ? inputs.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Confirm != null ? Confirm.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Confirm?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (Cancel != null ? Cancel.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (ResetToUnit != null ? ResetToUnit.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CenterCamera != null ? CenterCamera.GetHashCode() : 0);
@@ -204,28 +201,28 @@ namespace SolStandard.Utility.Buttons.Network
         {
             string description = "NetworkController {";
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.Confirm.ToString(), Confirm);
-            description += string.Format("<{0}: {1}>, ", Input.Cancel.ToString(), Cancel);
-            description += string.Format("<{0}: {1}>, ", Input.PreviewUnit.ToString(), ResetToUnit);
-            description += string.Format("<{0}: {1}>, ", Input.PreviewItem.ToString(), CenterCamera);
+            description += $"<{Input.Confirm.ToString()}: {Confirm}>, ";
+            description += $"<{Input.Cancel.ToString()}: {Cancel}>, ";
+            description += $"<{Input.PreviewUnit.ToString()}: {ResetToUnit}>, ";
+            description += $"<{Input.PreviewItem.ToString()}: {CenterCamera}>, ";
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.CursorUp.ToString(), CursorUp);
-            description += string.Format("<{0}: {1}>, ", Input.CursorDown.ToString(), CursorDown);
-            description += string.Format("<{0}: {1}>, ", Input.CursorLeft.ToString(), CursorLeft);
-            description += string.Format("<{0}: {1}>, ", Input.CursorRight.ToString(), CursorRight);
+            description += $"<{Input.CursorUp.ToString()}: {CursorUp}>, ";
+            description += $"<{Input.CursorDown.ToString()}: {CursorDown}>, ";
+            description += $"<{Input.CursorLeft.ToString()}: {CursorLeft}>, ";
+            description += $"<{Input.CursorRight.ToString()}: {CursorRight}>, ";
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.CameraUp.ToString(), CameraUp);
-            description += string.Format("<{0}: {1}>, ", Input.CameraDown.ToString(), CameraDown);
-            description += string.Format("<{0}: {1}>, ", Input.CameraLeft.ToString(), CameraLeft);
-            description += string.Format("<{0}: {1}>, ", Input.CameraRight.ToString(), CameraRight);
+            description += $"<{Input.CameraUp.ToString()}: {CameraUp}>, ";
+            description += $"<{Input.CameraDown.ToString()}: {CameraDown}>, ";
+            description += $"<{Input.CameraLeft.ToString()}: {CameraLeft}>, ";
+            description += $"<{Input.CameraRight.ToString()}: {CameraRight}>, ";
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.Menu.ToString(), Menu);
-            description += string.Format("<{0}: {1}>, ", Input.Status.ToString(), Status);
+            description += $"<{Input.Menu.ToString()}: {Menu}>, ";
+            description += $"<{Input.Status.ToString()}: {Status}>, ";
             description += Environment.NewLine;
-            description += string.Format("<{0}: {1}>, ", Input.TabLeft.ToString(), SetWideZoom);
-            description += string.Format("<{0}: {1}>, ", Input.TabRight.ToString(), SetCloseZoom);
-            description += string.Format("<{0}: {1}>, ", Input.ZoomOut.ToString(), AdjustZoomOut);
-            description += string.Format("<{0}: {1}>", Input.ZoomIn.ToString(), AdjustZoomIn);
+            description += $"<{Input.TabLeft.ToString()}: {SetWideZoom}>, ";
+            description += $"<{Input.TabRight.ToString()}: {SetCloseZoom}>, ";
+            description += $"<{Input.ZoomOut.ToString()}: {AdjustZoomOut}>, ";
+            description += $"<{Input.ZoomIn.ToString()}: {AdjustZoomIn}>";
             description += Environment.NewLine;
             description += "}";
 

@@ -31,7 +31,7 @@ namespace SolStandard.Containers.View
         private void SetUpWindows()
         {
             WindowContentGrid instructionContentGrid = new WindowContentGrid(
-                new [,]
+                new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont,
@@ -55,7 +55,7 @@ namespace SolStandard.Containers.View
             Color solWindowColor = (GameContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
             Color lunaWindowColor = (GameContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
 
-            WindowContentGrid teamSelectContent = new WindowContentGrid(new [,]
+            WindowContentGrid teamSelectContent = new WindowContentGrid(new[,]
                 {
                     {
                         InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(iconSize)),
@@ -131,28 +131,19 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             //Top-Left Corner
-            if (instructionWindow != null)
-            {
-                instructionWindow.Draw(spriteBatch, new Vector2(WindowEdgeBuffer));
-            }
+            instructionWindow?.Draw(spriteBatch, new Vector2(WindowEdgeBuffer));
 
             //Bottom-Right Corner
-            if (mapInfoWindow != null)
-            {
-                mapInfoWindow.Draw(spriteBatch,
-                    new Vector2(WindowEdgeBuffer, GameDriver.ScreenSize.Y - WindowEdgeBuffer) -
-                    new Vector2(0, mapInfoWindow.Height));
-            }
+            mapInfoWindow?.Draw(spriteBatch,
+                new Vector2(WindowEdgeBuffer, GameDriver.ScreenSize.Y - WindowEdgeBuffer) -
+                new Vector2(0, mapInfoWindow.Height));
 
-            if (teamSelectWindow != null)
-            {
-                teamSelectWindow.Draw(spriteBatch,
-                    new Vector2(
-                        (GameDriver.ScreenSize.X / 2) - ((float) teamSelectWindow.Width / 2),
-                        GameDriver.ScreenSize.Y - WindowEdgeBuffer - teamSelectWindow.Height
-                    )
-                );
-            }
+            teamSelectWindow?.Draw(spriteBatch,
+                new Vector2(
+                    (GameDriver.ScreenSize.X / 2) - ((float) teamSelectWindow.Width / 2),
+                    GameDriver.ScreenSize.Y - WindowEdgeBuffer - teamSelectWindow.Height
+                )
+            );
         }
     }
 }

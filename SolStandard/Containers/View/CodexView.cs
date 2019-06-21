@@ -214,18 +214,11 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             DrawBackground(spriteBatch);
+            UnitListMenu?.Draw(spriteBatch, UnitListMenuPosition());
 
-            if (UnitListMenu != null) UnitListMenu.Draw(spriteBatch, UnitListMenuPosition());
-
-            if (unitDetailWindow != null)
-            {
-                unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
-
-                if (unitActionListWindow != null)
-                {
-                    unitActionListWindow.Draw(spriteBatch, UnitActionListWindowPosition());
-                }
-            }
+            if (unitDetailWindow == null) return;
+            unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
+            unitActionListWindow?.Draw(spriteBatch, UnitActionListWindowPosition());
         }
 
         private void DrawBackground(SpriteBatch spriteBatch)

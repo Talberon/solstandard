@@ -779,10 +779,7 @@ namespace SolStandard.Containers.View
         {
             if (!visible) return;
 
-            if (EntityWindow != null)
-            {
-                EntityWindow.Draw(spriteBatch, EntityWindowPosition());
-            }
+            EntityWindow?.Draw(spriteBatch, EntityWindowPosition());
 
             if (InitiativeWindow != null)
             {
@@ -791,52 +788,21 @@ namespace SolStandard.Containers.View
                 if (LeftUnitPortraitWindow != null)
                 {
                     LeftUnitPortraitWindow.Draw(spriteBatch, LeftUnitPortraitWindowPosition());
-
-                    if (LeftUnitDetailWindow != null)
-                    {
-                        LeftUnitDetailWindow.Draw(spriteBatch, LeftUnitDetailWindowPosition());
-                    }
-
-                    if (LeftUnitStatusWindow != null)
-                    {
-                        LeftUnitStatusWindow.Draw(spriteBatch, LeftUnitStatusWindowPosition());
-                    }
-
-                    if (LeftUnitInventoryWindow != null)
-                    {
-                        LeftUnitInventoryWindow.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
-                    }
+                    LeftUnitDetailWindow?.Draw(spriteBatch, LeftUnitDetailWindowPosition());
+                    LeftUnitStatusWindow?.Draw(spriteBatch, LeftUnitStatusWindowPosition());
+                    LeftUnitInventoryWindow?.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
                 }
 
                 if (RightUnitPortraitWindow != null)
                 {
                     RightUnitPortraitWindow.Draw(spriteBatch, RightUnitPortraitWindowPosition());
-
-                    if (RightUnitDetailWindow != null)
-                    {
-                        RightUnitDetailWindow.Draw(spriteBatch, RightUnitDetailWindowPosition());
-                    }
-
-                    if (RightUnitStatusWindow != null)
-                    {
-                        RightUnitStatusWindow.Draw(spriteBatch, RightUnitStatusWindowPosition());
-                    }
-
-                    if (RightUnitInventoryWindow != null)
-                    {
-                        RightUnitInventoryWindow.Draw(spriteBatch, RightUnitInventoryWindowPosition());
-                    }
+                    RightUnitDetailWindow?.Draw(spriteBatch, RightUnitDetailWindowPosition());
+                    RightUnitStatusWindow?.Draw(spriteBatch, RightUnitStatusWindowPosition());
+                    RightUnitInventoryWindow?.Draw(spriteBatch, RightUnitInventoryWindowPosition());
                 }
 
-                if (ItemDetailWindow != null)
-                {
-                    ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition());
-                }
-
-                if (UserPromptWindow != null)
-                {
-                    UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
-                }
+                ItemDetailWindow?.Draw(spriteBatch, ItemDetailWindowPosition());
+                UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
             }
 
             if (ActionMenu != null)
@@ -845,15 +811,8 @@ namespace SolStandard.Containers.View
 
                 if (ActionMenu.IsVisible)
                 {
-                    if (ActionMenuDescriptionWindow != null)
-                    {
-                        ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
-                    }
-
-                    if (MenuDescriptionWindow != null)
-                    {
-                        MenuDescriptionWindow.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
-                    }
+                    ActionMenuDescriptionWindow?.Draw(spriteBatch, ActionMenuDescriptionPosition());
+                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
                 }
             }
 
@@ -862,27 +821,13 @@ namespace SolStandard.Containers.View
                 InventoryMenu.Draw(spriteBatch, InventoryMenuPosition());
                 if (InventoryMenu.IsVisible)
                 {
-                    if (InventoryMenuDescriptionWindow != null)
-                    {
-                        InventoryMenuDescriptionWindow.Draw(spriteBatch, InventoryMenuDescriptionPosition());
-                    }
-
-                    if (MenuDescriptionWindow != null)
-                    {
-                        MenuDescriptionWindow.Draw(spriteBatch, MenuDescriptionWindowPosition(InventoryMenuPosition()));
-                    }
+                    InventoryMenuDescriptionWindow?.Draw(spriteBatch, InventoryMenuDescriptionPosition());
+                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(InventoryMenuPosition()));
                 }
             }
 
-            if (ObjectiveWindow != null)
-            {
-                ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
-            }
-
-            if (AdHocDraftMenu != null)
-            {
-                AdHocDraftMenu.Draw(spriteBatch, AdHocDraftMenuPosition());
-            }
+            ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition());
+            AdHocDraftMenu?.Draw(spriteBatch, AdHocDraftMenuPosition());
         }
     }
 }

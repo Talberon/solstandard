@@ -257,17 +257,17 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (ObjectiveWindow != null) ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition);
+            ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition);
 
-            if (BlueDeployRoster != null) BlueDeployRoster.Draw(spriteBatch, BlueDeployRosterPosition);
-            if (RedDeployRoster != null) RedDeployRoster.Draw(spriteBatch, RedDeployRosterPosition);
-            if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
-            if (EntityWindow != null) EntityWindow.Draw(spriteBatch, EntityWindowPosition);
+            BlueDeployRoster?.Draw(spriteBatch, BlueDeployRosterPosition);
+            RedDeployRoster?.Draw(spriteBatch, RedDeployRosterPosition);
+            HelpText?.Draw(spriteBatch, HelpTextPosition);
+            EntityWindow?.Draw(spriteBatch, EntityWindowPosition);
 
-            if (UnitPortraitWindow != null) UnitPortraitWindow.Draw(spriteBatch, UnitPortraitWindowPosition);
-            if (UnitDetailWindow != null) UnitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition);
+            UnitPortraitWindow?.Draw(spriteBatch, UnitPortraitWindowPosition);
+            UnitDetailWindow?.Draw(spriteBatch, UnitDetailWindowPosition);
 
-            if (ItemDetailWindow != null) ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition);
+            ItemDetailWindow?.Draw(spriteBatch, ItemDetailWindowPosition);
         }
     }
 }
