@@ -23,15 +23,12 @@ namespace SolStandard.HUD.Window
         public int InsidePadding { get; }
         public int ElementSpacing { get; }
         public Color DefaultColor { get; set; }
-        private int DefaultOpacity { get; }
         private HorizontalAlignment HorizontalAlignment { get; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
         private Vector2 lastPosition;
         private Rectangle innerPane;
         private Rectangle borderPane;
-        private int targetOpacity;
-        private int opacityChangeRate;
 
         public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int elementSpacing = 2,
@@ -39,10 +36,7 @@ namespace SolStandard.HUD.Window
         {
             windowTexture = AssetManager.WindowTexture;
             DefaultColor = color;
-            DefaultOpacity = DefaultColor.A;
-            targetOpacity = DefaultOpacity;
             windowContents = windowContent;
-            opacityChangeRate = 0;
             InsidePadding = insidePadding;
             ElementSpacing = elementSpacing;
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
@@ -177,85 +171,8 @@ namespace SolStandard.HUD.Window
             return (float) Math.Round(contentRenderCoordinates);
         }
 
-        public void FadeAtRate(int newOpacity, int fadeRatePerFrame)
-        {
-            opacityChangeRate = fadeRatePerFrame;
-            targetOpacity = newOpacity;
-        }
-
-        public void ResetOpacity()
-        {
-            targetOpacity = DefaultOpacity;
-            opacityChangeRate = 0;
-            SetDefaultColorOpacity(DefaultOpacity);
-        }
-
-        private void UpdateOpacity()
-        {
-            if (DefaultColor.A == targetOpacity) return;
-
-            if (DefaultColor.A > targetOpacity)
-            {
-                if (DefaultColor.A - opacityChangeRate < targetOpacity)
-                {
-                    SetDefaultColorOpacity(targetOpacity);
-                }
-                else
-                {
-                    SetDefaultColorOpacity(DefaultColor.A - opacityChangeRate);
-                }
-            }
-            else if (DefaultColor.A < targetOpacity)
-            {
-                if (DefaultColor.A + opacityChangeRate < targetOpacity)
-                {
-                    SetDefaultColorOpacity(targetOpacity);
-                }
-                else
-                {
-                    SetDefaultColorOpacity(DefaultColor.A + opacityChangeRate);
-                }
-            }
-        }
-
-        private void SetDefaultColorOpacity(int newOpacity)
-        {
-            if (DefaultOpacity == 0) return;
-            if (newOpacity == DefaultColor.A) return;
-
-            DefaultColor = new Color(DefaultColor.R, DefaultColor.G, DefaultColor.B, newOpacity);
-            SetOpacityForChildren();
-        }
-
-        private int FadePercent => DefaultColor.A / DefaultOpacity;
-
-        private void SetOpacityForChildren()
-        {
-            switch (windowContents)
-            {
-                case Window window:
-                    window.SetDefaultColorOpacity(window.DefaultColor.A * FadePercent);
-                    break;
-                case WindowContentGrid grid:
-                {
-                    grid.SetOpacityPercent(FadePercent);
-                    break;
-                }
-
-                default:
-                    windowContents.DefaultColor = new Color(
-                        windowContents.DefaultColor.R,
-                        windowContents.DefaultColor.G,
-                        windowContents.DefaultColor.B,
-                        windowContents.DefaultColor.A * FadePercent
-                    );
-                    break;
-            }
-        }
-
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
-            UpdateOpacity();
             Draw(spriteBatch, coordinates, DefaultColor);
         }
 

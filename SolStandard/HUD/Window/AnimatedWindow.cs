@@ -7,15 +7,10 @@ namespace SolStandard.HUD.Window
 {
     public class AnimatedWindow : IWindow
     {
-        private Window Window { get; }
         private IWindowAnimation WindowAnimation { get; }
-
-        public Color DefaultColor
-        {
-            get => Window.DefaultColor;
-            set => Window.DefaultColor = value;
-        }
-
+        private Window Window { get; }
+        public int Height => Window.Height;
+        public int Width => Window.Width;
 
         public AnimatedWindow(Window window, IWindowAnimation windowAnimation)
         {
@@ -23,18 +18,10 @@ namespace SolStandard.HUD.Window
             WindowAnimation = windowAnimation;
         }
 
-        public int Height => Window.Height;
-        public int Width => Window.Width;
-
-
-        public void FadeAtRate(int newOpacity, int fadeRatePerFrame)
+        public Color DefaultColor
         {
-            Window.FadeAtRate(newOpacity, fadeRatePerFrame);
-        }
-
-        public void ResetOpacity()
-        {
-            Window.ResetOpacity();
+            get => Window.DefaultColor;
+            set => Window.DefaultColor = value;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

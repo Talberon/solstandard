@@ -53,6 +53,7 @@ namespace SolStandard.Containers.View
         private AnimatedWindow RightUnitStatusWindow { get; set; }
         private AnimatedWindow RightUnitInventoryWindow { get; set; }
 
+        private int EntityWindowHash { get; set; }
         private AnimatedWindow EntityWindow { get; set; }
 
         private Window InitiativeWindow { get; set; }
@@ -355,6 +356,8 @@ namespace SolStandard.Containers.View
 
         public void SetEntityWindow(MapSlice hoverSlice)
         {
+            if (EntityWindowHash == hoverSlice.GetHashCode()) return;
+            EntityWindowHash = hoverSlice.GetHashCode();
             EntityWindow = new AnimatedWindow(GenerateEntityWindow(hoverSlice), RightSideWindowAnimation);
         }
 
@@ -828,11 +831,11 @@ namespace SolStandard.Containers.View
 
                 if (CursorIntersectsWindow(targetWindow, targetWindowPosition))
                 {
-                    targetWindow.FadeAtRate(hoverOpacity, fadeRatePerFrame);
+//                    targetWindow.FadeAtRate(hoverOpacity, fadeRatePerFrame);
                 }
                 else
                 {
-                    targetWindow.ResetOpacity();
+//                    targetWindow.ResetOpacity();
                 }
             }
         }

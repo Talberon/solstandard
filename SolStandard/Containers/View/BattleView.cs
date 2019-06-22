@@ -40,7 +40,7 @@ namespace SolStandard.Containers.View
         private AnimatedWindow DefenderDiceWindow { get; set; }
         private AnimatedWindow DefenderSpriteWindow { get; set; }
 
-        private Window HelpTextWindow { get; set; }
+        private AnimatedWindow HelpTextWindow { get; set; }
         private Window UserPromptWindow { get; set; }
 
         private bool visible;
@@ -59,6 +59,9 @@ namespace SolStandard.Containers.View
         private static IWindowAnimation BottomWindowAnimation =>
             new WindowSlide(WindowSlide.SlideDirection.Up, WindowSlideDistance, WindowSlideSpeed);
 
+        private static IWindowAnimation TopWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Down, WindowSlideDistance, WindowSlideSpeed);
+
         #region View Management
 
         public void HidePromptWindow()
@@ -73,7 +76,7 @@ namespace SolStandard.Containers.View
         public void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
-            HelpTextWindow = new Window(helpTextContent, helpTextWindowColor);
+            HelpTextWindow = new AnimatedWindow(new Window(helpTextContent, helpTextWindowColor), TopWindowAnimation);
         }
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)

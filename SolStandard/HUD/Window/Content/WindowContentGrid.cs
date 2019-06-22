@@ -47,17 +47,6 @@ namespace SolStandard.HUD.Window.Content
             return new Vector2(totalWidth, totalHeight);
         }
 
-        public void SetOpacityPercent(int fadePercent)
-        {
-            foreach (IRenderable gridItem in gridContents.SelectMany((x => x)))
-            {
-                gridItem.DefaultColor =
-                    new Color(gridItem.DefaultColor.R, gridItem.DefaultColor.G, gridItem.DefaultColor.B,
-                        gridItem.DefaultColor.A * (fadePercent / 100)
-                    );
-            }
-        }
-
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
             Draw(spriteBatch, coordinates, DefaultColor);
