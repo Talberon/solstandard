@@ -2,15 +2,9 @@ using Microsoft.Xna.Framework;
 
 namespace SolStandard.HUD.Window.Animation
 {
-    public enum WindowAnimation
-    {
-        None,
-        Slide
-    }
-
     public interface IWindowAnimation
     {
-        void Update();
+        void Update(Vector2 destination);
         Vector2 CurrentPosition { get; }
     }
 }

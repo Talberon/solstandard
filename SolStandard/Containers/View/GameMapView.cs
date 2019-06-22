@@ -10,6 +10,7 @@ using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -37,15 +38,15 @@ namespace SolStandard.Containers.View
         public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
         public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
-        private Window LeftUnitPortraitWindow { get; set; }
-        private Window LeftUnitDetailWindow { get; set; }
-        private Window LeftUnitStatusWindow { get; set; }
-        private Window LeftUnitInventoryWindow { get; set; }
+        private PositionedWindow LeftUnitPortraitWindow { get; set; }
+        private PositionedWindow LeftUnitDetailWindow { get; set; }
+        private PositionedWindow LeftUnitStatusWindow { get; set; }
+        private PositionedWindow LeftUnitInventoryWindow { get; set; }
 
-        private Window RightUnitPortraitWindow { get; set; }
-        private Window RightUnitDetailWindow { get; set; }
-        private Window RightUnitStatusWindow { get; set; }
-        private Window RightUnitInventoryWindow { get; set; }
+        private PositionedWindow RightUnitPortraitWindow { get; set; }
+        private PositionedWindow RightUnitDetailWindow { get; set; }
+        private PositionedWindow RightUnitStatusWindow { get; set; }
+        private PositionedWindow RightUnitInventoryWindow { get; set; }
 
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
@@ -519,10 +520,20 @@ namespace SolStandard.Containers.View
             else
             {
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
-                LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
-                LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
-                LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
-                LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+                Window leftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                Window leftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                Window leftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                Window leftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+
+                LeftUnitPortraitWindow = new PositionedWindow(leftUnitPortraitWindow, LeftUnitWindowAnimation);
+                LeftUnitDetailWindow = new PositionedWindow(leftUnitDetailWindow, LeftUnitWindowAnimation);
+
+                LeftUnitStatusWindow = leftUnitStatusWindow != null
+                    ? new PositionedWindow(leftUnitStatusWindow, LeftUnitWindowAnimation)
+                    : null;
+                LeftUnitInventoryWindow = leftUnitInventoryWindow != null
+                    ? new PositionedWindow(leftUnitInventoryWindow, LeftUnitWindowAnimation)
+                    : null;
             }
         }
 
@@ -538,10 +549,40 @@ namespace SolStandard.Containers.View
             else
             {
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
-                RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
-                RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
-                RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
-                RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+                Window rightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                Window rightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                Window rightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                Window rightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+
+
+                RightUnitPortraitWindow = new PositionedWindow(rightUnitPortraitWindow, RightUnitWindowAnimation);
+                RightUnitDetailWindow = new PositionedWindow(rightUnitDetailWindow, RightUnitWindowAnimation);
+                RightUnitStatusWindow = rightUnitStatusWindow != null
+                    ? new PositionedWindow(rightUnitStatusWindow, RightUnitWindowAnimation)
+                    : null;
+                RightUnitInventoryWindow = rightUnitInventoryWindow != null
+                    ? new PositionedWindow(rightUnitInventoryWindow, RightUnitWindowAnimation)
+                    : null;
+            }
+        }
+
+        private static IWindowAnimation RightUnitWindowAnimation
+        {
+            get
+            {
+                const int slideSpeed = 40;
+                return new WindowSlide(WindowSlide.SlideDirection.Left,
+                    300, slideSpeed);
+            }
+        }
+
+        private static IWindowAnimation LeftUnitWindowAnimation
+        {
+            get
+            {
+                const int slideSpeed = 40;
+                return new WindowSlide(WindowSlide.SlideDirection.Right,
+                    300, slideSpeed);
             }
         }
 

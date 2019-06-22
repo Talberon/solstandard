@@ -214,10 +214,10 @@ namespace SolStandard.Containers.Contexts
                 unit.ExhaustAndDisableUnit();
             }
 
+            GameMapContext.UpdateWindowsEachTurn();
             InitiativeContext.StartFirstTurn();
             GameMapContext.ResetTurnState();
 
-            GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
         }
 
