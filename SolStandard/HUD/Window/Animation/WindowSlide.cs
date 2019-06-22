@@ -39,13 +39,13 @@ namespace SolStandard.HUD.Window.Animation
                 case SlideDirection.Up:
                     initialPosition = new Vector2(
                         destX,
-                        destY - distanceToTravel
+                        destY + distanceToTravel
                     );
                     break;
                 case SlideDirection.Down:
                     initialPosition = new Vector2(
                         destX,
-                        destY + distanceToTravel
+                        destY - distanceToTravel
                     );
                     break;
                 case SlideDirection.Left:
