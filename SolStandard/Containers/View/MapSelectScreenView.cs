@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -13,8 +14,11 @@ namespace SolStandard.Containers.View
     public class MapSelectScreenView : IUserInterface
     {
         private Window instructionWindow;
-        private Window mapInfoWindow;
+        private AnimatedWindow mapInfoWindow;
         private Window teamSelectWindow;
+
+        private const int WindowSlideSpeed = 40;
+        private const int WindowSlideDistance = 300;
 
         private const int WindowEdgeBuffer = 5;
         private static readonly Color InstructionWindowColor = new Color(50, 50, 50, 200);
@@ -27,6 +31,9 @@ namespace SolStandard.Containers.View
         {
             SetUpWindows();
         }
+
+        private static IWindowAnimation LeftSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
 
         private void SetUpWindows()
         {
@@ -46,7 +53,8 @@ namespace SolStandard.Containers.View
 
             instructionWindow = new Window(instructionContentGrid, InstructionWindowColor);
 
-            mapInfoWindow = new Window(new RenderBlank(), MapInfoWindowColor);
+            mapInfoWindow =
+                new AnimatedWindow(new Window(new RenderBlank(), MapInfoWindowColor), LeftSideWindowAnimation);
         }
 
         public void UpdateTeamSelectWindow()
@@ -113,7 +121,10 @@ namespace SolStandard.Containers.View
 
         public void UpdateMapInfoWindow(IRenderable terrainInfo)
         {
-            mapInfoWindow = terrainInfo == null ? null : new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
+            mapInfoWindow = terrainInfo == null
+                ? null
+                : new AnimatedWindow(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
+                    LeftSideWindowAnimation);
         }
 
         public void ToggleVisible()

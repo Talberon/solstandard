@@ -331,7 +331,6 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.MapSelect:
                     GameContext.UpdateCamera();
-                    GameContext.MapSelectContext.HoverOverEntity();
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;

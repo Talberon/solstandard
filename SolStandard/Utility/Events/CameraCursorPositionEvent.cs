@@ -25,7 +25,6 @@ namespace SolStandard.Utility.Events
             {
                 GameContext.GameMapContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             }
-            
 
             Complete = true;
         }

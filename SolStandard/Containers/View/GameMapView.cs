@@ -31,6 +31,9 @@ namespace SolStandard.Containers.View
             InventoryMenu
         }
 
+        private const int WindowSlideSpeed = 40;
+        private const int WindowSlideDistance = 300;
+
         private const int WindowEdgeBuffer = 5;
         public static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
         public static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
@@ -38,20 +41,21 @@ namespace SolStandard.Containers.View
         public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
         public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
-        private PositionedWindow LeftUnitPortraitWindow { get; set; }
-        private PositionedWindow LeftUnitDetailWindow { get; set; }
-        private PositionedWindow LeftUnitStatusWindow { get; set; }
-        private PositionedWindow LeftUnitInventoryWindow { get; set; }
+        private AnimatedWindow LeftUnitPortraitWindow { get; set; }
+        private AnimatedWindow LeftUnitDetailWindow { get; set; }
+        private AnimatedWindow LeftUnitStatusWindow { get; set; }
+        private AnimatedWindow LeftUnitInventoryWindow { get; set; }
 
-        private PositionedWindow RightUnitPortraitWindow { get; set; }
-        private PositionedWindow RightUnitDetailWindow { get; set; }
-        private PositionedWindow RightUnitStatusWindow { get; set; }
-        private PositionedWindow RightUnitInventoryWindow { get; set; }
+        private AnimatedWindow RightUnitPortraitWindow { get; set; }
+        private AnimatedWindow RightUnitDetailWindow { get; set; }
+        private AnimatedWindow RightUnitStatusWindow { get; set; }
+        private AnimatedWindow RightUnitInventoryWindow { get; set; }
 
+        private AnimatedWindow EntityWindow { get; set; }
+        
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
-        private Window EntityWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
 
         public Window ItemDetailWindow { get; private set; }
@@ -112,6 +116,12 @@ namespace SolStandard.Containers.View
                 }
             }
         }
+
+        private static IWindowAnimation RightSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Left, WindowSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation LeftSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
 
         public void ToggleCombatMenu()
         {
@@ -343,7 +353,7 @@ namespace SolStandard.Containers.View
 
         public void SetEntityWindow(MapSlice hoverSlice)
         {
-            EntityWindow = GenerateEntityWindow(hoverSlice);
+            EntityWindow = new AnimatedWindow(GenerateEntityWindow(hoverSlice), RightSideWindowAnimation);
         }
 
         public static Window GenerateEntityWindow(MapSlice hoverSlice)
@@ -525,14 +535,14 @@ namespace SolStandard.Containers.View
                 Window leftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
                 Window leftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
 
-                LeftUnitPortraitWindow = new PositionedWindow(leftUnitPortraitWindow, LeftUnitWindowAnimation);
-                LeftUnitDetailWindow = new PositionedWindow(leftUnitDetailWindow, LeftUnitWindowAnimation);
+                LeftUnitPortraitWindow = new AnimatedWindow(leftUnitPortraitWindow, LeftSideWindowAnimation);
+                LeftUnitDetailWindow = new AnimatedWindow(leftUnitDetailWindow, LeftSideWindowAnimation);
 
                 LeftUnitStatusWindow = leftUnitStatusWindow != null
-                    ? new PositionedWindow(leftUnitStatusWindow, LeftUnitWindowAnimation)
+                    ? new AnimatedWindow(leftUnitStatusWindow, LeftSideWindowAnimation)
                     : null;
                 LeftUnitInventoryWindow = leftUnitInventoryWindow != null
-                    ? new PositionedWindow(leftUnitInventoryWindow, LeftUnitWindowAnimation)
+                    ? new AnimatedWindow(leftUnitInventoryWindow, LeftSideWindowAnimation)
                     : null;
             }
         }
@@ -555,37 +565,16 @@ namespace SolStandard.Containers.View
                 Window rightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
 
 
-                RightUnitPortraitWindow = new PositionedWindow(rightUnitPortraitWindow, RightUnitWindowAnimation);
-                RightUnitDetailWindow = new PositionedWindow(rightUnitDetailWindow, RightUnitWindowAnimation);
+                RightUnitPortraitWindow = new AnimatedWindow(rightUnitPortraitWindow, RightSideWindowAnimation);
+                RightUnitDetailWindow = new AnimatedWindow(rightUnitDetailWindow, RightSideWindowAnimation);
                 RightUnitStatusWindow = rightUnitStatusWindow != null
-                    ? new PositionedWindow(rightUnitStatusWindow, RightUnitWindowAnimation)
+                    ? new AnimatedWindow(rightUnitStatusWindow, RightSideWindowAnimation)
                     : null;
                 RightUnitInventoryWindow = rightUnitInventoryWindow != null
-                    ? new PositionedWindow(rightUnitInventoryWindow, RightUnitWindowAnimation)
+                    ? new AnimatedWindow(rightUnitInventoryWindow, RightSideWindowAnimation)
                     : null;
             }
         }
-
-        private static IWindowAnimation RightUnitWindowAnimation
-        {
-            get
-            {
-                const int slideSpeed = 40;
-                return new WindowSlide(WindowSlide.SlideDirection.Left,
-                    300, slideSpeed);
-            }
-        }
-
-        private static IWindowAnimation LeftUnitWindowAnimation
-        {
-            get
-            {
-                const int slideSpeed = 40;
-                return new WindowSlide(WindowSlide.SlideDirection.Right,
-                    300, slideSpeed);
-            }
-        }
-
 
         public static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
         {

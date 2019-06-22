@@ -5,7 +5,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window
 {
-    public class PositionedWindow : IRenderable
+    public class AnimatedWindow : IRenderable
     {
         private Window Window { get; }
         private IWindowAnimation WindowAnimation { get; }
@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Window
             set => Window.DefaultColor = value;
         }
 
-        public PositionedWindow(Window window, IWindowAnimation windowAnimation)
+        public AnimatedWindow(Window window, IWindowAnimation windowAnimation)
         {
             Window = window;
             WindowAnimation = windowAnimation;
@@ -38,7 +38,7 @@ namespace SolStandard.HUD.Window
 
         public IRenderable Clone()
         {
-            return new PositionedWindow(Window, WindowAnimation);
+            return new AnimatedWindow(Window, WindowAnimation);
         }
     }
 }
