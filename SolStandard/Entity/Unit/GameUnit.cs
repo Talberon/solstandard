@@ -784,6 +784,26 @@ namespace SolStandard.Entity.Unit
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
         }
 
+        public bool IsDifferentFrom(int hashCode)
+        {
+            return GetHashCode() != hashCode;
+        }
+
+        // ReSharper disable NonReadonlyMemberInGetHashCode
+        public override int GetHashCode()
+        {
+            const int serialId = 123014;
+            int hashCode = Stats.GetHashCode();
+            hashCode += Id.Length;
+            hashCode += Inventory.Count;
+            hashCode += StatusEffects.Count;
+            hashCode += (int) Team;
+            hashCode += (int) Role;
+            hashCode += CurrentGold;
+            hashCode *= serialId;
+            return hashCode;
+        }
+
         public static SpriteAtlas GetCommanderCrown(Vector2 size)
         {
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);

@@ -235,7 +235,6 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
-            UpdateHoverContextWindows();
         }
 
         public void ResetCursorToPreviousUnitOnTeam()
@@ -246,17 +245,15 @@ namespace SolStandard.Containers.Contexts
 
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
-            UpdateHoverContextWindows();
         }
 
 
-        public void ResetCursorToActiveUnit(bool updateHoverWindow = true)
+        public void ResetCursorToActiveUnit()
         {
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
             MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
-            if (updateHoverWindow) UpdateHoverContextWindows();
         }
 
         public void CancelMove()
@@ -270,7 +267,6 @@ namespace SolStandard.Containers.Contexts
             }
 
             AssetManager.MapUnitCancelSFX.Play();
-            UpdateHoverContextWindows();
         }
 
         public void CancelActionMenu()
@@ -419,14 +415,14 @@ namespace SolStandard.Containers.Contexts
         public void MoveCursorOnMap(Direction direction)
         {
             MapContainer.MapCursor.MoveCursorInDirection(direction);
-            UpdateHoverContextWindows();
         }
 
         public void MoveCursorAndSelectedUnitWithinMoveGrid(Direction direction)
         {
             MapContainer.MapCursor.MoveCursorInDirection(direction);
 
-            if (MapContainer.GetMapSliceAtCursor().DynamicEntity == null) return;
+            MapSlice mapSliceAtCursor = MapContainer.GetMapSliceAtCursor();
+            if (mapSliceAtCursor.DynamicEntity == null) return;
 
             SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
             SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
@@ -521,7 +517,6 @@ namespace SolStandard.Containers.Contexts
         {
             SelectedUnit.UnitEntity.SnapToCoordinates(selectedUnitOriginalPosition);
             MapContainer.MapCursor.SnapCursorToCoordinates(selectedUnitOriginalPosition);
-            UpdateHoverContextWindows();
         }
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)

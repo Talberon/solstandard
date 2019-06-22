@@ -244,21 +244,21 @@ namespace SolStandard.Entity.Unit
             unchecked
             {
                 int hashCode = MaxHP;
-                hashCode = (hashCode * 397) ^ MaxArmor;
-                hashCode = (hashCode * 397) ^ (BaseAtkRange != null ? BaseAtkRange.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ BaseAtk;
-                hashCode = (hashCode * 397) ^ BaseRet;
-                hashCode = (hashCode * 397) ^ BaseLuck;
-                hashCode = (hashCode * 397) ^ BaseBlk;
-                hashCode = (hashCode * 397) ^ BaseMv;
+                hashCode += (hashCode * 397) ^ MaxArmor;
+                hashCode += (hashCode * 397) ^ (BaseAtkRange != null ? BaseAtkRange.GetHashCode() : 0);
+                hashCode += (hashCode * 397) ^ BaseAtk;
+                hashCode += (hashCode * 397) ^ BaseRet;
+                hashCode += (hashCode * 397) ^ BaseLuck;
+                hashCode += (hashCode * 397) ^ BaseBlk;
+                hashCode += (hashCode * 397) ^ BaseMv;
 
-                hashCode = (hashCode * 397) ^ CurrentHP;
-                hashCode = (hashCode * 397) ^ CurrentArmor;
-                hashCode = (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ AtkModifier;
-                hashCode = (hashCode * 397) ^ RetModifier;
-                hashCode = (hashCode * 397) ^ LuckModifier;
-                hashCode = (hashCode * 397) ^ MvModifier;
+                hashCode += (hashCode * 397) ^ CurrentHP;
+                hashCode += (hashCode * 397) ^ CurrentArmor;
+                hashCode += (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);
+                hashCode += (hashCode * 397) ^ AtkModifier;
+                hashCode += (hashCode * 397) ^ RetModifier;
+                hashCode += (hashCode * 397) ^ LuckModifier;
+                hashCode += (hashCode * 397) ^ MvModifier;
                 return hashCode;
             }
         }

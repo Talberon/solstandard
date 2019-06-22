@@ -22,8 +22,8 @@ namespace SolStandard.HUD.Window
         private readonly IRenderable windowContents;
         public int InsidePadding { get; }
         public int ElementSpacing { get; }
-        public Color DefaultColor { private get; set; }
-        public int DefaultOpacity { get; }
+        public Color DefaultColor { get; set; }
+        private int DefaultOpacity { get; }
         private HorizontalAlignment HorizontalAlignment { get; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
@@ -221,7 +221,36 @@ namespace SolStandard.HUD.Window
         private void SetDefaultColorOpacity(int newOpacity)
         {
             if (DefaultOpacity == 0) return;
+            if (newOpacity == DefaultColor.A) return;
+
             DefaultColor = new Color(DefaultColor.R, DefaultColor.G, DefaultColor.B, newOpacity);
+            SetOpacityForChildren();
+        }
+
+        private int FadePercent => DefaultColor.A / DefaultOpacity;
+
+        private void SetOpacityForChildren()
+        {
+            switch (windowContents)
+            {
+                case Window window:
+                    window.SetDefaultColorOpacity(window.DefaultColor.A * FadePercent);
+                    break;
+                case WindowContentGrid grid:
+                {
+                    grid.SetOpacityPercent(FadePercent);
+                    break;
+                }
+
+                default:
+                    windowContents.DefaultColor = new Color(
+                        windowContents.DefaultColor.R,
+                        windowContents.DefaultColor.G,
+                        windowContents.DefaultColor.B,
+                        windowContents.DefaultColor.A * FadePercent
+                    );
+                    break;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)

@@ -41,11 +41,13 @@ namespace SolStandard.Containers.View
         public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
         public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
+        private int LeftHoverUnit { get; set; }
         private AnimatedWindow LeftUnitPortraitWindow { get; set; }
         private AnimatedWindow LeftUnitDetailWindow { get; set; }
         private AnimatedWindow LeftUnitStatusWindow { get; set; }
         private AnimatedWindow LeftUnitInventoryWindow { get; set; }
 
+        private int RightHoverUnit { get; set; }
         private AnimatedWindow RightUnitPortraitWindow { get; set; }
         private AnimatedWindow RightUnitDetailWindow { get; set; }
         private AnimatedWindow RightUnitStatusWindow { get; set; }
@@ -522,6 +524,7 @@ namespace SolStandard.Containers.View
         {
             if (hoverMapUnit == null)
             {
+                LeftHoverUnit = 0;
                 LeftUnitPortraitWindow = null;
                 LeftUnitDetailWindow = null;
                 LeftUnitStatusWindow = null;
@@ -529,6 +532,8 @@ namespace SolStandard.Containers.View
             }
             else
             {
+                if (!hoverMapUnit.IsDifferentFrom(LeftHoverUnit)) return;
+                LeftHoverUnit = hoverMapUnit.GetHashCode();
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
                 Window leftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 Window leftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
@@ -551,6 +556,7 @@ namespace SolStandard.Containers.View
         {
             if (hoverMapUnit == null)
             {
+                RightHoverUnit = 0;
                 RightUnitPortraitWindow = null;
                 RightUnitDetailWindow = null;
                 RightUnitStatusWindow = null;
@@ -558,6 +564,8 @@ namespace SolStandard.Containers.View
             }
             else
             {
+                if (!hoverMapUnit.IsDifferentFrom(RightHoverUnit)) return;
+                RightHoverUnit = hoverMapUnit.GetHashCode();
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
                 Window rightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 Window rightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);

@@ -12,6 +12,7 @@ namespace SolStandard.HUD.Window
 
         public Color DefaultColor
         {
+            get => Window.DefaultColor;
             set => Window.DefaultColor = value;
         }
 

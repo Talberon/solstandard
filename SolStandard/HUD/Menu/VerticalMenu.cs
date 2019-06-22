@@ -15,7 +15,7 @@ namespace SolStandard.HUD.Menu
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
         private int CurrentOptionIndex { get; set; }
-        public Color DefaultColor { private get; set; }
+        public Color DefaultColor { get; set; }
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
         public bool IsVisible { get; set; }

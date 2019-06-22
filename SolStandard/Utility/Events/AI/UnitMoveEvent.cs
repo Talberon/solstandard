@@ -23,7 +23,7 @@ namespace SolStandard.Utility.Events.AI
         public void Continue()
         {
             unitToMove.MoveUnitInDirection(directionToMove, ignoreCollision);
-            GameContext.GameMapContext.ResetCursorToActiveUnit(false);
+            GameContext.GameMapContext.ResetCursorToActiveUnit();
 
             if (directionToMove != Direction.None) AssetManager.MapUnitMoveSFX.Play();
 

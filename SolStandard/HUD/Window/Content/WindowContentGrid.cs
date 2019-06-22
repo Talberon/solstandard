@@ -10,17 +10,16 @@ namespace SolStandard.HUD.Window.Content
     public class WindowContentGrid : IRenderable
     {
         public Color DefaultColor { get; set; }
-        private readonly List<List<IRenderable>> contentGrid;
         private readonly int spacing;
-
+        private readonly List<List<IRenderable>> gridContents;
         private HorizontalAlignment HorizontalAlignment { get; }
 
         private WindowContentGrid(List<List<IRenderable>> contentGrid, int spacing, HorizontalAlignment alignment)
         {
-            this.contentGrid = contentGrid;
+            gridContents = contentGrid;
             this.spacing = spacing;
             HorizontalAlignment = alignment;
-            DefaultColor = Color.White;
+            DefaultColor = Color.Transparent;
         }
 
         public WindowContentGrid(IRenderable[,] contentGrid, int spacing,
@@ -29,8 +28,8 @@ namespace SolStandard.HUD.Window.Content
         {
         }
 
-        public int Height => (int) GridSizeInPixels().Y;
 
+        public int Height => (int) GridSizeInPixels().Y;
         public int Width => (int) GridSizeInPixels().X;
 
         private Vector2 GridSizeInPixels()
@@ -38,7 +37,7 @@ namespace SolStandard.HUD.Window.Content
             float totalWidth = 0f;
             float totalHeight = 0;
 
-            foreach (List<IRenderable> row in contentGrid)
+            foreach (List<IRenderable> row in gridContents)
             {
                 int rowWidth = row.Sum(item => item.Width) + row.Count * spacing;
                 if (rowWidth > totalWidth) totalWidth = rowWidth;
@@ -46,6 +45,17 @@ namespace SolStandard.HUD.Window.Content
             }
 
             return new Vector2(totalWidth, totalHeight);
+        }
+
+        public void SetOpacityPercent(int fadePercent)
+        {
+            foreach (IRenderable gridItem in gridContents.SelectMany((x => x)))
+            {
+                gridItem.DefaultColor =
+                    new Color(gridItem.DefaultColor.R, gridItem.DefaultColor.G, gridItem.DefaultColor.B,
+                        gridItem.DefaultColor.A * (fadePercent / 100)
+                    );
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
@@ -58,7 +68,7 @@ namespace SolStandard.HUD.Window.Content
         {
             float previousHeight = 0f;
 
-            foreach (List<IRenderable> row in contentGrid)
+            foreach (List<IRenderable> row in gridContents)
             {
                 float rowWidth = row.Sum(item => item.Width);
 
@@ -97,7 +107,7 @@ namespace SolStandard.HUD.Window.Content
 
         public IRenderable Clone()
         {
-            return new WindowContentGrid(contentGrid, spacing, HorizontalAlignment);
+            return new WindowContentGrid(gridContents, spacing, HorizontalAlignment);
         }
 
         private void DrawRow(SpriteBatch spriteBatch, IEnumerable<IRenderable> row, Vector2 coordinates)

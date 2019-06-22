@@ -27,7 +27,7 @@ namespace SolStandard.HUD.Menu
         private int CurrentOptionRow { get; set; }
         private int CurrentOptionColumn { get; set; }
 
-        public Color DefaultColor { private get; set; }
+        public Color DefaultColor { get; set; }
         private const int Padding = 2;
 
         private readonly Window.Window menuWindow;
