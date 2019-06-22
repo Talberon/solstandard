@@ -15,20 +15,23 @@ namespace SolStandard.HUD.Window
         Right
     }
 
-    public class Window : IRenderable
+    public class Window : IWindow
     {
         private static readonly Color InnerPaneColor = new Color(0, 0, 0, 50);
         private readonly ITexture2D windowTexture;
         private readonly IRenderable windowContents;
         public int InsidePadding { get; }
         public int ElementSpacing { get; }
-        public Color DefaultColor { get; set; }
+        public Color DefaultColor { private get; set; }
+        public int DefaultOpacity { get; }
         private HorizontalAlignment HorizontalAlignment { get; }
         private Vector2 WindowPixelSize { get; set; }
         public bool Visible { get; set; }
         private Vector2 lastPosition;
         private Rectangle innerPane;
         private Rectangle borderPane;
+        private int targetOpacity;
+        private int opacityChangeRate;
 
         public Window(IRenderable windowContent, Color color, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Centered, int elementSpacing = 2,
@@ -36,7 +39,10 @@ namespace SolStandard.HUD.Window
         {
             windowTexture = AssetManager.WindowTexture;
             DefaultColor = color;
+            DefaultOpacity = DefaultColor.A;
+            targetOpacity = DefaultOpacity;
             windowContents = windowContent;
+            opacityChangeRate = 0;
             InsidePadding = insidePadding;
             ElementSpacing = elementSpacing;
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
@@ -171,8 +177,56 @@ namespace SolStandard.HUD.Window
             return (float) Math.Round(contentRenderCoordinates);
         }
 
+        public void FadeAtRate(int newOpacity, int fadeRatePerFrame)
+        {
+            opacityChangeRate = fadeRatePerFrame;
+            targetOpacity = newOpacity;
+        }
+
+        public void ResetOpacity()
+        {
+            targetOpacity = DefaultOpacity;
+            opacityChangeRate = 0;
+            SetDefaultColorOpacity(DefaultOpacity);
+        }
+
+        private void UpdateOpacity()
+        {
+            if (DefaultColor.A == targetOpacity) return;
+
+            if (DefaultColor.A > targetOpacity)
+            {
+                if (DefaultColor.A - opacityChangeRate < targetOpacity)
+                {
+                    SetDefaultColorOpacity(targetOpacity);
+                }
+                else
+                {
+                    SetDefaultColorOpacity(DefaultColor.A - opacityChangeRate);
+                }
+            }
+            else if (DefaultColor.A < targetOpacity)
+            {
+                if (DefaultColor.A + opacityChangeRate < targetOpacity)
+                {
+                    SetDefaultColorOpacity(targetOpacity);
+                }
+                else
+                {
+                    SetDefaultColorOpacity(DefaultColor.A + opacityChangeRate);
+                }
+            }
+        }
+
+        private void SetDefaultColorOpacity(int newOpacity)
+        {
+            if (DefaultOpacity == 0) return;
+            DefaultColor = new Color(DefaultColor.R, DefaultColor.G, DefaultColor.B, newOpacity);
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 coordinates)
         {
+            UpdateOpacity();
             Draw(spriteBatch, coordinates, DefaultColor);
         }
 
@@ -195,7 +249,6 @@ namespace SolStandard.HUD.Window
             spriteBatch.Draw(windowTexture.MonoGameTexture, innerPane, colorOverride);
             windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
         }
-
 
         public IRenderable Clone()
         {

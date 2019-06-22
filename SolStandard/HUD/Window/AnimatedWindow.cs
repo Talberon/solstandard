@@ -5,16 +5,16 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window
 {
-    public class AnimatedWindow : IRenderable
+    public class AnimatedWindow : IWindow
     {
         private Window Window { get; }
         private IWindowAnimation WindowAnimation { get; }
-        
+
         public Color DefaultColor
         {
-            private get => Window.DefaultColor;
             set => Window.DefaultColor = value;
         }
+
 
         public AnimatedWindow(Window window, IWindowAnimation windowAnimation)
         {
@@ -25,9 +25,21 @@ namespace SolStandard.HUD.Window
         public int Height => Window.Height;
         public int Width => Window.Width;
 
+
+        public void FadeAtRate(int newOpacity, int fadeRatePerFrame)
+        {
+            Window.FadeAtRate(newOpacity, fadeRatePerFrame);
+        }
+
+        public void ResetOpacity()
+        {
+            Window.ResetOpacity();
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            Draw(spriteBatch, position, DefaultColor);
+            WindowAnimation.Update(position);
+            Window.Draw(spriteBatch, WindowAnimation.CurrentPosition);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)

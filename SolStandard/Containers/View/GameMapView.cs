@@ -52,7 +52,7 @@ namespace SolStandard.Containers.View
         private AnimatedWindow RightUnitInventoryWindow { get; set; }
 
         private AnimatedWindow EntityWindow { get; set; }
-        
+
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
@@ -806,12 +806,70 @@ namespace SolStandard.Containers.View
             visible = !visible;
         }
 
+        private void CheckCursorHover()
+        {
+            const int hoverOpacity = 1;
+            const int fadeRatePerFrame = 30;
+
+            Dictionary<IWindow, Vector2> fadeWindows = GatherWindowsAndCoordinates();
+
+            foreach (KeyValuePair<IWindow, Vector2> window in fadeWindows)
+            {
+                IWindow targetWindow = window.Key;
+                Vector2 targetWindowPosition = window.Value;
+
+                if (CursorIntersectsWindow(targetWindow, targetWindowPosition))
+                {
+                    targetWindow.FadeAtRate(hoverOpacity, fadeRatePerFrame);
+                }
+                else
+                {
+                    targetWindow.ResetOpacity();
+                }
+            }
+        }
+
+        private Dictionary<IWindow, Vector2> GatherWindowsAndCoordinates()
+        {
+            Dictionary<IWindow, Vector2> fadeWindows = new Dictionary<IWindow, Vector2>();
+            if (InitiativeWindow != null) fadeWindows.Add(InitiativeWindow, InitiativeWindowPosition());
+
+            if (LeftUnitPortraitWindow != null)
+                fadeWindows.Add(LeftUnitPortraitWindow, LeftUnitPortraitWindowPosition());
+            if (LeftUnitDetailWindow != null) fadeWindows.Add(LeftUnitDetailWindow, LeftUnitDetailWindowPosition());
+            if (LeftUnitInventoryWindow != null)
+                fadeWindows.Add(LeftUnitInventoryWindow, LeftUnitInventoryWindowPosition());
+            if (LeftUnitStatusWindow != null) fadeWindows.Add(LeftUnitStatusWindow, LeftUnitStatusWindowPosition());
+
+            if (RightUnitPortraitWindow != null)
+                fadeWindows.Add(RightUnitPortraitWindow, RightUnitPortraitWindowPosition());
+            if (RightUnitDetailWindow != null) fadeWindows.Add(RightUnitDetailWindow, RightUnitDetailWindowPosition());
+            if (RightUnitInventoryWindow != null)
+                fadeWindows.Add(RightUnitInventoryWindow, RightUnitInventoryWindowPosition());
+            if (RightUnitStatusWindow != null) fadeWindows.Add(RightUnitStatusWindow, RightUnitStatusWindowPosition());
+
+            if (EntityWindow != null) fadeWindows.Add(EntityWindow, EntityWindowPosition());
+            if (ObjectiveWindow != null) fadeWindows.Add(ObjectiveWindow, ObjectiveWindowPosition());
+            return fadeWindows;
+        }
+
+        private static bool CursorIntersectsWindow(IRenderable window, Vector2 windowPixelPosition)
+        {
+            (float windowLeft, float windowTop) = windowPixelPosition;
+            float windowRight = windowLeft + window.Width;
+            float windowBottom = windowTop + window.Height;
+            (float cursorX, float cursorY) = GameContext.MapCursor.CenterCursorScreenCoordinates;
+
+            bool cursorWithinWindowBounds = (cursorX >= windowLeft && cursorX <= windowRight) &&
+                                            (cursorY >= windowTop && cursorY <= windowBottom);
+            return cursorWithinWindowBounds;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-
+            CheckCursorHover();
             EntityWindow?.Draw(spriteBatch, EntityWindowPosition());
-
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
