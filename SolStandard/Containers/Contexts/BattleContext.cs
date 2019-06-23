@@ -243,8 +243,7 @@ namespace SolStandard.Containers.Contexts
             );
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
 
-            battleView.GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait);
-            battleView.GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane);
+            battleView.GenerateAttackerUnitCard(attackerWindowColor, attacker);
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, attackerStats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
@@ -267,8 +266,7 @@ namespace SolStandard.Containers.Contexts
             );
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
 
-            battleView.GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait);
-            battleView.GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane);
+            battleView.GenerateDefenderUnitCard(defenderWindowColor, defender);
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
             battleView.GenerateDefenderRetWindow(defenderWindowColor, defenderStats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
@@ -499,6 +497,8 @@ namespace SolStandard.Containers.Contexts
             else if (currentlyResolvingDamage)
             {
                 ResolveDamage();
+                battleView.GenerateAttackerUnitCard(TeamUtility.DetermineTeamColor(attacker.Team), attacker, false);
+                battleView.GenerateDefenderUnitCard(TeamUtility.DetermineTeamColor(defender.Team), defender, false);
             }
         }
 

@@ -123,17 +123,26 @@ namespace SolStandard.Containers.View
             AttackerHpWindow = new AnimatedWindow(GenerateHpWindow(attacker, windowColor), LeftSideWindowAnimation);
         }
 
-        public void GenerateAttackerDetailWindow(Color attackerWindowColor,
-            IRenderable attackerDetail)
+        public void GenerateAttackerUnitCard(Color attackerWindowColor, GameUnit attacker, bool animated = true)
         {
-            AttackerDetailWindow =
-                new AnimatedWindow(new Window(attackerDetail, attackerWindowColor), BottomWindowAnimation);
+            GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane, animated);
+            GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait, animated);
         }
 
-        public void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
+        private void GenerateAttackerDetailWindow(Color attackerWindowColor,
+            IRenderable attackerDetail, bool animated)
+        {
+            AttackerDetailWindow =
+                new AnimatedWindow(new Window(attackerDetail, attackerWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(AttackerDetailWindowPosition()));
+        }
+
+        private void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait,
+            bool animated)
         {
             AttackerPortraitWindow =
-                new AnimatedWindow(new Window(attackerPortrait, attackerWindowColor), BottomWindowAnimation);
+                new AnimatedWindow(new Window(attackerPortrait, attackerWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(AttackerPortraitWindowPosition()));
         }
 
         #endregion Attacker Windows
@@ -179,17 +188,26 @@ namespace SolStandard.Containers.View
             DefenderHpWindow = new AnimatedWindow(GenerateHpWindow(defender, windowColor), RightSideWindowAnimation);
         }
 
-        public void GenerateDefenderDetailWindow(Color defenderWindowColor,
-            IRenderable defenderDetail)
+        public void GenerateDefenderUnitCard(Color defenderWindowColor, GameUnit defender, bool animated = true)
         {
-            DefenderDetailWindow =
-                new AnimatedWindow(new Window(defenderDetail, defenderWindowColor), BottomWindowAnimation);
+            GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane, animated);
+            GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait, animated);
         }
 
-        public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
+        private void GenerateDefenderDetailWindow(Color defenderWindowColor,
+            IRenderable defenderDetail, bool animated)
+        {
+            DefenderDetailWindow =
+                new AnimatedWindow(new Window(defenderDetail, defenderWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(DefenderDetailWindowPosition()));
+        }
+
+        private void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait,
+            bool animated)
         {
             DefenderPortraitWindow =
-                new AnimatedWindow(new Window(defenderPortrait, defenderWindowColor), BottomWindowAnimation);
+                new AnimatedWindow(new Window(defenderPortrait, defenderWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(DefenderPortraitWindowPosition()));
         }
 
         #endregion Defender Windows
