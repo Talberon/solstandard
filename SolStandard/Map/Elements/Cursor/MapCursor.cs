@@ -11,9 +11,6 @@ namespace SolStandard.Map.Elements.Cursor
 {
     public class MapCursor : MapElement
     {
-        private readonly Vector2 mapSize;
-        private static Vector2 _cursorSize;
-
         private enum CursorColor
         {
             White,
@@ -21,20 +18,33 @@ namespace SolStandard.Map.Elements.Cursor
             Red
         }
 
+        private readonly Vector2 mapSize;
+        private static Vector2 _cursorSize;
+        public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
+        private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
+
+        public Vector2 CenterCursorScreenCoordinates =>
+            (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
+            GameContext.MapCamera.TargetZoom;
+
         // ReSharper disable once SuggestBaseTypeForParameter
         public MapCursor(SpriteAtlas sprite, Vector2 mapCoordinates, Vector2 mapSize) : base(sprite, mapCoordinates)
         {
             this.mapSize = mapSize;
             _cursorSize = new Vector2(sprite.Width, sprite.Height);
         }
+        
+        public bool CursorIntersectsWindow(IRenderable window, Vector2 windowPixelPosition)
+        {
+            (float windowLeft, float windowTop) = windowPixelPosition;
+            float windowRight = windowLeft + window.Width;
+            float windowBottom = windowTop + window.Height;
+            (float cursorX, float cursorY) = CenterCursorScreenCoordinates;
 
-        public Vector2 CenterCursorScreenCoordinates =>
-            (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
-            GameContext.MapCamera.TargetZoom;
-
-        public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
-
-        private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
+            bool cursorWithinWindowBounds = (cursorX >= windowLeft && cursorX <= windowRight) &&
+                                            (cursorY >= windowTop && cursorY <= windowBottom);
+            return cursorWithinWindowBounds;
+        }
 
         public void SnapCursorToCoordinates(Vector2 coordinates)
         {
