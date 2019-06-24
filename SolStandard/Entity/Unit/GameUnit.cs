@@ -429,9 +429,11 @@ namespace SolStandard.Entity.Unit
         }
 
         public IRenderable GetMapSprite(Vector2 size, Color color,
-            UnitAnimationState animation = UnitAnimationState.Idle)
+            UnitAnimationState animation = UnitAnimationState.Idle, int frameDelay = 12, bool isFlipped = false)
         {
             UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            if (isFlipped) clonedSpriteSheet.Flip();
+            clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
             clonedSpriteSheet.DefaultColor = color;
             return clonedSpriteSheet.Resize(size);
@@ -557,7 +559,7 @@ namespace SolStandard.Entity.Unit
             if (UnitEntity == null) return;
             IsExhausted = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
-            SetUnitAnimation(UnitAnimationState.Attack);
+            SetUnitAnimation(UnitAnimationState.Active);
             UpdateStatusEffects();
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
@@ -580,7 +582,7 @@ namespace SolStandard.Entity.Unit
             if (UnitEntity == null || IsExhausted) return;
 
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
-            SetUnitAnimation(UnitAnimationState.Attack);
+            SetUnitAnimation(UnitAnimationState.Active);
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
             smallPortrait.DefaultColor = ActivePortraitColor;

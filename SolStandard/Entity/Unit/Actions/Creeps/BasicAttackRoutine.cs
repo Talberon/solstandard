@@ -123,10 +123,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                             new KeyValuePair<GameUnit, Vector2>(targetUnit, previewTile.MapCoordinates));
                     }
                 }
-
+                
+                MapContainer.ClearPreviewGrid();
             }
             
-            MapContainer.ClearDynamicAndPreviewGrids();
 
             return attackPositionsInRange;
 

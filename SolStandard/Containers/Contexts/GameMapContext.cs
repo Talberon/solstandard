@@ -534,7 +534,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView.CloseCombatMenu();
 
             CurrentTurnState = TurnState.UnitTargeting;
-            SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
+            SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             AssetManager.MapUnitSelectSFX.Play();
         }
 

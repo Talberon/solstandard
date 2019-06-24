@@ -7,15 +7,13 @@ namespace SolStandard.Entity.Unit
     public enum UnitAnimationState
     {
         Idle,
-        Attack,
+        Active,
         WalkLeft,
         WalkRight,
         WalkDown,
         WalkUp,
-        WalkSW,
-        WalkSE,
-        WalkNW,
-        WalkNE
+        Attack,
+        Hit
     }
 
     public class UnitSpriteSheet : AnimatedSpriteSheet
@@ -23,8 +21,8 @@ namespace SolStandard.Entity.Unit
         private UnitAnimationState currentState;
 
         public UnitSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay, bool reversible,
-            Color color, UnitAnimationState animationState = UnitAnimationState.Idle) :
-            base(spriteMap, cellSize, renderSize, frameDelay, reversible, color)
+            Color color, UnitAnimationState animationState = UnitAnimationState.Idle, bool isFlipped = false) :
+            base(spriteMap, cellSize, renderSize, frameDelay, reversible, color, isFlipped)
         {
             SetAnimation(animationState);
         }
@@ -48,13 +46,13 @@ namespace SolStandard.Entity.Unit
         public override IRenderable Resize(Vector2 newSize)
         {
             return new UnitSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor,
-                currentState);
+                currentState, IsFlipped);
         }
 
         public new UnitSpriteSheet Clone()
         {
             return new UnitSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor,
-                currentState);
+                currentState, IsFlipped);
         }
     }
 }

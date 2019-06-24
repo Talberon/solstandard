@@ -85,8 +85,8 @@ namespace SolStandard.Containers.Contexts
             attackerStats = newAttackerStats;
             defenderStats = newDefenderStats;
 
-            attacker.SetUnitAnimation(UnitAnimationState.Attack);
-            defender.SetUnitAnimation(UnitAnimationState.Attack);
+            attacker.SetUnitAnimation(UnitAnimationState.Active);
+            defender.SetUnitAnimation(UnitAnimationState.Active);
 
             //Treat the unit as off-screen if null
             Vector2 attackerCoordinates =
@@ -249,7 +249,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
             battleView.GenerateAttackerBonusWindow(attackerTerrainBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
-            battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
+            battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Active);
         }
 
         private void SetupDefenderWindows()
@@ -272,7 +272,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
             battleView.GenerateDefenderBonusWindow(defenderTerrainBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
-            battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
+            battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Active);
         }
 
         private bool TryProceedToState(BattleState state)
@@ -418,6 +418,8 @@ namespace SolStandard.Containers.Contexts
                 defender.DamageUnit();
 
                 attackerProcs.ForEach(proc => proc.OnDamage(attacker, defender));
+                battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
+                battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Hit);
 
                 attackerDamageCounter++;
                 AssetManager.CombatDamageSFX.Play();
@@ -428,6 +430,8 @@ namespace SolStandard.Containers.Contexts
                 attacker.DamageUnit();
 
                 defenderProcs.ForEach(proc => proc.OnCombatStart(defender, attacker));
+                battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Hit);
+                battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
 
                 defenderDamageCounter++;
                 AssetManager.CombatDamageSFX.Play();
@@ -439,6 +443,8 @@ namespace SolStandard.Containers.Contexts
                 SetPromptWindowDamageReport();
                 attacker.SetUnitAnimation(UnitAnimationState.Idle);
                 defender.SetUnitAnimation(UnitAnimationState.Idle);
+                battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Idle);
+                battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Idle);
                 ResetDamageCounters();
 
                 GlobalEventQueue.QueueSingleEvent(new CombatNotifyStateCompleteEvent(CurrentState));

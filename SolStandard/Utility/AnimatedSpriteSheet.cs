@@ -18,9 +18,10 @@ namespace SolStandard.Utility
         protected readonly bool Reversible;
         private bool reversing;
         public Color DefaultColor { get; set; }
+        protected bool IsFlipped;
 
         public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
-            bool reversible, Color color)
+            bool reversible, Color color, bool isFlipped = false)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
@@ -34,11 +35,12 @@ namespace SolStandard.Utility
             spriteFrameCount = CalculateSpriteFrameCount();
             RenderSize = renderSize;
             DefaultColor = color;
+            this.IsFlipped = isFlipped;
         }
 
-        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(
-            spriteMap,
-            cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White)
+        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible,
+            bool isFlipped = false) : this(
+            spriteMap, cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White, isFlipped)
         {
         }
 
@@ -102,8 +104,12 @@ namespace SolStandard.Utility
         }
 
         public int Height => (int) RenderSize.Y;
-
         public int Width => (int) RenderSize.X;
+
+        public void Flip()
+        {
+            IsFlipped = !IsFlipped;
+        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
@@ -121,7 +127,8 @@ namespace SolStandard.Utility
                 UpdateFrame();
             }
 
-            spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride);
+            spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride, 0f,
+                Vector2.Zero, IsFlipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         }
 
         private Rectangle RenderRectangle(Vector2 position)
@@ -137,12 +144,14 @@ namespace SolStandard.Utility
 
         public virtual IRenderable Resize(Vector2 newSize)
         {
-            return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor,
+                IsFlipped);
         }
 
         public virtual IRenderable Clone()
         {
-            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor,
+                IsFlipped);
         }
     }
 }

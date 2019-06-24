@@ -17,7 +17,12 @@ namespace SolStandard.Containers.View
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(WindowSpacing);
 
         private const int WindowSlideSpeed = 5;
-        private const int WindowSlideDistance = 200;
+        private const int WindowVerticalSlideDistance = 200;
+        private const int WindowHorizontalSlideDistance = 50;
+        private const int UnitSlideDistance = 10;
+
+        private const int CombatDelay = 3;
+        private const int RegularDelay = 12;
 
         private const int WindowSpacing = 5;
         private static readonly Vector2 HpBarSize = new Vector2(350, 80);
@@ -50,17 +55,23 @@ namespace SolStandard.Containers.View
             visible = true;
         }
 
+        private static IWindowAnimation RightBattlerAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Left, UnitSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation LeftBattlerAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, UnitSlideDistance, WindowSlideSpeed);
+
         private static IWindowAnimation RightSideWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Left, WindowSlideDistance, WindowSlideSpeed);
+            new WindowSlide(WindowSlide.SlideDirection.Left, WindowHorizontalSlideDistance, WindowSlideSpeed);
 
         private static IWindowAnimation LeftSideWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowHorizontalSlideDistance, WindowSlideSpeed);
 
         private static IWindowAnimation BottomWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Up, WindowSlideDistance, WindowSlideSpeed);
+            new WindowSlide(WindowSlide.SlideDirection.Up, WindowVerticalSlideDistance, WindowSlideSpeed);
 
         private static IWindowAnimation TopWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Down, WindowSlideDistance, WindowSlideSpeed);
+            new WindowSlide(WindowSlide.SlideDirection.Down, WindowVerticalSlideDistance, WindowSlideSpeed);
 
         #region View Management
 
@@ -90,8 +101,24 @@ namespace SolStandard.Containers.View
 
         public void GenerateAttackerSpriteWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
         {
+            int frameDelay;
+            switch (state)
+            {
+                case UnitAnimationState.Attack:
+                    frameDelay = CombatDelay;
+                    break;
+                case UnitAnimationState.Hit:
+                    frameDelay = CombatDelay;
+                    break;
+                default:
+
+                    frameDelay = RegularDelay;
+                    break;
+            }
+
             AttackerSpriteWindow =
-                new AnimatedWindow(BattlerWindow(attacker, spriteColor, state), LeftSideWindowAnimation);
+                new AnimatedWindow(BattlerWindow(attacker, spriteColor, state, frameDelay, false),
+                    LeftBattlerAnimation);
         }
 
         public void GenerateAttackerDamageWindow(Color attackerWindowColor, CombatDamage attackerDamage)
@@ -151,8 +178,28 @@ namespace SolStandard.Containers.View
 
         public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
+            bool isFlipped;
+            int frameDelay;
+
+            switch (state)
+            {
+                case UnitAnimationState.Attack:
+                    isFlipped = true;
+                    frameDelay = CombatDelay;
+                    break;
+                case UnitAnimationState.Hit:
+                    isFlipped = true;
+                    frameDelay = CombatDelay;
+                    break;
+                default:
+                    isFlipped = false;
+                    frameDelay = RegularDelay;
+                    break;
+            }
+
             DefenderSpriteWindow =
-                new AnimatedWindow(BattlerWindow(defender, spriteColor, state), RightSideWindowAnimation);
+                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, isFlipped),
+                    RightBattlerAnimation);
         }
 
 
@@ -252,7 +299,8 @@ namespace SolStandard.Containers.View
             return new Window(attackerBonusContentGrid, attackerWindowColor);
         }
 
-        private static Window BattlerWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
+        private static Window BattlerWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state,
+            int frameDelay, bool isFlipped)
         {
             const int spriteSize = 200;
 
@@ -261,7 +309,7 @@ namespace SolStandard.Containers.View
                     new[,]
                     {
                         {
-                            attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state)
+                            attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state, frameDelay, isFlipped)
                         }
                     },
                     1
