@@ -700,19 +700,21 @@ namespace SolStandard.Entity.Unit
 
         private void KillIfDead()
         {
-            if (Stats.CurrentHP <= 0 && MapEntity != null)
-            {
-                IsExhausted = true;
-                DropSpoils();
-                largePortrait.DefaultColor = DeadPortraitColor;
-                mediumPortrait.DefaultColor = DeadPortraitColor;
-                smallPortrait.DefaultColor = DeadPortraitColor;
-                Trace.WriteLine("Unit " + Id + " is dead!");
-                AssetManager.CombatDeathSFX.Play();
-                MapEntity = null;
-                //TODO Play death animation ONCE
-                GameMapContext.GameMapView.GenerateObjectiveWindow();
-            }
+            if (Stats.CurrentHP > 0 || MapEntity == null) return;
+
+            IsExhausted = true;
+            DropSpoils();
+            largePortrait.DefaultColor = DeadPortraitColor;
+            mediumPortrait.DefaultColor = DeadPortraitColor;
+            smallPortrait.DefaultColor = DeadPortraitColor;
+            Trace.WriteLine("Unit " + Id + " is dead!");
+            AssetManager.CombatDeathSFX.Play();
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, new Vector2(GameDriver.CellSize)),
+                MapEntity.MapCoordinates
+            );
+            MapEntity = null;
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
         }
 
         public bool IsAlive => Stats.CurrentHP > 0 && MapEntity != null;
