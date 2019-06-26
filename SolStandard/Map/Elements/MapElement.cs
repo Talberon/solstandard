@@ -79,6 +79,9 @@ namespace SolStandard.Map.Elements
                 UpdateCoordinatesToPosition(CurrentDrawCoordinates, SlideSpeed, MapPixelCoordinates);
         }
 
+        private Vector2 DrawOffset =>
+            new Vector2(GameDriver.CellSize) / 2 - new Vector2(Sprite.Width, Sprite.Height) / 2;
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             Draw(spriteBatch, ElementColor);
@@ -88,7 +91,7 @@ namespace SolStandard.Map.Elements
         {
             UpdateRenderCoordinates();
 
-            if (Visible) Sprite.Draw(spriteBatch, CurrentDrawCoordinates, colorOverride);
+            if (Visible) Sprite.Draw(spriteBatch, CurrentDrawCoordinates + DrawOffset, colorOverride);
         }
     }
 }
