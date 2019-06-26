@@ -80,7 +80,7 @@ namespace SolStandard.Map.Elements
         }
 
         private Vector2 DrawOffset =>
-            new Vector2(GameDriver.CellSize) / 2 - new Vector2(Sprite.Width, Sprite.Height) / 2;
+            GameDriver.CellSizeVector / 2 - new Vector2(Sprite.Width, Sprite.Height) / 2;
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

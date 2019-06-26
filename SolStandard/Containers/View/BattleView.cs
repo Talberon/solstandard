@@ -342,7 +342,7 @@ namespace SolStandard.Containers.View
                 new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(combatStat, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(combatStat, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont, UnitStatistics.Abbreviation[combatStat] + ": "),
                         new RenderText(
                             AssetManager.WindowFont,

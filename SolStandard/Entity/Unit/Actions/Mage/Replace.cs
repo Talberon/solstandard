@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         private static readonly int[] SkillRange = {1, 2, 3};
 
         public Replace() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, GameDriver.CellSizeVector),
             name: "Telekinesis - Replace",
             description: "Swap with another unit within [" + SkillRange.Min() + "-" + SkillRange.Max() + "] spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

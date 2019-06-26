@@ -613,7 +613,7 @@ namespace SolStandard.Containers.View
                         new[,]
                         {
                             {
-                                StatusIconProvider.GetStatusIcon(StatusIcon.Time, new Vector2(GameDriver.CellSize)),
+                                StatusIconProvider.GetStatusIcon(StatusIcon.Time, GameDriver.CellSizeVector),
                                 new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "] "),
                                 effect.StatusIcon,
                                 new RenderText(AssetManager.WindowFont, effect.Name,

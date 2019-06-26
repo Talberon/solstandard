@@ -32,7 +32,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 {
                     {
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.SoloDefeatBoss,
-                            new Vector2(GameDriver.CellSize)),
+                            GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont, "Solo Defeat Boss [" + playerTeam + "]")
                     }
                 }, 2, HorizontalAlignment.Centered

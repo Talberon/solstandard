@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public TriggerHappyRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Trigger Happy Routine",
                 description: "Interact with switches and openable tiles.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int pointsToTrade;
 
         public FortifiedStatus(int turnDuration, int pointsToTrade) : base(
-            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, new Vector2(GameDriver.CellSize)),
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, GameDriver.CellSizeVector),
             name:
             $"Fortified! <+{pointsToTrade} {UnitStatistics.Abbreviation[Stats.Block]}/-{pointsToTrade} {UnitStatistics.Abbreviation[Stats.Luck]}>",
             description: "Exchange luck for guaranteed damage mitigation.",

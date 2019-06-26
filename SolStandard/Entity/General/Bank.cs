@@ -123,7 +123,7 @@ namespace SolStandard.Entity.General
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"
@@ -136,7 +136,7 @@ namespace SolStandard.Entity.General
                                 {
                                     ObjectiveIconProvider.GetObjectiveIcon(
                                         VictoryConditions.Taxes,
-                                        new Vector2(GameDriver.CellSize)
+                                        GameDriver.CellSizeVector
                                     ),
                                     new RenderText(AssetManager.WindowFont,
                                         "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
@@ -153,7 +153,7 @@ namespace SolStandard.Entity.General
                                 {
                                     ObjectiveIconProvider.GetObjectiveIcon(
                                         VictoryConditions.Taxes,
-                                        new Vector2(GameDriver.CellSize)
+                                        GameDriver.CellSizeVector
                                     ),
                                     new RenderText(AssetManager.WindowFont,
                                         "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)

@@ -43,7 +43,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         blueGoldWindow,
                         ObjectiveIconProvider.GetObjectiveIcon(
                             VictoryConditions.Taxes,
-                            new Vector2(GameDriver.CellSize)
+                            GameDriver.CellSizeVector
                         ),
                         redGoldWindow
                     }

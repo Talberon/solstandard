@@ -185,7 +185,7 @@ namespace SolStandard.Containers.View
             _draftCursor ?? (
                 _draftCursor = new SpriteAtlas(
                     AssetManager.MapCursorTexture,
-                    new Vector2(GameDriver.CellSize),
+                    GameDriver.CellSizeVector,
                     new Vector2(150)
                 )
             );

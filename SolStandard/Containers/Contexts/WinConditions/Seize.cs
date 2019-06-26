@@ -25,7 +25,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.Seize,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
                             new RenderText(AssetManager.WindowFont, "Seize Objective")
                         }

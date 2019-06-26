@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly int maxDistance;
 
         public Sprint(int maxDistance) : base(
-            icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
+            icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
             name: "Sprint",
             description: "Move up to " + maxDistance + " additional spaces this turn." + Environment.NewLine +
                          "Can not move further than maximum " + UnitStatistics.Abbreviation[Stats.Mv] + ".",

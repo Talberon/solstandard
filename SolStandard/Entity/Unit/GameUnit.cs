@@ -288,7 +288,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                            new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
                                             new RenderText(AssetManager.WindowFont,
                                                 "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
@@ -533,7 +533,7 @@ namespace SolStandard.Entity.Unit
 
             if (UnitEntity == null) return;
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
         }
@@ -553,7 +553,7 @@ namespace SolStandard.Entity.Unit
 
             if (UnitEntity == null) return;
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
         }
@@ -574,7 +574,7 @@ namespace SolStandard.Entity.Unit
 
             if (UnitEntity == null) return;
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, GameDriver.CellSizeVector),
                 UnitEntity.MapCoordinates
             );
         }
@@ -710,7 +710,7 @@ namespace SolStandard.Entity.Unit
             Trace.WriteLine("Unit " + Id + " is dead!");
             AssetManager.CombatDeathSFX.Play();
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),
                 MapEntity.MapCoordinates
             );
             MapEntity = null;
@@ -766,7 +766,7 @@ namespace SolStandard.Entity.Unit
                 = new Spoils(
                     Id + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                     MapEntity.MapCoordinates,
                     CurrentGold,
                     new List<IItem>(Inventory)

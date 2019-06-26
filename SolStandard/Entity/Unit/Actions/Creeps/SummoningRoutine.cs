@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public SummoningRoutine(CreepRoutineModel creepModel)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Summoning Routine",
                 description: "Summon an ally within range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

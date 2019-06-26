@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public int FocusPoints { get; private set; }
 
         public FocusStatus(int focusPoints) : base(
-            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, new Vector2(GameDriver.CellSize)),
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: StatusName,
             description: "Allows acting again at the end of your turn.",
             turnDuration: InitialDuration,

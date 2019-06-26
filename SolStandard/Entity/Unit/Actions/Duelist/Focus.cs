@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         private readonly int maxActions;
 
         public Focus(int maxActions) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: "Focus",
             description: "End your action now and store it for later. Can store up to " + maxActions +
                          " actions at a time.",

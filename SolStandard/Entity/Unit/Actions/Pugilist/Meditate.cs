@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
     public class Meditate : UnitAction
     {
         public Meditate() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Meditate, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Meditate, GameDriver.CellSizeVector),
             name: "Meditate",
             description: "Remove all cleansable status effects on self.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

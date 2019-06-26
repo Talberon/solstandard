@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
         private readonly int duration;
 
         public Atrophy(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Atrophy, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Atrophy, GameDriver.CellSizeVector),
             name: "Necromancy - Atrophy",
             description: "Reduce an enemy's " + UnitStatistics.Abbreviation[Stats.Atk] + " by [" + statModifier + "]" +
                          " for [" + duration + "] turns.",

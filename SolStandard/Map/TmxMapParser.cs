@@ -177,7 +177,7 @@ namespace SolStandard.Map
                             tileGrid[col, row] = new MapTile(
                                 new SpriteAtlas(
                                     FindTileSet(tile.Gid),
-                                    new Vector2(GameDriver.CellSize),
+                                    GameDriver.CellSizeVector,
                                     FindTileId(tile.Gid)
                                 ),
                                 new Vector2(col, row));
@@ -231,7 +231,7 @@ namespace SolStandard.Map
                                 {
                                     tileSprite = new SpriteAtlas(
                                         FindTileSet(objectTileId),
-                                        new Vector2(GameDriver.CellSize),
+                                        GameDriver.CellSizeVector,
                                         FindTileId(objectTileId)
                                     );
                                 }
@@ -846,7 +846,7 @@ namespace SolStandard.Map
             AnimatedTileSprite tileSprite = new AnimatedTileSprite(
                 FindTileSet(tile.Gid),
                 tileIds,
-                new Vector2(GameDriver.CellSize)
+                GameDriver.CellSizeVector
             );
 
             return tileSprite;

@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public GluttonRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Glutton Routine",
                 description: "Consumes a random consumable item in inventory.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

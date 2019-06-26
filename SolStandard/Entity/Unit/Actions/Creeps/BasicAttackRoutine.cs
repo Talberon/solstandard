@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public BasicAttackRoutine(bool independent, string name = null, string description = null,
             SkillIcon routineIcon = SkillIcon.BasicAttack)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(routineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(routineIcon, GameDriver.CellSizeVector),
                 name: name ?? "Basic Attack Routine",
                 description: description ?? "Attacks a random enemy in range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

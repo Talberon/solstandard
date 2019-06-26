@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
     public class Suplex : UnitAction
     {
         public Suplex() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Suplex, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Suplex, GameDriver.CellSizeVector),
             name: "Suplex",
             description: "Flip an enemy behind you if the opposite space is unoccupied, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

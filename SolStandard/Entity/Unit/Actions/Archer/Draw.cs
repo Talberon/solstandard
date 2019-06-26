@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
         private readonly int duration;
 
         public Draw(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Draw, GameDriver.CellSizeVector),
             name: "Draw",
             description: "Increase own attack range by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

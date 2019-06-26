@@ -36,7 +36,7 @@ namespace SolStandard.Utility
         }
 
         public AnimatedTileSprite(ITexture2D tileMapTexture, List<int> frameIds, Vector2 renderSize)
-            : this(tileMapTexture, frameIds, new Vector2(GameDriver.CellSize), renderSize)
+            : this(tileMapTexture, frameIds, GameDriver.CellSizeVector, renderSize)
         {
         }
 

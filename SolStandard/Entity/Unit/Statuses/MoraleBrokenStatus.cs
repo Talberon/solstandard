@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public MoraleBrokenStatus(int turnDuration, GameUnit unitToDebuff) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MoraleBroken,
-                new Vector2(GameDriver.CellSize)),
+                GameDriver.CellSizeVector),
             name: "Morale Broken!",
             description: "Commander is defeated; statuses reduced.",
             turnDuration: turnDuration,

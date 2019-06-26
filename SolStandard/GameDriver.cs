@@ -37,6 +37,7 @@ namespace SolStandard
 
         //Tile Size of Sprites
         public const int CellSize = 32;
+        public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);

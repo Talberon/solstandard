@@ -162,7 +162,7 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
-            return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
+            return GetSpriteAtlas(stat, GameDriver.CellSizeVector);
         }
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)

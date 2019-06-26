@@ -77,7 +77,7 @@ namespace SolStandard.Entity.General.Item
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"
@@ -87,7 +87,7 @@ namespace SolStandard.Entity.General.Item
                         new Window(new IRenderable[,]
                         {
                             {
-                                UnitStatistics.GetSpriteAtlas(Stats.Hp, new Vector2(GameDriver.CellSize)),
+                                UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
                                 new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
                             }
                         }, InnerWindowColor),

@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.RoutArmy,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
                             new RenderText(AssetManager.WindowFont, "Rout Army")
                         }

@@ -16,9 +16,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
     public class Inferno : LayTrap
     {
         public Inferno(int damage, int maxTriggers) : base(
-            skillIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Inferno, new Vector2(GameDriver.CellSize)),
+            skillIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Inferno, GameDriver.CellSizeVector),
             trapSprite: new AnimatedSpriteSheet(
-                AssetManager.FireTexture, AssetManager.FireTexture.Height, new Vector2(GameDriver.CellSize), 6, false,
+                AssetManager.FireTexture, AssetManager.FireTexture.Height, GameDriver.CellSizeVector, 6, false,
                 Color.White
             ),
             title: "Pyromancy - Inferno",

@@ -74,7 +74,7 @@ namespace SolStandard.Entity.General
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.Taxes,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
                             new RenderText(AssetManager.WindowFont,
                                 (IsOpen) ? Gold + Currency.CurrencyAbbreviation : "????")

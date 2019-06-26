@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public DefenderRoutine()
             : base(
-                icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+                icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, GameDriver.CellSizeVector),
                 name: "Defender Routine",
                 description: "Wander and then defend to recover " + UnitStatistics.Abbreviation[Stats.Armor] + ".",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

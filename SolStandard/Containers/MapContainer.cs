@@ -41,7 +41,7 @@ namespace SolStandard.Containers
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
-            SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, new Vector2(GameDriver.CellSize));
+            SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, GameDriver.CellSizeVector);
             Vector2 cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorSprite, cursorStartPosition, MapGridSize);
         }

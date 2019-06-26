@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions
         private readonly int armorPoints;
 
         public Guard(int armorPoints) : base(
-            icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+            icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, GameDriver.CellSizeVector),
             name: "Guard",
             description: "Regenerate [" + armorPoints + "] " + UnitStatistics.Abbreviation[Stats.Armor] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

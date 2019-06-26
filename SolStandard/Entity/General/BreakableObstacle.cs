@@ -36,7 +36,7 @@ namespace SolStandard.Entity.General
             HP -= damage;
             AssetManager.CombatDamageSFX.Play();
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
                 MapCoordinates
             );
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
@@ -90,7 +90,7 @@ namespace SolStandard.Entity.General
                 = new Spoils(
                     Name + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                     MapCoordinates,
                     gold,
                     new List<IItem>(items)

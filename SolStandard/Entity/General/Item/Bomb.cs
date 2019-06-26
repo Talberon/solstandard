@@ -139,14 +139,14 @@ namespace SolStandard.Entity.General.Item
                         new Window(new IRenderable[,]
                         {
                             {
-                                UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                                UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
                                 new RenderText(
                                     AssetManager.WindowFont,
                                     UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
                                 )
                             },
                             {
-                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
+                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
                                 new RenderText(
                                     AssetManager.WindowFont,
                                     UnitStatistics.Abbreviation[Stats.AtkRange]

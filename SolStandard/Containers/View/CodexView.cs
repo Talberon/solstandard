@@ -171,7 +171,7 @@ namespace SolStandard.Containers.View
             _codexCursor ?? (
                 _codexCursor = new SpriteAtlas(
                     AssetManager.MapCursorTexture,
-                    new Vector2(GameDriver.CellSize),
+                    GameDriver.CellSizeVector,
                     new Vector2(150)
                 )
             );

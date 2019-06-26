@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private const string DescriptionTag = "Withdraw: ";
 
         public BankWithdraw(Bank bank, int value = 0) : base(
-            icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
+            icon: Currency.GoldIcon(GameDriver.CellSizeVector),
             name: DescriptionTag + value + Currency.CurrencyAbbreviation,
             description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = new Vector2(GameDriver.CellSize);
+            Vector2 iconSize = GameDriver.CellSizeVector;
 
             return new WindowContentGrid(new[,]
                 {

@@ -96,14 +96,14 @@ namespace SolStandard.Entity.General
                 IRenderable[,] statContent =
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Hp, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont,
                             UnitStatistics.Abbreviation[Stats.Hp] + " Regen: " +
                             ((hpPerTurn > 0) ? "+" : "") + hpPerTurn
                         )
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Armor, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont,
                             UnitStatistics.Abbreviation[Stats.Armor] + " Regen: " +
                             ((amrPerTurn > 0) ? "+" : "") + amrPerTurn

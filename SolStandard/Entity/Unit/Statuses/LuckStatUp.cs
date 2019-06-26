@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int luckModifier;
 
         public LuckStatUp(int turnDuration, int luckModifier) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Luck, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Luck, GameDriver.CellSizeVector),
             name: UnitStatistics.Abbreviation[Stats.Luck] + " Up! <+" + luckModifier + ">",
             description: "Increased luck.",
             turnDuration: turnDuration,

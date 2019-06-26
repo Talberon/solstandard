@@ -71,7 +71,7 @@ namespace SolStandard.Entity.General.Item
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"
@@ -82,7 +82,7 @@ namespace SolStandard.Entity.General.Item
                             {
                                 {
                                     SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
-                                        new Vector2(GameDriver.CellSize)),
+                                        GameDriver.CellSizeVector),
                                     new RenderText(AssetManager.WindowFont,
                                         "Blink Range: [" + string.Join(",", BlinkRange) + "]")
                                 },

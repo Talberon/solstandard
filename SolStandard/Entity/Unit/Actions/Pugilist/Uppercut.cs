@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
     public class Uppercut : UnitAction
     {
         public Uppercut() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Uppercut, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Uppercut, GameDriver.CellSizeVector),
             name: "Uppercut",
             description: "Push an enemy back one tile if there is an unoccupied space behind them, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

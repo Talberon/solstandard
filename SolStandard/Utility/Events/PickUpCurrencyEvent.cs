@@ -26,7 +26,7 @@ namespace SolStandard.Utility.Events
             GameMapContext.GameMapView.GenerateObjectiveWindow();
 
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, new Vector2(GameDriver.CellSize)),
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
                 currency.MapCoordinates
             );
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(

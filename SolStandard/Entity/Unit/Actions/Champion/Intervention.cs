@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         private readonly int turnDuration;
 
         public Intervention(int blkBonus, int turnDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Intervention, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Intervention, GameDriver.CellSizeVector),
             name: "Intervention",
             description: "Grant a [" + blkBonus + " " + UnitStatistics.Abbreviation[Stats.Block] +
                          "] buff to an ally within range for [" + turnDuration + "] turn(s).",

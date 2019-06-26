@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General.Item
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"

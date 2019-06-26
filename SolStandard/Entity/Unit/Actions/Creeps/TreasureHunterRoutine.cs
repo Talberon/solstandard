@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public TreasureHunterRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Treasure Hunter Routine",
                 description: "Collects items and gold.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

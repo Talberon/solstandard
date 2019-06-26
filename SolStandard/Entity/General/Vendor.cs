@@ -92,7 +92,7 @@ namespace SolStandard.Entity.General
                 itemDetailList[i, 1] = new RenderText(AssetManager.WindowFont, purchaseActionsList[i].Item.Name);
 
                 itemDetailList[i, 2] =
-                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(GameDriver.CellSize));
+                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, GameDriver.CellSizeVector);
 
                 //Price
                 itemDetailList[i, 3] = new RenderText(AssetManager.WindowFont,
@@ -124,7 +124,7 @@ namespace SolStandard.Entity.General
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"

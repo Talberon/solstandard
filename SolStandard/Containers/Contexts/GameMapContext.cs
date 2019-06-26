@@ -337,7 +337,7 @@ namespace SolStandard.Containers.Contexts
                     SelectedUnit,
                     new SpriteAtlas(
                         new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize),
+                        GameDriver.CellSizeVector,
                         (int) MapDistanceTile.TileType.Movement
                     )
                 );

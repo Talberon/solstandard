@@ -97,6 +97,6 @@ namespace SolStandard.Entity.Unit
         private Vector2 EntityRenderPosition =>
             CurrentDrawCoordinates -
             new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
-            new Vector2(GameDriver.CellSize) / 2;
+            GameDriver.CellSizeVector / 2;
     }
 }

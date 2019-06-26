@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         private BlinkItem Item { get; }
 
         public Blink(BlinkItem item) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, GameDriver.CellSizeVector),
             name: "Blink: " + item.Name,
             description: "Move to an unoccupied space within [" + item.BlinkRange.Min() + "-" + item.BlinkRange.Max() +
                          "] spaces." + Environment.NewLine + "Uses Remaining: [" + item.UsesRemaining + "]",

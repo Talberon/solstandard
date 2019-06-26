@@ -10,7 +10,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private const int FastFrameDelay = 10;
 
         public MoveStatModifier(int turnDuration, int pointsToIncrease, string name = null) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
             name: name ?? UnitStatistics.Abbreviation[Stats.Mv] + " Up! <+" + pointsToIncrease + ">",
             description: "Increased movement distance.",
             turnDuration: turnDuration,

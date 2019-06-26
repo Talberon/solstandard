@@ -47,7 +47,7 @@ namespace SolStandard.Entity.General.Item
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General.Item
                         new Window(new[,]
                             {
                                 {
-                                    new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                    new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
                                     new RenderText(AssetManager.WindowFont,
                                         "Gold: " + Gold + Currency.CurrencyAbbreviation)
                                 },

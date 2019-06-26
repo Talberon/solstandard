@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         private readonly int turnDuration;
 
         public Fortify(int pointsToTrade, int turnDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fortify, GameDriver.CellSizeVector),
             name: "Fortify",
             description: "Block [" + pointsToTrade + "] incoming damage for " + turnDuration +
                          " turn(s) in exchange for [" + pointsToTrade + "] " + UnitStatistics.Abbreviation[Stats.Luck] +

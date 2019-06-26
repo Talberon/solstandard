@@ -13,7 +13,7 @@ namespace SolStandard.Utility.Events
         public PlayAnimationAtCoordinatesEvent(AnimatedIconType iconType, Vector2 mapCoordinates)
         {
             this.mapCoordinates = mapCoordinates;
-            animation = AnimatedIconProvider.GetAnimatedIcon(iconType, new Vector2(GameDriver.CellSize));
+            animation = AnimatedIconProvider.GetAnimatedIcon(iconType, GameDriver.CellSizeVector);
         }
 
         public void Continue()

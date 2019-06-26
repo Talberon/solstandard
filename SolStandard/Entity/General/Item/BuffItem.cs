@@ -55,7 +55,7 @@ namespace SolStandard.Entity.General.Item
                         ),
                         UnitStatistics.GetSpriteAtlas(statistic),
                         new RenderText(AssetManager.WindowFont, "/"),
-                        StatusIconProvider.GetStatusIcon(StatusIcon.Time, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.Time, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont, $"[{buffDuration}]")
                     }
                 }, 1, HorizontalAlignment.Centered),
@@ -136,7 +136,7 @@ namespace SolStandard.Entity.General.Item
                             (CanMove) ? PositiveColor : NegativeColor)
                     },
                     {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
                         new RenderText(
                             AssetManager.WindowFont,
                             ": " + $"[{string.Join(",", InteractRange)}]"

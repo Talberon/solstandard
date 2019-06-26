@@ -10,7 +10,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public ArmorRegeneration(int turnDuration, int armorModifier) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.DefUp,
-                new Vector2(GameDriver.CellSize)),
+                GameDriver.CellSizeVector),
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Regen! <+" + armorModifier + "/turn>",
             description: "Increased defensive power.",
             turnDuration: turnDuration,

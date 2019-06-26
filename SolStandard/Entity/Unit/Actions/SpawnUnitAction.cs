@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions
                 (GameContext.ActiveUnit != null) ? GameContext.ActiveUnit.Team : Team.Blue);
             return new SpriteAtlas(unitPortrait,
                 new Vector2(unitPortrait.Width, unitPortrait.Height),
-                new Vector2(GameDriver.CellSize)
+                GameDriver.CellSizeVector
             );
         }
 

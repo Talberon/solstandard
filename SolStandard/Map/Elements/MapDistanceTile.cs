@@ -40,7 +40,7 @@ namespace SolStandard.Map.Elements
 
         public static SpriteAtlas GetTileSprite(TileType tileType)
         {
-            return new SpriteAtlas(AssetManager.ActionTiles, new Vector2(GameDriver.CellSize), (int) tileType);
+            return new SpriteAtlas(AssetManager.ActionTiles, GameDriver.CellSizeVector, (int) tileType);
         }
 
         public int Distance { get; }

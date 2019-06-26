@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public WanderRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Wander Routine",
                 description: "Wander in random directions.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

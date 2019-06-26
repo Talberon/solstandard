@@ -49,22 +49,22 @@ namespace SolStandard.Entity.General.Item
             IRenderable[,] statGrid =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
                     new RenderText(textFont, UnitStatistics.Abbreviation[Stats.Atk] + ": " + AtkValue)
                 },
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.Luck, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.Luck, GameDriver.CellSizeVector),
                     new RenderText(textFont,
                         UnitStatistics.Abbreviation[Stats.Luck] + ": " + ((LuckModifier > 0) ? "+" : string.Empty) +
                         LuckModifier)
                 },
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
                     new RenderText(textFont,
                         UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]")
                 },
                 {
-                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, new Vector2(GameDriver.CellSize)),
+                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, GameDriver.CellSizeVector),
                     new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
                 }
             };

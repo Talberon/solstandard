@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
     public class Cleanse : UnitAction
     {
         public Cleanse() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cleanse, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Cleanse, GameDriver.CellSizeVector),
             name: "Prayer - Cleanse",
             description: "Remove all cleansable status effects from target ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
