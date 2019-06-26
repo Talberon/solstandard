@@ -84,6 +84,7 @@ namespace SolStandard.Entity.Unit
             currentArmor: armor,
             atkModifier: 0,
             retModifier: 0,
+            blkModifier: 0,
             luckModifier: 0,
             mvModifier: 0,
             currentAtkRange: atkRange
@@ -92,8 +93,8 @@ namespace SolStandard.Entity.Unit
         }
 
         private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseBlk, int baseLuck, int baseMv,
-            int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int luckModifier,
-            int mvModifier, int[] currentAtkRange
+            int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int blkModifier,
+            int luckModifier, int mvModifier, int[] currentAtkRange
         )
         {
             CurrentHP = currentHP;
@@ -103,6 +104,7 @@ namespace SolStandard.Entity.Unit
             AtkModifier = atkModifier;
             RetModifier = retModifier;
             LuckModifier = luckModifier;
+            BlkModifier = blkModifier;
             MvModifier = mvModifier;
 
             MaxHP = maxHP;
@@ -131,6 +133,7 @@ namespace SolStandard.Entity.Unit
                 currentArmor: CurrentArmor,
                 atkModifier: AtkModifier,
                 retModifier: RetModifier,
+                blkModifier: BlkModifier,
                 luckModifier: weaponStatistics.LuckModifier,
                 mvModifier: MvModifier,
                 currentAtkRange: weaponStatistics.AtkRange
