@@ -115,6 +115,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 if (SelectedBankIsThisBank(selectedBank))
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
                     eventQueue.Enqueue(new BankDepositEvent(actingUnit, Value));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());

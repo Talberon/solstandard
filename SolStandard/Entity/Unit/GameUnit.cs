@@ -441,7 +441,7 @@ namespace SolStandard.Entity.Unit
 
             if (IsAlive) return clonedSpriteSheet.Resize(size);
             if (Stats.CurrentHP != 0) return deathAnimation as IRenderable ?? new RenderBlank();
-            deathAnimation = new TriggeredAnimation(AssetManager.DeathTexture, 48, size, 7, false, color);
+            deathAnimation = AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, size);
             deathAnimation.PlayOnce();
             return deathAnimation;
         }

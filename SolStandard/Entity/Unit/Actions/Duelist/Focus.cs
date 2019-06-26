@@ -33,7 +33,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                if (targetUnit.StatusEffects.SingleOrDefault(status => status is FocusStatus) is FocusStatus currentFocus)
+                if (targetUnit.StatusEffects.SingleOrDefault(status => status is FocusStatus) is FocusStatus
+                    currentFocus)
                 {
                     if (currentFocus.FocusPoints < maxActions)
                     {

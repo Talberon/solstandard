@@ -32,7 +32,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.creepModel = creepModel;
         }
 
-        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -104,6 +105,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(
                     new SpawnCreepEvent(
                         creepModel.CreepClass,

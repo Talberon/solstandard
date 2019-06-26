@@ -29,7 +29,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit unit)
         {
@@ -117,6 +118,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
 
             pathToItemQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToItemQueue.Enqueue(
+                new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
+            );
             pathToItemQueue.Enqueue(new CreepTriggerTileEvent(triggerable));
             pathToItemQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);

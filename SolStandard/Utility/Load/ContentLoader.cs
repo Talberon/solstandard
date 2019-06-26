@@ -229,6 +229,12 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadInteractAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");

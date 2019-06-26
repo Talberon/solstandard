@@ -9,7 +9,7 @@ namespace SolStandard.Utility
         private bool isVisible;
 
         public TriggeredAnimation(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
-            bool reversible, Color color, bool isFlipped = false) :
+            Color color, bool reversible = false, bool isFlipped = false) :
             base(spriteMap, cellSize, renderSize, frameDelay, reversible, color, isFlipped)
         {
             isVisible = false;

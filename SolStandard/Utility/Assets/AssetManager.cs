@@ -42,9 +42,10 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
-        
+
         public static ITexture2D FireTexture { get; private set; }
         public static ITexture2D DeathTexture { get; private set; }
+        public static ITexture2D InteractTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -127,6 +128,7 @@ namespace SolStandard.Utility.Assets
 
             FireTexture = ContentLoader.LoadFireAtlas(content);
             DeathTexture = ContentLoader.LoadDeathAtlas(content);
+            InteractTexture = ContentLoader.LoadInteractAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);

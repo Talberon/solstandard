@@ -60,6 +60,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 BreakableObstacle rubble = GenerateObstacle(targetSlice.MapCoordinates);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(rubble, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new EndTurnEvent());

@@ -67,6 +67,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetEntity.MapCoordinates)
+                    );
                     eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new BlinkCoordinatesEvent(

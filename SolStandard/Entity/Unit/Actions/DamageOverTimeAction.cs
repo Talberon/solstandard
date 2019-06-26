@@ -44,6 +44,9 @@ namespace SolStandard.Entity.Unit.Actions
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
+                eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit,
                         new DamageOverTimeStatus(Icon, duration, damagePerTurn, toastMessage, Name))
                 );

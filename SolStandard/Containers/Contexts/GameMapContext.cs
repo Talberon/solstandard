@@ -40,6 +40,7 @@ namespace SolStandard.Containers.Contexts
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
+        public MapContainer MapContainer { get; }
         public PauseScreenView PauseScreenView { get; }
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
@@ -65,6 +66,13 @@ namespace SolStandard.Containers.Contexts
             TurnCounter = 1;
             RoundCounter = 1;
             CanCancelAction = true;
+        }
+
+        public void PlayAnimationAtCoordinates(TriggeredAnimation animation, Vector2 coordinates)
+        {
+            animation.PlayOnce();
+            MapContainer.GameGrid[(int) Layer.OverlayEffect][(int) coordinates.X, (int) coordinates.Y] =
+                new Decoration("Interaction", "Decoration", animation, coordinates);
         }
 
         public static void UpdateWindowsEachTurn()
@@ -374,7 +382,6 @@ namespace SolStandard.Containers.Contexts
             GameContext.ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor());
         }
 
-        public MapContainer MapContainer { get; }
 
         public static void SetPromptWindowText(string promptText)
         {

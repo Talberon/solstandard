@@ -26,7 +26,8 @@ namespace SolStandard.Map
         Entities,
         Items,
         Preview,
-        Dynamic
+        Dynamic,
+        OverlayEffect
     }
 
     /**
@@ -122,6 +123,7 @@ namespace SolStandard.Map
                 ObtainEntitiesFromLayer("Entities", mapLoot),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Items"),
+                new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };

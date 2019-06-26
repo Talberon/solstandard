@@ -61,6 +61,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     vendor.RemoveBuyActionForItem(Item);
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
                     eventQueue.Enqueue(new DecreaseUnitGoldEvent(Price));
                     eventQueue.Enqueue(new WaitFramesEvent(25));
                     eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item));

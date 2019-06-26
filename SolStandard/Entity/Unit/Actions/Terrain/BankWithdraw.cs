@@ -113,6 +113,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     if (Value <= Bank.GetTeamGoldInBank(actingUnit.Team))
                     {
                         Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        eventQueue.Enqueue(
+                            new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                        );
                         eventQueue.Enqueue(new BankWithdrawEvent(actingUnit, Value));
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());

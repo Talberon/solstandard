@@ -324,6 +324,7 @@
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
     <Compile Include="Utility\Assets\InputIconProvider.cs" />
     <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
+    <Compile Include="Utility\Assets\AnimatedIconProvider.cs" />
     <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
@@ -398,6 +399,7 @@
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
+    <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\ReadyAIRoutineEvent.cs" />

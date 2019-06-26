@@ -254,6 +254,11 @@ namespace SolStandard.Containers
                 tile?.Draw(spriteBatch);
             }
 
+            foreach (MapElement tile in _gameGrid[(int) Layer.OverlayEffect])
+            {
+                tile?.Draw(spriteBatch);
+            }
+
             if (ToastWindow != null)
             {
                 ToastWindow.Draw(spriteBatch);
