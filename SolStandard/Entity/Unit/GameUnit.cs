@@ -530,6 +530,12 @@ namespace SolStandard.Entity.Unit
 
             healthbars.ForEach(healthbar => healthbar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
             KillIfDead();
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, new Vector2(GameDriver.CellSize)),
+                UnitEntity.MapCoordinates
+            );
         }
 
         public void RecoverArmor(int amountToRecover)
@@ -544,6 +550,12 @@ namespace SolStandard.Entity.Unit
             }
 
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, new Vector2(GameDriver.CellSize)),
+                UnitEntity.MapCoordinates
+            );
         }
 
 
@@ -559,6 +571,12 @@ namespace SolStandard.Entity.Unit
             }
 
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, new Vector2(GameDriver.CellSize)),
+                UnitEntity.MapCoordinates
+            );
         }
 
         public void ActivateUnit()

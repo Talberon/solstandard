@@ -6,7 +6,10 @@ namespace SolStandard.Utility.Assets
     public enum AnimatedIconType
     {
         Death,
-        Interact
+        Interact,
+        Damage,
+        RecoverArmor,
+        RecoverHealth
     }
 
     public static class AnimatedIconProvider
@@ -28,6 +31,30 @@ namespace SolStandard.Utility.Assets
                         AssetManager.InteractTexture.Height,
                         iconSize,
                         3,
+                        Color.White
+                    );
+                case AnimatedIconType.Damage:
+                    return new TriggeredAnimation(
+                        AssetManager.DamageTexture,
+                        AssetManager.DamageTexture.Height,
+                        iconSize * 3,
+                        6,
+                        Color.White
+                    );
+                case AnimatedIconType.RecoverArmor:
+                    return new TriggeredAnimation(
+                        AssetManager.RecoverArmorTexture,
+                        AssetManager.RecoverArmorTexture.Height,
+                        iconSize * 3,
+                        6,
+                        Color.White
+                    );
+                case AnimatedIconType.RecoverHealth:
+                    return new TriggeredAnimation(
+                        AssetManager.RecoverHealthTexture,
+                        AssetManager.RecoverHealthTexture.Height,
+                        iconSize * 3,
+                        6,
                         Color.White
                     );
                 default:

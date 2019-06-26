@@ -35,6 +35,10 @@ namespace SolStandard.Entity.General
         {
             HP -= damage;
             AssetManager.CombatDamageSFX.Play();
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, new Vector2(GameDriver.CellSize)),
+                MapCoordinates
+            );
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 Name + " takes " + damage + " damage!",
                 MapCoordinates, 50);

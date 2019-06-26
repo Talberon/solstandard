@@ -235,6 +235,24 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadDamageAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadRecoverArmorAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadRecoverHealthAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");

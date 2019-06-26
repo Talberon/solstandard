@@ -46,6 +46,9 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D FireTexture { get; private set; }
         public static ITexture2D DeathTexture { get; private set; }
         public static ITexture2D InteractTexture { get; private set; }
+        public static ITexture2D DamageTexture { get; private set; }
+        public static ITexture2D RecoverArmorTexture { get; private set; }
+        public static ITexture2D RecoverHealthTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -129,6 +132,9 @@ namespace SolStandard.Utility.Assets
             FireTexture = ContentLoader.LoadFireAtlas(content);
             DeathTexture = ContentLoader.LoadDeathAtlas(content);
             InteractTexture = ContentLoader.LoadInteractAtlas(content);
+            DamageTexture = ContentLoader.LoadDamageAtlas(content);
+            RecoverArmorTexture = ContentLoader.LoadRecoverArmorAtlas(content);
+            RecoverHealthTexture = ContentLoader.LoadRecoverHealthAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);

@@ -29,9 +29,12 @@ namespace SolStandard.Utility
             }
         }
 
+        private Vector2 DrawOffset => new Vector2(GameDriver.CellSize) / 2 - RenderSize / 2;
+
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            if (isVisible) base.Draw(spriteBatch, position, colorOverride);
+            if (isVisible)
+                base.Draw(spriteBatch, position + DrawOffset, colorOverride);
 
             CheckComplete();
         }
