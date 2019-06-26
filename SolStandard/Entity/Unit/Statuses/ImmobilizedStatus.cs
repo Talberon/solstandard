@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void RemoveEffect(GameUnit target)
         {
             target.Stats.MvModifier += mvModifier;
-            target.UnitEntity.UnitSpriteSheet.ResetFrameDelay();
+            target?.UnitEntity?.UnitSpriteSheet.ResetFrameDelay();
         }
     }
 }

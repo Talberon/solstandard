@@ -351,9 +351,9 @@ namespace SolStandard.Containers.Contexts
 
             //Animate grey-out of each pair of swords+shields, one after another
             const int renderDelay = 20;
-            
+
             if (frameCounter % renderDelay != 0) return;
-            
+
             if (attackerInRange && attackerSwords > 0 && defenderShields > 0)
             {
                 attackerDamage.BlockAttackPoint();
@@ -397,9 +397,9 @@ namespace SolStandard.Containers.Contexts
 
             //Animate HP bar taking one damage at a time
             const int renderDelay = 12;
-            
+
             if (frameCounter % renderDelay != 0) return;
-            
+
             if (NonSwordPointsRemain())
             {
                 //Disable blank dice after all other dice resolved
@@ -452,15 +452,13 @@ namespace SolStandard.Containers.Contexts
 
             if (attackerStats.CurrentHP <= 0)
             {
-                battleView.GenerateAttackerSpriteWindow(attacker, GameUnit.DeadPortraitColor,
-                    UnitAnimationState.Idle);
+                battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Idle);
                 attackerDamage.DisableAllAttackPoints();
             }
 
             if (defenderStats.CurrentHP <= 0)
             {
-                battleView.GenerateDefenderSpriteWindow(defender, GameUnit.DeadPortraitColor,
-                    UnitAnimationState.Idle);
+                battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Idle);
                 defenderDamage.DisableAllAttackPoints();
             }
         }

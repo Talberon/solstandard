@@ -111,7 +111,6 @@ namespace SolStandard.Containers.View
                     frameDelay = CombatDelay;
                     break;
                 default:
-
                     frameDelay = RegularDelay;
                     break;
             }

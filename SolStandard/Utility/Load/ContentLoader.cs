@@ -223,6 +223,12 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(fireTexture);
         }
 
+        public static ITexture2D LoadDeathAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
@@ -407,7 +413,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Stun"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Recover"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BetwixtPlate"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FlowStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Frostbite"),

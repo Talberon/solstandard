@@ -83,6 +83,7 @@ namespace SolStandard.Entity.Unit
         public int CurrentGold { get; set; }
 
         private readonly UnitSpriteSheet unitSpriteSheet;
+        private TriggeredAnimation deathAnimation;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
@@ -110,6 +111,7 @@ namespace SolStandard.Entity.Unit
             CurrentGold = 0;
 
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
+            deathAnimation = null;
 
             ApplyCommanderBonus();
             ResetHealthBars();
@@ -428,15 +430,20 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        public IRenderable GetMapSprite(Vector2 size, Color color,
-            UnitAnimationState animation = UnitAnimationState.Idle, int frameDelay = 12, bool isFlipped = false)
+        public IRenderable GetMapSprite(Vector2 size, Color color, UnitAnimationState animation, int frameDelay,
+            bool isFlipped)
         {
             UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
             if (isFlipped) clonedSpriteSheet.Flip();
             clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
             clonedSpriteSheet.DefaultColor = color;
-            return clonedSpriteSheet.Resize(size);
+
+            if (IsAlive) return clonedSpriteSheet.Resize(size);
+            if (Stats.CurrentHP != 0) return deathAnimation as IRenderable ?? new RenderBlank();
+            deathAnimation = new TriggeredAnimation(AssetManager.DeathTexture, 48, size, 7, false, color);
+            deathAnimation.PlayOnce();
+            return deathAnimation;
         }
 
         public void ArmUnitSkill(UnitAction action)
@@ -685,6 +692,7 @@ namespace SolStandard.Entity.Unit
                 Trace.WriteLine("Unit " + Id + " is dead!");
                 AssetManager.CombatDeathSFX.Play();
                 MapEntity = null;
+                //TODO Play death animation ONCE
                 GameMapContext.GameMapView.GenerateObjectiveWindow();
             }
         }

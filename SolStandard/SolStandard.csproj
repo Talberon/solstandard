@@ -471,6 +471,7 @@
     <Compile Include="Utility\SpriteAtlas.cs" />
     <Compile Include="Utility\ArrayToList.cs" />
     <Compile Include="Utility\AdHocThreatRange.cs" />
+    <Compile Include="Utility\TriggeredAnimation.cs" />
     <Compile Include="Utility\UnitSelector.cs" />
   </ItemGroup>
   <ItemGroup>
