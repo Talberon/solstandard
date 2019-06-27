@@ -11,9 +11,6 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             Key = key;
         }
 
-        public override bool Pressed
-        {
-            get { return Keyboard.GetState().IsKeyDown(Key); }
-        }
+        public override bool Pressed => Keyboard.GetState().IsKeyDown(Key);
     }
 }

@@ -10,7 +10,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int atkRangeModifier;
 
         public AtkRangeStatUp(int turnDuration, int atkRangeModifier) : base(
-            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkRangeUp, new Vector2(32)),
+            statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.AtkRangeUp, GameDriver.CellSizeVector),
             name: UnitStatistics.Abbreviation[Stats.AtkRange] + " Up!",
             description: "Increased attack range.",
             turnDuration: turnDuration,

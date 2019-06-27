@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
             Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = target.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(actorCoordinates, targetCoordinates);
-            target.UnitEntity.MapCoordinates = oppositeCoordinates;
+            target.UnitEntity.SlideToCoordinates(oppositeCoordinates);
             AssetManager.CombatBlockSFX.Play();
             Complete = true;
         }

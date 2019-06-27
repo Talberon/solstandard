@@ -13,10 +13,10 @@ namespace SolStandard.Entity.General.Item
 {
     public class Key : TerrainEntity, IItem, IActionTile
     {
-        public string UsedWith { get; private set; }
-        public bool IsMasterKey { get; private set; }
-        public int[] InteractRange { get; private set; }
-        public string ItemPool { get; private set; }
+        public string UsedWith { get; }
+        public bool IsMasterKey { get; }
+        public int[] InteractRange { get; }
+        public string ItemPool { get; }
 
         public Key(string name, string type, IRenderable sprite, Vector2 mapCoordinates,
             string usedWith, int[] range, string itemPool, bool isMasterKey) :
@@ -28,15 +28,9 @@ namespace SolStandard.Entity.General.Item
             IsMasterKey = isMasterKey;
         }
 
-        public bool IsBroken
-        {
-            get { return false; }
-        }
+        public bool IsBroken => false;
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
 
         public List<UnitAction> TileActions()
         {
@@ -61,38 +55,33 @@ namespace SolStandard.Entity.General.Item
             return new Key(Name, Type, Sprite, MapCoordinates, UsedWith, InteractRange, ItemPool, IsMasterKey);
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            new Window(new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
-                                InnerWindowColor),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        new Window(new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
+                            InnerWindowColor),
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
     }
 }

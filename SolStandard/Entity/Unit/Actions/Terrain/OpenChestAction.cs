@@ -48,6 +48,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
                     eventQueue.Enqueue(new ToggleOpenEvent(chest));
                     eventQueue.Enqueue(new WaitFramesEvent(5));
 

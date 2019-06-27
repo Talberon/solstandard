@@ -17,13 +17,12 @@ namespace SolStandard.Entity.General
 {
     public class Vendor : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
         private readonly Dictionary<UnitAction, int> purchaseActions;
         private IRenderable itemList;
 
         public Vendor(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
-            int[] interactRange, IReadOnlyList<IItem> items, IReadOnlyList<int> prices, int[] quantities,
-            Dictionary<string, string> tiledProperties) :
+            int[] interactRange, IReadOnlyList<IItem> items, IReadOnlyList<int> prices, int[] quantities) :
             base(name, type, sprite, mapCoordinates)
         {
             if (items.Count != prices.Count || items.Count != quantities.Length)
@@ -51,8 +50,7 @@ namespace SolStandard.Entity.General
 
             foreach (KeyValuePair<UnitAction, int> purchaseActionKeyPair in purchaseActions)
             {
-                VendorPurchase buyAction = purchaseActionKeyPair.Key as VendorPurchase;
-                if (buyAction == null || buyAction.Item.Name != item.Name) continue;
+                if (!(purchaseActionKeyPair.Key is VendorPurchase buyAction) || buyAction.Item.Name != item.Name) continue;
 
                 purchaseActions[buyAction]--;
 
@@ -94,15 +92,15 @@ namespace SolStandard.Entity.General
                 itemDetailList[i, 1] = new RenderText(AssetManager.WindowFont, purchaseActionsList[i].Item.Name);
 
                 itemDetailList[i, 2] =
-                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(GameDriver.CellSize));
+                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, GameDriver.CellSizeVector);
 
                 //Price
                 itemDetailList[i, 3] = new RenderText(AssetManager.WindowFont,
-                    string.Format("{0}{1}", purchaseActionsList[i].Price, Currency.CurrencyAbbreviation));
+                    $"{purchaseActionsList[i].Price}{Currency.CurrencyAbbreviation}");
 
                 //Quantity
                 itemDetailList[i, 4] = new RenderText(AssetManager.WindowFont,
-                    string.Format("[{0}]", purchaseActions[purchaseActionsList[i]]));
+                    $"[{purchaseActions[purchaseActionsList[i]]}]");
             }
 
             return new Window(
@@ -112,38 +110,33 @@ namespace SolStandard.Entity.General
             );
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            itemList,
-                            new RenderBlank(),
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        itemList,
+                        new RenderBlank()
+                    }
+                },
+                1,
+                HorizontalAlignment.Centered
+            );
     }
 }

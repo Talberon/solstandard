@@ -45,7 +45,7 @@ namespace SolStandard.Utility.Model
         private const string RoutineKingslayerProp = "routine_kingslayer";
         private const string RoutineWaitProp = "routine_wait";
 
-        public Role CreepClass { get; private set; }
+        public Role CreepClass { get; }
         private readonly bool isCommander;
         private readonly bool isIndependent;
         private readonly string items;
@@ -87,19 +87,11 @@ namespace SolStandard.Utility.Model
             this.routineWait = routineWait;
         }
 
-        public List<UnitAction> Actions
-        {
-            get { return GenerateCreepRoutinesFromProperties(EntityProperties); }
-        }
+        public List<UnitAction> Actions => GenerateCreepRoutinesFromProperties(EntityProperties);
 
-        public IRoutine FallbackRoutine
-        {
-            get
-            {
-                return GenerateRoutine(GetRoutineByName(EntityProperties[FallbackRoutineProp]), EntityProperties) as
-                    IRoutine;
-            }
-        }
+        public IRoutine FallbackRoutine =>
+            GenerateRoutine(GetRoutineByName(EntityProperties[FallbackRoutineProp]), EntityProperties) as
+                IRoutine;
 
         private static List<UnitAction> GenerateCreepRoutinesFromProperties(
             IReadOnlyDictionary<string, string> creepProperties
@@ -215,31 +207,26 @@ namespace SolStandard.Utility.Model
             return Routine.None;
         }
 
-        public Dictionary<string, string> EntityProperties
-        {
-            get
+        public Dictionary<string, string> EntityProperties =>
+            new Dictionary<string, string>
             {
-                return new Dictionary<string, string>
-                {
-                    {ClassProp, CreepClass.ToString()},
-                    {CommanderProp, isCommander.ToString()},
-                    {IndependentProp, isIndependent.ToString()},
-                    {ItemsProp, items},
-                    {TeamProp, team.ToString()},
-                    {FallbackRoutineProp, string.Format("routine_{0}", fallbackRoutine.ToString())},
-                    {RoutineBasicAttackProp, routineBasicAttack.ToString()},
-                    {RoutineSummonProp, routineSummon.ToString()},
-                    {RoutineSummonClassProp, routineSummonClass},
-                    {RoutineWanderProp, routineWander.ToString()},
-                    {RoutineTreasureHunterProp, routineTreasureHunter.ToString()},
-                    {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
-                    {RoutineDefenderProp, routineDefender.ToString()},
-                    {RoutineGluttonProp, routineGlutton.ToString()},
-                    {RoutinePreyProp, routinePrey.ToString()},
-                    {RoutineKingslayerProp, routineKingslayer.ToString()},
-                    {RoutineWaitProp, routineWait.ToString()}
-                };
-            }
-        }
+                {ClassProp, CreepClass.ToString()},
+                {CommanderProp, isCommander.ToString()},
+                {IndependentProp, isIndependent.ToString()},
+                {ItemsProp, items},
+                {TeamProp, team.ToString()},
+                {FallbackRoutineProp, $"routine_{fallbackRoutine.ToString()}"},
+                {RoutineBasicAttackProp, routineBasicAttack.ToString()},
+                {RoutineSummonProp, routineSummon.ToString()},
+                {RoutineSummonClassProp, routineSummonClass},
+                {RoutineWanderProp, routineWander.ToString()},
+                {RoutineTreasureHunterProp, routineTreasureHunter.ToString()},
+                {RoutineTriggerHappyProp, routineTriggerHappy.ToString()},
+                {RoutineDefenderProp, routineDefender.ToString()},
+                {RoutineGluttonProp, routineGlutton.ToString()},
+                {RoutinePreyProp, routinePrey.ToString()},
+                {RoutineKingslayerProp, routineKingslayer.ToString()},
+                {RoutineWaitProp, routineWait.ToString()}
+            };
     }
 }

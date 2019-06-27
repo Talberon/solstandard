@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 {
                     {
                         new RenderText(AssetManager.WindowFont,
-                            "Perform a basic attack against target based on your weapon's statistics."),
+                            "Perform a basic attack against target based on your weapon's statistics.")
                     },
                     {
                         stats.GenerateStatGrid(AssetManager.WindowFont)
@@ -98,8 +98,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Weapon is broken!", 50);
             AssetManager.CombatDeathSFX.Play();
 
-            SpriteAtlas icon = Icon as SpriteAtlas;
-            if (icon != null) icon.DefaultColor = GameUnit.DeadPortraitColor;
+            if (Icon is SpriteAtlas icon) icon.DefaultColor = GameUnit.DeadPortraitColor;
         }
     }
 }

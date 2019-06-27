@@ -13,10 +13,10 @@ namespace SolStandard.Entity.General.Item
 {
     public class Weapon : TerrainEntity, IItem, IActionTile
     {
-        public int[] InteractRange { get; private set; }
-        private WeaponStatistics WeaponStatistics { get; set; }
+        public int[] InteractRange { get; }
+        private WeaponStatistics WeaponStatistics { get; }
         private readonly Window statWindow;
-        public string ItemPool { get; private set; }
+        public string ItemPool { get; }
 
         public Weapon(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
             int atkValue, int luckModifier, int[] atkRange, int usesRemaining, string itemPool)
@@ -39,15 +39,9 @@ namespace SolStandard.Entity.General.Item
             return new Window(new WindowContentGrid(statWindowGrid, 2, HorizontalAlignment.Centered), InnerWindowColor);
         }
 
-        public bool IsBroken
-        {
-            get { return WeaponStatistics.IsBroken; }
-        }
+        public bool IsBroken => WeaponStatistics.IsBroken;
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
 
         public List<UnitAction> TileActions()
         {
@@ -73,37 +67,32 @@ namespace SolStandard.Entity.General.Item
                 WeaponStatistics.LuckModifier, WeaponStatistics.AtkRange, WeaponStatistics.UsesRemaining, ItemPool);
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            statWindow,
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        statWindow,
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
     }
 }

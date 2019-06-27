@@ -11,7 +11,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public ImmobilizedStatus(int turnDuration) : base(
             statusIcon: StatusIconProvider.GetStatusIcon(Utility.Assets.StatusIcon.MvUp,
-                new Vector2(GameDriver.CellSize)),
+                GameDriver.CellSizeVector),
             name: "Immobilized!",
             description: "Unit cannot move.",
             turnDuration: turnDuration,
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void RemoveEffect(GameUnit target)
         {
             target.Stats.MvModifier += mvModifier;
-            target.UnitEntity.UnitSpriteSheet.ResetFrameDelay();
+            target?.UnitEntity?.UnitSpriteSheet.ResetFrameDelay();
         }
     }
 }

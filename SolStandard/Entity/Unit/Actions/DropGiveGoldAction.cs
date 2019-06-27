@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions
         public int Value { get; private set; }
 
         public DropGiveGoldAction(int value = 0) : base(
-            icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
+            icon: Currency.GoldIcon(GameDriver.CellSizeVector),
             name: "Drop/Give: " + value + Currency.CurrencyAbbreviation,
             description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = new Vector2(GameDriver.CellSize);
+            Vector2 iconSize = GameDriver.CellSizeVector;
 
             return new WindowContentGrid(new[,]
                 {
@@ -42,14 +42,14 @@ namespace SolStandard.Entity.Unit.Actions
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
                         new RenderBlank(),
-                        new RenderBlank(),
+                        new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, ""),
+                        new RenderText(AssetManager.WindowFont, "")
                     }
                 },
                 2
@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions
             return new Spoils(
                 "Money Bag",
                 "Spoils",
-                new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
+                new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                 mapCoordinates,
                 Value,
                 new List<IItem>()

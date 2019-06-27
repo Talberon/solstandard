@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         private readonly int maxDistance;
 
         public Shift(int maxDistance) : base(
-            icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
+            icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
             name: "Shift",
             description: "Move one additional space.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

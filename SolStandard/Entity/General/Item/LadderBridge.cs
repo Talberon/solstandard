@@ -7,8 +7,8 @@ namespace SolStandard.Entity.General.Item
 {
     public class LadderBridge : Movable, IItem
     {
-        public IRenderable Icon { get; private set; }
-        public string ItemPool { get; private set; }
+        public IRenderable Icon { get; }
+        public string ItemPool { get; }
 
         public LadderBridge(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string itemPool,
             bool canMove) :
@@ -18,10 +18,7 @@ namespace SolStandard.Entity.General.Item
             ItemPool = itemPool;
         }
 
-        public bool IsBroken
-        {
-            get { return false; }
-        }
+        public bool IsBroken => false;
 
         public UnitAction UseAction()
         {

@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int pointsToIncrease;
 
         public AtkStatUp(int turnDuration, int pointsToIncrease, string name = null) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
             name: name ?? UnitStatistics.Abbreviation[Stats.Atk] + " Up! <+" + pointsToIncrease + ">",
             description: "Increased attack power.",
             turnDuration: turnDuration,

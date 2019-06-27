@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         private static readonly int[] SkillRange = {1, 2, 3};
 
         public Replace() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Blink, GameDriver.CellSizeVector),
             name: "Telekinesis - Replace",
             description: "Swap with another unit within [" + SkillRange.Min() + "-" + SkillRange.Max() + "] spaces.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -68,7 +68,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new HideUnitEvent(caster));
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, caster.MapCoordinates)
+                );
                 eventQueue.Enqueue(new HideUnitEvent(targetUnit));
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetUnit.MapCoordinates)
+                );
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(
                     GameContext.ActiveUnit.UnitEntity,
@@ -79,7 +85,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                     casterCoordinates
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(caster));
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetUnit.MapCoordinates)
+                );
                 eventQueue.Enqueue(new UnhideUnitEvent(targetUnit));
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, caster.MapCoordinates)
+                );
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

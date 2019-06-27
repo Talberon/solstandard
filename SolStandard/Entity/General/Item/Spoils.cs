@@ -12,9 +12,9 @@ namespace SolStandard.Entity.General.Item
 {
     public class Spoils : TerrainEntity, IActionTile
     {
-        public int Gold { get; private set; }
-        public List<IItem> Items { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public int Gold { get; }
+        public List<IItem> Items { get; }
+        public int[] InteractRange { get; }
 
         public Spoils(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int gold,
             List<IItem> items) :
@@ -33,52 +33,47 @@ namespace SolStandard.Entity.General.Item
             };
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            new Window(new[,]
-                                {
-                                    {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
-                                        new RenderText(AssetManager.WindowFont,
-                                            "Gold: " + Gold + Currency.CurrencyAbbreviation)
-                                    },
-                                    {
-                                        ItemDetails,
-                                        new RenderBlank()
-                                    }
-                                },
-                                InnerWindowColor
-                            ),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        new Window(new[,]
+                            {
+                                {
+                                    new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
+                                    new RenderText(AssetManager.WindowFont,
+                                        "Gold: " + Gold + Currency.CurrencyAbbreviation)
+                                },
+                                {
+                                    ItemDetails,
+                                    new RenderBlank()
+                                }
+                            },
+                            InnerWindowColor
+                        ),
+                        new RenderBlank()
+                    }
+                },
+                1,
+                HorizontalAlignment.Centered
+            );
 
         private IRenderable ItemDetails
         {

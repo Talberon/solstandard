@@ -94,15 +94,9 @@ namespace SolStandard.HUD.Window.Content.Health
             UpdatePips(healthPips, currentHp);
         }
 
-        public int Height
-        {
-            get { return Convert.ToInt32(barSize.Y); }
-        }
+        public int Height => Convert.ToInt32(barSize.Y);
 
-        public int Width
-        {
-            get { return Convert.ToInt32(barSize.X); }
-        }
+        public int Width => Convert.ToInt32(barSize.X);
 
         public Color DefaultColor
         {
@@ -113,7 +107,7 @@ namespace SolStandard.HUD.Window.Content.Health
                 const int blue = 0;
                 return new Color(red, green, blue);
             }
-            set { throw new InvalidOperationException("Cannot set health bar color."); }
+            set => throw new InvalidOperationException("Cannot set health bar color.");
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

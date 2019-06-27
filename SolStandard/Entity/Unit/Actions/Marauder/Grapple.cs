@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         private UnitEntity selectedUnitEntity;
 
         public Grapple() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Grapple, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Grapple, GameDriver.CellSizeVector),
             name: "Grapple",
             description: "Select a unit within range, then move it to an unoccupied space in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

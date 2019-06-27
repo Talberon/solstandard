@@ -29,10 +29,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         protected bool CoOpVictory;
         protected bool AllPlayersLose;
 
-        public virtual IRenderable ObjectiveInfo
-        {
-            get { return new RenderBlank(); }
-        }
+        public virtual IRenderable ObjectiveInfo => new RenderBlank();
 
         public abstract bool ConditionsMet();
 

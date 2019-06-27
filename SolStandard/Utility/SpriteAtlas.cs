@@ -77,15 +77,9 @@ namespace SolStandard.Utility
             return new Rectangle(x, y, (int) renderSize.X, (int) renderSize.Y);
         }
 
-        public int Height
-        {
-            get { return (int) renderSize.Y; }
-        }
+        public int Height => (int) renderSize.Y;
 
-        public int Width
-        {
-            get { return (int) renderSize.X; }
-        }
+        public int Width => (int) renderSize.X;
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

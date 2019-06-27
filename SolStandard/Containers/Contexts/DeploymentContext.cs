@@ -16,7 +16,7 @@ namespace SolStandard.Containers.Contexts
 {
     public class DeploymentContext
     {
-        public DeploymentView DeploymentView { get; private set; }
+        public DeploymentView DeploymentView { get; }
         private readonly List<GameUnit> blueArmy;
         private readonly List<GameUnit> redArmy;
         private readonly MapContainer map;
@@ -84,7 +84,7 @@ namespace SolStandard.Containers.Contexts
                 MapContainer.GameGrid[(int) Layer.Entities]
                     [(int) map.MapCursor.MapCoordinates.X, (int) map.MapCursor.MapCoordinates.Y] = null;
 
-                currentUnit.UnitEntity.MapCoordinates = map.MapCursor.MapCoordinates;
+                currentUnit.UnitEntity.SnapToCoordinates(map.MapCursor.MapCoordinates);
             }
 
             GameContext.Units.Add(currentUnit);
@@ -187,7 +187,7 @@ namespace SolStandard.Containers.Contexts
                 case Team.Red:
                     return Team.Blue;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -200,7 +200,7 @@ namespace SolStandard.Containers.Contexts
                 case Team.Red:
                     return redArmy;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -209,9 +209,8 @@ namespace SolStandard.Containers.Contexts
             get
             {
                 MapSlice cursorSlice = map.GetMapSliceAtCursor();
-                DeployTile deployTile = cursorSlice.TerrainEntity as DeployTile;
 
-                return deployTile != null && !deployTile.Occupied && deployTile.DeployTeam == currentUnit.Team;
+                return cursorSlice.TerrainEntity is DeployTile deployTile && !deployTile.Occupied && deployTile.DeployTeam == currentUnit.Team;
             }
         }
     }

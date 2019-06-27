@@ -16,7 +16,7 @@ namespace SolStandard.Entity.General
 {
     public class Bank : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
 
         public static int RedMoney { get; private set; }
         public static int BlueMoney { get; private set; }
@@ -52,13 +52,12 @@ namespace SolStandard.Entity.General
                     RedMoney += goldToDeposit;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("depositer", depositer.Team, null);
+                    throw new ArgumentOutOfRangeException(nameof(depositer), depositer.Team, null);
             }
 
             AssetManager.CoinSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                string.Format("{0} deposits {1}{2} to the bank!", depositer.Id, goldToDeposit,
-                    Currency.CurrencyAbbreviation),
+                $"{depositer.Id} deposits {goldToDeposit}{Currency.CurrencyAbbreviation} to the bank!",
                 50
             );
             GameMapContext.GameMapView.GenerateObjectiveWindow();
@@ -77,13 +76,12 @@ namespace SolStandard.Entity.General
                     RedMoney -= goldToWithdraw;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("depositer", depositer.Team, null);
+                    throw new ArgumentOutOfRangeException(nameof(depositer), depositer.Team, null);
             }
 
             AssetManager.CoinSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                string.Format("{0} withdraws {1}{2} from the bank!", depositer.Id, goldToWithdraw,
-                    Currency.CurrencyAbbreviation),
+                $"{depositer.Id} withdraws {goldToWithdraw}{Currency.CurrencyAbbreviation} from the bank!",
                 50
             );
             GameMapContext.GameMapView.GenerateObjectiveWindow();
@@ -100,7 +98,7 @@ namespace SolStandard.Entity.General
                 case Team.Creep:
                     return 0;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -111,68 +109,63 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            new Window(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        ObjectiveIconProvider.GetObjectiveIcon(
-                                            VictoryConditions.Taxes,
-                                            new Vector2(GameDriver.CellSize)
-                                        ),
-                                        new RenderText(AssetManager.WindowFont,
-                                            "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
-                                    }
-                                },
-                                TeamUtility.DetermineTeamColor(Team.Blue)
-                            ),
-                            new RenderBlank()
-                        },
-                        {
-                            new Window(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        ObjectiveIconProvider.GetObjectiveIcon(
-                                            VictoryConditions.Taxes,
-                                            new Vector2(GameDriver.CellSize)
-                                        ),
-                                        new RenderText(AssetManager.WindowFont,
-                                            "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)
-                                    }
-                                },
-                                TeamUtility.DetermineTeamColor(Team.Red)
-                            ),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        new Window(
+                            new IRenderable[,]
+                            {
+                                {
+                                    ObjectiveIconProvider.GetObjectiveIcon(
+                                        VictoryConditions.Taxes,
+                                        GameDriver.CellSizeVector
+                                    ),
+                                    new RenderText(AssetManager.WindowFont,
+                                        "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
+                                }
+                            },
+                            TeamUtility.DetermineTeamColor(Team.Blue)
+                        ),
+                        new RenderBlank()
+                    },
+                    {
+                        new Window(
+                            new IRenderable[,]
+                            {
+                                {
+                                    ObjectiveIconProvider.GetObjectiveIcon(
+                                        VictoryConditions.Taxes,
+                                        GameDriver.CellSizeVector
+                                    ),
+                                    new RenderText(AssetManager.WindowFont,
+                                        "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)
+                                }
+                            },
+                            TeamUtility.DetermineTeamColor(Team.Red)
+                        ),
+                        new RenderBlank()
+                    }
+                },
+                1,
+                HorizontalAlignment.Centered
+            );
     }
 }

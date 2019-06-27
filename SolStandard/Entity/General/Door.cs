@@ -19,7 +19,7 @@ namespace SolStandard.Entity.General
     {
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
         private static readonly Color InactiveColor = new Color(0, 0, 0, 50);
 
         public Door(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
@@ -32,66 +32,61 @@ namespace SolStandard.Entity.General
             ElementColor = (IsOpen) ? InactiveColor : Color.White;
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new Window(new IRenderable[,]
-                                {
-                                    {
-                                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                            (IsLocked) ? NegativeColor : PositiveColor),
-                                        new RenderBlank()
-                                    },
-                                    {
-                                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                                            (IsOpen) ? PositiveColor : NegativeColor),
-                                        new RenderBlank()
-                                    },
-                                    {
-                                        new Window(new IRenderable[,]
-                                            {
-                                                {
-                                                    UnitStatistics.GetSpriteAtlas(Stats.Hp),
-                                                    new RenderText(AssetManager.WindowFont, "HP: " + HP)
-                                                },
-                                                {
-                                                    new RenderText(AssetManager.WindowFont,
-                                                        (IsBroken) ? "Broken" : "Not Broken",
-                                                        (IsBroken) ? NegativeColor : PositiveColor),
-                                                    new RenderBlank()
-                                                }
-                                            },
-                                            InnerWindowColor,
-                                            HorizontalAlignment.Centered
-                                        ),
-                                        new RenderBlank()
-                                    }
-                                },
-                                InnerWindowColor,
-                                HorizontalAlignment.Centered
-                            ),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new Window(new IRenderable[,]
+                            {
+                                {
+                                    new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                                        (IsLocked) ? NegativeColor : PositiveColor),
+                                    new RenderBlank()
+                                },
+                                {
+                                    new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                                        (IsOpen) ? PositiveColor : NegativeColor),
+                                    new RenderBlank()
+                                },
+                                {
+                                    new Window(new IRenderable[,]
+                                        {
+                                            {
+                                                UnitStatistics.GetSpriteAtlas(Stats.Hp),
+                                                new RenderText(AssetManager.WindowFont, "HP: " + HP)
+                                            },
+                                            {
+                                                new RenderText(AssetManager.WindowFont,
+                                                    (IsBroken) ? "Broken" : "Not Broken",
+                                                    (IsBroken) ? NegativeColor : PositiveColor),
+                                                new RenderBlank()
+                                            }
+                                        },
+                                        InnerWindowColor,
+                                        HorizontalAlignment.Centered
+                                    ),
+                                    new RenderBlank()
+                                }
+                            },
+                            InnerWindowColor,
+                            HorizontalAlignment.Centered
+                        ),
+                        new RenderBlank()
+                    }
+                },
+                3,
+                HorizontalAlignment.Centered
+            );
 
         public List<UnitAction> TileActions()
         {
@@ -165,9 +160,6 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public bool CanTrigger
-        {
-            get { return !IsLocked; }
-        }
+        public bool CanTrigger => !IsLocked;
     }
 }

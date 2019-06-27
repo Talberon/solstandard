@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int pointsToIncrease;
 
         public BlkStatUp(int turnDuration, int pointsToIncrease, string name = null) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Block, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Block, GameDriver.CellSizeVector),
             name: name ?? UnitStatistics.Abbreviation[Stats.Block] + " Up! <+" + pointsToIncrease + ">",
             description: "Increased damage mitigation.",
             turnDuration: turnDuration,

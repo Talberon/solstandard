@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public TreasureHunterRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Treasure Hunter Routine",
                 description: "Collects items and gold.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -31,10 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -154,11 +151,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 TerrainEntity targetEntity = slice.ItemEntity;
 
-                if (targetEntity is IActionTile && targetEntity is IItem)
+                if (targetEntity is IActionTile && targetEntity is IItem item)
                 {
                     if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
                     {
-                        itemsInRange.Add(new KeyValuePair<IItem, Vector2>((IItem) targetEntity, slice.MapCoordinates));
+                        itemsInRange.Add(new KeyValuePair<IItem, Vector2>(item, slice.MapCoordinates));
                     }
                 }
             }

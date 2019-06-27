@@ -8,10 +8,7 @@ namespace SolStandard.Entity.Unit
         private const int MaxCachedNames = 50;
         private static List<string> _usedNames;
 
-        private static List<string> UsedNames
-        {
-            get { return _usedNames ?? (_usedNames = new List<string>()); }
-        }
+        private static List<string> UsedNames => _usedNames ?? (_usedNames = new List<string>());
 
         private enum NameType
         {
@@ -70,7 +67,7 @@ namespace SolStandard.Entity.Unit
                 case Role.Spider:
                     return GenerateName(NameType.Beast);
                 default:
-                    throw new ArgumentOutOfRangeException("role", role, null);
+                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
             }
         }
 
@@ -104,7 +101,7 @@ namespace SolStandard.Entity.Unit
                 case NameType.Beast:
                     return BeastNames;
                 default:
-                    throw new ArgumentOutOfRangeException("nameType", nameType, null);
+                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
             }
         }
 
@@ -181,7 +178,7 @@ namespace SolStandard.Entity.Unit
             "Xavier",
             "Yuri",
             "Ziegler",
-            "Zachary",
+            "Zachary"
         };
 
         private static readonly List<string> FemaleNames = new List<string>
@@ -249,7 +246,7 @@ namespace SolStandard.Entity.Unit
             "Yvonne",
             "Yuna",
             "Zoe",
-            "Zyla",
+            "Zyla"
         };
 
         private static readonly List<string> BeastNames = new List<string>
@@ -314,7 +311,7 @@ namespace SolStandard.Entity.Unit
             "Yanna",
             "Zor",
             "Zel",
-            "Zan",
+            "Zan"
         };
     }
 }

@@ -4,18 +4,14 @@ namespace SolStandard.Entity
 {
     public abstract class GameEntity
     {
-        private readonly string id;
         protected MapEntity MapEntity;
 
         protected GameEntity(string id, MapEntity mapEntity)
         {
-            this.id = id;
+            Id = id;
             MapEntity = mapEntity;
         }
 
-        public string Id
-        {
-            get { return id; }
-        }
+        public string Id { get; }
     }
 }

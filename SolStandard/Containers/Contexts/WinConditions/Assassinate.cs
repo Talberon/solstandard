@@ -13,15 +13,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
     {
         private Window objectiveWindow;
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED");
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private static Window BuildObjectiveWindow()
         {
@@ -32,9 +26,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.Assassinate,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
-                            new RenderText(AssetManager.WindowFont, "Assassinate"),
+                            new RenderText(AssetManager.WindowFont, "Assassinate")
                         }
                     },
                     2,

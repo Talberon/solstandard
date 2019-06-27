@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int duration;
 
         public Crescendo(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
             name: "Crescendo",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Atk] +
                          " by [+" + statModifier + "] for [" + duration + "] turns.",

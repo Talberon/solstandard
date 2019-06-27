@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         private readonly int duration;
 
         public Brace(int duration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Brace, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Brace, GameDriver.CellSizeVector),
             name: "Brace",
             description: "Reduce movement by half and prevent other units from moving this " +
                          "unit with abilities for <" + duration + "> turns.",

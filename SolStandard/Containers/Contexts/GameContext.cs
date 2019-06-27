@@ -54,10 +54,7 @@ namespace SolStandard.Containers.Contexts
         public static CreditsContext CreditsContext { get; private set; }
         public static Team P1Team { get; private set; }
 
-        public static Team P2Team
-        {
-            get { return (P1Team == Team.Blue) ? Team.Red : Team.Blue; }
-        }
+        public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
 
         public static GameState CurrentGameState;
 
@@ -179,15 +176,9 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public static List<GameUnit> Units
-        {
-            get { return InitiativeContext.InitiativeList; }
-        }
+        public static List<GameUnit> Units => InitiativeContext.InitiativeList;
 
-        public static GameUnit ActiveUnit
-        {
-            get { return InitiativeContext.CurrentActiveUnit; }
-        }
+        public static GameUnit ActiveUnit => InitiativeContext.CurrentActiveUnit;
 
         public static void CenterCursorAndCamera()
         {
@@ -223,10 +214,10 @@ namespace SolStandard.Containers.Contexts
                 unit.ExhaustAndDisableUnit();
             }
 
+            GameMapContext.UpdateWindowsEachTurn();
             InitiativeContext.StartFirstTurn();
             GameMapContext.ResetTurnState();
 
-            GameMapContext.UpdateWindowsEachTurn();
             StatusScreenView.UpdateWindows();
         }
 

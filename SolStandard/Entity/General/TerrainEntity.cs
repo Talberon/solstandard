@@ -26,10 +26,8 @@ namespace SolStandard.Entity.General
         Seize,
         Pushable,
         SelectMap,
-        Unit,
         PressurePlate,
         Trap,
-        Creep,
         Weapon,
         Blink,
         HealthPotion,
@@ -54,9 +52,9 @@ namespace SolStandard.Entity.General
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         protected static readonly Color InnerWindowColor = new Color(25, 25, 25, 80);
 
-        protected IRenderable InfoHeader { get; private set; }
-        private IRenderable NameText { get; set; }
-        private IRenderable TypeText { get; set; }
+        protected IRenderable InfoHeader { get; }
+        private IRenderable NameText { get; }
+        private IRenderable TypeText { get; }
 
         public bool CanMove { get; protected set; }
 
@@ -90,27 +88,22 @@ namespace SolStandard.Entity.General
             );
         }
 
-        public virtual IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public virtual IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    }
+                },
+                1,
+                HorizontalAlignment.Centered
+            );
     }
 }

@@ -23,29 +23,19 @@ namespace SolStandard.Containers.Contexts
             MapSelectScreenView.UpdateTeamSelectWindow();
         }
 
-        public Vector2 MapCenter
-        {
-            get
-            {
-                return new Vector2(
-                    (float) Math.Round(MapContainer.MapGridSize.X / 2),
-                    (float) Math.Round(MapContainer.MapGridSize.Y / 2)
-                );
-            }
-        }
+        public Vector2 MapCenter =>
+            new Vector2(
+                (float) Math.Round(MapContainer.MapGridSize.X / 2),
+                (float) Math.Round(MapContainer.MapGridSize.Y / 2)
+            );
 
         public void HoverOverEntity()
         {
             MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
 
-            if (CursorAtMapSelectFeature(cursorSlice))
-            {
-                MapSelectScreenView.UpdateMapInfoWindow(cursorSlice.TerrainEntity.TerrainInfo);
-            }
-            else
-            {
-                MapSelectScreenView.UpdateMapInfoWindow(null);
-            }
+            MapSelectScreenView.UpdateMapInfoWindow(CursorAtMapSelectFeature(cursorSlice)
+                ? cursorSlice.TerrainEntity.TerrainInfo
+                : null);
         }
 
         public void SelectMap()

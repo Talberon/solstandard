@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         private readonly int maxActions;
 
         public Focus(int maxActions) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: "Focus",
             description: "End your action now and store it for later. Can store up to " + maxActions +
                          " actions at a time.",
@@ -33,10 +33,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                FocusStatus currentFocus =
-                    targetUnit.StatusEffects.SingleOrDefault(status => status is FocusStatus) as FocusStatus;
-
-                if (currentFocus != null)
+                if (targetUnit.StatusEffects.SingleOrDefault(status => status is FocusStatus) is FocusStatus
+                    currentFocus)
                 {
                     if (currentFocus.FocusPoints < maxActions)
                     {

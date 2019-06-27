@@ -21,15 +21,9 @@ namespace SolStandard.HUD.Window.Content.Combat
             pointSprite = UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(size));
         }
 
-        public int Height
-        {
-            get { return pointSprite.Height; }
-        }
+        public int Height => pointSprite.Height;
 
-        public int Width
-        {
-            get { return pointSprite.Width; }
-        }
+        public int Width => pointSprite.Width;
 
         public void Disable(Color disabledColor)
         {

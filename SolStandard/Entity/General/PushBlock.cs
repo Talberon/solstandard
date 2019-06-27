@@ -8,7 +8,7 @@ namespace SolStandard.Entity.General
 {
     public class PushBlock : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
 
         public PushBlock(string name, string type, IRenderable sprite, Vector2 mapCoordinates) :
             base(name, type, sprite, mapCoordinates)

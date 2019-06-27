@@ -23,9 +23,9 @@ namespace SolStandard.Entity.Unit
 
         private SpriteAtlas commanderCrown;
         private bool isCommander;
-        public Team Team { get; private set; }
-        public Role Role { get; private set; }
-        public string[] InitialInventory { get; private set; }
+        public Team Team { get; }
+        public Role Role { get; }
+        public string[] InitialInventory { get; }
 
         public UnitEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
             Role role, bool isCommander, string[] initialInventory)
@@ -36,13 +36,13 @@ namespace SolStandard.Entity.Unit
             Team = team;
             Role = role;
             IsCommander = isCommander;
-            this.InitialInventory = initialInventory;
+            InitialInventory = initialInventory;
         }
 
 
         public bool IsCommander
         {
-            get { return isCommander; }
+            get => isCommander;
             set
             {
                 isCommander = value;
@@ -66,19 +66,13 @@ namespace SolStandard.Entity.Unit
                     ElementColor = ExhaustedColor;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("state", state, null);
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
         }
 
-        public UnitSpriteSheet UnitSpriteSheet
-        {
-            get { return (UnitSpriteSheet) Sprite; }
-        }
+        public UnitSpriteSheet UnitSpriteSheet => (UnitSpriteSheet) Sprite;
 
-        public int[] InteractRange
-        {
-            get { return new[] {1}; }
-        }
+        public int[] InteractRange => new[] {1};
 
         public List<UnitAction> TileActions()
         {
@@ -88,24 +82,21 @@ namespace SolStandard.Entity.Unit
 
         protected override void Draw(SpriteBatch spriteBatch, Color colorOverride)
         {
+            UpdateRenderCoordinates();
+
             if (!Visible) return;
 
             Sprite.Draw(spriteBatch, EntityRenderPosition, colorOverride);
 
-            if (IsCommander && commanderCrown != null)
+            if (IsCommander)
             {
-                commanderCrown.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
+                commanderCrown?.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
             }
         }
 
-        private Vector2 EntityRenderPosition
-        {
-            get
-            {
-                return MapCoordinates * GameDriver.CellSize -
-                       new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
-                       new Vector2(GameDriver.CellSize) / 2;
-            }
-        }
+        private Vector2 EntityRenderPosition =>
+            CurrentDrawCoordinates -
+            new Vector2(UnitSpriteSheet.Width, UnitSpriteSheet.Height) / 2 +
+            GameDriver.CellSizeVector / 2;
     }
 }

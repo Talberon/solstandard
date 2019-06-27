@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
     public class PhaseStrike : UnitAction
     {
         public PhaseStrike() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.PhaseStrike, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.PhaseStrike, GameDriver.CellSizeVector),
             name: "Phase Strike",
             description: "Move through an enemy unit as you attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

@@ -1,5 +1,8 @@
-﻿using SolStandard.Entity.Unit;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
@@ -19,6 +22,10 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             targetUnit.AddStatusEffect(statusEffect);
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
+                targetUnit.UnitEntity?.MapCoordinates ?? Vector2.Zero
+            );
             Complete = true;
         }
     }

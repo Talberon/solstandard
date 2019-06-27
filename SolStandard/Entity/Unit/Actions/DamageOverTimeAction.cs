@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions
         protected DamageOverTimeAction(SkillIcon icon, string name, int duration, int damagePerTurn, int[] range,
             string toastMessage) :
             base(
-                icon: SkillIconProvider.GetSkillIcon(icon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(icon, GameDriver.CellSizeVector),
                 name: name,
                 description: "Deal [" + damagePerTurn + "] damage at the beginning of target's turn for [" + duration +
                              "] turns.",
@@ -43,6 +43,9 @@ namespace SolStandard.Entity.Unit.Actions
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit,
                         new DamageOverTimeStatus(Icon, duration, damagePerTurn, toastMessage, Name))

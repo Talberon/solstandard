@@ -12,8 +12,8 @@ namespace SolStandard.Entity.General.Item
 {
     public class Magnet : TerrainEntity, IItem, IActionTile
     {
-        public int[] InteractRange { get; private set; }
-        public string ItemPool { get; private set; }
+        public int[] InteractRange { get; }
+        public string ItemPool { get; }
         private readonly int[] actionRange;
         private int usesRemaining;
 
@@ -27,15 +27,9 @@ namespace SolStandard.Entity.General.Item
             ItemPool = itemPool;
         }
 
-        public bool IsBroken
-        {
-            get { return usesRemaining < 1; }
-        }
+        public bool IsBroken => usesRemaining < 1;
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
 
         public List<UnitAction> TileActions()
         {
@@ -65,40 +59,35 @@ namespace SolStandard.Entity.General.Item
             return new Magnet(Name, Type, Sprite, MapCoordinates, InteractRange, actionRange, usesRemaining, ItemPool);
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, new Vector2(GameDriver.CellSize)),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", InteractRange))
-                            )
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(
-                                AssetManager.WindowFont,
-                                ": " + string.Format("[{0}]", string.Join(",", actionRange))
-                            )
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", InteractRange)}]"
+                        )
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + $"[{string.Join(",", actionRange)}]"
+                        )
+                    }
+                },
+                3
+            );
     }
 }

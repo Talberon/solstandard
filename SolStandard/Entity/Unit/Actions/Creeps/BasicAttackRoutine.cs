@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         public BasicAttackRoutine(bool independent, string name = null, string description = null,
             SkillIcon routineIcon = SkillIcon.BasicAttack)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(routineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(routineIcon, GameDriver.CellSizeVector),
                 name: name ?? "Basic Attack Routine",
                 description: description ?? "Attacks a random enemy in range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
@@ -32,20 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.routineIcon = routineIcon;
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public virtual bool CanBeReadied(CreepUnit creepUnit)
         {
             return true;
         }
 
-        public bool CanExecute
-        {
-            get { return TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0; }
-        }
+        public bool CanExecute => TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
@@ -129,9 +123,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                             new KeyValuePair<GameUnit, Vector2>(targetUnit, previewTile.MapCoordinates));
                     }
                 }
-
+                
                 MapContainer.ClearPreviewGrid();
             }
+            
 
             return attackPositionsInRange;
 

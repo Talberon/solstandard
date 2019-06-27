@@ -19,16 +19,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
             this.relicsToCollect = relicsToCollect;
         }
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS");
 
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private Window BuildObjectiveWindow()
         {
@@ -39,9 +33,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.CollectTheRelicsVS,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
-                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (Co-Op)"),
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (Co-Op)")
                         }
                     },
                     2,
@@ -69,10 +63,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return false;
         }
 
-        private bool PlayerTeamsHaveCollectedEnoughRelics
-        {
-            get { return (GetRelicCountForTeam(Team.Red) + GetRelicCountForTeam(Team.Blue)) >= relicsToCollect; }
-        }
+        private bool PlayerTeamsHaveCollectedEnoughRelics => (GetRelicCountForTeam(Team.Red) + GetRelicCountForTeam(Team.Blue)) >= relicsToCollect;
 
         private static int GetRelicCountForTeam(Team team)
         {

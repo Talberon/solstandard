@@ -29,15 +29,9 @@ namespace SolStandardTest.HUD.Window.Content.Health
             AddHealthPoint(points);
         }
 
-        public List<IResourcePoint> GetHealthPips
-        {
-            get { return HealthPips; }
-        }
+        public List<IResourcePoint> GetHealthPips => HealthPips;
 
-        public List<IResourcePoint> GetArmorPips
-        {
-            get { return ArmorPips; }
-        }
+        public List<IResourcePoint> GetArmorPips => ArmorPips;
 
         public List<string> HealthPipValues
         {

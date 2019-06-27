@@ -33,7 +33,7 @@ namespace SolStandard.Containers.View
         public string RedTeamResultText { private get; set; }
         public IRenderable ResultLabelContent { private get; set; }
 
-        public bool Visible { get; private set; }
+        private bool Visible { get; set; }
 
         private readonly SpriteAtlas background;
 
@@ -152,7 +152,7 @@ namespace SolStandard.Containers.View
             {
                 {
                     leader.LargePortrait
-                },
+                }
             };
             return leaderContent;
         }
@@ -198,7 +198,7 @@ namespace SolStandard.Containers.View
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                        new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
                                         new RenderText(AssetManager.WindowFont, unit.CurrentGold + "G")
                                     }
                                 },
@@ -306,23 +306,14 @@ namespace SolStandard.Containers.View
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
             Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
             background.Draw(spriteBatch, centerScreen - backgroundCenter);
-            if (BlueTeamLeaderPortrait != null)
-                BlueTeamLeaderPortrait.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
-            if (BlueTeamUnitRoster != null)
-                BlueTeamUnitRoster.Draw(spriteBatch, BlueTeamUnitRosterPosition());
-            if (BlueTeamResult != null)
-                BlueTeamResult.Draw(spriteBatch, BlueTeamResultPosition());
-            if (ResultsLabelWindow != null)
-            {
-                ResultsLabelWindow.Draw(spriteBatch, ResultsLabelWindowPosition());
-            }
+            BlueTeamLeaderPortrait?.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
+            BlueTeamUnitRoster?.Draw(spriteBatch, BlueTeamUnitRosterPosition());
+            BlueTeamResult?.Draw(spriteBatch, BlueTeamResultPosition());
+            ResultsLabelWindow?.Draw(spriteBatch, ResultsLabelWindowPosition());
 
-            if (RedTeamLeaderPortrait != null)
-                RedTeamLeaderPortrait.Draw(spriteBatch, RedTeamLeaderPortraitPosition());
-            if (RedTeamUnitRoster != null)
-                RedTeamUnitRoster.Draw(spriteBatch, RedTeamUnitRosterPosition());
-            if (RedTeamResult != null)
-                RedTeamResult.Draw(spriteBatch, RedTeamResultPosition());
+            RedTeamLeaderPortrait?.Draw(spriteBatch, RedTeamLeaderPortraitPosition());
+            RedTeamUnitRoster?.Draw(spriteBatch, RedTeamUnitRosterPosition());
+            RedTeamResult?.Draw(spriteBatch, RedTeamResultPosition());
         }
     }
 }

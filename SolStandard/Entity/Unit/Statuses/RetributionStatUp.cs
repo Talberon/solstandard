@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int retModifier;
 
         public RetributionStatUp(int turnDuration, int retModifier) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Retribution, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Retribution, GameDriver.CellSizeVector),
             name: UnitStatistics.Abbreviation[Stats.Retribution] + " Up! <+" + retModifier + ">",
             description: "Increased retribution.",
             turnDuration: turnDuration,

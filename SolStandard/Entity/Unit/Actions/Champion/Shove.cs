@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
     public class Shove : UnitAction
     {
         public Shove() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Shove, GameDriver.CellSizeVector),
             name: "Shove",
             description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

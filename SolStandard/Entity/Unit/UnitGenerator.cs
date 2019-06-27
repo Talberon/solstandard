@@ -430,7 +430,7 @@ namespace SolStandard.Entity.Unit
                     unitStatistics = SelectSpiderStats();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("role", role, null);
+                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
             }
 
             return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, isCommander);
@@ -487,7 +487,7 @@ namespace SolStandard.Entity.Unit
                     unitActions = SelectPaladinSkills();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("role", role, null);
+                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
             }
 
             return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);

@@ -9,7 +9,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class BackspaceOption : MenuOption
     {
-        private NetworkMenuView NetworkMenuView { get; set; }
+        private NetworkMenuView NetworkMenuView { get; }
         private const string Backspace = "<<";
 
         public BackspaceOption(Color color, NetworkMenuView networkMenuView) : base(

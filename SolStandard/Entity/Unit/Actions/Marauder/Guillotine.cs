@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
     public class Guillotine : UnitAction
     {
         public Guillotine() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Guillotine, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Guillotine, GameDriver.CellSizeVector),
             name: "Guillotine",
             description: "Perform a basic attack. If the target unit is defeated, regenerate <1/3> of missing " +
                          UnitStatistics.Abbreviation[Stats.Hp] + " (rounded down).",

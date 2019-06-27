@@ -63,7 +63,7 @@ namespace SolStandard.Entity.Unit.Actions
                     if (trapItem != null)
                     {
                         GameContext.ActiveUnit.RemoveItemFromInventory(trapItem);
-                        trapItem.MapCoordinates = targetSlice.MapCoordinates;
+                        trapItem.SnapToCoordinates(targetSlice.MapCoordinates);
                         trapToPlace = trapItem;
                     }
                     else
@@ -74,6 +74,9 @@ namespace SolStandard.Entity.Unit.Actions
 
                     MapContainer.ClearDynamicAndPreviewGrids();
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent((TrapEntity) trapToPlace.Duplicate(), Layer.Entities,
                         AssetManager.DropItemSFX));
                     eventQueue.Enqueue(new EndTurnEvent());

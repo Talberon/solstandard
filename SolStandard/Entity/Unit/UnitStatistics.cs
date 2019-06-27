@@ -50,15 +50,15 @@ namespace SolStandard.Entity.Unit
         private const int CommanderBlkBonus = 0;
         private const int IconSizePixels = 16;
 
-        public int MaxHP { get; private set; }
-        public int MaxArmor { get; private set; }
-        public int[] BaseAtkRange { get; private set; }
+        public int MaxHP { get; }
+        public int MaxArmor { get; }
+        public int[] BaseAtkRange { get; }
 
-        public int BaseAtk { get; private set; }
-        public int BaseRet { get; private set; }
-        public int BaseLuck { get; private set; }
-        public int BaseMv { get; private set; }
-        public int BaseBlk { get; private set; }
+        public int BaseAtk { get; }
+        public int BaseRet { get; }
+        public int BaseLuck { get; }
+        public int BaseMv { get; }
+        public int BaseBlk { get; }
 
         public int CurrentHP { get; set; }
         public int CurrentArmor { get; set; }
@@ -84,6 +84,7 @@ namespace SolStandard.Entity.Unit
             currentArmor: armor,
             atkModifier: 0,
             retModifier: 0,
+            blkModifier: 0,
             luckModifier: 0,
             mvModifier: 0,
             currentAtkRange: atkRange
@@ -92,8 +93,8 @@ namespace SolStandard.Entity.Unit
         }
 
         private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseBlk, int baseLuck, int baseMv,
-            int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int luckModifier,
-            int mvModifier, int[] currentAtkRange
+            int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int blkModifier,
+            int luckModifier, int mvModifier, int[] currentAtkRange
         )
         {
             CurrentHP = currentHP;
@@ -103,6 +104,7 @@ namespace SolStandard.Entity.Unit
             AtkModifier = atkModifier;
             RetModifier = retModifier;
             LuckModifier = luckModifier;
+            BlkModifier = blkModifier;
             MvModifier = mvModifier;
 
             MaxHP = maxHP;
@@ -131,36 +133,18 @@ namespace SolStandard.Entity.Unit
                 currentArmor: CurrentArmor,
                 atkModifier: AtkModifier,
                 retModifier: RetModifier,
+                blkModifier: BlkModifier,
                 luckModifier: weaponStatistics.LuckModifier,
                 mvModifier: MvModifier,
                 currentAtkRange: weaponStatistics.AtkRange
             );
         }
 
-        public int Atk
-        {
-            get { return BaseAtk + AtkModifier; }
-        }
-
-        public int Ret
-        {
-            get { return BaseRet + RetModifier; }
-        }
-
-        public int Luck
-        {
-            get { return BaseLuck + LuckModifier; }
-        }
-
-        public int Mv
-        {
-            get { return BaseMv + MvModifier; }
-        }
-
-        public int Blk
-        {
-            get { return BaseBlk + BlkModifier; }
-        }
+        public int Atk => BaseAtk + AtkModifier;
+        public int Ret => BaseRet + RetModifier;
+        public int Luck => BaseLuck + LuckModifier;
+        public int Mv => BaseMv + MvModifier;
+        public int Blk => BaseBlk + BlkModifier;
 
         public UnitStatistics ApplyCommanderBonuses()
         {
@@ -176,23 +160,9 @@ namespace SolStandard.Entity.Unit
             );
         }
 
-        public UnitStatistics RemoveCommanderBonuses()
-        {
-            return new UnitStatistics(
-                hp: MaxHP - CommanderHpBonus,
-                armor: MaxArmor - CommanderAmrBonus,
-                atk: Atk - CommanderAtkBonus,
-                ret: Ret - CommanderRetBonus,
-                blk: Blk - CommanderBlkBonus,
-                luck: Luck - CommanderLuckBonus,
-                mv: Mv - CommanderMvBonus,
-                atkRange: BaseAtkRange
-            );
-        }
-
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
-            return GetSpriteAtlas(stat, new Vector2(GameDriver.CellSize));
+            return GetSpriteAtlas(stat, GameDriver.CellSizeVector);
         }
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
@@ -249,8 +219,7 @@ namespace SolStandard.Entity.Unit
 
         public override bool Equals(object obj)
         {
-            UnitStatistics other = obj as UnitStatistics;
-            return other != null && Equals(other);
+            return obj is UnitStatistics other && Equals(other);
         }
 
         private bool Equals(UnitStatistics other)
@@ -272,25 +241,27 @@ namespace SolStandard.Entity.Unit
                    MvModifier == other.MvModifier;
         }
 
+        // ReSharper disable NonReadonlyMemberInGetHashCode
         public override int GetHashCode()
         {
             unchecked
             {
                 int hashCode = MaxHP;
-                hashCode = (hashCode * 397) ^ MaxArmor;
-                hashCode = (hashCode * 397) ^ (BaseAtkRange != null ? BaseAtkRange.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ BaseAtk;
-                hashCode = (hashCode * 397) ^ BaseRet;
-                hashCode = (hashCode * 397) ^ BaseLuck;
-                hashCode = (hashCode * 397) ^ BaseBlk;
-                hashCode = (hashCode * 397) ^ BaseMv;
-                hashCode = (hashCode * 397) ^ CurrentHP;
-                hashCode = (hashCode * 397) ^ CurrentArmor;
-                hashCode = (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ AtkModifier;
-                hashCode = (hashCode * 397) ^ RetModifier;
-                hashCode = (hashCode * 397) ^ LuckModifier;
-                hashCode = (hashCode * 397) ^ MvModifier;
+                hashCode += (hashCode * 397) ^ MaxArmor;
+                hashCode += (hashCode * 397) ^ (BaseAtkRange != null ? BaseAtkRange.GetHashCode() : 0);
+                hashCode += (hashCode * 397) ^ BaseAtk;
+                hashCode += (hashCode * 397) ^ BaseRet;
+                hashCode += (hashCode * 397) ^ BaseLuck;
+                hashCode += (hashCode * 397) ^ BaseBlk;
+                hashCode += (hashCode * 397) ^ BaseMv;
+
+                hashCode += (hashCode * 397) ^ CurrentHP;
+                hashCode += (hashCode * 397) ^ CurrentArmor;
+                hashCode += (hashCode * 397) ^ (CurrentAtkRange != null ? CurrentAtkRange.GetHashCode() : 0);
+                hashCode += (hashCode * 397) ^ AtkModifier;
+                hashCode += (hashCode * 397) ^ RetModifier;
+                hashCode += (hashCode * 397) ^ LuckModifier;
+                hashCode += (hashCode * 397) ^ MvModifier;
                 return hashCode;
             }
         }

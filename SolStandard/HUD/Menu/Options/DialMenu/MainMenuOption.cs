@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class MainMenuOption : MenuOption
     {
-        private NetworkMenuView NetworkMenuView { get; set; }
+        private NetworkMenuView NetworkMenuView { get; }
         private const string MainMenu = "Menu";
 
         public MainMenuOption(Color color, NetworkMenuView networkMenuView) : base(

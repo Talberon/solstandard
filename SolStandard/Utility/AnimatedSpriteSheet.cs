@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Utility.Monogame;
 
@@ -9,106 +10,109 @@ namespace SolStandard.Utility
         protected readonly ITexture2D SpriteMap;
         protected readonly int CellSize;
         protected Vector2 RenderSize;
-        private readonly Vector2 spriteFrameCount;
+        protected readonly int SpriteFrameCount;
         private int currentRow;
-        private int currentColumn;
-        private int frameDelayCounter;
+        protected int CurrentColumn { get; private set; }
+        protected int FrameDelayCounter { get; private set; }
         protected int FrameDelay { get; set; }
         protected readonly int DefaultFrameDelay;
         protected readonly bool Reversible;
         private bool reversing;
         public Color DefaultColor { get; set; }
+        protected bool IsFlipped;
 
         public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
-            bool reversible, Color color)
+            bool reversible, Color color, bool isFlipped = false)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
             Reversible = reversible;
             DefaultFrameDelay = frameDelay;
             FrameDelay = frameDelay;
-            frameDelayCounter = 0;
+            FrameDelayCounter = 0;
             currentRow = 0;
-            currentColumn = 0;
+            CurrentColumn = 0;
             reversing = false;
-            spriteFrameCount = CalculateSpriteFrameCount();
+            SpriteFrameCount = CalculateSpriteFrameCount();
             RenderSize = renderSize;
             DefaultColor = color;
+            IsFlipped = isFlipped;
         }
 
-        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible) : this(
-            spriteMap,
-            cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White)
+        public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, int frameDelay, bool reversible,
+            bool isFlipped = false) : this(
+            spriteMap, cellSize, new Vector2(cellSize), frameDelay, reversible, Color.White, isFlipped)
         {
         }
 
 
         public void SetSpriteCell(int spriteMapColumn, int spriteMapRow)
         {
-            currentColumn = spriteMapColumn;
+            CurrentColumn = spriteMapColumn;
             currentRow = spriteMapRow;
         }
 
-        private Vector2 CalculateSpriteFrameCount()
+        private int CalculateSpriteFrameCount()
         {
             float columns = (float) SpriteMap.Width / CellSize;
-            float rows = (float) SpriteMap.Width / CellSize;
-
-            return new Vector2(columns, rows);
+            return Convert.ToInt32(columns);
         }
 
+        protected void ResetAnimation()
+        {
+            CurrentColumn = 0;
+            FrameDelayCounter = 0;
+        }
 
         private void UpdateFrame()
         {
-            if (frameDelayCounter % FrameDelay == 0)
+            if (FrameDelayCounter % FrameDelay == 0)
             {
-                frameDelayCounter = 0;
+                FrameDelayCounter = 0;
 
-                if (currentColumn < spriteFrameCount.X - 1)
+                if (CurrentColumn < SpriteFrameCount - 1)
                 {
-                    currentColumn++;
+                    CurrentColumn++;
                 }
                 else
                 {
-                    currentColumn = 0;
+                    CurrentColumn = 0;
                 }
             }
 
-            frameDelayCounter++;
+            FrameDelayCounter++;
         }
 
         private void UpdateFrameReversible()
         {
-            if (frameDelayCounter % FrameDelay == 0)
+            if (FrameDelayCounter % FrameDelay == 0)
             {
-                frameDelayCounter = 0;
+                FrameDelayCounter = 0;
 
-                if (currentColumn < spriteFrameCount.X - 1 && !reversing)
+                if (CurrentColumn < SpriteFrameCount - 1 && !reversing)
                 {
-                    currentColumn++;
+                    CurrentColumn++;
                 }
-                else if (reversing && currentColumn > 0)
+                else if (reversing && CurrentColumn > 0)
                 {
-                    currentColumn--;
+                    CurrentColumn--;
                 }
 
-                if (currentColumn >= spriteFrameCount.X - 1 || reversing && currentColumn <= 0)
+                if (CurrentColumn >= SpriteFrameCount - 1 || reversing && CurrentColumn <= 0)
                 {
                     reversing = !reversing;
                 }
             }
 
-            frameDelayCounter++;
+            FrameDelayCounter++;
         }
 
-        public int Height
-        {
-            get { return (int) RenderSize.Y; }
-        }
+        public int Height => (int) RenderSize.Y;
+        public int Width => (int) RenderSize.X;
 
-        public int Width
+        public void Flip()
         {
-            get { return (int) RenderSize.X; }
+            IsFlipped = !IsFlipped;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -116,7 +120,7 @@ namespace SolStandard.Utility
             Draw(spriteBatch, position, DefaultColor);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             if (Reversible)
             {
@@ -127,7 +131,8 @@ namespace SolStandard.Utility
                 UpdateFrame();
             }
 
-            spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride);
+            spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride, 0f,
+                Vector2.Zero, IsFlipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         }
 
         private Rectangle RenderRectangle(Vector2 position)
@@ -137,18 +142,20 @@ namespace SolStandard.Utility
 
         private Rectangle CurrentCell()
         {
-            Rectangle rendercell = new Rectangle(CellSize * currentColumn, CellSize * currentRow, CellSize, CellSize);
+            Rectangle rendercell = new Rectangle(CellSize * CurrentColumn, CellSize * currentRow, CellSize, CellSize);
             return rendercell;
         }
 
         public virtual IRenderable Resize(Vector2 newSize)
         {
-            return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor,
+                IsFlipped);
         }
 
         public virtual IRenderable Clone()
         {
-            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor);
+            return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor,
+                IsFlipped);
         }
     }
 }

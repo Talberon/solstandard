@@ -5,7 +5,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -24,8 +23,8 @@ namespace SolStandard.Entity.General
         private readonly bool willSnare;
 
         public int TriggersRemaining { get; private set; }
-        public int Damage { get; private set; }
-        public string ItemPool { get; private set; }
+        public int Damage { get; }
+        public string ItemPool { get; }
         public bool IsExpired { get; private set; }
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
@@ -135,42 +134,37 @@ namespace SolStandard.Entity.General
             ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new Window(new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                                    new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
-                                },
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont,
-                                        (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
-                                }
-                            }, InnerWindowColor),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new Window(new IRenderable[,]
+                        {
+                            {
+                                UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                                new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
+                            },
+                            {
+                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                new RenderText(AssetManager.WindowFont,
+                                    (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
+                            }
+                        }, InnerWindowColor),
+                        new RenderBlank()
+                    }
+                },
+                1
+            );
 
         public UnitAction UseAction()
         {
@@ -188,14 +182,8 @@ namespace SolStandard.Entity.General
                 willSnare, ItemPool);
         }
 
-        public bool IsBroken
-        {
-            get { return IsExpired; }
-        }
+        public bool IsBroken => IsExpired;
 
-        public IRenderable Icon
-        {
-            get { return RenderSprite; }
-        }
+        public IRenderable Icon => RenderSprite;
     }
 }

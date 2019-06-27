@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
         private readonly int skillRange;
 
         public Challenge(int skillRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Challenge, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Challenge, GameDriver.CellSizeVector),
             name: "Challenge",
             description: "Taunt an enemy within range towards you, then attack.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),

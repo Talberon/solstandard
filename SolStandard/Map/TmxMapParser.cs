@@ -26,7 +26,8 @@ namespace SolStandard.Map
         Entities,
         Items,
         Preview,
-        Dynamic
+        Dynamic,
+        OverlayEffect
     }
 
     /**
@@ -44,7 +45,7 @@ namespace SolStandard.Map
         private List<MapElement[,]> gameTileLayers;
         private List<UnitEntity> unitLayer;
 
-        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid { get; set; }
+        private List<KeyValuePair<ITexture2D, int>> TilesetsSortedByFirstGid { get; }
 
         public TmxMapParser(TmxMap tmxMap, ITexture2D worldTileSetSprite, ITexture2D terrainSprite,
             List<ITexture2D> unitSprites, string objectTypesDefaultXmlPath)
@@ -123,6 +124,7 @@ namespace SolStandard.Map
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Items"),
                 new MapElement[tmxMap.Width, tmxMap.Height],
+                new MapElement[tmxMap.Width, tmxMap.Height],
                 new MapElement[tmxMap.Width, tmxMap.Height]
             };
 
@@ -175,7 +177,7 @@ namespace SolStandard.Map
                             tileGrid[col, row] = new MapTile(
                                 new SpriteAtlas(
                                     FindTileSet(tile.Gid),
-                                    new Vector2(GameDriver.CellSize),
+                                    GameDriver.CellSizeVector,
                                     FindTileId(tile.Gid)
                                 ),
                                 new Vector2(col, row));
@@ -229,7 +231,7 @@ namespace SolStandard.Map
                                 {
                                     tileSprite = new SpriteAtlas(
                                         FindTileSet(objectTileId),
-                                        new Vector2(GameDriver.CellSize),
+                                        GameDriver.CellSizeVector,
                                         FindTileId(objectTileId)
                                     );
                                 }
@@ -601,8 +603,7 @@ namespace SolStandard.Map
                                                 .Select(n => Convert.ToInt32(n)).ToArray(),
                                             //Quantities
                                             currentProperties["quantities"].Split('|')
-                                                .Select(n => Convert.ToInt32(n)).ToArray(),
-                                            currentProperties
+                                                .Select(n => Convert.ToInt32(n)).ToArray()
                                         );
                                         break;
                                     case EntityTypes.RecoveryTile:
@@ -705,7 +706,7 @@ namespace SolStandard.Map
                                         break;
                                     default:
                                         throw new IndexOutOfRangeException(
-                                            string.Format("Entity type {0} does not exist!", currentObject.Type)
+                                            $"Entity type {currentObject.Type} does not exist!"
                                         );
                                 }
                             }
@@ -845,7 +846,7 @@ namespace SolStandard.Map
             AnimatedTileSprite tileSprite = new AnimatedTileSprite(
                 FindTileSet(tile.Gid),
                 tileIds,
-                new Vector2(GameDriver.CellSize)
+                GameDriver.CellSizeVector
             );
 
             return tileSprite;

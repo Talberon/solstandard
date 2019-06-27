@@ -11,9 +11,9 @@ namespace SolStandard.Entity.General.Item
     public class WeaponStatistics
     {
         public int UsesRemaining { get; private set; }
-        public int AtkValue { get; private set; }
-        public int LuckModifier { get; private set; }
-        public int[] AtkRange { get; private set; }
+        public int AtkValue { get; }
+        public int LuckModifier { get; }
+        public int[] AtkRange { get; }
 
         public WeaponStatistics(int atkValue, int luckModifier, int[] atkRange, int usesRemaining)
         {
@@ -23,10 +23,7 @@ namespace SolStandard.Entity.General.Item
             UsesRemaining = usesRemaining;
         }
 
-        public bool IsBroken
-        {
-            get { return UsesRemaining < 1; }
-        }
+        public bool IsBroken => UsesRemaining < 1;
 
         public void DecrementRemainingUses()
         {
@@ -52,24 +49,24 @@ namespace SolStandard.Entity.General.Item
             IRenderable[,] statGrid =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
                     new RenderText(textFont, UnitStatistics.Abbreviation[Stats.Atk] + ": " + AtkValue)
                 },
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.Luck, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.Luck, GameDriver.CellSizeVector),
                     new RenderText(textFont,
                         UnitStatistics.Abbreviation[Stats.Luck] + ": " + ((LuckModifier > 0) ? "+" : string.Empty) +
                         LuckModifier)
                 },
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, new Vector2(GameDriver.CellSize)),
+                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
                     new RenderText(textFont,
                         UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]")
                 },
                 {
-                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, new Vector2(GameDriver.CellSize)),
+                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, GameDriver.CellSizeVector),
                     new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
-                },
+                }
             };
 
             return new WindowContentGrid(statGrid, 3);

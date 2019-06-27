@@ -27,19 +27,13 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public Color DefaultColor
         {
-            get { return (Active) ? activeColor : inactiveColor; }
-            set { activeColor = value; }
+            get => (Active) ? activeColor : inactiveColor;
+            set => activeColor = value;
         }
 
-        public int Height
-        {
-            get { return (int) Size.Y; }
-        }
+        public int Height => (int) Size.Y;
 
-        public int Width
-        {
-            get { return (int) Size.X; }
-        }
+        public int Width => (int) Size.X;
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

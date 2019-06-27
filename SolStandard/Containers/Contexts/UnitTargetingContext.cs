@@ -11,10 +11,10 @@ namespace SolStandard.Containers.Contexts
 {
     public class UnitTargetingContext
     {
-        private readonly SpriteAtlas spriteAtlas;
+        private readonly IRenderable spriteAtlas;
         private readonly bool numbersVisible;
 
-        public UnitTargetingContext(SpriteAtlas spriteAtlas, bool numbersVisible = false)
+        public UnitTargetingContext(IRenderable spriteAtlas, bool numbersVisible = false)
         {
             this.spriteAtlas = spriteAtlas;
             this.numbersVisible = numbersVisible;

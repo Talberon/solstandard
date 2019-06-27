@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int duration;
 
         public Accelerando(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, GameDriver.CellSizeVector),
             name: "Accelerando",
             description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

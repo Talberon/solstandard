@@ -4,6 +4,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Utility;
@@ -15,28 +16,36 @@ namespace SolStandard.Containers.View
     {
         private static readonly Vector2 WindowEdgeBuffer = new Vector2(WindowSpacing);
 
+        private const int WindowSlideSpeed = 5;
+        private const int WindowVerticalSlideDistance = 200;
+        private const int WindowHorizontalSlideDistance = 50;
+        private const int UnitSlideDistance = 10;
+
+        private const int CombatDelay = 3;
+        private const int RegularDelay = 12;
+
         private const int WindowSpacing = 5;
         private static readonly Vector2 HpBarSize = new Vector2(350, 80);
 
-        public Window AttackerPortraitWindow { get; private set; }
-        private Window AttackerDetailWindow { get; set; }
-        private Window AttackerHpWindow { get; set; }
-        private Window AttackerAtkWindow { get; set; }
-        public Window AttackerBonusWindow { get; private set; }
-        private Window AttackerRangeWindow { get; set; }
-        private Window AttackerDiceWindow { get; set; }
-        private Window AttackerSpriteWindow { get; set; }
+        public AnimatedWindow AttackerPortraitWindow { get; private set; }
+        private AnimatedWindow AttackerDetailWindow { get; set; }
+        private AnimatedWindow AttackerHpWindow { get; set; }
+        private AnimatedWindow AttackerAtkWindow { get; set; }
+        public AnimatedWindow AttackerBonusWindow { get; private set; }
+        private AnimatedWindow AttackerRangeWindow { get; set; }
+        private AnimatedWindow AttackerDiceWindow { get; set; }
+        private AnimatedWindow AttackerSpriteWindow { get; set; }
 
-        public Window DefenderPortraitWindow { get; private set; }
-        private Window DefenderDetailWindow { get; set; }
-        private Window DefenderHpWindow { get; set; }
-        private Window DefenderAtkWindow { get; set; }
-        private Window DefenderBonusWindow { get; set; }
-        private Window DefenderRangeWindow { get; set; }
-        private Window DefenderDiceWindow { get; set; }
-        private Window DefenderSpriteWindow { get; set; }
+        public AnimatedWindow DefenderPortraitWindow { get; private set; }
+        private AnimatedWindow DefenderDetailWindow { get; set; }
+        private AnimatedWindow DefenderHpWindow { get; set; }
+        private AnimatedWindow DefenderAtkWindow { get; set; }
+        private AnimatedWindow DefenderBonusWindow { get; set; }
+        private AnimatedWindow DefenderRangeWindow { get; set; }
+        private AnimatedWindow DefenderDiceWindow { get; set; }
+        private AnimatedWindow DefenderSpriteWindow { get; set; }
 
-        private Window HelpTextWindow { get; set; }
+        private AnimatedWindow HelpTextWindow { get; set; }
         private Window UserPromptWindow { get; set; }
 
         private bool visible;
@@ -45,6 +54,24 @@ namespace SolStandard.Containers.View
         {
             visible = true;
         }
+
+        private static IWindowAnimation RightBattlerAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Left, UnitSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation LeftBattlerAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, UnitSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation RightSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Left, WindowHorizontalSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation LeftSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowHorizontalSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation BottomWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Up, WindowVerticalSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation TopWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Down, WindowVerticalSlideDistance, WindowSlideSpeed);
 
         #region View Management
 
@@ -60,7 +87,7 @@ namespace SolStandard.Containers.View
         public void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
-            HelpTextWindow = new Window(helpTextContent, helpTextWindowColor);
+            HelpTextWindow = new AnimatedWindow(new Window(helpTextContent, helpTextWindowColor), TopWindowAnimation);
         }
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
@@ -74,43 +101,74 @@ namespace SolStandard.Containers.View
 
         public void GenerateAttackerSpriteWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
         {
-            AttackerSpriteWindow = BattlerWindow(attacker, spriteColor, state);
+            int frameDelay;
+            switch (state)
+            {
+                case UnitAnimationState.Attack:
+                    frameDelay = CombatDelay;
+                    break;
+                case UnitAnimationState.Hit:
+                    frameDelay = CombatDelay;
+                    break;
+                default:
+                    frameDelay = RegularDelay;
+                    break;
+            }
+
+            AttackerSpriteWindow =
+                new AnimatedWindow(BattlerWindow(attacker, spriteColor, state, frameDelay, false),
+                    LeftBattlerAnimation);
         }
 
         public void GenerateAttackerDamageWindow(Color attackerWindowColor, CombatDamage attackerDamage)
         {
-            AttackerDiceWindow = new Window(attackerDamage, attackerWindowColor);
+            AttackerDiceWindow =
+                new AnimatedWindow(new Window(attackerDamage, attackerWindowColor), LeftSideWindowAnimation);
         }
 
         public void GenerateAttackerInRangeWindow(Color attackerWindowColor, bool inRange)
         {
-            AttackerRangeWindow = RangeWindow(attackerWindowColor, inRange);
+            AttackerRangeWindow =
+                new AnimatedWindow(RangeWindow(attackerWindowColor, inRange), LeftSideWindowAnimation);
         }
 
         public void GenerateAttackerBonusWindow(TerrainBonus terrainBonus, Color attackerWindowColor)
         {
-            AttackerBonusWindow = BonusWindow(terrainBonus, attackerWindowColor);
+            AttackerBonusWindow =
+                new AnimatedWindow(BonusWindow(terrainBonus, attackerWindowColor), LeftSideWindowAnimation);
         }
 
         public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats, Stats combatStat)
         {
-            AttackerAtkWindow = CombatStatWindow(windowColor, attackerStats, combatStat);
+            AttackerAtkWindow = new AnimatedWindow(CombatStatWindow(windowColor, attackerStats, combatStat),
+                LeftSideWindowAnimation);
         }
 
         public void GenerateAttackerHpWindow(Color windowColor, GameUnit attacker)
         {
-            AttackerHpWindow = GenerateHpWindow(attacker, windowColor);
+            AttackerHpWindow = new AnimatedWindow(GenerateHpWindow(attacker, windowColor), LeftSideWindowAnimation);
         }
 
-        public void GenerateAttackerDetailWindow(Color attackerWindowColor,
-            IRenderable attackerDetail)
+        public void GenerateAttackerUnitCard(Color attackerWindowColor, GameUnit attacker, bool animated = true)
         {
-            AttackerDetailWindow = new Window(attackerDetail, attackerWindowColor);
+            GenerateAttackerDetailWindow(attackerWindowColor, attacker.DetailPane, animated);
+            GenerateAttackerPortraitWindow(attackerWindowColor, attacker.MediumPortrait, animated);
         }
 
-        public void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait)
+        private void GenerateAttackerDetailWindow(Color attackerWindowColor,
+            IRenderable attackerDetail, bool animated)
         {
-            AttackerPortraitWindow = new Window(attackerPortrait, attackerWindowColor);
+            AttackerDetailWindow =
+                new AnimatedWindow(new Window(attackerDetail, attackerWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(AttackerDetailWindowPosition()));
+        }
+
+        private void GenerateAttackerPortraitWindow(Color attackerWindowColor, IRenderable attackerPortrait,
+            bool animated)
+        {
+            AttackerPortraitWindow =
+                new AnimatedWindow(new Window(attackerPortrait, attackerWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(AttackerPortraitWindowPosition()));
         }
 
         #endregion Attacker Windows
@@ -119,47 +177,83 @@ namespace SolStandard.Containers.View
 
         public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
-            DefenderSpriteWindow = BattlerWindow(defender, spriteColor, state);
+            bool isFlipped;
+            int frameDelay;
+
+            switch (state)
+            {
+                case UnitAnimationState.Attack:
+                    isFlipped = true;
+                    frameDelay = CombatDelay;
+                    break;
+                case UnitAnimationState.Hit:
+                    isFlipped = true;
+                    frameDelay = CombatDelay;
+                    break;
+                default:
+                    isFlipped = false;
+                    frameDelay = RegularDelay;
+                    break;
+            }
+
+            DefenderSpriteWindow =
+                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, isFlipped),
+                    RightBattlerAnimation);
         }
 
 
         public void GenerateDefenderDamageWindow(Color defenderWindowColor, CombatDamage defenderDamage)
         {
-            DefenderDiceWindow = new Window(defenderDamage, defenderWindowColor);
+            DefenderDiceWindow =
+                new AnimatedWindow(new Window(defenderDamage, defenderWindowColor), RightSideWindowAnimation);
         }
 
         public void GenerateDefenderRangeWindow(Color defenderWindowColor, bool inRange)
         {
-            DefenderRangeWindow = RangeWindow(defenderWindowColor, inRange);
+            DefenderRangeWindow =
+                new AnimatedWindow(RangeWindow(defenderWindowColor, inRange), RightSideWindowAnimation);
         }
 
 
         public void GenerateDefenderBonusWindow(TerrainBonus terrainBonus, Color defenderWindowColor)
         {
-            DefenderBonusWindow = BonusWindow(terrainBonus, defenderWindowColor);
+            DefenderBonusWindow =
+                new AnimatedWindow(BonusWindow(terrainBonus, defenderWindowColor), RightSideWindowAnimation);
         }
 
 
         public void GenerateDefenderRetWindow(Color windowColor, UnitStatistics defenderStats, Stats combatStat)
         {
-            DefenderAtkWindow = CombatStatWindow(windowColor, defenderStats, combatStat);
+            DefenderAtkWindow = new AnimatedWindow(CombatStatWindow(windowColor, defenderStats, combatStat),
+                RightSideWindowAnimation);
         }
 
 
         public void GenerateDefenderHpWindow(Color windowColor, GameUnit defender)
         {
-            DefenderHpWindow = GenerateHpWindow(defender, windowColor);
+            DefenderHpWindow = new AnimatedWindow(GenerateHpWindow(defender, windowColor), RightSideWindowAnimation);
         }
 
-        public void GenerateDefenderDetailWindow(Color defenderWindowColor,
-            IRenderable defenderDetail)
+        public void GenerateDefenderUnitCard(Color defenderWindowColor, GameUnit defender, bool animated = true)
         {
-            DefenderDetailWindow = new Window(defenderDetail, defenderWindowColor);
+            GenerateDefenderDetailWindow(defenderWindowColor, defender.DetailPane, animated);
+            GenerateDefenderPortraitWindow(defenderWindowColor, defender.MediumPortrait, animated);
         }
 
-        public void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait)
+        private void GenerateDefenderDetailWindow(Color defenderWindowColor,
+            IRenderable defenderDetail, bool animated)
         {
-            DefenderPortraitWindow = new Window(defenderPortrait, defenderWindowColor);
+            DefenderDetailWindow =
+                new AnimatedWindow(new Window(defenderDetail, defenderWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(DefenderDetailWindowPosition()));
+        }
+
+        private void GenerateDefenderPortraitWindow(Color defenderWindowColor, IRenderable defenderPortrait,
+            bool animated)
+        {
+            DefenderPortraitWindow =
+                new AnimatedWindow(new Window(defenderPortrait, defenderWindowColor),
+                    animated ? BottomWindowAnimation : new WindowStatic(DefenderPortraitWindowPosition()));
         }
 
         #endregion Defender Windows
@@ -192,18 +286,20 @@ namespace SolStandard.Containers.View
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    ((terrainBonus.AtkBonus + terrainBonus.RetBonus + terrainBonus.BlockBonus + terrainBonus.LuckBonus) > 0)
+                    ((terrainBonus.AtkBonus + terrainBonus.RetBonus + terrainBonus.BlockBonus +
+                      terrainBonus.LuckBonus) > 0)
                         ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
                         : UnitStatistics.GetSpriteAtlas(Stats.Negative),
 
-                    new RenderText(AssetManager.WindowFont, "Bonus"),
+                    new RenderText(AssetManager.WindowFont, "Bonus")
                 }
             };
             WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);
             return new Window(attackerBonusContentGrid, attackerWindowColor);
         }
 
-        private static Window BattlerWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
+        private static Window BattlerWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state,
+            int frameDelay, bool isFlipped)
         {
             const int spriteSize = 200;
 
@@ -212,7 +308,7 @@ namespace SolStandard.Containers.View
                     new[,]
                     {
                         {
-                            attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state)
+                            attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state, frameDelay, isFlipped)
                         }
                     },
                     1
@@ -246,7 +342,7 @@ namespace SolStandard.Containers.View
                 new IRenderable[,]
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(combatStat, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(combatStat, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont, UnitStatistics.Abbreviation[combatStat] + ": "),
                         new RenderText(
                             AssetManager.WindowFont,
@@ -290,14 +386,6 @@ namespace SolStandard.Containers.View
             float referenceWindowYPosition)
         {
             return referenceWindowYPosition + referenceWindow.Height - placingWindow.Height;
-        }
-
-        private static float CenterHorizontally(IRenderable placingWindow, IRenderable referenceWindow,
-            float referenceWindowXPosition)
-        {
-            return referenceWindowXPosition +
-                   (float) referenceWindow.Width / 2 -
-                   (float) placingWindow.Width / 2;
         }
 
         #region Attacker
@@ -390,11 +478,11 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderDetailWindowPosition()
         {
             //Anchored left of portrait window
-            Vector2 defenderPortraitWindowPosition = DefenderPortraitWindowPosition();
+            (float x, float y) = DefenderPortraitWindowPosition();
 
             return new Vector2(
-                defenderPortraitWindowPosition.X - DefenderDetailWindow.Width,
-                BottomAlignWindow(DefenderDetailWindow, DefenderPortraitWindow, defenderPortraitWindowPosition.Y)
+                x - DefenderDetailWindow.Width,
+                BottomAlignWindow(DefenderDetailWindow, DefenderPortraitWindow, y)
             );
         }
 
@@ -410,44 +498,44 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderHpWindowPosition()
         {
             //Anchored above Sprite window
-            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+            (float x, float y) = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderSpriteWindowPosition.X,
-                defenderSpriteWindowPosition.Y - DefenderHpWindow.Height - WindowSpacing
+                x,
+                y - DefenderHpWindow.Height - WindowSpacing
             );
         }
 
         private Vector2 DefenderAtkWindowPosition()
         {
             //Anchored below Range window
-            Vector2 defenderRangeWindowPosition = DefenderRangeWindowPosition();
+            (float x, float y) = DefenderRangeWindowPosition();
 
             return new Vector2(
-                defenderRangeWindowPosition.X,
-                defenderRangeWindowPosition.Y + DefenderRangeWindow.Height + WindowSpacing
+                x,
+                y + DefenderRangeWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderBonusWindowPosition()
         {
             //Anchored below Atk window
-            Vector2 defenderAtkWindowPosition = DefenderAtkWindowPosition();
+            (float x, float y) = DefenderAtkWindowPosition();
 
             return new Vector2(
-                defenderAtkWindowPosition.X,
-                defenderAtkWindowPosition.Y + DefenderAtkWindow.Height + WindowSpacing
+                x,
+                y + DefenderAtkWindow.Height + WindowSpacing
             );
         }
 
         private Vector2 DefenderDiceWindowPosition()
         {
             //Anchored beneath Sprite Window
-            Vector2 defenderSpriteWindowPosition = DefenderSpriteWindowPosition();
+            (float x, float y) = DefenderSpriteWindowPosition();
 
             return new Vector2(
-                defenderSpriteWindowPosition.X,
-                defenderSpriteWindowPosition.Y + DefenderSpriteWindow.Height + WindowSpacing
+                x,
+                y + DefenderSpriteWindow.Height + WindowSpacing
                 - ((float) DefenderSpriteWindow.Height / 3)
             );
         }
@@ -455,11 +543,11 @@ namespace SolStandard.Containers.View
         private Vector2 DefenderRangeWindowPosition()
         {
             //Anchored beneath Dice Window
-            Vector2 defenderDiceWindowPosition = DefenderDiceWindowPosition();
+            (float x, float y) = DefenderDiceWindowPosition();
 
             return new Vector2(
-                defenderDiceWindowPosition.X,
-                defenderDiceWindowPosition.Y + DefenderDiceWindow.Height + WindowSpacing
+                x,
+                y + DefenderDiceWindow.Height + WindowSpacing
             );
         }
 
@@ -511,10 +599,7 @@ namespace SolStandard.Containers.View
                 }
             }
 
-            if (UserPromptWindow != null)
-            {
-                UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
-            }
+            UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
         }
     }
 }

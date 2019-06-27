@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public WaitRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Wait Routine",
                 description: "Wait in position.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -24,20 +24,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit unit)
         {
             return true;
         }
 
-        public bool CanExecute
-        {
-            get { return true; }
-        }
+        public bool CanExecute => true;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {

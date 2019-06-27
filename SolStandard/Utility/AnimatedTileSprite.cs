@@ -36,7 +36,7 @@ namespace SolStandard.Utility
         }
 
         public AnimatedTileSprite(ITexture2D tileMapTexture, List<int> frameIds, Vector2 renderSize)
-            : this(tileMapTexture, frameIds, new Vector2(GameDriver.CellSize), renderSize)
+            : this(tileMapTexture, frameIds, GameDriver.CellSizeVector, renderSize)
         {
         }
 
@@ -65,15 +65,9 @@ namespace SolStandard.Utility
             frameDelayCounter++;
         }
 
-        public int Height
-        {
-            get { return Convert.ToInt32(renderSize.Y); }
-        }
+        public int Height => Convert.ToInt32(renderSize.Y);
 
-        public int Width
-        {
-            get { return Convert.ToInt32(renderSize.X); }
-        }
+        public int Width => Convert.ToInt32(renderSize.X);
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

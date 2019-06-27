@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         private readonly int duration;
 
         public Frostbite(int duration, int mvToReduce) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Frostbite, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Frostbite, GameDriver.CellSizeVector),
             name: "Cryomancy - Frostbite",
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
                          " stat by [" + mvToReduce + "] for [" + duration + "] turn(s).",

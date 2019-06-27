@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int retToReduce;
 
         public RetributionStatDown(int turnDuration, int retToReduce) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Retribution, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Retribution, GameDriver.CellSizeVector),
             name: UnitStatistics.Abbreviation[Stats.Retribution] + " Down! <-" + retToReduce + ">",
             description: "Decreased retribution.",
             turnDuration: turnDuration,

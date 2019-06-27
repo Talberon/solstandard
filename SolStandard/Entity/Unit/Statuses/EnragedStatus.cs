@@ -10,7 +10,7 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public EnragedStatus(int turnDuration, int atkModifier) :
             base(
-                statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+                statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
                 name: "Enraged! <+" + atkModifier + " " + UnitStatistics.Abbreviation[Stats.Atk] + " / " +
                       "-" + atkModifier + " " + UnitStatistics.Abbreviation[Stats.Retribution] + ">",
                 description: "Increased attack power / Reduced retribution",

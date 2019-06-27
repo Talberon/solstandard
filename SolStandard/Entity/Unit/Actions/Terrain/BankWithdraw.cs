@@ -22,7 +22,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private const string DescriptionTag = "Withdraw: ";
 
         public BankWithdraw(Bank bank, int value = 0) : base(
-            icon: Currency.GoldIcon(new Vector2(GameDriver.CellSize)),
+            icon: Currency.GoldIcon(GameDriver.CellSizeVector),
             name: DescriptionTag + value + Currency.CurrencyAbbreviation,
             description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = new Vector2(GameDriver.CellSize);
+            Vector2 iconSize = GameDriver.CellSizeVector;
 
             return new WindowContentGrid(new[,]
                 {
@@ -55,14 +55,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
                         new RenderBlank(),
-                        new RenderBlank(),
+                        new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, ""),
+                        new RenderText(AssetManager.WindowFont, "")
                     }
                 },
                 2
@@ -113,6 +113,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     if (Value <= Bank.GetTeamGoldInBank(actingUnit.Team))
                     {
                         Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        eventQueue.Enqueue(
+                            new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                        );
                         eventQueue.Enqueue(new BankWithdrawEvent(actingUnit, Value));
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());

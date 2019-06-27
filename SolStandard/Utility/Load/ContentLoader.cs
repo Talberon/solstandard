@@ -148,7 +148,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepGoblin"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepRat"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepBat"),
-                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSpider"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSpider")
             };
 
             List<ITexture2D> spriteTextures = new List<ITexture2D>();
@@ -199,7 +199,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Goblin"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Rat"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Bat"),
-                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Spider"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Spider")
             };
 
             List<ITexture2D> portraitTextures = new List<ITexture2D>();
@@ -221,6 +221,36 @@ namespace SolStandard.Utility.Load
         {
             Texture2D fireTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire");
             return new Texture2DWrapper(fireTexture);
+        }
+
+        public static ITexture2D LoadDeathAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadInteractAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadDamageAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadRecoverArmorAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadRecoverHealthAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth");
+            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadCommanderIcon(ContentManager content)
@@ -292,7 +322,7 @@ namespace SolStandard.Utility.Load
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Alpha_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Escape_Prison"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01")
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -324,7 +354,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Windows"),
-                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu")
             };
 
             List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
@@ -357,7 +387,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter"),
-                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc")
             };
 
             List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
@@ -407,7 +437,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Stun"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Recover"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/BetwixtPlate"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FlowStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Frostbite"),
@@ -425,7 +455,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/TreasureHunter"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Glutton"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Summon"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wander"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wander")
             };
 
             List<ITexture2D> skillTextures = new List<ITexture2D>();
@@ -450,7 +480,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/StatusEffect/moraleBroken"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/clock"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")
             };
 
             List<ITexture2D> statusTextures = new List<ITexture2D>();

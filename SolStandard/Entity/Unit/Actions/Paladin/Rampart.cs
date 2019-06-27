@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         private readonly int duration;
 
         public Rampart(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rampart, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rampart, GameDriver.CellSizeVector),
             name: "Rampart",
             description: "Regenerate own " + UnitStatistics.Abbreviation[Stats.Armor] + " by " + "[+" + statModifier +
                          "] per turn for [" + duration + "] turns.",

@@ -1742,6 +1742,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/CommanderCrown.png
 
+#begin Graphics/Images/Icons/Misc/Damage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Damage.png
+
+#begin Graphics/Images/Icons/Misc/Death.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Death.png
+
 #begin Graphics/Images/Icons/Misc/durability.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1790,6 +1814,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/hand.png
 
+#begin Graphics/Images/Icons/Misc/Interact.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Interact.png
+
 #begin Graphics/Images/Icons/Misc/old_spoils.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1801,6 +1837,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/old_spoils.png
+
+#begin Graphics/Images/Icons/Misc/RecoverArmor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/RecoverArmor.png
+
+#begin Graphics/Images/Icons/Misc/RecoverHealth.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/RecoverHealth.png
 
 #begin Graphics/Images/Icons/Misc/spoils.png
 /importer:TextureImporter

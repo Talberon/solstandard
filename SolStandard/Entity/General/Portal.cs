@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
     {
         private readonly bool canMove;
         private readonly string destinationId;
-        public int[] InteractRange { get; private set; }
+        public int[] InteractRange { get; }
 
         public Portal(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool canMove,
             string destinationId, int[] range) :
@@ -32,35 +32,30 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                                (canMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, "Destination: " + destinationId),
-                            new RenderBlank()
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont,
-                                string.Format("Range: [{0}]", string.Join(",", InteractRange))),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
+                            (canMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, "Destination: " + destinationId),
+                        new RenderBlank()
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            $"Range: [{string.Join(",", InteractRange)}]"),
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
     }
 }

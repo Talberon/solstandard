@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int duration;
 
         public Capriccio(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
             name: "Capriccio",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Luck] +
                          " by [+" + statModifier + "] for [" + duration + "] turns.",

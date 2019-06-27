@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public TriggerHappyRoutine()
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Trigger Happy Routine",
                 description: "Interact with switches and openable tiles.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -29,10 +29,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit unit)
         {
@@ -82,8 +80,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             foreach (MapElement moveTile in moveTiles)
             {
                 MapSlice moveSlice = MapContainer.GetMapSliceAtCoordinates(moveTile.MapCoordinates);
-                ITriggerable triggerable = moveSlice.TerrainEntity as ITriggerable;
-                if (triggerable != null && triggerable.CanTrigger)
+                if (moveSlice.TerrainEntity is ITriggerable triggerable && triggerable.CanTrigger)
                 {
                     triggerables.Add(triggerable);
                 }
@@ -121,6 +118,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
 
             pathToItemQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToItemQueue.Enqueue(
+                new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
+            );
             pathToItemQueue.Enqueue(new CreepTriggerTileEvent(triggerable));
             pathToItemQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);

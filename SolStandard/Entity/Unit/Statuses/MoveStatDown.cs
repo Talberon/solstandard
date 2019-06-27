@@ -10,7 +10,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private const int SlowFrameDelay = 16;
 
         public MoveStatDown(int turnDuration, int pointsToReduce, string name = null) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
             name: name ?? UnitStatistics.Abbreviation[Stats.Mv] + " Down! <-" + pointsToReduce + ">",
             description: "Decreased movement distance.",
             turnDuration: turnDuration,

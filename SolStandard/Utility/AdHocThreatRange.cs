@@ -4,8 +4,8 @@ namespace SolStandard.Utility
 {
     public class AdHocThreatRange : IThreatRange
     {
-        public int[] AtkRange { get; private set; }
-        public int MvRange { get; private set; }
+        public int[] AtkRange { get; }
+        public int MvRange { get; }
 
         public AdHocThreatRange(int[] atkRange, int mvRange)
         {

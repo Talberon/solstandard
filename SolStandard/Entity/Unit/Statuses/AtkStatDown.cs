@@ -9,7 +9,7 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int pointsToReduce;
 
         public AtkStatDown(int turnDuration, int pointsToReduce, string name = null) : base(
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, new Vector2(GameDriver.CellSize)),
+            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
             name: name ?? UnitStatistics.Abbreviation[Stats.Atk] + " Down! <-" + pointsToReduce + ">",
             description: "Decreased attack power.",
             turnDuration: turnDuration,

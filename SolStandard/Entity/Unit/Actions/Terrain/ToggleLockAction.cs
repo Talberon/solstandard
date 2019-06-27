@@ -27,9 +27,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            ILockable targetUnlockable = targetSlice.TerrainEntity as ILockable;
-
-            if (targetUnlockable != null && KeyWorksOnLock(targetSlice, targetUnlockable))
+            if (targetSlice.TerrainEntity is ILockable targetUnlockable &&
+                KeyWorksOnLock(targetSlice, targetUnlockable))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -37,15 +36,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 GlobalEventQueue.QueueSingleEvent(new DeleteItemEvent(key));
 
-                if (targetUnlockable is Chest)
+                switch (targetUnlockable)
                 {
-                    Chest targetChest = targetUnlockable as Chest;
-                    new OpenChestAction(targetChest, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
-                }
-                else if (targetUnlockable is Door)
-                {
-                    Door targetDoor = targetUnlockable as Door;
-                    new UseDoorAction(targetDoor, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
+                    case Chest targetChest:
+                        new OpenChestAction(targetChest, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
+                        break;
+                    case Door door:
+                        new UseDoorAction(door, targetSlice.MapCoordinates).ExecuteAction(targetSlice);
+                        break;
                 }
             }
             else
@@ -66,8 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static bool LockedChestIsNotOpen(ILockable targetUnlockable)
         {
-            Chest targetChest = targetUnlockable as Chest;
-            return targetChest != null && !targetChest.IsOpen && targetChest.IsLocked;
+            return targetUnlockable is Chest targetChest && !targetChest.IsOpen && targetChest.IsLocked;
         }
     }
 }

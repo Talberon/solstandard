@@ -55,9 +55,6 @@ namespace SolStandard.Entity.Unit
 
     public class GameUnit : GameEntity, IThreatRange
     {
-        private readonly Team team;
-        private readonly Role role;
-
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -72,30 +69,29 @@ namespace SolStandard.Entity.Unit
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
         public static readonly Color ActivePortraitColor = Color.White;
 
-        private UnitStatistics stats;
-
         public bool IsExhausted { get; private set; }
 
-        public List<UnitAction> Actions { get; private set; }
-        public List<UnitAction> ContextualActions { get; private set; }
+        public List<UnitAction> Actions { get; }
+        public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
 
-        public List<StatusEffect> StatusEffects { get; private set; }
+        public List<StatusEffect> StatusEffects { get; }
         public bool IsCommander { get; set; }
         public bool IsMovable { get; set; }
 
-        public List<IItem> Inventory { get; private set; }
+        public List<IItem> Inventory { get; }
         public int CurrentGold { get; set; }
 
         private readonly UnitSpriteSheet unitSpriteSheet;
+        private TriggeredAnimation deathAnimation;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
             base(id, unitEntity)
         {
-            this.team = team;
-            this.role = role;
-            this.stats = stats;
+            Team = team;
+            Role = role;
+            Stats = stats;
             Actions = actions;
             IsCommander = isCommander;
             IsMovable = true;
@@ -115,51 +111,28 @@ namespace SolStandard.Entity.Unit
             CurrentGold = 0;
 
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
+            deathAnimation = null;
 
             ApplyCommanderBonus();
             ResetHealthBars();
         }
 
-        public UnitEntity UnitEntity
-        {
-            get { return (UnitEntity) MapEntity; }
-        }
+        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
 
-        public UnitStatistics Stats
-        {
-            get { return stats; }
-        }
+        public UnitStatistics Stats { get; private set; }
 
-        public Team Team
-        {
-            get { return team; }
-        }
+        public Team Team { get; }
 
-        public Role Role
-        {
-            get { return role; }
-        }
+        public Role Role { get; }
 
 
-        public bool IsActive
-        {
-            get { return GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted; }
-        }
+        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
 
-        public IRenderable LargePortrait
-        {
-            get { return largePortrait; }
-        }
+        public IRenderable LargePortrait => largePortrait;
 
-        public IRenderable MediumPortrait
-        {
-            get { return mediumPortrait; }
-        }
+        public IRenderable MediumPortrait => mediumPortrait;
 
-        public IRenderable SmallPortrait
-        {
-            get { return smallPortrait; }
-        }
+        public IRenderable SmallPortrait => smallPortrait;
 
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
@@ -315,7 +288,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            new SpriteAtlas(AssetManager.GoldIcon, new Vector2(GameDriver.CellSize)),
+                                            new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
                                             new RenderText(AssetManager.WindowFont,
                                                 "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
@@ -439,7 +412,7 @@ namespace SolStandard.Entity.Unit
                                                 UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
                                                 AssetManager.WindowFont,
-                                                string.Format("[{0}]", string.Join(",", Stats.CurrentAtkRange)),
+                                                $"[{string.Join(",", Stats.CurrentAtkRange)}]",
                                                 UnitStatistics.DetermineStatColor(Stats.CurrentAtkRange.Max(),
                                                     Stats.BaseAtkRange.Max())
                                             )
@@ -449,7 +422,7 @@ namespace SolStandard.Entity.Unit
                                 ),
                                 statPanelColor,
                                 threeColumnPanel
-                            ),
+                            )
                         }
                     },
                     2
@@ -457,13 +430,20 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        public IRenderable GetMapSprite(Vector2 size, Color color,
-            UnitAnimationState animation = UnitAnimationState.Idle)
+        public IRenderable GetMapSprite(Vector2 size, Color color, UnitAnimationState animation, int frameDelay,
+            bool isFlipped)
         {
             UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            if (isFlipped) clonedSpriteSheet.Flip();
+            clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
             clonedSpriteSheet.DefaultColor = color;
-            return clonedSpriteSheet.Resize(size);
+
+            if (IsAlive) return clonedSpriteSheet.Resize(size);
+            if (Stats.CurrentHP != 0) return deathAnimation as IRenderable ?? new RenderBlank();
+            deathAnimation = AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, size);
+            deathAnimation.PlayOnce();
+            return deathAnimation;
         }
 
         public void ArmUnitSkill(UnitAction action)
@@ -491,22 +471,22 @@ namespace SolStandard.Entity.Unit
                     break;
                 case Direction.Down:
                     SetUnitAnimation(UnitAnimationState.WalkDown);
-                    destination.Y = destination.Y + 1;
+                    destination.Y += 1;
                     break;
                 case Direction.Right:
                     SetUnitAnimation(UnitAnimationState.WalkRight);
-                    destination.X = destination.X + 1;
+                    destination.X += 1;
                     break;
                 case Direction.Up:
                     SetUnitAnimation(UnitAnimationState.WalkUp);
-                    destination.Y = destination.Y - 1;
+                    destination.Y -= 1;
                     break;
                 case Direction.Left:
                     SetUnitAnimation(UnitAnimationState.WalkLeft);
-                    destination.X = destination.X - 1;
+                    destination.X -= 1;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             if (UnitMovingContext.CanEndMoveAtCoordinates(destination) || ignoreCollision)
@@ -517,16 +497,16 @@ namespace SolStandard.Entity.Unit
 
         public void MoveUnitToCoordinates(Vector2 newCoordinates)
         {
-            MapEntity.MapCoordinates = newCoordinates;
+            MapEntity.SlideToCoordinates(newCoordinates);
             PreventUnitLeavingMapBounds(MapContainer.MapGridSize);
         }
 
         private void ResetHealthBars()
         {
-            combatHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            initiativeHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
-            resultsHealthBar = new MiniHealthBar(stats.MaxArmor, stats.MaxHP, Vector2.One);
+            combatHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            hoverWindowHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            initiativeHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            resultsHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
 
             healthbars = new List<IHealthBar>
             {
@@ -550,6 +530,12 @@ namespace SolStandard.Entity.Unit
 
             healthbars.ForEach(healthbar => healthbar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
             KillIfDead();
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
+                UnitEntity.MapCoordinates
+            );
         }
 
         public void RecoverArmor(int amountToRecover)
@@ -564,6 +550,12 @@ namespace SolStandard.Entity.Unit
             }
 
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverArmor, GameDriver.CellSizeVector),
+                UnitEntity.MapCoordinates
+            );
         }
 
 
@@ -579,6 +571,12 @@ namespace SolStandard.Entity.Unit
             }
 
             healthbars.ForEach(bar => bar.SetArmorAndHp(Stats.CurrentArmor, Stats.CurrentHP));
+
+            if (UnitEntity == null) return;
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.RecoverHealth, GameDriver.CellSizeVector),
+                UnitEntity.MapCoordinates
+            );
         }
 
         public void ActivateUnit()
@@ -586,7 +584,7 @@ namespace SolStandard.Entity.Unit
             if (UnitEntity == null) return;
             IsExhausted = false;
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
-            SetUnitAnimation(UnitAnimationState.Attack);
+            SetUnitAnimation(UnitAnimationState.Active);
             UpdateStatusEffects();
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
@@ -609,7 +607,7 @@ namespace SolStandard.Entity.Unit
             if (UnitEntity == null || IsExhausted) return;
 
             UnitEntity.SetState(UnitEntity.UnitEntityState.Active);
-            SetUnitAnimation(UnitAnimationState.Attack);
+            SetUnitAnimation(UnitAnimationState.Active);
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
             smallPortrait.DefaultColor = ActivePortraitColor;
@@ -625,10 +623,7 @@ namespace SolStandard.Entity.Unit
 
         public void SetUnitAnimation(UnitAnimationState state)
         {
-            if (UnitEntity != null)
-            {
-                UnitEntity.UnitSpriteSheet.SetAnimation(state);
-            }
+            UnitEntity?.UnitSpriteSheet.SetAnimation(state);
         }
 
         public void AddStatusEffect(StatusEffect statusEffect)
@@ -644,7 +639,7 @@ namespace SolStandard.Entity.Unit
         {
             if (!IsCommander) return;
 
-            stats = stats.ApplyCommanderBonuses();
+            Stats = Stats.ApplyCommanderBonuses();
             ResetHealthBars();
         }
 
@@ -705,24 +700,24 @@ namespace SolStandard.Entity.Unit
 
         private void KillIfDead()
         {
-            if (stats.CurrentHP <= 0 && MapEntity != null)
-            {
-                IsExhausted = true;
-                DropSpoils();
-                largePortrait.DefaultColor = DeadPortraitColor;
-                mediumPortrait.DefaultColor = DeadPortraitColor;
-                smallPortrait.DefaultColor = DeadPortraitColor;
-                Trace.WriteLine("Unit " + Id + " is dead!");
-                AssetManager.CombatDeathSFX.Play();
-                MapEntity = null;
-                GameMapContext.GameMapView.GenerateObjectiveWindow();
-            }
+            if (Stats.CurrentHP > 0 || MapEntity == null) return;
+
+            IsExhausted = true;
+            DropSpoils();
+            largePortrait.DefaultColor = DeadPortraitColor;
+            mediumPortrait.DefaultColor = DeadPortraitColor;
+            smallPortrait.DefaultColor = DeadPortraitColor;
+            Trace.WriteLine("Unit " + Id + " is dead!");
+            AssetManager.CombatDeathSFX.Play();
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),
+                MapEntity.MapCoordinates
+            );
+            MapEntity = null;
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
         }
 
-        public bool IsAlive
-        {
-            get { return stats.CurrentHP > 0 && MapEntity != null; }
-        }
+        public bool IsAlive => Stats.CurrentHP > 0 && MapEntity != null;
 
         public void Escape()
         {
@@ -740,32 +735,30 @@ namespace SolStandard.Entity.Unit
             if (CurrentGold == 0 && Inventory.Count == 0) return;
 
             //If on top of other Spoils, pick those up before dropping on top of them
-            Spoils spoilsAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                    (int) MapEntity.MapCoordinates.Y] as Spoils;
 
-            if (spoilsAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                (int) MapEntity.MapCoordinates.Y] is Spoils spoilsAtUnitPosition)
             {
                 CurrentGold += spoilsAtUnitPosition.Gold;
                 Inventory.AddRange(spoilsAtUnitPosition.Items);
             }
 
 
-            TerrainEntity itemAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                    (int) MapEntity.MapCoordinates.Y] as TerrainEntity;
-
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (itemAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                (int) MapEntity.MapCoordinates.Y] is TerrainEntity itemAtUnitPosition)
             {
-                if (itemAtUnitPosition is IItem)
+                switch (itemAtUnitPosition)
                 {
-                    AddItemToInventory(itemAtUnitPosition as IItem);
-                }
-                else if (itemAtUnitPosition is Currency)
-                {
-                    Currency gold = itemAtUnitPosition as Currency;
-                    CurrentGold += gold.Value;
+                    case IItem item:
+                        AddItemToInventory(item);
+                        break;
+                    case Currency currency:
+                    {
+                        Currency gold = currency;
+                        CurrentGold += gold.Value;
+                        break;
+                    }
                 }
             }
 
@@ -773,7 +766,7 @@ namespace SolStandard.Entity.Unit
                 = new Spoils(
                     Id + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                     MapEntity.MapCoordinates,
                     CurrentGold,
                     new List<IItem>(Inventory)
@@ -787,22 +780,22 @@ namespace SolStandard.Entity.Unit
         {
             if (MapEntity.MapCoordinates.X < 0)
             {
-                MapEntity.MapCoordinates = new Vector2(0, MapEntity.MapCoordinates.Y);
+                MapEntity.SnapToCoordinates(new Vector2(0, MapEntity.MapCoordinates.Y));
             }
 
             if (MapEntity.MapCoordinates.X >= mapSize.X)
             {
-                MapEntity.MapCoordinates = new Vector2(mapSize.X - 1, MapEntity.MapCoordinates.Y);
+                MapEntity.SnapToCoordinates(new Vector2(mapSize.X - 1, MapEntity.MapCoordinates.Y));
             }
 
             if (MapEntity.MapCoordinates.Y < 0)
             {
-                MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, 0);
+                MapEntity.SnapToCoordinates(new Vector2(MapEntity.MapCoordinates.X, 0));
             }
 
             if (MapEntity.MapCoordinates.Y >= mapSize.Y)
             {
-                MapEntity.MapCoordinates = new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1);
+                MapEntity.SnapToCoordinates(new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1));
             }
         }
 
@@ -821,19 +814,33 @@ namespace SolStandard.Entity.Unit
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
         }
 
+        public bool IsDifferentFrom(int hashCode)
+        {
+            return GetHashCode() != hashCode;
+        }
+
+        // ReSharper disable NonReadonlyMemberInGetHashCode
+        public override int GetHashCode()
+        {
+            const int serialId = 123014;
+            int hashCode = Stats.GetHashCode();
+            hashCode += Id.Length;
+            hashCode += Inventory.Count;
+            hashCode += StatusEffects.Count;
+            hashCode += (int) Team;
+            hashCode += (int) Role;
+            hashCode += CurrentGold;
+            hashCode *= serialId;
+            return hashCode;
+        }
+
         public static SpriteAtlas GetCommanderCrown(Vector2 size)
         {
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
 
-        public int[] AtkRange
-        {
-            get { return Stats.CurrentAtkRange; }
-        }
+        public int[] AtkRange => Stats.CurrentAtkRange;
 
-        public int MvRange
-        {
-            get { return Stats.Mv; }
-        }
+        public int MvRange => Stats.Mv;
     }
 }

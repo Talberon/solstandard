@@ -68,10 +68,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             }
         }
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private Window BuildObjectiveWindow()
         {
@@ -83,10 +80,10 @@ namespace SolStandard.Containers.Contexts.WinConditions
                             new Window(new RenderText(AssetManager.WindowFont, "Escape [" + escapeTeam + "]"),
                                 TeamUtility.DetermineTeamColor(escapeTeam)),
                             ObjectiveIconProvider.GetObjectiveIcon(
-                                VictoryConditions.Escape, new Vector2(GameDriver.CellSize)
+                                VictoryConditions.Escape, GameDriver.CellSizeVector
                             ),
                             new Window(new RenderText(AssetManager.WindowFont, "Rout [" + hunterTeam + "]"),
-                                TeamUtility.DetermineTeamColor(hunterTeam)),
+                                TeamUtility.DetermineTeamColor(hunterTeam))
                         }
                     },
                     2,

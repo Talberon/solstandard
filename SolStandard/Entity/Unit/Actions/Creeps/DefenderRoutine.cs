@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public DefenderRoutine()
             : base(
-                icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+                icon: UnitStatistics.GetSpriteAtlas(Stats.Armor, GameDriver.CellSizeVector),
                 name: "Defender Routine",
                 description: "Wander and then defend to recover " + UnitStatistics.Abbreviation[Stats.Armor] + ".",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
@@ -25,20 +25,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon
-        {
-            get { return UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon => UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit creepUnit)
         {
             return creepUnit.Stats.CurrentArmor < creepUnit.Stats.MaxArmor;
         }
 
-        public bool CanExecute
-        {
-            get { return true; }
-        }
+        public bool CanExecute => true;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {

@@ -31,11 +31,11 @@ namespace SolStandard.Containers.View
 
         public Window ItemDetailWindow { get; private set; }
 
-        public Window ObjectiveWindow { get; private set; }
+        public Window ObjectiveWindow { get; }
 
         private Window EntityWindow { get; set; }
 
-        private Window HelpText { get; set; }
+        private Window HelpText { get; }
 
         public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit, Scenario scenario)
         {
@@ -159,62 +159,26 @@ namespace SolStandard.Containers.View
 
         #region WindowPositions
 
-        private Vector2 BlueDeployRosterPosition
-        {
-            //Top-left
-            get { return new Vector2(WindowEdgePadding); }
-        }
+        private Vector2 BlueDeployRosterPosition => new Vector2(WindowEdgePadding);
 
-        private Vector2 RedDeployRosterPosition
-        {
-            get
-            {
-                //Bottom-right
-                return GameDriver.ScreenSize - new Vector2(WindowEdgePadding) -
-                       new Vector2(RedDeployRoster.Width, RedDeployRoster.Height);
-            }
-        }
+        private Vector2 RedDeployRosterPosition =>
+            GameDriver.ScreenSize - new Vector2(WindowEdgePadding) -
+            new Vector2(RedDeployRoster.Width, RedDeployRoster.Height);
 
-        private Vector2 HelpTextPosition
-        {
-            get
-            {
-                //Bottom-left
-                return new Vector2(WindowEdgePadding, GameDriver.ScreenSize.Y - HelpText.Height - WindowEdgePadding);
-            }
-        }
+        private Vector2 HelpTextPosition => new Vector2(WindowEdgePadding, GameDriver.ScreenSize.Y - HelpText.Height - WindowEdgePadding);
 
-        private Vector2 EntityWindowPosition
-        {
-            get
-            {
-                //Top-Right
-                return new Vector2(GameDriver.ScreenSize.X - EntityWindow.Width - WindowEdgePadding, WindowEdgePadding);
-            }
-        }
+        private Vector2 EntityWindowPosition => new Vector2(GameDriver.ScreenSize.X - EntityWindow.Width - WindowEdgePadding, WindowEdgePadding);
 
-        private Vector2 UnitPortraitWindowPosition
-        {
-            get
-            {
-                //Bottom-left, above HelpText window
-                return new Vector2(WindowEdgePadding,
-                    HelpTextPosition.Y - UnitPortraitWindow.Height - WindowEdgePadding
-                );
-            }
-        }
+        private Vector2 UnitPortraitWindowPosition =>
+            new Vector2(WindowEdgePadding,
+                HelpTextPosition.Y - UnitPortraitWindow.Height - WindowEdgePadding
+            );
 
-        private Vector2 UnitDetailWindowPosition
-        {
-            get
-            {
-                //Bottom-left, right of portrait, above initiative window
-                return new Vector2(
-                    WindowEdgePadding + UnitPortraitWindow.Width,
-                    UnitPortraitWindowPosition.Y + UnitPortraitWindow.Height - UnitDetailWindow.Height
-                );
-            }
-        }
+        private Vector2 UnitDetailWindowPosition =>
+            new Vector2(
+                WindowEdgePadding + UnitPortraitWindow.Width,
+                UnitPortraitWindowPosition.Y + UnitPortraitWindow.Height - UnitDetailWindow.Height
+            );
 
         private Vector2 ItemDetailWindowPosition
         {
@@ -236,16 +200,11 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private Vector2 ObjectiveWindowPosition
-        {
-            get
-            {
-                return new Vector2(
-                    (GameDriver.ScreenSize.X / 2) - ((float) ObjectiveWindow.Width / 2),
-                    WindowEdgePadding
-                );
-            }
-        }
+        private Vector2 ObjectiveWindowPosition =>
+            new Vector2(
+                (GameDriver.ScreenSize.X / 2) - ((float) ObjectiveWindow.Width / 2),
+                WindowEdgePadding
+            );
 
         #endregion
 
@@ -257,17 +216,17 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (ObjectiveWindow != null) ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition);
+            ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition);
 
-            if (BlueDeployRoster != null) BlueDeployRoster.Draw(spriteBatch, BlueDeployRosterPosition);
-            if (RedDeployRoster != null) RedDeployRoster.Draw(spriteBatch, RedDeployRosterPosition);
-            if (HelpText != null) HelpText.Draw(spriteBatch, HelpTextPosition);
-            if (EntityWindow != null) EntityWindow.Draw(spriteBatch, EntityWindowPosition);
+            BlueDeployRoster?.Draw(spriteBatch, BlueDeployRosterPosition);
+            RedDeployRoster?.Draw(spriteBatch, RedDeployRosterPosition);
+            HelpText?.Draw(spriteBatch, HelpTextPosition);
+            EntityWindow?.Draw(spriteBatch, EntityWindowPosition);
 
-            if (UnitPortraitWindow != null) UnitPortraitWindow.Draw(spriteBatch, UnitPortraitWindowPosition);
-            if (UnitDetailWindow != null) UnitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition);
+            UnitPortraitWindow?.Draw(spriteBatch, UnitPortraitWindowPosition);
+            UnitDetailWindow?.Draw(spriteBatch, UnitDetailWindowPosition);
 
-            if (ItemDetailWindow != null) ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition);
+            ItemDetailWindow?.Draw(spriteBatch, ItemDetailWindowPosition);
         }
     }
 }

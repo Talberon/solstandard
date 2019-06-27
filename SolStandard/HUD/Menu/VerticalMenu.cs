@@ -15,7 +15,7 @@ namespace SolStandard.HUD.Menu
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
         private int CurrentOptionIndex { get; set; }
-        public Color DefaultColor { private get; set; }
+        public Color DefaultColor { get; set; }
         private const int Padding = 2;
         private readonly Window.Window menuWindow;
         public bool IsVisible { get; set; }
@@ -67,16 +67,10 @@ namespace SolStandard.HUD.Menu
             }
         }
 
-        public int Height
-        {
-            get { return menuWindow.Height; }
-        }
+        public int Height => menuWindow.Height;
 
 
-        public int Width
-        {
-            get { return menuWindow.Width; }
-        }
+        public int Width => menuWindow.Width;
 
         private Dictionary<MenuOption, Vector2> MapOptionCoordinates()
         {
@@ -85,20 +79,17 @@ namespace SolStandard.HUD.Menu
             Vector2 lastCoordinates =
                 new Vector2(AssetManager.WindowTexture.Width, AssetManager.WindowTexture.Height) / 3;
 
-            for (int i = 0; i < options.Length; i++)
+            foreach (MenuOption option in options)
             {
-                optionCoordinatesMapping[options[i]] = lastCoordinates;
-                lastCoordinates.Y += options[i].Height + Padding;
+                optionCoordinatesMapping[option] = lastCoordinates;
+                lastCoordinates.Y += option.Height + Padding;
             }
 
             return optionCoordinatesMapping;
         }
 
 
-        public MenuOption CurrentOption
-        {
-            get { return options[CurrentOptionIndex]; }
-        }
+        public MenuOption CurrentOption => options[CurrentOptionIndex];
 
         public void SelectOption()
         {
@@ -147,13 +138,13 @@ namespace SolStandard.HUD.Menu
         {
             MenuOption currentOption = options[CurrentOptionIndex];
 
-            Vector2 optionPosition = optionCoordinates[currentOption];
+            (float x, float y) = optionCoordinates[currentOption];
 
-            optionPosition.Y += (float) currentOption.Height / 2;
+            y += (float) currentOption.Height / 2;
 
             cursorPosition = new Vector2(
-                optionPosition.X - cursorSprite.Width,
-                optionPosition.Y - (float) cursorSprite.Height / 2
+                x - cursorSprite.Width,
+                y - (float) cursorSprite.Height / 2
             );
         }
 

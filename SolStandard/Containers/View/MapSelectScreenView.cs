@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -13,8 +14,11 @@ namespace SolStandard.Containers.View
     public class MapSelectScreenView : IUserInterface
     {
         private Window instructionWindow;
-        private Window mapInfoWindow;
+        private AnimatedWindow mapInfoWindow;
         private Window teamSelectWindow;
+
+        private const int WindowSlideSpeed = 40;
+        private const int WindowSlideDistance = 300;
 
         private const int WindowEdgeBuffer = 5;
         private static readonly Color InstructionWindowColor = new Color(50, 50, 50, 200);
@@ -28,10 +32,13 @@ namespace SolStandard.Containers.View
             SetUpWindows();
         }
 
+        private static IWindowAnimation LeftSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
+
         private void SetUpWindows()
         {
             WindowContentGrid instructionContentGrid = new WindowContentGrid(
-                new [,]
+                new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont,
@@ -46,7 +53,8 @@ namespace SolStandard.Containers.View
 
             instructionWindow = new Window(instructionContentGrid, InstructionWindowColor);
 
-            mapInfoWindow = new Window(new RenderBlank(), MapInfoWindowColor);
+            mapInfoWindow =
+                new AnimatedWindow(new Window(new RenderBlank(), MapInfoWindowColor), LeftSideWindowAnimation);
         }
 
         public void UpdateTeamSelectWindow()
@@ -55,7 +63,7 @@ namespace SolStandard.Containers.View
             Color solWindowColor = (GameContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
             Color lunaWindowColor = (GameContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
 
-            WindowContentGrid teamSelectContent = new WindowContentGrid(new [,]
+            WindowContentGrid teamSelectContent = new WindowContentGrid(new[,]
                 {
                     {
                         InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(iconSize)),
@@ -67,18 +75,18 @@ namespace SolStandard.Containers.View
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Red) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamColor(Team.Red)
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(TeamIconProvider.GetTeamIcon(Team.Red, new Vector2(iconSize)),
                                         Color.Transparent
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Red Team"),
                                         TeamUtility.DetermineTeamColor(Team.Red)
-                                    ),
-                                },
+                                    )
+                                }
                             }, 1, HorizontalAlignment.Centered), solWindowColor
                         ),
                         //LUNA TEAM
@@ -89,21 +97,21 @@ namespace SolStandard.Containers.View
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Blue) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamColor(Team.Blue)
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(TeamIconProvider.GetTeamIcon(Team.Blue, new Vector2(iconSize)),
                                         Color.Transparent
-                                    ),
+                                    )
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Blue Team"),
                                         TeamUtility.DetermineTeamColor(Team.Blue)
-                                    ),
-                                },
+                                    )
+                                }
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize))
                     }
                 }, 1, HorizontalAlignment.Centered
             );
@@ -113,14 +121,10 @@ namespace SolStandard.Containers.View
 
         public void UpdateMapInfoWindow(IRenderable terrainInfo)
         {
-            if (terrainInfo == null)
-            {
-                mapInfoWindow = null;
-            }
-            else
-            {
-                mapInfoWindow = new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right);
-            }
+            mapInfoWindow = terrainInfo == null
+                ? null
+                : new AnimatedWindow(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
+                    LeftSideWindowAnimation);
         }
 
         public void ToggleVisible()
@@ -131,28 +135,19 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             //Top-Left Corner
-            if (instructionWindow != null)
-            {
-                instructionWindow.Draw(spriteBatch, new Vector2(WindowEdgeBuffer));
-            }
+            instructionWindow?.Draw(spriteBatch, new Vector2(WindowEdgeBuffer));
 
             //Bottom-Right Corner
-            if (mapInfoWindow != null)
-            {
-                mapInfoWindow.Draw(spriteBatch,
-                    new Vector2(WindowEdgeBuffer, GameDriver.ScreenSize.Y - WindowEdgeBuffer) -
-                    new Vector2(0, mapInfoWindow.Height));
-            }
+            mapInfoWindow?.Draw(spriteBatch,
+                new Vector2(WindowEdgeBuffer, GameDriver.ScreenSize.Y - WindowEdgeBuffer) -
+                new Vector2(0, mapInfoWindow.Height));
 
-            if (teamSelectWindow != null)
-            {
-                teamSelectWindow.Draw(spriteBatch,
-                    new Vector2(
-                        (GameDriver.ScreenSize.X / 2) - ((float) teamSelectWindow.Width / 2),
-                        GameDriver.ScreenSize.Y - WindowEdgeBuffer - teamSelectWindow.Height
-                    )
-                );
-            }
+            teamSelectWindow?.Draw(spriteBatch,
+                new Vector2(
+                    (GameDriver.ScreenSize.X / 2) - ((float) teamSelectWindow.Width / 2),
+                    GameDriver.ScreenSize.Y - WindowEdgeBuffer - teamSelectWindow.Height
+                )
+            );
         }
     }
 }

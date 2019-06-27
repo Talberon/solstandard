@@ -77,7 +77,7 @@ namespace SolStandard.Containers.View
                         AssetManager.WindowFont,
                         actions[i].Range == null
                             ? "Range: N/A"
-                            : string.Format("Range: [{0}]", string.Join(",", actions[i].Range))
+                            : $"Range: [{string.Join(",", actions[i].Range)}]"
                     ),
                     Color.Transparent
                 );
@@ -117,7 +117,7 @@ namespace SolStandard.Containers.View
             return new Window(new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.HeaderFont, "___Unit Skills___"),
+                        new RenderText(AssetManager.HeaderFont, "___Unit Skills___")
                     },
                     {
                         skillTable
@@ -167,19 +167,14 @@ namespace SolStandard.Containers.View
             );
         }
 
-        private static IRenderable CodexCursor
-        {
-            get
-            {
-                return _codexCursor ?? (
-                           _codexCursor = new SpriteAtlas(
-                               AssetManager.MapCursorTexture,
-                               new Vector2(GameDriver.CellSize),
-                               new Vector2(150)
-                           )
-                       );
-            }
-        }
+        private static IRenderable CodexCursor =>
+            _codexCursor ?? (
+                _codexCursor = new SpriteAtlas(
+                    AssetManager.MapCursorTexture,
+                    GameDriver.CellSizeVector,
+                    new Vector2(150)
+                )
+            );
 
         #endregion
 
@@ -214,18 +209,11 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             DrawBackground(spriteBatch);
+            UnitListMenu?.Draw(spriteBatch, UnitListMenuPosition());
 
-            if (UnitListMenu != null) UnitListMenu.Draw(spriteBatch, UnitListMenuPosition());
-
-            if (unitDetailWindow != null)
-            {
-                unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
-
-                if (unitActionListWindow != null)
-                {
-                    unitActionListWindow.Draw(spriteBatch, UnitActionListWindowPosition());
-                }
-            }
+            if (unitDetailWindow == null) return;
+            unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
+            unitActionListWindow?.Draw(spriteBatch, UnitActionListWindowPosition());
         }
 
         private void DrawBackground(SpriteBatch spriteBatch)

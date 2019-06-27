@@ -35,6 +35,10 @@ namespace SolStandard.Entity.General
         {
             HP -= damage;
             AssetManager.CombatDamageSFX.Play();
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Damage, GameDriver.CellSizeVector),
+                MapCoordinates
+            );
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 Name + " takes " + damage + " damage!",
                 MapCoordinates, 50);
@@ -56,33 +60,29 @@ namespace SolStandard.Entity.General
             if (gold == 0 && items.Count == 0) return;
 
             //If on top of other Spoils, pick those up before dropping on top of them
-            Spoils spoilsAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapCoordinates.X,
-                    (int) MapCoordinates.Y] as Spoils;
 
-            if (spoilsAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapCoordinates.X,
+                (int) MapCoordinates.Y] is Spoils spoilsAtUnitPosition)
             {
                 gold += spoilsAtUnitPosition.Gold;
                 items.AddRange(spoilsAtUnitPosition.Items);
             }
 
 
-            TerrainEntity itemAtUnitPosition =
-                MapContainer.GameGrid[(int) Layer.Items][(int) MapCoordinates.X,
-                    (int) MapCoordinates.Y] as TerrainEntity;
-
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (itemAtUnitPosition != null)
+            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapCoordinates.X,
+                (int) MapCoordinates.Y] is TerrainEntity itemAtUnitPosition)
             {
-                IItem item = itemAtUnitPosition as IItem;
-                if (item != null)
+                switch (itemAtUnitPosition)
                 {
-                    items.Add(item);
-                }
-                else if (itemAtUnitPosition is Currency)
-                {
-                    Currency groundGold = itemAtUnitPosition as Currency;
-                    gold += groundGold.Value;
+                    case IItem item:
+                        items.Add(item);
+                        break;
+                    case Currency groundGold:
+                    {
+                        gold += groundGold.Value;
+                        break;
+                    }
                 }
             }
 
@@ -90,7 +90,7 @@ namespace SolStandard.Entity.General
                 = new Spoils(
                     Name + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, new Vector2(GameDriver.CellSize)),
+                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                     MapCoordinates,
                     gold,
                     new List<IItem>(items)
@@ -100,35 +100,30 @@ namespace SolStandard.Entity.General
             items.Clear();
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Hp),
-                            new RenderText(AssetManager.WindowFont, "HP: " + HP)
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (IsBroken) ? "Broken" : "Not Broken",
-                                (IsBroken) ? NegativeColor : PositiveColor),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Hp),
+                        new RenderText(AssetManager.WindowFont, "HP: " + HP)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, (IsBroken) ? "Broken" : "Not Broken",
+                            (IsBroken) ? NegativeColor : PositiveColor),
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
     }
 }

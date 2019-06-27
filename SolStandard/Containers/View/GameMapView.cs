@@ -10,6 +10,7 @@ using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -30,6 +31,9 @@ namespace SolStandard.Containers.View
             InventoryMenu
         }
 
+        private const int WindowSlideSpeed = 40;
+        private const int WindowSlideDistance = 300;
+
         private const int WindowEdgeBuffer = 5;
         public static readonly Color TeamListWindowBackgroundColor = new Color(0, 0, 0, 50);
         public static readonly Color BlankTerrainWindowColor = new Color(30, 30, 30, 180);
@@ -37,20 +41,24 @@ namespace SolStandard.Containers.View
         public static readonly Color EntityTerrainWindowColor = new Color(50, 100, 50, 180);
         public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
-        private Window LeftUnitPortraitWindow { get; set; }
-        private Window LeftUnitDetailWindow { get; set; }
-        private Window LeftUnitStatusWindow { get; set; }
-        private Window LeftUnitInventoryWindow { get; set; }
+        private int LeftHoverUnit { get; set; }
+        private AnimatedWindow LeftUnitPortraitWindow { get; set; }
+        private AnimatedWindow LeftUnitDetailWindow { get; set; }
+        private AnimatedWindow LeftUnitStatusWindow { get; set; }
+        private AnimatedWindow LeftUnitInventoryWindow { get; set; }
 
-        private Window RightUnitPortraitWindow { get; set; }
-        private Window RightUnitDetailWindow { get; set; }
-        private Window RightUnitStatusWindow { get; set; }
-        private Window RightUnitInventoryWindow { get; set; }
+        private int RightHoverUnit { get; set; }
+        private AnimatedWindow RightUnitPortraitWindow { get; set; }
+        private AnimatedWindow RightUnitDetailWindow { get; set; }
+        private AnimatedWindow RightUnitStatusWindow { get; set; }
+        private AnimatedWindow RightUnitInventoryWindow { get; set; }
+
+        private int EntityWindowHash { get; set; }
+        private AnimatedWindow EntityWindow { get; set; }
 
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
-        private Window EntityWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
 
         public Window ItemDetailWindow { get; private set; }
@@ -76,7 +84,7 @@ namespace SolStandard.Containers.View
 
         private MenuType VisibleMenu
         {
-            get { return visibleMenu; }
+            get => visibleMenu;
             set
             {
                 visibleMenu = value;
@@ -91,7 +99,7 @@ namespace SolStandard.Containers.View
                         InventoryMenu.IsVisible = true;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException("value", value, null);
+                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
             }
         }
@@ -112,15 +120,22 @@ namespace SolStandard.Containers.View
             }
         }
 
+        private static IWindowAnimation RightSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Left, WindowSlideDistance, WindowSlideSpeed);
+
+        private static IWindowAnimation LeftSideWindowAnimation =>
+            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
+
         public void ToggleCombatMenu()
         {
-            if (VisibleMenu == MenuType.ActionMenu)
+            switch (VisibleMenu)
             {
-                VisibleMenu = MenuType.InventoryMenu;
-            }
-            else if (VisibleMenu == MenuType.InventoryMenu)
-            {
-                VisibleMenu = MenuType.ActionMenu;
+                case MenuType.ActionMenu:
+                    VisibleMenu = MenuType.InventoryMenu;
+                    break;
+                case MenuType.InventoryMenu:
+                    VisibleMenu = MenuType.ActionMenu;
+                    break;
             }
 
             Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
@@ -216,7 +231,7 @@ namespace SolStandard.Containers.View
             return new Window(new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.HeaderFont, "ITEMS"),
+                        new RenderText(AssetManager.HeaderFont, "ITEMS")
                     },
                     {
                         itemTable
@@ -255,7 +270,7 @@ namespace SolStandard.Containers.View
                     buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("menuType", menuType, null);
+                    throw new ArgumentOutOfRangeException(nameof(menuType), menuType, null);
             }
 
 
@@ -341,7 +356,9 @@ namespace SolStandard.Containers.View
 
         public void SetEntityWindow(MapSlice hoverSlice)
         {
-            EntityWindow = GenerateEntityWindow(hoverSlice);
+            if (EntityWindowHash == hoverSlice.GetHashCode()) return;
+            EntityWindowHash = hoverSlice.GetHashCode();
+            EntityWindow = new AnimatedWindow(GenerateEntityWindow(hoverSlice), RightSideWindowAnimation);
         }
 
         public static Window GenerateEntityWindow(MapSlice hoverSlice)
@@ -472,7 +489,7 @@ namespace SolStandard.Containers.View
                 case Team.Creep:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("team", team, null);
+                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
             }
         }
 
@@ -510,6 +527,7 @@ namespace SolStandard.Containers.View
         {
             if (hoverMapUnit == null)
             {
+                LeftHoverUnit = 0;
                 LeftUnitPortraitWindow = null;
                 LeftUnitDetailWindow = null;
                 LeftUnitStatusWindow = null;
@@ -517,11 +535,23 @@ namespace SolStandard.Containers.View
             }
             else
             {
+                if (!hoverMapUnit.IsDifferentFrom(LeftHoverUnit)) return;
+                LeftHoverUnit = hoverMapUnit.GetHashCode();
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
-                LeftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
-                LeftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
-                LeftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
-                LeftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+                Window leftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                Window leftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                Window leftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                Window leftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+
+                LeftUnitPortraitWindow = new AnimatedWindow(leftUnitPortraitWindow, LeftSideWindowAnimation);
+                LeftUnitDetailWindow = new AnimatedWindow(leftUnitDetailWindow, LeftSideWindowAnimation);
+
+                LeftUnitStatusWindow = leftUnitStatusWindow != null
+                    ? new AnimatedWindow(leftUnitStatusWindow, LeftSideWindowAnimation)
+                    : null;
+                LeftUnitInventoryWindow = leftUnitInventoryWindow != null
+                    ? new AnimatedWindow(leftUnitInventoryWindow, LeftSideWindowAnimation)
+                    : null;
             }
         }
 
@@ -529,6 +559,7 @@ namespace SolStandard.Containers.View
         {
             if (hoverMapUnit == null)
             {
+                RightHoverUnit = 0;
                 RightUnitPortraitWindow = null;
                 RightUnitDetailWindow = null;
                 RightUnitStatusWindow = null;
@@ -536,14 +567,25 @@ namespace SolStandard.Containers.View
             }
             else
             {
+                if (!hoverMapUnit.IsDifferentFrom(RightHoverUnit)) return;
+                RightHoverUnit = hoverMapUnit.GetHashCode();
                 Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
-                RightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
-                RightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
-                RightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
-                RightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+                Window rightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
+                Window rightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
+                Window rightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
+                Window rightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
+
+
+                RightUnitPortraitWindow = new AnimatedWindow(rightUnitPortraitWindow, RightSideWindowAnimation);
+                RightUnitDetailWindow = new AnimatedWindow(rightUnitDetailWindow, RightSideWindowAnimation);
+                RightUnitStatusWindow = rightUnitStatusWindow != null
+                    ? new AnimatedWindow(rightUnitStatusWindow, RightSideWindowAnimation)
+                    : null;
+                RightUnitInventoryWindow = rightUnitInventoryWindow != null
+                    ? new AnimatedWindow(rightUnitInventoryWindow, RightSideWindowAnimation)
+                    : null;
             }
         }
-
 
         public static Window GenerateUnitPortraitWindow(IRenderable unitPortraitPane, Color windowColor)
         {
@@ -571,7 +613,7 @@ namespace SolStandard.Containers.View
                         new[,]
                         {
                             {
-                                StatusIconProvider.GetStatusIcon(StatusIcon.Time, new Vector2(GameDriver.CellSize)),
+                                StatusIconProvider.GetStatusIcon(StatusIcon.Time, GameDriver.CellSizeVector),
                                 new RenderText(AssetManager.WindowFont, "[" + effect.TurnDuration + "] "),
                                 effect.StatusIcon,
                                 new RenderText(AssetManager.WindowFont, effect.Name,
@@ -778,12 +820,7 @@ namespace SolStandard.Containers.View
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
-
-            if (EntityWindow != null)
-            {
-                EntityWindow.Draw(spriteBatch, EntityWindowPosition());
-            }
-
+            EntityWindow?.Draw(spriteBatch, EntityWindowPosition());
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
@@ -791,52 +828,21 @@ namespace SolStandard.Containers.View
                 if (LeftUnitPortraitWindow != null)
                 {
                     LeftUnitPortraitWindow.Draw(spriteBatch, LeftUnitPortraitWindowPosition());
-
-                    if (LeftUnitDetailWindow != null)
-                    {
-                        LeftUnitDetailWindow.Draw(spriteBatch, LeftUnitDetailWindowPosition());
-                    }
-
-                    if (LeftUnitStatusWindow != null)
-                    {
-                        LeftUnitStatusWindow.Draw(spriteBatch, LeftUnitStatusWindowPosition());
-                    }
-
-                    if (LeftUnitInventoryWindow != null)
-                    {
-                        LeftUnitInventoryWindow.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
-                    }
+                    LeftUnitDetailWindow?.Draw(spriteBatch, LeftUnitDetailWindowPosition());
+                    LeftUnitStatusWindow?.Draw(spriteBatch, LeftUnitStatusWindowPosition());
+                    LeftUnitInventoryWindow?.Draw(spriteBatch, LeftUnitInventoryWindowPosition());
                 }
 
                 if (RightUnitPortraitWindow != null)
                 {
                     RightUnitPortraitWindow.Draw(spriteBatch, RightUnitPortraitWindowPosition());
-
-                    if (RightUnitDetailWindow != null)
-                    {
-                        RightUnitDetailWindow.Draw(spriteBatch, RightUnitDetailWindowPosition());
-                    }
-
-                    if (RightUnitStatusWindow != null)
-                    {
-                        RightUnitStatusWindow.Draw(spriteBatch, RightUnitStatusWindowPosition());
-                    }
-
-                    if (RightUnitInventoryWindow != null)
-                    {
-                        RightUnitInventoryWindow.Draw(spriteBatch, RightUnitInventoryWindowPosition());
-                    }
+                    RightUnitDetailWindow?.Draw(spriteBatch, RightUnitDetailWindowPosition());
+                    RightUnitStatusWindow?.Draw(spriteBatch, RightUnitStatusWindowPosition());
+                    RightUnitInventoryWindow?.Draw(spriteBatch, RightUnitInventoryWindowPosition());
                 }
 
-                if (ItemDetailWindow != null)
-                {
-                    ItemDetailWindow.Draw(spriteBatch, ItemDetailWindowPosition());
-                }
-
-                if (UserPromptWindow != null)
-                {
-                    UserPromptWindow.Draw(spriteBatch, UserPromptWindowPosition());
-                }
+                ItemDetailWindow?.Draw(spriteBatch, ItemDetailWindowPosition());
+                UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
             }
 
             if (ActionMenu != null)
@@ -845,15 +851,8 @@ namespace SolStandard.Containers.View
 
                 if (ActionMenu.IsVisible)
                 {
-                    if (ActionMenuDescriptionWindow != null)
-                    {
-                        ActionMenuDescriptionWindow.Draw(spriteBatch, ActionMenuDescriptionPosition());
-                    }
-
-                    if (MenuDescriptionWindow != null)
-                    {
-                        MenuDescriptionWindow.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
-                    }
+                    ActionMenuDescriptionWindow?.Draw(spriteBatch, ActionMenuDescriptionPosition());
+                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
                 }
             }
 
@@ -862,27 +861,13 @@ namespace SolStandard.Containers.View
                 InventoryMenu.Draw(spriteBatch, InventoryMenuPosition());
                 if (InventoryMenu.IsVisible)
                 {
-                    if (InventoryMenuDescriptionWindow != null)
-                    {
-                        InventoryMenuDescriptionWindow.Draw(spriteBatch, InventoryMenuDescriptionPosition());
-                    }
-
-                    if (MenuDescriptionWindow != null)
-                    {
-                        MenuDescriptionWindow.Draw(spriteBatch, MenuDescriptionWindowPosition(InventoryMenuPosition()));
-                    }
+                    InventoryMenuDescriptionWindow?.Draw(spriteBatch, InventoryMenuDescriptionPosition());
+                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(InventoryMenuPosition()));
                 }
             }
 
-            if (ObjectiveWindow != null)
-            {
-                ObjectiveWindow.Draw(spriteBatch, ObjectiveWindowPosition());
-            }
-
-            if (AdHocDraftMenu != null)
-            {
-                AdHocDraftMenu.Draw(spriteBatch, AdHocDraftMenuPosition());
-            }
+            ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition());
+            AdHocDraftMenu?.Draw(spriteBatch, AdHocDraftMenuPosition());
         }
     }
 }

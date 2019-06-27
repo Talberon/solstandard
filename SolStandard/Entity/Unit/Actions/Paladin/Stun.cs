@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         private readonly int duration;
 
         public Stun(int duration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Stun, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Stun, GameDriver.CellSizeVector),
             name: "Stun",
             description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] + " stat by its base value for [" +
                          duration + "] turn(s).",

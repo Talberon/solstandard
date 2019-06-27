@@ -31,6 +31,7 @@ namespace SolStandard.Utility.Events.Network
                     break;
                 case GameContext.GameState.MapSelect:
                     GameContext.MapCursor.MoveCursorInDirection(direction);
+                    GameContext.MapSelectContext.HoverOverEntity();
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;

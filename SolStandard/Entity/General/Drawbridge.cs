@@ -68,37 +68,32 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                (IsLocked) ? NegativeColor : PositiveColor),
-                            new RenderBlank()
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                                (IsOpen) ? PositiveColor : NegativeColor),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    3
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                            (IsLocked) ? NegativeColor : PositiveColor),
+                        new RenderBlank()
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                            (IsOpen) ? PositiveColor : NegativeColor),
+                        new RenderBlank()
+                    }
+                },
+                3
+            );
 
         public void RemoteTrigger()
         {

@@ -12,9 +12,9 @@ namespace SolStandard.Entity.General.Item
     {
         private readonly int[] deployRange;
         private readonly int usesRemaining;
-        public string ItemPool { get; private set; }
-        public string RecallId { get; private set; }
-        public int[] InteractRange { get; private set; }
+        public string ItemPool { get; }
+        public string RecallId { get; }
+        public int[] InteractRange { get; }
         private bool recallDeployed;
 
         public RecallCharm(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string recallId,
@@ -66,14 +66,8 @@ namespace SolStandard.Entity.General.Item
             GameContext.ActiveUnit.AddItemToInventory(this);
         }
 
-        public bool IsBroken
-        {
-            get { return usesRemaining < 1; }
-        }
+        public bool IsBroken => usesRemaining < 1;
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
     }
 }

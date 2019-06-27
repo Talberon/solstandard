@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Map.Elements.Cursor;
 
 namespace SolStandard.Map.Camera
 {
@@ -69,24 +68,13 @@ namespace SolStandard.Map.Camera
             this.zoomRate = zoomRate;
         }
 
-        public Vector2 CurrentPosition
-        {
-            get { return currentPosition; }
-        }
+        public Vector2 CurrentPosition => currentPosition;
 
-        public Vector2 TargetPosition
-        {
-            get { return targetPosition; }
-        }
+        public Vector2 TargetPosition => targetPosition;
 
-        public Matrix CameraMatrix
-        {
-            get
-            {
-                return Matrix.CreateTranslation(currentPosition.X, currentPosition.Y, 0) *
-                       Matrix.CreateScale(new Vector3(CurrentZoom, CurrentZoom, 1));
-            }
-        }
+        public Matrix CameraMatrix =>
+            Matrix.CreateTranslation(currentPosition.X, currentPosition.Y, 0) *
+            Matrix.CreateScale(new Vector3(CurrentZoom, CurrentZoom, 1));
 
         public void RevertToPreviousZoomLevel()
         {
@@ -171,7 +159,7 @@ namespace SolStandard.Map.Camera
 
             Trace.WriteLine("Camera:" + targetPosition);
             Trace.WriteLine("TargetPoint:" + centerPoint);
-            Trace.WriteLine("Cursor:" + MapCursor.CurrentPixelCoordinates);
+            Trace.WriteLine("Cursor:" + GameContext.MapCursor.CurrentDrawCoordinates);
         }
 
         private void UpdateZoomLevel()
@@ -274,7 +262,7 @@ namespace SolStandard.Map.Camera
                     targetPosition.X += panRateOverride;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
 
@@ -292,22 +280,22 @@ namespace SolStandard.Map.Camera
         {
             if (movingCameraToCursor)
             {
-                if (MapCursor.CenterCursorScreenCoordinates.X < WestBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X < WestBound)
                 {
                     MoveCameraInDirection(CameraDirection.Left);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.X > EastBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.X > EastBound)
                 {
                     MoveCameraInDirection(CameraDirection.Right);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y < NorthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Up);
                 }
 
-                if (MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
+                if (GameContext.MapCursor.CenterCursorScreenCoordinates.Y > SouthBound)
                 {
                     MoveCameraInDirection(CameraDirection.Down);
                 }
@@ -319,37 +307,19 @@ namespace SolStandard.Map.Camera
             }
         }
 
-        private float WestBound
-        {
-            get
-            {
-                return 0 + HorizontalCursorThreshold +
-                       (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
-            }
-        }
+        private float WestBound =>
+            0 + HorizontalCursorThreshold +
+            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
-        private float EastBound
-        {
-            get
-            {
-                return GameDriver.ScreenSize.X - HorizontalCursorThreshold -
-                       (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
-            }
-        }
+        private float EastBound =>
+            GameDriver.ScreenSize.X - HorizontalCursorThreshold -
+            (GameContext.MapCursor.RenderSprite.Width * CurrentZoom);
 
-        private float NorthBound
-        {
-            get { return 0 + TopCursorThreshold; }
-        }
+        private float NorthBound => 0 + TopCursorThreshold;
 
-        private float SouthBound
-        {
-            get
-            {
-                return GameDriver.ScreenSize.Y - BottomCursorThreshold -
-                       (GameContext.MapCursor.RenderSprite.Height * CurrentZoom);
-            }
-        }
+        private float SouthBound =>
+            GameDriver.ScreenSize.Y - BottomCursorThreshold -
+            (GameContext.MapCursor.RenderSprite.Height * CurrentZoom);
 
         private void CorrectCameraToMap()
         {

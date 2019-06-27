@@ -6,8 +6,7 @@ namespace SolStandard.Utility
     {
         public static IRenderable TryResizeRenderable(IRenderable renderable, Vector2 newSize)
         {
-            IResizable resizable = renderable as IResizable;
-            IRenderable resizedRenderable = (resizable != null) ? resizable.Resize(newSize) : renderable;
+            IRenderable resizedRenderable = (renderable is IResizable resizable) ? resizable.Resize(newSize) : renderable;
 
             return resizedRenderable;
         }

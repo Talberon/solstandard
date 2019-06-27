@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Assets
         Tab,
         R,
         LeftCtrl,
-        LeftAlt,
+        LeftAlt
     }
 
     public static class KeyboardIconProvider

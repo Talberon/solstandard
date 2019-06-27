@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private readonly int percent;
 
         public Execute(int percent) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Assassinate, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Assassinate, GameDriver.CellSizeVector),
             name: "Execute",
             description: "Attack a unit for " + percent + "% damage (rounded up)." + Environment.NewLine +
                          "If target is defeated, regenerate all " +

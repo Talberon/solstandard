@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public SummoningRoutine(CreepRoutineModel creepModel)
             : base(
-                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2(GameDriver.CellSize)),
+                icon: SkillIconProvider.GetSkillIcon(RoutineIcon, GameDriver.CellSizeVector),
                 name: "Summoning Routine",
                 description: "Summon an ally within range.",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -32,10 +32,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.creepModel = creepModel;
         }
 
-        public IRenderable MapIcon
-        {
-            get { return SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3)); }
-        }
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -108,6 +106,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
+                eventQueue.Enqueue(
                     new SpawnCreepEvent(
                         creepModel.CreepClass,
                         targetSlice.MapCoordinates,
@@ -128,7 +129,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             Dictionary<string, string> entityProperties)
         {
             CreepUnit creepToSpawn = UnitGenerator.GenerateAdHocCreep(role, entityProperties);
-            creepToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            creepToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             creepToSpawn.ReadyNextRoutine();
             GameContext.Units.Add(creepToSpawn);

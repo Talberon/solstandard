@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            entity.MapCoordinates = targetCoordinates;
+            entity.SnapToCoordinates(targetCoordinates);
             AssetManager.SkillBlinkSFX.Play();
             Complete = true;
         }

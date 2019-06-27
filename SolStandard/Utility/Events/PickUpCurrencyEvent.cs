@@ -1,4 +1,5 @@
-﻿using SolStandard.Containers;
+﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Map;
@@ -23,9 +24,13 @@ namespace SolStandard.Utility.Events
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();
+
+            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
+                currency.MapCoordinates
+            );
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                string.Format("{0} picked up {1}{2}!", GameContext.ActiveUnit.Id, currency.Value,
-                    Currency.CurrencyAbbreviation), 50);
+                $"{GameContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
             Complete = true;
         }
 

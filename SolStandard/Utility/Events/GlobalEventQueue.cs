@@ -13,10 +13,7 @@ namespace SolStandard.Utility.Events
         private static readonly Queue<IEvent> EventSequence = new Queue<IEvent>();
         private static IEvent _currentEvent;
 
-        private static bool AllActionsComplete
-        {
-            get { return EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete); }
-        }
+        private static bool AllActionsComplete => EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete);
 
         public static void QueueEvents(Queue<IEvent> eventSequence)
         {
@@ -28,8 +25,7 @@ namespace SolStandard.Utility.Events
 
         public static void QueueSingleEvent(IEvent eventToQueue)
         {
-            NetworkEvent networkEvent = eventToQueue as NetworkEvent;
-            if (networkEvent != null)
+            if (eventToQueue is NetworkEvent networkEvent)
             {
                 if (networkEvent.FromServer && GameDriver.ConnectedAsServer)
                 {

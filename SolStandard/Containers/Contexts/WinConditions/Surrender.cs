@@ -10,10 +10,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         public bool RedConcedes { private get; set; }
 
         
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED");
 
         public override bool ConditionsMet()
         {

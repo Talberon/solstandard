@@ -11,12 +11,6 @@ namespace SolStandard.Map.Elements.Cursor
 {
     public class MapCursor : MapElement
     {
-        private readonly Vector2 mapSize;
-        private static Vector2 _currentPixelCoordinates;
-        private const int BaseSlideSpeed = 10;
-        public int SlideSpeed { get; private set; }
-        private static Vector2 _cursorSize;
-
         private enum CursorColor
         {
             White,
@@ -24,50 +18,37 @@ namespace SolStandard.Map.Elements.Cursor
             Red
         }
 
+        private readonly Vector2 mapSize;
+        private static Vector2 _cursorSize;
+        public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
+        private SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
+
+        public Vector2 CenterCursorScreenCoordinates =>
+            (CurrentDrawCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
+            GameContext.MapCamera.TargetZoom;
+
         // ReSharper disable once SuggestBaseTypeForParameter
-        public MapCursor(SpriteAtlas sprite, Vector2 mapCoordinates, Vector2 mapSize)
+        public MapCursor(SpriteAtlas sprite, Vector2 mapCoordinates, Vector2 mapSize) : base(sprite, mapCoordinates)
         {
-            Sprite = sprite;
-            MapCoordinates = mapCoordinates;
-            _currentPixelCoordinates = mapCoordinates * GameDriver.CellSize;
-            SlideSpeed = BaseSlideSpeed;
             this.mapSize = mapSize;
             _cursorSize = new Vector2(sprite.Width, sprite.Height);
         }
-
-        public static Vector2 CenterCursorScreenCoordinates
+        
+        public bool CursorIntersectsWindow(IRenderable window, Vector2 windowPixelPosition)
         {
-            get
-            {
-                return (_currentPixelCoordinates + (_cursorSize / 2) + GameContext.MapCamera.TargetPosition) *
-                       GameContext.MapCamera.TargetZoom;
-            }
-        }
+            (float windowLeft, float windowTop) = windowPixelPosition;
+            float windowRight = windowLeft + window.Width;
+            float windowBottom = windowTop + window.Height;
+            (float cursorX, float cursorY) = CenterCursorScreenCoordinates;
 
-        public static Vector2 CurrentPixelCoordinates
-        {
-            get { return _currentPixelCoordinates; }
-        }
-
-        public Vector2 CenterPixelPoint
-        {
-            get { return CurrentPixelCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2); }
-        }
-
-        private SpriteAtlas SpriteAtlas
-        {
-            get { return (SpriteAtlas) Sprite; }
-        }
-
-        private void SlideCursorToCoordinates(Vector2 coordinates)
-        {
-            MapCoordinates = coordinates;
+            bool cursorWithinWindowBounds = (cursorX >= windowLeft && cursorX <= windowRight) &&
+                                            (cursorY >= windowTop && cursorY <= windowBottom);
+            return cursorWithinWindowBounds;
         }
 
         public void SnapCursorToCoordinates(Vector2 coordinates)
         {
-            MapCoordinates = coordinates;
-            _currentPixelCoordinates = MapCoordinates * GameDriver.CellSize;
+            SnapToCoordinates(coordinates);
             GameContext.MapCamera.StartMovingCameraToCursor();
         }
 
@@ -76,19 +57,19 @@ namespace SolStandard.Map.Elements.Cursor
             switch (direction)
             {
                 case Direction.Down:
-                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
+                    SlideToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
                     break;
                 case Direction.Right:
-                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
+                    SlideToCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
                     break;
                 case Direction.Up:
-                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
+                    SlideToCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
                     break;
                 case Direction.Left:
-                    SlideCursorToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
+                    SlideToCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("direction", direction, null);
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             PreventCursorLeavingMapBounds();
@@ -109,8 +90,8 @@ namespace SolStandard.Map.Elements.Cursor
                                   cursorCoordinates.X < screenBounds.X &&
                                   cursorCoordinates.Y < screenBounds.Y;
 
-                Trace.WriteLine(string.Format("[isOnScreen={0}] Cursor: {1}, Screen NW: {2}, Screen SE: {3}",
-                    isOnScreen, cursorCoordinates, screenPosition, screenBounds));
+                Trace.WriteLine(
+                    $"[isOnScreen={isOnScreen}] Cursor: {cursorCoordinates}, Screen NW: {screenPosition}, Screen SE: {screenBounds}");
                 return isOnScreen;
             }
         }
@@ -119,55 +100,25 @@ namespace SolStandard.Map.Elements.Cursor
         {
             if (MapCoordinates.X < 0)
             {
-                MapCoordinates = new Vector2(0, MapCoordinates.Y);
+                SnapToCoordinates(new Vector2(0, MapCoordinates.Y));
             }
 
             if (MapCoordinates.X >= mapSize.X)
             {
-                MapCoordinates = new Vector2(mapSize.X - 1, MapCoordinates.Y);
+                SnapToCoordinates(new Vector2(mapSize.X - 1, MapCoordinates.Y));
             }
 
             if (MapCoordinates.Y < 0)
             {
-                MapCoordinates = new Vector2(MapCoordinates.X, 0);
+                SnapToCoordinates(new Vector2(MapCoordinates.X, 0));
             }
 
             if (MapCoordinates.Y >= mapSize.Y)
             {
-                MapCoordinates = new Vector2(MapCoordinates.X, mapSize.Y - 1);
+                SnapToCoordinates(new Vector2(MapCoordinates.X, mapSize.Y - 1));
             }
         }
 
-        private void UpdateRenderCoordinates()
-        {
-            Vector2 mapPixelCoordinates = MapCoordinates * GameDriver.CellSize;
-
-            //Slide the cursor sprite to the actual tile coordinates for smooth animation
-            bool leftOfDestination = _currentPixelCoordinates.X - SlideSpeed < mapPixelCoordinates.X;
-            bool rightOfDestination = _currentPixelCoordinates.X + SlideSpeed > mapPixelCoordinates.X;
-            bool aboveDestination = _currentPixelCoordinates.Y - SlideSpeed < mapPixelCoordinates.Y;
-            bool belowDestionation = _currentPixelCoordinates.Y + SlideSpeed > mapPixelCoordinates.Y;
-
-            if (leftOfDestination) _currentPixelCoordinates.X += SlideSpeed;
-            if (rightOfDestination) _currentPixelCoordinates.X -= SlideSpeed;
-            if (aboveDestination) _currentPixelCoordinates.Y += SlideSpeed;
-            if (belowDestionation) _currentPixelCoordinates.Y -= SlideSpeed;
-
-            //Don't slide past the cursor's actual coordinates
-            bool slidingRightWouldPassMapCoordinates =
-                leftOfDestination && (_currentPixelCoordinates.X + SlideSpeed) > mapPixelCoordinates.X;
-            bool slidingLeftWouldPassMapCoordinates =
-                rightOfDestination && (_currentPixelCoordinates.X - SlideSpeed) < mapPixelCoordinates.X;
-            bool slidingDownWouldPassMapCoordinates =
-                aboveDestination && (_currentPixelCoordinates.Y + SlideSpeed) > mapPixelCoordinates.Y;
-            bool slidingUpWouldPassMapCoordinates =
-                belowDestionation && (_currentPixelCoordinates.Y - SlideSpeed) < mapPixelCoordinates.Y;
-
-            if (slidingRightWouldPassMapCoordinates) _currentPixelCoordinates.X = mapPixelCoordinates.X;
-            if (slidingLeftWouldPassMapCoordinates) _currentPixelCoordinates.X = mapPixelCoordinates.X;
-            if (slidingDownWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
-            if (slidingUpWouldPassMapCoordinates) _currentPixelCoordinates.Y = mapPixelCoordinates.Y;
-        }
 
         private void UpdateCursorTeam()
         {
@@ -216,12 +167,12 @@ namespace SolStandard.Map.Elements.Cursor
         {
             UpdateCursorTeam();
             UpdateRenderCoordinates();
-            Sprite.Draw(spriteBatch, _currentPixelCoordinates, colorOverride);
+            Sprite.Draw(spriteBatch, CurrentDrawCoordinates, colorOverride);
         }
 
         public override string ToString()
         {
-            return "Cursor: {RenderCoordnates:" + _currentPixelCoordinates + ", Sprite:{" + Sprite + "}}";
+            return "Cursor: {RenderCoordnates:" + CurrentDrawCoordinates + ", Sprite:{" + Sprite + "}}";
         }
     }
 }

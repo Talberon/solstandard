@@ -61,15 +61,11 @@ namespace SolStandard.Entity.General
                 }
                 else if (hpPerTurn > 0)
                 {
-                    toastMessage = string.Format("{0} recovers {1} {2}!",
-                        unitOnTile.Id, hpPerTurn, UnitStatistics.Abbreviation[Stats.Hp]
-                    );
+                    toastMessage = $"{unitOnTile.Id} recovers {hpPerTurn} {UnitStatistics.Abbreviation[Stats.Hp]}!";
                 }
                 else if (amrPerTurn > 0)
                 {
-                    toastMessage = string.Format("{0} recovers {1} {2}!",
-                        unitOnTile.Id, amrPerTurn, UnitStatistics.Abbreviation[Stats.Armor]
-                    );
+                    toastMessage = $"{unitOnTile.Id} recovers {amrPerTurn} {UnitStatistics.Abbreviation[Stats.Armor]}!";
                 }
 
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
@@ -91,10 +87,7 @@ namespace SolStandard.Entity.General
             return unitOnTile != null;
         }
 
-        public bool IsExpired
-        {
-            get { return false; }
-        }
+        public bool IsExpired => false;
 
         public override IRenderable TerrainInfo
         {
@@ -103,14 +96,14 @@ namespace SolStandard.Entity.General
                 IRenderable[,] statContent =
                 {
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Hp, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont,
                             UnitStatistics.Abbreviation[Stats.Hp] + " Regen: " +
                             ((hpPerTurn > 0) ? "+" : "") + hpPerTurn
                         )
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Armor, new Vector2(GameDriver.CellSize)),
+                        UnitStatistics.GetSpriteAtlas(Stats.Armor, GameDriver.CellSizeVector),
                         new RenderText(AssetManager.WindowFont,
                             UnitStatistics.Abbreviation[Stats.Armor] + " Regen: " +
                             ((amrPerTurn > 0) ? "+" : "") + amrPerTurn

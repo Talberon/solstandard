@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         {
             return new RecallPoint(
                 sourceId,
-                SkillIconProvider.GetSkillIcon(SkillIcon.Blink, new Vector2(GameDriver.CellSize)),
+                SkillIconProvider.GetSkillIcon(SkillIcon.Blink, GameDriver.CellSizeVector),
                 targetSlice.MapCoordinates
             );
         }

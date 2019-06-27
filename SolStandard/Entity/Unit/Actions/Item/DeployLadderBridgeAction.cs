@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         {
             if (CanPlaceLadderBridgeAtTarget(targetSlice))
             {
-                ladderBridge.MapCoordinates = targetSlice.MapCoordinates;
+                ladderBridge.SnapToCoordinates(targetSlice.MapCoordinates);
                 GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();

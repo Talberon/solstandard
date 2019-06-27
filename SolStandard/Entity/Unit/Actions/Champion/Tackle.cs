@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
     public class Tackle : UnitAction
     {
         public Tackle() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tackle, GameDriver.CellSizeVector),
             name: "Tackle",
             description: "Shove an enemy if there is an empty space behind them,"
                          + "\nthen follow up by moving into their space and attacking.",

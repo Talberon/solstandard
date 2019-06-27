@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions
                 (GameContext.ActiveUnit != null) ? GameContext.ActiveUnit.Team : Team.Blue);
             return new SpriteAtlas(unitPortrait,
                 new Vector2(unitPortrait.Width, unitPortrait.Height),
-                new Vector2(GameDriver.CellSize)
+                GameDriver.CellSizeVector
             );
         }
 
@@ -46,6 +46,9 @@ namespace SolStandard.Entity.Unit.Actions
                 if (spawnItem != null) GameContext.ActiveUnit.RemoveItemFromInventory(spawnItem);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(
                     new SpawnUnitEvent(
                         unitRole,
@@ -67,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions
         public static void PlaceUnitInTile(Role role, Team team, Vector2 mapCoordinates)
         {
             GameUnit unitToSpawn = UnitGenerator.GenerateAdHocUnit(role, team, false);
-            unitToSpawn.UnitEntity.MapCoordinates = mapCoordinates;
+            unitToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             unitToSpawn.ExhaustAndDisableUnit();
             GameContext.Units.Add(unitToSpawn);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);

@@ -32,10 +32,7 @@ namespace SolStandard.Entity.General
             wasPressed = false;
         }
 
-        public bool IsExpired
-        {
-            get { return false; }
-        }
+        public bool IsExpired => false;
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
@@ -71,10 +68,7 @@ namespace SolStandard.Entity.General
             return true;
         }
 
-        private bool ReleasingPlate
-        {
-            get { return wasPressed && triggerOnRelease; }
-        }
+        private bool ReleasingPlate => wasPressed && triggerOnRelease;
 
         private List<IRemotelyTriggerable> TriggerTiles
         {
@@ -85,9 +79,8 @@ namespace SolStandard.Entity.General
                 foreach (MapElement element in MapContainer.GameGrid[(int) Layer.Entities])
                 {
                     MapEntity entity = element as MapEntity;
-                    IRemotelyTriggerable triggerTile = entity as IRemotelyTriggerable;
 
-                    if (triggerTile != null && entity.Name == triggersId)
+                    if (entity is IRemotelyTriggerable triggerTile && entity.Name == triggersId)
                     {
                         fetchedTiles.Add(triggerTile);
                     }
@@ -97,10 +90,7 @@ namespace SolStandard.Entity.General
             }
         }
 
-        private bool PressurePlateIsActivated
-        {
-            get { return UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate; }
-        }
+        private bool PressurePlateIsActivated => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
 
         private bool ItemIsOnPressurePlate
         {
@@ -120,57 +110,46 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            new Window(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                        new RenderText(AssetManager.WindowFont, "Triggers: " + triggersId)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                        new RenderText(
-                                            AssetManager.WindowFont,
-                                            (triggerOnRelease) ? "On Press/Release" : "On Press"
-                                        )
-                                    }
-                                },
-                                InnerWindowColor
-                            ),
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        new Window(
+                            new IRenderable[,]
+                            {
+                                {
+                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                    new RenderText(AssetManager.WindowFont, "Triggers: " + triggersId)
+                                },
+                                {
+                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                    new RenderText(
+                                        AssetManager.WindowFont,
+                                        (triggerOnRelease) ? "On Press/Release" : "On Press"
+                                    )
+                                }
+                            },
+                            InnerWindowColor
+                        ),
+                        new RenderBlank()
+                    }
+                },
+                1
+            );
 
-        public bool CanTrigger
-        {
-            get { return true; }
-        }
+        public bool CanTrigger => true;
 
-        public int[] InteractRange
-        {
-            get { return new[] {0}; }
-        }
+        public int[] InteractRange => new[] {0};
 
         public void Trigger()
         {

@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         private readonly int duration;
 
         public Venom(int retDebuffValue, int duration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Venom, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Venom, GameDriver.CellSizeVector),
             name: "Venom",
             description: "Reduce a target's " + UnitStatistics.Abbreviation[Stats.Retribution] + " stat by " +
                          retDebuffValue + " for " + duration + " turns.",

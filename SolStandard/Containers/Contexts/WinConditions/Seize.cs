@@ -12,15 +12,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
         public bool BlueSeizedObjective { get; set; }
         private Window objectiveWindow;
 
-        protected override IRenderable VictoryLabelContent
-        {
-            get { return new RenderText(AssetManager.ResultsFont, "Objective Seized!"); }
-        }
+        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "Objective Seized!");
 
-        public override IRenderable ObjectiveInfo
-        {
-            get { return objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow()); }
-        }
+        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
         private static Window BuildObjectiveWindow()
         {
@@ -31,9 +25,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         {
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.Seize,
-                                new Vector2(GameDriver.CellSize)
+                                GameDriver.CellSizeVector
                             ),
-                            new RenderText(AssetManager.WindowFont, "Seize Objective"),
+                            new RenderText(AssetManager.WindowFont, "Seize Objective")
                         }
                     },
                     2,

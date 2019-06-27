@@ -15,8 +15,6 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 {
     public class VendorPurchase : UnitAction
     {
-        private readonly IItem item;
-        private readonly int price;
         private readonly Vendor vendor;
 
         public VendorPurchase(IItem item, int price, Vendor vendor) : base(
@@ -25,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             description: new WindowContentGrid(new[,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont, "Effect:"),
+                        new RenderText(AssetManager.WindowFont, "Effect:")
                     },
                     {
                         item.UseAction().Description
@@ -38,8 +36,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             freeAction: true
         )
         {
-            this.item = item;
-            this.price = price;
+            Item = item;
+            Price = price;
             this.vendor = vendor;
         }
 
@@ -60,12 +58,15 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 if (ActiveUnitCanAffordItem())
                 {
-                    vendor.RemoveBuyActionForItem(item);
+                    vendor.RemoveBuyActionForItem(Item);
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(price));
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
+                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Price));
                     eventQueue.Enqueue(new WaitFramesEvent(25));
-                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, item));
+                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
@@ -83,19 +84,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
         }
 
-        public IItem Item
-        {
-            get { return item; }
-        }
+        public IItem Item { get; }
 
-        public int Price
-        {
-            get { return price; }
-        }
+        public int Price { get; }
 
         private bool ActiveUnitCanAffordItem()
         {
-            return GameContext.ActiveUnit.CurrentGold >= price;
+            return GameContext.ActiveUnit.CurrentGold >= Price;
         }
 
         private bool TargetIsVendor(MapSlice targetSlice)

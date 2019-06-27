@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Actions
     public class Wait : UnitAction
     {
         public Wait() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Wait, new Vector2(32)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Wait, GameDriver.CellSizeVector),
             name: "Wait",
             description: "Take no action and end your turn.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

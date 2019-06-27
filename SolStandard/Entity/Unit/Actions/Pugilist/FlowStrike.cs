@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
         private readonly int buffDuration;
 
         public FlowStrike(int percent, int buffDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, GameDriver.CellSizeVector),
             name: "Flow Strike",
             description: "Grants a stack of " + BuffName + ", then attacks a unit for " + percent +
                          "% damage (rounded up)." + Environment.NewLine +
@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                         new FlowStatus(
                             Icon,
                             buffDuration,
-                            (currentFlow != null) ? currentFlow.FlowStacks + 1 : 1,
+                            currentFlow?.FlowStacks + 1 ?? 1,
                             BuffName
                         )
                     )

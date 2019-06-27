@@ -27,9 +27,6 @@ namespace SolStandard.Utility.Monogame
             }
         }
 
-        public SoundEffect MonoGameSoundEffect()
-        {
-            return soundEffect;
-        }
+        SoundEffect ISoundEffect.MonoGameSoundEffect => soundEffect;
     }
 }

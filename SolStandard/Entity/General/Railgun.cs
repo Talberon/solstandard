@@ -13,8 +13,8 @@ namespace SolStandard.Entity.General
 {
     public class Railgun : TerrainEntity, IActionTile
     {
-        public int[] InteractRange { get; private set; }
-        private int AtkRange { get; set; }
+        public int[] InteractRange { get; }
+        private int AtkRange { get; }
         private readonly WeaponStatistics weaponStatistics;
         private readonly Window statWindow;
 
@@ -37,30 +37,25 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            statWindow,
-                            new RenderBlank()
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        statWindow,
+                        new RenderBlank()
+                    }
+                },
+                1
+            );
     }
 }

@@ -18,7 +18,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         protected static Window.Window BuildGamepadMappingWindow(IController gamepad, Color windowColor)
         {
-            Vector2 iconSize = new Vector2(GameDriver.CellSize);
+            Vector2 iconSize = GameDriver.CellSizeVector;
             int inputCount = Enum.GetNames(typeof(Input)).Length;
 
             IRenderable[,] buttonGrid = new IRenderable[inputCount, 2];

@@ -29,6 +29,7 @@ namespace SolStandard
     public class GameDriver : Game
     {
         // ReSharper disable once NotAccessedField.Local
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
 
         //Project Site
@@ -36,6 +37,7 @@ namespace SolStandard
 
         //Tile Size of Sprites
         public const int CellSize = 32;
+        public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
         public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
@@ -112,15 +114,9 @@ namespace SolStandard
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
-        public static bool ConnectedAsServer
-        {
-            get { return ConnectionManager.ConnectedAsServer; }
-        }
+        public static bool ConnectedAsServer => ConnectionManager.ConnectedAsServer;
 
-        public static bool ConnectedAsClient
-        {
-            get { return ConnectionManager.ConnectedAsClient; }
-        }
+        public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
         public static void SetControllerConfig(Team playerOneTeam)
         {
@@ -139,7 +135,7 @@ namespace SolStandard
                     _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("playerOneTeam", playerOneTeam, null);
+                    throw new ArgumentOutOfRangeException(nameof(playerOneTeam), playerOneTeam, null);
             }
         }
 
@@ -336,13 +332,12 @@ namespace SolStandard
                     break;
                 case GameContext.GameState.MapSelect:
                     GameContext.UpdateCamera();
-                    GameContext.MapSelectContext.HoverOverEntity();
                     break;
                 case GameContext.GameState.PauseScreen:
                     break;
                 case GameContext.GameState.InGame:
-                    GameContext.UpdateCamera();
                     GameContext.GameMapContext.UpdateHoverContextWindows();
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.Codex:
                     break;

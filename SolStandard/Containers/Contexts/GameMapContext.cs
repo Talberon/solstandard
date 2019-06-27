@@ -39,9 +39,9 @@ namespace SolStandard.Containers.Contexts
         public TurnState CurrentTurnState { get; set; }
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
-        private readonly MapContainer mapContainer;
         public static GameMapView GameMapView { get; private set; }
-        public PauseScreenView PauseScreenView { get; private set; }
+        public MapContainer MapContainer { get; }
+        public PauseScreenView PauseScreenView { get; }
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
         public bool CanCancelAction { get; set; }
@@ -53,12 +53,12 @@ namespace SolStandard.Containers.Contexts
                 {Direction.Down, UnitAnimationState.WalkDown},
                 {Direction.Up, UnitAnimationState.WalkUp},
                 {Direction.Right, UnitAnimationState.WalkRight},
-                {Direction.Left, UnitAnimationState.WalkLeft},
+                {Direction.Left, UnitAnimationState.WalkLeft}
             };
 
         public GameMapContext(MapContainer mapContainer, GameMapView gameMapController)
         {
-            this.mapContainer = mapContainer;
+            MapContainer = mapContainer;
             GameMapView = gameMapController;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
@@ -66,6 +66,13 @@ namespace SolStandard.Containers.Contexts
             TurnCounter = 1;
             RoundCounter = 1;
             CanCancelAction = true;
+        }
+
+        public void PlayAnimationAtCoordinates(TriggeredAnimation animation, Vector2 coordinates)
+        {
+            animation.PlayOnce();
+            MapContainer.GameGrid[(int) Layer.OverlayEffect][(int) coordinates.X, (int) coordinates.Y] =
+                new Decoration("Interaction", "Decoration", animation, coordinates);
         }
 
         public static void UpdateWindowsEachTurn()
@@ -80,7 +87,7 @@ namespace SolStandard.Containers.Contexts
         public void ResolveTurn()
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
-            
+
             TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);
@@ -88,7 +95,6 @@ namespace SolStandard.Containers.Contexts
             ConfirmPromptWindow();
             GameContext.InitiativeContext.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
-            ResetCursorToActiveUnit();
 
             ResetTurnState();
             UpdateTurnCounters();
@@ -101,6 +107,7 @@ namespace SolStandard.Containers.Contexts
             GameContext.StatusScreenView.UpdateWindows();
 
             StartTurn();
+            ResetCursorToActiveUnit();
         }
 
 
@@ -330,7 +337,7 @@ namespace SolStandard.Containers.Contexts
                     SelectedUnit,
                     new SpriteAtlas(
                         new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        new Vector2(GameDriver.CellSize),
+                        GameDriver.CellSizeVector,
                         (int) MapDistanceTile.TileType.Movement
                     )
                 );
@@ -375,10 +382,6 @@ namespace SolStandard.Containers.Contexts
             GameContext.ActiveUnit.ExecuteArmedSkill(MapContainer.GetMapSliceAtCursor());
         }
 
-        public MapContainer MapContainer
-        {
-            get { return mapContainer; }
-        }
 
         public static void SetPromptWindowText(string promptText)
         {
@@ -425,7 +428,8 @@ namespace SolStandard.Containers.Contexts
         {
             MapContainer.MapCursor.MoveCursorInDirection(direction);
 
-            if (MapContainer.GetMapSliceAtCursor().DynamicEntity == null) return;
+            MapSlice mapSliceAtCursor = MapContainer.GetMapSliceAtCursor();
+            if (mapSliceAtCursor.DynamicEntity == null) return;
 
             SelectedUnit.MoveUnitToCoordinates(MapContainer.MapCursor.MapCoordinates);
             SelectedUnit.SetUnitAnimation(directionToAnimation[direction]);
@@ -461,27 +465,7 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
-                {
-                    if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count == 0 || HoverUnit != hoverMapUnit)
-                    {
-                        MapContainer.ClearDynamicAndPreviewGrids();
-                        new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                            .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
-                    }
-                }
-                else if (hoverSlice.TerrainEntity is IThreatRange)
-                {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
-                    IThreatRange entityThreat = (IThreatRange) hoverSlice.TerrainEntity;
-                    new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
-                        .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
-                }
-                else
-                {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-                }
+                UpdateThreatRangePreview(hoverMapUnit, hoverSlice);
 
                 GameMapView.UpdateLeftPortraitAndDetailWindows(hoverMapUnit);
                 GameMapView.UpdateRightPortraitAndDetailWindows(null);
@@ -491,6 +475,29 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
+        }
+
+        private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
+        {
+            if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
+            {
+                if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
+
+                MapContainer.ClearDynamicAndPreviewGrids();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
+            }
+            else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
+                    .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
+            }
+            else
+            {
+                MapContainer.ClearDynamicAndPreviewGrids();
+            }
         }
 
         public static bool CoordinatesWithinMapBounds(Vector2 coordinates)
@@ -515,8 +522,8 @@ namespace SolStandard.Containers.Contexts
 
         private void ReturnUnitToOriginalPosition()
         {
-            SelectedUnit.UnitEntity.MapCoordinates = selectedUnitOriginalPosition;
-            MapContainer.MapCursor.MapCoordinates = selectedUnitOriginalPosition;
+            SelectedUnit.UnitEntity.SnapToCoordinates(selectedUnitOriginalPosition);
+            MapContainer.MapCursor.SnapCursorToCoordinates(selectedUnitOriginalPosition);
         }
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)
@@ -534,7 +541,7 @@ namespace SolStandard.Containers.Contexts
             GameMapView.CloseCombatMenu();
 
             CurrentTurnState = TurnState.UnitTargeting;
-            SelectedUnit.SetUnitAnimation(UnitAnimationState.Attack);
+            SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             AssetManager.MapUnitSelectSFX.Play();
         }
 
@@ -546,19 +553,18 @@ namespace SolStandard.Containers.Contexts
         public void IncrementCurrentAdjustableAction(int value)
         {
             IIncrementableAction incrementableAction = CurrentIncrementableAction();
-            if (incrementableAction != null) incrementableAction.Increment(value);
+            incrementableAction?.Increment(value);
         }
 
         public void DecrementCurrentAdjustableAction(int value)
         {
             IIncrementableAction incrementableAction = CurrentIncrementableAction();
-            if (incrementableAction != null) incrementableAction.Decrement(value);
+            incrementableAction?.Decrement(value);
         }
 
         private static IIncrementableAction CurrentIncrementableAction()
         {
-            ActionOption currentActionOption = GameMapView.CurrentMenu.CurrentOption as ActionOption;
-            if (currentActionOption == null) return null;
+            if (!(GameMapView.CurrentMenu.CurrentOption is ActionOption currentActionOption)) return null;
             return currentActionOption.Action as IIncrementableAction;
         }
 
@@ -663,8 +669,7 @@ namespace SolStandard.Containers.Contexts
         private static void GenerateActionPreviewGrid()
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            ActionOption actionOption = GameMapView.CurrentMenu.CurrentOption as ActionOption;
-            if (actionOption != null)
+            if (GameMapView.CurrentMenu.CurrentOption is ActionOption actionOption)
             {
                 actionOption.Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, Layer.Preview);
             }
@@ -714,35 +719,27 @@ namespace SolStandard.Containers.Contexts
         {
             List<IItem> items = new List<IItem>();
 
-            Spoils spoils = currentSlice.ItemEntity as Spoils;
-            if (spoils != null)
+            switch (currentSlice.ItemEntity)
             {
-                items.AddRange(spoils.Items);
-            }
-            else
-            {
-                IItem item = currentSlice.ItemEntity as IItem;
-                if (item != null) items.Add(item);
+                case Spoils spoils:
+                    items.AddRange(spoils.Items);
+                    break;
+                case IItem item:
+                    items.Add(item);
+                    break;
             }
 
-            Vendor vendor = currentSlice.TerrainEntity as Vendor;
-            if (vendor != null)
+            if (currentSlice.TerrainEntity is Vendor vendor)
             {
                 items.AddRange(vendor.Items);
             }
 
             GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
-            if (sliceUnit != null)
-            {
-                sliceUnit.Inventory.ForEach(item => items.Add(item));
-            }
+            sliceUnit?.Inventory.ForEach(item => items.Add(item));
 
             return items;
         }
 
-        private static bool ShowingItemPreview
-        {
-            get { return GameMapView.ItemDetailWindow != null; }
-        }
+        private static bool ShowingItemPreview => GameMapView.ItemDetailWindow != null;
     }
 }

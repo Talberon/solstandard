@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         private readonly int duration;
 
         public Rage(int duration, int missingHpPerPoint) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rage, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rage, GameDriver.CellSizeVector),
             name: "Rage",
             description: "Increase own " + UnitStatistics.Abbreviation[Stats.Atk] + " by 1 for every " +
                          missingHpPerPoint + " missing " + UnitStatistics.Abbreviation[Stats.Hp] + " for " +

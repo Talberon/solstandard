@@ -9,7 +9,7 @@ namespace SolStandard.HUD.Menu.Options.DialMenu
 {
     public class ConnectOption : MenuOption
     {
-        private NetworkMenuView NetworkMenuView { get; set; }
+        private NetworkMenuView NetworkMenuView { get; }
         private const string Connect = "Connect";
 
         public ConnectOption(Color color, NetworkMenuView networkMenuView) : base(

@@ -17,8 +17,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
             int[] range) : base(
             icon: item.Icon.Clone(),
             name: "Consume",
-            description: string.Format("Single use. Target modifies {0} by [{1}] for [{2}] turns.",
-                UnitStatistics.Abbreviation[statistic], statModifier, buffDuration),
+            description:
+            $"Single use. Target modifies {UnitStatistics.Abbreviation[statistic]} by [{statModifier}] for [{buffDuration}] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
             freeAction: true

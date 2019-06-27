@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Utility;
@@ -8,7 +7,7 @@ namespace SolStandard.Entity.General.Item
 {
     public class Barricade : BreakableObstacle, IItem
     {
-        public string ItemPool { get; private set; }
+        public string ItemPool { get; }
 
         public Barricade(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int hp,
             string itemPool) :
@@ -17,10 +16,7 @@ namespace SolStandard.Entity.General.Item
             ItemPool = itemPool;
         }
 
-        public IRenderable Icon
-        {
-            get { return Sprite; }
-        }
+        public IRenderable Icon => Sprite;
 
 
         public UnitAction UseAction()

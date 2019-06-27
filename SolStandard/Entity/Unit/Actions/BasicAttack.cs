@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions
     public class BasicAttack : UnitAction
     {
         public BasicAttack() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
             name: "Basic Attack",
             description: "Attack a target based on your " + UnitStatistics.Abbreviation[Stats.Atk] +
                          " and " + UnitStatistics.Abbreviation[Stats.Luck] + " statistics." + Environment.NewLine +

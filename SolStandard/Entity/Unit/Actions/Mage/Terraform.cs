@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
     public class Terraform : UnitAction
     {
         public Terraform() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Terraform, new Vector2(GameDriver.CellSize)),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Terraform, GameDriver.CellSizeVector),
             name: "Geomancy - Terraform",
             description: "Raise a piece of destructible terrain within range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
@@ -60,6 +60,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 BreakableObstacle rubble = GenerateObstacle(targetSlice.MapCoordinates);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
+                eventQueue.Enqueue(
+                    new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(rubble, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new EndTurnEvent());

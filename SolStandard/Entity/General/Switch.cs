@@ -18,8 +18,8 @@ namespace SolStandard.Entity.General
 {
     public class Switch : TerrainEntity, IActionTile, ITriggerable
     {
-        public int[] InteractRange { get; private set; }
-        private string TriggersId { get; set; }
+        public int[] InteractRange { get; }
+        private string TriggersId { get; }
         private bool active;
         private static readonly Color ActiveColor = new Color(180, 180, 180);
 
@@ -48,8 +48,7 @@ namespace SolStandard.Entity.General
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
                 MapEntity entity = (MapEntity) mapElement;
-                IRemotelyTriggerable lockable = mapElement as IRemotelyTriggerable;
-                if (lockable != null)
+                if (mapElement is IRemotelyTriggerable lockable)
                 {
                     if (entity.Name == TriggersId)
                     {
@@ -72,10 +71,7 @@ namespace SolStandard.Entity.General
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
         }
 
-        public bool CanTrigger
-        {
-            get { return true; }
-        }
+        public bool CanTrigger => true;
 
         public void ToggleActive()
         {
@@ -91,30 +87,25 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                return new WindowContentGrid(
-                    new[,]
+        public override IRenderable TerrainInfo =>
+            new WindowContentGrid(
+                new[,]
+                {
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                            new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        }
+                        InfoHeader,
+                        new RenderBlank()
                     },
-                    1
-                );
-            }
-        }
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
+                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
+                            (CanMove) ? PositiveColor : NegativeColor)
+                    }
+                },
+                1
+            );
     }
 }
