@@ -52,6 +52,8 @@ namespace SolStandard.Containers.View
                 new MenuOption[]
                 {
                     new MusicMuteOption(OptionsColor),
+                    new MusicVolumeUpOption(OptionsColor),
+                    new MusicVolumeDownOption(OptionsColor),
                     new SoundEffectMuteOption(OptionsColor),
                     new ReturnToPauseMenuOption(OptionsColor, this)
                 },

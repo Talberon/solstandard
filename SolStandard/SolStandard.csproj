@@ -269,6 +269,8 @@
     <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeDownOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeUpOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
