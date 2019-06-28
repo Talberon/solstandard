@@ -30,7 +30,6 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
-        public static GraphicsDevice Graphics;
 
         //Project Site
         public const string SolStandardUrl = "https://talberon.github.io/solstandard";
@@ -69,7 +68,7 @@ namespace SolStandard
             //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
             Window.IsBorderless = false;
-            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            Window.AllowUserResizing = true;
         }
 
         public void UseBorderlessFullscreen()
@@ -82,7 +81,7 @@ namespace SolStandard
 
             Window.IsBorderless = true;
             Window.Position = new Point(0, 0);
-            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            Window.AllowUserResizing = false;
         }
 
 
@@ -180,8 +179,6 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
-            Graphics = GraphicsDevice;
-
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -233,6 +230,7 @@ namespace SolStandard
         protected override void Update(GameTime gameTime)
         {
             ConnectionManager.Listen();
+            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             if (_quitting)
             {
