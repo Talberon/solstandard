@@ -7,15 +7,16 @@ namespace SolStandard.Containers.View
 {
     public class BackgroundView : IUserInterface
     {
-        private readonly SpriteAtlas background;
+        private static SpriteAtlas Background =>
+            new SpriteAtlas(AssetManager.MainMenuBackground,
+                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                GameDriver.ScreenSize);
+
         private bool IsVisible { get; set; }
 
         public BackgroundView()
         {
             IsVisible = true;
-            background = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                GameDriver.ScreenSize);
         }
 
         public void ToggleVisible()
@@ -27,8 +28,8 @@ namespace SolStandard.Containers.View
         {
             if (!IsVisible) return;
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+            Vector2 backgroundCenter = new Vector2(Background.Width, Background.Height) / 2;
+            Background.Draw(spriteBatch, centerScreen - backgroundCenter);
         }
     }
 }
