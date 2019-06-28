@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
@@ -31,6 +30,7 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
+        public static GraphicsDevice Graphics;
 
         //Project Site
         public const string SolStandardUrl = "https://talberon.github.io/solstandard";
@@ -60,29 +60,29 @@ namespace SolStandard
             Content.RootDirectory = "Content";
         }
 
-        private void UseDefaultResolution()
+        public void UseDefaultResolution()
         {
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
             //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
             Window.IsBorderless = false;
-            graphics.ApplyChanges();
+            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
-        // ReSharper disable once UnusedMember.Local
-
-        private void UseBorderlessFullscreen()
+        public void UseBorderlessFullscreen()
         {
             Screen currentScreen = Screen.FromPoint(new System.Drawing.Point(Window.Position.X, Window.Position.Y));
             graphics.PreferredBackBufferWidth = currentScreen.Bounds.Width;
             graphics.PreferredBackBufferHeight = currentScreen.Bounds.Height;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
-
-            Window.Position = new Point(0, 0);
-            Window.IsBorderless = true;
             graphics.ApplyChanges();
+
+            Window.IsBorderless = true;
+            Window.Position = new Point(0, 0);
+            ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
 
@@ -144,6 +144,7 @@ namespace SolStandard
             _quitting = true;
         }
 
+
         private static void CleanTmxFiles()
         {
             const string tmxPath = "Content/TmxMaps/";
@@ -179,6 +180,7 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
+            Graphics = GraphicsDevice;
 
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -195,7 +197,7 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
-            PauseScreenView.Initialize();
+            PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);
             SetControllerConfig(GameContext.P1Team);
@@ -240,17 +242,14 @@ namespace SolStandard
             if (new InputKey(Keys.F10).Pressed)
             {
                 UseDefaultResolution();
-                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
             if (new InputKey(Keys.F11).Pressed)
             {
                 UseBorderlessFullscreen();
-                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D0))
+            if (new InputKey(Keys.D0).Pressed)
             {
                 MusicBox.Pause();
             }

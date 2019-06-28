@@ -275,6 +275,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeUpOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />

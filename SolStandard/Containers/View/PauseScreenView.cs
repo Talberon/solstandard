@@ -31,7 +31,7 @@ namespace SolStandard.Containers.View
         private static PauseMenus _currentMenu;
         private static bool _visible;
 
-        public static void Initialize()
+        public static void Initialize(GameDriver gameDriver)
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
@@ -56,6 +56,7 @@ namespace SolStandard.Containers.View
                     new MusicVolumeUpOption(OptionsColor),
                     new MusicVolumeDownOption(OptionsColor),
                     new SoundEffectMuteOption(OptionsColor),
+                    new ToggleFullscreenOption(OptionsColor, gameDriver),
                     new ReturnToPauseMenuOption(OptionsColor)
                 },
                 cursorSprite,
