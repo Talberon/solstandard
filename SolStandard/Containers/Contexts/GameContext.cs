@@ -48,6 +48,7 @@ namespace SolStandard.Containers.Contexts
         public static StatusScreenView StatusScreenView { get; private set; }
         public static MainMenuView MainMenuView { get; private set; }
         public static NetworkMenuView NetworkMenuView { get; private set; }
+        public static BackgroundView BackgroundView { get; private set; }
         public static DraftContext DraftContext { get; private set; }
         public static DeploymentContext DeploymentContext { get; private set; }
         public static CodexContext CodexContext { get; private set; }
@@ -101,6 +102,7 @@ namespace SolStandard.Containers.Contexts
             DraftContext = new DraftContext();
             CodexContext = new CodexContext();
             CreditsContext = new CreditsContext(new CreditsView());
+            BackgroundView = new BackgroundView();
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
             P1Team = Team.Red;

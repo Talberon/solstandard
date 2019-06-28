@@ -17,17 +17,15 @@ namespace SolStandard.Containers.View
     {
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
-        private readonly SpriteAtlas background;
         private bool visible;
         private Window networkStatusWindow;
         public TwoDimensionalMenu DialMenu { get; private set; }
         private string inputIPAddress;
 
-        public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
+        public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo)
         {
             this.title = title;
             this.logo = logo;
-            this.background = background;
             visible = true;
             networkStatusWindow = GenerateStatusWindow();
             inputIPAddress = string.Empty;
@@ -181,9 +179,6 @@ namespace SolStandard.Containers.View
             if (visible)
             {
                 Vector2 centerScreen = GameDriver.ScreenSize / 2;
-
-                Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-                background.Draw(spriteBatch, centerScreen - backgroundCenter);
 
                 const int titleVertCoordinate = 15;
                 Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;

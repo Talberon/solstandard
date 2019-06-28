@@ -69,6 +69,7 @@
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
+    <Compile Include="Containers\View\BackgroundView.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\CodexView.cs" />
     <Compile Include="Containers\View\CreditsView.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\MainMenuConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />

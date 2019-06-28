@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Containers.View;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -8,24 +9,31 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
 {
     public class ReturnToPauseMenuOption : MenuOption
     {
-        private readonly PauseScreenView pauseScreenView;
+        public static bool FromMainMenu { get; set; }
 
-        public ReturnToPauseMenuOption(Color color, PauseScreenView pauseScreenView) : base(
+        public ReturnToPauseMenuOption(Color color) : base(
             new RenderText(AssetManager.MainMenuFont, "Back"),
             color
         )
         {
-            this.pauseScreenView = pauseScreenView;
         }
 
         public override void Execute()
         {
-            pauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+            if (FromMainMenu)
+            {
+                AssetManager.MapUnitSelectSFX.Play();
+                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            }
+            else
+            {
+                PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+            }
         }
 
         public override IRenderable Clone()
         {
-            return new ReturnToPauseMenuOption(DefaultColor, pauseScreenView);
+            return new ReturnToPauseMenuOption(DefaultColor);
         }
     }
 }

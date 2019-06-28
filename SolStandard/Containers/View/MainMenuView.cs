@@ -14,15 +14,13 @@ namespace SolStandard.Containers.View
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
-        private readonly SpriteAtlas background;
         private readonly RenderText copyright;
         private bool visible;
 
-        public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo, SpriteAtlas background)
+        public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo)
         {
             this.title = title;
             this.logo = logo;
-            this.background = background;
             visible = true;
             MainMenu = GenerateMainMenu();
             copyright = new RenderText(AssetManager.WindowFont, "Copyright @Talberon 2019",
@@ -39,6 +37,7 @@ namespace SolStandard.Containers.View
                 new HostGameOption(MenuColor),
                 new JoinGameOption(MenuColor),
                 new OpenCodexOption(MenuColor),
+                new MainMenuConfigOption(MenuColor),
                 new CreditsOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
@@ -55,28 +54,18 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (visible)
-            {
-                Vector2 centerScreen = GameDriver.ScreenSize / 2;
+            if (!visible) return;
+            Vector2 centerScreen = GameDriver.ScreenSize / 2;
 
-                DrawBackground(spriteBatch, centerScreen);
+            const int titleVertCoordinate = 20;
+            Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
+            Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
+            logo.Draw(spriteBatch, titlePosition);
+            title.Draw(spriteBatch, titlePosition + new Vector2(100));
 
-                const int titleVertCoordinate = 20;
-                Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
-                Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
-                logo.Draw(spriteBatch, titlePosition);
-                title.Draw(spriteBatch, titlePosition + new Vector2(100));
+            DrawMenu(spriteBatch, centerScreen, titlePosition);
 
-                DrawMenu(spriteBatch, centerScreen, titlePosition);
-
-                copyright.Draw(spriteBatch, GameDriver.ScreenSize - new Vector2(copyright.Width, copyright.Height));
-            }
-        }
-
-        private void DrawBackground(SpriteBatch spriteBatch, Vector2 centerScreen)
-        {
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
+            copyright.Draw(spriteBatch, GameDriver.ScreenSize - new Vector2(copyright.Width, copyright.Height));
         }
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)

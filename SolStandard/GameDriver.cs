@@ -190,14 +190,12 @@ namespace SolStandard
             AnimatedSpriteSheet mainMenuLogoSpriteSheet =
                 new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
                     false);
-            SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
 
             MainMenuView mainMenu =
-                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
             NetworkMenuView networkMenu =
-                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+            PauseScreenView.Initialize();
 
             GameContext.Initialize(mainMenu, networkMenu);
             SetControllerConfig(GameContext.P1Team);
@@ -365,9 +363,11 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    DrawBackgroundWallpaper();
                     DrawMainMenu();
                     break;
                 case GameContext.GameState.NetworkMenu:
+                    DrawBackgroundWallpaper();
                     DrawNetworkMenu();
                     break;
                 case GameContext.GameState.Deployment:
@@ -383,7 +383,7 @@ namespace SolStandard
                     DrawMapSelectHUD();
                     break;
                 case GameContext.GameState.PauseScreen:
-                    DrawInGameMap();
+                    DrawBackgroundWallpaper();
                     DrawPauseMenu();
                     break;
                 case GameContext.GameState.InGame:
@@ -396,12 +396,15 @@ namespace SolStandard
                     DrawInGameHUD();
                     break;
                 case GameContext.GameState.Codex:
+                    DrawBackgroundWallpaper();
                     DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
+                    DrawBackgroundWallpaper();
                     DrawGameResultsScreen();
                     break;
                 case GameContext.GameState.Credits:
+                    DrawBackgroundWallpaper();
                     DrawCreditsScreen();
                     break;
                 case GameContext.GameState.ItemPreview:
@@ -415,12 +418,21 @@ namespace SolStandard
             }
         }
 
+        private void DrawBackgroundWallpaper()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp);
+            GameContext.BackgroundView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
         private void DrawPauseMenu()
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
-            GameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
+            PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
