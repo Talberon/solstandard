@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Actions.Archer

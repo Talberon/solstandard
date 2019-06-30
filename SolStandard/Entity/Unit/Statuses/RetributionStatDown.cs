@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
