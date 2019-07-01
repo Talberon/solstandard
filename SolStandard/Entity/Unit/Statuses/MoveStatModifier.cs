@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -37,7 +36,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void RemoveEffect(GameUnit target)
         {
             target.Stats.MvModifier -= pointsToIncrease;
-            target?.UnitEntity?.UnitSpriteSheet.ResetFrameDelay();
+            target.UnitEntity?.UnitSpriteSheet.ResetFrameDelay();
         }
     }
 }

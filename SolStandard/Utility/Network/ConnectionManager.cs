@@ -2,9 +2,10 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using Lidgren.Network;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
@@ -35,7 +36,7 @@ namespace SolStandard.Utility.Network
 
         public bool ConnectedAsClient => client != null && client.ConnectionStatus == NetConnectionStatus.Connected;
 
-        public IPAddress StartServer()
+        public string StartServer()
         {
             StopClientAndServer();
 
@@ -59,7 +60,17 @@ namespace SolStandard.Utility.Network
 
             server.UPnP.ForwardPort(NetworkPort, "Forward Server Port for internet connections.");
 
-            return server.UPnP.GetExternalIP();
+            return GetExternalIP();
+        }
+
+        private static string GetExternalIP()
+        {
+            const string apiUrl = "https://ipinfo.io/ip";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<string> responseString = httpClient.GetStringAsync(apiUrl);
+                return responseString.Result.Trim();
+            }
         }
 
         public void StartClient(string host, int port)

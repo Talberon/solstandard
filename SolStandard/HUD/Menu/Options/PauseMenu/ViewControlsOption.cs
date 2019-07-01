@@ -8,23 +8,20 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 {
     public class ControlsOption : MenuOption
     {
-        private readonly PauseScreenView pauseScreenView;
-
-        public ControlsOption(Color color, PauseScreenView pauseScreenView) :
+        public ControlsOption(Color color) :
             base(new RenderText(AssetManager.MainMenuFont, "View Controls"), color)
         {
-            this.pauseScreenView = pauseScreenView;
         }
 
         public override void Execute()
         {
             //Show Control Scheme
-            pauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Controller);
+            PauseScreenView.OpenScreen(PauseScreenView.PauseMenus.Controller);
         }
-        
+
         public override IRenderable Clone()
         {
-            return new ControlsOption(DefaultColor, pauseScreenView);
+            return new ControlsOption(DefaultColor);
         }
     }
 }

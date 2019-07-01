@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit;
@@ -11,7 +10,6 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
 
 namespace SolStandard.Containers.View
 {
@@ -21,7 +19,6 @@ namespace SolStandard.Containers.View
         public readonly TwoDimensionalMenu UnitListMenu;
         private Window unitActionListWindow;
         private Window unitDetailWindow;
-        private readonly SpriteAtlas background;
 
         private const int WindowEdgeBuffer = 10;
 
@@ -33,9 +30,6 @@ namespace SolStandard.Containers.View
         {
             UnitListMenu = BuildUnitMenu(unitArchetypes);
             visible = true;
-            background = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
         }
 
         public void ToggleVisible()
@@ -208,7 +202,6 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawBackground(spriteBatch);
             UnitListMenu?.Draw(spriteBatch, UnitListMenuPosition());
 
             if (unitDetailWindow == null) return;
@@ -216,11 +209,5 @@ namespace SolStandard.Containers.View
             unitActionListWindow?.Draw(spriteBatch, UnitActionListWindowPosition());
         }
 
-        private void DrawBackground(SpriteBatch spriteBatch)
-        {
-            Vector2 centerScreen = GameDriver.ScreenSize / 2;
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
-        }
     }
 }

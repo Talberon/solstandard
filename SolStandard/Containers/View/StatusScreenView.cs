@@ -35,16 +35,11 @@ namespace SolStandard.Containers.View
 
         private bool Visible { get; set; }
 
-        private readonly SpriteAtlas background;
-
         public StatusScreenView()
         {
             BlueTeamResultText = "FIGHT!";
             RedTeamResultText = "FIGHT!";
             ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
-            background = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                GameDriver.ScreenSize);
         }
 
         public void UpdateWindows()
@@ -303,9 +298,6 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 centerScreen = GameDriver.ScreenSize / 2;
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
             BlueTeamLeaderPortrait?.Draw(spriteBatch, BlueTeamLeaderPortraitPosition());
             BlueTeamUnitRoster?.Draw(spriteBatch, BlueTeamUnitRosterPosition());
             BlueTeamResult?.Draw(spriteBatch, BlueTeamResultPosition());

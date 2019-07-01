@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
@@ -60,29 +59,29 @@ namespace SolStandard
             Content.RootDirectory = "Content";
         }
 
-        private void UseDefaultResolution()
+        public void UseDefaultResolution()
         {
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
             //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
             Window.IsBorderless = false;
-            graphics.ApplyChanges();
+            Window.AllowUserResizing = true;
         }
 
-        // ReSharper disable once UnusedMember.Local
-
-        private void UseBorderlessFullscreen()
+        public void UseBorderlessFullscreen()
         {
             Screen currentScreen = Screen.FromPoint(new System.Drawing.Point(Window.Position.X, Window.Position.Y));
             graphics.PreferredBackBufferWidth = currentScreen.Bounds.Width;
             graphics.PreferredBackBufferHeight = currentScreen.Bounds.Height;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
-
-            Window.Position = new Point(0, 0);
-            Window.IsBorderless = true;
             graphics.ApplyChanges();
+
+            Window.IsBorderless = true;
+            Window.Position = new Point(0, 0);
+            Window.AllowUserResizing = false;
         }
 
 
@@ -97,10 +96,9 @@ namespace SolStandard
         public static void HostGame()
         {
             //Start Server
-            IPAddress serverIP = ConnectionManager.StartServer();
-            string serverIPAddress =
-                (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP automatically.";
-            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true, serverIP != null);
+            string serverIP = ConnectionManager.StartServer();
+            GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
+            GameContext.NetworkMenuView.GenerateHostMenu(serverIP);
             GameContext.NetworkMenuView.RemoveDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
@@ -111,6 +109,7 @@ namespace SolStandard
             ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.NetworkMenuView.GenerateDialMenu();
+            GameContext.NetworkMenuView.RemoveHostMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 
@@ -143,6 +142,7 @@ namespace SolStandard
         {
             _quitting = true;
         }
+
 
         private static void CleanTmxFiles()
         {
@@ -179,7 +179,6 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
-
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -190,14 +189,12 @@ namespace SolStandard
             AnimatedSpriteSheet mainMenuLogoSpriteSheet =
                 new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
                     false);
-            SpriteAtlas mainMenuBackgroundSprite = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
 
             MainMenuView mainMenu =
-                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
             NetworkMenuView networkMenu =
-                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet, mainMenuBackgroundSprite);
+                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+            PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);
             SetControllerConfig(GameContext.P1Team);
@@ -233,6 +230,7 @@ namespace SolStandard
         protected override void Update(GameTime gameTime)
         {
             ConnectionManager.Listen();
+            ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             if (_quitting)
             {
@@ -242,17 +240,14 @@ namespace SolStandard
             if (new InputKey(Keys.F10).Pressed)
             {
                 UseDefaultResolution();
-                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
             if (new InputKey(Keys.F11).Pressed)
             {
                 UseBorderlessFullscreen();
-                ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             }
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D0))
+            if (new InputKey(Keys.D0).Pressed)
             {
                 MusicBox.Pause();
             }
@@ -365,9 +360,11 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    DrawBackgroundWallpaper();
                     DrawMainMenu();
                     break;
                 case GameContext.GameState.NetworkMenu:
+                    DrawBackgroundWallpaper();
                     DrawNetworkMenu();
                     break;
                 case GameContext.GameState.Deployment:
@@ -383,7 +380,7 @@ namespace SolStandard
                     DrawMapSelectHUD();
                     break;
                 case GameContext.GameState.PauseScreen:
-                    DrawInGameMap();
+                    DrawBackgroundWallpaper();
                     DrawPauseMenu();
                     break;
                 case GameContext.GameState.InGame:
@@ -396,12 +393,15 @@ namespace SolStandard
                     DrawInGameHUD();
                     break;
                 case GameContext.GameState.Codex:
+                    DrawBackgroundWallpaper();
                     DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
+                    DrawBackgroundWallpaper();
                     DrawGameResultsScreen();
                     break;
                 case GameContext.GameState.Credits:
+                    DrawBackgroundWallpaper();
                     DrawCreditsScreen();
                     break;
                 case GameContext.GameState.ItemPreview:
@@ -415,12 +415,21 @@ namespace SolStandard
             }
         }
 
+        private void DrawBackgroundWallpaper()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                null, SamplerState.PointClamp);
+            GameContext.BackgroundView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
         private void DrawPauseMenu()
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
                 null, SamplerState.PointClamp);
-            GameContext.GameMapContext.PauseScreenView.Draw(spriteBatch);
+            PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

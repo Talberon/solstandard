@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
@@ -14,23 +15,23 @@ using SolStandard.Utility.Buttons.KeyboardInput;
 
 namespace SolStandard.Containers.View
 {
-    public class PauseScreenView : IUserInterface
+    public static class PauseScreenView
     {
         public enum PauseMenus
         {
             Primary,
             Controller,
-            Config
+            PauseConfig
         }
 
         private static readonly Color OptionsColor = new Color(40, 40, 40, 180);
-        private VerticalMenu PauseMenu { get; }
-        private VerticalMenu ConfigMenu { get; }
-        private TwoDimensionalMenu ControlsMenu { get; }
-        private PauseMenus currentMenu;
-        private bool visible;
+        private static VerticalMenu PauseMenu { get; set; }
+        private static VerticalMenu ConfigMenu { get; set; }
+        private static TwoDimensionalMenu ControlsMenu { get; set; }
+        private static PauseMenus _currentMenu;
+        private static bool _visible;
 
-        public PauseScreenView()
+        public static void Initialize(GameDriver gameDriver)
         {
             SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
@@ -40,8 +41,8 @@ namespace SolStandard.Containers.View
                 {
                     new ContinueOption(OptionsColor),
                     new OpenCodexOption(OptionsColor),
-                    new ControlsOption(OptionsColor, this),
-                    new ConfigOption(OptionsColor, this),
+                    new ControlsOption(OptionsColor),
+                    new ConfigOption(OptionsColor),
                     new ConcedeOption(OptionsColor)
                 },
                 cursorSprite,
@@ -52,8 +53,11 @@ namespace SolStandard.Containers.View
                 new MenuOption[]
                 {
                     new MusicMuteOption(OptionsColor),
+                    new MusicVolumeUpOption(OptionsColor),
+                    new MusicVolumeDownOption(OptionsColor),
                     new SoundEffectMuteOption(OptionsColor),
-                    new ReturnToPauseMenuOption(OptionsColor, this)
+                    new ToggleFullscreenOption(OptionsColor, gameDriver),
+                    new ReturnToPauseMenuOption(OptionsColor)
                 },
                 cursorSprite,
                 OptionsColor
@@ -63,7 +67,7 @@ namespace SolStandard.Containers.View
                 new MenuOption[,]
                 {
                     {
-                        new ReturnToPauseMenuOption(OptionsColor, this),
+                        new ReturnToPauseMenuOption(OptionsColor),
                         new GamepadOption(new GamepadController(PlayerIndex.Four), OptionsColor),
                         new KeyboardOption(new KeyboardController(), OptionsColor)
                     }
@@ -73,21 +77,21 @@ namespace SolStandard.Containers.View
                 TwoDimensionalMenu.CursorType.Pointer
             );
 
-            visible = true;
-            currentMenu = PauseMenus.Primary;
+            _visible = true;
+            _currentMenu = PauseMenus.Primary;
         }
 
-        public IMenu CurrentMenu
+        public static IMenu CurrentMenu
         {
             get
             {
-                switch (currentMenu)
+                switch (_currentMenu)
                 {
                     case PauseMenus.Primary:
                         return PauseMenu;
                     case PauseMenus.Controller:
                         return ControlsMenu;
-                    case PauseMenus.Config:
+                    case PauseMenus.PauseConfig:
                         return ConfigMenu;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -95,23 +99,24 @@ namespace SolStandard.Containers.View
             }
         }
 
-        public void ChangeMenu(PauseMenus menu)
+        public static void ChangeMenu(PauseMenus menu)
         {
-            currentMenu = menu;
+            _currentMenu = menu;
         }
 
-        public void ToggleVisible()
+        public static void OpenScreen(PauseMenus menuType)
         {
-            visible = !visible;
+            ChangeMenu(menuType);
+            GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch)
         {
-            if (!visible) return;
+            if (!_visible) return;
 
             Vector2 centerScreen = GameDriver.ScreenSize / 2 - new Vector2(CurrentMenu.Width, CurrentMenu.Height) / 2;
 
-            switch (currentMenu)
+            switch (_currentMenu)
             {
                 case PauseMenus.Primary:
                     PauseMenu.Draw(spriteBatch, centerScreen);
@@ -119,7 +124,7 @@ namespace SolStandard.Containers.View
                 case PauseMenus.Controller:
                     ControlsMenu.Draw(spriteBatch, centerScreen);
                     break;
-                case PauseMenus.Config:
+                case PauseMenus.PauseConfig:
                     ConfigMenu.Draw(spriteBatch, centerScreen);
                     break;
                 default:

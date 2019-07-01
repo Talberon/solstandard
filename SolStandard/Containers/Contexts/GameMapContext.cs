@@ -41,7 +41,6 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
         public MapContainer MapContainer { get; }
-        public PauseScreenView PauseScreenView { get; }
         public int TurnCounter { get; private set; }
         public int RoundCounter { get; private set; }
         public bool CanCancelAction { get; set; }
@@ -62,7 +61,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView = gameMapController;
             CurrentTurnState = TurnState.SelectUnit;
             selectedUnitOriginalPosition = new Vector2();
-            PauseScreenView = new PauseScreenView();
             TurnCounter = 1;
             RoundCounter = 1;
             CanCancelAction = true;
@@ -623,16 +621,6 @@ namespace SolStandard.Containers.Contexts
                         (int) effectTile.MapCoordinates.Y] = null;
                 }
             }
-        }
-
-        public void MovePauseMenuCursor(MenuCursorDirection direction)
-        {
-            PauseScreenView.CurrentMenu.MoveMenuCursor(direction);
-        }
-
-        public void SelectPauseMenuOption()
-        {
-            PauseScreenView.CurrentMenu.SelectOption();
         }
 
         public void OpenDraftMenu()

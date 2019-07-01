@@ -254,7 +254,6 @@ namespace SolStandard.Containers.View
         private void GenerateMenuDescriptionWindow(MenuType menuType, Color windowColor)
         {
             string menuName;
-            IRenderable buttonIcon;
             RenderText windowText;
 
             switch (menuType)
@@ -262,12 +261,10 @@ namespace SolStandard.Containers.View
                 case MenuType.ActionMenu:
                     menuName = "Unit Actions";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(windowText.Height));
                     break;
                 case MenuType.InventoryMenu:
                     menuName = "Inventory";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    buttonIcon = InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(menuType), menuType, null);
@@ -279,8 +276,9 @@ namespace SolStandard.Containers.View
                     new[,]
                     {
                         {
-                            buttonIcon,
-                            windowText
+                            InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height)),
+                            windowText,
+                            InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(windowText.Height))
                         }
                     },
                     3,

@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -69,6 +70,7 @@
     <Compile Include="Containers\IUserInterface.cs" />
     <Compile Include="Containers\MapContainer.cs" />
     <Compile Include="Containers\Contexts\GameMapContext.cs" />
+    <Compile Include="Containers\View\BackgroundView.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\CodexView.cs" />
     <Compile Include="Containers\View\CreditsView.cs" />
@@ -259,18 +261,24 @@
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\CopyIPAddressOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\PasteIPAddressOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\AdHocDraftOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
+    <Compile Include="HUD\Menu\Options\MainMenu\MainMenuConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeDownOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeUpOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />

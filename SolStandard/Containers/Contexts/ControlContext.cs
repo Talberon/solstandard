@@ -122,31 +122,31 @@ namespace SolStandard.Containers.Contexts
                 GameContext.NetworkMenuView.Exit();
             }
 
-            if (GameContext.NetworkMenuView.DialMenu == null) return;
+            if (GameContext.NetworkMenuView.Menu == null) return;
 
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Up);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Down);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Left);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Right);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.SelectOption();
+                GameContext.NetworkMenuView.Menu.SelectOption();
             }
         }
 
@@ -433,7 +433,7 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Menu, PressType.DelayedRepeat))
             {
                 AssetManager.MenuConfirmSFX.Play();
-                GameContext.CurrentGameState = GameContext.GameState.PauseScreen;
+                PauseScreenView.OpenScreen(PauseScreenView.PauseMenus.Primary);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -548,32 +548,32 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Up);
+                PauseScreenView.CurrentMenu.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Down);
+                PauseScreenView.CurrentMenu.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Left);
+                PauseScreenView.CurrentMenu.MoveMenuCursor(MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MovePauseMenuCursor(MenuCursorDirection.Right);
+                PauseScreenView.CurrentMenu.MoveMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GameContext.GameMapContext.SelectPauseMenuOption();
+                PauseScreenView.CurrentMenu.SelectOption();
             }
 
             if (controlMapper.Press(Input.Menu, PressType.Single))
             {
-                GameContext.GameMapContext.PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
+                PauseScreenView.ChangeMenu(PauseScreenView.PauseMenus.Primary);
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
             }
         }
