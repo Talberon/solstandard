@@ -122,31 +122,31 @@ namespace SolStandard.Containers.Contexts
                 GameContext.NetworkMenuView.Exit();
             }
 
-            if (GameContext.NetworkMenuView.DialMenu == null) return;
+            if (GameContext.NetworkMenuView.Menu == null) return;
 
             if (controlMapper.Press(Input.CursorUp, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Up);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Down);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Left);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.MoveMenuCursor(MenuCursorDirection.Right);
+                GameContext.NetworkMenuView.Menu.MoveMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GameContext.NetworkMenuView.DialMenu.SelectOption();
+                GameContext.NetworkMenuView.Menu.SelectOption();
             }
         }
 

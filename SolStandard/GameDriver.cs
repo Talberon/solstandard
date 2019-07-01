@@ -96,10 +96,9 @@ namespace SolStandard
         public static void HostGame()
         {
             //Start Server
-            IPAddress serverIP = ConnectionManager.StartServer();
-            string serverIPAddress =
-                (serverIP != null) ? serverIP.ToString() : "Could not obtain external IP automatically.";
-            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, true, serverIP != null);
+            string serverIP = ConnectionManager.StartServer();
+            GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
+            GameContext.NetworkMenuView.GenerateHostMenu(serverIP);
             GameContext.NetworkMenuView.RemoveDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
@@ -110,6 +109,7 @@ namespace SolStandard
             ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
             GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
             GameContext.NetworkMenuView.GenerateDialMenu();
+            GameContext.NetworkMenuView.RemoveHostMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
 

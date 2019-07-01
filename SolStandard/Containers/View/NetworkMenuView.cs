@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -10,6 +11,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Network;
+using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
 
 namespace SolStandard.Containers.View
 {
@@ -19,8 +21,10 @@ namespace SolStandard.Containers.View
         private readonly AnimatedSpriteSheet logo;
         private bool visible;
         private Window networkStatusWindow;
-        public TwoDimensionalMenu DialMenu { get; private set; }
+        private TwoDimensionalMenu DialMenu { get; set; }
+        private TwoDimensionalMenu HostMenu { get; set; }
         private string inputIPAddress;
+        private string hostIPAddress;
 
         public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo)
         {
@@ -29,9 +33,12 @@ namespace SolStandard.Containers.View
             visible = true;
             networkStatusWindow = GenerateStatusWindow();
             inputIPAddress = string.Empty;
+            hostIPAddress = string.Empty;
 
             GenerateDialMenu();
         }
+
+        public IMenu Menu => HostMenu ?? DialMenu;
 
         public void GenerateDialMenu()
         {
@@ -61,9 +68,9 @@ namespace SolStandard.Containers.View
                         new CharacterOption('.', menuColor, this)
                     },
                     {
-                        new MainMenuOption(menuColor, this),
+                        new MainMenuOption(AssetManager.WindowFont, menuColor, this),
                         new ConnectOption(menuColor, this),
-                        new MainMenuOption(menuColor, this)
+                        new PasteIPAddressOption(menuColor, this),
                     }
                 },
                 new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
@@ -77,8 +84,56 @@ namespace SolStandard.Containers.View
             DialMenu = null;
         }
 
+        public void GenerateHostMenu(string serverIPAddress)
+        {
+            Color menuColor = MainMenuView.MenuColor;
+
+            HostMenu = new TwoDimensionalMenu(
+                new MenuOption[,]
+                {
+                    {
+                        new CopyIPAddressOption(menuColor, this),
+                    },
+                    {
+                        new MainMenuOption(AssetManager.MainMenuFont, menuColor, this),
+                    }
+                },
+                new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
+                menuColor,
+                TwoDimensionalMenu.CursorType.Pointer
+            );
+        }
+
+        public void RemoveHostMenu()
+        {
+            HostMenu = null;
+        }
+
+        public void CopyHostIPAddress()
+        {
+            Clipboard.SetText(hostIPAddress);
+        }
+
+        public void PasteIPAddressFromClipboard()
+        {
+            string clipboardContents = Clipboard.GetText(TextDataFormat.Text);
+            const string ipAddressPattern = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";
+            bool clipboardHasIP = Regex.IsMatch(clipboardContents, ipAddressPattern);
+
+            if (clipboardHasIP)
+            {
+                inputIPAddress = clipboardContents;
+                UpdateStatus(inputIPAddress, false);
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+            }
+        }
+
         public void UpdateStatus(string ipAddress, bool hosting, bool serverIpFound = true)
         {
+            hostIPAddress = ipAddress;
             networkStatusWindow = GenerateStatusWindow(ipAddress, hosting, serverIpFound);
         }
 
@@ -143,7 +198,10 @@ namespace SolStandard.Containers.View
 
         public void ResetIPAddress()
         {
+            hostIPAddress = string.Empty;
             inputIPAddress = string.Empty;
+            GameDriver.ConnectionManager.CloseServer();
+            GameDriver.ConnectionManager.DisconnectClient();
         }
 
         public void AttemptConnection()
@@ -202,6 +260,17 @@ namespace SolStandard.Containers.View
                         statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
                     );
                     DialMenu.Draw(spriteBatch, dialMenuPosition);
+                }
+
+                if (HostMenu != null)
+                {
+                    const int statusPadding = 10;
+                    Vector2 hostMenuCenter = new Vector2(HostMenu.Width, HostMenu.Height) / 2;
+                    Vector2 hostMenuPosition = new Vector2(
+                        centerScreen.X - hostMenuCenter.X,
+                        statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
+                    );
+                    HostMenu.Draw(spriteBatch, hostMenuPosition);
                 }
             }
         }

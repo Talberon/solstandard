@@ -261,7 +261,9 @@
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\CopyIPAddressOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\DialMenu\PasteIPAddressOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\AdHocDraftOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
     <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
