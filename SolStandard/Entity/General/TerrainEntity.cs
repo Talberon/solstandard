@@ -43,7 +43,8 @@ namespace SolStandard.Entity.General
         Contract,
         RecallCharm,
         Escape,
-        Relic
+        Relic,
+        Piston
     }
 
     public class TerrainEntity : MapEntity

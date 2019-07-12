@@ -109,6 +109,7 @@
     <Compile Include="Entity\General\Item\Spoils.cs" />
     <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\Piston.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />

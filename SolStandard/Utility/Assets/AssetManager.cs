@@ -49,6 +49,8 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D DamageTexture { get; private set; }
         public static ITexture2D RecoverArmorTexture { get; private set; }
         public static ITexture2D RecoverHealthTexture { get; private set; }
+        public static ITexture2D PistonTexture { get; private set; }
+        public static ITexture2D LaunchpadTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -135,6 +137,8 @@ namespace SolStandard.Utility.Assets
             DamageTexture = ContentLoader.LoadDamageAtlas(content);
             RecoverArmorTexture = ContentLoader.LoadRecoverArmorAtlas(content);
             RecoverHealthTexture = ContentLoader.LoadRecoverHealthAtlas(content);
+            PistonTexture = ContentLoader.LoadPistonAtlas(content);
+            LaunchpadTexture = ContentLoader.LoadLaunchpadAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);

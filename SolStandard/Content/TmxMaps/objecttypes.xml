@@ -130,6 +130,9 @@
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
  </objecttype>
+ <objecttype name="Piston" color="#815e33">
+  <property name="direction" type="string" default="NORTH|SOUTH|EAST|WEST"/>
+ </objecttype>
  <objecttype name="Player" color="#0000ff"/>
  <objecttype name="Portal" color="#aaaaff">
   <property name="canMove" type="bool" default="true"/>

@@ -253,6 +253,18 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadPistonAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Piston");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadLaunchpadAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Launchpad");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");

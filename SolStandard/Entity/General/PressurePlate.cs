@@ -38,14 +38,14 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != TriggerTime) return false;
 
-            return ((PressurePlateIsActivated && !wasPressed) || (!PressurePlateIsActivated && ReleasingPlate));
+            return ((PlateIsPressed && !wasPressed) || (!PlateIsPressed && wasPressed));
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
             if (triggerTime != TriggerTime) return false;
 
-            if (PressurePlateIsActivated)
+            if (PlateIsPressed)
             {
                 if (!wasPressed && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.General
             }
             else
             {
-                if (ReleasingPlate && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
+                if (TriggeringOnRelease && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                     AssetManager.DoorSFX.Play();
@@ -68,7 +68,7 @@ namespace SolStandard.Entity.General
             return true;
         }
 
-        private bool ReleasingPlate => wasPressed && triggerOnRelease;
+        private bool TriggeringOnRelease => wasPressed && triggerOnRelease;
 
         private List<IRemotelyTriggerable> TriggerTiles
         {
@@ -90,7 +90,7 @@ namespace SolStandard.Entity.General
             }
         }
 
-        private bool PressurePlateIsActivated => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
+        private bool PlateIsPressed => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
 
         private bool ItemIsOnPressurePlate
         {
@@ -144,7 +144,8 @@ namespace SolStandard.Entity.General
                         new RenderBlank()
                     }
                 },
-                1
+                1,
+                HorizontalAlignment.Centered
             );
 
         public bool CanTrigger => true;

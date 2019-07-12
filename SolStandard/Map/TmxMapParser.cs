@@ -704,6 +704,10 @@ namespace SolStandard.Map
                                             currentProperties["itemPool"]
                                         );
                                         break;
+                                    case EntityTypes.Piston:
+                                        entityGrid[col, row] = new Piston(currentObject.Name, currentObject.Type,
+                                            currentProperties["direction"], new Vector2(col, row));
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             $"Entity type {currentObject.Type} does not exist!"

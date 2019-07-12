@@ -1826,6 +1826,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/Interact.png
 
+#begin Graphics/Images/Icons/Misc/Launchpad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Launchpad.png
+
 #begin Graphics/Images/Icons/Misc/old_spoils.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1837,6 +1849,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/old_spoils.png
+
+#begin Graphics/Images/Icons/Misc/Piston.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Piston.png
 
 #begin Graphics/Images/Icons/Misc/RecoverArmor.png
 /importer:TextureImporter
