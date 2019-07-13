@@ -121,6 +121,9 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="itemPool" type="string"/>
  </objecttype>
+ <objecttype name="Launchpad" color="#3aa413">
+  <property name="radius" type="string" default="2,3"/>
+ </objecttype>
  <objecttype name="Magnet" color="#1685a4">
   <property name="itemPool" type="string"/>
   <property name="pickupRange" type="string" default="0"/>
@@ -187,6 +190,13 @@
   <property name="modeSoloDefeatBoss" type="bool" default="false"/>
   <property name="modeTaxes" type="bool" default="false"/>
   <property name="valueTaxes" type="int" default="100"/>
+ </objecttype>
+ <objecttype name="SpringTrap" color="#dbde1d">
+  <property name="trigger.endOfTurn" type="bool" default="true"/>
+  <property name="trigger.landingCoordinates.x" type="int" default="0"/>
+  <property name="trigger.landingCoordinates.y" type="int" default="0"/>
+  <property name="trigger.remotely" type="bool" default="false"/>
+  <property name="trigger.startOfTurn" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">
   <property name="canMove" type="bool" default="false"/>

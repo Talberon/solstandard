@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -44,7 +45,9 @@ namespace SolStandard.Entity.General
         RecallCharm,
         Escape,
         Relic,
-        Piston
+        Piston,
+        Launchpad,
+        SpringTrap
     }
 
     public class TerrainEntity : MapEntity
@@ -71,6 +74,11 @@ namespace SolStandard.Entity.General
                 new WindowContentGrid(
                     new[,]
                     {
+                        {
+                            new RenderText(AssetManager.WindowFont,
+                                $"X: {MapCoordinates.X}, Y: {MapCoordinates.Y}"),
+                            new RenderBlank()
+                        },
                         {
                             Sprite.Clone(),
                             NameText

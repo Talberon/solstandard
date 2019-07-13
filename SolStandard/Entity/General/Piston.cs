@@ -78,6 +78,9 @@ namespace SolStandard.Entity.General
             {
                 if (CanPush(targetUnit))
                 {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("PUSHING!",
+                        new Vector2(MapCoordinates.X, MapCoordinates.Y - 1),
+                        50);
                     (Sprite as AnimatedSpriteSheet)?.PlayOnce();
                     PushTarget(targetUnit);
                 }

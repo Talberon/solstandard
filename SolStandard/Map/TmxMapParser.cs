@@ -708,6 +708,26 @@ namespace SolStandard.Map
                                         entityGrid[col, row] = new Piston(currentObject.Name, currentObject.Type,
                                             currentProperties["direction"], new Vector2(col, row));
                                         break;
+                                    case EntityTypes.Launchpad:
+                                        entityGrid[col, row] = new Launchpad(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            new Vector2(col, row),
+                                            currentProperties["radius"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray()
+                                        );
+                                        break;
+                                    case EntityTypes.SpringTrap:
+                                        entityGrid[col, row] = new SpringTrap(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            new Vector2(col, row),
+                                            new Vector2(
+                                                Convert.ToInt32(currentProperties["trigger.landingCoordinates.x"]),
+                                                Convert.ToInt32(currentProperties["trigger.landingCoordinates.y"])
+                                            )
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             $"Entity type {currentObject.Type} does not exist!"

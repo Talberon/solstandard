@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
 
-        private static void RemoveActionTilesOnUnmovableSpaces(Layer mapLayer)
+        public static void RemoveActionTilesOnUnmovableSpaces(Layer mapLayer)
         {
             List<MapElement> tilesToRemove = new List<MapElement>();
 

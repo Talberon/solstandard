@@ -395,6 +395,11 @@ namespace SolStandard.Containers.View
                     new IRenderable[,]
                     {
                         {
+                            new RenderText(AssetManager.WindowFont,
+                                $"X: {GameContext.MapCursor.MapCoordinates.X}, Y: {GameContext.MapCursor.MapCoordinates.Y}"),
+                            new RenderBlank()
+                        },
+                        {
                             new RenderText(AssetManager.WindowFont, "None"),
                             new RenderBlank()
                         },

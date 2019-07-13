@@ -108,6 +108,7 @@
     <Compile Include="Entity\General\Item\Key.cs" />
     <Compile Include="Entity\General\Item\Spoils.cs" />
     <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
+    <Compile Include="Entity\General\Launchpad.cs" />
     <Compile Include="Entity\General\Movable.cs" />
     <Compile Include="Entity\General\Piston.cs" />
     <Compile Include="Entity\General\Portal.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Entity\General\RecoveryTile.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
+    <Compile Include="Entity\General\SpringTrap.cs" />
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\LaunchpadAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\CreepEntity.cs" />
     <Compile Include="Entity\Unit\CreepUnit.cs" />
@@ -409,6 +412,7 @@
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\ReadyAIRoutineEvent.cs" />
