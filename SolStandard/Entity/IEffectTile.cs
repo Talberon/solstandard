@@ -4,7 +4,7 @@ namespace SolStandard.Entity
 {
     public enum EffectTriggerTime
     {
-        StartOfTurn,
+        StartOfRound,
         EndOfTurn
     }
 
@@ -12,6 +12,7 @@ namespace SolStandard.Entity
     {
         bool Trigger(EffectTriggerTime triggerTime);
         bool WillTrigger(EffectTriggerTime triggerTime);
+        bool HasTriggered { get; set; }
         bool IsExpired { get; }
         Vector2 MapCoordinates { get; }
     }

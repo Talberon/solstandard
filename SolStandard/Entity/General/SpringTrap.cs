@@ -23,6 +23,7 @@ namespace SolStandard.Entity.General
         public int[] InteractRange { get; }
         private readonly Vector2 trapLaunchCoordinates;
         private readonly EffectTriggerTime effectTriggerTime;
+        public bool HasTriggered { get; set; }
 
         public SpringTrap(string name, string type, Vector2 mapCoordinates, Vector2 trapLaunchCoordinates) :
             base(name, type, BuildSpringSprite(SpringType.Trap), mapCoordinates)
@@ -31,6 +32,7 @@ namespace SolStandard.Entity.General
             CanMove = true;
             InteractRange = new[] {0};
             effectTriggerTime = EffectTriggerTime.EndOfTurn;
+            HasTriggered = false;
         }
 
         public static AnimatedSpriteSheet BuildSpringSprite(SpringType springType)
@@ -45,7 +47,15 @@ namespace SolStandard.Entity.General
 
         public bool CanTrigger => UnitStandingOnSpring && !TargetTileIsObstructed;
         private bool UnitStandingOnSpring => MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity != null;
-        private bool TargetTileIsObstructed => !UnitMovingContext.CanEndMoveAtCoordinates(trapLaunchCoordinates);
+
+        private bool TargetTileIsObstructed
+        {
+            get
+            {
+                UnitEntity target = MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity;
+                return !UnitMovingContext.CanEndMoveAtCoordinates(target, trapLaunchCoordinates);
+            }
+        }
 
 
         public bool IsExpired => false;
@@ -86,7 +96,7 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            return effectTriggerTime == triggerTime && CanTrigger;
+            return effectTriggerTime == triggerTime && CanTrigger && !HasTriggered;
         }
 
         public void Trigger()

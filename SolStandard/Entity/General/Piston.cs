@@ -106,7 +106,7 @@ namespace SolStandard.Entity.General
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(MapCoordinates, targetCoordinates);
 
-            return UnitMovingContext.CanEndMoveAtCoordinates(oppositeCoordinates) && targetUnit.IsMovable;
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) && targetUnit.IsMovable;
         }
 
         private void PushTarget(GameUnit target)

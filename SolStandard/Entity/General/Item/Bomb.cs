@@ -23,6 +23,7 @@ namespace SolStandard.Entity.General.Item
         public int Damage { get; }
         public IRenderable Icon { get; }
         public string ItemPool { get; }
+        public bool HasTriggered { get; set; }
         public bool IsExpired { get; private set; }
         private int turnsRemaining;
 
@@ -35,6 +36,7 @@ namespace SolStandard.Entity.General.Item
             Icon = sprite;
             ItemPool = itemPool;
             this.turnsRemaining = turnsRemaining;
+            HasTriggered = false;
             IsExpired = false;
             CanMove = false;
         }
@@ -58,7 +60,7 @@ namespace SolStandard.Entity.General.Item
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            if (!WillTrigger(triggerTime)) return false;
 
             turnsRemaining--;
 
@@ -106,20 +108,17 @@ namespace SolStandard.Entity.General.Item
             }
 
             MapContainer.ClearDynamicAndPreviewGrids();
-
             IsExpired = true;
-
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
                 50);
             AssetManager.CombatDeathSFX.Play();
-
 
             return true;
         }
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            return triggerTime == EffectTriggerTime.StartOfTurn;
+            return triggerTime == EffectTriggerTime.StartOfRound && !HasTriggered;
         }
 
         public override IRenderable TerrainInfo =>

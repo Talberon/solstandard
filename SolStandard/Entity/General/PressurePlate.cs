@@ -21,6 +21,7 @@ namespace SolStandard.Entity.General
         private readonly string triggersId;
         private bool wasPressed;
         private readonly bool triggerOnRelease;
+        public bool HasTriggered { get; set; }
         private const EffectTriggerTime TriggerTime = EffectTriggerTime.EndOfTurn;
 
         public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string triggersId,
@@ -30,20 +31,22 @@ namespace SolStandard.Entity.General
             this.triggersId = triggersId;
             this.triggerOnRelease = triggerOnRelease;
             wasPressed = false;
+            HasTriggered = false;
         }
 
         public bool IsExpired => false;
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != TriggerTime) return false;
+            if (triggerTime != TriggerTime || HasTriggered) return false;
 
             return ((PlateIsPressed && !wasPressed) || (!PlateIsPressed && wasPressed));
         }
 
+
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != TriggerTime) return false;
+            if (triggerTime != TriggerTime || HasTriggered) return false;
 
             if (PlateIsPressed)
             {

@@ -2,7 +2,7 @@ using SolStandard.Entity;
 
 namespace SolStandard.Utility.Events
 {
-    public class TriggerEffectTileEvent : IEvent
+    public class TriggerSingleEffectTileEvent : IEvent
     {
         public bool Complete { get; private set; }
         private readonly IEffectTile effectTile;
@@ -10,7 +10,8 @@ namespace SolStandard.Utility.Events
         private readonly int delayTime;
         private int delayTicker;
 
-        public TriggerEffectTileEvent(IEffectTile effectTile, EffectTriggerTime effectTriggerTime, int delayTime = 100)
+        public TriggerSingleEffectTileEvent(IEffectTile effectTile, EffectTriggerTime effectTriggerTime,
+            int delayTime = 100)
         {
             this.effectTile = effectTile;
             this.effectTriggerTime = effectTriggerTime;
@@ -27,6 +28,8 @@ namespace SolStandard.Utility.Events
                     Complete = true;
                     return;
                 }
+
+                effectTile.HasTriggered = true;
             }
 
             delayTicker--;
