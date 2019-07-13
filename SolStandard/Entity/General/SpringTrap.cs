@@ -63,6 +63,7 @@ namespace SolStandard.Entity.General
                 {
                     GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
                         "LAUNCHED!", 50);
+                    (Sprite as AnimatedSpriteSheet)?.PlayOnce();
                     MoveUnitToCoordinates(unitOnSpring, trapLaunchCoordinates);
                     AssetManager.DoorSFX.Play();
                 }

@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 eventQueue.Enqueue(new PlayEntityAnimationOnceEvent(launchpad));
                 eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
-                eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
+                eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.DoorSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
