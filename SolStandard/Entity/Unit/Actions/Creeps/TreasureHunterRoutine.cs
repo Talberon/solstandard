@@ -102,11 +102,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathToItemQueue.Enqueue(new UnitMoveEvent(creep, direction));
+                pathToItemQueue.Enqueue(new CreepMoveEvent(creep, direction));
                 pathToItemQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathToItemQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToItemQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
             pathToItemQueue.Enqueue(new PickUpItemEvent(itemToPickUp, itemCoordinates));
             pathToItemQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
@@ -128,11 +128,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathToCurrencyQueue.Enqueue(new UnitMoveEvent(creep, direction));
+                pathToCurrencyQueue.Enqueue(new CreepMoveEvent(creep, direction));
                 pathToCurrencyQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathToCurrencyQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToCurrencyQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
             pathToCurrencyQueue.Enqueue(new PickUpCurrencyEvent(currencyToPickUp));
             pathToCurrencyQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToCurrencyQueue);

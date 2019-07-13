@@ -96,7 +96,7 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            return effectTriggerTime == triggerTime && CanTrigger && !HasTriggered;
+            return effectTriggerTime == triggerTime && UnitStandingOnSpring && !HasTriggered;
         }
 
         public void Trigger()

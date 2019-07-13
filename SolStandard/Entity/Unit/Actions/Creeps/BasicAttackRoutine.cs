@@ -81,11 +81,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathAndAttackQueue.Enqueue(new UnitMoveEvent(roamer, direction));
+                pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, direction));
                 pathAndAttackQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathAndAttackQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));
+            pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
             pathAndAttackQueue.Enqueue(new StartCombatEvent(targetUnitCoordinatePair.Key));
             GlobalEventQueue.QueueEvents(pathAndAttackQueue);
         }

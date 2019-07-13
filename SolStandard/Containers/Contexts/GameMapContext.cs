@@ -583,6 +583,7 @@ namespace SolStandard.Containers.Contexts
             }
 
             Queue<IEvent> effectTileEvents = new Queue<IEvent>();
+            effectTileEvents.Enqueue(new WaitFramesEvent(10));
             effectTileEvents.Enqueue(
                 new ToastAtCursorEvent(
                     "Resolving " + effectTriggerTime + " Tile Effects...",
@@ -590,11 +591,13 @@ namespace SolStandard.Containers.Contexts
                     100
                 )
             );
+            effectTileEvents.Enqueue(new WaitFramesEvent(50));
 
             foreach (IEffectTile tile in triggerTiles)
             {
+                effectTileEvents.Enqueue(new CameraCursorPositionEvent(tile.MapCoordinates));
                 effectTileEvents.Enqueue(
-                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 50)
+                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 60)
                 );
             }
 

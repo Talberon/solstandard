@@ -113,11 +113,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathToItemQueue.Enqueue(new UnitMoveEvent(creep, direction));
+                pathToItemQueue.Enqueue(new CreepMoveEvent(creep, direction));
                 pathToItemQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathToItemQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToItemQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
             pathToItemQueue.Enqueue(
                 new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
             );

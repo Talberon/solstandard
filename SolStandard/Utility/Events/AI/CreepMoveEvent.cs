@@ -5,13 +5,13 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events.AI
 {
-    public class UnitMoveEvent : IEvent
+    public class CreepMoveEvent : IEvent
     {
         private readonly GameUnit unitToMove;
         private readonly Direction directionToMove;
         private readonly bool ignoreCollision;
 
-        public UnitMoveEvent(GameUnit unitToMove, Direction directionToMove, bool ignoreCollision = false)
+        public CreepMoveEvent(GameUnit unitToMove, Direction directionToMove, bool ignoreCollision = false)
         {
             this.unitToMove = unitToMove;
             this.directionToMove = directionToMove;

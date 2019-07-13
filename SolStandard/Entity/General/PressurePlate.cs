@@ -9,6 +9,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -23,6 +24,7 @@ namespace SolStandard.Entity.General
         private readonly bool triggerOnRelease;
         public bool HasTriggered { get; set; }
         private const EffectTriggerTime TriggerTime = EffectTriggerTime.EndOfTurn;
+        private int? lastOccupant;
 
         public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string triggersId,
             bool triggerOnRelease) :
@@ -32,6 +34,7 @@ namespace SolStandard.Entity.General
             this.triggerOnRelease = triggerOnRelease;
             wasPressed = false;
             HasTriggered = false;
+            lastOccupant = null;
         }
 
         public bool IsExpired => false;
@@ -50,8 +53,10 @@ namespace SolStandard.Entity.General
 
             if (PlateIsPressed)
             {
-                if (!wasPressed && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
+                if ((!wasPressed || lastOccupant != CurrentOccupant) &&
+                    ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
+                    lastOccupant = CurrentOccupant;
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                     AssetManager.DoorSFX.Play();
                     wasPressed = true;
@@ -69,6 +74,15 @@ namespace SolStandard.Entity.General
             }
 
             return true;
+        }
+
+        private int? CurrentOccupant
+        {
+            get
+            {
+                MapSlice plateSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+                return plateSlice.UnitEntity?.GetHashCode() ?? plateSlice.ItemEntity?.GetHashCode();
+            }
         }
 
         private bool TriggeringOnRelease => wasPressed && triggerOnRelease;
