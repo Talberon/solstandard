@@ -164,7 +164,8 @@ namespace SolStandard.Entity.General
                         new RenderBlank()
                     }
                 },
-                1
+                1,
+                HorizontalAlignment.Centered
             );
 
         public UnitAction UseAction()

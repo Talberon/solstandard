@@ -8,6 +8,7 @@ using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -18,6 +19,18 @@ namespace SolStandard.Entity.General
 {
     public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
     {
+        private enum LockIconState
+        {
+            Locked,
+            Unlocked
+        }
+
+        private enum OpenCloseIconState
+        {
+            Closed,
+            Open
+        }
+
         public int Gold { get; }
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
@@ -48,7 +61,6 @@ namespace SolStandard.Entity.General
                 List<string> itemList = new List<string>();
                 Items.ForEach(item => itemList.Add(item.Name));
 
-
                 return new WindowContentGrid(
                     new[,]
                     {
@@ -62,34 +74,52 @@ namespace SolStandard.Entity.General
                                 (CanMove) ? PositiveColor : NegativeColor)
                         },
                         {
-                            new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                (IsLocked) ? NegativeColor : PositiveColor),
-                            new RenderBlank()
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                                (IsOpen) ? PositiveColor : NegativeColor),
-                            new RenderBlank()
-                        },
-                        {
-                            ObjectiveIconProvider.GetObjectiveIcon(
-                                VictoryConditions.Taxes,
-                                GameDriver.CellSizeVector
-                            ),
-                            new RenderText(AssetManager.WindowFont,
-                                (IsOpen) ? Gold + Currency.CurrencyAbbreviation : "????")
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont, "Contents: "),
-                            new RenderBlank()
-                        },
-                        {
-                            new RenderText(AssetManager.WindowFont,
-                                (IsOpen) ? string.Join(Environment.NewLine, itemList) : "????"),
+                            new Window(new WindowContentGrid(new IRenderable[,]
+                                {
+                                    {
+                                        new SpriteAtlas(
+                                            AssetManager.LockTexture,
+                                            new Vector2(AssetManager.LockTexture.Width),
+                                            GameDriver.CellSizeVector,
+                                            Convert.ToInt32(
+                                                IsLocked ? LockIconState.Locked : LockIconState.Unlocked
+                                            )
+                                        ),
+                                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                                            (IsLocked) ? NegativeColor : PositiveColor)
+                                    },
+                                    {
+                                        new SpriteAtlas(
+                                            AssetManager.OpenTexture,
+                                            new Vector2(AssetManager.OpenTexture.Width),
+                                            GameDriver.CellSizeVector,
+                                            Convert.ToInt32(
+                                                IsOpen ? OpenCloseIconState.Open : OpenCloseIconState.Closed
+                                            )
+                                        ),
+                                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                                            (IsOpen) ? PositiveColor : NegativeColor)
+                                    },
+                                    {
+                                        ObjectiveIconProvider.GetObjectiveIcon(
+                                            VictoryConditions.Taxes,
+                                            GameDriver.CellSizeVector
+                                        ),
+                                        new RenderText(AssetManager.WindowFont,
+                                            ": " + (IsOpen ? Gold + Currency.CurrencyAbbreviation : "???"))
+                                    },
+                                    {
+                                        new RenderText(AssetManager.WindowFont, "Contents: "),
+                                        new RenderText(AssetManager.WindowFont,
+                                            (IsOpen) ? string.Join(Environment.NewLine, itemList) : "????"),
+                                    }
+                                }, 1),
+                                InnerWindowColor),
                             new RenderBlank()
                         }
                     },
-                    3
+                    3,
+                    HorizontalAlignment.Centered
                 );
             }
         }

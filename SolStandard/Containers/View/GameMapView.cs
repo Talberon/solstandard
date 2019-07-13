@@ -396,7 +396,7 @@ namespace SolStandard.Containers.View
                     {
                         {
                             new RenderText(AssetManager.WindowFont,
-                                $"X: {GameContext.MapCursor.MapCoordinates.X}, Y: {GameContext.MapCursor.MapCoordinates.Y}"),
+                                $"[ X: {GameContext.MapCursor.MapCoordinates.X}, Y: {GameContext.MapCursor.MapCoordinates.Y} ]"),
                             new RenderBlank()
                         },
                         {
@@ -409,7 +409,8 @@ namespace SolStandard.Containers.View
                                 (canMove) ? TerrainEntity.PositiveColor : TerrainEntity.NegativeColor)
                         }
                     },
-                    1
+                    1,
+                    HorizontalAlignment.Centered
                 );
 
                 terrainContentGrid = new WindowContentGrid(

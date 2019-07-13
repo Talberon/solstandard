@@ -74,8 +74,7 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            new RenderText(AssetManager.WindowFont,
-                                $"X: {MapCoordinates.X}, Y: {MapCoordinates.Y}"),
+                            new RenderText(AssetManager.WindowFont, $"[ X: {MapCoordinates.X}, Y: {MapCoordinates.Y} ]"),
                             new RenderBlank()
                         },
                         {

@@ -51,12 +51,12 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D RecoverHealthTexture { get; private set; }
         public static ITexture2D PistonTexture { get; private set; }
         public static ITexture2D SpringTexture { get; private set; }
+        public static ITexture2D LockTexture { get; private set; }
+        public static ITexture2D OpenTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
         public static ITexture2D MainMenuBackground { get; private set; }
-        public static ITexture2D GamepadControlHelp { get; private set; }
-        public static ITexture2D KeyboardControlHelp { get; private set; }
 
         public static ISpriteFont WindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
@@ -139,6 +139,8 @@ namespace SolStandard.Utility.Assets
             RecoverHealthTexture = ContentLoader.LoadRecoverHealthAtlas(content);
             PistonTexture = ContentLoader.LoadPistonAtlas(content);
             SpringTexture = ContentLoader.LoadLaunchpadAtlas(content);
+            LockTexture = ContentLoader.LoadLockAtlas(content);
+            OpenTexture = ContentLoader.LoadOpenAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);
@@ -167,9 +169,6 @@ namespace SolStandard.Utility.Assets
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);
-
-            GamepadControlHelp = ContentLoader.LoadGamepadKeyMap(content);
-            KeyboardControlHelp = ContentLoader.LoadKeyboardKeyMap(content);
 
             MenuMoveSFX = ContentLoader.LoadMenuMoveSFX(content);
             MenuConfirmSFX = ContentLoader.LoadMenuConfirmSFX(content);
