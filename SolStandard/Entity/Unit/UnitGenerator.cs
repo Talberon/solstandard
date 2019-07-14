@@ -342,7 +342,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Rampart(3, 2),
                 new Stun(1),
-                new Replace(),
+                new Rescue(),
                 new Shove(),
                 new Guard(3),
                 new Wait()

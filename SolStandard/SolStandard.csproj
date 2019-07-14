@@ -194,6 +194,7 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
+    <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />

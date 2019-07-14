@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="ArrowTrap" color="#a0a0a4">
+  <property name="damage" type="int" default="3"/>
+  <property name="direction" type="string" default="WEST|EAST|SOUTH|NORTH"/>
+ </objecttype>
  <objecttype name="Artillery" color="#f42ad9">
   <property name="canMove" type="bool" default="true"/>
   <property name="damage" type="int" default="5"/>

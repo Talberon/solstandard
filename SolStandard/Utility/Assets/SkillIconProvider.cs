@@ -45,7 +45,7 @@ namespace SolStandard.Utility.Assets
         LeapStrike,
         Suplex,
         Terraform,
-        
+        Rescue,
         Jump,
 
         //AI Routines
@@ -115,6 +115,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D terraform = skillIconTextures.Find(texture => texture.Name.EndsWith("Terraform"));
             ITexture2D grapple = skillIconTextures.Find(texture => texture.Name.EndsWith("Grapple"));
             ITexture2D fortify = skillIconTextures.Find(texture => texture.Name.EndsWith("Fortify"));
+            ITexture2D rescue = skillIconTextures.Find(texture => texture.Name.EndsWith("Rescue"));
             ITexture2D jump = skillIconTextures.Find(texture => texture.Name.EndsWith("Jump"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
@@ -169,6 +170,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Terraform, terraform},
                 {SkillIcon.Grapple, grapple},
                 {SkillIcon.Fortify, fortify},
+                {SkillIcon.Rescue, rescue},
                 {SkillIcon.Jump, jump},
 
                 //AI Routines
