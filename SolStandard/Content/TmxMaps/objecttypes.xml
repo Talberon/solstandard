@@ -72,6 +72,7 @@
   <property name="Items" type="string"/>
   <property name="Team" type="string" default="Creep"/>
   <property name="fallback_routine" type="string" default="routine_wander"/>
+  <property name="gold" type="int" default="0"/>
   <property name="routine_basicAttack" type="bool" default="true"/>
   <property name="routine_defender" type="bool" default="false"/>
   <property name="routine_glutton" type="bool" default="false"/>

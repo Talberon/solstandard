@@ -10,12 +10,14 @@ namespace SolStandard.Entity.Unit
     {
         private IRenderable routineIcon;
         public CreepRoutineModel Routines { get; }
+        public int StartingGold { get; }
 
         public CreepEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
             Role role, bool isCommander, CreepRoutineModel creepRoutineRoutines, string[] initialInventory)
             : base(name, type, spriteSheet, mapCoordinates, team, role, isCommander, initialInventory)
         {
             Routines = creepRoutineRoutines;
+            StartingGold = creepRoutineRoutines.StartingGold;
         }
 
         public void UpdateRoutineIcon(IRoutine routine)

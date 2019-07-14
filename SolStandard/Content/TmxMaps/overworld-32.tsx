@@ -90,8 +90,6 @@
  <tile id="42" terrain="0,0,1,0"/>
  <tile id="43" terrain="0,1,1,1"/>
  <tile id="44" terrain="1,0,1,1"/>
- <tile id="45" terrain="1,1,1,1"/>
- <tile id="46" terrain="1,1,1,1"/>
  <tile id="60">
   <animation>
    <frame tileid="72" duration="100"/>
@@ -136,8 +134,6 @@
  <tile id="82" terrain="1,0,1,0"/>
  <tile id="83" terrain="1,1,0,1"/>
  <tile id="84" terrain="1,1,1,0"/>
- <tile id="85" terrain="1,1,1,1"/>
- <tile id="86" terrain="1,1,1,1"/>
  <tile id="100">
   <animation>
    <frame tileid="112" duration="100"/>

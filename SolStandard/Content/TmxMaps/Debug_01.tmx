@@ -1943,7 +1943,7 @@
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="626" name="Tower Base" type="BuffTile" gid="563" x="448" y="96" width="32" height="32">
+  <object id="626" name="Tower" type="BuffTile" gid="563" x="448" y="96" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
@@ -2045,7 +2045,7 @@
     <property name="destinationId" value="Stairs A1"/>
    </properties>
   </object>
-  <object id="702" name="House" type="BuffTile" gid="6361" x="576" y="96" width="32" height="32">
+  <object id="702" name="Residence" type="BuffTile" gid="6361" x="576" y="96" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
@@ -2057,7 +2057,7 @@
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="706" name="House" type="BuffTile" gid="6368" x="544" y="96" width="32" height="32">
+  <object id="706" name="Residence" type="BuffTile" gid="6368" x="544" y="96" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
@@ -2460,6 +2460,7 @@
   <object id="970" name="Slime" type="Creep" gid="21" x="64" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
+    <property name="gold" type="int" value="3"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Slime"/>
@@ -2469,6 +2470,7 @@
   <object id="971" name="Skeleton" type="Creep" gid="26" x="32" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
@@ -2596,6 +2598,7 @@
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Item" value="Chest LK1 Key"/>
+    <property name="gold" type="int" value="3"/>
    </properties>
   </object>
   <object id="944" name="Edward" type="Unit" gid="5" x="512" y="192" width="32" height="32">
@@ -2663,6 +2666,7 @@
   <object id="963" name="Orc" type="Creep" gid="23" x="352" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
+    <property name="gold" type="int" value="10"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
@@ -2672,6 +2676,7 @@
   <object id="964" name="Rat" type="Creep" gid="29" x="352" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
+    <property name="gold" type="int" value="3"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>
@@ -2680,6 +2685,7 @@
   <object id="967" name="Goblin" type="Creep" gid="27" x="512" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="gold" type="int" value="8"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
@@ -2690,6 +2696,7 @@
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
+    <property name="gold" type="int" value="15"/>
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
@@ -2760,6 +2767,7 @@
   <object id="962" name="Slime" type="Creep" gid="21" x="224" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
+    <property name="gold" type="int" value="3"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Slime"/>
@@ -2769,12 +2777,14 @@
   <object id="965" name="Bat" type="Creep" gid="30" x="192" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
+    <property name="gold" type="int" value="7"/>
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
   <object id="966" name="Spider" type="Creep" gid="28" x="224" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
@@ -2783,6 +2793,7 @@
     <property name="Class" value="Necromancer"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="fallback_routine" value="routine_wait"/>
+    <property name="gold" type="int" value="15"/>
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>

@@ -19,6 +19,7 @@ namespace SolStandard.Entity.General
         {
             this.crossDirection = crossDirection;
             InteractRange = new[] {1};
+            CanMove = false;
         }
 
 

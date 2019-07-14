@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
                 PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
-                AssignStartingGold(generatedUnit);
+                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, 5);
             }
             else
             {
@@ -55,38 +55,9 @@ namespace SolStandard.Entity.Unit
             return generatedUnit;
         }
 
-        private static void AssignStartingGold(GameUnit generatedUnit)
+        private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
-            switch (generatedUnit.Role)
-            {
-                case Role.Slime:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Troll:
-                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Orc:
-                    generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Necromancer:
-                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Skeleton:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Goblin:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Rat:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Bat:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Spider:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-            }
+            generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
         }
 
         private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)
@@ -506,10 +477,10 @@ namespace SolStandard.Entity.Unit
 
         private static CreepEntity GenerateCreepEntity(string name, string type, Role role, Team team, bool isCommander,
             string[] initialInventory, List<ITexture2D> unitSprites, Vector2 mapCoordinates,
-            Dictionary<string, string> unitProperties)
+            Dictionary<string, string> creepProperties)
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
-            CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(unitProperties);
+            CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(creepProperties);
             CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
                 isCommander, creepRoutineModel, initialInventory);
 

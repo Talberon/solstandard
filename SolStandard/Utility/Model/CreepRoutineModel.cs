@@ -32,6 +32,7 @@ namespace SolStandard.Utility.Model
         private const string IndependentProp = "Independent";
         private const string ItemsProp = "Items";
         private const string TeamProp = "Team";
+        private const string GoldProp = "gold";
         private const string FallbackRoutineProp = "fallback_routine";
         private const string RoutineBasicAttackProp = "routine_basicAttack";
         private const string RoutineSummonProp = "routine_summon";
@@ -62,17 +63,19 @@ namespace SolStandard.Utility.Model
         private readonly bool routinePrey;
         private readonly bool routineKingslayer;
         private readonly bool routineWait;
+        public int StartingGold { get; }
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
-            Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon, string routineSummonClass,
-            bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender,
-            bool routineGlutton, bool routinePrey, bool routineKingslayer, bool routineWait)
+            int startingGold, Routine fallbackRoutine, bool routineBasicAttack, bool routineSummon,
+            string routineSummonClass, bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy,
+            bool routineDefender, bool routineGlutton, bool routinePrey, bool routineKingslayer, bool routineWait)
         {
             CreepClass = creepClass;
             this.isCommander = isCommander;
             this.isIndependent = isIndependent;
             this.items = items;
             this.team = team;
+            StartingGold = startingGold;
             this.fallbackRoutine = fallbackRoutine;
             this.routineBasicAttack = routineBasicAttack;
             this.routineSummon = routineSummon;
@@ -88,6 +91,7 @@ namespace SolStandard.Utility.Model
         }
 
         public List<UnitAction> Actions => GenerateCreepRoutinesFromProperties(EntityProperties);
+
 
         public IRoutine FallbackRoutine =>
             GenerateRoutine(GetRoutineByName(EntityProperties[FallbackRoutineProp]), EntityProperties) as
@@ -164,6 +168,7 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(unitProperties[IndependentProp]),
                 unitProperties[ItemsProp],
                 GetTeamByName(unitProperties[TeamProp]),
+                Convert.ToInt32(unitProperties[GoldProp]),
                 GetRoutineByName(unitProperties[FallbackRoutineProp]),
                 Convert.ToBoolean(unitProperties[RoutineBasicAttackProp]),
                 Convert.ToBoolean(unitProperties[RoutineSummonProp]),
@@ -215,6 +220,7 @@ namespace SolStandard.Utility.Model
                 {IndependentProp, isIndependent.ToString()},
                 {ItemsProp, items},
                 {TeamProp, team.ToString()},
+                {GoldProp, StartingGold.ToString()},
                 {FallbackRoutineProp, $"routine_{fallbackRoutine.ToString()}"},
                 {RoutineBasicAttackProp, routineBasicAttack.ToString()},
                 {RoutineSummonProp, routineSummon.ToString()},
