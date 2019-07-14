@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.4" name="entities-32" tilewidth="32" tileheight="32" tilecount="552" columns="8">
- <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2208"/>
+<tileset version="1.2" tiledversion="1.2.4" name="entities-32" tilewidth="32" tileheight="32" tilecount="584" columns="8">
+ <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2336"/>
  <tile id="0">
   <animation>
    <frame tileid="528" duration="200"/>
@@ -401,6 +401,46 @@
    <frame tileid="445" duration="200"/>
    <frame tileid="446" duration="200"/>
    <frame tileid="447" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="552">
+  <animation>
+   <frame tileid="552" duration="200"/>
+   <frame tileid="560" duration="200"/>
+   <frame tileid="568" duration="200"/>
+   <frame tileid="576" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="553">
+  <animation>
+   <frame tileid="553" duration="200"/>
+   <frame tileid="561" duration="200"/>
+   <frame tileid="569" duration="200"/>
+   <frame tileid="577" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="554">
+  <animation>
+   <frame tileid="554" duration="200"/>
+   <frame tileid="562" duration="200"/>
+   <frame tileid="570" duration="200"/>
+   <frame tileid="578" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="555">
+  <animation>
+   <frame tileid="555" duration="200"/>
+   <frame tileid="563" duration="200"/>
+   <frame tileid="571" duration="200"/>
+   <frame tileid="579" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="556">
+  <animation>
+   <frame tileid="556" duration="200"/>
+   <frame tileid="564" duration="200"/>
+   <frame tileid="572" duration="200"/>
+   <frame tileid="580" duration="200"/>
   </animation>
  </tile>
 </tileset>

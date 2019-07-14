@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="987">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="994">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -1531,7 +1531,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5671"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1560,16 +1560,16 @@
    <tile gid="5605"/>
    <tile gid="5607"/>
    <tile/>
+   <tile gid="5671"/>
+   <tile gid="5671"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5671"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5671"/>
+   <tile gid="5671"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1597,7 +1597,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="5671"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2241,7 +2241,7 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6607" x="320" y="288" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6607" x="544" y="160" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2268,75 +2268,57 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="972" name="Piston S" type="Piston" gid="6539" x="448" y="288" width="32" height="32">
-   <properties>
-    <property name="direction" value="SOUTH"/>
-   </properties>
-  </object>
-  <object id="973" name="Piston N" type="Piston" gid="6540" x="352" y="288" width="32" height="32">
-   <properties>
-    <property name="direction" value="NORTH"/>
-   </properties>
-  </object>
-  <object id="974" name="Piston W" type="Piston" gid="6541" x="416" y="320" width="32" height="32">
+  <object id="974" name="Piston W" type="Piston" gid="6541" x="768" y="352" width="32" height="32">
    <properties>
     <property name="direction" value="WEST"/>
    </properties>
   </object>
-  <object id="975" name="Piston E" type="Piston" gid="6542" x="288" y="224" width="32" height="32">
-   <properties>
-    <property name="direction" value="EAST"/>
-   </properties>
-  </object>
-  <object id="976" name="Piston Pad S" type="PressurePlate" gid="6670" x="448" y="224" width="32" height="32">
-   <properties>
-    <property name="triggerOnRelease" type="bool" value="false"/>
-    <property name="triggersId" value="Piston S"/>
-   </properties>
-  </object>
-  <object id="977" name="Piston Pad W" type="PressurePlate" gid="6670" x="448" y="320" width="32" height="32">
+  <object id="977" name="Piston Pad W" type="PressurePlate" gid="6670" x="800" y="352" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Piston W"/>
    </properties>
   </object>
-  <object id="978" name="Piston Pad N" type="PressurePlate" gid="6670" x="352" y="320" width="32" height="32">
+  <object id="983" name="Launchpad" type="Launchpad" gid="6537" x="768" y="288" width="32" height="32"/>
+  <object id="986" name="Spring Trap" type="SpringTrap" gid="6538" x="704" y="352" width="32" height="32">
    <properties>
-    <property name="triggerOnRelease" type="bool" value="false"/>
-    <property name="triggersId" value="Piston N"/>
+    <property name="trigger.landingCoordinates.x" type="int" value="25"/>
+    <property name="trigger.landingCoordinates.y" type="int" value="10"/>
    </properties>
   </object>
-  <object id="979" name="Piston Pad E" type="PressurePlate" gid="6670" x="288" y="192" width="32" height="32">
+  <object id="987" name="Jump" type="Crossing" gid="6863" x="384" y="256" width="32" height="32">
    <properties>
-    <property name="triggerOnRelease" type="bool" value="false"/>
-    <property name="triggersId" value="Piston E"/>
+    <property name="direction" value="NONE"/>
    </properties>
   </object>
-  <object id="980" name="Launchpad" type="Launchpad" gid="6537" x="608" y="224" width="32" height="32"/>
-  <object id="981" name="Spring Trap" type="SpringTrap" gid="6538" x="544" y="256" width="32" height="32">
+  <object id="988" name="Jump" type="Crossing" gid="6864" x="320" y="288" width="32" height="32">
    <properties>
-    <property name="trigger.landingCoordinates.x" type="int" value="10"/>
-    <property name="trigger.landingCoordinates.y" type="int" value="8"/>
+    <property name="direction" value="UP"/>
    </properties>
   </object>
-  <object id="982" name="Launchpad" type="Launchpad" gid="6537" x="288" y="256" width="32" height="32"/>
-  <object id="983" name="Launchpad" type="Launchpad" gid="6537" x="544" y="320" width="32" height="32"/>
-  <object id="984" name="Spring Trap" type="SpringTrap" gid="6538" x="480" y="288" width="32" height="32">
+  <object id="989" name="Jump" type="Crossing" gid="6867" x="448" y="320" width="32" height="32">
    <properties>
-    <property name="trigger.landingCoordinates.x" type="int" value="24"/>
-    <property name="trigger.landingCoordinates.y" type="int" value="11"/>
+    <property name="direction" value="LEFT"/>
    </properties>
   </object>
-  <object id="985" name="Spring Trap" type="SpringTrap" gid="6538" x="352" y="224" width="32" height="32">
+  <object id="990" name="Jump" type="Crossing" gid="6866" x="288" y="288" width="32" height="32">
    <properties>
-    <property name="trigger.landingCoordinates.x" type="int" value="14"/>
-    <property name="trigger.landingCoordinates.y" type="int" value="6"/>
+    <property name="direction" value="DOWN"/>
    </properties>
   </object>
-  <object id="986" name="Spring Trap" type="SpringTrap" gid="6538" x="512" y="320" width="32" height="32">
+  <object id="991" name="Jump" type="Crossing" gid="6866" x="544" y="288" width="32" height="32">
    <properties>
-    <property name="trigger.landingCoordinates.x" type="int" value="14"/>
-    <property name="trigger.landingCoordinates.y" type="int" value="9"/>
+    <property name="direction" value="DOWN"/>
+   </properties>
+  </object>
+  <object id="992" name="Jump" type="Crossing" gid="6865" x="448" y="288" width="32" height="32">
+   <properties>
+    <property name="direction" value="RIGHT"/>
+   </properties>
+  </object>
+  <object id="993" name="Jump" type="Crossing" gid="6864" x="576" y="288" width="32" height="32">
+   <properties>
+    <property name="direction" value="UP"/>
    </properties>
   </object>
  </objectgroup>
@@ -2688,7 +2670,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="963" name="Orc" type="Creep" gid="23" x="384" y="320" width="32" height="32">
+  <object id="963" name="Orc" type="Creep" gid="23" x="352" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="routine_glutton" type="bool" value="true"/>
@@ -2714,48 +2696,13 @@
     <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="968" name="Troll" type="Creep" gid="22" x="320" y="224" width="32" height="32">
+  <object id="968" name="Troll" type="Creep" gid="22" x="512" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="10" name="Disabled" opacity="0.13">
-  <object id="962" name="Slime" type="Creep" gid="21" x="224" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_summon" type="bool" value="true"/>
-    <property name="routine_summon.class" value="Slime"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="965" name="Bat" type="Creep" gid="30" x="192" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Bat"/>
-    <property name="routine_prey" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="966" name="Spider" type="Creep" gid="28" x="224" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Spider"/>
-    <property name="routine_defender" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="969" name="Necromancer" type="Creep" gid="25" x="192" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Necromancer"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="fallback_routine" value="routine_wait"/>
-    <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_kingslayer" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_summon" type="bool" value="true"/>
-    <property name="routine_summon.class" value="Skeleton"/>
    </properties>
   </object>
   <object id="942" name="Isabella" type="Unit" gid="16" x="480" y="384" width="32" height="32">
@@ -2816,6 +2763,41 @@
    <properties>
     <property name="Class" value="Paladin"/>
     <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="Disabled" opacity="0.13">
+  <object id="962" name="Slime" type="Creep" gid="21" x="224" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Slime"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="965" name="Bat" type="Creep" gid="30" x="192" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Bat"/>
+    <property name="routine_prey" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="966" name="Spider" type="Creep" gid="28" x="224" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Spider"/>
+    <property name="routine_defender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="969" name="Necromancer" type="Creep" gid="25" x="192" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Necromancer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="fallback_routine" value="routine_wait"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_summon" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Skeleton"/>
    </properties>
   </object>
  </objectgroup>

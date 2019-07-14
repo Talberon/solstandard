@@ -80,6 +80,9 @@
   <property name="routine_wait" type="bool" default="false"/>
   <property name="routine_wander" type="bool" default="false"/>
  </objecttype>
+ <objecttype name="Crossing" color="#aa0000">
+  <property name="direction" type="string" default="NONE|UP|DOWN|LEFT|RIGHT"/>
+ </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
   <property name="itemPool" type="string"/>

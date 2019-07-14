@@ -46,7 +46,8 @@ namespace SolStandard.Entity.General
         Relic,
         Piston,
         Launchpad,
-        SpringTrap
+        SpringTrap,
+        Crossing
     }
 
     public class TerrainEntity : MapEntity

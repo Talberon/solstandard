@@ -46,8 +46,8 @@ namespace SolStandard.Containers.Contexts
         public int RoundCounter { get; private set; }
         public bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
-        private TerrainEntity lastHoverEntity { get; set; }
-        private TerrainEntity lastHoverItem { get;set; }
+        private TerrainEntity LastHoverEntity { get; set; }
+        private TerrainEntity LastHoverItem { get;set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -475,8 +475,8 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
-            lastHoverEntity = hoverSlice.TerrainEntity;
-            lastHoverItem = hoverSlice.ItemEntity;
+            LastHoverEntity = hoverSlice.TerrainEntity;
+            LastHoverItem = hoverSlice.ItemEntity;
         }
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
@@ -491,7 +491,7 @@ namespace SolStandard.Containers.Contexts
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
-                if (lastHoverEntity == hoverSlice.TerrainEntity && lastHoverItem == hoverSlice.ItemEntity) return;
+                if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
                 MapContainer.ClearDynamicAndPreviewGrids();
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);

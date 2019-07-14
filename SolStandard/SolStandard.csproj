@@ -87,6 +87,7 @@
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
+    <Compile Include="Entity\General\Crossing.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\CrossAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\LaunchpadAction.cs" />

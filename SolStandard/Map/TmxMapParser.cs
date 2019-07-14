@@ -728,6 +728,16 @@ namespace SolStandard.Map
                                             )
                                         );
                                         break;
+                                    case EntityTypes.Crossing:
+                                        entityGrid[col, row] = new Crossing(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (Direction) Enum.Parse(typeof(Direction), currentProperties["direction"],
+                                                true)
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             $"Entity type {currentObject.Type} does not exist!"

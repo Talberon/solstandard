@@ -95,22 +95,22 @@ namespace SolStandard.Entity.Unit.Actions
                    targetSlice.DynamicEntity != null;
         }
 
-        protected static bool SourceSouthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        public static bool SourceSouthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
         {
             return sourceCoordinates.Y > targetCoordinates.Y;
         }
 
-        protected static bool SourceWestOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        public static bool SourceWestOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
         {
             return sourceCoordinates.X < targetCoordinates.X;
         }
 
-        protected static bool SourceEastOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        public static bool SourceEastOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
         {
             return sourceCoordinates.X > targetCoordinates.X;
         }
 
-        protected static bool SourceNorthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
+        public static bool SourceNorthOfTarget(Vector2 sourceCoordinates, Vector2 targetCoordinates)
         {
             return sourceCoordinates.Y < targetCoordinates.Y;
         }
