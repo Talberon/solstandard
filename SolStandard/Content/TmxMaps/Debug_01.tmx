@@ -2062,14 +2062,14 @@
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="708" name="Pressure Plate" type="PressurePlate" gid="6631" x="576" y="512" width="32" height="32">
+  <object id="708" name="Pressure Plate" type="PressurePlate" gid="6670" x="576" y="512" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Plate Door"/>
    </properties>
   </object>
   <object id="709" name="Plate Door" type="Door" gid="6571" x="544" y="544" width="32" height="32"/>
-  <object id="710" name="Pressure Plate Double" type="PressurePlate" gid="6653" x="544" y="480" width="32" height="32">
+  <object id="710" name="Pressure Plate Double" type="PressurePlate" gid="6670" x="544" y="480" width="32" height="32">
    <properties>
     <property name="triggersId" value="Plate Door"/>
    </properties>
@@ -2079,7 +2079,7 @@
     <property name="HP" type="int" value="5"/>
    </properties>
   </object>
-  <object id="716" name="Spike Plate" type="PressurePlate" gid="5709" x="800" y="256" width="32" height="32">
+  <object id="716" name="Spike Plate" type="PressurePlate" gid="6670" x="800" y="256" width="32" height="32">
    <properties>
     <property name="triggersId" value="Switch Spike Trap"/>
    </properties>
