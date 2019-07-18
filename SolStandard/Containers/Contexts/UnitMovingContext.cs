@@ -136,7 +136,7 @@ namespace SolStandard.Containers.Contexts
 
         public static bool CanEndMoveAtCoordinates(Vector2 coordinates)
         {
-            return CanEndMoveAtCoordinates(GameContext.ActiveUnit.UnitEntity, coordinates);
+            return CanEndMoveAtCoordinates(GameContext.ActiveUnit?.UnitEntity, coordinates);
         }
 
         public static bool CanEndMoveAtCoordinates(UnitEntity unitEntityEndingMove, Vector2 coordinates)
