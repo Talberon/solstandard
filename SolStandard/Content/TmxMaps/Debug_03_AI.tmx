@@ -2051,19 +2051,6 @@
   <object id="951" name="Healthy Potion" type="HealthPotion" gid="6759" x="480" y="448" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="901" name="Eckhart" type="Unit" gid="12" x="576" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="907" name="Maria" type="Unit" gid="16" x="608" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Pugilist"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
   <object id="909" name="Charlotte" type="Unit" gid="20" x="640" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Paladin"/>
@@ -2091,18 +2078,6 @@
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Skeleton"/>
-   </properties>
-  </object>
-  <object id="903" name="Ethan" type="Unit" gid="5" x="704" y="448" width="32" height="32">
-   <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="904" name="Qorf" type="Unit" gid="1" x="672" y="448" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="902" name="Gaius" type="Unit" gid="3" x="640" y="448" width="32" height="32">
@@ -2199,6 +2174,31 @@
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="903" name="Ethan" type="Unit" gid="5" x="704" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="904" name="Qorf" type="Unit" gid="1" x="672" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="901" name="Eckhart" type="Unit" gid="12" x="576" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Mage"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="907" name="Maria" type="Unit" gid="16" x="608" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Pugilist"/>
+    <property name="Team" value="Red"/>
    </properties>
   </object>
  </objectgroup>
