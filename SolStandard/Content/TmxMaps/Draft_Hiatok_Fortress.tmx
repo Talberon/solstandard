@@ -2589,7 +2589,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.75">
+ <objectgroup id="6" name="Loot" opacity="0.63">
   <object id="1120" name="Free Contract" type="Contract" gid="6471" x="288" y="128" width="32" height="32">
    <properties>
     <property name="forSpecificUnit" type="bool" value="false"/>

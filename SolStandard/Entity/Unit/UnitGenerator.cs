@@ -57,6 +57,7 @@ namespace SolStandard.Entity.Unit
 
         private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
+            //FIXME See if this is causing desync issues in Netplay when a creep summons another creep
             generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
         }
 
