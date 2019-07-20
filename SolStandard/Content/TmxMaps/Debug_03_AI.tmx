@@ -2054,6 +2054,7 @@
   <object id="909" name="Charlotte" type="Unit" gid="20" x="640" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Paladin"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2191,7 +2192,7 @@
   <object id="901" name="Eckhart" type="Unit" gid="12" x="576" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
-    <property name="Commander" type="bool" value="true"/>
+    <property name="Commander" type="bool" value="false"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
