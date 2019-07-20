@@ -20,6 +20,8 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
+        private const int StartingGoldVariance = 5;
+
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
@@ -45,7 +47,7 @@ namespace SolStandard.Entity.Unit
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
                 PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
-                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, 5);
+                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
             }
             else
             {
@@ -346,7 +348,9 @@ namespace SolStandard.Entity.Unit
             CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false, new string[0],
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
-            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
+            CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
+            AssignStartingGold(creep, generatedEntity.StartingGold, StartingGoldVariance);
+            return creep;
         }
 
         public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
