@@ -656,6 +656,7 @@ namespace SolStandard.Containers.Contexts
         public void ClearDraftMenu()
         {
             GameMapView.CloseAdHocDraftMenu();
+            MapContainer.ClearDynamicAndPreviewGrids();
         }
 
         public void ToggleActionInventoryMenu()

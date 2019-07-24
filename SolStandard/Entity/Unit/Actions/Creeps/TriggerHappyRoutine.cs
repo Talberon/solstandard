@@ -68,6 +68,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private ITriggerable FindTriggerableInRange(GameUnit creep)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            
             IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
             new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);

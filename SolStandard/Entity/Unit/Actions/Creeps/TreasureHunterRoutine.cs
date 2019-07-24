@@ -54,6 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private void SearchForTreasure()
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
             GameUnit activeUnit = GameContext.ActiveUnit;
 
             if (activeUnit.UnitEntity != null && UnobstructedTreasureInRange(activeUnit))

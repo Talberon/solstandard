@@ -93,6 +93,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         protected static List<KeyValuePair<GameUnit, Vector2>> TilesWithinThreatRangeForUnit(GameUnit creep,
             bool isIndependent)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
+        
             //Check movement range
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
