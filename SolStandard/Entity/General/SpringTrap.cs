@@ -68,7 +68,8 @@ namespace SolStandard.Entity.General
             {
                 UnitEntity unitEntityOnSpring = MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity;
                 GameUnit unitOnSpring = UnitSelector.SelectUnit(unitEntityOnSpring);
-
+                HasTriggered = true;
+                
                 if (!TargetTileIsObstructed)
                 {
                     GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,

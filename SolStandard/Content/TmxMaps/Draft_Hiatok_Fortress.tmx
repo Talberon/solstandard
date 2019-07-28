@@ -2387,7 +2387,7 @@
   <object id="1090" name="Chest Key Vendor" type="Vendor" gid="6527" x="768" y="416" width="32" height="32">
    <properties>
     <property name="items" value="Chest Key"/>
-    <property name="prices" value="10"/>
+    <property name="prices" value="15"/>
     <property name="quantities" value="2"/>
    </properties>
   </object>
@@ -2458,13 +2458,13 @@
   </object>
   <object id="1108" name="Rubble" type="BreakableObstacle" gid="6593" x="640" y="160" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="3"/>
+    <property name="HP" type="int" value="2"/>
     <property name="gold" type="int" value="10"/>
    </properties>
   </object>
   <object id="1109" name="Rubble" type="BreakableObstacle" gid="6593" x="160" y="416" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="3"/>
+    <property name="HP" type="int" value="2"/>
     <property name="gold" type="int" value="10"/>
    </properties>
   </object>
@@ -2783,7 +2783,7 @@
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1118" name="Slime" type="Creep" gid="21" x="480" y="256" width="32" height="32">
+  <object id="1118" name="Slime" type="Creep" gid="21" x="448" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="routine_glutton" type="bool" value="true"/>
