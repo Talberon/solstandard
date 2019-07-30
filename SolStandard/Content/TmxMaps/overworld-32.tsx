@@ -1840,6 +1840,246 @@
  <tile id="3333" terrain=",35,,"/>
  <tile id="3334" terrain=",,35,35"/>
  <tile id="3335" terrain="35,,,"/>
+ <tile id="3480">
+  <animation>
+   <frame tileid="3480" duration="200"/>
+   <frame tileid="3480" duration="200"/>
+   <frame tileid="3483" duration="200"/>
+   <frame tileid="3483" duration="200"/>
+   <frame tileid="3486" duration="200"/>
+   <frame tileid="3486" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3481">
+  <animation>
+   <frame tileid="3481" duration="200"/>
+   <frame tileid="3481" duration="200"/>
+   <frame tileid="3484" duration="200"/>
+   <frame tileid="3484" duration="200"/>
+   <frame tileid="3487" duration="200"/>
+   <frame tileid="3487" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3482">
+  <animation>
+   <frame tileid="3482" duration="200"/>
+   <frame tileid="3482" duration="200"/>
+   <frame tileid="3485" duration="200"/>
+   <frame tileid="3485" duration="200"/>
+   <frame tileid="3488" duration="200"/>
+   <frame tileid="3488" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3520">
+  <animation>
+   <frame tileid="3520" duration="200"/>
+   <frame tileid="3520" duration="200"/>
+   <frame tileid="3523" duration="200"/>
+   <frame tileid="3523" duration="200"/>
+   <frame tileid="3526" duration="200"/>
+   <frame tileid="3526" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3521">
+  <animation>
+   <frame tileid="3521" duration="200"/>
+   <frame tileid="3521" duration="200"/>
+   <frame tileid="3524" duration="200"/>
+   <frame tileid="3524" duration="200"/>
+   <frame tileid="3527" duration="200"/>
+   <frame tileid="3527" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3522">
+  <animation>
+   <frame tileid="3522" duration="200"/>
+   <frame tileid="3522" duration="200"/>
+   <frame tileid="3525" duration="200"/>
+   <frame tileid="3525" duration="200"/>
+   <frame tileid="3528" duration="200"/>
+   <frame tileid="3528" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3560">
+  <animation>
+   <frame tileid="3560" duration="200"/>
+   <frame tileid="3560" duration="200"/>
+   <frame tileid="3563" duration="200"/>
+   <frame tileid="3563" duration="200"/>
+   <frame tileid="3566" duration="200"/>
+   <frame tileid="3566" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3561">
+  <animation>
+   <frame tileid="3561" duration="200"/>
+   <frame tileid="3561" duration="200"/>
+   <frame tileid="3564" duration="200"/>
+   <frame tileid="3564" duration="200"/>
+   <frame tileid="3567" duration="200"/>
+   <frame tileid="3567" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3562">
+  <animation>
+   <frame tileid="3562" duration="200"/>
+   <frame tileid="3562" duration="200"/>
+   <frame tileid="3565" duration="200"/>
+   <frame tileid="3565" duration="200"/>
+   <frame tileid="3568" duration="200"/>
+   <frame tileid="3568" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3600">
+  <animation>
+   <frame tileid="3600" duration="200"/>
+   <frame tileid="3600" duration="200"/>
+   <frame tileid="3603" duration="200"/>
+   <frame tileid="3603" duration="200"/>
+   <frame tileid="3606" duration="200"/>
+   <frame tileid="3606" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3601">
+  <animation>
+   <frame tileid="3601" duration="200"/>
+   <frame tileid="3601" duration="200"/>
+   <frame tileid="3604" duration="200"/>
+   <frame tileid="3604" duration="200"/>
+   <frame tileid="3607" duration="200"/>
+   <frame tileid="3607" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3602">
+  <animation>
+   <frame tileid="3602" duration="200"/>
+   <frame tileid="3602" duration="200"/>
+   <frame tileid="3605" duration="200"/>
+   <frame tileid="3605" duration="200"/>
+   <frame tileid="3608" duration="200"/>
+   <frame tileid="3608" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3640">
+  <animation>
+   <frame tileid="3640" duration="200"/>
+   <frame tileid="3640" duration="200"/>
+   <frame tileid="3643" duration="200"/>
+   <frame tileid="3643" duration="200"/>
+   <frame tileid="3646" duration="200"/>
+   <frame tileid="3646" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3641">
+  <animation>
+   <frame tileid="3641" duration="200"/>
+   <frame tileid="3641" duration="200"/>
+   <frame tileid="3644" duration="200"/>
+   <frame tileid="3644" duration="200"/>
+   <frame tileid="3647" duration="200"/>
+   <frame tileid="3647" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3642">
+  <animation>
+   <frame tileid="3642" duration="200"/>
+   <frame tileid="3642" duration="200"/>
+   <frame tileid="3645" duration="200"/>
+   <frame tileid="3645" duration="200"/>
+   <frame tileid="3648" duration="200"/>
+   <frame tileid="3648" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3680">
+  <animation>
+   <frame tileid="3680" duration="200"/>
+   <frame tileid="3680" duration="200"/>
+   <frame tileid="3683" duration="200"/>
+   <frame tileid="3683" duration="200"/>
+   <frame tileid="3686" duration="200"/>
+   <frame tileid="3686" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3681">
+  <animation>
+   <frame tileid="3681" duration="200"/>
+   <frame tileid="3681" duration="200"/>
+   <frame tileid="3684" duration="200"/>
+   <frame tileid="3684" duration="200"/>
+   <frame tileid="3687" duration="200"/>
+   <frame tileid="3687" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3682">
+  <animation>
+   <frame tileid="3682" duration="200"/>
+   <frame tileid="3682" duration="200"/>
+   <frame tileid="3685" duration="200"/>
+   <frame tileid="3685" duration="200"/>
+   <frame tileid="3688" duration="200"/>
+   <frame tileid="3688" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3720">
+  <animation>
+   <frame tileid="3720" duration="200"/>
+   <frame tileid="3720" duration="200"/>
+   <frame tileid="3723" duration="200"/>
+   <frame tileid="3723" duration="200"/>
+   <frame tileid="3726" duration="200"/>
+   <frame tileid="3726" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3721">
+  <animation>
+   <frame tileid="3721" duration="200"/>
+   <frame tileid="3721" duration="200"/>
+   <frame tileid="3724" duration="200"/>
+   <frame tileid="3724" duration="200"/>
+   <frame tileid="3727" duration="200"/>
+   <frame tileid="3727" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3722">
+  <animation>
+   <frame tileid="3722" duration="200"/>
+   <frame tileid="3722" duration="200"/>
+   <frame tileid="3725" duration="200"/>
+   <frame tileid="3725" duration="200"/>
+   <frame tileid="3728" duration="200"/>
+   <frame tileid="3728" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3760">
+  <animation>
+   <frame tileid="3760" duration="200"/>
+   <frame tileid="3760" duration="200"/>
+   <frame tileid="3763" duration="200"/>
+   <frame tileid="3763" duration="200"/>
+   <frame tileid="3766" duration="200"/>
+   <frame tileid="3766" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3761">
+  <animation>
+   <frame tileid="3761" duration="200"/>
+   <frame tileid="3761" duration="200"/>
+   <frame tileid="3764" duration="200"/>
+   <frame tileid="3764" duration="200"/>
+   <frame tileid="3767" duration="200"/>
+   <frame tileid="3767" duration="200"/>
+  </animation>
+ </tile>
+ <tile id="3762">
+  <animation>
+   <frame tileid="3762" duration="200"/>
+   <frame tileid="3762" duration="200"/>
+   <frame tileid="3765" duration="200"/>
+   <frame tileid="3765" duration="200"/>
+   <frame tileid="3768" duration="200"/>
+   <frame tileid="3768" duration="200"/>
+  </animation>
+ </tile>
  <tile id="4040" terrain="22,22,22,21"/>
  <tile id="4041" terrain="22,22,21,21"/>
  <tile id="4042" terrain="22,22,21,22"/>
