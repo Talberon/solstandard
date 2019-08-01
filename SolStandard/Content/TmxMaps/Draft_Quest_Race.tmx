@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1200">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1204">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="30" columns="10">
   <image source="../Graphics/Map/Tiles/Units3.png" width="320" height="96"/>
  </tileset>
@@ -2332,17 +2332,11 @@
   </object>
   <object id="1048" name="Castle" type="BuffTile" gid="6352" x="896" y="96" width="32" height="32">
    <properties>
-    <property name="atkBonus" type="int" value="1"/>
-    <property name="blockBonus" type="int" value="2"/>
-    <property name="luckBonus" type="int" value="1"/>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
   <object id="1049" name="Castle" type="BuffTile" gid="6355" x="96" y="96" width="32" height="32">
    <properties>
-    <property name="atkBonus" type="int" value="1"/>
-    <property name="blockBonus" type="int" value="2"/>
-    <property name="luckBonus" type="int" value="1"/>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
@@ -2524,7 +2518,7 @@
     <property name="HP" type="int" value="2"/>
    </properties>
   </object>
-  <object id="959" name="Deploy Blue" type="Deployment" gid="6342" x="96" y="320" width="32" height="32">
+  <object id="959" name="Deploy Blue" type="Deployment" gid="6342" x="128" y="320" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2564,12 +2558,12 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="976" name="Deploy Red" type="Deployment" gid="6350" x="896" y="352" width="32" height="32">
+  <object id="976" name="Deploy Red" type="Deployment" gid="6350" x="896" y="320" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="977" name="Deploy Red" type="Deployment" gid="6350" x="896" y="320" width="32" height="32">
+  <object id="977" name="Deploy Red" type="Deployment" gid="6350" x="864" y="352" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
@@ -3069,6 +3063,10 @@
     <property name="range" type="int" value="20"/>
    </properties>
   </object>
+  <object id="1200" name="Castle Drawbridge" type="Drawbridge" gid="6364" x="64" y="128" width="32" height="32"/>
+  <object id="1201" name="Castle Drawbridge" type="Drawbridge" gid="6364" x="128" y="128" width="32" height="32"/>
+  <object id="1202" name="Castle Drawbridge" type="Drawbridge" gid="6364" x="864" y="128" width="32" height="32"/>
+  <object id="1203" name="Castle Drawbridge" type="Drawbridge" gid="6364" x="928" y="128" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="995" name="Battle Axe" type="Weapon" gid="6803" x="704" y="32" width="32" height="32">

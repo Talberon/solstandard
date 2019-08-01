@@ -51,6 +51,8 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != TriggerTime || HasTriggered) return false;
 
+            HasTriggered = true;
+
             if (PlateIsPressed)
             {
                 if ((!wasPressed || lastOccupant != CurrentOccupant) &&
