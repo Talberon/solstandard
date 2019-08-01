@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions
             description: GenerateActionDescription(),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},
-            freeAction: false
+            freeAction: true
         )
         {
             Value = value;
@@ -112,7 +112,7 @@ namespace SolStandard.Entity.Unit.Actions
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new TransferUnitGoldEvent(actingUnit, targetUnit, Value, Icon));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else if (CanPlaceItemAtSlice(targetSlice))
@@ -123,7 +123,7 @@ namespace SolStandard.Entity.Unit.Actions
                         GenerateMoneyBag(targetSlice.MapCoordinates), Layer.Items, AssetManager.DropItemSFX)
                     );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

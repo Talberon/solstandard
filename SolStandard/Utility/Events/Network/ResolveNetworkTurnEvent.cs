@@ -5,7 +5,7 @@ using SolStandard.Utility.Assets;
 namespace SolStandard.Utility.Events.Network
 {
     [Serializable]
-    public class ResolveTurnEvent : NetworkEvent
+    public class ResolveNetworkTurnEvent : NetworkEvent
     {
         public override void Continue()
         {

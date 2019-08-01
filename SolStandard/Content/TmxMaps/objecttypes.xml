@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="ArrowTrap" color="#a0a0a4">
+  <property name="damage" type="int" default="3"/>
+  <property name="direction" type="string" default="WEST|EAST|SOUTH|NORTH"/>
+ </objecttype>
  <objecttype name="Artillery" color="#f42ad9">
   <property name="canMove" type="bool" default="true"/>
   <property name="damage" type="int" default="5"/>
@@ -68,6 +72,7 @@
   <property name="Items" type="string"/>
   <property name="Team" type="string" default="Creep"/>
   <property name="fallback_routine" type="string" default="routine_wander"/>
+  <property name="gold" type="int" default="0"/>
   <property name="routine_basicAttack" type="bool" default="true"/>
   <property name="routine_defender" type="bool" default="false"/>
   <property name="routine_glutton" type="bool" default="false"/>
@@ -79,6 +84,9 @@
   <property name="routine_triggerHappy" type="bool" default="false"/>
   <property name="routine_wait" type="bool" default="false"/>
   <property name="routine_wander" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="Crossing" color="#aa0000">
+  <property name="direction" type="string" default="NONE|UP|DOWN|LEFT|RIGHT"/>
  </objecttype>
  <objecttype name="Currency" color="#dad45e">
   <property name="canMove" type="bool" default="true"/>
@@ -121,6 +129,9 @@
   <property name="canMove" type="bool" default="true"/>
   <property name="itemPool" type="string"/>
  </objecttype>
+ <objecttype name="Launchpad" color="#3aa413">
+  <property name="radius" type="string" default="2,3"/>
+ </objecttype>
  <objecttype name="Magnet" color="#1685a4">
   <property name="itemPool" type="string"/>
   <property name="pickupRange" type="string" default="0"/>
@@ -129,6 +140,9 @@
  </objecttype>
  <objecttype name="Movable" color="#0000ff">
   <property name="canMove" type="bool" default="true"/>
+ </objecttype>
+ <objecttype name="Piston" color="#815e33">
+  <property name="direction" type="string" default="NORTH|SOUTH|EAST|WEST"/>
  </objecttype>
  <objecttype name="Player" color="#0000ff"/>
  <objecttype name="Portal" color="#aaaaff">
@@ -184,6 +198,13 @@
   <property name="modeSoloDefeatBoss" type="bool" default="false"/>
   <property name="modeTaxes" type="bool" default="false"/>
   <property name="valueTaxes" type="int" default="100"/>
+ </objecttype>
+ <objecttype name="SpringTrap" color="#dbde1d">
+  <property name="trigger.endOfTurn" type="bool" default="true"/>
+  <property name="trigger.landingCoordinates.x" type="int" default="0"/>
+  <property name="trigger.landingCoordinates.y" type="int" default="0"/>
+  <property name="trigger.remotely" type="bool" default="false"/>
+  <property name="trigger.startOfTurn" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Switch" color="#ff7029">
   <property name="canMove" type="bool" default="false"/>

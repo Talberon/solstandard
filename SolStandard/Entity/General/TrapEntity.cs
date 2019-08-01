@@ -25,6 +25,7 @@ namespace SolStandard.Entity.General
         public int TriggersRemaining { get; private set; }
         public int Damage { get; }
         public string ItemPool { get; }
+        public bool HasTriggered { get; set; }
         public bool IsExpired { get; private set; }
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
@@ -38,14 +39,14 @@ namespace SolStandard.Entity.General
             this.willSnare = willSnare;
             ItemPool = itemPool;
             IsExpired = false;
+            HasTriggered = false;
 
             if (!enabled) Disable();
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
-
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
             if (!enabled) return false;
 
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
@@ -94,7 +95,7 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
 
             MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
@@ -163,7 +164,8 @@ namespace SolStandard.Entity.General
                         new RenderBlank()
                     }
                 },
-                1
+                1,
+                HorizontalAlignment.Centered
             );
 
         public UnitAction UseAction()

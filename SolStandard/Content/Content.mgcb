@@ -1718,6 +1718,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Dice/AttackDiceAtlas.png
 
+#begin Graphics/Images/Icons/Misc/CliffJump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/CliffJump.png
+
 #begin Graphics/Images/Icons/Misc/clock.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1826,6 +1838,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/Interact.png
 
+#begin Graphics/Images/Icons/Misc/Launchpad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Launchpad.png
+
+#begin Graphics/Images/Icons/Misc/Lock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Lock.png
+
 #begin Graphics/Images/Icons/Misc/old_spoils.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1837,6 +1873,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/old_spoils.png
+
+#begin Graphics/Images/Icons/Misc/open.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/open.png
+
+#begin Graphics/Images/Icons/Misc/Piston.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Piston.png
 
 #begin Graphics/Images/Icons/Misc/RecoverArmor.png
 /importer:TextureImporter
@@ -2198,6 +2258,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Intervention.png
 
+#begin Graphics/Images/Icons/Skill/Jump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Jump.png
+
 #begin Graphics/Images/Icons/Skill/Kingslayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2305,6 +2377,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Recover.png
+
+#begin Graphics/Images/Icons/Skill/Rescue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Rescue.png
 
 #begin Graphics/Images/Icons/Skill/Shove.png
 /importer:TextureImporter

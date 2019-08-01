@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -45,6 +46,8 @@ namespace SolStandard.Containers.Contexts
         public int RoundCounter { get; private set; }
         public bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
+        private TerrainEntity LastHoverEntity { get; set; }
+        private TerrainEntity LastHoverItem { get;set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -86,7 +89,6 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
 
-            TriggerEffectTilesTurnEnd();
             GameContext.Scenario.CheckForWinState();
             UpdateUnitMorale(Team.Blue);
             UpdateUnitMorale(Team.Red);
@@ -473,6 +475,8 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
+            LastHoverEntity = hoverSlice.TerrainEntity;
+            LastHoverItem = hoverSlice.ItemEntity;
         }
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
@@ -487,8 +491,8 @@ namespace SolStandard.Containers.Contexts
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
+                if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
                 MapContainer.ClearDynamicAndPreviewGrids();
-
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
@@ -566,49 +570,58 @@ namespace SolStandard.Containers.Contexts
             return currentActionOption.Action as IIncrementableAction;
         }
 
-        public static void TriggerEffectTilesTurnStart()
+        /// <summary>
+        /// Trigger all effect tiles that are set to trigger at the specified time.
+        /// </summary>
+        /// <param name="effectTriggerTime"></param>
+        /// <returns>True if any tile can trigger this phase.</returns>
+        public static bool TriggerEffectTiles(EffectTriggerTime effectTriggerTime)
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
+            List<IEffectTile> triggerTiles = effectTiles.Where(tile => tile.WillTrigger(effectTriggerTime)).ToList();
 
-            if (effectTiles.Count <= 0) return;
+            if (triggerTiles.Count <= 0)
+            {
+                effectTiles.ForEach(tile => tile.HasTriggered = false);
+                return false;
+            }
 
-            Queue<IEvent> startOfTurnEffectTileEvents = new Queue<IEvent>();
-            startOfTurnEffectTileEvents.Enqueue(
+            Queue<IEvent> effectTileEvents = new Queue<IEvent>();
+            effectTileEvents.Enqueue(new WaitFramesEvent(10));
+            effectTileEvents.Enqueue(
                 new ToastAtCursorEvent(
-                    "Resolving Tile Effects...",
+                    "Resolving " + effectTriggerTime + " Tile Effects...",
                     AssetManager.MenuConfirmSFX,
                     100
                 )
             );
-            startOfTurnEffectTileEvents.Enqueue(new WaitFramesEvent(50));
+            effectTileEvents.Enqueue(new WaitFramesEvent(50));
 
-            foreach (IEffectTile tile in effectTiles.Where(tile => tile.WillTrigger(EffectTriggerTime.StartOfTurn)))
+            foreach (IEffectTile tile in triggerTiles)
             {
-                startOfTurnEffectTileEvents.Enqueue(new TriggerEffectTileEvent(tile, EffectTriggerTime.StartOfTurn,
-                    50));
-            }
-
-            startOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
-
-            GlobalEventQueue.QueueEvents(startOfTurnEffectTileEvents);
-        }
-
-        private static void TriggerEffectTilesTurnEnd()
-        {
-            List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
-
-            if (effectTiles.Count <= 0) return;
-
-            Queue<IEvent> endOfTurnEffectTileEvents = new Queue<IEvent>();
-            foreach (IEffectTile tile in effectTiles.Where(tile => tile.WillTrigger(EffectTriggerTime.EndOfTurn)))
-            {
-                endOfTurnEffectTileEvents.Enqueue(
-                    new TriggerEffectTileEvent(tile, EffectTriggerTime.EndOfTurn, 80)
+                effectTileEvents.Enqueue(new CameraCursorPositionEvent(tile.MapCoordinates));
+                effectTileEvents.Enqueue(
+                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 60)
                 );
             }
 
-            endOfTurnEffectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(effectTiles));
-            GlobalEventQueue.QueueEvents(endOfTurnEffectTileEvents);
+            effectTileEvents.Enqueue(new RemoveExpiredEffectTilesEvent(triggerTiles));
+
+            switch (effectTriggerTime)
+            {
+                case EffectTriggerTime.StartOfRound:
+                    effectTileEvents.Enqueue(new EffectTilesStartOfRoundEvent());
+                    break;
+                case EffectTriggerTime.EndOfTurn:
+                    effectTileEvents.Enqueue(new EndTurnEvent());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(effectTriggerTime), effectTriggerTime, null);
+            }
+
+            GlobalEventQueue.QueueEvents(effectTileEvents);
+
+            return true;
         }
 
         public static void RemoveExpiredEffectTiles(IEnumerable<IEffectTile> effectTiles)
@@ -643,6 +656,7 @@ namespace SolStandard.Containers.Contexts
         public void ClearDraftMenu()
         {
             GameMapView.CloseAdHocDraftMenu();
+            MapContainer.ClearDynamicAndPreviewGrids();
         }
 
         public void ToggleActionInventoryMenu()

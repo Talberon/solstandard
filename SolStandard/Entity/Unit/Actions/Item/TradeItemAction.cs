@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             description: "Give this item to an ally in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},
-            freeAction: false
+            freeAction: true
         )
         {
             this.item = item;
@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new TransferUnitItemEvent(actingUnit, targetUnit, item));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

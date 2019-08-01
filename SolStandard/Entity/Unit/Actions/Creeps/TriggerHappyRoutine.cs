@@ -68,6 +68,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private ITriggerable FindTriggerableInRange(GameUnit creep)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            
             IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
             new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
@@ -113,11 +115,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathToItemQueue.Enqueue(new UnitMoveEvent(creep, direction));
+                pathToItemQueue.Enqueue(new CreepMoveEvent(creep, direction));
                 pathToItemQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathToItemQueue.Enqueue(new UnitMoveEvent(creep, Direction.None));
+            pathToItemQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
             pathToItemQueue.Enqueue(
                 new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
             );

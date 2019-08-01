@@ -20,9 +20,11 @@ namespace SolStandard.Utility
         private bool reversing;
         public Color DefaultColor { get; set; }
         protected bool IsFlipped;
+        private bool isPaused;
+        private bool playingOnce;
 
         public AnimatedSpriteSheet(ITexture2D spriteMap, int cellSize, Vector2 renderSize, int frameDelay,
-            bool reversible, Color color, bool isFlipped = false)
+            bool reversible, Color color, bool isFlipped = false, int currentRow = 0)
         {
             SpriteMap = spriteMap;
             CellSize = cellSize;
@@ -30,7 +32,7 @@ namespace SolStandard.Utility
             DefaultFrameDelay = frameDelay;
             FrameDelay = frameDelay;
             FrameDelayCounter = 0;
-            currentRow = 0;
+            this.currentRow = currentRow;
             CurrentColumn = 0;
             reversing = false;
             SpriteFrameCount = CalculateSpriteFrameCount();
@@ -50,6 +52,24 @@ namespace SolStandard.Utility
         {
             CurrentColumn = spriteMapColumn;
             currentRow = spriteMapRow;
+        }
+
+        public void Pause()
+        {
+            isPaused = true;
+        }
+
+        public void Play()
+        {
+            isPaused = false;
+            playingOnce = false;
+        }
+
+        public void PlayOnce()
+        {
+            isPaused = false;
+            SetSpriteCell(0, currentRow);
+            playingOnce = true;
         }
 
         private int CalculateSpriteFrameCount()
@@ -77,6 +97,7 @@ namespace SolStandard.Utility
                 else
                 {
                     CurrentColumn = 0;
+                    PauseIfPlayingOnce();
                 }
             }
 
@@ -101,10 +122,18 @@ namespace SolStandard.Utility
                 if (CurrentColumn >= SpriteFrameCount - 1 || reversing && CurrentColumn <= 0)
                 {
                     reversing = !reversing;
+                    PauseIfPlayingOnce();
                 }
             }
 
             FrameDelayCounter++;
+        }
+
+        private void PauseIfPlayingOnce()
+        {
+            if (!playingOnce) return;
+            isPaused = true;
+            playingOnce = false;
         }
 
         public int Height => (int) RenderSize.Y;
@@ -122,13 +151,16 @@ namespace SolStandard.Utility
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            if (Reversible)
+            if (!isPaused)
             {
-                UpdateFrameReversible();
-            }
-            else
-            {
-                UpdateFrame();
+                if (Reversible)
+                {
+                    UpdateFrameReversible();
+                }
+                else
+                {
+                    UpdateFrame();
+                }
             }
 
             spriteBatch.Draw(SpriteMap.MonoGameTexture, RenderRectangle(position), CurrentCell(), colorOverride, 0f,
@@ -149,13 +181,13 @@ namespace SolStandard.Utility
         public virtual IRenderable Resize(Vector2 newSize)
         {
             return new AnimatedSpriteSheet(SpriteMap, CellSize, newSize, FrameDelay, Reversible, DefaultColor,
-                IsFlipped);
+                IsFlipped, currentRow);
         }
 
         public virtual IRenderable Clone()
         {
             return new AnimatedSpriteSheet(SpriteMap, CellSize, RenderSize, FrameDelay, Reversible, DefaultColor,
-                IsFlipped);
+                IsFlipped, currentRow);
         }
     }
 }

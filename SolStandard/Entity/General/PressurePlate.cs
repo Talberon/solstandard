@@ -9,6 +9,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
+using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -21,7 +22,9 @@ namespace SolStandard.Entity.General
         private readonly string triggersId;
         private bool wasPressed;
         private readonly bool triggerOnRelease;
+        public bool HasTriggered { get; set; }
         private const EffectTriggerTime TriggerTime = EffectTriggerTime.EndOfTurn;
+        private int? lastOccupant;
 
         public PressurePlate(string name, string type, IRenderable sprite, Vector2 mapCoordinates, string triggersId,
             bool triggerOnRelease) :
@@ -30,25 +33,32 @@ namespace SolStandard.Entity.General
             this.triggersId = triggersId;
             this.triggerOnRelease = triggerOnRelease;
             wasPressed = false;
+            HasTriggered = false;
+            lastOccupant = null;
         }
 
         public bool IsExpired => false;
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != TriggerTime) return false;
+            if (triggerTime != TriggerTime || HasTriggered) return false;
 
-            return ((PressurePlateIsActivated && !wasPressed) || (!PressurePlateIsActivated && ReleasingPlate));
+            return ((PlateIsPressed && !wasPressed) || (!PlateIsPressed && wasPressed));
         }
+
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != TriggerTime) return false;
+            if (triggerTime != TriggerTime || HasTriggered) return false;
 
-            if (PressurePlateIsActivated)
+            HasTriggered = true;
+
+            if (PlateIsPressed)
             {
-                if (!wasPressed && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
+                if ((!wasPressed || lastOccupant != CurrentOccupant) &&
+                    ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
+                    lastOccupant = CurrentOccupant;
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                     AssetManager.DoorSFX.Play();
                     wasPressed = true;
@@ -56,7 +66,7 @@ namespace SolStandard.Entity.General
             }
             else
             {
-                if (ReleasingPlate && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
+                if (TriggeringOnRelease && ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
                     TriggerTiles.ForEach(tile => tile.RemoteTrigger());
                     AssetManager.DoorSFX.Play();
@@ -68,7 +78,16 @@ namespace SolStandard.Entity.General
             return true;
         }
 
-        private bool ReleasingPlate => wasPressed && triggerOnRelease;
+        private int? CurrentOccupant
+        {
+            get
+            {
+                MapSlice plateSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
+                return plateSlice.UnitEntity?.GetHashCode() ?? plateSlice.ItemEntity?.GetHashCode();
+            }
+        }
+
+        private bool TriggeringOnRelease => wasPressed && triggerOnRelease;
 
         private List<IRemotelyTriggerable> TriggerTiles
         {
@@ -90,7 +109,7 @@ namespace SolStandard.Entity.General
             }
         }
 
-        private bool PressurePlateIsActivated => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
+        private bool PlateIsPressed => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
 
         private bool ItemIsOnPressurePlate
         {
@@ -144,7 +163,8 @@ namespace SolStandard.Entity.General
                         new RenderBlank()
                     }
                 },
-                1
+                1,
+                HorizontalAlignment.Centered
             );
 
         public bool CanTrigger => true;

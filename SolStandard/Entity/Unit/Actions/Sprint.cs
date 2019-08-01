@@ -65,11 +65,11 @@ namespace SolStandard.Entity.Unit.Actions
                     {
                         if (direction == Direction.None) continue;
 
-                        pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, direction, walkThroughAllies));
+                        pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, direction, walkThroughAllies));
                         pathingEventQueue.Enqueue(new WaitFramesEvent(5));
                     }
 
-                    pathingEventQueue.Enqueue(new UnitMoveEvent(actingUnit, Direction.None));
+                    pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, Direction.None));
                     pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
                         targetSlice.MapCoordinates));
                     pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));

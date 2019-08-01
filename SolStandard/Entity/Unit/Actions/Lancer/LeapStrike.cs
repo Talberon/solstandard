@@ -20,6 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             SelectLandingSpace
         }
 
+        private const MapDistanceTile.TileType TileType = MapDistanceTile.TileType.Attack;
         private ActionPhase currentPhase = ActionPhase.SelectTarget;
         private UnitEntity targetUnitEntity;
 
@@ -28,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             name: "Leap Strike",
             description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
                          "Select a target, then select a space to land on next to that target.",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
+            tileSprite: MapDistanceTile.GetTileSprite(TileType),
             range: new[] {1, 2, 3},
             freeAction: false
         )
@@ -65,10 +66,9 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             {
                 if (!SpaceAroundUnitIsEntirelyObstructed(targetUnit))
                 {
-                    //TODO Move this to an event so that it can work over network? Might not be necessary
                     targetUnitEntity = targetUnit.UnitEntity;
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    CreateLandingSpacesAroundTarget(targetUnit.UnitEntity.MapCoordinates);
+                    CreateLandingSpacesAroundTarget(TileType, targetUnit.UnitEntity.MapCoordinates);
                     AssetManager.MenuConfirmSFX.Play();
                     return true;
                 }
@@ -106,7 +106,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         }
 
 
-        private static bool SpaceAroundUnitIsEntirelyObstructed(GameUnit targetUnit)
+        public static bool SpaceAroundUnitIsEntirelyObstructed(GameUnit targetUnit)
         {
             Vector2 unitCoordinates = targetUnit.UnitEntity.MapCoordinates;
 
@@ -154,13 +154,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             return CoordinatesAreObstructed(belowTarget);
         }
 
-        private static bool CoordinatesAreObstructed(Vector2 coordinatesToCheck)
+        public static bool CoordinatesAreObstructed(Vector2 coordinatesToCheck)
         {
             MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
             return !UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates);
         }
 
-        private void CreateLandingSpacesAroundTarget(Vector2 targetCoordinates)
+        public static void CreateLandingSpacesAroundTarget(MapDistanceTile.TileType tileType, Vector2 targetCoordinates)
         {
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
@@ -172,22 +172,23 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             Vector2 westTile = new Vector2(targetCoordinates.X - distanceFromTarget, targetCoordinates.Y);
 
             if (!NorthOfTargetIsObstructed(targetCoordinates))
-                AddTileWithinMapBounds(attackTiles, northTile, distanceFromTarget);
+                AddTileWithinMapBounds(tileType, attackTiles, northTile, distanceFromTarget);
             if (!SouthOfTargetIsObstructed(targetCoordinates))
-                AddTileWithinMapBounds(attackTiles, southTile, distanceFromTarget);
+                AddTileWithinMapBounds(tileType, attackTiles, southTile, distanceFromTarget);
             if (!EastOfTargetIsObstructed(targetCoordinates))
-                AddTileWithinMapBounds(attackTiles, eastTile, distanceFromTarget);
+                AddTileWithinMapBounds(tileType, attackTiles, eastTile, distanceFromTarget);
             if (!WestOfTargetIsObstructed(targetCoordinates))
-                AddTileWithinMapBounds(attackTiles, westTile, distanceFromTarget);
+                AddTileWithinMapBounds(tileType, attackTiles, westTile, distanceFromTarget);
 
             AddAttackTilesToGameGrid(attackTiles, Layer.Dynamic);
         }
 
-        private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
+        private static void AddTileWithinMapBounds(MapDistanceTile.TileType tileType,
+            ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
         {
             if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
-                tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
+                tiles.Add(new MapDistanceTile(MapDistanceTile.GetTileSprite(tileType), tileCoordinates, distance));
             }
         }
 

@@ -87,6 +87,7 @@
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
+    <Compile Include="Entity\General\Crossing.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\DeployTile.cs" />
     <Compile Include="Entity\General\Door.cs" />
@@ -108,7 +109,9 @@
     <Compile Include="Entity\General\Item\Key.cs" />
     <Compile Include="Entity\General\Item\Spoils.cs" />
     <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
+    <Compile Include="Entity\General\Launchpad.cs" />
     <Compile Include="Entity\General\Movable.cs" />
+    <Compile Include="Entity\General\Piston.cs" />
     <Compile Include="Entity\General\Portal.cs" />
     <Compile Include="Entity\General\PressurePlate.cs" />
     <Compile Include="Entity\General\PushBlock.cs" />
@@ -117,6 +120,7 @@
     <Compile Include="Entity\General\RecoveryTile.cs" />
     <Compile Include="Entity\General\SeizeEntity.cs" />
     <Compile Include="Entity\General\SelectMapEntity.cs" />
+    <Compile Include="Entity\General\SpringTrap.cs" />
     <Compile Include="Entity\General\Switch.cs" />
     <Compile Include="Entity\General\TerrainEntity.cs" />
     <Compile Include="Entity\General\Artillery.cs" />
@@ -190,6 +194,7 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
+    <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
@@ -198,8 +203,10 @@
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\CrossAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Sprint.cs" />
+    <Compile Include="Entity\Unit\Actions\Terrain\LaunchpadAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\VendorPurchase.cs" />
     <Compile Include="Entity\Unit\CreepEntity.cs" />
     <Compile Include="Entity\Unit\CreepUnit.cs" />
@@ -401,27 +408,29 @@
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResolveTurnEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResolveNetworkTurnEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
     <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
     <Compile Include="Utility\Events\ReadyAIRoutineEvent.cs" />
     <Compile Include="Utility\Events\RemoveEntityFromMapEvent.cs" />
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
+    <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
     <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
-    <Compile Include="Utility\Events\TriggerEffectTileEvent.cs" />
+    <Compile Include="Utility\Events\TriggerSingleEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
-    <Compile Include="Utility\Events\AI\UnitMoveEvent.cs" />
+    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
     <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\DeleteItemEvent.cs" />
@@ -624,10 +633,16 @@
     <Content Include="Content\TmxMaps\Draft_Escape_Prison.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Factory_Floor.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Hiatok_Fortress.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_01.tmx">
@@ -640,6 +655,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Master_Control.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Quest_Race.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">

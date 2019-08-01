@@ -20,6 +20,8 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
+        private const int StartingGoldVariance = 5;
+
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
@@ -45,7 +47,7 @@ namespace SolStandard.Entity.Unit
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
                 PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
-                AssignStartingGold(generatedUnit);
+                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
             }
             else
             {
@@ -55,38 +57,10 @@ namespace SolStandard.Entity.Unit
             return generatedUnit;
         }
 
-        private static void AssignStartingGold(GameUnit generatedUnit)
+        private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
-            switch (generatedUnit.Role)
-            {
-                case Role.Slime:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Troll:
-                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Orc:
-                    generatedUnit.CurrentGold += 7 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Necromancer:
-                    generatedUnit.CurrentGold += 14 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Skeleton:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Goblin:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Rat:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-                case Role.Bat:
-                    generatedUnit.CurrentGold += 5 + GameDriver.Random.Next(8);
-                    break;
-                case Role.Spider:
-                    generatedUnit.CurrentGold += 3 + GameDriver.Random.Next(5);
-                    break;
-            }
+            //FIXME See if this is causing desync issues in Netplay when a creep summons another creep
+            generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
         }
 
         private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)
@@ -342,7 +316,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Rampart(3, 2),
                 new Stun(1),
-                new Replace(),
+                new Rescue(),
                 new Shove(),
                 new Guard(3),
                 new Wait()
@@ -374,7 +348,9 @@ namespace SolStandard.Entity.Unit
             CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false, new string[0],
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
-            return GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
+            CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
+            AssignStartingGold(creep, generatedEntity.StartingGold, StartingGoldVariance);
+            return creep;
         }
 
         public static GameUnit GenerateAdHocUnit(Role role, Team team, bool isCommander)
@@ -506,10 +482,10 @@ namespace SolStandard.Entity.Unit
 
         private static CreepEntity GenerateCreepEntity(string name, string type, Role role, Team team, bool isCommander,
             string[] initialInventory, List<ITexture2D> unitSprites, Vector2 mapCoordinates,
-            Dictionary<string, string> unitProperties)
+            Dictionary<string, string> creepProperties)
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
-            CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(unitProperties);
+            CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(creepProperties);
             CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
                 isCommander, creepRoutineModel, initialInventory);
 

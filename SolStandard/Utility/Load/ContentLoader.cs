@@ -253,6 +253,30 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadPistonAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Piston");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadLaunchpadAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Launchpad");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadLockAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Lock");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadOpenAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Open");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
@@ -275,18 +299,6 @@ namespace SolStandard.Utility.Load
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadGamepadKeyMap(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-Xbox");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadKeyboardKeyMap(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/ButtonMap-PC");
             return new Texture2DWrapper(loadTexture);
         }
 
@@ -447,6 +459,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Venom"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Grapple"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
+
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 //AI Routine Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Prey"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),

@@ -14,6 +14,7 @@ namespace SolStandard.Entity.General
     {
         private readonly int amrPerTurn;
         private readonly int hpPerTurn;
+        public bool HasTriggered { get; set; }
 
         public RecoveryTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int amrPerTurn,
             int hpPerTurn) :
@@ -21,11 +22,12 @@ namespace SolStandard.Entity.General
         {
             this.amrPerTurn = amrPerTurn;
             this.hpPerTurn = hpPerTurn;
+            HasTriggered = false;
         }
 
         public bool Trigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
 
             MapSlice recoverySlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit unitOnTile = UnitSelector.SelectUnit(recoverySlice.UnitEntity);
@@ -80,7 +82,7 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfTurn) return false;
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
 
             MapSlice recoverySlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
             GameUnit unitOnTile = UnitSelector.SelectUnit(recoverySlice.UnitEntity);

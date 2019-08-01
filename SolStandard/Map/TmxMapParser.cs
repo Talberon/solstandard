@@ -704,6 +704,40 @@ namespace SolStandard.Map
                                             currentProperties["itemPool"]
                                         );
                                         break;
+                                    case EntityTypes.Piston:
+                                        entityGrid[col, row] = new Piston(currentObject.Name, currentObject.Type,
+                                            currentProperties["direction"], new Vector2(col, row));
+                                        break;
+                                    case EntityTypes.Launchpad:
+                                        entityGrid[col, row] = new Launchpad(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            new Vector2(col, row),
+                                            currentProperties["radius"].Split(',').Select(n => Convert.ToInt32(n))
+                                                .ToArray()
+                                        );
+                                        break;
+                                    case EntityTypes.SpringTrap:
+                                        entityGrid[col, row] = new SpringTrap(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            new Vector2(col, row),
+                                            new Vector2(
+                                                Convert.ToInt32(currentProperties["trigger.landingCoordinates.x"]),
+                                                Convert.ToInt32(currentProperties["trigger.landingCoordinates.y"])
+                                            )
+                                        );
+                                        break;
+                                    case EntityTypes.Crossing:
+                                        entityGrid[col, row] = new Crossing(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            (Direction) Enum.Parse(typeof(Direction), currentProperties["direction"],
+                                                true)
+                                        );
+                                        break;
                                     default:
                                         throw new IndexOutOfRangeException(
                                             $"Entity type {currentObject.Type} does not exist!"

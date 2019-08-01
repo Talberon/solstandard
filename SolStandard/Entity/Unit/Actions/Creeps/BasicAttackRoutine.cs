@@ -81,11 +81,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (direction == Direction.None) continue;
 
-                pathAndAttackQueue.Enqueue(new UnitMoveEvent(roamer, direction));
+                pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, direction));
                 pathAndAttackQueue.Enqueue(new WaitFramesEvent(15));
             }
 
-            pathAndAttackQueue.Enqueue(new UnitMoveEvent(roamer, Direction.None));
+            pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
             pathAndAttackQueue.Enqueue(new StartCombatEvent(targetUnitCoordinatePair.Key));
             GlobalEventQueue.QueueEvents(pathAndAttackQueue);
         }
@@ -93,6 +93,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         protected static List<KeyValuePair<GameUnit, Vector2>> TilesWithinThreatRangeForUnit(GameUnit creep,
             bool isIndependent)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
+        
             //Check movement range
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));

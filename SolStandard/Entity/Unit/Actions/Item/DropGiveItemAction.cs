@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             description: "Drop this item on an empty item tile or give it to an ally.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},
-            freeAction: false
+            freeAction: true
         )
         {
             this.item = item;
@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new DropItemEvent(itemTile, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

@@ -1,4 +1,5 @@
 ﻿using SolStandard.Containers.Contexts;
+using SolStandard.Entity;
 
 namespace SolStandard.Utility.Events
 {
@@ -14,7 +15,11 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameMapContext.FinishTurn(skipProcs);
+            //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
+            if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn))
+            {
+                GameMapContext.FinishTurn(skipProcs);
+            }
 
             Complete = true;
         }

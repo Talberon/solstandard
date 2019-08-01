@@ -134,15 +134,19 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-
         public static bool CanEndMoveAtCoordinates(Vector2 coordinates)
+        {
+            return CanEndMoveAtCoordinates(GameContext.ActiveUnit?.UnitEntity, coordinates);
+        }
+
+        public static bool CanEndMoveAtCoordinates(UnitEntity unitEntityEndingMove, Vector2 coordinates)
         {
             if (!GameMapContext.CoordinatesWithinMapBounds(coordinates)) return false;
 
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
             if (slice.UnitEntity != null &&
-                (GameContext.ActiveUnit == null || slice.UnitEntity != GameContext.ActiveUnit.UnitEntity)) return false;
+                (GameContext.ActiveUnit == null || slice.UnitEntity != unitEntityEndingMove)) return false;
 
             if (slice.TerrainEntity != null)
             {

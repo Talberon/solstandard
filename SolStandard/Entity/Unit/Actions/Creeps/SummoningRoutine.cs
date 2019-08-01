@@ -70,6 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             //This side-effect of altering the map could be icky later; keep this in mind if trying to
             //manipulate the preview layer elsewhere.
+            MapContainer.ClearDynamicAndPreviewGrids();
             List<MapElement> tilesInRange = GetTilesInRange(unitPlacingCreep.UnitEntity.MapCoordinates);
             MapContainer.ClearDynamicAndPreviewGrids();
 

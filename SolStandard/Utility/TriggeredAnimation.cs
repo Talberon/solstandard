@@ -15,7 +15,7 @@ namespace SolStandard.Utility
             isVisible = false;
         }
 
-        public void PlayOnce()
+        public new void PlayOnce()
         {
             isVisible = true;
             ResetAnimation();

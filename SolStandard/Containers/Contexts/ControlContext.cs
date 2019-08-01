@@ -645,7 +645,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new ResolveTurnEvent());
+                GlobalEventQueue.QueueSingleEvent(new ResolveNetworkTurnEvent());
             }
         }
 

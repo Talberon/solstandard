@@ -119,7 +119,7 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueEvents(newRoundEvents);
 
             RefreshAllUnits();
-            GameMapContext.TriggerEffectTilesTurnStart();
+            GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
 
             GlobalEventQueue.QueueSingleEvent(new UpdateTurnOrderEvent(this));
         }

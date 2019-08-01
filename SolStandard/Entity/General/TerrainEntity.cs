@@ -43,7 +43,11 @@ namespace SolStandard.Entity.General
         Contract,
         RecallCharm,
         Escape,
-        Relic
+        Relic,
+        Piston,
+        Launchpad,
+        SpringTrap,
+        Crossing
     }
 
     public class TerrainEntity : MapEntity
@@ -70,6 +74,10 @@ namespace SolStandard.Entity.General
                 new WindowContentGrid(
                     new[,]
                     {
+                        {
+                            new RenderText(AssetManager.WindowFont, $"[ X: {MapCoordinates.X}, Y: {MapCoordinates.Y} ]"),
+                            new RenderBlank()
+                        },
                         {
                             Sprite.Clone(),
                             NameText
