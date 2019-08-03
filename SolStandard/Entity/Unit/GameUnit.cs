@@ -11,6 +11,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.HUD.Window.Content.Command;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -59,11 +60,12 @@ namespace SolStandard.Entity.Unit
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
 
-        private HealthBar hoverWindowHealthBar;
-        private HealthBar combatHealthBar;
+        private HealthBar hoverWindowResourceBar;
+        private HealthBar combatResourceBar;
         private MiniHealthBar initiativeHealthBar;
         private MiniHealthBar resultsHealthBar;
         private List<IHealthBar> healthbars;
+        private MiniCommandPointBar miniCommandPointBar;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
@@ -113,8 +115,8 @@ namespace SolStandard.Entity.Unit
             unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
             deathAnimation = null;
 
-            ApplyCommanderBonus();
             ResetHealthBars();
+            miniCommandPointBar = new MiniCommandPointBar(Stats.MaxCmd, Vector2.One);
         }
 
         public UnitEntity UnitEntity => (UnitEntity) MapEntity;
@@ -134,6 +136,12 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable SmallPortrait => smallPortrait;
 
+        public IRenderable GetInitiativeCommandPointBar(Vector2 barSize)
+        {
+            miniCommandPointBar.BarSize = barSize;
+            return miniCommandPointBar;
+        }
+        
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
             initiativeHealthBar.BarSize = barSize;
@@ -142,14 +150,14 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable GetHoverWindowHealthBar(Vector2 barSize)
         {
-            hoverWindowHealthBar.BarSize = barSize;
-            return hoverWindowHealthBar;
+            hoverWindowResourceBar.BarSize = barSize;
+            return hoverWindowResourceBar;
         }
 
         public IRenderable GetCombatHealthBar(Vector2 barSize)
         {
-            combatHealthBar.BarSize = barSize;
-            return combatHealthBar;
+            combatResourceBar.BarSize = barSize;
+            return combatResourceBar;
         }
 
         public IRenderable GetResultsHealthBar(Vector2 barSize)
@@ -169,8 +177,29 @@ namespace SolStandard.Entity.Unit
                 {
                     {
                         new Window(
-                            GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width - windowBordersSize,
-                                hoverWindowHealthBarHeight)),
+                            new WindowContentGrid(
+                                new[,]
+                                {
+                                    {
+                                        (IsCommander)
+                                            ? new CommandPointBar(
+                                                Stats.MaxCmd,
+                                                Stats.CurrentCmd,
+                                                new Vector2(MediumPortrait.Width - windowBordersSize,
+                                                    (float) hoverWindowHealthBarHeight / 2)
+                                            )
+                                            : new RenderBlank() as IRenderable
+                                    },
+                                    {
+                                        GetHoverWindowHealthBar(
+                                            new Vector2(MediumPortrait.Width - windowBordersSize,
+                                                hoverWindowHealthBarHeight)
+                                        )
+                                    }
+                                },
+                                0,
+                                HorizontalAlignment.Centered
+                            ),
                             panelColor
                         )
                     },
@@ -503,16 +532,16 @@ namespace SolStandard.Entity.Unit
 
         private void ResetHealthBars()
         {
-            combatHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            combatResourceBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            hoverWindowResourceBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
             resultsHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
 
             healthbars = new List<IHealthBar>
             {
                 initiativeHealthBar,
-                combatHealthBar,
-                hoverWindowHealthBar,
+                combatResourceBar,
+                hoverWindowResourceBar,
                 resultsHealthBar
             };
         }
@@ -579,6 +608,18 @@ namespace SolStandard.Entity.Unit
             );
         }
 
+        private void IncrementCommandPoints()
+        {
+            if (Stats.CurrentCmd < Stats.MaxCmd) Stats.CurrentCmd++;
+            miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
+        }
+
+        private void DepleteCommandPoints()
+        {
+            Stats.CurrentCmd = 0;
+            miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
+        }
+
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
@@ -589,6 +630,7 @@ namespace SolStandard.Entity.Unit
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
             smallPortrait.DefaultColor = ActivePortraitColor;
+            if (IsCommander) IncrementCommandPoints();
         }
 
         public void ExhaustAndDisableUnit()
@@ -633,14 +675,6 @@ namespace SolStandard.Entity.Unit
 
             StatusEffects.Add(statusEffect);
             statusEffect.ApplyEffect(this);
-        }
-
-        public void ApplyCommanderBonus()
-        {
-            if (!IsCommander) return;
-
-            Stats = Stats.ApplyCommanderBonuses();
-            ResetHealthBars();
         }
 
         private void RemoveDuplicateEffects(StatusEffect statusEffect)

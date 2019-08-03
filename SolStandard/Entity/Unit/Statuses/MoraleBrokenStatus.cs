@@ -24,7 +24,8 @@ namespace SolStandard.Entity.Unit.Statuses
                 blk: unitToDebuff.Stats.BaseBlk / 2,
                 luck: unitToDebuff.Stats.BaseLuck / 2,
                 mv: unitToDebuff.Stats.BaseMv / 2,
-                atkRange: new int[0]
+                atkRange: new int[0],
+                maxCmd: 0
             );
         }
 

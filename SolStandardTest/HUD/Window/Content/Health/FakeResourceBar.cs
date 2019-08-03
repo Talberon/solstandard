@@ -7,9 +7,9 @@ using SolStandardTest.Utility.Monogame;
 
 namespace SolStandardTest.HUD.Window.Content.Health
 {
-    public class FakeHealthBar : HealthBar
+    public class FakeResourceBar : HealthBar
     {
-        public FakeHealthBar(int maxHp, int currentHp, Vector2 barSize) : base(maxHp, currentHp, barSize)
+        public FakeResourceBar(int maxHp, int currentHp, Vector2 barSize) : base(maxHp, currentHp, barSize)
         {
         }
 

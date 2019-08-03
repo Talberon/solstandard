@@ -176,7 +176,6 @@ namespace SolStandard.Containers.Contexts
         {
             unit.IsCommander = true;
             unit.UnitEntity.IsCommander = true;
-            unit.ApplyCommanderBonus();
             DraftView.UpdateCommanderPortrait(unit.Role, unit.Team);
             PassTurnCommanderSelect();
 

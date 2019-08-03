@@ -516,6 +516,13 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderBlank(),
+                    unit.IsCommander
+                        ? unit.GetInitiativeCommandPointBar(new Vector2(unit.SmallPortrait.Width,
+                            (float) initiativeHealthBarHeight / 2))
+                        : new RenderBlank() as IRenderable
+                },
+                {
+                    new RenderBlank(),
                     unit.GetInitiativeHealthBar(new Vector2(unit.SmallPortrait.Width, initiativeHealthBarHeight))
                 }
             };

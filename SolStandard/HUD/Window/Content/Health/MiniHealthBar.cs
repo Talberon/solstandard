@@ -24,9 +24,10 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public MiniHealthBar(int maxArmor, int maxHp, Vector2 barSize)
         {
-            currentArmor = maxArmor;
             this.maxHp = maxHp;
             this.maxArmor = maxArmor;
+
+            currentArmor = maxArmor;
             armorPips = GenerateArmorPips(maxArmor);
             UpdatePips(armorPips, currentArmor);
 
@@ -48,8 +49,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
             for (int i = 0; i < maxValue; i++)
             {
-                pips.Add(new BarPoint(GetPipSize(maxValue), ShieldColor,
-                    Color.Transparent));
+                pips.Add(new BarPoint(GetPipSize(maxValue), ShieldColor, Color.Transparent));
             }
 
             return pips;
