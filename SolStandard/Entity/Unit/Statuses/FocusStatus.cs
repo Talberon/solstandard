@@ -7,11 +7,12 @@ namespace SolStandard.Entity.Unit.Statuses
 {
     public class FocusStatus : StatusEffect, ITurnProc
     {
+        private readonly bool actImmediately;
         private const int InitialDuration = 100;
         private const string StatusName = "Focusing!";
         public int FocusPoints { get; private set; }
 
-        public FocusStatus(int focusPoints) : base(
+        public FocusStatus(int focusPoints, bool actImmediately = false) : base(
             statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: StatusName,
             description: "Allows acting again at the end of your turn.",
@@ -20,6 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses
             canCleanse: false
         )
         {
+            this.actImmediately = actImmediately;
             FocusPoints = focusPoints;
             UpdateTitle();
         }
@@ -53,7 +55,7 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             if (FocusPoints > 0)
             {
-                if (StatusWasAppliedThisTurn)
+                if (StatusWasAppliedThisTurn && !actImmediately)
                 {
                     GlobalEventQueue.QueueSingleEvent(new EndTurnEvent(skipProcs: true));
                 }

@@ -115,7 +115,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectDuelistStats()
         {
-            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -317,17 +317,23 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
+            const int maxFocusPoints = 2;
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new PhaseStrike(),
                 new Bloodthirst(2),
-                new Shift(1),
+                new Sprint(2),
                 new Guard(3),
-                new Focus(2)
+                new Focus(maxFocusPoints)
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander)
+            {
+                skills.Insert(1,
+                    new CmdPerfectFocus(1, maxFocusPoints)
+                );
+            }
 
             return skills;
         }

@@ -160,6 +160,7 @@
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Shift.cs" />
