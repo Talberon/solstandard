@@ -145,5 +145,10 @@ namespace SolStandard.Entity.Unit.Actions
 
             return oppositeCoordinates;
         }
+
+        public static bool CanAffordCommandCost(GameUnit commander, int commandCost)
+        {
+            return commander.IsCommander && commander.Stats.CurrentCmd >= commandCost;
+        }
     }
 }

@@ -141,7 +141,7 @@ namespace SolStandard.Entity.Unit
             miniCommandPointBar.BarSize = barSize;
             return miniCommandPointBar;
         }
-        
+
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
             initiativeHealthBar.BarSize = barSize;
@@ -614,9 +614,10 @@ namespace SolStandard.Entity.Unit
             miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
         }
 
-        private void DepleteCommandPoints()
+        public void RemoveCommandPoints(int pointsToRemove)
         {
-            Stats.CurrentCmd = 0;
+            Stats.CurrentCmd -= pointsToRemove;
+            if (Stats.CurrentCmd < 0) Stats.CurrentCmd = 0;
             miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
         }
 

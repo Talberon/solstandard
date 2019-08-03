@@ -142,64 +142,64 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectSlimeStats()
         {
             return new UnitStatistics(hp: 5, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 3, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectTrollStats()
         {
             return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectOrcStats()
         {
             return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectNecromancerStats()
         {
             return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectSkeletonStats()
         {
             return new UnitStatistics(hp: 5, armor: 2, atk: 4, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectGoblinStats()
         {
             return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, blk: 0, luck: 1, mv: 4, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectRatStats()
         {
             return new UnitStatistics(hp: 10, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectBatStats()
         {
             return new UnitStatistics(hp: 13, armor: 0, atk: 4, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectSpiderStats()
         {
             return new UnitStatistics(hp: 6, armor: 6, atk: 4, ret: 4, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 1);
         }
 
         #endregion Unit Statistics
 
         #region Unit Skills
 
-        private static List<UnitAction> SelectArcherSkills()
+        private static List<UnitAction> SelectArcherSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Draw(3, 1),
@@ -209,11 +209,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectChampionSkills()
+        private static List<UnitAction> SelectChampionSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Bloodthirst(1),
@@ -225,11 +229,20 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander)
+            {
+                skills.Insert(1,
+                    new CmdWarmaster(1, 2, new[] {1, 2, 3})
+                );
+            }
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectMageSkills()
+        private static List<UnitAction> SelectMageSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Inferno(3, 2),
@@ -240,11 +253,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectLancerSkills()
+        private static List<UnitAction> SelectLancerSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new LeapStrike(),
@@ -255,11 +272,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectBardSkills()
+        private static List<UnitAction> SelectBardSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Crescendo(2, 1),
@@ -269,11 +290,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectPugilistSkills()
+        private static List<UnitAction> SelectPugilistSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new FlowStrike(40, 3),
@@ -284,11 +309,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectDuelistSkills()
+        private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new PhaseStrike(),
@@ -297,11 +326,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Focus(2)
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectClericSkills()
+        private static List<UnitAction> SelectClericSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Recover(3),
@@ -312,11 +345,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectMarauderSkills()
+        private static List<UnitAction> SelectMarauderSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Guillotine(),
@@ -326,11 +363,15 @@ namespace SolStandard.Entity.Unit
                 new Shove(),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectPaladinSkills()
+        private static List<UnitAction> SelectPaladinSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Rampart(3, 2),
@@ -340,6 +381,10 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+// TODO       if (isCommander) skills.Add(new UnitAction());
+
+            return skills;
         }
 
         #endregion Unit Skills
@@ -443,43 +488,43 @@ namespace SolStandard.Entity.Unit
             {
                 case Role.Archer:
                     unitStatistics = SelectArcherStats();
-                    unitActions = SelectArcherSkills();
+                    unitActions = SelectArcherSkills(isCommander);
                     break;
                 case Role.Champion:
                     unitStatistics = SelectChampionStats();
-                    unitActions = SelectChampionSkills();
+                    unitActions = SelectChampionSkills(isCommander);
                     break;
                 case Role.Mage:
                     unitStatistics = SelectMageStats();
-                    unitActions = SelectMageSkills();
+                    unitActions = SelectMageSkills(isCommander);
                     break;
                 case Role.Lancer:
                     unitStatistics = SelectLancerStats();
-                    unitActions = SelectLancerSkills();
+                    unitActions = SelectLancerSkills(isCommander);
                     break;
                 case Role.Bard:
                     unitStatistics = SelectBardStats();
-                    unitActions = SelectBardSkills();
+                    unitActions = SelectBardSkills(isCommander);
                     break;
                 case Role.Pugilist:
                     unitStatistics = SelectPugilistStats();
-                    unitActions = SelectPugilistSkills();
+                    unitActions = SelectPugilistSkills(isCommander);
                     break;
                 case Role.Duelist:
                     unitStatistics = SelectDuelistStats();
-                    unitActions = SelectDuelistSkills();
+                    unitActions = SelectDuelistSkills(isCommander);
                     break;
                 case Role.Cleric:
                     unitStatistics = SelectClericStats();
-                    unitActions = SelectClericSkills();
+                    unitActions = SelectClericSkills(isCommander);
                     break;
                 case Role.Marauder:
                     unitStatistics = SelectMarauderStats();
-                    unitActions = SelectMarauderSkills();
+                    unitActions = SelectMarauderSkills(isCommander);
                     break;
                 case Role.Paladin:
                     unitStatistics = SelectPaladinStats();
-                    unitActions = SelectPaladinSkills();
+                    unitActions = SelectPaladinSkills(isCommander);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(role), role, null);

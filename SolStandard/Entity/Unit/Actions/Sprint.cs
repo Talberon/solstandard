@@ -50,31 +50,7 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
-                    const bool walkThroughAllies = true;
-
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
-                    GameUnit actingUnit = GameContext.ActiveUnit;
-
-                    List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                        actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies, true
-                    );
-
-                    Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
-                    foreach (Direction direction in directions)
-                    {
-                        if (direction == Direction.None) continue;
-
-                        pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, direction, walkThroughAllies));
-                        pathingEventQueue.Enqueue(new WaitFramesEvent(5));
-                    }
-
-                    pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, Direction.None));
-                    pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
-                        targetSlice.MapCoordinates));
-                    pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
-                    pathingEventQueue.Enqueue(new EndTurnEvent());
-                    GlobalEventQueue.QueueEvents(pathingEventQueue);
+                    MoveUnitToTargetPosition(GameContext.ActiveUnit, targetSlice.MapCoordinates);
                 }
                 else
                 {
@@ -89,7 +65,33 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        private static bool CanMove(GameUnit unit)
+        public static void MoveUnitToTargetPosition(GameUnit movingUnit, Vector2 mapCoordinates)
+        {
+            const bool walkThroughAllies = true;
+
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
+                movingUnit.UnitEntity.MapCoordinates, mapCoordinates, walkThroughAllies, true
+            );
+
+            Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
+            foreach (Direction direction in directions)
+            {
+                if (direction == Direction.None) continue;
+
+                pathingEventQueue.Enqueue(new CreepMoveEvent(movingUnit, direction, walkThroughAllies));
+                pathingEventQueue.Enqueue(new WaitFramesEvent(5));
+            }
+
+            pathingEventQueue.Enqueue(new CreepMoveEvent(movingUnit, Direction.None));
+            pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(movingUnit.UnitEntity, mapCoordinates));
+            pathingEventQueue.Enqueue(new CameraCursorPositionEvent(mapCoordinates));
+            pathingEventQueue.Enqueue(new EndTurnEvent());
+            GlobalEventQueue.QueueEvents(pathingEventQueue);
+        }
+
+        public static bool CanMove(GameUnit unit)
         {
             return unit.Stats.Mv > 0;
         }

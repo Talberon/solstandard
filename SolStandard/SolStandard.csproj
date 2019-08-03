@@ -138,6 +138,7 @@
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
+    <Compile Include="Entity\Unit\Actions\Champion\CmdWarmaster.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Fortify.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Intervention.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
