@@ -132,7 +132,7 @@ namespace SolStandard.Entity.Unit
                 baseAtkRange: BaseAtkRange,
                 currentHP: CurrentHP,
                 currentArmor: CurrentArmor,
-                atkModifier: AtkModifier,
+                atkModifier: AtkModifier, //FIXME This is fine for weapons but not for percentage-based attack skills
                 retModifier: RetModifier,
                 blkModifier: BlkModifier,
                 luckModifier: weaponStatistics.LuckModifier,

@@ -137,6 +137,14 @@ namespace SolStandard.Entity.Unit
                 maxCmd: 5);
         }
 
+        //PETS
+
+        private static UnitStatistics SelectBoarStats()
+        {
+            return new UnitStatistics(hp: 3, armor: 2, atk: 3, ret: 3, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
+                maxCmd: 0);
+        }
+
         //CREEPS
 
         private static UnitStatistics SelectSlimeStats()
@@ -210,7 +218,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(1));
 
             return skills;
         }
@@ -285,7 +293,7 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
-            
+
             if (isCommander) skills.Insert(1, new CmdConcerto(1, 1, 3));
 
             return skills;
@@ -344,7 +352,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander) skills.Insert(1, new CmdHealingAura(1, 1, 3));
 
             return skills;
         }
@@ -381,6 +389,18 @@ namespace SolStandard.Entity.Unit
             };
 
             if (isCommander) skills.Insert(1, new CmdSteelheart(1));
+
+            return skills;
+        }
+
+        private static List<UnitAction> SelectBoarSkills()
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Guard(2),
+                new Wait()
+            };
 
             return skills;
         }
@@ -523,6 +543,10 @@ namespace SolStandard.Entity.Unit
                 case Role.Paladin:
                     unitStatistics = SelectPaladinStats();
                     unitActions = SelectPaladinSkills(isCommander);
+                    break;
+                case Role.Boar:
+                    unitStatistics = SelectBoarStats();
+                    unitActions = SelectBoarSkills();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(role), role, null);

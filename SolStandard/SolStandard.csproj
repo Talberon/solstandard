@@ -134,6 +134,7 @@
     <Compile Include="Entity\IRemotelyTriggerable.cs" />
     <Compile Include="Entity\IThreatRange.cs" />
     <Compile Include="Entity\ITriggerable.cs" />
+    <Compile Include="Entity\Unit\Actions\Archer\CmdHuntingCompanion.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\CmdConcerto.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\CmdHealingAura.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
@@ -254,6 +256,7 @@
     <Compile Include="Entity\Unit\Statuses\FlowStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\FortifiedStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\HealthRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />

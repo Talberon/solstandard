@@ -44,7 +44,8 @@ namespace SolStandard.Entity.Unit
         Goblin,
         Rat,
         Bat,
-        Spider
+        Spider,
+        Boar
     }
 
     public enum Team

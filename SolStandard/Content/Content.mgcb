@@ -2702,6 +2702,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Bard.png
 
+#begin Graphics/Images/Portraits/Blue/Boar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Boar.png
+
 #begin Graphics/Images/Portraits/Blue/Champion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2965,6 +2977,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Bard.png
+
+#begin Graphics/Images/Portraits/Red/Boar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Boar.png
 
 #begin Graphics/Images/Portraits/Red/Champion.png
 /importer:TextureImporter
@@ -3578,6 +3602,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueBard.png
 
+#begin Graphics/Map/Units/Blue/BlueBoar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueBoar.png
+
 #begin Graphics/Map/Units/Blue/BlueChampion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3829,6 +3865,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedBard.png
+
+#begin Graphics/Map/Units/Red/RedBoar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedBoar.png
 
 #begin Graphics/Map/Units/Red/RedChampion.png
 /importer:TextureImporter
