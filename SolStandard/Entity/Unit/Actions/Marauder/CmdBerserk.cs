@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
             name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] {SkillName}: 0 {UnitStatistics.Abbreviation[Stats.Hp]}",
             description: GenerateActionDescription(cmdCost),
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
+            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {0},
             freeAction: true
         )

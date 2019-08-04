@@ -285,8 +285,8 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
-
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            
+            if (isCommander) skills.Insert(1, new CmdConcerto(1, 1, 3));
 
             return skills;
         }

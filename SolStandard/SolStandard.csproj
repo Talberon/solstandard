@@ -136,6 +136,7 @@
     <Compile Include="Entity\ITriggerable.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\CmdConcerto.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\CmdWarmaster.cs" />
