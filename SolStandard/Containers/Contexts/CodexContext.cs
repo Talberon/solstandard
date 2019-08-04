@@ -25,7 +25,7 @@ namespace SolStandard.Containers.Contexts
 
             foreach (Role role in DraftContext.AvailableRoles)
             {
-                units.Add(UnitGenerator.GenerateAdHocUnit(role, Team.Blue, false));
+                units.Add(UnitGenerator.GenerateAdHocUnit(role, Team.Blue, true));
             }
 
             return units;
