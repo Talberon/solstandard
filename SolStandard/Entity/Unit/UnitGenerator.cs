@@ -456,40 +456,7 @@ namespace SolStandard.Entity.Unit
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
-            UnitStatistics unitStatistics;
-
-            switch (role)
-            {
-                case Role.Slime:
-                    unitStatistics = SelectSlimeStats();
-                    break;
-                case Role.Troll:
-                    unitStatistics = SelectTrollStats();
-                    break;
-                case Role.Orc:
-                    unitStatistics = SelectOrcStats();
-                    break;
-                case Role.Necromancer:
-                    unitStatistics = SelectNecromancerStats();
-                    break;
-                case Role.Skeleton:
-                    unitStatistics = SelectSkeletonStats();
-                    break;
-                case Role.Goblin:
-                    unitStatistics = SelectGoblinStats();
-                    break;
-                case Role.Rat:
-                    unitStatistics = SelectRatStats();
-                    break;
-                case Role.Bat:
-                    unitStatistics = SelectBatStats();
-                    break;
-                case Role.Spider:
-                    unitStatistics = SelectSpiderStats();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
-            }
+            UnitStatistics unitStatistics = GetUnitStatistics(role);
 
             return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, isCommander);
         }
@@ -499,60 +466,90 @@ namespace SolStandard.Entity.Unit
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
-            UnitStatistics unitStatistics;
-            List<UnitAction> unitActions;
-
-            switch (role)
-            {
-                case Role.Archer:
-                    unitStatistics = SelectArcherStats();
-                    unitActions = SelectArcherSkills(isCommander);
-                    break;
-                case Role.Champion:
-                    unitStatistics = SelectChampionStats();
-                    unitActions = SelectChampionSkills(isCommander);
-                    break;
-                case Role.Mage:
-                    unitStatistics = SelectMageStats();
-                    unitActions = SelectMageSkills(isCommander);
-                    break;
-                case Role.Lancer:
-                    unitStatistics = SelectLancerStats();
-                    unitActions = SelectLancerSkills(isCommander);
-                    break;
-                case Role.Bard:
-                    unitStatistics = SelectBardStats();
-                    unitActions = SelectBardSkills(isCommander);
-                    break;
-                case Role.Pugilist:
-                    unitStatistics = SelectPugilistStats();
-                    unitActions = SelectPugilistSkills(isCommander);
-                    break;
-                case Role.Duelist:
-                    unitStatistics = SelectDuelistStats();
-                    unitActions = SelectDuelistSkills(isCommander);
-                    break;
-                case Role.Cleric:
-                    unitStatistics = SelectClericStats();
-                    unitActions = SelectClericSkills(isCommander);
-                    break;
-                case Role.Marauder:
-                    unitStatistics = SelectMarauderStats();
-                    unitActions = SelectMarauderSkills(isCommander);
-                    break;
-                case Role.Paladin:
-                    unitStatistics = SelectPaladinStats();
-                    unitActions = SelectPaladinSkills(isCommander);
-                    break;
-                case Role.Boar:
-                    unitStatistics = SelectBoarStats();
-                    unitActions = SelectBoarSkills();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
-            }
+            UnitStatistics unitStatistics = GetUnitStatistics(role);
+            List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
             return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+        }
+
+        private static UnitStatistics GetUnitStatistics(Role unitType)
+        {
+            switch (unitType)
+            {
+                case Role.Archer:
+                    return SelectArcherStats();
+                case Role.Champion:
+                    return SelectChampionStats();
+                case Role.Mage:
+                    return SelectMageStats();
+                case Role.Lancer:
+                    return SelectLancerStats();
+                case Role.Bard:
+                    return SelectBardStats();
+                case Role.Pugilist:
+                    return SelectPugilistStats();
+                case Role.Duelist:
+                    return SelectDuelistStats();
+                case Role.Cleric:
+                    return SelectClericStats();
+                case Role.Marauder:
+                    return SelectMarauderStats();
+                case Role.Paladin:
+                    return SelectPaladinStats();
+                case Role.Boar:
+                    return SelectBoarStats();
+                case Role.Slime:
+                    return SelectSlimeStats();
+                case Role.Troll:
+                    return SelectTrollStats();
+                case Role.Orc:
+                    return SelectOrcStats();
+                case Role.Necromancer:
+                    return SelectNecromancerStats();
+                case Role.Skeleton:
+                    return SelectSkeletonStats();
+                case Role.Goblin:
+                    return SelectGoblinStats();
+                case Role.Rat:
+                    return SelectRatStats();
+                case Role.Bat:
+                    return SelectBatStats();
+                case Role.Spider:
+                    return SelectSpiderStats();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
+            }
+        }
+
+        public static List<UnitAction> GetUnitActions(Role unitType, bool isCommander)
+        {
+            switch (unitType)
+            {
+                case Role.Archer:
+                    return SelectArcherSkills(isCommander);
+                case Role.Champion:
+                    return SelectChampionSkills(isCommander);
+                case Role.Mage:
+                    return SelectMageSkills(isCommander);
+                case Role.Lancer:
+                    return SelectLancerSkills(isCommander);
+                case Role.Bard:
+                    return SelectBardSkills(isCommander);
+                case Role.Pugilist:
+                    return SelectPugilistSkills(isCommander);
+                case Role.Duelist:
+                    return SelectDuelistSkills(isCommander);
+                case Role.Cleric:
+                    return SelectClericSkills(isCommander);
+                case Role.Marauder:
+                    return SelectMarauderSkills(isCommander);
+                case Role.Paladin:
+                    return SelectPaladinSkills(isCommander);
+                case Role.Boar:
+                    return SelectBoarSkills();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
+            }
         }
 
         public static UnitEntity GenerateMapEntity(string name, string type, Role role, Team team, bool isCommander,

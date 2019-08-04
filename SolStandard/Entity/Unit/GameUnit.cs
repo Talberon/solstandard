@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit
         private MiniHealthBar initiativeHealthBar;
         private MiniHealthBar resultsHealthBar;
         private List<IHealthBar> healthbars;
-        private MiniCommandPointBar miniCommandPointBar;
+        private readonly MiniCommandPointBar miniCommandPointBar;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
@@ -74,11 +74,12 @@ namespace SolStandard.Entity.Unit
 
         public bool IsExhausted { get; private set; }
 
-        public List<UnitAction> Actions { get; }
+        public List<UnitAction> Actions { get; set; }
         public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
 
         public List<StatusEffect> StatusEffects { get; }
+
         public bool IsCommander { get; set; }
         public bool IsMovable { get; set; }
 
@@ -87,6 +88,15 @@ namespace SolStandard.Entity.Unit
 
         private readonly UnitSpriteSheet unitSpriteSheet;
         private TriggeredAnimation deathAnimation;
+
+        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
+        public UnitStatistics Stats { get; }
+        public Team Team { get; }
+        public Role Role { get; }
+        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
+        public IRenderable LargePortrait => largePortrait;
+        public IRenderable MediumPortrait => mediumPortrait;
+        public IRenderable SmallPortrait => smallPortrait;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
@@ -119,23 +129,6 @@ namespace SolStandard.Entity.Unit
             ResetHealthBars();
             miniCommandPointBar = new MiniCommandPointBar(Stats.MaxCmd, Vector2.One);
         }
-
-        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
-
-        public UnitStatistics Stats { get; private set; }
-
-        public Team Team { get; }
-
-        public Role Role { get; }
-
-
-        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
-
-        public IRenderable LargePortrait => largePortrait;
-
-        public IRenderable MediumPortrait => mediumPortrait;
-
-        public IRenderable SmallPortrait => smallPortrait;
 
         public IRenderable GetInitiativeCommandPointBar(Vector2 barSize)
         {
