@@ -18,6 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
             name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Hunting Companion",
             description: $"Summon a {PetType.ToString()} companion to aid you in combat!" + Environment.NewLine +
+                         $"If a {PetType.ToString()} is already on the team, it will be removed and replaced with a new one." +
+                         Environment.NewLine +
                          $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
