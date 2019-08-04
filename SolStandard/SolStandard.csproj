@@ -150,6 +150,7 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\CmdHealingAura.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
+    <Compile Include="Entity\Unit\Actions\Creeps\StationaryAttackRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />

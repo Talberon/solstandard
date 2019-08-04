@@ -2074,9 +2074,8 @@
     <property name="Commander" type="bool" value="true"/>
     <property name="fallback_routine" value="routine_wait"/>
     <property name="gold" type="int" value="16"/>
-    <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_kingslayer" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_basicAttack" type="bool" value="false"/>
+    <property name="routine_stationaryAttack" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Skeleton"/>
    </properties>

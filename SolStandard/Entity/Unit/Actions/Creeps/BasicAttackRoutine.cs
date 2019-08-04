@@ -129,10 +129,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 MapContainer.ClearPreviewGrid();
             }
             
-
             return attackPositionsInRange;
-
-            //TODO In the future, consider whether the target unit is a ranged/melee unit to make an optimal move
         }
 
         private static bool TargetAndMoveTilesOverlap(MapSlice currentPreviewSlice)
