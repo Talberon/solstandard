@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             Environment.NewLine +
             $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {0, 1, 2, 3},
+            range: new[] {0, 1, 2},
             freeAction: false
         )
         {

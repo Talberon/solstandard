@@ -326,6 +326,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
+                new FadeStrike(),
                 new PhaseStrike(),
                 new Bloodthirst(2),
                 new Sprint(2),

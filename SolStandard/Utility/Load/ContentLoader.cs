@@ -464,6 +464,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Grapple"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 //AI Routine Icons

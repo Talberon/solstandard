@@ -164,9 +164,9 @@
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\FadeStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\Shift.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployBarricadeAction.cs" />

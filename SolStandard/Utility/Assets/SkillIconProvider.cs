@@ -59,7 +59,8 @@ namespace SolStandard.Utility.Assets
         Wander,
         Venom,
         Grapple,
-        Fortify
+        Fortify,
+        FadeStrike
     }
 
     public static class SkillIconProvider
@@ -117,6 +118,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D fortify = skillIconTextures.Find(texture => texture.Name.EndsWith("Fortify"));
             ITexture2D rescue = skillIconTextures.Find(texture => texture.Name.EndsWith("Rescue"));
             ITexture2D jump = skillIconTextures.Find(texture => texture.Name.EndsWith("Jump"));
+            ITexture2D fadeStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("FadeStrike"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
@@ -172,6 +174,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Fortify, fortify},
                 {SkillIcon.Rescue, rescue},
                 {SkillIcon.Jump, jump},
+                {SkillIcon.FadeStrike, fadeStrike},
 
                 //AI Routines
                 {SkillIcon.Prey, prey},

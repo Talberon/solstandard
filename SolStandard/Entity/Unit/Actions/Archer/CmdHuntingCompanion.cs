@@ -43,6 +43,8 @@ namespace SolStandard.Entity.Unit.Actions.Archer
 
             if (SpawnUnitAction.TargetIsUnoccupiedTileInRange(targetSlice))
             {
+                actor.RemoveCommandPoints(cmdCost);
+                
                 if (CompanionAlreadySummoned)
                 {
                     GameUnit summonedPet = GameContext.Units.FirstOrDefault(pet =>
