@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit
             {Stats.Luck, "LCK"},
             {Stats.Retribution, "RET"},
             {Stats.Block, "BLK"},
-            {Stats.CommandPoints, "CMD"}
+            {Stats.CommandPoints, "CP"}
         };
 
         private const int IconSizePixels = 16;

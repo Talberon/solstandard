@@ -230,12 +230,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdWarmaster(1, 2, new[] {1, 2, 3})
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdWarmaster(1, 2, new[] {1, 2, 3}));
 
             return skills;
         }
@@ -254,12 +249,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdAlchemicalArmor(1, 1, 1, 1, 3)
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdAlchemicalArmor(1, 1, 1, 1, 3));
 
             return skills;
         }
@@ -278,12 +268,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdSonicStrike(1)
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdSonicStrike(1));
 
             return skills;
         }
@@ -322,12 +307,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdCoursingRiver(1, 2, flowStackDuration)
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdCoursingRiver(1, 2, flowStackDuration));
 
             return skills;
         }
@@ -345,12 +325,7 @@ namespace SolStandard.Entity.Unit
                 new Focus(maxFocusPoints)
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdPerfectFocus(1, maxFocusPoints)
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdPerfectFocus(1, maxFocusPoints));
 
             return skills;
         }
@@ -387,7 +362,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander) skills.Insert(1, new CmdBerserk(1));
 
             return skills;
         }
@@ -405,12 +380,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander)
-            {
-                skills.Insert(1,
-                    new CmdSteelheart(1)
-                );
-            }
+            if (isCommander) skills.Insert(1, new CmdSteelheart(1));
 
             return skills;
         }

@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public CmdAlchemicalArmor(int cmdCost, int blk, int hpPerTurn, int amrPerTurn, int duration) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Alchemical Armor [{cmdCost}]",
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Alchemical Armor",
             description:
             $"Cast a status effect on self that grants {blk} {UnitStatistics.Abbreviation[Stats.Block]}, " +
             $"{hpPerTurn} {UnitStatistics.Abbreviation[Stats.Hp]} per turn, " +

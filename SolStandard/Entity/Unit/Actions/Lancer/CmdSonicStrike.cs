@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public CmdSonicStrike(int cmdCost) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Sonic Strike [{cmdCost}]",
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Sonic Strike",
             description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
                          "Select a target, then select a space to land on next to that target." + Environment.NewLine +
                          $"Free Action. Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",

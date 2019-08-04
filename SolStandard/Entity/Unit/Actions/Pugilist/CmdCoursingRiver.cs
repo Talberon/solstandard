@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
         public CmdCoursingRiver(int cmdCost, int flowStacks, int stackDuration) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Coursing River [{cmdCost}]",
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Coursing River",
             description: $"Immediately gain [{flowStacks}] stacks of {FlowStrike.BuffName} as a free action. " +
                          Environment.NewLine +
                          $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",

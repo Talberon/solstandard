@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         public CmdSteelheart(int cmdCost) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Steelheart [{cmdCost}]",
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Steelheart",
             description: $"As a free action, deplete all {UnitStatistics.Abbreviation[Stats.Armor]} " +
                          $"and recover {UnitStatistics.Abbreviation[Stats.Hp]} equal to the " +
                          $"{UnitStatistics.Abbreviation[Stats.Armor]} lost." + Environment.NewLine +
