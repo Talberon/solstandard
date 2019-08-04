@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 );
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new StartCombatEvent(
-                    targetUnit, attacker.Stats.ApplyWeaponStatistics(flowStrikeFist)
+                    targetUnit, false, attacker.Stats.ApplyWeaponStatistics(flowStrikeFist)
                 ));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

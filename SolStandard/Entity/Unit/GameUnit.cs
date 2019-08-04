@@ -608,9 +608,9 @@ namespace SolStandard.Entity.Unit
             );
         }
 
-        private void IncrementCommandPoints()
+        public void AddCommandPoints(int amountToAdd = 1)
         {
-            if (Stats.CurrentCmd < Stats.MaxCmd) Stats.CurrentCmd++;
+            if (Stats.CurrentCmd < Stats.MaxCmd) Stats.CurrentCmd += amountToAdd;
             miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
         }
 
@@ -631,7 +631,7 @@ namespace SolStandard.Entity.Unit
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
             smallPortrait.DefaultColor = ActivePortraitColor;
-            if (IsCommander) IncrementCommandPoints();
+            if (IsCommander) AddCommandPoints();
         }
 
         public void ExhaustAndDisableUnit()

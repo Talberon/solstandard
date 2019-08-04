@@ -79,6 +79,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
                 new Sprint(maxDistance).GenerateActionGrid(targetUnit.UnitEntity.MapCoordinates);
+                AssetManager.MapUnitSelectSFX.Play();
                 return true;
             }
 

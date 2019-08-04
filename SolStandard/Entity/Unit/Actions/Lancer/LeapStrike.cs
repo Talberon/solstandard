@@ -14,37 +14,39 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 {
     public class LeapStrike : UnitAction
     {
-        private enum ActionPhase
+        protected enum ActionPhase
         {
             SelectTarget,
             SelectLandingSpace
         }
 
         private const MapDistanceTile.TileType TileType = MapDistanceTile.TileType.Attack;
-        private ActionPhase currentPhase = ActionPhase.SelectTarget;
+        protected ActionPhase CurrentPhase = ActionPhase.SelectTarget;
         private UnitEntity targetUnitEntity;
 
-        public LeapStrike() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.LeapStrike, GameDriver.CellSizeVector),
-            name: "Leap Strike",
-            description: "Leap towards an enemy to attack them; even across impassible terrain!" + Environment.NewLine +
+        public LeapStrike(IRenderable icon = null, string name = null, string description = null,
+            bool freeAction = false) : base(
+            icon: icon ?? SkillIconProvider.GetSkillIcon(SkillIcon.LeapStrike, GameDriver.CellSizeVector),
+            name: name ?? "Leap Strike",
+            description: description ?? "Leap towards an enemy to attack them; even across impassible terrain!" +
+                         Environment.NewLine +
                          "Select a target, then select a space to land on next to that target.",
             tileSprite: MapDistanceTile.GetTileSprite(TileType),
             range: new[] {1, 2, 3},
-            freeAction: false
+            freeAction: freeAction
         )
         {
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            switch (currentPhase)
+            switch (CurrentPhase)
             {
                 case ActionPhase.SelectTarget:
-                    if (SelectTarget(targetSlice)) currentPhase = ActionPhase.SelectLandingSpace;
+                    if (SelectTarget(targetSlice)) CurrentPhase = ActionPhase.SelectLandingSpace;
                     break;
                 case ActionPhase.SelectLandingSpace:
-                    if (SelectLandingSpace(targetSlice)) currentPhase = ActionPhase.SelectTarget;
+                    if (SelectLandingSpace(targetSlice)) CurrentPhase = ActionPhase.SelectTarget;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -54,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public override void CancelAction()
         {
             targetUnitEntity = null;
-            currentPhase = ActionPhase.SelectTarget;
+            CurrentPhase = ActionPhase.SelectTarget;
             base.CancelAction();
         }
 
@@ -95,7 +97,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new StartCombatEvent(UnitSelector.SelectUnit(targetUnitEntity)));
+                eventQueue.Enqueue(new StartCombatEvent(UnitSelector.SelectUnit(targetUnitEntity), FreeAction));
                 GlobalEventQueue.QueueEvents(eventQueue);
                 return true;
             }

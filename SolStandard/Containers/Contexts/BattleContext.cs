@@ -57,6 +57,8 @@ namespace SolStandard.Containers.Contexts
         private bool attackerInRange;
         private bool defenderInRange;
 
+        private bool freeAction;
+
         //Network-Related
         public bool PeerCanContinue;
         private bool SelfCanContinue { get; set; }
@@ -74,16 +76,18 @@ namespace SolStandard.Containers.Contexts
             CurrentState = BattleState.Start;
             attackerDamageCounter = 0;
             defenderDamageCounter = 0;
+            freeAction = false;
         }
 
 
         public void StartNewCombat(GameUnit newAttacker, GameUnit newDefender, UnitStatistics newAttackerStats,
-            UnitStatistics newDefenderStats)
+            UnitStatistics newDefenderStats, bool isFreeAction = false)
         {
             attacker = newAttacker;
             defender = newDefender;
             attackerStats = newAttackerStats;
             defenderStats = newDefenderStats;
+            freeAction = isFreeAction;
 
             attacker.SetUnitAnimation(UnitAnimationState.Active);
             defender.SetUnitAnimation(UnitAnimationState.Active);
@@ -162,7 +166,15 @@ namespace SolStandard.Containers.Contexts
                         defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
 
                         AssetManager.MapUnitSelectSFX.Play();
-                        GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+
+                        if (freeAction)
+                        {
+                            GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
+                        }
+                        else
+                        {
+                            GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+                        }
 
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }

@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                     UseWeapon();
 
                     eventQueue.Enqueue(
-                        new StartCombatEvent(targetUnit, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
+                        new StartCombatEvent(targetUnit, false, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
                     );
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }

@@ -33,6 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 GlobalEventQueue.QueueSingleEvent(
                     new StartCombatEvent(
                         targetUnit,
+                        false, 
                         GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(weaponStatistics)
                     )
                 );

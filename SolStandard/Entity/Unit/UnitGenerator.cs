@@ -278,7 +278,12 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander)
+            {
+                skills.Insert(1,
+                    new CmdSonicStrike(1)
+                );
+            }
 
             return skills;
         }
