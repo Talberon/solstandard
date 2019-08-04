@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     new StartCombatEvent(
                         targetUnit,
                         false,
-                        attacker.Stats.ApplyWeaponStatistics(executionersKnife)
+                        attacker.Stats.ApplyWeaponStatistics(executionersKnife, true)
                     )
                 );
                 GlobalEventQueue.QueueEvents(eventQueue);

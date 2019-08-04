@@ -119,7 +119,7 @@ namespace SolStandard.Entity.Unit
             BaseMv = baseMv;
         }
 
-        public UnitStatistics ApplyWeaponStatistics(WeaponStatistics weaponStatistics)
+        public UnitStatistics ApplyWeaponStatistics(WeaponStatistics weaponStatistics, bool ignoreModifiers = false)
         {
             return new UnitStatistics(
                 maxHP: MaxHP,
@@ -132,11 +132,11 @@ namespace SolStandard.Entity.Unit
                 baseAtkRange: BaseAtkRange,
                 currentHP: CurrentHP,
                 currentArmor: CurrentArmor,
-                atkModifier: AtkModifier, //FIXME This is fine for weapons but not for percentage-based attack skills
-                retModifier: RetModifier,
-                blkModifier: BlkModifier,
+                atkModifier: (ignoreModifiers) ? 0 : AtkModifier,
+                retModifier: (ignoreModifiers) ? 0 : RetModifier,
+                blkModifier: (ignoreModifiers) ? 0 : BlkModifier,
                 luckModifier: weaponStatistics.LuckModifier,
-                mvModifier: MvModifier,
+                mvModifier: (ignoreModifiers) ? 0 : MvModifier,
                 currentAtkRange: weaponStatistics.AtkRange,
                 maxCmd: MaxCmd
             );
