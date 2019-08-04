@@ -9,7 +9,6 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
@@ -90,8 +89,6 @@ namespace SolStandard.Containers.Contexts
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
 
             GameContext.Scenario.CheckForWinState();
-            UpdateUnitMorale(Team.Blue);
-            UpdateUnitMorale(Team.Red);
             ConfirmPromptWindow();
             GameContext.InitiativeContext.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
@@ -150,25 +147,6 @@ namespace SolStandard.Containers.Contexts
             {
                 turnProc.OnTurnStart();
             }
-        }
-
-        private static void UpdateUnitMorale(Team team)
-        {
-            List<GameUnit> teamUnits = GameContext.Units.Where(unit => unit.Team == team).ToList();
-
-            bool hasLivingCommander = teamUnits.Any(unit => unit.IsCommander && unit.IsAlive);
-
-            if (hasLivingCommander) return;
-
-            Queue<IEvent> statusEvents = new Queue<IEvent>();
-
-            IEnumerable<GameUnit> livingUnits = teamUnits.Where(unit => unit.IsAlive);
-            foreach (GameUnit unit in livingUnits)
-            {
-                statusEvents.Enqueue(new CastStatusEffectEvent(unit, new MoraleBrokenStatus(99, unit)));
-            }
-
-            GlobalEventQueue.QueueEvents(statusEvents);
         }
 
         private static bool NotEveryUnitIsDead()
