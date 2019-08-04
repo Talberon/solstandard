@@ -309,7 +309,7 @@ namespace SolStandard.Entity.Unit
         private static List<UnitAction> SelectPugilistSkills(bool isCommander)
         {
             const int flowStackDuration = 3;
-            
+
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
@@ -405,7 +405,12 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander)
+            {
+                skills.Insert(1,
+                    new CmdSteelheart(1)
+                );
+            }
 
             return skills;
         }
