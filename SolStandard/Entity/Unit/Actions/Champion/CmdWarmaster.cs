@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
         public CmdWarmaster(int cmdCost, int maxDistance, int[] range) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Warmaster <{cmdCost}>",
+            name: $"Warmaster [{cmdCost}]",
             description: $"Force another unit to move up to {maxDistance} spaces. " + Environment.NewLine +
                          $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

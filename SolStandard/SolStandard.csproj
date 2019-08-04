@@ -186,6 +186,7 @@
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\CmdAlchemicalArmor.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Wait.cs" />
     <Compile Include="Entity\Unit\NameGenerator.cs" />
+    <Compile Include="Entity\Unit\Statuses\AlchemicalArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />

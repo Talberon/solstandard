@@ -18,8 +18,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
         public CmdPerfectFocus(int cmdCost, int maxActions) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"Perfect Focus <{cmdCost}>",
-            description: $"Max out focus points [{cmdCost} pts] as a free action. " + Environment.NewLine +
+            name: $"Perfect Focus [{cmdCost}]",
+            description: $"Max out focus points [{maxActions} pts] as a free action. " + Environment.NewLine +
                          $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},

@@ -254,7 +254,12 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-// TODO       if (isCommander) skills.Add(new UnitAction());
+            if (isCommander)
+            {
+                skills.Insert(1,
+                    new CmdAlchemicalArmor(1, 1, 1, 1, 3)
+                );
+            }
 
             return skills;
         }
