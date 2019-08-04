@@ -59,6 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 GlobalEventQueue.QueueSingleEvent(
                     new CastStatusEffectEvent(targetUnit, new AlchemicalArmorStatus(blk, hpPerTurn, amrPerTurn, duration))
                 );
+                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
                 GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
             }
             else

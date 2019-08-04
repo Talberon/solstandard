@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
     public class FlowStrike : UnitAction
     {
-        private const string BuffName = "Flow";
+        public const string BuffName = "Flow";
 
         private readonly int percent;
         private readonly int buffDuration;

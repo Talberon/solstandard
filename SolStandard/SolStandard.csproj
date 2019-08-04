@@ -200,6 +200,7 @@
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\CmdCoursingRiver.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Suplex.cs" />

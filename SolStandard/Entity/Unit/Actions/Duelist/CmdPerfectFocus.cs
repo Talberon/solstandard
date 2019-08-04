@@ -66,7 +66,13 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 else
                 {
                     GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
-                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new FocusStatus(maxActions, true)));
+                    GlobalEventQueue.QueueSingleEvent(
+                        new CastStatusEffectEvent(
+                            targetUnit,
+                            new FocusStatus(maxActions, true)
+                        )
+                    );
+                    GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
                     GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
                 }
             }
