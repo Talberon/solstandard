@@ -10,6 +10,7 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -280,35 +281,30 @@ namespace SolStandard.Containers.Contexts
             {
                 List<CreepEntity> eligibleCreeps =
                     summons.Where(creep => creep.CreepPool == creepDeployTile.CreepPool).ToList();
-                
+
                 CreepEntity randomSummon = eligibleCreeps[GameDriver.Random.Next(eligibleCreeps.Count)];
 
-                Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
-                
-                GameUnit creepToSpawn =
-                    UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
-                        randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
-                
-                creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
-                creepToSpawn.ExhaustAndDisableUnit();
+                InjectCreepIntoTile(mapLoot, randomSummon, creepDeployTile);
 
-
-                Units.Add(creepToSpawn);
-
-
-                if (!creepDeployTile.CopyCreep)
-                {
-                    Trace.WriteLine($"Removing {randomSummon.Name} from summoning pool.");
-                    summons.Remove(randomSummon);
-                    Trace.WriteLine(
-                        $"Remaining pool members: {string.Join(",", GameMapContext.MapContainer.MapSummons)} ");
-                }
-
-                MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
-                    (int) creepDeployTile.MapCoordinates.Y] = null;
+                if (!creepDeployTile.CopyCreep) summons.Remove(randomSummon);
             }
         }
 
+        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon, MapElement creepDeployTile)
+        {
+            Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
+
+            GameUnit creepToSpawn =
+                UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
+                    randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
+
+            creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
+            creepToSpawn.ExhaustAndDisableUnit();
+            Units.Add(creepToSpawn);
+
+            MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
+                (int) creepDeployTile.MapCoordinates.Y] = null;
+        }
 
         private static void LoadStatusUI()
         {
