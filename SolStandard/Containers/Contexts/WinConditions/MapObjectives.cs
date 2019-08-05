@@ -46,6 +46,16 @@ namespace SolStandard.Containers.Contexts.WinConditions
                 Dictionary<VictoryConditions, Objective> objectives =
                     new Dictionary<VictoryConditions, Objective> {{VictoryConditions.Surrender, new Surrender()}};
 
+                if (modeCollectTheRelicsVs)
+                {
+                    objectives.Add(VictoryConditions.CollectTheRelicsVS, new CollectTheRelics(relicsOnMap));
+                }
+
+                if (modeCollectTheRelicsCoOp)
+                {
+                    objectives.Add(VictoryConditions.CollectTheRelicsCoOp, new CoOpCollectTheRelics(relicsOnMap));
+                }
+
                 if (modeTaxes) objectives.Add(VictoryConditions.Taxes, new Taxes(valueTaxes));
                 if (modeSeize) objectives.Add(VictoryConditions.Seize, new Seize());
                 if (modeAssassinate) objectives.Add(VictoryConditions.Assassinate, new Assassinate());
@@ -56,15 +66,6 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         new Escape(escapeTeam, (escapeTeam == Team.Blue) ? Team.Red : Team.Blue));
                 }
 
-                if (modeCollectTheRelicsVs)
-                {
-                    objectives.Add(VictoryConditions.CollectTheRelicsVS, new CollectTheRelics(relicsOnMap));
-                }
-
-                if (modeCollectTheRelicsCoOp)
-                {
-                    objectives.Add(VictoryConditions.CollectTheRelicsCoOp, new CoOpCollectTheRelics(relicsOnMap));
-                }
 
                 //SOLO OBJECTIVES
                 if (modeSoloDefeatBoss)

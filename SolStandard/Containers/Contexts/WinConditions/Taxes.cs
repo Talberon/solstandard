@@ -13,11 +13,11 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Taxes : Objective
     {
-        private static int TargetGold { get; set; }
+        private readonly int targetGold;
 
         public Taxes(int targetGold)
         {
-            TargetGold = targetGold;
+            this.targetGold = targetGold;
         }
 
         protected override IRenderable VictoryLabelContent => BuildObjectiveWindow(AssetManager.ResultsFont);
@@ -25,14 +25,14 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public override IRenderable ObjectiveInfo => BuildObjectiveWindow(AssetManager.WindowFont);
 
-        private static Window BuildObjectiveWindow(ISpriteFont font)
+        private Window BuildObjectiveWindow(ISpriteFont font)
         {
             Window blueGoldWindow = new Window(
-                new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + TargetGold + "G"),
+                new RenderText(font, "Blue: " + CollectedGold(Team.Blue) + "/" + targetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Blue));
 
             Window redGoldWindow = new Window(
-                new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + TargetGold + "G"),
+                new RenderText(font, "Red: " + CollectedGold(Team.Red) + "/" + targetGold + "G"),
                 TeamUtility.DetermineTeamColor(Team.Red));
 
             WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
@@ -101,9 +101,9 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return heldGold + bankedGold;
         }
 
-        private static bool TeamHasCollectedTargetGold(Team team)
+        private bool TeamHasCollectedTargetGold(Team team)
         {
-            return CollectedGold(team) >= TargetGold;
+            return CollectedGold(team) >= targetGold;
         }
     }
 }

@@ -1829,7 +1829,7 @@
     <property name="modeRelic.goal" type="int" value="3"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
-    <property name="modeTaxes" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
   <object id="542" name="Bellriver Tavern" type="SelectMap" gid="6314" x="352" y="512" width="32" height="32">

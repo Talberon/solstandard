@@ -10,7 +10,6 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class CollectTheRelics : Objective
     {
-        private Window objectiveWindow;
         private readonly int relicsToCollect;
 
         public CollectTheRelics(int relicsToCollect)
@@ -18,23 +17,38 @@ namespace SolStandard.Containers.Contexts.WinConditions
             this.relicsToCollect = relicsToCollect;
         }
 
-        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS");
+        protected override IRenderable VictoryLabelContent =>
+            new RenderText(AssetManager.ResultsFont, "COLLECTED TARGET RELICS");
 
 
-        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
+        public override IRenderable ObjectiveInfo => BuildObjectiveWindow();
 
         private Window BuildObjectiveWindow()
         {
+            Window blueRelicCount = new Window(
+                new RenderText(AssetManager.WindowFont,
+                    $"Blue: {GetRelicCountForTeam(Team.Blue)}/{relicsToCollect}"),
+                TeamUtility.DetermineTeamColor(Team.Blue)
+            );
+
+            Window redRelicCount = new Window(
+                new RenderText(AssetManager.WindowFont,
+                    $"Red: {GetRelicCountForTeam(Team.Red)}/{relicsToCollect}"),
+                TeamUtility.DetermineTeamColor(Team.Red)
+            );
+
             return new Window(
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
                         {
+                            blueRelicCount,
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.CollectTheRelicsVS,
                                 GameDriver.CellSizeVector
                             ),
-                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)")
+                            new RenderText(AssetManager.WindowFont, "Collect [" + relicsToCollect + "] Relics (VS)"),
+                            redRelicCount
                         }
                     },
                     2,
@@ -73,7 +87,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return GetRelicCountForTeam(team) >= relicsToCollect;
         }
 
-        private static int GetRelicCountForTeam(Team team)
+        public static int GetRelicCountForTeam(Team team)
         {
             return GameContext.Units.Where(unit => unit.Team == team)
                 .Sum(unit => unit.Inventory.Count(item => item is Relic));
