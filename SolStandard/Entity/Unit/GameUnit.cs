@@ -86,7 +86,6 @@ namespace SolStandard.Entity.Unit
         public List<IItem> Inventory { get; }
         public int CurrentGold { get; set; }
 
-        private readonly UnitSpriteSheet unitSpriteSheet;
         private TriggeredAnimation deathAnimation;
 
         public UnitEntity UnitEntity => (UnitEntity) MapEntity;
@@ -123,7 +122,6 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
             deathAnimation = null;
 
             ResetHealthBars();
@@ -456,7 +454,7 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color, UnitAnimationState animation, int frameDelay,
             bool isFlipped)
         {
-            UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            UnitSpriteSheet clonedSpriteSheet = UnitEntity.UnitSpriteSheet.Clone();
             if (isFlipped) clonedSpriteSheet.Flip();
             clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
@@ -826,16 +824,6 @@ namespace SolStandard.Entity.Unit
             {
                 MapEntity.SnapToCoordinates(new Vector2(MapEntity.MapCoordinates.X, mapSize.Y - 1));
             }
-        }
-
-        private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
-        {
-            //TODO Find a cleaner way to test so that this isn't necessary
-
-            if (entity != null) return entity.UnitSpriteSheet;
-
-            Trace.TraceWarning("No unitEntity for unit " + this + "!");
-            return new UnitSpriteSheet(new BlankTexture(), 1, Vector2.One, 100, false, Color.White);
         }
 
         public override string ToString()
