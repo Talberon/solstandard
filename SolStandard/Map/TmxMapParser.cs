@@ -123,9 +123,9 @@ namespace SolStandard.Map
                 ObtainEntitiesFromLayer("Entities", mapLoot),
                 // ReSharper disable once CoVariantArrayConversion
                 ObtainEntitiesFromLayer("Items"),
-                new MapElement[tmxMap.Width, tmxMap.Height],
-                new MapElement[tmxMap.Width, tmxMap.Height],
-                new MapElement[tmxMap.Width, tmxMap.Height]
+                new MapElement[tmxMap.Width, tmxMap.Height], //Preview
+                new MapElement[tmxMap.Width, tmxMap.Height], //Dynamic
+                new MapElement[tmxMap.Width, tmxMap.Height] //OverlayEffect
             };
 
             return gameTileLayers;
@@ -570,6 +570,16 @@ namespace SolStandard.Map
                                             (Team) Enum.Parse(typeof(Team), currentProperties["Team"])
                                         );
                                         break;
+                                    case EntityTypes.CreepDeploy:
+                                        entityGrid[col, row] = new CreepDeployTile(
+                                            currentObject.Name,
+                                            currentObject.Type,
+                                            tileSprite,
+                                            new Vector2(col, row),
+                                            currentProperties["creepPool"],
+                                            Convert.ToBoolean(currentProperties["copyCreep"])
+                                        );
+                                        break;
                                     case EntityTypes.Bank:
                                         entityGrid[col, row] = new Bank(
                                             currentObject.Name,
@@ -796,7 +806,7 @@ namespace SolStandard.Map
 
             if (poolItems.Count <= 0) return null;
 
-            IItem itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count - 1)];
+            IItem itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count)];
             mapLoot.Remove(itemFromPool);
 
             return itemFromPool;

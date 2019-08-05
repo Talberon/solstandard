@@ -122,6 +122,8 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
 
             GlobalEventQueue.QueueSingleEvent(new UpdateTurnOrderEvent(this));
+            
+            GameContext.StatusScreenView.UpdateWindows();
         }
 
         public void UpdateTurnOrder()

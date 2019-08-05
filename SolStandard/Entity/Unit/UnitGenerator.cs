@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit
             return unitsFromMap;
         }
 
-        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
+        public static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
             UnitEntity mapEntity, List<IItem> loot)
         {
             GameUnit generatedUnit;
@@ -59,7 +59,6 @@ namespace SolStandard.Entity.Unit
 
         private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
-            //FIXME See if this is causing desync issues in Netplay when a creep summons another creep
             generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
         }
 
@@ -424,11 +423,13 @@ namespace SolStandard.Entity.Unit
                 );
         }
 
-        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties)
+        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties,
+            bool? isCommander = null, string[] initialInventory = null)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
 
-            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false, new string[0],
+            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, isCommander ?? false,
+                initialInventory ?? new string[0],
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
             CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);

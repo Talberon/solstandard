@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
             if (enemiesInRange.Count > 0)
             {
-                GameUnit target = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count - 1)];
+                GameUnit target = enemiesInRange[GameDriver.Random.Next(enemiesInRange.Count)];
 
                 GlobalEventQueue.QueueSingleEvent(
                     new ToastAtCursorEvent(

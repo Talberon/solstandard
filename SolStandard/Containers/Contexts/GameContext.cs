@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -262,8 +265,50 @@ namespace SolStandard.Containers.Contexts
 
             LoadMapContext(mapParser);
             LoadInitiativeContext(mapParser, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
+            InjectCreepsIntoSpawnTiles(mapParser.LoadMapLoot());
             LoadStatusUI();
         }
+
+        private static void InjectCreepsIntoSpawnTiles(List<IItem> mapLoot)
+        {
+            List<CreepEntity> summons = GameMapContext.MapContainer.MapSummons;
+
+            List<CreepDeployTile> creepDeployTiles = MapContainer.GetMapEntities()
+                .Where(entity => entity.GetType() == typeof(CreepDeployTile)).Cast<CreepDeployTile>().ToList();
+
+            foreach (CreepDeployTile creepDeployTile in creepDeployTiles)
+            {
+                List<CreepEntity> eligibleCreeps =
+                    summons.Where(creep => creep.CreepPool == creepDeployTile.CreepPool).ToList();
+                
+                CreepEntity randomSummon = eligibleCreeps[GameDriver.Random.Next(eligibleCreeps.Count)];
+
+                Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
+                
+                GameUnit creepToSpawn =
+                    UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
+                        randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
+                
+                creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
+                creepToSpawn.ExhaustAndDisableUnit();
+
+
+                Units.Add(creepToSpawn);
+
+
+                if (!creepDeployTile.CopyCreep)
+                {
+                    Trace.WriteLine($"Removing {randomSummon.Name} from summoning pool.");
+                    summons.Remove(randomSummon);
+                    Trace.WriteLine(
+                        $"Remaining pool members: {string.Join(",", GameMapContext.MapContainer.MapSummons)} ");
+                }
+
+                MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
+                    (int) creepDeployTile.MapCoordinates.Y] = null;
+            }
+        }
+
 
         private static void LoadStatusUI()
         {

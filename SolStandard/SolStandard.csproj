@@ -87,6 +87,7 @@
     <Compile Include="Entity\General\BreakableObstacle.cs" />
     <Compile Include="Entity\General\BuffTile.cs" />
     <Compile Include="Entity\General\Chest.cs" />
+    <Compile Include="Entity\General\CreepDeployTile.cs" />
     <Compile Include="Entity\General\Crossing.cs" />
     <Compile Include="Entity\General\Decoration.cs" />
     <Compile Include="Entity\General\DeployTile.cs" />

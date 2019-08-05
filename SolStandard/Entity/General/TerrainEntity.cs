@@ -47,7 +47,8 @@ namespace SolStandard.Entity.General
         Piston,
         Launchpad,
         SpringTrap,
-        Crossing
+        Crossing,
+        CreepDeploy
     }
 
     public class TerrainEntity : MapEntity

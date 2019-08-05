@@ -34,6 +34,7 @@ namespace SolStandard.Utility.Model
         private const string ItemsProp = "Items";
         private const string TeamProp = "Team";
         private const string GoldProp = "gold";
+        private const string CreepPoolProp = "creepPool";
         private const string FallbackRoutineProp = "fallback_routine";
         private const string RoutineBasicAttackProp = "routine_basicAttack";
         private const string RoutineStationaryAttackProp = "routine_stationaryAttack";
@@ -49,6 +50,7 @@ namespace SolStandard.Utility.Model
         private const string RoutineWaitProp = "routine_wait";
 
         public Role CreepClass { get; }
+        public string CreepPool { get; }
         private readonly bool isCommander;
         private readonly bool isIndependent;
         private readonly string items;
@@ -69,11 +71,13 @@ namespace SolStandard.Utility.Model
         public int StartingGold { get; }
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
-            int startingGold, Routine fallbackRoutine, bool routineBasicAttack, bool routineStationaryAttack, bool routineSummon,
-            string routineSummonClass, bool routineWander, bool routineTreasureHunter, bool routineTriggerHappy,
-            bool routineDefender, bool routineGlutton, bool routinePrey, bool routineKingslayer, bool routineWait)
+            string creepPool, int startingGold, Routine fallbackRoutine, bool routineBasicAttack,
+            bool routineStationaryAttack, bool routineSummon, string routineSummonClass, bool routineWander,
+            bool routineTreasureHunter, bool routineTriggerHappy, bool routineDefender, bool routineGlutton,
+            bool routinePrey, bool routineKingslayer, bool routineWait)
         {
             CreepClass = creepClass;
+            CreepPool = creepPool;
             this.isCommander = isCommander;
             this.isIndependent = isIndependent;
             this.items = items;
@@ -174,6 +178,7 @@ namespace SolStandard.Utility.Model
                 Convert.ToBoolean(unitProperties[IndependentProp]),
                 unitProperties[ItemsProp],
                 GetTeamByName(unitProperties[TeamProp]),
+                unitProperties[CreepPoolProp],
                 Convert.ToInt32(unitProperties[GoldProp]),
                 GetRoutineByName(unitProperties[FallbackRoutineProp]),
                 Convert.ToBoolean(unitProperties[RoutineBasicAttackProp]),
@@ -206,7 +211,8 @@ namespace SolStandard.Utility.Model
             CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 
             if (RoutineBasicAttackProp.EndsWith(routineName, true, invariantCulture)) return Routine.BasicAttack;
-            if (RoutineStationaryAttackProp.EndsWith(routineName, true, invariantCulture)) return Routine.StationaryAttack;
+            if (RoutineStationaryAttackProp.EndsWith(routineName, true, invariantCulture))
+                return Routine.StationaryAttack;
             if (RoutineSummonProp.EndsWith(routineName, true, invariantCulture)) return Routine.Summon;
             if (RoutineWanderProp.EndsWith(routineName, true, invariantCulture)) return Routine.Wander;
             if (RoutineTreasureHunterProp.EndsWith(routineName, true, invariantCulture)) return Routine.TreasureHunter;
@@ -228,6 +234,7 @@ namespace SolStandard.Utility.Model
                 {IndependentProp, isIndependent.ToString()},
                 {ItemsProp, items},
                 {TeamProp, team.ToString()},
+                {CreepPoolProp, CreepPool},
                 {GoldProp, StartingGold.ToString()},
                 {FallbackRoutineProp, $"routine_{fallbackRoutine.ToString()}"},
                 {RoutineBasicAttackProp, routineBasicAttack.ToString()},

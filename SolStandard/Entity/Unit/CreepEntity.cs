@@ -10,14 +10,16 @@ namespace SolStandard.Entity.Unit
     {
         private IRenderable routineIcon;
         public CreepRoutineModel Routines { get; }
+        public string CreepPool { get; }
         public int StartingGold { get; }
 
         public CreepEntity(string name, string type, UnitSpriteSheet spriteSheet, Vector2 mapCoordinates, Team team,
-            Role role, bool isCommander, CreepRoutineModel creepRoutineRoutines, string[] initialInventory)
+            Role role, bool isCommander, CreepRoutineModel creepRoutineModel, string[] initialInventory)
             : base(name, type, spriteSheet, mapCoordinates, team, role, isCommander, initialInventory)
         {
-            Routines = creepRoutineRoutines;
-            StartingGold = creepRoutineRoutines.StartingGold;
+            Routines = creepRoutineModel;
+            CreepPool = creepRoutineModel.CreepPool;
+            StartingGold = creepRoutineModel.StartingGold;
         }
 
         public void UpdateRoutineIcon(IRoutine routine)
@@ -39,6 +41,12 @@ namespace SolStandard.Entity.Unit
             base.Draw(spriteBatch);
 
             routineIcon?.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));
+        }
+
+        public CreepEntity Copy()
+        {
+            return new CreepEntity(Name, Type, UnitSpriteSheet.Clone(), MapCoordinates, Team, Role, IsCommander, Routines,
+                InitialInventory);
         }
     }
 }
