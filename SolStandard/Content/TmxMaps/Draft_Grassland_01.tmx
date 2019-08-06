@@ -7,6 +7,7 @@
   <image source="../Graphics/Map/Tiles/Units3.png" width="352" height="96"/>
  </tileset>
  <tileset firstgid="618" source="overworld-32.tsx"/>
+ <tileset firstgid="6898" source="entities-32.tsx"/>
  <layer id="1" name="Terrain" width="32" height="23">
   <data>
    <tile gid="1299"/>
@@ -2129,38 +2130,38 @@
    <tile gid="826"/>
    <tile gid="826"/>
    <tile gid="945"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
-   <tile gid="6153"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
+   <tile gid="6113"/>
    <tile gid="6153"/>
    <tile gid="6153"/>
    <tile gid="6153"/>
@@ -2509,17 +2510,17 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="866" name="Tower" type="BuffTile" gid="1151" x="480" y="416" width="32" height="32">
+  <object id="866" name="Tower" type="BuffTile" gid="6914" x="480" y="416" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="867" name="Tower" type="BuffTile" gid="1151" x="544" y="288" width="32" height="32">
+  <object id="867" name="Tower" type="BuffTile" gid="6914" x="544" y="288" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="868" name="Tower" type="BuffTile" gid="1151" x="704" y="448" width="32" height="32">
+  <object id="868" name="Tower" type="BuffTile" gid="6914" x="704" y="448" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
@@ -2944,6 +2945,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6906"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3069,6 +3071,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6906"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3107,9 +3110,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6906"/>
    <tile/>
    <tile/>
    <tile/>

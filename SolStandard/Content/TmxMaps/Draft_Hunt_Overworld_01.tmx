@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1033">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1045">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="33" columns="11">
   <image source="../Graphics/Map/Tiles/Units3.png" width="352" height="96"/>
  </tileset>
@@ -718,6 +718,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -734,6 +735,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -753,6 +755,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -769,6 +772,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -803,6 +807,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -810,6 +815,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -851,11 +857,13 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -869,6 +877,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -881,6 +890,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="195"/>
+   <tile gid="195"/>
    <tile/>
    <tile/>
    <tile/>
@@ -893,6 +904,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -937,6 +949,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -948,6 +961,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -970,9 +984,11 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -996,23 +1012,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile gid="479"/>
    <tile gid="437"/>
@@ -1030,6 +1030,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1038,6 +1039,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1048,6 +1050,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1119,6 +1122,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1163,16 +1167,19 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1182,6 +1189,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="35"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1207,15 +1215,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="36"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1438,8 +1438,8 @@
    <tile gid="478"/>
    <tile gid="516"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="314"/>
+   <tile gid="316"/>
    <tile/>
    <tile gid="514"/>
    <tile gid="477"/>
@@ -1470,8 +1470,8 @@
    <tile gid="440"/>
    <tile/>
    <tile/>
-   <tile gid="314"/>
-   <tile gid="316"/>
+   <tile gid="394"/>
+   <tile gid="396"/>
    <tile/>
    <tile/>
    <tile gid="439"/>
@@ -1502,8 +1502,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="394"/>
-   <tile gid="396"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1533,10 +1533,10 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="399"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="400"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1565,10 +1565,10 @@
    <tile/>
    <tile gid="434"/>
    <tile gid="435"/>
-   <tile gid="435"/>
-   <tile gid="435"/>
-   <tile gid="435"/>
-   <tile gid="435"/>
+   <tile gid="437"/>
+   <tile/>
+   <tile/>
+   <tile gid="438"/>
    <tile gid="435"/>
    <tile gid="436"/>
    <tile/>
@@ -2168,6 +2168,26 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
+  <object id="1033" name="Woods" type="BuffTile" gid="360" x="576" y="256" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1034" name="Woods" type="BuffTile" gid="360" x="416" y="256" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1035" name="Log" type="BreakableObstacle" gid="6661" x="416" y="224" width="32" height="32"/>
+  <object id="1036" name="Log" type="BreakableObstacle" gid="6661" x="288" y="256" width="32" height="32"/>
+  <object id="1037" name="Log" type="BreakableObstacle" gid="6661" x="192" y="288" width="32" height="32"/>
+  <object id="1038" name="Log" type="BreakableObstacle" gid="6661" x="96" y="384" width="32" height="32"/>
+  <object id="1039" name="Log" type="BreakableObstacle" gid="6661" x="416" y="384" width="32" height="32"/>
+  <object id="1040" name="Log" type="BreakableObstacle" gid="6661" x="576" y="384" width="32" height="32"/>
+  <object id="1041" name="Log" type="BreakableObstacle" gid="6661" x="576" y="224" width="32" height="32"/>
+  <object id="1042" name="Log" type="BreakableObstacle" gid="6661" x="704" y="256" width="32" height="32"/>
+  <object id="1043" name="Log" type="BreakableObstacle" gid="6661" x="800" y="288" width="32" height="32"/>
+  <object id="1044" name="Log" type="BreakableObstacle" gid="6661" x="896" y="384" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="993" name="Emerald Relic" type="Relic" gid="6514" x="864" y="480" width="32" height="32"/>
@@ -2271,7 +2291,7 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="988" name="Goblin" type="Creep" gid="29" x="576" y="256" width="32" height="32">
+  <object id="988" name="Goblin" type="Creep" gid="29" x="640" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
@@ -2280,7 +2300,7 @@
     <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="989" name="Goblin" type="Creep" gid="29" x="416" y="256" width="32" height="32">
+  <object id="989" name="Goblin" type="Creep" gid="29" x="352" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
