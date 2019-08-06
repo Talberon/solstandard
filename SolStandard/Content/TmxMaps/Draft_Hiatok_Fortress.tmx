@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1155">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1156">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="33" columns="11">
   <image source="../Graphics/Map/Tiles/Units3.png" width="352" height="96"/>
  </tileset>
@@ -1025,8 +1025,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="87"/>
+   <tile gid="47"/>
+   <tile gid="128"/>
    <tile gid="168"/>
    <tile gid="168"/>
    <tile gid="49"/>
@@ -1057,8 +1057,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="170"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="170"/>
@@ -1089,8 +1089,8 @@
    <tile/>
    <tile gid="167"/>
    <tile gid="90"/>
-   <tile gid="168"/>
    <tile gid="128"/>
+   <tile gid="168"/>
    <tile gid="90"/>
    <tile gid="90"/>
    <tile gid="129"/>
@@ -2152,12 +2152,12 @@
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1037" name="Residence" type="BuffTile" gid="6363" x="704" y="416" width="32" height="32">
+  <object id="1037" name="Residence" type="BuffTile" gid="6363" x="768" y="416" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1038" name="Residence" type="BuffTile" gid="6370" x="704" y="384" width="32" height="32">
+  <object id="1038" name="Residence" type="BuffTile" gid="6370" x="800" y="288" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
@@ -2384,7 +2384,7 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1090" name="Chest Key Vendor" type="Vendor" gid="6530" x="768" y="416" width="32" height="32">
+  <object id="1090" name="Chest Key Vendor" type="Vendor" gid="6530" x="736" y="416" width="32" height="32">
    <properties>
     <property name="items" value="Chest Key"/>
     <property name="prices" value="15"/>
@@ -2590,11 +2590,6 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.63">
-  <object id="1120" name="Free Contract" type="Contract" gid="6474" x="288" y="128" width="32" height="32">
-   <properties>
-    <property name="forSpecificUnit" type="bool" value="false"/>
-   </properties>
-  </object>
   <object id="1132" name="Ruby Relic" type="Relic" gid="6526" x="448" y="32" width="32" height="32">
    <properties>
     <property name="itemPool" value="Relics"/>
@@ -2620,11 +2615,12 @@
     <property name="itemPool" value="Relics"/>
    </properties>
   </object>
-  <object id="1137" name="Chest Key" type="Key" gid="6402" x="768" y="384" width="32" height="32">
+  <object id="1137" name="Chest Key" type="Key" gid="6402" x="736" y="384" width="32" height="32">
    <properties>
     <property name="usedWith" value="Relic Chest"/>
    </properties>
   </object>
+  <object id="1155" name="Royal Relic" type="Relic" gid="6466" x="416" y="32" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="11" name="Summons" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="23" x="32" y="32" width="32" height="32">
@@ -2661,7 +2657,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1143" name="Emerald" type="Currency" gid="6787" x="736" y="384" width="32" height="32">
+  <object id="1143" name="Emerald" type="Currency" gid="6787" x="704" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2717,7 +2713,7 @@
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="Commander" type="bool" value="true"/>
-    <property name="Items" value="Free Contract"/>
+    <property name="Items" value="Royal Relic"/>
     <property name="fallback_routine" value="routine_wait"/>
     <property name="gold" type="int" value="20"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
@@ -2769,21 +2765,21 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1115" name="Skeleton" type="Creep" gid="28" x="288" y="256" width="32" height="32">
+  <object id="1115" name="Skeleton" type="Creep" gid="28" x="288" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
     <property name="gold" type="int" value="3"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1117" name="Skeleton" type="Creep" gid="28" x="256" y="256" width="32" height="32">
+  <object id="1117" name="Skeleton" type="Creep" gid="28" x="256" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
     <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1118" name="Slime" type="Creep" gid="23" x="448" y="256" width="32" height="32">
+  <object id="1118" name="Slime" type="Creep" gid="23" x="416" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="routine_glutton" type="bool" value="true"/>
@@ -2792,7 +2788,7 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1119" name="Goblin" type="Creep" gid="29" x="384" y="288" width="32" height="32">
+  <object id="1119" name="Goblin" type="Creep" gid="29" x="416" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
     <property name="Items" value="Chest Key"/>
@@ -2803,7 +2799,7 @@
     <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1121" name="Skeleton" type="Creep" gid="28" x="320" y="224" width="32" height="32">
+  <object id="1121" name="Skeleton" type="Creep" gid="28" x="320" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
     <property name="gold" type="int" value="5"/>
