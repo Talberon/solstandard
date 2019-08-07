@@ -77,6 +77,7 @@ namespace SolStandard.Entity.Unit
         public List<UnitAction> Actions { get; set; }
         public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
+        private UnitSpriteSheet entitySpriteSheet;
 
         public List<StatusEffect> StatusEffects { get; }
 
@@ -107,6 +108,8 @@ namespace SolStandard.Entity.Unit
             Actions = actions;
             IsCommander = isCommander;
             IsMovable = true;
+
+            entitySpriteSheet = unitEntity.UnitSpriteSheet;
 
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -454,7 +457,7 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color, UnitAnimationState animation, int frameDelay,
             bool isFlipped)
         {
-            UnitSpriteSheet clonedSpriteSheet = UnitEntity.UnitSpriteSheet.Clone();
+            UnitSpriteSheet clonedSpriteSheet = entitySpriteSheet.Clone();
             if (isFlipped) clonedSpriteSheet.Flip();
             clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
