@@ -275,7 +275,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdSonicStrike(1));
+            if (isCommander) skills.Insert(1, new CmdSonicStrike(4));
 
             return skills;
         }
@@ -314,7 +314,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdCoursingRiver(4, 2, flowStackDuration));
+            if (isCommander) skills.Insert(1, new CmdCoursingRiver(5, 2, flowStackDuration));
 
             return skills;
         }
@@ -352,7 +352,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdHealingAura(4, 1, 3));
+            if (isCommander) skills.Insert(1, new CmdHealingAura(5, 1, 3));
 
             return skills;
         }
