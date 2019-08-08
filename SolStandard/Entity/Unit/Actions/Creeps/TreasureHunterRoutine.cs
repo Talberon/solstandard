@@ -31,7 +31,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
         }
 
-        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(RoutineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -96,7 +97,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             );
 
             List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false);
+                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false,
+                    GameContext.ActiveUnit.Team);
 
             Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
             foreach (Direction direction in directionsToDestination)
@@ -122,7 +124,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             );
 
             List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false);
+                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false,
+                    GameContext.ActiveUnit.Team);
 
             Queue<IEvent> pathToCurrencyQueue = new Queue<IEvent>();
             foreach (Direction direction in directionsToDestination)

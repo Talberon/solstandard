@@ -32,7 +32,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.routineIcon = routineIcon;
         }
 
-        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public virtual bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -74,7 +75,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
             List<Direction> directionsToDestination =
                 AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, targetUnitCoordinatePair.Value, false,
-                    false);
+                    false, GameContext.ActiveUnit.Team);
 
             Queue<IEvent> pathAndAttackQueue = new Queue<IEvent>();
             foreach (Direction direction in directionsToDestination)
@@ -94,7 +95,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             bool isIndependent)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-        
+
             //Check movement range
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
@@ -125,10 +126,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                             new KeyValuePair<GameUnit, Vector2>(targetUnit, previewTile.MapCoordinates));
                     }
                 }
-                
+
                 MapContainer.ClearPreviewGrid();
             }
-            
+
             return attackPositionsInRange;
         }
 

@@ -32,11 +32,17 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            int lowerMv = GameContext.ActiveUnit.Stats.Mv < maxDistance ? GameContext.ActiveUnit.Stats.Mv : maxDistance;
+            GenerateSprintGrid(origin, GameContext.ActiveUnit, maxDistance, mapLayer);
+        }
+
+        public static void GenerateSprintGrid(Vector2 origin, GameUnit sprintingUnit, int maxDistance,
+            Layer mapLayer = Layer.Dynamic)
+        {
+            int lowerMv = sprintingUnit.Stats.Mv < maxDistance ? sprintingUnit.Stats.Mv : maxDistance;
 
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
-            unitMovingContext.GenerateMoveGrid(origin, lowerMv, GameContext.ActiveUnit.Team);
+            unitMovingContext.GenerateMoveGrid(origin, lowerMv, sprintingUnit.Team);
 
             //Delete the origin space to prevent players standing still and wasting action.
             MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
@@ -72,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions
             MapContainer.ClearDynamicAndPreviewGrids();
 
             List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                movingUnit.UnitEntity.MapCoordinates, mapCoordinates, walkThroughAllies, true
+                movingUnit.UnitEntity.MapCoordinates, mapCoordinates, true, walkThroughAllies, movingUnit.Team
             );
 
             Queue<IEvent> pathingEventQueue = new Queue<IEvent>();

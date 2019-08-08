@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-                new Sprint(maxDistance).GenerateActionGrid(targetUnit.UnitEntity.MapCoordinates);
+                Sprint.GenerateSprintGrid(targetUnit.UnitEntity.MapCoordinates, targetUnit, maxDistance);
                 AssetManager.MapUnitSelectSFX.Play();
                 return true;
             }

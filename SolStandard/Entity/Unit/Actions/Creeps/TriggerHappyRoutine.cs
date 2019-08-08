@@ -106,8 +106,10 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             List<Direction> directionsToDestination = AStarAlgorithm.DirectionsToDestination(
                 roamerMapCoordinates,
                 triggerable.MapCoordinates,
+                ignoreLastStep,
                 false,
-                ignoreLastStep
+                GameContext.ActiveUnit.Team
+                
             );
 
             Queue<IEvent> pathToItemQueue = new Queue<IEvent>();

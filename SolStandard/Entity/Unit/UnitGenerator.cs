@@ -237,7 +237,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 2, new[] {1, 2, 3}));
+            if (isCommander) skills.Insert(1, new CmdWarmaster(1, 2, new[] {1, 2, 3}));
 
             return skills;
         }
