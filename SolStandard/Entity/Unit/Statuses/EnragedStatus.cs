@@ -15,7 +15,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 description: "Increased attack power / Reduced retribution",
                 turnDuration: turnDuration,
                 hasNotification: false,
-                canCleanse: (atkModifier < 0)
+                canCleanse: true
             )
         {
             this.atkModifier = atkModifier;

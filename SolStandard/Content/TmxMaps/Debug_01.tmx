@@ -2219,7 +2219,7 @@
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="894" name="Contract Vendor" type="Vendor" gid="6556" x="672" y="288" width="32" height="32">
+  <object id="894" name="Contract Vendor" type="Vendor" gid="6871" x="672" y="288" width="32" height="32">
    <properties>
     <property name="items" value="Mage Contract|Marauder Contract|Pugilist Contract|Lancer Contract|Cleric Contract|Paladin Contract|Free Contract"/>
     <property name="prices" value="1|1|1|1|1|1|1"/>

@@ -2157,7 +2157,7 @@
   </object>
   <object id="988" name="Rubble" type="BreakableObstacle" gid="6594" x="320" y="512" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="989" name="Woods" type="BuffTile" gid="1880" x="192" y="448" width="32" height="32">
@@ -2322,7 +2322,7 @@
   </object>
   <object id="1036" name="Rubble" type="BreakableObstacle" gid="6594" x="768" y="512" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1037" name="Woods" type="BuffTile" gid="1880" x="704" y="480" width="32" height="32">
@@ -2374,12 +2374,12 @@
   </object>
   <object id="1074" name="Rubble" type="BreakableObstacle" gid="6594" x="256" y="160" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1075" name="Rubble" type="BreakableObstacle" gid="6594" x="736" y="96" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1076" name="Residence" type="BuffTile" gid="6725" x="512" y="128" width="32" height="32">
@@ -2505,17 +2505,17 @@
   </object>
   <object id="1105" name="Rubble" type="BreakableObstacle" gid="6594" x="352" y="448" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1106" name="Rubble" type="BreakableObstacle" gid="6594" x="672" y="576" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1107" name="Rubble" type="BreakableObstacle" gid="6594" x="384" y="576" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="959" name="Deploy Blue" type="Deployment" gid="6345" x="128" y="320" width="32" height="32">
@@ -2626,7 +2626,7 @@
   </object>
   <object id="1118" name="Rubble" type="BreakableObstacle" gid="6594" x="160" y="288" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1119" name="Ensnaring Trap" type="Trap" gid="6744" x="288" y="480" width="32" height="32">
@@ -2875,27 +2875,27 @@
   </object>
   <object id="1167" name="Rubble" type="BreakableObstacle" gid="6594" x="832" y="576" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1168" name="Rubble" type="BreakableObstacle" gid="6594" x="832" y="448" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1169" name="Rubble" type="BreakableObstacle" gid="6594" x="192" y="416" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1170" name="Rubble" type="BreakableObstacle" gid="6594" x="256" y="416" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1171" name="Rubble" type="BreakableObstacle" gid="6594" x="256" y="576" width="32" height="32">
    <properties>
-    <property name="HP" type="int" value="2"/>
+    <property name="HP" type="int" value="1"/>
    </properties>
   </object>
   <object id="1172" name="Ensnaring Trap" type="Trap" gid="6744" x="160" y="576" width="32" height="32">
