@@ -2040,7 +2040,7 @@
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Escape_Prison.tmx"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
-    <property name="maxUnitsRed" type="int" value="6"/>
+    <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeEscape" type="bool" value="true"/>
     <property name="modeEscape.team" value="Blue"/>
