@@ -1408,8 +1408,8 @@
    <tile gid="536"/>
    <tile gid="320"/>
    <tile gid="94"/>
-   <tile/>
-   <tile/>
+   <tile gid="320"/>
+   <tile gid="360"/>
    <tile gid="360"/>
    <tile/>
    <tile gid="360"/>
@@ -1557,7 +1557,7 @@
    <tile/>
    <tile gid="603"/>
    <tile gid="320"/>
-   <tile/>
+   <tile gid="6363"/>
    <tile/>
    <tile/>
    <tile gid="94"/>
@@ -1844,7 +1844,7 @@
     <property name="valueTaxes" type="int" value="150"/>
    </properties>
   </object>
-  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6314" x="512" y="416" width="32" height="32">
+  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6314" x="512" y="192" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_01.tmx"/>
@@ -1935,17 +1935,18 @@
     <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
-  <object id="563" name="Lakefront Market" type="SelectMap" gid="6314" x="192" y="352" width="32" height="32">
+  <object id="563" name="Downtown Stacksville" type="SelectMap" gid="6315" x="384" y="416" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Town_Market.tmx"/>
+    <property name="mapFileName" value="Draft_Village_Center.tmx"/>
     <property name="mapSong" value="DesertTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
-    <property name="valueTaxes" type="int" value="100"/>
+    <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
   <object id="565" name="Dusk Temple" type="SelectMap" gid="6314" x="736" y="480" width="32" height="32">
@@ -1985,7 +1986,7 @@
     <property name="valueTaxes" type="int" value="300"/>
    </properties>
   </object>
-  <object id="568" name="Verdant Forest" type="SelectMap" gid="6314" x="480" y="192" width="32" height="32">
+  <object id="568" name="Verdant Forest" type="SelectMap" gid="6314" x="448" y="224" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Verdant_Forest.tmx"/>
@@ -2023,7 +2024,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="572" name="Hunting Grounds VS" type="SelectMap" gid="6323" x="288" y="288" width="32" height="32">
+  <object id="572" name="Hunting Grounds VS" type="SelectMap" gid="6323" x="128" y="384" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -2046,7 +2047,7 @@
     <property name="modeRoutArmy" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="574" name="Hunting Grounds Co-Op" type="SelectMap" gid="6324" x="320" y="288" width="32" height="32">
+  <object id="574" name="Hunting Grounds Co-Op" type="SelectMap" gid="6324" x="160" y="384" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -2067,7 +2068,7 @@
     <property name="modeRelic.vs" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="577" name="Factory Heist" type="SelectMap" gid="6319" x="384" y="416" width="32" height="32">
+  <object id="577" name="Factory Heist" type="SelectMap" gid="6319" x="512" y="416" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>

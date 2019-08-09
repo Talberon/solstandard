@@ -14,7 +14,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly Currency currency;
 
         public PickUpCurrencyAction(Currency currency) : base(
-            icon: currency.RenderSprite,
+            icon: currency.RenderSprite.Clone(),
             name: "Pick Up",
             description: "Add [" + currency.Value + "] to your unit's money count.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

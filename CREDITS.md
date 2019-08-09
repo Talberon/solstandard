@@ -59,6 +59,12 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >#### License
 >https://www.gamedevmarket.net/terms-conditions/#pro-licence
 
+### Skye Scribbles | https://skyescribbles.com/
+>#### Work
+> Item Icons
+>#### License
+>None
+
 ### Hyohnoo | https://hyohnoo.itch.io/
 >#### Work
 >Button, Keyboard Icons

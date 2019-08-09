@@ -2862,7 +2862,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.58">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.58">
   <object id="1231" name="Door Key" type="Key" gid="6402" x="320" y="320" width="32" height="32">
    <properties>
     <property name="usedWith" value="Locked Door"/>
@@ -2902,7 +2902,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="23" x="64" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
@@ -2997,7 +2997,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Disabled" opacity="0.43">
+ <objectgroup id="9" name="Disabled" visible="0" opacity="0.43">
   <object id="986" name="Spring Trap" type="SpringTrap" gid="6541" x="192" y="64" width="32" height="32">
    <properties>
     <property name="trigger.landingCoordinates.x" type="int" value="25"/>

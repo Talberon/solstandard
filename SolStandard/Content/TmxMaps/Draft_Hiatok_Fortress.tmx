@@ -2589,7 +2589,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.63">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.63">
   <object id="1132" name="Ruby Relic" type="Relic" gid="6526" x="448" y="32" width="32" height="32">
    <properties>
     <property name="itemPool" value="Relics"/>
@@ -2622,7 +2622,7 @@
   </object>
   <object id="1155" name="Royal Relic" type="Relic" gid="6466" x="416" y="32" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="23" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
@@ -2807,7 +2807,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Disabled" opacity="0.24"/>
+ <objectgroup id="9" name="Disabled" visible="0" opacity="0.24"/>
  <layer id="4" name="Overlay" width="32" height="20">
   <data>
    <tile/>
