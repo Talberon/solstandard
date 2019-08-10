@@ -2,6 +2,7 @@ using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Statuses.Bard
 {
@@ -10,21 +11,25 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
         public AnthemStatus(int auraBonus, int selfBonus, int[] auraRange) : base(
             statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
             name:
-            $"Anthem <+{UnitStatistics.Abbreviation[Stats.Atk]}/{UnitStatistics.Abbreviation[Stats.Retribution]} {auraBonus} Aura/{selfBonus} Solo>",
+            $"Anthem <+{UnitStatistics.Abbreviation[Stats.Atk]} {auraBonus} Aura/{selfBonus} Solo>",
             description:
-            $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} and {UnitStatistics.Abbreviation[Stats.Retribution]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
+            $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             turnDuration: 99,
-            new BonusStatistics(auraBonus, auraBonus, 0, 0),
-            new BonusStatistics(selfBonus, selfBonus, 0, 0),
+            new BonusStatistics(auraBonus, 0, 0, 0),
+            new BonusStatistics(selfBonus, 0, 0, 0),
             auraRange,
             false
         )
         {
+            SongSprite = SongAtlasProvider.GetSongSheet(
+                SongTypes.Attack,
+                GameDriver.CellSizeVector,
+                GetSongColor(GameContext.ActiveUnit.Team)
+            );
         }
 
         public override void ApplyEffect(GameUnit target)
         {
-            AssetManager.SkillBuffSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
             base.ApplyEffect(target);
         }

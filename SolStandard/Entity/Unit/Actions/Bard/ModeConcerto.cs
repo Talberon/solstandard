@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolStandard.Containers;
@@ -16,10 +17,11 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         public const string GroupSkillName = "Concerto";
 
         public ModeConcerto() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
-            name: GroupSkillName,
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Concerto, GameDriver.CellSizeVector),
+            name: "Play - " + GroupSkillName,
             description:
-            $"Applies status effects from songs to self with an increased potency. Removes {ModeSolo.SoloSkillName}.",
+            $"Applies song effects to allies in range with reduced potency." + Environment.NewLine +
+            $"Removes {ModeSolo.SoloSkillName}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
             freeAction: true
@@ -44,7 +46,8 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 targetUnit.StatusEffects.RemoveAll(status => status is SoloStatus);
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new ConcertoStatus()));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ConcertoStatus()));
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

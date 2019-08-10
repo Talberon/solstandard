@@ -19,11 +19,15 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             false
         )
         {
+            SongSprite = SongAtlasProvider.GetSongSheet(
+                SongTypes.Luck,
+                GameDriver.CellSizeVector,
+                GetSongColor(GameContext.ActiveUnit.Team)
+            );
         }
 
         public override void ApplyEffect(GameUnit target)
         {
-            AssetManager.SkillBuffSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
             base.ApplyEffect(target);
         }

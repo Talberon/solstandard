@@ -9,10 +9,9 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
     public class ConcertoStatus : StatusEffect
     {
         public ConcertoStatus() : base(
-            //TODO New Icon
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
-            name: ModeConcerto.GroupSkillName,
-            description: "Applies aura effects to self at increased potency.",
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Concerto, GameDriver.CellSizeVector),
+            name: "Playing: " + ModeConcerto.GroupSkillName,
+            description: "Applies song effects to allies in range with reduced potency.",
             turnDuration: 99,
             hasNotification: false,
             canCleanse: false
@@ -27,11 +26,10 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
             List<SongStatus> songs =
                 singer.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
-            
+
             songs.ForEach(song => song.SetToAuraEffect());
 
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

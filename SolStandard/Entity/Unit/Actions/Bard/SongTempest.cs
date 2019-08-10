@@ -18,10 +18,10 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int[] auraRange;
 
         public SongTempest(int auraBonus, int selfBonus, int[] auraRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Tempest, GameDriver.CellSizeVector),
             name: "Tempest",
             description:
-            $"Applies a {UnitStatistics.Abbreviation[Stats.Mv]} buff [{auraBonus} Aura/{selfBonus} Solo] for units within the aura at the start of the turn.",
+            $"Applies a {UnitStatistics.Abbreviation[Stats.Retribution]} buff [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: auraRange,
             freeAction: true
@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             if (!SingerIsSinging)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Singer must be singing!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }
@@ -53,9 +53,10 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                GlobalEventQueue.QueueSingleEvent(
+                eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new TempestStatus(auraBonus, selfBonus, auraRange))
                 );
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

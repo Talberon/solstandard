@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Bard;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Command;
@@ -77,7 +79,7 @@ namespace SolStandard.Entity.Unit
         public List<UnitAction> Actions { get; set; }
         public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
-        private UnitSpriteSheet entitySpriteSheet;
+        private readonly UnitSpriteSheet entitySpriteSheet;
 
         public List<StatusEffect> StatusEffects { get; }
 
@@ -130,6 +132,9 @@ namespace SolStandard.Entity.Unit
             ResetHealthBars();
             miniCommandPointBar = new MiniCommandPointBar(Stats.MaxCmd, Vector2.One);
         }
+
+        public int[] AtkRange => Stats.CurrentAtkRange;
+        public int MvRange => Stats.Mv;
 
         public IRenderable GetInitiativeCommandPointBar(Vector2 barSize)
         {
@@ -859,8 +864,21 @@ namespace SolStandard.Entity.Unit
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
 
-        public int[] AtkRange => Stats.CurrentAtkRange;
+        public void DrawAuras(SpriteBatch spriteBatch)
+        {
+            List<SongStatus> songs = StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
 
-        public int MvRange => Stats.Mv;
+            foreach (SongStatus song in songs)
+            {
+                UnitTargetingContext targetingContext = new UnitTargetingContext(song.SongSprite);
+                List<MapDistanceTile> auraTiles =
+                    targetingContext.GetTargetingTiles(UnitEntity.MapCoordinates, song.AuraRange);
+
+                foreach (MapDistanceTile tile in auraTiles)
+                {
+                    tile.Draw(spriteBatch);
+                }
+            }
+        }
     }
 }

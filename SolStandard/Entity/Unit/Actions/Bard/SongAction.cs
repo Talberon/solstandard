@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses.Bard;
@@ -7,13 +8,16 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 {
     public abstract class SongAction : UnitAction
     {
-        protected SongAction(IRenderable icon, string name, IRenderable description, SpriteAtlas tileSprite,
-            int[] range, bool freeAction) : base(icon, name, description, tileSprite, range, freeAction)
-        {
-        }
-
         protected SongAction(IRenderable icon, string name, string description, SpriteAtlas tileSprite, int[] range,
-            bool freeAction) : base(icon, name, description, tileSprite, range, freeAction)
+            bool freeAction)
+            : base(
+                icon,
+                "Song - " + name,
+                description + Environment.NewLine + "Removes other songs currently applied.",
+                tileSprite,
+                range,
+                freeAction
+            )
         {
         }
 

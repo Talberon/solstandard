@@ -1718,6 +1718,54 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Dice/AttackDiceAtlas.png
 
+#begin Graphics/Images/Icons/Misc/AuraAttack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/AuraAttack.png
+
+#begin Graphics/Images/Icons/Misc/AuraLuck.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/AuraLuck.png
+
+#begin Graphics/Images/Icons/Misc/AuraMove.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/AuraMove.png
+
+#begin Graphics/Images/Icons/Misc/AuraRetribution.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/AuraRetribution.png
+
 #begin Graphics/Images/Icons/Misc/CliffJump.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2102,6 +2150,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Cleanse.png
 
+#begin Graphics/Images/Icons/Skill/Concerto.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Concerto.png
+
 #begin Graphics/Images/Icons/Skill/Defender.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2426,6 +2486,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Shove.png
 
+#begin Graphics/Images/Icons/Skill/Solo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Solo.png
+
 #begin Graphics/Images/Icons/Skill/Stun.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2485,6 +2557,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Tackle.png
+
+#begin Graphics/Images/Icons/Skill/Tempest.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Tempest.png
 
 #begin Graphics/Images/Icons/Skill/Terraform.png
 /importer:TextureImporter
@@ -3374,6 +3458,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Escape_Prison.png
 
+#begin Graphics/Map/MapPreviews/Draft_Factory_Floor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Factory_Floor.png
+
 #begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3397,6 +3493,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
+
+#begin Graphics/Map/MapPreviews/Draft_Hiatok_Fortress.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Hiatok_Fortress.png
 
 #begin Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01.png
 /importer:TextureImporter
@@ -3446,6 +3554,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Master_Control.png
 
+#begin Graphics/Map/MapPreviews/Draft_Quest_Race.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Quest_Race.png
+
 #begin Graphics/Map/MapPreviews/Draft_Raid_Dungeon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3493,6 +3613,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Verdant_Forest.png
+
+#begin Graphics/Map/MapPreviews/Draft_Village_Center.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Village_Center.png
 
 #begin Graphics/Map/MapPreviews/Dungeon_01.png
 /importer:TextureImporter

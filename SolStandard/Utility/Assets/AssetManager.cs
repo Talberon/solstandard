@@ -42,6 +42,7 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
+        public static List<ITexture2D> SongTextures { get; private set; }
 
         public static ITexture2D FireTexture { get; private set; }
         public static ITexture2D DeathTexture { get; private set; }
@@ -53,7 +54,6 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D SpringTexture { get; private set; }
         public static ITexture2D LockTexture { get; private set; }
         public static ITexture2D OpenTexture { get; private set; }
-        public static ITexture2D SongTexture { get; private set; }
 
         public static ITexture2D MainMenuLogoTexture { get; private set; }
         public static ITexture2D MainMenuSunTexture { get; private set; }
@@ -142,7 +142,6 @@ namespace SolStandard.Utility.Assets
             SpringTexture = ContentLoader.LoadLaunchpadAtlas(content);
             LockTexture = ContentLoader.LoadLockAtlas(content);
             OpenTexture = ContentLoader.LoadOpenAtlas(content);
-            SongTexture = ContentLoader.LoadSongAtlas(content);
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);
@@ -168,6 +167,9 @@ namespace SolStandard.Utility.Assets
 
             StatusIcons = ContentLoader.LoadStatusIcons(content);
             StatusIconProvider.LoadStatusIcons(StatusIcons);
+
+            SongTextures = ContentLoader.LoadSongAtlases(content);
+            SongAtlasProvider.LoadSongAtlases(SongTextures);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);

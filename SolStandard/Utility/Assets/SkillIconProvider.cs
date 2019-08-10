@@ -38,7 +38,6 @@ namespace SolStandard.Utility.Assets
         Intervention,
         Stun,
         Recover,
-
         BetwixtPlate,
         FlowStrike,
         Frostbite,
@@ -47,6 +46,12 @@ namespace SolStandard.Utility.Assets
         Terraform,
         Rescue,
         Jump,
+        Venom,
+        Grapple,
+        Fortify,
+        FadeStrike,
+        Solo,
+        Concerto,
 
         //AI Routines
         Prey,
@@ -57,10 +62,7 @@ namespace SolStandard.Utility.Assets
         Glutton,
         Summon,
         Wander,
-        Venom,
-        Grapple,
-        Fortify,
-        FadeStrike
+        Tempest
     }
 
     public static class SkillIconProvider
@@ -119,6 +121,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D rescue = skillIconTextures.Find(texture => texture.Name.EndsWith("Rescue"));
             ITexture2D jump = skillIconTextures.Find(texture => texture.Name.EndsWith("Jump"));
             ITexture2D fadeStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("FadeStrike"));
+            ITexture2D solo = skillIconTextures.Find(texture => texture.Name.EndsWith("Solo"));
+            ITexture2D concerto = skillIconTextures.Find(texture => texture.Name.EndsWith("Concerto"));
+            ITexture2D tempest = skillIconTextures.Find(texture => texture.Name.EndsWith("Tempest"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
@@ -175,6 +180,9 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Rescue, rescue},
                 {SkillIcon.Jump, jump},
                 {SkillIcon.FadeStrike, fadeStrike},
+                {SkillIcon.Concerto, concerto},
+                {SkillIcon.Solo, solo},
+                {SkillIcon.Tempest, tempest},
 
                 //AI Routines
                 {SkillIcon.Prey, prey},

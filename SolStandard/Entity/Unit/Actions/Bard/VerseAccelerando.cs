@@ -10,14 +10,14 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Bard
 {
-    public class Accelerando : UnitAction
+    public class VerseAccelerando : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Accelerando(int duration, int statModifier) : base(
+        public VerseAccelerando(int duration, int statModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, GameDriver.CellSizeVector),
-            name: "Accelerando",
+            name: "Verse - Accelerando",
             description: "Increase an ally's MV by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1, 2},

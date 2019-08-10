@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
             name: "Anthem",
             description:
-            $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} and {UnitStatistics.Abbreviation[Stats.Retribution]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
+            $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: auraRange,
             freeAction: true
@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             if (!SingerIsSinging)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Singer must be singing!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }
@@ -52,9 +52,10 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                GlobalEventQueue.QueueSingleEvent(
+                eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new AnthemStatus(auraBonus, selfBonus, auraRange))
                 );
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

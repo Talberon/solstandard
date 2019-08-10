@@ -19,7 +19,6 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -313,11 +312,7 @@ namespace SolStandard.Containers.Contexts
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     SelectedUnit,
-                    new SpriteAtlas(
-                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        GameDriver.CellSizeVector,
-                        (int) MapDistanceTile.TileType.Movement
-                    )
+                    MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement)
                 );
 
                 MapContainer.ClearPreviewGrid();

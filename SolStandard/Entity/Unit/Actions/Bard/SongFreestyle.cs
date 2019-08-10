@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         {
             if (!SingerIsSinging)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Singer must be singing!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Performer must be playing first!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
             }
@@ -53,9 +53,10 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                GlobalEventQueue.QueueSingleEvent(
+                eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new FreestyleStatus(auraBonus, selfBonus, auraRange))
                 );
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

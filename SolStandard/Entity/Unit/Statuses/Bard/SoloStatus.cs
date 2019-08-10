@@ -9,10 +9,9 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
     public class SoloStatus : StatusEffect
     {
         public SoloStatus() : base(
-            //TODO New Icon
-            statusIcon: UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
-            name: ModeSolo.SoloSkillName,
-            description: "Applies aura effects to self at increased potency.",
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Solo, GameDriver.CellSizeVector),
+            name: "Playing: " + ModeSolo.SoloSkillName,
+            description: "Applies song effects to self with increased potency.",
             turnDuration: 99,
             hasNotification: false,
             canCleanse: false
@@ -25,11 +24,11 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(this));
             if (singer == null || !singer.IsAlive) return;
 
-            List<SongStatus> songs = singer.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
+            List<SongStatus> songs = singer.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>()
+                .ToList();
             songs.ForEach(song => song.SetToSelfEffect());
-            
+
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
         }
 
         protected override void ExecuteEffect(GameUnit target)

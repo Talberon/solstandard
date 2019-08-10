@@ -1,7 +1,10 @@
 using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Statuses.Bard
 {
@@ -12,6 +15,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
         private BonusStatistics AuraBonus { get; }
         private BonusStatistics SelfBonus { get; }
         private readonly int[] auraRange;
+        public AnimatedSpriteSheet SongSprite { get; protected set; }
 
         public int[] AuraRange => IsAuraEffect ? auraRange : new[] {0};
 
@@ -22,6 +26,21 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             AuraBonus = auraBonus;
             SelfBonus = selfBonus;
             this.auraRange = auraRange;
+            SongSprite = SongAtlasProvider.GetSongSheet(SongTypes.Song, GameDriver.CellSizeVector,
+                GetSongColor(GameContext.ActiveUnit.Team));
+        }
+
+        protected static Color GetSongColor(Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    return new Color(80, 80, 255, 50);
+                case Team.Red:
+                    return new Color(255, 70, 80, 50);
+                default:
+                    return new Color(35, 100, 35, 100);
+            }
         }
 
         public BonusStatistics ActiveBonus => IsAuraEffect ? AuraBonus : SelfBonus;
@@ -42,7 +61,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
         {
             StatusEffect soloStatus = target.StatusEffects.FirstOrDefault(status => status is SoloStatus);
             soloStatus?.ApplyEffect(target);
-            
+
             StatusEffect concertoStatus = target.StatusEffects.FirstOrDefault(status => status is ConcertoStatus);
             concertoStatus?.ApplyEffect(target);
         }

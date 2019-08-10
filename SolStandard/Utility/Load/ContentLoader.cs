@@ -280,11 +280,25 @@ namespace SolStandard.Utility.Load
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Open");
             return new Texture2DWrapper(loadTexture);
         }
-        
-        public static ITexture2D LoadSongAtlas(ContentManager content)
+
+        public static List<ITexture2D> LoadSongAtlases(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/SongAura");
-            return new Texture2DWrapper(loadTexture);
+            List<Texture2D> songTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/SongAura"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraAttack"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraLuck"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraMove"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraRetribution"),
+            };
+            
+            List<ITexture2D> songITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in songTextures)
+            {
+                songITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return songITextures;
         }
 
         public static ITexture2D LoadCommanderIcon(ContentManager content)
@@ -345,7 +359,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Alpha_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Escape_Prison"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01"),
-                
+
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hiatok_Fortress"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Quest_Race"),
@@ -476,6 +490,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
+                
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Concerto"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Solo"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tempest"),
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 //AI Routine Icons

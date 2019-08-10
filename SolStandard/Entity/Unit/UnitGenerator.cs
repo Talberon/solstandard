@@ -290,6 +290,7 @@ namespace SolStandard.Entity.Unit
                 new SongAnthem(1, 2, new[] {0, 1, 2}),
                 new SongTempest(1, 2, new[] {0, 1, 2}),
                 new SongFreestyle(1, 2, new[] {0, 1, 2}),
+                new VerseAccelerando(2, 1),
                 new Sprint(2),
                 new Guard(3),
                 new Wait()
