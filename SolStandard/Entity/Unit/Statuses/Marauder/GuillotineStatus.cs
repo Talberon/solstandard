@@ -3,7 +3,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Marauder
 {
     public class GuillotineStatus : StatusEffect, ICombatProc
     {

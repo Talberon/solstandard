@@ -3,7 +3,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Duelist
 {
     public class FocusStatus : StatusEffect, ITurnProc
     {

@@ -155,6 +155,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkControllerTest.cs" />
     <Compile Include="Utility\Monogame\FakeTexture2D.cs" />
+    <Compile Include="Utility\RangeComparisonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

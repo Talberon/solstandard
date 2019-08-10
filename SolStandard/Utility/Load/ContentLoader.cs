@@ -280,6 +280,12 @@ namespace SolStandard.Utility.Load
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Open");
             return new Texture2DWrapper(loadTexture);
         }
+        
+        public static ITexture2D LoadSongAtlas(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/SongAura");
+            return new Texture2DWrapper(loadTexture);
+        }
 
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {

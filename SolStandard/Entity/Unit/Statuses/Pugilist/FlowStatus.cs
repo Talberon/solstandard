@@ -2,7 +2,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Pugilist
 {
     public class FlowStatus : StatusEffect
     {

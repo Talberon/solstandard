@@ -4,6 +4,7 @@ using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;

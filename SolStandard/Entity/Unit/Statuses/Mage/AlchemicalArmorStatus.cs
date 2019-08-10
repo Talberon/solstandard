@@ -2,7 +2,7 @@ using System;
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Mage
 {
     public class AlchemicalArmorStatus : StatusEffect
     {

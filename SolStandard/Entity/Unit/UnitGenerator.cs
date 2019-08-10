@@ -102,7 +102,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectBardStats()
         {
-            return new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, blk: 0, luck: 2, mv: 5, atkRange: new[] {1, 2},
+            return new UnitStatistics(hp: 8, armor: 4, atk: 3, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
                 maxCmd: 5);
         }
 
@@ -285,9 +285,11 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Crescendo(2, 1),
-                new Accelerando(2, 1),
-                new Capriccio(2, 1),
+                new ModeSolo(),
+                new ModeConcerto(),
+                new SongAnthem(1, 2, new[] {0, 1, 2}),
+                new SongTempest(1, 2, new[] {0, 1, 2}),
+                new SongFreestyle(1, 2, new[] {0, 1, 2}),
                 new Sprint(2),
                 new Guard(3),
                 new Wait()

@@ -10,6 +10,7 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Bard;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Camera;
@@ -243,14 +244,16 @@ namespace SolStandard.Containers.Contexts
 
         private void SetupAttackerWindows()
         {
-            TerrainBonus attackerTerrainBonus = DetermineTerrainBonusForUnit(attacker);
+            BonusStatistics attackerBonus =
+                DetermineTerrainBonusForUnit(attacker) + DetermineAuraBonusForUnit(attacker);
+
             attackerDamage = new CombatDamage(
                 attackerStats.Atk,
                 attackerStats.Blk,
                 attackerStats.Luck,
-                attackerTerrainBonus.AtkBonus,
-                attackerTerrainBonus.BlockBonus,
-                attackerTerrainBonus.LuckBonus,
+                attackerBonus.AtkBonus,
+                attackerBonus.BlockBonus,
+                attackerBonus.LuckBonus,
                 AttackPointSize
             );
             Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
@@ -259,21 +262,22 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
             battleView.GenerateAttackerAtkWindow(attackerWindowColor, attackerStats, Stats.Atk);
             battleView.GenerateAttackerInRangeWindow(attackerWindowColor, attackerInRange);
-            battleView.GenerateAttackerBonusWindow(attackerTerrainBonus, attackerWindowColor);
+            battleView.GenerateAttackerBonusWindow(attackerBonus, attackerWindowColor);
             battleView.GenerateAttackerDamageWindow(attackerWindowColor, attackerDamage);
             battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Active);
         }
 
         private void SetupDefenderWindows()
         {
-            TerrainBonus defenderTerrainBonus = DetermineTerrainBonusForUnit(defender);
+            BonusStatistics defenderBonus =
+                DetermineTerrainBonusForUnit(defender) + DetermineAuraBonusForUnit(defender);
             defenderDamage = new CombatDamage(
                 defenderStats.Ret,
                 defenderStats.Blk,
                 defenderStats.Luck,
-                defenderTerrainBonus.RetBonus,
-                defenderTerrainBonus.BlockBonus,
-                defenderTerrainBonus.LuckBonus,
+                defenderBonus.RetBonus,
+                defenderBonus.BlockBonus,
+                defenderBonus.LuckBonus,
                 AttackPointSize
             );
             Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
@@ -282,7 +286,7 @@ namespace SolStandard.Containers.Contexts
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
             battleView.GenerateDefenderRetWindow(defenderWindowColor, defenderStats, Stats.Retribution);
             battleView.GenerateDefenderRangeWindow(defenderWindowColor, defenderInRange);
-            battleView.GenerateDefenderBonusWindow(defenderTerrainBonus, defenderWindowColor);
+            battleView.GenerateDefenderBonusWindow(defenderBonus, defenderWindowColor);
             battleView.GenerateDefenderDamageWindow(defenderWindowColor, defenderDamage);
             battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Active);
         }
@@ -310,11 +314,33 @@ namespace SolStandard.Containers.Contexts
             return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
-        private static TerrainBonus DetermineTerrainBonusForUnit(GameUnit unit)
+        private static BonusStatistics DetermineTerrainBonusForUnit(GameUnit unit)
         {
             MapSlice unitSlice = MapContainer.GetMapSliceAtCoordinates(unit.UnitEntity.MapCoordinates);
 
-            return !(unitSlice.TerrainEntity is BuffTile buffTile) ? new TerrainBonus() : buffTile.TerrainBonus;
+            return !(unitSlice.TerrainEntity is BuffTile buffTile) ? new BonusStatistics() : buffTile.BonusStatistics;
+        }
+
+        private static BonusStatistics DetermineAuraBonusForUnit(GameUnit auraAffectedUnit)
+        {
+            BonusStatistics totalBonus = new BonusStatistics(0, 0, 0, 0);
+
+            List<SongStatus> songsInPlay = new List<SongStatus>();
+            foreach (GameUnit livingUnit in GameContext.Units.Where(unit => unit.IsAlive))
+            {
+                songsInPlay.AddRange(livingUnit.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>()
+                    .ToList());
+            }
+
+            foreach (SongStatus song in songsInPlay)
+            {
+                if (song.UnitIsAffectedBySong(auraAffectedUnit))
+                {
+                    totalBonus += song.ActiveBonus;
+                }
+            }
+
+            return totalBonus;
         }
 
         private void StartRollingDice()

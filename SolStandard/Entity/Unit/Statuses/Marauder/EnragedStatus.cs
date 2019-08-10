@@ -1,7 +1,7 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Marauder
 {
     public class EnragedStatus : StatusEffect
     {
