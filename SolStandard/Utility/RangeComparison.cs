@@ -20,17 +20,12 @@ namespace SolStandard.Utility
         public static bool TargetIsWithinRangeOfOrigin(Vector2 originPosition, int[] rangeFromOrigin,
             Vector2 targetPosition)
         {
-            Vector2 positionDifference = originPosition - targetPosition;
+            Vector2 adjustedTarget = targetPosition - originPosition;
+            (float targetX, float targetY) = adjustedTarget;
 
-            (float diffX, float diffY) = positionDifference;
-            int absDiffX = Math.Abs(Convert.ToInt32(diffX));
-            int absDiffY = Math.Abs(Convert.ToInt32(diffY));
+            int distanceFromOrigin = Math.Abs(Convert.ToInt32(targetX)) + Math.Abs(Convert.ToInt32(targetY));
 
-            int minRange = rangeFromOrigin.Min();
-            int maxRange = rangeFromOrigin.Max();
-
-
-            return (absDiffX <= maxRange && absDiffX >= minRange) && (absDiffY <= maxRange && absDiffY >= minRange);
+            return rangeFromOrigin.Any(range => distanceFromOrigin == range);
         }
     }
 }

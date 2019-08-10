@@ -47,7 +47,7 @@ namespace SolStandardTest.Utility
         public void TargetWithinAreaOfEffect_SouthWest()
         {
             Vector2 origin = new Vector2(5, 5);
-            int[] rangeFromOrigin = {0, 1};
+            int[] rangeFromOrigin = {0, 1, 2};
             Vector2 target = new Vector2(4, 6);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
@@ -61,6 +61,30 @@ namespace SolStandardTest.Utility
             Vector2 origin = new Vector2(5, 5);
             int[] rangeFromOrigin = {0, 1};
             Vector2 target = new Vector2(8, 5);
+
+            bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
+
+            Assert.IsFalse(targetIsInRange);
+        }
+
+        [Test]
+        public void TargetBeyondAreaOfEffect_NorthEastCorner()
+        {
+            Vector2 origin = new Vector2(5, 5);
+            int[] rangeFromOrigin = {0, 1, 2};
+            Vector2 target = new Vector2(7, 7);
+
+            bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
+
+            Assert.IsFalse(targetIsInRange);
+        }
+
+        [Test]
+        public void TargetBeyondAreaOfEffect_NorthEastAlmostCorner()
+        {
+            Vector2 origin = new Vector2(5, 5);
+            int[] rangeFromOrigin = {0, 1, 2};
+            Vector2 target = new Vector2(7, 6);
 
             bool targetIsInRange = RangeComparison.TargetIsWithinRangeOfOrigin(origin, rangeFromOrigin, target);
 
