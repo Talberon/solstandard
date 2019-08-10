@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
         public SongFreestyle(int auraBonus, int selfBonus, int[] auraRange) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
-            name: "Freestyle",
+            name: "Song - Freestyle",
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Luck]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

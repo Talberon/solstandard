@@ -12,7 +12,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             bool freeAction)
             : base(
                 icon,
-                "Song - " + name,
+                name,
                 description + Environment.NewLine + "Removes other songs currently applied.",
                 tileSprite,
                 range,

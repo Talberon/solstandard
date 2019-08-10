@@ -138,7 +138,7 @@
     <Compile Include="Entity\Unit\Actions\Archer\CmdHuntingCompanion.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\CmdConcerto.cs" />
+    <Compile Include="Entity\Unit\Actions\Bard\CmdSongBattleHymn.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\ModeConcerto.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\ModeSolo.cs" />
@@ -255,6 +255,7 @@
     <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\AnthemStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\ConcertoStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\Bard\BattleHymnStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\FreestyleStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\SongStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\SoloStatus.cs" />

@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
         public SongAnthem(int auraBonus, int selfBonus, int[] auraRange) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
-            name: "Anthem",
+            name: "Song - Anthem",
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

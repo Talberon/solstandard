@@ -296,7 +296,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdConcerto(4, 1, 3));
+            if (isCommander) skills.Insert(1, new CmdSongBattleHymn(5, 1, 2, new[] {0, 1, 2}));
 
             return skills;
         }
