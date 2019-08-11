@@ -574,7 +574,7 @@ namespace SolStandard.Containers.Contexts
             {
                 effectTileEvents.Enqueue(new CameraCursorPositionEvent(tile.MapCoordinates));
                 effectTileEvents.Enqueue(
-                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 60)
+                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 80)
                 );
             }
 

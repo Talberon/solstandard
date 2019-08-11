@@ -15,6 +15,12 @@ namespace SolStandard.Utility
             isVisible = false;
         }
 
+        public TriggeredAnimation(AnimatedSpriteSheet sourceSheet)
+            : this(sourceSheet.SpriteMap, sourceSheet.CellSize, sourceSheet.RenderSize, sourceSheet.FrameDelay,
+                sourceSheet.DefaultColor, sourceSheet.Reversible, sourceSheet.IsFlipped)
+        {
+        }
+
         public new void PlayOnce()
         {
             isVisible = true;

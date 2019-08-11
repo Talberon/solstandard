@@ -248,8 +248,8 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Inferno(3, 2),
+                new Frostbite(1, 1),
                 new Terraform(),
-                new Frostbite(2, 2),
                 new Replace(),
                 new Sprint(2),
                 new Guard(3),

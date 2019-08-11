@@ -215,46 +215,11 @@ namespace SolStandard.Utility.Load
             return portraitTextures;
         }
 
+
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
             Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
             return new Texture2DWrapper(diceTexture);
-        }
-
-        public static ITexture2D LoadFireAtlas(ContentManager content)
-        {
-            Texture2D fireTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire");
-            return new Texture2DWrapper(fireTexture);
-        }
-
-        public static ITexture2D LoadDeathAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadInteractAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadDamageAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadRecoverArmorAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadRecoverHealthAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth");
-            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadPistonAtlas(ContentManager content)
@@ -281,7 +246,7 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
-        public static List<ITexture2D> LoadSongAtlases(ContentManager content)
+        public static List<ITexture2D> LoadAnimations(ContentManager content)
         {
             List<Texture2D> songTextures = new List<Texture2D>
             {
@@ -290,8 +255,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraLuck"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraMove"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraRetribution"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/IceTrap"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth"),
             };
-            
+
             List<ITexture2D> songITextures = new List<ITexture2D>();
             foreach (Texture2D texture in songTextures)
             {
@@ -490,7 +462,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Concerto"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Solo"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tempest"),

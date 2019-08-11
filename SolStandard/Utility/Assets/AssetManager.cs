@@ -42,14 +42,8 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
-        public static List<ITexture2D> SongTextures { get; private set; }
+        private static List<ITexture2D> AnimationTextures { get; set; }
 
-        public static ITexture2D FireTexture { get; private set; }
-        public static ITexture2D DeathTexture { get; private set; }
-        public static ITexture2D InteractTexture { get; private set; }
-        public static ITexture2D DamageTexture { get; private set; }
-        public static ITexture2D RecoverArmorTexture { get; private set; }
-        public static ITexture2D RecoverHealthTexture { get; private set; }
         public static ITexture2D PistonTexture { get; private set; }
         public static ITexture2D SpringTexture { get; private set; }
         public static ITexture2D LockTexture { get; private set; }
@@ -132,12 +126,6 @@ namespace SolStandard.Utility.Assets
             PromptFont = ContentLoader.LoadPromptFont(content);
             HeavyFont = ContentLoader.LoadHeavyFont(content);
 
-            FireTexture = ContentLoader.LoadFireAtlas(content);
-            DeathTexture = ContentLoader.LoadDeathAtlas(content);
-            InteractTexture = ContentLoader.LoadInteractAtlas(content);
-            DamageTexture = ContentLoader.LoadDamageAtlas(content);
-            RecoverArmorTexture = ContentLoader.LoadRecoverArmorAtlas(content);
-            RecoverHealthTexture = ContentLoader.LoadRecoverHealthAtlas(content);
             PistonTexture = ContentLoader.LoadPistonAtlas(content);
             SpringTexture = ContentLoader.LoadLaunchpadAtlas(content);
             LockTexture = ContentLoader.LoadLockAtlas(content);
@@ -151,7 +139,7 @@ namespace SolStandard.Utility.Assets
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
-
+            
             GoldIcon = ContentLoader.LoadGoldIcon(content);
             SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
             CommanderIcon = ContentLoader.LoadCommanderIcon(content);
@@ -168,8 +156,8 @@ namespace SolStandard.Utility.Assets
             StatusIcons = ContentLoader.LoadStatusIcons(content);
             StatusIconProvider.LoadStatusIcons(StatusIcons);
 
-            SongTextures = ContentLoader.LoadSongAtlases(content);
-            SongAtlasProvider.LoadSongAtlases(SongTextures);
+            AnimationTextures = ContentLoader.LoadAnimations(content);
+            AnimatedSpriteProvider.LoadAnimatedSprites(AnimationTextures);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);

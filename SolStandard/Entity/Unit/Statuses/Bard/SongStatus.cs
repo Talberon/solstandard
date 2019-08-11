@@ -4,12 +4,12 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Statuses.Bard
 {
     public abstract class SongStatus : StatusEffect
     {
+        protected const int SongAnimationFrameDelay = 120;
         protected bool IsAuraEffect { get; set; }
         protected bool IsSelfEffect => !IsAuraEffect;
         private BonusStatistics AuraBonus { get; }
@@ -26,8 +26,8 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             AuraBonus = auraBonus;
             SelfBonus = selfBonus;
             this.auraRange = auraRange;
-            SongSprite = SongAtlasProvider.GetSongSheet(SongTypes.Song, GameDriver.CellSizeVector,
-                GetSongColor(GameContext.ActiveUnit.Team));
+            SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.SongHymn, GameDriver.CellSizeVector,
+                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveUnit.Team));
         }
 
         protected static Color GetSongColor(Team team)

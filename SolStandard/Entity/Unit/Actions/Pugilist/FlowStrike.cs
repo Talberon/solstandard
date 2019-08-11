@@ -5,7 +5,6 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions.Lancer;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Entity.Unit.Statuses.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;

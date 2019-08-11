@@ -492,6 +492,7 @@ namespace SolStandard.Map
                                             Convert.ToBoolean(currentProperties["limitedTriggers"]),
                                             Convert.ToBoolean(currentProperties["enabled"]),
                                             Convert.ToBoolean(currentProperties["willSnare"]),
+                                            Convert.ToBoolean(currentProperties["willSlow"]),
                                             currentProperties["itemPool"]
                                         );
                                         break;

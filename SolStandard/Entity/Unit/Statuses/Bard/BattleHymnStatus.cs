@@ -21,9 +21,10 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             false
         )
         {
-            SongSprite = SongAtlasProvider.GetSongSheet(
-                SongTypes.Song,
+            SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(
+                AnimationType.SongHymn,
                 GameDriver.CellSizeVector,
+                SongAnimationFrameDelay,
                 GetSongColor(GameContext.ActiveUnit.Team)
             );
         }

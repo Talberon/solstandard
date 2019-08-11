@@ -7,19 +7,19 @@ namespace SolStandard.Utility
 {
     public class AnimatedSpriteSheet : IRenderable, IResizable
     {
-        protected readonly ITexture2D SpriteMap;
-        protected readonly int CellSize;
-        protected Vector2 RenderSize;
+        public readonly ITexture2D SpriteMap;
+        public readonly int CellSize;
+        public readonly Vector2 RenderSize;
         protected readonly int SpriteFrameCount;
         private int currentRow;
         protected int CurrentColumn { get; private set; }
         protected int FrameDelayCounter { get; private set; }
-        protected int FrameDelay { get; set; }
+        public int FrameDelay { get; protected set; }
         protected readonly int DefaultFrameDelay;
-        protected readonly bool Reversible;
+        public readonly bool Reversible;
         private bool reversing;
         public Color DefaultColor { get; set; }
-        protected bool IsFlipped;
+        public bool IsFlipped { get; private set; }
         private bool isPaused;
         private bool playingOnce;
 

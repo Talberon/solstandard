@@ -2,7 +2,6 @@ using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Statuses.Bard
 {
@@ -21,9 +20,10 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             false
         )
         {
-            SongSprite = SongAtlasProvider.GetSongSheet(
-                SongTypes.Attack,
+            SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(
+                AnimationType.SongAttack,
                 GameDriver.CellSizeVector,
+                SongAnimationFrameDelay,
                 GetSongColor(GameContext.ActiveUnit.Team)
             );
         }
