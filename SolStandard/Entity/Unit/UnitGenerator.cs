@@ -303,7 +303,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectPugilistSkills(bool isCommander)
         {
-            const int flowStackDuration = 3;
+            const int flowStackDuration = 4;
 
             List<UnitAction> skills = new List<UnitAction>
             {

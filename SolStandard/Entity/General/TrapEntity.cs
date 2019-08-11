@@ -167,6 +167,18 @@ namespace SolStandard.Entity.General
                                 UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                                 new RenderText(AssetManager.WindowFont,
                                     (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
+                            },
+                            {
+                                willSnare
+                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                                new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
+                            },
+                            {
+                                willSlow
+                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                                new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
                             }
                         }, InnerWindowColor),
                         new RenderBlank()
