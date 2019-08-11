@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit.Actions.Lancer;
+using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -11,9 +13,9 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Paladin
 {
-    public class Rescue : UnitAction
+    public class CmdAngelicAssault : UnitAction
     {
-        private readonly int amrModifier;
+        private readonly int cmdCost;
 
         private enum ActionPhase
         {
@@ -23,20 +25,20 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         private ActionPhase currentPhase = ActionPhase.SelectTarget;
         private const MapDistanceTile.TileType ActionTileType = MapDistanceTile.TileType.Action;
-        private GameUnit targetUnit;
+        private GameUnit targetingUnit;
 
-        public Rescue(int amrModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rescue, GameDriver.CellSizeVector),
-            name: "Rescue",
-            description: "Leap towards an ally in need!" + Environment.NewLine +
+        public CmdAngelicAssault(int cmdCost) : base(
+            icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Angelic Assault",
+            description: "Leap towards an enemy and stun them as a free action!" + Environment.NewLine +
                          "Select a target, then select a space to land on next to that target." + Environment.NewLine +
-                         $"Regenerates target ally's {UnitStatistics.Abbreviation[Stats.Armor]} by {amrModifier}.",
+                         $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(ActionTileType),
             range: new[] {1, 2, 3},
-            freeAction: false
+            freeAction: true
         )
         {
-            this.amrModifier = amrModifier;
+            this.cmdCost = cmdCost;
         }
 
         public override void CancelAction()
@@ -47,6 +49,14 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
+            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            {
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
+                AssetManager.WarningSFX.Play();
+                return;
+            }
+
             switch (currentPhase)
             {
                 case ActionPhase.SelectTarget:
@@ -62,15 +72,15 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         private bool SelectTarget(MapSlice targetSlice)
         {
-            GameUnit selectedUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
+            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnAllyInRange(targetSlice, selectedUnit))
+            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                if (!LeapStrike.SpaceAroundUnitIsEntirelyObstructed(selectedUnit))
+                if (!LeapStrike.SpaceAroundUnitIsEntirelyObstructed(targetUnit))
                 {
-                    targetUnit = selectedUnit;
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    LeapStrike.CreateLandingSpacesAroundTarget(ActionTileType, selectedUnit.UnitEntity.MapCoordinates);
+                    targetingUnit = targetUnit;
+                    LeapStrike.CreateLandingSpacesAroundTarget(ActionTileType, targetUnit.UnitEntity.MapCoordinates);
                     AssetManager.MenuConfirmSFX.Play();
                     return true;
                 }
@@ -80,7 +90,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -89,6 +99,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         {
             if (targetSlice.DynamicEntity != null && !LeapStrike.CoordinatesAreObstructed(targetSlice.MapCoordinates))
             {
+                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                 MapContainer.ClearDynamicAndPreviewGrids();
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
@@ -97,13 +108,9 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new RegenerateArmorEvent(targetUnit, amrModifier));
-                eventQueue.Enqueue(new ToastAtCoordinatesEvent(
-                    targetUnit.UnitEntity.MapCoordinates,
-                    $"{targetUnit.Id} regenerates {amrModifier} {UnitStatistics.Abbreviation[Stats.Armor]}!"
-                ));
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetingUnit, new ImmobilizedStatus(1)));
+                eventQueue.Enqueue(new WaitFramesEvent(30));
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
                 return true;
             }

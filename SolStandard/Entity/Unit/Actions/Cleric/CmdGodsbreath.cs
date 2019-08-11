@@ -13,15 +13,15 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Cleric
 {
-    public class CmdHealingAura : UnitAction
+    public class CmdGodsbreath : UnitAction
     {
         private readonly int cmdCost;
         private readonly int amountToHeal;
         private readonly int buffTurnDuration;
 
-        public CmdHealingAura(int cmdCost, int amountToHeal, int buffTurnDuration) : base(
+        public CmdGodsbreath(int cmdCost, int amountToHeal, int buffTurnDuration) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
-            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Healing Aura",
+            name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Godsbreath",
             description:
             $"Allies in range gain a status that recovers {amountToHeal} {UnitStatistics.Abbreviation[Stats.Hp]} for {buffTurnDuration} turns." +
             Environment.NewLine +

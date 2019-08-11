@@ -256,7 +256,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdAlchemicalArmor(3, 1, 1, 1, 2));
+            if (isCommander) skills.Insert(1, new CmdTransfusion(4));
 
             return skills;
         }
@@ -355,7 +355,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdHealingAura(5, 1, 3));
+            if (isCommander) skills.Insert(1, new CmdGodsbreath(5, 1, 3));
 
             return skills;
         }
@@ -383,15 +383,15 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Rampart(3, 2),
                 new Stun(1),
-                new Rescue(),
+                new Rampart(3, 2),
+                new Rescue(2),
                 new Shove(),
                 new Guard(3),
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdSteelheart(3));
+            if (isCommander) skills.Insert(1, new CmdAngelicAssault(5));
 
             return skills;
         }

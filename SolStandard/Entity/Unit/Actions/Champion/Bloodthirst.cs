@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToArmorStatus(Icon, 0, damageThreshold))
+                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToArmorStatus(Icon, damageThreshold))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);

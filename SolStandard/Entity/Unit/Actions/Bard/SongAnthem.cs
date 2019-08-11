@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: auraRange,
+            range: new[] {0},
             freeAction: true
         )
         {
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                     .Where(status => status is SongStatus && !(status is AnthemStatus))
                     .Cast<SongStatus>().ToList();
                 otherSongs.ForEach(song => targetUnit.StatusEffects.Remove(song));
-                
+
                 MapContainer.ClearDynamicAndPreviewGrids();
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(

@@ -155,7 +155,7 @@
     <Compile Include="Entity\Unit\Actions\Cleric\Atrophy.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\CmdHealingAura.cs" />
+    <Compile Include="Entity\Unit\Actions\Cleric\CmdGodsbreath.cs" />
     <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\StationaryAttackRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
@@ -199,6 +199,7 @@
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\CmdAlchemicalArmor.cs" />
+    <Compile Include="Entity\Unit\Actions\Mage\CmdTransfusion.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Grapple.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
+    <Compile Include="Entity\Unit\Actions\Paladin\CmdAngelicAssault.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\CmdSteelheart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
@@ -264,6 +266,7 @@
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\DamageToHealthStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Duelist\FocusStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
@@ -737,6 +740,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.2-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.2-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entity\Unit\Statuses\Paladin" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

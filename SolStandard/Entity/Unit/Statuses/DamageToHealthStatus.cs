@@ -1,20 +1,19 @@
-﻿using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class DamageToArmorStatus : StatusEffect, ICombatProc
+    public class DamageToHealthStatus : StatusEffect, ICombatProc
     {
         private readonly int damageThreshold;
         private int damageCounter;
 
-        public DamageToArmorStatus(IRenderable icon, int damageThreshold) : base(
+        public DamageToHealthStatus(IRenderable icon, int damageThreshold) : base(
             statusIcon: icon,
-            name: UnitStatistics.Abbreviation[Stats.Armor] + " Siphon!",
-            description:
-            $"Recovers {UnitStatistics.Abbreviation[Stats.Armor]} for each {damageThreshold} damage dealt.",
+            name: UnitStatistics.Abbreviation[Stats.Hp] + " Siphon!",
+            $"Recovers {UnitStatistics.Abbreviation[Stats.Hp]} for each {damageThreshold} damage dealt.",
             turnDuration: 0,
             hasNotification: false,
             canCleanse: false
@@ -55,11 +54,10 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             damageCounter++;
 
-            if (damageCounter % damageThreshold == 0)
-            {
-                damageDealer.RecoverArmor(1);
-                AssetManager.SkillBuffSFX.Play();
-            }
+            if (damageCounter % damageThreshold != 0) return;
+
+            damageDealer.RecoverHP(1);
+            AssetManager.SkillBuffSFX.Play();
         }
 
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)

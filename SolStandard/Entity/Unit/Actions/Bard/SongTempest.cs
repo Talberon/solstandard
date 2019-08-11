@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             description:
             $"Applies a {UnitStatistics.Abbreviation[Stats.Retribution]} buff [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: auraRange,
+            range: new[] {0},
             freeAction: true
         )
         {

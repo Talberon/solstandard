@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             $"Applies a {UnitStatistics.Abbreviation[Stats.Atk]}/{UnitStatistics.Abbreviation[Stats.Retribution]} buff [{auraBonus} Aura/{selfBonus} Solo] for units within the aura." +
             Environment.NewLine + $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: auraRange,
+            range: new[] {0},
             freeAction: true
         )
         {
