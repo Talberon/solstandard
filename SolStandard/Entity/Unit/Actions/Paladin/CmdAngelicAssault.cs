@@ -13,7 +13,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Paladin
 {
-    public class CmdAngelicAssault : UnitAction
+    public class CmdAngelicAssault : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
 

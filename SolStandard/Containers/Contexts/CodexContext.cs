@@ -9,14 +9,16 @@ namespace SolStandard.Containers.Contexts
 {
     public class CodexContext
     {
+        public static List<GameUnit> UnitArchetypes => _unitArchetypes ?? (_unitArchetypes = GenerateUnitArchetypes());
+        private static List<GameUnit> _unitArchetypes;
+
         public readonly CodexView CodexView;
         private GameContext.GameState previousGameState;
 
         public CodexContext()
         {
-            List<GameUnit> unitArchetypes = GenerateUnitArchetypes();
-            CodexView = new CodexView(unitArchetypes);
-            ShowUnitDetails(unitArchetypes.First());
+            CodexView = new CodexView(UnitArchetypes);
+            ShowUnitDetails(UnitArchetypes.First());
         }
 
         private static List<GameUnit> GenerateUnitArchetypes()

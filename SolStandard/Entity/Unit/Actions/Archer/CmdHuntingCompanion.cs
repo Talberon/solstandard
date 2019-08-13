@@ -9,7 +9,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Archer
 {
-    public class CmdHuntingCompanion : UnitAction
+    public class CmdHuntingCompanion : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private const Role PetType = Role.Boar;

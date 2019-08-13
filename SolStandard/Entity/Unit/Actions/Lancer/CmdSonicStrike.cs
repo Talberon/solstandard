@@ -6,7 +6,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Actions.Lancer
 {
-    public class CmdSonicStrike : LeapStrike
+    public class CmdSonicStrike : LeapStrike, ICommandAction
     {
         private readonly int cmdCost;
 

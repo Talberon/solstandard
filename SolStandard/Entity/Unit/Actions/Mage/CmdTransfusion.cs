@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Mage
 {
-    public class CmdTransfusion : UnitAction
+    public class CmdTransfusion : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
 

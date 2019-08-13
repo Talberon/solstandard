@@ -11,7 +11,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Duelist
 {
-    public class CmdPerfectFocus : UnitAction
+    public class CmdPerfectFocus : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int maxActions;

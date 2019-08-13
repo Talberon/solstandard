@@ -13,7 +13,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Bard
 {
-    public class CmdSongBattleHymn : SongAction
+    public class CmdSongBattleHymn : SongAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int auraBonus;

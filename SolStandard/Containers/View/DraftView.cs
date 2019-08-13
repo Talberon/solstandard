@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DraftMenu;
@@ -122,8 +123,12 @@ namespace SolStandard.Containers.View
 
         public void UpdateCommanderSelect(IEnumerable<GameUnit> units, Team team)
         {
-            MenuOption[] unitOptions =
-                units.Select(unit => new SelectCommanderOption(unit)).Cast<MenuOption>().ToArray();
+            MenuOption[] unitOptions = units.Select(unit =>
+                new SelectCommanderOption(
+                    unit,
+                    CodexContext.UnitArchetypes.First(archetype => archetype.Role == unit.Role).Actions
+                        .FirstOrDefault(action => action is ICommandAction)
+                )).Cast<MenuOption>().ToArray();
 
             MenuOption[,] commanderOptions = new MenuOption[1, unitOptions.Length];
 

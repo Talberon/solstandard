@@ -12,7 +12,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
-    public class CmdCoursingRiver : UnitAction
+    public class CmdCoursingRiver : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int flowStacks;

@@ -9,7 +9,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Actions.Champion
 {
-    public class CmdWarmaster : UnitAction
+    public class CmdWarmaster : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int maxDistance;

@@ -10,7 +10,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Mage
 {
-    public class CmdAlchemicalArmor : UnitAction
+    public class CmdAlchemicalArmor : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int blk;

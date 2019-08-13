@@ -9,7 +9,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Paladin
 {
-    public class CmdSteelheart : UnitAction
+    public class CmdSteelheart : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
 

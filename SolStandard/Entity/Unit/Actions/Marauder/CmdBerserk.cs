@@ -12,7 +12,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Marauder
 {
-    public class CmdBerserk : UnitAction, IIncrementableAction
+    public class CmdBerserk : UnitAction, IIncrementableAction, ICommandAction
     {
         private const string SkillName = "Berserk";
 

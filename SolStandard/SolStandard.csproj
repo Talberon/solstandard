@@ -177,6 +177,7 @@
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
+    <Compile Include="Entity\Unit\Actions\ICommandAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployBarricadeAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployBombAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\DeployLadderBridgeAction.cs" />

@@ -13,7 +13,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Cleric
 {
-    public class CmdGodsbreath : UnitAction
+    public class CmdGodsbreath : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int amountToHeal;
