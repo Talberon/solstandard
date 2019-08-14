@@ -2509,7 +2509,7 @@
   </object>
   <object id="650" name="Sapphire" type="Currency" gid="6788" x="640" y="320" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="20"/>
+    <property name="value" type="int" value="15"/>
    </properties>
   </object>
   <object id="785" name="Axe" type="Weapon" gid="6808" x="352" y="544" width="32" height="32">
@@ -2563,7 +2563,7 @@
   </object>
   <object id="839" name="Ruby" type="Currency" gid="6786" x="640" y="288" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="30"/>
+    <property name="value" type="int" value="20"/>
    </properties>
   </object>
   <object id="861" name="Magnet" type="Magnet" gid="6829" x="576" y="576" width="32" height="32"/>
@@ -2575,7 +2575,7 @@
   </object>
   <object id="893" name="Gold" type="Currency" gid="6789" x="640" y="256" width="32" height="32">
    <properties>
-    <property name="value" type="int" value="40"/>
+    <property name="value" type="int" value="35"/>
    </properties>
   </object>
   <object id="895" name="Arcane Flint" type="RecallCharm" gid="6812" x="160" y="160" width="32" height="32">

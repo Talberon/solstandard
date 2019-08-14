@@ -1847,12 +1847,14 @@
   <object id="544" name="Saturn Fortress" type="SelectMap" gid="6314" x="512" y="192" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Fortress_01.tmx"/>
+    <property name="mapFileName" value="Draft_Fortress_02.tmx"/>
     <property name="mapSong" value="MilitaryTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
-    <property name="maxUnitsBlue" type="int" value="9"/>
-    <property name="maxUnitsRed" type="int" value="9"/>
+    <property name="maxUnitsBlue" type="int" value="5"/>
+    <property name="maxUnitsRed" type="int" value="5"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
   <object id="547" name="Atheion Grassland" type="SelectMap" gid="6316" x="128" y="256" width="32" height="32">

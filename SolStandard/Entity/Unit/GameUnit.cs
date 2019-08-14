@@ -866,6 +866,8 @@ namespace SolStandard.Entity.Unit
 
         public void DrawAuras(SpriteBatch spriteBatch)
         {
+            if (!IsAlive) return;
+            
             List<SongStatus> songs = StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
 
             foreach (SongStatus song in songs)
