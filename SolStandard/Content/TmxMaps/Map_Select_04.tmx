@@ -17,6 +17,7 @@
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
+   <tile gid="1555"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
@@ -47,6 +48,13 @@
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
+   <tile gid="1555"/>
+   <tile gid="1554"/>
+   <tile gid="1554"/>
+   <tile gid="1554"/>
+   <tile gid="1554"/>
+   <tile gid="1554"/>
+   <tile gid="1555"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
@@ -70,15 +78,7 @@
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
-   <tile gid="1554"/>
+   <tile gid="1555"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
    <tile gid="1554"/>
@@ -682,7 +682,7 @@
    <tile gid="815"/>
    <tile gid="816"/>
    <tile gid="895"/>
-   <tile gid="895"/>
+   <tile/>
    <tile gid="895"/>
    <tile gid="895"/>
    <tile gid="895"/>
@@ -1221,9 +1221,9 @@
    <tile gid="495"/>
    <tile gid="2098"/>
    <tile gid="2096"/>
-   <tile gid="1880"/>
-   <tile gid="1840"/>
-   <tile gid="1880"/>
+   <tile gid="1914"/>
+   <tile gid="1915"/>
+   <tile gid="1916"/>
    <tile/>
    <tile/>
    <tile gid="2123"/>
@@ -1285,9 +1285,9 @@
    <tile gid="535"/>
    <tile gid="497"/>
    <tile/>
-   <tile gid="2098"/>
-   <tile gid="2095"/>
-   <tile gid="2095"/>
+   <tile gid="2136"/>
+   <tile/>
+   <tile gid="2094"/>
    <tile gid="2095"/>
    <tile gid="2095"/>
    <tile gid="2095"/>
@@ -1315,9 +1315,9 @@
    <tile gid="320"/>
    <tile gid="534"/>
    <tile gid="497"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
+   <tile gid="2098"/>
+   <tile gid="2095"/>
+   <tile gid="2097"/>
    <tile gid="498"/>
    <tile gid="535"/>
    <tile gid="535"/>
@@ -1381,7 +1381,7 @@
    <tile gid="521"/>
    <tile gid="320"/>
    <tile gid="320"/>
-   <tile gid="567"/>
+   <tile gid="603"/>
    <tile gid="320"/>
    <tile/>
    <tile/>
@@ -1416,7 +1416,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="603"/>
+   <tile gid="567"/>
    <tile/>
    <tile/>
    <tile gid="360"/>
@@ -2083,7 +2083,7 @@
     <property name="modeRoutArmy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="578" name="Arctic Quest VS" type="SelectMap" gid="6323" x="352" y="64" width="32" height="32">
+  <object id="578" name="Arctic Quest VS" type="SelectMap" gid="6323" x="352" y="96" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Draft_Quest_Race.tmx"/>
     <property name="maxUnitsBlue" type="int" value="6"/>

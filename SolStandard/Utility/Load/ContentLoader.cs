@@ -314,6 +314,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Tavern_Inn"),
