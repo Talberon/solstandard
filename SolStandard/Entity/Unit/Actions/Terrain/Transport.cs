@@ -15,12 +15,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         private readonly string targetLabel;
 
         public Transport(MapElement portal, string targetLabel) : base(
-            icon: portal.RenderSprite,
+            icon: portal.RenderSprite.Clone(),
             name: "Transport",
             description: "Moves unit to another space.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement),
             range: null,
-            freeAction: false
+            freeAction: true
         )
         {
             this.targetLabel = targetLabel;
@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 ));
                 eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else

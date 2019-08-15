@@ -1835,13 +1835,14 @@
   <object id="542" name="Bellriver Tavern" type="SelectMap" gid="6314" x="352" y="512" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Tavern_Inn.tmx"/>
-    <property name="mapSong" value="IslandTheme"/>
+    <property name="mapFileName" value="Draft_Bellriver_Tavern_02.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
-    <property name="maxUnitsBlue" type="int" value="8"/>
-    <property name="maxUnitsRed" type="int" value="8"/>
+    <property name="maxUnitsBlue" type="int" value="6"/>
+    <property name="maxUnitsRed" type="int" value="6"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
-    <property name="valueTaxes" type="int" value="150"/>
+    <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
   <object id="544" name="Saturn Fortress" type="SelectMap" gid="6314" x="512" y="192" width="32" height="32">

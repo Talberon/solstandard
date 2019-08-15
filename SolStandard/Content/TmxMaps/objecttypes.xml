@@ -88,7 +88,7 @@
   <property name="routine_wander" type="bool" default="false"/>
  </objecttype>
  <objecttype name="CreepDeploy" color="#0aaaaa">
-  <property name="copyCreep" type="bool" default="false"/>
+  <property name="copyCreep" type="bool" default="true"/>
   <property name="creepPool" type="string" default="Monsters"/>
  </objecttype>
  <objecttype name="Crossing" color="#aa0000">
