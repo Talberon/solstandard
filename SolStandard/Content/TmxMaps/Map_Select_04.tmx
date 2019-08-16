@@ -1445,7 +1445,7 @@
    <tile/>
    <tile/>
    <tile gid="684"/>
-   <tile/>
+   <tile gid="525"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1475,7 +1475,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="565"/>
    <tile/>
    <tile gid="685"/>
    <tile/>
@@ -1888,17 +1888,17 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="555" name="Tower of Arzon" type="SelectMap" gid="6314" x="864" y="160" width="32" height="32">
+  <object id="555" name="Tower of Arzon" type="SelectMap" gid="6314" x="640" y="288" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Arena_Tower_01.tmx"/>
+    <property name="mapFileName" value="Draft_Arena_Tower_02.tmx"/>
     <property name="mapSong" value="BossTheme"/>
     <property name="maxDuplicateUnits" type="int" value="3"/>
-    <property name="maxUnitsBlue" type="int" value="9"/>
-    <property name="maxUnitsRed" type="int" value="9"/>
+    <property name="maxUnitsBlue" type="int" value="6"/>
+    <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeSeize" type="bool" value="true"/>
-    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
   <object id="557" name="Dungeon Master" type="SelectMap" gid="6316" x="704" y="320" width="32" height="32">
@@ -2001,7 +2001,7 @@
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
-  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6315" x="640" y="288" width="32" height="32">
+  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6315" x="576" y="288" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Collosseum_01.tmx"/>
