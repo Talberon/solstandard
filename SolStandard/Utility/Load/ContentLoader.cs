@@ -127,6 +127,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCleric"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMarauder"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePaladin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCavalier"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueBoar"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
@@ -139,6 +140,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedCleric"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMarauder"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedPaladin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedCavalier"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedBoar"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
@@ -178,6 +180,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cleric"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Marauder"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Paladin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cavalier"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Boar"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Silhouette"),
@@ -191,6 +194,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cleric"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Marauder"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Paladin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cavalier"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Boar"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),

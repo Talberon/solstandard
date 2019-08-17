@@ -38,6 +38,8 @@ namespace SolStandard.Entity.Unit
         Pugilist,
         Mage,
         Archer,
+        Cavalier,
+        
         Slime,
         Troll,
         Orc,
@@ -47,6 +49,7 @@ namespace SolStandard.Entity.Unit
         Rat,
         Bat,
         Spider,
+        
         Boar
     }
 

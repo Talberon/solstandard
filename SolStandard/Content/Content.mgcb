@@ -2834,6 +2834,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Boar.png
 
+#begin Graphics/Images/Portraits/Blue/Cavalier.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Cavalier.png
+
 #begin Graphics/Images/Portraits/Blue/Champion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3109,6 +3121,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Boar.png
+
+#begin Graphics/Images/Portraits/Red/Cavalier.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Cavalier.png
 
 #begin Graphics/Images/Portraits/Red/Champion.png
 /importer:TextureImporter
@@ -3722,18 +3746,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Fortress_02.png
 
-#begin Graphics/Map/MapPreviews/Draft_Fortress_02.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Map/MapPreviews/Draft_Fortress_02.png
-
 #begin Graphics/Map/MapPreviews/Draft_Grassland_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4214,6 +4226,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BlueBoar.png
 
+#begin Graphics/Map/Units/Blue/BlueCavalier.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueCavalier.png
+
 #begin Graphics/Map/Units/Blue/BlueChampion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4477,6 +4501,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedBoar.png
+
+#begin Graphics/Map/Units/Red/RedCavalier.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedCavalier.png
 
 #begin Graphics/Map/Units/Red/RedChampion.png
 /importer:TextureImporter

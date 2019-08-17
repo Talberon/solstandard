@@ -136,12 +136,18 @@ namespace SolStandard.Entity.Unit
                 maxCmd: 5);
         }
 
+        private static UnitStatistics SelectCavalierStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 7, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
         //PETS
 
         private static UnitStatistics SelectBoarStats()
         {
             return new UnitStatistics(hp: 5, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
-                maxCmd: 0);
+                maxCmd: 5);
         }
 
         //CREEPS
@@ -396,7 +402,24 @@ namespace SolStandard.Entity.Unit
             return skills;
         }
 
-        private static List<UnitAction> SelectBoarSkills()
+        private static List<UnitAction> SelectCavalierSkills(bool isCommander)
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Bloodthirst(1),
+                new Shove(),
+                new Guard(3),
+                new Wait()
+            };
+
+            //TODO Create unique command skill for Cavalier
+            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 2, new[] {1, 2, 3}));
+
+            return skills;
+        }
+
+        private static List<UnitAction> SelectBoarSkills(bool isCommander)
         {
             List<UnitAction> skills = new List<UnitAction>
             {
@@ -404,6 +427,8 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdPerfectFocus(4, 2));
 
             return skills;
         }
@@ -501,6 +526,8 @@ namespace SolStandard.Entity.Unit
                     return SelectMarauderStats();
                 case Role.Paladin:
                     return SelectPaladinStats();
+                case Role.Cavalier:
+                    return SelectCavalierStats();
                 case Role.Boar:
                     return SelectBoarStats();
                 case Role.Slime:
@@ -550,8 +577,10 @@ namespace SolStandard.Entity.Unit
                     return SelectMarauderSkills(isCommander);
                 case Role.Paladin:
                     return SelectPaladinSkills(isCommander);
+                case Role.Cavalier:
+                    return SelectCavalierSkills(isCommander);
                 case Role.Boar:
-                    return SelectBoarSkills();
+                    return SelectBoarSkills(isCommander);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
             }

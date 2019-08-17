@@ -205,7 +205,7 @@ namespace SolStandard.Containers.View
 
         public static MenuOption[,] GetAdHocUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
-            const int unitsPerRow = 5;
+            const int unitsPerRow = 6;
             List<Role> availableRoles = DraftContext.AvailableRoles;
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
@@ -239,7 +239,7 @@ namespace SolStandard.Containers.View
 
         private static MenuOption[,] GetUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
-            const int unitsPerRow = 5;
+            const int unitsPerRow = 6;
             List<Role> availableRoles = DraftContext.AvailableRoles;
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
