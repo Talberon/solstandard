@@ -48,12 +48,43 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {new RenderText(AssetManager.HeaderFont, MapInfo.Title)},
+                    {TeamUnitCountContent},
                     {MapObjectives.Preview},
                     {mapPreview}
                 },
                 3,
                 HorizontalAlignment.Centered
             );
+
+        private IRenderable TeamUnitCountContent => new WindowContentGrid(
+            new IRenderable[,]
+            {
+                {
+                    new Window(
+                        new IRenderable[,]
+                        {
+                            {
+                                TeamIconProvider.GetTeamIcon(Team.Blue, GameDriver.CellSizeVector),
+                                new RenderText(AssetManager.WindowFont, $" Blue: {MaxBlueUnits}")
+                            }
+                        },
+                        TeamUtility.DetermineTeamColor(Team.Blue)
+                    ),
+                    new Window(
+                        new IRenderable[,]
+                        {
+                            {
+                                TeamIconProvider.GetTeamIcon(Team.Red, GameDriver.CellSizeVector),
+                                new RenderText(AssetManager.WindowFont, $" Red: {MaxRedUnits}")
+                            }
+                        },
+                        TeamUtility.DetermineTeamColor(Team.Red)
+                    )
+                }
+            },
+            2,
+            HorizontalAlignment.Centered
+        );
 
         private static Vector2 FitImageToSize(Vector2 maximumSize, ITexture2D sourceImage)
         {
