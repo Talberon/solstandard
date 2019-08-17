@@ -319,7 +319,7 @@
  </tile>
  <tile id="216">
   <animation>
-   <frame tileid="216" duration="450"/>
+   <frame tileid="216" duration="200"/>
    <frame tileid="217" duration="200"/>
   </animation>
  </tile>

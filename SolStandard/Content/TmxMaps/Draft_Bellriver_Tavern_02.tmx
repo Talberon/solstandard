@@ -2834,7 +2834,7 @@
   </object>
   <object id="1175" name="Stool" type="Decoration" gid="4808" x="480" y="416" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.75">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
   <object id="1023" name="Boots of Agility" type="BuffItem" gid="6775" x="736" y="64" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="99"/>
@@ -2891,7 +2891,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="23" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
@@ -3071,7 +3071,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Units"/>
- <objectgroup id="9" name="Disabled" opacity="0.24">
+ <objectgroup id="9" name="Disabled" visible="0" opacity="0.24">
   <object id="963" name="Slime" type="Creep" gid="23" x="320" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
