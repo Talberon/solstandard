@@ -177,27 +177,23 @@ namespace SolStandard.Containers.View
 
         public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
-            bool isFlipped;
             int frameDelay;
 
             switch (state)
             {
                 case UnitAnimationState.Attack:
-                    isFlipped = true;
                     frameDelay = CombatDelay;
                     break;
                 case UnitAnimationState.Hit:
-                    isFlipped = true;
                     frameDelay = CombatDelay;
                     break;
                 default:
-                    isFlipped = false;
                     frameDelay = RegularDelay;
                     break;
             }
 
             DefenderSpriteWindow =
-                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, isFlipped),
+                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, true),
                     RightBattlerAnimation);
         }
 

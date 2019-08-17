@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         public Charge(int chargeDistance) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
             name: "Charge",
-            description: "Dash towards a target and attack!",
+            description: "Dash towards a target and attack! Cannot move through obstacles or other units.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
 
-            for (int i = chargeDistance; i > 0; i--)
+            for (int i = chargeDistance; i > 1; i--)
             {
                 Vector2 northTile = new Vector2(origin.X, origin.Y - i);
                 Vector2 southTile = new Vector2(origin.X, origin.Y + i);
@@ -158,7 +158,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -178,7 +177,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -198,7 +196,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -218,7 +215,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }

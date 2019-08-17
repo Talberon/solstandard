@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="29" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="931">
- <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="33" columns="11">
-  <image source="../Graphics/Map/Tiles/Units3.png" width="352" height="96"/>
+ <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="36" columns="12">
+  <image source="../Graphics/Map/Tiles/Units3.png" width="384" height="96"/>
  </tileset>
- <tileset firstgid="34" source="overworld-32.tsx"/>
- <tileset firstgid="6314" source="entities-32.tsx"/>
+ <tileset firstgid="37" source="overworld-32.tsx"/>
+ <tileset firstgid="6317" source="entities-32.tsx"/>
  <layer id="18" name="Terrain" width="29" height="18">
   <data>
    <tile/>
@@ -67,437 +67,437 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5505"/>
-   <tile gid="5506"/>
-   <tile gid="5507"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5545"/>
-   <tile gid="5546"/>
-   <tile gid="5547"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5505"/>
-   <tile gid="5506"/>
-   <tile gid="5507"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5585"/>
-   <tile gid="5586"/>
-   <tile gid="5587"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5505"/>
-   <tile gid="5549"/>
-   <tile gid="5546"/>
-   <tile gid="5548"/>
-   <tile gid="5507"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5545"/>
-   <tile gid="5546"/>
-   <tile gid="5546"/>
-   <tile gid="5546"/>
-   <tile gid="5547"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5585"/>
-   <tile gid="5509"/>
-   <tile gid="5546"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile gid="5508"/>
-   <tile gid="5587"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5509"/>
+   <tile gid="5510"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5585"/>
-   <tile gid="5586"/>
-   <tile gid="5587"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5548"/>
+   <tile gid="5549"/>
+   <tile gid="5550"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5508"/>
+   <tile gid="5509"/>
+   <tile gid="5510"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5588"/>
+   <tile gid="5589"/>
+   <tile gid="5590"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5508"/>
+   <tile gid="5552"/>
+   <tile gid="5549"/>
+   <tile gid="5551"/>
+   <tile gid="5510"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5505"/>
-   <tile gid="5506"/>
-   <tile gid="5507"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5548"/>
+   <tile gid="5549"/>
+   <tile gid="5549"/>
+   <tile gid="5549"/>
+   <tile gid="5550"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5545"/>
-   <tile gid="5546"/>
-   <tile gid="5547"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="2925"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5588"/>
+   <tile gid="5512"/>
+   <tile gid="5549"/>
+   <tile gid="5511"/>
+   <tile gid="5590"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5585"/>
-   <tile gid="5586"/>
-   <tile gid="5587"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5588"/>
+   <tile gid="5589"/>
+   <tile gid="5590"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
-   <tile gid="5468"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5508"/>
+   <tile gid="5509"/>
+   <tile gid="5510"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5548"/>
+   <tile gid="5549"/>
+   <tile gid="5550"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="2928"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5588"/>
+   <tile gid="5589"/>
+   <tile gid="5590"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
+   <tile gid="5471"/>
    <tile/>
    <tile/>
    <tile/>
@@ -800,9 +800,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2316"/>
-   <tile gid="2317"/>
-   <tile gid="2318"/>
+   <tile gid="2319"/>
+   <tile gid="2320"/>
+   <tile gid="2321"/>
    <tile/>
    <tile/>
    <tile/>
@@ -835,18 +835,18 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2316"/>
-   <tile gid="2317"/>
-   <tile gid="2317"/>
-   <tile gid="2317"/>
-   <tile gid="2317"/>
-   <tile gid="2317"/>
-   <tile gid="2317"/>
-   <tile gid="2318"/>
+   <tile gid="2319"/>
+   <tile gid="2320"/>
+   <tile gid="2320"/>
+   <tile gid="2320"/>
+   <tile gid="2320"/>
+   <tile gid="2320"/>
+   <tile gid="2320"/>
+   <tile gid="2321"/>
    <tile/>
    <tile/>
-   <tile gid="2316"/>
-   <tile gid="2318"/>
+   <tile gid="2319"/>
+   <tile gid="2321"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1059,96 +1059,96 @@
  </layer>
  <layer id="20" name="Collide" width="29" height="18">
   <data>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5373"/>
-   <tile gid="5374"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5693"/>
-   <tile gid="5694"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5693"/>
-   <tile gid="5694"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5693"/>
-   <tile gid="5694"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
-   <tile gid="5375"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5376"/>
    <tile gid="5377"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5413"/>
-   <tile gid="5414"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5733"/>
-   <tile gid="5734"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5655"/>
-   <tile gid="5654"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5733"/>
-   <tile gid="5734"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5733"/>
-   <tile gid="5734"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5696"/>
+   <tile gid="5697"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5696"/>
+   <tile gid="5697"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5696"/>
+   <tile gid="5697"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5378"/>
+   <tile gid="5379"/>
+   <tile gid="5380"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5416"/>
    <tile gid="5417"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5736"/>
+   <tile gid="5737"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5658"/>
+   <tile gid="5657"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5736"/>
+   <tile gid="5737"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5736"/>
+   <tile gid="5737"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5419"/>
+   <tile gid="5420"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5457"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1156,8 +1156,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5613"/>
    <tile gid="5616"/>
+   <tile gid="5619"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1172,12 +1172,12 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5456"/>
    <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1201,21 +1201,21 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5456"/>
    <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5533"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
    <tile gid="5536"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5539"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1230,21 +1230,21 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5456"/>
    <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5613"/>
-   <tile gid="5415"/>
-   <tile gid="5416"/>
-   <tile gid="5455"/>
-   <tile gid="5454"/>
+   <tile gid="5616"/>
+   <tile gid="5418"/>
+   <tile gid="5419"/>
+   <tile gid="5458"/>
+   <tile gid="5457"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1253,85 +1253,85 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5533"/>
    <tile gid="5536"/>
+   <tile gid="5539"/>
    <tile/>
-   <tile gid="5533"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5496"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5455"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile gid="5613"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5416"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5455"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5494"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
    <tile gid="5536"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5499"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5457"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5573"/>
-   <tile gid="5375"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5458"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile gid="5616"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5419"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5458"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5497"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5539"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="5576"/>
+   <tile gid="5378"/>
+   <tile gid="5579"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1340,27 +1340,27 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5459"/>
+   <tile gid="5579"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5456"/>
-   <tile gid="5576"/>
+   <tile gid="5377"/>
+   <tile gid="5378"/>
+   <tile gid="5578"/>
+   <tile gid="5579"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5374"/>
-   <tile gid="5375"/>
-   <tile gid="5575"/>
-   <tile gid="5576"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5613"/>
-   <tile gid="5415"/>
    <tile gid="5616"/>
+   <tile gid="5418"/>
+   <tile gid="5619"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1369,441 +1369,441 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5613"/>
    <tile gid="5616"/>
+   <tile gid="5619"/>
    <tile/>
    <tile/>
-   <tile gid="5533"/>
-   <tile gid="5495"/>
-   <tile gid="5496"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5414"/>
-   <tile gid="5415"/>
-   <tile gid="5415"/>
-   <tile gid="5616"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5627"/>
-   <tile gid="5627"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5613"/>
-   <tile gid="5415"/>
-   <tile gid="5416"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5667"/>
-   <tile gid="5667"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5667"/>
-   <tile gid="5667"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5456"/>
-   <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5453"/>
-   <tile gid="5454"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5468"/>
-   <tile gid="5667"/>
-   <tile gid="5667"/>
-   <tile gid="5468"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="5533"/>
    <tile gid="5536"/>
+   <tile gid="5498"/>
+   <tile gid="5499"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5417"/>
+   <tile gid="5418"/>
+   <tile gid="5418"/>
+   <tile gid="5619"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="5471"/>
+   <tile gid="5630"/>
+   <tile gid="5630"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5616"/>
+   <tile gid="5418"/>
+   <tile gid="5419"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5456"/>
    <tile gid="5457"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5493"/>
-   <tile gid="5494"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5773"/>
-   <tile gid="5774"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5773"/>
-   <tile gid="5774"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5495"/>
-   <tile gid="5496"/>
-   <tile gid="5494"/>
-   <tile gid="5495"/>
-   <tile gid="5773"/>
-   <tile gid="5774"/>
-   <tile gid="5495"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5670"/>
+   <tile gid="5670"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5670"/>
+   <tile gid="5670"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5456"/>
+   <tile gid="5457"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5471"/>
+   <tile gid="5670"/>
+   <tile gid="5670"/>
+   <tile gid="5471"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5536"/>
+   <tile gid="5539"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="5459"/>
+   <tile gid="5460"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
    <tile gid="5496"/>
    <tile gid="5497"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
-   <tile gid="5455"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5776"/>
+   <tile gid="5777"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5776"/>
+   <tile gid="5777"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5498"/>
+   <tile gid="5499"/>
+   <tile gid="5497"/>
+   <tile gid="5498"/>
+   <tile gid="5776"/>
+   <tile gid="5777"/>
+   <tile gid="5498"/>
+   <tile gid="5499"/>
+   <tile gid="5500"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
+   <tile gid="5458"/>
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="847" name="Deploy Blue" type="Deployment" gid="6345" x="128" y="160" width="32" height="32">
+  <object id="847" name="Deploy Blue" type="Deployment" gid="6348" x="128" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="848" name="Deploy Blue" type="Deployment" gid="6345" x="160" y="192" width="32" height="32">
+  <object id="848" name="Deploy Blue" type="Deployment" gid="6348" x="160" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="849" name="Deploy Blue" type="Deployment" gid="6345" x="96" y="224" width="32" height="32">
+  <object id="849" name="Deploy Blue" type="Deployment" gid="6348" x="96" y="224" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="850" name="Deploy Blue" type="Deployment" gid="6345" x="128" y="256" width="32" height="32">
+  <object id="850" name="Deploy Blue" type="Deployment" gid="6348" x="128" y="256" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="851" name="Deploy Blue" type="Deployment" gid="6345" x="96" y="192" width="32" height="32">
+  <object id="851" name="Deploy Blue" type="Deployment" gid="6348" x="96" y="192" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="852" name="Deploy Blue" type="Deployment" gid="6345" x="160" y="224" width="32" height="32">
+  <object id="852" name="Deploy Blue" type="Deployment" gid="6348" x="160" y="224" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="853" name="Deploy Red" type="Deployment" gid="6353" x="768" y="416" width="32" height="32">
+  <object id="853" name="Deploy Red" type="Deployment" gid="6356" x="768" y="416" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="854" name="Deploy Red" type="Deployment" gid="6353" x="736" y="416" width="32" height="32">
+  <object id="854" name="Deploy Red" type="Deployment" gid="6356" x="736" y="416" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="855" name="Deploy Red" type="Deployment" gid="6353" x="800" y="448" width="32" height="32">
+  <object id="855" name="Deploy Red" type="Deployment" gid="6356" x="800" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="856" name="Deploy Red" type="Deployment" gid="6353" x="768" y="480" width="32" height="32">
+  <object id="856" name="Deploy Red" type="Deployment" gid="6356" x="768" y="480" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="857" name="Deploy Red" type="Deployment" gid="6353" x="704" y="448" width="32" height="32">
+  <object id="857" name="Deploy Red" type="Deployment" gid="6356" x="704" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="858" name="Deploy Red" type="Deployment" gid="6353" x="736" y="480" width="32" height="32">
+  <object id="858" name="Deploy Red" type="Deployment" gid="6356" x="736" y="480" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="859" name="NE Stairs" type="Portal" gid="2959" x="800" y="160" width="32" height="32">
+  <object id="859" name="NE Stairs" type="Portal" gid="2962" x="800" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="860" name="SW Stairs" type="Portal" gid="2959" x="96" y="448" width="32" height="32">
+  <object id="860" name="SW Stairs" type="Portal" gid="2962" x="96" y="448" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="861" name="Floor Switch" type="PressurePlate" gid="3036" x="416" y="448" width="32" height="32">
+  <object id="861" name="Floor Switch" type="PressurePlate" gid="3039" x="416" y="448" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Drawbridge"/>
    </properties>
   </object>
-  <object id="862" name="Floor Switch" type="PressurePlate" gid="3036" x="320" y="448" width="32" height="32">
+  <object id="862" name="Floor Switch" type="PressurePlate" gid="3039" x="320" y="448" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Drawbridge"/>
    </properties>
   </object>
-  <object id="863" name="Drawbridge" type="Drawbridge" gid="6382" x="352" y="416" width="32" height="32"/>
-  <object id="865" name="Drawbridge" type="Drawbridge" gid="6382" x="352" y="448" width="32" height="32"/>
-  <object id="866" name="Drawbridge" type="Drawbridge" gid="6384" x="384" y="416" width="32" height="32"/>
-  <object id="867" name="Drawbridge" type="Drawbridge" gid="6384" x="384" y="448" width="32" height="32"/>
-  <object id="868" name="Armour Relic" type="RecoveryTile" gid="6626" x="672" y="160" width="32" height="32">
+  <object id="863" name="Drawbridge" type="Drawbridge" gid="6385" x="352" y="416" width="32" height="32"/>
+  <object id="865" name="Drawbridge" type="Drawbridge" gid="6385" x="352" y="448" width="32" height="32"/>
+  <object id="866" name="Drawbridge" type="Drawbridge" gid="6387" x="384" y="416" width="32" height="32"/>
+  <object id="867" name="Drawbridge" type="Drawbridge" gid="6387" x="384" y="448" width="32" height="32"/>
+  <object id="868" name="Armour Relic" type="RecoveryTile" gid="6629" x="672" y="160" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="869" name="Armour Relic" type="RecoveryTile" gid="6626" x="224" y="448" width="32" height="32">
+  <object id="869" name="Armour Relic" type="RecoveryTile" gid="6629" x="224" y="448" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="871" name="Demon Source" type="BuffTile" gid="6614" x="544" y="256" width="32" height="32">
+  <object id="871" name="Demon Source" type="BuffTile" gid="6617" x="544" y="256" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="876" name="Demon Source" type="BuffTile" gid="6614" x="480" y="256" width="32" height="32">
+  <object id="876" name="Demon Source" type="BuffTile" gid="6617" x="480" y="256" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="881" name="Chaos Source" type="BuffTile" gid="6618" x="512" y="224" width="32" height="32">
+  <object id="881" name="Chaos Source" type="BuffTile" gid="6621" x="512" y="224" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="882" name="Angel Source" type="BuffTile" gid="6622" x="512" y="288" width="32" height="32">
+  <object id="882" name="Angel Source" type="BuffTile" gid="6625" x="512" y="288" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="885" name="Push Block" type="Pushable" gid="6638" x="640" y="384" width="32" height="32"/>
-  <object id="886" name="Push Block" type="Pushable" gid="5630" x="672" y="416" width="32" height="32"/>
-  <object id="887" name="Push Block" type="Pushable" gid="6638" x="640" y="448" width="32" height="32"/>
-  <object id="888" name="Push Block" type="Pushable" gid="6638" x="192" y="352" width="32" height="32"/>
-  <object id="889" name="Push Block" type="Pushable" gid="5630" x="224" y="320" width="32" height="32"/>
-  <object id="890" name="Push Block" type="Pushable" gid="6638" x="256" y="352" width="32" height="32"/>
-  <object id="892" name="Push Block" type="Pushable" gid="6638" x="576" y="320" width="32" height="32"/>
-  <object id="893" name="Push Block" type="Pushable" gid="6638" x="448" y="320" width="32" height="32"/>
-  <object id="894" name="Push Block" type="Pushable" gid="6638" x="448" y="192" width="32" height="32"/>
-  <object id="895" name="Push Block" type="Pushable" gid="6638" x="576" y="192" width="32" height="32"/>
-  <object id="896" name="Spike Trap" type="Trap" gid="6590" x="480" y="288" width="32" height="32">
+  <object id="885" name="Push Block" type="Pushable" gid="6641" x="640" y="384" width="32" height="32"/>
+  <object id="886" name="Push Block" type="Pushable" gid="5633" x="672" y="416" width="32" height="32"/>
+  <object id="887" name="Push Block" type="Pushable" gid="6641" x="640" y="448" width="32" height="32"/>
+  <object id="888" name="Push Block" type="Pushable" gid="6641" x="192" y="352" width="32" height="32"/>
+  <object id="889" name="Push Block" type="Pushable" gid="5633" x="224" y="320" width="32" height="32"/>
+  <object id="890" name="Push Block" type="Pushable" gid="6641" x="256" y="352" width="32" height="32"/>
+  <object id="892" name="Push Block" type="Pushable" gid="6641" x="576" y="320" width="32" height="32"/>
+  <object id="893" name="Push Block" type="Pushable" gid="6641" x="448" y="320" width="32" height="32"/>
+  <object id="894" name="Push Block" type="Pushable" gid="6641" x="448" y="192" width="32" height="32"/>
+  <object id="895" name="Push Block" type="Pushable" gid="6641" x="576" y="192" width="32" height="32"/>
+  <object id="896" name="Spike Trap" type="Trap" gid="6593" x="480" y="288" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="897" name="Spike Trap" type="Trap" gid="6590" x="544" y="288" width="32" height="32">
+  <object id="897" name="Spike Trap" type="Trap" gid="6593" x="544" y="288" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="898" name="Spike Trap" type="Trap" gid="6590" x="544" y="224" width="32" height="32">
+  <object id="898" name="Spike Trap" type="Trap" gid="6593" x="544" y="224" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="899" name="Spike Trap" type="Trap" gid="6590" x="480" y="224" width="32" height="32">
+  <object id="899" name="Spike Trap" type="Trap" gid="6593" x="480" y="224" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
-  <object id="900" name="Bank" type="Bank" gid="6539" x="800" y="288" width="32" height="32"/>
-  <object id="901" name="Bank" type="Bank" gid="6539" x="256" y="128" width="32" height="32"/>
-  <object id="902" name="Vending Machine" type="Vendor" gid="6538" x="800" y="320" width="32" height="32">
+  <object id="900" name="Bank" type="Bank" gid="6542" x="800" y="288" width="32" height="32"/>
+  <object id="901" name="Bank" type="Bank" gid="6542" x="256" y="128" width="32" height="32"/>
+  <object id="902" name="Vending Machine" type="Vendor" gid="6541" x="800" y="320" width="32" height="32">
    <properties>
     <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple|Health Potion"/>
     <property name="prices" value="15|10|15|10|30"/>
     <property name="quantities" value="2|2|2|2|2"/>
    </properties>
   </object>
-  <object id="908" name="Vending Machine" type="Vendor" gid="6538" x="288" y="128" width="32" height="32">
+  <object id="908" name="Vending Machine" type="Vendor" gid="6541" x="288" y="128" width="32" height="32">
    <properties>
     <property name="items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Apple|Health Potion"/>
     <property name="prices" value="15|10|15|10|30"/>
     <property name="quantities" value="2|2|2|2|2"/>
    </properties>
   </object>
-  <object id="909" name="NE Stairs" type="Portal" gid="2959" x="800" y="192" width="32" height="32">
+  <object id="909" name="NE Stairs" type="Portal" gid="2962" x="800" y="192" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="910" name="NE Stairs" type="Portal" gid="2959" x="800" y="128" width="32" height="32">
+  <object id="910" name="NE Stairs" type="Portal" gid="2962" x="800" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="911" name="SW Stairs" type="Portal" gid="2959" x="96" y="416" width="32" height="32">
+  <object id="911" name="SW Stairs" type="Portal" gid="2962" x="96" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="912" name="SW Stairs" type="Portal" gid="2959" x="96" y="480" width="32" height="32">
+  <object id="912" name="SW Stairs" type="Portal" gid="2962" x="96" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="913" name="Floor Switch" type="PressurePlate" gid="3036" x="320" y="416" width="32" height="32">
+  <object id="913" name="Floor Switch" type="PressurePlate" gid="3039" x="320" y="416" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Drawbridge"/>
    </properties>
   </object>
-  <object id="914" name="Floor Switch" type="PressurePlate" gid="3036" x="416" y="416" width="32" height="32">
+  <object id="914" name="Floor Switch" type="PressurePlate" gid="3039" x="416" y="416" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Drawbridge"/>
    </properties>
   </object>
-  <object id="924" name="Item Chest" type="Chest" gid="6547" x="800" y="480" width="32" height="32">
+  <object id="924" name="Item Chest" type="Chest" gid="6550" x="800" y="480" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="925" name="Item Chest" type="Chest" gid="6547" x="96" y="128" width="32" height="32">
+  <object id="925" name="Item Chest" type="Chest" gid="6550" x="96" y="128" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="926" name="Item Chest" type="Chest" gid="6547" x="512" y="256" width="32" height="32">
+  <object id="926" name="Item Chest" type="Chest" gid="6550" x="512" y="256" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="927" name="Door" type="Door" gid="6583" x="352" y="160" width="32" height="32"/>
-  <object id="928" name="Door" type="Door" gid="6582" x="704" y="224" width="32" height="32"/>
+  <object id="927" name="Door" type="Door" gid="6586" x="352" y="160" width="32" height="32"/>
+  <object id="928" name="Door" type="Door" gid="6585" x="704" y="224" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="17" name="Summons" visible="0"/>
  <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
-  <object id="903" name="Mighty Meat" type="BuffItem" gid="6795" x="512" y="576" width="32" height="32">
+  <object id="903" name="Mighty Meat" type="BuffItem" gid="6798" x="512" y="576" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>
    </properties>
   </object>
-  <object id="904" name="Lucky Apple" type="BuffItem" gid="6779" x="544" y="576" width="32" height="32">
+  <object id="904" name="Lucky Apple" type="BuffItem" gid="6782" x="544" y="576" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="itemPool" value="A"/>
@@ -1811,7 +1811,7 @@
     <property name="stat" value="LCK"/>
    </properties>
   </object>
-  <object id="905" name="Alert Berries" type="BuffItem" gid="6780" x="480" y="576" width="32" height="32">
+  <object id="905" name="Alert Berries" type="BuffItem" gid="6783" x="480" y="576" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="itemPool" value="A"/>
@@ -1819,7 +1819,7 @@
     <property name="stat" value="RET"/>
    </properties>
   </object>
-  <object id="906" name="Swift Cheese" type="BuffItem" gid="6770" x="448" y="576" width="32" height="32">
+  <object id="906" name="Swift Cheese" type="BuffItem" gid="6773" x="448" y="576" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="itemPool" value="A"/>
@@ -1827,60 +1827,60 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="907" name="Health Potion" type="HealthPotion" gid="6762" x="576" y="576" width="32" height="32"/>
+  <object id="907" name="Health Potion" type="HealthPotion" gid="6765" x="576" y="576" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="915" name="Coin" type="Currency" gid="6805" x="768" y="288" width="32" height="32">
+  <object id="915" name="Coin" type="Currency" gid="6808" x="768" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="916" name="Coin" type="Currency" gid="6805" x="256" y="160" width="32" height="32">
+  <object id="916" name="Coin" type="Currency" gid="6808" x="256" y="160" width="32" height="32">
    <properties>
     <property name="value" type="int" value="5"/>
    </properties>
   </object>
-  <object id="917" name="Emerald" type="Currency" gid="6787" x="512" y="160" width="32" height="32">
+  <object id="917" name="Emerald" type="Currency" gid="6790" x="512" y="160" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="918" name="Emerald" type="Currency" gid="6787" x="416" y="256" width="32" height="32">
+  <object id="918" name="Emerald" type="Currency" gid="6790" x="416" y="256" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="919" name="Emerald" type="Currency" gid="6787" x="608" y="256" width="32" height="32">
+  <object id="919" name="Emerald" type="Currency" gid="6790" x="608" y="256" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="920" name="Emerald" type="Currency" gid="6787" x="512" y="352" width="32" height="32">
+  <object id="920" name="Emerald" type="Currency" gid="6790" x="512" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="921" name="Sapphire" type="Currency" gid="6788" x="544" y="416" width="32" height="32">
+  <object id="921" name="Sapphire" type="Currency" gid="6791" x="544" y="416" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="922" name="Sapphire" type="Currency" gid="6788" x="224" y="416" width="32" height="32">
+  <object id="922" name="Sapphire" type="Currency" gid="6791" x="224" y="416" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="923" name="Sapphire" type="Currency" gid="6788" x="416" y="160" width="32" height="32">
+  <object id="923" name="Sapphire" type="Currency" gid="6791" x="416" y="160" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="929" name="Ruby" type="Currency" gid="6786" x="768" y="448" width="32" height="32">
+  <object id="929" name="Ruby" type="Currency" gid="6789" x="768" y="448" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="930" name="Ruby" type="Currency" gid="6786" x="128" y="192" width="32" height="32">
+  <object id="930" name="Ruby" type="Currency" gid="6789" x="128" y="192" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>

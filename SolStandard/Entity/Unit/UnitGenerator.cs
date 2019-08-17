@@ -408,7 +408,9 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bloodthirst(1),
+                new Charge(3),
                 new Shove(),
+                new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
