@@ -3633,6 +3633,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Blue/Pugilist.png
 
+#begin Graphics/Images/Portraits/Blue/Rogue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Blue/Rogue.png
+
 #begin Graphics/Images/Portraits/Blue/Silhouette.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3920,6 +3932,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Red/Pugilist.png
+
+#begin Graphics/Images/Portraits/Red/Rogue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Red/Rogue.png
 
 #begin Graphics/Images/Portraits/Red/Silhouette.png
 /importer:TextureImporter
@@ -5037,6 +5061,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Blue/BluePugilist.png
 
+#begin Graphics/Map/Units/Blue/BlueRogue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Blue/BlueRogue.png
+
 #begin Graphics/Map/Units/Creep/CreepBat.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5312,6 +5348,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Red/RedPugilist.png
+
+#begin Graphics/Map/Units/Red/RedRogue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Red/RedRogue.png
 
 #begin Graphics/WhitePixel.png
 /importer:TextureImporter

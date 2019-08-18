@@ -347,6 +347,7 @@ namespace SolStandard.Containers.Contexts
                 Role.Duelist,
                 Role.Pugilist,
                 Role.Lancer,
+                Role.Rogue,
                 Role.Archer,
                 Role.Mage,
             };

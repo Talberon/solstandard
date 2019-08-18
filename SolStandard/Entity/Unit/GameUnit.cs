@@ -28,6 +28,8 @@ namespace SolStandard.Entity.Unit
     public enum Role
     {
         Silhouette,
+        
+        //Units
         Champion,
         Marauder,
         Paladin,
@@ -39,7 +41,9 @@ namespace SolStandard.Entity.Unit
         Mage,
         Archer,
         Cavalier,
+        Rogue,
         
+        //Creeps
         Slime,
         Troll,
         Orc,
@@ -50,7 +54,8 @@ namespace SolStandard.Entity.Unit
         Bat,
         Spider,
         
-        Boar
+        //Pets
+        Boar,
     }
 
     public enum Team

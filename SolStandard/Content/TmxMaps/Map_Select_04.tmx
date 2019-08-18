@@ -1416,9 +1416,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="570"/>
+   <tile gid="6341"/>
    <tile/>
-   <tile/>
+   <tile gid="6324"/>
    <tile gid="363"/>
    <tile gid="138"/>
    <tile gid="179"/>
@@ -1445,7 +1445,7 @@
    <tile/>
    <tile/>
    <tile gid="687"/>
-   <tile gid="528"/>
+   <tile gid="6369"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1475,7 +1475,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="568"/>
+   <tile gid="6377"/>
    <tile/>
    <tile gid="688"/>
    <tile/>
@@ -1507,7 +1507,7 @@
    <tile gid="688"/>
    <tile/>
    <tile gid="688"/>
-   <tile gid="607"/>
+   <tile gid="6384"/>
    <tile/>
    <tile/>
    <tile gid="457"/>
@@ -1845,7 +1845,7 @@
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
-  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6318" x="512" y="192" width="32" height="32">
+  <object id="544" name="Saturn Fortress" type="SelectMap" gid="6318" x="512" y="416" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_02.tmx"/>
@@ -1913,7 +1913,7 @@
     <property name="modeSeize" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="561" name="Jirai Archipelago" type="SelectMap" gid="6318" x="512" y="544" width="32" height="32">
+  <object id="561" name="Jirai Archipelago" type="SelectMap" gid="6318" x="480" y="544" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Jirai_Archipelago.tmx"/>
@@ -1926,7 +1926,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="562" name="Raider's Cave" type="SelectMap" gid="6320" x="576" y="352" width="32" height="32">
+  <object id="562" name="Raider's Cave" type="SelectMap" gid="6320" x="736" y="224" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Raid_Dungeon.tmx"/>
@@ -1977,7 +1977,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="567" name="Master Control" type="SelectMap" gid="6317" x="672" y="224" width="32" height="32">
+  <object id="567" name="Master Control" type="SelectMap" gid="6317" x="512" y="192" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Master_Control.tmx"/>
@@ -2001,7 +2001,7 @@
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
-  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6318" x="576" y="288" width="32" height="32">
+  <object id="569" name="Desert Collosseum" type="SelectMap" gid="6318" x="576" y="320" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Collosseum_01.tmx"/>
@@ -2027,7 +2027,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="572" name="Hunting Grounds VS" type="SelectMap" gid="6326" x="128" y="384" width="32" height="32">
+  <object id="572" name="Hunting Grounds VS" type="SelectMap" gid="6326" x="128" y="352" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -2050,7 +2050,7 @@
     <property name="modeRoutArmy" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="574" name="Hunting Grounds Co-Op" type="SelectMap" gid="6327" x="160" y="384" width="32" height="32">
+  <object id="574" name="Hunting Grounds Co-Op" type="SelectMap" gid="6327" x="160" y="352" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -2071,7 +2071,7 @@
     <property name="modeRelic.vs" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="577" name="Factory Heist" type="SelectMap" gid="6322" x="512" y="416" width="32" height="32">
+  <object id="577" name="Factory Heist" type="SelectMap" gid="6322" x="672" y="224" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>
@@ -2094,7 +2094,7 @@
     <property name="modeRelic.vs" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="579" name="Island Conquest" type="SelectMap" gid="6318" x="96" y="512" width="32" height="32">
+  <object id="579" name="Island Conquest" type="SelectMap" gid="6318" x="160" y="512" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Tropical_01.tmx"/>

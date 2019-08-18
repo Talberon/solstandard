@@ -13,6 +13,7 @@ using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Marauder;
 using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
+using SolStandard.Entity.Unit.Actions.Rogue;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Model;
 using SolStandard.Utility.Monogame;
@@ -140,6 +141,12 @@ namespace SolStandard.Entity.Unit
         private static UnitStatistics SelectCavalierStats()
         {
             return new UnitStatistics(hp: 9, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectRogueStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -422,6 +429,24 @@ namespace SolStandard.Entity.Unit
             return skills;
         }
 
+        private static List<UnitAction> SelectRogueSkills(bool isCommander)
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new FadeStrike(),
+                new BetwixtPlate(70),
+                new Rend(3, 2),
+                new Sprint(3),
+                new Guard(3),
+                new Wait()
+            };
+
+            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 1));
+
+            return skills;
+        }
+
         private static List<UnitAction> SelectBoarSkills(bool isCommander)
         {
             List<UnitAction> skills = new List<UnitAction>
@@ -531,6 +556,8 @@ namespace SolStandard.Entity.Unit
                     return SelectPaladinStats();
                 case Role.Cavalier:
                     return SelectCavalierStats();
+                case Role.Rogue:
+                    return SelectRogueStats();
                 case Role.Boar:
                     return SelectBoarStats();
                 case Role.Slime:
@@ -582,6 +609,8 @@ namespace SolStandard.Entity.Unit
                     return SelectPaladinSkills(isCommander);
                 case Role.Cavalier:
                     return SelectCavalierSkills(isCommander);
+                case Role.Rogue:
+                    return SelectRogueSkills(isCommander);
                 case Role.Boar:
                     return SelectBoarSkills(isCommander);
                 default:
