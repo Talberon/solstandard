@@ -52,9 +52,9 @@ namespace SolStandard.Entity.General
                                             BonusStatistics.RetBonus)
                                     },
                                     {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Armor),
+                                        UnitStatistics.GetSpriteAtlas(Stats.Block),
                                         new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Armor] + ": +" +
+                                            UnitStatistics.Abbreviation[Stats.Block] + ": +" +
                                             BonusStatistics.BlockBonus)
                                     },
                                     {
