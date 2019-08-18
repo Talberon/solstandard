@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int[] auraRange;
 
         public SongAnthem(int auraBonus, int selfBonus, int[] auraRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Anthem, GameDriver.CellSizeVector),
             name: "Song - Anthem",
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Atk]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",

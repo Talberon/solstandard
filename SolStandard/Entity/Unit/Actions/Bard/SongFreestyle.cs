@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
         private readonly int[] auraRange;
 
         public SongFreestyle(int auraBonus, int selfBonus, int[] auraRange) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Freestyle, GameDriver.CellSizeVector),
             name: "Song - Freestyle",
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Luck]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",

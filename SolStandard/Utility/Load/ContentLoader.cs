@@ -448,7 +448,6 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Meditate"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/AtkBuff"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Challenge"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PhaseStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Focus"),
@@ -476,6 +475,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Concerto"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Solo"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tempest"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Freestyle"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Anthem"),
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Horseshoe"),

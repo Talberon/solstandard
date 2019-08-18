@@ -26,7 +26,6 @@ namespace SolStandard.Utility.Assets
         Charge,
         Meditate,
         Uppercut,
-        AtkBuff,
         Challenge,
         PhaseStrike,
         Focus,
@@ -52,6 +51,9 @@ namespace SolStandard.Utility.Assets
         FadeStrike,
         Solo,
         Concerto,
+        Tempest,
+        Anthem,
+        Freestyle,
         Gallop,
 
         //AI Routines
@@ -63,7 +65,6 @@ namespace SolStandard.Utility.Assets
         Glutton,
         Summon,
         Wander,
-        Tempest
     }
 
     public static class SkillIconProvider
@@ -98,7 +99,6 @@ namespace SolStandard.Utility.Assets
             ITexture2D charge = skillIconTextures.Find(texture => texture.Name.EndsWith("Charge"));
             ITexture2D meditate = skillIconTextures.Find(texture => texture.Name.EndsWith("Meditate"));
             ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
-            ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
             ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
             ITexture2D phaseStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("PhaseStrike"));
             ITexture2D focus = skillIconTextures.Find(texture => texture.Name.EndsWith("Focus"));
@@ -125,6 +125,8 @@ namespace SolStandard.Utility.Assets
             ITexture2D solo = skillIconTextures.Find(texture => texture.Name.EndsWith("Solo"));
             ITexture2D concerto = skillIconTextures.Find(texture => texture.Name.EndsWith("Concerto"));
             ITexture2D tempest = skillIconTextures.Find(texture => texture.Name.EndsWith("Tempest"));
+            ITexture2D anthem = skillIconTextures.Find(texture => texture.Name.EndsWith("Anthem"));
+            ITexture2D freestyle = skillIconTextures.Find(texture => texture.Name.EndsWith("Freestyle"));
             ITexture2D gallop = skillIconTextures.Find(texture => texture.Name.EndsWith("Horseshoe"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
@@ -158,7 +160,6 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Charge, charge},
                 {SkillIcon.Meditate, meditate},
                 {SkillIcon.Uppercut, uppercut},
-                {SkillIcon.AtkBuff, atkBuff},
                 {SkillIcon.Challenge, challenge},
                 {SkillIcon.PhaseStrike, phaseStrike},
                 {SkillIcon.Focus, focus},
@@ -185,6 +186,8 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Concerto, concerto},
                 {SkillIcon.Solo, solo},
                 {SkillIcon.Tempest, tempest},
+                {SkillIcon.Anthem, anthem},
+                {SkillIcon.Freestyle, freestyle},
                 {SkillIcon.Gallop, gallop},
 
                 //AI Routines

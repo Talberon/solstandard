@@ -16,7 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         private readonly int duration;
 
         public Inspire(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
             name: "Inspire",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Atk] +
                          " by [+" + statModifier + "] for [" + duration + "] turns.",

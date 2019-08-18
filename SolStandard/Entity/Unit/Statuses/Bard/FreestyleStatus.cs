@@ -8,7 +8,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
     public class FreestyleStatus : SongStatus
     {
         public FreestyleStatus(int auraBonus, int selfBonus, int[] auraRange) : base(
-            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Freestyle, GameDriver.CellSizeVector),
             name: $"Freestyle <+{UnitStatistics.Abbreviation[Stats.Luck]} {auraBonus} Aura/{selfBonus} Solo>",
             description:
             $"Increases {UnitStatistics.Abbreviation[Stats.Luck]} by [{auraBonus} Aura/{selfBonus} Solo] for units within the aura.",

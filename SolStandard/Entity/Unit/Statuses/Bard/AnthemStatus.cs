@@ -8,7 +8,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
     public class AnthemStatus : SongStatus
     {
         public AnthemStatus(int auraBonus, int selfBonus, int[] auraRange) : base(
-            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
+            statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Anthem, GameDriver.CellSizeVector),
             name:
             $"Anthem <+{UnitStatistics.Abbreviation[Stats.Atk]} {auraBonus} Aura/{selfBonus} Solo>",
             description:
