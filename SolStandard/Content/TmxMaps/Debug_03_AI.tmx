@@ -2124,6 +2124,7 @@
   <object id="966" name="Troll" type="Creep" gid="26" x="672" y="96" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="creepPool" value="Bosses"/>
     <property name="routine_defender" type="bool" value="true"/>
