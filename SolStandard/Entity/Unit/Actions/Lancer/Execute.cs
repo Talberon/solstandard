@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             GameUnit attacker = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            int atkDamage = DamageValueRoundedUp(attacker.Stats.Atk, percent);
+            int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
             WeaponStatistics executionersKnife =
                 new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
@@ -67,11 +67,11 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
         }
 
-        public static int DamageValueRoundedUp(int baseDamage, int percentToDeal)
+        public static int ApplyPercentageRoundedUp(int baseNumber, int percentageOfBaseNumber)
         {
-            float remainingPercentage = 100 - percentToDeal;
-            int damageToRemove = (int) Math.Floor(baseDamage * (remainingPercentage / 100));
-            return baseDamage - damageToRemove;
+            float remainingPercentage = 100 - percentageOfBaseNumber;
+            int remainderToRemove = (int) Math.Floor(baseNumber * (remainingPercentage / 100));
+            return baseNumber - remainderToRemove;
         }
     }
 }

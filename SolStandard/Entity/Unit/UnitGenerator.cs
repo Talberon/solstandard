@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
+using SolStandard.Entity.Unit.Actions.Cavalier;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Cleric;
 using SolStandard.Entity.Unit.Actions.Duelist;
@@ -138,7 +139,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectCavalierStats()
         {
-            return new UnitStatistics(hp: 9, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 7, atkRange: new[] {1},
+            return new UnitStatistics(hp: 9, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -371,7 +372,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Guillotine(),
+                new Guillotine(40),
                 new Rage(2, 3),
                 new Grapple(),
                 new Brace(2),
@@ -407,16 +408,16 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
+                new Charge(4),
                 new Bloodthirst(1),
-                new Charge(3),
+                new Inspire(2, 1),
                 new Shove(),
-                new Sprint(2),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
 
-            //TODO Create unique command skill for Cavalier
-            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 2, new[] {1, 2, 3}));
+            if (isCommander) skills.Insert(1, new CmdDoubleTime(1, 2, 1));
 
             return skills;
         }

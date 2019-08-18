@@ -52,6 +52,7 @@ namespace SolStandard.Utility.Assets
         FadeStrike,
         Solo,
         Concerto,
+        Gallop,
 
         //AI Routines
         Prey,
@@ -124,6 +125,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D solo = skillIconTextures.Find(texture => texture.Name.EndsWith("Solo"));
             ITexture2D concerto = skillIconTextures.Find(texture => texture.Name.EndsWith("Concerto"));
             ITexture2D tempest = skillIconTextures.Find(texture => texture.Name.EndsWith("Tempest"));
+            ITexture2D gallop = skillIconTextures.Find(texture => texture.Name.EndsWith("Horseshoe"));
             //AI Routines
             ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
             ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
@@ -183,6 +185,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Concerto, concerto},
                 {SkillIcon.Solo, solo},
                 {SkillIcon.Tempest, tempest},
+                {SkillIcon.Gallop, gallop},
 
                 //AI Routines
                 {SkillIcon.Prey, prey},

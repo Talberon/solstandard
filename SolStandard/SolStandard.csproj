@@ -139,13 +139,15 @@
     <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
     <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\CmdSongBattleHymn.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Crescendo.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\ModeConcerto.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\ModeSolo.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\SongAction.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\SongAnthem.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\SongFreestyle.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\SongTempest.cs" />
+    <Compile Include="Entity\Unit\Actions\Cavalier\CmdDoubleTime.cs" />
+    <Compile Include="Entity\Unit\Actions\Cavalier\Inspire.cs" />
+    <Compile Include="Entity\Unit\Actions\Cavalier\Gallop.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\CmdWarmaster.cs" />
     <Compile Include="Entity\Unit\Actions\Champion\Fortify.cs" />
@@ -507,6 +509,7 @@
     <Compile Include="Utility\Monogame\MusicBox.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
     <Compile Include="Utility\Network\ConnectionManager.cs" />
+    <Compile Include="Utility\PathingUtil.cs" />
     <Compile Include="Utility\RangeComparison.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\TeamUtility.cs" />

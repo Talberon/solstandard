@@ -8,7 +8,6 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.Unit.Actions.Creeps
 {
@@ -73,20 +72,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     50)
             );
 
-            List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, targetUnitCoordinatePair.Value, false,
-                    false, GameContext.ActiveUnit.Team);
-
-            Queue<IEvent> pathAndAttackQueue = new Queue<IEvent>();
-            foreach (Direction direction in directionsToDestination)
-            {
-                if (direction == Direction.None) continue;
-
-                pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, direction));
-                pathAndAttackQueue.Enqueue(new WaitFramesEvent(15));
-            }
-
-            pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
+            Queue<IEvent> pathAndAttackQueue =
+                PathingUtil.MoveToCoordinates(roamer, targetUnitCoordinatePair.Value, false, false, 15);
             pathAndAttackQueue.Enqueue(new StartCombatEvent(targetUnitCoordinatePair.Key));
             GlobalEventQueue.QueueEvents(pathAndAttackQueue);
         }

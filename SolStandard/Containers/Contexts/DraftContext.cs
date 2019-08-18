@@ -350,7 +350,6 @@ namespace SolStandard.Containers.Contexts
                 Role.Lancer,
                 Role.Archer,
                 Role.Mage,
-                Role.Boar
             };
     }
 }

@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 FlowStatus currentFlow =
                     attacker.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
-                int atkDamage = Execute.DamageValueRoundedUp(attacker.Stats.Atk, percent);
+                int atkDamage = Execute.ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
                 WeaponStatistics flowStrikeFist =
                     new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 

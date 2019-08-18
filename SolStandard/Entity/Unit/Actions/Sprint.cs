@@ -9,7 +9,6 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.Unit.Actions
 {
@@ -77,21 +76,9 @@ namespace SolStandard.Entity.Unit.Actions
 
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                movingUnit.UnitEntity.MapCoordinates, mapCoordinates, true, walkThroughAllies, movingUnit.Team
-            );
+            Queue<IEvent> pathingEventQueue =
+                PathingUtil.MoveToCoordinates(movingUnit, mapCoordinates, false, walkThroughAllies, 10);
 
-            Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
-            foreach (Direction direction in directions)
-            {
-                if (direction == Direction.None) continue;
-
-                pathingEventQueue.Enqueue(new CreepMoveEvent(movingUnit, direction, walkThroughAllies));
-                pathingEventQueue.Enqueue(new WaitFramesEvent(5));
-            }
-
-            pathingEventQueue.Enqueue(new CreepMoveEvent(movingUnit, Direction.None));
-            pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(movingUnit.UnitEntity, mapCoordinates));
             pathingEventQueue.Enqueue(new CameraCursorPositionEvent(mapCoordinates));
             pathingEventQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(pathingEventQueue);

@@ -1,5 +1,5 @@
-using System;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Utility;
 using SolStandard.Utility.Events;
 
@@ -7,7 +7,9 @@ namespace SolStandard.Entity.Unit.Statuses.Marauder
 {
     public class GuillotineStatus : StatusEffect, ICombatProc
     {
-        public GuillotineStatus(IRenderable icon, int turnDuration) : base(
+        private readonly int healPercentage;
+
+        public GuillotineStatus(IRenderable icon, int turnDuration, int healPercentage) : base(
             statusIcon: icon,
             name: "Guillotine!",
             description: "Recovers " + UnitStatistics.Abbreviation[Stats.Hp] + " if opponent is defeated.",
@@ -16,6 +18,7 @@ namespace SolStandard.Entity.Unit.Statuses.Marauder
             canCleanse: false
         )
         {
+            this.healPercentage = healPercentage;
         }
 
         public override void ApplyEffect(GameUnit target)
@@ -56,11 +59,8 @@ namespace SolStandard.Entity.Unit.Statuses.Marauder
 
             if (defender.IsAlive || !attacker.IsAlive) return;
 
-            float missingAttackerHP = attacker.Stats.MaxHP - attacker.Stats.CurrentHP;
-
-            const int normalDenominator = 3;
-            int hpToHeal = (int) Math.Floor(missingAttackerHP / normalDenominator);
-
+            int missingAttackerHP = attacker.Stats.MaxHP - attacker.Stats.CurrentHP;
+            int hpToHeal = Execute.ApplyPercentageRoundedUp(missingAttackerHP, healPercentage);
             GlobalEventQueue.QueueSingleEvent(new RegenerateHealthEvent(attacker, hpToHeal));
         }
     }

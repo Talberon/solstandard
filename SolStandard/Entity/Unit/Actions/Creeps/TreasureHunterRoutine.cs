@@ -96,20 +96,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(roamerMapCoordinates, "Picking up " + itemToPickUp.Name + "!", 50)
             );
 
-            List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false,
-                    GameContext.ActiveUnit.Team);
+            Queue<IEvent> pathToItemQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
 
-            Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
-            foreach (Direction direction in directionsToDestination)
-            {
-                if (direction == Direction.None) continue;
-
-                pathToItemQueue.Enqueue(new CreepMoveEvent(creep, direction));
-                pathToItemQueue.Enqueue(new WaitFramesEvent(15));
-            }
-
-            pathToItemQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
             pathToItemQueue.Enqueue(new PickUpItemEvent(itemToPickUp, itemCoordinates));
             pathToItemQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToItemQueue);
@@ -123,20 +111,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(roamerMapCoordinates, "Picking up " + currencyToPickUp.Name + "!", 50)
             );
 
-            List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, itemCoordinates, false, false,
-                    GameContext.ActiveUnit.Team);
-
-            Queue<IEvent> pathToCurrencyQueue = new Queue<IEvent>();
-            foreach (Direction direction in directionsToDestination)
-            {
-                if (direction == Direction.None) continue;
-
-                pathToCurrencyQueue.Enqueue(new CreepMoveEvent(creep, direction));
-                pathToCurrencyQueue.Enqueue(new WaitFramesEvent(15));
-            }
-
-            pathToCurrencyQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
+            Queue<IEvent> pathToCurrencyQueue = PathingUtil.MoveToCoordinates(creep, itemCoordinates, false, false, 15);
             pathToCurrencyQueue.Enqueue(new PickUpCurrencyEvent(currencyToPickUp));
             pathToCurrencyQueue.Enqueue(new WaitFramesEvent(50));
             GlobalEventQueue.QueueEvents(pathToCurrencyQueue);

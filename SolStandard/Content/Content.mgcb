@@ -2306,6 +2306,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Guillotine.png
 
+#begin Graphics/Images/Icons/Skill/Horseshoe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/Horseshoe.png
+
 #begin Graphics/Images/Icons/Skill/Ignite.png
 /importer:TextureImporter
 /processor:TextureProcessor

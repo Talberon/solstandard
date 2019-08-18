@@ -13,16 +13,20 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 {
     public class Guillotine : UnitAction
     {
-        public Guillotine() : base(
+        private readonly int healPercentage;
+
+        public Guillotine(int healPercentage) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Guillotine, GameDriver.CellSizeVector),
             name: "Guillotine",
-            description: "Perform a basic attack. If the target unit is defeated, regenerate <1/3> of missing " +
-                         UnitStatistics.Abbreviation[Stats.Hp] + " (rounded down).",
+            description:
+            $"Perform a basic attack. If the target unit is defeated, regenerate {healPercentage}% of missing " +
+            $"{UnitStatistics.Abbreviation[Stats.Hp]} (rounded up).",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
         )
         {
+            this.healPercentage = healPercentage;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -39,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0))
+                    new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0, healPercentage))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
