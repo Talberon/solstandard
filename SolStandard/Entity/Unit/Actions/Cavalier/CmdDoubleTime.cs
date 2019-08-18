@@ -13,7 +13,7 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Cavalier
 {
-    public class CmdDoubleTime : UnitAction
+    public class CmdDoubleTime : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
         private readonly int statModifier;
