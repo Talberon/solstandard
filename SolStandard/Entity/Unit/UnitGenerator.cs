@@ -224,7 +224,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(1));
+            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(4));
 
             return skills;
         }
