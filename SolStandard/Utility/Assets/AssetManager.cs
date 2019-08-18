@@ -54,6 +54,7 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D MainMenuBackground { get; private set; }
 
         public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont SmallWindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
         public static ISpriteFont ResultsFont { get; private set; }
         public static ISpriteFont HeaderFont { get; private set; }
@@ -120,6 +121,7 @@ namespace SolStandard.Utility.Assets
             MapPreviewTextures = ContentLoader.LoadMapPreviews(content);
 
             WindowFont = ContentLoader.LoadWindowFont(content);
+            SmallWindowFont = ContentLoader.LoadSmallWindowFont(content);
             MapFont = ContentLoader.LoadMapFont(content);
             ResultsFont = ContentLoader.LoadResultsFont(content);
             HeaderFont = ContentLoader.LoadHeaderFont(content);

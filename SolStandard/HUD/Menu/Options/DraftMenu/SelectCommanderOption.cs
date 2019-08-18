@@ -51,7 +51,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize,
                                             new Vector2(16)),
                                         new RenderText(
-                                            AssetManager.MapFont, commandAction.Name,
+                                            AssetManager.SmallWindowFont, commandAction.Name,
                                             commandAction.FreeAction ? GameContext.PositiveColor : Color.White
                                         )
                                     }

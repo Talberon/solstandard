@@ -300,6 +300,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ResultsText.spritefont
 
+#begin Fonts/SmallWindowFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/SmallWindowFont.spritefont
+
 #begin Fonts/WindowHeaderText.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

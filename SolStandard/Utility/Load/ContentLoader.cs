@@ -28,6 +28,11 @@ namespace SolStandard.Utility.Load
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
         }
 
+        public static ISpriteFont LoadSmallWindowFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/SmallWindowFont"));
+        }
+
         public static ISpriteFont LoadMapFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
