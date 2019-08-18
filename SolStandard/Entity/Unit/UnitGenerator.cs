@@ -224,7 +224,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(4));
+            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(1));
 
             return skills;
         }
@@ -417,7 +417,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdDoubleTime(1, 2, 1));
+            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 1));
 
             return skills;
         }
