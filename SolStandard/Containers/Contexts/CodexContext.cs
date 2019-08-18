@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SolStandard.Containers.View;
@@ -31,6 +32,29 @@ namespace SolStandard.Containers.Contexts
             }
 
             return units;
+        }
+
+        public Team CurrentTeam
+        {
+            get
+            {
+                switch (previousGameState)
+                {
+                    case GameContext.GameState.MainMenu:
+                        return GameContext.P1Team;
+                    case GameContext.GameState.ArmyDraft:
+                        return GameContext.DraftContext.CurrentTurn;
+                    case GameContext.GameState.Deployment:
+                        return GameContext.DeploymentContext.CurrentTurn;
+                    case GameContext.GameState.PauseScreen:
+                        return GameContext.InitiativeContext.CurrentActiveTeam;
+                    case GameContext.GameState.InGame:
+                        return GameContext.InitiativeContext.CurrentActiveTeam;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(previousGameState),
+                            $"Should not have arrived here via {previousGameState} state!");
+                }
+            }
         }
 
         public void OpenMenu()

@@ -35,9 +35,7 @@ namespace SolStandard.Containers.Contexts
 
         private int redMaxUnits;
         private int redUnitsSelected;
-
         private int maxDuplicateUnitType;
-
         public Team CurrentTurn { get; private set; }
 
         private Dictionary<Role, int> blueUnitCount;
@@ -47,6 +45,7 @@ namespace SolStandard.Containers.Contexts
         {
             DraftView = new DraftView();
         }
+
 
         public void StartNewSoloDraft(int maxUnits, int maxDuplicates, Team soloPlayerTeam, Scenario scenario)
         {

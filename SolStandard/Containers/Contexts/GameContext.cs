@@ -84,7 +84,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Codex:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return GetPlayerForTeam(CodexContext.CurrentTeam);
                     case GameState.Results:
                         return PlayerIndex.Four;
                     case GameState.Credits:
