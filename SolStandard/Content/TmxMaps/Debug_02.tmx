@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="856">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="863">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
  <tileset firstgid="40" source="overworld-32.tsx"/>
+ <tileset firstgid="6320" source="entities-32.tsx"/>
  <layer id="1" name="Terrain" width="32" height="20">
   <data>
    <tile gid="841"/>
@@ -1937,98 +1938,125 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities"/>
- <objectgroup id="6" name="Loot" opacity="0.75"/>
+ <objectgroup id="6" name="Loot" opacity="0.75">
+  <object id="859" name="Mighty Meat" type="BuffItem" gid="6801" x="128" y="384" width="32" height="32"/>
+  <object id="860" name="Lucky Lemon" type="BuffItem" gid="6787" x="160" y="384" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="LCK"/>
+   </properties>
+  </object>
+  <object id="861" name="Alert Berries" type="BuffItem" gid="6786" x="160" y="352" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="RET"/>
+   </properties>
+  </object>
+  <object id="862" name="Swift Cheese" type="BuffItem" gid="6776" x="128" y="352" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="10" name="Summons" opacity="0.33"/>
  <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units">
-  <object id="832" name="Edward" type="Unit" gid="5" x="416" y="192" width="32" height="32">
-   <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="839" name="Boyd" type="Unit" gid="16" x="480" y="384" width="32" height="32">
+  <object id="839" name="Boyd" type="Unit" gid="16" x="512" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="520" name="Fran" type="Unit" gid="4" x="448" y="224" width="32" height="32">
+  <object id="520" name="Fran" type="Unit" gid="4" x="480" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="841" name="Franklin" type="Unit" gid="14" x="320" y="288" width="32" height="32">
+  <object id="841" name="Franklin" type="Unit" gid="14" x="544" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="843" name="Grace" type="Unit" gid="8" x="480" y="256" width="32" height="32">
-   <properties>
-    <property name="Class" value="Cleric"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="848" name="Boris" type="Unit" gid="24" x="352" y="256" width="32" height="32">
+  <object id="848" name="Boris" type="Unit" gid="24" x="576" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Boar"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="844" name="Sally" type="Unit" gid="17" x="416" y="384" width="32" height="32">
+  <object id="844" name="Sally" type="Unit" gid="17" x="416" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="831" name="Jules" type="Unit" gid="2" x="416" y="256" width="32" height="32">
+  <object id="831" name="Jules" type="Unit" gid="2" x="384" y="288" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="826" name="Charlotte" type="Unit" gid="23" x="448" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="837" name="Verne" type="Unit" gid="15" x="448" y="416" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="840" name="Rachel" type="Unit" gid="10" x="448" y="288" width="32" height="32">
+  <object id="840" name="Rachel" type="Unit" gid="10" x="384" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Paladin"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="854" name="Talberon" type="Unit" gid="25" x="512" y="352" width="32" height="32">
+  <object id="854" name="Talberon" type="Unit" gid="25" x="480" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Cavalier"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="855" name="Lazarus" type="Unit" gid="12" x="512" y="256" width="32" height="32">
+  <object id="855" name="Lazarus" type="Unit" gid="12" x="448" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Cavalier"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="856" name="Maya" type="Unit" gid="26" x="384" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Rogue"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="857" name="Saira" type="Unit" gid="13" x="480" y="288" width="32" height="32">
+   <properties>
+    <property name="Class" value="Rogue"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="834" name="Isadora" type="Unit" gid="6" x="512" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Pugilist"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="858" name="Orc" type="Creep" gid="29" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Orc"/>
+    <property name="Items" value="Swift Cheese|Alert Berries|Mighty Meat|Lucky Lemon"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
@@ -2068,14 +2096,14 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="528" name="Gaius" type="Unit" gid="3" x="320" y="128" width="32" height="32">
+  <object id="528" name="Gaius" type="Unit" gid="3" x="352" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="817" name="Benjamin" type="Unit" gid="1" x="352" y="128" width="32" height="32">
+  <object id="817" name="Benjamin" type="Unit" gid="1" x="384" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2087,13 +2115,6 @@
     <property name="Class" value="Marauder"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="834" name="Isadora" type="Unit" gid="6" x="384" y="128" width="32" height="32">
-   <properties>
-    <property name="Class" value="Pugilist"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
    </properties>
   </object>
   <object id="820" name="Rudolph" type="Unit" gid="7" x="480" y="128" width="32" height="32">
@@ -2113,6 +2134,34 @@
   <object id="853" name="Wells" type="Unit" gid="2" x="512" y="128" width="32" height="32">
    <properties>
     <property name="Class" value="Mage"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="826" name="Charlotte" type="Unit" gid="23" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="837" name="Verne" type="Unit" gid="15" x="448" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Mage"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="832" name="Edward" type="Unit" gid="5" x="416" y="128" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="843" name="Grace" type="Unit" gid="8" x="544" y="128" width="32" height="32">
+   <properties>
+    <property name="Class" value="Cleric"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>

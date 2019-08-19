@@ -5,7 +5,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
     public class Rend : DamageOverTimeAction
     {
         public Rend(int duration, int damagePerTurn) : base(
-            icon: SkillIcon.Bloodthirst,
+            icon: SkillIcon.Rend,
             name: "Rend",
             duration: duration,
             damagePerTurn: damagePerTurn,

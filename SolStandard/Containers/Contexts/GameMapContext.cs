@@ -32,7 +32,8 @@ namespace SolStandard.Containers.Contexts
             UnitTargeting,
             UnitActing,
             ResolvingTurn,
-            AdHocDraft
+            AdHocDraft,
+            StealItem
         }
 
         public TurnState CurrentTurnState { get; set; }
@@ -45,7 +46,7 @@ namespace SolStandard.Containers.Contexts
         public bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
         private TerrainEntity LastHoverEntity { get; set; }
-        private TerrainEntity LastHoverItem { get;set; }
+        private TerrainEntity LastHoverItem { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -609,21 +610,43 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        public void OpenStealMenu(GameUnit targetToStealFrom)
+        {
+            CurrentTurnState = TurnState.StealItem;
+            GameMapView.GenerateStealItemMenu(targetToStealFrom);
+            AssetManager.MenuConfirmSFX.Play();
+        }
+
+        public void MoveMenuCursor(MenuCursorDirection direction)
+        {
+            GameMapView.CurrentMenu.MoveMenuCursor(direction);
+        }
+
+        public void SelectMenuOption()
+        {
+            GameMapView.CurrentMenu.SelectOption();
+        }
+
+        public void ClearStealItemMenu()
+        {
+            GameMapView.CloseStealItemMenu();
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
+        public void CancelStealItemMenu()
+        {
+            GameMapView.CloseStealItemMenu();
+            GameContext.ActiveUnit.CancelArmedSkill();
+            ResetCursorToActiveUnit();
+            GameMapView.GenerateActionMenus();
+            CurrentTurnState = TurnState.UnitDecidingAction;
+        }
+
         public void OpenDraftMenu()
         {
             CurrentTurnState = TurnState.AdHocDraft;
             GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
             AssetManager.MenuConfirmSFX.Play();
-        }
-
-        public void MoveDraftMenuCursor(MenuCursorDirection direction)
-        {
-            GameMapView.AdHocDraftMenu.MoveMenuCursor(direction);
-        }
-
-        public void SelectDraftMenuOption()
-        {
-            GameMapView.AdHocDraftMenu.SelectOption();
         }
 
         public void ClearDraftMenu()

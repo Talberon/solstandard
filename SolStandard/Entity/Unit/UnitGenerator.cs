@@ -281,7 +281,6 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new BetwixtPlate(60),
                 new Execute(50),
                 new Venom(2, 2),
                 new Sprint(2),
@@ -436,7 +435,8 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new FadeStrike(),
                 new BetwixtPlate(70),
-                new Rend(3, 2),
+                new Rend(4, 2),
+                new Rob(),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()
