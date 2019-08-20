@@ -433,7 +433,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new FadeStrike(),
+                new ThrowingKnife(),
                 new BetwixtPlate(70),
                 new Rend(4, 2),
                 new Rob(),

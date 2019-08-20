@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
@@ -64,7 +65,9 @@ namespace SolStandard.Containers.View
                 actionElements[i, iconIndex] = actions[i].Icon;
 
                 actionElements[i, nameIndex] =
-                    new Window(new RenderText(AssetManager.WindowFont, actions[i].Name), Color.Transparent);
+                    new Window(
+                        new RenderText(AssetManager.WindowFont, actions[i].Name,
+                            (actions[i].FreeAction) ? GameContext.PositiveColor : Color.White), Color.Transparent);
 
                 actionElements[i, rangeIndex] = new Window(
                     new RenderText(
@@ -126,7 +129,7 @@ namespace SolStandard.Containers.View
         {
             const int unitSpriteSize = 128;
             IRenderable unitSprite = unit.UnitEntity.UnitSpriteSheet.Resize(new Vector2(unitSpriteSize));
-            IRenderable unitPortrait = unit.UnitPortraitPane;
+            IRenderable unitPortrait = unit.MediumPortrait;
             IRenderable unitStats = unit.DetailPane;
 
             IRenderable[,] windowContent =
@@ -208,6 +211,5 @@ namespace SolStandard.Containers.View
             unitDetailWindow.Draw(spriteBatch, UnitDetailWindowPosition());
             unitActionListWindow?.Draw(spriteBatch, UnitActionListWindowPosition());
         }
-
     }
 }

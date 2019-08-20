@@ -227,6 +227,7 @@
     <Compile Include="Entity\Unit\Actions\Rogue\PickDoorLock.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\Rend.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\Rob.cs" />
+    <Compile Include="Entity\Unit\Actions\Rogue\ThrowingKnife.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />

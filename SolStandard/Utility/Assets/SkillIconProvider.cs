@@ -69,6 +69,7 @@ namespace SolStandard.Utility.Assets
         Rob,
         Rend,
         PickLock,
+        ThrowingKnife
     }
 
     public static class SkillIconProvider
@@ -146,6 +147,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D rob = skillIconTextures.Find(texture => texture.Name.EndsWith("Rob"));
             ITexture2D rend = skillIconTextures.Find(texture => texture.Name.EndsWith("Rend"));
             ITexture2D pickLock = skillIconTextures.Find(texture => texture.Name.EndsWith("PickLock"));
+            ITexture2D throwingKnife = skillIconTextures.Find(texture => texture.Name.EndsWith("ThrowingKnife"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -212,6 +214,7 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Rob, rob},
                 {SkillIcon.Rend, rend},
                 {SkillIcon.PickLock, pickLock},
+                {SkillIcon.ThrowingKnife, throwingKnife},
             };
         }
     }

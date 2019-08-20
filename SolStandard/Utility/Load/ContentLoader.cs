@@ -484,6 +484,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rend"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rob"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PickLock"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/ThrowingKnife"),
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Concerto"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Solo"),

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -36,20 +35,17 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                eventQueue.Enqueue(new StartCombatEvent(targetUnit));
-                GlobalEventQueue.QueueEvents(eventQueue);
+                GlobalEventQueue.QueueSingleEvent(new StartCombatEvent(targetUnit));
             }
             else if (TargetIsABreakableObstacleInRange(targetSlice))
             {
                 DamageTerrain(targetSlice);
 
-                eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+                GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
             }
             else
             {
