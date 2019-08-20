@@ -443,7 +443,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdAssassinate(1, 5));
+            if (isCommander) skills.Insert(1, new CmdAssassinate(5, 5));
 
             return skills;
         }
