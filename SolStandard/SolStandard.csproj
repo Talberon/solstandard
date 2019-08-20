@@ -223,6 +223,8 @@
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Suplex.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
+    <Compile Include="Entity\Unit\Actions\Rogue\CmdAssassinate.cs" />
+    <Compile Include="Entity\Unit\Actions\Rogue\PickDoorLock.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\Rend.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\Rob.cs" />
     <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -20,7 +21,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         private readonly int duration;
 
         public CmdDoubleTime(int cmdCost, int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.DoubleTime, GameDriver.CellSizeVector),
+            icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
             name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Double Time",
             description:
             $"Give all allies in range a buff to {UnitStatistics.Abbreviation[Stats.Mv]} by [+{statModifier}] for [{duration}] turns." +

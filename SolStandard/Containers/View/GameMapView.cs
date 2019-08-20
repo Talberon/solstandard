@@ -30,7 +30,8 @@ namespace SolStandard.Containers.View
         {
             ActionMenu,
             InventoryMenu,
-            StealItemMenu
+            StealItemMenu,
+            DraftMenu
         }
 
         private const int WindowSlideSpeed = 40;
@@ -100,16 +101,25 @@ namespace SolStandard.Containers.View
                         ActionMenu.IsVisible = true;
                         InventoryMenu.IsVisible = false;
                         if (StealItemMenu != null) StealItemMenu.IsVisible = false;
+                        if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
                     case MenuType.InventoryMenu:
                         ActionMenu.IsVisible = false;
                         InventoryMenu.IsVisible = true;
                         if (StealItemMenu != null) StealItemMenu.IsVisible = false;
+                        if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
                     case MenuType.StealItemMenu:
                         ActionMenu.IsVisible = false;
                         InventoryMenu.IsVisible = false;
                         StealItemMenu.IsVisible = true;
+                        if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
+                        break;
+                    case MenuType.DraftMenu:
+                        ActionMenu.IsVisible = false;
+                        InventoryMenu.IsVisible = false;
+                        if (StealItemMenu != null) StealItemMenu.IsVisible = false;
+                        AdHocDraftMenu.IsVisible = true;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -129,6 +139,8 @@ namespace SolStandard.Containers.View
                         return InventoryMenu;
                     case MenuType.StealItemMenu:
                         return StealItemMenu;
+                    case MenuType.DraftMenu:
+                        return AdHocDraftMenu;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -221,6 +233,7 @@ namespace SolStandard.Containers.View
                 TeamUtility.DetermineTeamColor(team),
                 TwoDimensionalMenu.CursorType.Frame
             );
+            VisibleMenu = MenuType.DraftMenu;
         }
 
         public void GenerateItemDetailWindow(List<IItem> items)

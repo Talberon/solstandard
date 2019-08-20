@@ -437,12 +437,13 @@ namespace SolStandard.Entity.Unit
                 new BetwixtPlate(70),
                 new Rend(4, 2),
                 new Rob(),
+                new PickDoorLock(10),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 1));
+            if (isCommander) skills.Insert(1, new CmdAssassinate(1, 5));
 
             return skills;
         }
