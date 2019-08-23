@@ -355,6 +355,8 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Bellriver_Tavern_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
                 
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Island_Boss"),
+                
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
