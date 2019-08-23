@@ -435,7 +435,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new ThrowingKnife(),
                 new BetwixtPlate(70),
-                new Rend(4, 2),
+                new Rend(3, 3),
                 new Rob(),
                 new PickDoorLock(10),
                 new Sprint(3),
