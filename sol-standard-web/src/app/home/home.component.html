@@ -1,11 +1,29 @@
-<img src="assets/images/banners/sol-standard-logo-banner.png" class="centered img-fluid" name="Sol Standard Logo" />
-<div class="jumbotron" *ngIf="!readme">
-  <h1>Sol Standard</h1>
-  <p>
-    Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
-    There
-    are several classes of units available, as well as computer-controlled monsters.
-    Plenty of items and interactable tiles allow for vastly different gameplay experiences on different battle maps.
-  </p>
+<div class="jumbotron jumbotron-fluid titlebar">
+  <!--TODO Add background image to jumbotron-->
+  <div class="container centered">
+    <img src="assets/images/banners/sol-standard-logo-banner.png" class="centered img-fluid" name="Sol Standard Logo" />
+    <h1 class="tagline">Arcade Tactics Action</h1>
+    <a class="btn btn-primary download-button" href="{{releaseInfo?.html_url}}" target="_blank">
+      <!--TODO Add ReleaseInfo to context-->
+      <span class="fa fa-download"></span> Download on GitHub
+    </a>
+  </div>
 </div>
-<div id="solstandard-readme" class="readme" [innerHTML]="readme"></div>
+
+<div class="container">
+  <div class="jumbotron" *ngIf="!readme">
+    <h1>Sol Standard</h1>
+    <p>
+      Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
+      There are several classes of units available, as well as computer-controlled monsters.
+      Plenty of items and interactable tiles allow for different gameplay experiences on different battle maps.
+    </p>
+  </div>
+  <div id="solstandard-readme" class="readme" [innerHTML]="readme"></div>
+</div>
+
+<!--TODO Move unit listings here. 
+  In-line the unit detail page dynamically upon selecting a unit 
+  and show it to the right on desktop, or up above on mobile.-->
+
+<!--TODO Move the Feature list down here and remove the Features page.-->

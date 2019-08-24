@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private githubService: GithubService) { }
 
   ngOnInit() {
-    this.githubService.getReadme().subscribe(response => this.readme = response);
+    // this.githubService.getReadme().subscribe(response => this.readme = response);
   }
 
 }
