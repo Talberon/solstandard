@@ -9,11 +9,10 @@ import { CreditsRoutingModule } from './credits/credits-routing.module';
 import { CreditsModule } from './credits/credits.module';
 import { EasterEggRoutingModule } from './easter-egg/easter-egg-routing.module';
 import { EasterEggModule } from './easter-egg/easter-egg.module';
-import { FeaturesRoutingModule } from './features/features-routing.module';
-import { FeaturesModule } from './features/features.module';
 import { GithubRoutingModule } from './github/github-routing.module';
 import { GithubModule } from './github/github.module';
 import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
 import { MediaComponent } from './media/media.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UiModule } from './ui/ui.module';
@@ -30,7 +29,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     MediaComponent,
     PageNotFoundComponent
   ],
@@ -40,15 +38,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     CarouselModule.forRoot(),
-    FeaturesModule,
-    FeaturesRoutingModule,
     EasterEggModule,
     EasterEggRoutingModule,
     GithubModule,
     GithubRoutingModule,
     MarkdownModule.forRoot(),
     CreditsModule,
-    CreditsRoutingModule
+    CreditsRoutingModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

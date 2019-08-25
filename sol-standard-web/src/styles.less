@@ -2,24 +2,33 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
-@panel-highlight : rgb(100, 100, 100);
+@panel-highlight   : rgb(100, 100, 100);
+@content-background: rgb(29, 31, 35);
+@corner-rounding   : 0.3rem;
 
 body {
     color: rgb(217, 215, 211);
 }
 
 .container {
-    border-radius: 0.3rem;
+    border-radius: @corner-rounding;
     padding      : 1rem;
 
     &.main {
-        background   : rgba(40, 40, 40, 0.6);
+        background   : @content-background;
         margin-bottom: 4em;
     }
 }
 
+.content-zone {
+    background   : @content-background;
+    border-radius: @corner-rounding;
+    padding      : 1em;
+    margin-bottom: 2em;
+}
+
 .jumbotron {
-    background: rgb(29, 31, 35);
+    background: @content-background;
 }
 
 .centered {
@@ -51,5 +60,5 @@ body {
 }
 
 .primary-background {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(43, 50, 56);
 }

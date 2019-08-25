@@ -1,5 +1,6 @@
 import { BannerSize } from './../../model/banner-size';
 import { Component, OnInit, Input } from '@angular/core';
+import { ReleaseInfo, GithubService } from 'src/app/github/github.service';
 
 @Component({
   selector: 'app-title-banner',
@@ -9,6 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TitleBannerComponent implements OnInit {
 
   @Input() bannerSize: BannerSize;
+  releaseInfo: ReleaseInfo;
 
   private readonly bannerSizes = {
     [BannerSize.SMALL]: '100px',
@@ -16,8 +18,13 @@ export class TitleBannerComponent implements OnInit {
     [BannerSize.LARGE]: '300px'
   };
 
-  constructor() { }
+  constructor(private githubService: GithubService) { }
 
   ngOnInit() {
+    this.getReleaseInfo();
+  }
+
+  getReleaseInfo() {
+    this.githubService.getLatestRelease().subscribe(response => this.releaseInfo = response);
   }
 }

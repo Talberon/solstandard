@@ -1,3 +1,4 @@
+import { UiModule } from './../ui/ui.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,8 @@ import { ReleaseComponent } from './release/release.component';
   imports: [
     CommonModule,
     GithubRoutingModule,
-    MarkdownModule.forChild()
+    MarkdownModule.forChild(),
+    UiModule
   ]
 })
 export class GithubModule { }
