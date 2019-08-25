@@ -1,5 +1,6 @@
 import { GithubService } from './../../github/github.service';
 import { Component, OnInit } from '@angular/core';
+import { BannerSize } from 'src/app/model/banner-size';
 
 @Component({
   selector: 'app-credits',
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class CreditsComponent implements OnInit {
 
   credits: string;
+  bannerSize = BannerSize.MEDIUM;
 
   constructor(private githubService: GithubService) { }
 

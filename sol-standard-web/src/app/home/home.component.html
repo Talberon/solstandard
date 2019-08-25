@@ -1,17 +1,7 @@
-<div class="jumbotron jumbotron-fluid titlebar">
-  <!--TODO Add background image to jumbotron-->
-  <div class="container centered">
-    <img src="assets/images/banners/sol-standard-logo-banner.png" class="centered img-fluid" name="Sol Standard Logo" />
-    <h1 class="tagline">Arcade Tactics Action</h1>
-    <a class="btn btn-primary download-button" href="{{releaseInfo?.html_url}}" target="_blank">
-      <!--TODO Add ReleaseInfo to context-->
-      <span class="fa fa-download"></span> Download on GitHub
-    </a>
-  </div>
-</div>
+<app-title-banner [bannerSize]="bannerSize"></app-title-banner>
 
 <div class="container">
-  <div class="jumbotron" *ngIf="!readme">
+  <div class="jumbotron">
     <h1>Sol Standard</h1>
     <p>
       Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
@@ -19,11 +9,27 @@
       Plenty of items and interactable tiles allow for different gameplay experiences on different battle maps.
     </p>
   </div>
-  <div id="solstandard-readme" class="readme" [innerHTML]="readme"></div>
 </div>
 
-<!--TODO Move unit listings here. 
-  In-line the unit detail page dynamically upon selecting a unit 
-  and show it to the right on desktop, or up above on mobile.-->
+<!--TODO Add updates item to the left bottom of the initial page. 
+  Add Community panel to the right bottom linking to discord/itch-->
 
-<!--TODO Move the Feature list down here and remove the Features page.-->
+
+<!--TODO In-line the unit detail page dynamically upon selecting a unit 
+  and show it to the right on desktop, or up above on mobile.-->
+<app-features-list></app-features-list>
+
+<div class="container main">
+  <div class="row">
+    <div class="col-xl-auto">
+      <app-unit-list (selectedUnitEvent)="selectUnit($event)"></app-unit-list>
+    </div>
+    <div class="col-xl">
+      <app-unit-detail [unitId]="selectedUnitId"></app-unit-detail>
+    </div>
+  </div>
+</div>
+
+<div class="container main">
+  <app-tiles></app-tiles>
+</div>

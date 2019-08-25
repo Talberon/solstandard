@@ -2,6 +2,7 @@ import { MediaImage } from '../model/media-image';
 import { Component, OnInit } from '@angular/core';
 import { IMAGES } from '../model/media-image-list';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
+import { BannerSize } from '../model/banner-size';
 
 @Component({
   selector: 'app-media',
@@ -14,6 +15,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 export class MediaComponent implements OnInit {
 
   images: MediaImage[] = IMAGES;
+  bannerSize = BannerSize.MEDIUM;
 
   constructor() { }
 

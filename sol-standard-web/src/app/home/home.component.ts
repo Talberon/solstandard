@@ -1,5 +1,5 @@
-import { GithubService } from '../github/github.service';
 import { Component, OnInit } from '@angular/core';
+import { BannerSize } from './../model/banner-size';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   readme: string;
+  bannerSize = BannerSize.LARGE;
+  selectedUnitId: number = 1;
 
-  constructor(private githubService: GithubService) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.githubService.getReadme().subscribe(response => this.readme = response);
   }
 
+  selectUnit(unitId: number) {
+    this.selectedUnitId = unitId;
+  }
 }

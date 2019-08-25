@@ -5,13 +5,14 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { EggComponent } from './egg/egg.component';
+import { TitleBannerComponent } from './title-banner/title-banner.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, EggComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, EggComponent, TitleBannerComponent],
   imports: [
     CommonModule,
     RouterModule
   ],
-  exports: [LayoutComponent]
+  exports: [LayoutComponent, TitleBannerComponent]
 })
 export class UiModule { }

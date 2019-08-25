@@ -1,11 +1,9 @@
-import { FeaturesComponent } from './features.component';
 import { UnitDetailComponent } from './unit-detail/unit-detail.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 const featureRoutes: Routes = [
-  { path: 'features', component: FeaturesComponent },
   { path: 'features/unit/:id', component: UnitDetailComponent }
 ];
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Unit, Team, Role } from 'src/app/model/unit';
 import { UnitService } from 'src/app/features/unit.service';
 
@@ -8,6 +8,8 @@ import { UnitService } from 'src/app/features/unit.service';
   styleUrls: ['./unit-list.component.less']
 })
 export class UnitListComponent implements OnInit {
+  @Output() selectedUnitEvent = new EventEmitter<number>();
+
   units: Unit[];
   unitHovering: Map<Unit, boolean> = new Map();
 
@@ -15,6 +17,10 @@ export class UnitListComponent implements OnInit {
 
   ngOnInit() {
     this.getUnits();
+  }
+
+  selectUnit(unit: Unit) {
+    this.selectedUnitEvent.emit(unit.id);
   }
 
   getUnits() {

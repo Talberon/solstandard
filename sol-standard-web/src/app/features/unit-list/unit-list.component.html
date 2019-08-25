@@ -1,13 +1,14 @@
 <h1>Units</h1>
 <div class="unit-panel row align-items-center" *ngFor="let role of roles()">
-    <div class="col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 col-xs-12">
-        <h2 class="role">{{role}}</h2>
+    <div class="col card-column">
+        <h3 class="role">{{role}}</h3>
     </div>
-    <div class="col-auto" *ngFor="let unit of getUnitsByRole(role)">
-        <a [routerLink]="['/features/unit', unit.id]">
+    <div class="card-column" *ngFor="let unit of getUnitsByRole(role)">
+        <a (click)="selectUnit(unit)">
             <div class="card unit-card" (mouseover)="startHoverPortrait(unit)" (mouseout)="stopHoverPortrait(unit)">
                 <img *ngIf="!unitIsHovered(unit)" class="card-img-top portrait" src="{{getRedPortrait(unit)}}" />
-                <img *ngIf="unitIsHovered(unit)" class="card-img-top portrait portrait-hover" src="{{getBluePortrait(unit)}}" />
+                <img *ngIf="unitIsHovered(unit)" class="card-img-top portrait portrait-hover"
+                    src="{{getBluePortrait(unit)}}" />
                 <div class="card-body">
                     <h5 class="name card-title">{{unit.name}}</h5>
                 </div>

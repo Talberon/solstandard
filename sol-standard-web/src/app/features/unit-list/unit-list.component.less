@@ -3,7 +3,6 @@
 
 .unit-panel {
     margin-bottom: 0.2rem;
-    text-align   : right;
 
     .role {
         margin-top   : auto;
@@ -16,6 +15,11 @@
     }
 }
 
+.card-column {
+    padding-right: 5px;
+    align-content: left;
+}
+
 .card {
     width        : 7em;
     background   : @panel-background;
@@ -24,12 +28,14 @@
     margin-right : 0em;
 
     .portrait {
-        @portrait-size: 6.8em;
+        @portrait-size: 100px;
         width         : @portrait-size;
         height        : @portrait-size;
         padding-left  : auto;
         padding-right : auto;
         margin-top    : 0.3em;
+        margin-left   : auto;
+        margin-right  : auto;
     }
 
     .card-body {

@@ -1,9 +1,8 @@
+import { Component, Input, OnInit } from '@angular/core';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
-import { Component, OnInit } from '@angular/core';
-import { Unit, Team } from 'src/app/model/unit';
+import { take } from 'rxjs/operators';
+import { Team, Unit } from 'src/app/model/unit';
 import { UnitService } from '../unit.service';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-unit-detail',
@@ -15,15 +14,24 @@ import { switchMap } from 'rxjs/operators';
 })
 export class UnitDetailComponent implements OnInit {
 
+  private _unitId: number;
+
   unit: Unit;
 
-  constructor(private unitService: UnitService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private unitService: UnitService) { }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.unitService.getUnit(parseFloat(params.get('id'))))
-    ).subscribe(unit => this.unit = unit);
+    this.loadUnitDetail();
+  }
+
+  loadUnitDetail() {
+    this.unitService.getUnit(this._unitId).pipe(take(1)).subscribe(unit => this.unit = unit);
+  }
+
+  @Input()
+  set unitId(unitId: number) {
+    this._unitId = unitId;
+    this.loadUnitDetail();
   }
 
   getBluePortrait(unit: Unit): string {
