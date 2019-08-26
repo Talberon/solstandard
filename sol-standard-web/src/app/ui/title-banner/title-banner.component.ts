@@ -12,7 +12,7 @@ export class TitleBannerComponent implements OnInit {
   @Input() bannerSize: BannerSize;
   releaseInfo: ReleaseInfo;
 
-  private readonly bannerSizes = {
+  readonly bannerSizes = {
     [BannerSize.SMALL]: '100px',
     [BannerSize.MEDIUM]: '200px',
     [BannerSize.LARGE]: '300px'
