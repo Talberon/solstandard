@@ -27,17 +27,17 @@ namespace SolStandard.Map.Camera
 
         private static readonly Dictionary<ZoomLevel, float> ZoomLevels = new Dictionary<ZoomLevel, float>
         {
-            {ZoomLevel.Far, MinimumZoom},
+            {ZoomLevel.Far, FarZoom},
             {ZoomLevel.Default, DefaultZoomLevel},
-            {ZoomLevel.Close, MaximumZoom},
+            {ZoomLevel.Close, CloseZoom},
             {ZoomLevel.Combat, CombatZoom}
         };
 
         private const double FloatTolerance = 0.01;
 
-        private const float MinimumZoom = 1.4f;
+        private const float FarZoom = 1.4f;
         private const float DefaultZoomLevel = 2;
-        private const float MaximumZoom = 3;
+        private const float CloseZoom = 3;
         private const float CombatZoom = 4;
 
         private const int TopCursorThreshold = 250;

@@ -219,7 +219,7 @@ namespace SolStandard.Containers.Contexts
 
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -229,7 +229,7 @@ namespace SolStandard.Containers.Contexts
 
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -238,7 +238,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -499,7 +499,7 @@ namespace SolStandard.Containers.Contexts
         private void ReturnUnitToOriginalPosition()
         {
             SelectedUnit.UnitEntity.SnapToCoordinates(selectedUnitOriginalPosition);
-            MapContainer.MapCursor.SnapCursorToCoordinates(selectedUnitOriginalPosition);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(selectedUnitOriginalPosition);
         }
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)

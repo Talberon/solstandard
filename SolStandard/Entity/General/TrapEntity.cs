@@ -96,7 +96,7 @@ namespace SolStandard.Entity.General
                 AssetManager.CombatDamageSFX.Play();
             }
 
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
             return true;
         }
@@ -113,7 +113,7 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 

@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     MapContainer
                             .GameGrid[(int) mapLayer][(int) entity.MapCoordinates.X, (int) entity.MapCoordinates.Y] =
                         new MapDistanceTile(TileSprite, entity.MapCoordinates);
-                    GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(entity.MapCoordinates);
+                    GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(entity.MapCoordinates);
                 }
             }
         }

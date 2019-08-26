@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public abstract void ExecuteAction(MapSlice targetSlice);

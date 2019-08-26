@@ -446,6 +446,8 @@
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
+    <Compile Include="Utility\Events\Network\NextMapEvent.cs" />
+    <Compile Include="Utility\Events\Network\PreviousMapEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToActiveUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
@@ -741,6 +743,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Map_Select_04.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Map_Select_05.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

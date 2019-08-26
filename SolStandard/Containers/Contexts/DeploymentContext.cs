@@ -146,7 +146,7 @@ namespace SolStandard.Containers.Contexts
             if (deployTiles.Count == 0) return;
 
             MapEntity nextTile = deployTiles.Cast<DeployTile>().First(tile => tile.DeployTeam == CurrentTurn);
-            map.MapCursor.SnapCursorToCoordinates(nextTile.MapCoordinates);
+            map.MapCursor.SnapCameraAndCursorToCoordinates(nextTile.MapCoordinates);
             UpdateHoverView();
             AssetManager.MapUnitCancelSFX.Play();
         }

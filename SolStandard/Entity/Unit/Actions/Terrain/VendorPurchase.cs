@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) vendorCoordinates.X, (int) vendorCoordinates.Y] =
                 new MapDistanceTile(TileSprite, vendorCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(vendorCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(vendorCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using SolStandard.Containers.Contexts.WinConditions;
@@ -15,12 +17,17 @@ namespace SolStandard.Containers.Contexts
     {
         public readonly MapSelectScreenView MapSelectScreenView;
         public readonly MapContainer MapContainer;
+        private readonly List<SelectMapEntity> mapSelectEntities;
+        private SelectMapEntity currentMapEntity;
 
         public MapSelectContext(MapSelectScreenView mapSelectScreenView, MapContainer mapContainer)
         {
             MapSelectScreenView = mapSelectScreenView;
             MapContainer = mapContainer;
             MapSelectScreenView.UpdateTeamSelectWindow();
+            mapSelectEntities = MapContainer.GetMapEntities().Where(entity => entity is SelectMapEntity)
+                .Cast<SelectMapEntity>().ToList();
+            currentMapEntity = mapSelectEntities.Last();
         }
 
         public Vector2 MapCenter =>
@@ -89,6 +96,30 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MenuConfirmSFX.Play();
                 PlayMapSong(selectMapEntity);
             }
+        }
+
+        public void MoveCursorToNextMap()
+        {
+            int currentItemIndex = mapSelectEntities.IndexOf(currentMapEntity);
+
+            currentMapEntity = currentItemIndex == mapSelectEntities.Count - 1
+                ? mapSelectEntities[0]
+                : mapSelectEntities[currentItemIndex + 1];
+
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
+            HoverOverEntity();
+        }
+
+        public void MoveCursorToPreviousMap()
+        {
+            int currentItemIndex = mapSelectEntities.IndexOf(currentMapEntity);
+
+            currentMapEntity = currentItemIndex == 0
+                ? mapSelectEntities.Last()
+                : mapSelectEntities[currentItemIndex - 1];
+
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
+            HoverOverEntity();
         }
 
         private static void PlayMapSong(SelectMapEntity mapEntity)

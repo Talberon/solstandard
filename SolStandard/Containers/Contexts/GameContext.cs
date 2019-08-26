@@ -42,7 +42,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_04.tmx";
+        private const string MapSelectFile = "Map_Select_05.tmx";
 
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
@@ -188,7 +188,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void CenterCursorAndCamera()
         {
-            MapCursor.SnapCursorToCoordinates(new Vector2(
+            MapCursor.SnapCameraAndCursorToCoordinates(new Vector2(
                 (int) (MapContainer.MapGridSize.X / 2),
                 (int) (MapContainer.MapGridSize.Y / 2))
             );
@@ -243,8 +243,9 @@ namespace SolStandard.Containers.Contexts
             MapSelectContext = new MapSelectContext(new MapSelectScreenView(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
-            MapCursor.SnapCursorToCoordinates(MapSelectContext.MapCenter);
-            MapCamera.CenterCameraToCursor();
+            MapCursor.SnapCameraAndCursorToCoordinates(MapSelectContext.MapCenter);
+            MapCamera.SnapCameraCenterToCursor();
+            MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
 
             //Player 1 (Blue) always controls map select screen
             LoadInitiativeContext(mapParser, Team.Blue);

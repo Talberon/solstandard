@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     (int) switchTile.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, switchTile.MapCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(switchTile.MapCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(switchTile.MapCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

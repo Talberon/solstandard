@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions
             //Delete the origin space to prevent players standing still and wasting action.
             MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

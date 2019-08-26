@@ -46,10 +46,10 @@ namespace SolStandard.Map.Elements.Cursor
             return cursorWithinWindowBounds;
         }
 
-        public void SnapCursorToCoordinates(Vector2 coordinates)
+        public void SnapCameraAndCursorToCoordinates(Vector2 coordinates)
         {
             SnapToCoordinates(coordinates);
-            GameContext.MapCamera.StartMovingCameraToCursor();
+            GameContext.MapCamera.SnapCameraCenterToCursor();
         }
 
         public void MoveCursorInDirection(Direction direction)

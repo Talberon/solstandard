@@ -267,10 +267,20 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.TabLeft, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red));
+                GlobalEventQueue.QueueSingleEvent(new PreviousMapEvent());
             }
 
             if (controlMapper.Press(Input.TabRight, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new NextMapEvent());
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red));
+            }
+
+            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue));
             }

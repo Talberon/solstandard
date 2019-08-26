@@ -307,7 +307,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_WorldMap");
             return new Texture2DWrapper(loadTexture);
         }
 

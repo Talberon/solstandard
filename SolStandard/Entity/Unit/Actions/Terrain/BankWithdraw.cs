@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) bankCoordinates.X, (int) bankCoordinates.Y] =
                 new MapDistanceTile(TileSprite, bankCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(bankCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
         }
 
         private static WindowContentGrid GenerateActionDescription()
