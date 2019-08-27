@@ -19,6 +19,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -548,8 +549,9 @@ namespace SolStandard.Containers.Contexts
         /// Trigger all effect tiles that are set to trigger at the specified time.
         /// </summary>
         /// <param name="effectTriggerTime"></param>
+        /// <param name="isCreepEvent"></param>
         /// <returns>True if any tile can trigger this phase.</returns>
-        public static bool TriggerEffectTiles(EffectTriggerTime effectTriggerTime)
+        public static bool TriggerEffectTiles(EffectTriggerTime effectTriggerTime, bool isCreepEvent)
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
             List<IEffectTile> triggerTiles = effectTiles.Where(tile => tile.WillTrigger(effectTriggerTime)).ToList();
@@ -587,7 +589,15 @@ namespace SolStandard.Containers.Contexts
                     effectTileEvents.Enqueue(new EffectTilesStartOfRoundEvent());
                     break;
                 case EffectTriggerTime.EndOfTurn:
-                    effectTileEvents.Enqueue(new EndTurnEvent());
+                    if (isCreepEvent)
+                    {
+                        effectTileEvents.Enqueue(new CreepEndTurnEvent());
+                    }
+                    else
+                    {
+                        effectTileEvents.Enqueue(new EndTurnEvent());
+                    }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(effectTriggerTime), effectTriggerTime, null);

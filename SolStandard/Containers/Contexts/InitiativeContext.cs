@@ -202,6 +202,7 @@ namespace SolStandard.Containers.Contexts
             {
                 activeCreep.ExecuteNextRoutine();
                 GlobalEventQueue.QueueSingleEvent(new ReadyAIRoutineEvent(activeCreep));
+                //FIXME Trigger end of turn effects between creep actions
             }
         }
 
