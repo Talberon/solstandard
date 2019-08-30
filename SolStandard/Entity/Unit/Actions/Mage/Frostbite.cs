@@ -20,9 +20,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             title: "Cryomancy - Frostbite",
             damage: damage,
             maxTriggers: maxTriggers,
-            range: new[] {0},
+            range: new[] {0, 1},
             description:
-            $"Place a trap beneath you that will deal [{damage}] damage and slow units that start their turn on it." +
+            $"Place a trap that will deal [{damage}] damage and slow units that start their turn on it." +
             Environment.NewLine +
             $"Max activations: [{maxTriggers}]",
             freeAction: true

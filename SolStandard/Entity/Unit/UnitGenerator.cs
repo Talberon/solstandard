@@ -110,7 +110,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectPugilistStats()
         {
-            return new UnitStatistics(hp: 10, armor: 5, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -140,7 +140,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectCavalierStats()
         {
-            return new UnitStatistics(hp: 9, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 8, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -281,7 +281,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new Execute(50),
+                new Execute(75),
                 new Venom(2, 2),
                 new Sprint(2),
                 new Guard(3),
@@ -321,7 +321,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new FlowStrike(40, flowStackDuration),
+                new FlowStrike(50, flowStackDuration),
                 new Uppercut(),
                 new Suplex(),
                 new Meditate(),
@@ -359,7 +359,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Recover(3),
+                new Recover(4),
                 new Bulwark(2, 2),
                 new Atrophy(2, 2),
                 new Cleanse(),
@@ -378,7 +378,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Guillotine(40),
+                new Guillotine(50),
                 new Rage(2, 3),
                 new Grapple(),
                 new Brace(2),
@@ -404,7 +404,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdAngelicAssault(5));
+            if (isCommander) skills.Insert(1, new CmdAngelicAssault(4));
 
             return skills;
         }
@@ -418,12 +418,12 @@ namespace SolStandard.Entity.Unit
                 new Bloodthirst(1),
                 new Inspire(2, 1),
                 new Shove(),
-                new Sprint(3),
+                new Gallop(3),
                 new Guard(3),
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 1));
+            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 2));
 
             return skills;
         }
@@ -434,7 +434,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new ThrowingKnife(),
-                new BetwixtPlate(70),
+                new BetwixtPlate(75),
                 new Rend(3, 3),
                 new Rob(),
                 new PickDoorLock(10),

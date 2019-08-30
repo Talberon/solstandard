@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -19,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         public Gallop(int gallopDistance) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Gallop, GameDriver.CellSizeVector),
             name: "Gallop",
-            description: "Dash towards an enemy target as a free action! Cannot move through obstacles or other units.",
+            description: "Dash towards an enemy target as a free action!" + Environment.NewLine +
+                         "Cannot move through obstacles or other units.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
             freeAction: true
