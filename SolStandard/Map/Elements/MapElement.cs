@@ -79,8 +79,17 @@ namespace SolStandard.Map.Elements
                 UpdateCoordinatesToPosition(CurrentDrawCoordinates, SlideSpeed, MapPixelCoordinates);
         }
 
-        private Vector2 DrawOffset =>
-            GameDriver.CellSizeVector / 2 - new Vector2(Sprite.Width, Sprite.Height) / 2;
+        private Vector2 DrawOffset
+        {
+            get
+            {
+                Vector2 spriteSize = new Vector2(Sprite.Width, Sprite.Height);
+
+                if (spriteSize == GameDriver.CellSizeVector) return Vector2.Zero;
+
+                return GameDriver.CellSizeVector / 2 - spriteSize / 2;
+            }
+        }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

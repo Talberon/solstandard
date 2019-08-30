@@ -73,7 +73,7 @@ namespace SolStandard.Map.Camera
         public Vector2 TargetPosition => targetPosition;
 
         public Matrix CameraMatrix =>
-            Matrix.CreateTranslation(currentPosition.X, currentPosition.Y, 0) *
+            Matrix.CreateTranslation((int) currentPosition.X, (int) currentPosition.Y, 0) *
             Matrix.CreateScale(new Vector3(CurrentZoom, CurrentZoom, 1));
 
         public void RevertToPreviousZoomLevel()

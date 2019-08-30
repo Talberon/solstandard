@@ -284,6 +284,8 @@ namespace SolStandard.Containers.Contexts
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue));
             }
+
+            CameraControl(controlMapper);
         }
 
         private static void MapControls(ControlMapper controlMapper)
