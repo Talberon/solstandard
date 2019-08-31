@@ -2220,7 +2220,7 @@
   </object>
   <object id="954" name="Box" type="Pushable" gid="5635" x="512" y="320" width="32" height="32"/>
   <object id="955" name="Box" type="Pushable" gid="5635" x="448" y="320" width="32" height="32"/>
-  <object id="956" name="To Fortress SE" type="Portal" gid="6608" x="192" y="160" width="32" height="32">
+  <object id="956" name="To Fortress SE" type="Portal" gid="6685" x="192" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Fortress NW"/>
    </properties>
@@ -2241,12 +2241,12 @@
   <object id="961" name="Stump" type="BreakableObstacle" gid="4600" x="928" y="448" width="32" height="32"/>
   <object id="962" name="Stump" type="BreakableObstacle" gid="4600" x="64" y="224" width="32" height="32"/>
   <object id="963" name="Stump" type="BreakableObstacle" gid="4600" x="32" y="288" width="32" height="32"/>
-  <object id="964" name="To Fortress SE" type="Portal" gid="6608" x="160" y="160" width="32" height="32">
+  <object id="964" name="To Fortress SE" type="Portal" gid="6685" x="160" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Fortress NW"/>
    </properties>
   </object>
-  <object id="965" name="To Fortress SE" type="Portal" gid="6608" x="224" y="160" width="32" height="32">
+  <object id="965" name="To Fortress SE" type="Portal" gid="6685" x="224" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Fortress NW"/>
    </properties>
@@ -2296,7 +2296,7 @@
     <property name="isOpen" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="992" name="To Shed NE" type="Portal" gid="6607" x="64" y="384" width="32" height="32">
+  <object id="992" name="To Shed NE" type="Portal" gid="6686" x="64" y="384" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Shed SW"/>
    </properties>
@@ -2311,7 +2311,7 @@
     <property name="destinationId" value="To Shed NE"/>
    </properties>
   </object>
-  <object id="995" name="To Shed NE" type="Portal" gid="6610" x="96" y="384" width="32" height="32">
+  <object id="995" name="To Shed NE" type="Portal" gid="6686" x="96" y="384" width="32" height="32">
    <properties>
     <property name="destinationId" value="To Shed SW"/>
    </properties>

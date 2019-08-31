@@ -2482,32 +2482,32 @@
     <property name="item" value="Arcane Flint"/>
    </properties>
   </object>
-  <object id="1008" name="NE Stairs" type="Portal" gid="6607" x="896" y="128" width="32" height="32">
+  <object id="1008" name="NE Stairs" type="Portal" gid="6686" x="896" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="1009" name="NE Stairs" type="Portal" gid="6607" x="864" y="128" width="32" height="32">
+  <object id="1009" name="NE Stairs" type="Portal" gid="6686" x="864" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="1010" name="NE Stairs" type="Portal" gid="6607" x="928" y="128" width="32" height="32">
+  <object id="1010" name="NE Stairs" type="Portal" gid="6686" x="928" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="1011" name="SW Stairs" type="Portal" gid="6608" x="224" y="640" width="32" height="32">
+  <object id="1011" name="SW Stairs" type="Portal" gid="6677" x="224" y="640" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="1012" name="SW Stairs" type="Portal" gid="6608" x="256" y="640" width="32" height="32">
+  <object id="1012" name="SW Stairs" type="Portal" gid="6677" x="256" y="640" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="1013" name="SW Stairs" type="Portal" gid="6608" x="192" y="640" width="32" height="32">
+  <object id="1013" name="SW Stairs" type="Portal" gid="6677" x="192" y="640" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>

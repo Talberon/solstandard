@@ -2029,42 +2029,42 @@
     <property name="triggersId" value="Fire Trap E"/>
    </properties>
   </object>
-  <object id="1195" name="Path to NW" type="Portal" gid="6607" x="608" y="480" width="32" height="32">
+  <object id="1195" name="Path to NW" type="Portal" gid="6678" x="608" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to SE"/>
    </properties>
   </object>
-  <object id="1196" name="Path to NW" type="Portal" gid="6607" x="640" y="480" width="32" height="32">
+  <object id="1196" name="Path to NW" type="Portal" gid="6678" x="640" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to SE"/>
    </properties>
   </object>
-  <object id="1197" name="Path to NW" type="Portal" gid="6607" x="704" y="480" width="32" height="32">
+  <object id="1197" name="Path to NW" type="Portal" gid="6678" x="704" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to SE"/>
    </properties>
   </object>
-  <object id="1198" name="Path to NW" type="Portal" gid="6607" x="672" y="480" width="32" height="32">
+  <object id="1198" name="Path to NW" type="Portal" gid="6678" x="672" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to SE"/>
    </properties>
   </object>
-  <object id="1199" name="Path to SE" type="Portal" gid="6610" x="32" y="64" width="32" height="32">
+  <object id="1199" name="Path to SE" type="Portal" gid="6686" x="32" y="64" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to NW"/>
    </properties>
   </object>
-  <object id="1200" name="Path to SE" type="Portal" gid="6610" x="64" y="64" width="32" height="32">
+  <object id="1200" name="Path to SE" type="Portal" gid="6686" x="64" y="64" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to NW"/>
    </properties>
   </object>
-  <object id="1201" name="Path to SE" type="Portal" gid="6610" x="128" y="64" width="32" height="32">
+  <object id="1201" name="Path to SE" type="Portal" gid="6686" x="128" y="64" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to NW"/>
    </properties>
   </object>
-  <object id="1202" name="Path to SE" type="Portal" gid="6610" x="96" y="64" width="32" height="32">
+  <object id="1202" name="Path to SE" type="Portal" gid="6686" x="96" y="64" width="32" height="32">
    <properties>
     <property name="destinationId" value="Path to NW"/>
    </properties>

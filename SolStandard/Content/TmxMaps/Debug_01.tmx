@@ -1964,7 +1964,7 @@
     <property name="HP" type="int" value="2"/>
    </properties>
   </object>
-  <object id="654" name="Stairs A1" type="Portal" gid="6607" x="224" y="480" width="32" height="32">
+  <object id="654" name="Stairs A1" type="Portal" gid="6678" x="224" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A2"/>
    </properties>
@@ -2035,7 +2035,7 @@
     <property name="capturableByRed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="699" name="Stairs A1" type="Portal" gid="6610" x="256" y="480" width="32" height="32">
+  <object id="699" name="Stairs A1" type="Portal" gid="6678" x="256" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Stairs A2"/>
    </properties>

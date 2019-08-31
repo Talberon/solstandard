@@ -3093,32 +3093,32 @@
     <property name="gold" type="int" value="5"/>
    </properties>
   </object>
-  <object id="877" name="Staircase [B]" type="Portal" gid="6647" x="928" y="480" width="32" height="32">
+  <object id="877" name="Staircase [B]" type="Portal" gid="366" x="928" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [A]"/>
    </properties>
   </object>
-  <object id="878" name="Staircase [B]" type="Portal" gid="6647" x="960" y="480" width="32" height="32">
+  <object id="878" name="Staircase [B]" type="Portal" gid="366" x="960" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [A]"/>
    </properties>
   </object>
-  <object id="879" name="Staircase [B]" type="Portal" gid="6647" x="992" y="480" width="32" height="32">
+  <object id="879" name="Staircase [B]" type="Portal" gid="366" x="992" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [A]"/>
    </properties>
   </object>
-  <object id="880" name="Staircase [A]" type="Portal" gid="6647" x="352" y="128" width="32" height="32">
+  <object id="880" name="Staircase [A]" type="Portal" gid="366" x="352" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [B]"/>
    </properties>
   </object>
-  <object id="881" name="Staircase [A]" type="Portal" gid="6647" x="320" y="128" width="32" height="32">
+  <object id="881" name="Staircase [A]" type="Portal" gid="366" x="320" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [B]"/>
    </properties>
   </object>
-  <object id="882" name="Staircase [A]" type="Portal" gid="6647" x="288" y="128" width="32" height="32">
+  <object id="882" name="Staircase [A]" type="Portal" gid="366" x="288" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="Staircase [B]"/>
    </properties>

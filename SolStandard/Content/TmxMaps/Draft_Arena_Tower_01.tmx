@@ -7,6 +7,7 @@
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
  <tileset firstgid="680" source="overworld-32.tsx"/>
+ <tileset firstgid="6960" source="entities-32.tsx"/>
  <layer id="17" name="Terrain" width="35" height="43">
   <data>
    <tile gid="6160"/>
@@ -4555,22 +4556,22 @@
     <property name="destinationId" value="2-1F Stairs"/>
    </properties>
   </object>
-  <object id="851" name="2-1F Stairs" type="Portal" gid="6649" x="800" y="608" width="32" height="32">
+  <object id="851" name="2-1F Stairs" type="Portal" gid="7247" x="800" y="608" width="32" height="32">
    <properties>
     <property name="destinationId" value="1-2F Stairs"/>
    </properties>
   </object>
-  <object id="852" name="2-1F Stairs" type="Portal" gid="6649" x="768" y="608" width="32" height="32">
+  <object id="852" name="2-1F Stairs" type="Portal" gid="7247" x="768" y="608" width="32" height="32">
    <properties>
     <property name="destinationId" value="1-2F Stairs"/>
    </properties>
   </object>
-  <object id="853" name="2-1F Stairs" type="Portal" gid="6649" x="768" y="640" width="32" height="32">
+  <object id="853" name="2-1F Stairs" type="Portal" gid="7247" x="768" y="640" width="32" height="32">
    <properties>
     <property name="destinationId" value="1-2F Stairs"/>
    </properties>
   </object>
-  <object id="854" name="2-1F Stairs" type="Portal" gid="6649" x="800" y="640" width="32" height="32">
+  <object id="854" name="2-1F Stairs" type="Portal" gid="7247" x="800" y="640" width="32" height="32">
    <properties>
     <property name="destinationId" value="1-2F Stairs"/>
    </properties>

@@ -3267,12 +3267,12 @@
     <property name="destinationId" value="East Gate Stairs [B]"/>
    </properties>
   </object>
-  <object id="966" name="East Gate Stairs [B]" type="Portal" gid="291" x="832" y="416" width="32" height="32">
+  <object id="966" name="East Gate Stairs [B]" type="Portal" gid="7318" x="832" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="East Gate Stairs [A]"/>
    </properties>
   </object>
-  <object id="967" name="East Gate Stairs [B]" type="Portal" gid="7247" x="864" y="416" width="32" height="32">
+  <object id="967" name="East Gate Stairs [B]" type="Portal" gid="7318" x="864" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="East Gate Stairs [A]"/>
    </properties>
@@ -3287,12 +3287,12 @@
     <property name="destinationId" value="West Gate Stairs [B]"/>
    </properties>
   </object>
-  <object id="974" name="West Gate Stairs [B]" type="Portal" gid="291" x="224" y="416" width="32" height="32">
+  <object id="974" name="West Gate Stairs [B]" type="Portal" gid="7318" x="224" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="West Gate Stairs [A]"/>
    </properties>
   </object>
-  <object id="975" name="West Gate Stairs [B]" type="Portal" gid="7247" x="256" y="416" width="32" height="32">
+  <object id="975" name="West Gate Stairs [B]" type="Portal" gid="7318" x="256" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="West Gate Stairs [A]"/>
    </properties>

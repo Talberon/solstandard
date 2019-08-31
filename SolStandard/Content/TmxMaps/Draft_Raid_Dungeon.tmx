@@ -1644,12 +1644,12 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="859" name="NE Stairs" type="Portal" gid="2965" x="800" y="160" width="32" height="32">
+  <object id="859" name="NE Stairs" type="Portal" gid="5437" x="800" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="860" name="SW Stairs" type="Portal" gid="2965" x="96" y="448" width="32" height="32">
+  <object id="860" name="SW Stairs" type="Portal" gid="5438" x="96" y="448" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
@@ -1746,22 +1746,22 @@
     <property name="quantities" value="2|2|2|2|2"/>
    </properties>
   </object>
-  <object id="909" name="NE Stairs" type="Portal" gid="2965" x="800" y="192" width="32" height="32">
+  <object id="909" name="NE Stairs" type="Portal" gid="5437" x="800" y="192" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="910" name="NE Stairs" type="Portal" gid="2965" x="800" y="128" width="32" height="32">
+  <object id="910" name="NE Stairs" type="Portal" gid="5437" x="800" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="911" name="SW Stairs" type="Portal" gid="2965" x="96" y="416" width="32" height="32">
+  <object id="911" name="SW Stairs" type="Portal" gid="5438" x="96" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="912" name="SW Stairs" type="Portal" gid="2965" x="96" y="480" width="32" height="32">
+  <object id="912" name="SW Stairs" type="Portal" gid="5438" x="96" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
@@ -2001,6 +2001,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2029,6 +2030,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2057,6 +2059,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2237,6 +2240,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2265,6 +2269,7 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2293,12 +2298,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6891"/>
    <tile/>
    <tile/>
    <tile/>
