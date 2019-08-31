@@ -219,6 +219,7 @@
     <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\CmdCoursingRiver.cs" />
+    <Compile Include="Entity\Unit\Actions\Pugilist\StemTheTide.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Suplex.cs" />
@@ -658,6 +659,9 @@
     <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Arena_Grassland_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -739,13 +743,10 @@
     <Content Include="Content\TmxMaps\entities-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Map_Select_03.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Map_Select_04.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Map_Select_05.tmx">
+    <Content Include="Content\TmxMaps\Map_Select_03.tmx" />
+    <Content Include="Content\TmxMaps\Map_Select_04.tmx" />
+    <Content Include="Content\TmxMaps\Map_Select_05.tmx" />
+    <Content Include="Content\TmxMaps\Map_Select_06.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\objecttypes.xml">

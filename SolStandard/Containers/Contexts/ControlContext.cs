@@ -265,12 +265,12 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
             }
 
-            if (controlMapper.Press(Input.TabLeft, PressType.Single))
+            if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new PreviousMapEvent());
             }
 
-            if (controlMapper.Press(Input.TabRight, PressType.Single))
+            if (controlMapper.Press(Input.TabRight, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new NextMapEvent());
             }

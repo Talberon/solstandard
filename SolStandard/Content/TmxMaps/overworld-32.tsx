@@ -2412,7 +2412,7 @@
    <wangtile tileid="4402" wangid="0x1020102"/>
    <wangtile tileid="4403" wangid="0x1020202"/>
   </wangset>
-  <wangset name="Wall Grey Dungeon" tile="5760">
+  <wangset name="Dungeon Wall Grey" tile="5760">
    <wangedgecolor name="" color="#ff0000" tile="5682" probability="1"/>
    <wangedgecolor name="" color="#00ff00" tile="5640" probability="1"/>
    <wangtile tileid="5640" wangid="0x2020202"/>
@@ -2432,7 +2432,7 @@
    <wangtile tileid="5762" wangid="0x1010102"/>
    <wangtile tileid="5763" wangid="0x2010101"/>
   </wangset>
-  <wangset name="Wall Brown Dungeon" tile="5688">
+  <wangset name="Dungeon Wall Brown" tile="5688">
    <wangedgecolor name="" color="#ff0000" tile="5688" probability="1"/>
    <wangedgecolor name="" color="#00ff00" tile="5645" probability="1"/>
    <wangtile tileid="5645" wangid="0x2020202"/>
@@ -2614,6 +2614,46 @@
    <wangtile tileid="6241" wangid="0x1010201"/>
    <wangtile tileid="6242" wangid="0x1010102"/>
    <wangtile tileid="6243" wangid="0x2010101"/>
+  </wangset>
+  <wangset name="Dungeon Pit Grey" tile="5417">
+   <wangedgecolor name="" color="#ff0000" tile="5456" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="5455" probability="1"/>
+   <wangtile tileid="5334" wangid="0x2010102"/>
+   <wangtile tileid="5335" wangid="0x1010102"/>
+   <wangtile tileid="5336" wangid="0x1010202"/>
+   <wangtile tileid="5374" wangid="0x2010101"/>
+   <wangtile tileid="5376" wangid="0x1010201"/>
+   <wangtile tileid="5414" wangid="0x2020101"/>
+   <wangtile tileid="5415" wangid="0x1020101"/>
+   <wangtile tileid="5416" wangid="0x1020201"/>
+   <wangtile tileid="5417" wangid="0x2010202"/>
+   <wangtile tileid="5418" wangid="0x2020201"/>
+   <wangtile tileid="5452" wangid="0x2010201"/>
+   <wangtile tileid="5453" wangid="0x1020102"/>
+   <wangtile tileid="5455" wangid="0x2020202"/>
+   <wangtile tileid="5456" wangid="0x1010101"/>
+   <wangtile tileid="5457" wangid="0x2020102"/>
+   <wangtile tileid="5458" wangid="0x1020202"/>
+  </wangset>
+  <wangset name="Dungeon Pit Brown" tile="5577">
+   <wangedgecolor name="" color="#ff0000" tile="5616" probability="1"/>
+   <wangedgecolor name="" color="#00ff00" tile="5615" probability="1"/>
+   <wangtile tileid="5494" wangid="0x2010102"/>
+   <wangtile tileid="5495" wangid="0x1010102"/>
+   <wangtile tileid="5496" wangid="0x1010202"/>
+   <wangtile tileid="5534" wangid="0x2010101"/>
+   <wangtile tileid="5536" wangid="0x1010201"/>
+   <wangtile tileid="5574" wangid="0x2020101"/>
+   <wangtile tileid="5575" wangid="0x1020101"/>
+   <wangtile tileid="5576" wangid="0x1020201"/>
+   <wangtile tileid="5577" wangid="0x2010202"/>
+   <wangtile tileid="5578" wangid="0x2020201"/>
+   <wangtile tileid="5612" wangid="0x2010201"/>
+   <wangtile tileid="5613" wangid="0x1020102"/>
+   <wangtile tileid="5615" wangid="0x2020202"/>
+   <wangtile tileid="5616" wangid="0x1010101"/>
+   <wangtile tileid="5617" wangid="0x2020102"/>
+   <wangtile tileid="5618" wangid="0x1020202"/>
   </wangset>
  </wangsets>
 </tileset>

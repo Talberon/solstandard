@@ -251,7 +251,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 2, new[] {1, 2, 3}));
+            if (isCommander) skills.Insert(1, new CmdWarmaster(5, 3, new[] {1, 2, 3}));
 
             return skills;
         }
@@ -323,9 +323,9 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new FlowStrike(50, flowStackDuration),
                 new Uppercut(),
-                new Suplex(),
+                new StemTheTide(2),
                 new Meditate(),
-                new Sprint(2),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };

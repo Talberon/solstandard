@@ -324,6 +324,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
@@ -482,6 +483,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/StemTheTide"),
                 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rend"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rob"),

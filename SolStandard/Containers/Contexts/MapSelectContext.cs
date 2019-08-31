@@ -108,6 +108,7 @@ namespace SolStandard.Containers.Contexts
 
             GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
             HoverOverEntity();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         public void MoveCursorToPreviousMap()
@@ -120,6 +121,7 @@ namespace SolStandard.Containers.Contexts
 
             GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
             HoverOverEntity();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         private static void PlayMapSong(SelectMapEntity mapEntity)

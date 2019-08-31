@@ -2577,6 +2577,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Skill/Solo.png
 
+#begin Graphics/Images/Icons/Skill/StemTheTide.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Skill/StemTheTide.png
+
 #begin Graphics/Images/Icons/Skill/Stun.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3524,6 +3536,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01.png
+
+#begin Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02.png
 
 #begin Graphics/Map/MapPreviews/Draft_Arena_Grassland_01.png
 /importer:TextureImporter
