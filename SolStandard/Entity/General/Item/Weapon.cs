@@ -92,7 +92,8 @@ namespace SolStandard.Entity.General.Item
                         new RenderBlank()
                     }
                 },
-                3
+                3,
+                HorizontalAlignment.Centered
             );
     }
 }
