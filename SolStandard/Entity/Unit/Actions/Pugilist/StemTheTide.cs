@@ -40,8 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                             (FlowStatus) targetUnit.StatusEffects.First(status => status is FlowStatus);
                         int amountToRegenerate = statusToRemove.FlowStacks * multiplier;
 
-                        targetUnit.StatusEffects.Remove(statusToRemove);
-
+                        GlobalEventQueue.QueueSingleEvent(new RemoveStatusEffectEvent(targetUnit, statusToRemove));
                         GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(targetUnit, amountToRegenerate));
                         GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
                         GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
