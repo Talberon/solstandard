@@ -23,8 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         private ActionPhase currentPhase = ActionPhase.SelectTarget;
 
         public Fleche() : base(
-            //TODO New Icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fleche, GameDriver.CellSizeVector),
             name: "Fleche",
             description: $"Move to any side of a target unit in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

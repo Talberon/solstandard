@@ -70,7 +70,10 @@ namespace SolStandard.Utility.Assets
         Rend,
         PickLock,
         ThrowingKnife,
-        StemTheTide
+        StemTheTide,
+        EnGarde,
+        CorpsACorps,
+        Fleche
     }
 
     public static class SkillIconProvider
@@ -150,6 +153,9 @@ namespace SolStandard.Utility.Assets
             ITexture2D pickLock = skillIconTextures.Find(texture => texture.Name.EndsWith("PickLock"));
             ITexture2D throwingKnife = skillIconTextures.Find(texture => texture.Name.EndsWith("ThrowingKnife"));
             ITexture2D stemTheTide = skillIconTextures.Find(texture => texture.Name.EndsWith("StemTheTide"));
+            ITexture2D enGarde = skillIconTextures.Find(texture => texture.Name.EndsWith("EnGarde"));
+            ITexture2D corpsACorps = skillIconTextures.Find(texture => texture.Name.EndsWith("CorpsACorps"));
+            ITexture2D fleche = skillIconTextures.Find(texture => texture.Name.EndsWith("Fleche"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
@@ -217,7 +223,10 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Rend, rend},
                 {SkillIcon.PickLock, pickLock},
                 {SkillIcon.ThrowingKnife, throwingKnife},
-                {SkillIcon.StemTheTide, stemTheTide}
+                {SkillIcon.StemTheTide, stemTheTide},
+                {SkillIcon.EnGarde, enGarde},
+                {SkillIcon.CorpsACorps, corpsACorps},
+                {SkillIcon.Fleche, fleche},
             };
         }
     }

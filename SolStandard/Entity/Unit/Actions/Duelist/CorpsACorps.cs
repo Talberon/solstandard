@@ -6,8 +6,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
     public class CorpsACorps : Charge
     {
         public CorpsACorps(int chargeDistance) : base(
-            //TODO New Icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.CorpsACorps, GameDriver.CellSizeVector),
             skillName: "Corps-a-corps",
             chargeDistance: chargeDistance
         )

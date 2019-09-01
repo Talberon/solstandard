@@ -13,8 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         private readonly int blockBonus;
 
         public EnGarde(int blockBonus) : base(
-            //TODO New Icon
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.EnGarde, GameDriver.CellSizeVector),
             name: "En Garde",
             description:
             $"Attack a target while applying a temporary [+{blockBonus} {UnitStatistics.Abbreviation[Stats.Block]}] bonus to self.",

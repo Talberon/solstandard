@@ -498,6 +498,10 @@ namespace SolStandard.Utility.Load
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Horseshoe"),
+                
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/EnGarde"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/CorpsACorps"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fleche"),
                 //AI Routine Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Prey"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),
