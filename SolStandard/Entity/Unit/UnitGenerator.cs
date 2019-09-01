@@ -78,51 +78,10 @@ namespace SolStandard.Entity.Unit
 
         //UNITS
 
-        private static UnitStatistics SelectArcherStats()
-        {
-            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2},
-                maxCmd: 5);
-        }
 
         private static UnitStatistics SelectChampionStats()
         {
             return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectMageStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 4, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectLancerStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 7, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectBardStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 4, atk: 3, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectPugilistStats()
-        {
-            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectDuelistStats()
-        {
-            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
-                maxCmd: 5);
-        }
-
-        private static UnitStatistics SelectClericStats()
-        {
-            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2},
                 maxCmd: 5);
         }
 
@@ -138,23 +97,66 @@ namespace SolStandard.Entity.Unit
                 maxCmd: 5);
         }
 
+        private static UnitStatistics SelectBardStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 4, atk: 3, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectClericStats()
+        {
+            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
         private static UnitStatistics SelectCavalierStats()
         {
-            return new UnitStatistics(hp: 8, armor: 7, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 8, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectDuelistStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 5, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectPugilistStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectLancerStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectRogueStats()
         {
-            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 8, armor: 7, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
+
+        private static UnitStatistics SelectArcherStats()
+        {
+            return new UnitStatistics(hp: 7, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectMageStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 4, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
 
         //PETS
 
         private static UnitStatistics SelectBoarStats()
         {
-            return new UnitStatistics(hp: 5, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
+            return new UnitStatistics(hp: 5, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -281,7 +283,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new Execute(75),
+                new Execute(50, 3, 1),
                 new Venom(2, 2),
                 new Sprint(2),
                 new Guard(3),
@@ -321,9 +323,9 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new FlowStrike(50, flowStackDuration),
+                new FlowStrike(75, flowStackDuration),
                 new Uppercut(),
-                new StemTheTide(2),
+                new StemTheTide(2, flowStackDuration),
                 new Meditate(),
                 new Sprint(3),
                 new Guard(3),
@@ -359,7 +361,7 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Recover(4),
+                new Recover(3),
                 new Bulwark(2, 2),
                 new Atrophy(2, 2),
                 new Cleanse(),
@@ -415,10 +417,10 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Charge(4),
-                new Bloodthirst(1),
+                new Bloodthirst(2),
+                new PhaseStrike(),
                 new Inspire(2, 1),
-                new Shove(),
-                new Gallop(3),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };

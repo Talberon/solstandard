@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses.Pugilist;
@@ -11,19 +12,22 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
     public class StemTheTide : UnitAction
     {
-        private readonly int multiplier;
+        private readonly int recoveryPerStack;
+        private readonly int flowDuration;
 
-        public StemTheTide(int multiplier) : base(
+        public StemTheTide(int recoveryPerStack, int flowDuration) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.StemTheTide, GameDriver.CellSizeVector),
             name: "Stem the Tide",
             description:
-            $"Remove all stacks of {FlowStrike.BuffName} and regenerate {multiplier} {UnitStatistics.Abbreviation[Stats.Armor]} for every stack.",
+            $"Remove a stack of {FlowStrike.BuffName} and regenerate {recoveryPerStack} {UnitStatistics.Abbreviation[Stats.Armor]}." +
+            Environment.NewLine + $"Resets {FlowStrike.BuffName} status duration to {flowDuration}T.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
             freeAction: true
         )
         {
-            this.multiplier = multiplier;
+            this.recoveryPerStack = recoveryPerStack;
+            this.flowDuration = flowDuration;
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -38,10 +42,26 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                     {
                         FlowStatus statusToRemove =
                             (FlowStatus) targetUnit.StatusEffects.First(status => status is FlowStatus);
-                        int amountToRegenerate = statusToRemove.FlowStacks * multiplier;
+                        int currentFlowStacks = statusToRemove.FlowStacks;
 
                         GlobalEventQueue.QueueSingleEvent(new RemoveStatusEffectEvent(targetUnit, statusToRemove));
-                        GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(targetUnit, amountToRegenerate));
+
+                        if (currentFlowStacks > 1)
+                        {
+                            GlobalEventQueue.QueueSingleEvent(
+                                new CastStatusEffectEvent(
+                                    targetUnit,
+                                    new FlowStatus(
+                                        FlowStrike.BuffIcon,
+                                        flowDuration,
+                                        currentFlowStacks - 1,
+                                        FlowStrike.BuffName
+                                    )
+                                )
+                            );
+                        }
+
+                        GlobalEventQueue.QueueSingleEvent(new RegenerateArmorEvent(targetUnit, recoveryPerStack));
                         GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
                         GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
                     }

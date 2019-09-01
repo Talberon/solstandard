@@ -17,12 +17,14 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
     public class FlowStrike : UnitAction
     {
         public const string BuffName = "Flow";
+        public static readonly IRenderable BuffIcon =
+            SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, GameDriver.CellSizeVector);
 
         private readonly int percent;
         private readonly int buffDuration;
 
         public FlowStrike(int percent, int buffDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, GameDriver.CellSizeVector),
+            icon: BuffIcon,
             name: "Flow Strike",
             description: "Grants a stack of " + BuffName + ", then attacks a unit for " + percent +
                          "% damage (rounded up)." + Environment.NewLine +

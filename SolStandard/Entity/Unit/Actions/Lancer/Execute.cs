@@ -15,21 +15,23 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 {
     public class Execute : UnitAction
     {
-        private readonly int percent;
+        private readonly int damagePercent;
+        private readonly int buffDuration;
+        private readonly int atkModifier;
 
-        public Execute(int percent) : base(
+        public Execute(int damagePercent, int buffDuration, int atkModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Assassinate, GameDriver.CellSizeVector),
             name: "Execute",
-            description: "Attack a unit for " + percent + "% damage (rounded up)." + Environment.NewLine +
-                         "If target is defeated, regenerate all " +
-                         UnitStatistics.Abbreviation[Stats.Armor] + " and gain an " +
-                         UnitStatistics.Abbreviation[Stats.Atk] + " Up buff.",
+            description: $"Attack a unit for {damagePercent}% damage (rounded up)." + Environment.NewLine +
+                         $"If target is defeated, regenerate all {UnitStatistics.Abbreviation[Stats.Armor]} and gain a [{atkModifier} {UnitStatistics.Abbreviation[Stats.Atk]}] Up buff for {buffDuration} turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
         )
         {
-            this.percent = percent;
+            this.damagePercent = damagePercent;
+            this.buffDuration = buffDuration;
+            this.atkModifier = atkModifier;
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -43,14 +45,16 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             GameUnit attacker = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
+            int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, damagePercent);
             WeaponStatistics executionersKnife =
                 new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new ExecutionerStatus(Icon, 0)));
+                eventQueue.Enqueue(
+                    new CastStatusEffectEvent(attacker, new ExecutionerStatus(Icon, 0, buffDuration, atkModifier))
+                );
                 eventQueue.Enqueue(
                     new StartCombatEvent(
                         targetUnit,
