@@ -17,10 +17,9 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
         public Bloodthirst(int damageThreshold) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bloodthirst, GameDriver.CellSizeVector),
-            name: "Bloodthirst " + damageThreshold,
-            description: "Perform an attack against an enemy unit and recover an " +
-                         UnitStatistics.Abbreviation[Stats.Armor] + " point for every [" + damageThreshold +
-                         "] damage dealt.",
+            name: $"Bloodthirst [{damageThreshold}]",
+            description:
+            $"Attack an enemy unit and recover an {UnitStatistics.Abbreviation[Stats.Armor]} point for every [{damageThreshold}] damage dealt.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false

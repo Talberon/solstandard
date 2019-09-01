@@ -105,19 +105,19 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectClericStats()
         {
-            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2},
+            return new UnitStatistics(hp: 7, armor: 5, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectCavalierStats()
         {
-            return new UnitStatistics(hp: 8, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectDuelistStats()
         {
-            return new UnitStatistics(hp: 9, armor: 6, atk: 5, ret: 5, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 10, armor: 5, atk: 5, ret: 5, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -135,13 +135,13 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectRogueStats()
         {
-            return new UnitStatistics(hp: 7, armor: 7, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 8, armor: 6, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectArcherStats()
         {
-            return new UnitStatistics(hp: 7, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2},
+            return new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2},
                 maxCmd: 5);
         }
 
@@ -342,9 +342,11 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new FadeStrike(),
-                new PhaseStrike(),
+                new EnGarde(1),
                 new Bloodthirst(2),
+                new BetwixtPlate(75),
+                new CorpsACorps(2),
+                new Fleche(),
                 new Sprint(2),
                 new Guard(3),
                 new Focus(maxFocusPoints)
@@ -418,7 +420,6 @@ namespace SolStandard.Entity.Unit
                 new Bloodthirst(2),
                 new Inspire(2, 1),
                 new Gallop(3),
-                new Shove(),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()

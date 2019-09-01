@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
@@ -35,8 +36,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
             return new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        new RenderText(AssetManager.WindowFont,
-                            "Perform a basic attack against target based on your weapon's statistics.")
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            "Perform a basic attack against target based on your weapon's statistics." +
+                            Environment.NewLine + "Can also be used against certain terrain."
+                        )
                     },
                     {
                         stats.GenerateStatGrid(AssetManager.WindowFont)
@@ -64,7 +68,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
                     UseWeapon();
 
                     eventQueue.Enqueue(
-                        new StartCombatEvent(targetUnit, false, GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
+                        new StartCombatEvent(targetUnit, false,
+                            GameContext.ActiveUnit.Stats.ApplyWeaponStatistics(stats))
                     );
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }

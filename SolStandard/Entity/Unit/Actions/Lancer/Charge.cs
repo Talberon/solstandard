@@ -16,16 +16,24 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
     {
         private readonly int chargeDistance;
 
-        public Charge(int chargeDistance) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
-            name: "Charge",
+        public Charge(IRenderable icon, string skillName, int chargeDistance) : base(
+            icon: icon,
+            name: skillName,
             description: "Dash towards a target and attack! Cannot move through obstacles or other units.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null,
+            range: new[] {chargeDistance},
             freeAction: false
         )
         {
             this.chargeDistance = chargeDistance;
+        }
+
+        public Charge(int chargeDistance) : this(
+            SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
+            "Charge",
+            chargeDistance
+        )
+        {
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)

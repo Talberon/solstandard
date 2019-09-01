@@ -174,9 +174,13 @@
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
     <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\CorpsACorps.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\EnGarde.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\FadeStrike.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\Fleche.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
+    <Compile Include="Entity\Unit\Actions\Duelist\WeightedWoe.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\ICommandAction.cs" />

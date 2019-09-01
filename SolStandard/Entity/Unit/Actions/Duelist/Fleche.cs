@@ -10,9 +10,9 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Marauder
+namespace SolStandard.Entity.Unit.Actions.Duelist
 {
-    public class Grapple : UnitAction
+    public class Fleche : UnitAction
     {
         private enum ActionPhase
         {
@@ -21,12 +21,12 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         }
 
         private ActionPhase currentPhase = ActionPhase.SelectTarget;
-        private UnitEntity selectedUnitEntity;
 
-        public Grapple() : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Grapple, GameDriver.CellSizeVector),
-            name: "Grapple",
-            description: "Select a unit within range, then move it to an unoccupied space in range.",
+        public Fleche() : base(
+            //TODO New Icon
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.BasicAttack, GameDriver.CellSizeVector),
+            name: "Fleche",
+            description: $"Move to any side of a target unit in range.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
             freeAction: true
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     if (SelectTarget(targetSlice)) currentPhase = ActionPhase.SelectPlacementSpace;
                     break;
                 case ActionPhase.SelectPlacementSpace:
-                    if (SelectPlacementSpace(targetSlice)) currentPhase = ActionPhase.SelectTarget;
+                    if (SelectDestination(targetSlice)) currentPhase = ActionPhase.SelectTarget;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -51,7 +51,6 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
         public override void CancelAction()
         {
-            selectedUnitEntity = null;
             currentPhase = ActionPhase.SelectTarget;
             base.CancelAction();
         }
@@ -62,18 +61,10 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                if (targetUnit.IsMovable)
-                {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-                    selectedUnitEntity = targetUnit.UnitEntity;
-                    AssetManager.MenuConfirmSFX.Play();
-                    GeneratePlacementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-                    return true;
-                }
-
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
-                AssetManager.WarningSFX.Play();
-                return false;
+                MapContainer.ClearDynamicAndPreviewGrids();
+                AssetManager.MenuConfirmSFX.Play();
+                GeneratePlacementTiles(targetUnit.UnitEntity.MapCoordinates);
+                return true;
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
@@ -81,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             return false;
         }
 
-        private bool SelectPlacementSpace(MapSlice targetSlice)
+        private static bool SelectDestination(MapSlice targetSlice)
         {
             if (TargetTileCanPlaceUnit(targetSlice))
             {
@@ -89,7 +80,9 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(selectedUnitEntity, targetSlice.MapCoordinates));
+                eventQueue.Enqueue(
+                    new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
+                );
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new AdditionalActionEvent());

@@ -19,7 +19,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         public Gallop(int gallopDistance) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Gallop, GameDriver.CellSizeVector),
             name: "Gallop",
-            description: "Dash towards an enemy target as a free action!" + Environment.NewLine +
+            description: "Dash towards a target unit as a free action!" + Environment.NewLine +
                          "Cannot move through obstacles or other units.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
                 if (!Charge.PathIsObstructed(targetSlice, targetUnit))
                 {
@@ -76,7 +76,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
