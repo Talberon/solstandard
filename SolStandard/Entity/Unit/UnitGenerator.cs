@@ -81,19 +81,19 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 7, armor: 8, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectMarauderStats()
         {
-            return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 5, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 16, armor: 0, atk: 5, ret: 5, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectPaladinStats()
         {
-            return new UnitStatistics(hp: 8, armor: 8, atk: 5, ret: 6, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 7, armor: 8, atk: 5, ret: 6, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -129,13 +129,13 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectLancerStats()
         {
-            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 10, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
         private static UnitStatistics SelectRogueStats()
         {
-            return new UnitStatistics(hp: 8, armor: 7, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
+            return new UnitStatistics(hp: 7, armor: 7, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -147,7 +147,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectMageStats()
         {
-            return new UnitStatistics(hp: 8, armor: 4, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
+            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
                 maxCmd: 5);
         }
 
@@ -156,7 +156,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectBoarStats()
         {
-            return new UnitStatistics(hp: 5, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
+            return new UnitStatistics(hp: 6, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
                 maxCmd: 5);
         }
 
@@ -248,12 +248,11 @@ namespace SolStandard.Entity.Unit
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
-                new Intervention(1, 1),
                 new Guard(3),
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdWarmaster(5, 3, new[] {1, 2, 3}));
+            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 3, new[] {1, 2, 3}));
 
             return skills;
         }
@@ -400,7 +399,7 @@ namespace SolStandard.Entity.Unit
                 new BasicAttack(),
                 new Stun(1),
                 new Rampart(3, 2),
-                new Rescue(2),
+                new Intervention(1, 2),
                 new Shove(),
                 new Guard(3),
                 new Wait()
@@ -416,10 +415,10 @@ namespace SolStandard.Entity.Unit
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Charge(4),
                 new Bloodthirst(2),
-                new PhaseStrike(),
                 new Inspire(2, 1),
+                new Gallop(3),
+                new Shove(),
                 new Sprint(3),
                 new Guard(3),
                 new Wait()

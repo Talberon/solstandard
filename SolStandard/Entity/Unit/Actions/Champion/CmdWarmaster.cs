@@ -6,6 +6,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Champion
 {
@@ -30,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                          $"Costs {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
-            freeAction: false
+            freeAction: true
         )
         {
             this.cmdCost = cmdCost;
@@ -56,6 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                         GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                         currentPhase = ActionPhase.SelectTarget;
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -95,6 +97,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 if (CanMoveToTargetTile(targetSlice))
                 {
                     Sprint.MoveUnitToTargetPosition(targetUnit, targetSlice.MapCoordinates);
+                    GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
                     return true;
                 }
 

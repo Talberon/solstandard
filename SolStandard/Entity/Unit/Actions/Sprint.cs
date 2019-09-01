@@ -56,6 +56,7 @@ namespace SolStandard.Entity.Unit.Actions
                 if (CanMoveToTargetTile(targetSlice))
                 {
                     MoveUnitToTargetPosition(GameContext.ActiveUnit, targetSlice.MapCoordinates);
+                    GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }
                 else
                 {
@@ -74,13 +75,10 @@ namespace SolStandard.Entity.Unit.Actions
         {
             const bool walkThroughAllies = true;
 
-            MapContainer.ClearDynamicAndPreviewGrids();
-
             Queue<IEvent> pathingEventQueue =
                 PathingUtil.MoveToCoordinates(movingUnit, mapCoordinates, false, walkThroughAllies, 10);
 
             pathingEventQueue.Enqueue(new CameraCursorPositionEvent(mapCoordinates));
-            pathingEventQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(pathingEventQueue);
         }
 

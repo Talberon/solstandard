@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
 using SolStandard.Entity.Unit;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Events;
@@ -12,6 +13,8 @@ namespace SolStandard.Utility
         public static Queue<IEvent> MoveToCoordinates(GameUnit movingUnit, Vector2 endCoordinates, bool ignoreLastStep,
             bool walkThroughAllies, int frameDelay)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            
             Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
             if (!movingUnit.IsAlive || movingUnit.UnitEntity == null) return pathToItemQueue;
 

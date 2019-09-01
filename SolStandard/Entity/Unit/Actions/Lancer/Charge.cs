@@ -57,8 +57,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             {
                 if (!PathIsObstructed(targetSlice, targetUnit))
                 {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
                         GameContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,

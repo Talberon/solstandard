@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions.Lancer;
 using SolStandard.Map;
@@ -58,8 +57,6 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             {
                 if (!Charge.PathIsObstructed(targetSlice, targetUnit))
                 {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
                         GameContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,
