@@ -340,16 +340,16 @@ namespace SolStandard.Containers.Contexts
                 Role.Champion,
                 Role.Marauder,
                 Role.Paladin,
-                Role.Cavalier,
                 Role.Cleric,
                 Role.Bard,
+                Role.Mage,
 
+                Role.Cavalier,
                 Role.Duelist,
                 Role.Pugilist,
                 Role.Lancer,
                 Role.Rogue,
                 Role.Archer,
-                Role.Mage,
             };
     }
 }
