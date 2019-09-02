@@ -4234,19 +4234,6 @@
     <property name="modeRelic.vs" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1046" name="Factory Heist" type="SelectMap" gid="6325" x="160" y="736" width="32" height="32">
-   <properties>
-    <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>
-    <property name="mapSong" value="DesertTheme"/>
-    <property name="maxUnitsBlue" type="int" value="6"/>
-    <property name="maxUnitsRed" type="int" value="6"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeEscape" type="bool" value="true"/>
-    <property name="modeEscape.team" value="Blue"/>
-    <property name="modeRoutArmy" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="1047" name="Arctic Quest VS" type="SelectMap" gid="6329" x="736" y="160" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Draft_Quest_Race.tmx"/>
@@ -4294,7 +4281,21 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="50" name="Disabled" opacity="0.24"/>
+ <objectgroup id="50" name="Disabled" opacity="0.24">
+  <object id="1046" name="Factory Heist" type="SelectMap" gid="6325" x="160" y="736" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>
+    <property name="mapSong" value="DesertTheme"/>
+    <property name="maxUnitsBlue" type="int" value="6"/>
+    <property name="maxUnitsRed" type="int" value="6"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeEscape" type="bool" value="true"/>
+    <property name="modeEscape.team" value="Blue"/>
+    <property name="modeRoutArmy" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="55" name="Overlay" width="40" height="33">
   <data>
    <tile gid="863"/>
