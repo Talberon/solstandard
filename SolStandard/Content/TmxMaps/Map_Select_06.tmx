@@ -2897,11 +2897,11 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="6344"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6948"/>
+   <tile gid="6949"/>
+   <tile gid="6950"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2938,10 +2938,10 @@
    <tile/>
    <tile/>
    <tile gid="6369"/>
-   <tile gid="440"/>
-   <tile gid="441"/>
-   <tile gid="441"/>
-   <tile gid="442"/>
+   <tile gid="405"/>
+   <tile gid="6956"/>
+   <tile gid="6957"/>
+   <tile gid="6958"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2980,8 +2980,8 @@
    <tile/>
    <tile gid="520"/>
    <tile gid="483"/>
-   <tile gid="6344"/>
-   <tile gid="482"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3021,8 +3021,8 @@
    <tile/>
    <tile gid="480"/>
    <tile/>
-   <tile gid="444"/>
-   <tile gid="442"/>
+   <tile/>
+   <tile gid="406"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3542,9 +3542,9 @@
    <tile/>
    <tile gid="6386"/>
    <tile/>
-   <tile gid="6352"/>
-   <tile gid="6353"/>
-   <tile gid="6354"/>
+   <tile gid="6916"/>
+   <tile gid="6917"/>
+   <tile gid="6918"/>
    <tile/>
    <tile gid="6386"/>
    <tile/>
@@ -3582,9 +3582,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6360"/>
-   <tile gid="6361"/>
-   <tile gid="6362"/>
+   <tile gid="6924"/>
+   <tile gid="6925"/>
+   <tile gid="6926"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4089,7 +4089,7 @@
     <property name="modeTaxes" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1034" name="Raider's Cave" type="SelectMap" gid="6323" x="192" y="416" width="32" height="32">
+  <object id="1034" name="Raider's Cave" type="SelectMap" gid="6323" x="992" y="352" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Raid_Dungeon.tmx"/>
@@ -4190,7 +4190,7 @@
     <property name="modeTaxes" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="160" y="320" width="32" height="32">
+  <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="192" y="448" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -4213,7 +4213,7 @@
     <property name="modeRoutArmy" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="160" y="352" width="32" height="32">
+  <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="224" y="448" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -4544,7 +4544,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="326"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4582,7 +4582,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="366"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4624,8 +4624,8 @@
    <tile gid="366"/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="366"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

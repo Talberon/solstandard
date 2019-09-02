@@ -50,8 +50,13 @@ namespace SolStandard.Entity.General
                             {
                                 {
                                     UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Range:"),
+                                    new RenderText(AssetManager.WindowFont, "Interact:"),
                                     new RenderText(AssetManager.WindowFont, $"[{string.Join(",", InteractRange)}]")
+                                },
+                                {
+                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                                    new RenderText(AssetManager.WindowFont, "Launch:"),
+                                    new RenderText(AssetManager.WindowFont, $"[{string.Join(",", launchRange)}]")
                                 }
                             },
                             InnerWindowColor

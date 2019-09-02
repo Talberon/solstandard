@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             description: "Opens or closes the target triggerable.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
-            freeAction: false
+            freeAction: true
         )
         {
             this.switchTile = switchTile;
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(50));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
