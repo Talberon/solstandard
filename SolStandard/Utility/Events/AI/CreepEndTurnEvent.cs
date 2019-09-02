@@ -23,6 +23,7 @@ namespace SolStandard.Utility.Events.AI
             if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, true))
             {
                 GameContext.GameMapContext.ResolveTurn();
+                MapContainer.ClearDynamicAndPreviewGrids();
             }
 
             AssetManager.MapUnitCancelSFX.Play();

@@ -36,7 +36,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     (int) switchTile.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, switchTile.MapCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(switchTile.MapCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(
+                switchTile.MapCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -57,7 +58,16 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
 
                 eventQueue.Enqueue(new WaitFramesEvent(50));
-                eventQueue.Enqueue(new AdditionalActionEvent());
+
+                if (IsCreepTurn)
+                {
+                    eventQueue.Enqueue(new EndTurnEvent());
+                }
+                else
+                {
+                    eventQueue.Enqueue(new AdditionalActionEvent());
+                }
+
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
@@ -75,6 +85,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 AssetManager.WarningSFX.Play();
             }
         }
+
+        private static bool IsCreepTurn => GameContext.ActiveUnit.Team == Team.Creep;
 
         private static bool TargetingSwitch(MapSlice targetSlice)
         {
