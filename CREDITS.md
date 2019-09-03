@@ -118,3 +118,9 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >Font - Aldo the Apache (Logo Font)
 >#### License
 >Free
+
+### Eeve Somepx | https://somepx.itch.io/
+>#### Works
+>In-game fonts
+>#### License
+>http://www.palmentieri.it/somepx/license.txt
