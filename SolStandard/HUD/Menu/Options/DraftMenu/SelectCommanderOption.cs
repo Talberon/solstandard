@@ -33,7 +33,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                             new WindowContentGrid(new[,]
                                 {
                                     {unit.MediumPortrait},
-                                    {new RenderText(AssetManager.WindowFont, unit.Id)}
+                                    {new RenderText(AssetManager.StatFont, unit.Id)}
                                 },
                                 1,
                                 HorizontalAlignment.Centered

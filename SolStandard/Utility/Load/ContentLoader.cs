@@ -52,6 +52,11 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/HeavyText"));
         }
+        
+        public static ISpriteFont LoadStatFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/StatFont"));
+        }
 
         public static ITexture2D LoadWhitePixel(ContentManager content)
         {

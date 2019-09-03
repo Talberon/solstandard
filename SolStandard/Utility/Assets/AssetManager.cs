@@ -61,6 +61,7 @@ namespace SolStandard.Utility.Assets
         public static ISpriteFont PromptFont { get; private set; }
         public static ISpriteFont MainMenuFont { get; private set; }
         public static ISpriteFont HeavyFont { get; private set; }
+        public static ISpriteFont StatFont { get; private set; }
 
         public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
@@ -127,6 +128,7 @@ namespace SolStandard.Utility.Assets
             HeaderFont = ContentLoader.LoadHeaderFont(content);
             PromptFont = ContentLoader.LoadPromptFont(content);
             HeavyFont = ContentLoader.LoadHeavyFont(content);
+            StatFont = ContentLoader.LoadStatFont(content);
 
             PistonTexture = ContentLoader.LoadPistonAtlas(content);
             SpringTexture = ContentLoader.LoadLaunchpadAtlas(content);

@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit
     public enum Role
     {
         Silhouette,
-        
+
         //Units
         Champion,
         Marauder,
@@ -42,7 +42,7 @@ namespace SolStandard.Entity.Unit
         Archer,
         Cavalier,
         Rogue,
-        
+
         //Creeps
         Slime,
         Troll,
@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit
         Rat,
         Bat,
         Spider,
-        
+
         //Pets
         Boar,
     }
@@ -249,6 +249,7 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
+                ISpriteFont statfont = AssetManager.StatFont;
                 Color statPanelColor = new Color(10, 10, 10, 100);
                 const float panelWidth = 410;
                 const float panelHeight = 33;
@@ -291,12 +292,9 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Armor),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Armor] + ": "),
-                                            new RenderText(
-                                                AssetManager.WindowFont,
-                                                Stats.CurrentArmor + "/" + Stats.MaxArmor
-                                            )
+                                            new RenderText(statfont, Stats.CurrentArmor + "/" + Stats.MaxArmor)
                                         }
                                     },
                                     1
@@ -310,9 +308,9 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
-                                            new RenderText(AssetManager.WindowFont, Stats.CurrentHP + "/" + Stats.MaxHP)
+                                            new RenderText(statfont, Stats.CurrentHP + "/" + Stats.MaxHP)
                                         }
                                     },
                                     1
@@ -326,7 +324,7 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
                                     },
@@ -343,10 +341,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Atk),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Atk] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Atk.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
                                             )
@@ -363,10 +361,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Retribution),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Retribution] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Ret.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Ret, Stats.BaseRet)
                                             )
@@ -383,10 +381,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Block),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Block] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Blk.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Blk, Stats.BaseBlk)
                                             )
@@ -405,10 +403,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Luck),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Luck] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Luck.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Luck, Stats.BaseLuck)
                                             )
@@ -425,10 +423,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Mv),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Mv] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Mv.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
                                             )
@@ -445,10 +443,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.AtkRange),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 $"[{string.Join(",", Stats.CurrentAtkRange)}]",
                                                 UnitStatistics.DetermineStatColor(Stats.CurrentAtkRange.Max(),
                                                     Stats.BaseAtkRange.Max())
@@ -875,7 +873,7 @@ namespace SolStandard.Entity.Unit
         public void DrawAuras(SpriteBatch spriteBatch)
         {
             if (!IsAlive) return;
-            
+
             List<SongStatus> songs = StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
 
             foreach (SongStatus song in songs)
