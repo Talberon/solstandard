@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Champion;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Lancer;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;

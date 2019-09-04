@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
@@ -47,6 +48,8 @@ namespace SolStandard.Containers.Contexts
 
         private GameUnit attacker;
         private GameUnit defender;
+        private Vector2 attackerCoordinates;
+        private Vector2 defenderCoordinates;
         private UnitStatistics attackerStats;
         private UnitStatistics defenderStats;
 
@@ -94,10 +97,8 @@ namespace SolStandard.Containers.Contexts
             defender.SetUnitAnimation(UnitAnimationState.Active);
 
             //Treat the unit as off-screen if null
-            Vector2 attackerCoordinates =
-                attacker.UnitEntity?.MapCoordinates ?? new Vector2(-1);
-            Vector2 defenderCoordinates =
-                defender.UnitEntity?.MapCoordinates ?? new Vector2(-1);
+            attackerCoordinates = attacker.UnitEntity?.MapCoordinates ?? new Vector2(-1);
+            defenderCoordinates = defender.UnitEntity?.MapCoordinates ?? new Vector2(-1);
 
             attackerInRange = true;
             defenderInRange =
@@ -177,12 +178,43 @@ namespace SolStandard.Containers.Contexts
                             GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                         }
 
+                        if (!attacker.IsAlive)
+                        {
+                            LootAttackerSpoils();
+                        }
+                        else if (!defender.IsAlive)
+                        {
+                            LootDefenderSpoils();
+                        }
+
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
 
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void LootDefenderSpoils()
+        {
+            MapSlice defenderSlice = MapContainer.GetMapSliceAtCoordinates(defenderCoordinates);
+            if (defenderSlice.ItemEntity is Spoils defenderSpoils)
+            {
+                GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
+                GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(attackerCoordinates,
+                    $"Obtained spoils from {defender.Id}!", AssetManager.CoinSFX));
+            }
+        }
+
+        private void LootAttackerSpoils()
+        {
+            MapSlice attackerSlice = MapContainer.GetMapSliceAtCoordinates(attackerCoordinates);
+            if (attackerSlice.ItemEntity is Spoils attackerSpoils)
+            {
+                GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
+                GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(defenderCoordinates,
+                    $"Obtained spoils from {attacker.Id}!", AssetManager.CoinSFX));
             }
         }
 
