@@ -50,6 +50,16 @@ namespace SolStandard.Containers.Contexts
                         return GameContext.InitiativeContext.CurrentActiveTeam;
                     case GameContext.GameState.InGame:
                         return GameContext.InitiativeContext.CurrentActiveTeam;
+                    case GameContext.GameState.NetworkMenu:
+                        return GameContext.P1Team;
+                    case GameContext.GameState.MapSelect:
+                        return GameContext.P1Team;
+                    case GameContext.GameState.Results:
+                        return GameContext.P1Team;
+                    case GameContext.GameState.ItemPreview:
+                        return GameContext.InitiativeContext.CurrentActiveTeam;
+                    case GameContext.GameState.Credits:
+                        return GameContext.P1Team;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(previousGameState),
                             $"Should not have arrived here via {previousGameState} state!");

@@ -2899,9 +2899,9 @@
    <tile/>
    <tile gid="6344"/>
    <tile/>
-   <tile gid="6948"/>
    <tile gid="6949"/>
    <tile gid="6950"/>
+   <tile gid="6951"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2939,9 +2939,9 @@
    <tile/>
    <tile gid="6369"/>
    <tile gid="405"/>
-   <tile gid="6956"/>
    <tile gid="6957"/>
    <tile gid="6958"/>
+   <tile gid="6959"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3542,9 +3542,9 @@
    <tile/>
    <tile gid="6386"/>
    <tile/>
-   <tile gid="6916"/>
    <tile gid="6917"/>
    <tile gid="6918"/>
+   <tile gid="6919"/>
    <tile/>
    <tile gid="6386"/>
    <tile/>
@@ -3582,9 +3582,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6924"/>
    <tile gid="6925"/>
    <tile gid="6926"/>
+   <tile gid="6927"/>
    <tile/>
    <tile/>
    <tile/>

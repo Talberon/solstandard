@@ -69,6 +69,72 @@ namespace SolStandard.Containers.Contexts
             CanCancelAction = true;
         }
 
+
+        public bool CanPressConfirm
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return true;
+                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveUnit.Team;
+            }
+        }
+
+        public bool CanPressCancel
+        {
+            get
+            {
+                switch (CurrentTurnState)
+                {
+                    case TurnState.SelectUnit:
+                        return false;
+                    case TurnState.UnitMoving:
+                        return true;
+                    case TurnState.UnitDecidingAction:
+                        return CanCancelAction;
+                    case TurnState.UnitTargeting:
+                        return true;
+                    case TurnState.UnitActing:
+                        return false;
+                    case TurnState.ResolvingTurn:
+                        return false;
+                    case TurnState.AdHocDraft:
+                        return false;
+                    case TurnState.StealItem:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        public bool CanPressPreviewItem
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return false;
+
+                MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
+                if (cursorSlice.TerrainEntity is Vendor hoverVendor)
+                {
+                    return hoverVendor.Items.Count(x => x != null) > 0;
+                }
+
+                if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;
+
+                return HoverUnit != null && HoverUnit.Inventory.Count > 0;
+            }
+        }
+
+        public bool CanPressPreviewUnit
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return false;
+                return HoverUnit != null;
+            }
+        }
+
+
         public void PlayAnimationAtCoordinates(TriggeredAnimation animation, Vector2 coordinates)
         {
             animation.PlayOnce();

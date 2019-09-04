@@ -45,6 +45,8 @@ namespace SolStandard.Containers.Contexts
                 : null);
         }
 
+        public bool CanPressConfirm => MapContainer.GetMapSliceAtCursor().TerrainEntity != null;
+
         public void SelectMap()
         {
             MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();

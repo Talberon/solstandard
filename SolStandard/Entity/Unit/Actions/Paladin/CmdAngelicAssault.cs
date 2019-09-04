@@ -16,6 +16,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
     public class CmdAngelicAssault : UnitAction, ICommandAction
     {
         private readonly int cmdCost;
+        private readonly int stunDuration;
 
         private enum ActionPhase
         {
@@ -27,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         private const MapDistanceTile.TileType ActionTileType = MapDistanceTile.TileType.Action;
         private GameUnit targetingUnit;
 
-        public CmdAngelicAssault(int cmdCost) : base(
+        public CmdAngelicAssault(int cmdCost, int stunDuration) : base(
             icon: ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize, GameDriver.CellSizeVector),
             name: $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] Angelic Assault",
             description: "Leap towards an enemy and stun them as a free action!" + Environment.NewLine +
@@ -39,6 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
         )
         {
             this.cmdCost = cmdCost;
+            this.stunDuration = stunDuration;
         }
 
         public override void CancelAction()
@@ -108,7 +110,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetingUnit, new ImmobilizedStatus(1)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(targetingUnit, new ImmobilizedStatus(stunDuration)));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

@@ -407,7 +407,7 @@ namespace SolStandard.Entity.Unit
                 new Wait()
             };
 
-            if (isCommander) skills.Insert(1, new CmdAngelicAssault(4));
+            if (isCommander) skills.Insert(1, new CmdAngelicAssault(4, 2));
 
             return skills;
         }
