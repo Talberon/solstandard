@@ -13,7 +13,7 @@ namespace SolStandard.HUD.Menu.Options.CodexMenu
     public class UnitCodexOption : MenuOption
     {
         private readonly GameUnit unit;
-        private const int PortraitSize = 128;
+        private const int PortraitSize = 96;
 
         public UnitCodexOption(GameUnit unit) :
             base(

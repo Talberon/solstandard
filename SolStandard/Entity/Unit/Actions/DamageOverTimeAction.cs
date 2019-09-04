@@ -49,6 +49,7 @@ namespace SolStandard.Entity.Unit.Actions
                     new CastStatusEffectEvent(targetUnit,
                         new DamageOverTimeStatus(Icon, duration, damagePerTurn, toastMessage, Name))
                 );
+                eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

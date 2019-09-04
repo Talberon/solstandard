@@ -37,14 +37,23 @@ namespace SolStandard.Containers.View
 
         private void SetUpWindows()
         {
+            Vector2 iconSize = new Vector2(AssetManager.WindowFont.MeasureString("A").Y);
+
             WindowContentGrid instructionContentGrid = new WindowContentGrid(
                 new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
-                        InputIconProvider.GetInputIcon(Input.Confirm,
-                            new Vector2(AssetManager.WindowFont.MeasureString("A").Y))
+                        InputIconProvider.GetInputIcon(Input.Confirm, iconSize),
+                        new RenderBlank(),
+                        new RenderBlank(),
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, "Toggle between maps with"),
+                        InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
+                        new RenderText(AssetManager.WindowFont, "and"),
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                     }
                 },
                 1
@@ -66,7 +75,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid teamSelectContent = new WindowContentGrid(new[,]
                 {
                     {
-                        InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(iconSize)),
                         //SOL TEAM
                         new Window(new WindowContentGrid(new IRenderable[,]
                             {
@@ -111,7 +120,7 @@ namespace SolStandard.Containers.View
                                 }
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(iconSize))
+                        InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(iconSize))
                     }
                 }, 1, HorizontalAlignment.Centered
             );

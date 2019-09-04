@@ -7,7 +7,6 @@ using SolStandard.Entity.General;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
@@ -17,15 +16,13 @@ namespace SolStandard.Entity.Unit.Actions.Mage
     {
         public Inferno(int damage, int maxTriggers) : base(
             skillIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Inferno, GameDriver.CellSizeVector),
-            trapSprite: new AnimatedSpriteSheet(
-                AssetManager.FireTexture, AssetManager.FireTexture.Height, GameDriver.CellSizeVector, 6, false,
-                Color.White
-            ),
+            trapSprite: AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.Fire, GameDriver.CellSizeVector, 6),
             title: "Pyromancy - Inferno",
             damage: damage,
             maxTriggers: maxTriggers,
+            range: new[] {1},
             description: "Place up to 4 traps around you that will deal [" + damage +
-                         "] damage to enemies that start their turn on it." + Environment.NewLine +
+                         "] damage to units that start their turn on it." + Environment.NewLine +
                          "Max activations: [" + maxTriggers + "]",
             freeAction: true
         )

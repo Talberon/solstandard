@@ -8,7 +8,10 @@ namespace SolStandard.Entity.Unit.Statuses
 {
     public class ExecutionerStatus : StatusEffect, ICombatProc
     {
-        public ExecutionerStatus(IRenderable icon, int turnDuration) : base(
+        private readonly int buffDuration;
+        private readonly int atkModifier;
+
+        public ExecutionerStatus(IRenderable icon, int turnDuration, int buffDuration, int atkModifier) : base(
             statusIcon: icon,
             name: "Ending an opponent's suffering.",
             description: "Regenerates all " + UnitStatistics.Abbreviation[Stats.Armor] +
@@ -19,6 +22,8 @@ namespace SolStandard.Entity.Unit.Statuses
             canCleanse: false
         )
         {
+            this.buffDuration = buffDuration;
+            this.atkModifier = atkModifier;
         }
 
         public override void ApplyEffect(GameUnit target)
@@ -61,7 +66,8 @@ namespace SolStandard.Entity.Unit.Statuses
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 eventQueue.Enqueue(new RegenerateArmorEvent(attacker, attacker.Stats.MaxArmor));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new AtkStatUp(3, 2)));
+                eventQueue.Enqueue(new CastStatusEffectEvent(attacker, new AtkStatUp(buffDuration, atkModifier)));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
 

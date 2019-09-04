@@ -69,7 +69,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         private ITriggerable FindTriggerableInRange(GameUnit creep)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-            
+
             IThreatRange threatRange = new AdHocThreatRange(new[] {1}, creep.MvRange);
 
             new UnitTargetingContext(TileSprite).GenerateThreatGrid(creep.UnitEntity.MapCoordinates, threatRange);
@@ -103,23 +103,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             //If triggerable can't be targeted while standing on top, don't end move on top of it
             bool ignoreLastStep = !triggerable.InteractRange.Contains(0);
 
-            List<Direction> directionsToDestination = AStarAlgorithm.DirectionsToDestination(
-                roamerMapCoordinates,
-                triggerable.MapCoordinates,
-                false,
-                ignoreLastStep
-            );
-
-            Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
-            foreach (Direction direction in directionsToDestination)
-            {
-                if (direction == Direction.None) continue;
-
-                pathToItemQueue.Enqueue(new CreepMoveEvent(creep, direction));
-                pathToItemQueue.Enqueue(new WaitFramesEvent(15));
-            }
-
-            pathToItemQueue.Enqueue(new CreepMoveEvent(creep, Direction.None));
+            Queue<IEvent> pathToItemQueue =
+                PathingUtil.MoveToCoordinates(creep, triggerable.MapCoordinates, ignoreLastStep, false, 15);
             pathToItemQueue.Enqueue(
                 new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, triggerable.MapCoordinates)
             );

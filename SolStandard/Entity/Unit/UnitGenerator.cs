@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
+using SolStandard.Entity.Unit.Actions.Cavalier;
 using SolStandard.Entity.Unit.Actions.Champion;
 using SolStandard.Entity.Unit.Actions.Cleric;
 using SolStandard.Entity.Unit.Actions.Duelist;
@@ -12,6 +13,7 @@ using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Marauder;
 using SolStandard.Entity.Unit.Actions.Paladin;
 using SolStandard.Entity.Unit.Actions.Pugilist;
+using SolStandard.Entity.Unit.Actions.Rogue;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Model;
 using SolStandard.Utility.Monogame;
@@ -38,7 +40,7 @@ namespace SolStandard.Entity.Unit
             return unitsFromMap;
         }
 
-        private static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
+        public static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
             UnitEntity mapEntity, List<IItem> loot)
         {
             GameUnit generatedUnit;
@@ -59,7 +61,6 @@ namespace SolStandard.Entity.Unit
 
         private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
-            //FIXME See if this is causing desync issues in Netplay when a creep summons another creep
             generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
         }
 
@@ -77,110 +78,151 @@ namespace SolStandard.Entity.Unit
 
         //UNITS
 
-        private static UnitStatistics SelectArcherStats()
-        {
-            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2});
-        }
 
         private static UnitStatistics SelectChampionStats()
         {
-            return new UnitStatistics(hp: 7, armor: 9, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1});
-        }
-
-        private static UnitStatistics SelectMageStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 4, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2});
-        }
-
-        private static UnitStatistics SelectLancerStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 7, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1});
-        }
-
-        private static UnitStatistics SelectBardStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 3, atk: 3, ret: 3, blk: 0, luck: 2, mv: 5, atkRange: new[] {1, 2});
-        }
-
-        private static UnitStatistics SelectPugilistStats()
-        {
-            return new UnitStatistics(hp: 10, armor: 5, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1});
-        }
-
-        private static UnitStatistics SelectDuelistStats()
-        {
-            return new UnitStatistics(hp: 8, armor: 5, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1});
-        }
-
-        private static UnitStatistics SelectClericStats()
-        {
-            return new UnitStatistics(hp: 6, armor: 6, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 7, armor: 8, atk: 5, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
         }
 
         private static UnitStatistics SelectMarauderStats()
         {
-            return new UnitStatistics(hp: 18, armor: 0, atk: 5, ret: 5, blk: 0, luck: 0, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 16, armor: 0, atk: 5, ret: 5, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
         }
 
         private static UnitStatistics SelectPaladinStats()
         {
-            return new UnitStatistics(hp: 8, armor: 8, atk: 5, ret: 6, blk: 0, luck: 1, mv: 6, atkRange: new[] {1});
+            return new UnitStatistics(hp: 7, armor: 8, atk: 5, ret: 6, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectBardStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 4, atk: 3, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectClericStats()
+        {
+            return new UnitStatistics(hp: 7, armor: 5, atk: 0, ret: 0, blk: 0, luck: 4, mv: 6, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectCavalierStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectDuelistStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 5, atk: 5, ret: 5, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectPugilistStats()
+        {
+            return new UnitStatistics(hp: 9, armor: 6, atk: 6, ret: 4, blk: 0, luck: 0, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectLancerStats()
+        {
+            return new UnitStatistics(hp: 10, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectRogueStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 6, atk: 5, ret: 4, blk: 0, luck: 2, mv: 6, atkRange: new[] {1},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectArcherStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 5, atk: 6, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {2},
+                maxCmd: 5);
+        }
+
+        private static UnitStatistics SelectMageStats()
+        {
+            return new UnitStatistics(hp: 7, armor: 5, atk: 6, ret: 3, blk: 0, luck: 1, mv: 5, atkRange: new[] {1, 2},
+                maxCmd: 5);
+        }
+
+
+        //PETS
+
+        private static UnitStatistics SelectBoarStats()
+        {
+            return new UnitStatistics(hp: 6, armor: 3, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
+                maxCmd: 5);
         }
 
         //CREEPS
 
         private static UnitStatistics SelectSlimeStats()
         {
-            return new UnitStatistics(hp: 5, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 3, atkRange: new[] {1});
+            return new UnitStatistics(hp: 5, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 3, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectOrcStats()
         {
-            return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 15, armor: 0, atk: 5, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2});
+            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectSkeletonStats()
         {
-            return new UnitStatistics(hp: 5, armor: 2, atk: 4, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 5, armor: 2, atk: 4, ret: 4, blk: 0, luck: 0, mv: 4, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectGoblinStats()
         {
-            return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, blk: 0, luck: 1, mv: 4, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 2, atk: 4, ret: 4, blk: 0, luck: 1, mv: 4, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectRatStats()
         {
-            return new UnitStatistics(hp: 10, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 10, armor: 0, atk: 3, ret: 3, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectBatStats()
         {
-            return new UnitStatistics(hp: 13, armor: 0, atk: 4, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 13, armor: 0, atk: 4, ret: 4, blk: 0, luck: 1, mv: 5, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         private static UnitStatistics SelectSpiderStats()
         {
-            return new UnitStatistics(hp: 6, armor: 6, atk: 4, ret: 4, blk: 0, luck: 0, mv: 5, atkRange: new[] {1});
+            return new UnitStatistics(hp: 6, armor: 6, atk: 4, ret: 4, blk: 0, luck: 0, mv: 5, atkRange: new[] {1},
+                maxCmd: 1);
         }
 
         #endregion Unit Statistics
 
         #region Unit Skills
 
-        private static List<UnitAction> SelectArcherSkills()
+        private static List<UnitAction> SelectArcherSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Draw(3, 1),
@@ -190,11 +232,15 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdHuntingCompanion(4));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectChampionSkills()
+        private static List<UnitAction> SelectChampionSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Bloodthirst(1),
@@ -202,87 +248,118 @@ namespace SolStandard.Entity.Unit
                 new Challenge(2),
                 new Tackle(),
                 new Shove(),
-                new Intervention(1, 1),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdWarmaster(4, 3, new[] {1, 2, 3}));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectMageSkills()
+        private static List<UnitAction> SelectMageSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Inferno(3, 2),
+                new Frostbite(1, 1),
                 new Terraform(),
-                new Frostbite(2, 2),
                 new Replace(),
                 new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdTransfusion(4));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectLancerSkills()
+        private static List<UnitAction> SelectLancerSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new LeapStrike(),
-                new BetwixtPlate(60),
-                new Execute(50),
+                new Execute(50, 3, 1),
                 new Venom(2, 2),
                 new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdSonicStrike(4));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectBardSkills()
+        private static List<UnitAction> SelectBardSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Crescendo(2, 1),
-                new Accelerando(2, 1),
-                new Capriccio(2, 1),
+                new ModeSolo(),
+                new ModeConcerto(),
+                new SongAnthem(1, 2, new[] {0, 1, 2}),
+                new SongTempest(1, 2, new[] {0, 1, 2}),
+                new SongFreestyle(1, 2, new[] {0, 1, 2}),
+                new VerseAccelerando(2, 1),
                 new Sprint(2),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdSongBattleHymn(5, 1, 2, new[] {0, 1, 2}));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectPugilistSkills()
+        private static List<UnitAction> SelectPugilistSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            const int flowStackDuration = 4;
+
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new FlowStrike(40, 3),
+                new FlowStrike(75, flowStackDuration),
                 new Uppercut(),
-                new Suplex(),
+                new StemTheTide(2, flowStackDuration),
                 new Meditate(),
-                new Sprint(2),
+                new Sprint(3),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdCoursingRiver(5, 2, flowStackDuration));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectDuelistSkills()
+        private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            const int maxFocusPoints = 2;
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new PhaseStrike(),
+                new EnGarde(1),
                 new Bloodthirst(2),
-                new Shift(1),
+                new BetwixtPlate(75),
+                new CorpsACorps(2),
+                new Fleche(),
+                new Sprint(2),
                 new Guard(3),
-                new Focus(2)
+                new Focus(maxFocusPoints)
             };
+
+            if (isCommander) skills.Insert(1, new CmdPerfectFocus(4, maxFocusPoints));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectClericSkills()
+        private static List<UnitAction> SelectClericSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Recover(3),
@@ -293,34 +370,98 @@ namespace SolStandard.Entity.Unit
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdGodsbreath(5, 1, 3));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectMarauderSkills()
+        private static List<UnitAction> SelectMarauderSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Guillotine(),
+                new Guillotine(50),
                 new Rage(2, 3),
                 new Grapple(),
                 new Brace(2),
                 new Shove(),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdBerserk(3));
+
+            return skills;
         }
 
-        private static List<UnitAction> SelectPaladinSkills()
+        private static List<UnitAction> SelectPaladinSkills(bool isCommander)
         {
-            return new List<UnitAction>
+            List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
-                new Rampart(3, 2),
                 new Stun(1),
-                new Rescue(),
+                new Rampart(3, 2),
+                new Intervention(1, 2),
                 new Shove(),
                 new Guard(3),
                 new Wait()
             };
+
+            if (isCommander) skills.Insert(1, new CmdAngelicAssault(4, 2));
+
+            return skills;
+        }
+
+        private static List<UnitAction> SelectCavalierSkills(bool isCommander)
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Bloodthirst(2),
+                new Inspire(2, 1),
+                new Gallop(3),
+                new Sprint(3),
+                new Guard(3),
+                new Wait()
+            };
+
+            if (isCommander) skills.Insert(1, new CmdDoubleTime(5, 2, 2));
+
+            return skills;
+        }
+
+        private static List<UnitAction> SelectRogueSkills(bool isCommander)
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new ThrowingKnife(),
+                new BetwixtPlate(75),
+                new Rend(3, 3),
+                new Rob(),
+                new PickDoorLock(10),
+                new Sprint(3),
+                new Guard(3),
+                new Wait()
+            };
+
+            if (isCommander) skills.Insert(1, new CmdAssassinate(5, 5));
+
+            return skills;
+        }
+
+        private static List<UnitAction> SelectBoarSkills(bool isCommander)
+        {
+            List<UnitAction> skills = new List<UnitAction>
+            {
+                new BasicAttack(),
+                new Guard(3),
+                new Wait()
+            };
+
+            if (isCommander) skills.Insert(1, new CmdPerfectFocus(4, 2));
+
+            return skills;
         }
 
         #endregion Unit Skills
@@ -341,11 +482,13 @@ namespace SolStandard.Entity.Unit
                 );
         }
 
-        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties)
+        public static CreepUnit GenerateAdHocCreep(Role role, Dictionary<string, string> entityProperties,
+            bool? isCommander = null, string[] initialInventory = null)
         {
             string unitName = NameGenerator.GenerateUnitName(role);
 
-            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, false, new string[0],
+            CreepEntity generatedEntity = GenerateCreepEntity(unitName, "Creep", role, Team.Creep, isCommander ?? false,
+                initialInventory ?? new string[0],
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
             CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
@@ -374,40 +517,7 @@ namespace SolStandard.Entity.Unit
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
-            UnitStatistics unitStatistics;
-
-            switch (role)
-            {
-                case Role.Slime:
-                    unitStatistics = SelectSlimeStats();
-                    break;
-                case Role.Troll:
-                    unitStatistics = SelectTrollStats();
-                    break;
-                case Role.Orc:
-                    unitStatistics = SelectOrcStats();
-                    break;
-                case Role.Necromancer:
-                    unitStatistics = SelectNecromancerStats();
-                    break;
-                case Role.Skeleton:
-                    unitStatistics = SelectSkeletonStats();
-                    break;
-                case Role.Goblin:
-                    unitStatistics = SelectGoblinStats();
-                    break;
-                case Role.Rat:
-                    unitStatistics = SelectRatStats();
-                    break;
-                case Role.Bat:
-                    unitStatistics = SelectBatStats();
-                    break;
-                case Role.Spider:
-                    unitStatistics = SelectSpiderStats();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
-            }
+            UnitStatistics unitStatistics = GetUnitStatistics(role);
 
             return new CreepUnit(unitName, team, role, entity, unitStatistics, portrait, isCommander);
         }
@@ -417,56 +527,98 @@ namespace SolStandard.Entity.Unit
             ITexture2D portrait =
                 FindSmallPortrait(team.ToString(), role.ToString(), AssetManager.SmallPortraitTextures);
 
-            UnitStatistics unitStatistics;
-            List<UnitAction> unitActions;
-
-            switch (role)
-            {
-                case Role.Archer:
-                    unitStatistics = SelectArcherStats();
-                    unitActions = SelectArcherSkills();
-                    break;
-                case Role.Champion:
-                    unitStatistics = SelectChampionStats();
-                    unitActions = SelectChampionSkills();
-                    break;
-                case Role.Mage:
-                    unitStatistics = SelectMageStats();
-                    unitActions = SelectMageSkills();
-                    break;
-                case Role.Lancer:
-                    unitStatistics = SelectLancerStats();
-                    unitActions = SelectLancerSkills();
-                    break;
-                case Role.Bard:
-                    unitStatistics = SelectBardStats();
-                    unitActions = SelectBardSkills();
-                    break;
-                case Role.Pugilist:
-                    unitStatistics = SelectPugilistStats();
-                    unitActions = SelectPugilistSkills();
-                    break;
-                case Role.Duelist:
-                    unitStatistics = SelectDuelistStats();
-                    unitActions = SelectDuelistSkills();
-                    break;
-                case Role.Cleric:
-                    unitStatistics = SelectClericStats();
-                    unitActions = SelectClericSkills();
-                    break;
-                case Role.Marauder:
-                    unitStatistics = SelectMarauderStats();
-                    unitActions = SelectMarauderSkills();
-                    break;
-                case Role.Paladin:
-                    unitStatistics = SelectPaladinStats();
-                    unitActions = SelectPaladinSkills();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
-            }
+            UnitStatistics unitStatistics = GetUnitStatistics(role);
+            List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
             return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+        }
+
+        private static UnitStatistics GetUnitStatistics(Role unitType)
+        {
+            switch (unitType)
+            {
+                case Role.Archer:
+                    return SelectArcherStats();
+                case Role.Champion:
+                    return SelectChampionStats();
+                case Role.Mage:
+                    return SelectMageStats();
+                case Role.Lancer:
+                    return SelectLancerStats();
+                case Role.Bard:
+                    return SelectBardStats();
+                case Role.Pugilist:
+                    return SelectPugilistStats();
+                case Role.Duelist:
+                    return SelectDuelistStats();
+                case Role.Cleric:
+                    return SelectClericStats();
+                case Role.Marauder:
+                    return SelectMarauderStats();
+                case Role.Paladin:
+                    return SelectPaladinStats();
+                case Role.Cavalier:
+                    return SelectCavalierStats();
+                case Role.Rogue:
+                    return SelectRogueStats();
+                case Role.Boar:
+                    return SelectBoarStats();
+                case Role.Slime:
+                    return SelectSlimeStats();
+                case Role.Troll:
+                    return SelectTrollStats();
+                case Role.Orc:
+                    return SelectOrcStats();
+                case Role.Necromancer:
+                    return SelectNecromancerStats();
+                case Role.Skeleton:
+                    return SelectSkeletonStats();
+                case Role.Goblin:
+                    return SelectGoblinStats();
+                case Role.Rat:
+                    return SelectRatStats();
+                case Role.Bat:
+                    return SelectBatStats();
+                case Role.Spider:
+                    return SelectSpiderStats();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
+            }
+        }
+
+        public static List<UnitAction> GetUnitActions(Role unitType, bool isCommander)
+        {
+            switch (unitType)
+            {
+                case Role.Archer:
+                    return SelectArcherSkills(isCommander);
+                case Role.Champion:
+                    return SelectChampionSkills(isCommander);
+                case Role.Mage:
+                    return SelectMageSkills(isCommander);
+                case Role.Lancer:
+                    return SelectLancerSkills(isCommander);
+                case Role.Bard:
+                    return SelectBardSkills(isCommander);
+                case Role.Pugilist:
+                    return SelectPugilistSkills(isCommander);
+                case Role.Duelist:
+                    return SelectDuelistSkills(isCommander);
+                case Role.Cleric:
+                    return SelectClericSkills(isCommander);
+                case Role.Marauder:
+                    return SelectMarauderSkills(isCommander);
+                case Role.Paladin:
+                    return SelectPaladinSkills(isCommander);
+                case Role.Cavalier:
+                    return SelectCavalierSkills(isCommander);
+                case Role.Rogue:
+                    return SelectRogueSkills(isCommander);
+                case Role.Boar:
+                    return SelectBoarSkills(isCommander);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
+            }
         }
 
         public static UnitEntity GenerateMapEntity(string name, string type, Role role, Team team, bool isCommander,

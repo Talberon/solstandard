@@ -34,7 +34,7 @@ namespace SolStandard.Entity.General
 
             if (unitOnTile == null) return false;
 
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
 
             if (hpPerTurn > 0)

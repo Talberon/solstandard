@@ -48,23 +48,35 @@ namespace SolStandard.Entity.General.Item
             IRenderable[,] statGrid =
             {
                 {
-                    UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
-                    new RenderText(textFont, UnitStatistics.Abbreviation[Stats.Atk] + ": " + AtkValue)
-                },
-                {
-                    UnitStatistics.GetSpriteAtlas(Stats.Luck, GameDriver.CellSizeVector),
-                    new RenderText(textFont,
-                        UnitStatistics.Abbreviation[Stats.Luck] + ": " + ((LuckModifier > 0) ? "+" : string.Empty) +
-                        LuckModifier)
-                },
-                {
-                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
-                    new RenderText(textFont,
-                        UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]")
-                },
-                {
-                    StatusIconProvider.GetStatusIcon(StatusIcon.Durability, GameDriver.CellSizeVector),
-                    new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
+                    new WindowContentGrid(new IRenderable[,]
+                    {
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
+                            new RenderText(textFont, UnitStatistics.Abbreviation[Stats.Atk] + ": " + AtkValue)
+                        },
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
+                            new RenderText(
+                                textFont,
+                                UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", AtkRange) + "]"
+                            )
+                        }
+                    }, 0),
+                    new WindowContentGrid(new IRenderable[,]
+                    {
+                        {
+                            UnitStatistics.GetSpriteAtlas(Stats.Luck, GameDriver.CellSizeVector),
+                            new RenderText(
+                                textFont,
+                                UnitStatistics.Abbreviation[Stats.Luck] + ": " +
+                                ((LuckModifier > 0) ? "+" : string.Empty) + LuckModifier
+                            )
+                        },
+                        {
+                            StatusIconProvider.GetStatusIcon(StatusIcon.Durability, GameDriver.CellSizeVector),
+                            new RenderText(textFont, "Uses : [" + UsesRemaining + "]")
+                        }
+                    }, 0)
                 }
             };
 

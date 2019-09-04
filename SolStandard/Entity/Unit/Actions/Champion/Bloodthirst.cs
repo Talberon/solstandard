@@ -17,10 +17,9 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
         public Bloodthirst(int damageThreshold) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Bloodthirst, GameDriver.CellSizeVector),
-            name: "Bloodthirst " + damageThreshold,
-            description: "Perform an attack against an enemy unit and recover an " +
-                         UnitStatistics.Abbreviation[Stats.Armor] + " point for every [" + damageThreshold +
-                         "] damage dealt.",
+            name: $"Bloodthirst [{damageThreshold}]",
+            description:
+            $"Attack an enemy unit and recover an {UnitStatistics.Abbreviation[Stats.Armor]} point for every [{damageThreshold}] damage dealt.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: null,
             freeAction: false
@@ -42,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             {
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToArmorStatus(Icon, 0, damageThreshold))
+                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToArmorStatus(Icon, damageThreshold))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);

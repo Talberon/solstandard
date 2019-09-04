@@ -234,6 +234,8 @@ namespace SolStandard.Containers
                 tile?.Draw(spriteBatch);
             }
 
+            GameContext.Units.ForEach(unit => unit.DrawAuras(spriteBatch));
+
             foreach (MapElement tile in _gameGrid[(int) Layer.Dynamic])
             {
                 tile?.Draw(spriteBatch);
@@ -244,10 +246,7 @@ namespace SolStandard.Containers
                 tile?.Draw(spriteBatch);
             }
 
-            foreach (GameUnit unit in GameContext.Units)
-            {
-                unit.UnitEntity?.Draw(spriteBatch);
-            }
+            GameContext.Units.ForEach(unit => unit.UnitEntity?.Draw(spriteBatch));
 
             foreach (MapElement tile in _gameGrid[(int) Layer.Overlay])
             {

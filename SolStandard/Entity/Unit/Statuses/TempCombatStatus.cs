@@ -1,4 +1,3 @@
-using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 
 namespace SolStandard.Entity.Unit.Statuses
@@ -51,7 +50,11 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)
         {
-            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
+            if (attacker.StatusEffects.Contains(this)) RemoveEffect(attacker);
+            attacker.StatusEffects.RemoveAll(effect => effect == this);
+
+            if (defender.StatusEffects.Contains(this)) RemoveEffect(defender);
+            defender.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

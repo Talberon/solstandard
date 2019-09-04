@@ -10,12 +10,12 @@ namespace SolStandard.Entity.Unit.Statuses
         private readonly int damageThreshold;
         private int damageCounter;
 
-        public DamageToArmorStatus(IRenderable icon, int turnDuration, int damageThreshold) : base(
+        public DamageToArmorStatus(IRenderable icon, int damageThreshold) : base(
             statusIcon: icon,
             name: UnitStatistics.Abbreviation[Stats.Armor] + " Siphon!",
-            description: "Recovers " + UnitStatistics.Abbreviation[Stats.Armor] + " for each " + damageThreshold +
-                         " damage dealt.",
-            turnDuration: turnDuration,
+            description:
+            $"Recovers {UnitStatistics.Abbreviation[Stats.Armor]} for each {damageThreshold} damage dealt.",
+            turnDuration: 0,
             hasNotification: false,
             canCleanse: false
         )

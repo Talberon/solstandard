@@ -42,13 +42,8 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
+        private static List<ITexture2D> AnimationTextures { get; set; }
 
-        public static ITexture2D FireTexture { get; private set; }
-        public static ITexture2D DeathTexture { get; private set; }
-        public static ITexture2D InteractTexture { get; private set; }
-        public static ITexture2D DamageTexture { get; private set; }
-        public static ITexture2D RecoverArmorTexture { get; private set; }
-        public static ITexture2D RecoverHealthTexture { get; private set; }
         public static ITexture2D PistonTexture { get; private set; }
         public static ITexture2D SpringTexture { get; private set; }
         public static ITexture2D LockTexture { get; private set; }
@@ -59,12 +54,14 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D MainMenuBackground { get; private set; }
 
         public static ISpriteFont WindowFont { get; private set; }
+        public static ISpriteFont SmallWindowFont { get; private set; }
         public static ISpriteFont MapFont { get; private set; }
         public static ISpriteFont ResultsFont { get; private set; }
         public static ISpriteFont HeaderFont { get; private set; }
         public static ISpriteFont PromptFont { get; private set; }
         public static ISpriteFont MainMenuFont { get; private set; }
         public static ISpriteFont HeavyFont { get; private set; }
+        public static ISpriteFont StatFont { get; private set; }
 
         public static ITexture2D ActionTiles { get; private set; }
         public static ITexture2D WhitePixel { get; private set; }
@@ -125,18 +122,14 @@ namespace SolStandard.Utility.Assets
             MapPreviewTextures = ContentLoader.LoadMapPreviews(content);
 
             WindowFont = ContentLoader.LoadWindowFont(content);
+            SmallWindowFont = ContentLoader.LoadSmallWindowFont(content);
             MapFont = ContentLoader.LoadMapFont(content);
             ResultsFont = ContentLoader.LoadResultsFont(content);
             HeaderFont = ContentLoader.LoadHeaderFont(content);
             PromptFont = ContentLoader.LoadPromptFont(content);
             HeavyFont = ContentLoader.LoadHeavyFont(content);
+            StatFont = ContentLoader.LoadStatFont(content);
 
-            FireTexture = ContentLoader.LoadFireAtlas(content);
-            DeathTexture = ContentLoader.LoadDeathAtlas(content);
-            InteractTexture = ContentLoader.LoadInteractAtlas(content);
-            DamageTexture = ContentLoader.LoadDamageAtlas(content);
-            RecoverArmorTexture = ContentLoader.LoadRecoverArmorAtlas(content);
-            RecoverHealthTexture = ContentLoader.LoadRecoverHealthAtlas(content);
             PistonTexture = ContentLoader.LoadPistonAtlas(content);
             SpringTexture = ContentLoader.LoadLaunchpadAtlas(content);
             LockTexture = ContentLoader.LoadLockAtlas(content);
@@ -150,7 +143,7 @@ namespace SolStandard.Utility.Assets
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
-
+            
             GoldIcon = ContentLoader.LoadGoldIcon(content);
             SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
             CommanderIcon = ContentLoader.LoadCommanderIcon(content);
@@ -166,6 +159,9 @@ namespace SolStandard.Utility.Assets
 
             StatusIcons = ContentLoader.LoadStatusIcons(content);
             StatusIconProvider.LoadStatusIcons(StatusIcons);
+
+            AnimationTextures = ContentLoader.LoadAnimations(content);
+            AnimatedSpriteProvider.LoadAnimatedSprites(AnimationTextures);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);

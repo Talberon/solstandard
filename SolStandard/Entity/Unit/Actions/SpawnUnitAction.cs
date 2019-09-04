@@ -6,7 +6,6 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit.Actions
@@ -77,7 +76,7 @@ namespace SolStandard.Entity.Unit.Actions
             AssetManager.SkillBuffSFX.Play();
         }
 
-        private static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
+        public static bool TargetIsUnoccupiedTileInRange(MapSlice targetSlice)
         {
             return targetSlice.DynamicEntity != null && targetSlice.UnitEntity == null &&
                    UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);

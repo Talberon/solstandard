@@ -71,28 +71,28 @@ namespace SolStandard.Containers.Contexts
             if (CanPlaceMoveTileAtCoordinates(north, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, north, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(south, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, south, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(east, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, east, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceMoveTileAtCoordinates(west, visitedTiles, team))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, west, currentTile.Distance + 1, distanceVisible)
                 );
             }
 

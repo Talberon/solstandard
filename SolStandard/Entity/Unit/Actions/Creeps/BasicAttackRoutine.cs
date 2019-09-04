@@ -8,7 +8,6 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.Unit.Actions.Creeps
 {
@@ -32,7 +31,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             this.routineIcon = routineIcon;
         }
 
-        public IRenderable MapIcon => SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
+        public IRenderable MapIcon =>
+            SkillIconProvider.GetSkillIcon(routineIcon, new Vector2((float) GameDriver.CellSize / 3));
 
         public virtual bool CanBeReadied(CreepUnit creepUnit)
         {
@@ -72,20 +72,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     50)
             );
 
-            List<Direction> directionsToDestination =
-                AStarAlgorithm.DirectionsToDestination(roamerMapCoordinates, targetUnitCoordinatePair.Value, false,
-                    false);
-
-            Queue<IEvent> pathAndAttackQueue = new Queue<IEvent>();
-            foreach (Direction direction in directionsToDestination)
-            {
-                if (direction == Direction.None) continue;
-
-                pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, direction));
-                pathAndAttackQueue.Enqueue(new WaitFramesEvent(15));
-            }
-
-            pathAndAttackQueue.Enqueue(new CreepMoveEvent(roamer, Direction.None));
+            Queue<IEvent> pathAndAttackQueue =
+                PathingUtil.MoveToCoordinates(roamer, targetUnitCoordinatePair.Value, false, false, 15);
             pathAndAttackQueue.Enqueue(new StartCombatEvent(targetUnitCoordinatePair.Key));
             GlobalEventQueue.QueueEvents(pathAndAttackQueue);
         }
@@ -94,7 +82,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             bool isIndependent)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
-        
+
             //Check movement range
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
@@ -125,14 +113,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                             new KeyValuePair<GameUnit, Vector2>(targetUnit, previewTile.MapCoordinates));
                     }
                 }
-                
+
                 MapContainer.ClearPreviewGrid();
             }
-            
 
             return attackPositionsInRange;
-
-            //TODO In the future, consider whether the target unit is a ranged/melee unit to make an optimal move
         }
 
         private static bool TargetAndMoveTilesOverlap(MapSlice currentPreviewSlice)

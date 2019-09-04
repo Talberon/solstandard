@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     MapContainer.ClearDynamicAndPreviewGrids();
                     selectedUnitEntity = targetUnit.UnitEntity;
                     AssetManager.MenuConfirmSFX.Play();
-                    GeneratePlacemementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    GeneratePlacementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
                     return true;
                 }
 
@@ -108,7 +108,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                    targetSlice.DynamicEntity != null;
         }
 
-        private void GeneratePlacemementTiles(Vector2 origin)
+        private void GeneratePlacementTiles(Vector2 origin)
         {
             base.GenerateActionGrid(origin);
 

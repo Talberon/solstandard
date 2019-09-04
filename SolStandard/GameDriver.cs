@@ -64,7 +64,6 @@ namespace SolStandard
             graphics.PreferredBackBufferHeight = 900;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
-            //FIXME HACK move the window away from the top of the screen
             Window.Position = new Point(0, 50);
             Window.IsBorderless = false;
             Window.AllowUserResizing = true;

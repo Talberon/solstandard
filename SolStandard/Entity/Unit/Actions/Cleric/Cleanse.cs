@@ -30,14 +30,27 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
             {
-                CleanseAllCleansableStatuses(targetUnit);
-                GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+                if (TargetHasCleansableStatuses(targetUnit))
+                {
+                    CleanseAllCleansableStatuses(targetUnit);
+                    GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No cleansable status effects!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an ally in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
+        }
+
+        private static bool TargetHasCleansableStatuses(GameUnit targetUnit)
+        {
+            return targetUnit.StatusEffects.Any(status => status.CanCleanse);
         }
 
         public static void CleanseAllCleansableStatuses(GameUnit targetUnit)

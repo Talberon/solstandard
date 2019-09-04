@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 MapContainer.GameGrid[(int) mapLayer][(int) recall.MapCoordinates.X, (int) recall.MapCoordinates.Y] =
                     new MapDistanceTile(TileSprite, recall.MapCoordinates);
 
-                GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(recall.MapCoordinates);
+                GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(recall.MapCoordinates);
             }
         }
 

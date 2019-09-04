@@ -8,13 +8,16 @@ namespace SolStandard.Utility.Events
     public class StartCombatEvent : IEvent
     {
         private readonly GameUnit targetUnit;
+        private readonly bool freeAction;
         private readonly UnitStatistics attackerStatsOverride;
 
         public bool Complete { get; private set; }
 
-        public StartCombatEvent(GameUnit targetUnit, UnitStatistics attackerStatsOverride = null)
+        public StartCombatEvent(GameUnit targetUnit, bool freeAction = false,
+            UnitStatistics attackerStatsOverride = null)
         {
             this.targetUnit = targetUnit;
+            this.freeAction = freeAction;
 
             this.attackerStatsOverride = attackerStatsOverride ?? GameContext.ActiveUnit.Stats;
         }
@@ -26,7 +29,7 @@ namespace SolStandard.Utility.Events
             MapContainer.ClearDynamicAndPreviewGrids();
 
             GameContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
-                defendingUnit.Stats);
+                defendingUnit.Stats, freeAction);
 
             AssetManager.CombatStartSFX.Play();
 

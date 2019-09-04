@@ -1,21 +1,26 @@
-using System;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
-using SolStandard.Utility.Events;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses
 {
-    public class GuillotineStatus : StatusEffect, ICombatProc
+    public class DamageToHealthStatus : StatusEffect, ICombatProc
     {
-        public GuillotineStatus(IRenderable icon, int turnDuration) : base(
+        private readonly int damageThreshold;
+        private int damageCounter;
+
+        public DamageToHealthStatus(IRenderable icon, int damageThreshold) : base(
             statusIcon: icon,
-            name: "Guillotine!",
-            description: "Recovers " + UnitStatistics.Abbreviation[Stats.Hp] + " if opponent is defeated.",
-            turnDuration: turnDuration,
+            name: UnitStatistics.Abbreviation[Stats.Hp] + " Siphon!",
+            $"Recovers {UnitStatistics.Abbreviation[Stats.Hp]} for each {damageThreshold} damage dealt.",
+            turnDuration: 0,
             hasNotification: false,
             canCleanse: false
         )
         {
+            this.damageThreshold = damageThreshold;
+            damageCounter = 0;
         }
 
         public override void ApplyEffect(GameUnit target)
@@ -47,21 +52,18 @@ namespace SolStandard.Entity.Unit.Statuses
 
         public void OnDamage(GameUnit damageDealer, GameUnit target)
         {
+            damageCounter++;
+
+            if (damageCounter % damageThreshold != 0) return;
+
+            damageDealer.RecoverHP(1);
+            AssetManager.SkillBuffSFX.Play();
         }
 
         public void OnCombatEnd(GameUnit attacker, GameUnit defender)
         {
             //Remove status
-            attacker.StatusEffects.RemoveAll(effect => effect == this);
-
-            if (defender.IsAlive || !attacker.IsAlive) return;
-
-            float missingAttackerHP = attacker.Stats.MaxHP - attacker.Stats.CurrentHP;
-
-            const int normalDenominator = 3;
-            int hpToHeal = (int) Math.Floor(missingAttackerHP / normalDenominator);
-
-            GlobalEventQueue.QueueSingleEvent(new RegenerateHealthEvent(attacker, hpToHeal));
+            GameContext.ActiveUnit.StatusEffects.RemoveAll(effect => effect == this);
         }
     }
 }

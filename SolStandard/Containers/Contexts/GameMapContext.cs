@@ -9,7 +9,6 @@ using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
-using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
@@ -20,7 +19,7 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Monogame;
+using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -34,7 +33,8 @@ namespace SolStandard.Containers.Contexts
             UnitTargeting,
             UnitActing,
             ResolvingTurn,
-            AdHocDraft
+            AdHocDraft,
+            StealItem
         }
 
         public TurnState CurrentTurnState { get; set; }
@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts
         public bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
         private TerrainEntity LastHoverEntity { get; set; }
-        private TerrainEntity LastHoverItem { get;set; }
+        private TerrainEntity LastHoverItem { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -68,6 +68,72 @@ namespace SolStandard.Containers.Contexts
             RoundCounter = 1;
             CanCancelAction = true;
         }
+
+
+        public bool CanPressConfirm
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return true;
+                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveUnit.Team;
+            }
+        }
+
+        public bool CanPressCancel
+        {
+            get
+            {
+                switch (CurrentTurnState)
+                {
+                    case TurnState.SelectUnit:
+                        return false;
+                    case TurnState.UnitMoving:
+                        return true;
+                    case TurnState.UnitDecidingAction:
+                        return CanCancelAction;
+                    case TurnState.UnitTargeting:
+                        return true;
+                    case TurnState.UnitActing:
+                        return false;
+                    case TurnState.ResolvingTurn:
+                        return false;
+                    case TurnState.AdHocDraft:
+                        return false;
+                    case TurnState.StealItem:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        public bool CanPressPreviewItem
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return false;
+
+                MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
+                if (cursorSlice.TerrainEntity is Vendor hoverVendor)
+                {
+                    return hoverVendor.Items.Count(x => x != null) > 0;
+                }
+
+                if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;
+
+                return HoverUnit != null && HoverUnit.Inventory.Count > 0;
+            }
+        }
+
+        public bool CanPressPreviewUnit
+        {
+            get
+            {
+                if (CurrentTurnState != TurnState.SelectUnit) return false;
+                return HoverUnit != null;
+            }
+        }
+
 
         public void PlayAnimationAtCoordinates(TriggeredAnimation animation, Vector2 coordinates)
         {
@@ -90,8 +156,6 @@ namespace SolStandard.Containers.Contexts
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
 
             GameContext.Scenario.CheckForWinState();
-            UpdateUnitMorale(Team.Blue);
-            UpdateUnitMorale(Team.Red);
             ConfirmPromptWindow();
             GameContext.InitiativeContext.PassTurnToNextUnit();
             UpdateWindowsEachTurn();
@@ -150,25 +214,6 @@ namespace SolStandard.Containers.Contexts
             {
                 turnProc.OnTurnStart();
             }
-        }
-
-        private static void UpdateUnitMorale(Team team)
-        {
-            List<GameUnit> teamUnits = GameContext.Units.Where(unit => unit.Team == team).ToList();
-
-            bool hasLivingCommander = teamUnits.Any(unit => unit.IsCommander && unit.IsAlive);
-
-            if (hasLivingCommander) return;
-
-            Queue<IEvent> statusEvents = new Queue<IEvent>();
-
-            IEnumerable<GameUnit> livingUnits = teamUnits.Where(unit => unit.IsAlive);
-            foreach (GameUnit unit in livingUnits)
-            {
-                statusEvents.Enqueue(new CastStatusEffectEvent(unit, new MoraleBrokenStatus(99, unit)));
-            }
-
-            GlobalEventQueue.QueueEvents(statusEvents);
         }
 
         private static bool NotEveryUnitIsDead()
@@ -241,7 +286,7 @@ namespace SolStandard.Containers.Contexts
 
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -251,7 +296,7 @@ namespace SolStandard.Containers.Contexts
 
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -260,7 +305,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (GameContext.ActiveUnit.UnitEntity == null) return;
 
-            MapContainer.MapCursor.SnapCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             MapContainer.MapCamera.CenterCameraToCursor();
         }
 
@@ -335,11 +380,7 @@ namespace SolStandard.Containers.Contexts
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
                     SelectedUnit,
-                    new SpriteAtlas(
-                        new Texture2DWrapper(AssetManager.ActionTiles.MonoGameTexture),
-                        GameDriver.CellSizeVector,
-                        (int) MapDistanceTile.TileType.Movement
-                    )
+                    MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement)
                 );
 
                 MapContainer.ClearPreviewGrid();
@@ -525,7 +566,7 @@ namespace SolStandard.Containers.Contexts
         private void ReturnUnitToOriginalPosition()
         {
             SelectedUnit.UnitEntity.SnapToCoordinates(selectedUnitOriginalPosition);
-            MapContainer.MapCursor.SnapCursorToCoordinates(selectedUnitOriginalPosition);
+            MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(selectedUnitOriginalPosition);
         }
 
         public void MoveActionMenuCursor(MenuCursorDirection direction)
@@ -574,8 +615,9 @@ namespace SolStandard.Containers.Contexts
         /// Trigger all effect tiles that are set to trigger at the specified time.
         /// </summary>
         /// <param name="effectTriggerTime"></param>
+        /// <param name="isCreepEvent"></param>
         /// <returns>True if any tile can trigger this phase.</returns>
-        public static bool TriggerEffectTiles(EffectTriggerTime effectTriggerTime)
+        public static bool TriggerEffectTiles(EffectTriggerTime effectTriggerTime, bool isCreepEvent)
         {
             List<IEffectTile> effectTiles = MapContainer.GameGrid[(int) Layer.Entities].OfType<IEffectTile>().ToList();
             List<IEffectTile> triggerTiles = effectTiles.Where(tile => tile.WillTrigger(effectTriggerTime)).ToList();
@@ -601,7 +643,7 @@ namespace SolStandard.Containers.Contexts
             {
                 effectTileEvents.Enqueue(new CameraCursorPositionEvent(tile.MapCoordinates));
                 effectTileEvents.Enqueue(
-                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 60)
+                    new TriggerSingleEffectTileEvent(tile, effectTriggerTime, 80)
                 );
             }
 
@@ -613,7 +655,15 @@ namespace SolStandard.Containers.Contexts
                     effectTileEvents.Enqueue(new EffectTilesStartOfRoundEvent());
                     break;
                 case EffectTriggerTime.EndOfTurn:
-                    effectTileEvents.Enqueue(new EndTurnEvent());
+                    if (isCreepEvent)
+                    {
+                        effectTileEvents.Enqueue(new CreepEndTurnEvent());
+                    }
+                    else
+                    {
+                        effectTileEvents.Enqueue(new EndTurnEvent());
+                    }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(effectTriggerTime), effectTriggerTime, null);
@@ -636,21 +686,43 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        public void OpenStealMenu(GameUnit targetToStealFrom)
+        {
+            CurrentTurnState = TurnState.StealItem;
+            GameMapView.GenerateStealItemMenu(targetToStealFrom);
+            AssetManager.MenuConfirmSFX.Play();
+        }
+
+        public void MoveMenuCursor(MenuCursorDirection direction)
+        {
+            GameMapView.CurrentMenu.MoveMenuCursor(direction);
+        }
+
+        public void SelectMenuOption()
+        {
+            GameMapView.CurrentMenu.SelectOption();
+        }
+
+        public void ClearStealItemMenu()
+        {
+            GameMapView.CloseStealItemMenu();
+            MapContainer.ClearDynamicAndPreviewGrids();
+        }
+
+        public void CancelStealItemMenu()
+        {
+            GameMapView.CloseStealItemMenu();
+            GameContext.ActiveUnit.CancelArmedSkill();
+            ResetCursorToActiveUnit();
+            GameMapView.GenerateActionMenus();
+            CurrentTurnState = TurnState.UnitDecidingAction;
+        }
+
         public void OpenDraftMenu()
         {
             CurrentTurnState = TurnState.AdHocDraft;
             GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
             AssetManager.MenuConfirmSFX.Play();
-        }
-
-        public void MoveDraftMenuCursor(MenuCursorDirection direction)
-        {
-            GameMapView.AdHocDraftMenu.MoveMenuCursor(direction);
-        }
-
-        public void SelectDraftMenuOption()
-        {
-            GameMapView.AdHocDraftMenu.SelectOption();
         }
 
         public void ClearDraftMenu()

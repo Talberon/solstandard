@@ -13,6 +13,8 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 {
     public class Rescue : UnitAction
     {
+        private readonly int amrModifier;
+
         private enum ActionPhase
         {
             SelectTarget,
@@ -21,17 +23,20 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         private ActionPhase currentPhase = ActionPhase.SelectTarget;
         private const MapDistanceTile.TileType ActionTileType = MapDistanceTile.TileType.Action;
+        private GameUnit targetUnit;
 
-        public Rescue() : base(
+        public Rescue(int amrModifier) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rescue, GameDriver.CellSizeVector),
             name: "Rescue",
             description: "Leap towards an ally in need!" + Environment.NewLine +
-                         "Select a target, then select a space to land on next to that target.",
+                         "Select a target, then select a space to land on next to that target." + Environment.NewLine +
+                         $"Regenerates target ally's {UnitStatistics.Abbreviation[Stats.Armor]} by {amrModifier}.",
             tileSprite: MapDistanceTile.GetTileSprite(ActionTileType),
             range: new[] {1, 2, 3},
             freeAction: false
         )
         {
+            this.amrModifier = amrModifier;
         }
 
         public override void CancelAction()
@@ -57,14 +62,15 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
 
         private bool SelectTarget(MapSlice targetSlice)
         {
-            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
+            GameUnit selectedUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsAnAllyInRange(targetSlice, targetUnit))
+            if (TargetIsAnAllyInRange(targetSlice, selectedUnit))
             {
-                if (!LeapStrike.SpaceAroundUnitIsEntirelyObstructed(targetUnit))
+                if (!LeapStrike.SpaceAroundUnitIsEntirelyObstructed(selectedUnit))
                 {
+                    targetUnit = selectedUnit;
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    LeapStrike.CreateLandingSpacesAroundTarget(ActionTileType, targetUnit.UnitEntity.MapCoordinates);
+                    LeapStrike.CreateLandingSpacesAroundTarget(ActionTileType, selectedUnit.UnitEntity.MapCoordinates);
                     AssetManager.MenuConfirmSFX.Play();
                     return true;
                 }
@@ -79,7 +85,7 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
             return false;
         }
 
-        private static bool SelectLandingSpace(MapSlice targetSlice)
+        private bool SelectLandingSpace(MapSlice targetSlice)
         {
             if (targetSlice.DynamicEntity != null && !LeapStrike.CoordinatesAreObstructed(targetSlice.MapCoordinates))
             {
@@ -90,6 +96,12 @@ namespace SolStandard.Entity.Unit.Actions.Paladin
                 eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
+                eventQueue.Enqueue(new WaitFramesEvent(10));
+                eventQueue.Enqueue(new RegenerateArmorEvent(targetUnit, amrModifier));
+                eventQueue.Enqueue(new ToastAtCoordinatesEvent(
+                    targetUnit.UnitEntity.MapCoordinates,
+                    $"{targetUnit.Id} regenerates {amrModifier} {UnitStatistics.Abbreviation[Stats.Armor]}!"
+                ));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

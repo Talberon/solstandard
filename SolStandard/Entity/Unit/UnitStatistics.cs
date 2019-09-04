@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit
 {
@@ -23,7 +21,9 @@ namespace SolStandard.Entity.Unit
         Positive,
         Negative,
         Retribution,
-        Block
+        Block,
+        CommandPoints,
+        EmptyCommandPoints
     }
 
     public class UnitStatistics
@@ -37,21 +37,15 @@ namespace SolStandard.Entity.Unit
             {Stats.AtkRange, "RNG"},
             {Stats.Luck, "LCK"},
             {Stats.Retribution, "RET"},
-            {Stats.Block, "BLK"}
+            {Stats.Block, "BLK"},
+            {Stats.CommandPoints, "CP"}
         };
 
-
-        private const int CommanderAmrBonus = 0;
-        private const int CommanderHpBonus = 5;
-        private const int CommanderAtkBonus = 0;
-        private const int CommanderRetBonus = 0;
-        private const int CommanderLuckBonus = 0;
-        private const int CommanderMvBonus = 0;
-        private const int CommanderBlkBonus = 0;
         private const int IconSizePixels = 16;
 
         public int MaxHP { get; }
         public int MaxArmor { get; }
+        public int MaxCmd { get; }
         public int[] BaseAtkRange { get; }
 
         public int BaseAtk { get; }
@@ -62,6 +56,7 @@ namespace SolStandard.Entity.Unit
 
         public int CurrentHP { get; set; }
         public int CurrentArmor { get; set; }
+        public int CurrentCmd { get; set; }
         public int[] CurrentAtkRange { get; set; }
 
         public int AtkModifier { get; set; }
@@ -71,30 +66,33 @@ namespace SolStandard.Entity.Unit
         public int BlkModifier { get; set; }
 
 
-        public UnitStatistics(int hp, int armor, int atk, int ret, int blk, int luck, int mv, int[] atkRange) : this(
-            maxHP: hp,
-            maxArmor: armor,
-            baseAtk: atk,
-            baseRet: ret,
-            baseBlk: blk,
-            baseLuck: luck,
-            baseMv: mv,
-            baseAtkRange: atkRange,
-            currentHP: hp,
-            currentArmor: armor,
-            atkModifier: 0,
-            retModifier: 0,
-            blkModifier: 0,
-            luckModifier: 0,
-            mvModifier: 0,
-            currentAtkRange: atkRange
-        )
+        public UnitStatistics(int hp, int armor, int atk, int ret, int blk, int luck, int mv, int[] atkRange,
+            int maxCmd) :
+            this(
+                maxHP: hp,
+                maxArmor: armor,
+                baseAtk: atk,
+                baseRet: ret,
+                baseBlk: blk,
+                baseLuck: luck,
+                baseMv: mv,
+                baseAtkRange: atkRange,
+                currentHP: hp,
+                currentArmor: armor,
+                atkModifier: 0,
+                retModifier: 0,
+                blkModifier: 0,
+                luckModifier: 0,
+                mvModifier: 0,
+                currentAtkRange: atkRange,
+                maxCmd: maxCmd
+            )
         {
         }
 
         private UnitStatistics(int maxHP, int maxArmor, int baseAtk, int baseRet, int baseBlk, int baseLuck, int baseMv,
             int[] baseAtkRange, int currentHP, int currentArmor, int atkModifier, int retModifier, int blkModifier,
-            int luckModifier, int mvModifier, int[] currentAtkRange
+            int luckModifier, int mvModifier, int[] currentAtkRange, int maxCmd
         )
         {
             CurrentHP = currentHP;
@@ -109,6 +107,7 @@ namespace SolStandard.Entity.Unit
 
             MaxHP = maxHP;
             MaxArmor = maxArmor;
+            MaxCmd = maxCmd;
             BaseAtkRange = ArrayDeepCopier<int>.DeepCopyArray(baseAtkRange);
 
             BaseAtk = baseAtk;
@@ -118,7 +117,7 @@ namespace SolStandard.Entity.Unit
             BaseMv = baseMv;
         }
 
-        public UnitStatistics ApplyWeaponStatistics(WeaponStatistics weaponStatistics)
+        public UnitStatistics ApplyWeaponStatistics(WeaponStatistics weaponStatistics, bool ignoreModifiers = false)
         {
             return new UnitStatistics(
                 maxHP: MaxHP,
@@ -131,12 +130,13 @@ namespace SolStandard.Entity.Unit
                 baseAtkRange: BaseAtkRange,
                 currentHP: CurrentHP,
                 currentArmor: CurrentArmor,
-                atkModifier: AtkModifier,
-                retModifier: RetModifier,
-                blkModifier: BlkModifier,
+                atkModifier: (ignoreModifiers) ? 0 : AtkModifier,
+                retModifier: (ignoreModifiers) ? 0 : RetModifier,
+                blkModifier: (ignoreModifiers) ? 0 : BlkModifier,
                 luckModifier: weaponStatistics.LuckModifier,
-                mvModifier: MvModifier,
-                currentAtkRange: weaponStatistics.AtkRange
+                mvModifier: (ignoreModifiers) ? 0 : MvModifier,
+                currentAtkRange: weaponStatistics.AtkRange,
+                maxCmd: MaxCmd
             );
         }
 
@@ -146,20 +146,6 @@ namespace SolStandard.Entity.Unit
         public int Mv => BaseMv + MvModifier;
         public int Blk => BaseBlk + BlkModifier;
 
-        public UnitStatistics ApplyCommanderBonuses()
-        {
-            return new UnitStatistics(
-                hp: MaxHP + CommanderHpBonus,
-                armor: MaxArmor + CommanderAmrBonus,
-                atk: Atk + CommanderAtkBonus,
-                ret: Ret + CommanderRetBonus,
-                blk: Blk + CommanderBlkBonus,
-                luck: Luck + CommanderLuckBonus,
-                mv: Mv + CommanderMvBonus,
-                atkRange: BaseAtkRange
-            );
-        }
-
         public static SpriteAtlas GetSpriteAtlas(Stats stat)
         {
             return GetSpriteAtlas(stat, GameDriver.CellSizeVector);
@@ -167,21 +153,7 @@ namespace SolStandard.Entity.Unit
 
         public static SpriteAtlas GetSpriteAtlas(Stats stat, Vector2 size)
         {
-            ITexture2D statsTexture;
-
-            if (AssetManager.StatIcons == null)
-            {
-                //TODO Find a cleaner way to test so that this isn't necessary
-                Trace.TraceWarning("No texture for StatIcons could be found!");
-                int statCount = Enum.GetNames(typeof(Stats)).GetLength(0);
-                statsTexture = new BlankTexture((int) size.X * statCount, (int) size.Y * statCount);
-            }
-            else
-            {
-                statsTexture = AssetManager.StatIcons;
-            }
-
-            return new SpriteAtlas(statsTexture, new Vector2(IconSizePixels), size, (int) stat);
+            return new SpriteAtlas(AssetManager.StatIcons, new Vector2(IconSizePixels), size, (int) stat);
         }
 
         public override string ToString()
@@ -201,6 +173,8 @@ namespace SolStandard.Entity.Unit
             output += Abbreviation[Stats.Block] + ": " + Blk + "/" + BaseBlk;
             output += Environment.NewLine;
             output += Abbreviation[Stats.Mv] + ": " + Mv + "/" + BaseMv;
+            output += Environment.NewLine;
+            output += Abbreviation[Stats.CommandPoints] + ": " + CurrentCmd + "/" + MaxCmd;
             output += Environment.NewLine;
             output += string.Format(Abbreviation[Stats.AtkRange] + ": [{0}]/[{1}]", string.Join(",", CurrentAtkRange),
                 string.Join(",", BaseAtkRange));
@@ -238,7 +212,9 @@ namespace SolStandard.Entity.Unit
                    AtkModifier == other.AtkModifier &&
                    RetModifier == other.RetModifier &&
                    LuckModifier == other.LuckModifier &&
-                   MvModifier == other.MvModifier;
+                   MvModifier == other.MvModifier &&
+                   MaxCmd == other.MaxCmd &&
+                   CurrentCmd == other.CurrentCmd;
         }
 
         // ReSharper disable NonReadonlyMemberInGetHashCode
@@ -254,6 +230,7 @@ namespace SolStandard.Entity.Unit
                 hashCode += (hashCode * 397) ^ BaseLuck;
                 hashCode += (hashCode * 397) ^ BaseBlk;
                 hashCode += (hashCode * 397) ^ BaseMv;
+                hashCode += (hashCode * 397) ^ MaxCmd;
 
                 hashCode += (hashCode * 397) ^ CurrentHP;
                 hashCode += (hashCode * 397) ^ CurrentArmor;
@@ -262,6 +239,7 @@ namespace SolStandard.Entity.Unit
                 hashCode += (hashCode * 397) ^ RetModifier;
                 hashCode += (hashCode * 397) ^ LuckModifier;
                 hashCode += (hashCode * 397) ^ MvModifier;
+                hashCode += (hashCode * 397) ^ CurrentCmd;
                 return hashCode;
             }
         }

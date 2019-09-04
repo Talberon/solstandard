@@ -19,6 +19,8 @@ namespace SolStandard.Entity.General.Item
         private readonly Role specificRole;
         public string ItemPool { get; }
         public int[] InteractRange { get; }
+        public bool IsBroken => false;
+        public IRenderable Icon => RenderSprite;
 
         public Contract(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] interactRange,
             string itemPool, bool forSpecificUnit, Role specificRole)
@@ -56,9 +58,6 @@ namespace SolStandard.Entity.General.Item
                 specificRole);
         }
 
-        public bool IsBroken => false;
-
-        public IRenderable Icon => RenderSprite;
 
         private static Window SpecificUnitWindow(Role role, Team team)
         {

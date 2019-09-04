@@ -75,7 +75,7 @@ namespace SolStandard.Entity.General.Item
                 return true;
             }
 
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
 
             UnitTargetingContext bombTargetContext =

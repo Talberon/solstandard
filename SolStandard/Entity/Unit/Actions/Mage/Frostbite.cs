@@ -1,52 +1,92 @@
+using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.General;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.Unit.Actions.Mage
 {
-    public class Frostbite : UnitAction
+    public class Frostbite : LayTrap
     {
-        private readonly int mvToReduce;
-        private readonly int duration;
-
-        public Frostbite(int duration, int mvToReduce) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Frostbite, GameDriver.CellSizeVector),
-            name: "Cryomancy - Frostbite",
-            description: "Reduce target's " + UnitStatistics.Abbreviation[Stats.Mv] +
-                         " stat by [" + mvToReduce + "] for [" + duration + "] turn(s).",
-            tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
-            range: new[] {1, 2},
-            freeAction: false
+        public Frostbite(int damage, int maxTriggers) : base(
+            skillIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Frostbite, GameDriver.CellSizeVector),
+            trapSprite: AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.Ice, GameDriver.CellSizeVector, 6),
+            title: "Cryomancy - Frostbite",
+            damage: damage,
+            maxTriggers: maxTriggers,
+            range: new[] {0, 1},
+            description:
+            $"Place a trap that will deal [{damage}] damage and slow units that start their turn on it." +
+            Environment.NewLine +
+            $"Max activations: [{maxTriggers}]",
+            freeAction: true
         )
         {
-            this.mvToReduce = mvToReduce;
-            this.duration = duration;
+        }
+
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
+            RemoveActionTilesOnUnplaceableSpaces(mapLayer);
+        }
+
+        private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
+        {
+            List<MapElement> tilesToRemove = new List<MapElement>();
+
+            List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
+
+            foreach (MapElement element in targetTiles)
+            {
+                if (TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                {
+                    tilesToRemove.Add(element);
+                }
+            }
+
+            foreach (MapElement tile in tilesToRemove)
+            {
+                MapContainer.GameGrid[(int) mapLayer][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y] = null;
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
-
-            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
+            if (TargetIsInRange(targetSlice))
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
+                if (!TargetHasEntityOrWall(targetSlice))
+                {
+                    TrapEntity trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
+                        targetSlice.MapCoordinates, Damage,
+                        MaxTriggers, true, true, false, true);
 
-                int statusDuration = (targetUnit.IsExhausted) ? duration + 1 : duration;
-
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-                eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new MoveStatDown(statusDuration, mvToReduce)));
-                eventQueue.Enqueue(new EndTurnEvent());
-                GlobalEventQueue.QueueEvents(eventQueue);
+                    MapContainer.ClearDynamicAndPreviewGrids();
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
+                    eventQueue.Enqueue(new PlaceEntityOnMapEvent((TrapEntity) trapToPlace.Duplicate(), Layer.Entities,
+                        AssetManager.DropItemSFX));
+                    eventQueue.Enqueue(new WaitFramesEvent(30));
+                    eventQueue.Enqueue(new AdditionalActionEvent());
+                    GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

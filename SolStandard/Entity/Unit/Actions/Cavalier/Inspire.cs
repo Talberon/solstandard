@@ -8,16 +8,16 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Actions.Bard
+namespace SolStandard.Entity.Unit.Actions.Cavalier
 {
-    public class Crescendo : UnitAction
+    public class Inspire : UnitAction
     {
         private readonly int statModifier;
         private readonly int duration;
 
-        public Crescendo(int duration, int statModifier) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.AtkBuff, GameDriver.CellSizeVector),
-            name: "Crescendo",
+        public Inspire(int duration, int statModifier) : base(
+            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Inspire, GameDriver.CellSizeVector),
+            name: "Inspire",
             description: "Grant a buff that increases an ally's " + UnitStatistics.Abbreviation[Stats.Atk] +
                          " by [+" + statModifier + "] for [" + duration + "] turns.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),

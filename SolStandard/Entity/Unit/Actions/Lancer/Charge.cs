@@ -16,16 +16,24 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
     {
         private readonly int chargeDistance;
 
-        public Charge(int chargeDistance) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
-            name: "Charge",
-            description: "Dash towards a target and attack!",
+        public Charge(IRenderable icon, string skillName, int chargeDistance) : base(
+            icon: icon,
+            name: skillName,
+            description: "Dash towards a target and attack! Cannot move through obstacles or other units.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
-            range: null,
+            range: new[] {chargeDistance},
             freeAction: false
         )
         {
             this.chargeDistance = chargeDistance;
+        }
+
+        public Charge(int chargeDistance) : this(
+            SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
+            "Charge",
+            chargeDistance
+        )
+        {
         }
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
@@ -33,16 +41,17 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
 
-            for (int i = chargeDistance; i > 0; i--)
+            for (int i = chargeDistance; i > 1; i--)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - i);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + i);
-                Vector2 eastTile = new Vector2(origin.X + i, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - i, origin.Y);
-                AddTileWithinMapBounds(attackTiles, northTile, i);
-                AddTileWithinMapBounds(attackTiles, southTile, i);
-                AddTileWithinMapBounds(attackTiles, eastTile, i);
-                AddTileWithinMapBounds(attackTiles, westTile, i);
+                (float originX, float originY) = origin;
+                Vector2 northTile = new Vector2(originX, originY - i);
+                Vector2 southTile = new Vector2(originX, originY + i);
+                Vector2 eastTile = new Vector2(originX + i, originY);
+                Vector2 westTile = new Vector2(originX - i, originY);
+                AddTileWithinMapBounds(attackTiles, northTile, i, TileSprite);
+                AddTileWithinMapBounds(attackTiles, southTile, i, TileSprite);
+                AddTileWithinMapBounds(attackTiles, eastTile, i, TileSprite);
+                AddTileWithinMapBounds(attackTiles, westTile, i, TileSprite);
             }
 
             AddAttackTilesToGameGrid(attackTiles, mapLayer);
@@ -56,11 +65,13 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             {
                 if (!PathIsObstructed(targetSlice, targetUnit))
                 {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue =
-                        MoveToTarget(eventQueue, GameContext.ActiveUnit.UnitEntity.MapCoordinates, targetSlice, 10);
+                    Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
+                        GameContext.ActiveUnit,
+                        targetUnit.UnitEntity.MapCoordinates,
+                        true,
+                        false,
+                        8
+                    );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                     GlobalEventQueue.QueueEvents(eventQueue);
@@ -78,7 +89,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             }
         }
 
-        private static Queue<IEvent> MoveToTarget(Queue<IEvent> eventQueue, Vector2 origin, MapSlice targetSlice,
+        public static Queue<IEvent> MoveToTarget(Queue<IEvent> eventQueue, Vector2 origin, MapSlice targetSlice,
             int frameDelay)
         {
             if (TargetIsNorth(targetSlice))
@@ -158,7 +169,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -178,7 +188,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -198,7 +207,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -218,7 +226,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                     );
                     MapSlice sliceToCheck = MapContainer.GetMapSliceAtCoordinates(coordinatesToCheck);
 
-                    if (sliceToCheck.DynamicEntity == null) return true;
                     if (!UnitMovingContext.CanEndMoveAtCoordinates(sliceToCheck.MapCoordinates)) return true;
                     if (SliceIsAtTargetUnit(sliceToCheck, targetUnit)) break;
                 }
@@ -253,15 +260,16 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         }
 
 
-        private void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates, int distance)
+        public static void AddTileWithinMapBounds(ICollection<MapDistanceTile> tiles, Vector2 tileCoordinates,
+            int distance, IRenderable tileSprite)
         {
             if (GameMapContext.CoordinatesWithinMapBounds(tileCoordinates))
             {
-                tiles.Add(new MapDistanceTile(TileSprite, tileCoordinates, distance));
+                tiles.Add(new MapDistanceTile(tileSprite, tileCoordinates, distance));
             }
         }
 
-        private static void AddAttackTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
+        public static void AddAttackTilesToGameGrid(IEnumerable<MapDistanceTile> visitedTiles, Layer layer)
         {
             foreach (MapDistanceTile tile in visitedTiles)
             {

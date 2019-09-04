@@ -7,6 +7,5 @@ namespace SolStandard.HUD.Window.Content.Health
     {
         Vector2 BarSize { set; }
         void SetArmorAndHp(int armor, int hp);
-        
     }
 }

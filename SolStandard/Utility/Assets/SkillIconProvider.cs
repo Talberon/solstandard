@@ -6,6 +6,17 @@ namespace SolStandard.Utility.Assets
 {
     public enum SkillIcon
     {
+        //AI Routines
+        Prey,
+        Kingslayer,
+        Defender,
+        TriggerHappy,
+        TreasureHunter,
+        Glutton,
+        Summon,
+        Wander,
+
+        //Unit Skills
         BasicAttack,
         Blink,
         DoubleTime,
@@ -26,7 +37,6 @@ namespace SolStandard.Utility.Assets
         Charge,
         Meditate,
         Uppercut,
-        AtkBuff,
         Challenge,
         PhaseStrike,
         Focus,
@@ -38,7 +48,6 @@ namespace SolStandard.Utility.Assets
         Intervention,
         Stun,
         Recover,
-
         BetwixtPlate,
         FlowStrike,
         Frostbite,
@@ -47,19 +56,24 @@ namespace SolStandard.Utility.Assets
         Terraform,
         Rescue,
         Jump,
-
-        //AI Routines
-        Prey,
-        Kingslayer,
-        Defender,
-        TriggerHappy,
-        TreasureHunter,
-        Glutton,
-        Summon,
-        Wander,
         Venom,
         Grapple,
-        Fortify
+        Fortify,
+        FadeStrike,
+        Solo,
+        Concerto,
+        Tempest,
+        Anthem,
+        Freestyle,
+        Gallop,
+        Rob,
+        Rend,
+        PickLock,
+        ThrowingKnife,
+        StemTheTide,
+        EnGarde,
+        CorpsACorps,
+        Fleche
     }
 
     public static class SkillIconProvider
@@ -74,6 +88,17 @@ namespace SolStandard.Utility.Assets
 
         public static void LoadSkillIcons(List<ITexture2D> skillIconTextures)
         {
+            //AI Routines
+            ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
+            ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
+            ITexture2D defender = skillIconTextures.Find(texture => texture.Name.EndsWith("Defender"));
+            ITexture2D triggerHappy = skillIconTextures.Find(texture => texture.Name.EndsWith("TriggerHappy"));
+            ITexture2D treasureHunter = skillIconTextures.Find(texture => texture.Name.EndsWith("TreasureHunter"));
+            ITexture2D glutton = skillIconTextures.Find(texture => texture.Name.EndsWith("Glutton"));
+            ITexture2D summon = skillIconTextures.Find(texture => texture.Name.EndsWith("Summon"));
+            ITexture2D wander = skillIconTextures.Find(texture => texture.Name.EndsWith("Wander"));
+
+            //Unit Skills
             ITexture2D basicAttack = skillIconTextures.Find(texture => texture.Name.EndsWith("BasicAttack"));
             ITexture2D blink = skillIconTextures.Find(texture => texture.Name.EndsWith("Blink"));
             ITexture2D doubleTime = skillIconTextures.Find(texture => texture.Name.EndsWith("DoubleTime"));
@@ -94,7 +119,6 @@ namespace SolStandard.Utility.Assets
             ITexture2D charge = skillIconTextures.Find(texture => texture.Name.EndsWith("Charge"));
             ITexture2D meditate = skillIconTextures.Find(texture => texture.Name.EndsWith("Meditate"));
             ITexture2D uppercut = skillIconTextures.Find(texture => texture.Name.EndsWith("Uppercut"));
-            ITexture2D atkBuff = skillIconTextures.Find(texture => texture.Name.EndsWith("AtkBuff"));
             ITexture2D challenge = skillIconTextures.Find(texture => texture.Name.EndsWith("Challenge"));
             ITexture2D phaseStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("PhaseStrike"));
             ITexture2D focus = skillIconTextures.Find(texture => texture.Name.EndsWith("Focus"));
@@ -117,18 +141,35 @@ namespace SolStandard.Utility.Assets
             ITexture2D fortify = skillIconTextures.Find(texture => texture.Name.EndsWith("Fortify"));
             ITexture2D rescue = skillIconTextures.Find(texture => texture.Name.EndsWith("Rescue"));
             ITexture2D jump = skillIconTextures.Find(texture => texture.Name.EndsWith("Jump"));
-            //AI Routines
-            ITexture2D prey = skillIconTextures.Find(texture => texture.Name.EndsWith("Prey"));
-            ITexture2D kingslayer = skillIconTextures.Find(texture => texture.Name.EndsWith("Kingslayer"));
-            ITexture2D defender = skillIconTextures.Find(texture => texture.Name.EndsWith("Defender"));
-            ITexture2D triggerHappy = skillIconTextures.Find(texture => texture.Name.EndsWith("TriggerHappy"));
-            ITexture2D treasureHunter = skillIconTextures.Find(texture => texture.Name.EndsWith("TreasureHunter"));
-            ITexture2D glutton = skillIconTextures.Find(texture => texture.Name.EndsWith("Glutton"));
-            ITexture2D summon = skillIconTextures.Find(texture => texture.Name.EndsWith("Summon"));
-            ITexture2D wander = skillIconTextures.Find(texture => texture.Name.EndsWith("Wander"));
+            ITexture2D fadeStrike = skillIconTextures.Find(texture => texture.Name.EndsWith("FadeStrike"));
+            ITexture2D solo = skillIconTextures.Find(texture => texture.Name.EndsWith("Solo"));
+            ITexture2D concerto = skillIconTextures.Find(texture => texture.Name.EndsWith("Concerto"));
+            ITexture2D tempest = skillIconTextures.Find(texture => texture.Name.EndsWith("Tempest"));
+            ITexture2D anthem = skillIconTextures.Find(texture => texture.Name.EndsWith("Anthem"));
+            ITexture2D freestyle = skillIconTextures.Find(texture => texture.Name.EndsWith("Freestyle"));
+            ITexture2D gallop = skillIconTextures.Find(texture => texture.Name.EndsWith("Horseshoe"));
+            ITexture2D rob = skillIconTextures.Find(texture => texture.Name.EndsWith("Rob"));
+            ITexture2D rend = skillIconTextures.Find(texture => texture.Name.EndsWith("Rend"));
+            ITexture2D pickLock = skillIconTextures.Find(texture => texture.Name.EndsWith("PickLock"));
+            ITexture2D throwingKnife = skillIconTextures.Find(texture => texture.Name.EndsWith("ThrowingKnife"));
+            ITexture2D stemTheTide = skillIconTextures.Find(texture => texture.Name.EndsWith("StemTheTide"));
+            ITexture2D enGarde = skillIconTextures.Find(texture => texture.Name.EndsWith("EnGarde"));
+            ITexture2D corpsACorps = skillIconTextures.Find(texture => texture.Name.EndsWith("CorpsACorps"));
+            ITexture2D fleche = skillIconTextures.Find(texture => texture.Name.EndsWith("Fleche"));
 
             _skillIconDictionary = new Dictionary<SkillIcon, ITexture2D>
             {
+                //AI Routines
+                {SkillIcon.Prey, prey},
+                {SkillIcon.Kingslayer, kingslayer},
+                {SkillIcon.Defender, defender},
+                {SkillIcon.TriggerHappy, triggerHappy},
+                {SkillIcon.TreasureHunter, treasureHunter},
+                {SkillIcon.Glutton, glutton},
+                {SkillIcon.Summon, summon},
+                {SkillIcon.Wander, wander},
+
+                //Unit Skills
                 {SkillIcon.BasicAttack, basicAttack},
                 {SkillIcon.Blink, blink},
                 {SkillIcon.DoubleTime, doubleTime},
@@ -149,7 +190,6 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Charge, charge},
                 {SkillIcon.Meditate, meditate},
                 {SkillIcon.Uppercut, uppercut},
-                {SkillIcon.AtkBuff, atkBuff},
                 {SkillIcon.Challenge, challenge},
                 {SkillIcon.PhaseStrike, phaseStrike},
                 {SkillIcon.Focus, focus},
@@ -172,16 +212,21 @@ namespace SolStandard.Utility.Assets
                 {SkillIcon.Fortify, fortify},
                 {SkillIcon.Rescue, rescue},
                 {SkillIcon.Jump, jump},
-
-                //AI Routines
-                {SkillIcon.Prey, prey},
-                {SkillIcon.Kingslayer, kingslayer},
-                {SkillIcon.Defender, defender},
-                {SkillIcon.TriggerHappy, triggerHappy},
-                {SkillIcon.TreasureHunter, treasureHunter},
-                {SkillIcon.Glutton, glutton},
-                {SkillIcon.Summon, summon},
-                {SkillIcon.Wander, wander}
+                {SkillIcon.FadeStrike, fadeStrike},
+                {SkillIcon.Concerto, concerto},
+                {SkillIcon.Solo, solo},
+                {SkillIcon.Tempest, tempest},
+                {SkillIcon.Anthem, anthem},
+                {SkillIcon.Freestyle, freestyle},
+                {SkillIcon.Gallop, gallop},
+                {SkillIcon.Rob, rob},
+                {SkillIcon.Rend, rend},
+                {SkillIcon.PickLock, pickLock},
+                {SkillIcon.ThrowingKnife, throwingKnife},
+                {SkillIcon.StemTheTide, stemTheTide},
+                {SkillIcon.EnGarde, enGarde},
+                {SkillIcon.CorpsACorps, corpsACorps},
+                {SkillIcon.Fleche, fleche},
             };
         }
     }

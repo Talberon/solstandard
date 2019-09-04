@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Map.Camera;
+using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
@@ -38,7 +42,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NeutralColor = new Color(255, 250, 250);
 
         private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_04.tmx";
+        private const string MapSelectFile = "Map_Select_06.tmx";
 
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
@@ -80,7 +84,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.InGame:
                         return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
                     case GameState.Codex:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return GetPlayerForTeam(CodexContext.CurrentTeam);
                     case GameState.Results:
                         return PlayerIndex.Four;
                     case GameState.Credits:
@@ -184,7 +188,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void CenterCursorAndCamera()
         {
-            MapCursor.SnapCursorToCoordinates(new Vector2(
+            MapCursor.SnapCameraAndCursorToCoordinates(new Vector2(
                 (int) (MapContainer.MapGridSize.X / 2),
                 (int) (MapContainer.MapGridSize.Y / 2))
             );
@@ -239,8 +243,9 @@ namespace SolStandard.Containers.Contexts
             MapSelectContext = new MapSelectContext(new MapSelectScreenView(),
                 new MapContainer(mapParser.LoadMapGrid(), AssetManager.MapCursorTexture));
 
-            MapCursor.SnapCursorToCoordinates(MapSelectContext.MapCenter);
-            MapCamera.CenterCameraToCursor();
+            MapCursor.SnapCameraAndCursorToCoordinates(MapSelectContext.MapCenter);
+            MapCamera.SnapCameraCenterToCursor();
+            MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
 
             //Player 1 (Blue) always controls map select screen
             LoadInitiativeContext(mapParser, Team.Blue);
@@ -262,7 +267,44 @@ namespace SolStandard.Containers.Contexts
 
             LoadMapContext(mapParser);
             LoadInitiativeContext(mapParser, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
+            InjectCreepsIntoSpawnTiles(mapParser.LoadMapLoot());
             LoadStatusUI();
+        }
+
+        private static void InjectCreepsIntoSpawnTiles(List<IItem> mapLoot)
+        {
+            List<CreepEntity> summons = GameMapContext.MapContainer.MapSummons;
+
+            List<CreepDeployTile> creepDeployTiles = MapContainer.GetMapEntities()
+                .Where(entity => entity.GetType() == typeof(CreepDeployTile)).Cast<CreepDeployTile>().ToList();
+
+            foreach (CreepDeployTile creepDeployTile in creepDeployTiles)
+            {
+                List<CreepEntity> eligibleCreeps =
+                    summons.Where(creep => creep.CreepPool == creepDeployTile.CreepPool).ToList();
+
+                CreepEntity randomSummon = eligibleCreeps[GameDriver.Random.Next(eligibleCreeps.Count)];
+
+                InjectCreepIntoTile(mapLoot, randomSummon, creepDeployTile);
+
+                if (!creepDeployTile.CopyCreep) summons.Remove(randomSummon);
+            }
+        }
+
+        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon, MapElement creepDeployTile)
+        {
+            Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
+
+            GameUnit creepToSpawn =
+                UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
+                    randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
+
+            creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
+            creepToSpawn.ExhaustAndDisableUnit();
+            Units.Add(creepToSpawn);
+
+            MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
+                (int) creepDeployTile.MapCoordinates.Y] = null;
         }
 
         private static void LoadStatusUI()

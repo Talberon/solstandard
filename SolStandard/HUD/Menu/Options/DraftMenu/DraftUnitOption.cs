@@ -47,10 +47,10 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                     unitPortraitSprite
                 },
                 {
-                    new RenderText(AssetManager.WindowFont, role.ToString().ToUpper())
+                    new RenderText(AssetManager.StatFont, role.ToString().ToUpper())
                 },
                 {
-                    new RenderText(AssetManager.MapFont, enabled ? "Available" : "Limit Reached")
+                    new RenderText(AssetManager.SmallWindowFont, enabled ? "Available" : "Limit Reached")
                 }
             };
 

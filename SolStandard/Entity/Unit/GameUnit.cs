@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Bard;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
+using SolStandard.HUD.Window.Content.Command;
 using SolStandard.HUD.Window.Content.Health;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -25,6 +28,8 @@ namespace SolStandard.Entity.Unit
     public enum Role
     {
         Silhouette,
+
+        //Units
         Champion,
         Marauder,
         Paladin,
@@ -35,6 +40,10 @@ namespace SolStandard.Entity.Unit
         Pugilist,
         Mage,
         Archer,
+        Cavalier,
+        Rogue,
+
+        //Creeps
         Slime,
         Troll,
         Orc,
@@ -43,7 +52,10 @@ namespace SolStandard.Entity.Unit
         Goblin,
         Rat,
         Bat,
-        Spider
+        Spider,
+
+        //Pets
+        Boar,
     }
 
     public enum Team
@@ -59,11 +71,12 @@ namespace SolStandard.Entity.Unit
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
 
-        private HealthBar hoverWindowHealthBar;
-        private HealthBar combatHealthBar;
+        private HealthBar hoverWindowResourceBar;
+        private HealthBar combatResourceBar;
         private MiniHealthBar initiativeHealthBar;
         private MiniHealthBar resultsHealthBar;
         private List<IHealthBar> healthbars;
+        private readonly MiniCommandPointBar miniCommandPointBar;
 
         public static readonly Color DeadPortraitColor = new Color(10, 10, 10, 180);
         public static readonly Color ExhaustedPortraitColor = new Color(150, 150, 150);
@@ -71,19 +84,29 @@ namespace SolStandard.Entity.Unit
 
         public bool IsExhausted { get; private set; }
 
-        public List<UnitAction> Actions { get; }
+        public List<UnitAction> Actions { get; set; }
         public List<UnitAction> ContextualActions { get; }
         private UnitAction armedUnitAction;
+        private readonly UnitSpriteSheet entitySpriteSheet;
 
         public List<StatusEffect> StatusEffects { get; }
+
         public bool IsCommander { get; set; }
         public bool IsMovable { get; set; }
 
         public List<IItem> Inventory { get; }
         public int CurrentGold { get; set; }
 
-        private readonly UnitSpriteSheet unitSpriteSheet;
         private TriggeredAnimation deathAnimation;
+
+        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
+        public UnitStatistics Stats { get; }
+        public Team Team { get; }
+        public Role Role { get; }
+        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
+        public IRenderable LargePortrait => largePortrait;
+        public IRenderable MediumPortrait => mediumPortrait;
+        public IRenderable SmallPortrait => smallPortrait;
 
         public GameUnit(string id, Team team, Role role, UnitEntity unitEntity, UnitStatistics stats,
             ITexture2D portrait, List<UnitAction> actions, bool isCommander) :
@@ -95,6 +118,8 @@ namespace SolStandard.Entity.Unit
             Actions = actions;
             IsCommander = isCommander;
             IsMovable = true;
+
+            entitySpriteSheet = unitEntity.UnitSpriteSheet;
 
             ContextualActions = new List<UnitAction>();
             largePortrait = new SpriteAtlas(portrait, new Vector2(portrait.Width, portrait.Height),
@@ -110,29 +135,20 @@ namespace SolStandard.Entity.Unit
             Inventory = new List<IItem>();
             CurrentGold = 0;
 
-            unitSpriteSheet = GetSpriteSheetFromEntity(unitEntity);
             deathAnimation = null;
 
-            ApplyCommanderBonus();
             ResetHealthBars();
+            miniCommandPointBar = new MiniCommandPointBar(Stats.MaxCmd, Vector2.One);
         }
 
-        public UnitEntity UnitEntity => (UnitEntity) MapEntity;
+        public int[] AtkRange => Stats.CurrentAtkRange;
+        public int MvRange => Stats.Mv;
 
-        public UnitStatistics Stats { get; private set; }
-
-        public Team Team { get; }
-
-        public Role Role { get; }
-
-
-        public bool IsActive => GameContext.InitiativeContext.CurrentActiveTeam == Team && !IsExhausted;
-
-        public IRenderable LargePortrait => largePortrait;
-
-        public IRenderable MediumPortrait => mediumPortrait;
-
-        public IRenderable SmallPortrait => smallPortrait;
+        public IRenderable GetInitiativeCommandPointBar(Vector2 barSize)
+        {
+            miniCommandPointBar.BarSize = barSize;
+            return miniCommandPointBar;
+        }
 
         public IRenderable GetInitiativeHealthBar(Vector2 barSize)
         {
@@ -142,14 +158,14 @@ namespace SolStandard.Entity.Unit
 
         public IRenderable GetHoverWindowHealthBar(Vector2 barSize)
         {
-            hoverWindowHealthBar.BarSize = barSize;
-            return hoverWindowHealthBar;
+            hoverWindowResourceBar.BarSize = barSize;
+            return hoverWindowResourceBar;
         }
 
         public IRenderable GetCombatHealthBar(Vector2 barSize)
         {
-            combatHealthBar.BarSize = barSize;
-            return combatHealthBar;
+            combatResourceBar.BarSize = barSize;
+            return combatResourceBar;
         }
 
         public IRenderable GetResultsHealthBar(Vector2 barSize)
@@ -169,8 +185,29 @@ namespace SolStandard.Entity.Unit
                 {
                     {
                         new Window(
-                            GetHoverWindowHealthBar(new Vector2(MediumPortrait.Width - windowBordersSize,
-                                hoverWindowHealthBarHeight)),
+                            new WindowContentGrid(
+                                new[,]
+                                {
+                                    {
+                                        (IsCommander)
+                                            ? new CommandPointBar(
+                                                Stats.MaxCmd,
+                                                Stats.CurrentCmd,
+                                                new Vector2(MediumPortrait.Width - windowBordersSize,
+                                                    (float) hoverWindowHealthBarHeight / 2)
+                                            )
+                                            : new RenderBlank() as IRenderable
+                                    },
+                                    {
+                                        GetHoverWindowHealthBar(
+                                            new Vector2(MediumPortrait.Width - windowBordersSize,
+                                                hoverWindowHealthBarHeight)
+                                        )
+                                    }
+                                },
+                                0,
+                                HorizontalAlignment.Centered
+                            ),
                             panelColor
                         )
                     },
@@ -212,6 +249,7 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
+                ISpriteFont statfont = AssetManager.StatFont;
                 Color statPanelColor = new Color(10, 10, 10, 100);
                 const float panelWidth = 410;
                 const float panelHeight = 33;
@@ -254,12 +292,9 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Armor),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Armor] + ": "),
-                                            new RenderText(
-                                                AssetManager.WindowFont,
-                                                Stats.CurrentArmor + "/" + Stats.MaxArmor
-                                            )
+                                            new RenderText(statfont, Stats.CurrentArmor + "/" + Stats.MaxArmor)
                                         }
                                     },
                                     1
@@ -273,9 +308,9 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Hp),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Hp] + ": "),
-                                            new RenderText(AssetManager.WindowFont, Stats.CurrentHP + "/" + Stats.MaxHP)
+                                            new RenderText(statfont, Stats.CurrentHP + "/" + Stats.MaxHP)
                                         }
                                     },
                                     1
@@ -289,7 +324,7 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
                                         }
                                     },
@@ -306,10 +341,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Atk),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Atk] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Atk.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Atk, Stats.BaseAtk)
                                             )
@@ -326,10 +361,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Retribution),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Retribution] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Ret.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Ret, Stats.BaseRet)
                                             )
@@ -346,10 +381,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Block),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Block] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Blk.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Blk, Stats.BaseBlk)
                                             )
@@ -368,10 +403,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Luck),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Luck] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Luck.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Luck, Stats.BaseLuck)
                                             )
@@ -388,10 +423,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.Mv),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.Mv] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 Stats.Mv.ToString(),
                                                 UnitStatistics.DetermineStatColor(Stats.Mv, Stats.BaseMv)
                                             )
@@ -408,10 +443,10 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             UnitStatistics.GetSpriteAtlas(Unit.Stats.AtkRange),
-                                            new RenderText(AssetManager.WindowFont,
+                                            new RenderText(statfont,
                                                 UnitStatistics.Abbreviation[Unit.Stats.AtkRange] + ": "),
                                             new RenderText(
-                                                AssetManager.WindowFont,
+                                                statfont,
                                                 $"[{string.Join(",", Stats.CurrentAtkRange)}]",
                                                 UnitStatistics.DetermineStatColor(Stats.CurrentAtkRange.Max(),
                                                     Stats.BaseAtkRange.Max())
@@ -433,7 +468,7 @@ namespace SolStandard.Entity.Unit
         public IRenderable GetMapSprite(Vector2 size, Color color, UnitAnimationState animation, int frameDelay,
             bool isFlipped)
         {
-            UnitSpriteSheet clonedSpriteSheet = unitSpriteSheet.Clone();
+            UnitSpriteSheet clonedSpriteSheet = entitySpriteSheet.Clone();
             if (isFlipped) clonedSpriteSheet.Flip();
             clonedSpriteSheet.SetFrameDelay(frameDelay);
             clonedSpriteSheet.SetAnimation(animation);
@@ -503,16 +538,16 @@ namespace SolStandard.Entity.Unit
 
         private void ResetHealthBars()
         {
-            combatHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
-            hoverWindowHealthBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            combatResourceBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
+            hoverWindowResourceBar = new HealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
             initiativeHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
             resultsHealthBar = new MiniHealthBar(Stats.MaxArmor, Stats.MaxHP, Vector2.One);
 
             healthbars = new List<IHealthBar>
             {
                 initiativeHealthBar,
-                combatHealthBar,
-                hoverWindowHealthBar,
+                combatResourceBar,
+                hoverWindowResourceBar,
                 resultsHealthBar
             };
         }
@@ -579,6 +614,19 @@ namespace SolStandard.Entity.Unit
             );
         }
 
+        public void AddCommandPoints(int amountToAdd = 1)
+        {
+            if (Stats.CurrentCmd < Stats.MaxCmd) Stats.CurrentCmd += amountToAdd;
+            miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
+        }
+
+        public void RemoveCommandPoints(int pointsToRemove)
+        {
+            Stats.CurrentCmd -= pointsToRemove;
+            if (Stats.CurrentCmd < 0) Stats.CurrentCmd = 0;
+            miniCommandPointBar.UpdateCommandPoints(Stats.CurrentCmd);
+        }
+
         public void ActivateUnit()
         {
             if (UnitEntity == null) return;
@@ -589,6 +637,7 @@ namespace SolStandard.Entity.Unit
             largePortrait.DefaultColor = ActivePortraitColor;
             mediumPortrait.DefaultColor = ActivePortraitColor;
             smallPortrait.DefaultColor = ActivePortraitColor;
+            if (IsCommander) AddCommandPoints();
         }
 
         public void ExhaustAndDisableUnit()
@@ -633,14 +682,6 @@ namespace SolStandard.Entity.Unit
 
             StatusEffects.Add(statusEffect);
             statusEffect.ApplyEffect(this);
-        }
-
-        public void ApplyCommanderBonus()
-        {
-            if (!IsCommander) return;
-
-            Stats = Stats.ApplyCommanderBonuses();
-            ResetHealthBars();
         }
 
         private void RemoveDuplicateEffects(StatusEffect statusEffect)
@@ -799,16 +840,6 @@ namespace SolStandard.Entity.Unit
             }
         }
 
-        private UnitSpriteSheet GetSpriteSheetFromEntity(UnitEntity entity)
-        {
-            //TODO Find a cleaner way to test so that this isn't necessary
-
-            if (entity != null) return entity.UnitSpriteSheet;
-
-            Trace.TraceWarning("No unitEntity for unit " + this + "!");
-            return new UnitSpriteSheet(new BlankTexture(), 1, Vector2.One, 100, false, Color.White);
-        }
-
         public override string ToString()
         {
             return "GameUnit: " + Id + ", " + Team + ", " + Role;
@@ -839,8 +870,23 @@ namespace SolStandard.Entity.Unit
             return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
 
-        public int[] AtkRange => Stats.CurrentAtkRange;
+        public void DrawAuras(SpriteBatch spriteBatch)
+        {
+            if (!IsAlive) return;
 
-        public int MvRange => Stats.Mv;
+            List<SongStatus> songs = StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>().ToList();
+
+            foreach (SongStatus song in songs)
+            {
+                UnitTargetingContext targetingContext = new UnitTargetingContext(song.SongSprite);
+                List<MapDistanceTile> auraTiles =
+                    targetingContext.GetTargetingTiles(UnitEntity.MapCoordinates, song.AuraRange);
+
+                foreach (MapDistanceTile tile in auraTiles)
+                {
+                    tile.Draw(spriteBatch);
+                }
+            }
+        }
     }
 }

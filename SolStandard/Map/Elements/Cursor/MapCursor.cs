@@ -6,6 +6,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Buttons;
 
 namespace SolStandard.Map.Elements.Cursor
 {
@@ -18,6 +19,7 @@ namespace SolStandard.Map.Elements.Cursor
             Red
         }
 
+        private static readonly Vector2 ButtonSizeVector = new Vector2(16);
         private readonly Vector2 mapSize;
         private static Vector2 _cursorSize;
         public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
@@ -33,7 +35,19 @@ namespace SolStandard.Map.Elements.Cursor
             this.mapSize = mapSize;
             _cursorSize = new Vector2(sprite.Width, sprite.Height);
         }
-        
+
+        private static IRenderable ConfirmButton =>
+            InputIconProvider.GetInputIcon(Input.Confirm, ButtonSizeVector);
+
+        private static IRenderable CancelButton =>
+            InputIconProvider.GetInputIcon(Input.Cancel, ButtonSizeVector);
+
+        private static IRenderable ItemButton =>
+            InputIconProvider.GetInputIcon(Input.PreviewItem, ButtonSizeVector);
+
+        private static IRenderable CodexButton =>
+            InputIconProvider.GetInputIcon(Input.PreviewUnit, ButtonSizeVector);
+
         public bool CursorIntersectsWindow(IRenderable window, Vector2 windowPixelPosition)
         {
             (float windowLeft, float windowTop) = windowPixelPosition;
@@ -46,10 +60,10 @@ namespace SolStandard.Map.Elements.Cursor
             return cursorWithinWindowBounds;
         }
 
-        public void SnapCursorToCoordinates(Vector2 coordinates)
+        public void SnapCameraAndCursorToCoordinates(Vector2 coordinates)
         {
             SnapToCoordinates(coordinates);
-            GameContext.MapCamera.StartMovingCameraToCursor();
+            GameContext.MapCamera.SnapCameraCenterToCursor();
         }
 
         public void MoveCursorInDirection(Direction direction)
@@ -168,6 +182,60 @@ namespace SolStandard.Map.Elements.Cursor
             UpdateCursorTeam();
             UpdateRenderCoordinates();
             Sprite.Draw(spriteBatch, CurrentDrawCoordinates, colorOverride);
+
+            switch (GameContext.CurrentGameState)
+            {
+                case GameContext.GameState.MainMenu:
+                    break;
+                case GameContext.GameState.NetworkMenu:
+                    break;
+                case GameContext.GameState.ArmyDraft:
+                    break;
+                case GameContext.GameState.Deployment:
+                    break;
+                case GameContext.GameState.MapSelect:
+                    DrawMapSelectButtonPrompts(spriteBatch);
+                    break;
+                case GameContext.GameState.PauseScreen:
+                    break;
+                case GameContext.GameState.InGame:
+                    DrawInGameButtonPrompts(spriteBatch);
+                    break;
+                case GameContext.GameState.Results:
+                    break;
+                case GameContext.GameState.Codex:
+                    break;
+                case GameContext.GameState.ItemPreview:
+                    break;
+                case GameContext.GameState.Credits:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void DrawMapSelectButtonPrompts(SpriteBatch spriteBatch)
+        {
+            if (GameContext.MapSelectContext.CanPressConfirm)
+                ConfirmButton.Draw(spriteBatch, CurrentDrawCoordinates + _cursorSize - (ButtonSizeVector / 2));
+        }
+
+        private void DrawInGameButtonPrompts(SpriteBatch spriteBatch)
+        {
+            if (GameContext.GameMapContext.CanPressConfirm)
+                ConfirmButton.Draw(spriteBatch, CurrentDrawCoordinates + _cursorSize - (ButtonSizeVector / 2));
+
+            if (GameContext.GameMapContext.CanPressCancel)
+                CancelButton.Draw(spriteBatch,
+                    CurrentDrawCoordinates + new Vector2(0, _cursorSize.Y) - (ButtonSizeVector / 2));
+
+            if (GameContext.GameMapContext.CanPressPreviewUnit)
+                CodexButton.Draw(spriteBatch,
+                    CurrentDrawCoordinates - (ButtonSizeVector / 2));
+
+            if (GameContext.GameMapContext.CanPressPreviewItem)
+                ItemButton.Draw(spriteBatch,
+                    CurrentDrawCoordinates + new Vector2(_cursorSize.X, 0) - (ButtonSizeVector / 2));
         }
 
         public override string ToString()

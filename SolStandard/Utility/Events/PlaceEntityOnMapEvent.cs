@@ -34,6 +34,8 @@ namespace SolStandard.Utility.Events
             
             soundEffect.Play();
 
+            GameMapContext.GameMapView.GenerateObjectiveWindow();
+            
             Complete = true;
         }
     }

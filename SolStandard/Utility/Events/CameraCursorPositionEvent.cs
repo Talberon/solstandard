@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.MapCursor.SnapCursorToCoordinates(targetCameraPosition);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
 
             if (GameContext.GameMapContext.MapContainer.MapCursor.IsOnScreen)
             {

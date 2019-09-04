@@ -265,15 +265,27 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
             }
 
-            if (controlMapper.Press(Input.TabLeft, PressType.Single))
+            if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new PreviousMapEvent());
+            }
+
+            if (controlMapper.Press(Input.TabRight, PressType.DelayedRepeat))
+            {
+                GlobalEventQueue.QueueSingleEvent(new NextMapEvent());
+            }
+
+            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Red));
             }
 
-            if (controlMapper.Press(Input.TabRight, PressType.Single))
+            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new ChangePlayerTeamsEvent(Team.Blue));
             }
+
+            CameraControl(controlMapper);
         }
 
         private static void MapControls(ControlMapper controlMapper)
@@ -287,6 +299,9 @@ namespace SolStandard.Containers.Contexts
             {
                 case GameMapContext.TurnState.AdHocDraft:
                     AdHocDraftControl(controlMapper);
+                    break;
+                case GameMapContext.TurnState.StealItem:
+                    StealItemControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.SelectUnit:
                     SelectUnitControl(controlMapper);
@@ -315,27 +330,37 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Up);
+                GameContext.GameMapContext.MoveMenuCursor(MenuCursorDirection.Up);
             }
 
             if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Down);
+                GameContext.GameMapContext.MoveMenuCursor(MenuCursorDirection.Down);
             }
 
             if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Left);
+                GameContext.GameMapContext.MoveMenuCursor(MenuCursorDirection.Left);
             }
 
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.MoveDraftMenuCursor(MenuCursorDirection.Right);
+                GameContext.GameMapContext.MoveMenuCursor(MenuCursorDirection.Right);
             }
 
             if (controlMapper.Press(Input.Confirm, PressType.DelayedRepeat))
             {
-                GameContext.GameMapContext.SelectDraftMenuOption();
+                GameContext.GameMapContext.SelectMenuOption();
+            }
+        }
+
+        private static void StealItemControl(ControlMapper controlMapper)
+        {
+            AdHocDraftControl(controlMapper);
+
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.GameMapContext.CancelStealItemMenu();
             }
         }
 

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.DraftMenu;
@@ -120,20 +121,48 @@ namespace SolStandard.Containers.View
             ObjectivesWindow = objectivesWindow;
         }
 
-        public void UpdateCommanderSelect(IEnumerable<GameUnit> units, Team team)
+        public void UpdateCommanderSelect(List<GameUnit> units, Team team)
         {
-            MenuOption[] unitOptions =
-                units.Select(unit => new SelectCommanderOption(unit)).Cast<MenuOption>().ToArray();
-
-            MenuOption[,] commanderOptions = new MenuOption[1, unitOptions.Length];
-
-            for (int i = 0; i < unitOptions.Length; i++)
-            {
-                commanderOptions[0, i] = unitOptions[i];
-            }
-
+            MenuOption[,] commanderOptions = GetCommanderOptionsForUnits(units);
             CommanderSelect = new TwoDimensionalMenu(commanderOptions, CommanderCursor,
                 TeamUtility.DetermineTeamColor(team), TwoDimensionalMenu.CursorType.Pointer);
+        }
+
+
+        private static MenuOption[,] GetCommanderOptionsForUnits(IReadOnlyList<GameUnit> units)
+        {
+            const int unitsPerRow = 5;
+
+            int totalRows = (int) Math.Ceiling((float) units.Count / unitsPerRow);
+
+            MenuOption[,] commanderOptions = new MenuOption[totalRows, unitsPerRow];
+
+            int unitIndex = 0;
+            for (int row = 0; row < totalRows; row++)
+            {
+                for (int column = 0; column < unitsPerRow; column++)
+                {
+                    if (unitIndex < units.Count)
+                    {
+                        GameUnit currentUnit = units[unitIndex];
+
+                        UnitAction commandAction = CodexContext.UnitArchetypes
+                            .First(archetype => archetype.Role == currentUnit.Role)
+                            .Actions
+                            .FirstOrDefault(action => action is ICommandAction);
+
+                        commanderOptions[row, column] = new SelectCommanderOption(currentUnit, commandAction);
+                    }
+                    else
+                    {
+                        commanderOptions[row, column] = new UnselectableOption(new RenderBlank(), DarkBackgroundColor);
+                    }
+
+                    unitIndex++;
+                }
+            }
+
+            return commanderOptions;
         }
 
         public void HideUnitSelect()
@@ -200,7 +229,7 @@ namespace SolStandard.Containers.View
 
         public static MenuOption[,] GetAdHocUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
-            const int unitsPerRow = 5;
+            const int unitsPerRow = 6;
             List<Role> availableRoles = DraftContext.AvailableRoles;
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
@@ -234,7 +263,7 @@ namespace SolStandard.Containers.View
 
         private static MenuOption[,] GetUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
         {
-            const int unitsPerRow = 5;
+            const int unitsPerRow = 6;
             List<Role> availableRoles = DraftContext.AvailableRoles;
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);

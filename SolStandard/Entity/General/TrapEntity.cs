@@ -21,6 +21,7 @@ namespace SolStandard.Entity.General
         private readonly bool limitedTriggers;
         private bool enabled;
         private readonly bool willSnare;
+        private readonly bool willSlow;
 
         public int TriggersRemaining { get; private set; }
         public int Damage { get; }
@@ -29,7 +30,7 @@ namespace SolStandard.Entity.General
         public bool IsExpired { get; private set; }
 
         public TrapEntity(string name, IRenderable sprite, Vector2 mapCoordinates, int damage, int triggersRemaining,
-            bool limitedTriggers, bool enabled, bool willSnare = false, string itemPool = null) :
+            bool limitedTriggers, bool enabled, bool willSnare = false, bool willSlow = false, string itemPool = null) :
             base(name, "Trap", sprite, mapCoordinates)
         {
             Damage = damage;
@@ -37,6 +38,7 @@ namespace SolStandard.Entity.General
             this.limitedTriggers = limitedTriggers;
             this.enabled = enabled;
             this.willSnare = willSnare;
+            this.willSlow = willSlow;
             ItemPool = itemPool;
             IsExpired = false;
             HasTriggered = false;
@@ -63,6 +65,12 @@ namespace SolStandard.Entity.General
                 trapMessage += Environment.NewLine + "Target is immobilized!";
             }
 
+            if (willSlow)
+            {
+                trapUnit.AddStatusEffect(new MoveStatDown(2, 2));
+                trapMessage += Environment.NewLine + "Target is slowed!";
+            }
+
             for (int i = 0; i < Damage; i++)
             {
                 trapUnit.DamageUnit();
@@ -76,7 +84,7 @@ namespace SolStandard.Entity.General
                 IsExpired = true;
 
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
-                    trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 50);
+                    trapMessage + Environment.NewLine + "Trap is broken!", MapCoordinates, 80);
 
                 AssetManager.CombatDamageSFX.Play();
                 AssetManager.CombatDeathSFX.Play();
@@ -84,11 +92,11 @@ namespace SolStandard.Entity.General
             else
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(trapMessage, MapCoordinates,
-                    50);
+                    80);
                 AssetManager.CombatDamageSFX.Play();
             }
 
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
             return true;
         }
@@ -105,7 +113,7 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCursorToCoordinates(MapCoordinates);
+            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
@@ -159,6 +167,18 @@ namespace SolStandard.Entity.General
                                 UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                                 new RenderText(AssetManager.WindowFont,
                                     (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
+                            },
+                            {
+                                willSnare
+                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                                new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
+                            },
+                            {
+                                willSlow
+                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                                new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
                             }
                         }, InnerWindowColor),
                         new RenderBlank()
@@ -181,7 +201,7 @@ namespace SolStandard.Entity.General
         public IItem Duplicate()
         {
             return new TrapEntity(Name, Sprite, MapCoordinates, Damage, TriggersRemaining, limitedTriggers, enabled,
-                willSnare, ItemPool);
+                willSnare, willSlow, ItemPool);
         }
 
         public bool IsBroken => IsExpired;

@@ -59,6 +59,12 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >#### License
 >https://www.gamedevmarket.net/terms-conditions/#pro-licence
 
+### Skye Scribbles | https://skyescribbles.com/
+>#### Work
+> Item Icons
+>#### License
+>None
+
 ### Hyohnoo | https://hyohnoo.itch.io/
 >#### Work
 >Button, Keyboard Icons
@@ -112,3 +118,9 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >Font - Aldo the Apache (Logo Font)
 >#### License
 >Free
+
+### Eeve Somepx | https://somepx.itch.io/
+>#### Works
+>In-game fonts
+>#### License
+>http://www.palmentieri.it/somepx/license.txt

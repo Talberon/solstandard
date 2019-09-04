@@ -35,9 +35,7 @@ namespace SolStandard.Containers.Contexts
 
         private int redMaxUnits;
         private int redUnitsSelected;
-
         private int maxDuplicateUnitType;
-
         public Team CurrentTurn { get; private set; }
 
         private Dictionary<Role, int> blueUnitCount;
@@ -47,6 +45,7 @@ namespace SolStandard.Containers.Contexts
         {
             DraftView = new DraftView();
         }
+
 
         public void StartNewSoloDraft(int maxUnits, int maxDuplicates, Team soloPlayerTeam, Scenario scenario)
         {
@@ -176,7 +175,7 @@ namespace SolStandard.Containers.Contexts
         {
             unit.IsCommander = true;
             unit.UnitEntity.IsCommander = true;
-            unit.ApplyCommanderBonus();
+            unit.Actions = UnitGenerator.GetUnitActions(unit.Role, unit.IsCommander);
             DraftView.UpdateCommanderPortrait(unit.Role, unit.Team);
             PassTurnCommanderSelect();
 
@@ -343,12 +342,14 @@ namespace SolStandard.Containers.Contexts
                 Role.Paladin,
                 Role.Cleric,
                 Role.Bard,
+                Role.Mage,
 
+                Role.Cavalier,
                 Role.Duelist,
                 Role.Pugilist,
                 Role.Lancer,
+                Role.Rogue,
                 Role.Archer,
-                Role.Mage
             };
     }
 }

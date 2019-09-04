@@ -5,7 +5,7 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions.Lancer;
-using SolStandard.Entity.Unit.Statuses;
+using SolStandard.Entity.Unit.Statuses.Pugilist;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -16,13 +16,15 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 {
     public class FlowStrike : UnitAction
     {
-        private const string BuffName = "Flow";
+        public const string BuffName = "Flow";
+        public static readonly IRenderable BuffIcon =
+            SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, GameDriver.CellSizeVector);
 
         private readonly int percent;
         private readonly int buffDuration;
 
         public FlowStrike(int percent, int buffDuration) : base(
-            icon: SkillIconProvider.GetSkillIcon(SkillIcon.FlowStrike, GameDriver.CellSizeVector),
+            icon: BuffIcon,
             name: "Flow Strike",
             description: "Grants a stack of " + BuffName + ", then attacks a unit for " + percent +
                          "% damage (rounded up)." + Environment.NewLine +
@@ -47,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 FlowStatus currentFlow =
                     attacker.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
-                int atkDamage = Execute.DamageValueRoundedUp(attacker.Stats.Atk, percent);
+                int atkDamage = Execute.ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
                 WeaponStatistics flowStrikeFist =
                     new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
@@ -67,7 +69,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 );
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new StartCombatEvent(
-                    targetUnit, attacker.Stats.ApplyWeaponStatistics(flowStrikeFist)
+                    targetUnit, false, attacker.Stats.ApplyWeaponStatistics(flowStrikeFist, true)
                 ));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }

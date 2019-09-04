@@ -18,7 +18,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             description: "Push a unit away one space if there is an unoccupied space behind them.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
-            freeAction: false
+            freeAction: true
         )
         {
         }
@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
-                    eventQueue.Enqueue(new EndTurnEvent());
+                    eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else

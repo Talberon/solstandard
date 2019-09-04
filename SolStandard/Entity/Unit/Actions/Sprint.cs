@@ -9,7 +9,6 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
-using SolStandard.Utility.Events.AI;
 
 namespace SolStandard.Entity.Unit.Actions
 {
@@ -19,8 +18,8 @@ namespace SolStandard.Entity.Unit.Actions
 
         public Sprint(int maxDistance) : base(
             icon: UnitStatistics.GetSpriteAtlas(Stats.Mv, GameDriver.CellSizeVector),
-            name: "Sprint",
-            description: "Move up to " + maxDistance + " additional spaces this turn." + Environment.NewLine +
+            name: $"Sprint [{maxDistance}]",
+            description: "Move up to [" + maxDistance + "] additional spaces this turn." + Environment.NewLine +
                          "Can not move further than maximum " + UnitStatistics.Abbreviation[Stats.Mv] + ".",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
@@ -32,16 +31,22 @@ namespace SolStandard.Entity.Unit.Actions
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            int lowerMv = GameContext.ActiveUnit.Stats.Mv < maxDistance ? GameContext.ActiveUnit.Stats.Mv : maxDistance;
+            GenerateSprintGrid(origin, GameContext.ActiveUnit, maxDistance, mapLayer);
+        }
+
+        public static void GenerateSprintGrid(Vector2 origin, GameUnit sprintingUnit, int maxDistance,
+            Layer mapLayer = Layer.Dynamic)
+        {
+            int lowerMv = sprintingUnit.Stats.Mv < maxDistance ? sprintingUnit.Stats.Mv : maxDistance;
 
             UnitMovingContext unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
-            unitMovingContext.GenerateMoveGrid(origin, lowerMv, GameContext.ActiveUnit.Team);
+            unitMovingContext.GenerateMoveGrid(origin, lowerMv, sprintingUnit.Team);
 
             //Delete the origin space to prevent players standing still and wasting action.
             MapContainer.GameGrid[(int) mapLayer][(int) origin.X, (int) origin.Y] = null;
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(origin);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -50,31 +55,8 @@ namespace SolStandard.Entity.Unit.Actions
             {
                 if (CanMoveToTargetTile(targetSlice))
                 {
-                    const bool walkThroughAllies = true;
-
-                    MapContainer.ClearDynamicAndPreviewGrids();
-
-                    GameUnit actingUnit = GameContext.ActiveUnit;
-
-                    List<Direction> directions = AStarAlgorithm.DirectionsToDestination(
-                        actingUnit.UnitEntity.MapCoordinates, targetSlice.MapCoordinates, walkThroughAllies, true
-                    );
-
-                    Queue<IEvent> pathingEventQueue = new Queue<IEvent>();
-                    foreach (Direction direction in directions)
-                    {
-                        if (direction == Direction.None) continue;
-
-                        pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, direction, walkThroughAllies));
-                        pathingEventQueue.Enqueue(new WaitFramesEvent(5));
-                    }
-
-                    pathingEventQueue.Enqueue(new CreepMoveEvent(actingUnit, Direction.None));
-                    pathingEventQueue.Enqueue(new MoveEntityToCoordinatesEvent(actingUnit.UnitEntity,
-                        targetSlice.MapCoordinates));
-                    pathingEventQueue.Enqueue(new CameraCursorPositionEvent(targetSlice.MapCoordinates));
-                    pathingEventQueue.Enqueue(new EndTurnEvent());
-                    GlobalEventQueue.QueueEvents(pathingEventQueue);
+                    MoveUnitToTargetPosition(GameContext.ActiveUnit, targetSlice.MapCoordinates);
+                    GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }
                 else
                 {
@@ -89,7 +71,18 @@ namespace SolStandard.Entity.Unit.Actions
             }
         }
 
-        private static bool CanMove(GameUnit unit)
+        public static void MoveUnitToTargetPosition(GameUnit movingUnit, Vector2 mapCoordinates)
+        {
+            const bool walkThroughAllies = true;
+
+            Queue<IEvent> pathingEventQueue =
+                PathingUtil.MoveToCoordinates(movingUnit, mapCoordinates, false, walkThroughAllies, 10);
+
+            pathingEventQueue.Enqueue(new CameraCursorPositionEvent(mapCoordinates));
+            GlobalEventQueue.QueueEvents(pathingEventQueue);
+        }
+
+        public static bool CanMove(GameUnit unit)
         {
             return unit.Stats.Mv > 0;
         }

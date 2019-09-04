@@ -71,6 +71,7 @@
   <property name="Independent" type="bool" default="false"/>
   <property name="Items" type="string"/>
   <property name="Team" type="string" default="Creep"/>
+  <property name="creepPool" type="string" default=""/>
   <property name="fallback_routine" type="string" default="routine_wander"/>
   <property name="gold" type="int" default="0"/>
   <property name="routine_basicAttack" type="bool" default="true"/>
@@ -78,12 +79,17 @@
   <property name="routine_glutton" type="bool" default="false"/>
   <property name="routine_kingslayer" type="bool" default="false"/>
   <property name="routine_prey" type="bool" default="false"/>
+  <property name="routine_stationaryAttack" type="bool" default="false"/>
   <property name="routine_summon" type="bool" default="false"/>
   <property name="routine_summon.class" type="string" default="Skeleton"/>
   <property name="routine_treasureHunter" type="bool" default="false"/>
   <property name="routine_triggerHappy" type="bool" default="false"/>
   <property name="routine_wait" type="bool" default="false"/>
   <property name="routine_wander" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="CreepDeploy" color="#0aaaaa">
+  <property name="copyCreep" type="bool" default="true"/>
+  <property name="creepPool" type="string" default="Monsters"/>
  </objecttype>
  <objecttype name="Crossing" color="#aa0000">
   <property name="direction" type="string" default="NONE|UP|DOWN|LEFT|RIGHT"/>
@@ -218,6 +224,7 @@
   <property name="itemPool" type="string"/>
   <property name="limitedTriggers" type="bool" default="false"/>
   <property name="triggersRemaining" type="int" default="1"/>
+  <property name="willSlow" type="bool" default="false"/>
   <property name="willSnare" type="bool" default="false"/>
  </objecttype>
  <objecttype name="Unit" color="#8500aa">

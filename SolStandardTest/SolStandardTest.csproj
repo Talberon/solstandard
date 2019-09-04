@@ -150,11 +150,12 @@
   <ItemGroup>
     <Compile Include="Containers\Contexts\InitiativeContextTest.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\ExecuteTest.cs" />
-    <Compile Include="HUD\Window\Content\Health\FakeHealthBar.cs" />
+    <Compile Include="HUD\Window\Content\Health\FakeResourceBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBarTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Buttons\Network\NetworkControllerTest.cs" />
     <Compile Include="Utility\Monogame\FakeTexture2D.cs" />
+    <Compile Include="Utility\RangeComparisonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

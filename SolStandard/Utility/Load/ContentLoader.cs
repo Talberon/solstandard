@@ -28,6 +28,11 @@ namespace SolStandard.Utility.Load
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/WindowText"));
         }
 
+        public static ISpriteFont LoadSmallWindowFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/SmallWindowFont"));
+        }
+
         public static ISpriteFont LoadMapFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/MapText"));
@@ -46,6 +51,11 @@ namespace SolStandard.Utility.Load
         public static ISpriteFont LoadHeavyFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/HeavyText"));
+        }
+        
+        public static ISpriteFont LoadStatFont(ContentManager content)
+        {
+            return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/StatFont"));
         }
 
         public static ITexture2D LoadWhitePixel(ContentManager content)
@@ -127,6 +137,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCleric"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueMarauder"),
                 content.Load<Texture2D>("Graphics/Map/Units/Blue/BluePaladin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueCavalier"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueRogue"),
+                content.Load<Texture2D>("Graphics/Map/Units/Blue/BlueBoar"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedArcher"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMage"),
@@ -138,6 +151,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedCleric"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedMarauder"),
                 content.Load<Texture2D>("Graphics/Map/Units/Red/RedPaladin"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedCavalier"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedRogue"),
+                content.Load<Texture2D>("Graphics/Map/Units/Red/RedBoar"),
 
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
@@ -176,6 +192,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cleric"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Marauder"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Paladin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Cavalier"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Rogue"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Blue/Boar"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Silhouette"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Archer"),
@@ -188,6 +207,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cleric"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Marauder"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Red/Paladin"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Cavalier"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Rogue"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Red/Boar"),
 
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Silhouette"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Merchant"),
@@ -211,46 +233,11 @@ namespace SolStandard.Utility.Load
             return portraitTextures;
         }
 
+
         public static ITexture2D LoadDiceAtlas(ContentManager content)
         {
             Texture2D diceTexture = content.Load<Texture2D>("Graphics/Images/Dice/AttackDiceAtlas");
             return new Texture2DWrapper(diceTexture);
-        }
-
-        public static ITexture2D LoadFireAtlas(ContentManager content)
-        {
-            Texture2D fireTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire");
-            return new Texture2DWrapper(fireTexture);
-        }
-
-        public static ITexture2D LoadDeathAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadInteractAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadDamageAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadRecoverArmorAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadRecoverHealthAtlas(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth");
-            return new Texture2DWrapper(loadTexture);
         }
 
         public static ITexture2D LoadPistonAtlas(ContentManager content)
@@ -277,6 +264,33 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static List<ITexture2D> LoadAnimations(ContentManager content)
+        {
+            List<Texture2D> songTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/SongAura"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraAttack"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraLuck"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraMove"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/AuraRetribution"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Damage"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Death"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Fire"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/IceTrap"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Interact"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth"),
+            };
+
+            List<ITexture2D> songITextures = new List<ITexture2D>();
+            foreach (Texture2D texture in songTextures)
+            {
+                songITextures.Add(new Texture2DWrapper(texture));
+            }
+
+            return songITextures;
+        }
+
         public static ITexture2D LoadCommanderIcon(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
@@ -298,7 +312,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadTitleScreenBackground(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_BannerStripe");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/TitleBackground_WorldMap");
             return new Texture2DWrapper(loadTexture);
         }
 
@@ -315,9 +329,11 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Tavern_Inn"),
@@ -334,7 +350,19 @@ namespace SolStandard.Utility.Load
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Alpha_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Escape_Prison"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01")
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01"),
+
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hiatok_Fortress"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Quest_Race"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Village_Center"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tropical_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Bellriver_Tavern_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
+                
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Island_Boss"),
+                
             };
 
             List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
@@ -437,7 +465,6 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Intervention"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Meditate"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Uppercut"),
-                content.Load<Texture2D>("Graphics/Images/Icons/Skill/AtkBuff"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Challenge"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PhaseStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Focus"),
@@ -460,8 +487,26 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Grapple"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fortify"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/StemTheTide"),
+                
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rend"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rob"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/PickLock"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/ThrowingKnife"),
+
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Concerto"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Solo"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Tempest"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Freestyle"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Anthem"),
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Horseshoe"),
+                
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/EnGarde"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/CorpsACorps"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fleche"),
                 //AI Routine Icons
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Prey"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Kingslayer"),

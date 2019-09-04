@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private static bool CanPlaceBombAtTarget(MapSlice targetSlice)
         {
             return UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates) &&
-                   targetSlice.DynamicEntity != null;
+                   targetSlice.DynamicEntity != null && targetSlice.TerrainEntity == null;
         }
     }
 }

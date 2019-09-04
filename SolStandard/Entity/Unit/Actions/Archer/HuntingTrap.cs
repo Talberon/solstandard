@@ -11,6 +11,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             title: "Hunting Trap",
             damage: damage,
             maxTriggers: maxTriggers,
+            range: new[] {1},
             description: "Place a tile that will deal [" + damage +
                          "] damage to enemies that start their turn on it and immobilize them." +
                          Environment.NewLine + "Max activations: [" + maxTriggers + "]"

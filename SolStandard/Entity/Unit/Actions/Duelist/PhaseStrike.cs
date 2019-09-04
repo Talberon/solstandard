@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -15,7 +16,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         public PhaseStrike() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.PhaseStrike, GameDriver.CellSizeVector),
             name: "Phase Strike",
-            description: "Move through an enemy unit as you attack.",
+            description: "Move through an enemy unit as you attack." + Environment.NewLine +
+                         "Movement takes place before combat.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {1},
             freeAction: false

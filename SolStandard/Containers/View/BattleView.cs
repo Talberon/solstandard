@@ -132,10 +132,10 @@ namespace SolStandard.Containers.View
                 new AnimatedWindow(RangeWindow(attackerWindowColor, inRange), LeftSideWindowAnimation);
         }
 
-        public void GenerateAttackerBonusWindow(TerrainBonus terrainBonus, Color attackerWindowColor)
+        public void GenerateAttackerBonusWindow(BonusStatistics bonusStatistics, Color attackerWindowColor)
         {
             AttackerBonusWindow =
-                new AnimatedWindow(BonusWindow(terrainBonus, attackerWindowColor), LeftSideWindowAnimation);
+                new AnimatedWindow(BonusWindow(bonusStatistics, attackerWindowColor), LeftSideWindowAnimation);
         }
 
         public void GenerateAttackerAtkWindow(Color windowColor, UnitStatistics attackerStats, Stats combatStat)
@@ -177,27 +177,23 @@ namespace SolStandard.Containers.View
 
         public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
-            bool isFlipped;
             int frameDelay;
 
             switch (state)
             {
                 case UnitAnimationState.Attack:
-                    isFlipped = true;
                     frameDelay = CombatDelay;
                     break;
                 case UnitAnimationState.Hit:
-                    isFlipped = true;
                     frameDelay = CombatDelay;
                     break;
                 default:
-                    isFlipped = false;
                     frameDelay = RegularDelay;
                     break;
             }
 
             DefenderSpriteWindow =
-                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, isFlipped),
+                new AnimatedWindow(BattlerWindow(defender, spriteColor, state, frameDelay, true),
                     RightBattlerAnimation);
         }
 
@@ -215,10 +211,10 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderBonusWindow(TerrainBonus terrainBonus, Color defenderWindowColor)
+        public void GenerateDefenderBonusWindow(BonusStatistics bonusStatistics, Color defenderWindowColor)
         {
             DefenderBonusWindow =
-                new AnimatedWindow(BonusWindow(terrainBonus, defenderWindowColor), RightSideWindowAnimation);
+                new AnimatedWindow(BonusWindow(bonusStatistics, defenderWindowColor), RightSideWindowAnimation);
         }
 
 
@@ -281,13 +277,13 @@ namespace SolStandard.Containers.View
             return new Window(defenderRangeContentGrid, windowColor);
         }
 
-        private static Window BonusWindow(TerrainBonus terrainBonus, Color attackerWindowColor)
+        private static Window BonusWindow(BonusStatistics bonusStatistics, Color attackerWindowColor)
         {
             IRenderable[,] attackerBonusContent =
             {
                 {
-                    ((terrainBonus.AtkBonus + terrainBonus.RetBonus + terrainBonus.BlockBonus +
-                      terrainBonus.LuckBonus) > 0)
+                    ((bonusStatistics.AtkBonus + bonusStatistics.RetBonus + bonusStatistics.BlockBonus +
+                      bonusStatistics.LuckBonus) > 0)
                         ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
                         : UnitStatistics.GetSpriteAtlas(Stats.Negative),
 

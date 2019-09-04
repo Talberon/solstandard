@@ -7,10 +7,14 @@ namespace SolStandard.Containers.View
 {
     public class BackgroundView : IUserInterface
     {
+        private static readonly Color RenderColor = new Color(100, 100, 100);
+
         private static SpriteAtlas Background =>
             new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                GameDriver.ScreenSize);
+                ScaleHeightToWidth(
+                    new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
+                    GameDriver.ScreenSize.X));
 
         private bool IsVisible { get; set; }
 
@@ -24,12 +28,18 @@ namespace SolStandard.Containers.View
             IsVisible = !IsVisible;
         }
 
+        private static Vector2 ScaleHeightToWidth(Vector2 sourceProportions, float width)
+        {
+            Vector2 scaledProportions = new Vector2 {X = width, Y = sourceProportions.Y * width / sourceProportions.X};
+            return scaledProportions;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!IsVisible) return;
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
             Vector2 backgroundCenter = new Vector2(Background.Width, Background.Height) / 2;
-            Background.Draw(spriteBatch, centerScreen - backgroundCenter);
+            Background.Draw(spriteBatch, centerScreen - backgroundCenter, RenderColor);
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.Unit.Actions.Item
 {
@@ -17,14 +21,32 @@ namespace SolStandard.Entity.Unit.Actions.Item
             int[] range) : base(
             icon: item.Icon.Clone(),
             name: "Consume",
-            description:
-            $"Single use. Target modifies {UnitStatistics.Abbreviation[statistic]} by [{statModifier}] for [{buffDuration}] turns.",
+            description: ItemDescription(statistic, statModifier, buffDuration),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: range,
             freeAction: true
         )
         {
             this.item = item;
+        }
+
+        private static IRenderable ItemDescription(Stats statistic, int statModifier, int buffDuration)
+        {
+            ISpriteFont descriptionFont = AssetManager.WindowFont;
+            Vector2 iconSize = new Vector2(descriptionFont.MeasureString("A").Y);
+            return new WindowContentGrid(new IRenderable[,]
+                {
+                    {
+                        new RenderText(descriptionFont, "Single use. Target increases"),
+                        UnitStatistics.GetSpriteAtlas(statistic, iconSize),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            $"{UnitStatistics.Abbreviation[statistic]} by [{statModifier}] for [{buffDuration}] turns."
+                        )
+                    }
+                },
+                1
+            );
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

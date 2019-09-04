@@ -17,13 +17,10 @@ namespace SolStandard.Map.Elements
             Action
         }
 
-        private const int TileAlpha = 160;
-        private static readonly Color Transparent = new Color(255, 255, 255, TileAlpha);
-
         private readonly RenderText renderText;
         private readonly bool textVisible;
 
-        public MapDistanceTile(IRenderable sprite, Vector2 mapCoordinates, int distance, Color color,
+        private MapDistanceTile(IRenderable sprite, Vector2 mapCoordinates, int distance, Color color,
             bool textVisible = true) :
             base(sprite, mapCoordinates)
         {
@@ -34,29 +31,28 @@ namespace SolStandard.Map.Elements
         }
 
         public MapDistanceTile(IRenderable sprite, Vector2 mapCoordinates, int distance = 0, bool textVisible = false) :
-            this(sprite, mapCoordinates, distance, Transparent, textVisible)
+            this(sprite, mapCoordinates, distance, sprite.DefaultColor, textVisible)
         {
         }
 
         public static SpriteAtlas GetTileSprite(TileType tileType)
         {
-            return new SpriteAtlas(AssetManager.ActionTiles, GameDriver.CellSizeVector, (int) tileType);
+            const int tileAlpha = 160;
+            return new SpriteAtlas(AssetManager.ActionTiles, GameDriver.CellSizeVector, (int) tileType,
+                new Color(Color.White, tileAlpha));
         }
 
         public int Distance { get; }
 
-        public SpriteAtlas SpriteAtlas => (SpriteAtlas) Sprite;
+        public IRenderable DrawSprite => Sprite;
 
         public override string ToString()
         {
             string output = "";
-
             output += "MapDistanceTile: {";
-
             output += "X:" + MapCoordinates.X;
             output += ", Y:" + MapCoordinates.Y;
             output += ", Dist:" + Distance;
-
             output += "}";
 
             return output;
@@ -65,7 +61,6 @@ namespace SolStandard.Map.Elements
         private Vector2 CenterTextToTile()
         {
             Vector2 tileCorner = MapCoordinates * GameDriver.CellSize;
-
             Vector2 centerOfText = new Vector2((float) renderText.Width / 2, (float) renderText.Height / 2);
             Vector2 centerOfTile = new Vector2((float) GameDriver.CellSize / 2, (float) GameDriver.CellSize / 2);
 
@@ -78,18 +73,17 @@ namespace SolStandard.Map.Elements
         {
             Sprite.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize, colorOverride);
 
-            if (textVisible)
-            {
-                Vector2 centeredText = CenterTextToTile();
-                //Black outline
-                const int offset = 1;
-                renderText.Draw(spriteBatch, new Vector2(centeredText.X - offset, centeredText.Y), Color.Black);
-                renderText.Draw(spriteBatch, new Vector2(centeredText.X + offset, centeredText.Y), Color.Black);
-                renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
-                renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
+            if (!textVisible) return;
 
-                renderText.Draw(spriteBatch, centeredText);
-            }
+            Vector2 centeredText = CenterTextToTile();
+            //Black outline
+            const int offset = 1;
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X - offset, centeredText.Y), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X + offset, centeredText.Y), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y - offset), Color.Black);
+            renderText.Draw(spriteBatch, new Vector2(centeredText.X, centeredText.Y + offset), Color.Black);
+
+            renderText.Draw(spriteBatch, centeredText);
         }
     }
 }

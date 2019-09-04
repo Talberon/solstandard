@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) itemCoordinates.X, (int) itemCoordinates.Y] =
                 new MapDistanceTile(TileSprite, itemCoordinates);
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCursorToCoordinates(itemCoordinates);
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(itemCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

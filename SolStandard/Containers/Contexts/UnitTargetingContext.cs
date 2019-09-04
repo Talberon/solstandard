@@ -22,7 +22,7 @@ namespace SolStandard.Containers.Contexts
 
         public void GenerateTargetingGrid(Vector2 origin, int[] ranges, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> visited = GenerateTargetingGrid(origin, ranges, numbersVisible);
+            List<MapDistanceTile> visited = GetTargetingTiles(origin, ranges, numbersVisible);
 
             AddVisitedTilesToGameGrid(visited, mapLayer);
         }
@@ -53,7 +53,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private List<MapDistanceTile> GenerateTargetingGrid(Vector2 origin, int[] ranges, bool distanceVisible)
+        public List<MapDistanceTile> GetTargetingTiles(Vector2 origin, int[] ranges, bool distanceVisible = false)
         {
             //Breadth First Search Algorithm (with limit)
             Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
@@ -117,28 +117,28 @@ namespace SolStandard.Containers.Contexts
             if (CanPlaceTileAtCoordinates(north, visitedCoordinates))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, north, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, north, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceTileAtCoordinates(south, visitedCoordinates))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, south, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, south, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceTileAtCoordinates(east, visitedCoordinates))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, east, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, east, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
             if (CanPlaceTileAtCoordinates(west, visitedCoordinates))
             {
                 neighbours.Add(
-                    new MapDistanceTile(currentTile.SpriteAtlas, west, currentTile.Distance + 1, distanceVisible)
+                    new MapDistanceTile(currentTile.DrawSprite, west, currentTile.Distance + 1, distanceVisible)
                 );
             }
 
