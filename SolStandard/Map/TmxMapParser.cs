@@ -596,7 +596,9 @@ namespace SolStandard.Map
                                     case EntityTypes.Vendor:
                                         string[] itemNames = currentProperties["items"].Split('|');
 
-                                        List<IItem> vendorItems = mapLoot.Where(item => itemNames.Contains(item.Name))
+                                        List<IItem> vendorItems = mapLoot
+                                            .Where(item => itemNames.Contains(item.Name))
+                                            .OrderBy(item => Array.IndexOf(itemNames, item.Name))
                                             .ToList();
 
                                         entityGrid[col, row] = new Vendor(
