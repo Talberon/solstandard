@@ -194,7 +194,7 @@ namespace SolStandard.Containers.View
                                 {
                                     {
                                         new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
-                                        new RenderText(AssetManager.WindowFont, unit.CurrentGold + "G")
+                                        new RenderText(AssetManager.WindowFont, unit.CurrentBounty + "G")
                                     }
                                 },
                                 1

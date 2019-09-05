@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
@@ -32,6 +33,8 @@ namespace SolStandard.Containers.Contexts
             RollDice,
             ResolveCombat
         }
+
+        private const int BountyPerTriumph = 10;
 
         private readonly BattleView battleView;
 
@@ -180,11 +183,11 @@ namespace SolStandard.Containers.Contexts
 
                         if (!attacker.IsAlive)
                         {
-                            LootAttackerSpoils();
+                            TakeAttackerSpoilsAndIncreaseBounty();
                         }
                         else if (!defender.IsAlive)
                         {
-                            LootDefenderSpoils();
+                            TakeDefenderSpoilsAndIncreaseBounty();
                         }
 
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
@@ -196,26 +199,53 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private void LootDefenderSpoils()
+        private void TakeDefenderSpoilsAndIncreaseBounty()
         {
             MapSlice defenderSlice = MapContainer.GetMapSliceAtCoordinates(defenderCoordinates);
-            if (defenderSlice.ItemEntity is Spoils defenderSpoils)
+            if (!(defenderSlice.ItemEntity is Spoils defenderSpoils)) return;
+
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
+
+            string toastMessage = string.Empty;
+            toastMessage += $"Obtained {defenderSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+
+            foreach (IItem item in defenderSpoils.Items)
             {
-                GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
-                GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(attackerCoordinates,
-                    $"Obtained spoils from {defender.Id}!", AssetManager.CoinSFX));
+                toastMessage += Environment.NewLine;
+                toastMessage += $"Obtained {item.Name}!";
             }
+
+            attacker.CurrentBounty += BountyPerTriumph;
+            toastMessage += Environment.NewLine + Environment.NewLine +
+                            $"{attacker.Id} bounty increased by {BountyPerTriumph}!";
+
+            GlobalEventQueue.QueueSingleEvent(
+                new ToastAtCoordinatesEvent(attackerCoordinates, toastMessage, AssetManager.CoinSFX, 80)
+            );
         }
 
-        private void LootAttackerSpoils()
+        private void TakeAttackerSpoilsAndIncreaseBounty()
         {
             MapSlice attackerSlice = MapContainer.GetMapSliceAtCoordinates(attackerCoordinates);
-            if (attackerSlice.ItemEntity is Spoils attackerSpoils)
+            if (!(attackerSlice.ItemEntity is Spoils attackerSpoils)) return;
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
+
+            string toastMessage = string.Empty;
+            toastMessage += $"Obtained {attackerSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+
+            foreach (IItem item in attackerSpoils.Items)
             {
-                GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
-                GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(defenderCoordinates,
-                    $"Obtained spoils from {attacker.Id}!", AssetManager.CoinSFX));
+                toastMessage += Environment.NewLine;
+                toastMessage += $"Obtained {item.Name}!";
             }
+
+            defender.CurrentBounty += BountyPerTriumph;
+            toastMessage += Environment.NewLine + Environment.NewLine +
+                            $"{defender.Id} bounty increased by {BountyPerTriumph}!";
+
+            GlobalEventQueue.QueueSingleEvent(
+                new ToastAtCoordinatesEvent(defenderCoordinates, toastMessage, AssetManager.CoinSFX, 80)
+            );
         }
 
         private void SetPromptWindowText(string promptText)

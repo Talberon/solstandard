@@ -22,6 +22,7 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
+        private const int InitialUnitBounty = 10;
         private const int StartingGoldVariance = 5;
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
@@ -54,6 +55,7 @@ namespace SolStandard.Entity.Unit
             else
             {
                 generatedUnit = GenerateUnit(unitJobClass, unitTeam, id, isCommander, mapEntity);
+                AssignStartingGold(generatedUnit, InitialUnitBounty, 0);
             }
 
             return generatedUnit;
@@ -61,7 +63,7 @@ namespace SolStandard.Entity.Unit
 
         private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
         {
-            generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
+            generatedUnit.CurrentBounty += amount + GameDriver.Random.Next(variance);
         }
 
         private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)

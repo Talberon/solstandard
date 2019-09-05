@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
                 AnimationType.SongLuck,
                 GameDriver.CellSizeVector,
                 SongAnimationFrameDelay,
-                GetSongColor(GameContext.ActiveUnit.Team)
+                GetSongColor(GameContext.ActiveTeam)
             );
         }
 

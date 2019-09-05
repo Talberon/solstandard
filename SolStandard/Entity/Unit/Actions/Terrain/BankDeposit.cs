@@ -75,11 +75,11 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public void Increment(int amountToIncrement)
         {
-            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentGold;
+            int maxGold = GameContext.InitiativeContext.GetGoldForTeam(GameContext.ActiveTeam);
 
-            if (Value + amountToIncrement > activeUnitCurrentGold)
+            if (Value + amountToIncrement > maxGold)
             {
-                Value = activeUnitCurrentGold;
+                Value = maxGold;
             }
             else
             {

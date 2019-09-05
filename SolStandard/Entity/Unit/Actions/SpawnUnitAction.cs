@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions
         private static IRenderable UnitIcon(Role role)
         {
             ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role,
-                (GameContext.ActiveUnit != null) ? GameContext.ActiveUnit.Team : Team.Blue);
+                (GameContext.ActiveUnit != null) ? GameContext.ActiveTeam : Team.Blue);
             return new SpriteAtlas(unitPortrait,
                 new Vector2(unitPortrait.Width, unitPortrait.Height),
                 GameDriver.CellSizeVector
@@ -51,7 +51,7 @@ namespace SolStandard.Entity.Unit.Actions
                 eventQueue.Enqueue(
                     new SpawnUnitEvent(
                         unitRole,
-                        GameContext.ActiveUnit.Team,
+                        GameContext.ActiveTeam,
                         targetSlice.MapCoordinates
                     )
                 );

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
@@ -17,6 +18,7 @@ using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
 {
@@ -63,6 +65,7 @@ namespace SolStandard.Containers.View
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
+        private Window GoldWindow => GenerateGoldWindow();
 
         public Window ItemDetailWindow { get; private set; }
         private Window UserPromptWindow { get; set; }
@@ -165,7 +168,7 @@ namespace SolStandard.Containers.View
                     break;
             }
 
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
             GenerateMenuDescriptionWindow(VisibleMenu, windowColour);
         }
 
@@ -299,9 +302,40 @@ namespace SolStandard.Containers.View
             ), windowColor);
         }
 
+        private static Window GenerateGoldWindow()
+        {
+            ISpriteFont font = AssetManager.WindowFont;
+
+            Window blueGoldWindow = new Window(
+                new RenderText(font, $"Blue: {GameContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
+                TeamUtility.DetermineTeamColor(Team.Blue));
+
+            Window redGoldWindow = new Window(
+                new RenderText(font, $"Red: {GameContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
+                TeamUtility.DetermineTeamColor(Team.Red));
+
+            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
+                new IRenderable[,]
+                {
+                    {
+                        blueGoldWindow,
+                        ObjectiveIconProvider.GetObjectiveIcon(
+                            VictoryConditions.Taxes,
+                            GameDriver.CellSizeVector
+                        ),
+                        redGoldWindow
+                    }
+                },
+                2,
+                HorizontalAlignment.Centered
+            );
+
+            return new Window(teamGoldWindowContentGrid, BlankTerrainWindowColor);
+        }
+
         public void GenerateActionMenus()
         {
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
             GenerateActionMenu(windowColour);
             GenerateInventoryMenu(windowColour);
             VisibleMenu = MenuType.ActionMenu;
@@ -361,7 +395,7 @@ namespace SolStandard.Containers.View
 
         public void GenerateCurrentMenuDescription()
         {
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveUnit.Team);
+            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
 
             switch (VisibleMenu)
             {
@@ -833,6 +867,15 @@ namespace SolStandard.Containers.View
             );
         }
 
+        private Vector2 GoldWindowPosition()
+        {
+            //Center, above initiative list
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) GoldWindow.Width / 2,
+                InitiativeWindowPosition().Y - GoldWindow.Height
+            );
+        }
+
         private Vector2 ObjectiveWindowPosition()
         {
             //Top-left
@@ -886,6 +929,7 @@ namespace SolStandard.Containers.View
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
+                GoldWindow?.Draw(spriteBatch, GoldWindowPosition());
 
                 if (LeftUnitPortraitWindow != null)
                 {

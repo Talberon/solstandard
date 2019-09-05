@@ -99,7 +99,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             {
                 if (targetUnit.UnitEntity == null) continue;
                 if (targetUnit.UnitEntity == GameContext.ActiveUnit.UnitEntity) continue;
-                if (!isIndependent && targetUnit.Team == GameContext.ActiveUnit.Team) continue;
+                if (!isIndependent && targetUnit.Team == GameContext.ActiveTeam) continue;
 
                 unitTargetingContext.GenerateTargetingGrid(targetUnit.UnitEntity.MapCoordinates, creep.AtkRange,
                     Layer.Preview);

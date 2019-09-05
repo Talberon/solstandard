@@ -20,7 +20,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.CurrentGold += spoils.Gold;
+            GameContext.InitiativeContext.AddGoldToTeam(spoils.Gold, GameContext.ActiveTeam);
 
             foreach (IItem item in spoils.Items)
             {

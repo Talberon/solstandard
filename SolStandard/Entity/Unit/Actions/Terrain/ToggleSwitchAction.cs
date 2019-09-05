@@ -86,7 +86,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
         }
 
-        private static bool IsCreepTurn => GameContext.ActiveUnit.Team == Team.Creep;
+        private static bool IsCreepTurn => GameContext.ActiveTeam == Team.Creep;
 
         private static bool TargetingSwitch(MapSlice targetSlice)
         {

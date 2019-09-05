@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     MapContainer.ClearDynamicAndPreviewGrids();
 
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new SeizeObjectiveEvent(GameContext.ActiveUnit.Team));
+                    eventQueue.Enqueue(new SeizeObjectiveEvent(GameContext.ActiveTeam));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new EndTurnEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
@@ -75,7 +75,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                switch (GameContext.ActiveUnit.Team)
+                switch (GameContext.ActiveTeam)
                 {
                     case Team.Red:
                         return seizeEntity.CapturableByRed;

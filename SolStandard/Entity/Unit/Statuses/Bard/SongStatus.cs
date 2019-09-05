@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             SelfBonus = selfBonus;
             this.auraRange = auraRange;
             SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.SongHymn, GameDriver.CellSizeVector,
-                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveUnit.Team));
+                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveTeam));
         }
 
         protected static Color GetSongColor(Team team)

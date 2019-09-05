@@ -41,7 +41,7 @@ namespace SolStandard.Entity.General
 
         public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
-            depositer.CurrentGold -= goldToDeposit;
+            GameContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -65,7 +65,7 @@ namespace SolStandard.Entity.General
 
         public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
-            depositer.CurrentGold += goldToWithdraw;
+            GameContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -107,7 +107,6 @@ namespace SolStandard.Entity.General
             RedMoney = 0;
             BlueMoney = 0;
         }
-
 
         public override IRenderable TerrainInfo =>
             new WindowContentGrid(

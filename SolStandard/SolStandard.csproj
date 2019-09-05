@@ -427,7 +427,7 @@
     <Compile Include="Utility\Events\BankDepositEvent.cs" />
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
-    <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\DecreaseTeamGoldEvent.cs" />
     <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
@@ -488,7 +488,7 @@
     <Compile Include="Utility\Events\HideUnitEvent.cs" />
     <Compile Include="Utility\Events\IEvent.cs" />
     <Compile Include="Utility\Events\GlobalEventQueue.cs" />
-    <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\IncreaseTeamGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
     <Compile Include="Utility\Events\PlaceEntityOnMapEvent.cs" />

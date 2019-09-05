@@ -50,7 +50,9 @@ namespace SolStandard.Containers.Contexts
             const int columns = 2;
             MenuOption[,] options = new MenuOption[GameContext.ActiveUnit.Inventory.Count + 1, columns];
 
-            options[0, 0] = new ActionOption(windowColour, new DropGiveGoldAction());
+            //FIXME Figure out what to do with this
+//          options[0, 0] = new ActionOption(windowColour, new DropGiveGoldAction());
+            options[0, 0] = new ActionOption(windowColour, new Wait());
             options[0, 1] = new ActionOption(windowColour, new Wait());
 
             for (int i = 0; i < GameContext.ActiveUnit.Inventory.Count; i++)

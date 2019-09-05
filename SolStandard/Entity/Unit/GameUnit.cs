@@ -95,7 +95,7 @@ namespace SolStandard.Entity.Unit
         public bool IsMovable { get; set; }
 
         public List<IItem> Inventory { get; }
-        public int CurrentGold { get; set; }
+        public int CurrentBounty { get; set; }
 
         private TriggeredAnimation deathAnimation;
 
@@ -133,7 +133,7 @@ namespace SolStandard.Entity.Unit
 
             StatusEffects = new List<StatusEffect>();
             Inventory = new List<IItem>();
-            CurrentGold = 0;
+            CurrentBounty = 0;
 
             deathAnimation = null;
 
@@ -325,7 +325,7 @@ namespace SolStandard.Entity.Unit
                                         {
                                             new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
                                             new RenderText(statfont,
-                                                "Gold: " + CurrentGold + Currency.CurrencyAbbreviation)
+                                                "Bounty: " + CurrentBounty + Currency.CurrencyAbbreviation)
                                         }
                                     },
                                     1
@@ -773,14 +773,14 @@ namespace SolStandard.Entity.Unit
         private void DropSpoils()
         {
             //Don't drop spoils if inventory is empty
-            if (CurrentGold == 0 && Inventory.Count == 0) return;
+            if (CurrentBounty == 0 && Inventory.Count == 0) return;
 
             //If on top of other Spoils, pick those up before dropping on top of them
 
             if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
                 (int) MapEntity.MapCoordinates.Y] is Spoils spoilsAtUnitPosition)
             {
-                CurrentGold += spoilsAtUnitPosition.Gold;
+                CurrentBounty += spoilsAtUnitPosition.Gold;
                 Inventory.AddRange(spoilsAtUnitPosition.Items);
             }
 
@@ -797,7 +797,7 @@ namespace SolStandard.Entity.Unit
                     case Currency currency:
                     {
                         Currency gold = currency;
-                        CurrentGold += gold.Value;
+                        CurrentBounty += gold.Value;
                         break;
                     }
                 }
@@ -809,11 +809,13 @@ namespace SolStandard.Entity.Unit
                     "Spoils",
                     new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
                     MapEntity.MapCoordinates,
-                    CurrentGold,
+                    CurrentBounty,
                     new List<IItem>(Inventory)
                 );
 
-            CurrentGold = 0;
+            
+            GameContext.InitiativeContext.DeductGoldFromTeam(CurrentBounty, Team);
+            CurrentBounty = 0;
             Inventory.Clear();
         }
 
@@ -860,7 +862,7 @@ namespace SolStandard.Entity.Unit
             hashCode += StatusEffects.Count;
             hashCode += (int) Team;
             hashCode += (int) Role;
-            hashCode += CurrentGold;
+            hashCode += CurrentBounty;
             hashCode *= serialId;
             return hashCode;
         }

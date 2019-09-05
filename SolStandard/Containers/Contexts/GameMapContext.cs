@@ -75,7 +75,7 @@ namespace SolStandard.Containers.Contexts
             get
             {
                 if (CurrentTurnState != TurnState.SelectUnit) return true;
-                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveUnit.Team;
+                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
             }
         }
 
@@ -144,10 +144,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void UpdateWindowsEachTurn()
         {
-            //Initiative Window
             GameMapView.GenerateInitiativeWindow();
-
-            //Help Window
             GameMapView.GenerateObjectiveWindow();
         }
 
@@ -522,7 +519,7 @@ namespace SolStandard.Containers.Contexts
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
         {
-            if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
+            if (hoverMapUnit != null && GameContext.ActiveTeam != Team.Creep)
             {
                 if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
 
@@ -721,7 +718,7 @@ namespace SolStandard.Containers.Contexts
         public void OpenDraftMenu()
         {
             CurrentTurnState = TurnState.AdHocDraft;
-            GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
+            GameMapView.GenerateDraftMenu(GameContext.ActiveTeam);
             AssetManager.MenuConfirmSFX.Play();
         }
 

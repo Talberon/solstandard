@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public void Increment(int amountToIncrement)
         {
-            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentGold;
+            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentBounty;
 
             if (Value + amountToIncrement > activeUnitCurrentGold)
             {
@@ -118,7 +118,7 @@ namespace SolStandard.Entity.Unit.Actions
                 else if (CanPlaceItemAtSlice(targetSlice))
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Value));
+                    eventQueue.Enqueue(new DecreaseTeamGoldEvent(Value));
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent(
                         GenerateMoneyBag(targetSlice.MapCoordinates), Layer.Items, AssetManager.DropItemSFX)
                     );

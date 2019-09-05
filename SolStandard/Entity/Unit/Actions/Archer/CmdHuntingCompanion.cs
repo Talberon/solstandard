@@ -79,7 +79,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             {
                 GameUnit summonedPet =
                     GameContext.Units.FirstOrDefault(pet =>
-                        pet.Role == PetType && pet.Team == GameContext.ActiveUnit.Team);
+                        pet.Role == PetType && pet.Team == GameContext.ActiveTeam);
 
                 return summonedPet != null;
             }

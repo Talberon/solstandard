@@ -13,7 +13,7 @@ namespace SolStandard.Utility.Events.Network
         {
             if (GameContext.Scenario.Objectives[VictoryConditions.Surrender] is Surrender surrender)
             {
-                switch (GameContext.ActiveUnit.Team)
+                switch (GameContext.ActiveTeam)
                 {
                     case Team.Red:
                         surrender.RedConcedes = true;

@@ -1937,13 +1937,7 @@
    <tile gid="501"/>
   </data>
  </layer>
- <objectgroup id="5" name="Entities">
-  <object id="866" name="Lethal Trap" type="Trap" gid="6596" x="416" y="320" width="32" height="32">
-   <properties>
-    <property name="damage" type="int" value="10"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="5" name="Entities"/>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="859" name="Mighty Meat" type="BuffItem" gid="6801" x="128" y="384" width="32" height="32"/>
   <object id="860" name="Lucky Lemon" type="BuffItem" gid="6787" x="160" y="384" width="32" height="32">
@@ -1969,18 +1963,7 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="Summons" opacity="0.33"/>
- <objectgroup id="7" name="Items">
-  <object id="867" name="Meat" type="BuffItem" gid="6801" x="416" y="352" width="32" height="32">
-   <properties>
-    <property name="pickupRange" value="0,1"/>
-   </properties>
-  </object>
-  <object id="868" name="Ruby" type="Currency" gid="6792" x="416" y="320" width="32" height="32">
-   <properties>
-    <property name="value" type="int" value="20"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units">
   <object id="839" name="Boyd" type="Unit" gid="16" x="512" y="352" width="32" height="32">
    <properties>

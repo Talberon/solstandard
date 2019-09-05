@@ -27,8 +27,8 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            givingUnit.CurrentGold -= goldToGive;
-            receivingUnit.CurrentGold += goldToGive;
+            givingUnit.CurrentBounty -= goldToGive;
+            receivingUnit.CurrentBounty += goldToGive;
 
             IRenderable toastContent = new WindowContentGrid(
                 new[,]

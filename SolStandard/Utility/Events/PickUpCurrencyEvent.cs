@@ -19,7 +19,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.CurrentGold += currency.Value;
+            GameContext.InitiativeContext.AddGoldToTeam(currency.Value, GameContext.ActiveTeam);
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();

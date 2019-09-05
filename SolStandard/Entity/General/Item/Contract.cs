@@ -103,7 +103,7 @@ namespace SolStandard.Entity.General.Item
                     },
                     {
                         (forSpecificUnit)
-                            ? SpecificUnitWindow(specificRole, GameContext.ActiveUnit.Team)
+                            ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
                             : FreeContractWindow,
                         new RenderBlank()
                     }
