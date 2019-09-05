@@ -519,24 +519,30 @@ namespace SolStandard.Containers.Contexts
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
         {
+            MapContainer.ClearDynamicAndPreviewGrids();
             if (hoverMapUnit != null && GameContext.ActiveTeam != Team.Creep)
             {
                 if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
 
-                MapContainer.ClearDynamicAndPreviewGrids();
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
                 if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
-                MapContainer.ClearDynamicAndPreviewGrids();
+
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
-            else
+            else if (hoverSlice.TerrainEntity is IActionTile actionTile)
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                    .GenerateTargetingGrid(hoverSlice.MapCoordinates, actionTile.InteractRange, Layer.Preview);
+            }
+            else if (hoverSlice.ItemEntity is IActionTile itemActionTile)
+            {
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                    .GenerateTargetingGrid(hoverSlice.MapCoordinates, itemActionTile.InteractRange, Layer.Preview);
             }
         }
 
