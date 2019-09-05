@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1140">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1143">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2967,7 +2967,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1092" name="Emerald" type="Currency" gid="6793" x="800" y="288" width="32" height="32">
+  <object id="1092" name="Emerald" type="Currency" gid="6793" x="608" y="384" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2982,7 +2982,7 @@
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="1098" name="Sapphire" type="Currency" gid="6794" x="608" y="384" width="32" height="32">
+  <object id="1098" name="Sapphire" type="Currency" gid="6794" x="800" y="288" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2997,12 +2997,12 @@
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="1101" name="Ruby" type="Currency" gid="6792" x="832" y="448" width="32" height="32">
+  <object id="1101" name="Ruby" type="Currency" gid="6792" x="960" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="1102" name="Ruby" type="Currency" gid="6792" x="544" y="384" width="32" height="32">
+  <object id="1102" name="Ruby" type="Currency" gid="6792" x="736" y="96" width="32" height="32">
    <properties>
     <property name="value" type="int" value="30"/>
    </properties>
@@ -3012,6 +3012,8 @@
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
+  <object id="1141" name="Banker" type="Bank" gid="6885" x="832" y="640" width="32" height="32"/>
+  <object id="1142" name="Banker" type="Bank" gid="6885" x="832" y="288" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Units">
   <object id="967" name="Frankie" type="Creep" gid="33" x="704" y="544" width="32" height="32">
@@ -3077,12 +3079,12 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="974" name="Necromancer" type="Creep" gid="31" x="736" y="192" width="32" height="32">
+  <object id="974" name="Necromancer" type="Creep" gid="31" x="736" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="routine_basicAttack" type="bool" value="false"/>
     <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_stationaryAttack" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
    </properties>
   </object>

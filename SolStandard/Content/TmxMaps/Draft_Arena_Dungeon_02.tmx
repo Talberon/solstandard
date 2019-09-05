@@ -1687,8 +1687,8 @@
    <tile gid="5760"/>
    <tile gid="4899"/>
    <tile gid="4900"/>
-   <tile/>
-   <tile gid="4696"/>
+   <tile gid="4897"/>
+   <tile gid="4898"/>
    <tile gid="6572"/>
    <tile gid="4773"/>
    <tile gid="5721"/>
@@ -2318,7 +2318,6 @@
     <property name="quantities" value="1|2|2|2|2|2"/>
    </properties>
   </object>
-  <object id="1019" name="Banker" type="Bank" gid="6885" x="256" y="224" width="32" height="32"/>
   <object id="1025" name="Stool" type="Decoration" gid="6093" x="544" y="320" width="32" height="32"/>
   <object id="1026" name="Stool" type="Decoration" gid="6093" x="544" y="352" width="32" height="32"/>
   <object id="1027" name="Stool" type="Decoration" gid="6093" x="544" y="384" width="32" height="32"/>
@@ -2479,8 +2478,6 @@
   <object id="1083" name="ATM" type="Bank" gid="6545" x="928" y="576" width="32" height="32"/>
   <object id="1084" name="ATM" type="Bank" gid="6545" x="448" y="160" width="32" height="32"/>
   <object id="1086" name="ATM" type="Bank" gid="6545" x="320" y="480" width="32" height="32"/>
-  <object id="1087" name="ATM" type="Bank" gid="6545" x="160" y="512" width="32" height="32"/>
-  <object id="1088" name="ATM" type="Bank" gid="6545" x="832" y="288" width="32" height="32"/>
   <object id="1090" name="Push Block" type="Pushable" gid="5636" x="512" y="576" width="32" height="32"/>
   <object id="1091" name="Push Block" type="Pushable" gid="5636" x="480" y="544" width="32" height="32"/>
   <object id="1092" name="Push Block" type="Pushable" gid="5636" x="96" y="224" width="32" height="32"/>
@@ -2587,7 +2584,6 @@
     <property name="triggersId" value="Switch Spike Trap"/>
    </properties>
   </object>
-  <object id="1128" name="ATM" type="Bank" gid="6545" x="928" y="384" width="32" height="32"/>
   <object id="1129" name="Debris" type="BreakableObstacle" gid="6558" x="128" y="320" width="32" height="32"/>
   <object id="1130" name="Side Door" type="Door" gid="6588" x="96" y="448" width="32" height="32">
    <properties>
@@ -3360,8 +3356,8 @@
    <tile/>
    <tile gid="5857"/>
    <tile gid="5858"/>
-   <tile/>
-   <tile gid="4656"/>
+   <tile gid="4857"/>
+   <tile gid="4858"/>
    <tile/>
    <tile gid="4733"/>
    <tile/>

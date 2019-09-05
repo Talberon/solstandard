@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="970">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="972">
  <tileset firstgid="1" name="entities-32" tilewidth="32" tileheight="32" tilecount="688" columns="8">
   <image source="../Graphics/Map/Tiles/entities-32.png" width="256" height="2752"/>
  </tileset>
@@ -1635,7 +1635,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1376"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2445,7 +2445,7 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="939" name="Woods" type="BuffTile" gid="1054" x="544" y="576" width="32" height="32">
+  <object id="939" name="Woods" type="BuffTile" gid="1054" x="512" y="480" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
@@ -2582,6 +2582,8 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
+  <object id="970" name="ATM" type="Bank" gid="7233" x="544" y="576" width="32" height="32"/>
+  <object id="971" name="ATM" type="Bank" gid="7233" x="544" y="160" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="894" name="Cane of Deletion" type="Weapon" gid="515" x="544" y="352" width="32" height="32">
@@ -2645,36 +2647,42 @@
   <object id="905" name="Kesk" type="Creep" gid="722" x="704" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="906" name="Kesk" type="Creep" gid="722" x="736" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="907" name="Kesk" type="Creep" gid="722" x="384" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="908" name="Kesk" type="Creep" gid="722" x="544" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="909" name="Kesk" type="Creep" gid="722" x="512" y="160" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
+    <property name="gold" type="int" value="5"/>
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
   <object id="910" name="Stizzledorf" type="Creep" gid="721" x="672" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="gold" type="int" value="8"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>
@@ -2684,6 +2692,7 @@
   <object id="911" name="Ghus" type="Creep" gid="721" x="320" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
+    <property name="gold" type="int" value="8"/>
     <property name="routine_glutton" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>

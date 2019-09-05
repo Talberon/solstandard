@@ -320,32 +320,17 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Beach_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Village_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Chesslike_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Crossroads_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Dungeon_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Scotia_Hill_Redux_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Tavern_Inn"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dimpimple_Beach"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Crossroads"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Jirai_Archipelago"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Master_Control"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Verdant_Forest"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Raid_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dusk_Temple"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Town_Market"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Collosseum_01"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Alpha_Dungeon"),
