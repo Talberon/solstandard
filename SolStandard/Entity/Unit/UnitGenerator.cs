@@ -50,18 +50,17 @@ namespace SolStandard.Entity.Unit
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
                 PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
-                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
+                AssignStartingBounty(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
             }
             else
             {
                 generatedUnit = GenerateUnit(unitJobClass, unitTeam, id, isCommander, mapEntity);
-                AssignStartingGold(generatedUnit, InitialUnitBounty, 0);
             }
 
             return generatedUnit;
         }
 
-        private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
+        private static void AssignStartingBounty(GameUnit generatedUnit, int amount, int variance)
         {
             generatedUnit.CurrentBounty += amount + GameDriver.Random.Next(variance);
         }
@@ -494,7 +493,7 @@ namespace SolStandard.Entity.Unit
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
             CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
-            AssignStartingGold(creep, generatedEntity.StartingGold, StartingGoldVariance);
+            AssignStartingBounty(creep, generatedEntity.StartingGold, StartingGoldVariance);
             return creep;
         }
 
@@ -532,7 +531,10 @@ namespace SolStandard.Entity.Unit
             UnitStatistics unitStatistics = GetUnitStatistics(role);
             List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
-            return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+            GameUnit generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+            AssignStartingBounty(generatedUnit, InitialUnitBounty, 0);
+            
+            return generatedUnit;
         }
 
         private static UnitStatistics GetUnitStatistics(Role unitType)
