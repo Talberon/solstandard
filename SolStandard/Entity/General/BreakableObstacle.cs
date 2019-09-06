@@ -51,6 +51,9 @@ namespace SolStandard.Entity.General
             CanMove = true;
             Visible = false;
 
+            //Remove self from the map
+            MapContainer.GameGrid[(int) Layer.Entities][(int)MapCoordinates.X, (int)MapCoordinates.Y] = null;
+
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates, 50);
         }
 

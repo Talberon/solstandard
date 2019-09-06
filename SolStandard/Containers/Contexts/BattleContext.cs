@@ -222,6 +222,8 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(attackerCoordinates, toastMessage, AssetManager.CoinSFX, 80)
             );
+
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
         }
 
         private void TakeAttackerSpoilsAndIncreaseBounty()
@@ -246,6 +248,7 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(defenderCoordinates, toastMessage, AssetManager.CoinSFX, 80)
             );
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
         }
 
         private void SetPromptWindowText(string promptText)
