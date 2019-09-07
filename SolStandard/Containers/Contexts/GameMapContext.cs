@@ -327,15 +327,12 @@ namespace SolStandard.Containers.Contexts
 
                 if (GameMapView.ActionMenuContext.IsAtRootMenu)
                 {
-                    MapContainer.ClearDynamicAndPreviewGrids();
-                    GameMapView.CloseCombatMenu();
-
-                    RevertToPreviousState();
-                    CancelMove();
+                    CancelActionMenuAndReturnToOrigin();
                 }
                 else
                 {
                     GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    GameMapView.GenerateCurrentMenuDescription();
                     AssetManager.MapUnitCancelSFX.Play();
                 }
             }
@@ -345,14 +342,19 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void CancelTargetAction()
+        private void CancelActionMenuAndReturnToOrigin()
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            GameMapView.CloseCombatMenu();
+            RevertToPreviousState();
+            CancelMove();
+        }
+
+        public void CancelUnitTargeting()
         {
             if (CanCancelAction)
             {
-                GameContext.ActiveUnit.CancelArmedSkill();
-                ResetCursorToActiveUnit();
-                GameMapView.GenerateActionMenus();
-                RevertToPreviousState();
+                CancelTargetAndOpenLastActionMenu();
             }
             else
             {
@@ -364,10 +366,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.UnitTargeting)
             {
-                GameContext.ActiveUnit.CancelArmedSkill();
-                ResetCursorToActiveUnit();
-                ResetToActionMenu();
-                AssetManager.MapUnitCancelSFX.Play();
+                CancelTargetAndOpenLastActionMenu();
             }
             else
             {
@@ -382,6 +381,15 @@ namespace SolStandard.Containers.Contexts
                     AssetManager.MapUnitCancelSFX.Play();
                 }
             }
+        }
+
+        private void CancelTargetAndOpenLastActionMenu()
+        {
+            GameContext.ActiveUnit.CancelArmedSkill();
+            ResetCursorToActiveUnit();
+            GameMapView.ActionMenuContext.Unhide();
+            RevertToPreviousState();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         private void StartMoving()
@@ -605,13 +613,15 @@ namespace SolStandard.Containers.Contexts
             if (GameMapView?.CurrentMenu?.CurrentOption is ActionOption)
             {
                 GameMapView.CurrentMenu.CurrentOption.Execute();
-                GameMapView.CloseCombatMenu();
+                GameMapView.ActionMenuContext.Hide();
                 CurrentTurnState = TurnState.UnitTargeting;
                 SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             }
             else
             {
                 GameMapView?.CurrentMenu?.CurrentOption.Execute();
+                GameMapView?.GenerateCurrentMenuDescription();
+                GenerateActionPreviewGrid();
             }
         }
 

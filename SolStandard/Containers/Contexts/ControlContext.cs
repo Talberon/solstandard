@@ -641,7 +641,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new CancelActionEvent());
+                GlobalEventQueue.QueueSingleEvent(new CancelActionTargetingEvent());
             }
         }
 

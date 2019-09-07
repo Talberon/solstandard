@@ -4,11 +4,11 @@ using SolStandard.Containers.Contexts;
 namespace SolStandard.Utility.Events.Network
 {
     [Serializable]
-    public class CancelActionEvent : NetworkEvent
+    public class CancelActionTargetingEvent : NetworkEvent
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.CancelTargetAction();
+            GameContext.GameMapContext.CancelUnitTargeting();
             Complete = true;
         }
     }

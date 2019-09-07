@@ -9,6 +9,8 @@ using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Champion;
+using SolStandard.Entity.Unit.Actions.Duelist;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
@@ -310,23 +312,29 @@ namespace SolStandard.Containers.View
 
             List<ActionOption> skillOptions = UnitContextualActionMenuContext.ActiveUnitSkillOptions(windowColor);
             ActionOption basicAttackOption = skillOptions.FirstOrDefault(option => option.Action is BasicAttack);
-            ActionOption waitOption = skillOptions.FirstOrDefault(option => option.Action is Wait);
+            ActionOption waitOption =
+                skillOptions.FirstOrDefault(option => option.Action is Wait || option.Action is Focus);
+            ActionOption roleOption =
+                skillOptions.FirstOrDefault(option => option.Action is Shove || option.Action is Sprint);
+            ActionOption guardOption = skillOptions.FirstOrDefault(option => option.Action is Guard);
             skillOptions.Remove(basicAttackOption);
             skillOptions.Remove(waitOption);
+            skillOptions.Remove(roleOption);
+            skillOptions.Remove(guardOption);
             IMenu skillMenu = BuildSkillMenu(skillOptions, windowColor);
 
             IMenu inventoryMenu = BuildInventoryMenu(windowColor);
 
-            IMenu actionMenu =
-                BuildActionMenu(contextMenu, windowColor, basicAttackOption, skillMenu, inventoryMenu, waitOption);
+            IMenu actionMenu = BuildActionMenu(contextMenu, windowColor, basicAttackOption, skillMenu, inventoryMenu,
+                roleOption, guardOption, waitOption);
             ActionMenuContext = new MenuContext(actionMenu);
 
             VisibleMenu = MenuType.ActionMenu;
             GenerateMenuDescriptionWindow(VisibleMenu, windowColor);
         }
 
-        private IMenu BuildActionMenu(IMenu contextMenu, Color windowColor, ActionOption basicAttackOption,
-            IMenu skillMenu, IMenu inventoryMenu, ActionOption waitOption)
+        private IMenu BuildActionMenu(IMenu contextMenu, Color windowColor, MenuOption basicAttackOption,
+            IMenu skillMenu, IMenu inventoryMenu, MenuOption roleOption, MenuOption guardOption, MenuOption waitOption)
         {
             List<MenuOption> topLevelOptions = new List<MenuOption>();
 
@@ -337,13 +345,11 @@ namespace SolStandard.Containers.View
                     new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
                     GameDriver.CellSizeVector
                 );
-                topLevelOptions.Add(new SubmenuOption(contextMenu, contextMenuIcon, "Context", windowColor));
+                topLevelOptions.Add(new SubmenuOption(contextMenu, contextMenuIcon, "Context",
+                    "View extra actions that can be performed based on the environment.", windowColor));
             }
 
-            if (basicAttackOption != null)
-            {
-                topLevelOptions.Add(basicAttackOption);
-            }
+            if (basicAttackOption != null) topLevelOptions.Add(basicAttackOption);
 
             if (skillMenu != null)
             {
@@ -352,7 +358,8 @@ namespace SolStandard.Containers.View
                     new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
                     GameDriver.CellSizeVector
                 );
-                topLevelOptions.Add(new SubmenuOption(skillMenu, skillMenuIcon, "Skills", windowColor));
+                topLevelOptions.Add(new SubmenuOption(skillMenu, skillMenuIcon, "Skills",
+                    "View unique actions for this unit.", windowColor));
             }
 
             if (inventoryMenu != null)
@@ -362,13 +369,14 @@ namespace SolStandard.Containers.View
                     new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
                     GameDriver.CellSizeVector
                 );
-                topLevelOptions.Add(new SubmenuOption(inventoryMenu, spoilsMenuIcon, "Inventory", windowColor));
+                topLevelOptions.Add(new SubmenuOption(inventoryMenu, spoilsMenuIcon, "Inventory",
+                    "Use and manage items in this unit's inventory.", windowColor));
             }
 
-            if (waitOption != null)
-            {
-                topLevelOptions.Add(waitOption);
-            }
+            if (roleOption != null) topLevelOptions.Add(roleOption);
+            if (guardOption != null) topLevelOptions.Add(guardOption);
+            if (waitOption != null) topLevelOptions.Add(waitOption);
+
 
             IMenu actionMenu = new VerticalMenu(topLevelOptions.ToArray(), cursorSprite, windowColor);
             return actionMenu;
@@ -397,6 +405,7 @@ namespace SolStandard.Containers.View
 
         private IMenu BuildContextMenu(Color windowColor)
         {
+            // ReSharper disable once CoVariantArrayConversion
             MenuOption[] contextOptions =
                 UnitContextualActionMenuContext.ActiveUnitContextOptions(windowColor).ToArray();
             IMenu contextMenu = null;

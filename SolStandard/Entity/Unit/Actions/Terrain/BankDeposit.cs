@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
@@ -54,19 +53,19 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     {
                         new RenderText(AssetManager.WindowFont, "Deposit"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
-                        new RenderText(AssetManager.WindowFont,
-                            Currency.CurrencyAbbreviation +
-                            " in the bank." + Environment.NewLine +
-                            "Value will still count towards your total for Taxes victory."),
-                        new RenderBlank(),
+                        new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " in the bank."),
                         new RenderBlank()
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            "This will count towards the Deposit victory condition."),
+                        new RenderBlank(), new RenderBlank(), new RenderBlank()
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),
                         InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                         new RenderText(AssetManager.WindowFont, " and "),
-                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
-                        new RenderText(AssetManager.WindowFont, "")
+                        InputIconProvider.GetInputIcon(Input.TabRight, iconSize)
                     }
                 },
                 2

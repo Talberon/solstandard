@@ -306,6 +306,7 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\IMenu.cs" />
+    <Compile Include="HUD\Menu\IOptionDescription.cs" />
     <Compile Include="HUD\Menu\MenuContext.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
     <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
@@ -432,7 +433,7 @@
     <Compile Include="Utility\Events\DecreaseTeamGoldEvent.cs" />
     <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
-    <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
+    <Compile Include="Utility\Events\Network\CancelActionTargetingEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
     <Compile Include="Utility\Events\Network\ChangePlayerTeamsEvent.cs" />

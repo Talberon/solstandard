@@ -1,17 +1,26 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu.Options.ActionMenu;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options
 {
-    public class SubmenuOption : MenuOption
+    public class SubmenuOption : MenuOption, IOptionDescription
     {
         private readonly IMenu submenu;
         private readonly IRenderable icon;
         private readonly string label;
+        public IRenderable Description { get; }
 
-        public SubmenuOption(IMenu submenu, IRenderable icon, string label, Color color) : base(
+        public SubmenuOption(IMenu submenu, IRenderable icon, string label, Color color) : this(
+            submenu, icon, label, string.Empty, color
+        )
+        {
+        }
+
+        public SubmenuOption(IMenu submenu, IRenderable icon, string label, string description, Color color) : base(
             ActionOption.GenerateActionContent(icon, label, false),
             color
         )
@@ -19,7 +28,9 @@ namespace SolStandard.HUD.Menu.Options
             this.submenu = submenu;
             this.icon = icon;
             this.label = label;
+            Description = new RenderText(AssetManager.WindowFont, description);
         }
+
 
         public override void Execute()
         {
@@ -30,5 +41,6 @@ namespace SolStandard.HUD.Menu.Options
         {
             return new SubmenuOption(submenu, icon, label, DefaultColor);
         }
+
     }
 }

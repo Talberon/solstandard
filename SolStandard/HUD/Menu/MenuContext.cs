@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using SolStandard.HUD.Menu.Options;
 
 namespace SolStandard.HUD.Menu
 {
@@ -15,11 +14,6 @@ namespace SolStandard.HUD.Menu
             menuStack.Push(initialMenu);
         }
 
-        private MenuContext(Stack<IMenu> menuStack)
-        {
-            this.menuStack = menuStack;
-        }
-
         public void OpenSubMenu(IMenu submenu)
         {
             menuStack.Push(submenu);
@@ -30,23 +24,25 @@ namespace SolStandard.HUD.Menu
             menuStack.Pop();
         }
 
-        public void SelectCurrentOption()
-        {
-            CurrentMenu?.SelectOption();
-
-            if (CurrentMenu?.CurrentOption is SubmenuOption) return;
-
-            menuStack.Clear();
-        }
-
         public void ClearMenuStack()
         {
             menuStack.Clear();
         }
 
-        public static MenuContext FromMenuStack(Stack<IMenu> menuStack)
+        public void Hide()
         {
-            return new MenuContext(menuStack);
+            foreach (IMenu menu in menuStack)
+            {
+                menu.IsVisible = false;
+            }
+        }
+
+        public void Unhide()
+        {
+            foreach (IMenu menu in menuStack)
+            {
+                menu.IsVisible = true;
+            }
         }
     }
 }

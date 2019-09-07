@@ -42,9 +42,9 @@ namespace SolStandard.Containers.Contexts
 
         public static IRenderable GetActionDescriptionForCurrentMenuOption(IMenu actionMenu)
         {
-            if (actionMenu.CurrentOption is ActionOption action)
+            if (actionMenu.CurrentOption is IOptionDescription descriptiveOption)
             {
-                return action.Action.Description;
+                return descriptiveOption.Description;
             }
 
             return new RenderBlank();

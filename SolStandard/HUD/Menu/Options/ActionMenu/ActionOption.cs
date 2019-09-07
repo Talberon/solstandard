@@ -7,9 +7,10 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.HUD.Menu.Options.ActionMenu
 {
-    public class ActionOption : MenuOption
+    public class ActionOption : MenuOption, IOptionDescription
     {
         public UnitAction Action { get; }
+        public IRenderable Description => Action.Description;
 
         public ActionOption(Color windowColor, UnitAction action) : base(
             GenerateActionContent(action.Icon, action.Name, action.FreeAction), windowColor)
