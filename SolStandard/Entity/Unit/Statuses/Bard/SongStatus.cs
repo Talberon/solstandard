@@ -68,8 +68,6 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         protected static bool UnitIsAffectedBySong(GameUnit unitAffected, SongStatus song)
         {
-            //TODO Differentiate between ally and enemies so bonuses aren't applied to enemies unless the skill specifically wants to
-
             GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(song));
 
             if (singer == null || unitAffected == null || !singer.IsAlive || !unitAffected.IsAlive) return false;

@@ -538,16 +538,6 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Right));
             }
 
-            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
-            {
-                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
-            }
-
-            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
-            {
-                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
-            }
-
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectActionMenuOptionEvent());

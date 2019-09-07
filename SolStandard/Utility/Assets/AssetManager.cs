@@ -70,6 +70,8 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D StatIcons { get; private set; }
         public static ITexture2D GoldIcon { get; private set; }
         public static ITexture2D SpoilsIcon { get; private set; }
+        public static ITexture2D ContextMenuIcon { get; private set; }
+        public static ITexture2D SkillBookIcon { get; private set; }
         public static ITexture2D ObjectiveIcons { get; private set; }
         public static ITexture2D CommanderIcon { get; private set; }
         public static ITexture2D TeamIcons { get; private set; }
@@ -143,9 +145,11 @@ namespace SolStandard.Utility.Assets
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
-            
+
             GoldIcon = ContentLoader.LoadGoldIcon(content);
             SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
+            ContextMenuIcon = ContentLoader.LoadContextMenuIcon(content);
+            SkillBookIcon = ContentLoader.LoadSkillBookIcon(content);
             CommanderIcon = ContentLoader.LoadCommanderIcon(content);
 
             ButtonIcons = ContentLoader.LoadButtonIcons(content);

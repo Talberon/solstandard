@@ -325,11 +325,19 @@ namespace SolStandard.Containers.Contexts
             {
                 if (CurrentTurnState != TurnState.UnitDecidingAction) return;
 
-                MapContainer.ClearDynamicAndPreviewGrids();
-                GameMapView.CloseCombatMenu();
+                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
+                    GameMapView.CloseCombatMenu();
 
-                RevertToPreviousState();
-                CancelMove();
+                    RevertToPreviousState();
+                    CancelMove();
+                }
+                else
+                {
+                    GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    AssetManager.MapUnitCancelSFX.Play();
+                }
             }
             else
             {
@@ -363,8 +371,16 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
-                AssetManager.WarningSFX.Play();
+                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                {
+                    MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
+                else
+                {
+                    GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    AssetManager.MapUnitCancelSFX.Play();
+                }
             }
         }
 
@@ -582,13 +598,21 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectActionMenuOption()
         {
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.CurrentMenu.CurrentOption.Execute();
-            GameMapView.CloseCombatMenu();
-
-            CurrentTurnState = TurnState.UnitTargeting;
-            SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             AssetManager.MapUnitSelectSFX.Play();
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            //FIXME This part of the code shouldn't know so much about the menu?
+            if (GameMapView?.CurrentMenu?.CurrentOption is ActionOption)
+            {
+                GameMapView.CurrentMenu.CurrentOption.Execute();
+                GameMapView.CloseCombatMenu();
+                CurrentTurnState = TurnState.UnitTargeting;
+                SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
+            }
+            else
+            {
+                GameMapView?.CurrentMenu?.CurrentOption.Execute();
+            }
         }
 
         public void RefreshCurrentActionMenuOption()
@@ -732,15 +756,6 @@ namespace SolStandard.Containers.Contexts
         {
             GameMapView.CloseAdHocDraftMenu();
             MapContainer.ClearDynamicAndPreviewGrids();
-        }
-
-        public void ToggleActionInventoryMenu()
-        {
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.ToggleCombatMenu();
-            GameMapView.GenerateCurrentMenuDescription();
-            GenerateActionPreviewGrid();
-            AssetManager.MenuMoveSFX.Play();
         }
 
         private static void GenerateActionPreviewGrid()

@@ -17,5 +17,6 @@ namespace SolStandard.HUD.Menu
         void MoveMenuCursor(MenuCursorDirection direction);
         void SelectOption();
         MenuOption CurrentOption { get; }
+        bool IsVisible { get; set; }
     }
 }

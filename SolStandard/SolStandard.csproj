@@ -306,6 +306,7 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\IMenu.cs" />
+    <Compile Include="HUD\Menu\MenuContext.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
     <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
@@ -336,6 +337,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\StealMenu\StealItemOption.cs" />
+    <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
@@ -461,7 +463,6 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />

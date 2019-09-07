@@ -656,6 +656,18 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadContextMenuIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context");
+            return new Texture2DWrapper(loadTexture);
+        }
+
+        public static ITexture2D LoadSkillBookIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadObjectiveIcons(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");

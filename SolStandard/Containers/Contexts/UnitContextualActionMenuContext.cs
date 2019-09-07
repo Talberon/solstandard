@@ -5,60 +5,60 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
-using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
 {
     public static class UnitContextualActionMenuContext
     {
+        //FIXME Remove this limit and check from action tiles instead 
         private static readonly int[] InteractionRangeLimit = {0, 1, 2};
-        private static List<UnitAction> _contextualActions;
 
-        public static MenuOption[] GenerateActionMenuOptions(Color windowColour)
+        public static List<ActionOption> ActiveUnitContextOptions(Color windowColor)
         {
-            _contextualActions = FetchContextualActionsInRange();
-            foreach (UnitAction activeUnitSkill in GameContext.ActiveUnit.Actions)
+            List<ActionOption> options = new List<ActionOption>();
+            foreach (UnitAction contextAction in FetchContextualActionsInRange())
             {
-                _contextualActions.Add(activeUnitSkill);
-            }
-
-            MenuOption[] options = new MenuOption[_contextualActions.Count];
-            for (int i = 0; i < _contextualActions.Count; i++)
-            {
-                options[i] = new ActionOption(windowColour, _contextualActions[i]);
+                options.Add(new ActionOption(windowColor, contextAction));
             }
 
             return options;
         }
 
-        public static IRenderable GetActionDescriptionAtIndex(IMenu actionMenu)
+        public static List<ActionOption> ActiveUnitSkillOptions(Color windowColor)
+        {
+            List<ActionOption> options = new List<ActionOption>();
+            foreach (UnitAction skillAction in GameContext.ActiveUnit.Actions)
+            {
+                options.Add(new ActionOption(windowColor, skillAction));
+            }
+
+            return options;
+        }
+
+        public static IRenderable GetActionDescriptionForCurrentMenuOption(IMenu actionMenu)
         {
             if (actionMenu.CurrentOption is ActionOption action)
             {
                 return action.Action.Description;
             }
 
-            throw new SkillDescriptionNotFoundException();
+            return new RenderBlank();
         }
 
-        public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColour)
+        public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColor)
         {
             const int columns = 2;
-            MenuOption[,] options = new MenuOption[GameContext.ActiveUnit.Inventory.Count + 1, columns];
-
-            //FIXME Figure out what to do with this
-//          options[0, 0] = new ActionOption(windowColour, new DropGiveGoldAction());
-            options[0, 0] = new ActionOption(windowColour, new Wait());
-            options[0, 1] = new ActionOption(windowColour, new Wait());
+            MenuOption[,] options = new MenuOption[GameContext.ActiveUnit.Inventory.Count, columns];
 
             for (int i = 0; i < GameContext.ActiveUnit.Inventory.Count; i++)
             {
-                options[i + 1, 0] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].UseAction());
-                options[i + 1, 1] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].DropAction());
+                options[i, 0] = new ActionOption(windowColor, GameContext.ActiveUnit.Inventory[i].UseAction());
+                options[i, 1] = new ActionOption(windowColor, GameContext.ActiveUnit.Inventory[i].DropAction());
             }
 
             return options;
@@ -66,6 +66,8 @@ namespace SolStandard.Containers.Contexts
 
         private static List<UnitAction> FetchContextualActionsInRange()
         {
+            //TODO Rework this to not use a range limit
+
             new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
                 .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRangeLimit);
 

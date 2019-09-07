@@ -12,33 +12,29 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
         public UnitAction Action { get; }
 
         public ActionOption(Color windowColor, UnitAction action) : base(
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        action.Icon,
-                        new RenderText(AssetManager.WindowFont, action.Name, action.FreeAction ? GameContext.PositiveColor : Color.White)
-                    }
-                },
-                1
-            ), windowColor)
+            GenerateActionContent(action.Icon, action.Name, action.FreeAction), windowColor)
         {
             Action = action;
         }
 
-        public override void Refresh()
+        public static WindowContentGrid GenerateActionContent(IRenderable icon, string name, bool freeAction)
         {
-            LabelContent = new WindowContentGrid(
+            return new WindowContentGrid(
                 new[,]
                 {
                     {
-                        Action.Icon,
-                        new RenderText(AssetManager.WindowFont, Action.Name, Action.FreeAction ? GameContext.PositiveColor : Color.White)
+                        icon,
+                        new RenderText(AssetManager.WindowFont, name,
+                            freeAction ? GameContext.PositiveColor : Color.White)
                     }
                 },
                 1
             );
+        }
 
+        public override void Refresh()
+        {
+            LabelContent = GenerateActionContent(Action.Icon, Action.Name, Action.FreeAction);
             base.Refresh();
         }
 

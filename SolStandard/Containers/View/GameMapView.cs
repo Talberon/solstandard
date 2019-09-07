@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -7,9 +9,11 @@ using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
+using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
+using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Menu.Options.StealMenu;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Animation;
@@ -17,7 +21,6 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
@@ -31,7 +34,6 @@ namespace SolStandard.Containers.View
         private enum MenuType
         {
             ActionMenu,
-            InventoryMenu,
             StealItemMenu,
             DraftMenu
         }
@@ -70,13 +72,9 @@ namespace SolStandard.Containers.View
         public Window ItemDetailWindow { get; private set; }
         private Window UserPromptWindow { get; set; }
 
-        private VerticalMenu ActionMenu { get; set; }
+        private Window MenuHeaderWindow { get; set; }
+        public MenuContext ActionMenuContext { get; private set; }
         private Window ActionMenuDescriptionWindow { get; set; }
-
-        private TwoDimensionalMenu InventoryMenu { get; set; }
-        private Window InventoryMenuDescriptionWindow { get; set; }
-
-        private Window MenuDescriptionWindow { get; set; }
 
         private TwoDimensionalMenu AdHocDraftMenu { get; set; }
         private TwoDimensionalMenu StealItemMenu { get; set; }
@@ -101,26 +99,17 @@ namespace SolStandard.Containers.View
                 switch (value)
                 {
                     case MenuType.ActionMenu:
-                        ActionMenu.IsVisible = true;
-                        InventoryMenu.IsVisible = false;
-                        if (StealItemMenu != null) StealItemMenu.IsVisible = false;
-                        if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
-                        break;
-                    case MenuType.InventoryMenu:
-                        ActionMenu.IsVisible = false;
-                        InventoryMenu.IsVisible = true;
+                        ActionMenuContext.CurrentMenu.IsVisible = true;
                         if (StealItemMenu != null) StealItemMenu.IsVisible = false;
                         if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
                     case MenuType.StealItemMenu:
-                        ActionMenu.IsVisible = false;
-                        InventoryMenu.IsVisible = false;
+                        ActionMenuContext.CurrentMenu.IsVisible = false;
                         StealItemMenu.IsVisible = true;
                         if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
                     case MenuType.DraftMenu:
-                        ActionMenu.IsVisible = false;
-                        InventoryMenu.IsVisible = false;
+                        ActionMenuContext.CurrentMenu.IsVisible = false;
                         if (StealItemMenu != null) StealItemMenu.IsVisible = false;
                         AdHocDraftMenu.IsVisible = true;
                         break;
@@ -137,9 +126,7 @@ namespace SolStandard.Containers.View
                 switch (VisibleMenu)
                 {
                     case MenuType.ActionMenu:
-                        return ActionMenu;
-                    case MenuType.InventoryMenu:
-                        return InventoryMenu;
+                        return ActionMenuContext.CurrentMenu;
                     case MenuType.StealItemMenu:
                         return StealItemMenu;
                     case MenuType.DraftMenu:
@@ -156,22 +143,6 @@ namespace SolStandard.Containers.View
         private static IWindowAnimation LeftSideWindowAnimation =>
             new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
 
-        public void ToggleCombatMenu()
-        {
-            switch (VisibleMenu)
-            {
-                case MenuType.ActionMenu:
-                    VisibleMenu = MenuType.InventoryMenu;
-                    break;
-                case MenuType.InventoryMenu:
-                    VisibleMenu = MenuType.ActionMenu;
-                    break;
-            }
-
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
-            GenerateMenuDescriptionWindow(VisibleMenu, windowColour);
-        }
-
         #region Close Windows
 
         public void CloseUserPromptWindow()
@@ -186,8 +157,7 @@ namespace SolStandard.Containers.View
 
         public void CloseCombatMenu()
         {
-            ActionMenu.IsVisible = false;
-            InventoryMenu.IsVisible = false;
+            ActionMenuContext.ClearMenuStack();
         }
 
         public void CloseAdHocDraftMenu()
@@ -333,41 +303,94 @@ namespace SolStandard.Containers.View
             return new Window(teamGoldWindowContentGrid, BlankTerrainWindowColor);
         }
 
+        [SuppressMessage("ReSharper", "CoVariantArrayConversion")]
         public void GenerateActionMenus()
         {
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
-            GenerateActionMenu(windowColour);
-            GenerateInventoryMenu(windowColour);
+            Color windowColor = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
+
+            //TODO Refactor these chunks into their own functions
+
+            //Context Menu
+            MenuOption[] contextOptions =
+                UnitContextualActionMenuContext.ActiveUnitContextOptions(windowColor).ToArray();
+            IMenu contextMenu = null;
+            if (contextOptions.Length > 0) contextMenu = new VerticalMenu(contextOptions, cursorSprite, windowColor);
+
+            //Skill Menu
+            List<ActionOption> skillOptions = UnitContextualActionMenuContext.ActiveUnitSkillOptions(windowColor);
+            ActionOption basicAttackOption = skillOptions.FirstOrDefault(option => option.Action is BasicAttack);
+            ActionOption waitOption = skillOptions.FirstOrDefault(option => option.Action is Wait);
+            skillOptions.Remove(basicAttackOption);
+            skillOptions.Remove(waitOption);
+            IMenu skillMenu = null;
+            if (skillOptions.Count > 0) skillMenu = new VerticalMenu(skillOptions.ToArray(), cursorSprite, windowColor);
+
+            //Item Menu
+            MenuOption[,] inventoryOptions = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
+            IMenu inventoryMenu = null;
+            if (inventoryOptions.Length > 0)
+            {
+                inventoryMenu = new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
+                    TwoDimensionalMenu.CursorType.Pointer);
+            }
+
+            List<MenuOption> topLevelOptions = new List<MenuOption>();
+
+            if (contextMenu != null)
+            {
+                IRenderable contextMenuIcon = new SpriteAtlas(
+                    AssetManager.ContextMenuIcon,
+                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
+                    GameDriver.CellSizeVector
+                );
+                topLevelOptions.Add(new SubmenuOption(contextMenu, contextMenuIcon, "Context", windowColor));
+            }
+
+            if (basicAttackOption != null)
+            {
+                topLevelOptions.Add(basicAttackOption);
+            }
+
+            if (skillMenu != null)
+            {
+                IRenderable skillMenuIcon = new SpriteAtlas(
+                    AssetManager.SkillBookIcon,
+                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
+                    GameDriver.CellSizeVector
+                );
+                topLevelOptions.Add(new SubmenuOption(skillMenu, skillMenuIcon, "Skills", windowColor));
+            }
+
+            if (inventoryMenu != null)
+            {
+                IRenderable spoilsMenuIcon = new SpriteAtlas(
+                    AssetManager.SpoilsIcon,
+                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
+                    GameDriver.CellSizeVector
+                );
+                topLevelOptions.Add(new SubmenuOption(inventoryMenu, spoilsMenuIcon, "Inventory", windowColor));
+            }
+
+            if (waitOption != null)
+            {
+                topLevelOptions.Add(waitOption);
+            }
+
+            IMenu actionMenu = new VerticalMenu(topLevelOptions.ToArray(), cursorSprite, windowColor);
+            ActionMenuContext = new MenuContext(actionMenu);
+
             VisibleMenu = MenuType.ActionMenu;
-            GenerateMenuDescriptionWindow(VisibleMenu, windowColour);
-        }
-
-        private void GenerateActionMenu(Color windowColor)
-        {
-            MenuOption[] options = UnitContextualActionMenuContext.GenerateActionMenuOptions(windowColor);
-            ActionMenu = new VerticalMenu(options, cursorSprite, windowColor);
-        }
-
-        private void GenerateInventoryMenu(Color windowColor)
-        {
-            MenuOption[,] options = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
-            InventoryMenu =
-                new TwoDimensionalMenu(options, cursorSprite, windowColor, TwoDimensionalMenu.CursorType.Pointer);
+            GenerateMenuDescriptionWindow(VisibleMenu, windowColor);
         }
 
         private void GenerateMenuDescriptionWindow(MenuType menuType, Color windowColor)
         {
-            string menuName;
             RenderText windowText;
 
             switch (menuType)
             {
                 case MenuType.ActionMenu:
-                    menuName = "Unit Actions";
-                    windowText = new RenderText(AssetManager.HeaderFont, menuName);
-                    break;
-                case MenuType.InventoryMenu:
-                    menuName = "Inventory";
+                    const string menuName = "Unit Actions";
                     windowText = new RenderText(AssetManager.HeaderFont, menuName);
                     break;
                 default:
@@ -375,14 +398,12 @@ namespace SolStandard.Containers.View
             }
 
 
-            MenuDescriptionWindow = new Window(
+            MenuHeaderWindow = new Window(
                 new WindowContentGrid(
-                    new[,]
+                    new IRenderable[,]
                     {
                         {
-                            InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowText.Height)),
-                            windowText,
-                            InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(windowText.Height))
+                            windowText
                         }
                     },
                     3,
@@ -395,18 +416,11 @@ namespace SolStandard.Containers.View
 
         public void GenerateCurrentMenuDescription()
         {
-            Color windowColour = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
+            Color windowColor = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
 
-            switch (VisibleMenu)
+            if (VisibleMenu == MenuType.ActionMenu)
             {
-                case MenuType.ActionMenu:
-                    GenerateActionMenuDescription(windowColour);
-                    break;
-                case MenuType.InventoryMenu:
-                    GenerateInventoryMenuDescription(windowColour);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                GenerateActionMenuDescription(windowColor);
             }
         }
 
@@ -414,15 +428,7 @@ namespace SolStandard.Containers.View
         private void GenerateActionMenuDescription(Color windowColor)
         {
             ActionMenuDescriptionWindow = new Window(
-                UnitContextualActionMenuContext.GetActionDescriptionAtIndex(ActionMenu),
-                windowColor
-            );
-        }
-
-        private void GenerateInventoryMenuDescription(Color windowColor)
-        {
-            InventoryMenuDescriptionWindow = new Window(
-                UnitContextualActionMenuContext.GetActionDescriptionAtIndex(InventoryMenu),
+                UnitContextualActionMenuContext.GetActionDescriptionForCurrentMenuOption(ActionMenuContext.CurrentMenu),
                 windowColor
             );
         }
@@ -738,17 +744,8 @@ namespace SolStandard.Containers.View
         {
             //Center of screen
             return new Vector2(
-                GameDriver.ScreenSize.X / 3 - (float) ActionMenu.Width / 2,
-                (GameDriver.ScreenSize.Y / 2) - ((float) ActionMenu.Height / 2)
-            );
-        }
-
-        private Vector2 InventoryMenuPosition()
-        {
-            //Center of screen
-            return new Vector2(
-                GameDriver.ScreenSize.X / 3 - (float) InventoryMenu.Width / 2,
-                (GameDriver.ScreenSize.Y / 2) - ((float) InventoryMenu.Height / 2)
+                GameDriver.ScreenSize.X / 3 - (float) ActionMenuContext.CurrentMenu.Width / 2,
+                (GameDriver.ScreenSize.Y / 2) - ((float) ActionMenuContext.CurrentMenu.Height / 2)
             );
         }
 
@@ -756,17 +753,8 @@ namespace SolStandard.Containers.View
         {
             //Right of Action Menu
             return new Vector2(
-                WindowEdgeBuffer + ActionMenuPosition().X + ActionMenu.Width,
+                WindowEdgeBuffer + ActionMenuPosition().X + ActionMenuContext.CurrentMenu.Width,
                 ActionMenuPosition().Y
-            );
-        }
-
-        private Vector2 InventoryMenuDescriptionPosition()
-        {
-            //Right of Action Menu
-            return new Vector2(
-                WindowEdgeBuffer + InventoryMenuPosition().X + InventoryMenu.Width,
-                InventoryMenuPosition().Y
             );
         }
 
@@ -912,7 +900,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 MenuDescriptionWindowPosition(Vector2 menuPosition)
         {
-            return menuPosition - new Vector2(0, MenuDescriptionWindow.Height);
+            return menuPosition - new Vector2(0, MenuHeaderWindow.Height);
         }
 
         #endregion Window Positions
@@ -951,24 +939,14 @@ namespace SolStandard.Containers.View
                 UserPromptWindow?.Draw(spriteBatch, UserPromptWindowPosition());
             }
 
-            if (ActionMenu != null)
+            if (ActionMenuContext?.CurrentMenu != null)
             {
-                ActionMenu.Draw(spriteBatch, ActionMenuPosition());
+                ActionMenuContext.CurrentMenu.Draw(spriteBatch, ActionMenuPosition());
 
-                if (ActionMenu.IsVisible)
+                if (ActionMenuContext.CurrentMenu.IsVisible)
                 {
                     ActionMenuDescriptionWindow?.Draw(spriteBatch, ActionMenuDescriptionPosition());
-                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
-                }
-            }
-
-            if (InventoryMenu != null)
-            {
-                InventoryMenu.Draw(spriteBatch, InventoryMenuPosition());
-                if (InventoryMenu.IsVisible)
-                {
-                    InventoryMenuDescriptionWindow?.Draw(spriteBatch, InventoryMenuDescriptionPosition());
-                    MenuDescriptionWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(InventoryMenuPosition()));
+                    MenuHeaderWindow?.Draw(spriteBatch, MenuDescriptionWindowPosition(ActionMenuPosition()));
                 }
             }
 
