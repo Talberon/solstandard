@@ -17,7 +17,5 @@ namespace SolStandard.HUD.Menu
         void SelectOption();
         MenuOption CurrentOption { get; }
         bool IsVisible { get; set; }
-        
-        //TODO Assign hotkeys for certain actions in the menu
     }
 }
