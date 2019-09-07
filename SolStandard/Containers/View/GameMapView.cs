@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -303,37 +302,32 @@ namespace SolStandard.Containers.View
             return new Window(teamGoldWindowContentGrid, BlankTerrainWindowColor);
         }
 
-        [SuppressMessage("ReSharper", "CoVariantArrayConversion")]
         public void GenerateActionMenus()
         {
             Color windowColor = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
 
-            //TODO Refactor these chunks into their own functions
+            IMenu contextMenu = BuildContextMenu(windowColor);
 
-            //Context Menu
-            MenuOption[] contextOptions =
-                UnitContextualActionMenuContext.ActiveUnitContextOptions(windowColor).ToArray();
-            IMenu contextMenu = null;
-            if (contextOptions.Length > 0) contextMenu = new VerticalMenu(contextOptions, cursorSprite, windowColor);
-
-            //Skill Menu
             List<ActionOption> skillOptions = UnitContextualActionMenuContext.ActiveUnitSkillOptions(windowColor);
             ActionOption basicAttackOption = skillOptions.FirstOrDefault(option => option.Action is BasicAttack);
             ActionOption waitOption = skillOptions.FirstOrDefault(option => option.Action is Wait);
             skillOptions.Remove(basicAttackOption);
             skillOptions.Remove(waitOption);
-            IMenu skillMenu = null;
-            if (skillOptions.Count > 0) skillMenu = new VerticalMenu(skillOptions.ToArray(), cursorSprite, windowColor);
+            IMenu skillMenu = BuildSkillMenu(skillOptions, windowColor);
 
-            //Item Menu
-            MenuOption[,] inventoryOptions = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
-            IMenu inventoryMenu = null;
-            if (inventoryOptions.Length > 0)
-            {
-                inventoryMenu = new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
-                    TwoDimensionalMenu.CursorType.Pointer);
-            }
+            IMenu inventoryMenu = BuildInventoryMenu(windowColor);
 
+            IMenu actionMenu =
+                BuildActionMenu(contextMenu, windowColor, basicAttackOption, skillMenu, inventoryMenu, waitOption);
+            ActionMenuContext = new MenuContext(actionMenu);
+
+            VisibleMenu = MenuType.ActionMenu;
+            GenerateMenuDescriptionWindow(VisibleMenu, windowColor);
+        }
+
+        private IMenu BuildActionMenu(IMenu contextMenu, Color windowColor, ActionOption basicAttackOption,
+            IMenu skillMenu, IMenu inventoryMenu, ActionOption waitOption)
+        {
             List<MenuOption> topLevelOptions = new List<MenuOption>();
 
             if (contextMenu != null)
@@ -377,10 +371,37 @@ namespace SolStandard.Containers.View
             }
 
             IMenu actionMenu = new VerticalMenu(topLevelOptions.ToArray(), cursorSprite, windowColor);
-            ActionMenuContext = new MenuContext(actionMenu);
+            return actionMenu;
+        }
 
-            VisibleMenu = MenuType.ActionMenu;
-            GenerateMenuDescriptionWindow(VisibleMenu, windowColor);
+        private IMenu BuildInventoryMenu(Color windowColor)
+        {
+            MenuOption[,] inventoryOptions = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
+            IMenu inventoryMenu = null;
+            if (inventoryOptions.Length > 0)
+            {
+                inventoryMenu = new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
+                    TwoDimensionalMenu.CursorType.Pointer);
+            }
+
+            return inventoryMenu;
+        }
+
+        private IMenu BuildSkillMenu(List<ActionOption> skillOptions, Color windowColor)
+        {
+            IMenu skillMenu = null;
+            // ReSharper disable once CoVariantArrayConversion
+            if (skillOptions.Count > 0) skillMenu = new VerticalMenu(skillOptions.ToArray(), cursorSprite, windowColor);
+            return skillMenu;
+        }
+
+        private IMenu BuildContextMenu(Color windowColor)
+        {
+            MenuOption[] contextOptions =
+                UnitContextualActionMenuContext.ActiveUnitContextOptions(windowColor).ToArray();
+            IMenu contextMenu = null;
+            if (contextOptions.Length > 0) contextMenu = new VerticalMenu(contextOptions, cursorSprite, windowColor);
+            return contextMenu;
         }
 
         private void GenerateMenuDescriptionWindow(MenuType menuType, Color windowColor)
