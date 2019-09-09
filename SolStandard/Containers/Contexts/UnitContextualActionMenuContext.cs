@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit.Actions;
@@ -6,27 +7,17 @@ using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
 using SolStandard.HUD.Window.Content;
-using SolStandard.Map;
-using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 
 namespace SolStandard.Containers.Contexts
 {
     public static class UnitContextualActionMenuContext
     {
-        //FIXME Remove this limit and check from action tiles instead 
-        private static readonly int[] InteractionRangeLimit = {0, 1, 2};
-
         public static List<ActionOption> ActiveUnitContextOptions(Color windowColor)
         {
-            List<ActionOption> options = new List<ActionOption>();
-            foreach (UnitAction contextAction in FetchContextualActionsInRange())
-            {
-                options.Add(new ActionOption(windowColor, contextAction));
-            }
-
-            return options;
+            return FetchContextualActionsInRange()
+                .Select(contextAction => new ActionOption(windowColor, contextAction))
+                .ToList();
         }
 
         public static List<ActionOption> ActiveUnitSkillOptions(Color windowColor)
@@ -64,60 +55,30 @@ namespace SolStandard.Containers.Contexts
             return options;
         }
 
-        private static List<UnitAction> FetchContextualActionsInRange()
+        private static IEnumerable<UnitAction> FetchContextualActionsInRange()
         {
-            //TODO Rework this to not use a range limit
+            List<IActionTile> mapActionTiles = MapContainer.GetMapEntities()
+                .Where(entity => entity is IActionTile)
+                .Cast<IActionTile>()
+                .ToList();
 
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
-                .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRangeLimit);
+            List<UnitAction> contextActions = new List<UnitAction>();
 
-            List<MapSlice> mapSlicesInRange = new List<MapSlice>();
-            List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();
-
-            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            foreach (IActionTile actionTile in mapActionTiles)
             {
-                if (mapElement == null) continue;
-
-                distanceTiles.Add(mapElement as MapDistanceTile);
-                mapSlicesInRange.Add(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates));
-            }
-
-            List<UnitAction> contextualSkills = new List<UnitAction>();
-
-            foreach (MapSlice slice in mapSlicesInRange)
-            {
-                IActionTile entityActionTile = slice.TerrainEntity as IActionTile;
-                AddEntityAction(entityActionTile, distanceTiles, contextualSkills);
-
-                IActionTile itemActionTile = slice.ItemEntity as IActionTile;
-                AddEntityAction(itemActionTile, distanceTiles, contextualSkills);
-
-                IActionTile unitActionTile = slice.UnitEntity;
-                AddEntityAction(unitActionTile, distanceTiles, contextualSkills);
-            }
-
-            MapContainer.ClearDynamicAndPreviewGrids();
-
-            return contextualSkills;
-        }
-
-        private static void AddEntityAction(IActionTile entityActionTile, List<MapDistanceTile> distanceTiles,
-            List<UnitAction> contextualSkills)
-        {
-            if (entityActionTile == null) return;
-
-            foreach (MapDistanceTile distanceTile in distanceTiles)
-            {
-                foreach (int range in entityActionTile.InteractRange)
+                if (
+                    RangeComparison.TargetIsWithinRangeOfOrigin(
+                        actionTile.MapCoordinates,
+                        actionTile.InteractRange,
+                        GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                    )
+                )
                 {
-                    //If the tile's range aligns with the current range of the unit, add the action to the action list
-                    if (distanceTile.MapCoordinates != entityActionTile.MapCoordinates) continue;
-                    if (distanceTile.Distance == range)
-                    {
-                        contextualSkills.AddRange(entityActionTile.TileActions());
-                    }
+                    contextActions.AddRange(actionTile.TileActions());
                 }
             }
+
+            return contextActions;
         }
     }
 }

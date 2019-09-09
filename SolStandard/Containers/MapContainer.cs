@@ -131,7 +131,7 @@ namespace SolStandard.Containers
             return GetMapSliceAtCoordinates(MapCursor.MapCoordinates);
         }
 
-        public static List<MapEntity> GetMapEntities()
+        public static IEnumerable<MapEntity> GetMapEntities()
         {
             List<MapEntity> entities = new List<MapEntity>();
 
@@ -142,7 +142,10 @@ namespace SolStandard.Containers
             {
                 for (int column = 0; column < mapWidth; column++)
                 {
-                    if (GameGrid[(int) Layer.Entities][column, row] is MapEntity currentTile) entities.Add(currentTile);
+                    if (GameGrid[(int) Layer.Entities][column, row] is MapEntity currentEntity)
+                        entities.Add(currentEntity);
+
+                    if (GameGrid[(int) Layer.Items][column, row] is MapEntity currentItem) entities.Add(currentItem);
                 }
             }
 

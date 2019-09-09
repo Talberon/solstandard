@@ -141,7 +141,7 @@ namespace SolStandard.Containers.Contexts
 
         public void MoveToNextDeploymentTile()
         {
-            List<MapEntity> mapEntities = MapContainer.GetMapEntities();
+            IEnumerable<MapEntity> mapEntities = MapContainer.GetMapEntities();
             List<MapEntity> deployTiles = mapEntities.Where(tile => tile is DeployTile).ToList();
             if (deployTiles.Count == 0) return;
 
