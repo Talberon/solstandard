@@ -267,7 +267,7 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             IsCommander
-                                                ? GetCommanderCrown(new Vector2(crownIconSize))
+                                                ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
                                                 : new RenderBlank() as IRenderable,
                                             new RenderText(AssetManager.HeaderFont, Id)
                                         }
@@ -323,7 +323,7 @@ namespace SolStandard.Entity.Unit
                                     new IRenderable[,]
                                     {
                                         {
-                                            new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
+                                            MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
                                             new RenderText(statfont,
                                                 "Bounty: " + CurrentBounty + Currency.CurrencyAbbreviation)
                                         }
@@ -807,7 +807,7 @@ namespace SolStandard.Entity.Unit
                 = new Spoils(
                     Id + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
+                    MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),
                     MapEntity.MapCoordinates,
                     CurrentBounty,
                     new List<IItem>(Inventory)
@@ -865,11 +865,6 @@ namespace SolStandard.Entity.Unit
             hashCode += CurrentBounty;
             hashCode *= serialId;
             return hashCode;
-        }
-
-        public static SpriteAtlas GetCommanderCrown(Vector2 size)
-        {
-            return new SpriteAtlas(AssetManager.CommanderIcon, new Vector2(AssetManager.CommanderIcon.Height), size);
         }
 
         public void DrawAuras(SpriteBatch spriteBatch)

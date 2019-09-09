@@ -340,11 +340,7 @@ namespace SolStandard.Containers.View
 
             if (contextMenu != null)
             {
-                IRenderable contextMenuIcon = new SpriteAtlas(
-                    AssetManager.ContextMenuIcon,
-                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
-                    GameDriver.CellSizeVector
-                );
+                IRenderable contextMenuIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Context, GameDriver.CellSizeVector);
                 topLevelOptions.Add(new SubmenuOption(contextMenu, contextMenuIcon, "Context",
                     "View extra actions that can be performed based on the environment.", windowColor));
             }
@@ -353,22 +349,14 @@ namespace SolStandard.Containers.View
 
             if (skillMenu != null)
             {
-                IRenderable skillMenuIcon = new SpriteAtlas(
-                    AssetManager.SkillBookIcon,
-                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
-                    GameDriver.CellSizeVector
-                );
+                IRenderable skillMenuIcon = MiscIconProvider.GetMiscIcon(MiscIcon.SkillBook, GameDriver.CellSizeVector);
                 topLevelOptions.Add(new SubmenuOption(skillMenu, skillMenuIcon, "Skills",
                     "View unique actions for this unit.", windowColor));
             }
 
             if (inventoryMenu != null)
             {
-                IRenderable spoilsMenuIcon = new SpriteAtlas(
-                    AssetManager.SpoilsIcon,
-                    new Vector2(AssetManager.ContextMenuIcon.Width, AssetManager.ContextMenuIcon.Height),
-                    GameDriver.CellSizeVector
-                );
+                IRenderable spoilsMenuIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector);
                 topLevelOptions.Add(new SubmenuOption(inventoryMenu, spoilsMenuIcon, "Inventory",
                     "Use and manage items in this unit's inventory.", windowColor));
             }
@@ -626,7 +614,7 @@ namespace SolStandard.Containers.View
             {
                 {
                     unit.IsCommander
-                        ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
+                        ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
                         : new RenderBlank() as IRenderable,
                     new RenderText(AssetManager.MapFont, unit.Id)
                 },

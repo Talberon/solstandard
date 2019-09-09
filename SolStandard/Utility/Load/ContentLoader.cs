@@ -291,12 +291,6 @@ namespace SolStandard.Utility.Load
             return songITextures;
         }
 
-        public static ITexture2D LoadCommanderIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
-            return new Texture2DWrapper(loadTexture);
-        }
-
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture =
@@ -644,34 +638,22 @@ namespace SolStandard.Utility.Load
             };
         }
 
-        public static ITexture2D LoadGoldIcon(ContentManager content)
+        public static List<ITexture2D> LoadMiscIcons(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadSpoilsIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadContextMenuIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadSkillBookIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadIndependentIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Independent");
-            return new Texture2DWrapper(loadTexture);
+            return new List<ITexture2D>
+            {
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/1st")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/2nd")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Independent")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/clock")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Gold")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook")),
+            };
         }
 
         public static ITexture2D LoadObjectiveIcons(ContentManager content)

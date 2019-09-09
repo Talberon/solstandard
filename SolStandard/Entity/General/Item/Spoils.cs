@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General.Item
                         new Window(new[,]
                             {
                                 {
-                                    new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
+                                    MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
                                     new RenderText(AssetManager.WindowFont,
                                         "Gold: " + Gold + Currency.CurrencyAbbreviation)
                                 },

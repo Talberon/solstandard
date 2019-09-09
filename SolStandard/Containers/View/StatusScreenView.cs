@@ -174,7 +174,7 @@ namespace SolStandard.Containers.View
                 {
                     {
                         unit.IsCommander
-                            ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
+                            ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
                             : new RenderBlank() as IRenderable,
                         new RenderText(AssetManager.WindowFont, unit.Id)
                     },
@@ -193,7 +193,7 @@ namespace SolStandard.Containers.View
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
+                                        MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
                                         new RenderText(AssetManager.WindowFont, unit.CurrentBounty + "G")
                                     }
                                 },

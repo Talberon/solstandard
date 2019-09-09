@@ -1732,6 +1732,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Dice/AttackDiceAtlas.png
 
+#begin Graphics/Images/Icons/Misc/1st.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/1st.png
+
+#begin Graphics/Images/Icons/Misc/2nd.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/2nd.png
+
 #begin Graphics/Images/Icons/Misc/AuraAttack.png
 /importer:TextureImporter
 /processor:TextureProcessor

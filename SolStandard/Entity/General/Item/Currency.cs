@@ -27,7 +27,7 @@ namespace SolStandard.Entity.General.Item
 
         public static IRenderable GoldIcon(Vector2 size)
         {
-            return new SpriteAtlas(AssetManager.GoldIcon, size);
+            return MiscIconProvider.GetMiscIcon(MiscIcon.Gold, size);
         }
 
         public List<UnitAction> TileActions()

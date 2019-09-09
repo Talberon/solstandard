@@ -93,7 +93,7 @@ namespace SolStandard.Entity.General
                 = new Spoils(
                     Name + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
+                    MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),
                     MapCoordinates,
                     gold,
                     new List<IItem>(items)

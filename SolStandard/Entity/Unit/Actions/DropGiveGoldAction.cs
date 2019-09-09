@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions
             return new Spoils(
                 "Money Bag",
                 "Spoils",
-                new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
+                MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),
                 mapCoordinates,
                 Value,
                 new List<IItem>()

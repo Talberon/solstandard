@@ -66,11 +66,7 @@ namespace SolStandard.Entity.Unit
 
         private IRenderable IndependentIcon =>
             independentIcon ?? (
-                independentIcon = new SpriteAtlas(
-                    AssetManager.IndependentIcon,
-                    new Vector2(AssetManager.IndependentIcon.Width, AssetManager.IndependentIcon.Height),
-                    new Vector2(IndependentIconSize)
-                )
+                independentIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Independent, new Vector2(IndependentIconSize))
             );
     }
 }

@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses.Creep
@@ -7,9 +5,7 @@ namespace SolStandard.Entity.Unit.Statuses.Creep
     public class IndependentStatus : StatusEffect
     {
         public IndependentStatus() : base(
-            new SpriteAtlas(AssetManager.IndependentIcon,
-                new Vector2(AssetManager.IndependentIcon.Width, AssetManager.IndependentIcon.Height),
-                GameDriver.CellSizeVector),
+            MiscIconProvider.GetMiscIcon(MiscIcon.Independent, GameDriver.CellSizeVector),
             "Independent",
             "Unit can attack team mates.",
             100,
