@@ -1948,6 +1948,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/Lock.png
 
+#begin Graphics/Images/Icons/Misc/LoneWolf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/LoneWolf.png
+
 #begin Graphics/Images/Icons/Misc/old_spoils.png
 /importer:TextureImporter
 /processor:TextureProcessor

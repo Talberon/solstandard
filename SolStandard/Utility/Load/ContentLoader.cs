@@ -668,6 +668,12 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(loadTexture);
         }
 
+        public static ITexture2D LoadIndependentIcon(ContentManager content)
+        {
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/LoneWolf");
+            return new Texture2DWrapper(loadTexture);
+        }
+
         public static ITexture2D LoadObjectiveIcons(ContentManager content)
         {
             Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/ObjectiveIcons16");

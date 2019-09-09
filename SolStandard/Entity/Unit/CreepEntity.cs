@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Model;
 
 namespace SolStandard.Entity.Unit
@@ -9,7 +10,8 @@ namespace SolStandard.Entity.Unit
     public class CreepEntity : UnitEntity
     {
         private IRenderable routineIcon;
-        public CreepRoutineModel Routines { get; }
+        private IRenderable independentIcon;
+        public CreepRoutineModel Model { get; }
         public string CreepPool { get; }
         public int StartingGold { get; }
 
@@ -17,7 +19,7 @@ namespace SolStandard.Entity.Unit
             Role role, bool isCommander, CreepRoutineModel creepRoutineModel, string[] initialInventory)
             : base(name, type, spriteSheet, mapCoordinates, team, role, isCommander, initialInventory)
         {
-            Routines = creepRoutineModel;
+            Model = creepRoutineModel;
             CreepPool = creepRoutineModel.CreepPool;
             StartingGold = creepRoutineModel.StartingGold;
         }
@@ -36,17 +38,37 @@ namespace SolStandard.Entity.Unit
             return centerCoordinates;
         }
 
+        private static Vector2 TopRightOfTile(Vector2 tileCoordinates, float iconWidth)
+        {
+            Vector2 centerCoordinates = tileCoordinates * GameDriver.CellSize;
+            centerCoordinates.X += GameDriver.CellSize - iconWidth;
+            return centerCoordinates;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
 
             routineIcon?.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));
+
+            if (Model.IsIndependent)
+                IndependentIcon.Draw(spriteBatch, TopRightOfTile(MapCoordinates, IndependentIcon.Width));
         }
 
         public CreepEntity Copy()
         {
-            return new CreepEntity(Name, Type, UnitSpriteSheet.Clone(), MapCoordinates, Team, Role, IsCommander, Routines,
+            return new CreepEntity(Name, Type, UnitSpriteSheet.Clone(), MapCoordinates, Team, Role, IsCommander,
+                Model,
                 InitialInventory);
         }
+
+        private IRenderable IndependentIcon =>
+            independentIcon ?? (
+                independentIcon = new SpriteAtlas(
+                    AssetManager.IndependentIcon,
+                    new Vector2(AssetManager.IndependentIcon.Width, AssetManager.IndependentIcon.Height),
+                    GameDriver.CellSizeVector / 3
+                )
+            );
     }
 }
