@@ -670,7 +670,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadIndependentIcon(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/LoneWolf");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Independent");
             return new Texture2DWrapper(loadTexture);
         }
 

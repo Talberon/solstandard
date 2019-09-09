@@ -277,6 +277,7 @@
     <Compile Include="Entity\Unit\Statuses\Bard\TempestStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\BlkStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\Champion\FortifiedStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\Creep\IndependentStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Creep\NextRoutineStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />

@@ -4,7 +4,6 @@ using SolStandard.Containers;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses.Creep;
 using SolStandard.Map.Elements.Cursor;
-using SolStandard.Utility;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
 
@@ -20,6 +19,7 @@ namespace SolStandard.Entity.Unit
             base(id, team, role, unitEntity, stats, portrait, unitEntity.Model.Actions, isBoss)
         {
             fallbackRoutine = unitEntity.Model.FallbackRoutine;
+            if (unitEntity.Model.IsIndependent) AddStatusEffect(new IndependentStatus());
         }
 
         private CreepEntity CreepEntity => UnitEntity as CreepEntity;
@@ -61,8 +61,7 @@ namespace SolStandard.Entity.Unit
         {
             nextRoutine = newRoutine;
             CreepEntity.UpdateRoutineIcon(newRoutine);
-            GameUnit thisCreep = UnitSelector.SelectUnit(CreepEntity);
-            thisCreep.AddStatusEffect(new NextRoutineStatus(newRoutine));
+            AddStatusEffect(new NextRoutineStatus(newRoutine));
         }
     }
 }

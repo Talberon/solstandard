@@ -11,6 +11,7 @@ namespace SolStandard.Entity.Unit
     {
         private IRenderable routineIcon;
         private IRenderable independentIcon;
+        private const int IndependentIconSize = 8;
         public CreepRoutineModel Model { get; }
         public string CreepPool { get; }
         public int StartingGold { get; }
@@ -52,14 +53,15 @@ namespace SolStandard.Entity.Unit
             routineIcon?.Draw(spriteBatch, CenterTopOfTile(MapCoordinates, routineIcon.Width));
 
             if (Model.IsIndependent)
+            {
                 IndependentIcon.Draw(spriteBatch, TopRightOfTile(MapCoordinates, IndependentIcon.Width));
+            }
         }
 
         public CreepEntity Copy()
         {
             return new CreepEntity(Name, Type, UnitSpriteSheet.Clone(), MapCoordinates, Team, Role, IsCommander,
-                Model,
-                InitialInventory);
+                Model, InitialInventory);
         }
 
         private IRenderable IndependentIcon =>
@@ -67,7 +69,7 @@ namespace SolStandard.Entity.Unit
                 independentIcon = new SpriteAtlas(
                     AssetManager.IndependentIcon,
                     new Vector2(AssetManager.IndependentIcon.Width, AssetManager.IndependentIcon.Height),
-                    GameDriver.CellSizeVector / 3
+                    new Vector2(IndependentIconSize)
                 )
             );
     }
