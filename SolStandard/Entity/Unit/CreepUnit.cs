@@ -60,6 +60,7 @@ namespace SolStandard.Entity.Unit
         {
             nextRoutine = newRoutine;
             CreepEntity.UpdateRoutineIcon(newRoutine);
+            //TODO Show routine in status effects
         }
     }
 }
