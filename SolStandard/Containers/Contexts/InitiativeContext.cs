@@ -187,7 +187,7 @@ namespace SolStandard.Containers.Contexts
             UpdateUnitActivation();
         }
 
-        private Team TeamWithFewerRemainingUnits()
+        public Team TeamWithFewerRemainingUnits()
         {
             int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
             int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);

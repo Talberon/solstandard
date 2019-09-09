@@ -286,7 +286,7 @@ namespace SolStandard.Containers.View
                 TeamUtility.DetermineTeamColor(Team.Red));
 
 
-            bool blueIsFirst = GameContext.InitiativeContext.FirstPlayer == Team.Blue;
+            bool blueIsFirst = GameContext.InitiativeContext.TeamWithFewerRemainingUnits() == Team.Blue;
             IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
             IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
 
