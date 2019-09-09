@@ -18,7 +18,7 @@ namespace SolStandard.Containers.Contexts
         public List<GameUnit> InitiativeList { get; }
         public GameUnit CurrentActiveUnit { get; private set; }
         public Team CurrentActiveTeam { get; private set; }
-        private Team FirstPlayer { get; }
+        public Team FirstPlayer { get; }
         private int redTeamGold;
         private int blueTeamGold;
 

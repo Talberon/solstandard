@@ -68,7 +68,7 @@ namespace SolStandard.Containers.View
         private Window BlueTeamWindow { get; set; }
         private Window RedTeamWindow { get; set; }
         private Window ObjectiveWindow { get; set; }
-        private Window GoldWindow => GenerateGoldWindow();
+        private static Window TeamInfoWindow => GenerateTeamInfoWindow();
 
         public Window ItemDetailWindow { get; private set; }
         private Window UserPromptWindow { get; set; }
@@ -273,7 +273,7 @@ namespace SolStandard.Containers.View
             ), windowColor);
         }
 
-        private static Window GenerateGoldWindow()
+        private static Window GenerateTeamInfoWindow()
         {
             ISpriteFont font = AssetManager.WindowFont;
 
@@ -285,16 +285,23 @@ namespace SolStandard.Containers.View
                 new RenderText(font, $"Red: {GameContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
                 TeamUtility.DetermineTeamColor(Team.Red));
 
+
+            bool blueIsFirst = GameContext.InitiativeContext.FirstPlayer == Team.Blue;
+            IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
+            IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
+
             WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
-                new IRenderable[,]
+                new[,]
                 {
                     {
+                        blueIsFirst ? firstIcon : secondIcon,
                         blueGoldWindow,
                         ObjectiveIconProvider.GetObjectiveIcon(
                             VictoryConditions.Taxes,
                             GameDriver.CellSizeVector
                         ),
-                        redGoldWindow
+                        redGoldWindow,
+                        blueIsFirst ? secondIcon : firstIcon
                     }
                 },
                 2,
@@ -877,8 +884,8 @@ namespace SolStandard.Containers.View
         {
             //Center, above initiative list
             return new Vector2(
-                GameDriver.ScreenSize.X / 2 - (float) GoldWindow.Width / 2,
-                InitiativeWindowPosition().Y - GoldWindow.Height
+                GameDriver.ScreenSize.X / 2 - (float) TeamInfoWindow.Width / 2,
+                InitiativeWindowPosition().Y - TeamInfoWindow.Height
             );
         }
 
@@ -935,7 +942,7 @@ namespace SolStandard.Containers.View
             if (InitiativeWindow != null)
             {
                 InitiativeWindow.Draw(spriteBatch, InitiativeWindowPosition());
-                GoldWindow?.Draw(spriteBatch, GoldWindowPosition());
+                TeamInfoWindow?.Draw(spriteBatch, GoldWindowPosition());
 
                 if (LeftUnitPortraitWindow != null)
                 {
