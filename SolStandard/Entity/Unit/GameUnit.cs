@@ -267,7 +267,8 @@ namespace SolStandard.Entity.Unit
                                     {
                                         {
                                             IsCommander
-                                                ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
+                                                ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown,
+                                                    new Vector2(crownIconSize))
                                                 : new RenderBlank() as IRenderable,
                                             new RenderText(AssetManager.HeaderFont, Id)
                                         }
@@ -775,21 +776,20 @@ namespace SolStandard.Entity.Unit
             //Don't drop spoils if inventory is empty
             if (CurrentBounty == 0 && Inventory.Count == 0) return;
 
-            //If on top of other Spoils, pick those up before dropping on top of them
+            MapElement itemAtUnitPosition = MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
+                (int) MapEntity.MapCoordinates.Y];
 
-            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                (int) MapEntity.MapCoordinates.Y] is Spoils spoilsAtUnitPosition)
+            //If on top of other Spoils, pick those up before dropping on top of them
+            if (itemAtUnitPosition is Spoils spoilsAtUnitPosition)
             {
                 CurrentBounty += spoilsAtUnitPosition.Gold;
                 Inventory.AddRange(spoilsAtUnitPosition.Items);
             }
 
-
             //Check if an item already exists here and add it to the spoils so that they aren't lost 
-            if (MapContainer.GameGrid[(int) Layer.Items][(int) MapEntity.MapCoordinates.X,
-                (int) MapEntity.MapCoordinates.Y] is TerrainEntity itemAtUnitPosition)
+            if (itemAtUnitPosition is TerrainEntity entityAtUnitPosition)
             {
-                switch (itemAtUnitPosition)
+                switch (entityAtUnitPosition)
                 {
                     case IItem item:
                         AddItemToInventory(item);
@@ -813,7 +813,6 @@ namespace SolStandard.Entity.Unit
                     new List<IItem>(Inventory)
                 );
 
-            
             GameContext.InitiativeContext.DeductGoldFromTeam(CurrentBounty, Team);
             CurrentBounty = 0;
             Inventory.Clear();

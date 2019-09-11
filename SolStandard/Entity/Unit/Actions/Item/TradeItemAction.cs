@@ -26,6 +26,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
+            GiveItemToAlly(targetSlice);
+        }
+
+        private void GiveItemToAlly(MapSlice targetSlice)
+        {
             GameUnit actingUnit = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 

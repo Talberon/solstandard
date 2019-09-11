@@ -195,7 +195,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new TradeItemAction(this);
+            return new DropGiveItemAction(this);
         }
 
         public IItem Duplicate()

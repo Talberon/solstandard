@@ -50,7 +50,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction DropAction()
         {
-            return new TradeItemAction(this);
+            return new DropGiveItemAction(this);
         }
 
         public IItem Duplicate()

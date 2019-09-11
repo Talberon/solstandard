@@ -22,7 +22,7 @@ namespace SolStandard.Entity.General.Item
         {
             Gold = gold;
             Items = items;
-            InteractRange = new[] {0, 1};
+            InteractRange = new[] {0};
         }
 
         public List<UnitAction> TileActions()
