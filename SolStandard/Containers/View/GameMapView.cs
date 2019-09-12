@@ -50,19 +50,19 @@ namespace SolStandard.Containers.View
         public static readonly Color UserPromptWindowColor = new Color(40, 30, 40, 200);
 
         private int LeftHoverUnit { get; set; }
-        private AnimatedWindow LeftUnitPortraitWindow { get; set; }
-        private AnimatedWindow LeftUnitDetailWindow { get; set; }
-        private AnimatedWindow LeftUnitStatusWindow { get; set; }
-        private AnimatedWindow LeftUnitInventoryWindow { get; set; }
+        private AnimatedRenderable LeftUnitPortraitWindow { get; set; }
+        private AnimatedRenderable LeftUnitDetailWindow { get; set; }
+        private AnimatedRenderable LeftUnitStatusWindow { get; set; }
+        private AnimatedRenderable LeftUnitInventoryWindow { get; set; }
 
         private int RightHoverUnit { get; set; }
-        private AnimatedWindow RightUnitPortraitWindow { get; set; }
-        private AnimatedWindow RightUnitDetailWindow { get; set; }
-        private AnimatedWindow RightUnitStatusWindow { get; set; }
-        private AnimatedWindow RightUnitInventoryWindow { get; set; }
+        private AnimatedRenderable RightUnitPortraitWindow { get; set; }
+        private AnimatedRenderable RightUnitDetailWindow { get; set; }
+        private AnimatedRenderable RightUnitStatusWindow { get; set; }
+        private AnimatedRenderable RightUnitInventoryWindow { get; set; }
 
         private int EntityWindowHash { get; set; }
-        private AnimatedWindow EntityWindow { get; set; }
+        private AnimatedRenderable EntityWindow { get; set; }
 
         private Window InitiativeWindow { get; set; }
         private Window BlueTeamWindow { get; set; }
@@ -138,11 +138,11 @@ namespace SolStandard.Containers.View
             }
         }
 
-        private static IWindowAnimation RightSideWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Left, WindowSlideDistance, WindowSlideSpeed);
+        private static IRenderableAnimation RightSideWindowAnimation =>
+            new RenderableSlide(RenderableSlide.SlideDirection.Left, WindowSlideDistance, WindowSlideSpeed);
 
-        private static IWindowAnimation LeftSideWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
+        private static IRenderableAnimation LeftSideWindowAnimation =>
+            new RenderableSlide(RenderableSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
 
         #region Close Windows
 
@@ -380,14 +380,10 @@ namespace SolStandard.Containers.View
         private IMenu BuildInventoryMenu(Color windowColor)
         {
             MenuOption[,] inventoryOptions = UnitContextualActionMenuContext.GenerateInventoryMenuOptions(windowColor);
-            IMenu inventoryMenu = null;
-            if (inventoryOptions.Length > 0)
-            {
-                inventoryMenu = new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
-                    TwoDimensionalMenu.CursorType.Pointer);
-            }
-
-            return inventoryMenu;
+            return (inventoryOptions.Length > 0)
+                ? new TwoDimensionalMenu(inventoryOptions, cursorSprite, windowColor,
+                    TwoDimensionalMenu.CursorType.Pointer)
+                : null;
         }
 
         private IMenu BuildSkillMenu(List<ActionOption> skillOptions, Color windowColor)
@@ -471,7 +467,7 @@ namespace SolStandard.Containers.View
         {
             if (EntityWindowHash == hoverSlice.GetHashCode()) return;
             EntityWindowHash = hoverSlice.GetHashCode();
-            EntityWindow = new AnimatedWindow(GenerateEntityWindow(hoverSlice), RightSideWindowAnimation);
+            EntityWindow = new AnimatedRenderable(GenerateEntityWindow(hoverSlice), RightSideWindowAnimation);
         }
 
         public static Window GenerateEntityWindow(MapSlice hoverSlice)
@@ -669,14 +665,14 @@ namespace SolStandard.Containers.View
                 Window leftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
                 Window leftUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
 
-                LeftUnitPortraitWindow = new AnimatedWindow(leftUnitPortraitWindow, LeftSideWindowAnimation);
-                LeftUnitDetailWindow = new AnimatedWindow(leftUnitDetailWindow, LeftSideWindowAnimation);
+                LeftUnitPortraitWindow = new AnimatedRenderable(leftUnitPortraitWindow, LeftSideWindowAnimation);
+                LeftUnitDetailWindow = new AnimatedRenderable(leftUnitDetailWindow, LeftSideWindowAnimation);
 
                 LeftUnitStatusWindow = leftUnitStatusWindow != null
-                    ? new AnimatedWindow(leftUnitStatusWindow, LeftSideWindowAnimation)
+                    ? new AnimatedRenderable(leftUnitStatusWindow, LeftSideWindowAnimation)
                     : null;
                 LeftUnitInventoryWindow = leftUnitInventoryWindow != null
-                    ? new AnimatedWindow(leftUnitInventoryWindow, LeftSideWindowAnimation)
+                    ? new AnimatedRenderable(leftUnitInventoryWindow, LeftSideWindowAnimation)
                     : null;
             }
         }
@@ -702,13 +698,13 @@ namespace SolStandard.Containers.View
                 Window rightUnitInventoryWindow = GenerateUnitInventoryWindow(hoverMapUnit.InventoryPane, windowColor);
 
 
-                RightUnitPortraitWindow = new AnimatedWindow(rightUnitPortraitWindow, RightSideWindowAnimation);
-                RightUnitDetailWindow = new AnimatedWindow(rightUnitDetailWindow, RightSideWindowAnimation);
+                RightUnitPortraitWindow = new AnimatedRenderable(rightUnitPortraitWindow, RightSideWindowAnimation);
+                RightUnitDetailWindow = new AnimatedRenderable(rightUnitDetailWindow, RightSideWindowAnimation);
                 RightUnitStatusWindow = rightUnitStatusWindow != null
-                    ? new AnimatedWindow(rightUnitStatusWindow, RightSideWindowAnimation)
+                    ? new AnimatedRenderable(rightUnitStatusWindow, RightSideWindowAnimation)
                     : null;
                 RightUnitInventoryWindow = rightUnitInventoryWindow != null
-                    ? new AnimatedWindow(rightUnitInventoryWindow, RightSideWindowAnimation)
+                    ? new AnimatedRenderable(rightUnitInventoryWindow, RightSideWindowAnimation)
                     : null;
             }
         }
@@ -803,20 +799,24 @@ namespace SolStandard.Containers.View
 
         private Vector2 LeftUnitStatusWindowPosition()
         {
-            //Bottom-left, above portrait
+            float verticalAnchor = (LeftUnitInventoryWindow == null)
+                ? LeftUnitPortraitWindowPosition().Y
+                : LeftUnitInventoryWindowPosition().Y;
+
+            //Bottom-left, above portrait/inventory
             return new Vector2(
                 LeftUnitPortraitWindowPosition().X,
-                LeftUnitPortraitWindowPosition().Y - LeftUnitStatusWindow.Height - WindowEdgeBuffer
+                verticalAnchor - LeftUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 
 
         private Vector2 LeftUnitInventoryWindowPosition()
         {
-            //Bottom-left, right of stats
+            //Bottom-left, above stats
             return new Vector2(
-                LeftUnitDetailWindowPosition().X + LeftUnitDetailWindow.Width + WindowEdgeBuffer,
-                LeftUnitDetailWindowPosition().Y
+                LeftUnitDetailWindowPosition().X,
+                LeftUnitDetailWindowPosition().Y - LeftUnitInventoryWindow.Height
             );
         }
 
@@ -844,20 +844,24 @@ namespace SolStandard.Containers.View
 
         private Vector2 RightUnitStatusWindowPosition()
         {
-            //Bottom-right, above portrait
+            float verticalAnchor = (RightUnitInventoryWindow == null)
+                ? RightUnitPortraitWindowPosition().Y
+                : RightUnitInventoryWindowPosition().Y;
+
+            //Bottom-right, above portrait/inventory
             return new Vector2(
                 RightUnitPortraitWindowPosition().X + RightUnitPortraitWindow.Width - RightUnitStatusWindow.Width,
-                RightUnitPortraitWindowPosition().Y - RightUnitStatusWindow.Height - WindowEdgeBuffer
+                verticalAnchor - RightUnitStatusWindow.Height - WindowEdgeBuffer
             );
         }
 
 
         private Vector2 RightUnitInventoryWindowPosition()
         {
-            //Bottom-left, right of stats
+            //Bottom-left, above stats
             return new Vector2(
-                RightUnitDetailWindowPosition().X - RightUnitInventoryWindow.Width - WindowEdgeBuffer,
-                RightUnitDetailWindowPosition().Y
+                RightUnitDetailWindowPosition().X + RightUnitDetailWindow.Width - RightUnitInventoryWindow.Width,
+                RightUnitDetailWindowPosition().Y - RightUnitInventoryWindow.Height
             );
         }
 

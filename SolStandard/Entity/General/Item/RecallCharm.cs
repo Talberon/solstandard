@@ -60,7 +60,7 @@ namespace SolStandard.Entity.General.Item
 
         public void DeployRecall()
         {
-            //FIXME HACK: Re-add this item to the unit's inventory to update the UseAction
+            //Re-add this item to the unit's inventory to update the UseAction immediately
             GameContext.ActiveUnit.RemoveItemFromInventory(this);
             recallDeployed = true;
             GameContext.ActiveUnit.AddItemToInventory(this);

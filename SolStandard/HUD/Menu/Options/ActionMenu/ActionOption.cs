@@ -12,8 +12,14 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
         public UnitAction Action { get; }
         public IRenderable Description => Action.Description;
 
-        public ActionOption(Color windowColor, UnitAction action) : base(
-            GenerateActionContent(action.Icon, action.Name, action.FreeAction), windowColor)
+        public ActionOption(Color windowColor, UnitAction action) : this(action.Name, windowColor, action)
+        {
+        }
+
+        protected ActionOption(string actionName, Color windowColor, UnitAction action) : base(
+            GenerateActionContent(action.Icon, actionName, action.FreeAction),
+            windowColor
+        )
         {
             Action = action;
         }

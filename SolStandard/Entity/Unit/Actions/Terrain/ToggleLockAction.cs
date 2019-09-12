@@ -15,8 +15,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public ToggleLockAction(Key key) : base(
             icon: key.Icon,
-            name: "Use: " + key.Name,
-            description: "Locks or unlocks the target if you have the appropriate key.",
+            name: "Use",
+            description: $"Locks or unlocks a target ${key.UsedWith}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
             freeAction: true

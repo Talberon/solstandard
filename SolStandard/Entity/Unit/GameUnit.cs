@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.View;
 using SolStandard.Entity.General;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
@@ -224,24 +225,21 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
-                if (Inventory.Count > 0)
+                if (Inventory.Count <= 0) return null;
+
+                IRenderable[,] content = new IRenderable[1, Inventory.Count + 1];
+
+                content[0, 0] = new Window(
+                    new RenderText(AssetManager.StatFont, " ITEMS"),
+                    GameMapView.BlankTerrainWindowColor
+                );
+
+                for (int i = 0; i < Inventory.Count; i++)
                 {
-                    const int offset = 1;
-                    IRenderable[,] content = new IRenderable[Inventory.Count + offset, 2];
-
-                    content[0, 0] = new RenderBlank();
-                    content[0, 1] = new RenderText(AssetManager.HeaderFont, "Inventory");
-
-                    for (int i = 0; i < Inventory.Count; i++)
-                    {
-                        content[i + offset, 0] = Inventory[i].Icon;
-                        content[i + offset, 1] = new RenderText(AssetManager.WindowFont, Inventory[i].Name);
-                    }
-
-                    return new WindowContentGrid(content, 2);
+                    content[0, i + 1] = Inventory[i].Icon;
                 }
 
-                return null;
+                return new WindowContentGrid(content, 2);
             }
         }
 

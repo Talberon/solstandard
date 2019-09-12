@@ -4,7 +4,7 @@ using SolStandard.Map.Elements;
 
 namespace SolStandard.HUD.Window.Animation
 {
-    public class WindowSlide : IWindowAnimation
+    public class RenderableSlide : IRenderableAnimation
     {
         public enum SlideDirection
         {
@@ -20,7 +20,7 @@ namespace SolStandard.HUD.Window.Animation
         public Vector2 CurrentPosition { get; private set; }
         private bool hasMoved;
 
-        public WindowSlide(SlideDirection slideDirection, float distanceToTravel, int slideSpeed = 10)
+        public RenderableSlide(SlideDirection slideDirection, float distanceToTravel, int slideSpeed = 10)
         {
             this.slideDirection = slideDirection;
             this.distanceToTravel = distanceToTravel;

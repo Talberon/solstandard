@@ -180,7 +180,6 @@
     <Compile Include="Entity\Unit\Actions\Duelist\Fleche.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\WeightedWoe.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\ICommandAction.cs" />
@@ -311,6 +310,7 @@
     <Compile Include="HUD\Menu\IOptionDescription.cs" />
     <Compile Include="HUD\Menu\MenuContext.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\ActionMenu\ItemActionOption.cs" />
     <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
@@ -347,9 +347,9 @@
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
-    <Compile Include="HUD\Window\Animation\IWindowAnimation.cs" />
-    <Compile Include="HUD\Window\Animation\WindowSlide.cs" />
-    <Compile Include="HUD\Window\Animation\WindowStatic.cs" />
+    <Compile Include="HUD\Window\Animation\IRenderableAnimation.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableSlide.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableStatic.cs" />
     <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />
     <Compile Include="HUD\Window\Content\Combat\BlockPoint.cs" />
     <Compile Include="HUD\Window\Content\Combat\CombatDamage.cs" />
@@ -367,7 +367,7 @@
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
-    <Compile Include="HUD\Window\AnimatedWindow.cs" />
+    <Compile Include="HUD\Window\AnimatedRenderable.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
