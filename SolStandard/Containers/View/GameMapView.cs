@@ -559,10 +559,8 @@ namespace SolStandard.Containers.View
 
         private void GenerateTeamInitiativeWindow(Team team)
         {
-            //TODO figure out if we really want this to be hard-coded or determined based on screen size or something
             const int unitsPerRow = 10;
             const int initiativeHealthBarHeight = 10;
-
 
             List<GameUnit> unitList = GameContext.Units.FindAll(unit => unit.Team == team);
 

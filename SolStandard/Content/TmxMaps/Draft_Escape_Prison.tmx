@@ -2322,7 +2322,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="Entities">
-  <object id="959" name="Deploy Blue" type="Deployment" gid="6351" x="640" y="448" width="32" height="32">
+  <object id="959" name="Deploy Blue" type="Deployment" gid="6351" x="608" y="448" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2352,7 +2352,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="983" name="Deploy Blue" type="Deployment" gid="6351" x="640" y="608" width="32" height="32">
+  <object id="983" name="Deploy Blue" type="Deployment" gid="6351" x="608" y="608" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
    </properties>
@@ -2483,7 +2483,6 @@
   </object>
   <object id="1016" name="Push Block" type="Pushable" gid="6646" x="256" y="320" width="32" height="32"/>
   <object id="1017" name="Push Block" type="Pushable" gid="6646" x="288" y="352" width="32" height="32"/>
-  <object id="1018" name="Push Block" type="Pushable" gid="6646" x="224" y="352" width="32" height="32"/>
   <object id="1019" name="Front Gate" type="Door" gid="6580" x="608" y="192" width="32" height="32">
    <properties>
     <property name="isLocked" type="bool" value="true"/>
@@ -2536,7 +2535,7 @@
   <object id="1032" name="Crate" type="Pushable" gid="6572" x="832" y="288" width="32" height="32"/>
   <object id="1033" name="Debris" type="BreakableObstacle" gid="6602" x="192" y="544" width="32" height="32"/>
   <object id="1034" name="Debris" type="BreakableObstacle" gid="6602" x="224" y="448" width="32" height="32"/>
-  <object id="1035" name="Debris" type="BreakableObstacle" gid="6602" x="160" y="480" width="32" height="32"/>
+  <object id="1035" name="Debris" type="BreakableObstacle" gid="6602" x="192" y="480" width="32" height="32"/>
   <object id="1036" name="Debris" type="BreakableObstacle" gid="6602" x="64" y="448" width="32" height="32"/>
   <object id="1038" name="Power Rune" type="BuffTile" gid="6620" x="864" y="320" width="32" height="32">
    <properties>
@@ -2576,12 +2575,6 @@
    </properties>
   </object>
   <object id="1053" name="Spike Trap" type="Trap" gid="6596" x="96" y="480" width="32" height="32">
-   <properties>
-    <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="1055" name="Spike Trap" type="Trap" gid="6596" x="192" y="480" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
@@ -3056,7 +3049,7 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="1086" name="Health Potion" type="HealthPotion" gid="6768" x="0" y="672" width="32" height="32">
+  <object id="1086" name="Health Potion" type="HealthPotion" gid="6496" x="0" y="672" width="32" height="32">
    <properties>
     <property name="hpHealed" type="int" value="5"/>
    </properties>
