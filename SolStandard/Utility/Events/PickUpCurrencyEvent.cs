@@ -1,6 +1,7 @@
 ﻿using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
+using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
@@ -19,7 +20,15 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.InitiativeContext.AddGoldToTeam(currency.Value, GameContext.ActiveTeam);
+            if (GameContext.ActiveTeam == Team.Creep)
+            {
+                GameContext.ActiveUnit.CurrentBounty += currency.Value;
+            }
+            else
+            {
+                GameContext.InitiativeContext.AddGoldToTeam(currency.Value, GameContext.ActiveTeam);
+            }
+            
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();

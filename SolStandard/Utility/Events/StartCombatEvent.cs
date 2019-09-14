@@ -1,5 +1,4 @@
-﻿using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+﻿using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Assets;
 
@@ -26,7 +25,6 @@ namespace SolStandard.Utility.Events
         {
             GameUnit attackingUnit = GameContext.ActiveUnit;
             GameUnit defendingUnit = targetUnit;
-            MapContainer.ClearDynamicAndPreviewGrids();
 
             GameContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
                 defendingUnit.Stats, freeAction);
