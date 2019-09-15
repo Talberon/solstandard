@@ -171,7 +171,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
+            return new UnitStatistics(hp: 13, armor: 7, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
                 maxCmd: 1);
         }
 
@@ -183,7 +183,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
+            return new UnitStatistics(hp: 10, armor: 10, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
                 maxCmd: 1);
         }
 
