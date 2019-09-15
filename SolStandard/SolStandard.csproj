@@ -190,6 +190,7 @@
     <Compile Include="Entity\Unit\Actions\Item\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\MagneticPullAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ReturnToRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\TakeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
     <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
@@ -339,7 +340,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
-    <Compile Include="HUD\Menu\Options\StealMenu\StealItemOption.cs" />
+    <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
     <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />

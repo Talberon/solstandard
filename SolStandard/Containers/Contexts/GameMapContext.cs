@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
             UnitActing,
             ResolvingTurn,
             AdHocDraft,
-            StealItem
+            TakeItem
         }
 
         public TurnState CurrentTurnState { get; set; }
@@ -99,7 +99,7 @@ namespace SolStandard.Containers.Contexts
                         return false;
                     case TurnState.AdHocDraft:
                         return false;
-                    case TurnState.StealItem:
+                    case TurnState.TakeItem:
                         return true;
                     default:
                         return false;
@@ -723,10 +723,10 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void OpenStealMenu(GameUnit targetToStealFrom)
+        public void OpenTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
-            CurrentTurnState = TurnState.StealItem;
-            GameMapView.GenerateStealItemMenu(targetToStealFrom);
+            CurrentTurnState = TurnState.TakeItem;
+            GameMapView.GenerateTakeItemMenu(targetToTakeFrom, freeAction);
             AssetManager.MenuConfirmSFX.Play();
         }
 

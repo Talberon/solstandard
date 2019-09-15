@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
         public Rob() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Rob, GameDriver.CellSizeVector),
             name: "Rob",
-            description: "Take one item that another unit is holding." + Environment.NewLine +
+            description: "Take one item that an enemy is holding." + Environment.NewLine +
                          $"Will not work if target has any {UnitStatistics.Abbreviation[Stats.Armor]} remaining.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
@@ -26,14 +26,14 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (TargetIsUnitInRange(targetSlice, targetUnit))
+            if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 if (targetUnit.Stats.CurrentArmor == 0)
                 {
                     if (targetUnit.Inventory.Count > 0)
                     {
                         MapContainer.ClearDynamicAndPreviewGrids();
-                        GameContext.GameMapContext.OpenStealMenu(targetUnit);
+                        GameContext.GameMapContext.OpenTakeItemMenu(targetUnit, false);
                     }
                     else
                     {
@@ -58,16 +58,5 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
         }
 
-        public static void StealItemFromInventory(GameUnit thief, GameUnit target, IItem itemToSteal)
-        {
-            if (!target.Inventory.Contains(itemToSteal)) return;
-
-            thief.AddItemToInventory(itemToSteal);
-            target.RemoveItemFromInventory(itemToSteal);
-            AssetManager.CombatBlockSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                $"Stole {itemToSteal.Name}!", 50
-            );
-        }
     }
 }

@@ -35,7 +35,7 @@ namespace SolStandard.Containers.View
         private enum MenuType
         {
             ActionMenu,
-            StealItemMenu,
+            TakeItemMenu,
             DraftMenu
         }
 
@@ -78,7 +78,7 @@ namespace SolStandard.Containers.View
         private Window ActionMenuDescriptionWindow { get; set; }
 
         private TwoDimensionalMenu AdHocDraftMenu { get; set; }
-        private TwoDimensionalMenu StealItemMenu { get; set; }
+        private TwoDimensionalMenu TakeItemMenu { get; set; }
         private readonly IRenderable cursorSprite;
 
         private MenuType visibleMenu;
@@ -101,17 +101,17 @@ namespace SolStandard.Containers.View
                 {
                     case MenuType.ActionMenu:
                         ActionMenuContext.CurrentMenu.IsVisible = true;
-                        if (StealItemMenu != null) StealItemMenu.IsVisible = false;
+                        if (TakeItemMenu != null) TakeItemMenu.IsVisible = false;
                         if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
-                    case MenuType.StealItemMenu:
+                    case MenuType.TakeItemMenu:
                         ActionMenuContext.CurrentMenu.IsVisible = false;
-                        StealItemMenu.IsVisible = true;
+                        TakeItemMenu.IsVisible = true;
                         if (AdHocDraftMenu != null) AdHocDraftMenu.IsVisible = false;
                         break;
                     case MenuType.DraftMenu:
                         ActionMenuContext.CurrentMenu.IsVisible = false;
-                        if (StealItemMenu != null) StealItemMenu.IsVisible = false;
+                        if (TakeItemMenu != null) TakeItemMenu.IsVisible = false;
                         AdHocDraftMenu.IsVisible = true;
                         break;
                     default:
@@ -128,8 +128,8 @@ namespace SolStandard.Containers.View
                 {
                     case MenuType.ActionMenu:
                         return ActionMenuContext.CurrentMenu;
-                    case MenuType.StealItemMenu:
-                        return StealItemMenu;
+                    case MenuType.TakeItemMenu:
+                        return TakeItemMenu;
                     case MenuType.DraftMenu:
                         return AdHocDraftMenu;
                     default:
@@ -168,32 +168,32 @@ namespace SolStandard.Containers.View
 
         public void CloseStealItemMenu()
         {
-            StealItemMenu = null;
+            TakeItemMenu = null;
         }
 
         #endregion Close Windows
 
         #region Generation
 
-        public void GenerateStealItemMenu(GameUnit targetToStealFrom)
+        public void GenerateTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
-            StealItemMenu = new TwoDimensionalMenu(
-                GenerateStealOptions(targetToStealFrom),
+            TakeItemMenu = new TwoDimensionalMenu(
+                GenerateTakeOptions(targetToTakeFrom, freeAction),
                 cursorSprite,
                 ItemTerrainWindowColor,
                 TwoDimensionalMenu.CursorType.Pointer
             );
-            VisibleMenu = MenuType.StealItemMenu;
+            VisibleMenu = MenuType.TakeItemMenu;
         }
 
-        private static MenuOption[,] GenerateStealOptions(GameUnit targetToStealFrom)
+        private static MenuOption[,] GenerateTakeOptions(GameUnit targetToTakeFrom, bool freeAction)
         {
-            List<IItem> unitInventory = targetToStealFrom.Inventory;
+            List<IItem> unitInventory = targetToTakeFrom.Inventory;
             MenuOption[,] menu = new MenuOption[unitInventory.Count, 1];
 
             for (int i = 0; i < unitInventory.Count; i++)
             {
-                menu[i, 0] = new StealItemOption(targetToStealFrom, unitInventory[i], ItemTerrainWindowColor);
+                menu[i, 0] = new TakeItemOption(targetToTakeFrom, unitInventory[i], ItemTerrainWindowColor, freeAction);
             }
 
             return menu;
@@ -912,7 +912,7 @@ namespace SolStandard.Containers.View
 
         private Vector2 SteamItemMenuPosition()
         {
-            return CenterItemOnScreen(StealItemMenu);
+            return CenterItemOnScreen(TakeItemMenu);
         }
 
         private static Vector2 CenterItemOnScreen(IRenderable item)
@@ -977,7 +977,7 @@ namespace SolStandard.Containers.View
 
             ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition());
             AdHocDraftMenu?.Draw(spriteBatch, AdHocDraftMenuPosition());
-            StealItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
+            TakeItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
         }
     }
 }

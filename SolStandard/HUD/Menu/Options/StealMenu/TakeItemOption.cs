@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.Unit;
-using SolStandard.Entity.Unit.Actions.Rogue;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -10,18 +10,20 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.HUD.Menu.Options.StealMenu
 {
-    public class StealItemOption : MenuOption
+    public class TakeItemOption : MenuOption
     {
         private readonly GameUnit target;
-        private readonly IItem itemToSteal;
+        private readonly IItem itemToTake;
+        private readonly bool freeAction;
 
-        public StealItemOption(GameUnit target, IItem itemToSteal, Color color) : base(
-            GetOptionWindowForItem(itemToSteal, color),
+        public TakeItemOption(GameUnit target, IItem itemToTake, Color color, bool freeAction) : base(
+            GetOptionWindowForItem(itemToTake, color),
             color
         )
         {
             this.target = target;
-            this.itemToSteal = itemToSteal;
+            this.itemToTake = itemToTake;
+            this.freeAction = freeAction;
         }
 
         private static IRenderable GetOptionWindowForItem(IItem item, Color color)
@@ -32,7 +34,7 @@ namespace SolStandard.HUD.Menu.Options.StealMenu
                     {
                         item.Icon.Clone(),
                         new Window.Window(
-                            new RenderText(AssetManager.WindowFont, $"Steal: {item.Name}"),
+                            new RenderText(AssetManager.WindowFont, $"Take: {item.Name}"),
                             color
                         ),
                         new Window.Window(item.UseAction().Description, color)
@@ -44,14 +46,22 @@ namespace SolStandard.HUD.Menu.Options.StealMenu
         public override void Execute()
         {
             GameContext.GameMapContext.ClearStealItemMenu();
-            Rob.StealItemFromInventory(GameContext.ActiveUnit, target, itemToSteal);
+            TakeItemAction.TakeItemFromInventory(GameContext.ActiveUnit, target, itemToTake);
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
-            GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+
+            if (freeAction)
+            {
+                GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
+            }
+            else
+            {
+                GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+            }
         }
 
         public override IRenderable Clone()
         {
-            return new StealItemOption(target, itemToSteal, DefaultColor);
+            return new TakeItemOption(target, itemToTake, DefaultColor, freeAction);
         }
     }
 }

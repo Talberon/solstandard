@@ -2,7 +2,9 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity;
+using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
@@ -66,21 +68,37 @@ namespace SolStandard.Containers.Contexts
 
             List<UnitAction> contextActions = new List<UnitAction>();
 
-            foreach (IActionTile actionTile in mapActionTiles)
+            foreach (IActionTile actionTile in mapActionTiles.Where(actionTile =>
+                RangeComparison.TargetIsWithinRangeOfOrigin(
+                    actionTile.MapCoordinates,
+                    actionTile.InteractRange,
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                ))
+            )
             {
-                if (
-                    RangeComparison.TargetIsWithinRangeOfOrigin(
-                        actionTile.MapCoordinates,
-                        actionTile.InteractRange,
-                        GameContext.ActiveUnit.UnitEntity.MapCoordinates
-                    )
-                )
-                {
-                    contextActions.AddRange(actionTile.TileActions());
-                }
+                contextActions.AddRange(actionTile.TileActions());
             }
 
+            UnitAction takeAction = TakeActionIfAllyInRange();
+            if (takeAction != null) contextActions.Add(takeAction);
+
             return contextActions;
+        }
+
+        private static UnitAction TakeActionIfAllyInRange()
+        {
+            int[] meleeRange = {1};
+
+            List<GameUnit> alliesInRange = GameContext.Units
+                .Where(unit => unit.Team == GameContext.ActiveTeam && unit.IsAlive)
+                .Where(ally => RangeComparison.TargetIsWithinRangeOfOrigin(
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    meleeRange,
+                    ally.UnitEntity.MapCoordinates
+                ))
+                .ToList();
+
+            return alliesInRange.Any(ally => ally.Inventory.Count > 0) ? new TakeItemAction() : null;
         }
     }
 }

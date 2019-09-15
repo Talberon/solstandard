@@ -300,7 +300,7 @@ namespace SolStandard.Containers.Contexts
                 case GameMapContext.TurnState.AdHocDraft:
                     AdHocDraftControl(controlMapper);
                     break;
-                case GameMapContext.TurnState.StealItem:
+                case GameMapContext.TurnState.TakeItem:
                     StealItemControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.SelectUnit:
