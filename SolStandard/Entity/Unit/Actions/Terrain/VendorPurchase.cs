@@ -65,7 +65,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     );
                     eventQueue.Enqueue(new DecreaseTeamGoldEvent(Price));
                     eventQueue.Enqueue(new WaitFramesEvent(25));
-                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item));
+                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item.Duplicate()));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);

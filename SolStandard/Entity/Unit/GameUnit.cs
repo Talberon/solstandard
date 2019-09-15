@@ -236,7 +236,7 @@ namespace SolStandard.Entity.Unit
 
                 for (int i = 0; i < Inventory.Count; i++)
                 {
-                    content[0, i + 1] = Inventory[i].Icon;
+                    content[0, i + 1] = Inventory[i].Icon.Clone();
                 }
 
                 return new WindowContentGrid(content, 2);
@@ -278,8 +278,7 @@ namespace SolStandard.Entity.Unit
                             new Window(
                                 new RenderText(AssetManager.HeaderFont, Role.ToString()),
                                 statPanelColor,
-                                twoColumnPanel,
-                                HorizontalAlignment.Centered
+                                twoColumnPanel
                             ),
                             RenderBlank.Blank
                         },
