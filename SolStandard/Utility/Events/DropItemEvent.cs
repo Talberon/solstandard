@@ -39,8 +39,7 @@ namespace SolStandard.Utility.Events
                                 new Vector2(MapContainer.MapToastIconSize)),
                             new RenderText(AssetManager.MapFont, "Dropped " + itemTile.Name + "!")
                         }
-                    },
-                    1
+                    }
                 );
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
                 AssetManager.DropItemSFX.Play();

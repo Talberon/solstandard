@@ -39,8 +39,7 @@ namespace SolStandard.Entity.General
         public List<IItem> Items { get; }
 
         public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
-            bool canMove, int[] range,
-            int gold, IItem item = null) :
+            bool canMove, int[] range, int gold, IItem item = null) :
             base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;

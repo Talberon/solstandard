@@ -28,8 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     {
                         item.UseAction().Description
                     }
-                },
-                1
+                }
             ),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},

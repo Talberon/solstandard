@@ -37,8 +37,7 @@ namespace SolStandard.HUD.Menu.Options.StealMenu
                         ),
                         new Window.Window(item.UseAction().Description, color)
                     }
-                },
-                1
+                }
             );
         }
 

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;

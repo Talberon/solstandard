@@ -54,8 +54,7 @@ namespace SolStandard.Entity.General
                             )
                             : RenderBlank.Blank
                     },
-                },
-                1
+                }
             );
     }
 }

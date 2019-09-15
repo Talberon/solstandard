@@ -40,8 +40,7 @@ namespace SolStandard.Utility.Events
                             $"{givingUnit.Id} gave {goldToGive + Currency.CurrencyAbbreviation} to {receivingUnit.Id}!"
                         )
                     }
-                },
-                1
+                }
             );
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);

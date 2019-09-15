@@ -38,8 +38,7 @@ namespace SolStandard.Utility.Events
                         SpriteResizer.TryResizeRenderable(item.Icon, new Vector2(MapContainer.MapToastIconSize)),
                         new RenderText(AssetManager.MapFont, unit.Id + " got " + item.Name + "!")
                     }
-                },
-                1
+                }
             );
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(itemToast, 50);

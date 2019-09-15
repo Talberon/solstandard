@@ -495,8 +495,7 @@ namespace SolStandard.Containers.View
                                 ) as IRenderable
                                 : RenderBlank.Blank
                         }
-                    },
-                    1);
+                    });
             }
             else
             {
@@ -533,8 +532,7 @@ namespace SolStandard.Containers.View
                                 BlankTerrainWindowColor
                             )
                         }
-                    },
-                    1);
+                    });
             }
 
             return new Window(terrainContentGrid, new Color(50, 50, 50, 150));
@@ -551,7 +549,7 @@ namespace SolStandard.Containers.View
             GenerateTeamInitiativeWindow(Team.Red);
 
             InitiativeWindow = new Window(
-                new WindowContentGrid(new IRenderable[,] {{BlueTeamWindow, RedTeamWindow}}, 1),
+                new WindowContentGrid(new IRenderable[,] {{BlueTeamWindow, RedTeamWindow}}),
                 Color.Transparent,
                 HorizontalAlignment.Centered
             );
@@ -746,7 +744,7 @@ namespace SolStandard.Containers.View
                 );
             }
 
-            return new Window(new WindowContentGrid(selectedUnitStatuses, 1), windowColor);
+            return new Window(new WindowContentGrid(selectedUnitStatuses), windowColor);
         }
 
         private static Window GenerateUnitInventoryWindow(IRenderable inventoryPane, Color windowColor)

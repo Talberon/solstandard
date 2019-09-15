@@ -54,11 +54,25 @@ namespace SolStandard.HUD.Window
         {
         }
 
-        public Window(IRenderable[,] windowContentGrid, Color color,
+        public Window(IRenderable[,] windowContentGrid, Color color, Vector2 pixelSizeOverride,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left,
             int elementSpacing = 2, int insidePadding = 2)
             : this(
-                new WindowContentGrid(windowContentGrid, 1),
+                new WindowContentGrid(windowContentGrid),
+                color,
+                pixelSizeOverride,
+                horizontalAlignment,
+                elementSpacing,
+                insidePadding
+            )
+        {
+        }
+
+        public Window(IRenderable[,] windowContentGrid, Color color,
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left, int elementSpacing = 2,
+            int insidePadding = 2)
+            : this(
+                windowContentGrid,
                 color,
                 Vector2.Zero,
                 horizontalAlignment,

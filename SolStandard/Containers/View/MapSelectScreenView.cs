@@ -55,8 +55,7 @@ namespace SolStandard.Containers.View
                         new RenderText(AssetManager.WindowFont, "and"),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                     }
-                },
-                1
+                }
             );
 
 

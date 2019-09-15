@@ -34,8 +34,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                         new RenderText(AssetManager.WindowFont, name,
                             freeAction ? GameContext.PositiveColor : Color.White)
                     }
-                },
-                1
+                }
             );
         }
 

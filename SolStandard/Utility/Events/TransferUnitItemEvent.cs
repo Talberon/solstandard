@@ -38,10 +38,9 @@ namespace SolStandard.Utility.Events
                             $"{givingUnit.Id} gave {itemToGive.Name} to {receivingUnit.Id}!"
                         )
                     }
-                },
-                1
+                }
             );
-            
+
             GameMapContext.GameMapView.GenerateObjectiveWindow();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
             AssetManager.MenuConfirmSFX.Play();

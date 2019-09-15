@@ -273,7 +273,7 @@ namespace SolStandard.Containers.View
                 }
             };
 
-            WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent, 1);
+            WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent);
             return new Window(defenderRangeContentGrid, windowColor);
         }
 
@@ -306,8 +306,7 @@ namespace SolStandard.Containers.View
                         {
                             attacker.GetMapSprite(new Vector2(spriteSize), spriteColor, state, frameDelay, isFlipped)
                         }
-                    },
-                    1
+                    }
                 ),
                 Color.Transparent
             );
@@ -346,8 +345,7 @@ namespace SolStandard.Containers.View
                             UnitStatistics.DetermineStatColor(statValue, baseStatValue)
                         )
                     }
-                },
-                1
+                }
             );
             return new Window(atkContentGrid, windowColor);
         }

@@ -44,20 +44,17 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                     },
                     {
                         new Window.Window(
-                            new WindowContentGrid(
-                                new IRenderable[,]
+                            new IRenderable[,]
+                            {
                                 {
-                                    {
-                                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize,
-                                            new Vector2(16)),
-                                        new RenderText(
-                                            AssetManager.SmallWindowFont, commandAction.Name,
-                                            commandAction.FreeAction ? GameContext.PositiveColor : Color.White
-                                        )
-                                    }
-                                },
-                                1
-                            ),
+                                    ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Seize,
+                                        new Vector2(16)),
+                                    new RenderText(
+                                        AssetManager.SmallWindowFont, commandAction.Name,
+                                        commandAction.FreeAction ? GameContext.PositiveColor : Color.White
+                                    )
+                                }
+                            },
                             new Color(20, 20, 20, 180),
                             HorizontalAlignment.Centered
                         ) as IRenderable
