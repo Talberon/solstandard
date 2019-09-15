@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -104,11 +105,10 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
 
-            MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
-            GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
-
-            return trapUnit != null && enabled;
+            return CanTrigger;
         }
+
+        public bool CanTrigger => GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
 
         public void RemoteTrigger()
         {

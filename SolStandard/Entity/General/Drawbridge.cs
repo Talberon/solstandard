@@ -82,6 +82,8 @@ namespace SolStandard.Entity.General
             ToggleOpen();
         }
 
+        public bool CanTrigger => !IsObstructed;
+
         public bool IsObstructed
         {
             get

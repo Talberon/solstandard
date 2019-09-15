@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -108,6 +109,8 @@ namespace SolStandard.Entity.General
             return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
                    targetUnit.IsMovable;
         }
+
+        public bool CanTrigger => GameContext.Units.Any(CanPush);
 
         private void PushTarget(GameUnit target)
         {

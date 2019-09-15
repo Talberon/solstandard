@@ -59,8 +59,7 @@ namespace SolStandard.Entity.General
                     ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
                 {
                     lastOccupant = CurrentOccupant;
-                    TriggerTiles.ForEach(tile => tile.RemoteTrigger());
-                    AssetManager.DoorSFX.Play();
+                    TriggerTiles.Where(tile => tile.CanTrigger).ToList().ForEach(tile => tile.RemoteTrigger());
                     wasPressed = true;
                 }
             }

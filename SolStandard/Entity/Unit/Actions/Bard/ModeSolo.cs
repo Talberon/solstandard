@@ -48,7 +48,8 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
                 Queue<IEvent> eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new SoloStatus()));
-                eventQueue.Enqueue(new WaitFramesEvent(30));
+                eventQueue.Enqueue(new ToastAtCursorEvent("Song range limited at increased potency!"));
+                eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
