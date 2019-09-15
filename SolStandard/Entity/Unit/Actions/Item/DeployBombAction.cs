@@ -17,9 +17,11 @@ namespace SolStandard.Entity.Unit.Actions.Item
         public DeployBombAction(Bomb bombToDeploy, int fuseTurns) : base(
             icon: bombToDeploy.RenderSprite.Clone(),
             name: "Set Bomb",
-            description: "Place a bomb on an unoccupied tile. Will detonate after [" + fuseTurns + "] rounds." +
+            description: $"Place a bomb on an unoccupied tile that will explode for [{bombToDeploy.Damage}] damage." +
                          Environment.NewLine +
-                         "Will detonate in a [" + string.Join(",", bombToDeploy.Range) + "] tile range." +
+                         $"Will detonate after [{fuseTurns}] rounds." +
+                         Environment.NewLine +
+                         $"Will detonate in a [{string.Join(",", bombToDeploy.Range)}] tile range." +
                          Environment.NewLine +
                          "Cannot be picked up once placed!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
