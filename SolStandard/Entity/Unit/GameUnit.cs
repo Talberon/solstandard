@@ -271,13 +271,15 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                twoColumnPanel
+                                twoColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
 
                             new Window(
                                 new RenderText(AssetManager.HeaderFont, Role.ToString()),
                                 statPanelColor,
-                                twoColumnPanel
+                                twoColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             RenderBlank.Blank
                         },
@@ -293,7 +295,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -306,7 +309,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -318,7 +322,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             )
                         },
                         {
@@ -337,7 +342,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -354,7 +360,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -371,7 +378,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             )
                         },
                         {
@@ -390,7 +398,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -407,7 +416,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             ),
                             new Window(
                                 new IRenderable[,]
@@ -425,7 +435,8 @@ namespace SolStandard.Entity.Unit
                                     }
                                 },
                                 statPanelColor,
-                                threeColumnPanel
+                                threeColumnPanel,
+                                HorizontalAlignment.Centered
                             )
                         }
                     },
