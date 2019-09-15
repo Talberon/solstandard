@@ -6,7 +6,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Statuses;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -143,44 +142,32 @@ namespace SolStandard.Entity.General
             ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                        new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
                     },
                     {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                                new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
-                            },
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                new RenderText(AssetManager.WindowFont,
-                                    (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
-                            },
-                            {
-                                willSnare
-                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
-                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
-                                new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
-                            },
-                            {
-                                willSlow
-                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
-                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
-                                new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
-                            }
-                        }, InnerWindowColor),
-                        RenderBlank.Blank
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont,
+                            (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
+                    },
+                    {
+                        willSnare
+                            ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                            : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                        new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
+                    },
+                    {
+                        willSlow
+                            ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                            : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                        new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
 
         public UnitAction UseAction()

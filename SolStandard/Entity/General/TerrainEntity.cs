@@ -119,10 +119,16 @@ namespace SolStandard.Entity.General
                             ? new RenderText(AssetManager.WindowFont,
                                 $": [{string.Join(",", actionTile.InteractRange)}]")
                             : RenderBlank.Blank
+                    },
+                    {
+                        new Window(EntityInfo, InnerWindowColor),
+                        RenderBlank.Blank
                     }
                 },
                 1,
                 HorizontalAlignment.Centered
             );
+
+        protected virtual IRenderable EntityInfo => RenderBlank.Blank;
     }
 }

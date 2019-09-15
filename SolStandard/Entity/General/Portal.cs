@@ -29,14 +29,7 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {new RenderText(AssetManager.WindowFont, "Destination: " + destinationId)}
-                },
-                3
-            );
+        protected override IRenderable EntityInfo =>
+            new RenderText(AssetManager.WindowFont, "Destination: " + destinationId);
     }
 }

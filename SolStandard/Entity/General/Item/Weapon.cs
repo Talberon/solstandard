@@ -66,15 +66,6 @@ namespace SolStandard.Entity.General.Item
                 WeaponStatistics.LuckModifier, WeaponStatistics.AtkRange, WeaponStatistics.UsesRemaining, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {statWindow}
-                },
-                1,
-                HorizontalAlignment.Centered
-            );
+        protected override IRenderable EntityInfo => statWindow;
     }
 }

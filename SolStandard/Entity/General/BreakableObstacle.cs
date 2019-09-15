@@ -103,14 +103,10 @@ namespace SolStandard.Entity.General
             items.Clear();
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
-                    },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.Hp),
                         new RenderText(AssetManager.WindowFont, "HP: " + HP)
@@ -120,8 +116,7 @@ namespace SolStandard.Entity.General
                             (IsBroken) ? NegativeColor : PositiveColor),
                         RenderBlank.Blank
                     }
-                },
-                3
+                }
             );
     }
 }

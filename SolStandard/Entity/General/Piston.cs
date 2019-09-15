@@ -119,26 +119,14 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Pushes: " + pistonDirection)
-                                }
-                            },
-                            InnerWindowColor
-                        )
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Pushes: " + pistonDirection)
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
     }
 }

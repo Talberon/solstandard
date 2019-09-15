@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -32,47 +32,32 @@ namespace SolStandard.Entity.General
             ElementColor = (IsOpen) ? InactiveColor : Color.White;
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(new IRenderable[,]
-                            {
-                                {
-                                    new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                        (IsLocked) ? NegativeColor : PositiveColor),
-                                },
-                                {
-                                    new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                                        (IsOpen) ? PositiveColor : NegativeColor),
-                                },
-                                {
-                                    new Window(new[,]
-                                        {
-                                            {
-                                                UnitStatistics.GetSpriteAtlas(Stats.Hp),
-                                                new RenderText(AssetManager.WindowFont, "HP: " + HP)
-                                            },
-                                            {
-                                                new RenderText(AssetManager.WindowFont,
-                                                    (IsBroken) ? "Broken" : "Not Broken",
-                                                    (IsBroken) ? NegativeColor : PositiveColor),
-                                                RenderBlank.Blank
-                                            }
-                                        },
-                                        InnerWindowColor,
-                                        HorizontalAlignment.Centered
-                                    ),
-                                },
-                            },
-                            InnerWindowColor,
-                            HorizontalAlignment.Centered
+                        new SpriteAtlas(
+                            AssetManager.LockTexture,
+                            new Vector2(AssetManager.LockTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(
+                                IsLocked ? Chest.LockIconState.Locked : Chest.LockIconState.Unlocked
+                            )
                         ),
-                    }
+                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                            (IsLocked) ? NegativeColor : PositiveColor)
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                            (IsOpen) ? PositiveColor : NegativeColor),
+                        RenderBlank.Blank
+                    },
+                    {
+                        base.EntityInfo,
+                        RenderBlank.Blank
+                    },
                 },
-                3,
+                1,
                 HorizontalAlignment.Centered
             );
 
@@ -88,7 +73,6 @@ namespace SolStandard.Entity.General
         public void Trigger()
         {
             if (!CanTrigger) return;
-
             UnitAction toggleAction = new UseDoorAction(this, MapCoordinates, false);
             toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
@@ -101,7 +85,6 @@ namespace SolStandard.Entity.General
             GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
-
             ToggleOpen();
         }
 
@@ -111,6 +94,7 @@ namespace SolStandard.Entity.General
             {
                 Close();
             }
+
             else
             {
                 Open();

@@ -19,48 +19,34 @@ namespace SolStandard.Entity.General
             BonusStatistics = new BonusStatistics(atkBonus, retBonus, blockBonus, luckBonus);
         }
 
-
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(
-                            new WindowContentGrid(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Atk] + ": +" + BonusStatistics.AtkBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Retribution),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Retribution] + ": +" +
-                                            BonusStatistics.RetBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Block),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Block] + ": +" +
-                                            BonusStatistics.BlockBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Luck),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Luck] + ": +" +
-                                            BonusStatistics.LuckBonus)
-                                    }
-                                },
-                                0
-                            ),
-                            InnerWindowColor
-                        ),
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Atk] + ": +" + BonusStatistics.AtkBonus)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Retribution),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Retribution] + ": +" +
+                            BonusStatistics.RetBonus)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Block),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Block] + ": +" +
+                            BonusStatistics.BlockBonus)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Luck),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Luck] + ": +" +
+                            BonusStatistics.LuckBonus)
                     }
                 },
-                3,
+                1,
                 HorizontalAlignment.Centered
             );
     }

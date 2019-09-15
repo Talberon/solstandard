@@ -32,26 +32,16 @@ namespace SolStandard.Entity.General.Item
             };
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(new[,]
-                            {
-                                {
-                                    MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Gold: " + Gold + Currency.CurrencyAbbreviation)
-                                },
-                                {
-                                    ItemDetails,
-                                    RenderBlank.Blank
-                                }
-                            },
-                            InnerWindowColor
-                        )
+                        MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
+                    },
+                    {
+                        ItemDetails,
+                        RenderBlank.Blank
                     }
                 },
                 1,

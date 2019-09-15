@@ -56,32 +56,21 @@ namespace SolStandard.Entity.General.Item
                 ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(new[,]
-                            {
-                                {
-                                    SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
-                                        GameDriver.CellSizeVector),
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Blink Range: [" + string.Join(",", BlinkRange) + "]")
-                                },
-                                {
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Uses Remaining: [" + UsesRemaining + "]"),
-                                    RenderBlank.Blank
-                                }
-                            },
-                            InnerWindowColor,
-                            HorizontalAlignment.Centered
-                        )
+                        SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
+                            GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont,
+                            "Blink Range: [" + string.Join(",", BlinkRange) + "]")
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont,
+                            "Uses Remaining: [" + UsesRemaining + "]"),
+                        RenderBlank.Blank
                     }
-                },
-                3
+                }
             );
     }
 }

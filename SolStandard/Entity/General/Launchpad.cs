@@ -31,29 +31,20 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Interact:"),
-                                    new RenderText(AssetManager.WindowFont, $"[{string.Join(",", InteractRange)}]")
-                                },
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Launch:"),
-                                    new RenderText(AssetManager.WindowFont, $"[{string.Join(",", launchRange)}]")
-                                }
-                            },
-                            InnerWindowColor
-                        )
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Interact:"),
+                        new RenderText(AssetManager.WindowFont, $"[{string.Join(",", InteractRange)}]")
                     },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Launch:"),
+                        new RenderText(AssetManager.WindowFont, $"[{string.Join(",", launchRange)}]")
+                    }
                 },
                 1,
                 HorizontalAlignment.Centered

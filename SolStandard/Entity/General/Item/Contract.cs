@@ -81,19 +81,8 @@ namespace SolStandard.Entity.General.Item
 
         private static Window FreeContractWindow => SpecificUnitWindow(Role.Silhouette, Team.Creep);
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {
-                        (forSpecificUnit)
-                            ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
-                            : FreeContractWindow
-                    }
-                },
-                1,
-                HorizontalAlignment.Centered
-            );
+        protected override IRenderable EntityInfo => (forSpecificUnit)
+            ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
+            : FreeContractWindow;
     }
 }

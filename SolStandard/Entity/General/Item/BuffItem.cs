@@ -122,14 +122,6 @@ namespace SolStandard.Entity.General.Item
                 buffDuration, InteractRange, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {buffWindow}
-                },
-                1
-            );
+        protected override IRenderable EntityInfo => buffWindow;
     }
 }

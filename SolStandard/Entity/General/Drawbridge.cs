@@ -67,18 +67,11 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {
-                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                            (IsOpen) ? PositiveColor : NegativeColor)
-                    }
-                },
-                3
-            );
+        protected override IRenderable EntityInfo => new RenderText(
+            AssetManager.WindowFont,
+            (IsOpen) ? "Open" : "Closed",
+            (IsOpen) ? PositiveColor : NegativeColor
+        );
 
         public void RemoteTrigger()
         {

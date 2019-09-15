@@ -34,11 +34,10 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
                 new[,]
                 {
-                    {base.TerrainInfo},
                     {
                         (CapturableByBlue)
                             ? new Window(
@@ -56,7 +55,7 @@ namespace SolStandard.Entity.General
                             : RenderBlank.Blank
                     },
                 },
-                3
+                1
             );
     }
 }

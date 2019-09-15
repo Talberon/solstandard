@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -7,7 +8,6 @@ using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -18,7 +18,7 @@ namespace SolStandard.Entity.General
 {
     public class Chest : TerrainEntity, IActionTile, IOpenable, ILockable, ITriggerable
     {
-        private enum LockIconState
+        public enum LockIconState
         {
             Locked,
             Unlocked
@@ -53,66 +53,50 @@ namespace SolStandard.Entity.General
             if (item != null) Items.Add(item);
         }
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                List<string> itemList = new List<string>();
-                Items.ForEach(item => itemList.Add(item.Name));
+        private IEnumerable<string> ItemList => Items.Select(item => item.Name);
 
-                return new WindowContentGrid(
-                    new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new IRenderable[,]
+                {
                     {
-                        {base.TerrainInfo},
-                        {
-                            new Window(new WindowContentGrid(new IRenderable[,]
-                                {
-                                    {
-                                        new SpriteAtlas(
-                                            AssetManager.LockTexture,
-                                            new Vector2(AssetManager.LockTexture.Width),
-                                            GameDriver.CellSizeVector,
-                                            Convert.ToInt32(
-                                                IsLocked ? LockIconState.Locked : LockIconState.Unlocked
-                                            )
-                                        ),
-                                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                                            (IsLocked) ? NegativeColor : PositiveColor)
-                                    },
-                                    {
-                                        new SpriteAtlas(
-                                            AssetManager.OpenTexture,
-                                            new Vector2(AssetManager.OpenTexture.Width),
-                                            GameDriver.CellSizeVector,
-                                            Convert.ToInt32(
-                                                IsOpen ? OpenCloseIconState.Open : OpenCloseIconState.Closed
-                                            )
-                                        ),
-                                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                                            (IsOpen) ? PositiveColor : NegativeColor)
-                                    },
-                                    {
-                                        ObjectiveIconProvider.GetObjectiveIcon(
-                                            VictoryConditions.Taxes,
-                                            GameDriver.CellSizeVector
-                                        ),
-                                        new RenderText(AssetManager.WindowFont,
-                                            ": " + (IsOpen ? Gold + Currency.CurrencyAbbreviation : "???"))
-                                    },
-                                    {
-                                        new RenderText(AssetManager.WindowFont, "Contents: "),
-                                        new RenderText(AssetManager.WindowFont,
-                                            (IsOpen) ? string.Join(Environment.NewLine, itemList) : "????"),
-                                    },
-                                }, 1),
-                                InnerWindowColor),
-                        }
+                        new SpriteAtlas(
+                            AssetManager.LockTexture,
+                            new Vector2(AssetManager.LockTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(
+                                IsLocked ? LockIconState.Locked : LockIconState.Unlocked
+                            )
+                        ),
+                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
+                            (IsLocked) ? NegativeColor : PositiveColor)
                     },
-                    3,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                    {
+                        new SpriteAtlas(
+                            AssetManager.OpenTexture,
+                            new Vector2(AssetManager.OpenTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(
+                                IsOpen ? OpenCloseIconState.Open : OpenCloseIconState.Closed
+                            )
+                        ),
+                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
+                            (IsOpen) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        ObjectiveIconProvider.GetObjectiveIcon(
+                            VictoryConditions.Taxes,
+                            GameDriver.CellSizeVector
+                        ),
+                        new RenderText(AssetManager.WindowFont,
+                            ": " + (IsOpen ? Gold + Currency.CurrencyAbbreviation : "???"))
+                    },
+                    {
+                        new RenderText(AssetManager.WindowFont, "Contents: "),
+                        new RenderText(AssetManager.WindowFont,
+                            (IsOpen) ? string.Join(Environment.NewLine, ItemList) : "????"),
+                    },
+                }
+            );
 
         public List<UnitAction> TileActions()
         {

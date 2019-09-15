@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Containers.View;
 using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
@@ -103,22 +102,9 @@ namespace SolStandard.Entity.General
                     $"[{purchaseActions[purchaseActionsList[i]]}]");
             }
 
-            return new Window(
-                new WindowContentGrid(itemDetailList, 1, HorizontalAlignment.Centered),
-                GameMapView.ItemTerrainWindowColor,
-                HorizontalAlignment.Centered
-            );
+            return new WindowContentGrid(itemDetailList, 1, HorizontalAlignment.Right);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {itemList}
-                },
-                1,
-                HorizontalAlignment.Centered
-            );
+        protected override IRenderable EntityInfo => itemList;
     }
 }

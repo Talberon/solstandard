@@ -59,23 +59,15 @@ namespace SolStandard.Entity.General.Item
             return new Magnet(Name, Type, Sprite, MapCoordinates, InteractRange, actionRange, usesRemaining, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
-                    },
-                    {
                         UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", actionRange)}]"
-                        )
+                        new RenderText(AssetManager.WindowFont, ": " + $"[{string.Join(",", actionRange)}]")
                     }
-                },
-                3
+                }
             );
     }
 }

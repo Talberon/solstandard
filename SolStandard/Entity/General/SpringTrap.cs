@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -111,30 +110,15 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
-                    },
-                    {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Target: " + trapLaunchCoordinates)
-                                }
-                            },
-                            InnerWindowColor
-                        ),
-                        RenderBlank.Blank
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Target: " + trapLaunchCoordinates)
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
     }
 }

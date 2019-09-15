@@ -121,33 +121,25 @@ namespace SolStandard.Entity.General.Item
             return triggerTime == EffectTriggerTime.StartOfRound && !HasTriggered;
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
-                                new RenderText(
-                                    AssetManager.WindowFont,
-                                    UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
-                                )
-                            },
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
-                                new RenderText(
-                                    AssetManager.WindowFont,
-                                    UnitStatistics.Abbreviation[Stats.AtkRange]
-                                    + ": [" + string.Join(",", Range) + "]"
-                                )
-                            }
-                        }, InnerWindowColor)
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
+                        )
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", Range) + "]"
+                        )
                     }
-                },
-                1
+                }
             );
 
         public override void Draw(SpriteBatch spriteBatch)

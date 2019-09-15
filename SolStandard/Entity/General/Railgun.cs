@@ -4,7 +4,6 @@ using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 
 namespace SolStandard.Entity.General
@@ -35,14 +34,6 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {base.TerrainInfo},
-                    {statWindow},
-                },
-                1
-            );
+        protected override IRenderable EntityInfo => statWindow;
     }
 }

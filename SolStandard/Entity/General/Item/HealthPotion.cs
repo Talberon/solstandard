@@ -63,22 +63,15 @@ namespace SolStandard.Entity.General.Item
             return new HealthPotion(Name, Type, Sprite, MapCoordinates, InteractRange, HPHealed, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
-                                new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
-                            }
-                        }, InnerWindowColor)
+                        UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
                     }
-                },
-                3
+                }
             );
     }
 }

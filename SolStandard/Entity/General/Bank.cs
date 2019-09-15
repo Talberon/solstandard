@@ -108,11 +108,10 @@ namespace SolStandard.Entity.General
             BlueMoney = 0;
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {base.TerrainInfo},
                     {
                         new Window(
                             new IRenderable[,]

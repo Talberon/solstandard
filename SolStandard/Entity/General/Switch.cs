@@ -87,20 +87,15 @@ namespace SolStandard.Entity.General
             }
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
-                    },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                         new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
                     },
-                },
-                1
+                }
             );
     }
 }

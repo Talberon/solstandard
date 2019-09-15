@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General
 {
@@ -28,23 +24,5 @@ namespace SolStandard.Entity.General
                 new PushBlockAction(this, MapCoordinates)
             };
         }
-
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        base.TerrainInfo,
-                        RenderBlank.Blank
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                },
-                1,
-                HorizontalAlignment.Centered
-            );
     }
 }
