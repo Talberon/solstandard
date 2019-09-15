@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -38,7 +39,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         blueGoldWindow,
                         ObjectiveIconProvider.GetObjectiveIcon(
                             VictoryConditions.Taxes,
-                            GameDriver.CellSizeVector
+                            new Vector2(font.MeasureString("A").Y)
                         ),
                         new RenderText(font, "Deposit"),
                         redGoldWindow

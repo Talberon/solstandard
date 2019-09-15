@@ -339,7 +339,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
-            const int maxFocusPoints = 2;
+            const int maxFocusPoints = 1;
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
@@ -419,6 +419,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bloodthirst(2),
+                new PhaseStrike(),
                 new Inspire(2, 1),
                 new Gallop(3),
                 new Sprint(3),

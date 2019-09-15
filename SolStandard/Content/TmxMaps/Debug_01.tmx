@@ -2149,13 +2149,13 @@
     <property name="quantities" value="1|1|1|2"/>
    </properties>
   </object>
-  <object id="838" name="ATM" type="Bank" gid="6545" x="96" y="416" width="32" height="32"/>
-  <object id="840" name="Health Relic" type="RecoveryTile" gid="6636" x="512" y="352" width="32" height="32">
+  <object id="838" name="ATM" type="Bank" gid="6545" x="448" y="352" width="32" height="32"/>
+  <object id="840" name="Health Relic" type="RecoveryTile" gid="6636" x="256" y="384" width="32" height="32">
    <properties>
     <property name="hpPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="844" name="Shield Relic" type="RecoveryTile" gid="6632" x="352" y="352" width="32" height="32">
+  <object id="844" name="Shield Relic" type="RecoveryTile" gid="6632" x="224" y="384" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
@@ -2205,22 +2205,22 @@
     <property name="quantities" value="3|3|3|3|3|3|10"/>
    </properties>
   </object>
-  <object id="900" name="Power Rune" type="BuffTile" gid="6620" x="384" y="352" width="32" height="32">
+  <object id="900" name="Power Rune" type="BuffTile" gid="6620" x="192" y="352" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="901" name="Counter Rune" type="BuffTile" gid="6628" x="416" y="352" width="32" height="32">
+  <object id="901" name="Counter Rune" type="BuffTile" gid="6628" x="224" y="352" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="902" name="Fortune Rune" type="BuffTile" gid="6624" x="480" y="352" width="32" height="32">
+  <object id="902" name="Fortune Rune" type="BuffTile" gid="6624" x="288" y="352" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="448" y="352" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="256" y="352" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2583,12 +2583,12 @@
     <property name="usedWith" value="Locked Item + Gold Chest"/>
    </properties>
   </object>
-  <object id="644" name="Emerald" type="Currency" gid="6793" x="384" y="416" width="32" height="32">
+  <object id="644" name="Emerald" type="Currency" gid="6793" x="192" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="646" name="Treasure" type="Currency" gid="6760" x="128" y="416" width="32" height="32">
+  <object id="646" name="Treasure" type="Currency" gid="6760" x="480" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="100"/>
    </properties>
@@ -2598,25 +2598,25 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="650" name="Sapphire" type="Currency" gid="6794" x="416" y="416" width="32" height="32">
+  <object id="650" name="Sapphire" type="Currency" gid="6794" x="224" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
   </object>
-  <object id="785" name="Axe" type="Weapon" gid="6814" x="480" y="320" width="32" height="32">
+  <object id="785" name="Axe" type="Weapon" gid="6814" x="288" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="6833" x="384" y="384" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="6833" x="192" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="6782" x="384" y="320" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="6782" x="192" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="3"/>
@@ -2645,14 +2645,14 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="803" name="Boomerang" type="Weapon" gid="6817" x="448" y="384" width="32" height="32">
+  <object id="803" name="Boomerang" type="Weapon" gid="6817" x="256" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="839" name="Ruby" type="Currency" gid="6792" x="448" y="416" width="32" height="32">
+  <object id="839" name="Ruby" type="Currency" gid="6792" x="256" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2664,7 +2664,7 @@
     <property name="usedWith" value=""/>
    </properties>
   </object>
-  <object id="893" name="Gold" type="Currency" gid="6795" x="480" y="416" width="32" height="32">
+  <object id="893" name="Gold" type="Currency" gid="6795" x="288" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
@@ -2672,25 +2672,25 @@
   <object id="917" name="Heart Relic" type="Relic" gid="6464" x="96" y="160" width="32" height="32"/>
   <object id="918" name="Heart Relic" type="Relic" gid="6464" x="96" y="128" width="32" height="32"/>
   <object id="919" name="Heart Relic" type="Relic" gid="6464" x="96" y="192" width="32" height="32"/>
-  <object id="1002" name="Fighter's Sword" type="Weapon" gid="6832" x="448" y="320" width="32" height="32">
+  <object id="1002" name="Fighter's Sword" type="Weapon" gid="6832" x="256" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1003" name="Spear" type="Weapon" gid="6830" x="416" y="320" width="32" height="32">
+  <object id="1003" name="Spear" type="Weapon" gid="6830" x="224" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
    </properties>
   </object>
-  <object id="1004" name="Flintlock" type="Weapon" gid="6837" x="480" y="384" width="32" height="32">
+  <object id="1004" name="Flintlock" type="Weapon" gid="6837" x="288" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3,4"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-5"/>
    </properties>
   </object>
-  <object id="1005" name="Fire Wand" type="Weapon" gid="6834" x="416" y="384" width="32" height="32">
+  <object id="1005" name="Fire Wand" type="Weapon" gid="6834" x="224" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="1,2"/>
     <property name="atkValue" type="int" value="6"/>
@@ -2779,7 +2779,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="416" y="352" width="32" height="32">
+  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="384" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
