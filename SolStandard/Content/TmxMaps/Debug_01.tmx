@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1036">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1043">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2149,7 +2149,7 @@
     <property name="quantities" value="1|1|1|2"/>
    </properties>
   </object>
-  <object id="838" name="ATM" type="Bank" gid="6545" x="448" y="352" width="32" height="32"/>
+  <object id="838" name="ATM" type="Bank" gid="6545" x="96" y="416" width="32" height="32"/>
   <object id="840" name="Health Relic" type="RecoveryTile" gid="6636" x="256" y="384" width="32" height="32">
    <properties>
     <property name="hpPerTurn" type="int" value="1"/>
@@ -2205,22 +2205,7 @@
     <property name="quantities" value="3|3|3|3|3|3|10"/>
    </properties>
   </object>
-  <object id="900" name="Power Rune" type="BuffTile" gid="6620" x="192" y="352" width="32" height="32">
-   <properties>
-    <property name="atkBonus" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="901" name="Counter Rune" type="BuffTile" gid="6628" x="224" y="352" width="32" height="32">
-   <properties>
-    <property name="retBonus" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="902" name="Fortune Rune" type="BuffTile" gid="6624" x="288" y="352" width="32" height="32">
-   <properties>
-    <property name="luckBonus" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="256" y="352" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="384" y="352" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2303,6 +2288,21 @@
   </object>
   <object id="1023" name="Banker" type="Bank" gid="6885" x="96" y="384" width="32" height="32"/>
   <object id="1034" name="Drawbridge A" type="Drawbridge" gid="6366" x="640" y="448" width="32" height="32"/>
+  <object id="1036" name="Power Rune" type="BuffTile" gid="6620" x="416" y="352" width="32" height="32">
+   <properties>
+    <property name="atkBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1037" name="Counter Rune" type="BuffTile" gid="6628" x="448" y="352" width="32" height="32">
+   <properties>
+    <property name="retBonus" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1041" name="Fortune Rune" type="BuffTile" gid="6624" x="480" y="352" width="32" height="32">
+   <properties>
+    <property name="luckBonus" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="802" name="Sandbag" type="Barricade" gid="4652" x="768" y="96" width="32" height="32">
@@ -2588,7 +2588,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="646" name="Treasure" type="Currency" gid="6760" x="480" y="352" width="32" height="32">
+  <object id="646" name="Treasure" type="Currency" gid="6760" x="128" y="416" width="32" height="32">
    <properties>
     <property name="value" type="int" value="100"/>
    </properties>
@@ -2779,7 +2779,7 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="384" y="352" width="32" height="32">
+  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="448" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>

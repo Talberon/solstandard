@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -22,7 +23,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             maxTriggers: maxTriggers,
             range: new[] {0, 1},
             description:
-            $"Place a trap that will deal [{damage}] damage and slow units that start their turn on it." +
+            $"Place a trap that will deal [{damage}] damage and slow units that start the round on it." +
             Environment.NewLine +
             $"Max activations: [{maxTriggers}]",
             freeAction: true
@@ -39,17 +40,11 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
-
             List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
 
-            foreach (MapElement element in targetTiles)
-            {
-                if (TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
-                {
-                    tilesToRemove.Add(element);
-                }
-            }
+            List<MapElement> tilesToRemove = targetTiles
+                .Where(element => TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                .ToList();
 
             foreach (MapElement tile in tilesToRemove)
             {
@@ -64,8 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
                 if (!TargetHasEntityOrWall(targetSlice))
                 {
                     TrapEntity trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
-                        targetSlice.MapCoordinates, Damage,
-                        MaxTriggers, true, true, false, true);
+                        targetSlice.MapCoordinates, Damage, MaxTriggers, true, true, false, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
                     Queue<IEvent> eventQueue = new Queue<IEvent>();

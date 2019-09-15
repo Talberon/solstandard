@@ -24,9 +24,10 @@ namespace SolStandard.Entity.Unit.Actions
             : base(
                 icon: skillIcon.Clone(),
                 name: title,
-                description: description ?? ("Place a tile that will deal [" + damage +
-                                             "] damage to units that start their turn on it." + Environment.NewLine +
-                                             "Max activations: [" + maxTriggers + "]"),
+                description: description ??
+                             ($"Place a tile that will deal [{damage}] damage to units that start their turn on it." +
+                              Environment.NewLine +
+                              $"Max activations: [{maxTriggers}]"),
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: range,
                 freeAction: freeAction
@@ -39,14 +40,15 @@ namespace SolStandard.Entity.Unit.Actions
 
         public LayTrap(TrapEntity trapItem)
             : base(
-                icon: trapItem.RenderSprite,
+                icon: trapItem.RenderSprite.Clone(),
                 name: "Place Trap",
-                description: "Place a tile that will deal [" + trapItem.Damage +
-                             "] damage to units that start their turn on it." + Environment.NewLine +
-                             "Max activations: [" + trapItem.TriggersRemaining + "]",
+                description:
+                $"Place a tile that will deal [{trapItem.Damage}] damage to units that start their turn on it." +
+                Environment.NewLine +
+                $"Max activations: [{trapItem.TriggersRemaining}]",
                 tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
                 range: new[] {1},
-                freeAction: false
+                freeAction: true
             )
         {
             this.trapItem = trapItem;
