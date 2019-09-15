@@ -106,7 +106,8 @@ namespace SolStandard.Entity.General
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(MapCoordinates, targetCoordinates);
 
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) && targetUnit.IsMovable;
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
+                   targetUnit.IsMovable;
         }
 
         private void PushTarget(GameUnit target)
@@ -122,15 +123,7 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(
                             new IRenderable[,]
@@ -141,8 +134,7 @@ namespace SolStandard.Entity.General
                                 }
                             },
                             InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        )
                     }
                 },
                 1,

@@ -38,26 +38,14 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor
-                        )
-                    },
+                    {base.TerrainInfo},
                     {
                         (CapturableByBlue)
                             ? new Window(
                                 new RenderText(AssetManager.WindowFont, "Capturable by Blue"),
                                 TeamUtility.DetermineTeamColor(Team.Blue)
                             )
-                            : new RenderBlank() as IRenderable,
-                        new RenderBlank()
+                            : RenderBlank.Blank
                     },
                     {
                         (CapturableByRed)
@@ -65,9 +53,8 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, "Capturable by Red"),
                                 TeamUtility.DetermineTeamColor(Team.Red)
                             )
-                            : new RenderBlank() as IRenderable,
-                        new RenderBlank()
-                    }
+                            : RenderBlank.Blank
+                    },
                 },
                 3
             );

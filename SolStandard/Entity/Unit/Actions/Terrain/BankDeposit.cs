@@ -54,12 +54,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         new RenderText(AssetManager.WindowFont, "Deposit"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " in the bank."),
-                        new RenderBlank()
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont,
                             "This will count towards the Deposit victory condition."),
-                        new RenderBlank(), new RenderBlank(), new RenderBlank()
+                        RenderBlank.Blank, RenderBlank.Blank, RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to deposit with "),

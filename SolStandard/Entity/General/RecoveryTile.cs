@@ -118,19 +118,8 @@ namespace SolStandard.Entity.General
                 return new WindowContentGrid(
                     new[,]
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            statContentWindow,
-                            new RenderBlank()
-                        }
+                        {base.TerrainInfo},
+                        {statContentWindow}
                     },
                     3,
                     HorizontalAlignment.Centered

@@ -5,7 +5,6 @@ using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General.Item;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -64,15 +63,7 @@ namespace SolStandard.Entity.General
                 return new WindowContentGrid(
                     new[,]
                     {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
+                        {base.TerrainInfo},
                         {
                             new Window(new WindowContentGrid(new IRenderable[,]
                                 {
@@ -112,10 +103,9 @@ namespace SolStandard.Entity.General
                                         new RenderText(AssetManager.WindowFont, "Contents: "),
                                         new RenderText(AssetManager.WindowFont,
                                             (IsOpen) ? string.Join(Environment.NewLine, itemList) : "????"),
-                                    }
+                                    },
                                 }, 1),
                                 InnerWindowColor),
-                            new RenderBlank()
                         }
                     },
                     3,

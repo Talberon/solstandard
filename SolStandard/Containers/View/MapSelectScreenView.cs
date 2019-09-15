@@ -46,8 +46,8 @@ namespace SolStandard.Containers.View
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
                         InputIconProvider.GetInputIcon(Input.Confirm, iconSize),
-                        new RenderBlank(),
-                        new RenderBlank(),
+                        RenderBlank.Blank,
+                        RenderBlank.Blank,
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Toggle between maps with"),
@@ -63,7 +63,7 @@ namespace SolStandard.Containers.View
             instructionWindow = new Window(instructionContentGrid, InstructionWindowColor);
 
             mapInfoWindow =
-                new AnimatedRenderable(new Window(new RenderBlank(), MapInfoWindowColor), LeftSideWindowAnimation);
+                new AnimatedRenderable(new Window(RenderBlank.Blank, MapInfoWindowColor), LeftSideWindowAnimation);
         }
 
         public void UpdateTeamSelectWindow()

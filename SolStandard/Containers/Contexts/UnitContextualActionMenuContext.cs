@@ -38,7 +38,7 @@ namespace SolStandard.Containers.Contexts
                 return descriptiveOption.Description;
             }
 
-            return new RenderBlank();
+            return RenderBlank.Blank;
         }
 
         public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColor)

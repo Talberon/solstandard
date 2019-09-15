@@ -69,7 +69,7 @@ namespace SolStandard.Entity.General
                 UnitEntity unitEntityOnSpring = MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity;
                 GameUnit unitOnSpring = UnitSelector.SelectUnit(unitEntityOnSpring);
                 HasTriggered = true;
-                
+
                 if (!TargetTileIsObstructed)
                 {
                     GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
@@ -116,13 +116,8 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
+                        base.TerrainInfo,
+                        RenderBlank.Blank
                     },
                     {
                         new Window(
@@ -135,7 +130,7 @@ namespace SolStandard.Entity.General
                             },
                             InnerWindowColor
                         ),
-                        new RenderBlank()
+                        RenderBlank.Blank
                     }
                 },
                 1,

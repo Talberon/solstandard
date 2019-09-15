@@ -76,8 +76,8 @@ namespace SolStandard.Containers.Contexts
             redUnitCount = new Dictionary<Role, int>();
 
             DraftView.UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
-            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Blue);
-            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {new RenderBlank()}, Team.Red);
+            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Blue);
+            DraftView.UpdateTeamUnitsWindow(new List<IRenderable> {RenderBlank.Blank}, Team.Red);
             DraftView.UpdateUnitSelectMenu(firstTurn, GetRolesEnabled(blueUnitCount, maxDuplicateUnitType));
 
             DraftView.UpdateHelpWindow(

@@ -36,30 +36,20 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(new IRenderable[,]
                             {
                                 {
                                     new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
                                         (IsLocked) ? NegativeColor : PositiveColor),
-                                    new RenderBlank()
                                 },
                                 {
                                     new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
                                         (IsOpen) ? PositiveColor : NegativeColor),
-                                    new RenderBlank()
                                 },
                                 {
-                                    new Window(new IRenderable[,]
+                                    new Window(new[,]
                                         {
                                             {
                                                 UnitStatistics.GetSpriteAtlas(Stats.Hp),
@@ -69,19 +59,17 @@ namespace SolStandard.Entity.General
                                                 new RenderText(AssetManager.WindowFont,
                                                     (IsBroken) ? "Broken" : "Not Broken",
                                                     (IsBroken) ? NegativeColor : PositiveColor),
-                                                new RenderBlank()
+                                                RenderBlank.Blank
                                             }
                                         },
                                         InnerWindowColor,
                                         HorizontalAlignment.Centered
                                     ),
-                                    new RenderBlank()
-                                }
+                                },
                             },
                             InnerWindowColor,
                             HorizontalAlignment.Centered
                         ),
-                        new RenderBlank()
                     }
                 },
                 3,

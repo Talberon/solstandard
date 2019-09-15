@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Mage;
@@ -16,7 +15,7 @@ namespace SolStandard.Entity.General.Item
     {
         public int[] BlinkRange { get; }
         public int[] InteractRange { get; }
-        public int UsesRemaining { get; set; }
+        public int UsesRemaining { get; }
         public string ItemPool { get; }
 
         public BlinkItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
@@ -61,24 +60,9 @@ namespace SolStandard.Entity.General.Item
             new WindowContentGrid(
                 new[,]
                 {
+                    {base.TerrainInfo},
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        new Window(new IRenderable[,]
+                        new Window(new[,]
                             {
                                 {
                                     SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
@@ -89,13 +73,12 @@ namespace SolStandard.Entity.General.Item
                                 {
                                     new RenderText(AssetManager.WindowFont,
                                         "Uses Remaining: [" + UsesRemaining + "]"),
-                                    new RenderBlank()
+                                    RenderBlank.Blank
                                 }
                             },
                             InnerWindowColor,
                             HorizontalAlignment.Centered
-                        ),
-                        new RenderBlank()
+                        )
                     }
                 },
                 3

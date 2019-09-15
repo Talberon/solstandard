@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -72,24 +71,10 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                            (IsLocked) ? NegativeColor : PositiveColor),
-                        new RenderBlank()
-                    },
+                    {base.TerrainInfo},
                     {
                         new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                            (IsOpen) ? PositiveColor : NegativeColor),
-                        new RenderBlank()
+                            (IsOpen) ? PositiveColor : NegativeColor)
                     }
                 },
                 3

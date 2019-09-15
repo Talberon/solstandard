@@ -197,7 +197,7 @@ namespace SolStandard.Entity.Unit
                                                 new Vector2(MediumPortrait.Width - windowBordersSize,
                                                     (float) hoverWindowHealthBarHeight / 2)
                                             )
-                                            : new RenderBlank() as IRenderable
+                                            : RenderBlank.Blank
                                     },
                                     {
                                         GetHoverWindowHealthBar(
@@ -256,7 +256,7 @@ namespace SolStandard.Entity.Unit
 
                 const int crownIconSize = 24;
                 return new WindowContentGrid(
-                    new IRenderable[,]
+                    new[,]
                     {
                         {
                             new Window(
@@ -267,7 +267,7 @@ namespace SolStandard.Entity.Unit
                                             IsCommander
                                                 ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown,
                                                     new Vector2(crownIconSize))
-                                                : new RenderBlank() as IRenderable,
+                                                : RenderBlank.Blank,
                                             new RenderText(AssetManager.HeaderFont, Id)
                                         }
                                     },
@@ -282,7 +282,7 @@ namespace SolStandard.Entity.Unit
                                 statPanelColor,
                                 twoColumnPanel
                             ),
-                            new RenderBlank()
+                            RenderBlank.Blank
                         },
                         {
                             new Window(
@@ -474,7 +474,7 @@ namespace SolStandard.Entity.Unit
             clonedSpriteSheet.DefaultColor = color;
 
             if (IsAlive) return clonedSpriteSheet.Resize(size);
-            if (Stats.CurrentHP != 0) return deathAnimation as IRenderable ?? new RenderBlank();
+            if (Stats.CurrentHP != 0) return deathAnimation ?? RenderBlank.Blank;
             deathAnimation = AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, size);
             deathAnimation.PlayOnce();
             return deathAnimation;

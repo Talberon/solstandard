@@ -85,30 +85,14 @@ namespace SolStandard.Entity.General.Item
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
+                    {base.TerrainInfo},
                     {
                         (forSpecificUnit)
                             ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
-                            : FreeContractWindow,
-                        new RenderBlank()
+                            : FreeContractWindow
                     }
                 },
-                3,
+                1,
                 HorizontalAlignment.Centered
             );
     }

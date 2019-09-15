@@ -485,7 +485,7 @@ namespace SolStandard.Containers.View
                                     hoverSlice.TerrainEntity.TerrainInfo,
                                     EntityTerrainWindowColor
                                 ) as IRenderable
-                                : new RenderBlank()
+                                : RenderBlank.Blank
                         },
                         {
                             (hoverSlice.ItemEntity != null)
@@ -493,7 +493,7 @@ namespace SolStandard.Containers.View
                                     hoverSlice.ItemEntity.TerrainInfo,
                                     ItemTerrainWindowColor
                                 ) as IRenderable
-                                : new RenderBlank()
+                                : RenderBlank.Blank
                         }
                     },
                     1);
@@ -503,16 +503,16 @@ namespace SolStandard.Containers.View
                 bool canMove = UnitMovingContext.CanEndMoveAtCoordinates(hoverSlice.MapCoordinates);
 
                 WindowContentGrid noEntityContent = new WindowContentGrid(
-                    new IRenderable[,]
+                    new[,]
                     {
                         {
                             new RenderText(AssetManager.WindowFont,
                                 $"[ X: {GameContext.MapCursor.MapCoordinates.X}, Y: {GameContext.MapCursor.MapCoordinates.Y} ]"),
-                            new RenderBlank()
+                            RenderBlank.Blank
                         },
                         {
                             new RenderText(AssetManager.WindowFont, "None"),
-                            new RenderBlank()
+                            RenderBlank.Blank
                         },
                         {
                             UnitStatistics.GetSpriteAtlas(Stats.Mv),
@@ -581,7 +581,7 @@ namespace SolStandard.Containers.View
                     }
                     else
                     {
-                        unitListGrid[row, column] = new RenderBlank();
+                        unitListGrid[row, column] = RenderBlank.Blank;
                     }
 
                     unitIndex++;
@@ -616,22 +616,22 @@ namespace SolStandard.Containers.View
                 {
                     unit.IsCommander
                         ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
-                        : new RenderBlank() as IRenderable,
+                        : RenderBlank.Blank,
                     new RenderText(AssetManager.MapFont, unit.Id)
                 },
                 {
-                    new RenderBlank(),
+                    RenderBlank.Blank,
                     unit.SmallPortrait
                 },
                 {
-                    new RenderBlank(),
+                    RenderBlank.Blank,
                     unit.IsCommander
                         ? unit.GetInitiativeCommandPointBar(new Vector2(unit.SmallPortrait.Width,
                             (float) initiativeHealthBarHeight / 2))
-                        : new RenderBlank() as IRenderable
+                        : RenderBlank.Blank
                 },
                 {
-                    new RenderBlank(),
+                    RenderBlank.Blank,
                     unit.GetInitiativeHealthBar(new Vector2(unit.SmallPortrait.Width, initiativeHealthBarHeight))
                 }
             };

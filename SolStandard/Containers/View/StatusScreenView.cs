@@ -175,19 +175,19 @@ namespace SolStandard.Containers.View
                     {
                         unit.IsCommander
                             ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
-                            : new RenderBlank() as IRenderable,
+                            : RenderBlank.Blank,
                         new RenderText(AssetManager.WindowFont, unit.Id)
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         portraitToUse
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         new Window(
                             new WindowContentGrid(
                                 new IRenderable[,]

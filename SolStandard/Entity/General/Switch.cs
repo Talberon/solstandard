@@ -92,18 +92,13 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        base.TerrainInfo,
+                        RenderBlank.Blank
                     },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                         new RenderText(AssetManager.WindowFont, "Triggers: " + TriggersId)
                     },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    }
                 },
                 1
             );

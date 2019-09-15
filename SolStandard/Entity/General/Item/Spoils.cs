@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -37,22 +36,7 @@ namespace SolStandard.Entity.General.Item
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(new[,]
                             {
@@ -63,12 +47,11 @@ namespace SolStandard.Entity.General.Item
                                 },
                                 {
                                     ItemDetails,
-                                    new RenderBlank()
+                                    RenderBlank.Blank
                                 }
                             },
                             InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        )
                     }
                 },
                 1,
@@ -79,7 +62,7 @@ namespace SolStandard.Entity.General.Item
         {
             get
             {
-                if (Items.Count <= 0) return new RenderBlank();
+                if (Items.Count <= 0) return RenderBlank.Blank;
 
                 IRenderable[,] content = new IRenderable[Items.Count, 2];
 

@@ -205,7 +205,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
                     if (allPointsCounted)
                     {
-                        damagePoints[row, column] = new RenderBlank();
+                        damagePoints[row, column] = RenderBlank.Blank;
                     }
                     else
                     {
@@ -245,7 +245,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
                     if (allPointsCounted)
                     {
-                        damagePoints[row, column] = new RenderBlank();
+                        damagePoints[row, column] = RenderBlank.Blank;
                     }
                     else
                     {

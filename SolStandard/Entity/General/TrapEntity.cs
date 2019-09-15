@@ -148,13 +148,8 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
+                        base.TerrainInfo,
+                        RenderBlank.Blank
                     },
                     {
                         new Window(new IRenderable[,]
@@ -181,7 +176,7 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
                             }
                         }, InnerWindowColor),
-                        new RenderBlank()
+                        RenderBlank.Blank
                     }
                 },
                 1,

@@ -42,10 +42,10 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                         new RenderText(AssetManager.WindowFont,
                             "As a free action, deal X damage to self. Cannot deal fatal damage." + Environment.NewLine +
                             $"Costs {cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}."),
-                        new RenderBlank(),
-                        new RenderBlank(),
-                        new RenderBlank(),
-                        new RenderBlank()
+                        RenderBlank.Blank,
+                        RenderBlank.Blank,
+                        RenderBlank.Blank,
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust damage value with "),

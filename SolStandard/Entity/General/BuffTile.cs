@@ -10,14 +10,12 @@ namespace SolStandard.Entity.General
 {
     public class BuffTile : TerrainEntity
     {
-        private readonly bool canMove;
         public BonusStatistics BonusStatistics { get; }
 
 
         public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int atkBonus,
-            int retBonus, int blockBonus, int luckBonus, bool canMove) : base(name, type, sprite, mapCoordinates)
+            int retBonus, int blockBonus, int luckBonus) : base(name, type, sprite, mapCoordinates)
         {
-            this.canMove = canMove;
             BonusStatistics = new BonusStatistics(atkBonus, retBonus, blockBonus, luckBonus);
         }
 
@@ -26,15 +24,7 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                            (canMove) ? PositiveColor : NegativeColor)
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(
                             new WindowContentGrid(
@@ -68,7 +58,6 @@ namespace SolStandard.Entity.General
                             ),
                             InnerWindowColor
                         ),
-                        new RenderBlank()
                     }
                 },
                 3,

@@ -6,16 +6,18 @@ namespace SolStandard.HUD.Window.Content
 {
     public class RenderBlank : IRenderable
     {
+        public static IRenderable Blank { get; } = new RenderBlank();
+        
         public int Height { get; }
         public int Width { get; }
         public Color DefaultColor { get; set; }
 
-        public RenderBlank()
+        private RenderBlank()
         {
             Height = 0;
             Width = 0;
         }
-        
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             //Do nothing
@@ -28,7 +30,7 @@ namespace SolStandard.HUD.Window.Content
 
         public IRenderable Clone()
         {
-            return new RenderBlank();
+            return Blank;
         }
     }
 }

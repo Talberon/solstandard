@@ -67,22 +67,7 @@ namespace SolStandard.Entity.General.Item
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(new IRenderable[,]
                         {
@@ -90,8 +75,7 @@ namespace SolStandard.Entity.General.Item
                                 UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
                                 new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
                             }
-                        }, InnerWindowColor),
-                        new RenderBlank()
+                        }, InnerWindowColor)
                     }
                 },
                 3

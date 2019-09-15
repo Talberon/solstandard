@@ -257,9 +257,9 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(AssetManager.PromptFont, "["),
@@ -288,11 +288,11 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.WindowFont, helpText, Color.White),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(AssetManager.WindowFont, "Dice Legend: ", Color.White),

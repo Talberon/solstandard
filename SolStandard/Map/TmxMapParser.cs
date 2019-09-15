@@ -270,8 +270,7 @@ namespace SolStandard.Map
                                             Convert.ToInt32(currentProperties["atkBonus"]),
                                             Convert.ToInt32(currentProperties["retBonus"]),
                                             Convert.ToInt32(currentProperties["blockBonus"]),
-                                            Convert.ToInt32(currentProperties["luckBonus"]),
-                                            Convert.ToBoolean(currentProperties["canMove"])
+                                            Convert.ToInt32(currentProperties["luckBonus"])
                                         );
                                         break;
                                     case EntityTypes.Chest:
@@ -348,7 +347,6 @@ namespace SolStandard.Map
                                             currentObject.Type,
                                             tileSprite,
                                             new Vector2(col, row),
-                                            Convert.ToBoolean(currentProperties["canMove"]),
                                             currentProperties["destinationId"],
                                             currentProperties["range"]
                                                 .Split(',').Select(n => Convert.ToInt32(n)).ToArray()

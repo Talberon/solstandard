@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         protected static readonly Color InnerWindowColor = new Color(25, 25, 25, 80);
 
-        protected IRenderable InfoHeader { get; }
+        private IRenderable InfoHeader { get; }
         private IRenderable NameText { get; }
         private IRenderable TypeText { get; }
 
@@ -76,8 +76,9 @@ namespace SolStandard.Entity.General
                     new[,]
                     {
                         {
-                            new RenderText(AssetManager.WindowFont, $"[ X: {MapCoordinates.X}, Y: {MapCoordinates.Y} ]"),
-                            new RenderBlank()
+                            new RenderText(AssetManager.WindowFont,
+                                $"[ X: {MapCoordinates.X}, Y: {MapCoordinates.Y} ]"),
+                            RenderBlank.Blank
                         },
                         {
                             Sprite.Clone(),
@@ -85,7 +86,7 @@ namespace SolStandard.Entity.General
                         },
                         {
                             TypeText,
-                            new RenderBlank()
+                            RenderBlank.Blank
                         }
                     }
                     ,
@@ -103,12 +104,21 @@ namespace SolStandard.Entity.General
                 {
                     {
                         InfoHeader,
-                        new RenderBlank()
+                        RenderBlank.Blank
                     },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.Mv),
                         new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
                             (CanMove) ? PositiveColor : NegativeColor)
+                    },
+                    {
+                        this is IActionTile
+                            ? StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector)
+                            : RenderBlank.Blank,
+                        this is IActionTile actionTile
+                            ? new RenderText(AssetManager.WindowFont,
+                                $": [{string.Join(",", actionTile.InteractRange)}]")
+                            : RenderBlank.Blank
                     }
                 },
                 1,

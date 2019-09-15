@@ -52,7 +52,7 @@ namespace SolStandard.Entity.General
             Visible = false;
 
             //Remove self from the map
-            MapContainer.GameGrid[(int) Layer.Entities][(int)MapCoordinates.X, (int)MapCoordinates.Y] = null;
+            MapContainer.GameGrid[(int) Layer.Entities][(int) MapCoordinates.X, (int) MapCoordinates.Y] = null;
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates, 50);
         }
@@ -108,22 +108,17 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        base.TerrainInfo,
+                        RenderBlank.Blank
                     },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.Hp),
                         new RenderText(AssetManager.WindowFont, "HP: " + HP)
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
                         new RenderText(AssetManager.WindowFont, (IsBroken) ? "Broken" : "Not Broken",
                             (IsBroken) ? NegativeColor : PositiveColor),
-                        new RenderBlank()
+                        RenderBlank.Blank
                     }
                 },
                 3

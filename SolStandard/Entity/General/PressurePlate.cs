@@ -134,13 +134,7 @@ namespace SolStandard.Entity.General
                 new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
+                        base.TerrainInfo,
                     },
                     {
                         new Window(
@@ -160,7 +154,6 @@ namespace SolStandard.Entity.General
                             },
                             InnerWindowColor
                         ),
-                        new RenderBlank()
                     }
                 },
                 1,

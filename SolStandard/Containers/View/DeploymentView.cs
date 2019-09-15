@@ -76,31 +76,31 @@ namespace SolStandard.Containers.View
             {
                 {
                     new RenderText(AssetManager.HeaderFont, "Deployment Phase"),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
                     InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " on a deployment tile to deploy a unit."),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
                     InputIconProvider.GetInputIcon(Input.Cancel, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to snap to the first deploy tile."),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
                     InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
                     new RenderText(windowFont, " to preview selected unit in the codex."),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),

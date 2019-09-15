@@ -125,15 +125,7 @@ namespace SolStandard.Entity.General.Item
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(new IRenderable[,]
                         {
@@ -152,8 +144,7 @@ namespace SolStandard.Entity.General.Item
                                     + ": [" + string.Join(",", Range) + "]"
                                 )
                             }
-                        }, InnerWindowColor),
-                        new RenderBlank()
+                        }, InnerWindowColor)
                     }
                 },
                 1

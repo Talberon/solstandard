@@ -54,8 +54,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         new RenderText(AssetManager.WindowFont, "Withdraw"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
-                        new RenderBlank(),
-                        new RenderBlank()
+                        RenderBlank.Blank,
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),

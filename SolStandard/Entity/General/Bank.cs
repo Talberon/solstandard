@@ -112,22 +112,7 @@ namespace SolStandard.Entity.General
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
+                    {base.TerrainInfo},
                     {
                         new Window(
                             new IRenderable[,]
@@ -142,8 +127,7 @@ namespace SolStandard.Entity.General
                                 }
                             },
                             TeamUtility.DetermineTeamColor(Team.Blue)
-                        ),
-                        new RenderBlank()
+                        )
                     },
                     {
                         new Window(
@@ -159,9 +143,8 @@ namespace SolStandard.Entity.General
                                 }
                             },
                             TeamUtility.DetermineTeamColor(Team.Red)
-                        ),
-                        new RenderBlank()
-                    }
+                        )
+                    },
                 },
                 1,
                 HorizontalAlignment.Centered

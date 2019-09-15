@@ -41,8 +41,8 @@ namespace SolStandard.Entity.Unit.Actions
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
-                        new RenderBlank(),
-                        new RenderBlank()
+                        RenderBlank.Blank,
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
