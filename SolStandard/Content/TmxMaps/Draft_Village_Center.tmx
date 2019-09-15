@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1111">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1130">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2066,30 +2066,6 @@
     <property name="isOpen" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1000" name="Grocer" type="Vendor" gid="6536" x="608" y="448" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2,3"/>
-    <property name="items" value="Mighty Meat|Alert Berries|Lucky Lemon|Swift Cheese"/>
-    <property name="prices" value="15|10|10|15"/>
-    <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
-  <object id="1001" name="Blacksmith" type="Vendor" gid="6893" x="160" y="544" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
-    <property name="prices" value="10|10|10|20|15"/>
-    <property name="quantities" value="2|2|2|2|2"/>
-   </properties>
-  </object>
-  <object id="1002" name="Bartender" type="Vendor" gid="6877" x="192" y="96" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-    <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
-    <property name="prices" value="15|10|10|15"/>
-    <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
   <object id="1005" name="Banker" type="Bank" gid="6885" x="448" y="448" width="32" height="32">
    <properties>
     <property name="interactRange" value="1,2,3"/>
@@ -2165,13 +2141,6 @@
   <object id="1044" name="Lumber" type="BreakableObstacle" gid="4682" x="384" y="288" width="32" height="32"/>
   <object id="1045" name="Lumber" type="BreakableObstacle" gid="4682" x="352" y="320" width="32" height="32"/>
   <object id="1060" name="ATM" type="Bank" gid="6545" x="576" y="224" width="32" height="32"/>
-  <object id="1061" name="Vending Machine" type="Vendor" gid="6544" x="640" y="224" width="32" height="32">
-   <properties>
-    <property name="items" value="Healthy Tonic"/>
-    <property name="prices" value="20"/>
-    <property name="quantities" value="10"/>
-   </properties>
-  </object>
   <object id="1062" name="Shield Relic" type="RecoveryTile" gid="6632" x="64" y="544" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="2"/>
@@ -2210,16 +2179,55 @@
     <property name="damage" type="int" value="3"/>
    </properties>
   </object>
+  <object id="1111" name="Boomerang" type="Weapon" gid="6817" x="384" y="640" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="PowerItems"/>
+   </properties>
+  </object>
+  <object id="1112" name="Fire Wand" type="Weapon" gid="6834" x="416" y="640" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="1,2"/>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="PowerItems"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
+  <object id="1122" name="Blacksmith" type="Vendor" gid="6893" x="160" y="544" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
+    <property name="prices" value="20|15|20|50|30"/>
+    <property name="quantities" value="2|2|2|2|2"/>
+   </properties>
+  </object>
+  <object id="1126" name="Grocer" type="Vendor" gid="6536" x="608" y="448" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
+    <property name="prices" value="20|15|15|20"/>
+    <property name="quantities" value="5|5|5|5"/>
+   </properties>
+  </object>
+  <object id="1127" name="Bartender" type="Vendor" gid="6877" x="192" y="96" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
+    <property name="prices" value="20|15|15|20"/>
+    <property name="quantities" value="5|5|5|5"/>
+   </properties>
+  </object>
+  <object id="1128" name="Vending Machine" type="Vendor" gid="6544" x="640" y="224" width="32" height="32">
+   <properties>
+    <property name="items" value="Healthy Tonic"/>
+    <property name="prices" value="25"/>
+    <property name="quantities" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="1063" name="Mighty Meat" type="BuffItem" gid="6801" x="608" y="512" width="32" height="32"/>
-  <object id="1064" name="Lucky Lemon" type="BuffItem" gid="6787" x="672" y="512" width="32" height="32">
-   <properties>
-    <property name="duration" type="int" value="2"/>
-    <property name="modifier" type="int" value="2"/>
-    <property name="stat" value="LCK"/>
-   </properties>
-  </object>
   <object id="1065" name="Alert Berries" type="BuffItem" gid="6786" x="640" y="512" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
@@ -2239,55 +2247,8 @@
     <property name="stat" value="LCK"/>
    </properties>
   </object>
-  <object id="1068" name="Axe" type="Weapon" gid="6814" x="64" y="608" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="luckModifier" type="int" value="-2"/>
-   </properties>
-  </object>
-  <object id="1069" name="Bow" type="Weapon" gid="6833" x="224" y="608" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2"/>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="luckModifier" type="int" value="-1"/>
-   </properties>
-  </object>
-  <object id="1070" name="Dagger" type="Weapon" gid="6782" x="128" y="608" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="3"/>
-    <property name="luckModifier" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="1071" name="Boomerang" type="Weapon" gid="6817" x="416" y="640" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3"/>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="itemPool" value="PowerItems"/>
-    <property name="luckModifier" type="int" value="-2"/>
-   </properties>
-  </object>
   <object id="1072" name="Magnet" type="Magnet" gid="6835" x="576" y="640" width="32" height="32">
    <properties>
-    <property name="itemPool" value="PowerItems"/>
-   </properties>
-  </object>
-  <object id="1073" name="Sword" type="Weapon" gid="6832" x="32" y="608" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="luckModifier" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="1075" name="Flintlock" type="Weapon" gid="6837" x="192" y="608" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3,4"/>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="luckModifier" type="int" value="-5"/>
-   </properties>
-  </object>
-  <object id="1076" name="Fire Wand" type="Weapon" gid="6834" x="384" y="640" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="1,2"/>
-    <property name="atkValue" type="int" value="6"/>
     <property name="itemPool" value="PowerItems"/>
    </properties>
   </object>
@@ -2335,6 +2296,49 @@
   <object id="1095" name="Healthy Tonic" type="HealthPotion" gid="6496" x="608" y="224" width="32" height="32">
    <properties>
     <property name="stat" value="ATK"/>
+   </properties>
+  </object>
+  <object id="1114" name="Axe" type="Weapon" gid="6814" x="64" y="640" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="-2"/>
+   </properties>
+  </object>
+  <object id="1115" name="Bow" type="Weapon" gid="6833" x="224" y="640" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2"/>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="1116" name="Dagger" type="Weapon" gid="6782" x="128" y="640" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="3"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="1118" name="Sword" type="Weapon" gid="6832" x="32" y="640" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1120" name="Flintlock" type="Weapon" gid="6837" x="192" y="640" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3,4"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="Ranged"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
+  <object id="1129" name="Sour Apple" type="BuffItem" gid="6785" x="672" y="512" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="LCK"/>
    </properties>
   </object>
  </objectgroup>

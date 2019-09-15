@@ -2387,7 +2387,7 @@
   <object id="1090" name="Chest Key Vendor" type="Vendor" gid="6536" x="736" y="416" width="32" height="32">
    <properties>
     <property name="items" value="Chest Key"/>
-    <property name="prices" value="15"/>
+    <property name="prices" value="50"/>
     <property name="quantities" value="2"/>
    </properties>
   </object>

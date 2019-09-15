@@ -4011,7 +4011,7 @@
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_02.tmx"/>
     <property name="mapSong" value="MilitaryTheme"/>
-    <property name="maxDuplicateUnits" type="int" value="2"/>
+    <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4026,7 +4026,7 @@
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_01.tmx"/>
     <property name="mapSong" value="BossTheme"/>
-    <property name="maxDuplicateUnits" type="int" value="3"/>
+    <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="7"/>
     <property name="maxUnitsRed" type="int" value="7"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4062,18 +4062,6 @@
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="1032" name="Dungeon Master" type="SelectMap" gid="6322" x="448" y="864" width="32" height="32">
-   <properties>
-    <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_02_Dungeon.tmx"/>
-    <property name="mapSong" value="MilitaryTheme"/>
-    <property name="maxDuplicateUnits" type="int" value="3"/>
-    <property name="maxUnitsBlue" type="int" value="8"/>
-    <property name="maxUnitsRed" type="int" value="8"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeSeize" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1033" name="Jirai Archipelago" type="SelectMap" gid="6323" x="704" y="768" width="32" height="32">
@@ -4120,7 +4108,7 @@
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Dusk_Temple.tmx"/>
     <property name="mapSong" value="LavaTheme"/>
-    <property name="maxDuplicateUnits" type="int" value="2"/>
+    <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeSeize" type="bool" value="false"/>
@@ -5310,7 +5298,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6383"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

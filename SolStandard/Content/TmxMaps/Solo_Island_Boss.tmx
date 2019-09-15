@@ -1996,7 +1996,7 @@
   <object id="1017" name="Bartender" type="Vendor" gid="6877" x="608" y="160" width="32" height="32">
    <properties>
     <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
-    <property name="prices" value="15|10|10|15"/>
+    <property name="prices" value="20|15|15|20"/>
     <property name="quantities" value="5|5|5|5"/>
    </properties>
   </object>
@@ -2004,7 +2004,7 @@
   <object id="1025" name="Grocer" type="Vendor" gid="6536" x="544" y="480" width="32" height="32">
    <properties>
     <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
-    <property name="prices" value="15|10|10|15"/>
+    <property name="prices" value="20|15|15|20"/>
     <property name="quantities" value="5|5|5|5"/>
    </properties>
   </object>
