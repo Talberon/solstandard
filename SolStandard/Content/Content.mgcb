@@ -3832,6 +3832,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Grassland_01.png
 
+#begin Graphics/Map/MapPreviews/Draft_Grassland_02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Grassland_02.png
+
 #begin Graphics/Map/MapPreviews/Draft_Hiatok_Fortress.png
 /importer:TextureImporter
 /processor:TextureProcessor

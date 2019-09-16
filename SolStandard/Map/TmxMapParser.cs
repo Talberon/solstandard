@@ -808,7 +808,6 @@ namespace SolStandard.Map
             if (poolItems.Count <= 0) return null;
 
             IItem itemFromPool = poolItems[GameDriver.Random.Next(poolItems.Count)];
-            mapLoot.Remove(itemFromPool);
 
             return itemFromPool;
         }
