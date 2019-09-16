@@ -661,7 +661,7 @@ namespace SolStandard.Containers.Contexts
 
             if (triggerTiles.Count <= 0)
             {
-                effectTiles.ForEach(tile => tile.HasTriggered = false);
+                 effectTiles.ForEach(tile => tile.HasTriggered = false);
                 return false;
             }
 

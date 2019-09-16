@@ -43,7 +43,9 @@ namespace SolStandard.Entity.General
         {
             if (triggerTime != TriggerTime || HasTriggered) return false;
 
-            return ((PlateIsPressed && !wasPressed) || (!PlateIsPressed && wasPressed));
+            bool plateStateChanged = ((PlateIsPressed && !wasPressed) || (!PlateIsPressed && wasPressed));
+            
+            return plateStateChanged;
         }
 
 
@@ -55,13 +57,13 @@ namespace SolStandard.Entity.General
 
             if (PlateIsPressed)
             {
-                if ((!wasPressed || lastOccupant != CurrentOccupant) &&
-                    ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles))
-                {
-                    lastOccupant = CurrentOccupant;
-                    TriggerTiles.Where(tile => tile.CanTrigger).ToList().ForEach(tile => tile.RemoteTrigger());
-                    wasPressed = true;
-                }
+                if (
+                    (wasPressed && lastOccupant == CurrentOccupant) ||
+                    !ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles)
+                ) return true;
+                lastOccupant = CurrentOccupant;
+                TriggerTiles.Where(tile => tile.CanTrigger).ToList().ForEach(tile => tile.RemoteTrigger());
+                wasPressed = true;
             }
             else
             {
@@ -110,23 +112,11 @@ namespace SolStandard.Entity.General
 
         private bool PlateIsPressed => UnitIsStandingOnPressurePlate || ItemIsOnPressurePlate;
 
-        private bool ItemIsOnPressurePlate
-        {
-            get
-            {
-                return MapContainer.GetMapElementsFromLayer(Layer.Items)
-                    .Any(item => item.MapCoordinates == MapCoordinates);
-            }
-        }
+        private bool ItemIsOnPressurePlate => MapContainer.GetMapElementsFromLayer(Layer.Items)
+            .Any(item => item.MapCoordinates == MapCoordinates);
 
-        private bool UnitIsStandingOnPressurePlate
-        {
-            get
-            {
-                return GameContext.Units.Any(unit =>
-                    unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
-            }
-        }
+        private bool UnitIsStandingOnPressurePlate =>
+            GameContext.Units.Any(unit => unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
 
         protected override IRenderable EntityInfo =>
             new WindowContentGrid(

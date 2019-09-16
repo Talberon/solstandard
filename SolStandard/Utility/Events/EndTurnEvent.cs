@@ -1,24 +1,30 @@
 ﻿using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
+using SolStandard.Entity.Unit.Statuses.Duelist;
 
 namespace SolStandard.Utility.Events
 {
     public class EndTurnEvent : IEvent
     {
         public bool Complete { get; private set; }
-        private readonly bool skipProcs;
+        private readonly bool duelistHasFocusPoints;
 
-        public EndTurnEvent(bool skipProcs = false)
+        public EndTurnEvent()
         {
-            this.skipProcs = skipProcs;
+            duelistHasFocusPoints = FocusStatus.ActiveDuelistHasFocusPoints;
         }
 
         public void Continue()
         {
-            //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
-            if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, false))
+            if (duelistHasFocusPoints)
             {
-                GameMapContext.FinishTurn(skipProcs);
+                (GameContext.ActiveUnit.StatusEffects.Find(status => status is FocusStatus) as FocusStatus)
+                    ?.StartAdditionalAction();
+            }
+            //IMPORTANT Do not allow tiles that have been triggered to trigger again or the risk of soft-locking via infinite triggers can occur
+            else if (!GameMapContext.TriggerEffectTiles(EffectTriggerTime.EndOfTurn, false))
+            {
+                GameMapContext.FinishTurn(false);
             }
 
             Complete = true;

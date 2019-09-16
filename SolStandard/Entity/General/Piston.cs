@@ -95,7 +95,6 @@ namespace SolStandard.Entity.General
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No unit in range!",
                     MapCoordinates, 50);
-                AssetManager.WarningSFX.Play();
             }
         }
 

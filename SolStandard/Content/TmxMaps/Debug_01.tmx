@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1045">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1064">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2205,7 +2205,7 @@
     <property name="quantities" value="3|3|3|3|3|3|10"/>
    </properties>
   </object>
-  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="384" y="352" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="192" y="352" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2227,12 +2227,12 @@
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="974" name="Piston W" type="Piston" gid="6550" x="736" y="320" width="32" height="32">
+  <object id="974" name="Piston W" type="Piston" gid="6550" x="512" y="288" width="32" height="32">
    <properties>
     <property name="direction" value="WEST"/>
    </properties>
   </object>
-  <object id="977" name="Piston Pad W" type="PressurePlate" gid="6679" x="768" y="320" width="32" height="32">
+  <object id="977" name="Piston Pad W" type="PressurePlate" gid="6679" x="480" y="288" width="32" height="32">
    <properties>
     <property name="triggerOnRelease" type="bool" value="false"/>
     <property name="triggersId" value="Piston W"/>
@@ -2288,26 +2288,103 @@
   </object>
   <object id="1023" name="Banker" type="Bank" gid="6885" x="96" y="384" width="32" height="32"/>
   <object id="1034" name="Drawbridge A" type="Drawbridge" gid="6366" x="640" y="448" width="32" height="32"/>
-  <object id="1036" name="Power Rune" type="BuffTile" gid="6620" x="416" y="352" width="32" height="32">
+  <object id="1036" name="Power Rune" type="BuffTile" gid="6620" x="224" y="352" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1037" name="Counter Rune" type="BuffTile" gid="6628" x="448" y="352" width="32" height="32">
+  <object id="1037" name="Counter Rune" type="BuffTile" gid="6628" x="256" y="352" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1041" name="Fortune Rune" type="BuffTile" gid="6624" x="480" y="352" width="32" height="32">
+  <object id="1041" name="Fortune Rune" type="BuffTile" gid="6624" x="288" y="352" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1043" name="Vending Machine" type="Vendor" gid="6544" x="416" y="320" width="32" height="32">
+  <object id="1043" name="Vending Machine" type="Vendor" gid="6544" x="448" y="160" width="32" height="32">
    <properties>
     <property name="items" value="Healthy Potion"/>
     <property name="prices" value="0"/>
     <property name="quantities" value="3"/>
+   </properties>
+  </object>
+  <object id="1045" name="Piston S" type="Piston" gid="6548" x="352" y="288" width="32" height="32">
+   <properties>
+    <property name="direction" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="1046" name="Piston Pad S" type="PressurePlate" gid="6679" x="352" y="320" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston S"/>
+   </properties>
+  </object>
+  <object id="1047" name="Piston E" type="Piston" gid="6551" x="352" y="384" width="32" height="32">
+   <properties>
+    <property name="direction" value="EAST"/>
+   </properties>
+  </object>
+  <object id="1048" name="Piston Pad E" type="PressurePlate" gid="6679" x="384" y="384" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston E"/>
+   </properties>
+  </object>
+  <object id="1049" name="Piston S" type="Piston" gid="6548" x="384" y="288" width="32" height="32">
+   <properties>
+    <property name="direction" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="1050" name="Piston W" type="Piston" gid="6550" x="512" y="320" width="32" height="32">
+   <properties>
+    <property name="direction" value="WEST"/>
+   </properties>
+  </object>
+  <object id="1051" name="Piston E" type="Piston" gid="6551" x="352" y="416" width="32" height="32">
+   <properties>
+    <property name="direction" value="EAST"/>
+   </properties>
+  </object>
+  <object id="1053" name="Piston N" type="Piston" gid="6549" x="512" y="416" width="32" height="32">
+   <properties>
+    <property name="direction" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="1054" name="Piston Pad N" type="PressurePlate" gid="6679" x="512" y="384" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston N"/>
+   </properties>
+  </object>
+  <object id="1055" name="Piston N" type="Piston" gid="6549" x="480" y="416" width="32" height="32">
+   <properties>
+    <property name="direction" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="1056" name="Piston Pad E" type="PressurePlate" gid="6679" x="384" y="416" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston E"/>
+   </properties>
+  </object>
+  <object id="1057" name="Piston Pad N" type="PressurePlate" gid="6679" x="480" y="384" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston N"/>
+   </properties>
+  </object>
+  <object id="1058" name="Piston Pad W" type="PressurePlate" gid="6679" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston W"/>
+   </properties>
+  </object>
+  <object id="1059" name="Piston Pad S" type="PressurePlate" gid="6679" x="384" y="320" width="32" height="32">
+   <properties>
+    <property name="triggerOnRelease" type="bool" value="false"/>
+    <property name="triggersId" value="Piston S"/>
    </properties>
   </object>
  </objectgroup>
@@ -2705,92 +2782,18 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="784" name="Slime" type="Creep" gid="27" x="768" y="160" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-    <property name="Item" value="Locked Gold Chest Key"/>
-    <property name="gold" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="952" name="Fran" type="Unit" gid="4" x="480" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Bard"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="958" name="Franklin" type="Unit" gid="14" x="512" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="959" name="Grace" type="Unit" gid="8" x="448" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Cleric"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="942" name="Isabella" type="Unit" gid="19" x="384" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Pugilist"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="943" name="Benjamin" type="Unit" gid="18" x="416" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="961" name="Hector" type="Unit" gid="20" x="448" y="480" width="32" height="32">
+  <object id="1061" name="Rudolph" type="Unit" gid="7" x="416" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Duelist"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="1062" name="Hector" type="Unit" gid="20" x="416" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Duelist"/>
+    <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="946" name="Jules" type="Unit" gid="2" x="512" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="949" name="Darwin" type="Unit" gid="9" x="384" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Marauder"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="950" name="Gaius" type="Unit" gid="3" x="352" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="957" name="Rachel" type="Unit" gid="10" x="416" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="1019" name="Talberon" type="Unit" gid="25" x="352" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Cavalier"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="1021" name="Maya" type="Unit" gid="26" x="480" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Rogue"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="448" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Slime"/>
-    <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
-    <property name="gold" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -2864,6 +2867,106 @@
   <object id="960" name="Sally" type="Unit" gid="17" x="480" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Bard"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="952" name="Fran" type="Unit" gid="4" x="480" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Bard"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="959" name="Grace" type="Unit" gid="8" x="448" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Cleric"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="946" name="Jules" type="Unit" gid="2" x="512" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Mage"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="949" name="Darwin" type="Unit" gid="9" x="384" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Marauder"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="950" name="Gaius" type="Unit" gid="3" x="352" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Champion"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="957" name="Rachel" type="Unit" gid="10" x="416" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="958" name="Franklin" type="Unit" gid="14" x="512" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="942" name="Isabella" type="Unit" gid="19" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Pugilist"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="943" name="Benjamin" type="Unit" gid="18" x="416" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="961" name="Hector" type="Unit" gid="20" x="448" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Duelist"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="1019" name="Talberon" type="Unit" gid="25" x="352" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Cavalier"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="1021" name="Maya" type="Unit" gid="26" x="480" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Rogue"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="784" name="Slime" type="Creep" gid="27" x="768" y="160" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Item" value="Locked Gold Chest Key"/>
+    <property name="gold" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="448" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Slime"/>
+    <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
+    <property name="gold" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="1060" name="Rudolph" type="Unit" gid="7" x="448" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Duelist"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="1063" name="Hector" type="Unit" gid="20" x="448" y="448" width="32" height="32">
+   <properties>
+    <property name="Class" value="Duelist"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>

@@ -4048,7 +4048,7 @@
     <property name="maxUnitsBlue" type="int" value="7"/>
     <property name="maxUnitsRed" type="int" value="7"/>
     <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeRelic.goal" type="int" value="2"/>
+    <property name="modeRelic.goal" type="int" value="3"/>
     <property name="modeRelic.vs" type="bool" value="true"/>
    </properties>
   </object>
@@ -5128,7 +5128,7 @@
    <tile/>
    <tile gid="736"/>
    <tile/>
-   <tile/>
+   <tile gid="6383"/>
    <tile/>
    <tile/>
    <tile/>

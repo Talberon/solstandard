@@ -1,3 +1,4 @@
+using System.Linq;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility.Assets;
@@ -12,7 +13,7 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
         private const string StatusName = "Focusing!";
         public int FocusPoints { get; private set; }
 
-        public FocusStatus(int focusPoints, bool actImmediately = false) : base(
+        public FocusStatus(int focusPoints, bool actImmediately) : base(
             statusIcon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: StatusName,
             description: "Allows acting again at the end of your turn.",
@@ -25,6 +26,9 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
             FocusPoints = focusPoints;
             UpdateTitle();
         }
+
+        private bool StatusWasAppliedThisTurn => TurnDuration == InitialDuration;
+        private bool StatusAppliedAndCanNotAct => StatusWasAppliedThisTurn && !actImmediately;
 
         public override void ApplyEffect(GameUnit target)
         {
@@ -53,26 +57,27 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
 
         public void OnTurnEnd()
         {
-            if (FocusPoints > 0)
-            {
-                if (StatusWasAppliedThisTurn && !actImmediately)
-                {
-                    GlobalEventQueue.QueueSingleEvent(new EndTurnEvent(skipProcs: true));
-                }
-                else
-                {
-                    GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
-                    FocusPoints--;
-                    UpdateTitle();
-                }
-            }
-            else
+            if (FocusPoints <= 0)
             {
                 TurnDuration = 0;
             }
         }
 
-        private bool StatusWasAppliedThisTurn => TurnDuration == InitialDuration;
+        public static bool ActiveDuelistHasFocusPoints =>
+            GameContext.ActiveUnit.Role == Role.Duelist &&
+            GameContext.ActiveUnit.StatusEffects.Any(status =>
+                status is FocusStatus focusStatus &&
+                focusStatus.FocusPoints > 0 &&
+                !focusStatus.StatusAppliedAndCanNotAct
+            );
+
+        public void StartAdditionalAction()
+        {
+            AdditionalActionEvent.StartExtraAction("Extra Focus action!");
+            FocusPoints--;
+            UpdateTitle();
+            GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
+        }
 
         private void UpdateTitle()
         {

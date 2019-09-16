@@ -148,7 +148,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Containers\Contexts\InitiativeContextTest.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\ExecuteTest.cs" />
     <Compile Include="HUD\Window\Content\Health\FakeResourceBar.cs" />
     <Compile Include="HUD\Window\Content\Health\HealthBarTest.cs" />
@@ -178,6 +177,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Containers\Contexts" />
     <Folder Include="Resources\Output" />
   </ItemGroup>
   <ItemGroup>
