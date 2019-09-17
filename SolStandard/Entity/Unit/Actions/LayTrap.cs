@@ -81,7 +81,16 @@ namespace SolStandard.Entity.Unit.Actions
                     );
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent((TrapEntity) trapToPlace.Duplicate(), Layer.Entities,
                         AssetManager.DropItemSFX));
-                    eventQueue.Enqueue(new EndTurnEvent());
+
+                    if (FreeAction)
+                    {
+                        eventQueue.Enqueue(new AdditionalActionEvent());
+                    }
+                    else
+                    {
+                        eventQueue.Enqueue(new EndTurnEvent());
+                    }
+
                     GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
