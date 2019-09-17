@@ -61,8 +61,9 @@ namespace SolStandard.Entity.General
                     (wasPressed && lastOccupant == CurrentOccupant) ||
                     !ToggleSwitchAction.NothingObstructingSwitchTarget(TriggerTiles)
                 ) return true;
+                
                 lastOccupant = CurrentOccupant;
-                TriggerTiles.Where(tile => tile.CanTrigger).ToList().ForEach(tile => tile.RemoteTrigger());
+                TriggerTiles.ToList().ForEach(tile => tile.RemoteTrigger());
                 wasPressed = true;
             }
             else

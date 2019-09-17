@@ -56,8 +56,8 @@ namespace SolStandard.Entity.General
 
             if (trapUnit == null) return false;
 
-            string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + Damage +
-                                 "] damage!";
+            string trapMessage = "Trap activated!" + Environment.NewLine +
+                                 $"{trapUnit.Id} takes [{Damage}] damage!";
 
             if (willSnare)
             {
@@ -75,7 +75,6 @@ namespace SolStandard.Entity.General
             {
                 trapUnit.DamageUnit();
             }
-
 
             TriggersRemaining--;
 
@@ -103,12 +102,10 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered || !enabled) return false;
 
-            return CanTrigger;
+            return GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
         }
-
-        public bool CanTrigger => GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
 
         public void RemoteTrigger()
         {
