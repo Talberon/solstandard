@@ -23,7 +23,7 @@ Sol Standard started as a rewrite of [@Talberon](https://github.com/Talberon)'s 
 
 ### AI Units
 
-<img src="https://i.imgur.com/yc6Joei.gif" alt="AI Units" width="650" />
+<img src="https://i.imgur.com/a1zlT7S.gif" alt="AI Units" width="650" />
 
 ### Interactive Tiles
 
