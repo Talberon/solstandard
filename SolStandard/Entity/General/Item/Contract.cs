@@ -81,35 +81,8 @@ namespace SolStandard.Entity.General.Item
 
         private static Window FreeContractWindow => SpecificUnitWindow(Role.Silhouette, Team.Creep);
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        (forSpecificUnit)
-                            ? SpecificUnitWindow(specificRole, GameContext.ActiveUnit.Team)
-                            : FreeContractWindow,
-                        new RenderBlank()
-                    }
-                },
-                3,
-                HorizontalAlignment.Centered
-            );
+        protected override IRenderable EntityInfo => (forSpecificUnit)
+            ? SpecificUnitWindow(specificRole, GameContext.ActiveTeam)
+            : FreeContractWindow;
     }
 }

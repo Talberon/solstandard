@@ -4,9 +4,9 @@ namespace SolStandard.Entity.Unit.Statuses
 {
     public abstract class StatusEffect
     {
-        public IRenderable StatusIcon { get; protected set; }
+        public IRenderable StatusIcon { get; }
         public string Name { get; protected set; }
-        public string Description { get; protected set; }
+        public string Description { get; }
         public int TurnDuration { get; protected set; }
         public bool HasNotification { get; }
         public bool CanCleanse { get; }

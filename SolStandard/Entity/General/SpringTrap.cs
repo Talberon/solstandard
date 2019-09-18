@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -69,7 +68,7 @@ namespace SolStandard.Entity.General
                 UnitEntity unitEntityOnSpring = MapContainer.GetMapSliceAtCoordinates(MapCoordinates).UnitEntity;
                 GameUnit unitOnSpring = UnitSelector.SelectUnit(unitEntityOnSpring);
                 HasTriggered = true;
-                
+
                 if (!TargetTileIsObstructed)
                 {
                     GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(unitEntityOnSpring,
@@ -111,35 +110,15 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Target: " + trapLaunchCoordinates)
-                                }
-                            },
-                            InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Target: " + trapLaunchCoordinates)
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
     }
 }

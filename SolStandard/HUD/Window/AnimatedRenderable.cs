@@ -5,17 +5,17 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window
 {
-    public class AnimatedWindow : IWindow
+    public class AnimatedRenderable : IWindow
     {
-        private IWindowAnimation WindowAnimation { get; }
-        private Window Window { get; }
+        private IRenderableAnimation RenderableAnimation { get; }
+        private IRenderable Window { get; }
         public int Height => Window.Height;
         public int Width => Window.Width;
 
-        public AnimatedWindow(Window window, IWindowAnimation windowAnimation)
+        public AnimatedRenderable(IRenderable window, IRenderableAnimation renderableAnimation)
         {
             Window = window;
-            WindowAnimation = windowAnimation;
+            RenderableAnimation = renderableAnimation;
         }
 
         public Color DefaultColor
@@ -26,19 +26,19 @@ namespace SolStandard.HUD.Window
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            WindowAnimation.Update(position);
-            Window.Draw(spriteBatch, WindowAnimation.CurrentPosition);
+            RenderableAnimation.Update(position);
+            Window.Draw(spriteBatch, RenderableAnimation.CurrentPosition);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            WindowAnimation.Update(position);
-            Window.Draw(spriteBatch, WindowAnimation.CurrentPosition, colorOverride);
+            RenderableAnimation.Update(position);
+            Window.Draw(spriteBatch, RenderableAnimation.CurrentPosition, colorOverride);
         }
 
         public IRenderable Clone()
         {
-            return new AnimatedWindow(Window, WindowAnimation);
+            return new AnimatedRenderable(Window, RenderableAnimation);
         }
     }
 }

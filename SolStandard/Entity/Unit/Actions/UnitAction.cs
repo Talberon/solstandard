@@ -67,14 +67,14 @@ namespace SolStandard.Entity.Unit.Actions
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && targetUnit.Team == GameContext.ActiveUnit.Team;
+                && targetUnit.Team == GameContext.ActiveTeam;
         }
 
         protected static bool TargetIsAnEnemyInRange(MapSlice targetSlice, GameUnit targetUnit)
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && GameContext.ActiveUnit.Team != targetUnit.Team;
+                && GameContext.ActiveTeam != targetUnit.Team;
         }
 
         protected static bool TargetIsSelfInRange(MapSlice targetSlice, GameUnit targetUnit)

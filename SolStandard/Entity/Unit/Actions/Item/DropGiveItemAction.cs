@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -52,8 +53,15 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private static bool CanPlaceItemAtSlice(TerrainEntity itemTile, MapSlice targetSlice)
         {
-            return targetSlice.ItemEntity == null && itemTile != null && targetSlice.DynamicEntity != null &&
-                   UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
+            return (
+                       targetSlice.ItemEntity == null 
+                       || targetSlice.ItemEntity is Spoils 
+                       || targetSlice.ItemEntity is IItem
+                       || targetSlice.ItemEntity is Currency
+                       )
+                   && itemTile != null
+                   && targetSlice.DynamicEntity != null
+                   && UnitMovingContext.CanEndMoveAtCoordinates(targetSlice.MapCoordinates);
         }
     }
 }

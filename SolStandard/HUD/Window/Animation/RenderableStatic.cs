@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 
 namespace SolStandard.HUD.Window.Animation
 {
-    public class WindowStatic : IWindowAnimation
+    public class RenderableStatic : IRenderableAnimation
     {
         public Vector2 CurrentPosition { get; private set; }
 
-        public WindowStatic(Vector2 position)
+        public RenderableStatic(Vector2 position)
         {
             CurrentPosition = position;
         }

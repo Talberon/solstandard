@@ -39,7 +39,8 @@ namespace SolStandard.Containers.Contexts
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
         public static readonly Color NegativeColor = new Color(250, 10, 10);
-        public static readonly Color NeutralColor = new Color(255, 250, 250);
+        public static readonly Color NeutralColor = new Color(255, 255, 255);
+        public static readonly Color DimColor = new Color(100, 100, 100);
 
         private const string MapDirectory = "Content/TmxMaps/";
         private const string MapSelectFile = "Map_Select_06.tmx";
@@ -57,8 +58,8 @@ namespace SolStandard.Containers.Contexts
         public static DeploymentContext DeploymentContext { get; private set; }
         public static CodexContext CodexContext { get; private set; }
         public static CreditsContext CreditsContext { get; private set; }
-        public static Team P1Team { get; private set; }
 
+        public static Team P1Team { get; private set; }
         public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
 
         public static GameState CurrentGameState;
@@ -80,9 +81,9 @@ namespace SolStandard.Containers.Contexts
                     case GameState.Deployment:
                         return GetPlayerForTeam(DeploymentContext.CurrentTurn);
                     case GameState.PauseScreen:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return GetPlayerForTeam(ActiveTeam);
                     case GameState.InGame:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return GetPlayerForTeam(ActiveTeam);
                     case GameState.Codex:
                         return GetPlayerForTeam(CodexContext.CurrentTeam);
                     case GameState.Results:
@@ -90,7 +91,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.Credits:
                         return PlayerIndex.One;
                     case GameState.ItemPreview:
-                        return GetPlayerForTeam(InitiativeContext.CurrentActiveTeam);
+                        return GetPlayerForTeam(ActiveTeam);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -185,6 +186,7 @@ namespace SolStandard.Containers.Contexts
         public static List<GameUnit> Units => InitiativeContext.InitiativeList;
 
         public static GameUnit ActiveUnit => InitiativeContext.CurrentActiveUnit;
+        public static Team ActiveTeam => InitiativeContext.CurrentActiveTeam;
 
         public static void CenterCursorAndCamera()
         {
@@ -291,7 +293,8 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon, MapElement creepDeployTile)
+        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon,
+            MapElement creepDeployTile)
         {
             Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
 

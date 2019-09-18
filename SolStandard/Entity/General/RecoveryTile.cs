@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -91,11 +90,9 @@ namespace SolStandard.Entity.General
 
         public bool IsExpired => false;
 
-        public override IRenderable TerrainInfo
-        {
-            get
-            {
-                IRenderable[,] statContent =
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(
+                new IRenderable[,]
                 {
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
@@ -111,31 +108,7 @@ namespace SolStandard.Entity.General
                             ((amrPerTurn > 0) ? "+" : "") + amrPerTurn
                         )
                     }
-                };
-
-                Window statContentWindow = new Window(statContent, InnerWindowColor);
-
-                return new WindowContentGrid(
-                    new[,]
-                    {
-                        {
-                            InfoHeader,
-                            new RenderBlank()
-                        },
-                        {
-                            UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                            new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                                (CanMove) ? PositiveColor : NegativeColor)
-                        },
-                        {
-                            statContentWindow,
-                            new RenderBlank()
-                        }
-                    },
-                    3,
-                    HorizontalAlignment.Centered
-                );
-            }
-        }
+                }
+            );
     }
 }

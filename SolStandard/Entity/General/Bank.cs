@@ -41,7 +41,7 @@ namespace SolStandard.Entity.General
 
         public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
-            depositer.CurrentGold -= goldToDeposit;
+            GameContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -65,7 +65,7 @@ namespace SolStandard.Entity.General
 
         public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
-            depositer.CurrentGold += goldToWithdraw;
+            GameContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -108,27 +108,10 @@ namespace SolStandard.Entity.General
             BlueMoney = 0;
         }
 
-
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
                     {
                         new Window(
                             new IRenderable[,]
@@ -143,8 +126,7 @@ namespace SolStandard.Entity.General
                                 }
                             },
                             TeamUtility.DetermineTeamColor(Team.Blue)
-                        ),
-                        new RenderBlank()
+                        )
                     },
                     {
                         new Window(
@@ -160,9 +142,8 @@ namespace SolStandard.Entity.General
                                 }
                             },
                             TeamUtility.DetermineTeamColor(Team.Red)
-                        ),
-                        new RenderBlank()
-                    }
+                        )
+                    },
                 },
                 1,
                 HorizontalAlignment.Centered

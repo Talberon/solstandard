@@ -25,7 +25,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
                 AnimationType.SongHymn,
                 GameDriver.CellSizeVector,
                 SongAnimationFrameDelay,
-                GetSongColor(GameContext.ActiveUnit.Team)
+                GetSongColor(GameContext.ActiveTeam)
             );
         }
 

@@ -71,7 +71,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             {
                 GameUnit unitAtPosition = UnitSelector.SelectUnit(position.UnitEntity);
                 bool allyIsAtPosition = unitAtPosition != null &&
-                                        unitAtPosition.Team == GameContext.ActiveUnit.Team;
+                                        unitAtPosition.Team == GameContext.ActiveTeam;
                 if (allyIsAtPosition)
                 {
                     eventQueue.Enqueue(

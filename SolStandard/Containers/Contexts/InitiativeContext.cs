@@ -18,13 +18,17 @@ namespace SolStandard.Containers.Contexts
         public List<GameUnit> InitiativeList { get; }
         public GameUnit CurrentActiveUnit { get; private set; }
         public Team CurrentActiveTeam { get; private set; }
-        private Team FirstPlayer { get; }
+        public Team FirstPlayer { get; }
+        private int redTeamGold;
+        private int blueTeamGold;
 
         public InitiativeContext(List<GameUnit> unitList, Team firstTurn,
             TurnOrder turnOrder = TurnOrder.AlternateExhaustingUnits)
         {
             CurrentActiveTeam = firstTurn;
             FirstPlayer = firstTurn;
+            redTeamGold = 0;
+            blueTeamGold = 0;
 
             switch (turnOrder)
             {
@@ -36,16 +40,67 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private int RedTeamGold
+        {
+            get => redTeamGold;
+            set => redTeamGold = value < 0 ? 0 : value;
+        }
+
+        private int BlueTeamGold
+        {
+            get => blueTeamGold;
+            set => blueTeamGold = value < 0 ? 0 : value;
+        }
+
+        public int GetGoldForTeam(Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    return blueTeamGold;
+                case Team.Red:
+                    return redTeamGold;
+                default:
+                    return 0;
+            }
+        }
+
+        public void AddGoldToTeam(int goldToAdd, Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    BlueTeamGold += goldToAdd;
+                    break;
+                case Team.Red:
+                    RedTeamGold += goldToAdd;
+                    break;
+            }
+        }
+
+        public void DeductGoldFromTeam(int goldToDeduct, Team team)
+        {
+            switch (team)
+            {
+                case Team.Blue:
+                    BlueTeamGold -= goldToDeduct;
+                    break;
+                case Team.Red:
+                    RedTeamGold -= goldToDeduct;
+                    break;
+            }
+        }
+
         public void StartFirstTurn()
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits();
             CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-            
-            foreach (CreepUnit creepUnit in GameContext.Units.Where(unit=>unit is CreepUnit).Cast<CreepUnit>())
+
+            foreach (CreepUnit creepUnit in GameContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>())
             {
                 creepUnit.ReadyNextRoutine();
             }
-            
+
             StartNewRound();
         }
 
@@ -122,7 +177,7 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
 
             GlobalEventQueue.QueueSingleEvent(new UpdateTurnOrderEvent(this));
-            
+
             GameContext.StatusScreenView.UpdateWindows();
         }
 
@@ -132,7 +187,7 @@ namespace SolStandard.Containers.Contexts
             UpdateUnitActivation();
         }
 
-        private Team TeamWithFewerRemainingUnits()
+        public Team TeamWithFewerRemainingUnits()
         {
             int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
             int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
@@ -195,7 +250,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentActiveTeam != Team.Creep) return;
             if (GameContext.ActiveUnit.UnitEntity == null) return;
-            
+
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 
             if (GameContext.ActiveUnit is CreepUnit activeCreep)

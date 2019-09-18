@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
             UnitActing,
             ResolvingTurn,
             AdHocDraft,
-            StealItem
+            TakeItem
         }
 
         public TurnState CurrentTurnState { get; set; }
@@ -75,7 +75,7 @@ namespace SolStandard.Containers.Contexts
             get
             {
                 if (CurrentTurnState != TurnState.SelectUnit) return true;
-                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveUnit.Team;
+                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
             }
         }
 
@@ -99,7 +99,7 @@ namespace SolStandard.Containers.Contexts
                         return false;
                     case TurnState.AdHocDraft:
                         return false;
-                    case TurnState.StealItem:
+                    case TurnState.TakeItem:
                         return true;
                     default:
                         return false;
@@ -144,10 +144,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void UpdateWindowsEachTurn()
         {
-            //Initiative Window
             GameMapView.GenerateInitiativeWindow();
-
-            //Help Window
             GameMapView.GenerateObjectiveWindow();
         }
 
@@ -328,11 +325,16 @@ namespace SolStandard.Containers.Contexts
             {
                 if (CurrentTurnState != TurnState.UnitDecidingAction) return;
 
-                MapContainer.ClearDynamicAndPreviewGrids();
-                GameMapView.CloseCombatMenu();
-
-                RevertToPreviousState();
-                CancelMove();
+                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                {
+                    CancelActionMenuAndReturnToOrigin();
+                }
+                else
+                {
+                    GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    GameMapView.GenerateCurrentMenuDescription();
+                    AssetManager.MapUnitCancelSFX.Play();
+                }
             }
             else
             {
@@ -340,14 +342,19 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void CancelTargetAction()
+        private void CancelActionMenuAndReturnToOrigin()
+        {
+            MapContainer.ClearDynamicAndPreviewGrids();
+            GameMapView.CloseCombatMenu();
+            RevertToPreviousState();
+            CancelMove();
+        }
+
+        public void CancelUnitTargeting()
         {
             if (CanCancelAction)
             {
-                GameContext.ActiveUnit.CancelArmedSkill();
-                ResetCursorToActiveUnit();
-                GameMapView.GenerateActionMenus();
-                RevertToPreviousState();
+                CancelTargetAndOpenLastActionMenu();
             }
             else
             {
@@ -359,16 +366,30 @@ namespace SolStandard.Containers.Contexts
         {
             if (CurrentTurnState == TurnState.UnitTargeting)
             {
-                GameContext.ActiveUnit.CancelArmedSkill();
-                ResetCursorToActiveUnit();
-                ResetToActionMenu();
-                AssetManager.MapUnitCancelSFX.Play();
+                CancelTargetAndOpenLastActionMenu();
             }
             else
             {
-                MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
-                AssetManager.WarningSFX.Play();
+                if (GameMapView.ActionMenuContext.IsAtRootMenu)
+                {
+                    MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
+                    AssetManager.WarningSFX.Play();
+                }
+                else
+                {
+                    GameMapView.ActionMenuContext.GoToPreviousMenu();
+                    AssetManager.MapUnitCancelSFX.Play();
+                }
             }
+        }
+
+        private void CancelTargetAndOpenLastActionMenu()
+        {
+            GameContext.ActiveUnit.CancelArmedSkill();
+            ResetCursorToActiveUnit();
+            GameMapView.ActionMenuContext.Unhide();
+            RevertToPreviousState();
+            AssetManager.MapUnitCancelSFX.Play();
         }
 
         private void StartMoving()
@@ -522,24 +543,30 @@ namespace SolStandard.Containers.Contexts
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
         {
-            if (hoverMapUnit != null && GameContext.ActiveUnit.Team != Team.Creep)
+            MapContainer.ClearDynamicAndPreviewGrids();
+            if (hoverMapUnit != null && GameContext.ActiveTeam != Team.Creep)
             {
                 if (MapContainer.GetMapElementsFromLayer(Layer.Dynamic).Count != 0 && HoverUnit == hoverMapUnit) return;
 
-                MapContainer.ClearDynamicAndPreviewGrids();
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, hoverMapUnit, hoverMapUnit.Team);
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
                 if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
-                MapContainer.ClearDynamicAndPreviewGrids();
+
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
-            else
+            else if (hoverSlice.TerrainEntity is IActionTile actionTile)
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                    .GenerateTargetingGrid(hoverSlice.MapCoordinates, actionTile.InteractRange, Layer.Preview);
+            }
+            else if (hoverSlice.ItemEntity is IActionTile itemActionTile)
+            {
+                new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
+                    .GenerateTargetingGrid(hoverSlice.MapCoordinates, itemActionTile.InteractRange, Layer.Preview);
             }
         }
 
@@ -579,13 +606,23 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectActionMenuOption()
         {
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.CurrentMenu.CurrentOption.Execute();
-            GameMapView.CloseCombatMenu();
-
-            CurrentTurnState = TurnState.UnitTargeting;
-            SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
             AssetManager.MapUnitSelectSFX.Play();
+            MapContainer.ClearDynamicAndPreviewGrids();
+
+            //FIXME This part of the code shouldn't know so much about the menu?
+            if (GameMapView?.CurrentMenu?.CurrentOption is ActionOption)
+            {
+                GameMapView.CurrentMenu.CurrentOption.Execute();
+                GameMapView.ActionMenuContext.Hide();
+                CurrentTurnState = TurnState.UnitTargeting;
+                SelectedUnit.SetUnitAnimation(UnitAnimationState.Active);
+            }
+            else
+            {
+                GameMapView?.CurrentMenu?.CurrentOption.Execute();
+                GameMapView?.GenerateCurrentMenuDescription();
+                GenerateActionPreviewGrid();
+            }
         }
 
         public void RefreshCurrentActionMenuOption()
@@ -624,7 +661,7 @@ namespace SolStandard.Containers.Contexts
 
             if (triggerTiles.Count <= 0)
             {
-                effectTiles.ForEach(tile => tile.HasTriggered = false);
+                 effectTiles.ForEach(tile => tile.HasTriggered = false);
                 return false;
             }
 
@@ -686,10 +723,10 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void OpenStealMenu(GameUnit targetToStealFrom)
+        public void OpenTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
-            CurrentTurnState = TurnState.StealItem;
-            GameMapView.GenerateStealItemMenu(targetToStealFrom);
+            CurrentTurnState = TurnState.TakeItem;
+            GameMapView.GenerateTakeItemMenu(targetToTakeFrom, freeAction);
             AssetManager.MenuConfirmSFX.Play();
         }
 
@@ -721,7 +758,7 @@ namespace SolStandard.Containers.Contexts
         public void OpenDraftMenu()
         {
             CurrentTurnState = TurnState.AdHocDraft;
-            GameMapView.GenerateDraftMenu(GameContext.ActiveUnit.Team);
+            GameMapView.GenerateDraftMenu(GameContext.ActiveTeam);
             AssetManager.MenuConfirmSFX.Play();
         }
 
@@ -729,15 +766,6 @@ namespace SolStandard.Containers.Contexts
         {
             GameMapView.CloseAdHocDraftMenu();
             MapContainer.ClearDynamicAndPreviewGrids();
-        }
-
-        public void ToggleActionInventoryMenu()
-        {
-            MapContainer.ClearDynamicAndPreviewGrids();
-            GameMapView.ToggleCombatMenu();
-            GameMapView.GenerateCurrentMenuDescription();
-            GenerateActionPreviewGrid();
-            AssetManager.MenuMoveSFX.Play();
         }
 
         private static void GenerateActionPreviewGrid()

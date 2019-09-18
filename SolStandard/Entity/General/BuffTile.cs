@@ -10,68 +10,43 @@ namespace SolStandard.Entity.General
 {
     public class BuffTile : TerrainEntity
     {
-        private readonly bool canMove;
         public BonusStatistics BonusStatistics { get; }
 
 
         public BuffTile(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int atkBonus,
-            int retBonus, int blockBonus, int luckBonus, bool canMove) : base(name, type, sprite, mapCoordinates)
+            int retBonus, int blockBonus, int luckBonus) : base(name, type, sprite, mapCoordinates)
         {
-            this.canMove = canMove;
             BonusStatistics = new BonusStatistics(atkBonus, retBonus, blockBonus, luckBonus);
         }
 
-
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Atk] + ": +" + BonusStatistics.AtkBonus)
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (canMove) ? "Can Move" : "No Move",
-                            (canMove) ? PositiveColor : NegativeColor)
+                        UnitStatistics.GetSpriteAtlas(Stats.Retribution),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Retribution] + ": +" +
+                            BonusStatistics.RetBonus)
                     },
                     {
-                        new Window(
-                            new WindowContentGrid(
-                                new IRenderable[,]
-                                {
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Atk] + ": +" + BonusStatistics.AtkBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Retribution),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Retribution] + ": +" +
-                                            BonusStatistics.RetBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Block),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Block] + ": +" +
-                                            BonusStatistics.BlockBonus)
-                                    },
-                                    {
-                                        UnitStatistics.GetSpriteAtlas(Stats.Luck),
-                                        new RenderText(AssetManager.WindowFont,
-                                            UnitStatistics.Abbreviation[Stats.Luck] + ": +" +
-                                            BonusStatistics.LuckBonus)
-                                    }
-                                },
-                                0
-                            ),
-                            InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.Block),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Block] + ": +" +
+                            BonusStatistics.BlockBonus)
+                    },
+                    {
+                        UnitStatistics.GetSpriteAtlas(Stats.Luck),
+                        new RenderText(AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Luck] + ": +" +
+                            BonusStatistics.LuckBonus)
                     }
                 },
-                3,
+                1,
                 HorizontalAlignment.Centered
             );
     }

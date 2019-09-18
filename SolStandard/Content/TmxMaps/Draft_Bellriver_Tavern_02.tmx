@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="1176">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="1181">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2353,11 +2353,13 @@
   </object>
   <object id="1006" name="Inn Room Door" type="Door" gid="6570" x="128" y="160" width="32" height="32">
    <properties>
+    <property name="HP" type="int" value="20"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1007" name="Inn Room Door" type="Door" gid="6574" x="96" y="160" width="32" height="32">
    <properties>
+    <property name="HP" type="int" value="20"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
@@ -2395,11 +2397,13 @@
   <object id="1034" name="Debris" type="BreakableObstacle" gid="6558" x="608" y="320" width="32" height="32"/>
   <object id="1035" name="Inn Room Door" type="Door" gid="6570" x="288" y="160" width="32" height="32">
    <properties>
+    <property name="HP" type="int" value="20"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1036" name="Inn Room Door" type="Door" gid="6574" x="256" y="160" width="32" height="32">
    <properties>
+    <property name="HP" type="int" value="20"/>
     <property name="isLocked" type="bool" value="true"/>
    </properties>
   </object>
@@ -2438,19 +2442,11 @@
     <property name="isOpen" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1070" name="Chef" type="Vendor" gid="6536" x="832" y="480" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-    <property name="items" value="Mighty Meat|Alert Berries|Lucky Lemon|Swift Cheese"/>
-    <property name="prices" value="15|10|10|15"/>
-    <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
   <object id="1071" name="Bartender" type="Vendor" gid="6877" x="384" y="352" width="32" height="32">
    <properties>
     <property name="interactRange" value="1,2"/>
     <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir|Inn Room Key"/>
-    <property name="prices" value="15|10|10|15|20"/>
+    <property name="prices" value="20|15|15|20|20"/>
     <property name="quantities" value="5|5|5|5|5"/>
    </properties>
   </object>
@@ -2833,8 +2829,18 @@
    </properties>
   </object>
   <object id="1175" name="Stool" type="Decoration" gid="4814" x="480" y="416" width="32" height="32"/>
+  <object id="1176" name="ATM" type="Bank" gid="6545" x="672" y="448" width="32" height="32"/>
+  <object id="1178" name="ATM" type="Bank" gid="6545" x="352" y="352" width="32" height="32"/>
+  <object id="1179" name="Grocer" type="Vendor" gid="6536" x="832" y="480" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
+    <property name="prices" value="20|15|15|20"/>
+    <property name="quantities" value="5|5|5|5"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
+ <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="1023" name="Boots of Agility" type="BuffItem" gid="6781" x="736" y="64" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="99"/>
@@ -2883,7 +2889,7 @@
     <property name="usedWith" value="Inn Room Door"/>
    </properties>
   </object>
-  <object id="1154" name="Lucky Lemon" type="BuffItem" gid="6787" x="960" y="448" width="32" height="32">
+  <object id="1180" name="Sour Apple" type="BuffItem" gid="6785" x="960" y="448" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
@@ -3029,7 +3035,7 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1068" name="Emerald" type="Currency" gid="6793" x="256" y="320" width="32" height="32">
+  <object id="1068" name="Emerald" type="Currency" gid="6793" x="320" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -3064,7 +3070,7 @@
     <property name="value" type="int" value="15"/>
    </properties>
   </object>
-  <object id="1163" name="Sapphire" type="Currency" gid="6794" x="352" y="352" width="32" height="32">
+  <object id="1163" name="Sapphire" type="Currency" gid="6794" x="256" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>

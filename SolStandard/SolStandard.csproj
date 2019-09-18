@@ -180,7 +180,6 @@
     <Compile Include="Entity\Unit\Actions\Duelist\Fleche.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\WeightedWoe.cs" />
     <Compile Include="Entity\Unit\Actions\Guard.cs" />
     <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
     <Compile Include="Entity\Unit\Actions\ICommandAction.cs" />
@@ -191,6 +190,7 @@
     <Compile Include="Entity\Unit\Actions\Item\DropGiveItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\MagneticPullAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\ReturnToRecallPointAction.cs" />
+    <Compile Include="Entity\Unit\Actions\Item\TakeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\Item\TradeItemAction.cs" />
     <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
     <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
@@ -276,18 +276,20 @@
     <Compile Include="Entity\Unit\Statuses\Bard\SoloStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Bard\TempestStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\BlkStatUp.cs" />
+    <Compile Include="Entity\Unit\Statuses\Champion\FortifiedStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\Creep\IndependentStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\Creep\NextRoutineStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToHealthStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Duelist\FocusStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\FortifiedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\HealthRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />
+    <Compile Include="Entity\Unit\Statuses\Lancer\ExecutionerStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
     <Compile Include="Entity\Unit\Statuses\Mage\AlchemicalArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Marauder\EnragedStatus.cs" />
@@ -306,7 +308,10 @@
     <Compile Include="Entity\Unit\UnitStatistics.cs" />
     <Compile Include="GameDriver.cs" />
     <Compile Include="HUD\Menu\IMenu.cs" />
+    <Compile Include="HUD\Menu\IOptionDescription.cs" />
+    <Compile Include="HUD\Menu\MenuContext.cs" />
     <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
+    <Compile Include="HUD\Menu\Options\ActionMenu\ItemActionOption.cs" />
     <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
     <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
@@ -335,16 +340,17 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
-    <Compile Include="HUD\Menu\Options\StealMenu\StealItemOption.cs" />
+    <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
+    <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
     <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
     <Compile Include="HUD\Menu\VerticalMenu.cs" />
     <Compile Include="HUD\Menu\Options\MenuOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
-    <Compile Include="HUD\Window\Animation\IWindowAnimation.cs" />
-    <Compile Include="HUD\Window\Animation\WindowSlide.cs" />
-    <Compile Include="HUD\Window\Animation\WindowStatic.cs" />
+    <Compile Include="HUD\Window\Animation\IRenderableAnimation.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableSlide.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableStatic.cs" />
     <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />
     <Compile Include="HUD\Window\Content\Combat\BlockPoint.cs" />
     <Compile Include="HUD\Window\Content\Combat\CombatDamage.cs" />
@@ -362,7 +368,7 @@
     <Compile Include="HUD\Window\Content\RenderBlank.cs" />
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
-    <Compile Include="HUD\Window\AnimatedWindow.cs" />
+    <Compile Include="HUD\Window\AnimatedRenderable.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
@@ -386,6 +392,7 @@
     <Compile Include="Utility\Assets\InputIconProvider.cs" />
     <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
     <Compile Include="Utility\Assets\AnimatedIconProvider.cs" />
+    <Compile Include="Utility\Assets\MiscIconProvider.cs" />
     <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
     <Compile Include="Utility\Assets\SkillIconProvider.cs" />
     <Compile Include="Utility\Assets\AnimatedSpriteProvider.cs" />
@@ -427,10 +434,10 @@
     <Compile Include="Utility\Events\BankDepositEvent.cs" />
     <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
     <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
-    <Compile Include="Utility\Events\DecreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\DecreaseTeamGoldEvent.cs" />
     <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
     <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
-    <Compile Include="Utility\Events\Network\CancelActionEvent.cs" />
+    <Compile Include="Utility\Events\Network\CancelActionTargetingEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
     <Compile Include="Utility\Events\Network\ChangePlayerTeamsEvent.cs" />
@@ -461,7 +468,6 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ToggleCombatMenuEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
@@ -488,7 +494,7 @@
     <Compile Include="Utility\Events\HideUnitEvent.cs" />
     <Compile Include="Utility\Events\IEvent.cs" />
     <Compile Include="Utility\Events\GlobalEventQueue.cs" />
-    <Compile Include="Utility\Events\IncreaseUnitGoldEvent.cs" />
+    <Compile Include="Utility\Events\IncreaseTeamGoldEvent.cs" />
     <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
     <Compile Include="Utility\Events\PickUpItemEvent.cs" />
     <Compile Include="Utility\Events\PlaceEntityOnMapEvent.cs" />
@@ -642,9 +648,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\TmxMaps\Chesslike_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -654,22 +657,7 @@
     <Content Include="Content\TmxMaps\Debug_03_AI.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Draft_01_Arena.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_02_Dungeon.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_02.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Grassland_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Tower_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Arena_Tower_02.tmx">
@@ -684,12 +672,6 @@
     <Content Include="Content\TmxMaps\Draft_Collosseum_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Draft_Crossroads.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Dimpimple_Beach.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Draft_Dusk_Temple.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -699,13 +681,13 @@
     <Content Include="Content\TmxMaps\Draft_Factory_Floor.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Draft_Fortress_01.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Grassland_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Grassland_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Hiatok_Fortress.tmx">
@@ -729,15 +711,6 @@
     <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Draft_Snow_Zone.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Tavern_Inn.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Town_Market.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\TmxMaps\Draft_Verdant_Forest.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -747,9 +720,6 @@
     <Content Include="Content\TmxMaps\entities-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TmxMaps\Map_Select_03.tmx" />
-    <Content Include="Content\TmxMaps\Map_Select_04.tmx" />
-    <Content Include="Content\TmxMaps\Map_Select_05.tmx" />
     <Content Include="Content\TmxMaps\Map_Select_06.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

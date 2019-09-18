@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit
 {
@@ -48,7 +49,8 @@ namespace SolStandard.Entity.Unit
                 isCommander = value;
 
                 const int crownSize = 8;
-                commanderCrown = isCommander ? GameUnit.GetCommanderCrown(new Vector2(crownSize)) : null;
+                commanderCrown =
+                    isCommander ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownSize)) : null;
             }
         }
 

@@ -38,6 +38,7 @@ namespace SolStandard.Utility.Assets
         public static List<ITexture2D> MapPreviewTextures { get; private set; }
         private static List<ITexture2D> GuiTextures { get; set; }
 
+        private static List<ITexture2D> MiscIcons { get; set; }
         private static List<ITexture2D> ButtonIcons { get; set; }
         private static List<ITexture2D> KeyboardIcons { get; set; }
         private static List<ITexture2D> SkillIcons { get; set; }
@@ -68,10 +69,7 @@ namespace SolStandard.Utility.Assets
         public static ITexture2D WhiteGrid { get; private set; }
         public static ITexture2D DiceTexture { get; private set; }
         public static ITexture2D StatIcons { get; private set; }
-        public static ITexture2D GoldIcon { get; private set; }
-        public static ITexture2D SpoilsIcon { get; private set; }
         public static ITexture2D ObjectiveIcons { get; private set; }
-        public static ITexture2D CommanderIcon { get; private set; }
         public static ITexture2D TeamIcons { get; private set; }
 
         public static List<ITexture2D> UnitSprites { get; private set; }
@@ -143,10 +141,9 @@ namespace SolStandard.Utility.Assets
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
 
             DiceTexture = ContentLoader.LoadDiceAtlas(content);
-            
-            GoldIcon = ContentLoader.LoadGoldIcon(content);
-            SpoilsIcon = ContentLoader.LoadSpoilsIcon(content);
-            CommanderIcon = ContentLoader.LoadCommanderIcon(content);
+
+            MiscIcons = ContentLoader.LoadMiscIcons(content);
+            MiscIconProvider.LoadMiscIcons(MiscIcons);
 
             ButtonIcons = ContentLoader.LoadButtonIcons(content);
             ButtonIconProvider.LoadButtons(ButtonIcons);

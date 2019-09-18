@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1024">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1026">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2032,7 +2032,7 @@
    <properties>
     <property name="interactRange" value="1,2"/>
     <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
-    <property name="prices" value="15|10|10|15"/>
+    <property name="prices" value="20|15|15|20"/>
     <property name="quantities" value="5|5|5|5"/>
    </properties>
   </object>
@@ -2040,20 +2040,27 @@
    <properties>
     <property name="interactRange" value="1,2"/>
     <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
-    <property name="prices" value="15|10|10|15"/>
+    <property name="prices" value="20|15|15|20"/>
     <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
-  <object id="1018" name="Blacksmith" type="Vendor" gid="6893" x="160" y="384" width="32" height="32">
-   <properties>
-    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
-    <property name="prices" value="10|10|10|20|15"/>
-    <property name="quantities" value="2|2|2|2|2"/>
    </properties>
   </object>
   <object id="1019" name="Banker" type="Bank" gid="6885" x="224" y="576" width="32" height="32">
    <properties>
     <property name="interactRange" value="1,2"/>
+   </properties>
+  </object>
+  <object id="1024" name="Blacksmith" type="Vendor" gid="6893" x="160" y="384" width="32" height="32">
+   <properties>
+    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
+    <property name="prices" value="20|15|20|50|30"/>
+    <property name="quantities" value="2|2|2|2|2"/>
+   </properties>
+  </object>
+  <object id="1025" name="Vending Machine" type="Vendor" gid="6544" x="256" y="544" width="32" height="32">
+   <properties>
+    <property name="items" value="Healthy Potion"/>
+    <property name="prices" value="25"/>
+    <property name="quantities" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -2070,7 +2077,7 @@
   </object>
   <object id="988" name="Axe" type="Weapon" gid="6814" x="64" y="352" width="32" height="32">
    <properties>
-    <property name="atkValue" type="int" value="6"/>
+    <property name="atkValue" type="int" value="7"/>
     <property name="itemPool" value="Melee"/>
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
@@ -2080,7 +2087,6 @@
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
   <object id="990" name="Dagger" type="Weapon" gid="6782" x="32" y="384" width="32" height="32">
@@ -2095,7 +2101,6 @@
     <property name="atkRange" value="2,3"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
   <object id="992" name="Magnet" type="Magnet" gid="6835" x="32" y="256" width="32" height="32">
@@ -2105,7 +2110,7 @@
   </object>
   <object id="993" name="Sword" type="Weapon" gid="6832" x="32" y="352" width="32" height="32">
    <properties>
-    <property name="atkValue" type="int" value="6"/>
+    <property name="atkValue" type="int" value="5"/>
     <property name="itemPool" value="Melee"/>
     <property name="luckModifier" type="int" value="1"/>
    </properties>
@@ -2119,7 +2124,7 @@
   <object id="995" name="Flintlock" type="Weapon" gid="6837" x="64" y="448" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3,4"/>
-    <property name="atkValue" type="int" value="5"/>
+    <property name="atkValue" type="int" value="4"/>
     <property name="itemPool" value="Ranged"/>
     <property name="luckModifier" type="int" value="-5"/>
    </properties>
@@ -2127,14 +2132,9 @@
   <object id="996" name="Fire Wand" type="Weapon" gid="6834" x="64" y="480" width="32" height="32">
    <properties>
     <property name="atkRange" value="1,2"/>
-    <property name="atkValue" type="int" value="6"/>
+    <property name="atkValue" type="int" value="7"/>
     <property name="itemPool" value="Ranged"/>
-   </properties>
-  </object>
-  <object id="997" name="Club" type="Weapon" gid="6815" x="96" y="384" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="luckModifier" type="int" value="1"/>
+    <property name="luckModifier" type="int" value="-5"/>
    </properties>
   </object>
   <object id="998" name="Blink Bone" type="Blink" gid="6432" x="96" y="288" width="32" height="32">

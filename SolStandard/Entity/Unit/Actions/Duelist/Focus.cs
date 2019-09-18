@@ -17,7 +17,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Focus, GameDriver.CellSizeVector),
             name: "Focus",
             description: "End your action now and store it for later. Can store up to " + maxActions +
-                         " actions at a time.",
+                         " action(s) at a time.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},
             freeAction: false
@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                         AssetManager.SkillBuffSFX.Play();
                         AssetManager.MenuConfirmSFX.Play();
                         GlobalEventQueue.QueueSingleEvent(
-                            new CastStatusEffectEvent(targetUnit, new FocusStatus(currentFocus.FocusPoints + 1))
+                            new CastStatusEffectEvent(targetUnit, new FocusStatus(currentFocus.FocusPoints + 1, false))
                         );
                         GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                     }
@@ -52,7 +52,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 }
                 else
                 {
-                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new FocusStatus(1)));
+                    GlobalEventQueue.QueueSingleEvent(new CastStatusEffectEvent(targetUnit, new FocusStatus(1, false)));
                     GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                 }
             }

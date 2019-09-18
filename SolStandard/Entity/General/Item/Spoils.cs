@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -22,7 +21,7 @@ namespace SolStandard.Entity.General.Item
         {
             Gold = gold;
             Items = items;
-            InteractRange = new[] {0, 1};
+            InteractRange = new[] {0};
         }
 
         public List<UnitAction> TileActions()
@@ -33,42 +32,16 @@ namespace SolStandard.Entity.General.Item
             };
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont, "Gold: " + Gold + Currency.CurrencyAbbreviation)
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        new Window(new[,]
-                            {
-                                {
-                                    new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Gold: " + Gold + Currency.CurrencyAbbreviation)
-                                },
-                                {
-                                    ItemDetails,
-                                    new RenderBlank()
-                                }
-                            },
-                            InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        ItemDetails,
+                        RenderBlank.Blank
                     }
                 },
                 1,
@@ -79,7 +52,7 @@ namespace SolStandard.Entity.General.Item
         {
             get
             {
-                if (Items.Count <= 0) return new RenderBlank();
+                if (Items.Count <= 0) return RenderBlank.Blank;
 
                 IRenderable[,] content = new IRenderable[Items.Count, 2];
 

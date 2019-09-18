@@ -131,7 +131,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                switch (GameContext.ActiveUnit.Team)
+                switch (GameContext.ActiveTeam)
                 {
                     case Team.Red:
                         return escapeEntity.UseableByRed;

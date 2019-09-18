@@ -54,8 +54,6 @@ namespace SolStandard.Map.Elements.Cursor
         private bool Equals(MapSlice other)
         {
             return Equals(UnitEntity, other.UnitEntity) &&
-                   Equals(PreviewEntity, other.PreviewEntity) &&
-                   Equals(DynamicEntity, other.DynamicEntity) &&
                    Equals(TerrainEntity, other.TerrainEntity) &&
                    Equals(ItemEntity, other.ItemEntity) &&
                    Equals(CollideTile, other.CollideTile) &&
@@ -69,8 +67,6 @@ namespace SolStandard.Map.Elements.Cursor
             unchecked
             {
                 int hashCode = (UnitEntity != null ? UnitEntity.GetHashCode() : 0);
-                hashCode += (hashCode * 397) ^ (PreviewEntity != null ? PreviewEntity.GetHashCode() : 0);
-                hashCode += (hashCode * 397) ^ (DynamicEntity != null ? DynamicEntity.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (TerrainEntity != null ? TerrainEntity.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (ItemEntity != null ? ItemEntity.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (CollideTile != null ? CollideTile.GetHashCode() : 0);

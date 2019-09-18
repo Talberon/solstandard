@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -6,7 +7,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Statuses;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -56,8 +56,8 @@ namespace SolStandard.Entity.General
 
             if (trapUnit == null) return false;
 
-            string trapMessage = "Trap activated!" + Environment.NewLine + trapUnit.Id + " takes [" + Damage +
-                                 "] damage!";
+            string trapMessage = "Trap activated!" + Environment.NewLine +
+                                 $"{trapUnit.Id} takes [{Damage}] damage!";
 
             if (willSnare)
             {
@@ -75,7 +75,6 @@ namespace SolStandard.Entity.General
             {
                 trapUnit.DamageUnit();
             }
-
 
             TriggersRemaining--;
 
@@ -103,12 +102,9 @@ namespace SolStandard.Entity.General
 
         public bool WillTrigger(EffectTriggerTime triggerTime)
         {
-            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered) return false;
+            if (triggerTime != EffectTriggerTime.StartOfRound || HasTriggered || !enabled) return false;
 
-            MapSlice trapSlice = MapContainer.GetMapSliceAtCoordinates(MapCoordinates);
-            GameUnit trapUnit = UnitSelector.SelectUnit(trapSlice.UnitEntity);
-
-            return trapUnit != null && enabled;
+            return GameContext.Units.Any(unit => unit?.UnitEntity?.MapCoordinates == MapCoordinates);
         }
 
         public void RemoteTrigger()
@@ -143,49 +139,32 @@ namespace SolStandard.Entity.General
             ElementColor = (enabled) ? Color.White : InactiveColor;
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk),
+                        new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont,
+                            (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
                     },
                     {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Atk),
-                                new RenderText(AssetManager.WindowFont, "Damage: " + Damage)
-                            },
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                new RenderText(AssetManager.WindowFont,
-                                    (limitedTriggers) ? "Triggers Left: " + TriggersRemaining : "Permanent")
-                            },
-                            {
-                                willSnare
-                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
-                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
-                                new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
-                            },
-                            {
-                                willSlow
-                                    ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
-                                    : UnitStatistics.GetSpriteAtlas(Stats.Negative),
-                                new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
-                            }
-                        }, InnerWindowColor),
-                        new RenderBlank()
+                        willSnare
+                            ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                            : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                        new RenderText(AssetManager.WindowFont, (willSnare) ? "Snares Target" : "No Snare")
+                    },
+                    {
+                        willSlow
+                            ? UnitStatistics.GetSpriteAtlas(Stats.Positive)
+                            : UnitStatistics.GetSpriteAtlas(Stats.Negative),
+                        new RenderText(AssetManager.WindowFont, (willSlow) ? "Slows Target" : "No Slow")
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
 
         public UnitAction UseAction()
@@ -195,7 +174,7 @@ namespace SolStandard.Entity.General
 
         public UnitAction DropAction()
         {
-            return new TradeItemAction(this);
+            return new DropGiveItemAction(this);
         }
 
         public IItem Duplicate()

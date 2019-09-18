@@ -28,8 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     {
                         item.UseAction().Description
                     }
-                },
-                1
+                }
             ),
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0, 1},
@@ -56,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             if (TargetIsVendor(targetSlice))
             {
-                if (ActiveUnitCanAffordItem())
+                if (ActiveTeamCanAffordItem())
                 {
                     vendor.RemoveBuyActionForItem(Item);
 
@@ -64,9 +63,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );
-                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Price));
+                    eventQueue.Enqueue(new DecreaseTeamGoldEvent(Price));
                     eventQueue.Enqueue(new WaitFramesEvent(25));
-                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item));
+                    eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, Item.Duplicate()));
                     eventQueue.Enqueue(new WaitFramesEvent(50));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
@@ -88,9 +87,9 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public int Price { get; }
 
-        private bool ActiveUnitCanAffordItem()
+        private bool ActiveTeamCanAffordItem()
         {
-            return GameContext.ActiveUnit.CurrentGold >= Price;
+            return GameContext.InitiativeContext.GetGoldForTeam(GameContext.ActiveTeam) >= Price;
         }
 
         private bool TargetIsVendor(MapSlice targetSlice)

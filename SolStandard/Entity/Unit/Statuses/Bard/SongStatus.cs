@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
             SelfBonus = selfBonus;
             this.auraRange = auraRange;
             SongSprite = AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.SongHymn, GameDriver.CellSizeVector,
-                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveUnit.Team));
+                SongAnimationFrameDelay, GetSongColor(GameContext.ActiveTeam));
         }
 
         protected static Color GetSongColor(Team team)
@@ -68,8 +68,6 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         protected static bool UnitIsAffectedBySong(GameUnit unitAffected, SongStatus song)
         {
-            //TODO Differentiate between ally and enemies so bonuses aren't applied to enemies unless the skill specifically wants to
-
             GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(song));
 
             if (singer == null || unitAffected == null || !singer.IsAlive || !unitAffected.IsAlive) return false;

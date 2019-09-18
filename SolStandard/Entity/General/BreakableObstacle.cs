@@ -51,6 +51,9 @@ namespace SolStandard.Entity.General
             CanMove = true;
             Visible = false;
 
+            //Remove self from the map
+            MapContainer.GameGrid[(int) Layer.Entities][(int) MapCoordinates.X, (int) MapCoordinates.Y] = null;
+
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("Destroyed!", MapCoordinates, 50);
         }
 
@@ -90,7 +93,7 @@ namespace SolStandard.Entity.General
                 = new Spoils(
                     Name + " Spoils",
                     "Spoils",
-                    new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
+                    MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),
                     MapCoordinates,
                     gold,
                     new List<IItem>(items)
@@ -100,30 +103,20 @@ namespace SolStandard.Entity.General
             items.Clear();
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
                 new[,]
                 {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
                     {
                         UnitStatistics.GetSpriteAtlas(Stats.Hp),
                         new RenderText(AssetManager.WindowFont, "HP: " + HP)
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
                         new RenderText(AssetManager.WindowFont, (IsBroken) ? "Broken" : "Not Broken",
                             (IsBroken) ? NegativeColor : PositiveColor),
-                        new RenderBlank()
+                        RenderBlank.Blank
                     }
-                },
-                3
+                }
             );
     }
 }

@@ -54,8 +54,8 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         new RenderText(AssetManager.WindowFont, "Withdraw"),
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
-                        new RenderBlank(),
-                        new RenderBlank()
+                        RenderBlank.Blank,
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to withdraw with "),
@@ -71,11 +71,11 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public void Increment(int amountToIncrement)
         {
-            int bankCurrentGold = Bank.GetTeamGoldInBank(GameContext.ActiveUnit.Team);
+            int maxGold = Bank.GetTeamGoldInBank(GameContext.ActiveTeam);
 
-            if (Value + amountToIncrement > bankCurrentGold)
+            if (Value + amountToIncrement > maxGold)
             {
-                Value = bankCurrentGold;
+                Value = maxGold;
             }
             else
             {

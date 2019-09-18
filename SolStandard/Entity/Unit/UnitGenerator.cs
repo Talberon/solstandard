@@ -22,6 +22,7 @@ namespace SolStandard.Entity.Unit
 {
     public static class UnitGenerator
     {
+        private const int InitialUnitBounty = 10;
         private const int StartingGoldVariance = 5;
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
@@ -49,7 +50,7 @@ namespace SolStandard.Entity.Unit
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
                 PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
-                AssignStartingGold(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
+                AssignStartingBounty(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
             }
             else
             {
@@ -59,9 +60,9 @@ namespace SolStandard.Entity.Unit
             return generatedUnit;
         }
 
-        private static void AssignStartingGold(GameUnit generatedUnit, int amount, int variance)
+        private static void AssignStartingBounty(GameUnit generatedUnit, int amount, int variance)
         {
-            generatedUnit.CurrentGold += amount + GameDriver.Random.Next(variance);
+            generatedUnit.CurrentBounty += amount + GameDriver.Random.Next(variance);
         }
 
         private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)
@@ -170,7 +171,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectTrollStats()
         {
-            return new UnitStatistics(hp: 13, armor: 6, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
+            return new UnitStatistics(hp: 13, armor: 7, atk: 6, ret: 4, blk: 0, luck: 2, mv: 4, atkRange: new[] {1},
                 maxCmd: 1);
         }
 
@@ -182,7 +183,7 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics SelectNecromancerStats()
         {
-            return new UnitStatistics(hp: 15, armor: 5, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
+            return new UnitStatistics(hp: 10, armor: 10, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
                 maxCmd: 1);
         }
 
@@ -338,7 +339,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
-            const int maxFocusPoints = 2;
+            const int maxFocusPoints = 1;
             List<UnitAction> skills = new List<UnitAction>
             {
                 new BasicAttack(),
@@ -418,6 +419,7 @@ namespace SolStandard.Entity.Unit
             {
                 new BasicAttack(),
                 new Bloodthirst(2),
+                new PhaseStrike(),
                 new Inspire(2, 1),
                 new Gallop(3),
                 new Sprint(3),
@@ -492,7 +494,7 @@ namespace SolStandard.Entity.Unit
                 AssetManager.UnitSprites, Vector2.Zero, entityProperties);
 
             CreepUnit creep = GenerateCreep(role, Team.Creep, unitName, false, generatedEntity);
-            AssignStartingGold(creep, generatedEntity.StartingGold, StartingGoldVariance);
+            AssignStartingBounty(creep, generatedEntity.StartingGold, StartingGoldVariance);
             return creep;
         }
 
@@ -530,7 +532,10 @@ namespace SolStandard.Entity.Unit
             UnitStatistics unitStatistics = GetUnitStatistics(role);
             List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
-            return new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+            GameUnit generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+            AssignStartingBounty(generatedUnit, InitialUnitBounty, 0);
+            
+            return generatedUnit;
         }
 
         private static UnitStatistics GetUnitStatistics(Role unitType)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1166">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="1174">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -4503,7 +4503,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
+ <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="1102" name="Ladder" type="LadderBridge" gid="6670" x="64" y="128" width="32" height="32">
    <properties>
     <property name="itemPool" value="Tools"/>
@@ -4514,73 +4514,9 @@
     <property name="itemPool" value="Tools"/>
    </properties>
   </object>
-  <object id="1117" name="Axe" type="Weapon" gid="6814" x="32" y="224" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="-2"/>
-   </properties>
-  </object>
-  <object id="1118" name="Bow" type="Weapon" gid="6833" x="0" y="352" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2"/>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-1"/>
-   </properties>
-  </object>
-  <object id="1119" name="Dagger" type="Weapon" gid="6782" x="0" y="256" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="3"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="1120" name="Boomerang" type="Weapon" gid="6817" x="0" y="320" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3"/>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-2"/>
-   </properties>
-  </object>
   <object id="1121" name="Magnet" type="Magnet" gid="6835" x="0" y="128" width="32" height="32">
    <properties>
     <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="1122" name="Fighter's Sword" type="Weapon" gid="6832" x="0" y="224" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="1123" name="Spear" type="Weapon" gid="6830" x="32" y="256" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="itemPool" value="Melee"/>
-   </properties>
-  </object>
-  <object id="1124" name="Flintlock" type="Weapon" gid="6837" x="32" y="320" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3,4"/>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-5"/>
-   </properties>
-  </object>
-  <object id="1125" name="Fire Wand" type="Weapon" gid="6834" x="32" y="352" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="1,2"/>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="itemPool" value="Ranged"/>
-   </properties>
-  </object>
-  <object id="1126" name="Club" type="Weapon" gid="6815" x="64" y="256" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="luckModifier" type="int" value="1"/>
    </properties>
   </object>
   <object id="1127" name="Blink Bone" type="Blink" gid="6432" x="64" y="160" width="32" height="32">
@@ -4607,8 +4543,65 @@
     <property name="recallId" value="Recall Point"/>
    </properties>
   </object>
+  <object id="1166" name="Axe" type="Weapon" gid="6814" x="32" y="224" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="-2"/>
+   </properties>
+  </object>
+  <object id="1167" name="Bow" type="Weapon" gid="6833" x="0" y="352" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2"/>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="1168" name="Dagger" type="Weapon" gid="6782" x="0" y="256" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="3"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="1169" name="Boomerang" type="Weapon" gid="6817" x="0" y="320" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="1170" name="Sword" type="Weapon" gid="6832" x="0" y="224" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="1171" name="Spear" type="Weapon" gid="6830" x="32" y="256" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="6"/>
+    <property name="itemPool" value="Melee"/>
+   </properties>
+  </object>
+  <object id="1172" name="Flintlock" type="Weapon" gid="6837" x="32" y="320" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3,4"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="Ranged"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
+  <object id="1173" name="Fire Wand" type="Weapon" gid="6834" x="32" y="352" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="1,2"/>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="Ranged"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
+ <objectgroup id="11" name="Summons" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="27" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>

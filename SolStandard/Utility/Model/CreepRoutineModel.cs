@@ -52,7 +52,6 @@ namespace SolStandard.Utility.Model
         public Role CreepClass { get; }
         public string CreepPool { get; }
         private readonly bool isCommander;
-        private readonly bool isIndependent;
         private readonly string items;
         private readonly Team team;
         private readonly Routine fallbackRoutine;
@@ -69,6 +68,7 @@ namespace SolStandard.Utility.Model
         private readonly bool routineKingslayer;
         private readonly bool routineWait;
         public int StartingGold { get; }
+        public bool IsIndependent { get; }
 
         private CreepRoutineModel(Role creepClass, bool isCommander, bool isIndependent, string items, Team team,
             string creepPool, int startingGold, Routine fallbackRoutine, bool routineBasicAttack,
@@ -79,7 +79,7 @@ namespace SolStandard.Utility.Model
             CreepClass = creepClass;
             CreepPool = creepPool;
             this.isCommander = isCommander;
-            this.isIndependent = isIndependent;
+            IsIndependent = isIndependent;
             this.items = items;
             this.team = team;
             StartingGold = startingGold;
@@ -145,7 +145,7 @@ namespace SolStandard.Utility.Model
                     return new WanderRoutine();
                 case Routine.Summon:
                     CreepEntity creepToSummon = FindSummonByName(summonName);
-                    return new SummoningRoutine(creepToSummon.Routines);
+                    return new SummoningRoutine(creepToSummon.Model);
                 case Routine.TreasureHunter:
                     return new TreasureHunterRoutine();
                 case Routine.TriggerHappy:
@@ -231,7 +231,7 @@ namespace SolStandard.Utility.Model
             {
                 {ClassProp, CreepClass.ToString()},
                 {CommanderProp, isCommander.ToString()},
-                {IndependentProp, isIndependent.ToString()},
+                {IndependentProp, IsIndependent.ToString()},
                 {ItemsProp, items},
                 {TeamProp, team.ToString()},
                 {CreepPoolProp, CreepPool},

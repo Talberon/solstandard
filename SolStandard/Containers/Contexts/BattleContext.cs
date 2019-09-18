@@ -6,7 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
+using SolStandard.Entity.General.Item;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
@@ -32,6 +34,8 @@ namespace SolStandard.Containers.Contexts
             ResolveCombat
         }
 
+        private const int BountyPerTriumph = 10;
+
         private readonly BattleView battleView;
 
         private CombatDamage attackerDamage;
@@ -47,6 +51,8 @@ namespace SolStandard.Containers.Contexts
 
         private GameUnit attacker;
         private GameUnit defender;
+        private Vector2 attackerCoordinates;
+        private Vector2 defenderCoordinates;
         private UnitStatistics attackerStats;
         private UnitStatistics defenderStats;
 
@@ -94,10 +100,8 @@ namespace SolStandard.Containers.Contexts
             defender.SetUnitAnimation(UnitAnimationState.Active);
 
             //Treat the unit as off-screen if null
-            Vector2 attackerCoordinates =
-                attacker.UnitEntity?.MapCoordinates ?? new Vector2(-1);
-            Vector2 defenderCoordinates =
-                defender.UnitEntity?.MapCoordinates ?? new Vector2(-1);
+            attackerCoordinates = attacker.UnitEntity?.MapCoordinates ?? new Vector2(-1);
+            defenderCoordinates = defender.UnitEntity?.MapCoordinates ?? new Vector2(-1);
 
             attackerInRange = true;
             defenderInRange =
@@ -177,6 +181,15 @@ namespace SolStandard.Containers.Contexts
                             GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                         }
 
+                        if (!attacker.IsAlive)
+                        {
+                            TakeAttackerSpoilsAndIncreaseBounty();
+                        }
+                        else if (!defender.IsAlive)
+                        {
+                            TakeDefenderSpoilsAndIncreaseBounty();
+                        }
+
                         GameContext.MapCamera.RevertToPreviousZoomLevel();
                     }
 
@@ -186,15 +199,67 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private void TakeDefenderSpoilsAndIncreaseBounty()
+        {
+            MapSlice defenderSlice = MapContainer.GetMapSliceAtCoordinates(defenderCoordinates);
+            if (!(defenderSlice.ItemEntity is Spoils defenderSpoils)) return;
+
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
+
+            string toastMessage = string.Empty;
+            toastMessage += $"Obtained {defenderSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+
+            foreach (IItem item in defenderSpoils.Items)
+            {
+                toastMessage += Environment.NewLine;
+                toastMessage += $"Obtained {item.Name}!";
+            }
+
+            attacker.CurrentBounty += BountyPerTriumph;
+            toastMessage += Environment.NewLine + Environment.NewLine +
+                            $"{attacker.Id} bounty increased by {BountyPerTriumph}!";
+
+            GlobalEventQueue.QueueSingleEvent(
+                new ToastAtCoordinatesEvent(attackerCoordinates, toastMessage, AssetManager.CoinSFX, 80)
+            );
+
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+        }
+
+        private void TakeAttackerSpoilsAndIncreaseBounty()
+        {
+            MapSlice attackerSlice = MapContainer.GetMapSliceAtCoordinates(attackerCoordinates);
+            if (!(attackerSlice.ItemEntity is Spoils attackerSpoils)) return;
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
+
+            string toastMessage = string.Empty;
+            toastMessage += $"Obtained {attackerSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+
+            foreach (IItem item in attackerSpoils.Items)
+            {
+                toastMessage += Environment.NewLine;
+                toastMessage += $"Obtained {item.Name}!";
+            }
+
+            defender.CurrentBounty += BountyPerTriumph;
+            toastMessage += Environment.NewLine + Environment.NewLine +
+                            $"{defender.Id} bounty increased by {BountyPerTriumph}!";
+
+            GlobalEventQueue.QueueSingleEvent(
+                new ToastAtCoordinatesEvent(defenderCoordinates, toastMessage, AssetManager.CoinSFX, 80)
+            );
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+        }
+
         private void SetPromptWindowText(string promptText)
         {
             IRenderable[,] promptTextContent =
             {
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(AssetManager.PromptFont, "["),
@@ -223,11 +288,11 @@ namespace SolStandard.Containers.Contexts
             {
                 {
                     new RenderText(AssetManager.WindowFont, helpText, Color.White),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(AssetManager.WindowFont, "Dice Legend: ", Color.White),

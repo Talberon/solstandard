@@ -1,119 +1,104 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity;
+using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.ActionMenu;
-using SolStandard.Map;
-using SolStandard.Map.Elements;
-using SolStandard.Map.Elements.Cursor;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
-using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Containers.Contexts
 {
     public static class UnitContextualActionMenuContext
     {
-        private static readonly int[] InteractionRangeLimit = {0, 1, 2};
-        private static List<UnitAction> _contextualActions;
-
-        public static MenuOption[] GenerateActionMenuOptions(Color windowColour)
+        public static List<ActionOption> ActiveUnitContextOptions(Color windowColor)
         {
-            _contextualActions = FetchContextualActionsInRange();
-            foreach (UnitAction activeUnitSkill in GameContext.ActiveUnit.Actions)
-            {
-                _contextualActions.Add(activeUnitSkill);
-            }
+            return FetchContextualActionsInRange()
+                .Select(contextAction => new ActionOption(windowColor, contextAction))
+                .ToList();
+        }
 
-            MenuOption[] options = new MenuOption[_contextualActions.Count];
-            for (int i = 0; i < _contextualActions.Count; i++)
+        public static List<ActionOption> ActiveUnitSkillOptions(Color windowColor)
+        {
+            List<ActionOption> options = new List<ActionOption>();
+            foreach (UnitAction skillAction in GameContext.ActiveUnit.Actions)
             {
-                options[i] = new ActionOption(windowColour, _contextualActions[i]);
+                options.Add(new ActionOption(windowColor, skillAction));
             }
 
             return options;
         }
 
-        public static IRenderable GetActionDescriptionAtIndex(IMenu actionMenu)
+        public static IRenderable GetActionDescriptionForCurrentMenuOption(IMenu actionMenu)
         {
-            if (actionMenu.CurrentOption is ActionOption action)
+            if (actionMenu.CurrentOption is IOptionDescription descriptiveOption)
             {
-                return action.Action.Description;
+                return descriptiveOption.Description;
             }
 
-            throw new SkillDescriptionNotFoundException();
+            return RenderBlank.Blank;
         }
 
-        public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColour)
+        public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColor)
         {
             const int columns = 2;
-            MenuOption[,] options = new MenuOption[GameContext.ActiveUnit.Inventory.Count + 1, columns];
+            List<IItem> activeUnitInventory = GameContext.ActiveUnit.Inventory;
+            MenuOption[,] options = new MenuOption[activeUnitInventory.Count, columns];
 
-            options[0, 0] = new ActionOption(windowColour, new DropGiveGoldAction());
-            options[0, 1] = new ActionOption(windowColour, new Wait());
-
-            for (int i = 0; i < GameContext.ActiveUnit.Inventory.Count; i++)
+            for (int i = 0; i < activeUnitInventory.Count; i++)
             {
-                options[i + 1, 0] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].UseAction());
-                options[i + 1, 1] = new ActionOption(windowColour, GameContext.ActiveUnit.Inventory[i].DropAction());
+                IItem currentItem = activeUnitInventory[i];
+                options[i, 0] = new ItemActionOption(currentItem, windowColor);
+                options[i, 1] = new ActionOption(windowColor, currentItem.DropAction());
             }
 
             return options;
         }
 
-        private static List<UnitAction> FetchContextualActionsInRange()
+        private static IEnumerable<UnitAction> FetchContextualActionsInRange()
         {
-            new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action))
-                .GenerateTargetingGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates, InteractionRangeLimit);
+            List<IActionTile> mapActionTiles = MapContainer.GetMapEntities()
+                .Where(entity => entity is IActionTile)
+                .Cast<IActionTile>()
+                .ToList();
 
-            List<MapSlice> mapSlicesInRange = new List<MapSlice>();
-            List<MapDistanceTile> distanceTiles = new List<MapDistanceTile>();
+            List<UnitAction> contextActions = new List<UnitAction>();
 
-            foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
+            foreach (IActionTile actionTile in mapActionTiles.Where(actionTile =>
+                RangeComparison.TargetIsWithinRangeOfOrigin(
+                    actionTile.MapCoordinates,
+                    actionTile.InteractRange,
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                ))
+            )
             {
-                if (mapElement == null) continue;
-
-                distanceTiles.Add(mapElement as MapDistanceTile);
-                mapSlicesInRange.Add(MapContainer.GetMapSliceAtCoordinates(mapElement.MapCoordinates));
+                contextActions.AddRange(actionTile.TileActions());
             }
 
-            List<UnitAction> contextualSkills = new List<UnitAction>();
+            UnitAction takeAction = TakeActionIfAllyInRange();
+            if (takeAction != null) contextActions.Add(takeAction);
 
-            foreach (MapSlice slice in mapSlicesInRange)
-            {
-                IActionTile entityActionTile = slice.TerrainEntity as IActionTile;
-                AddEntityAction(entityActionTile, distanceTiles, contextualSkills);
-
-                IActionTile itemActionTile = slice.ItemEntity as IActionTile;
-                AddEntityAction(itemActionTile, distanceTiles, contextualSkills);
-
-                IActionTile unitActionTile = slice.UnitEntity;
-                AddEntityAction(unitActionTile, distanceTiles, contextualSkills);
-            }
-
-            MapContainer.ClearDynamicAndPreviewGrids();
-
-            return contextualSkills;
+            return contextActions;
         }
 
-        private static void AddEntityAction(IActionTile entityActionTile, List<MapDistanceTile> distanceTiles,
-            List<UnitAction> contextualSkills)
+        private static UnitAction TakeActionIfAllyInRange()
         {
-            if (entityActionTile == null) return;
+            int[] meleeRange = {1};
 
-            foreach (MapDistanceTile distanceTile in distanceTiles)
-            {
-                foreach (int range in entityActionTile.InteractRange)
-                {
-                    //If the tile's range aligns with the current range of the unit, add the action to the action list
-                    if (distanceTile.MapCoordinates != entityActionTile.MapCoordinates) continue;
-                    if (distanceTile.Distance == range)
-                    {
-                        contextualSkills.AddRange(entityActionTile.TileActions());
-                    }
-                }
-            }
+            List<GameUnit> alliesInRange = GameContext.Units
+                .Where(unit => unit.Team == GameContext.ActiveTeam && unit.IsAlive)
+                .Where(ally => RangeComparison.TargetIsWithinRangeOfOrigin(
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    meleeRange,
+                    ally.UnitEntity.MapCoordinates
+                ))
+                .ToList();
+
+            return alliesInRange.Any(ally => ally.Inventory.Count > 0) ? new TakeItemAction() : null;
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SolStandard.Containers;
 using SolStandard.Entity.Unit.Actions;
+using SolStandard.Entity.Unit.Statuses.Creep;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Monogame;
@@ -13,12 +14,12 @@ namespace SolStandard.Entity.Unit
         private IRoutine nextRoutine;
         private readonly IRoutine fallbackRoutine;
 
-        // ReSharper disable once SuggestBaseTypeForParameter
         public CreepUnit(string id, Team team, Role role, CreepEntity unitEntity, UnitStatistics stats,
             ITexture2D portrait, bool isBoss) :
-            base(id, team, role, unitEntity, stats, portrait, unitEntity.Routines.Actions, isBoss)
+            base(id, team, role, unitEntity, stats, portrait, unitEntity.Model.Actions, isBoss)
         {
-            fallbackRoutine = unitEntity.Routines.FallbackRoutine;
+            fallbackRoutine = unitEntity.Model.FallbackRoutine;
+            if (unitEntity.Model.IsIndependent) AddStatusEffect(new IndependentStatus());
         }
 
         private CreepEntity CreepEntity => UnitEntity as CreepEntity;
@@ -60,6 +61,7 @@ namespace SolStandard.Entity.Unit
         {
             nextRoutine = newRoutine;
             CreepEntity.UpdateRoutineIcon(newRoutine);
+            AddStatusEffect(new NextRoutineStatus(newRoutine));
         }
     }
 }

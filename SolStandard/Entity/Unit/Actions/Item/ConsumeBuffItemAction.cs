@@ -44,8 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                             $"{UnitStatistics.Abbreviation[statistic]} by [{statModifier}] for [{buffDuration}] turns."
                         )
                     }
-                },
-                1
+                }
             );
         }
 

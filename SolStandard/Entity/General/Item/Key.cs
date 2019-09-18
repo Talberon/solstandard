@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -55,33 +54,20 @@ namespace SolStandard.Entity.General.Item
             return new Key(Name, Type, Sprite, MapCoordinates, UsedWith, InteractRange, ItemPool, IsMasterKey);
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        new Window(new RenderText(AssetManager.WindowFont, "Used with: " + UsedWith),
-                            InnerWindowColor),
-                        new RenderBlank()
+                        new SpriteAtlas(
+                            AssetManager.LockTexture,
+                            new Vector2(AssetManager.LockTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(Chest.LockIconState.Unlocked)
+                        ),
+                        new RenderText(AssetManager.WindowFont, ": " + UsedWith)
                     }
-                },
-                3
+                }
             );
     }
 }

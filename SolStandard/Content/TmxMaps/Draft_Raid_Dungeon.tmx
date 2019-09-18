@@ -1796,8 +1796,8 @@
   <object id="927" name="Door" type="Door" gid="6589" x="352" y="160" width="32" height="32"/>
   <object id="928" name="Door" type="Door" gid="6588" x="704" y="224" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="17" name="Summons" visible="0"/>
- <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
+ <objectgroup id="17" name="Summons"/>
+ <objectgroup id="6" name="Loot" opacity="0.75">
   <object id="903" name="Mighty Meat" type="BuffItem" gid="6801" x="512" y="576" width="32" height="32">
    <properties>
     <property name="itemPool" value="A"/>
@@ -1827,7 +1827,7 @@
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="907" name="Health Potion" type="HealthPotion" gid="6768" x="576" y="576" width="32" height="32"/>
+  <object id="907" name="Health Potion" type="HealthPotion" gid="6496" x="576" y="576" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="915" name="Coin" type="Currency" gid="6811" x="768" y="288" width="32" height="32">

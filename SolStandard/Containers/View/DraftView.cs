@@ -61,10 +61,10 @@ namespace SolStandard.Containers.View
             {
                 {
                     new RenderText(AssetManager.HeaderFont, "~Draft Phase~"),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Move Draft Cursor: "),
@@ -76,16 +76,16 @@ namespace SolStandard.Containers.View
                 {
                     new RenderText(windowFont, "Draft a unit: "),
                     InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "View Unit Codex: "),
                     InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
-                    new RenderBlank(),
-                    new RenderBlank(),
-                    new RenderBlank()
+                    RenderBlank.Blank,
+                    RenderBlank.Blank,
+                    RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Move Map Camera: "),
@@ -155,7 +155,7 @@ namespace SolStandard.Containers.View
                     }
                     else
                     {
-                        commanderOptions[row, column] = new UnselectableOption(new RenderBlank(), DarkBackgroundColor);
+                        commanderOptions[row, column] = new UnselectableOption(RenderBlank.Blank, DarkBackgroundColor);
                     }
 
                     unitIndex++;
@@ -310,7 +310,7 @@ namespace SolStandard.Containers.View
                 {
                     if (unitIndex >= unitSprites.Count)
                     {
-                        unitCells[row, column] = new RenderBlank();
+                        unitCells[row, column] = RenderBlank.Blank;
                     }
                     else
                     {

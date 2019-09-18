@@ -5,7 +5,6 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -63,38 +62,15 @@ namespace SolStandard.Entity.General.Item
             return new HealthPotion(Name, Type, Sprite, MapCoordinates, InteractRange, HPHealed, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
-                                new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
-                            }
-                        }, InnerWindowColor),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.Hp, GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont, "Heal : +" + HPHealed + "")
                     }
-                },
-                3
+                }
             );
     }
 }

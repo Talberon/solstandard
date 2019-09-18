@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
 using SolStandard.Entity.Unit.Actions.Mage;
 using SolStandard.Entity.Unit.Actions.Terrain;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -16,7 +14,7 @@ namespace SolStandard.Entity.General.Item
     {
         public int[] BlinkRange { get; }
         public int[] InteractRange { get; }
-        public int UsesRemaining { get; set; }
+        public int UsesRemaining { get; }
         public string ItemPool { get; }
 
         public BlinkItem(string name, string type, IRenderable sprite, Vector2 mapCoordinates, int[] pickupRange,
@@ -57,48 +55,21 @@ namespace SolStandard.Entity.General.Item
                 ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
+                            GameDriver.CellSizeVector),
+                        new RenderText(AssetManager.WindowFont,
+                            "Blink Range: [" + string.Join(",", BlinkRange) + "]")
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        new Window(new IRenderable[,]
-                            {
-                                {
-                                    SkillIconProvider.GetSkillIcon(SkillIcon.Blink,
-                                        GameDriver.CellSizeVector),
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Blink Range: [" + string.Join(",", BlinkRange) + "]")
-                                },
-                                {
-                                    new RenderText(AssetManager.WindowFont,
-                                        "Uses Remaining: [" + UsesRemaining + "]"),
-                                    new RenderBlank()
-                                }
-                            },
-                            InnerWindowColor,
-                            HorizontalAlignment.Centered
-                        ),
-                        new RenderBlank()
+                        new RenderText(AssetManager.WindowFont,
+                            "Uses Remaining: [" + UsesRemaining + "]"),
+                        RenderBlank.Blank
                     }
-                },
-                3
+                }
             );
     }
 }

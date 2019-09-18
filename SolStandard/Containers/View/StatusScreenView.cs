@@ -73,7 +73,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] blueLeaderContent = LeaderContent(FindTeamLeader(Team.Blue));
 
             BlueTeamLeaderPortrait = new Window(
-                new WindowContentGrid(blueLeaderContent, 1),
+                new WindowContentGrid(blueLeaderContent),
                 TeamUtility.DetermineTeamColor(Team.Blue)
             );
         }
@@ -95,8 +95,7 @@ namespace SolStandard.Containers.View
                         {
                             new RenderText(AssetManager.ResultsFont, windowText)
                         }
-                    },
-                    1
+                    }
                 ),
                 TeamUtility.DetermineTeamColor(Team.Blue)
             );
@@ -107,7 +106,7 @@ namespace SolStandard.Containers.View
             IRenderable[,] redLeaderContent = LeaderContent(FindTeamLeader(Team.Red));
 
             RedTeamLeaderPortrait = new Window(
-                new WindowContentGrid(redLeaderContent, 1),
+                new WindowContentGrid(redLeaderContent),
                 TeamUtility.DetermineTeamColor(Team.Red)
             );
         }
@@ -129,8 +128,7 @@ namespace SolStandard.Containers.View
                         {
                             new RenderText(AssetManager.ResultsFont, windowText)
                         }
-                    },
-                    1
+                    }
                 ),
                 TeamUtility.DetermineTeamColor(Team.Red)
             );
@@ -174,30 +172,29 @@ namespace SolStandard.Containers.View
                 {
                     {
                         unit.IsCommander
-                            ? GameUnit.GetCommanderCrown(new Vector2(crownIconSize))
-                            : new RenderBlank() as IRenderable,
+                            ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownIconSize))
+                            : RenderBlank.Blank,
                         new RenderText(AssetManager.WindowFont, unit.Id)
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         portraitToUse
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         unit.GetResultsHealthBar(new Vector2(portraitToUse.Width, unitListHealthBarHeight))
                     },
                     {
-                        new RenderBlank(),
+                        RenderBlank.Blank,
                         new Window(
                             new WindowContentGrid(
                                 new IRenderable[,]
                                 {
                                     {
-                                        new SpriteAtlas(AssetManager.GoldIcon, GameDriver.CellSizeVector),
-                                        new RenderText(AssetManager.WindowFont, unit.CurrentGold + "G")
+                                        MiscIconProvider.GetMiscIcon(MiscIcon.Gold, GameDriver.CellSizeVector),
+                                        new RenderText(AssetManager.WindowFont, unit.CurrentBounty + "G")
                                     }
-                                },
-                                1
+                                }
                             ),
                             TeamUtility.DetermineTeamColor(unit.Team)
                         )

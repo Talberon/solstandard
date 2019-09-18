@@ -38,9 +38,9 @@ namespace SolStandard.Entity.General
             MaxDuplicateUnits = maxDuplicateUnits;
             SoloTeam = soloTeam;
             this.mapPreview = (mapPreview == null)
-                ? new RenderBlank()
+                ? RenderBlank.Blank
                 : new SpriteAtlas(mapPreview, new Vector2(mapPreview.Width, mapPreview.Height),
-                    FitImageToSize(MaximumPreviewSize, mapPreview)) as IRenderable;
+                    FitImageToSize(MaximumPreviewSize, mapPreview));
         }
 
         public override IRenderable TerrainInfo =>

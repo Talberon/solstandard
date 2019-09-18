@@ -43,11 +43,11 @@ namespace SolStandard.Entity.General.Item
 
         private Window GenerateBuffWindow()
         {
-            return new Window(new WindowContentGrid(new IRenderable[,]
+            return new Window(new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.HeaderFont, "~Buff~"),
-                        new RenderBlank(), new RenderBlank(), new RenderBlank(), new RenderBlank()
+                        RenderBlank.Blank, RenderBlank.Blank, RenderBlank.Blank, RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont,
@@ -122,32 +122,6 @@ namespace SolStandard.Entity.General.Item
                 buffDuration, InteractRange, ItemPool);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        buffWindow,
-                        new RenderBlank()
-                    }
-                },
-                3
-            );
+        protected override IRenderable EntityInfo => buffWindow;
     }
 }

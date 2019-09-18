@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -47,9 +48,13 @@ namespace SolStandard.Containers.View
             unitDetailWindow = GenerateUnitDetailWindow(unit);
         }
 
-        private static Window GenerateActionWindow(IReadOnlyList<UnitAction> actions, Color windowColor)
+        private static Window GenerateActionWindow(IEnumerable<UnitAction> unitActions, Color windowColor)
         {
-            IRenderable[,] actionElements = new IRenderable[actions.Count, 4];
+            List<UnitAction> codexActions = new List<UnitAction>(unitActions)
+                .Where(action => !(action is BasicAttack) && !(action is Wait))
+                .ToList();
+
+            IRenderable[,] actionElements = new IRenderable[codexActions.Count, 4];
 
             const int iconIndex = 0;
             const int nameIndex = 1;
@@ -60,27 +65,27 @@ namespace SolStandard.Containers.View
             int largestRangeWidth = 0;
             int largestDescriptionWidth = 0;
 
-            for (int i = 0; i < actions.Count; i++)
+            for (int i = 0; i < codexActions.Count; i++)
             {
-                actionElements[i, iconIndex] = actions[i].Icon;
+                actionElements[i, iconIndex] = codexActions[i].Icon;
 
                 actionElements[i, nameIndex] =
                     new Window(
-                        new RenderText(AssetManager.WindowFont, actions[i].Name,
-                            (actions[i].FreeAction) ? GameContext.PositiveColor : Color.White), Color.Transparent);
+                        new RenderText(AssetManager.WindowFont, codexActions[i].Name,
+                            (codexActions[i].FreeAction) ? GameContext.PositiveColor : Color.White), Color.Transparent);
 
                 actionElements[i, rangeIndex] = new Window(
                     new RenderText(
                         AssetManager.WindowFont,
-                        actions[i].Range == null
+                        codexActions[i].Range == null
                             ? "Range: N/A"
-                            : $"Range: [{string.Join(",", actions[i].Range)}]"
+                            : $"Range: [{string.Join(",", codexActions[i].Range)}]"
                     ),
                     Color.Transparent
                 );
 
                 actionElements[i, descriptionIndex] =
-                    new Window(actions[i].Description, windowColor);
+                    new Window(codexActions[i].Description, windowColor);
 
                 //Remember the largest width for aligning later
                 if (actionElements[i, nameIndex].Width > largestNameWidth)
@@ -100,7 +105,7 @@ namespace SolStandard.Containers.View
             }
 
 
-            for (int i = 0; i < actions.Count; i++)
+            for (int i = 0; i < codexActions.Count; i++)
             {
                 //Fill space so that all the elements have the same width like a grid
                 ((Window) actionElements[i, nameIndex]).Width = largestNameWidth;

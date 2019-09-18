@@ -35,6 +35,9 @@ namespace SolStandard.Utility
             }
 
             pathToItemQueue.Enqueue(new CreepMoveEvent(movingUnit, Direction.None));
+            
+            MapContainer.ClearDynamicAndPreviewGrids();
+            
             return pathToItemQueue;
         }
     }

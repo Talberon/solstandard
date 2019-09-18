@@ -4,7 +4,7 @@ using SolStandard.Entity.Unit.Actions;
 using SolStandard.Utility;
 using SolStandard.Utility.Events;
 
-namespace SolStandard.Entity.Unit.Statuses
+namespace SolStandard.Entity.Unit.Statuses.Lancer
 {
     public class ExecutionerStatus : StatusEffect, ICombatProc
     {

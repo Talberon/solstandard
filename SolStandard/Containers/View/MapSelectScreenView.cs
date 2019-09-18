@@ -14,7 +14,7 @@ namespace SolStandard.Containers.View
     public class MapSelectScreenView : IUserInterface
     {
         private Window instructionWindow;
-        private AnimatedWindow mapInfoWindow;
+        private AnimatedRenderable mapInfoWindow;
         private Window teamSelectWindow;
 
         private const int WindowSlideSpeed = 40;
@@ -32,8 +32,8 @@ namespace SolStandard.Containers.View
             SetUpWindows();
         }
 
-        private static IWindowAnimation LeftSideWindowAnimation =>
-            new WindowSlide(WindowSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
+        private static IRenderableAnimation LeftSideWindowAnimation =>
+            new RenderableSlide(RenderableSlide.SlideDirection.Right, WindowSlideDistance, WindowSlideSpeed);
 
         private void SetUpWindows()
         {
@@ -46,8 +46,8 @@ namespace SolStandard.Containers.View
                         new RenderText(AssetManager.WindowFont,
                             "Select a map! Move the cursor to the crossed swords and press "),
                         InputIconProvider.GetInputIcon(Input.Confirm, iconSize),
-                        new RenderBlank(),
-                        new RenderBlank(),
+                        RenderBlank.Blank,
+                        RenderBlank.Blank,
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Toggle between maps with"),
@@ -55,15 +55,14 @@ namespace SolStandard.Containers.View
                         new RenderText(AssetManager.WindowFont, "and"),
                         InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                     }
-                },
-                1
+                }
             );
 
 
             instructionWindow = new Window(instructionContentGrid, InstructionWindowColor);
 
             mapInfoWindow =
-                new AnimatedWindow(new Window(new RenderBlank(), MapInfoWindowColor), LeftSideWindowAnimation);
+                new AnimatedRenderable(new Window(RenderBlank.Blank, MapInfoWindowColor), LeftSideWindowAnimation);
         }
 
         public void UpdateTeamSelectWindow()
@@ -132,7 +131,7 @@ namespace SolStandard.Containers.View
         {
             mapInfoWindow = terrainInfo == null
                 ? null
-                : new AnimatedWindow(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
+                : new AnimatedRenderable(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
                     LeftSideWindowAnimation);
         }
 

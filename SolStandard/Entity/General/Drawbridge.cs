@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
-using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -68,32 +67,11 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                            (IsLocked) ? NegativeColor : PositiveColor),
-                        new RenderBlank()
-                    },
-                    {
-                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                            (IsOpen) ? PositiveColor : NegativeColor),
-                        new RenderBlank()
-                    }
-                },
-                3
-            );
+        protected override IRenderable EntityInfo => new RenderText(
+            AssetManager.WindowFont,
+            (IsOpen) ? "Open" : "Closed",
+            (IsOpen) ? PositiveColor : NegativeColor
+        );
 
         public void RemoteTrigger()
         {
@@ -103,6 +81,8 @@ namespace SolStandard.Entity.General
 
             ToggleOpen();
         }
+
+        public bool CanTrigger => !IsObstructed;
 
         public bool IsObstructed
         {

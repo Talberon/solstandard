@@ -1,10 +1,10 @@
 using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -95,7 +95,6 @@ namespace SolStandard.Entity.General
             {
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No unit in range!",
                     MapCoordinates, 50);
-                AssetManager.WarningSFX.Play();
             }
         }
 
@@ -106,8 +105,11 @@ namespace SolStandard.Entity.General
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 oppositeCoordinates = UnitAction.DetermineOppositeTileOfUnit(MapCoordinates, targetCoordinates);
 
-            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) && targetUnit.IsMovable;
+            return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
+                   targetUnit.IsMovable;
         }
+
+        public bool CanTrigger => GameContext.Units.Any(CanPush);
 
         private void PushTarget(GameUnit target)
         {
@@ -118,35 +120,14 @@ namespace SolStandard.Entity.General
         }
 
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Pushes: " + pistonDirection)
-                                }
-                            },
-                            InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Pushes: " + pistonDirection)
                     }
-                },
-                1,
-                HorizontalAlignment.Centered
+                }
             );
     }
 }

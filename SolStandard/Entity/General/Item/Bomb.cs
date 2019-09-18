@@ -7,7 +7,6 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Item;
-using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Map.Elements;
@@ -50,7 +49,7 @@ namespace SolStandard.Entity.General.Item
 
         public UnitAction DropAction()
         {
-            return new TradeItemAction(this);
+            return new DropGiveItemAction(this);
         }
 
         public IItem Duplicate()
@@ -121,42 +120,25 @@ namespace SolStandard.Entity.General.Item
             return triggerTime == EffectTriggerTime.StartOfRound && !HasTriggered;
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
+                        )
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new Window(new IRenderable[,]
-                        {
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.Atk, GameDriver.CellSizeVector),
-                                new RenderText(
-                                    AssetManager.WindowFont,
-                                    UnitStatistics.Abbreviation[Stats.Atk] + ": " + Damage
-                                )
-                            },
-                            {
-                                UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
-                                new RenderText(
-                                    AssetManager.WindowFont,
-                                    UnitStatistics.Abbreviation[Stats.AtkRange]
-                                    + ": [" + string.Join(",", Range) + "]"
-                                )
-                            }
-                        }, InnerWindowColor),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange, GameDriver.CellSizeVector),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            UnitStatistics.Abbreviation[Stats.AtkRange] + ": [" + string.Join(",", Range) + "]"
+                        )
                     }
-                },
-                1
+                }
             );
 
         public override void Draw(SpriteBatch spriteBatch)

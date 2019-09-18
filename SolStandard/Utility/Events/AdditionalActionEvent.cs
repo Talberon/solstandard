@@ -10,9 +10,7 @@ namespace SolStandard.Utility.Events
         {
             if (GameContext.ActiveUnit.IsAlive)
             {
-                GameContext.GameMapContext.ResetToActionMenu();
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Extra action!", 50);
-                GameMapContext.UpdateWindowsEachTurn();
+                StartExtraAction("Extra action!");
             }
             else
             {
@@ -20,6 +18,13 @@ namespace SolStandard.Utility.Events
             }
 
             Complete = true;
+        }
+
+        public static void StartExtraAction(string message)
+        {
+            GameContext.GameMapContext.ResetToActionMenu();
+            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(message, 50);
+            GameMapContext.UpdateWindowsEachTurn();
         }
     }
 }

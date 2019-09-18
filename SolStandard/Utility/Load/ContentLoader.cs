@@ -291,12 +291,6 @@ namespace SolStandard.Utility.Load
             return songITextures;
         }
 
-        public static ITexture2D LoadCommanderIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown");
-            return new Texture2DWrapper(loadTexture);
-        }
-
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture =
@@ -320,32 +314,18 @@ namespace SolStandard.Utility.Load
         {
             List<Texture2D> mapPreviewTextures = new List<Texture2D>
             {
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Beach_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Village_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Chesslike_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Crossroads_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Dungeon_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Scotia_Hill_Redux_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_01_Arena"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_02_Dungeon"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Dungeon_02"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Grassland_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_01"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_01"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_01"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Grassland_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Island_Coast"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Tavern_Inn"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dimpimple_Beach"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Crossroads"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Jirai_Archipelago"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Master_Control"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Verdant_Forest"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Raid_Dungeon"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Dusk_Temple"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Town_Market"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Collosseum_01"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Alpha_Dungeon"),
@@ -659,16 +639,22 @@ namespace SolStandard.Utility.Load
             };
         }
 
-        public static ITexture2D LoadGoldIcon(ContentManager content)
+        public static List<ITexture2D> LoadMiscIcons(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold");
-            return new Texture2DWrapper(loadTexture);
-        }
-
-        public static ITexture2D LoadSpoilsIcon(ContentManager content)
-        {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils");
-            return new Texture2DWrapper(loadTexture);
+            return new List<ITexture2D>
+            {
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/1st")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/2nd")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Independent")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/clock")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Gold")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook")),
+            };
         }
 
         public static ITexture2D LoadObjectiveIcons(ContentManager content)

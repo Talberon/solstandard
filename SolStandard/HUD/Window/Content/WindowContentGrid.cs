@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Window.Content
             DefaultColor = Color.Transparent;
         }
 
-        public WindowContentGrid(IRenderable[,] contentGrid, int spacing,
+        public WindowContentGrid(IRenderable[,] contentGrid, int spacing = 1,
             HorizontalAlignment alignment = HorizontalAlignment.Left)
             : this(ArrayToList<IRenderable>.Convert2DArrayToNestedList(contentGrid), spacing, alignment)
         {

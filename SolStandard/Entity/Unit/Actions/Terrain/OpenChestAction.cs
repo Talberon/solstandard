@@ -65,7 +65,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                     if (chest.Gold > 0)
                     {
-                        eventQueue.Enqueue(new IncreaseUnitGoldEvent(chest.Gold));
+                        eventQueue.Enqueue(new IncreaseTeamGoldEvent(chest.Gold));
                         eventQueue.Enqueue(new WaitFramesEvent(20));
                     }
 

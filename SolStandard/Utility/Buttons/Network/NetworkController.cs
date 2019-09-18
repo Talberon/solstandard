@@ -105,7 +105,7 @@ namespace SolStandard.Utility.Buttons.Network
 
         public IRenderable GetInputIcon(Input input, Vector2 iconSize)
         {
-            return new RenderBlank();
+            return RenderBlank.Blank;
         }
 
         public GameControl Confirm { get; }

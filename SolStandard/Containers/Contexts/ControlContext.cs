@@ -300,7 +300,7 @@ namespace SolStandard.Containers.Contexts
                 case GameMapContext.TurnState.AdHocDraft:
                     AdHocDraftControl(controlMapper);
                     break;
-                case GameMapContext.TurnState.StealItem:
+                case GameMapContext.TurnState.TakeItem:
                     StealItemControl(controlMapper);
                     break;
                 case GameMapContext.TurnState.SelectUnit:
@@ -538,16 +538,6 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new MoveActionMenuEvent(MenuCursorDirection.Right));
             }
 
-            if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
-            {
-                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
-            }
-
-            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
-            {
-                GlobalEventQueue.QueueSingleEvent(new ToggleCombatMenuEvent());
-            }
-
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectActionMenuOptionEvent());
@@ -651,7 +641,7 @@ namespace SolStandard.Containers.Contexts
 
             if (controlMapper.Press(Input.Cancel, PressType.Single))
             {
-                GlobalEventQueue.QueueSingleEvent(new CancelActionEvent());
+                GlobalEventQueue.QueueSingleEvent(new CancelActionTargetingEvent());
             }
         }
 

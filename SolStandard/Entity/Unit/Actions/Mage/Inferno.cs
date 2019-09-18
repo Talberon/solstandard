@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -20,14 +21,15 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             title: "Pyromancy - Inferno",
             damage: damage,
             maxTriggers: maxTriggers,
-            range: new[] {1},
-            description: "Place up to 4 traps around you that will deal [" + damage +
-                         "] damage to units that start their turn on it." + Environment.NewLine +
-                         "Max activations: [" + maxTriggers + "]",
+            range: new[] {0, 1},
+            description: $"Place a trap that will deal [{damage}] damage to units that start the round on it." +
+                         Environment.NewLine +
+                         $"Max activations: [{maxTriggers}]",
             freeAction: true
         )
         {
         }
+
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
@@ -38,17 +40,11 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
-
             List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
 
-            foreach (MapElement element in targetTiles)
-            {
-                if (TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
-                {
-                    tilesToRemove.Add(element);
-                }
-            }
+            List<MapElement> tilesToRemove = targetTiles
+                .Where(element => TargetHasEntityOrWall(MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates)))
+                .ToList();
 
             foreach (MapElement tile in tilesToRemove)
             {
@@ -60,35 +56,26 @@ namespace SolStandard.Entity.Unit.Actions.Mage
         {
             if (TargetIsInRange(targetSlice))
             {
-                bool allTilesObstructed = true;
-
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
-
-                foreach (MapElement targetTile in MapContainer.GetMapElementsFromLayer(Layer.Dynamic))
+                if (!TargetHasEntityOrWall(targetSlice))
                 {
-                    MapSlice slice = MapContainer.GetMapSliceAtCoordinates(targetTile.MapCoordinates);
-
-                    if (TargetHasEntityOrWall(slice)) continue;
-
-                    TrapEntity trap = new TrapEntity("Fire", TrapSprite.Clone(), slice.MapCoordinates, Damage,
-                        MaxTriggers, true, true);
+                    TrapEntity trapToPlace = new TrapEntity("Fire", TrapSprite.Clone(), targetSlice.MapCoordinates,
+                        Damage, MaxTriggers, true, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
-
-                    eventQueue.Enqueue(new PlaceEntityOnMapEvent(trap, Layer.Entities, AssetManager.DropItemSFX));
-                    allTilesObstructed = false;
-                }
-
-                if (allTilesObstructed)
-                {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("All tiles are obstructed!", 50);
-                    AssetManager.WarningSFX.Play();
-                }
-                else
-                {
+                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    eventQueue.Enqueue(
+                        new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
+                    );
+                    eventQueue.Enqueue(new PlaceEntityOnMapEvent((TrapEntity) trapToPlace.Duplicate(), Layer.Entities,
+                        AssetManager.DropItemSFX));
                     eventQueue.Enqueue(new WaitFramesEvent(30));
                     eventQueue.Enqueue(new AdditionalActionEvent());
                     GlobalEventQueue.QueueEvents(eventQueue);
+                }
+                else
+                {
+                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    AssetManager.WarningSFX.Play();
                 }
             }
             else

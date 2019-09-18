@@ -31,37 +31,19 @@ namespace SolStandard.Entity.General
             };
         }
 
-        public override IRenderable TerrainInfo =>
+        protected override IRenderable EntityInfo =>
             new WindowContentGrid(
-                new[,]
+                new IRenderable[,]
                 {
                     {
-                        InfoHeader,
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Interact:"),
+                        new RenderText(AssetManager.WindowFont, $"[{string.Join(",", InteractRange)}]")
                     },
                     {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        new Window(
-                            new IRenderable[,]
-                            {
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Interact:"),
-                                    new RenderText(AssetManager.WindowFont, $"[{string.Join(",", InteractRange)}]")
-                                },
-                                {
-                                    UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
-                                    new RenderText(AssetManager.WindowFont, "Launch:"),
-                                    new RenderText(AssetManager.WindowFont, $"[{string.Join(",", launchRange)}]")
-                                }
-                            },
-                            InnerWindowColor
-                        ),
-                        new RenderBlank()
+                        UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
+                        new RenderText(AssetManager.WindowFont, "Launch:"),
+                        new RenderText(AssetManager.WindowFont, $"[{string.Join(",", launchRange)}]")
                     }
                 },
                 1,

@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
-using SolStandard.Containers.View;
 using SolStandard.Entity.General.Item;
-using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
@@ -50,7 +48,8 @@ namespace SolStandard.Entity.General
 
             foreach (KeyValuePair<UnitAction, int> purchaseActionKeyPair in purchaseActions)
             {
-                if (!(purchaseActionKeyPair.Key is VendorPurchase buyAction) || buyAction.Item.Name != item.Name) continue;
+                if (!(purchaseActionKeyPair.Key is VendorPurchase buyAction) ||
+                    buyAction.Item.Name != item.Name) continue;
 
                 purchaseActions[buyAction]--;
 
@@ -103,40 +102,9 @@ namespace SolStandard.Entity.General
                     $"[{purchaseActions[purchaseActionsList[i]]}]");
             }
 
-            return new Window(
-                new WindowContentGrid(itemDetailList, 1, HorizontalAlignment.Centered),
-                GameMapView.ItemTerrainWindowColor,
-                HorizontalAlignment.Centered
-            );
+            return new WindowContentGrid(itemDetailList, 1, HorizontalAlignment.Right);
         }
 
-        public override IRenderable TerrainInfo =>
-            new WindowContentGrid(
-                new[,]
-                {
-                    {
-                        InfoHeader,
-                        new RenderBlank()
-                    },
-                    {
-                        UnitStatistics.GetSpriteAtlas(Stats.Mv),
-                        new RenderText(AssetManager.WindowFont, (CanMove) ? "Can Move" : "No Move",
-                            (CanMove) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        StatusIconProvider.GetStatusIcon(StatusIcon.PickupRange, GameDriver.CellSizeVector),
-                        new RenderText(
-                            AssetManager.WindowFont,
-                            ": " + $"[{string.Join(",", InteractRange)}]"
-                        )
-                    },
-                    {
-                        itemList,
-                        new RenderBlank()
-                    }
-                },
-                1,
-                HorizontalAlignment.Centered
-            );
+        protected override IRenderable EntityInfo => itemList;
     }
 }

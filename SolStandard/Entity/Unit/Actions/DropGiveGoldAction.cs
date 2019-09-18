@@ -41,8 +41,8 @@ namespace SolStandard.Entity.Unit.Actions
                         ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
-                        new RenderBlank(),
-                        new RenderBlank()
+                        RenderBlank.Blank,
+                        RenderBlank.Blank
                     },
                     {
                         new RenderText(AssetManager.WindowFont, "Adjust value to give with "),
@@ -61,7 +61,7 @@ namespace SolStandard.Entity.Unit.Actions
             return new Spoils(
                 "Money Bag",
                 "Spoils",
-                new SpriteAtlas(AssetManager.SpoilsIcon, GameDriver.CellSizeVector),
+                MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),
                 mapCoordinates,
                 Value,
                 new List<IItem>()
@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public void Increment(int amountToIncrement)
         {
-            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentGold;
+            int activeUnitCurrentGold = GameContext.ActiveUnit.CurrentBounty;
 
             if (Value + amountToIncrement > activeUnitCurrentGold)
             {
@@ -118,7 +118,7 @@ namespace SolStandard.Entity.Unit.Actions
                 else if (CanPlaceItemAtSlice(targetSlice))
                 {
                     Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(new DecreaseUnitGoldEvent(Value));
+                    eventQueue.Enqueue(new DecreaseTeamGoldEvent(Value));
                     eventQueue.Enqueue(new PlaceEntityOnMapEvent(
                         GenerateMoneyBag(targetSlice.MapCoordinates), Layer.Items, AssetManager.DropItemSFX)
                     );

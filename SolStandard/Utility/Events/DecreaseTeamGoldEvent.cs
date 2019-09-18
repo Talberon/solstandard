@@ -1,14 +1,14 @@
-﻿using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.General.Item;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Events
 {
-    public class IncreaseUnitGoldEvent : IEvent
+    public class DecreaseTeamGoldEvent : IEvent
     {
         private readonly int gold;
 
-        public IncreaseUnitGoldEvent(int gold)
+        public DecreaseTeamGoldEvent(int gold)
         {
             this.gold = gold;
         }
@@ -17,9 +17,9 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.CurrentGold += gold;
+            GameContext.InitiativeContext.DeductGoldFromTeam(gold, GameContext.ActiveTeam);
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
-                GameContext.ActiveUnit.Id + " got " + gold + Currency.CurrencyAbbreviation + "!", 50
+                $"{GameContext.ActiveTeam} team lost {gold} {Currency.CurrencyAbbreviation}!", 50
             );
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();

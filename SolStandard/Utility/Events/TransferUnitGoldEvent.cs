@@ -27,8 +27,8 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            givingUnit.CurrentGold -= goldToGive;
-            receivingUnit.CurrentGold += goldToGive;
+            givingUnit.CurrentBounty -= goldToGive;
+            receivingUnit.CurrentBounty += goldToGive;
 
             IRenderable toastContent = new WindowContentGrid(
                 new[,]
@@ -40,8 +40,7 @@ namespace SolStandard.Utility.Events
                             $"{givingUnit.Id} gave {goldToGive + Currency.CurrencyAbbreviation} to {receivingUnit.Id}!"
                         )
                     }
-                },
-                1
+                }
             );
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
