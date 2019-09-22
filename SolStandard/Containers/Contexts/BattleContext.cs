@@ -104,8 +104,11 @@ namespace SolStandard.Containers.Contexts
             defenderCoordinates = defender.UnitEntity?.MapCoordinates ?? new Vector2(-1);
 
             attackerInRange = true;
-            defenderInRange =
-                CoordinatesAreInRange(defenderCoordinates, attackerCoordinates, defenderStats.CurrentAtkRange);
+            defenderInRange = RangeComparison.TargetIsWithinRangeOfOrigin(
+                defenderCoordinates,
+                defenderStats.CurrentAtkRange,
+                attackerCoordinates
+            );
 
             SetupHelpWindow();
             SetupAttackerWindows();
@@ -171,16 +174,10 @@ namespace SolStandard.Containers.Contexts
                         defenderProcs.ForEach(proc => proc.OnCombatEnd(attacker, defender));
 
                         AssetManager.MapUnitSelectSFX.Play();
+                        GameContext.MapCamera.RevertToPreviousZoomLevel();
+                        GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.FinishingCombat;
 
-                        if (freeAction)
-                        {
-                            GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
-                        }
-                        else
-                        {
-                            GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
-                        }
-
+                        //Events
                         if (!attacker.IsAlive)
                         {
                             TakeAttackerSpoilsAndIncreaseBounty();
@@ -190,7 +187,14 @@ namespace SolStandard.Containers.Contexts
                             TakeDefenderSpoilsAndIncreaseBounty();
                         }
 
-                        GameContext.MapCamera.RevertToPreviousZoomLevel();
+                        if (freeAction)
+                        {
+                            GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
+                        }
+                        else
+                        {
+                            GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
+                        }
                     }
 
                     break;
@@ -203,11 +207,10 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice defenderSlice = MapContainer.GetMapSliceAtCoordinates(defenderCoordinates);
             if (!(defenderSlice.ItemEntity is Spoils defenderSpoils)) return;
-
             GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
+            GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(attackerCoordinates));
 
-            string toastMessage = string.Empty;
-            toastMessage += $"Obtained {defenderSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+            string toastMessage = $"Obtained {defenderSpoils.Gold} {Currency.CurrencyAbbreviation}!";
 
             foreach (IItem item in defenderSpoils.Items)
             {
@@ -223,7 +226,7 @@ namespace SolStandard.Containers.Contexts
                 new ToastAtCoordinatesEvent(attackerCoordinates, toastMessage, AssetManager.CoinSFX, 80)
             );
 
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(60));
         }
 
         private void TakeAttackerSpoilsAndIncreaseBounty()
@@ -231,9 +234,9 @@ namespace SolStandard.Containers.Contexts
             MapSlice attackerSlice = MapContainer.GetMapSliceAtCoordinates(attackerCoordinates);
             if (!(attackerSlice.ItemEntity is Spoils attackerSpoils)) return;
             GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
+            GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(defenderCoordinates));
 
-            string toastMessage = string.Empty;
-            toastMessage += $"Obtained {attackerSpoils.Gold} {Currency.CurrencyAbbreviation}!";
+            string toastMessage = $"Obtained {attackerSpoils.Gold} {Currency.CurrencyAbbreviation}!";
 
             foreach (IItem item in attackerSpoils.Items)
             {
@@ -248,7 +251,7 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(defenderCoordinates, toastMessage, AssetManager.CoinSFX, 80)
             );
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(10));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(60));
         }
 
         private void SetPromptWindowText(string promptText)
@@ -366,17 +369,6 @@ namespace SolStandard.Containers.Contexts
             CurrentState = state;
             Trace.WriteLine("Changing combat state: " + CurrentState);
             return true;
-        }
-
-        private static bool CoordinatesAreInRange(Vector2 sourcePosition, Vector2 targetPosition,
-            IEnumerable<int> sourceRange)
-        {
-            /*Since distance is measured in horizontal and vertical steps, the absolute value of the difference of
-             absolute positions should add up to the appropriate range.*/
-            int horizontalDistance = Math.Abs(Math.Abs((int) targetPosition.X) - Math.Abs((int) sourcePosition.X));
-
-            int verticalDistance = Math.Abs(Math.Abs((int) targetPosition.Y) - Math.Abs((int) sourcePosition.Y));
-            return sourceRange.Any(range => horizontalDistance + verticalDistance == range);
         }
 
         private static BonusStatistics DetermineTerrainBonusForUnit(GameUnit unit)

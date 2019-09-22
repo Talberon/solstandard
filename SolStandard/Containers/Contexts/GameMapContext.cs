@@ -32,6 +32,7 @@ namespace SolStandard.Containers.Contexts
             UnitDecidingAction,
             UnitTargeting,
             UnitActing,
+            FinishingCombat,
             ResolvingTurn,
             AdHocDraft,
             TakeItem
@@ -69,15 +70,8 @@ namespace SolStandard.Containers.Contexts
             CanCancelAction = true;
         }
 
-
-        public bool CanPressConfirm
-        {
-            get
-            {
-                if (CurrentTurnState != TurnState.SelectUnit) return true;
-                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
-            }
-        }
+        public bool CanPressConfirm => CurrentTurnState != TurnState.SelectUnit ||
+                                       HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
 
         public bool CanPressCancel
         {
@@ -85,20 +79,12 @@ namespace SolStandard.Containers.Contexts
             {
                 switch (CurrentTurnState)
                 {
-                    case TurnState.SelectUnit:
-                        return false;
                     case TurnState.UnitMoving:
                         return true;
                     case TurnState.UnitDecidingAction:
                         return CanCancelAction;
                     case TurnState.UnitTargeting:
                         return true;
-                    case TurnState.UnitActing:
-                        return false;
-                    case TurnState.ResolvingTurn:
-                        return false;
-                    case TurnState.AdHocDraft:
-                        return false;
                     case TurnState.TakeItem:
                         return true;
                     default:
@@ -148,30 +134,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView.GenerateObjectiveWindow();
         }
 
-        public void ResolveTurn()
-        {
-            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
-
-            GameContext.Scenario.CheckForWinState();
-            ConfirmPromptWindow();
-            GameContext.InitiativeContext.PassTurnToNextUnit();
-            UpdateWindowsEachTurn();
-
-            ResetTurnState();
-            UpdateTurnCounters();
-
-            if (NotEveryUnitIsDead())
-            {
-                EndTurnIfUnitIsDead();
-            }
-
-            GameContext.StatusScreenView.UpdateWindows();
-
-            StartTurn();
-            ResetCursorToActiveUnit();
-        }
-
-
         public static void FinishTurn(bool skipProcs)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -195,6 +157,29 @@ namespace SolStandard.Containers.Contexts
 
             SetPromptWindowText("Confirm End Turn");
             GameContext.GameMapContext.CurrentTurnState = TurnState.ResolvingTurn;
+        }
+
+        public void ResolveTurn()
+        {
+            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+
+            GameContext.Scenario.CheckForWinState();
+            ConfirmPromptWindow();
+            GameContext.InitiativeContext.PassTurnToNextUnit();
+            UpdateWindowsEachTurn();
+
+            ResetTurnState();
+            UpdateTurnCounters();
+
+            if (NotEveryUnitIsDead())
+            {
+                EndTurnIfUnitIsDead();
+            }
+
+            GameContext.StatusScreenView.UpdateWindows();
+
+            StartTurn();
+            ResetCursorToActiveUnit();
         }
 
         private void StartTurn()
@@ -661,7 +646,7 @@ namespace SolStandard.Containers.Contexts
 
             if (triggerTiles.Count <= 0)
             {
-                 effectTiles.ForEach(tile => tile.HasTriggered = false);
+                effectTiles.ForEach(tile => tile.HasTriggered = false);
                 return false;
             }
 
