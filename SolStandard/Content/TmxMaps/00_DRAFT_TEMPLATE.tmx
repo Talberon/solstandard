@@ -1295,39 +1295,6 @@
  </layer>
  <layer id="3" name="Collide" width="32" height="20">
   <data>
-   <tile gid="5578"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5615"/>
-   <tile gid="5577"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1358,8 +1325,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1390,8 +1355,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1422,8 +1385,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1454,8 +1415,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1486,8 +1445,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1518,8 +1475,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1550,8 +1505,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1582,8 +1535,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1614,8 +1565,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1646,8 +1595,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1678,8 +1625,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1710,8 +1655,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1742,8 +1685,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1774,8 +1715,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1806,8 +1745,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1838,8 +1775,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5576"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1870,343 +1805,140 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5574"/>
-   <tile gid="5538"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5535"/>
-   <tile gid="5537"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
-   <tile gid="5575"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
   </data>
  </layer>
- <objectgroup id="5" name="Entities">
-  <object id="959" name="Deploy Blue" type="Deployment" gid="6351" x="160" y="128" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="960" name="Deploy Red" type="Deployment" gid="6359" x="832" y="128" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="973" name="Deploy Blue" type="Deployment" gid="6351" x="64" y="160" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="974" name="Deploy Blue" type="Deployment" gid="6351" x="96" y="192" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="975" name="Deploy Red" type="Deployment" gid="6359" x="896" y="192" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="976" name="Deploy Red" type="Deployment" gid="6359" x="928" y="160" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="977" name="Deploy Red" type="Deployment" gid="6359" x="896" y="128" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="978" name="Deploy Red" type="Deployment" gid="6359" x="864" y="160" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="979" name="Deploy Red" type="Deployment" gid="6359" x="864" y="96" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="980" name="Deploy Blue" type="Deployment" gid="6351" x="128" y="96" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="981" name="Deploy Blue" type="Deployment" gid="6351" x="96" y="128" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="982" name="Deploy Blue" type="Deployment" gid="6351" x="128" y="160" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="983" name="Monster Spawn" type="CreepDeploy" gid="6375" x="192" y="64" width="32" height="32">
-   <properties>
-    <property name="creepPool" value="Monsters"/>
-   </properties>
-  </object>
-  <object id="984" name="Animal Spawn" type="CreepDeploy" gid="6367" x="288" y="64" width="32" height="32">
-   <properties>
-    <property name="creepPool" value="Animals"/>
-   </properties>
-  </object>
-  <object id="985" name="Boss Spawn" type="CreepDeploy" gid="6854" x="128" y="64" width="32" height="32">
-   <properties>
-    <property name="creepPool" value="Bosses"/>
-   </properties>
-  </object>
-  <object id="1002" name="Tool Chest" type="Chest" gid="6711" x="160" y="256" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="1003" name="Ranged Weapon Chest" type="Chest" gid="6719" x="160" y="448" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Ranged"/>
-   </properties>
-  </object>
-  <object id="1004" name="Melee Weapon Chest" type="Chest" gid="6703" x="160" y="352" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Melee"/>
-   </properties>
-  </object>
-  <object id="1016" name="Grocer" type="Vendor" gid="6536" x="160" y="576" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-    <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
-    <property name="prices" value="20|15|15|20"/>
-    <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
-  <object id="1017" name="Bartender" type="Vendor" gid="6877" x="160" y="544" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-    <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
-    <property name="prices" value="20|15|15|20"/>
-    <property name="quantities" value="5|5|5|5"/>
-   </properties>
-  </object>
-  <object id="1019" name="Banker" type="Bank" gid="6885" x="224" y="576" width="32" height="32">
-   <properties>
-    <property name="interactRange" value="1,2"/>
-   </properties>
-  </object>
-  <object id="1024" name="Blacksmith" type="Vendor" gid="6893" x="160" y="384" width="32" height="32">
-   <properties>
-    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
-    <property name="prices" value="20|15|20|50|30"/>
-    <property name="quantities" value="2|2|2|2|2"/>
-   </properties>
-  </object>
-  <object id="1025" name="Vending Machine" type="Vendor" gid="6544" x="256" y="544" width="32" height="32">
-   <properties>
-    <property name="items" value="Healthy Potion"/>
-    <property name="prices" value="25"/>
-    <property name="quantities" value="3"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.75">
-  <object id="986" name="Ladder" type="LadderBridge" gid="6670" x="96" y="256" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="987" name="DeployBridge" type="LadderBridge" gid="6671" x="64" y="256" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="988" name="Axe" type="Weapon" gid="6814" x="64" y="352" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="7"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="-2"/>
-   </properties>
-  </object>
-  <object id="989" name="Bow" type="Weapon" gid="6833" x="32" y="480" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2"/>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="itemPool" value="Ranged"/>
-   </properties>
-  </object>
-  <object id="990" name="Dagger" type="Weapon" gid="6782" x="32" y="384" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="3"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="3"/>
-   </properties>
-  </object>
-  <object id="991" name="Boomerang" type="Weapon" gid="6817" x="32" y="448" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3"/>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="itemPool" value="Ranged"/>
-   </properties>
-  </object>
-  <object id="992" name="Magnet" type="Magnet" gid="6835" x="32" y="256" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="993" name="Sword" type="Weapon" gid="6832" x="32" y="352" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="5"/>
-    <property name="itemPool" value="Melee"/>
-    <property name="luckModifier" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="994" name="Spear" type="Weapon" gid="6830" x="64" y="384" width="32" height="32">
-   <properties>
-    <property name="atkValue" type="int" value="6"/>
-    <property name="itemPool" value="Melee"/>
-   </properties>
-  </object>
-  <object id="995" name="Flintlock" type="Weapon" gid="6837" x="64" y="448" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="2,3,4"/>
-    <property name="atkValue" type="int" value="4"/>
-    <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-5"/>
-   </properties>
-  </object>
-  <object id="996" name="Fire Wand" type="Weapon" gid="6834" x="64" y="480" width="32" height="32">
-   <properties>
-    <property name="atkRange" value="1,2"/>
-    <property name="atkValue" type="int" value="7"/>
-    <property name="itemPool" value="Ranged"/>
-    <property name="luckModifier" type="int" value="-5"/>
-   </properties>
-  </object>
-  <object id="998" name="Blink Bone" type="Blink" gid="6432" x="96" y="288" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-   </properties>
-  </object>
-  <object id="999" name="Giant Bomb" type="Bomb" gid="6504" x="64" y="288" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-    <property name="range" value="0,1,2,3"/>
-   </properties>
-  </object>
-  <object id="1000" name="Magic Trap" type="Trap" gid="6764" x="128" y="288" width="32" height="32">
-   <properties>
-    <property name="damage" type="int" value="5"/>
-    <property name="itemPool" value="Tools"/>
-    <property name="limitedTriggers" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1001" name="Recall Charm" type="RecallCharm" gid="6836" x="32" y="288" width="32" height="32">
-   <properties>
-    <property name="itemPool" value="Tools"/>
-    <property name="recallId" value="Recall Point"/>
-   </properties>
-  </object>
-  <object id="1005" name="Fortune Stout" type="BuffItem" gid="6769" x="96" y="544" width="32" height="32">
-   <properties>
-    <property name="stat" value="LCK"/>
-   </properties>
-  </object>
-  <object id="1006" name="Reflex Tonic" type="BuffItem" gid="6770" x="64" y="544" width="32" height="32">
-   <properties>
-    <property name="stat" value="RET"/>
-   </properties>
-  </object>
-  <object id="1007" name="Quick Elixir" type="BuffItem" gid="6771" x="128" y="544" width="32" height="32">
-   <properties>
-    <property name="duration" type="int" value="3"/>
-    <property name="modifier" type="int" value="1"/>
-    <property name="stat" value="MV"/>
-   </properties>
-  </object>
-  <object id="1008" name="Power Potion" type="BuffItem" gid="6768" x="32" y="544" width="32" height="32">
-   <properties>
-    <property name="stat" value="ATK"/>
-   </properties>
-  </object>
-  <object id="1009" name="Mighty Meat" type="BuffItem" gid="6801" x="32" y="576" width="32" height="32"/>
-  <object id="1010" name="Sour Apple" type="BuffItem" gid="6785" x="96" y="576" width="32" height="32">
-   <properties>
-    <property name="duration" type="int" value="2"/>
-    <property name="modifier" type="int" value="2"/>
-    <property name="stat" value="LCK"/>
-   </properties>
-  </object>
-  <object id="1011" name="Alert Berries" type="BuffItem" gid="6786" x="64" y="576" width="32" height="32">
-   <properties>
-    <property name="duration" type="int" value="2"/>
-    <property name="modifier" type="int" value="2"/>
-    <property name="stat" value="RET"/>
-   </properties>
-  </object>
-  <object id="1012" name="Swift Cheese" type="BuffItem" gid="6776" x="128" y="576" width="32" height="32">
-   <properties>
-    <property name="duration" type="int" value="2"/>
-    <property name="modifier" type="int" value="2"/>
-    <property name="stat" value="MV"/>
-   </properties>
-  </object>
-  <object id="1013" name="Healthy Potion" type="HealthPotion" gid="6496" x="224" y="544" width="32" height="32"/>
- </objectgroup>
+ <objectgroup id="5" name="Entities"/>
+ <objectgroup id="6" name="Loot" opacity="0.75"/>
  <objectgroup id="11" name="Summons" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="27" x="32" y="32" width="32" height="32">
    <properties>
@@ -2226,7 +1958,7 @@
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="963" name="Slime" type="Creep" gid="27" x="256" y="32" width="32" height="32">
+  <object id="963" name="Slime" type="Creep" gid="27" x="224" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="creepPool" value="Monsters"/>
@@ -2237,7 +1969,7 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="965" name="Orc" type="Creep" gid="29" x="192" y="32" width="32" height="32">
+  <object id="965" name="Orc" type="Creep" gid="29" x="160" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Orc"/>
     <property name="creepPool" value="Monsters"/>
@@ -2248,7 +1980,7 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="966" name="Rat" type="Creep" gid="35" x="352" y="32" width="32" height="32">
+  <object id="966" name="Rat" type="Creep" gid="35" x="320" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Rat"/>
     <property name="creepPool" value="Animals"/>
@@ -2258,7 +1990,7 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="967" name="Bat" type="Creep" gid="36" x="288" y="32" width="32" height="32">
+  <object id="967" name="Bat" type="Creep" gid="36" x="256" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Bat"/>
     <property name="creepPool" value="Animals"/>
@@ -2266,7 +1998,7 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="968" name="Spider" type="Creep" gid="34" x="320" y="32" width="32" height="32">
+  <object id="968" name="Spider" type="Creep" gid="34" x="288" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Spider"/>
     <property name="creepPool" value="Animals"/>
@@ -2274,7 +2006,7 @@
     <property name="routine_defender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="969" name="Goblin" type="Creep" gid="33" x="224" y="32" width="32" height="32">
+  <object id="969" name="Goblin" type="Creep" gid="33" x="192" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Goblin"/>
     <property name="creepPool" value="Monsters"/>
@@ -2285,7 +2017,7 @@
     <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="970" name="Troll" type="Creep" gid="28" x="160" y="32" width="32" height="32">
+  <object id="970" name="Troll" type="Creep" gid="28" x="128" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Troll"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2297,7 +2029,7 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="972" name="Necromancer" type="Creep" gid="31" x="128" y="32" width="32" height="32">
+  <object id="972" name="Necromancer" type="Creep" gid="31" x="96" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Necromancer"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2312,30 +2044,296 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="7" name="Items">
-  <object id="1020" name="Emerald" type="Currency" gid="6793" x="32" y="512" width="32" height="32">
+ <objectgroup id="7" name="Items"/>
+ <objectgroup id="8" name="Units"/>
+ <objectgroup id="9" name="Disabled" opacity="0.24">
+  <object id="959" name="Deploy Blue" type="Deployment" gid="6351" x="128" y="128" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="960" name="Deploy Red" type="Deployment" gid="6359" x="192" y="128" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="973" name="Deploy Blue" type="Deployment" gid="6351" x="32" y="160" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="974" name="Deploy Blue" type="Deployment" gid="6351" x="64" y="192" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="975" name="Deploy Red" type="Deployment" gid="6359" x="256" y="192" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="976" name="Deploy Red" type="Deployment" gid="6359" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="977" name="Deploy Red" type="Deployment" gid="6359" x="256" y="128" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="978" name="Deploy Red" type="Deployment" gid="6359" x="224" y="160" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="979" name="Deploy Red" type="Deployment" gid="6359" x="224" y="96" width="32" height="32">
+   <properties>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="980" name="Deploy Blue" type="Deployment" gid="6351" x="96" y="96" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="981" name="Deploy Blue" type="Deployment" gid="6351" x="64" y="128" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="982" name="Deploy Blue" type="Deployment" gid="6351" x="96" y="160" width="32" height="32">
+   <properties>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="983" name="Monster Spawn" type="CreepDeploy" gid="6375" x="160" y="64" width="32" height="32">
+   <properties>
+    <property name="creepPool" value="Monsters"/>
+   </properties>
+  </object>
+  <object id="984" name="Animal Spawn" type="CreepDeploy" gid="6367" x="256" y="64" width="32" height="32">
+   <properties>
+    <property name="creepPool" value="Animals"/>
+   </properties>
+  </object>
+  <object id="985" name="Boss Spawn" type="CreepDeploy" gid="6854" x="96" y="64" width="32" height="32">
+   <properties>
+    <property name="creepPool" value="Bosses"/>
+   </properties>
+  </object>
+  <object id="1002" name="Tool Chest" type="Chest" gid="6711" x="640" y="96" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+   </properties>
+  </object>
+  <object id="1003" name="Ranged Weapon Chest" type="Chest" gid="6719" x="704" y="96" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="1004" name="Melee Weapon Chest" type="Chest" gid="6703" x="672" y="96" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Melee"/>
+   </properties>
+  </object>
+  <object id="1016" name="Grocer" type="Vendor" gid="6536" x="480" y="96" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
+    <property name="prices" value="20|15|15|20"/>
+    <property name="quantities" value="5|5|5|5"/>
+   </properties>
+  </object>
+  <object id="1017" name="Bartender" type="Vendor" gid="6877" x="448" y="96" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+    <property name="items" value="Power Potion|Fortune Stout|Reflex Tonic|Quick Elixir"/>
+    <property name="prices" value="20|15|15|20"/>
+    <property name="quantities" value="5|5|5|5"/>
+   </properties>
+  </object>
+  <object id="1019" name="Banker" type="Bank" gid="6885" x="576" y="96" width="32" height="32">
+   <properties>
+    <property name="interactRange" value="1,2"/>
+   </properties>
+  </object>
+  <object id="1024" name="Blacksmith" type="Vendor" gid="6893" x="416" y="96" width="32" height="32">
+   <properties>
+    <property name="items" value="Sword|Axe|Dagger|Flintlock|Bow"/>
+    <property name="prices" value="20|15|20|50|30"/>
+    <property name="quantities" value="2|2|2|2|2"/>
+   </properties>
+  </object>
+  <object id="1025" name="Vending Machine" type="Vendor" gid="6544" x="512" y="96" width="32" height="32">
+   <properties>
+    <property name="items" value="Healthy Potion"/>
+    <property name="prices" value="25"/>
+    <property name="quantities" value="3"/>
+   </properties>
+  </object>
+  <object id="986" name="Ladder" type="LadderBridge" gid="6670" x="448" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+   </properties>
+  </object>
+  <object id="987" name="DeployBridge" type="LadderBridge" gid="6671" x="416" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+   </properties>
+  </object>
+  <object id="988" name="Axe" type="Weapon" gid="6814" x="672" y="32" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="-2"/>
+   </properties>
+  </object>
+  <object id="989" name="Bow" type="Weapon" gid="6833" x="640" y="64" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2"/>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="990" name="Dagger" type="Weapon" gid="6782" x="704" y="32" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="3"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="991" name="Boomerang" type="Weapon" gid="6817" x="704" y="64" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="Ranged"/>
+   </properties>
+  </object>
+  <object id="992" name="Magnet" type="Magnet" gid="6835" x="384" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+   </properties>
+  </object>
+  <object id="993" name="Sword" type="Weapon" gid="6832" x="640" y="32" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="5"/>
+    <property name="itemPool" value="Melee"/>
+    <property name="luckModifier" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="994" name="Spear" type="Weapon" gid="6830" x="736" y="32" width="32" height="32">
+   <properties>
+    <property name="atkValue" type="int" value="6"/>
+    <property name="itemPool" value="Melee"/>
+   </properties>
+  </object>
+  <object id="995" name="Flintlock" type="Weapon" gid="6837" x="736" y="64" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="2,3,4"/>
+    <property name="atkValue" type="int" value="4"/>
+    <property name="itemPool" value="Ranged"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
+  <object id="996" name="Fire Wand" type="Weapon" gid="6834" x="672" y="64" width="32" height="32">
+   <properties>
+    <property name="atkRange" value="1,2"/>
+    <property name="atkValue" type="int" value="7"/>
+    <property name="itemPool" value="Ranged"/>
+    <property name="luckModifier" type="int" value="-5"/>
+   </properties>
+  </object>
+  <object id="998" name="Blink Bone" type="Blink" gid="6432" x="544" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+   </properties>
+  </object>
+  <object id="999" name="Giant Bomb" type="Bomb" gid="6504" x="512" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+    <property name="range" value="0,1,2,3"/>
+   </properties>
+  </object>
+  <object id="1000" name="Magic Trap" type="Trap" gid="6764" x="576" y="32" width="32" height="32">
+   <properties>
+    <property name="damage" type="int" value="5"/>
+    <property name="itemPool" value="Tools"/>
+    <property name="limitedTriggers" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1001" name="Recall Charm" type="RecallCharm" gid="6836" x="480" y="32" width="32" height="32">
+   <properties>
+    <property name="itemPool" value="Tools"/>
+    <property name="recallId" value="Recall Point"/>
+   </properties>
+  </object>
+  <object id="1005" name="Fortune Stout" type="BuffItem" gid="6769" x="864" y="32" width="32" height="32">
+   <properties>
+    <property name="stat" value="LCK"/>
+   </properties>
+  </object>
+  <object id="1006" name="Reflex Tonic" type="BuffItem" gid="6770" x="832" y="32" width="32" height="32">
+   <properties>
+    <property name="stat" value="RET"/>
+   </properties>
+  </object>
+  <object id="1007" name="Quick Elixir" type="BuffItem" gid="6771" x="896" y="32" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="3"/>
+    <property name="modifier" type="int" value="1"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
+  <object id="1008" name="Power Potion" type="BuffItem" gid="6768" x="800" y="32" width="32" height="32">
+   <properties>
+    <property name="stat" value="ATK"/>
+   </properties>
+  </object>
+  <object id="1009" name="Mighty Meat" type="BuffItem" gid="6801" x="800" y="64" width="32" height="32"/>
+  <object id="1010" name="Sour Apple" type="BuffItem" gid="6785" x="864" y="64" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="LCK"/>
+   </properties>
+  </object>
+  <object id="1011" name="Alert Berries" type="BuffItem" gid="6786" x="832" y="64" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="RET"/>
+   </properties>
+  </object>
+  <object id="1012" name="Swift Cheese" type="BuffItem" gid="6776" x="896" y="64" width="32" height="32">
+   <properties>
+    <property name="duration" type="int" value="2"/>
+    <property name="modifier" type="int" value="2"/>
+    <property name="stat" value="MV"/>
+   </properties>
+  </object>
+  <object id="1013" name="Healthy Potion" type="HealthPotion" gid="6496" x="960" y="32" width="32" height="32"/>
+  <object id="1020" name="Emerald" type="Currency" gid="6793" x="416" y="128" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1021" name="Sapphire" type="Currency" gid="6794" x="64" y="512" width="32" height="32">
+  <object id="1021" name="Sapphire" type="Currency" gid="6794" x="448" y="128" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
   </object>
-  <object id="1022" name="Ruby" type="Currency" gid="6792" x="96" y="512" width="32" height="32">
+  <object id="1022" name="Ruby" type="Currency" gid="6792" x="480" y="128" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
   </object>
-  <object id="1023" name="Gold" type="Currency" gid="6795" x="128" y="512" width="32" height="32">
+  <object id="1023" name="Gold" type="Currency" gid="6795" x="512" y="128" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="8" name="Units"/>
- <objectgroup id="9" name="Disabled" opacity="0.24"/>
  <layer id="4" name="Overlay" width="32" height="20">
   <data>
    <tile/>
