@@ -152,7 +152,7 @@ namespace SolStandard.Containers.Contexts
             foreach (CreepUnit creepUnit in creepUnits)
             {
                 creepUnit.ReadyNextRoutine();
-                
+
                 //Creeps should not act on the first turn
                 creepUnit.ExhaustAndDisableUnit();
             }
@@ -163,21 +163,19 @@ namespace SolStandard.Containers.Contexts
             CurrentActiveTeam = TeamWithFewerRemainingUnits;
             CurrentActiveUnit = Units.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
+            Units.ForEach(unit => unit.ActivateUnit());
 
             Vector2 cursorMapCoordinates = GameContext.MapCursor.MapCoordinates;
-            RefreshAllUnits();
             GameContext.StatusScreenView.UpdateWindows();
 
             //Events
 
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(cursorMapCoordinates));
-            GlobalEventQueue.QueueSingleEvent(
-                new ToastAtCoordinatesEvent(
-                    cursorMapCoordinates,
-                    "ROUND " + GameContext.GameMapContext.RoundCounter + " STARTING...",
-                    100
-                )
-            );
+            GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
+                cursorMapCoordinates,
+                $"ROUND {GameContext.GameMapContext.RoundCounter} STARTING...",
+                100
+            ));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
             GlobalEventQueue.QueueSingleEvent(new FirstTurnOfNewRoundEvent(this));
@@ -265,19 +263,6 @@ namespace SolStandard.Containers.Contexts
                     return FirstPlayer;
             }
         }
-
-        private void RefreshAllUnits()
-        {
-            Units.ForEach(unit => unit.ActivateUnit());
-
-            GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent(
-                "Refreshing units...",
-                AssetManager.MenuConfirmSFX,
-                100
-            ));
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
-        }
-
 
         public Team TeamWithFewerRemainingUnits
         {
