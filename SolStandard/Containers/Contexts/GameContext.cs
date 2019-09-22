@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
-using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;

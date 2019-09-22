@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -42,6 +43,22 @@ namespace SolStandard.Containers
             : this(gameGrid, cursorTexture, new List<CreepEntity>(), new List<IItem>())
         {
             //Used by MapSelect
+        }
+
+        public IItem GetRandomItemFromPool(string poolName)
+        {
+            List<IItem> poolItems = GetPoolItems(poolName);
+
+            return poolItems.Count <= 0 ? null : poolItems[GameDriver.Random.Next(poolItems.Count)];
+        }
+
+        public List<IItem> GetPoolItems(string poolName)
+        {
+            List<IItem> poolItems = MapLoot
+                .Where(item => item.ItemPool != string.Empty)
+                .ToList()
+                .FindAll(item => item.ItemPool == poolName);
+            return poolItems;
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
