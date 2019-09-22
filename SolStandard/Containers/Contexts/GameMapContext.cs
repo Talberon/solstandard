@@ -105,6 +105,11 @@ namespace SolStandard.Containers.Contexts
                     return hoverVendor.Items.Count(x => x != null) > 0;
                 }
 
+                if (cursorSlice.TerrainEntity is Chest hoverChest)
+                {
+                    return !string.IsNullOrEmpty(hoverChest.ItemPool);
+                }
+
                 if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;
 
                 return HoverUnit != null && HoverUnit.Inventory.Count > 0;
@@ -782,23 +787,24 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MapUnitCancelSFX.Play();
                 GameMapView.CloseItemDetailWindow();
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
-                return;
-            }
-
-            MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
-
-            List<IItem> items = CollectItemsFromSlice(currentSlice);
-
-            if (items.Count > 0)
-            {
-                AssetManager.MapUnitSelectSFX.Play();
-                GameMapView.GenerateItemDetailWindow(items);
-                GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
             }
             else
             {
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
+                MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
+
+                List<IItem> items = CollectItemsFromSlice(currentSlice);
+
+                if (items.Count > 0)
+                {
+                    AssetManager.MapUnitSelectSFX.Play();
+                    GameMapView.GenerateItemDetailWindow(items);
+                    GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
+                }
+                else
+                {
+                    AssetManager.WarningSFX.Play();
+                    MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
+                }
             }
         }
 
@@ -816,9 +822,14 @@ namespace SolStandard.Containers.Contexts
                     break;
             }
 
-            if (currentSlice.TerrainEntity is Vendor vendor)
+            switch (currentSlice.TerrainEntity)
             {
-                items.AddRange(vendor.Items);
+                case Vendor vendor:
+                    items.AddRange(vendor.Items);
+                    break;
+                case Chest chest:
+                    items.AddRange(GameContext.GameMapContext.MapContainer.GetPoolItems(chest.ItemPool));
+                    break;
             }
 
             GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);
