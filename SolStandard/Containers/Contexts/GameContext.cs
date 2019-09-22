@@ -183,7 +183,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public static List<GameUnit> Units => InitiativeContext.InitiativeList;
+        public static List<GameUnit> Units => InitiativeContext.Units;
 
         public static GameUnit ActiveUnit => InitiativeContext.CurrentActiveUnit;
         public static Team ActiveTeam => InitiativeContext.CurrentActiveTeam;
