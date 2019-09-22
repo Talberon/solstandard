@@ -108,6 +108,11 @@ namespace SolStandard.Containers
             AddNewToastAtUnit(unitEntity, new RenderText(AssetManager.MapFont, toastMessage), lifetimeInFrames);
         }
 
+        public static void ClearToasts()
+        {
+            ToastWindow = null;
+        }
+
         public static void ClearDynamicAndPreviewGrids()
         {
             ClearDynamicGrid();

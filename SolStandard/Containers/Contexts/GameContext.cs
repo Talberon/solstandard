@@ -231,6 +231,8 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
+            GlobalEventQueue.ClearEventQueue();
+            MapContainer.ClearToasts();
             Bank.ResetBank();
 
             const string mapPath = MapDirectory + MapSelectFile;

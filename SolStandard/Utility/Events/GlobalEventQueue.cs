@@ -13,7 +13,8 @@ namespace SolStandard.Utility.Events
         private static readonly Queue<IEvent> EventSequence = new Queue<IEvent>();
         private static IEvent _currentEvent;
 
-        private static bool AllActionsComplete => EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete);
+        private static bool AllActionsComplete =>
+            EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete);
 
         public static void QueueEvents(Queue<IEvent> eventSequence)
         {
@@ -39,6 +40,7 @@ namespace SolStandard.Utility.Events
                     GameDriver.ConnectionManager.SendEventMessageAsClient(networkEvent);
                 }
             }
+
             EventSequence.Enqueue(eventToQueue);
         }
 
@@ -54,6 +56,12 @@ namespace SolStandard.Utility.Events
             }
 
             return AllActionsComplete;
+        }
+
+        public static void ClearEventQueue()
+        {
+            _currentEvent = null;
+            EventSequence.Clear();
         }
     }
 }
