@@ -478,7 +478,7 @@
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
     <Compile Include="Utility\Events\SpawnUnitEvent.cs" />
-    <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />
+    <Compile Include="Utility\Events\FirstTurnOfNewRoundEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerSingleEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />

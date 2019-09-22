@@ -197,10 +197,10 @@ namespace SolStandard.Containers.Contexts
             MapCamera.CenterCameraToCursor();
         }
 
-        public static void LoadMapAndScenario(string mapPath, Scenario scenario)
+        public static void LoadMapAndScenario(string mapPath, Scenario scenario, Team firstTeam)
         {
             Scenario = scenario;
-            LoadMap(mapPath);
+            LoadMap(mapPath, firstTeam);
         }
 
         public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
@@ -209,11 +209,11 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.Deployment;
         }
 
-        public static void StartGame(string mapPath, Scenario scenario)
+        public static void StartGame(string mapPath, Scenario scenario, Team firstTeam)
         {
             Scenario = scenario;
 
-            LoadMap(mapPath);
+            LoadMap(mapPath, firstTeam);
 
             CurrentGameState = GameState.InGame;
 
@@ -255,7 +255,7 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        private static void LoadMap(string mapFile)
+        private static void LoadMap(string mapFile, Team firstTeam)
         {
             string mapPath = MapDirectory + mapFile;
 
@@ -268,7 +268,9 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            LoadInitiativeContext(mapParser, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
+            
+            LoadInitiativeContext(mapParser, firstTeam);
+            
             InjectCreepsIntoSpawnTiles(mapParser.LoadMapLoot());
             LoadStatusUI();
         }
