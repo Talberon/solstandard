@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -25,18 +26,22 @@ namespace SolStandard.Containers
         public MapCamera MapCamera { get; }
         private static ToastWindow ToastWindow { get; set; }
         public List<CreepEntity> MapSummons { get; }
+        public List<IItem> MapLoot { get; }
 
-        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons)
+        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons,
+            List<IItem> mapLoot)
         {
             MapSummons = mapSummons;
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
             MapCamera = new MapCamera(5, 0.05f);
+            MapLoot = mapLoot;
         }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
-            : this(gameGrid, cursorTexture, new List<CreepEntity>())
+            : this(gameGrid, cursorTexture, new List<CreepEntity>(), new List<IItem>())
         {
+            //Used by MapSelect
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)

@@ -270,14 +270,14 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            
+
             LoadInitiativeContext(mapParser, firstTeam);
-            
-            InjectCreepsIntoSpawnTiles(mapParser.LoadMapLoot());
+
+            InjectCreepsIntoSpawnTiles();
             LoadStatusUI();
         }
 
-        private static void InjectCreepsIntoSpawnTiles(List<IItem> mapLoot)
+        private static void InjectCreepsIntoSpawnTiles()
         {
             List<CreepEntity> summons = GameMapContext.MapContainer.MapSummons;
 
@@ -291,27 +291,31 @@ namespace SolStandard.Containers.Contexts
 
                 CreepEntity randomSummon = eligibleCreeps[GameDriver.Random.Next(eligibleCreeps.Count)];
 
-                InjectCreepIntoTile(mapLoot, randomSummon, creepDeployTile);
+                InjectCreepIntoTile(randomSummon, creepDeployTile);
 
                 if (!creepDeployTile.CopyCreep) summons.Remove(randomSummon);
             }
         }
 
-        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon,
-            MapElement creepDeployTile)
+        private static void InjectCreepIntoTile(CreepEntity randomSummon, MapElement creepDeployTile)
         {
             Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
 
             GameUnit creepToSpawn =
-                UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
-                    randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
+                UnitGenerator.BuildUnitFromProperties(
+                    randomSummon.Name,
+                    randomSummon.Team,
+                    randomSummon.Role,
+                    randomSummon.IsCommander,
+                    randomSummon.Copy()
+                );
 
             creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             Units.Add(creepToSpawn);
 
-            MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
-                (int) creepDeployTile.MapCoordinates.Y] = null;
+            MapContainer.GameGrid[(int) Layer.Entities]
+                [(int) creepDeployTile.MapCoordinates.X, (int) creepDeployTile.MapCoordinates.Y] = null;
         }
 
         private static void LoadStatusUI()
@@ -321,18 +325,20 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadMapContext(TmxMapParser mapParser)
         {
-            ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
-
             GameMapContext = new GameMapContext(
-                new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture, mapParser.LoadSummons()),
+                new MapContainer(
+                    mapParser.LoadMapGrid(),
+                    AssetManager.MapCursorTexture,
+                    mapParser.LoadSummons(),
+                    mapParser.LoadMapLoot()
+                ),
                 new GameMapView()
             );
         }
 
         private static void LoadInitiativeContext(TmxMapParser mapParser, Team firstTeam)
         {
-            List<GameUnit> unitsFromMap =
-                UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits(), mapParser.LoadMapLoot());
+            List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits());
 
             InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
         }

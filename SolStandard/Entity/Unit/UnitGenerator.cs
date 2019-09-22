@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SolStandard.Containers;
+using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Actions.Archer;
 using SolStandard.Entity.Unit.Actions.Bard;
@@ -25,7 +27,7 @@ namespace SolStandard.Entity.Unit
         private const int InitialUnitBounty = 10;
         private const int StartingGoldVariance = 5;
 
-        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units, List<IItem> loot)
+        public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units)
         {
             List<GameUnit> unitsFromMap = new List<GameUnit>();
 
@@ -33,8 +35,7 @@ namespace SolStandard.Entity.Unit
             foreach (UnitEntity unit in units)
             {
                 if (unit == null) continue;
-                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unit.Team, unit.Role, unit.IsCommander, unit,
-                    loot);
+                GameUnit unitToBuild = BuildUnitFromProperties(unit.Name, unit.Team, unit.Role, unit.IsCommander, unit);
                 unitsFromMap.Add(unitToBuild);
             }
 
@@ -42,14 +43,14 @@ namespace SolStandard.Entity.Unit
         }
 
         public static GameUnit BuildUnitFromProperties(string id, Team unitTeam, Role unitJobClass, bool isCommander,
-            UnitEntity mapEntity, List<IItem> loot)
+            UnitEntity mapEntity)
         {
             GameUnit generatedUnit;
 
             if (unitTeam == Team.Creep)
             {
                 generatedUnit = GenerateCreep(unitJobClass, unitTeam, id, isCommander, mapEntity as CreepEntity);
-                PopulateUnitInventory(mapEntity.InitialInventory, loot, generatedUnit);
+                PopulateUnitInventory(mapEntity.InitialInventory, generatedUnit);
                 AssignStartingBounty(generatedUnit, ((CreepEntity) mapEntity).StartingGold, StartingGoldVariance);
             }
             else
@@ -65,12 +66,11 @@ namespace SolStandard.Entity.Unit
             generatedUnit.CurrentBounty += amount + GameDriver.Random.Next(variance);
         }
 
-        private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, List<IItem> loot, GameUnit unit)
+        private static void PopulateUnitInventory(IEnumerable<string> inventoryItems, GameUnit unit)
         {
             foreach (string itemName in inventoryItems)
             {
-                IItem unitItem = loot.Find(item => item.Name == itemName);
-
+                IItem unitItem = GameContext.GameMapContext.MapContainer.MapLoot.Find(item => item.Name == itemName);
                 unit.AddItemToInventory(unitItem);
             }
         }
@@ -532,9 +532,10 @@ namespace SolStandard.Entity.Unit
             UnitStatistics unitStatistics = GetUnitStatistics(role);
             List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
-            GameUnit generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions, isCommander);
+            GameUnit generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions,
+                isCommander);
             AssignStartingBounty(generatedUnit, InitialUnitBounty, 0);
-            
+
             return generatedUnit;
         }
 
