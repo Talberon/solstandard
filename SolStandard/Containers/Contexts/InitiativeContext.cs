@@ -8,37 +8,25 @@ using SolStandard.Utility.Events;
 
 namespace SolStandard.Containers.Contexts
 {
-    public enum TurnOrder
-    {
-        AlternateExhaustingUnits
-    }
-
     public class InitiativeContext
     {
         public List<GameUnit> InitiativeList { get; }
         public GameUnit CurrentActiveUnit { get; private set; }
         public Team CurrentActiveTeam { get; private set; }
-        public Team FirstPlayer { get; }
+        private Team FirstPlayer { get; }
         private int redTeamGold;
         private int blueTeamGold;
 
-        public InitiativeContext(List<GameUnit> unitList, Team firstTurn,
-            TurnOrder turnOrder = TurnOrder.AlternateExhaustingUnits)
+        public InitiativeContext(List<GameUnit> unitList, Team firstTurn)
         {
             CurrentActiveTeam = firstTurn;
             FirstPlayer = firstTurn;
             redTeamGold = 0;
             blueTeamGold = 0;
-
-            switch (turnOrder)
-            {
-                case TurnOrder.AlternateExhaustingUnits:
-                    InitiativeList = TeamByTeamTurnOrder(unitList, firstTurn);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(turnOrder), turnOrder, null);
-            }
+            InitiativeList = unitList;
         }
+
+        #region Team Gold
 
         private int RedTeamGold
         {
@@ -91,18 +79,9 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public void StartFirstTurn()
-        {
-            CurrentActiveTeam = TeamWithFewerRemainingUnits();
-            CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
+        #endregion
 
-            foreach (CreepUnit creepUnit in GameContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>())
-            {
-                creepUnit.ReadyNextRoutine();
-            }
-
-            StartNewRound();
-        }
+        #region Controller Actions
 
         public void SelectNextUnitOnActiveTeam()
         {
@@ -125,6 +104,8 @@ namespace SolStandard.Containers.Contexts
 
             CurrentActiveUnit = teamUnits[nextUnitIndex];
         }
+
+        #endregion
 
         public void PassTurnToNextUnit()
         {
@@ -151,61 +132,72 @@ namespace SolStandard.Containers.Contexts
                 CurrentActiveTeam = opposingTeam;
             }
 
-            UpdateUnitActivation();
+            StartNewTurn();
+        }
+
+        public void StartFirstTurn()
+        {
+            StartNewRound();
+            
+            IEnumerable<CreepUnit> creepUnits = GameContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>();
+            foreach (CreepUnit creepUnit in creepUnits)
+            {
+                creepUnit.ReadyNextRoutine();
+            }
         }
 
         private void StartNewRound()
         {
-            CurrentActiveTeam = TeamWithFewerRemainingUnits();
+            CurrentActiveTeam = TeamWithFewerRemainingUnits;
             CurrentActiveUnit = InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
 
-            Queue<IEvent> newRoundEvents = new Queue<IEvent>();
             Vector2 cursorMapCoordinates = GameContext.MapCursor.MapCoordinates;
-            newRoundEvents.Enqueue(new CameraCursorPositionEvent(cursorMapCoordinates));
-            newRoundEvents.Enqueue(
+            RefreshAllUnits();
+            GameContext.StatusScreenView.UpdateWindows();
+
+            //Events
+
+            GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(cursorMapCoordinates));
+            GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(
                     cursorMapCoordinates,
                     "ROUND " + GameContext.GameMapContext.RoundCounter + " STARTING...",
                     100
                 )
             );
-            newRoundEvents.Enqueue(new WaitFramesEvent(80));
-            GlobalEventQueue.QueueEvents(newRoundEvents);
-
-            RefreshAllUnits();
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
-
             GlobalEventQueue.QueueSingleEvent(new UpdateTurnOrderEvent(this));
-
-            GameContext.StatusScreenView.UpdateWindows();
         }
 
         public void UpdateTurnOrder()
         {
-            CurrentActiveTeam = TeamWithFewerRemainingUnits();
-            UpdateUnitActivation();
+            CurrentActiveTeam = TeamWithFewerRemainingUnits;
+            StartNewTurn();
         }
 
-        public Team TeamWithFewerRemainingUnits()
+        public Team TeamWithFewerRemainingUnits
         {
-            int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
-            int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
+            get
+            {
+                int redTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Red && unit.IsAlive);
+                int blueTeamUnits = InitiativeList.Count(unit => unit.Team == Team.Blue && unit.IsAlive);
 
-            if (redTeamUnits == blueTeamUnits) return FirstPlayer;
+                if (redTeamUnits == blueTeamUnits) return FirstPlayer;
 
-            if (redTeamUnits == 0) return Team.Blue;
-            if (blueTeamUnits == 0) return Team.Red;
+                if (redTeamUnits == 0) return Team.Blue;
+                if (blueTeamUnits == 0) return Team.Red;
 
-            return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
+                return (redTeamUnits > blueTeamUnits) ? Team.Blue : Team.Red;
+            }
         }
 
-        private void UpdateUnitActivation()
+        private void StartNewTurn()
         {
             InitiativeList.Where(unit => unit.Team == CurrentActiveTeam).ToList().ForEach(unit => unit.EnableUnit());
             CurrentActiveUnit =
                 InitiativeList.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
-
 
             switch (CurrentActiveTeam)
             {
@@ -225,35 +217,35 @@ namespace SolStandard.Containers.Contexts
                     throw new ArgumentOutOfRangeException();
             }
 
+            //Events
+
             string playerInstruction = (CurrentActiveTeam != Team.Creep)
                 ? Environment.NewLine + "Select a unit."
                 : string.Empty;
 
-            Queue<IEvent> activationEvents = new Queue<IEvent>();
             Vector2 activeUnitCoordinates =
                 CurrentActiveUnit?.UnitEntity.MapCoordinates ?? Vector2.Zero;
-            activationEvents.Enqueue(new CameraCursorPositionEvent(activeUnitCoordinates));
-            activationEvents.Enqueue(
+            GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(activeUnitCoordinates));
+            GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(
                     activeUnitCoordinates,
-                    $"{CurrentActiveTeam} Turn START! {playerInstruction}",
+                    $"{CurrentActiveTeam} Turn START!{playerInstruction}",
                     AssetManager.MenuConfirmSFX,
                     120
                 )
             );
-            GlobalEventQueue.QueueEvents(activationEvents);
+
+            if (CurrentActiveTeam != Team.Creep) return;
+            if (CurrentActiveUnit == null) return;
 
             ExecuteCreepRoutine();
         }
 
         private void ExecuteCreepRoutine()
         {
-            if (CurrentActiveTeam != Team.Creep) return;
-            if (GameContext.ActiveUnit.UnitEntity == null) return;
-
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 
-            if (GameContext.ActiveUnit is CreepUnit activeCreep)
+            if (CurrentActiveUnit is CreepUnit activeCreep)
             {
                 activeCreep.ExecuteNextRoutine();
                 GlobalEventQueue.QueueSingleEvent(new ReadyAIRoutineEvent(activeCreep));
@@ -278,39 +270,29 @@ namespace SolStandard.Containers.Contexts
         {
             get
             {
-                Team opposingTeam;
-
                 switch (CurrentActiveTeam)
                 {
                     case Team.Blue:
-                        opposingTeam = Team.Red;
-                        break;
+                        return Team.Red;
                     case Team.Red:
-                        opposingTeam = Team.Blue;
-                        break;
+                        return Team.Blue;
                     default:
-                        opposingTeam = Team.Creep;
-                        break;
+                        return FirstPlayer;
                 }
-
-                return opposingTeam;
             }
         }
 
         private void RefreshAllUnits()
         {
-            Queue<IEvent> refreshUnitEvents = new Queue<IEvent>();
-            refreshUnitEvents.Enqueue(
-                new ToastAtCursorEvent(
-                    "Refreshing units...",
-                    AssetManager.MenuConfirmSFX,
-                    100
-                )
-            );
-            refreshUnitEvents.Enqueue(new WaitFramesEvent(50));
-            GlobalEventQueue.QueueEvents(refreshUnitEvents);
-
             InitiativeList.ForEach(unit => unit.ActivateUnit());
+            
+            GlobalEventQueue.QueueSingleEvent(new ToastAtCursorEvent(
+                "Refreshing units...",
+                AssetManager.MenuConfirmSFX,
+                100
+            ));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
+
         }
 
         public bool SelectActiveUnit(GameUnit unit)
@@ -319,64 +301,6 @@ namespace SolStandard.Containers.Contexts
 
             CurrentActiveUnit = unit;
             return true;
-        }
-
-        private static List<GameUnit> TeamByTeamTurnOrder(IEnumerable<GameUnit> unitList, Team firstTurn)
-        {
-            //Split the initiative list into each team
-            List<GameUnit> redTeam = new List<GameUnit>();
-            List<GameUnit> blueTeam = new List<GameUnit>();
-            List<GameUnit> creepTeam = new List<GameUnit>();
-
-            unitList = unitList.OrderBy(unit => !unit.IsCommander);
-            PopulateTeams(unitList, redTeam, blueTeam, creepTeam);
-
-            List<GameUnit> newInitiativeList = new List<GameUnit>();
-
-            switch (firstTurn)
-            {
-                case Team.Red:
-                    newInitiativeList.AddRange(redTeam);
-                    newInitiativeList.AddRange(blueTeam);
-                    newInitiativeList.AddRange(creepTeam);
-                    break;
-                case Team.Blue:
-                    newInitiativeList.AddRange(blueTeam);
-                    newInitiativeList.AddRange(redTeam);
-                    newInitiativeList.AddRange(creepTeam);
-                    break;
-                case Team.Creep:
-                    newInitiativeList.AddRange(creepTeam);
-                    newInitiativeList.AddRange(redTeam);
-                    newInitiativeList.AddRange(blueTeam);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(firstTurn), firstTurn, null);
-            }
-
-            return newInitiativeList;
-        }
-
-        private static void PopulateTeams(IEnumerable<GameUnit> unitList, List<GameUnit> redTeam,
-            List<GameUnit> blueTeam, List<GameUnit> creepTeam)
-        {
-            foreach (GameUnit unit in unitList)
-            {
-                switch (unit.Team)
-                {
-                    case Team.Red:
-                        redTeam.Add(unit);
-                        break;
-                    case Team.Blue:
-                        blueTeam.Add(unit);
-                        break;
-                    case Team.Creep:
-                        creepTeam.Add(unit);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
         }
     }
 }
