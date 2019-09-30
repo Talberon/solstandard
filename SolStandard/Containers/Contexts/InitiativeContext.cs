@@ -163,7 +163,6 @@ namespace SolStandard.Containers.Contexts
             CurrentActiveTeam = TeamWithFewerRemainingUnits;
             CurrentActiveUnit = Units.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
             GameContext.GameMapContext.ResetCursorToActiveUnit();
-            Units.ForEach(unit => unit.ActivateUnit());
 
             Vector2 cursorMapCoordinates = GameContext.MapCursor.MapCoordinates;
             GameContext.StatusScreenView.UpdateWindows();
@@ -177,6 +176,15 @@ namespace SolStandard.Containers.Contexts
                 100
             ));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
+            GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
+                cursorMapCoordinates,
+                $"Resolving Status Effects...",
+                AssetManager.MenuConfirmSFX,
+                100
+            ));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
+            Units.ForEach(unit => unit.ActivateUnit());
+            
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
             GlobalEventQueue.QueueSingleEvent(new FirstTurnOfNewRoundEvent(this));
         }

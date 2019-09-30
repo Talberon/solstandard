@@ -2532,12 +2532,12 @@
     <property name="value" type="int" value="10"/>
    </properties>
   </object>
-  <object id="1012" name="Gold" type="Currency" gid="6795" x="672" y="64" width="32" height="32">
+  <object id="1012" name="Gold" type="Currency" gid="6795" x="704" y="64" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
   </object>
-  <object id="1013" name="Gold" type="Currency" gid="6795" x="64" y="480" width="32" height="32">
+  <object id="1013" name="Gold" type="Currency" gid="6795" x="64" y="448" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
@@ -2608,7 +2608,7 @@
     <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1035" name="Blood Orc" type="Creep" gid="37" x="96" y="576" width="32" height="32">
+  <object id="1035" name="Blood Orc" type="Creep" gid="37" x="64" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="BloodOrc"/>
     <property name="Independent" type="bool" value="true"/>
@@ -2620,7 +2620,7 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1036" name="Blood Orc" type="Creep" gid="37" x="608" y="64" width="32" height="32">
+  <object id="1036" name="Blood Orc" type="Creep" gid="37" x="672" y="64" width="32" height="32">
    <properties>
     <property name="Class" value="BloodOrc"/>
     <property name="Independent" type="bool" value="true"/>
