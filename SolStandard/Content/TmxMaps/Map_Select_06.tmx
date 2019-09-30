@@ -4044,7 +4044,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Dungeon_02.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="maxUnitsBlue" type="int" value="7"/>
     <property name="maxUnitsRed" type="int" value="7"/>
     <property name="modeAssassinate" type="bool" value="false"/>

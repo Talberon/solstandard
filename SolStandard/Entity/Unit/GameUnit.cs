@@ -54,6 +54,7 @@ namespace SolStandard.Entity.Unit
         Rat,
         Bat,
         Spider,
+        BloodOrc,
 
         //Pets
         Boar,

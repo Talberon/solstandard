@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="31" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="1035">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="31" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="1037">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -715,8 +715,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="4424"/>
-   <tile gid="4425"/>
    <tile gid="4425"/>
    <tile gid="4426"/>
    <tile/>
@@ -746,8 +746,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4464"/>
-   <tile gid="4500"/>
+   <tile/>
+   <tile gid="4688"/>
    <tile gid="4420"/>
    <tile gid="4466"/>
    <tile/>
@@ -777,8 +777,8 @@
    <tile gid="4883"/>
    <tile/>
    <tile gid="4765"/>
+   <tile/>
    <tile gid="4464"/>
-   <tile gid="4420"/>
    <tile gid="4460"/>
    <tile gid="4466"/>
    <tile/>
@@ -808,8 +808,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
    <tile gid="4504"/>
-   <tile gid="4505"/>
    <tile gid="4505"/>
    <tile gid="4506"/>
    <tile/>
@@ -1066,10 +1066,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4464"/>
-   <tile gid="4420"/>
-   <tile gid="4460"/>
-   <tile gid="4466"/>
+   <tile gid="4504"/>
+   <tile gid="4523"/>
+   <tile gid="4505"/>
+   <tile gid="4506"/>
    <tile/>
    <tile gid="5603"/>
    <tile gid="5560"/>
@@ -1097,10 +1097,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4504"/>
-   <tile gid="4505"/>
-   <tile gid="4505"/>
-   <tile gid="4506"/>
+   <tile/>
+   <tile gid="4563"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="5560"/>
    <tile gid="5603"/>
@@ -1401,8 +1401,8 @@
    <tile gid="521"/>
    <tile gid="521"/>
    <tile gid="522"/>
+   <tile/>
    <tile gid="5686"/>
-   <tile gid="5687"/>
    <tile gid="6005"/>
    <tile gid="5727"/>
    <tile gid="4456"/>
@@ -1463,8 +1463,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5725"/>
    <tile/>
+   <tile gid="5725"/>
    <tile/>
    <tile gid="5765"/>
    <tile/>
@@ -1494,8 +1494,8 @@
    <tile gid="5687"/>
    <tile gid="5687"/>
    <tile gid="5687"/>
-   <tile gid="5768"/>
    <tile gid="5687"/>
+   <tile gid="5768"/>
    <tile gid="5687"/>
    <tile gid="5768"/>
    <tile gid="5727"/>
@@ -1752,10 +1752,10 @@
    <tile gid="3197"/>
    <tile gid="620"/>
    <tile gid="4368"/>
-   <tile gid="5765"/>
+   <tile gid="5805"/>
    <tile/>
-   <tile/>
-   <tile gid="5765"/>
+   <tile gid="5686"/>
+   <tile gid="5806"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1783,10 +1783,10 @@
    <tile/>
    <tile gid="620"/>
    <tile gid="4368"/>
-   <tile gid="5805"/>
    <tile/>
-   <tile gid="5686"/>
-   <tile gid="5806"/>
+   <tile/>
+   <tile/>
+   <tile gid="5765"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2262,8 +2262,8 @@
    </properties>
   </object>
   <object id="981" name="Stump" type="BreakableObstacle" gid="4600" x="96" y="256" width="32" height="32"/>
-  <object id="982" name="Unlocked Door" type="Door" gid="6588" x="64" y="448" width="32" height="32"/>
-  <object id="983" name="Unlocked Door" type="Door" gid="6589" x="704" y="64" width="32" height="32"/>
+  <object id="982" name="Unlocked Door" type="Door" gid="6588" x="64" y="416" width="32" height="32"/>
+  <object id="983" name="Unlocked Door" type="Door" gid="6589" x="736" y="64" width="32" height="32"/>
   <object id="984" name="Unlocked Door" type="Door" gid="6588" x="288" y="128" width="32" height="32">
    <properties>
     <property name="isOpen" type="bool" value="true"/>
@@ -2608,6 +2608,30 @@
     <property name="routine_kingslayer" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="1035" name="Blood Orc" type="Creep" gid="37" x="96" y="576" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1036" name="Blood Orc" type="Creep" gid="37" x="608" y="64" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="30" name="Overlay" width="31" height="22">
   <data>
@@ -2681,11 +2705,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5840"/>
-   <tile gid="5841"/>
-   <tile gid="5841"/>
-   <tile gid="5841"/>
-   <tile gid="5842"/>
+   <tile gid="5955"/>
+   <tile gid="5956"/>
+   <tile gid="5957"/>
+   <tile gid="5958"/>
+   <tile gid="5959"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2712,11 +2736,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5880"/>
-   <tile gid="5881"/>
-   <tile gid="5881"/>
-   <tile gid="5881"/>
-   <tile gid="5882"/>
+   <tile gid="5995"/>
+   <tile gid="5996"/>
+   <tile gid="5997"/>
+   <tile gid="5998"/>
+   <tile gid="5999"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2909,10 +2933,10 @@
    <tile/>
    <tile/>
    <tile gid="6040"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6035"/>
+   <tile gid="6036"/>
+   <tile gid="6038"/>
+   <tile gid="6039"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2940,10 +2964,10 @@
    <tile/>
    <tile/>
    <tile gid="6080"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6075"/>
+   <tile gid="6076"/>
+   <tile gid="6078"/>
+   <tile gid="6079"/>
    <tile gid="6040"/>
    <tile/>
    <tile/>
@@ -2953,9 +2977,9 @@
    <tile gid="4882"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="5843"/>
+   <tile gid="5844"/>
+   <tile gid="5845"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2984,9 +3008,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5843"/>
-   <tile gid="5844"/>
-   <tile gid="5845"/>
+   <tile gid="5883"/>
+   <tile gid="5884"/>
+   <tile gid="5885"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3015,9 +3039,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5883"/>
-   <tile gid="5884"/>
-   <tile gid="5885"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -3083,10 +3107,10 @@
    <tile gid="4483"/>
    <tile/>
    <tile/>
-   <tile gid="5843"/>
-   <tile gid="5844"/>
-   <tile gid="5844"/>
-   <tile gid="5845"/>
+   <tile gid="6035"/>
+   <tile gid="6036"/>
+   <tile gid="6038"/>
+   <tile gid="6039"/>
    <tile/>
    <tile/>
    <tile gid="4484"/>
@@ -3096,11 +3120,11 @@
    <tile gid="4483"/>
    <tile/>
    <tile/>
-   <tile gid="5840"/>
-   <tile gid="5841"/>
-   <tile gid="5841"/>
-   <tile gid="5841"/>
-   <tile gid="5842"/>
+   <tile gid="5955"/>
+   <tile gid="5956"/>
+   <tile gid="5957"/>
+   <tile gid="5958"/>
+   <tile gid="5959"/>
    <tile/>
    <tile gid="4483"/>
    <tile/>
@@ -3114,10 +3138,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5883"/>
-   <tile gid="5884"/>
-   <tile gid="5884"/>
-   <tile gid="5885"/>
+   <tile gid="6075"/>
+   <tile gid="6076"/>
+   <tile gid="6078"/>
+   <tile gid="6079"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3127,11 +3151,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="5880"/>
-   <tile gid="5881"/>
-   <tile gid="5881"/>
-   <tile gid="5881"/>
-   <tile gid="5882"/>
+   <tile gid="5995"/>
+   <tile gid="5996"/>
+   <tile gid="5997"/>
+   <tile gid="5998"/>
+   <tile gid="5999"/>
    <tile/>
    <tile/>
    <tile/>

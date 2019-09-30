@@ -58,6 +58,8 @@ namespace SolStandard.Entity.Unit
                     return GenerateName(NameType.Beast);
                 case Role.Orc:
                     return GenerateName(NameType.Beast);
+                case Role.BloodOrc:
+                    return GenerateName(NameType.Beast);
                 case Role.Necromancer:
                     return GenerateName(NameType.Beast);
                 case Role.Skeleton:

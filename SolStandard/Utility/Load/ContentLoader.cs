@@ -158,6 +158,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSlime"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepTroll"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepBloodOrc"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepMerchant"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepNecromancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSkeleton"),
@@ -216,6 +217,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Slime"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/BloodOrc"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Necromancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Skeleton"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Goblin"),
@@ -635,7 +637,12 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/LavaTheme"),
                 content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
                 content.Load<Song>("Audio/Music/Game/BossTheme"),
-                content.Load<Song>("Audio/Music/Game/VictoryTheme")
+                content.Load<Song>("Audio/Music/Game/VictoryTheme"),
+                
+                //Original
+                content.Load<Song>("Audio/Music/Game/DarkTheme"),
+                content.Load<Song>("Audio/Music/Game/DungeonTheme"),
+                content.Load<Song>("Audio/Music/Game/PlainsBattle"),
             };
         }
 

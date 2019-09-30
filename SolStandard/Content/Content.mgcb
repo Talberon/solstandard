@@ -19,11 +19,23 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/BossTheme.ogg
 
+#begin Audio/Music/Game/DarkTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/DarkTheme.wav
+
 #begin Audio/Music/Game/DesertTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/DesertTheme.wav
+
+#begin Audio/Music/Game/DungeonTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/DungeonTheme.wav
 
 #begin Audio/Music/Game/IslandTheme.ogg
 /importer:OggImporter
@@ -48,6 +60,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MilitaryTheme.ogg
+
+#begin Audio/Music/Game/PlainsBattle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/PlainsBattle.wav
 
 #begin Audio/Music/Game/PlainsTheme.ogg
 /importer:OggImporter
@@ -3184,6 +3202,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Bat.png
 
+#begin Graphics/Images/Portraits/Creep/BloodOrc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/BloodOrc.png
+
 #begin Graphics/Images/Portraits/Creep/Goblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4275,6 +4305,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepBat.png
+
+#begin Graphics/Map/Units/Creep/CreepBloodOrc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepBloodOrc.png
 
 #begin Graphics/Map/Units/Creep/CreepGoblin.png
 /importer:TextureImporter
