@@ -183,7 +183,6 @@ namespace SolStandard.Containers.Contexts
 
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(cursorMapCoordinates));
             GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(NewRoundBanner, 100));
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
                 cursorMapCoordinates,
                 $"Resolving Status Effects...",

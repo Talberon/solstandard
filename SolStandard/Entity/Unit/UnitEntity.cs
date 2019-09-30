@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit
 
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(170, 170, 170);
-        private static readonly Color ExhaustedColor = new Color(70, 60, 60);
+        private static readonly Color ExhaustedColor = new Color(80, 80, 80);
 
         private SpriteAtlas commanderCrown;
         private bool isCommander;
