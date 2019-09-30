@@ -81,6 +81,8 @@ namespace SolStandard.Containers.View
         private TwoDimensionalMenu TakeItemMenu { get; set; }
         private readonly IRenderable cursorSprite;
 
+        private IRenderable CenterScreenContent { get; set; }
+
         private MenuType visibleMenu;
         private bool visible;
 
@@ -171,9 +173,19 @@ namespace SolStandard.Containers.View
             TakeItemMenu = null;
         }
 
+        public void StopRenderingCenterScreenContent()
+        {
+            CenterScreenContent = null;
+        }
+
         #endregion Close Windows
 
         #region Generation
+
+        public void RenderCenterScreen(IRenderable content)
+        {
+            CenterScreenContent = content;
+        }
 
         public void GenerateTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
@@ -978,6 +990,7 @@ namespace SolStandard.Containers.View
             ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition());
             AdHocDraftMenu?.Draw(spriteBatch, AdHocDraftMenuPosition());
             TakeItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
+            CenterScreenContent?.Draw(spriteBatch, CenterItemOnScreen(CenterScreenContent));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,7 +53,7 @@ namespace SolStandard.Utility.Load
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/HeavyText"));
         }
-        
+
         public static ISpriteFont LoadStatFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/StatFont"));
@@ -77,13 +78,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Tiles/overworld-32")
             };
 
-            List<ITexture2D> terrainTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadTerrainTextures)
-            {
-                terrainTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return terrainTextures;
+            return loadTerrainTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static ITexture2D LoadActionTiles(ContentManager content)
@@ -105,13 +100,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorArrow_32")
             };
 
-            List<ITexture2D> cursorTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadCursorTextures)
-            {
-                cursorTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return cursorTextures;
+            return loadCursorTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static ITexture2D LoadWindowTexture(ContentManager content)
@@ -168,13 +157,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSpider")
             };
 
-            List<ITexture2D> spriteTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadSpriteTextures)
-            {
-                spriteTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return spriteTextures;
+            return loadSpriteTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
 
@@ -226,13 +209,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Spider")
             };
 
-            List<ITexture2D> portraitTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in loadPortraitTextures)
-            {
-                portraitTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return portraitTextures;
+            return loadPortraitTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
 
@@ -284,13 +261,21 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth"),
             };
 
-            List<ITexture2D> songITextures = new List<ITexture2D>();
-            foreach (Texture2D texture in songTextures)
-            {
-                songITextures.Add(new Texture2DWrapper(texture));
-            }
+            return songTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
+        }
 
-            return songITextures;
+        public static List<ITexture2D> LoadBannerIcons(ContentManager content)
+        {
+            List<Texture2D> bannerTextures = new List<Texture2D>
+            {
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_White"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_Round"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_Sol"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_Luna"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Banner_Creep"),
+            };
+
+            return bannerTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static ITexture2D LoadGameLogo(ContentManager content)
@@ -342,18 +327,11 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tower_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Bellriver_Tavern_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
-                
+
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Island_Boss"),
-                
             };
 
-            List<ITexture2D> mapPreviewITextures = new List<ITexture2D>();
-            foreach (Texture2D texture in mapPreviewTextures)
-            {
-                mapPreviewITextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return mapPreviewITextures;
+            return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static List<ITexture2D> LoadButtonIcons(ContentManager content)
@@ -379,13 +357,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu")
             };
 
-            List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
-            foreach (Texture2D texture in buttonIconTextures)
-            {
-                buttonIconITextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return buttonIconITextures;
+            return buttonIconTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static List<ITexture2D> LoadKeyboardIcons(ContentManager content)
@@ -412,13 +384,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc")
             };
 
-            List<ITexture2D> buttonIconITextures = new List<ITexture2D>();
-            foreach (Texture2D texture in buttonIconTextures)
-            {
-                buttonIconITextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return buttonIconITextures;
+            return buttonIconTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
 
@@ -471,7 +437,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rescue"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/FadeStrike"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/StemTheTide"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rend"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Rob"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/PickLock"),
@@ -485,7 +451,7 @@ namespace SolStandard.Utility.Load
 
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Jump"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Horseshoe"),
-                
+
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/EnGarde"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/CorpsACorps"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Fleche"),
@@ -500,13 +466,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Skill/Wander")
             };
 
-            List<ITexture2D> skillTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in textures)
-            {
-                skillTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return skillTextures;
+            return textures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static List<ITexture2D> LoadStatusIcons(ContentManager content)
@@ -525,13 +485,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")
             };
 
-            List<ITexture2D> statusTextures = new List<ITexture2D>();
-            foreach (Texture2D texture in textures)
-            {
-                statusTextures.Add(new Texture2DWrapper(texture));
-            }
-
-            return statusTextures;
+            return textures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
         }
 
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
@@ -638,7 +592,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
                 content.Load<Song>("Audio/Music/Game/BossTheme"),
                 content.Load<Song>("Audio/Music/Game/VictoryTheme"),
-                
+
                 //Original
                 content.Load<Song>("Audio/Music/Game/DarkTheme"),
                 content.Load<Song>("Audio/Music/Game/DungeonTheme"),

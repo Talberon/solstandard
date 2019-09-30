@@ -388,6 +388,7 @@
     <Compile Include="Utility\AnimatedTileSprite.cs" />
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
+    <Compile Include="Utility\Assets\BannerIconProvider.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
     <Compile Include="Utility\Assets\InputIconProvider.cs" />
     <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
@@ -482,6 +483,7 @@
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerSingleEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\CenterScreenRenderableEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />

@@ -44,6 +44,7 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
         private static List<ITexture2D> AnimationTextures { get; set; }
+        private static List<ITexture2D> BannerIcons { get; set; }
 
         public static ITexture2D PistonTexture { get; private set; }
         public static ITexture2D SpringTexture { get; private set; }
@@ -159,6 +160,9 @@ namespace SolStandard.Utility.Assets
 
             AnimationTextures = ContentLoader.LoadAnimations(content);
             AnimatedSpriteProvider.LoadAnimatedSprites(AnimationTextures);
+            
+            BannerIcons = ContentLoader.LoadBannerIcons(content);
+            BannerIconProvider.LoadBannerTextures(BannerIcons);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Entity.Unit;
+using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 
@@ -17,6 +18,11 @@ namespace SolStandard.Containers.Contexts
         private int redTeamGold;
         private int blueTeamGold;
 
+        private IRenderable SolBanner { get; }
+        private IRenderable LunaBanner { get; }
+        private IRenderable CreepBanner { get; }
+        private IRenderable NewRoundBanner { get; }
+
         public InitiativeContext(List<GameUnit> unitList, Team firstTurn)
         {
             CurrentActiveTeam = firstTurn;
@@ -24,6 +30,11 @@ namespace SolStandard.Containers.Contexts
             redTeamGold = 0;
             blueTeamGold = 0;
             Units = unitList;
+            const int bannerSize = 500;
+            SolBanner = BannerIconProvider.GetBanner(BannerType.SolTurnStart, new Vector2(bannerSize));
+            LunaBanner = BannerIconProvider.GetBanner(BannerType.LunaTurnStart, new Vector2(bannerSize));
+            CreepBanner = BannerIconProvider.GetBanner(BannerType.CreepTurnStart, new Vector2(bannerSize));
+            NewRoundBanner = BannerIconProvider.GetBanner(BannerType.RoundStart, new Vector2(bannerSize));
         }
 
         #region Team Gold
@@ -129,6 +140,7 @@ namespace SolStandard.Containers.Contexts
                     if (TeamHasExhaustedAllUnits(CurrentActiveTeam))
                     {
                         StartNewRound();
+                        return;
                     }
                 }
                 else
@@ -170,11 +182,7 @@ namespace SolStandard.Containers.Contexts
             //Events
 
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(cursorMapCoordinates));
-            GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
-                cursorMapCoordinates,
-                $"ROUND {GameContext.GameMapContext.RoundCounter} STARTING...",
-                100
-            ));
+            GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(NewRoundBanner, 100));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
                 cursorMapCoordinates,
@@ -184,7 +192,7 @@ namespace SolStandard.Containers.Contexts
             ));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(80));
             Units.ForEach(unit => unit.ActivateUnit());
-            
+
             GlobalEventQueue.QueueSingleEvent(new EffectTilesStartOfRoundEvent());
             GlobalEventQueue.QueueSingleEvent(new FirstTurnOfNewRoundEvent(this));
         }
@@ -204,19 +212,24 @@ namespace SolStandard.Containers.Contexts
             CurrentActiveUnit =
                 Units.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive && unit.IsActive);
 
+            IRenderable banner;
+
             switch (CurrentActiveTeam)
             {
                 case Team.Blue:
                     DisableTeam(Team.Red);
                     DisableTeam(Team.Creep);
+                    banner = LunaBanner;
                     break;
                 case Team.Red:
                     DisableTeam(Team.Blue);
                     DisableTeam(Team.Creep);
+                    banner = SolBanner;
                     break;
                 case Team.Creep:
                     DisableTeam(Team.Blue);
                     DisableTeam(Team.Red);
+                    banner = CreepBanner;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -224,25 +237,24 @@ namespace SolStandard.Containers.Contexts
 
             //Events
 
-            string playerInstruction = (CurrentActiveTeam != Team.Creep)
-                ? Environment.NewLine + "Select a unit."
-                : string.Empty;
-
             Vector2 activeUnitCoordinates =
                 CurrentActiveUnit?.UnitEntity.MapCoordinates ?? Vector2.Zero;
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(activeUnitCoordinates));
-            GlobalEventQueue.QueueSingleEvent(
-                new ToastAtCoordinatesEvent(
-                    activeUnitCoordinates,
-                    $"{CurrentActiveTeam} Turn START!{playerInstruction}",
-                    AssetManager.MenuConfirmSFX,
-                    120
-                )
-            );
+            GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(banner, 60, AssetManager.MenuConfirmSFX));
+
+            if (CurrentActiveTeam != Team.Creep)
+            {
+                GlobalEventQueue.QueueSingleEvent(
+                    new ToastAtCoordinatesEvent(
+                        activeUnitCoordinates,
+                        "Select a unit!",
+                        AssetManager.MenuConfirmSFX,
+                        120)
+                );
+            }
+
 
             if (CurrentActiveTeam != Team.Creep || CurrentActiveUnit == null) return;
-
-            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
 
             if (CurrentActiveUnit is CreepUnit activeCreep)
             {
