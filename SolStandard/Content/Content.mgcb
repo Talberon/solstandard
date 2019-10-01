@@ -79,6 +79,12 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/SnowyMountainTheme.ogg
 
+#begin Audio/Music/Game/TacticalTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/TacticalTheme.wav
+
 #begin Audio/Music/Game/VictoryTheme.wav
 /importer:WavImporter
 /processor:SongProcessor

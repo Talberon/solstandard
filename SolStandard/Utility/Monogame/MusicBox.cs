@@ -4,7 +4,7 @@ namespace SolStandard.Utility.Monogame
 {
     public static class MusicBox
     {
-        private const float DefaultVolume = 0.5f;
+        private const float DefaultVolume = 0.7f;
         private const float MaxVolume = 1f;
         private const float MinVolume = 0f;
         public static bool Muted { get; private set; }

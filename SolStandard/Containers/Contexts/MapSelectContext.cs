@@ -157,7 +157,7 @@ namespace SolStandard.Containers.Contexts
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
             Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
-            MusicBox.PlayLoop(songToPlay, 0.3f);
+            MusicBox.PlayLoop(songToPlay);
         }
 
         private static bool CursorAtMapSelectFeature(MapSlice cursorSlice)

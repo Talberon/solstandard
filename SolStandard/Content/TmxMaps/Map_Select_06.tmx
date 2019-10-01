@@ -4010,7 +4010,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_02.tmx"/>
-    <property name="mapSong" value="MilitaryTheme"/>
+    <property name="mapSong" value="TacticalTheme"/>
     <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
@@ -4056,7 +4056,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Tower_02.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="maxDuplicateUnits" type="int" value="3"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4093,7 +4093,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Village_Center.tmx"/>
-    <property name="mapSong" value="DesertTheme"/>
+    <property name="mapSong" value="TacticalTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4107,7 +4107,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Dusk_Temple.tmx"/>
-    <property name="mapSong" value="LavaTheme"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
@@ -4166,7 +4166,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Solo_Alpha_Dungeon.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
@@ -4212,6 +4212,7 @@
   <object id="1045" name="Hiatok Fortress VS" type="SelectMap" gid="6329" x="992" y="448" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Draft_Hiatok_Fortress.tmx"/>
+    <property name="mapSong" value="TacticalTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4245,7 +4246,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Solo_Island_Boss.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="TacticalTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="false"/>

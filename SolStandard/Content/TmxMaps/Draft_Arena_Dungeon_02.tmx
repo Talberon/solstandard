@@ -2744,7 +2744,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.75">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.75">
   <object id="986" name="Ladder" type="LadderBridge" gid="6670" x="224" y="704" width="32" height="32">
    <properties>
     <property name="itemPool" value="Tools"/>
@@ -2895,7 +2895,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="27" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>

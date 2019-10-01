@@ -599,6 +599,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/DarkTheme"),
                 content.Load<Song>("Audio/Music/Game/DungeonTheme"),
                 content.Load<Song>("Audio/Music/Game/PlainsBattle"),
+                content.Load<Song>("Audio/Music/Game/TacticalTheme"),
             };
         }
 
