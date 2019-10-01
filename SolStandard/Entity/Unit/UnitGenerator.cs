@@ -186,6 +186,12 @@ namespace SolStandard.Entity.Unit
                 maxCmd: 1);
         }
 
+        private static UnitStatistics SelectKoboldStats()
+        {
+            return new UnitStatistics(hp: 8, armor: 7, atk: 4, ret: 4, blk: 1, luck: 0, mv: 4, atkRange: new[] {1, 2},
+                maxCmd: 1);
+        }
+
         private static UnitStatistics SelectNecromancerStats()
         {
             return new UnitStatistics(hp: 10, armor: 10, atk: 6, ret: 5, blk: 0, luck: 1, mv: 4, atkRange: new[] {1, 2},
@@ -582,6 +588,8 @@ namespace SolStandard.Entity.Unit
                     return SelectOrcStats();
                 case Role.BloodOrc:
                     return SelectBloodOrcStats();
+                case Role.Kobold:
+                    return SelectKoboldStats();
                 case Role.Necromancer:
                     return SelectNecromancerStats();
                 case Role.Skeleton:

@@ -3286,6 +3286,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Goblin.png
 
+#begin Graphics/Images/Portraits/Creep/Kobold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Kobold.png
+
 #begin Graphics/Images/Portraits/Creep/Merchant.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4389,6 +4401,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepGoblin.png
+
+#begin Graphics/Map/Units/Creep/CreepKobold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepKobold.png
 
 #begin Graphics/Map/Units/Creep/CreepMerchant.png
 /importer:TextureImporter
