@@ -2680,7 +2680,7 @@
     <property name="usedWith" value="Locked Item + Gold Chest"/>
    </properties>
   </object>
-  <object id="644" name="Emerald" type="Currency" gid="6793" x="416" y="352" width="32" height="32">
+  <object id="644" name="Emerald" type="Currency" gid="6793" x="160" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2695,7 +2695,7 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="650" name="Sapphire" type="Currency" gid="6794" x="448" y="352" width="32" height="32">
+  <object id="650" name="Sapphire" type="Currency" gid="6794" x="192" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
@@ -2706,21 +2706,21 @@
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="6833" x="160" y="288" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="6833" x="416" y="352" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="6782" x="160" y="256" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="6782" x="448" y="320" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="3"/>
    </properties>
   </object>
   <object id="795" name="Healthy Potion" type="HealthPotion" gid="6496" x="256" y="480" width="32" height="32"/>
-  <object id="796" name="Mighty Meat" type="BuffItem" gid="6801" x="160" y="224" width="32" height="32"/>
+  <object id="796" name="Mighty Meat" type="BuffItem" gid="6801" x="480" y="352" width="32" height="32"/>
   <object id="797" name="Lucky Apple" type="BuffItem" gid="6785" x="224" y="224" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
@@ -2749,7 +2749,7 @@
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="839" name="Ruby" type="Currency" gid="6792" x="480" y="352" width="32" height="32">
+  <object id="839" name="Ruby" type="Currency" gid="6792" x="224" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2761,7 +2761,7 @@
     <property name="usedWith" value=""/>
    </properties>
   </object>
-  <object id="893" name="Gold" type="Currency" gid="6795" x="512" y="352" width="32" height="32">
+  <object id="893" name="Gold" type="Currency" gid="6795" x="256" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
@@ -2795,7 +2795,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="416" y="320" width="32" height="32">
+  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="544" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
