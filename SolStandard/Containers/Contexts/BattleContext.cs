@@ -13,6 +13,7 @@ using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Entity.Unit.Statuses.Bard;
+using SolStandard.HUD.Window.Animation;
 using SolStandard.HUD.Window.Content;
 using SolStandard.HUD.Window.Content.Combat;
 using SolStandard.Map.Camera;
@@ -492,6 +493,8 @@ namespace SolStandard.Containers.Contexts
 
             //Animate HP bar taking one damage at a time
             const int renderDelay = 12;
+            const float maxDamageShakeOffset = 10f;
+            const int damageShakeDurationInFrames = 5;
 
             if (frameCounter % renderDelay != 0) return;
 
@@ -515,6 +518,11 @@ namespace SolStandard.Containers.Contexts
                 attackerProcs.ForEach(proc => proc.OnDamage(attacker, defender));
                 battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
                 battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Hit);
+                battleView.GenerateDefenderHpWindow(
+                    TeamUtility.DetermineTeamColor(defender.Team),
+                    defender,
+                    new RenderableShake(maxDamageShakeOffset, damageShakeDurationInFrames)
+                );
 
                 attackerDamageCounter++;
                 AssetManager.CombatDamageSFX.Play();
@@ -527,6 +535,11 @@ namespace SolStandard.Containers.Contexts
                 defenderProcs.ForEach(proc => proc.OnCombatStart(defender, attacker));
                 battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Hit);
                 battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
+                battleView.GenerateAttackerHpWindow(
+                    TeamUtility.DetermineTeamColor(attacker.Team),
+                    attacker,
+                    new RenderableShake(maxDamageShakeOffset, damageShakeDurationInFrames)
+                );
 
                 defenderDamageCounter++;
                 AssetManager.CombatDamageSFX.Play();

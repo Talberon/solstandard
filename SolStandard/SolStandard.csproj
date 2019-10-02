@@ -349,6 +349,7 @@
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
     <Compile Include="HUD\Window\Animation\IRenderableAnimation.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableShake.cs" />
     <Compile Include="HUD\Window\Animation\RenderableSlide.cs" />
     <Compile Include="HUD\Window\Animation\RenderableStatic.cs" />
     <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />

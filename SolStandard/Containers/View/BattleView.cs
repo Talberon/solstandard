@@ -87,7 +87,8 @@ namespace SolStandard.Containers.View
         public void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
             Color helpTextWindowColor = new Color(20, 20, 20, 200);
-            HelpTextWindow = new AnimatedRenderable(new Window(helpTextContent, helpTextWindowColor), TopRenderableAnimation);
+            HelpTextWindow =
+                new AnimatedRenderable(new Window(helpTextContent, helpTextWindowColor), TopRenderableAnimation);
         }
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
@@ -144,9 +145,11 @@ namespace SolStandard.Containers.View
                 LeftSideRenderableAnimation);
         }
 
-        public void GenerateAttackerHpWindow(Color windowColor, GameUnit attacker)
+        public void GenerateAttackerHpWindow(Color windowColor, GameUnit attacker,
+            IRenderableAnimation animation = null)
         {
-            AttackerHpWindow = new AnimatedRenderable(GenerateHpWindow(attacker, windowColor), LeftSideRenderableAnimation);
+            AttackerHpWindow = new AnimatedRenderable(GenerateHpWindow(attacker, windowColor),
+                animation ?? LeftSideRenderableAnimation);
         }
 
         public void GenerateAttackerUnitCard(Color attackerWindowColor, GameUnit attacker, bool animated = true)
@@ -225,9 +228,11 @@ namespace SolStandard.Containers.View
         }
 
 
-        public void GenerateDefenderHpWindow(Color windowColor, GameUnit defender)
+        public void GenerateDefenderHpWindow(Color windowColor, GameUnit defender,
+            IRenderableAnimation animation = null)
         {
-            DefenderHpWindow = new AnimatedRenderable(GenerateHpWindow(defender, windowColor), RightSideRenderableAnimation);
+            DefenderHpWindow = new AnimatedRenderable(GenerateHpWindow(defender, windowColor),
+                animation ?? RightSideRenderableAnimation);
         }
 
         public void GenerateDefenderUnitCard(Color defenderWindowColor, GameUnit defender, bool animated = true)
