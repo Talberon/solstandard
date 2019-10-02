@@ -42,7 +42,7 @@ namespace SolStandard.Utility.Assets
                     return new TriggeredAnimation(animation);
                 case AnimatedIconType.FallingCoins:
                     animation =
-                        AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.FallingCoins, iconSize * 3, 6);
+                        AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.FallingCoins, iconSize * 3, 3);
                     return new TriggeredAnimation(animation);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(iconType), iconType, null);
