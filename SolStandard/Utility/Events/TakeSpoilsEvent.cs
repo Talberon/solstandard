@@ -22,6 +22,14 @@ namespace SolStandard.Utility.Events
         {
             GameContext.InitiativeContext.AddGoldToTeam(spoils.Gold, GameContext.ActiveTeam);
 
+            if (GameContext.ActiveUnit.IsAlive && spoils.Gold > 0)
+            {
+                GameContext.GameMapContext.PlayAnimationAtCoordinates(
+                    AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
+                    GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                );
+            }
+
             foreach (IItem item in spoils.Items)
             {
                 GameContext.ActiveUnit.AddItemToInventory(item);

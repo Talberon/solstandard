@@ -8,37 +8,37 @@ namespace SolStandard.HUD.Window
     public class AnimatedRenderable : IWindow
     {
         private IRenderableAnimation RenderableAnimation { get; }
-        private IRenderable Window { get; }
-        public int Height => Window.Height;
-        public int Width => Window.Width;
+        private IRenderable Content { get; }
+        public int Height => Content.Height;
+        public int Width => Content.Width;
 
-        public AnimatedRenderable(IRenderable window, IRenderableAnimation renderableAnimation)
+        public AnimatedRenderable(IRenderable content, IRenderableAnimation renderableAnimation)
         {
-            Window = window;
+            Content = content;
             RenderableAnimation = renderableAnimation;
         }
 
         public Color DefaultColor
         {
-            get => Window.DefaultColor;
-            set => Window.DefaultColor = value;
+            get => Content.DefaultColor;
+            set => Content.DefaultColor = value;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             RenderableAnimation.Update(position);
-            Window.Draw(spriteBatch, RenderableAnimation.CurrentPosition);
+            Content.Draw(spriteBatch, RenderableAnimation.CurrentPosition);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
             RenderableAnimation.Update(position);
-            Window.Draw(spriteBatch, RenderableAnimation.CurrentPosition, colorOverride);
+            Content.Draw(spriteBatch, RenderableAnimation.CurrentPosition, colorOverride);
         }
 
         public IRenderable Clone()
         {
-            return new AnimatedRenderable(Window, RenderableAnimation);
+            return new AnimatedRenderable(Content, RenderableAnimation);
         }
     }
 }

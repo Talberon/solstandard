@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1112">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1113">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2680,7 +2680,7 @@
     <property name="usedWith" value="Locked Item + Gold Chest"/>
    </properties>
   </object>
-  <object id="644" name="Emerald" type="Currency" gid="6793" x="160" y="320" width="32" height="32">
+  <object id="644" name="Emerald" type="Currency" gid="6793" x="416" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2695,7 +2695,7 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="650" name="Sapphire" type="Currency" gid="6794" x="192" y="320" width="32" height="32">
+  <object id="650" name="Sapphire" type="Currency" gid="6794" x="448" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
@@ -2749,7 +2749,7 @@
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="839" name="Ruby" type="Currency" gid="6792" x="224" y="320" width="32" height="32">
+  <object id="839" name="Ruby" type="Currency" gid="6792" x="480" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2761,7 +2761,7 @@
     <property name="usedWith" value=""/>
    </properties>
   </object>
-  <object id="893" name="Gold" type="Currency" gid="6795" x="256" y="320" width="32" height="32">
+  <object id="893" name="Gold" type="Currency" gid="6795" x="512" y="352" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
@@ -2816,25 +2816,6 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1073" name="Orc" type="Creep" gid="29" x="448" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Orc"/>
-    <property name="gold" type="int" value="10"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_kingslayer" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="1074" name="Rat" type="Creep" gid="35" x="512" y="352" width="32" height="32">
-   <properties>
-    <property name="Class" value="Rat"/>
-    <property name="gold" type="int" value="3"/>
-    <property name="routine_basicAttack" type="bool" value="false"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_treasureHunter" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="953" name="Benjamin" type="Unit" gid="1" x="512" y="192" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
@@ -2845,16 +2826,6 @@
    <properties>
     <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="1108" name="Goblin" type="Creep" gid="33" x="480" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Goblin"/>
-    <property name="gold" type="int" value="8"/>
-    <property name="routine_basicAttack" type="bool" value="false"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_prey" type="bool" value="true"/>
-    <property name="routine_triggerHappy" type="bool" value="true"/>
    </properties>
   </object>
   <object id="1063" name="Hector" type="Unit" gid="20" x="448" y="416" width="32" height="32">
@@ -2869,13 +2840,26 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1109" name="Kobold" type="Creep" gid="38" x="416" y="384" width="32" height="32">
+  <object id="1109" name="Kobold" type="Creep" gid="38" x="704" y="320" width="32" height="32">
    <properties>
     <property name="Class" value="Kobold"/>
     <property name="gold" type="int" value="10"/>
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_glutton" type="bool" value="false"/>
     <property name="routine_kingslayer" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1112" name="Blood Orc" type="Creep" gid="37" x="672" y="384" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="15"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
