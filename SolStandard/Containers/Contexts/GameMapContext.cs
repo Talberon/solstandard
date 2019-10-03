@@ -363,6 +363,7 @@ namespace SolStandard.Containers.Contexts
                 if (GameMapView.ActionMenuContext.IsAtRootMenu)
                 {
                     MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
+                    
                     AssetManager.WarningSFX.Play();
                 }
                 else

@@ -37,6 +37,12 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/DungeonTheme.wav
 
+#begin Audio/Music/Game/GallopTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/GallopTheme.wav
+
 #begin Audio/Music/Game/IslandTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor

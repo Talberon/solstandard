@@ -5,7 +5,7 @@ using SolStandard.Utility;
 
 namespace SolStandard.HUD.Window
 {
-    public class AnimatedRenderable : IWindow
+    public class AnimatedRenderable : IRenderable
     {
         private IRenderableAnimation RenderableAnimation { get; }
         private IRenderable Content { get; }

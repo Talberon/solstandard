@@ -336,10 +336,12 @@ namespace SolStandard.Containers.View
             ActionOption roleOption =
                 skillOptions.FirstOrDefault(option => option.Action is Shove || option.Action is Sprint);
             ActionOption guardOption = skillOptions.FirstOrDefault(option => option.Action is Guard);
+
             skillOptions.Remove(basicAttackOption);
             skillOptions.Remove(waitOption);
             skillOptions.Remove(roleOption);
             skillOptions.Remove(guardOption);
+
             IMenu skillMenu = BuildSkillMenu(skillOptions, windowColor);
 
             IMenu inventoryMenu = BuildInventoryMenu(windowColor);

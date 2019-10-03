@@ -3982,7 +3982,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_01.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeEscape" type="bool" value="false"/>
     <property name="modeRelic.coop" type="bool" value="true"/>
@@ -3997,7 +3997,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Bellriver_Tavern_02.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4025,7 +4025,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_02.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="TacticalTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4037,6 +4037,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_02.tmx"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
    </properties>
   </object>
@@ -4093,7 +4094,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Village_Center.tmx"/>
-    <property name="mapSong" value="TacticalTheme"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4130,7 +4131,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Master_Control.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
+    <property name="mapSong" value="DarkTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4142,7 +4143,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Verdant_Forest.tmx"/>
-    <property name="mapSong" value="PlainsTheme"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4179,6 +4180,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4190,6 +4192,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Escape_Prison.tmx"/>
+    <property name="mapSong" value="DungeonTheme"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4202,6 +4205,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4223,6 +4227,7 @@
   <object id="1047" name="Arctic Quest VS" type="SelectMap" gid="6329" x="736" y="160" width="32" height="32">
    <properties>
     <property name="mapFileName" value="Draft_Quest_Race.tmx"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4234,7 +4239,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Tropical_01.tmx"/>
-    <property name="mapSong" value="IslandTheme"/>
+    <property name="mapSong" value="PlainsBattle"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
@@ -4246,7 +4251,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Solo_Island_Boss.tmx"/>
-    <property name="mapSong" value="TacticalTheme"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
@@ -4259,7 +4264,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>
-    <property name="mapSong" value="DesertTheme"/>
+    <property name="mapSong" value="DarkTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
