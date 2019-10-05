@@ -79,6 +79,12 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/PlainsTheme.ogg
 
+#begin Audio/Music/Game/RegularBattle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/RegularBattle.wav
+
 #begin Audio/Music/Game/SnowyMountainTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor

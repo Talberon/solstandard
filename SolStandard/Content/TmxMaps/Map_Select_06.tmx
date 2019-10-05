@@ -4010,7 +4010,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Fortress_02.tmx"/>
-    <property name="mapSong" value="TacticalTheme"/>
+    <property name="mapSong" value="RegularBattle"/>
     <property name="maxDuplicateUnits" type="int" value="1"/>
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
@@ -4025,7 +4025,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_02.tmx"/>
-    <property name="mapSong" value="TacticalTheme"/>
+    <property name="mapSong" value="GallopTheme"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4094,7 +4094,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Village_Center.tmx"/>
-    <property name="mapSong" value="GallopTheme"/>
+    <property name="mapSong" value="RegularBattle"/>
     <property name="maxDuplicateUnits" type="int" value="2"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4239,7 +4239,7 @@
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Arena_Tropical_01.tmx"/>
-    <property name="mapSong" value="PlainsBattle"/>
+    <property name="mapSong" value="RegularBattle"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>

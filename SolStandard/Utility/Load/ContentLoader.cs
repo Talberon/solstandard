@@ -602,6 +602,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/PlainsBattle"),
                 content.Load<Song>("Audio/Music/Game/TacticalTheme"),
                 content.Load<Song>("Audio/Music/Game/GallopTheme"),
+                content.Load<Song>("Audio/Music/Game/RegularBattle"),
             };
         }
 
