@@ -55,11 +55,11 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/LavaTheme.ogg
 
-#begin Audio/Music/Game/MapSelectTheme.ogg
-/importer:OggImporter
+#begin Audio/Music/Game/MapSelectTheme.wav
+/importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Audio/Music/Game/MapSelectTheme.ogg
+/build:Audio/Music/Game/MapSelectTheme.wav
 
 #begin Audio/Music/Game/MilitaryTheme.ogg
 /importer:OggImporter
