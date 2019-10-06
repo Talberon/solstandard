@@ -279,7 +279,7 @@ namespace SolStandard.Containers.Contexts
                 case Team.Red:
                     return Team.Blue;
                 default:
-                    return FirstPlayer;
+                    return TeamWithFewerRemainingUnits;
             }
         }
 
