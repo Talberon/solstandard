@@ -14,6 +14,8 @@ namespace SolStandard.Utility.Load
      */
     public static class ContentLoader
     {
+        private const float SoundEffectVolume = 0.2f;
+
         public static ISpriteFont LoadPromptFont(ContentManager content)
         {
             return new SpriteFontWrapper(content.Load<SpriteFont>("Fonts/PromptText"));
@@ -494,61 +496,61 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadMenuMoveSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder3b");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMenuConfirmSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster3");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapCursorMoveSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_movement_ladder4a");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitSelectSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double1");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitCancelSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDiceRollSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_weapon_singleshot4");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadMapUnitMoveSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_footsteps1b");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatStartSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_falling5");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatBlockSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_impact11");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatDamageSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_shortest_hard6");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
@@ -560,25 +562,25 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_wpn_punch2");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadWarningSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_impact12");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadSkillDrawSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_sounds_powerup3");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadSkillBlinkSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_movement_portal2");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static List<Song> LoadMusic(ContentManager content)
@@ -639,31 +641,31 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadCoinSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_cluster7");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDoorSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_hard4");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadLockedSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error5");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadUnlockSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_coin_double6");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadDropItemSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_exp_shortest_soft1");
-            return new SoundEffectWrapper(effect, 0.5f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
         public static ISoundEffect LoadErrorSFX(ContentManager content)

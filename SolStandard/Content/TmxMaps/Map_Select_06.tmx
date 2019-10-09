@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="33" tilewidth="32" tileheight="32" infinite="0" nextlayerid="56" nextobjectid="1052">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="33" tilewidth="32" tileheight="32" infinite="0" nextlayerid="56" nextobjectid="1054">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -3209,7 +3209,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="366"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3688,7 +3688,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="733"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4021,7 +4021,7 @@
     <property name="valueTaxes" type="int" value="150"/>
    </properties>
   </object>
-  <object id="1028" name="Atheion Grassland" type="SelectMap" gid="6322" x="160" y="320" width="32" height="32">
+  <object id="1028" name="Atheion Woodlands" type="SelectMap" gid="6322" x="160" y="320" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Grassland_02.tmx"/>
@@ -4176,7 +4176,7 @@
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="192" y="448" width="32" height="32">
+  <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="1056" y="480" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -4201,7 +4201,7 @@
     <property name="modeRoutArmy" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="224" y="448" width="32" height="32">
+  <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="1088" y="480" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
     <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
@@ -4271,6 +4271,30 @@
     <property name="modeEscape" type="bool" value="true"/>
     <property name="modeEscape.team" value="Blue"/>
     <property name="modeRoutArmy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1052" name="Wokako Jungle" type="SelectMap" gid="6321" x="1056" y="864" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Wokako_Jungle.tmx"/>
+    <property name="mapSong" value="IslandTheme"/>
+    <property name="maxDuplicateUnits" type="int" value="1"/>
+    <property name="maxUnitsBlue" type="int" value="5"/>
+    <property name="maxUnitsRed" type="int" value="5"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="1053" name="Toldarian Plains" type="SelectMap" gid="6320" x="224" y="448" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="true"/>
+    <property name="mapFileName" value="Draft_Toldarian_Plains.tmx"/>
+    <property name="mapSong" value="GallopTheme"/>
+    <property name="maxDuplicateUnits" type="int" value="2"/>
+    <property name="maxUnitsBlue" type="int" value="7"/>
+    <property name="maxUnitsRed" type="int" value="7"/>
+    <property name="modeAssassinate" type="bool" value="true"/>
+    <property name="modeSeize" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>
@@ -4775,22 +4799,12 @@
    <tile/>
    <tile/>
    <tile gid="326"/>
-   <tile gid="6383"/>
-   <tile gid="6383"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile gid="6383"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4803,7 +4817,6 @@
    <tile gid="6383"/>
    <tile/>
    <tile/>
-   <tile gid="326"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4811,45 +4824,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="326"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="6383"/>
    <tile/>
    <tile/>
    <tile gid="326"/>
@@ -4872,10 +4847,57 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="326"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="6383"/>
+   <tile gid="6383"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="326"/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="326"/>
+   <tile gid="326"/>
    <tile/>
    <tile/>
    <tile/>
@@ -4883,7 +4905,9 @@
    <tile/>
    <tile/>
    <tile gid="366"/>
-   <tile gid="326"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4921,7 +4945,7 @@
    <tile gid="326"/>
    <tile gid="366"/>
    <tile/>
-   <tile/>
+   <tile gid="366"/>
    <tile gid="326"/>
    <tile/>
    <tile/>
@@ -5322,7 +5346,7 @@
    <tile/>
    <tile/>
    <tile gid="734"/>
-   <tile gid="733"/>
+   <tile gid="6383"/>
    <tile gid="735"/>
    <tile/>
    <tile/>
