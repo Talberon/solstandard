@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
@@ -31,7 +30,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
 
-        public static List<Song> MusicTracks { get; private set; }
+        public static List<IPlayableAudio> MusicTracks { get; private set; }
 
         public static ITexture2D WindowTexture { get; private set; }
         private static List<ITexture2D> TerrainTextures { get; set; }

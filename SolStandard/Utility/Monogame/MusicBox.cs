@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Monogame
         private const float MaxVolume = 1f;
         private const float MinVolume = 0f;
         public static bool Muted { get; private set; }
-        private static Song _currentSong;
+        private static IPlayableAudio _currentSong;
         private static float _currentVolume;
 
         public static void ToggleMute()
@@ -25,26 +25,28 @@ namespace SolStandard.Utility.Monogame
             }
         }
 
-        public static void Play(Song song, float volume = DefaultVolume)
+        public static void Play(IPlayableAudio song, float volume = DefaultVolume)
         {
+            _currentSong?.Stop();
+            
             _currentSong = song;
             _currentVolume = volume;
             if (Muted) return;
 
-            MediaPlayer.Play(_currentSong);
-            MediaPlayer.Volume = _currentVolume;
-            MediaPlayer.IsRepeating = false;
+            song.Volume = _currentVolume;
+            song.PlayOnce();
         }
 
-        public static void PlayLoop(Song song, float volume = DefaultVolume)
+        public static void PlayLoop(IPlayableAudio song, float volume = DefaultVolume)
         {
+            _currentSong?.Stop();
+            
             _currentSong = song;
             _currentVolume = volume;
             if (Muted) return;
 
-            MediaPlayer.Play(_currentSong);
-            MediaPlayer.Volume = _currentVolume;
-            MediaPlayer.IsRepeating = true;
+            song.Volume = _currentVolume;
+            song.PlayLoop();
         }
 
         public static void IncreaseVolume(float increasedBy)
@@ -75,14 +77,9 @@ namespace SolStandard.Utility.Monogame
             MediaPlayer.Volume = _currentVolume;
         }
 
-        public static void Stop()
-        {
-            MediaPlayer.Stop();
-        }
-
         public static void Pause()
         {
-            MediaPlayer.Pause();
+            _currentSong?.Pause();
         }
     }
 }

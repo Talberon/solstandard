@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Media;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
@@ -156,7 +155,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
-            Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
+            IPlayableAudio songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
             MusicBox.PlayLoop(songToPlay);
         }
 

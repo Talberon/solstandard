@@ -15,6 +15,7 @@ namespace SolStandard.Utility.Load
     public static class ContentLoader
     {
         private const float SoundEffectVolume = 0.2f;
+        private const float SongSFXVolume = 1f;
 
         public static ISpriteFont LoadPromptFont(ContentManager content)
         {
@@ -334,9 +335,10 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Island_Boss"),
-                
+
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Toldarian_Plains"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -559,7 +561,7 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadCombatDeathSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Character/sfx_exp_short_hard1");
-            return new SoundEffectWrapper(effect, 0.8f);
+            return new SoundEffectWrapper(effect, SoundEffectVolume + 0.2f);
         }
 
         public static ISoundEffect LoadDisableDiceSFX(ContentManager content)
@@ -586,31 +588,31 @@ namespace SolStandard.Utility.Load
             return new SoundEffectWrapper(effect, SoundEffectVolume);
         }
 
-        public static List<Song> LoadMusic(ContentManager content)
+        public static List<IPlayableAudio> LoadMusic(ContentManager content)
         {
-            return new List<Song>
+            return new List<IPlayableAudio>
             {
-                content.Load<Song>("Audio/Music/Game/MilitaryTheme"),
-                content.Load<Song>("Audio/Music/Game/PlainsTheme"),
-                content.Load<Song>("Audio/Music/Game/VoidTheme"),
-                content.Load<Song>("Audio/Music/Game/DesertTheme"),
-                content.Load<Song>("Audio/Music/Game/SnowyMountainTheme"),
-                content.Load<Song>("Audio/Music/Game/IslandTheme"),
-                content.Load<Song>("Audio/Music/Game/LavaTheme"),
-                content.Load<Song>("Audio/Music/Game/BossTheme"),
-                content.Load<Song>("Audio/Music/Game/VictoryTheme"),
-                content.Load<Song>("Audio/Music/Game/MapSelectThemeOld"),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/MilitaryTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/PlainsTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/VoidTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/DesertTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/SnowyMountainTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/IslandTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/LavaTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/BossTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectThemeOld")),
 
                 //Original
-                content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
-                content.Load<Song>("Audio/Music/Game/DarkTheme"),
-                content.Load<Song>("Audio/Music/Game/DungeonTheme"),
-                content.Load<Song>("Audio/Music/Game/TacticalTheme"),
-                content.Load<Song>("Audio/Music/Game/GallopTheme"),
-                content.Load<Song>("Audio/Music/Game/RegularBattle"),
-                content.Load<Song>("Audio/Music/Game/CaveTheme"),
-                content.Load<Song>("Audio/Music/Game/JazzBattle"),
-                content.Load<Song>("Audio/Music/Game/VictoryJingle"),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/MapSelectTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DarkTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DungeonTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/TacticalTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/GallopTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/RegularBattle"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/CaveTheme"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/JazzBattle"), SongSFXVolume),
+                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/VictoryJingle"), SongSFXVolume),
             };
         }
 

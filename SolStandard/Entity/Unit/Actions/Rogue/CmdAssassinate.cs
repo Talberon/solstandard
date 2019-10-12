@@ -53,7 +53,6 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                         targetUnit.DamageUnit(true);
                     }
 
-                    AssetManager.CombatDeathSFX.Play();
                     GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                         $"Assassinated {targetUnit.Id}!", 50
                     );

@@ -4179,7 +4179,7 @@
   <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="1056" y="480" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
+    <property name="mapFileName" value="Draft_Hunt_Overworld_02.tmx"/>
     <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
@@ -4204,7 +4204,7 @@
   <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="1088" y="480" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Hunt_Overworld_01.tmx"/>
+    <property name="mapFileName" value="Draft_Hunt_Overworld_02.tmx"/>
     <property name="mapSong" value="GallopTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
