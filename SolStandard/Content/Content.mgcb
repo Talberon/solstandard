@@ -19,6 +19,12 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/BossTheme.ogg
 
+#begin Audio/Music/Game/CaveTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/CaveTheme.wav
+
 #begin Audio/Music/Game/DarkTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -49,6 +55,12 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/IslandTheme.ogg
 
+#begin Audio/Music/Game/JazzBattle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/JazzBattle.wav
+
 #begin Audio/Music/Game/LavaTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
@@ -61,17 +73,17 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MapSelectTheme.wav
 
+#begin Audio/Music/Game/MapSelectThemeOld.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/MapSelectThemeOld.ogg
+
 #begin Audio/Music/Game/MilitaryTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MilitaryTheme.ogg
-
-#begin Audio/Music/Game/PlainsBattle.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/PlainsBattle.wav
 
 #begin Audio/Music/Game/PlainsTheme.ogg
 /importer:OggImporter
@@ -96,6 +108,12 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/TacticalTheme.wav
+
+#begin Audio/Music/Game/VictoryJingle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/VictoryJingle.wav
 
 #begin Audio/Music/Game/VictoryTheme.wav
 /importer:WavImporter
@@ -4012,6 +4030,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Island_Coast.png
 
+#begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Island_Coast.png
+
 #begin Graphics/Map/MapPreviews/Draft_Jirai_Archipelago.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4072,6 +4102,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
 
+#begin Graphics/Map/MapPreviews/Draft_Toldarian_Plains.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Toldarian_Plains.png
+
 #begin Graphics/Map/MapPreviews/Draft_Town_Market.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4107,6 +4149,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Village_Center.png
+
+#begin Graphics/Map/MapPreviews/Draft_Wokako_Jungle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Wokako_Jungle.png
 
 #begin Graphics/Map/MapPreviews/Dungeon_01.png
 /importer:TextureImporter

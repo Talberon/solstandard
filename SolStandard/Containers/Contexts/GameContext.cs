@@ -99,7 +99,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
-            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")));
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());

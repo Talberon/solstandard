@@ -1988,7 +1988,7 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1030" name="Fort" type="BuffTile" gid="6386" x="544" y="384" width="32" height="32">
+  <object id="1030" name="Fort" type="BuffTile" gid="6387" x="544" y="384" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2188,12 +2188,12 @@
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1078" name="Fort" type="BuffTile" gid="6386" x="736" y="224" width="32" height="32">
+  <object id="1078" name="Fort" type="BuffTile" gid="6387" x="736" y="224" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1079" name="Fort" type="BuffTile" gid="6386" x="704" y="512" width="32" height="32">
+  <object id="1079" name="Fort" type="BuffTile" gid="6387" x="704" y="512" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2304,8 +2304,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.75"/>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.75"/>
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="961" name="Slime" type="Creep" gid="27" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
@@ -2438,7 +2438,7 @@
  </objectgroup>
  <objectgroup id="7" name="Items"/>
  <objectgroup id="8" name="Units"/>
- <objectgroup id="9" name="Disabled" opacity="0.24">
+ <objectgroup id="9" name="Disabled" visible="0" opacity="0.24">
   <object id="983" name="Monster Spawn" type="CreepDeploy" gid="6375" x="160" y="64" width="32" height="32">
    <properties>
     <property name="creepPool" value="Monsters"/>

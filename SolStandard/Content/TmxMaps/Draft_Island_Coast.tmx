@@ -3040,16 +3040,6 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="862" name="Deploy Blue" type="Deployment" gid="32" x="800" y="96" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="863" name="Deploy Blue" type="Deployment" gid="32" x="832" y="128" width="32" height="32">
-   <properties>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
   <object id="864" name="Deploy Blue" type="Deployment" gid="32" x="736" y="160" width="32" height="32">
    <properties>
     <property name="Team" value="Blue"/>
@@ -3071,16 +3061,6 @@
    </properties>
   </object>
   <object id="868" name="Deploy Red" type="Deployment" gid="40" x="320" y="480" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="869" name="Deploy Red" type="Deployment" gid="40" x="256" y="544" width="32" height="32">
-   <properties>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="870" name="Deploy Red" type="Deployment" gid="40" x="288" y="576" width="32" height="32">
    <properties>
     <property name="Team" value="Red"/>
    </properties>

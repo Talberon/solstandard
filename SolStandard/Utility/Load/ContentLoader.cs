@@ -334,6 +334,9 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Fortress_02"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Island_Boss"),
+                
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Toldarian_Plains"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -594,17 +597,20 @@ namespace SolStandard.Utility.Load
                 content.Load<Song>("Audio/Music/Game/SnowyMountainTheme"),
                 content.Load<Song>("Audio/Music/Game/IslandTheme"),
                 content.Load<Song>("Audio/Music/Game/LavaTheme"),
-                content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
                 content.Load<Song>("Audio/Music/Game/BossTheme"),
                 content.Load<Song>("Audio/Music/Game/VictoryTheme"),
+                content.Load<Song>("Audio/Music/Game/MapSelectThemeOld"),
 
                 //Original
+                content.Load<Song>("Audio/Music/Game/MapSelectTheme"),
                 content.Load<Song>("Audio/Music/Game/DarkTheme"),
                 content.Load<Song>("Audio/Music/Game/DungeonTheme"),
-                content.Load<Song>("Audio/Music/Game/PlainsBattle"),
                 content.Load<Song>("Audio/Music/Game/TacticalTheme"),
                 content.Load<Song>("Audio/Music/Game/GallopTheme"),
                 content.Load<Song>("Audio/Music/Game/RegularBattle"),
+                content.Load<Song>("Audio/Music/Game/CaveTheme"),
+                content.Load<Song>("Audio/Music/Game/JazzBattle"),
+                content.Load<Song>("Audio/Music/Game/VictoryJingle"),
             };
         }
 
