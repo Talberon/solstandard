@@ -76,7 +76,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         private static void TransferToResultsScreen()
         {
             GameContext.CurrentGameState = GameContext.GameState.Results;
-            MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.Equals("VictoryJingle")));
+            MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.EndsWith("VictoryJingle")));
         }
     }
 }

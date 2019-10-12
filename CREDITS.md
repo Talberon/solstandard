@@ -5,7 +5,7 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 
 ### Talberon | http://talberon.github.io/
 >#### Work
->Portraits, some terrain + sprites and sprite edits, dice icons
+>Portraits, spritework, sprite edits, various icons, music
 >#### License
 >Copyright Trevor Kendrick © 2019
 
