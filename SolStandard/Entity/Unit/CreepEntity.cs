@@ -39,10 +39,9 @@ namespace SolStandard.Entity.Unit
             return centerCoordinates;
         }
 
-        private static Vector2 TopRightOfTile(Vector2 tileCoordinates, float iconWidth)
+        private static Vector2 TopLeftOfTile(Vector2 tileCoordinates)
         {
             Vector2 centerCoordinates = tileCoordinates * GameDriver.CellSize;
-            centerCoordinates.X += GameDriver.CellSize - iconWidth;
             return centerCoordinates;
         }
 
@@ -54,7 +53,7 @@ namespace SolStandard.Entity.Unit
 
             if (Model.IsIndependent)
             {
-                IndependentIcon.Draw(spriteBatch, TopRightOfTile(MapCoordinates, IndependentIcon.Width));
+                IndependentIcon.Draw(spriteBatch, TopLeftOfTile(MapCoordinates));
             }
         }
 

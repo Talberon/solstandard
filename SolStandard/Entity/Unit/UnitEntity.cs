@@ -18,12 +18,18 @@ namespace SolStandard.Entity.Unit
             Exhausted
         }
 
+        private const int OverlayIconSize = 8;
         private static readonly Color ActiveColor = Color.White;
         private static readonly Color InactiveColor = new Color(190, 190, 190);
-        private static readonly Color ExhaustedColor = new Color(160,160,160);
+        private static readonly Color ExhaustedColor = new Color(160, 160, 160);
 
         private SpriteAtlas commanderCrown;
+
+        private static readonly SpriteAtlas SpoilsIcon =
+            MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, new Vector2(OverlayIconSize));
+
         private bool isCommander;
+        public bool HasItemsInInventory { get; set; }
         public Team Team { get; }
         public Role Role { get; }
         public string[] InitialInventory { get; }
@@ -33,11 +39,11 @@ namespace SolStandard.Entity.Unit
             : base(name, type, spriteSheet, mapCoordinates)
         {
             ElementColor = ActiveColor;
-
             Team = team;
             Role = role;
             IsCommander = isCommander;
             InitialInventory = initialInventory;
+            HasItemsInInventory = initialInventory.Length > 0;
         }
 
 
@@ -48,9 +54,8 @@ namespace SolStandard.Entity.Unit
             {
                 isCommander = value;
 
-                const int crownSize = 8;
                 commanderCrown =
-                    isCommander ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(crownSize)) : null;
+                    isCommander ? MiscIconProvider.GetMiscIcon(MiscIcon.Crown, new Vector2(OverlayIconSize)) : null;
             }
         }
 
@@ -93,6 +98,16 @@ namespace SolStandard.Entity.Unit
             if (IsCommander)
             {
                 commanderCrown?.Draw(spriteBatch, MapCoordinates * GameDriver.CellSize);
+            }
+
+            if (HasItemsInInventory)
+            {
+                Vector2 topRightOfTile = new Vector2(
+                    MapCoordinates.X * GameDriver.CellSize + GameDriver.CellSize - SpoilsIcon.Width,
+                    MapCoordinates.Y * GameDriver.CellSize
+                );
+
+                SpoilsIcon.Draw(spriteBatch, topRightOfTile);
             }
         }
 
