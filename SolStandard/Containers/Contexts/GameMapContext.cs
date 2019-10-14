@@ -43,12 +43,10 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
         public MapContainer MapContainer { get; }
-        public int TurnCounter { get; private set; }
-        public int RoundCounter { get; private set; }
-        public bool CanCancelAction { get; set; }
+        private int TurnCounter { get; set; }
+        private int RoundCounter { get; set; }
+        private bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
-        private TerrainEntity LastHoverEntity { get; set; }
-        private TerrainEntity LastHoverItem { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -528,8 +526,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
-            LastHoverEntity = hoverSlice.TerrainEntity;
-            LastHoverItem = hoverSlice.ItemEntity;
         }
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
