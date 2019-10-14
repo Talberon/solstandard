@@ -31,7 +31,6 @@ namespace SolStandard.Utility.Events
 
             AssetManager.CombatStartSFX.Play();
 
-            GameMapContext.SetPromptWindowText("Confirm End Turn");
             GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }

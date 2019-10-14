@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
@@ -18,6 +22,23 @@ namespace SolStandard.Entity.Unit.Actions.Item
             freeAction: true
         )
         {
+        }
+
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            base.GenerateActionGrid(origin, mapLayer);
+
+            List<MapElement> elements = MapContainer.GetMapElementsFromLayer(mapLayer);
+
+            RemoveUnselectableOptionsFromGrid(mapLayer, elements);
+
+            MapElement firstTile = MapContainer.GetMapElementsFromLayer(mapLayer).FirstOrDefault();
+
+            if (firstTile != null)
+            {
+                GameContext.GameMapContext.MapContainer.MapCursor
+                    .SnapCameraAndCursorToCoordinates(firstTile.MapCoordinates);
+            }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -54,6 +75,21 @@ namespace SolStandard.Entity.Unit.Actions.Item
             takenFrom.RemoveItemFromInventory(itemToTake);
             AssetManager.CombatBlockSFX.Play();
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Took {itemToTake.Name}!", 50);
+        }
+
+        private static void RemoveUnselectableOptionsFromGrid(Layer mapLayer, IEnumerable<MapElement> elements)
+        {
+            foreach (MapElement element in elements)
+            {
+                MapSlice elementSlice = MapContainer.GetMapSliceAtCoordinates(element.MapCoordinates);
+                GameUnit targetUnit = UnitSelector.SelectUnit(elementSlice.UnitEntity);
+
+                if (targetUnit == null || targetUnit.Team != GameContext.ActiveUnit.Team)
+                {
+                    MapContainer.GameGrid[(int) mapLayer][(int) elementSlice.MapCoordinates.X,
+                        (int) elementSlice.MapCoordinates.Y] = null;
+                }
+            }
         }
     }
 }

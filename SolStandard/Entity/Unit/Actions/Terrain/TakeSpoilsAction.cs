@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
-                eventQueue.Enqueue(new TakeSpoilsEvent(spoils));
+                eventQueue.Enqueue(new TakeSpoilsEvent(spoils, GameContext.ActiveUnit));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

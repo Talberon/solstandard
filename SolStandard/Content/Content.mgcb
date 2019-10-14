@@ -19,11 +19,35 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/BossTheme.ogg
 
+#begin Audio/Music/Game/CaveTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/CaveTheme.wav
+
+#begin Audio/Music/Game/DarkTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/DarkTheme.wav
+
 #begin Audio/Music/Game/DesertTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/DesertTheme.wav
+
+#begin Audio/Music/Game/DungeonTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/DungeonTheme.wav
+
+#begin Audio/Music/Game/GallopTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/GallopTheme.wav
 
 #begin Audio/Music/Game/IslandTheme.ogg
 /importer:OggImporter
@@ -31,17 +55,29 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/IslandTheme.ogg
 
+#begin Audio/Music/Game/JazzBattle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/JazzBattle.wav
+
 #begin Audio/Music/Game/LavaTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/LavaTheme.ogg
 
-#begin Audio/Music/Game/MapSelectTheme.ogg
+#begin Audio/Music/Game/MapSelectTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/MapSelectTheme.wav
+
+#begin Audio/Music/Game/MapSelectThemeOld.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Audio/Music/Game/MapSelectTheme.ogg
+/build:Audio/Music/Game/MapSelectThemeOld.ogg
 
 #begin Audio/Music/Game/MilitaryTheme.ogg
 /importer:OggImporter
@@ -55,11 +91,29 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/PlainsTheme.ogg
 
+#begin Audio/Music/Game/RegularBattle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/RegularBattle.wav
+
 #begin Audio/Music/Game/SnowyMountainTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/SnowyMountainTheme.ogg
+
+#begin Audio/Music/Game/TacticalTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/TacticalTheme.wav
+
+#begin Audio/Music/Game/VictoryJingle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Music/Game/VictoryJingle.wav
 
 #begin Audio/Music/Game/VictoryTheme.wav
 /importer:WavImporter
@@ -1804,6 +1858,66 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/AuraRetribution.png
 
+#begin Graphics/Images/Icons/Misc/Banner_Creep.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Banner_Creep.png
+
+#begin Graphics/Images/Icons/Misc/Banner_Luna.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Banner_Luna.png
+
+#begin Graphics/Images/Icons/Misc/Banner_Round.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Banner_Round.png
+
+#begin Graphics/Images/Icons/Misc/Banner_Sol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Banner_Sol.png
+
+#begin Graphics/Images/Icons/Misc/Banner_White.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/Banner_White.png
+
 #begin Graphics/Images/Icons/Misc/CliffJump.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1887,6 +2001,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/durability.png
+
+#begin Graphics/Images/Icons/Misc/FallingCoins.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Icons/Misc/FallingCoins.png
 
 #begin Graphics/Images/Icons/Misc/Fire.png
 /importer:TextureImporter
@@ -3184,6 +3310,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Bat.png
 
+#begin Graphics/Images/Portraits/Creep/BloodOrc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/BloodOrc.png
+
 #begin Graphics/Images/Portraits/Creep/Goblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3195,6 +3333,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/Goblin.png
+
+#begin Graphics/Images/Portraits/Creep/Kobold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Kobold.png
 
 #begin Graphics/Images/Portraits/Creep/Merchant.png
 /importer:TextureImporter
@@ -3868,6 +4018,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01.png
 
+#begin Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02.png
+
 #begin Graphics/Map/MapPreviews/Draft_Island_Coast.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3940,6 +4102,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Tavern_Inn.png
 
+#begin Graphics/Map/MapPreviews/Draft_Toldarian_Plains.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Toldarian_Plains.png
+
 #begin Graphics/Map/MapPreviews/Draft_Town_Market.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3975,6 +4149,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Village_Center.png
+
+#begin Graphics/Map/MapPreviews/Draft_Wokako_Jungle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Wokako_Jungle.png
 
 #begin Graphics/Map/MapPreviews/Dungeon_01.png
 /importer:TextureImporter
@@ -4276,6 +4462,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepBat.png
 
+#begin Graphics/Map/Units/Creep/CreepBloodOrc.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepBloodOrc.png
+
 #begin Graphics/Map/Units/Creep/CreepGoblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4287,6 +4485,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepGoblin.png
+
+#begin Graphics/Map/Units/Creep/CreepKobold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepKobold.png
 
 #begin Graphics/Map/Units/Creep/CreepMerchant.png
 /importer:TextureImporter

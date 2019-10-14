@@ -22,6 +22,7 @@ namespace SolStandard.Entity.General
         private bool enabled;
         private readonly bool willSnare;
         private readonly bool willSlow;
+        public const int SlowTrapMovementDebuff = 2;
 
         public int TriggersRemaining { get; private set; }
         public int Damage { get; }
@@ -67,7 +68,8 @@ namespace SolStandard.Entity.General
 
             if (willSlow)
             {
-                trapUnit.AddStatusEffect(new MoveStatDown(2, 2));
+                
+                trapUnit.AddStatusEffect(new MoveStatDown(2, SlowTrapMovementDebuff));
                 trapMessage += Environment.NewLine + "Target is slowed!";
             }
 

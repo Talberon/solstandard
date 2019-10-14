@@ -81,6 +81,8 @@ namespace SolStandard.Containers.View
         private TwoDimensionalMenu TakeItemMenu { get; set; }
         private readonly IRenderable cursorSprite;
 
+        private IRenderable CenterScreenContent { get; set; }
+
         private MenuType visibleMenu;
         private bool visible;
 
@@ -171,9 +173,19 @@ namespace SolStandard.Containers.View
             TakeItemMenu = null;
         }
 
+        public void StopRenderingCenterScreenContent()
+        {
+            CenterScreenContent = null;
+        }
+
         #endregion Close Windows
 
         #region Generation
+
+        public void RenderCenterScreen(IRenderable content)
+        {
+            CenterScreenContent = content;
+        }
 
         public void GenerateTakeItemMenu(GameUnit targetToTakeFrom, bool freeAction)
         {
@@ -286,7 +298,7 @@ namespace SolStandard.Containers.View
                 TeamUtility.DetermineTeamColor(Team.Red));
 
 
-            bool blueIsFirst = GameContext.InitiativeContext.TeamWithFewerRemainingUnits() == Team.Blue;
+            bool blueIsFirst = GameContext.InitiativeContext.TeamWithFewerRemainingUnits == Team.Blue;
             IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
             IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
 
@@ -324,10 +336,12 @@ namespace SolStandard.Containers.View
             ActionOption roleOption =
                 skillOptions.FirstOrDefault(option => option.Action is Shove || option.Action is Sprint);
             ActionOption guardOption = skillOptions.FirstOrDefault(option => option.Action is Guard);
+
             skillOptions.Remove(basicAttackOption);
             skillOptions.Remove(waitOption);
             skillOptions.Remove(roleOption);
             skillOptions.Remove(guardOption);
+
             IMenu skillMenu = BuildSkillMenu(skillOptions, windowColor);
 
             IMenu inventoryMenu = BuildInventoryMenu(windowColor);
@@ -978,6 +992,7 @@ namespace SolStandard.Containers.View
             ObjectiveWindow?.Draw(spriteBatch, ObjectiveWindowPosition());
             AdHocDraftMenu?.Draw(spriteBatch, AdHocDraftMenuPosition());
             TakeItemMenu?.Draw(spriteBatch, SteamItemMenuPosition());
+            CenterScreenContent?.Draw(spriteBatch, CenterItemOnScreen(CenterScreenContent));
         }
     }
 }

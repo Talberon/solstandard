@@ -2,11 +2,11 @@ using SolStandard.Containers.Contexts;
 
 namespace SolStandard.Utility.Events
 {
-    public class UpdateTurnOrderEvent : IEvent
+    public class FirstTurnOfNewRoundEvent : IEvent
     {
         private readonly InitiativeContext initiativeContext;
 
-        public UpdateTurnOrderEvent(InitiativeContext initiativeContext)
+        public FirstTurnOfNewRoundEvent(InitiativeContext initiativeContext)
         {
             this.initiativeContext = initiativeContext;
         }
@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            initiativeContext.UpdateTurnOrder();
+            initiativeContext.StartFirstTurnOfNewRound();
             Complete = true;
         }
     }

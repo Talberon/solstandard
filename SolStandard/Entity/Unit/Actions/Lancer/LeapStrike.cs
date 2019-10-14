@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -30,12 +31,30 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             name: name ?? "Leap Strike",
             description: description ?? "Leap towards an enemy to attack them; even across impassible terrain!" +
                          Environment.NewLine +
-                         "Select a target, then select a space to land on next to that target.",
+                         "Select a target, then select a space to land on next to that target." +
+                         Environment.NewLine +
+                         $"Cannot move further than maximum {UnitStatistics.Abbreviation[Stats.Mv]}.",
             tileSprite: MapDistanceTile.GetTileSprite(TileType),
             range: new[] {1, 2, 3},
             freeAction: freeAction
         )
         {
+        }
+
+        public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
+        {
+            GenerateLimitedActionRange(origin, mapLayer, Range, TileSprite);
+        }
+
+        private static void GenerateLimitedActionRange(Vector2 origin, Layer mapLayer, IEnumerable<int> actionRange,
+            IRenderable tileSprite)
+        {
+            int[] adjustedRange = actionRange.Where(range => range <= GameContext.ActiveUnit.Stats.Mv).ToArray();
+            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(tileSprite);
+
+            if (adjustedRange.Length > 0) unitTargetingContext.GenerateTargetingGrid(origin, adjustedRange, mapLayer);
+
+            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)

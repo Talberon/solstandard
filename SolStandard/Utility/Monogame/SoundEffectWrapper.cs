@@ -5,13 +5,17 @@ namespace SolStandard.Utility.Monogame
     public class SoundEffectWrapper : ISoundEffect
     {
         public static bool Muted { get; private set; }
-        private readonly SoundEffect soundEffect;
-        private readonly float volume;
+        private readonly SoundEffect monogameSfx;
+        public float Volume { get; set; }
+        private SoundEffectInstance sfxInstance;
 
-        public SoundEffectWrapper(SoundEffect soundEffect, float volume)
+        SoundEffect ISoundEffect.MonoGameSoundEffect => monogameSfx;
+        public string Name => monogameSfx.Name;
+
+        public SoundEffectWrapper(SoundEffect monogameSfx, float volume)
         {
-            this.volume = volume;
-            this.soundEffect = soundEffect;
+            Volume = volume;
+            this.monogameSfx = monogameSfx;
         }
 
         public static void ToggleMute()
@@ -23,10 +27,37 @@ namespace SolStandard.Utility.Monogame
         {
             if (!Muted)
             {
-                soundEffect.Play(volume, 0, 0);
+                monogameSfx.Play(Volume, 0, 0);
             }
         }
 
-        SoundEffect ISoundEffect.MonoGameSoundEffect => soundEffect;
+        public void PlayOnce()
+        {
+            Play();
+        }
+
+        public void PlayLoop()
+        {
+            if (sfxInstance != null)
+            {
+                sfxInstance.Dispose();
+                sfxInstance = null;
+            }
+
+            sfxInstance = monogameSfx.CreateInstance();
+            sfxInstance.IsLooped = true;
+            sfxInstance.Volume = Volume;
+            sfxInstance.Play();
+        }
+
+        public void Pause()
+        {
+            sfxInstance?.Pause();
+        }
+
+        public void Stop()
+        {
+            sfxInstance?.Stop();
+        }
     }
 }

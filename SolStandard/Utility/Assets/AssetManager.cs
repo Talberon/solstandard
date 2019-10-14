@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media;
 using SolStandard.Utility.Load;
 using SolStandard.Utility.Monogame;
 
@@ -31,7 +30,7 @@ namespace SolStandard.Utility.Assets
         public static ISoundEffect SkillBuffSFX { get; private set; }
         public static ISoundEffect SkillBlinkSFX { get; private set; }
 
-        public static List<Song> MusicTracks { get; private set; }
+        public static List<IPlayableAudio> MusicTracks { get; private set; }
 
         public static ITexture2D WindowTexture { get; private set; }
         private static List<ITexture2D> TerrainTextures { get; set; }
@@ -44,6 +43,7 @@ namespace SolStandard.Utility.Assets
         private static List<ITexture2D> SkillIcons { get; set; }
         private static List<ITexture2D> StatusIcons { get; set; }
         private static List<ITexture2D> AnimationTextures { get; set; }
+        private static List<ITexture2D> BannerIcons { get; set; }
 
         public static ITexture2D PistonTexture { get; private set; }
         public static ITexture2D SpringTexture { get; private set; }
@@ -159,6 +159,9 @@ namespace SolStandard.Utility.Assets
 
             AnimationTextures = ContentLoader.LoadAnimations(content);
             AnimatedSpriteProvider.LoadAnimatedSprites(AnimationTextures);
+            
+            BannerIcons = ContentLoader.LoadBannerIcons(content);
+            BannerIconProvider.LoadBannerTextures(BannerIcons);
 
             ObjectiveIcons = ContentLoader.LoadObjectiveIcons(content);
             TeamIcons = ContentLoader.LoadTeamIcons(content);

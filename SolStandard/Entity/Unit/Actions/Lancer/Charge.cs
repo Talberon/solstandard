@@ -16,10 +16,12 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
     {
         private readonly int chargeDistance;
 
-        public Charge(IRenderable icon, string skillName, int chargeDistance) : base(
+        protected Charge(IRenderable icon, string skillName, int chargeDistance) : base(
             icon: icon,
             name: skillName,
-            description: "Dash towards a target and attack! Cannot move through obstacles or other units.",
+            description: "Dash towards a target and attack! Cannot move through obstacles or other units." +
+                         Environment.NewLine +
+                         $"Cannot move further than maximum {UnitStatistics.Abbreviation[Stats.Mv]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack),
             range: new[] {chargeDistance},
             freeAction: false
@@ -40,8 +42,9 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
         {
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
+            int limitedGallopDistance = Math.Min(chargeDistance, GameContext.ActiveUnit.Stats.Mv);
 
-            for (int i = chargeDistance; i > 1; i--)
+            for (int i = limitedGallopDistance; i > 1; i--)
             {
                 (float originX, float originY) = origin;
                 Vector2 northTile = new Vector2(originX, originY - i);

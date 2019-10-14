@@ -124,7 +124,7 @@ namespace SolStandard.Utility.Model
             return actions;
         }
 
-        public static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
+        private static UnitAction GenerateRoutine(Routine routine, IReadOnlyDictionary<string, string> creepProperties)
         {
             return GenerateRoutine(
                 routine,

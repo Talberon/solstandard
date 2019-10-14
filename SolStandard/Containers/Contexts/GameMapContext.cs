@@ -32,6 +32,7 @@ namespace SolStandard.Containers.Contexts
             UnitDecidingAction,
             UnitTargeting,
             UnitActing,
+            FinishingCombat,
             ResolvingTurn,
             AdHocDraft,
             TakeItem
@@ -42,12 +43,10 @@ namespace SolStandard.Containers.Contexts
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
         public MapContainer MapContainer { get; }
-        public int TurnCounter { get; private set; }
-        public int RoundCounter { get; private set; }
-        public bool CanCancelAction { get; set; }
+        private int TurnCounter { get; set; }
+        private int RoundCounter { get; set; }
+        private bool CanCancelAction { get; set; }
         private GameUnit HoverUnit { get; set; }
-        private TerrainEntity LastHoverEntity { get; set; }
-        private TerrainEntity LastHoverItem { get; set; }
 
         private readonly Dictionary<Direction, UnitAnimationState> directionToAnimation =
             new Dictionary<Direction, UnitAnimationState>
@@ -69,15 +68,8 @@ namespace SolStandard.Containers.Contexts
             CanCancelAction = true;
         }
 
-
-        public bool CanPressConfirm
-        {
-            get
-            {
-                if (CurrentTurnState != TurnState.SelectUnit) return true;
-                return HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
-            }
-        }
+        public bool CanPressConfirm => CurrentTurnState != TurnState.SelectUnit ||
+                                       HoverUnit != null && HoverUnit.Team == GameContext.ActiveTeam;
 
         public bool CanPressCancel
         {
@@ -85,20 +77,12 @@ namespace SolStandard.Containers.Contexts
             {
                 switch (CurrentTurnState)
                 {
-                    case TurnState.SelectUnit:
-                        return false;
                     case TurnState.UnitMoving:
                         return true;
                     case TurnState.UnitDecidingAction:
                         return CanCancelAction;
                     case TurnState.UnitTargeting:
                         return true;
-                    case TurnState.UnitActing:
-                        return false;
-                    case TurnState.ResolvingTurn:
-                        return false;
-                    case TurnState.AdHocDraft:
-                        return false;
                     case TurnState.TakeItem:
                         return true;
                     default:
@@ -117,6 +101,11 @@ namespace SolStandard.Containers.Contexts
                 if (cursorSlice.TerrainEntity is Vendor hoverVendor)
                 {
                     return hoverVendor.Items.Count(x => x != null) > 0;
+                }
+
+                if (cursorSlice.TerrainEntity is Chest hoverChest)
+                {
+                    return !string.IsNullOrEmpty(hoverChest.ItemPool);
                 }
 
                 if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;
@@ -148,30 +137,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView.GenerateObjectiveWindow();
         }
 
-        public void ResolveTurn()
-        {
-            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
-
-            GameContext.Scenario.CheckForWinState();
-            ConfirmPromptWindow();
-            GameContext.InitiativeContext.PassTurnToNextUnit();
-            UpdateWindowsEachTurn();
-
-            ResetTurnState();
-            UpdateTurnCounters();
-
-            if (NotEveryUnitIsDead())
-            {
-                EndTurnIfUnitIsDead();
-            }
-
-            GameContext.StatusScreenView.UpdateWindows();
-
-            StartTurn();
-            ResetCursorToActiveUnit();
-        }
-
-
         public static void FinishTurn(bool skipProcs)
         {
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -195,6 +160,29 @@ namespace SolStandard.Containers.Contexts
 
             SetPromptWindowText("Confirm End Turn");
             GameContext.GameMapContext.CurrentTurnState = TurnState.ResolvingTurn;
+        }
+
+        public void ResolveTurn()
+        {
+            if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+
+            GameContext.Scenario.CheckForWinState();
+            ConfirmPromptWindow();
+            GameContext.InitiativeContext.PassTurnToNextUnit();
+            UpdateWindowsEachTurn();
+
+            ResetTurnState();
+            UpdateTurnCounters();
+
+            if (NotEveryUnitIsDead())
+            {
+                EndTurnIfUnitIsDead();
+            }
+
+            GameContext.StatusScreenView.UpdateWindows();
+
+            StartTurn();
+            ResetCursorToActiveUnit();
         }
 
         private void StartTurn()
@@ -373,6 +361,7 @@ namespace SolStandard.Containers.Contexts
                 if (GameMapView.ActionMenuContext.IsAtRootMenu)
                 {
                     MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
+                    
                     AssetManager.WarningSFX.Play();
                 }
                 else
@@ -537,8 +526,6 @@ namespace SolStandard.Containers.Contexts
             GameMapView.SetEntityWindow(hoverSlice);
 
             HoverUnit = hoverMapUnit;
-            LastHoverEntity = hoverSlice.TerrainEntity;
-            LastHoverItem = hoverSlice.ItemEntity;
         }
 
         private void UpdateThreatRangePreview(GameUnit hoverMapUnit, MapSlice hoverSlice)
@@ -553,8 +540,6 @@ namespace SolStandard.Containers.Contexts
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
-                if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
-
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
@@ -661,7 +646,7 @@ namespace SolStandard.Containers.Contexts
 
             if (triggerTiles.Count <= 0)
             {
-                 effectTiles.ForEach(tile => tile.HasTriggered = false);
+                effectTiles.ForEach(tile => tile.HasTriggered = false);
                 return false;
             }
 
@@ -797,23 +782,24 @@ namespace SolStandard.Containers.Contexts
                 AssetManager.MapUnitCancelSFX.Play();
                 GameMapView.CloseItemDetailWindow();
                 GameContext.CurrentGameState = GameContext.GameState.InGame;
-                return;
-            }
-
-            MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
-
-            List<IItem> items = CollectItemsFromSlice(currentSlice);
-
-            if (items.Count > 0)
-            {
-                AssetManager.MapUnitSelectSFX.Play();
-                GameMapView.GenerateItemDetailWindow(items);
-                GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
             }
             else
             {
-                AssetManager.WarningSFX.Play();
-                MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
+                MapSlice currentSlice = MapContainer.GetMapSliceAtCursor();
+
+                List<IItem> items = CollectItemsFromSlice(currentSlice);
+
+                if (items.Count > 0)
+                {
+                    AssetManager.MapUnitSelectSFX.Play();
+                    GameMapView.GenerateItemDetailWindow(items);
+                    GameContext.CurrentGameState = GameContext.GameState.ItemPreview;
+                }
+                else
+                {
+                    AssetManager.WarningSFX.Play();
+                    MapContainer.AddNewToastAtMapCursor("No items to preview!", 50);
+                }
             }
         }
 
@@ -831,9 +817,14 @@ namespace SolStandard.Containers.Contexts
                     break;
             }
 
-            if (currentSlice.TerrainEntity is Vendor vendor)
+            switch (currentSlice.TerrainEntity)
             {
-                items.AddRange(vendor.Items);
+                case Vendor vendor:
+                    items.AddRange(vendor.Items);
+                    break;
+                case Chest chest:
+                    items.AddRange(GameContext.GameMapContext.MapContainer.GetPoolItems(chest.ItemPool));
+                    break;
             }
 
             GameUnit sliceUnit = UnitSelector.SelectUnit(currentSlice.UnitEntity);

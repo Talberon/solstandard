@@ -2,7 +2,7 @@
 
 namespace SolStandard.Utility.Monogame
 {
-    public interface ISoundEffect
+    public interface ISoundEffect : IPlayableAudio
     {
         void Play();
         SoundEffect MonoGameSoundEffect { get; }

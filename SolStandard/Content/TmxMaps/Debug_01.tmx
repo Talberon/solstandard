@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1073">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1127">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2068,18 +2068,18 @@
     <property name="HP" type="int" value="1"/>
    </properties>
   </object>
-  <object id="716" name="Spike Plate" type="PressurePlate" gid="6679" x="416" y="320" width="32" height="32">
+  <object id="716" name="Spike Plate" type="PressurePlate" gid="6679" x="320" y="256" width="32" height="32">
    <properties>
     <property name="triggersId" value="Switch Spike Trap A"/>
    </properties>
   </object>
-  <object id="718" name="Switch Spike Trap A" type="Trap" gid="5920" x="448" y="320" width="32" height="32">
+  <object id="718" name="Switch Spike Trap A" type="Trap" gid="5920" x="352" y="256" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="719" name="Switch Spike Trap A" type="Trap" gid="5920" x="384" y="320" width="32" height="32">
+  <object id="719" name="Switch Spike Trap A" type="Trap" gid="5920" x="288" y="256" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
@@ -2152,12 +2152,12 @@
    </properties>
   </object>
   <object id="838" name="ATM" type="Bank" gid="6545" x="96" y="416" width="32" height="32"/>
-  <object id="840" name="Health Relic" type="RecoveryTile" gid="6636" x="256" y="384" width="32" height="32">
+  <object id="840" name="Health Relic" type="RecoveryTile" gid="6636" x="224" y="384" width="32" height="32">
    <properties>
     <property name="hpPerTurn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="844" name="Shield Relic" type="RecoveryTile" gid="6632" x="224" y="384" width="32" height="32">
+  <object id="844" name="Shield Relic" type="RecoveryTile" gid="6632" x="192" y="384" width="32" height="32">
    <properties>
     <property name="amrPerTurn" type="int" value="1"/>
    </properties>
@@ -2207,7 +2207,7 @@
     <property name="quantities" value="3|3|3|3|3|3|10"/>
    </properties>
   </object>
-  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="192" y="352" width="32" height="32">
+  <object id="903" name="Stalwart Rune" type="BuffTile" gid="6616" x="160" y="352" width="32" height="32">
    <properties>
     <property name="blockBonus" type="int" value="1"/>
    </properties>
@@ -2290,17 +2290,17 @@
   </object>
   <object id="1023" name="Banker" type="Bank" gid="6885" x="96" y="384" width="32" height="32"/>
   <object id="1034" name="Drawbridge A" type="Drawbridge" gid="6366" x="640" y="448" width="32" height="32"/>
-  <object id="1036" name="Power Rune" type="BuffTile" gid="6620" x="224" y="352" width="32" height="32">
+  <object id="1036" name="Power Rune" type="BuffTile" gid="6620" x="192" y="352" width="32" height="32">
    <properties>
     <property name="atkBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1037" name="Counter Rune" type="BuffTile" gid="6628" x="256" y="352" width="32" height="32">
+  <object id="1037" name="Counter Rune" type="BuffTile" gid="6628" x="224" y="352" width="32" height="32">
    <properties>
     <property name="retBonus" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1041" name="Fortune Rune" type="BuffTile" gid="6624" x="288" y="352" width="32" height="32">
+  <object id="1041" name="Fortune Rune" type="BuffTile" gid="6624" x="256" y="352" width="32" height="32">
    <properties>
     <property name="luckBonus" type="int" value="1"/>
    </properties>
@@ -2345,57 +2345,63 @@
     <property name="triggersId" value="Piston N"/>
    </properties>
   </object>
-  <object id="1064" name="Spike Plate" type="PressurePlate" gid="6679" x="416" y="384" width="32" height="32">
-   <properties>
-    <property name="triggersId" value="Switch Spike Trap B"/>
-   </properties>
-  </object>
-  <object id="1065" name="Switch Spike Trap B" type="Trap" gid="5920" x="448" y="384" width="32" height="32">
+  <object id="1070" name="Switch Spike Trap A" type="Trap" gid="5920" x="352" y="224" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1066" name="Switch Spike Trap B" type="Trap" gid="5920" x="384" y="384" width="32" height="32">
+  <object id="1071" name="Switch Spike Trap A" type="Trap" gid="5920" x="320" y="224" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1067" name="Switch Spike Trap B" type="Trap" gid="5920" x="448" y="416" width="32" height="32">
+  <object id="1072" name="Switch Spike Trap A" type="Trap" gid="5920" x="288" y="224" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
     <property name="enabled" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1068" name="Switch Spike Trap B" type="Trap" gid="5920" x="416" y="416" width="32" height="32">
+  <object id="1078" name="Arcane Trap" type="Trap" gid="6764" x="448" y="352" width="32" height="32">
    <properties>
-    <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
+    <property name="damage" type="int" value="2"/>
+    <property name="willSlow" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1069" name="Switch Spike Trap B" type="Trap" gid="5920" x="384" y="416" width="32" height="32">
+  <object id="1096" name="Fire Trap" type="Trap" gid="6756" x="320" y="320" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1070" name="Switch Spike Trap A" type="Trap" gid="5920" x="448" y="288" width="32" height="32">
+  <object id="1118" name="Arcane Trap" type="Trap" gid="6764" x="416" y="320" width="32" height="32">
    <properties>
-    <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
+    <property name="damage" type="int" value="2"/>
+    <property name="willSlow" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1071" name="Switch Spike Trap A" type="Trap" gid="5920" x="416" y="288" width="32" height="32">
+  <object id="1123" name="Bomb Chest" type="Chest" gid="6553" x="480" y="352" width="32" height="32">
    <properties>
-    <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
+    <property name="item" value="Test Bomb"/>
+    <property name="itemPool" value=""/>
    </properties>
   </object>
-  <object id="1072" name="Switch Spike Trap A" type="Trap" gid="5920" x="384" y="288" width="32" height="32">
+  <object id="1124" name="Bomb Chest" type="Chest" gid="6553" x="384" y="320" width="32" height="32">
    <properties>
-    <property name="damage" type="int" value="3"/>
-    <property name="enabled" type="bool" value="false"/>
+    <property name="item" value="Test Bomb"/>
+    <property name="itemPool" value=""/>
+   </properties>
+  </object>
+  <object id="1125" name="Bomb Chest" type="Chest" gid="6553" x="384" y="352" width="32" height="32">
+   <properties>
+    <property name="item" value="Test Bomb"/>
+    <property name="itemPool" value=""/>
+   </properties>
+  </object>
+  <object id="1126" name="Bomb Chest" type="Chest" gid="6553" x="480" y="320" width="32" height="32">
+   <properties>
+    <property name="item" value="Test Bomb"/>
+    <property name="itemPool" value=""/>
    </properties>
   </object>
  </objectgroup>
@@ -2494,7 +2500,7 @@
     <property name="range" value="0,1,2,3"/>
    </properties>
   </object>
-  <object id="864" name="Regular Bomb" type="Bomb" gid="6816" x="736" y="64" width="32" height="32"/>
+  <object id="864" name="Regular Bomb" type="Bomb" gid="6798" x="736" y="64" width="32" height="32"/>
   <object id="875" name="Magic Trap" type="Trap" gid="6764" x="960" y="32" width="32" height="32">
    <properties>
     <property name="damage" type="int" value="5"/>
@@ -2570,6 +2576,11 @@
    </properties>
   </object>
   <object id="1044" name="Healthy Potion" type="HealthPotion" gid="6496" x="768" y="64" width="32" height="32"/>
+  <object id="1119" name="Test Bomb" type="Bomb" gid="6504" x="320" y="384" width="32" height="32">
+   <properties>
+    <property name="range" value="0,1,2,3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="9" name="Summons" opacity="0.5">
   <object id="970" name="Slime" type="Creep" gid="27" x="64" y="64" width="32" height="32">
@@ -2666,6 +2677,32 @@
     <property name="routine_prey" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="1110" name="Kobold" type="Creep" gid="38" x="256" y="64" width="32" height="32">
+   <properties>
+    <property name="Class" value="Kobold"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="12"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1111" name="Blood Orc" type="Creep" gid="37" x="288" y="64" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="15"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="657" name="Door LK1 Key" type="Key" gid="6762" x="864" y="448" width="32" height="32">
@@ -2678,7 +2715,7 @@
     <property name="usedWith" value="Locked Item + Gold Chest"/>
    </properties>
   </object>
-  <object id="644" name="Emerald" type="Currency" gid="6793" x="192" y="320" width="32" height="32">
+  <object id="644" name="Emerald" type="Currency" gid="6793" x="160" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="10"/>
    </properties>
@@ -2693,61 +2730,61 @@
     <property name="value" type="int" value="50"/>
    </properties>
   </object>
-  <object id="650" name="Sapphire" type="Currency" gid="6794" x="224" y="320" width="32" height="32">
+  <object id="650" name="Sapphire" type="Currency" gid="6794" x="192" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="15"/>
    </properties>
   </object>
-  <object id="785" name="Axe" type="Weapon" gid="6814" x="288" y="256" width="32" height="32">
+  <object id="785" name="Axe" type="Weapon" gid="6814" x="256" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="786" name="Bow" type="Weapon" gid="6833" x="192" y="288" width="32" height="32">
+  <object id="786" name="Bow" type="Weapon" gid="6833" x="160" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-1"/>
    </properties>
   </object>
-  <object id="788" name="Dagger" type="Weapon" gid="6782" x="192" y="256" width="32" height="32">
+  <object id="788" name="Dagger" type="Weapon" gid="6782" x="160" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="3"/>
     <property name="luckModifier" type="int" value="3"/>
    </properties>
   </object>
   <object id="795" name="Healthy Potion" type="HealthPotion" gid="6496" x="256" y="480" width="32" height="32"/>
-  <object id="796" name="Mighty Meat" type="BuffItem" gid="6801" x="192" y="224" width="32" height="32"/>
-  <object id="797" name="Lucky Apple" type="BuffItem" gid="6785" x="256" y="224" width="32" height="32">
+  <object id="796" name="Mighty Meat" type="BuffItem" gid="6801" x="160" y="224" width="32" height="32"/>
+  <object id="797" name="Lucky Apple" type="BuffItem" gid="6785" x="224" y="224" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="LCK"/>
    </properties>
   </object>
-  <object id="798" name="Alert Berries" type="BuffItem" gid="6786" x="224" y="224" width="32" height="32">
+  <object id="798" name="Alert Berries" type="BuffItem" gid="6786" x="192" y="224" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="RET"/>
    </properties>
   </object>
-  <object id="799" name="Swift Cheese" type="BuffItem" gid="6776" x="288" y="224" width="32" height="32">
+  <object id="799" name="Swift Cheese" type="BuffItem" gid="6776" x="256" y="224" width="32" height="32">
    <properties>
     <property name="duration" type="int" value="2"/>
     <property name="modifier" type="int" value="2"/>
     <property name="stat" value="MV"/>
    </properties>
   </object>
-  <object id="803" name="Boomerang" type="Weapon" gid="6817" x="256" y="288" width="32" height="32">
+  <object id="803" name="Boomerang" type="Weapon" gid="6817" x="224" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3"/>
     <property name="atkValue" type="int" value="4"/>
     <property name="luckModifier" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="839" name="Ruby" type="Currency" gid="6792" x="256" y="320" width="32" height="32">
+  <object id="839" name="Ruby" type="Currency" gid="6792" x="224" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="20"/>
    </properties>
@@ -2759,7 +2796,7 @@
     <property name="usedWith" value=""/>
    </properties>
   </object>
-  <object id="893" name="Gold" type="Currency" gid="6795" x="288" y="320" width="32" height="32">
+  <object id="893" name="Gold" type="Currency" gid="6795" x="256" y="320" width="32" height="32">
    <properties>
     <property name="value" type="int" value="35"/>
    </properties>
@@ -2767,94 +2804,130 @@
   <object id="917" name="Heart Relic" type="Relic" gid="6464" x="96" y="160" width="32" height="32"/>
   <object id="918" name="Heart Relic" type="Relic" gid="6464" x="96" y="128" width="32" height="32"/>
   <object id="919" name="Heart Relic" type="Relic" gid="6464" x="96" y="192" width="32" height="32"/>
-  <object id="1002" name="Fighter's Sword" type="Weapon" gid="6832" x="256" y="256" width="32" height="32">
+  <object id="1002" name="Fighter's Sword" type="Weapon" gid="6832" x="224" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
     <property name="luckModifier" type="int" value="1"/>
    </properties>
   </object>
-  <object id="1003" name="Spear" type="Weapon" gid="6830" x="224" y="256" width="32" height="32">
+  <object id="1003" name="Spear" type="Weapon" gid="6830" x="192" y="256" width="32" height="32">
    <properties>
     <property name="atkValue" type="int" value="6"/>
    </properties>
   </object>
-  <object id="1004" name="Flintlock" type="Weapon" gid="6837" x="288" y="288" width="32" height="32">
+  <object id="1004" name="Flintlock" type="Weapon" gid="6837" x="256" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="2,3,4"/>
     <property name="atkValue" type="int" value="5"/>
     <property name="luckModifier" type="int" value="-5"/>
    </properties>
   </object>
-  <object id="1005" name="Fire Wand" type="Weapon" gid="6834" x="224" y="288" width="32" height="32">
+  <object id="1005" name="Fire Wand" type="Weapon" gid="6834" x="192" y="288" width="32" height="32">
    <properties>
     <property name="atkRange" value="1,2"/>
     <property name="atkValue" type="int" value="6"/>
    </properties>
   </object>
+  <object id="1116" name="Free Contract" type="Contract" gid="6480" x="448" y="320" width="32" height="32">
+   <properties>
+    <property name="forSpecificUnit" type="bool" value="false"/>
+    <property name="specificRole" value=""/>
+   </properties>
+  </object>
+  <object id="1117" name="Free Contract" type="Contract" gid="6480" x="416" y="352" width="32" height="32">
+   <properties>
+    <property name="forSpecificUnit" type="bool" value="false"/>
+    <property name="specificRole" value=""/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="1061" name="Rudolph" type="Unit" gid="7" x="416" y="256" width="32" height="32">
-   <properties>
-    <property name="Class" value="Duelist"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="1062" name="Hector" type="Unit" gid="20" x="416" y="448" width="32" height="32">
-   <properties>
-    <property name="Class" value="Duelist"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="416" y="320" width="32" height="32">
+  <object id="1035" name="Loaded Slime" type="Creep" gid="27" x="544" y="352" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
     <property name="Items" value="Locked Gold Chest Key|Mighty Meat|Alert Berries|Sour Apple|Swift Cheese"/>
     <property name="gold" type="int" value="3"/>
    </properties>
   </object>
-  <object id="948" name="Erasmus" type="Unit" gid="22" x="416" y="352" width="32" height="32">
+  <object id="1063" name="Hector" type="Unit" gid="20" x="448" y="416" width="32" height="32">
    <properties>
-    <property name="Class" value="Marauder"/>
+    <property name="Class" value="Duelist"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="950" name="Gaius" type="Unit" gid="3" x="480" y="320" width="32" height="32">
-   <properties>
-    <property name="Class" value="Champion"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="10" name="Disabled" opacity="0.13">
-  <object id="944" name="Edward" type="Unit" gid="5" x="416" y="192" width="32" height="32">
-   <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="945" name="Isadora" type="Unit" gid="6" x="384" y="192" width="32" height="32">
-   <properties>
-    <property name="Class" value="Pugilist"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="954" name="Rudolph" type="Unit" gid="7" x="448" y="192" width="32" height="32">
+  <object id="954" name="Rudolph" type="Unit" gid="7" x="480" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Duelist"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="953" name="Benjamin" type="Unit" gid="1" x="512" y="192" width="32" height="32">
+  <object id="1112" name="Blood Orc" type="Creep" gid="37" x="672" y="384" width="32" height="32">
    <properties>
-    <property name="Class" value="Archer"/>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="15"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1113" name="Kobold" type="Creep" gid="38" x="640" y="352" width="32" height="32">
+   <properties>
+    <property name="Class" value="Kobold"/>
+    <property name="gold" type="int" value="10"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="false"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="956" name="Charlotte" type="Unit" gid="23" x="480" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="943" name="Benjamin" type="Unit" gid="18" x="384" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="1019" name="Talberon" type="Unit" gid="25" x="416" y="416" width="32" height="32">
+   <properties>
+    <property name="Class" value="Cavalier"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="944" name="Edward" type="Unit" gid="5" x="448" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Lancer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1020" name="Lazarus" type="Unit" gid="12" x="352" y="192" width="32" height="32">
+  <object id="1020" name="Lazarus" type="Unit" gid="12" x="384" y="256" width="32" height="32">
    <properties>
     <property name="Class" value="Cavalier"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="957" name="Rachel" type="Unit" gid="10" x="416" y="256" width="32" height="32">
+   <properties>
+    <property name="Class" value="Paladin"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="Disabled" opacity="0.13">
+  <object id="945" name="Isadora" type="Unit" gid="6" x="384" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="Pugilist"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
@@ -2864,21 +2937,9 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="947" name="Verne" type="Unit" gid="15" x="512" y="512" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
   <object id="951" name="Boyd" type="Unit" gid="16" x="352" y="512" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="956" name="Charlotte" type="Unit" gid="23" x="416" y="512" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2907,52 +2968,15 @@
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="946" name="Jules" type="Unit" gid="2" x="512" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Mage"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
   <object id="949" name="Darwin" type="Unit" gid="9" x="384" y="224" width="32" height="32">
    <properties>
     <property name="Class" value="Marauder"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="957" name="Rachel" type="Unit" gid="10" x="416" y="224" width="32" height="32">
-   <properties>
-    <property name="Class" value="Paladin"/>
-    <property name="Team" value="Blue"/>
-   </properties>
-  </object>
-  <object id="958" name="Franklin" type="Unit" gid="14" x="512" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Archer"/>
-    <property name="Commander" type="bool" value="true"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
   <object id="942" name="Isabella" type="Unit" gid="19" x="384" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Pugilist"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="943" name="Benjamin" type="Unit" gid="18" x="416" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Lancer"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="961" name="Hector" type="Unit" gid="20" x="448" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Duelist"/>
-    <property name="Team" value="Red"/>
-   </properties>
-  </object>
-  <object id="1019" name="Talberon" type="Unit" gid="25" x="352" y="480" width="32" height="32">
-   <properties>
-    <property name="Class" value="Cavalier"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
@@ -2969,16 +2993,43 @@
     <property name="gold" type="int" value="3"/>
    </properties>
   </object>
-  <object id="1060" name="Rudolph" type="Unit" gid="7" x="448" y="256" width="32" height="32">
+  <object id="958" name="Franklin" type="Unit" gid="14" x="512" y="480" width="32" height="32">
    <properties>
-    <property name="Class" value="Duelist"/>
+    <property name="Class" value="Archer"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="946" name="Jules" type="Unit" gid="2" x="512" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Mage"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="1063" name="Hector" type="Unit" gid="20" x="448" y="448" width="32" height="32">
+  <object id="947" name="Verne" type="Unit" gid="15" x="512" y="512" width="32" height="32">
    <properties>
-    <property name="Class" value="Duelist"/>
+    <property name="Class" value="Mage"/>
     <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="953" name="Benjamin" type="Unit" gid="1" x="512" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="Archer"/>
+    <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="948" name="Erasmus" type="Unit" gid="22" x="416" y="480" width="32" height="32">
+   <properties>
+    <property name="Class" value="Marauder"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Red"/>
+   </properties>
+  </object>
+  <object id="1115" name="Gaius" type="Unit" gid="3" x="416" y="224" width="32" height="32">
+   <properties>
+    <property name="Class" value="Champion"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Team" value="Blue"/>
    </properties>
   </object>
  </objectgroup>

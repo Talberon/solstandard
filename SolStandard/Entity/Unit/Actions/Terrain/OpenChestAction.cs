@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -47,39 +46,22 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
-                    eventQueue.Enqueue(
+                    GlobalEventQueue.QueueSingleEvent(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );
-                    eventQueue.Enqueue(new ToggleOpenEvent(chest));
-                    eventQueue.Enqueue(new WaitFramesEvent(5));
+                    GlobalEventQueue.QueueSingleEvent(new ToggleOpenEvent(chest));
+                    GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));
 
-                    if (chest.Items.Count > 0)
-                    {
-                        foreach (IItem item in chest.Items)
-                        {
-                            eventQueue.Enqueue(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, item));
-                            eventQueue.Enqueue(new WaitFramesEvent(30));
-                        }
-                    }
-
-                    if (chest.Gold > 0)
-                    {
-                        eventQueue.Enqueue(new IncreaseTeamGoldEvent(chest.Gold));
-                        eventQueue.Enqueue(new WaitFramesEvent(20));
-                    }
-
+                    chest.TakeContents();
 
                     if (FreeAction)
                     {
-                        eventQueue.Enqueue(new AdditionalActionEvent());
+                        GlobalEventQueue.QueueSingleEvent(new AdditionalActionEvent());
                     }
                     else
                     {
-                        eventQueue.Enqueue(new EndTurnEvent());
+                        GlobalEventQueue.QueueSingleEvent(new EndTurnEvent());
                     }
-
-                    GlobalEventQueue.QueueEvents(eventQueue);
                 }
                 else
                 {

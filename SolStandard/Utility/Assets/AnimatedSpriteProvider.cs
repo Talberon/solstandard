@@ -20,6 +20,7 @@ namespace SolStandard.Utility.Assets
         Interact,
         RecoverArmor,
         RecoverHealth,
+        FallingCoins
     }
 
     public static class AnimatedSpriteProvider
@@ -62,6 +63,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D interact = animationTextures.Find(texture => texture.Name.EndsWith("Interact"));
             ITexture2D recoverArmor = animationTextures.Find(texture => texture.Name.EndsWith("RecoverArmor"));
             ITexture2D recoverHealth = animationTextures.Find(texture => texture.Name.EndsWith("RecoverHealth"));
+            ITexture2D fallingCoins = animationTextures.Find(texture => texture.Name.EndsWith("FallingCoins"));
 
 
             _animatedIconDictionary = new Dictionary<AnimationType, ITexture2D>
@@ -80,6 +82,7 @@ namespace SolStandard.Utility.Assets
                 {AnimationType.Interact, interact},
                 {AnimationType.RecoverArmor, recoverArmor},
                 {AnimationType.RecoverHealth, recoverHealth},
+                {AnimationType.FallingCoins, fallingCoins},
             };
         }
     }

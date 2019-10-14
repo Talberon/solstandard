@@ -349,6 +349,7 @@
     <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
     <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
     <Compile Include="HUD\Window\Animation\IRenderableAnimation.cs" />
+    <Compile Include="HUD\Window\Animation\RenderableShake.cs" />
     <Compile Include="HUD\Window\Animation\RenderableSlide.cs" />
     <Compile Include="HUD\Window\Animation\RenderableStatic.cs" />
     <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />
@@ -388,6 +389,7 @@
     <Compile Include="Utility\AnimatedTileSprite.cs" />
     <Compile Include="Utility\ArrayDeepCopier.cs" />
     <Compile Include="Utility\Assets\AssetManager.cs" />
+    <Compile Include="Utility\Assets\BannerIconProvider.cs" />
     <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
     <Compile Include="Utility\Assets\InputIconProvider.cs" />
     <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
@@ -478,10 +480,11 @@
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
     <Compile Include="Utility\Events\SpawnUnitEvent.cs" />
-    <Compile Include="Utility\Events\UpdateTurnOrderEvent.cs" />
+    <Compile Include="Utility\Events\FirstTurnOfNewRoundEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
     <Compile Include="Utility\Events\TriggerSingleEffectTileEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
+    <Compile Include="Utility\Events\CenterScreenRenderableEvent.cs" />
     <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
@@ -524,8 +527,10 @@
     <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Model\CreepRoutineModel.cs" />
     <Compile Include="Utility\Monogame\BlankTexture.cs" />
+    <Compile Include="Utility\Monogame\IPlayableAudio.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
+    <Compile Include="Utility\Monogame\SongWrapper.cs" />
     <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
     <Compile Include="Utility\Network\ConnectionManager.cs" />
     <Compile Include="Utility\PathingUtil.cs" />
@@ -681,6 +686,9 @@
     <Content Include="Content\TmxMaps\Draft_Factory_Floor.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Factory_Floor_02.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Fortress_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -694,6 +702,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_01.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Island_Coast.tmx">
@@ -711,10 +722,16 @@
     <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TmxMaps\Draft_Toldarian_Plains.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Draft_Verdant_Forest.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Draft_Village_Center.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TmxMaps\Draft_Wokako_Jungle.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\entities-32.tsx">

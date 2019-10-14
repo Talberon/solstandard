@@ -86,9 +86,9 @@ namespace SolStandard
         /// <summary>
         /// Starts a new game by generating a new map
         /// </summary>
-        public static void NewGame(string mapName, Scenario scenario)
+        public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
-            GameContext.StartGame(mapName, scenario);
+            GameContext.StartGame(mapName, scenario, firstTeam);
         }
 
         public static void HostGame()

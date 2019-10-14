@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
+using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.HUD.Window;
@@ -25,18 +27,38 @@ namespace SolStandard.Containers
         public MapCamera MapCamera { get; }
         private static ToastWindow ToastWindow { get; set; }
         public List<CreepEntity> MapSummons { get; }
+        public List<IItem> MapLoot { get; }
 
-        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons)
+        public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons,
+            List<IItem> mapLoot)
         {
             MapSummons = mapSummons;
             _gameGrid = gameGrid;
             MapCursor = BuildMapCursor(cursorTexture);
             MapCamera = new MapCamera(5, 0.05f);
+            MapLoot = mapLoot;
         }
 
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture)
-            : this(gameGrid, cursorTexture, new List<CreepEntity>())
+            : this(gameGrid, cursorTexture, new List<CreepEntity>(), new List<IItem>())
         {
+            //Used by MapSelect
+        }
+
+        public IItem GetRandomItemFromPool(string poolName)
+        {
+            List<IItem> poolItems = GetPoolItems(poolName);
+
+            return poolItems.Count <= 0 ? null : poolItems[GameDriver.Random.Next(poolItems.Count)];
+        }
+
+        public List<IItem> GetPoolItems(string poolName)
+        {
+            List<IItem> poolItems = MapLoot
+                .Where(item => item.ItemPool != string.Empty)
+                .ToList()
+                .FindAll(item => item.ItemPool == poolName);
+            return poolItems;
         }
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
@@ -106,6 +128,11 @@ namespace SolStandard.Containers
         public void AddNewToastAtUnit(UnitEntity unitEntity, string toastMessage, int lifetimeInFrames)
         {
             AddNewToastAtUnit(unitEntity, new RenderText(AssetManager.MapFont, toastMessage), lifetimeInFrames);
+        }
+
+        public static void ClearToasts()
+        {
+            ToastWindow = null;
         }
 
         public static void ClearDynamicAndPreviewGrids()

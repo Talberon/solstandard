@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
@@ -17,7 +18,7 @@ namespace SolStandard.Utility
         /// <param name="rangeFromOrigin"></param>
         /// <param name="targetPosition"></param>
         /// <returns>True if the target is within range.</returns>
-        public static bool TargetIsWithinRangeOfOrigin(Vector2 originPosition, int[] rangeFromOrigin,
+        public static bool TargetIsWithinRangeOfOrigin(Vector2 originPosition, IEnumerable<int> rangeFromOrigin,
             Vector2 targetPosition)
         {
             Vector2 adjustedTarget = targetPosition - originPosition;

@@ -28,15 +28,16 @@ namespace SolStandard.Utility.Events
             {
                 GameContext.InitiativeContext.AddGoldToTeam(currency.Value, GameContext.ActiveTeam);
             }
-            
+
             RemoveItemFromMap();
             AssetManager.CoinSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();
 
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
-                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
-                currency.MapCoordinates
+                AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
+                GameContext.ActiveUnit.UnitEntity.MapCoordinates
             );
+
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                 $"{GameContext.ActiveUnit.Id} picked up {currency.Value}{Currency.CurrencyAbbreviation}!", 50);
             Complete = true;

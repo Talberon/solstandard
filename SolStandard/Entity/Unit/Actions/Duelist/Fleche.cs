@@ -25,7 +25,8 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         public Fleche() : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Fleche, GameDriver.CellSizeVector),
             name: "Fleche",
-            description: $"Move to any side of a target unit in range.",
+            description: "Move to any side of a target unit in range." + Environment.NewLine +
+                         $"Cannot be used if {UnitStatistics.Abbreviation[Stats.Mv]} is less than 1.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
             freeAction: true
@@ -60,10 +61,19 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                MapContainer.ClearDynamicAndPreviewGrids();
-                AssetManager.MenuConfirmSFX.Play();
-                GeneratePlacementTiles(targetUnit.UnitEntity.MapCoordinates);
-                return true;
+                bool unitCanMove = GameContext.ActiveUnit.Stats.Mv > 1;
+
+                if (unitCanMove)
+                {
+                    MapContainer.ClearDynamicAndPreviewGrids();
+                    AssetManager.MenuConfirmSFX.Play();
+                    GeneratePlacementTiles(targetUnit.UnitEntity.MapCoordinates);
+                    return true;
+                }
+
+                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot move!", 50);
+                AssetManager.WarningSFX.Play();
+                return false;
             }
 
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);

@@ -54,6 +54,8 @@ namespace SolStandard.Entity.Unit
         Rat,
         Bat,
         Spider,
+        BloodOrc,
+        Kobold,
 
         //Pets
         Boar,
@@ -699,9 +701,11 @@ namespace SolStandard.Entity.Unit
         {
             Inventory.Add(item);
 
-            if (item.IsBroken)
+            if (item.IsBroken) item.Icon.DefaultColor = DeadPortraitColor;
+
+            if (UnitEntity != null)
             {
-                item.Icon.DefaultColor = DeadPortraitColor;
+                UnitEntity.HasItemsInInventory = Inventory.Count != 0;
             }
         }
 
@@ -710,9 +714,15 @@ namespace SolStandard.Entity.Unit
             if (Inventory.Contains(item))
             {
                 Inventory.Remove(item);
+                
+                if (UnitEntity != null)
+                {
+                    UnitEntity.HasItemsInInventory = Inventory.Count != 0;
+                }
+                
                 return true;
             }
-
+            
             GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop item here!", 100);
             AssetManager.WarningSFX.Play();
             return false;

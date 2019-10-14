@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -30,16 +29,20 @@ namespace SolStandard.Entity.General
             Open
         }
 
-        public int Gold { get; }
+        private int Gold { get; }
         public bool IsLocked { get; private set; }
         public bool IsOpen { get; private set; }
         public int[] InteractRange { get; }
         private static readonly Color InactiveColor = new Color(50, 50, 50);
 
-        public List<IItem> Items { get; }
+        private IItem SpecificItem { get; set; }
+        public string ItemPool { get; }
+
+        public bool CanTrigger => !IsOpen && !IsLocked;
+        public bool IsObstructed => false;
 
         public Chest(string name, string type, IRenderable sprite, Vector2 mapCoordinates, bool isLocked, bool isOpen,
-            bool canMove, int[] range, int gold, IItem item = null) :
+            bool canMove, int[] range, int gold, IItem item, string itemPool) :
             base(name, type, sprite, mapCoordinates)
         {
             CanMove = canMove;
@@ -48,54 +51,9 @@ namespace SolStandard.Entity.General
             InteractRange = range;
             Gold = gold;
 
-            Items = new List<IItem>();
-            if (item != null) Items.Add(item);
+            SpecificItem = item;
+            ItemPool = itemPool;
         }
-
-        private IEnumerable<string> ItemList => Items.Select(item => item.Name);
-
-        protected override IRenderable EntityInfo =>
-            new WindowContentGrid(new IRenderable[,]
-                {
-                    {
-                        new SpriteAtlas(
-                            AssetManager.LockTexture,
-                            new Vector2(AssetManager.LockTexture.Width),
-                            GameDriver.CellSizeVector,
-                            Convert.ToInt32(
-                                IsLocked ? LockIconState.Locked : LockIconState.Unlocked
-                            )
-                        ),
-                        new RenderText(AssetManager.WindowFont, (IsLocked) ? "Locked" : "Unlocked",
-                            (IsLocked) ? NegativeColor : PositiveColor)
-                    },
-                    {
-                        new SpriteAtlas(
-                            AssetManager.OpenTexture,
-                            new Vector2(AssetManager.OpenTexture.Width),
-                            GameDriver.CellSizeVector,
-                            Convert.ToInt32(
-                                IsOpen ? OpenCloseIconState.Open : OpenCloseIconState.Closed
-                            )
-                        ),
-                        new RenderText(AssetManager.WindowFont, (IsOpen) ? "Open" : "Closed",
-                            (IsOpen) ? PositiveColor : NegativeColor)
-                    },
-                    {
-                        ObjectiveIconProvider.GetObjectiveIcon(
-                            VictoryConditions.Taxes,
-                            GameDriver.CellSizeVector
-                        ),
-                        new RenderText(AssetManager.WindowFont,
-                            ": " + (IsOpen ? Gold + Currency.CurrencyAbbreviation : "???"))
-                    },
-                    {
-                        new RenderText(AssetManager.WindowFont, "Contents: "),
-                        new RenderText(AssetManager.WindowFont,
-                            (IsOpen) ? string.Join(Environment.NewLine, ItemList) : "????"),
-                    },
-                }
-            );
 
         public List<UnitAction> TileActions()
         {
@@ -106,6 +64,30 @@ namespace SolStandard.Entity.General
             return actions;
         }
 
+        public void TakeContents()
+        {
+            TakeItem();
+            TakeGold();
+        }
+
+        private void TakeItem()
+        {
+            if (SpecificItem == null)
+            {
+                SpecificItem = GameContext.GameMapContext.MapContainer.GetRandomItemFromPool(ItemPool);
+            }
+
+            if (SpecificItem == null) return;
+            GlobalEventQueue.QueueSingleEvent(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, SpecificItem));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
+        }
+
+        private void TakeGold()
+        {
+            if (Gold <= 0) return;
+            GlobalEventQueue.QueueSingleEvent(new IncreaseTeamGoldEvent(Gold));
+            GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(20));
+        }
 
         public void Trigger()
         {
@@ -138,8 +120,74 @@ namespace SolStandard.Entity.General
             IsLocked = !IsLocked;
         }
 
-        public bool CanTrigger => !IsOpen && !IsLocked;
-
-        public bool IsObstructed => false;
+        protected override IRenderable EntityInfo =>
+            new WindowContentGrid(new[,]
+                {
+                    {
+                        new SpriteAtlas(
+                            AssetManager.LockTexture,
+                            new Vector2(AssetManager.LockTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(
+                                IsLocked ? LockIconState.Locked : LockIconState.Unlocked
+                            )
+                        ),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            (IsLocked) ? "Locked" : "Unlocked",
+                            (IsLocked) ? NegativeColor : PositiveColor
+                        ),
+                        RenderBlank.Blank
+                    },
+                    {
+                        new SpriteAtlas(
+                            AssetManager.OpenTexture,
+                            new Vector2(AssetManager.OpenTexture.Width),
+                            GameDriver.CellSizeVector,
+                            Convert.ToInt32(
+                                IsOpen ? OpenCloseIconState.Open : OpenCloseIconState.Closed
+                            )
+                        ),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            (IsOpen) ? "Open" : "Closed",
+                            (IsOpen) ? PositiveColor : NegativeColor
+                        ),
+                        RenderBlank.Blank
+                    },
+                    {
+                        ObjectiveIconProvider.GetObjectiveIcon(
+                            VictoryConditions.Taxes,
+                            GameDriver.CellSizeVector
+                        ),
+                        new RenderText(
+                            AssetManager.WindowFont,
+                            ": " + (IsOpen ? Gold + Currency.CurrencyAbbreviation : "???")
+                        ),
+                        RenderBlank.Blank
+                    },
+                    {
+                        string.IsNullOrEmpty(ItemPool)
+                            ? RenderBlank.Blank
+                            : new RenderText(AssetManager.WindowFont, "Item Pool: "),
+                        string.IsNullOrEmpty(ItemPool)
+                            ? RenderBlank.Blank
+                            : new RenderText(AssetManager.WindowFont, ItemPool),
+                        RenderBlank.Blank
+                    },
+                    {
+                        SpecificItem != null
+                            ? new RenderText(AssetManager.WindowFont, "Contents: ")
+                            : RenderBlank.Blank,
+                        SpecificItem?.Icon != null && IsOpen
+                            ? SpecificItem.Icon.Clone()
+                            : RenderBlank.Blank,
+                        SpecificItem != null
+                            ? new RenderText(AssetManager.WindowFont,
+                                (IsOpen) ? string.Join(Environment.NewLine, SpecificItem.Name) : "????")
+                            : RenderBlank.Blank
+                    },
+                }
+            );
     }
 }

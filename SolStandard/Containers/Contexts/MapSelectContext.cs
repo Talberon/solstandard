@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Media;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
@@ -49,55 +48,83 @@ namespace SolStandard.Containers.Contexts
 
         public void SelectMap()
         {
+            AssetManager.MenuConfirmSFX.Play();
             MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
 
             if (!CursorAtMapSelectFeature(cursorSlice)) return;
-
             if (cursorSlice.TerrainEntity.GetType() != typeof(SelectMapEntity)) return;
 
             SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
 
-            if (selectMapEntity.Draft)
+            if (MapObjectives.IsMultiplayerGame(selectMapEntity.MapObjectives.Scenario))
             {
-                AssetManager.MenuConfirmSFX.Play();
+                Team firstTurn = (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red;
 
-                GameContext.LoadMapAndScenario(
-                    selectMapEntity.MapInfo.FileName,
-                    selectMapEntity.MapObjectives.Scenario
-                );
-
-                if (MapObjectives.IsMultiplayerGame(selectMapEntity.MapObjectives.Scenario))
+                if (selectMapEntity.Draft)
                 {
+                    GameContext.LoadMapAndScenario(
+                        selectMapEntity.MapInfo.FileName,
+                        selectMapEntity.MapObjectives.Scenario,
+                        firstTurn
+                    );
+
                     GameContext.DraftContext.StartNewDraft(
                         selectMapEntity.MaxBlueUnits,
                         selectMapEntity.MaxRedUnits,
                         selectMapEntity.MaxDuplicateUnits,
-                        (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red,
+                        firstTurn,
                         selectMapEntity.MapObjectives.Scenario
                     );
+                    
+                    GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
                 }
                 else
                 {
+                    StartNonDraftMap(selectMapEntity, firstTurn);
+                }
+            }
+            else
+            {
+                Team firstTurn = selectMapEntity.SoloTeam;
+
+                if (selectMapEntity.Draft)
+                {
+                    GameContext.LoadMapAndScenario(
+                        selectMapEntity.MapInfo.FileName,
+                        selectMapEntity.MapObjectives.Scenario,
+                        firstTurn
+                    );
+
                     GameContext.DraftContext.StartNewSoloDraft(
-                        selectMapEntity.SoloTeam == Team.Blue
+                        firstTurn == Team.Blue
                             ? selectMapEntity.MaxBlueUnits
                             : selectMapEntity.MaxRedUnits,
                         selectMapEntity.MaxDuplicateUnits,
                         selectMapEntity.SoloTeam,
                         selectMapEntity.MapObjectives.Scenario
                     );
+                    
+                    GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
                 }
+                else
+                {
+                    StartNonDraftMap(selectMapEntity, firstTurn);
+                }
+            }
 
-                GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
-                GameContext.CenterCursorAndCamera();
-                PlayMapSong(selectMapEntity);
-            }
-            else
-            {
-                GameDriver.NewGame(selectMapEntity.MapInfo.FileName, selectMapEntity.MapObjectives.Scenario);
-                AssetManager.MenuConfirmSFX.Play();
-                PlayMapSong(selectMapEntity);
-            }
+            GameContext.CenterCursorAndCamera();
+            PlayMapSong(selectMapEntity);
+        }
+
+        private static void StartNonDraftMap(SelectMapEntity selectMapEntity, Team firstTurn)
+        {
+            GameDriver.NewGame(
+                selectMapEntity.MapInfo.FileName,
+                selectMapEntity.MapObjectives.Scenario,
+                firstTurn
+            );
+            AssetManager.MenuConfirmSFX.Play();
+            PlayMapSong(selectMapEntity);
         }
 
         public void MoveCursorToNextMap()
@@ -128,8 +155,8 @@ namespace SolStandard.Containers.Contexts
 
         private static void PlayMapSong(SelectMapEntity mapEntity)
         {
-            Song songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
-            MusicBox.PlayLoop(songToPlay, 0.3f);
+            IPlayableAudio songToPlay = AssetManager.MusicTracks.Find(song => song.Name.Contains(mapEntity.MapSongName));
+            MusicBox.PlayLoop(songToPlay);
         }
 
         private static bool CursorAtMapSelectFeature(MapSlice cursorSlice)

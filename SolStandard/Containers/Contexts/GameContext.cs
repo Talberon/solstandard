@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
-using SolStandard.Entity;
 using SolStandard.Entity.General;
 using SolStandard.Entity.Unit;
 using SolStandard.Map;
@@ -100,7 +99,7 @@ namespace SolStandard.Containers.Contexts
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
-            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.Contains("MapSelect")), 0.3f);
+            MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
             BattleContext = new BattleContext(new BattleView());
@@ -183,7 +182,7 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
-        public static List<GameUnit> Units => InitiativeContext.InitiativeList;
+        public static List<GameUnit> Units => InitiativeContext.Units;
 
         public static GameUnit ActiveUnit => InitiativeContext.CurrentActiveUnit;
         public static Team ActiveTeam => InitiativeContext.CurrentActiveTeam;
@@ -197,10 +196,10 @@ namespace SolStandard.Containers.Contexts
             MapCamera.CenterCameraToCursor();
         }
 
-        public static void LoadMapAndScenario(string mapPath, Scenario scenario)
+        public static void LoadMapAndScenario(string mapPath, Scenario scenario, Team firstTeam)
         {
             Scenario = scenario;
-            LoadMap(mapPath);
+            LoadMap(mapPath, firstTeam);
         }
 
         public static void StartNewDeployment(List<GameUnit> blueArmy, List<GameUnit> redArmy, Team firstTurn)
@@ -209,11 +208,11 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.Deployment;
         }
 
-        public static void StartGame(string mapPath, Scenario scenario)
+        public static void StartGame(string mapPath, Scenario scenario, Team firstTeam)
         {
             Scenario = scenario;
 
-            LoadMap(mapPath);
+            LoadMap(mapPath, firstTeam);
 
             CurrentGameState = GameState.InGame;
 
@@ -231,6 +230,8 @@ namespace SolStandard.Containers.Contexts
 
         public static void LoadMapSelect()
         {
+            GlobalEventQueue.ClearEventQueue();
+            MapContainer.ClearToasts();
             Bank.ResetBank();
 
             const string mapPath = MapDirectory + MapSelectFile;
@@ -255,7 +256,7 @@ namespace SolStandard.Containers.Contexts
             CurrentGameState = GameState.MapSelect;
         }
 
-        private static void LoadMap(string mapFile)
+        private static void LoadMap(string mapFile, Team firstTeam)
         {
             string mapPath = MapDirectory + mapFile;
 
@@ -268,12 +269,14 @@ namespace SolStandard.Containers.Contexts
             );
 
             LoadMapContext(mapParser);
-            LoadInitiativeContext(mapParser, (GameDriver.Random.Next(2) == 0) ? Team.Blue : Team.Red);
-            InjectCreepsIntoSpawnTiles(mapParser.LoadMapLoot());
+
+            LoadInitiativeContext(mapParser, firstTeam);
+
+            InjectCreepsIntoSpawnTiles();
             LoadStatusUI();
         }
 
-        private static void InjectCreepsIntoSpawnTiles(List<IItem> mapLoot)
+        private static void InjectCreepsIntoSpawnTiles()
         {
             List<CreepEntity> summons = GameMapContext.MapContainer.MapSummons;
 
@@ -287,27 +290,31 @@ namespace SolStandard.Containers.Contexts
 
                 CreepEntity randomSummon = eligibleCreeps[GameDriver.Random.Next(eligibleCreeps.Count)];
 
-                InjectCreepIntoTile(mapLoot, randomSummon, creepDeployTile);
+                InjectCreepIntoTile(randomSummon, creepDeployTile);
 
                 if (!creepDeployTile.CopyCreep) summons.Remove(randomSummon);
             }
         }
 
-        private static void InjectCreepIntoTile(List<IItem> mapLoot, CreepEntity randomSummon,
-            MapElement creepDeployTile)
+        private static void InjectCreepIntoTile(CreepEntity randomSummon, MapElement creepDeployTile)
         {
             Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
 
             GameUnit creepToSpawn =
-                UnitGenerator.BuildUnitFromProperties(randomSummon.Name, randomSummon.Team, randomSummon.Role,
-                    randomSummon.IsCommander, randomSummon.Copy(), mapLoot);
+                UnitGenerator.BuildUnitFromProperties(
+                    randomSummon.Name,
+                    randomSummon.Team,
+                    randomSummon.Role,
+                    randomSummon.IsCommander,
+                    randomSummon.Copy()
+                );
 
             creepToSpawn.UnitEntity.SnapToCoordinates(creepDeployTile.MapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             Units.Add(creepToSpawn);
 
-            MapContainer.GameGrid[(int) Layer.Entities][(int) creepDeployTile.MapCoordinates.X,
-                (int) creepDeployTile.MapCoordinates.Y] = null;
+            MapContainer.GameGrid[(int) Layer.Entities]
+                [(int) creepDeployTile.MapCoordinates.X, (int) creepDeployTile.MapCoordinates.Y] = null;
         }
 
         private static void LoadStatusUI()
@@ -317,18 +324,20 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadMapContext(TmxMapParser mapParser)
         {
-            ITexture2D mapCursorTexture = AssetManager.MapCursorTexture;
-
             GameMapContext = new GameMapContext(
-                new MapContainer(mapParser.LoadMapGrid(), mapCursorTexture, mapParser.LoadSummons()),
+                new MapContainer(
+                    mapParser.LoadMapGrid(),
+                    AssetManager.MapCursorTexture,
+                    mapParser.LoadSummons(),
+                    mapParser.LoadMapLoot()
+                ),
                 new GameMapView()
             );
         }
 
         private static void LoadInitiativeContext(TmxMapParser mapParser, Team firstTeam)
         {
-            List<GameUnit> unitsFromMap =
-                UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits(), mapParser.LoadMapLoot());
+            List<GameUnit> unitsFromMap = UnitGenerator.GenerateUnitsFromMap(mapParser.LoadUnits());
 
             InitiativeContext = new InitiativeContext(unitsFromMap, firstTeam);
         }
