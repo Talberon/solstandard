@@ -157,8 +157,8 @@ namespace SolStandard.Utility.Network
                                 if (ConnectedAsServer)
                                 {
                                     int newRandomSeed = GameDriver.Random.Next();
-                                    GameDriver.Random = new Random(newRandomSeed);
-                                    SendEventMessageAsServer(new InitializeRandomizer(newRandomSeed));
+                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
+                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerLocal(newRandomSeed));
                                 }
 
                                 GameContext.LoadMapSelect();

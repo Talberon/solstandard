@@ -3,11 +3,11 @@ using System;
 namespace SolStandard.Utility.Events.Network
 {
     [Serializable]
-    public class InitializeRandomizer : NetworkEvent
+    public class InitializeRandomizerNet : NetworkEvent
     {
         private readonly int rngSeed;
 
-        public InitializeRandomizer(int rngSeed)
+        public InitializeRandomizerNet(int rngSeed)
         {
             this.rngSeed = rngSeed;
         }
