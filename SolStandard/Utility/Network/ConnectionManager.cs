@@ -111,7 +111,7 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        private static void Listen(NetPeer peer)
+        private void Listen(NetPeer peer)
         {
             NetIncomingMessage received;
             while ((received = peer.ReadMessage()) != null)
@@ -153,8 +153,14 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.Connected:
                                 Trace.WriteLine("Connected!");
-                                //TODO Replace this with a unique seed
-                                GameDriver.Random = new Random(12345);
+
+                                if (ConnectedAsServer)
+                                {
+                                    int newRandomSeed = GameDriver.Random.Next();
+                                    GameDriver.Random = new Random(newRandomSeed);
+                                    SendEventMessageAsServer(new InitializeRandomizer(newRandomSeed));
+                                }
+
                                 GameContext.LoadMapSelect();
 
                                 GameDriver.SetControllerConfig(peer is NetClient ? Team.Red : Team.Blue);
@@ -288,7 +294,7 @@ namespace SolStandard.Utility.Network
         public void DisconnectClient()
         {
             if (client == null) return;
-            
+
             client.Disconnect("Disconnecting from host...");
             client.Shutdown("Shutting client connection down...");
             client = null;
