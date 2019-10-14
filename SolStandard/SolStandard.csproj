@@ -467,6 +467,7 @@
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResetGameEvent.cs" />
     <Compile Include="Utility\Events\Network\ResolveNetworkTurnEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />

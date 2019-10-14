@@ -265,6 +265,11 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
             }
 
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ResetGameEvent());
+            }
+
             if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new PreviousMapEvent());

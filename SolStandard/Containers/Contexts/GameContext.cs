@@ -13,6 +13,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
@@ -351,14 +352,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (!Scenario.GameIsOver) return;
 
-            if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
-            {
-                GameDriver.ConnectionManager.CloseServer();
-                GameDriver.ConnectionManager.DisconnectClient();
-            }
-
-            AssetManager.MenuConfirmSFX.Play();
-            Initialize(MainMenuView, NetworkMenuView);
+            GlobalEventQueue.QueueSingleEvent(new ResetGameEvent());
         }
 
         private static PlayerIndex GetPlayerForTeam(Team team)
