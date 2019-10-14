@@ -2,6 +2,7 @@ using System;
 
 namespace SolStandard.Utility.Events.Network
 {
+    [Serializable]
     public class InitializeRandomizer : NetworkEvent
     {
         private readonly int rngSeed;
