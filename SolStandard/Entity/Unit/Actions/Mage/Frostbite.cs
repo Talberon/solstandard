@@ -23,7 +23,8 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             maxTriggers: maxTriggers,
             range: new[] {0, 1},
             description:
-            $"Place a trap that will deal [{damage}] damage and slow units that start the round on it." +
+            "Place a trap that on a nearby tile." + Environment.NewLine +
+            $"Will deal [{damage}] damage and slow units that start the round on it by [{TrapEntity.SlowTrapMovementDebuff}] {UnitStatistics.Abbreviation[Stats.Mv]}." +
             Environment.NewLine +
             $"Max activations: [{maxTriggers}]",
             freeAction: true
