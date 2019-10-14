@@ -3686,7 +3686,7 @@
     <property name="Class" value="Kobold"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="creepPool" value="Monsters"/>
-    <property name="gold" type="int" value="12"/>
+    <property name="gold" type="int" value="15"/>
     <property name="routine_defender" type="bool" value="true"/>
     <property name="routine_glutton" type="bool" value="false"/>
     <property name="routine_kingslayer" type="bool" value="false"/>

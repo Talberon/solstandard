@@ -65,6 +65,7 @@ namespace SolStandard.Entity.Unit.Statuses.Duelist
 
         public static bool ActiveDuelistHasFocusPoints =>
             GameContext.ActiveUnit.Role == Role.Duelist &&
+            GameContext.ActiveUnit.IsAlive &&
             GameContext.ActiveUnit.StatusEffects.Any(status =>
                 status is FocusStatus focusStatus &&
                 focusStatus.FocusPoints > 0 &&

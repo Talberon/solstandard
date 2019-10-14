@@ -208,7 +208,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice defenderSlice = MapContainer.GetMapSliceAtCoordinates(defenderCoordinates);
             if (!(defenderSlice.ItemEntity is Spoils defenderSpoils)) return;
-            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils));
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(defenderSpoils, attacker));
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(attackerCoordinates));
 
             string toastMessage = $"Obtained {defenderSpoils.Gold} {Currency.CurrencyAbbreviation}!";
@@ -234,7 +234,7 @@ namespace SolStandard.Containers.Contexts
         {
             MapSlice attackerSlice = MapContainer.GetMapSliceAtCoordinates(attackerCoordinates);
             if (!(attackerSlice.ItemEntity is Spoils attackerSpoils)) return;
-            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils));
+            GlobalEventQueue.QueueSingleEvent(new TakeSpoilsEvent(attackerSpoils, defender));
             GlobalEventQueue.QueueSingleEvent(new CameraCursorPositionEvent(defenderCoordinates));
 
             string toastMessage = $"Obtained {attackerSpoils.Gold} {Currency.CurrencyAbbreviation}!";

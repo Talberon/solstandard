@@ -2,6 +2,7 @@
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity;
 using SolStandard.Entity.General.Item;
+using SolStandard.Entity.Unit;
 using SolStandard.Map;
 using SolStandard.Utility.Assets;
 
@@ -10,10 +11,12 @@ namespace SolStandard.Utility.Events
     public class TakeSpoilsEvent : IEvent
     {
         private readonly Spoils spoils;
+        private readonly GameUnit unitTakingSpoils;
 
-        public TakeSpoilsEvent(Spoils spoils)
+        public TakeSpoilsEvent(Spoils spoils, GameUnit unitTakingSpoils)
         {
             this.spoils = spoils;
+            this.unitTakingSpoils = unitTakingSpoils;
         }
 
         public bool Complete { get; private set; }
@@ -22,17 +25,17 @@ namespace SolStandard.Utility.Events
         {
             GameContext.InitiativeContext.AddGoldToTeam(spoils.Gold, GameContext.ActiveTeam);
 
-            if (GameContext.ActiveUnit.IsAlive && spoils.Gold > 0)
+            if (unitTakingSpoils.IsAlive && spoils.Gold > 0)
             {
                 GameContext.GameMapContext.PlayAnimationAtCoordinates(
                     AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.FallingCoins, GameDriver.CellSizeVector),
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                    unitTakingSpoils.UnitEntity.MapCoordinates
                 );
             }
 
             foreach (IItem item in spoils.Items)
             {
-                GameContext.ActiveUnit.AddItemToInventory(item);
+                unitTakingSpoils.AddItemToInventory(item);
             }
 
             RemoveItemFromMap();

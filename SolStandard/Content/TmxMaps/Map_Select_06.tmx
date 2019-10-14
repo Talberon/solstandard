@@ -4263,7 +4263,7 @@
   <object id="1046" name="Factory Heist" type="SelectMap" gid="6325" x="160" y="736" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
-    <property name="mapFileName" value="Draft_Factory_Floor.tmx"/>
+    <property name="mapFileName" value="Draft_Factory_Floor_02.tmx"/>
     <property name="mapSong" value="DungeonTheme"/>
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
