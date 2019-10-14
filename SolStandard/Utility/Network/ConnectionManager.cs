@@ -154,14 +154,14 @@ namespace SolStandard.Utility.Network
                             case NetConnectionStatus.Connected:
                                 Trace.WriteLine("Connected!");
 
+                                GameContext.LoadMapSelect();
+                                
                                 if (ConnectedAsServer)
                                 {
                                     int newRandomSeed = GameDriver.Random.Next();
+                                    GameDriver.Random = new Random(newRandomSeed);
                                     GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
-                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerLocal(newRandomSeed));
                                 }
-
-                                GameContext.LoadMapSelect();
 
                                 GameDriver.SetControllerConfig(peer is NetClient ? Team.Red : Team.Blue);
                                 break;
