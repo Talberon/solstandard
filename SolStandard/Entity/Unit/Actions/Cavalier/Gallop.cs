@@ -20,7 +20,8 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Gallop, GameDriver.CellSizeVector),
             name: "Gallop",
             description: "Dash towards a target unit as a free action!" + Environment.NewLine +
-                         "Cannot move through obstacles or other units.",
+                         "Cannot move through obstacles or other units." + Environment.NewLine +
+                         $"Cannot move further than maximum {UnitStatistics.Abbreviation[Stats.Mv]}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: null,
             freeAction: true
@@ -33,8 +34,9 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         {
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
 
+            int limitedGallopDistance = Math.Min(gallopDistance, GameContext.ActiveUnit.Stats.Mv);
 
-            for (int i = gallopDistance; i > 1; i--)
+            for (int i = limitedGallopDistance; i > 1; i--)
             {
                 Vector2 northTile = new Vector2(origin.X, origin.Y - i);
                 Vector2 southTile = new Vector2(origin.X, origin.Y + i);
