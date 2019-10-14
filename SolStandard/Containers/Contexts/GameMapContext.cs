@@ -544,8 +544,6 @@ namespace SolStandard.Containers.Contexts
             }
             else if (hoverSlice.TerrainEntity is IThreatRange entityThreat)
             {
-                if (LastHoverEntity == hoverSlice.TerrainEntity && LastHoverItem == hoverSlice.ItemEntity) return;
-
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack))
                     .GenerateThreatGrid(hoverSlice.MapCoordinates, entityThreat);
             }
