@@ -603,16 +603,28 @@ namespace SolStandard.Utility.Load
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectThemeOld")),
 
-                //Original
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/MapSelectTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DarkTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DungeonTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/TacticalTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/GallopTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/RegularBattle"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/CaveTheme"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/JazzBattle"), SongSFXVolume),
-                new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/VictoryJingle"), SongSFXVolume),
+                //Original (Compressed)
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/DarkTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/DungeonTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/TacticalTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/GallopTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/RegularBattle")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/CaveTheme")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/JazzBattle")),
+                new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryJingle")),
+
+
+                //Original (High Quality)
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/MapSelectTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DarkTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/DungeonTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/TacticalTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/GallopTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/RegularBattle"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/CaveTheme"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/JazzBattle"), SongSFXVolume),
+                //new SoundEffectWrapper(content.Load<SoundEffect>("Audio/Music/Game/VictoryJingle"), SongSFXVolume),
             };
         }
 

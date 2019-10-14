@@ -21,13 +21,13 @@
 
 #begin Audio/Music/Game/CaveTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/CaveTheme.wav
 
 #begin Audio/Music/Game/DarkTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/DarkTheme.wav
 
@@ -39,13 +39,13 @@
 
 #begin Audio/Music/Game/DungeonTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/DungeonTheme.wav
 
 #begin Audio/Music/Game/GallopTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/GallopTheme.wav
 
@@ -57,7 +57,7 @@
 
 #begin Audio/Music/Game/JazzBattle.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/JazzBattle.wav
 
@@ -69,7 +69,7 @@
 
 #begin Audio/Music/Game/MapSelectTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MapSelectTheme.wav
 
@@ -93,7 +93,7 @@
 
 #begin Audio/Music/Game/RegularBattle.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/RegularBattle.wav
 
@@ -105,13 +105,13 @@
 
 #begin Audio/Music/Game/TacticalTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/TacticalTheme.wav
 
 #begin Audio/Music/Game/VictoryJingle.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/VictoryJingle.wav
 
