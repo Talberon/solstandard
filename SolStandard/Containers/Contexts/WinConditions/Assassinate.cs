@@ -12,7 +12,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
     {
         private Window objectiveWindow;
 
-        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED");
+        protected override IRenderable VictoryLabelContent =>
+            new RenderText(AssetManager.ResultsFont, "COMMANDER DEFEATED");
 
         public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
@@ -38,30 +39,33 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
-            List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
-
-            if (TeamCommandersAreAllDead(blueTeam) && TeamCommandersAreAllDead(redTeam))
+            get
             {
-                GameIsADraw = true;
-                return GameIsADraw;
-            }
+                List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
+                List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
 
-            if (TeamCommandersAreAllDead(blueTeam))
-            {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                if (TeamCommandersAreAllDead(blueTeam) && TeamCommandersAreAllDead(redTeam))
+                {
+                    GameIsADraw = true;
+                    return GameIsADraw;
+                }
 
-            if (TeamCommandersAreAllDead(redTeam))
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (TeamCommandersAreAllDead(blueTeam))
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
 
-            return false;
+                if (TeamCommandersAreAllDead(redTeam))
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
+
+                return false;
+            }
         }
 
 

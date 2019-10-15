@@ -31,7 +31,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public virtual IRenderable ObjectiveInfo => RenderBlank.Blank;
 
-        public abstract bool ConditionsMet();
+        public abstract bool ConditionsMet { get; }
 
         public void EndGame()
         {

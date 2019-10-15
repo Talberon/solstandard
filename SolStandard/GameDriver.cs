@@ -395,7 +395,7 @@ namespace SolStandard
                     DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
-                    DrawBackgroundWallpaper();
+                    DrawInGameMap();
                     DrawGameResultsScreen();
                     break;
                 case GameContext.GameState.Credits:

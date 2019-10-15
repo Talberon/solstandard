@@ -129,6 +129,8 @@ namespace SolStandard.Containers.Contexts
 
         public void PassTurnToNextUnit()
         {
+            if (GameContext.Scenario.GameIsOver) return;
+            
             Team opposingTeam = OpposingTeam(CurrentActiveTeam);
 
             CurrentActiveUnit.ExhaustAndDisableUnit();

@@ -297,6 +297,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Status, PressType.Single))
             {
+                AssetManager.MenuConfirmSFX.Play();
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
@@ -679,6 +680,7 @@ namespace SolStandard.Containers.Contexts
                 }
                 else
                 {
+                    AssetManager.MenuConfirmSFX.Play();
                     GameContext.CurrentGameState = GameContext.GameState.InGame;
                 }
             }

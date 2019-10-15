@@ -98,47 +98,51 @@ namespace SolStandard.Containers.Contexts.WinConditions
             EscapedUnits.Add(unit);
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            //Escaping player must have their commander exit the map via an escape point
-            //Commander is not allowed to escape until all other units on the team are defeated or have escaped
-            List<GameUnit> remainingEscapeTeamUnits = GameContext.Units.Where(unit => unit.Team == escapeTeam).ToList();
-            EscapedUnits.ForEach(unit => remainingEscapeTeamUnits.Remove(unit));
-            bool allNonCommandersEscapedOrDefeated =
-                remainingEscapeTeamUnits.TrueForAll(unit => !unit.IsAlive && !unit.IsCommander);
-
-            if (allNonCommandersEscapedOrDefeated)
+            get
             {
-                switch (escapeTeam)
-                {
-                    case Team.Blue:
-                        BlueTeamWins = true;
-                        return BlueTeamWins;
-                    case Team.Red:
-                        RedTeamWins = true;
-                        return RedTeamWins;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+                //Escaping player must have their commander exit the map via an escape point
+                //Commander is not allowed to escape until all other units on the team are defeated or have escaped
+                List<GameUnit> remainingEscapeTeamUnits =
+                    GameContext.Units.Where(unit => unit.Team == escapeTeam).ToList();
+                EscapedUnits.ForEach(unit => remainingEscapeTeamUnits.Remove(unit));
+                bool allNonCommandersEscapedOrDefeated =
+                    remainingEscapeTeamUnits.TrueForAll(unit => !unit.IsAlive && !unit.IsCommander);
 
-            //Hunter player must defeat all escaping commanders before they escape
-            if (remainingEscapeTeamUnits.Where(unit => unit.IsCommander).All(unit => !unit.IsAlive))
-            {
-                switch (hunterTeam)
+                if (allNonCommandersEscapedOrDefeated)
                 {
-                    case Team.Blue:
-                        BlueTeamWins = true;
-                        return BlueTeamWins;
-                    case Team.Red:
-                        RedTeamWins = true;
-                        return RedTeamWins;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    switch (escapeTeam)
+                    {
+                        case Team.Blue:
+                            BlueTeamWins = true;
+                            return BlueTeamWins;
+                        case Team.Red:
+                            RedTeamWins = true;
+                            return RedTeamWins;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
-            }
 
-            return false;
+                //Hunter player must defeat all escaping commanders before they escape
+                if (remainingEscapeTeamUnits.Where(unit => unit.IsCommander).All(unit => !unit.IsAlive))
+                {
+                    switch (hunterTeam)
+                    {
+                        case Team.Blue:
+                            BlueTeamWins = true;
+                            return BlueTeamWins;
+                        case Team.Red:
+                            RedTeamWins = true;
+                            return RedTeamWins;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                return false;
+            }
         }
     }
 }

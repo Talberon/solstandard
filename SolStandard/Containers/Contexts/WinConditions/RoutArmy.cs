@@ -36,33 +36,36 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            bool blueTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Blue)
-                .TrueForAll(unit => !unit.IsAlive);
-
-            bool redTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Red)
-                .TrueForAll(unit => !unit.IsAlive);
-
-            if (blueTeamRouted && redTeamRouted)
+            get
             {
-                GameIsADraw = true;
-                return GameIsADraw;
-            }
+                bool blueTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Blue)
+                    .TrueForAll(unit => !unit.IsAlive);
 
-            if (blueTeamRouted)
-            {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                bool redTeamRouted = GameContext.Units.FindAll(unit => unit.Team == Team.Red)
+                    .TrueForAll(unit => !unit.IsAlive);
 
-            if (redTeamRouted)
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (blueTeamRouted && redTeamRouted)
+                {
+                    GameIsADraw = true;
+                    return GameIsADraw;
+                }
 
-            return false;
+                if (blueTeamRouted)
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
+
+                if (redTeamRouted)
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
+
+                return false;
+            }
         }
     }
 }

@@ -59,21 +59,24 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            if (PlayerTeamsHaveCollectedEnoughRelics)
+            get
             {
-                CoOpVictory = true;
-                return CoOpVictory;
-            }
+                if (PlayerTeamsHaveCollectedEnoughRelics)
+                {
+                    CoOpVictory = true;
+                    return CoOpVictory;
+                }
 
-            if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
-            {
-                AllPlayersLose = true;
-                return AllPlayersLose;
-            }
+                if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
+                {
+                    AllPlayersLose = true;
+                    return AllPlayersLose;
+                }
 
-            return false;
+                return false;
+            }
         }
 
         private bool PlayerTeamsHaveCollectedEnoughRelics =>

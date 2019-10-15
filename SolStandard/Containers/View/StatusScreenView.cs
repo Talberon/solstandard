@@ -37,9 +37,9 @@ namespace SolStandard.Containers.View
 
         public StatusScreenView()
         {
-            BlueTeamResultText = "FIGHT!";
-            RedTeamResultText = "FIGHT!";
-            ResultLabelContent = new RenderText(AssetManager.ResultsFont, "STATUS");
+            BlueTeamResultText = " FIGHT!";
+            RedTeamResultText = " FIGHT!";
+            ResultLabelContent = new RenderText(AssetManager.ResultsFont, " STATUS");
         }
 
         public void UpdateWindows()

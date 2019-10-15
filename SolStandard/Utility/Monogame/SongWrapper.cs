@@ -17,6 +17,7 @@ namespace SolStandard.Utility.Monogame
         {
             MediaPlayer.Volume = Volume;
             MediaPlayer.IsRepeating = true;
+            MediaPlayer.Stop();
             MediaPlayer.Play(monogameSong);
         }
         
@@ -24,6 +25,7 @@ namespace SolStandard.Utility.Monogame
         {
             MediaPlayer.Volume = Volume;
             MediaPlayer.IsRepeating = false;
+            MediaPlayer.Stop();
             MediaPlayer.Play(monogameSong);
         }
 

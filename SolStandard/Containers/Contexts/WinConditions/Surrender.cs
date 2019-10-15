@@ -9,24 +9,28 @@ namespace SolStandard.Containers.Contexts.WinConditions
         public bool BlueConcedes { private get; set; }
         public bool RedConcedes { private get; set; }
 
-        
-        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED");
 
-        public override bool ConditionsMet()
+        protected override IRenderable VictoryLabelContent =>
+            new RenderText(AssetManager.ResultsFont, "PLAYER SURRENDERED");
+
+        public override bool ConditionsMet
         {
-            if (BlueConcedes)
+            get
             {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                if (BlueConcedes)
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
 
-            if (RedConcedes)
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (RedConcedes)
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
 
-            return false;
+                return false;
+            }
         }
     }
 }
