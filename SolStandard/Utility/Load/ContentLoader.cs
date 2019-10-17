@@ -265,6 +265,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/FallingCoins"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Ping"),
             };
 
             return songTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();

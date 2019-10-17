@@ -472,6 +472,11 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
             }
 
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MapPingEvent());
+            }
+
             if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new PreviewUnitSkillsEvent());
@@ -694,6 +699,8 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GoToMainMenuIfGameIsOver();
             }
+
+            CameraControl(controlMapper);
         }
     }
 }

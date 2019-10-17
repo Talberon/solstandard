@@ -457,6 +457,7 @@
     <Compile Include="Utility\Events\Network\FinishMovingEvent.cs" />
     <Compile Include="Utility\Events\Network\IncrementCurrentAdjustableActionEvent.cs" />
     <Compile Include="Utility\Events\Network\InitializeRandomizerNet.cs" />
+    <Compile Include="Utility\Events\Network\MapPingEvent.cs" />
     <Compile Include="Utility\Events\Network\NetworkEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />

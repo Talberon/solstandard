@@ -147,6 +147,10 @@ namespace SolStandard.Containers.Contexts
                         return GameMapContext.MapContainer.MapCursor;
                     case GameState.ItemPreview:
                         return GameMapContext.MapContainer.MapCursor;
+                    case GameState.Codex:
+                        return null;
+                    case GameState.Credits:
+                        return null;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
