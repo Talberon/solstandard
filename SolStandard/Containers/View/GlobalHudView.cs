@@ -12,7 +12,7 @@ namespace SolStandard.Containers.View
         private const int NotificationDurationInFrames = 180;
 
         private static readonly List<HudNotification> Notifications = new List<HudNotification>();
-        private static int _notificationTimer = 0;
+        private static int _notificationTimer;
 
         public static void AddNotification(string message)
         {

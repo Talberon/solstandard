@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Load
     public static class ContentLoader
     {
         private const float SoundEffectVolume = 0.2f;
-        private const float SongSFXVolume = 1f;
+        //private const float SongSFXVolume = 1f; //For HQ Audio
 
         public static ISpriteFont LoadPromptFont(ContentManager content)
         {

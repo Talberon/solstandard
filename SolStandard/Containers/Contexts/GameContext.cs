@@ -87,7 +87,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.Codex:
                         return GetPlayerForTeam(CodexContext.CurrentTeam);
                     case GameState.Results:
-                        return PlayerIndex.Four;
+                        return GetPlayerForTeam(ActiveTeam);
                     case GameState.Credits:
                         return PlayerIndex.One;
                     case GameState.ItemPreview:
@@ -181,6 +181,10 @@ namespace SolStandard.Containers.Contexts
                         return GameMapContext.MapContainer.MapCamera;
                     case GameState.ItemPreview:
                         return GameMapContext.MapContainer.MapCamera;
+                    case GameState.Codex:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.Credits:
+                        return MapSelectContext.MapContainer.MapCamera;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

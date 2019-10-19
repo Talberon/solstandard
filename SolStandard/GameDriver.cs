@@ -337,6 +337,7 @@ namespace SolStandard
                 case GameContext.GameState.Credits:
                     break;
                 case GameContext.GameState.Results:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.ItemPreview:
                     break;

@@ -155,10 +155,6 @@ namespace SolStandard.Map.Camera
 
             targetPosition = Vector2.Negate(centerPoint);
             targetPosition += screenCenter / CurrentZoom;
-
-//            Trace.WriteLine("Camera:" + targetPosition);
-//            Trace.WriteLine("TargetPoint:" + centerPoint);
-//            Trace.WriteLine("Cursor:" + GameContext.MapCursor.CurrentDrawCoordinates);
         }
 
         private void UpdateZoomLevel()
