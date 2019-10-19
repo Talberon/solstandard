@@ -408,9 +408,10 @@ namespace SolStandard
                     DrawInGameHUD();
                     break;
                 default:
-                    base.Draw(gameTime);
                     throw new ArgumentOutOfRangeException();
             }
+
+            DrawSystemHUD();
         }
 
         private void DrawBackgroundWallpaper()
@@ -556,6 +557,13 @@ namespace SolStandard
                 GameMapContext.GameMapView.Draw(spriteBatch);
             }
 
+            spriteBatch.End();
+        }
+
+        private void DrawSystemHUD()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            GlobalHudView.Draw(spriteBatch);
             spriteBatch.End();
         }
     }

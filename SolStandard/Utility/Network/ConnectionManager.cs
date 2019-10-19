@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Lidgren.Network;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
@@ -150,12 +151,14 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.RespondedConnect:
                                 Trace.WriteLine("Connecting...");
+                                GlobalHudView.AddNotification("Connecting...");
                                 break;
                             case NetConnectionStatus.Connected:
                                 Trace.WriteLine("Connected!");
+                                GlobalHudView.AddNotification("Connected to peer!");
 
                                 GameContext.LoadMapSelect();
-                                
+
                                 if (ConnectedAsServer)
                                 {
                                     int newRandomSeed = GameDriver.Random.Next();
@@ -167,10 +170,12 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");
+                                GlobalHudView.AddNotification("Disconnecting...");
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Trace.WriteLine("Disconnected!");
                                 Trace.WriteLine(received.ReadString());
+                                GlobalHudView.AddNotification("Disconnected from peer!");
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();

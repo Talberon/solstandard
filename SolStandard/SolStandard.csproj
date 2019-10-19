@@ -76,6 +76,7 @@
     <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
+    <Compile Include="Containers\View\GlobalHudView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
     <Compile Include="Containers\View\NetworkMenuView.cs" />
@@ -370,6 +371,7 @@
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
     <Compile Include="HUD\Window\AnimatedRenderable.cs" />
+    <Compile Include="HUD\Window\HudNotification.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
