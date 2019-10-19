@@ -13,6 +13,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.General.Item
 {
@@ -90,13 +91,13 @@ namespace SolStandard.Entity.General.Item
             foreach (MapElement rangeTile in rangeTiles)
             {
                 MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
-                GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
+                GameUnit unitInRange = UnitSelector.SelectUnit(slice.UnitEntity);
 
-                if (trapUnit != null)
+                if (unitInRange != null)
                 {
-                    trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
+                    trapMessage += unitInRange.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
 
-                    for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
+                    for (int i = 0; i < Damage; i++) unitInRange.DamageUnit();
                 }
 
                 if (EntityAtSliceCanTakeDamage(slice))

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
+using SolStandard.HUD.Menu.Options.PauseMenu;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
@@ -38,6 +39,7 @@ namespace SolStandard.Containers.View
                 new JoinGameOption(MenuColor),
                 new OpenCodexOption(MenuColor),
                 new MainMenuConfigOption(MenuColor),
+                new ControlsOption(MenuColor),
                 new CreditsOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
