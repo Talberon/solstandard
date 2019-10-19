@@ -51,8 +51,10 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public static bool CanGiveItemToAlly(GameUnit targetUnit, GameUnit actingUnit, MapSlice targetSlice)
         {
-            return targetUnit != null && targetUnit.Team == actingUnit.Team && targetUnit != actingUnit &&
-                   targetSlice.DynamicEntity != null;
+            return targetUnit != null
+                   && (targetUnit.Team == actingUnit.Team || TargetIsACoOpAlly(targetUnit))
+                   && targetUnit != actingUnit
+                   && targetSlice.DynamicEntity != null;
         }
     }
 }
