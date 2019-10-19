@@ -45,6 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
+                return;
             }
 
             if (TargetIsAnAllyInRange(targetSlice, targetUnit))
