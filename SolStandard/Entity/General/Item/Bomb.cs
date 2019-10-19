@@ -16,7 +16,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General.Item
 {
-    public class Bomb : TerrainEntity, IItem, IEffectTile, IThreatRange
+    public class Bomb : PushBlock, IItem, IEffectTile, IThreatRange
     {
         public int[] Range { get; }
         public int Damage { get; }

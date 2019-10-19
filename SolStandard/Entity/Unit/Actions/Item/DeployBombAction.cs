@@ -26,7 +26,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                          "Cannot be picked up once placed!",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},
-            freeAction: false
+            freeAction: true
         )
         {
             this.bombToDeploy = bombToDeploy;
@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(bombToDeploy.Duplicate() as Bomb, Layer.Entities,
                     AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
-                eventQueue.Enqueue(new EndTurnEvent());
+                eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
