@@ -2014,18 +2014,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Icons/Misc/FallingCoins.png
 
-#begin Graphics/Images/Icons/Misc/FallingCoins.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/Images/Icons/Misc/FallingCoins.png
-
 #begin Graphics/Images/Icons/Misc/Fire.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3969,6 +3957,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/MapPreviews/Draft_Factory_Floor.png
+
+#begin Graphics/Map/MapPreviews/Draft_Factory_Floor_02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/MapPreviews/Draft_Factory_Floor_02.png
 
 #begin Graphics/Map/MapPreviews/Draft_Fortress_01.png
 /importer:TextureImporter

@@ -522,6 +522,7 @@
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
+    <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />

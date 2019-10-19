@@ -3048,7 +3048,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Loot" opacity="0.58">
+ <objectgroup id="6" name="Loot" visible="0" opacity="0.58">
   <object id="1231" name="Door Key" type="Key" gid="6408" x="160" y="288" width="32" height="32">
    <properties>
     <property name="usedWith" value="Locked Door"/>
@@ -3202,7 +3202,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" opacity="0.69">
+ <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
   <object id="1500" name="Skeleton" type="Creep" gid="32" x="800" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Skeleton"/>
@@ -3339,7 +3339,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Disabled" opacity="0.43">
+ <objectgroup id="9" name="Disabled" visible="0" opacity="0.43">
   <object id="1513" name="Boss Spawn" type="CreepDeploy" gid="6854" x="576" y="32" width="32" height="32">
    <properties>
     <property name="creepPool" value="Bosses"/>

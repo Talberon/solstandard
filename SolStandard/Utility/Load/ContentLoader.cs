@@ -327,7 +327,6 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hiatok_Fortress"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Quest_Race"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Village_Center"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tropical_01"),
@@ -340,6 +339,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Toldarian_Plains"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor_02"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();

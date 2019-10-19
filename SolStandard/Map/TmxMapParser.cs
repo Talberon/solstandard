@@ -432,7 +432,8 @@ namespace SolStandard.Map
                                             (Team) Enum.Parse(typeof(Team), currentProperties["modeSolo.team"]),
                                             AssetManager.MapPreviewTextures.FirstOrDefault(texture =>
                                                 texture.Name.EndsWith("/" + mapFileName.Substring(0,
-                                                                          mapFileName.Length - (".tmx").Length)))
+                                                                          mapFileName.Length - (".tmx").Length))),
+                                            Convert.ToInt32(currentProperties["timeEstimateOutOfFive"])
                                         );
                                         break;
                                     case EntityTypes.Seize:
