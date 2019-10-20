@@ -314,6 +314,7 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.NetworkMenu:
                     break;
@@ -360,6 +361,7 @@ namespace SolStandard
             {
                 case GameContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
+                    DrawMapSelectMap();
                     DrawMainMenu();
                     break;
                 case GameContext.GameState.NetworkMenu:
@@ -375,6 +377,7 @@ namespace SolStandard
                     DrawDraftMenu();
                     break;
                 case GameContext.GameState.MapSelect:
+                    DrawBackgroundWallpaper();
                     DrawMapSelectMap();
                     DrawMapSelectHUD();
                     break;
