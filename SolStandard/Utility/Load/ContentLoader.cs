@@ -694,5 +694,11 @@ namespace SolStandard.Utility.Load
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
             return new SoundEffectWrapper(effect, 1f);
         }
+
+        public static ISoundEffect LoadPingSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
+            return new SoundEffectWrapper(effect, 1f);
+        }
     }
 }

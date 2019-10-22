@@ -10,14 +10,14 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            //TODO Play a soft sound effect
-
             Vector2 coordinates = (GameContext.MapCursor != null) ? GameContext.MapCursor.MapCoordinates : Vector2.Zero;
 
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Ping, GameDriver.CellSizeVector),
                 coordinates
             );
+            AssetManager.PingSFX.Play();
+
             Complete = true;
         }
     }

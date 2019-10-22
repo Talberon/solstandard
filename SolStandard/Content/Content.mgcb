@@ -319,6 +319,12 @@
 /processorParam:Quality=Best
 /build:Audio/SFX/Interface/sfx_weapon_singleshot4.wav
 
+#begin Audio/SFX/Interface/sfx_wpn_laser8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Interface/sfx_wpn_laser8.wav
+
 #begin Fonts/HeavyText.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
