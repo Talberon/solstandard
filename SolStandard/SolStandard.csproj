@@ -430,8 +430,6 @@
     <Compile Include="Utility\Buttons\KeyboardInput\KeyboardController.cs" />
     <Compile Include="Utility\Buttons\KeyboardInput\InputKey.cs" />
     <Compile Include="Utility\Buttons\MultiControlParser.cs" />
-    <Compile Include="Utility\Buttons\Network\InputNet.cs" />
-    <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepTriggerTileEvent.cs" />
     <Compile Include="Utility\Events\AI\SpawnCreepEvent.cs" />

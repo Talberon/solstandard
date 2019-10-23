@@ -2,7 +2,7 @@
 {
     public abstract class GameControl
     {
-        public int InputCounter { get; set; }
+        public int InputCounter { get; private set; }
 
         protected GameControl()
         {
@@ -11,7 +11,7 @@
 
         public abstract bool Pressed { get; }
 
-        public virtual bool Released => !Pressed && InputCounter > 0;
+        public bool Released => !Pressed && InputCounter > 0;
 
         public void IncrementInputCounter()
         {

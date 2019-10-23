@@ -10,7 +10,6 @@ using Lidgren.Network;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
-using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
 
@@ -20,16 +19,7 @@ namespace SolStandard.Utility.Network
     {
         private NetServer server;
         private NetClient client;
-
-        public const string PacketTypeHeader = "PT";
         public const int NetworkPort = 1993;
-
-        public enum PacketType
-        {
-            Text,
-            ControlInput,
-            Event
-        }
 
         public bool ConnectedAsServer =>
             server != null && server.ConnectionsCount > 0 &&
@@ -189,7 +179,6 @@ namespace SolStandard.Utility.Network
                         Trace.WriteLine(received.ReadString());
                         break;
 
-                    /* .. */
                     default:
                         Trace.WriteLine("unhandled message with type: " + received.MessageType);
                         Trace.WriteLine(received.ReadString());
@@ -227,36 +216,6 @@ namespace SolStandard.Utility.Network
             NetOutgoingMessage message = server.CreateMessage();
             message.Write(textMessage);
             server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
-        }
-
-        public void SendControlMessageAsClient(NetworkController control)
-        {
-            Trace.WriteLine("Sending control message to server!");
-            NetOutgoingMessage message = client.CreateMessage();
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(memoryStream, control);
-                byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
-                message.Write(controlBytes);
-                client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
-            }
-        }
-
-        public void SendControlMessageAsServer(NetworkController control)
-        {
-            Trace.WriteLine("Sending control message to client!");
-            NetOutgoingMessage message = server.CreateMessage();
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(memoryStream, control);
-                byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
-                message.Write(controlBytes);
-                server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
-            }
         }
 
         public void SendEventMessageAsClient(NetworkEvent networkEvent)
