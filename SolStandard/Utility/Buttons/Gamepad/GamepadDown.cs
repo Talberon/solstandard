@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
-    public class GamepadDown: GamePadControl
+    public class GamepadDown : GamePadControl
     {
         public GamepadDown(PlayerIndex playerIndex) : base(playerIndex)
         {
@@ -12,5 +13,10 @@ namespace SolStandard.Utility.Buttons.Gamepad
         public override bool Pressed =>
             GamePad.GetState(PlayerIndex).DPad.Down == ButtonState.Pressed ||
             GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y < (-ControlMapper.StickDeadzone);
+
+        public override IRenderable GetInputIcon(int iconSize)
+        {
+            return ButtonIconProvider.GetButton(ButtonIcon.DpadDown, new Vector2(iconSize));
+        }
     }
 }

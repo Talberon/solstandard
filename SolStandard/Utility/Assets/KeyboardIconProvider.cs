@@ -51,7 +51,7 @@ namespace SolStandard.Utility.Assets
 
         One,
         Two,
-        Tree,
+        Three,
         Four,
         Five,
         Six,
@@ -121,7 +121,7 @@ namespace SolStandard.Utility.Assets
 
             ITexture2D textureOne = keyboardTextures.Find(texture => texture.Name.EndsWith("_1"));
             ITexture2D textureTwo = keyboardTextures.Find(texture => texture.Name.EndsWith("_2"));
-            ITexture2D textureTree = keyboardTextures.Find(texture => texture.Name.EndsWith("_3"));
+            ITexture2D textureThree = keyboardTextures.Find(texture => texture.Name.EndsWith("_3"));
             ITexture2D textureFour = keyboardTextures.Find(texture => texture.Name.EndsWith("_4"));
             ITexture2D textureFive = keyboardTextures.Find(texture => texture.Name.EndsWith("_5"));
             ITexture2D textureSix = keyboardTextures.Find(texture => texture.Name.EndsWith("_6"));
@@ -174,7 +174,7 @@ namespace SolStandard.Utility.Assets
 
                 {KeyboardIcon.One, textureOne},
                 {KeyboardIcon.Two, textureTwo},
-                {KeyboardIcon.Tree, textureTree},
+                {KeyboardIcon.Three, textureThree},
                 {KeyboardIcon.Four, textureFour},
                 {KeyboardIcon.Five, textureFive},
                 {KeyboardIcon.Six, textureSix},

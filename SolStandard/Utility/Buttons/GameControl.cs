@@ -10,6 +10,7 @@
         }
 
         public abstract bool Pressed { get; }
+        public abstract IRenderable GetInputIcon(int iconSize);
 
         public bool Released => !Pressed && InputCounter > 0;
 
