@@ -46,13 +46,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = GameDriver.CellSizeVector;
+            const int iconSize = GameDriver.CellSize;
 
             return new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Withdraw"),
-                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
+                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(iconSize)),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " from the bank."),
                         RenderBlank.Blank,
                         RenderBlank.Blank

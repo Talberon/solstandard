@@ -56,6 +56,7 @@ namespace SolStandard.Containers.View
         public void UpdateControlsTextWindow()
         {
             ISpriteFont windowFont = AssetManager.WindowFont;
+            int iconSize = Convert.ToInt32(windowFont.MeasureString("A").Y);
 
             IRenderable[,] promptTextContent =
             {
@@ -68,31 +69,31 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderText(windowFont, "Move Draft Cursor: "),
-                    InputIconProvider.GetInputIcon(Input.CursorUp, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CursorDown, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CursorLeft, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CursorRight, new Vector2(windowFont.MeasureString("A").Y))
+                    InputIconProvider.GetInputIcon(Input.CursorUp, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CursorDown, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CursorLeft, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CursorRight, iconSize)
                 },
                 {
                     new RenderText(windowFont, "Draft a unit: "),
-                    InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Confirm, iconSize),
                     RenderBlank.Blank,
                     RenderBlank.Blank,
                     RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "View Unit Codex: "),
-                    InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.PreviewUnit, iconSize),
                     RenderBlank.Blank,
                     RenderBlank.Blank,
                     RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Move Map Camera: "),
-                    InputIconProvider.GetInputIcon(Input.CameraUp, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CameraDown, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CameraLeft, new Vector2(windowFont.MeasureString("A").Y)),
-                    InputIconProvider.GetInputIcon(Input.CameraRight, new Vector2(windowFont.MeasureString("A").Y))
+                    InputIconProvider.GetInputIcon(Input.CameraUp, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CameraDown, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CameraLeft, iconSize),
+                    InputIconProvider.GetInputIcon(Input.CameraRight, iconSize)
                 }
             };
             WindowContentGrid promptWindowContentGrid =

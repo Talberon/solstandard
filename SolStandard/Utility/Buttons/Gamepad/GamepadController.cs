@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard.HUD.Window.Content;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.Gamepad
@@ -8,32 +7,6 @@ namespace SolStandard.Utility.Buttons.Gamepad
     public class GamepadController : IController
     {
         private readonly Dictionary<Input, GameControl> inputs;
-
-        private readonly Dictionary<Input, ButtonIcon> icons = new Dictionary<Input, ButtonIcon>
-        {
-            {Input.Confirm, ButtonIcon.A},
-            {Input.Cancel, ButtonIcon.B},
-            {Input.PreviewUnit, ButtonIcon.X},
-            {Input.PreviewItem, ButtonIcon.Y},
-
-            {Input.CursorUp, ButtonIcon.DpadUp},
-            {Input.CursorDown, ButtonIcon.DpadDown},
-            {Input.CursorLeft, ButtonIcon.DpadLeft},
-            {Input.CursorRight, ButtonIcon.DpadRight},
-
-            {Input.CameraUp, ButtonIcon.RightStick},
-            {Input.CameraDown, ButtonIcon.RightStick},
-            {Input.CameraLeft, ButtonIcon.RightStick},
-            {Input.CameraRight, ButtonIcon.RightStick},
-
-            {Input.Menu, ButtonIcon.Menu},
-            {Input.Status, ButtonIcon.Windows},
-
-            {Input.TabLeft, ButtonIcon.Lb},
-            {Input.TabRight, ButtonIcon.Rb},
-            {Input.ZoomOut, ButtonIcon.Lt},
-            {Input.ZoomIn, ButtonIcon.Rt}
-        };
 
         public GamepadController(PlayerIndex playerIndex)
         {
@@ -62,6 +35,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
             inputs = new Dictionary<Input, GameControl>
             {
+                {Input.None, new VoidInput()},
+                
                 {Input.Confirm, Confirm},
                 {Input.Cancel, Cancel},
                 {Input.PreviewUnit, ResetToUnit},
@@ -93,13 +68,6 @@ namespace SolStandard.Utility.Buttons.Gamepad
         }
 
         public ControlType ControlType => ControlType.Gamepad;
-
-        public IRenderable GetInputIcon(Input input, Vector2 iconSize)
-        {
-            if (input == Input.None) return RenderBlank.Blank;
-
-            return ButtonIconProvider.GetButton(icons[input], iconSize);
-        }
 
         public GameControl Confirm { get; }
         public GameControl Cancel { get; }

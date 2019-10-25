@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -72,6 +73,8 @@ namespace SolStandard.Containers.View
         {
             ISpriteFont windowFont = AssetManager.WindowFont;
 
+            int iconSize = Convert.ToInt32(windowFont.MeasureString("A").Y);
+
             IRenderable[,] promptTextContent =
             {
                 {
@@ -83,30 +86,30 @@ namespace SolStandard.Containers.View
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    InputIconProvider.GetInputIcon(Input.Confirm, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Confirm, iconSize),
                     new RenderText(windowFont, " on a deployment tile to deploy a unit."),
                     RenderBlank.Blank,
                     RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    InputIconProvider.GetInputIcon(Input.Cancel, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.Cancel, iconSize),
                     new RenderText(windowFont, " to snap to the first deploy tile."),
                     RenderBlank.Blank,
                     RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.PreviewUnit, iconSize),
                     new RenderText(windowFont, " to preview selected unit in the codex."),
                     RenderBlank.Blank,
                     RenderBlank.Blank
                 },
                 {
                     new RenderText(windowFont, "Press "),
-                    InputIconProvider.GetInputIcon(Input.TabLeft, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.TabLeft, iconSize),
                     new RenderText(windowFont, " or "),
-                    InputIconProvider.GetInputIcon(Input.TabRight, new Vector2(windowFont.MeasureString("A").Y)),
+                    InputIconProvider.GetInputIcon(Input.TabRight, iconSize),
                     new RenderText(windowFont, " to cycle between units.")
                 }
             };
@@ -165,9 +168,11 @@ namespace SolStandard.Containers.View
             GameDriver.ScreenSize - new Vector2(WindowEdgePadding) -
             new Vector2(RedDeployRoster.Width, RedDeployRoster.Height);
 
-        private Vector2 HelpTextPosition => new Vector2(WindowEdgePadding, GameDriver.ScreenSize.Y - HelpText.Height - WindowEdgePadding);
+        private Vector2 HelpTextPosition => new Vector2(WindowEdgePadding,
+            GameDriver.ScreenSize.Y - HelpText.Height - WindowEdgePadding);
 
-        private Vector2 EntityWindowPosition => new Vector2(GameDriver.ScreenSize.X - EntityWindow.Width - WindowEdgePadding, WindowEdgePadding);
+        private Vector2 EntityWindowPosition =>
+            new Vector2(GameDriver.ScreenSize.X - EntityWindow.Width - WindowEdgePadding, WindowEdgePadding);
 
         private Vector2 UnitPortraitWindowPosition =>
             new Vector2(WindowEdgePadding,

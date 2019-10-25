@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
@@ -37,7 +38,7 @@ namespace SolStandard.Containers.View
 
         private void SetUpWindows()
         {
-            Vector2 iconSize = new Vector2(AssetManager.WindowFont.MeasureString("A").Y);
+            int iconSize = Convert.ToInt32(AssetManager.WindowFont.MeasureString("A").Y);
 
             WindowContentGrid instructionContentGrid = new WindowContentGrid(
                 new[,]
@@ -74,7 +75,7 @@ namespace SolStandard.Containers.View
             WindowContentGrid teamSelectContent = new WindowContentGrid(new[,]
                 {
                     {
-                        InputIconProvider.GetInputIcon(Input.PreviewUnit, new Vector2(iconSize)),
+                        InputIconProvider.GetInputIcon(Input.PreviewUnit, iconSize),
                         //SOL TEAM
                         new Window(new WindowContentGrid(new IRenderable[,]
                             {
@@ -119,7 +120,7 @@ namespace SolStandard.Containers.View
                                 }
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor
                         ),
-                        InputIconProvider.GetInputIcon(Input.PreviewItem, new Vector2(iconSize))
+                        InputIconProvider.GetInputIcon(Input.PreviewItem, iconSize)
                     }
                 }, 1, HorizontalAlignment.Centered
             );

@@ -7,7 +7,6 @@ namespace SolStandard.Utility.Buttons
     {
         ControlType ControlType { get; }
         GameControl GetInput(Input input);
-        IRenderable GetInputIcon(Input input, Vector2 iconSize);
         
         GameControl Confirm { get; }
         GameControl Cancel { get; }

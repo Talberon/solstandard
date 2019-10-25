@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
         private static WindowContentGrid GenerateActionDescription(int cmdCost)
         {
-            Vector2 iconSize = GameDriver.CellSizeVector;
+            const int iconSize = GameDriver.CellSize;
 
             return new WindowContentGrid(new[,]
                 {

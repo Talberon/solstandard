@@ -269,7 +269,7 @@ namespace SolStandard.Containers.Contexts
                     new RenderText(AssetManager.PromptFont, "["),
                     new RenderText(AssetManager.PromptFont, "Press "),
                     InputIconProvider.GetInputIcon(Input.Confirm,
-                        new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
+                        Convert.ToInt32(AssetManager.PromptFont.MeasureString("A").Y)),
                     new RenderText(AssetManager.PromptFont, "]")
                 }
             };

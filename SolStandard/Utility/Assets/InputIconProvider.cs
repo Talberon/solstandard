@@ -23,19 +23,14 @@ namespace SolStandard.Utility.Assets
             _lastInput = controlType;
         }
 
-        public static IRenderable GetInputIcon(Input inputType, float iconSize)
-        {
-            return GetInputIcon(inputType, new Vector2(iconSize));
-        }
-
-        public static IRenderable GetInputIcon(Input inputType, Vector2 iconSize)
+        public static IRenderable GetInputIcon(Input inputType, int iconSize)
         {
             switch (_lastInput)
             {
                 case ControlType.Keyboard:
-                    return Keyboard.GetInputIcon(inputType, iconSize);
+                    return Keyboard.GetInput(inputType).GetInputIcon(iconSize);
                 case ControlType.Gamepad:
-                    return Gamepad.GetInputIcon(inputType, iconSize);
+                    return Gamepad.GetInput(inputType).GetInputIcon(iconSize);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

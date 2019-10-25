@@ -32,13 +32,13 @@ namespace SolStandard.Entity.Unit.Actions
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = GameDriver.CellSizeVector;
+            const int iconSize = GameDriver.CellSize;
 
             return new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Drop"),
-                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
+                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(iconSize)),
                         new RenderText(AssetManager.WindowFont,
                             Currency.CurrencyAbbreviation + " on an empty item tile or give it to an ally."),
                         RenderBlank.Blank,
