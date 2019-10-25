@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons
@@ -7,6 +6,7 @@ namespace SolStandard.Utility.Buttons
     {
         ControlType ControlType { get; }
         GameControl GetInput(Input input);
+        void RemapControl(Input inputToRemap, GameControl newInput);
         
         GameControl Confirm { get; }
         GameControl Cancel { get; }

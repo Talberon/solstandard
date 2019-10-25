@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
@@ -36,7 +39,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             inputs = new Dictionary<Input, GameControl>
             {
                 {Input.None, new VoidInput()},
-                
+
                 {Input.Confirm, Confirm},
                 {Input.Cancel, Cancel},
                 {Input.PreviewUnit, ResetToUnit},
@@ -65,6 +68,18 @@ namespace SolStandard.Utility.Buttons.Gamepad
         public GameControl GetInput(Input input)
         {
             return inputs[input];
+        }
+
+        public void RemapControl(Input inputToRemap, GameControl newInput)
+        {
+            if (InputAlreadySet(newInput)) throw new DuplicateInputException();
+
+            inputs[inputToRemap] = newInput;
+        }
+
+        private bool InputAlreadySet(GameControl potentialControl)
+        {
+            return ((Input[]) Enum.GetValues(typeof(Input))).Any(input => inputs[input] == potentialControl);
         }
 
         public ControlType ControlType => ControlType.Gamepad;

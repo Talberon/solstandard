@@ -337,8 +337,9 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\AllControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\InputConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
     <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
@@ -522,6 +523,7 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\DuplicateInputException.cs" />
     <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
     <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />

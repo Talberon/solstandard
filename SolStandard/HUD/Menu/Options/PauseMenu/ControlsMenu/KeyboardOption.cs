@@ -4,7 +4,7 @@ using SolStandard.Utility.Buttons.KeyboardInput;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
-    public class KeyboardOption : ControlOption
+    public class KeyboardOption : AllControlsOption
     {
         private readonly KeyboardController keyboard;
 

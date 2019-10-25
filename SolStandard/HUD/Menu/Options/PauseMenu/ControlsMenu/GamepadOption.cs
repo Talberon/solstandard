@@ -5,7 +5,7 @@ using SolStandard.Utility.Buttons.Gamepad;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
-    public class GamepadOption : ControlOption
+    public class GamepadOption : AllControlsOption
     {
         private readonly GamepadController gamepad;
 

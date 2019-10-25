@@ -16,5 +16,15 @@ namespace SolStandard.Utility.Buttons.Gamepad
         {
             return ButtonIconProvider.GetButton(ButtonIcon.Rt, new Vector2(iconSize));
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is GamepadRightTrigger;
+        }
+
+        public override int GetHashCode()
+        {
+            return (int) PlayerIndex * (int) ButtonIcon.Rt;
+        }
     }
 }

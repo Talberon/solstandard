@@ -8,9 +8,9 @@ using SolStandard.Utility.Buttons;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
-    public abstract class ControlOption : UnselectableOption
+    public abstract class AllControlsOption : UnselectableOption
     {
-        protected ControlOption(IRenderable labelContent, Color color,
+        protected AllControlsOption(IRenderable labelContent, Color color,
             HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left) :
             base(labelContent, color, horizontalAlignment)
         {

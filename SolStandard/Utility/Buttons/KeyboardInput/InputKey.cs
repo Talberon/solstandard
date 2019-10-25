@@ -82,5 +82,15 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
                 new Vector2(iconSize)
             );
         }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is InputKey inputKey && inputKey.key == key);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int) key;
+        }
     }
 }
