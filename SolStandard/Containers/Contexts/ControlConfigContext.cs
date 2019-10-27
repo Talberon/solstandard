@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.DXGI;
 using SolStandard.Containers.View;
-using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Buttons.Gamepad;
-using SolStandard.Utility.Buttons.KeyboardInput;
+using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Inputs.Gamepad;
+using SolStandard.Utility.Inputs.KeyboardInput;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -36,44 +37,55 @@ namespace SolStandard.Containers.Contexts
          *         If valid, replace the current player's GamepadController with the new one and exit the menu
          */
 
-        private ControlConfigView view;
+        private readonly ControlConfigView view;
         private IController metakeyboard;
         private IController metaP1Gamepad;
         private IController metaP2Gamepad;
 
-        private enum ControlMenuStates
-        {
-            DeviceSelect,
-            InputSelect,
-            MappingInput
-        }
-
-        private ControlMenuStates currentState;
-
         public ControlConfigContext(ControlConfigView configView)
         {
             view = configView;
-            metakeyboard = new KeyboardController();
-            metaP1Gamepad = new GamepadController(PlayerIndex.One);
-            metaP2Gamepad = new GamepadController(PlayerIndex.Two);
-            currentState = ControlMenuStates.DeviceSelect;
+            InitializeMetaControls();
+            view.CurrentState = ControlConfigView.ControlMenuStates.DeviceSelect;
         }
 
+        public void SelectCurrentOption()
+        {
+            view.SelectCurrentOption();
+        }
+
+        //TODO Continuously check this during the Listening state (in View)
         public void ListenForKeyboardInput(Input inputToMap)
         {
             foreach (Keys key in Keyboard.GetState().GetPressedKeys())
             {
-                if (InputKey.KeyIcons.ContainsKey(key))
-                {
-                    //TODO Capture key, map it, and go back to config key list menu
-                    UpdateKeyboardControls(inputToMap, key);
-                    break;
-                }
+                if (!InputKey.KeyIcons.ContainsKey(key)) continue;
+
+                UpdateKeyboardControls(inputToMap, key);
+                view.CurrentState = ControlConfigView.ControlMenuStates.InputRemapSelect;
+                break;
             }
         }
 
+        //TODO Continuously check this during the Listening state (in View)
         public void ListenForGamepadInputFromPlayer(PlayerIndex playerIndex, Input inputToMap)
         {
+            foreach (Buttons pressedButton in GetPressedButtons(GamePad.GetState(playerIndex)))
+            {
+                if (!InputButton.ButtonIcons.ContainsKey(pressedButton)) continue;
+
+                UpdateGamepadControls(playerIndex, inputToMap, pressedButton);
+                view.CurrentState = ControlConfigView.ControlMenuStates.InputRemapSelect;
+                break;
+            }
+        }
+
+        private static IEnumerable<Buttons> GetPressedButtons(GamePadState gamePadState)
+        {
+            return Enum.GetValues(typeof(Buttons))
+                .Cast<Buttons>()
+                .Where(gamePadState.IsButtonDown)
+                .ToList();
         }
 
         private void SaveControlMappings()
@@ -82,7 +94,7 @@ namespace SolStandard.Containers.Contexts
             GameDriver.P1GamepadParser = new GameControlParser(metakeyboard);
             GameDriver.P2GamepadParser = new GameControlParser(metakeyboard);
             GameDriver.InitializeControlMappers(GameContext.P1Team);
-
+            InitializeMetaControls();
             //TODO Save to disk
         }
 
@@ -92,9 +104,10 @@ namespace SolStandard.Containers.Contexts
             metakeyboard.RemapControl(controlType, keyControl);
         }
 
-        private void UpdateGamepadControls(PlayerIndex playerIndex, Input controlType, GamepadInputs buttonToMap)
+        private void UpdateGamepadControls(PlayerIndex playerIndex, Input controlType, Buttons buttonToMap)
         {
-            GameControl gamepadControl = GamepadControlFactory.GetGamepadControl(playerIndex, buttonToMap);
+            //TODO Consider multiple mappings to the same input
+            GameControl gamepadControl = new InputButton(playerIndex, buttonToMap);
 
             switch (playerIndex)
             {
@@ -107,6 +120,13 @@ namespace SolStandard.Containers.Contexts
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerIndex), playerIndex, null);
             }
+        }
+
+        private void InitializeMetaControls()
+        {
+            metakeyboard = new KeyboardController();
+            metaP1Gamepad = new GamepadController(PlayerIndex.One);
+            metaP2Gamepad = new GamepadController(PlayerIndex.Two);
         }
     }
 }

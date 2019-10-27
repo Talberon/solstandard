@@ -13,7 +13,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View

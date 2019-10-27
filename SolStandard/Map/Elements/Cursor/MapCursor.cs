@@ -6,7 +6,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Map.Elements.Cursor
 {

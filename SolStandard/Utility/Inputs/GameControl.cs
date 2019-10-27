@@ -1,4 +1,4 @@
-﻿namespace SolStandard.Utility.Buttons
+﻿namespace SolStandard.Utility.Inputs
 {
     public abstract class GameControl
     {

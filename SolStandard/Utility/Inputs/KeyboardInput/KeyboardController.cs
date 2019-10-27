@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Exceptions;
 
-namespace SolStandard.Utility.Buttons.Gamepad
+namespace SolStandard.Utility.Inputs.KeyboardInput
 {
-    public class GamepadController : IController
+    public class KeyboardController : IController
     {
         private readonly Dictionary<Input, GameControl> inputs;
 
-        public ControlType ControlType => ControlType.Gamepad;
+        public ControlType ControlType => ControlType.Keyboard;
 
         public GameControl Confirm { get; }
         public GameControl Cancel { get; }
@@ -36,30 +36,30 @@ namespace SolStandard.Utility.Buttons.Gamepad
         public GameControl AdjustZoomOut { get; }
         public GameControl AdjustZoomIn { get; }
 
-        public GamepadController(PlayerIndex playerIndex)
+        public KeyboardController()
         {
-            Confirm = new GamepadA(playerIndex);
-            Cancel = new GamepadB(playerIndex);
-            ResetToUnit = new GamepadX(playerIndex);
-            CenterCamera = new GamepadY(playerIndex);
+            Confirm = new InputKey(Keys.Space);
+            Cancel = new InputKey(Keys.LeftShift);
+            ResetToUnit = new InputKey(Keys.Q);
+            CenterCamera = new InputKey(Keys.E);
 
-            CursorUp = new GamepadUp(playerIndex);
-            CursorDown = new GamepadDown(playerIndex);
-            CursorLeft = new GamepadLeft(playerIndex);
-            CursorRight = new GamepadRight(playerIndex);
+            CursorUp = new InputKey(Keys.W);
+            CursorDown = new InputKey(Keys.S);
+            CursorLeft = new InputKey(Keys.A);
+            CursorRight = new InputKey(Keys.D);
 
-            CameraUp = new GamepadRsUp(playerIndex);
-            CameraDown = new GamepadRsDown(playerIndex);
-            CameraLeft = new GamepadRsLeft(playerIndex);
-            CameraRight = new GamepadRsRight(playerIndex);
+            CameraUp = new InputKey(Keys.Up);
+            CameraDown = new InputKey(Keys.Down);
+            CameraLeft = new InputKey(Keys.Left);
+            CameraRight = new InputKey(Keys.Right);
 
-            Menu = new GamepadStart(playerIndex);
-            Status = new GamepadSelect(playerIndex);
+            Menu = new InputKey(Keys.Enter);
+            Status = new InputKey(Keys.Escape);
 
-            SetWideZoom = new GamepadLeftBumper(playerIndex);
-            SetCloseZoom = new GamepadRightBumper(playerIndex);
-            AdjustZoomOut = new GamepadLeftTrigger(playerIndex);
-            AdjustZoomIn = new GamepadRightTrigger(playerIndex);
+            SetWideZoom = new InputKey(Keys.Tab);
+            SetCloseZoom = new InputKey(Keys.R);
+            AdjustZoomOut = new InputKey(Keys.LeftControl);
+            AdjustZoomIn = new InputKey(Keys.LeftAlt);
 
             inputs = new Dictionary<Input, GameControl>
             {
@@ -125,7 +125,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((GamepadController) obj);
+            return Equals((KeyboardController) obj);
         }
 
         public override int GetHashCode()

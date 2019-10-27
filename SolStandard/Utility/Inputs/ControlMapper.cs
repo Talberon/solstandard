@@ -1,6 +1,6 @@
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Utility.Buttons
+namespace SolStandard.Utility.Inputs
 {
     public enum PressType
     {

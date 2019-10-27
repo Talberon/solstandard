@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SolStandard.Utility.Buttons
+namespace SolStandard.Utility.Inputs
 {
     public class MultiControlParser : ControlMapper
     {

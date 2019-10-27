@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Exceptions;
 
-namespace SolStandard.Utility.Buttons.KeyboardInput
+namespace SolStandard.Utility.Inputs.Gamepad
 {
-    public class KeyboardController : IController
+    public class GamepadController : IController
     {
         private readonly Dictionary<Input, GameControl> inputs;
 
-        public ControlType ControlType => ControlType.Keyboard;
+        public ControlType ControlType => ControlType.Gamepad;
 
         public GameControl Confirm { get; }
         public GameControl Cancel { get; }
@@ -36,30 +37,30 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
         public GameControl AdjustZoomOut { get; }
         public GameControl AdjustZoomIn { get; }
 
-        public KeyboardController()
+        public GamepadController(PlayerIndex playerIndex)
         {
-            Confirm = new InputKey(Keys.Space);
-            Cancel = new InputKey(Keys.LeftShift);
-            ResetToUnit = new InputKey(Keys.Q);
-            CenterCamera = new InputKey(Keys.E);
+            Confirm = new InputButton(playerIndex, Buttons.A);
+            Cancel = new InputButton(playerIndex, Buttons.B);
+            ResetToUnit = new InputButton(playerIndex, Buttons.X);
+            CenterCamera = new InputButton(playerIndex, Buttons.Y);
 
-            CursorUp = new InputKey(Keys.W);
-            CursorDown = new InputKey(Keys.S);
-            CursorLeft = new InputKey(Keys.A);
-            CursorRight = new InputKey(Keys.D);
+            CursorUp = new InputButton(playerIndex, Buttons.DPadUp, Buttons.LeftThumbstickUp);
+            CursorDown = new InputButton(playerIndex, Buttons.DPadDown, Buttons.LeftThumbstickDown);
+            CursorLeft = new InputButton(playerIndex, Buttons.DPadLeft, Buttons.LeftThumbstickLeft);
+            CursorRight = new InputButton(playerIndex, Buttons.DPadRight, Buttons.LeftThumbstickRight);
 
-            CameraUp = new InputKey(Keys.Up);
-            CameraDown = new InputKey(Keys.Down);
-            CameraLeft = new InputKey(Keys.Left);
-            CameraRight = new InputKey(Keys.Right);
+            CameraUp = new InputButton(playerIndex, Buttons.RightThumbstickUp);
+            CameraDown = new InputButton(playerIndex, Buttons.RightThumbstickDown);
+            CameraLeft = new InputButton(playerIndex, Buttons.RightThumbstickLeft);
+            CameraRight = new InputButton(playerIndex, Buttons.RightThumbstickRight);
 
-            Menu = new InputKey(Keys.Enter);
-            Status = new InputKey(Keys.Escape);
+            Menu = new InputButton(playerIndex, Buttons.Start);
+            Status = new InputButton(playerIndex, Buttons.Back);
 
-            SetWideZoom = new InputKey(Keys.Tab);
-            SetCloseZoom = new InputKey(Keys.R);
-            AdjustZoomOut = new InputKey(Keys.LeftControl);
-            AdjustZoomIn = new InputKey(Keys.LeftAlt);
+            SetWideZoom = new InputButton(playerIndex, Buttons.LeftShoulder);
+            SetCloseZoom = new InputButton(playerIndex, Buttons.RightShoulder);
+            AdjustZoomOut = new InputButton(playerIndex, Buttons.LeftTrigger);
+            AdjustZoomIn = new InputButton(playerIndex, Buttons.RightTrigger);
 
             inputs = new Dictionary<Input, GameControl>
             {
@@ -125,7 +126,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((KeyboardController) obj);
+            return Equals((GamepadController) obj);
         }
 
         public override int GetHashCode()

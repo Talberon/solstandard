@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Utility.Assets;
 
-namespace SolStandard.Utility.Buttons.KeyboardInput
+namespace SolStandard.Utility.Inputs.KeyboardInput
 {
     public class InputKey : GameControl
     {

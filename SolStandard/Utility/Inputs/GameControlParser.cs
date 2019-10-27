@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SolStandard.Utility.Buttons
+namespace SolStandard.Utility.Inputs
 {
     public class GameControlParser : ControlMapper
     {

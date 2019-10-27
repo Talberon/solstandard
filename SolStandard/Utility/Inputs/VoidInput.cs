@@ -1,6 +1,6 @@
 using SolStandard.HUD.Window.Content;
 
-namespace SolStandard.Utility.Buttons
+namespace SolStandard.Utility.Inputs
 {
     public class VoidInput : GameControl
     {

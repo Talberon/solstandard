@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Buttons.Gamepad;
-using SolStandard.Utility.Buttons.KeyboardInput;
+using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Inputs.Gamepad;
+using SolStandard.Utility.Inputs.KeyboardInput;
 
 namespace SolStandard.Utility.Assets
 {

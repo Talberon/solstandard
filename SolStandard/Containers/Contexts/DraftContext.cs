@@ -10,7 +10,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Contexts
 {
