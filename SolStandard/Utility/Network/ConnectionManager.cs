@@ -156,7 +156,7 @@ namespace SolStandard.Utility.Network
                                     GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
                                 }
 
-                                GameDriver.SetControllerConfig(peer is NetClient ? Team.Red : Team.Blue);
+                                GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");

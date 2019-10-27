@@ -10,25 +10,23 @@ namespace SolStandard.Utility.Assets
         B,
         X,
         Y,
-        
+
         Dpad,
         DpadUp,
         DpadDown,
         DpadLeft,
         DpadRight,
         LeftStick,
-        
+
         Windows,
         Menu,
-        
+
         RightStick,
-        
+
         Lb,
         Lt,
         Rb,
         Rt,
-        
-        None
     }
 
     public static class ButtonIconProvider
@@ -83,7 +81,6 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.RightStick, textureRightStick},
                 {ButtonIcon.Windows, textureWindows},
                 {ButtonIcon.Menu, textureMenu}
-                
             };
         }
     }

@@ -34,15 +34,16 @@ namespace SolStandard.Utility.Buttons
 
     public abstract class ControlMapper
     {
-        public readonly ControlType ControlType;
+        public IController Controller { get; }
+        private ControlType ControlType => Controller.ControlType;
         public const float StickDeadzone = 0.2f;
         public const float TriggerDeadzone = 0.2f;
         private const int InitialInputDelayInFrames = 15;
         private const int RepeatInputDelayInFrames = 5;
 
-        protected ControlMapper(ControlType controlType)
+        protected ControlMapper(IController controller)
         {
-            ControlType = controlType;
+            Controller = controller;
         }
 
         public abstract bool Press(Input input, PressType pressType);

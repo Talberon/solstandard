@@ -49,6 +49,9 @@ namespace SolStandard
         private static ControlMapper _redTeamControlMapper;
 
         private static bool _quitting;
+        public static GameControlParser KeyboardParser;
+        public static GameControlParser P1GamepadParser;
+        public static GameControlParser P2GamepadParser;
 
         public GameDriver()
         {
@@ -115,21 +118,17 @@ namespace SolStandard
 
         public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
-        public static void SetControllerConfig(Team playerOneTeam)
+        public static void InitializeControlMappers(Team playerOneTeam)
         {
-            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
-            GameControlParser p1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
-            GameControlParser p2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
-
             switch (playerOneTeam)
             {
                 case Team.Blue:
-                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
-                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 case Team.Red:
-                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
-                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerOneTeam), playerOneTeam, null);
@@ -184,6 +183,7 @@ namespace SolStandard
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
+
             AnimatedSpriteSheet mainMenuLogoSpriteSheet =
                 new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
                     false);
@@ -192,10 +192,15 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+
+
+            KeyboardParser = new GameControlParser(new KeyboardController());
+            P1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
+            P2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+            InitializeControlMappers(GameContext.P1Team);
             PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);
-            SetControllerConfig(GameContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
         }

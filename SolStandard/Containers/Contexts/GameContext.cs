@@ -117,7 +117,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (team != Team.Red && team != Team.Blue) throw new InvalidTeamException();
             P1Team = team;
-            GameDriver.SetControllerConfig(team);
+            GameDriver.InitializeControlMappers(team);
             MapSelectContext.MapSelectScreenView.UpdateTeamSelectWindow();
             AssetManager.MapUnitCancelSFX.Play();
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));

@@ -7,7 +7,7 @@ namespace SolStandard.Utility.Buttons.KeyboardInput
 {
     public class InputKey : GameControl
     {
-        private static readonly Dictionary<Keys, KeyboardIcon> KeyIcons = new Dictionary<Keys, KeyboardIcon>
+        public static readonly IReadOnlyDictionary<Keys, KeyboardIcon> KeyIcons = new Dictionary<Keys, KeyboardIcon>
         {
             {Keys.A, KeyboardIcon.A},
             {Keys.B, KeyboardIcon.B},

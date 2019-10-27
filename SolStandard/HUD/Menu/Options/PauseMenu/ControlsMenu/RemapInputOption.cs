@@ -7,12 +7,12 @@ using SolStandard.Utility.Buttons;
 
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
-    public class InputConfigOption : MenuOption
+    public class RemapInputOption : MenuOption
     {
         private readonly IController controller;
         private readonly Input input;
 
-        public InputConfigOption(IController controller, Input input, Color color) :
+        public RemapInputOption(IController controller, Input input, Color color) :
             base(GenerateLabelContent(controller, input, color), color, HorizontalAlignment.Right)
         {
             this.controller = controller;
@@ -41,15 +41,9 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
             AssetManager.CombatDeathSFX.Play();
         }
 
-        public void SetNewInput(GameControl newInput)
-        {
-            controller.RemapControl(input, newInput);
-            LabelContent = GenerateLabelContent(controller, input, DefaultColor);
-        }
-
         public override IRenderable Clone()
         {
-            return new InputConfigOption(controller, input, DefaultColor);
+            return new RemapInputOption(controller, input, DefaultColor);
         }
     }
 }
