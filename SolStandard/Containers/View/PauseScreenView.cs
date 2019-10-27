@@ -7,11 +7,8 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
-using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons.Gamepad;
-using SolStandard.Utility.Buttons.KeyboardInput;
 
 namespace SolStandard.Containers.View
 {
@@ -20,14 +17,12 @@ namespace SolStandard.Containers.View
         public enum PauseMenus
         {
             Primary,
-            Controller,
             PauseConfig
         }
 
         private static readonly Color OptionsColor = new Color(40, 40, 40, 180);
-        private static VerticalMenu PauseMenu { get; set; }
-        private static VerticalMenu ConfigMenu { get; set; }
-        private static TwoDimensionalMenu ControlsMenu { get; set; }
+        private static IMenu PauseMenu { get; set; }
+        private static IMenu ConfigMenu { get; set; }
         private static PauseMenus _currentMenu;
         private static bool _visible;
 
@@ -41,7 +36,6 @@ namespace SolStandard.Containers.View
                 {
                     new ContinueOption(OptionsColor),
                     new OpenCodexOption(OptionsColor),
-                    new ControlsOption(OptionsColor),
                     new ConfigOption(OptionsColor),
                     new ConcedeOption(OptionsColor)
                 },
@@ -63,23 +57,10 @@ namespace SolStandard.Containers.View
                 OptionsColor
             );
 
-            ControlsMenu = new TwoDimensionalMenu(
-                new MenuOption[,]
-                {
-                    {
-                        new ReturnToPauseMenuOption(OptionsColor),
-                        new GamepadOption(new GamepadController(PlayerIndex.Four), OptionsColor),
-                        new KeyboardOption(new KeyboardController(), OptionsColor)
-                    }
-                },
-                cursorSprite,
-                OptionsColor,
-                TwoDimensionalMenu.CursorType.Pointer
-            );
-
             _visible = true;
             _currentMenu = PauseMenus.Primary;
         }
+
 
         public static IMenu CurrentMenu
         {
@@ -89,8 +70,6 @@ namespace SolStandard.Containers.View
                 {
                     case PauseMenus.Primary:
                         return PauseMenu;
-                    case PauseMenus.Controller:
-                        return ControlsMenu;
                     case PauseMenus.PauseConfig:
                         return ConfigMenu;
                     default:
@@ -120,9 +99,6 @@ namespace SolStandard.Containers.View
             {
                 case PauseMenus.Primary:
                     PauseMenu.Draw(spriteBatch, centerScreen);
-                    break;
-                case PauseMenus.Controller:
-                    ControlsMenu.Draw(spriteBatch, centerScreen);
                     break;
                 case PauseMenus.PauseConfig:
                     ConfigMenu.Draw(spriteBatch, centerScreen);

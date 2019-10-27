@@ -45,6 +45,7 @@
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\CodexContext.cs" />
     <Compile Include="Containers\Contexts\Combat\BonusStatistics.cs" />
+    <Compile Include="Containers\Contexts\ControlConfigContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\CreditsContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Containers\View\BackgroundView.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\CodexView.cs" />
+    <Compile Include="Containers\View\ControlConfigView.cs" />
     <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
@@ -341,7 +343,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\InputConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\InputConfirmOption.cs" />
     <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
     <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
@@ -475,6 +477,7 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
+    <Compile Include="Utility\Events\OpenKeyMappingModalEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
@@ -484,6 +487,7 @@
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
+    <Compile Include="Utility\Events\SetKeyMappingEvent.cs" />
     <Compile Include="Utility\Events\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\FirstTurnOfNewRoundEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
