@@ -64,6 +64,10 @@ namespace SolStandard.Containers.Contexts
         private Input currentListeningInput;
 
         public IUserInterface View => view;
+        public ControlMenuState CurrentState => view.CurrentState;
+
+        private const int CooldownInterval = 30;
+        private int frameCooldown;
 
         public ControlConfigContext(ControlConfigView configView)
         {
@@ -72,6 +76,7 @@ namespace SolStandard.Containers.Contexts
             view.CurrentState = ControlMenuState.DeviceSelect;
             currentListeningDevice = Device.Keyboard;
             currentListeningInput = Input.None;
+            frameCooldown = 0;
         }
 
         #region MenuControls
@@ -121,6 +126,7 @@ namespace SolStandard.Containers.Contexts
 
             previousGameState = GameContext.CurrentGameState;
             GameContext.CurrentGameState = GameContext.GameState.ControlConfig;
+            view.CurrentState = ControlMenuState.DeviceSelect;
         }
 
         private void CloseMenu()
@@ -142,11 +148,15 @@ namespace SolStandard.Containers.Contexts
             currentListeningDevice = device;
             currentListeningInput = input;
             view.CurrentState = ControlMenuState.ListeningForInput;
+            frameCooldown = CooldownInterval;
         }
 
         public void Update()
         {
-            if (view.CurrentState != ControlMenuState.ListeningForInput || currentListeningInput == Input.None) return;
+            frameCooldown--;
+
+            if (view.CurrentState != ControlMenuState.ListeningForInput || currentListeningInput == Input.None ||
+                frameCooldown > 0) return;
 
             switch (currentListeningDevice)
             {
@@ -199,16 +209,37 @@ namespace SolStandard.Containers.Contexts
                 .ToList();
         }
 
-        private void SaveControlMappings()
+        public void SaveControlMappings()
         {
-            GameDriver.KeyboardParser = new GameControlParser(metakeyboard);
-            GameDriver.P1GamepadParser = new GameControlParser(metakeyboard);
-            GameDriver.P2GamepadParser = new GameControlParser(metakeyboard);
-            GameDriver.InitializeControlMappers(GameContext.P1Team);
-            InitializeMetaControls();
-            GlobalHudView.AddNotification("Saved control inputs.");
+            if (InputsAreValid())
+            {
+                GameDriver.KeyboardParser = new GameControlParser(metakeyboard);
+                GameDriver.P1GamepadParser = new GameControlParser(metaP1Gamepad);
+                GameDriver.P2GamepadParser = new GameControlParser(metaP2Gamepad);
+                GameDriver.InitializeControlMappers(GameContext.P1Team);
+                InitializeMetaControls();
+                GlobalHudView.AddNotification("Saved control inputs.");
+                frameCooldown = CooldownInterval;
+                view.CurrentState = ControlMenuState.DeviceSelect;
+                //TODO Save to disk
+            }
+            else
+            {
+                AssetManager.WarningSFX.Play();
+                GlobalHudView.AddNotification("All controls must be unique!");
+            }
+        }
 
-            //TODO Save to disk
+        private bool InputsAreValid()
+        {
+            return AllInputsAreUnique(metakeyboard.Inputs.Values) &&
+                   AllInputsAreUnique(metaP1Gamepad.Inputs.Values) &&
+                   AllInputsAreUnique(metaP2Gamepad.Inputs.Values);
+        }
+
+        private static bool AllInputsAreUnique(IReadOnlyCollection<GameControl> enumerable)
+        {
+            return enumerable.Distinct().Count() == enumerable.Count;
         }
 
         private void UpdateKeyboardControls(Input controlType, Keys keyToMap)
@@ -237,9 +268,9 @@ namespace SolStandard.Containers.Contexts
 
         private void InitializeMetaControls()
         {
-            metakeyboard = new KeyboardController();
-            metaP1Gamepad = new GamepadController(PlayerIndex.One);
-            metaP2Gamepad = new GamepadController(PlayerIndex.Two);
+            metakeyboard = KeyboardController.From((KeyboardController) GameDriver.KeyboardParser.Controller);
+            metaP1Gamepad = GamepadController.From((GamepadController) GameDriver.P1GamepadParser.Controller);
+            metaP2Gamepad = GamepadController.From((GamepadController) GameDriver.P2GamepadParser.Controller);
         }
     }
 }

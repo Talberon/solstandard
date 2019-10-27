@@ -1,7 +1,30 @@
+using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
+using SolStandard.Utility;
+using SolStandard.Utility.Assets;
+
 namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
-    public class SaveControllerOption
+    public class SaveControllerOption : MenuOption
     {
-        //TODO Implement me
+        private readonly string label;
+
+        public SaveControllerOption(string label, Color color) :
+            base(new RenderText(AssetManager.WindowFont, label), color, HorizontalAlignment.Centered)
+        {
+            this.label = label;
+        }
+
+        public override void Execute()
+        {
+            GameContext.ControlConfigContext.SaveControlMappings();
+        }
+
+        public override IRenderable Clone()
+        {
+            return new SaveControllerOption(label, DefaultColor);
+        }
     }
 }

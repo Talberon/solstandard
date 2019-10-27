@@ -9,108 +9,150 @@ namespace SolStandard.Utility.Inputs.KeyboardInput
 {
     public class KeyboardController : IController
     {
-        private readonly Dictionary<Input, GameControl> inputs;
+        public static IController From(KeyboardController controller)
+        {
+            return new KeyboardController(
+                controller.Inputs[Input.Confirm],
+                controller.Inputs[Input.Cancel],
+                controller.Inputs[Input.PreviewUnit],
+                controller.Inputs[Input.PreviewItem],
+                controller.Inputs[Input.CursorUp],
+                controller.Inputs[Input.CursorDown],
+                controller.Inputs[Input.CursorLeft],
+                controller.Inputs[Input.CursorRight],
+                controller.Inputs[Input.CameraUp],
+                controller.Inputs[Input.CameraDown],
+                controller.Inputs[Input.CameraLeft],
+                controller.Inputs[Input.CameraRight],
+                controller.Inputs[Input.Menu],
+                controller.Inputs[Input.Status],
+                controller.Inputs[Input.TabLeft],
+                controller.Inputs[Input.TabRight],
+                controller.Inputs[Input.ZoomOut],
+                controller.Inputs[Input.ZoomIn]
+            );
+        }
+
+        public Dictionary<Input, GameControl> Inputs { get; }
 
         public ControlType ControlType => ControlType.Keyboard;
 
-        public GameControl Confirm { get; }
-        public GameControl Cancel { get; }
-        public GameControl ResetToUnit { get; }
-        public GameControl CenterCamera { get; }
+        public GameControl Confirm => Inputs[Input.Confirm];
+        public GameControl Cancel => Inputs[Input.Cancel];
+        public GameControl PreviewUnit => Inputs[Input.PreviewUnit];
+        public GameControl PreviewItem => Inputs[Input.PreviewItem];
 
-        public GameControl CursorUp { get; }
-        public GameControl CursorDown { get; }
-        public GameControl CursorLeft { get; }
-        public GameControl CursorRight { get; }
+        public GameControl CursorUp => Inputs[Input.CursorUp];
+        public GameControl CursorDown => Inputs[Input.CursorDown];
+        public GameControl CursorLeft => Inputs[Input.CursorLeft];
+        public GameControl CursorRight => Inputs[Input.CursorRight];
 
-        public GameControl CameraUp { get; }
-        public GameControl CameraDown { get; }
-        public GameControl CameraLeft { get; }
-        public GameControl CameraRight { get; }
+        public GameControl CameraUp => Inputs[Input.CameraUp];
+        public GameControl CameraDown => Inputs[Input.CameraDown];
+        public GameControl CameraLeft => Inputs[Input.CameraLeft];
+        public GameControl CameraRight => Inputs[Input.CameraRight];
 
-        public GameControl Menu { get; }
-        public GameControl Status { get; }
+        public GameControl Menu => Inputs[Input.Menu];
+        public GameControl Status => Inputs[Input.Status];
 
-        public GameControl SetWideZoom { get; }
-        public GameControl SetCloseZoom { get; }
-        public GameControl AdjustZoomOut { get; }
-        public GameControl AdjustZoomIn { get; }
+        public GameControl SetWideZoom => Inputs[Input.TabLeft];
+        public GameControl SetCloseZoom => Inputs[Input.TabRight];
+        public GameControl AdjustZoomOut => Inputs[Input.ZoomOut];
+        public GameControl AdjustZoomIn => Inputs[Input.ZoomIn];
 
         public KeyboardController()
         {
-            Confirm = new InputKey(Keys.Space);
-            Cancel = new InputKey(Keys.LeftShift);
-            ResetToUnit = new InputKey(Keys.Q);
-            CenterCamera = new InputKey(Keys.E);
+            Inputs = new Dictionary<Input, GameControl>
+            {
+                {Input.None, new VoidInput()},
+                {Input.Confirm, new InputKey(Keys.Space)},
+                {Input.Cancel, new InputKey(Keys.LeftShift)},
+                {Input.PreviewUnit, new InputKey(Keys.Q)},
+                {Input.PreviewItem, new InputKey(Keys.E)},
+                {Input.CursorUp, new InputKey(Keys.W)},
+                {Input.CursorDown, new InputKey(Keys.S)},
+                {Input.CursorLeft, new InputKey(Keys.A)},
+                {Input.CursorRight, new InputKey(Keys.D)},
+                {Input.CameraUp, new InputKey(Keys.Up)},
+                {Input.CameraDown, new InputKey(Keys.Down)},
+                {Input.CameraLeft, new InputKey(Keys.Left)},
+                {Input.CameraRight, new InputKey(Keys.Right)},
+                {Input.Menu, new InputKey(Keys.Enter)},
+                {Input.Status, new InputKey(Keys.Escape)},
+                {Input.TabLeft, new InputKey(Keys.Tab)},
+                {Input.TabRight, new InputKey(Keys.R)},
+                {Input.ZoomOut, new InputKey(Keys.LeftControl)},
+                {Input.ZoomIn, new InputKey(Keys.LeftAlt)}
+            };
+        }
 
-            CursorUp = new InputKey(Keys.W);
-            CursorDown = new InputKey(Keys.S);
-            CursorLeft = new InputKey(Keys.A);
-            CursorRight = new InputKey(Keys.D);
-
-            CameraUp = new InputKey(Keys.Up);
-            CameraDown = new InputKey(Keys.Down);
-            CameraLeft = new InputKey(Keys.Left);
-            CameraRight = new InputKey(Keys.Right);
-
-            Menu = new InputKey(Keys.Enter);
-            Status = new InputKey(Keys.Escape);
-
-            SetWideZoom = new InputKey(Keys.Tab);
-            SetCloseZoom = new InputKey(Keys.R);
-            AdjustZoomOut = new InputKey(Keys.LeftControl);
-            AdjustZoomIn = new InputKey(Keys.LeftAlt);
-
-            inputs = new Dictionary<Input, GameControl>
+        private KeyboardController(
+            GameControl confirm,
+            GameControl cancel,
+            GameControl previewUnit,
+            GameControl previewItem,
+            GameControl cursorUp,
+            GameControl cursorDown,
+            GameControl cursorLeft,
+            GameControl cursorRight,
+            GameControl cameraUp,
+            GameControl cameraDown,
+            GameControl cameraLeft,
+            GameControl cameraRight,
+            GameControl menu,
+            GameControl status,
+            GameControl tabLeft,
+            GameControl tabRight,
+            GameControl zoomOut,
+            GameControl zoomIn
+        )
+        {
+            Inputs = new Dictionary<Input, GameControl>
             {
                 {Input.None, new VoidInput()},
 
-                {Input.Confirm, Confirm},
-                {Input.Cancel, Cancel},
-                {Input.PreviewUnit, ResetToUnit},
-                {Input.PreviewItem, CenterCamera},
-
-                {Input.CursorUp, CursorUp},
-                {Input.CursorDown, CursorDown},
-                {Input.CursorLeft, CursorLeft},
-                {Input.CursorRight, CursorRight},
-
-                {Input.CameraUp, CameraUp},
-                {Input.CameraDown, CameraDown},
-                {Input.CameraLeft, CameraLeft},
-                {Input.CameraRight, CameraRight},
-
-                {Input.Menu, Menu},
-                {Input.Status, Status},
-
-                {Input.TabLeft, SetWideZoom},
-                {Input.TabRight, SetCloseZoom},
-                {Input.ZoomOut, AdjustZoomOut},
-                {Input.ZoomIn, AdjustZoomIn}
+                {Input.Confirm, confirm},
+                {Input.Cancel, cancel},
+                {Input.PreviewUnit, previewUnit},
+                {Input.PreviewItem, previewItem},
+                {Input.CursorUp, cursorUp},
+                {Input.CursorDown, cursorDown},
+                {Input.CursorLeft, cursorLeft},
+                {Input.CursorRight, cursorRight},
+                {Input.CameraUp, cameraUp},
+                {Input.CameraDown, cameraDown},
+                {Input.CameraLeft, cameraLeft},
+                {Input.CameraRight, cameraRight},
+                {Input.Menu, menu},
+                {Input.Status, status},
+                {Input.TabLeft, tabLeft},
+                {Input.TabRight, tabRight},
+                {Input.ZoomOut, zoomOut},
+                {Input.ZoomIn, zoomIn}
             };
         }
 
         public GameControl GetInput(Input input)
         {
-            return inputs[input];
+            return Inputs[input];
         }
 
         public void RemapControl(Input inputToRemap, GameControl newInput)
         {
             if (InputAlreadySet(newInput)) throw new DuplicateInputException();
 
-            inputs[inputToRemap] = newInput;
+            Inputs[inputToRemap] = newInput;
         }
 
         private bool InputAlreadySet(GameControl potentialControl)
         {
-            return ((Input[]) Enum.GetValues(typeof(Input))).Any(input => inputs[input] == potentialControl);
+            return ((Input[]) Enum.GetValues(typeof(Input))).Any(input => Inputs[input] == potentialControl);
         }
 
         private bool Equals(IController other)
         {
             return Equals(Confirm, other.Confirm) && Equals(Cancel, other.Cancel) &&
-                   Equals(ResetToUnit, other.ResetToUnit) && Equals(CenterCamera, other.CenterCamera) &&
+                   Equals(PreviewUnit, other.PreviewUnit) && Equals(PreviewItem, other.PreviewItem) &&
                    Equals(CursorUp, other.CursorUp) && Equals(CursorDown, other.CursorDown) &&
                    Equals(CursorLeft, other.CursorLeft) && Equals(CursorRight, other.CursorRight) &&
                    Equals(CameraUp, other.CameraUp) && Equals(CameraDown, other.CameraDown) &&
@@ -134,8 +176,8 @@ namespace SolStandard.Utility.Inputs.KeyboardInput
             {
                 int hashCode = (Confirm != null ? Confirm.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Cancel != null ? Cancel.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (ResetToUnit != null ? ResetToUnit.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CenterCamera != null ? CenterCamera.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PreviewUnit != null ? PreviewUnit.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (PreviewItem != null ? PreviewItem.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CursorUp != null ? CursorUp.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CursorDown != null ? CursorDown.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (CursorLeft != null ? CursorLeft.GetHashCode() : 0);

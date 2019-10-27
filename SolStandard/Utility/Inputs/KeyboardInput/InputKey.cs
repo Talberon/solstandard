@@ -54,6 +54,7 @@ namespace SolStandard.Utility.Inputs.KeyboardInput
             {Keys.RightAlt, KeyboardIcon.RightAlt},
             {Keys.RightControl, KeyboardIcon.RightCtrl},
 
+            {Keys.Space, KeyboardIcon.Space},
             {Keys.Enter, KeyboardIcon.A},
             {Keys.Escape, KeyboardIcon.A},
             {Keys.Tab, KeyboardIcon.A},

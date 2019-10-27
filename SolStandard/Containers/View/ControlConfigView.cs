@@ -16,7 +16,7 @@ namespace SolStandard.Containers.View
 {
     public class ControlConfigView : IUserInterface
     {
-        private static readonly Color WindowColor = new Color(80, 80, 100);
+        private static readonly Color PrimaryWindowColor = new Color(50, 50, 80);
         private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamColor(Team.Creep);
         private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamColor(GameContext.P1Team);
         private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamColor(GameContext.P2Team);
@@ -33,13 +33,13 @@ namespace SolStandard.Containers.View
             cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
-            deviceSelectMenu = GenerateDeviceMenu(cursorSprite, WindowColor);
+            deviceSelectMenu = GenerateDeviceMenu(cursorSprite, PrimaryWindowColor);
             inputRemapSelectMenu = GenerateConfigMenuForDevice(ControlConfigContext.Device.Keyboard,
                 GameDriver.KeyboardParser.Controller, cursorSprite);
 
             mappingInfoWindow = new Window(
                 new RenderText(AssetManager.MainMenuFont, "Listening for input..."),
-                WindowColor
+                PrimaryWindowColor
             );
         }
 
@@ -103,17 +103,34 @@ namespace SolStandard.Containers.View
                     throw new ArgumentOutOfRangeException(nameof(device), device, null);
             }
 
-            //FIXME Don''t show "None" as an option
+            MenuOption[,] configOptions = new MenuOption[4, 5];
+            configOptions[0, 0] = new RemapInputOption(controller, Input.CursorUp, device, windowColor);
+            configOptions[1, 0] = new RemapInputOption(controller, Input.CursorDown, device, windowColor);
+            configOptions[2, 0] = new RemapInputOption(controller, Input.CursorLeft, device, windowColor);
+            configOptions[3, 0] = new RemapInputOption(controller, Input.CursorRight, device, windowColor);
 
-            int inputs = Enum.GetValues(typeof(Input)).Length;
-            MenuOption[] configOptions = new MenuOption[inputs];
+            configOptions[0, 1] = new RemapInputOption(controller, Input.CameraUp, device, windowColor);
+            configOptions[1, 1] = new RemapInputOption(controller, Input.CameraDown, device, windowColor);
+            configOptions[2, 1] = new RemapInputOption(controller, Input.CameraLeft, device, windowColor);
+            configOptions[3, 1] = new RemapInputOption(controller, Input.CameraRight, device, windowColor);
 
-            for (int i = 0; i < inputs; i++)
-            {
-                configOptions[i] = new RemapInputOption(controller, (Input) i, device, windowColor);
-            }
+            configOptions[0, 2] = new RemapInputOption(controller, Input.Confirm, device, windowColor);
+            configOptions[1, 2] = new RemapInputOption(controller, Input.Cancel, device, windowColor);
+            configOptions[2, 2] = new RemapInputOption(controller, Input.PreviewUnit, device, windowColor);
+            configOptions[3, 2] = new RemapInputOption(controller, Input.PreviewItem, device, windowColor);
 
-            return new VerticalMenu(configOptions, cursorSprite, KeyboardOptionColor);
+            configOptions[0, 3] = new RemapInputOption(controller, Input.TabLeft, device, windowColor);
+            configOptions[1, 3] = new RemapInputOption(controller, Input.TabRight, device, windowColor);
+            configOptions[2, 3] = new RemapInputOption(controller, Input.ZoomOut, device, windowColor);
+            configOptions[3, 3] = new RemapInputOption(controller, Input.ZoomIn, device, windowColor);
+
+            configOptions[0, 4] = new RemapInputOption(controller, Input.Status, device, windowColor);
+            configOptions[1, 4] = new RemapInputOption(controller, Input.Menu, device, windowColor);
+            configOptions[2, 4] = new SaveControllerOption("Save Inputs", windowColor);
+            configOptions[3, 4] = new UnselectableOption(RenderBlank.Blank, windowColor);
+
+            return new TwoDimensionalMenu(configOptions, cursorSprite, KeyboardOptionColor,
+                TwoDimensionalMenu.CursorType.Pointer);
         }
 
         private static IMenu GenerateDeviceMenu(IRenderable cursorSprite, Color windowColor)

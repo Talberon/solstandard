@@ -102,6 +102,9 @@ namespace SolStandard.Containers.Contexts
 
         private static void InputConfigControl(ControlMapper controlMapper)
         {
+            if (GameContext.ControlConfigContext.CurrentState ==
+                ControlConfigContext.ControlMenuState.ListeningForInput) return;
+
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GameContext.ControlConfigContext.SelectCurrentOption();

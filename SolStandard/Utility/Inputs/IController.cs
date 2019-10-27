@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Inputs
@@ -8,10 +9,12 @@ namespace SolStandard.Utility.Inputs
         GameControl GetInput(Input input);
         void RemapControl(Input inputToRemap, GameControl newInput);
         
+        Dictionary<Input, GameControl> Inputs { get; }
+
         GameControl Confirm { get; }
         GameControl Cancel { get; }
-        GameControl ResetToUnit { get; }
-        GameControl CenterCamera { get; }
+        GameControl PreviewUnit { get; }
+        GameControl PreviewItem { get; }
 
         GameControl CursorUp { get; }
         GameControl CursorDown { get; }

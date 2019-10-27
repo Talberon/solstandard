@@ -26,8 +26,8 @@ namespace SolStandard.Utility.Inputs
 
                 {Input.Confirm, controller.Confirm},
                 {Input.Cancel, controller.Cancel},
-                {Input.PreviewUnit, controller.ResetToUnit},
-                {Input.PreviewItem, controller.CenterCamera},
+                {Input.PreviewUnit, controller.PreviewUnit},
+                {Input.PreviewItem, controller.PreviewItem},
 
                 {Input.TabLeft, controller.SetWideZoom},
                 {Input.TabRight, controller.SetCloseZoom},

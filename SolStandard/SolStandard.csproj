@@ -339,7 +339,6 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\CloseControlsMenuOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\DeviceSelectOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\RemapInputOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\OpenControlsMenuOption.cs" />
@@ -459,7 +458,6 @@
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
-    <Compile Include="Utility\Events\OpenKeyMappingModalEvent.cs" />
     <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
     <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
     <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
@@ -469,7 +467,6 @@
     <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
     <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
     <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
-    <Compile Include="Utility\Events\SetKeyMappingEvent.cs" />
     <Compile Include="Utility\Events\SpawnUnitEvent.cs" />
     <Compile Include="Utility\Events\FirstTurnOfNewRoundEvent.cs" />
     <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
