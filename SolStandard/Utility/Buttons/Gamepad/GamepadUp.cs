@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Buttons.Gamepad
 {
@@ -8,17 +7,12 @@ namespace SolStandard.Utility.Buttons.Gamepad
     {
         public override GamepadInputs InputType => GamepadInputs.Up;
 
-        public GamepadUp(PlayerIndex playerIndex) : base(playerIndex)
-        {
-        }
-
         public override bool Pressed =>
             GamePad.GetState(PlayerIndex).DPad.Up == ButtonState.Pressed ||
             GamePad.GetState(PlayerIndex).ThumbSticks.Left.Y > ControlMapper.StickDeadzone;
 
-        public override IRenderable GetInputIcon(int iconSize)
+        public GamepadUp(PlayerIndex playerIndex) : base(playerIndex)
         {
-            return ButtonIconProvider.GetButton(ButtonIcon.DpadUp, new Vector2(iconSize));
         }
 
         public override bool Equals(object obj)
@@ -28,7 +22,7 @@ namespace SolStandard.Utility.Buttons.Gamepad
 
         public override int GetHashCode()
         {
-            return (int) PlayerIndex * (int) ButtonIcon.DpadUp;
+            return (int) PlayerIndex * (int) InputType;
         }
     }
 }
