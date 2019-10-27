@@ -1636,6 +1636,54 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick.png
 
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Down.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Left.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Right.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Up.png
+
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_LT.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1683,6 +1731,54 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Down.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Left.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Right.png
+
+#begin Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Up.png
 
 #begin Graphics/HUD/Buttons/Xbox/XboxOne_RT.png
 /importer:TextureImporter

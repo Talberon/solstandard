@@ -16,12 +16,21 @@ namespace SolStandard.Utility.Assets
         DpadDown,
         DpadLeft,
         DpadRight,
+
         LeftStick,
+        LeftStickUp,
+        LeftStickDown,
+        LeftStickLeft,
+        LeftStickRight,
 
         Windows,
         Menu,
 
         RightStick,
+        RightStickUp,
+        RightStickDown,
+        RightStickLeft,
+        RightStickRight,
 
         Lb,
         Lt,
@@ -57,8 +66,16 @@ namespace SolStandard.Utility.Assets
             ITexture2D textureRt = buttonTextures.Find(texture => texture.Name.EndsWith("_RT"));
             ITexture2D textureLb = buttonTextures.Find(texture => texture.Name.EndsWith("_LB"));
             ITexture2D textureLt = buttonTextures.Find(texture => texture.Name.EndsWith("_LT"));
-            ITexture2D textureRightStick = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick"));
-            ITexture2D textureLeftStick = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick"));
+            ITexture2D textureRs = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick"));
+            ITexture2D textureRsUp = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick_Up"));
+            ITexture2D textureRsDown = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick_Down"));
+            ITexture2D textureRsLeft = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick_Left"));
+            ITexture2D textureRsRight = buttonTextures.Find(texture => texture.Name.EndsWith("_Right_Stick_Right"));
+            ITexture2D textureLs = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick"));
+            ITexture2D textureLsUp = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick_Up"));
+            ITexture2D textureLsDown = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick_Down"));
+            ITexture2D textureLsLeft = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick_Left"));
+            ITexture2D textureLsRight = buttonTextures.Find(texture => texture.Name.EndsWith("_Left_Stick_Right"));
             ITexture2D textureWindows = buttonTextures.Find(texture => texture.Name.EndsWith("_Windows"));
             ITexture2D textureMenu = buttonTextures.Find(texture => texture.Name.EndsWith("_Menu"));
 
@@ -77,8 +94,16 @@ namespace SolStandard.Utility.Assets
                 {ButtonIcon.Lt, textureLt},
                 {ButtonIcon.Rb, textureRb},
                 {ButtonIcon.Rt, textureRt},
-                {ButtonIcon.LeftStick, textureLeftStick},
-                {ButtonIcon.RightStick, textureRightStick},
+                {ButtonIcon.LeftStick, textureLs},
+                {ButtonIcon.LeftStickUp, textureLsUp},
+                {ButtonIcon.LeftStickDown, textureLsDown},
+                {ButtonIcon.LeftStickLeft, textureLsLeft},
+                {ButtonIcon.LeftStickRight, textureLsRight},
+                {ButtonIcon.RightStick, textureRs},
+                {ButtonIcon.RightStickUp, textureRsUp},
+                {ButtonIcon.RightStickDown, textureRsDown},
+                {ButtonIcon.RightStickLeft, textureRsLeft},
+                {ButtonIcon.RightStickRight, textureRsRight},
                 {ButtonIcon.Windows, textureWindows},
                 {ButtonIcon.Menu, textureMenu}
             };

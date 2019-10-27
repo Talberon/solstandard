@@ -66,7 +66,7 @@ namespace SolStandard.Containers.Contexts
         public IUserInterface View => view;
         public ControlMenuState CurrentState => view.CurrentState;
 
-        private const int CooldownInterval = 30;
+        private const int CooldownInterval = 15;
         private int frameCooldown;
 
         public ControlConfigContext(ControlConfigView configView)
@@ -160,7 +160,7 @@ namespace SolStandard.Containers.Contexts
             if (view.CurrentState != ControlMenuState.ListeningForInput || currentListeningInput == Input.None ||
                 frameCooldown > 0) return;
 
-            if (frameCooldown == -CooldownInterval * 5)
+            if (frameCooldown == -CooldownInterval * 10)
             {
                 Cancel();
                 return;

@@ -363,7 +363,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RB"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RT"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Up"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Down"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Up"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Down"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Windows"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu")
             };
