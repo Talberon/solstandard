@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -8,19 +9,24 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 {
     public class DeviceSelectOption : MenuOption
     {
-        public DeviceSelectOption(string labelText, Color color) :
+        private readonly string labelText;
+        private readonly ControlConfigContext.Device device;
+
+        public DeviceSelectOption(string labelText, ControlConfigContext.Device device, Color color) :
             base(new RenderText(AssetManager.WindowFont, labelText), color, HorizontalAlignment.Centered)
         {
+            this.labelText = labelText;
+            this.device = device;
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            GameContext.ControlConfigContext.OpenRemapMenu(device);
         }
 
         public override IRenderable Clone()
         {
-            throw new System.NotImplementedException();
+            return new DeviceSelectOption(labelText, device, DefaultColor);
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.View;
+using SolStandard.HUD.Menu;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Inputs.Gamepad;
 using SolStandard.Utility.Inputs.KeyboardInput;
@@ -37,16 +39,63 @@ namespace SolStandard.Containers.Contexts
          *         If valid, replace the current player's GamepadController with the new one and exit the menu
          */
 
+
+        public enum ControlMenuState
+        {
+            DeviceSelect,
+            InputRemapSelect,
+            ListeningForInput
+        }
+
+        public enum Device
+        {
+            Keyboard,
+            P1Gamepad,
+            P2Gamepad
+        }
+
         private readonly ControlConfigView view;
         private IController metakeyboard;
         private IController metaP1Gamepad;
         private IController metaP2Gamepad;
+        private GameContext.GameState previousGameState;
+
+        private Device currentListeningDevice;
+        private Input currentListeningInput;
+
+        public IUserInterface View => view;
 
         public ControlConfigContext(ControlConfigView configView)
         {
             view = configView;
             InitializeMetaControls();
-            view.CurrentState = ControlConfigView.ControlMenuStates.DeviceSelect;
+            view.CurrentState = ControlMenuState.DeviceSelect;
+            currentListeningDevice = Device.Keyboard;
+            currentListeningInput = Input.None;
+        }
+
+        #region MenuControls
+
+        public void OpenRemapMenu(Device device)
+        {
+            IController controller;
+
+            switch (device)
+            {
+                case Device.Keyboard:
+                    controller = metakeyboard;
+                    break;
+                case Device.P1Gamepad:
+                    controller = metaP1Gamepad;
+                    break;
+                case Device.P2Gamepad:
+                    controller = metaP2Gamepad;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(device), device, null);
+            }
+
+            view.OpenInputRemapMenu(device, controller);
         }
 
         public void SelectCurrentOption()
@@ -54,28 +103,90 @@ namespace SolStandard.Containers.Contexts
             view.SelectCurrentOption();
         }
 
-        //TODO Continuously check this during the Listening state (in View)
-        public void ListenForKeyboardInput(Input inputToMap)
+        public void Cancel()
+        {
+            if (view.CurrentState == ControlMenuState.DeviceSelect)
+            {
+                CloseMenu();
+            }
+            else
+            {
+                view.GoToPreviousMenu();
+            }
+        }
+
+        public void OpenMenu()
+        {
+            if (GameContext.CurrentGameState == GameContext.GameState.ControlConfig) return;
+
+            previousGameState = GameContext.CurrentGameState;
+            GameContext.CurrentGameState = GameContext.GameState.ControlConfig;
+        }
+
+        private void CloseMenu()
+        {
+            AssetManager.MapUnitCancelSFX.Play();
+            GameContext.CurrentGameState = previousGameState;
+        }
+
+        public void MoveMenuCursor(MenuCursorDirection direction)
+        {
+            view.CurrentMenu.MoveMenuCursor(direction);
+        }
+
+        #endregion
+
+
+        public void StartListeningForInput(Device device, Input input)
+        {
+            currentListeningDevice = device;
+            currentListeningInput = input;
+            view.CurrentState = ControlMenuState.ListeningForInput;
+        }
+
+        public void Update()
+        {
+            if (view.CurrentState != ControlMenuState.ListeningForInput || currentListeningInput == Input.None) return;
+
+            switch (currentListeningDevice)
+            {
+                case Device.Keyboard:
+                    ListenForKeyboardInput(currentListeningInput);
+                    break;
+                case Device.P1Gamepad:
+                    ListenForGamepadInputFromPlayer(PlayerIndex.One, currentListeningInput);
+                    break;
+                case Device.P2Gamepad:
+                    ListenForGamepadInputFromPlayer(PlayerIndex.Two, currentListeningInput);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+
+        private void ListenForKeyboardInput(Input inputToMap)
         {
             foreach (Keys key in Keyboard.GetState().GetPressedKeys())
             {
                 if (!InputKey.KeyIcons.ContainsKey(key)) continue;
 
                 UpdateKeyboardControls(inputToMap, key);
-                view.CurrentState = ControlConfigView.ControlMenuStates.InputRemapSelect;
+                OpenRemapMenu(currentListeningDevice);
+                AssetManager.CoinSFX.Play();
                 break;
             }
         }
 
-        //TODO Continuously check this during the Listening state (in View)
-        public void ListenForGamepadInputFromPlayer(PlayerIndex playerIndex, Input inputToMap)
+        private void ListenForGamepadInputFromPlayer(PlayerIndex playerIndex, Input inputToMap)
         {
             foreach (Buttons pressedButton in GetPressedButtons(GamePad.GetState(playerIndex)))
             {
                 if (!InputButton.ButtonIcons.ContainsKey(pressedButton)) continue;
 
                 UpdateGamepadControls(playerIndex, inputToMap, pressedButton);
-                view.CurrentState = ControlConfigView.ControlMenuStates.InputRemapSelect;
+                OpenRemapMenu(currentListeningDevice);
+                AssetManager.CoinSFX.Play();
                 break;
             }
         }
@@ -95,6 +206,8 @@ namespace SolStandard.Containers.Contexts
             GameDriver.P2GamepadParser = new GameControlParser(metakeyboard);
             GameDriver.InitializeControlMappers(GameContext.P1Team);
             InitializeMetaControls();
+            GlobalHudView.AddNotification("Saved control inputs.");
+
             //TODO Save to disk
         }
 

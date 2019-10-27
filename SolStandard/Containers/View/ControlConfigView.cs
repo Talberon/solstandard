@@ -6,60 +6,55 @@ using SolStandard.Entity.Unit;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
+using SolStandard.HUD.Window;
+using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
+using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.View
 {
     public class ControlConfigView : IUserInterface
     {
-        public enum ControlMenuStates
-        {
-            DeviceSelect,
-            InputRemapSelect,
-            ListeningForInput
-        }
-
-        private enum Devices
-        {
-            Keyboard,
-            P1Gamepad,
-            P2Gamepad
-        }
-
         private static readonly Color WindowColor = new Color(80, 80, 100);
         private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamColor(Team.Creep);
         private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamColor(GameContext.P1Team);
         private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamColor(GameContext.P2Team);
 
-        public ControlMenuStates CurrentState { get; set; }
+        public ControlConfigContext.ControlMenuState CurrentState { get; set; }
+        private readonly IRenderable cursorSprite;
 
-        private IMenu DeviceSelectMenu { get; }
-        private IMenu InputRemapSelectMenu { get; }
-
-        private IMenu MappingMenu { get; }
-        private IRenderable MappingInfoWindow { get; }
-
-        private IRenderable menuCursorSprite;
+        private readonly IMenu deviceSelectMenu;
+        private IMenu inputRemapSelectMenu;
+        private readonly IRenderable mappingInfoWindow;
 
         public ControlConfigView()
         {
-            //TODO Initialize menus
+            cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
+
+            deviceSelectMenu = GenerateDeviceMenu(cursorSprite, WindowColor);
+            inputRemapSelectMenu = GenerateConfigMenuForDevice(ControlConfigContext.Device.Keyboard,
+                GameDriver.KeyboardParser.Controller, cursorSprite);
+
+            mappingInfoWindow = new Window(
+                new RenderText(AssetManager.MainMenuFont, "Listening for input..."),
+                WindowColor
+            );
         }
 
-
-        private IMenu CurrentMenu
+        public IMenu CurrentMenu
         {
             get
             {
                 switch (CurrentState)
                 {
-                    case ControlMenuStates.DeviceSelect:
-                        return DeviceSelectMenu;
-                    case ControlMenuStates.InputRemapSelect:
-                        return InputRemapSelectMenu;
-                    case ControlMenuStates.ListeningForInput:
-                        return MappingMenu;
+                    case ControlConfigContext.ControlMenuState.DeviceSelect:
+                        return deviceSelectMenu;
+                    case ControlConfigContext.ControlMenuState.InputRemapSelect:
+                        return inputRemapSelectMenu;
+                    case ControlConfigContext.ControlMenuState.ListeningForInput:
+                        return inputRemapSelectMenu;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -71,35 +66,51 @@ namespace SolStandard.Containers.View
             CurrentMenu.SelectOption();
         }
 
-        private static IMenu GenerateConfigMenuForDevice(Devices device, IRenderable cursorSprite)
+        public void OpenInputRemapMenu(ControlConfigContext.Device device, IController controller)
         {
-            GameControlParser selectedParser;
+            inputRemapSelectMenu = GenerateConfigMenuForDevice(device, controller, cursorSprite);
+            CurrentState = ControlConfigContext.ControlMenuState.InputRemapSelect;
+        }
+
+        public void GoToPreviousMenu()
+        {
+            if (CurrentState != ControlConfigContext.ControlMenuState.DeviceSelect)
+            {
+                CurrentState--;
+            }
+        }
+
+        private static IMenu GenerateConfigMenuForDevice(
+            ControlConfigContext.Device device,
+            IController controller,
+            IRenderable cursorSprite
+        )
+        {
             Color windowColor;
 
             switch (device)
             {
-                case Devices.Keyboard:
-                    selectedParser = GameDriver.KeyboardParser;
+                case ControlConfigContext.Device.Keyboard:
                     windowColor = KeyboardOptionColor;
                     break;
-                case Devices.P1Gamepad:
-                    selectedParser = GameDriver.P1GamepadParser;
+                case ControlConfigContext.Device.P1Gamepad:
                     windowColor = PlayerOneColor;
                     break;
-                case Devices.P2Gamepad:
-                    selectedParser = GameDriver.P2GamepadParser;
+                case ControlConfigContext.Device.P2Gamepad:
                     windowColor = PlayerTwoColor;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(device), device, null);
             }
 
+            //FIXME Don''t show "None" as an option
+
             int inputs = Enum.GetValues(typeof(Input)).Length;
             MenuOption[] configOptions = new MenuOption[inputs];
 
             for (int i = 0; i < inputs; i++)
             {
-                configOptions[i] = new RemapInputOption(selectedParser.Controller, (Input) i, windowColor);
+                configOptions[i] = new RemapInputOption(controller, (Input) i, device, windowColor);
             }
 
             return new VerticalMenu(configOptions, cursorSprite, KeyboardOptionColor);
@@ -111,9 +122,12 @@ namespace SolStandard.Containers.View
                 new MenuOption[,]
                 {
                     {
-                        new DeviceSelectOption("Keyboard Config", KeyboardOptionColor),
-                        new DeviceSelectOption("Gamepad 1 Config", PlayerOneColor),
-                        new DeviceSelectOption("Gamepad 2 Config", PlayerTwoColor)
+                        new DeviceSelectOption("Keyboard Config", ControlConfigContext.Device.Keyboard,
+                            KeyboardOptionColor),
+                        new DeviceSelectOption("Gamepad 1 Config", ControlConfigContext.Device.P1Gamepad,
+                            PlayerOneColor),
+                        new DeviceSelectOption("Gamepad 2 Config", ControlConfigContext.Device.P2Gamepad,
+                            PlayerTwoColor)
                     }
                 },
                 cursorSprite,
@@ -124,14 +138,34 @@ namespace SolStandard.Containers.View
             return menu;
         }
 
-        public void ToggleVisible()
+        #region DrawCoordinates
+
+        private static Vector2 CenterItemOnScreen(IRenderable item)
         {
-            throw new NotImplementedException();
+            return new Vector2(
+                GameDriver.ScreenSize.X / 2 - (float) item.Width / 2,
+                GameDriver.ScreenSize.Y / 2 - (float) item.Height / 2
+            );
         }
+
+        #endregion
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            switch (CurrentState)
+            {
+                case ControlConfigContext.ControlMenuState.DeviceSelect:
+                    CurrentMenu.Draw(spriteBatch, CenterItemOnScreen(CurrentMenu));
+                    break;
+                case ControlConfigContext.ControlMenuState.InputRemapSelect:
+                    CurrentMenu.Draw(spriteBatch, CenterItemOnScreen(CurrentMenu));
+                    break;
+                case ControlConfigContext.ControlMenuState.ListeningForInput:
+                    mappingInfoWindow.Draw(spriteBatch, CenterItemOnScreen(mappingInfoWindow));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

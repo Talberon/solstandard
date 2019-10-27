@@ -50,6 +50,9 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.ItemPreview:
                     ViewInventoryControl(controlMapper);
                     break;
+                case GameContext.GameState.ControlConfig:
+                    InputConfigControl(controlMapper);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -94,6 +97,40 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.CodexContext.MoveMenuCursor(MenuCursorDirection.Right);
+            }
+        }
+
+        private static void InputConfigControl(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.ControlConfigContext.SelectCurrentOption();
+            }
+
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.ControlConfigContext.Cancel();
+            }
+
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Right);
             }
         }
 

@@ -12,20 +12,26 @@ namespace SolStandard.Utility.Inputs
     public enum Input
     {
         None,
+
         CursorUp,
         CursorDown,
         CursorLeft,
         CursorRight,
+
         CameraUp,
         CameraDown,
         CameraLeft,
         CameraRight,
+
         Confirm,
         Cancel,
+
         PreviewUnit,
         PreviewItem,
+
         Status,
         Menu,
+
         TabLeft,
         TabRight,
         ZoomOut,
@@ -36,8 +42,6 @@ namespace SolStandard.Utility.Inputs
     {
         public IController Controller { get; }
         private ControlType ControlType => Controller.ControlType;
-        public const float StickDeadzone = 0.2f;
-        public const float TriggerDeadzone = 0.2f;
         private const int InitialInputDelayInFrames = 15;
         private const int RepeatInputDelayInFrames = 5;
 
