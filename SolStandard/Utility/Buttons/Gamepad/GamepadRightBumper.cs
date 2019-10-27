@@ -6,6 +6,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadRightBumper : GamePadControl
     {
+        public override GamepadInputs InputType => GamepadInputs.Rb;
+
         public GamepadRightBumper(PlayerIndex playerIndex) : base(playerIndex)
         {
         }

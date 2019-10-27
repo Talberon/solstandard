@@ -6,6 +6,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadRsLeft : GamePadControl
     {
+        public override GamepadInputs InputType => GamepadInputs.RightStickLeft;
+
         public GamepadRsLeft(PlayerIndex playerIndex) : base(playerIndex)
         {
         }

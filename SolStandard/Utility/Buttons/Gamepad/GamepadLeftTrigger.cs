@@ -6,6 +6,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadLeftTrigger : GamePadControl
     {
+        public override GamepadInputs InputType => GamepadInputs.Lt;
+
         public GamepadLeftTrigger(PlayerIndex playerIndex) : base(playerIndex)
         {
         }

@@ -6,6 +6,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadRsUp : GamePadControl
     {
+        public override GamepadInputs InputType => GamepadInputs.RightStickUp;
+
         public GamepadRsUp(PlayerIndex playerIndex) : base(playerIndex)
         {
         }

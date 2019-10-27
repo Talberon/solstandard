@@ -6,6 +6,8 @@ namespace SolStandard.Utility.Buttons.Gamepad
 {
     public class GamepadStart : GamePadControl
     {
+        public override GamepadInputs InputType => GamepadInputs.Start;
+
         public GamepadStart(PlayerIndex playerIndex) : base(playerIndex)
         {
         }
