@@ -104,32 +104,32 @@ namespace SolStandard.Containers.View
             }
 
             MenuOption[,] configOptions = new MenuOption[4, 5];
-            configOptions[0, 0] = new RemapInputOption(controller, Input.CursorUp, device, windowColor);
-            configOptions[1, 0] = new RemapInputOption(controller, Input.CursorDown, device, windowColor);
-            configOptions[2, 0] = new RemapInputOption(controller, Input.CursorLeft, device, windowColor);
-            configOptions[3, 0] = new RemapInputOption(controller, Input.CursorRight, device, windowColor);
+            configOptions[0, 0] = new RemapInputOption(controller, Input.CursorUp, device, Color.Transparent);
+            configOptions[1, 0] = new RemapInputOption(controller, Input.CursorDown, device, Color.Transparent);
+            configOptions[2, 0] = new RemapInputOption(controller, Input.CursorLeft, device, Color.Transparent);
+            configOptions[3, 0] = new RemapInputOption(controller, Input.CursorRight, device, Color.Transparent);
 
-            configOptions[0, 1] = new RemapInputOption(controller, Input.CameraUp, device, windowColor);
-            configOptions[1, 1] = new RemapInputOption(controller, Input.CameraDown, device, windowColor);
-            configOptions[2, 1] = new RemapInputOption(controller, Input.CameraLeft, device, windowColor);
-            configOptions[3, 1] = new RemapInputOption(controller, Input.CameraRight, device, windowColor);
+            configOptions[0, 1] = new RemapInputOption(controller, Input.CameraUp, device, Color.Transparent);
+            configOptions[1, 1] = new RemapInputOption(controller, Input.CameraDown, device, Color.Transparent);
+            configOptions[2, 1] = new RemapInputOption(controller, Input.CameraLeft, device, Color.Transparent);
+            configOptions[3, 1] = new RemapInputOption(controller, Input.CameraRight, device, Color.Transparent);
 
-            configOptions[0, 2] = new RemapInputOption(controller, Input.Confirm, device, windowColor);
-            configOptions[1, 2] = new RemapInputOption(controller, Input.Cancel, device, windowColor);
-            configOptions[2, 2] = new RemapInputOption(controller, Input.PreviewUnit, device, windowColor);
-            configOptions[3, 2] = new RemapInputOption(controller, Input.PreviewItem, device, windowColor);
+            configOptions[0, 2] = new RemapInputOption(controller, Input.Confirm, device, Color.Transparent);
+            configOptions[1, 2] = new RemapInputOption(controller, Input.Cancel, device, Color.Transparent);
+            configOptions[2, 2] = new RemapInputOption(controller, Input.PreviewUnit, device, Color.Transparent);
+            configOptions[3, 2] = new RemapInputOption(controller, Input.PreviewItem, device, Color.Transparent);
 
-            configOptions[0, 3] = new RemapInputOption(controller, Input.TabLeft, device, windowColor);
-            configOptions[1, 3] = new RemapInputOption(controller, Input.TabRight, device, windowColor);
-            configOptions[2, 3] = new RemapInputOption(controller, Input.ZoomOut, device, windowColor);
-            configOptions[3, 3] = new RemapInputOption(controller, Input.ZoomIn, device, windowColor);
+            configOptions[0, 3] = new RemapInputOption(controller, Input.TabLeft, device, Color.Transparent);
+            configOptions[1, 3] = new RemapInputOption(controller, Input.TabRight, device, Color.Transparent);
+            configOptions[2, 3] = new RemapInputOption(controller, Input.ZoomOut, device, Color.Transparent);
+            configOptions[3, 3] = new RemapInputOption(controller, Input.ZoomIn, device, Color.Transparent);
 
-            configOptions[0, 4] = new RemapInputOption(controller, Input.Status, device, windowColor);
-            configOptions[1, 4] = new RemapInputOption(controller, Input.Menu, device, windowColor);
-            configOptions[2, 4] = new SaveControllerOption("Save Inputs", windowColor);
-            configOptions[3, 4] = new UnselectableOption(RenderBlank.Blank, windowColor);
+            configOptions[0, 4] = new RemapInputOption(controller, Input.Status, device, Color.Transparent);
+            configOptions[1, 4] = new RemapInputOption(controller, Input.Menu, device, Color.Transparent);
+            configOptions[2, 4] = new UnselectableOption(RenderBlank.Blank, Color.Transparent);
+            configOptions[3, 4] = new SaveControllerOption("Save Inputs", Color.Transparent);
 
-            return new TwoDimensionalMenu(configOptions, cursorSprite, KeyboardOptionColor,
+            return new TwoDimensionalMenu(configOptions, cursorSprite, windowColor,
                 TwoDimensionalMenu.CursorType.Pointer);
         }
 

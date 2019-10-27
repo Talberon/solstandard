@@ -264,7 +264,7 @@ namespace SolStandard.Containers.Contexts
             MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
 
             //Player 1 (Blue) always controls map select screen
-            LoadInitiativeContext(mapParser, Team.Blue);
+            LoadInitiativeContext(mapParser, Team.Red);
 
             CurrentGameState = GameState.MapSelect;
         }

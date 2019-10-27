@@ -110,6 +110,8 @@ namespace SolStandard.Containers.Contexts
 
         public void Cancel()
         {
+            AssetManager.MapUnitCancelSFX.Play();
+
             if (view.CurrentState == ControlMenuState.DeviceSelect)
             {
                 CloseMenu();
@@ -157,6 +159,12 @@ namespace SolStandard.Containers.Contexts
 
             if (view.CurrentState != ControlMenuState.ListeningForInput || currentListeningInput == Input.None ||
                 frameCooldown > 0) return;
+
+            if (frameCooldown == -CooldownInterval * 5)
+            {
+                Cancel();
+                return;
+            }
 
             switch (currentListeningDevice)
             {

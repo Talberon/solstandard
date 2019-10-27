@@ -50,5 +50,22 @@ namespace SolStandard.Utility.Inputs.Gamepad
         {
             return ButtonIconProvider.GetButton(ButtonIcons[buttons.First()], new Vector2(iconSize));
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is InputButton inputButton)) return true;
+
+            if (inputButton.buttons.Length != buttons.Length) return false;
+
+            List<Buttons> theirButtons = inputButton.buttons.OrderBy(b => b).ToList();
+            List<Buttons> myButtons = buttons.OrderBy(b => b).ToList();
+
+            return !myButtons.Where((t, i) => theirButtons[i] != t).Any();
+        }
+
+        public override int GetHashCode()
+        {
+            return buttons.Select(button => (int) button ^ 5).Sum();
+        }
     }
 }

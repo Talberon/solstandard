@@ -197,10 +197,10 @@ namespace SolStandard
             KeyboardParser = new GameControlParser(new KeyboardController());
             P1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
             P2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
-            InitializeControlMappers(GameContext.P1Team);
             PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);
+            InitializeControlMappers(GameContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
         }
