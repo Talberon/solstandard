@@ -47,6 +47,19 @@ namespace SolStandard.Utility.Inputs.KeyboardInput
             {Keys.D8, KeyboardIcon.Eight},
             {Keys.D9, KeyboardIcon.Nine},
 
+            {Keys.OemQuotes, KeyboardIcon.Apostrophe},
+            {Keys.OemPipe, KeyboardIcon.Backslash},
+            {Keys.Back, KeyboardIcon.Backspace},
+            {Keys.OemOpenBrackets, KeyboardIcon.BracketLeft},
+            {Keys.OemCloseBrackets, KeyboardIcon.BracketRight},
+            {Keys.OemComma, KeyboardIcon.Comma},
+            {Keys.OemPlus, KeyboardIcon.Equals},
+            {Keys.OemQuestion, KeyboardIcon.Forwardslash},
+            {Keys.OemMinus, KeyboardIcon.Minus},
+            {Keys.OemPeriod, KeyboardIcon.Period},
+            {Keys.OemSemicolon, KeyboardIcon.Semicolon},
+            {Keys.OemTilde, KeyboardIcon.Tilde},
+
             {Keys.LeftShift, KeyboardIcon.LeftShift},
             {Keys.LeftAlt, KeyboardIcon.LeftAlt},
             {Keys.LeftControl, KeyboardIcon.LeftCtrl},
@@ -55,9 +68,9 @@ namespace SolStandard.Utility.Inputs.KeyboardInput
             {Keys.RightControl, KeyboardIcon.RightCtrl},
 
             {Keys.Space, KeyboardIcon.Space},
-            {Keys.Enter, KeyboardIcon.A},
-            {Keys.Escape, KeyboardIcon.A},
-            {Keys.Tab, KeyboardIcon.A},
+            {Keys.Enter, KeyboardIcon.Enter},
+            {Keys.Escape, KeyboardIcon.Escape},
+            {Keys.Tab, KeyboardIcon.Tab},
 
             {Keys.Up, KeyboardIcon.Up},
             {Keys.Down, KeyboardIcon.Down},

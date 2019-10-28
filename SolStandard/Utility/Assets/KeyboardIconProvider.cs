@@ -62,7 +62,20 @@ namespace SolStandard.Utility.Assets
 
         RightShift,
         RightAlt,
-        RightCtrl
+        RightCtrl,
+
+        Apostrophe,
+        Backslash,
+        Backspace,
+        BracketLeft,
+        BracketRight,
+        Comma,
+        Equals,
+        Forwardslash,
+        Minus,
+        Period,
+        Semicolon,
+        Tilde,
     }
 
     public static class KeyboardIconProvider
@@ -98,6 +111,19 @@ namespace SolStandard.Utility.Assets
             ITexture2D textureRight = keyboardTextures.Find(texture => texture.Name.EndsWith("_Arrow_Right"));
             ITexture2D textureEnter = keyboardTextures.Find(texture => texture.Name.EndsWith("_Enter"));
             ITexture2D textureEscape = keyboardTextures.Find(texture => texture.Name.EndsWith("_Esc"));
+
+            ITexture2D textureApostrophe = keyboardTextures.Find(texture => texture.Name.EndsWith("_Apostrophe"));
+            ITexture2D textureBackslash = keyboardTextures.Find(texture => texture.Name.EndsWith("_Backslash"));
+            ITexture2D textureBackspace = keyboardTextures.Find(texture => texture.Name.EndsWith("_Backspace"));
+            ITexture2D textureBracketLeft = keyboardTextures.Find(texture => texture.Name.EndsWith("_Bracket_Left"));
+            ITexture2D textureBracketRight = keyboardTextures.Find(texture => texture.Name.EndsWith("_Bracket_Right"));
+            ITexture2D textureComma = keyboardTextures.Find(texture => texture.Name.EndsWith("_Comma"));
+            ITexture2D textureEquals = keyboardTextures.Find(texture => texture.Name.EndsWith("_Equals"));
+            ITexture2D textureForwardslash = keyboardTextures.Find(texture => texture.Name.EndsWith("_Forwardslash"));
+            ITexture2D textureMinus = keyboardTextures.Find(texture => texture.Name.EndsWith("_Minus"));
+            ITexture2D texturePeriod = keyboardTextures.Find(texture => texture.Name.EndsWith("_Period"));
+            ITexture2D textureSemicolon = keyboardTextures.Find(texture => texture.Name.EndsWith("_Semicolon"));
+            ITexture2D textureTilde = keyboardTextures.Find(texture => texture.Name.EndsWith("_Tilde"));
 
             ITexture2D textureT = keyboardTextures.Find(texture => texture.Name.EndsWith("_T"));
             ITexture2D textureY = keyboardTextures.Find(texture => texture.Name.EndsWith("_Y"));
@@ -150,6 +176,19 @@ namespace SolStandard.Utility.Assets
                 {KeyboardIcon.Right, textureRight},
                 {KeyboardIcon.Enter, textureEnter},
                 {KeyboardIcon.Escape, textureEscape},
+
+                {KeyboardIcon.Apostrophe, textureApostrophe},
+                {KeyboardIcon.Backslash, textureBackslash},
+                {KeyboardIcon.Backspace, textureBackspace},
+                {KeyboardIcon.BracketLeft, textureBracketLeft},
+                {KeyboardIcon.BracketRight, textureBracketRight},
+                {KeyboardIcon.Comma, textureComma},
+                {KeyboardIcon.Equals, textureEquals},
+                {KeyboardIcon.Forwardslash, textureForwardslash},
+                {KeyboardIcon.Minus, textureMinus},
+                {KeyboardIcon.Period, texturePeriod},
+                {KeyboardIcon.Semicolon, textureSemicolon},
+                {KeyboardIcon.Tilde, textureTilde},
 
                 {KeyboardIcon.T, textureT},
                 {KeyboardIcon.Y, textureY},

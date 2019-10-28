@@ -16,7 +16,7 @@ namespace SolStandard.Containers.View
 {
     public class ControlConfigView : IUserInterface
     {
-        private static readonly Color PrimaryWindowColor = new Color(50, 50, 80);
+        private static readonly Color PrimaryWindowColor = new Color(50, 50, 60);
         private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamColor(Team.Creep);
         private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamColor(GameContext.P1Team);
         private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamColor(GameContext.P2Team);
@@ -127,7 +127,7 @@ namespace SolStandard.Containers.View
             configOptions[0, 4] = new RemapInputOption(controller, Input.Status, device, Color.Transparent);
             configOptions[1, 4] = new RemapInputOption(controller, Input.Menu, device, Color.Transparent);
             configOptions[2, 4] = new UnselectableOption(RenderBlank.Blank, Color.Transparent);
-            configOptions[3, 4] = new SaveControllerOption("Save Inputs", Color.Transparent);
+            configOptions[3, 4] = new SaveControllerOption("Save Inputs", PrimaryWindowColor);
 
             return new TwoDimensionalMenu(configOptions, cursorSprite, windowColor,
                 TwoDimensionalMenu.CursorType.Pointer);
