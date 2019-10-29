@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -175,41 +174,17 @@ namespace SolStandard
 
         private static void InitializeControllers()
         {
-            try
-            {
-                IController loadedKeyboardConfig =
-                    SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
-                KeyboardParser = new GameControlParser(loadedKeyboardConfig);
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.StackTrace);
-                KeyboardParser = new GameControlParser(new KeyboardController());
-            }
+            IController loadedKeyboardConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
+            KeyboardParser = new GameControlParser(loadedKeyboardConfig ?? new KeyboardController());
 
-            try
-            {
-                IController loadedP1GamepadConfig =
-                    SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
-                P1GamepadParser = new GameControlParser(loadedP1GamepadConfig);
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.StackTrace);
-                P1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
-            }
+            IController loadedP1GamepadConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
+            P1GamepadParser = new GameControlParser(loadedP1GamepadConfig ?? new GamepadController(PlayerIndex.One));
 
-            try
-            {
-                IController loadedP2GamepadConfig =
-                    SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
-                P2GamepadParser = new GameControlParser(loadedP2GamepadConfig);
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e.StackTrace);
-                P2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
-            }
+            IController loadedP2GamepadConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
+            P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
         }
 
         /// <summary>
