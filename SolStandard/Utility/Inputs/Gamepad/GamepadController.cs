@@ -8,6 +8,7 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility.Inputs.Gamepad
 {
+    [Serializable]
     public class GamepadController : IController
     {
         public static IController From(GamepadController controller)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,6 +18,7 @@ using SolStandard.Utility.Inputs.Gamepad;
 using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
+using SolStandard.Utility.System;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
@@ -29,6 +31,8 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
+
+        public static readonly IFileIO SystemFileIO = new WindowsFileIO();
 
         //Project Site
         public const string SolStandardUrl = "https://talberon.github.io/solstandard";
@@ -52,6 +56,7 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
+
 
         public GameDriver()
         {
@@ -167,6 +172,46 @@ namespace SolStandard
             }
         }
 
+
+        private static void InitializeControllers()
+        {
+            try
+            {
+                IController loadedKeyboardConfig =
+                    SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
+                KeyboardParser = new GameControlParser(loadedKeyboardConfig);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.StackTrace);
+                KeyboardParser = new GameControlParser(new KeyboardController());
+            }
+
+            try
+            {
+                IController loadedP1GamepadConfig =
+                    SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
+                P1GamepadParser = new GameControlParser(loadedP1GamepadConfig);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.StackTrace);
+                P1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
+            }
+
+            try
+            {
+                IController loadedP2GamepadConfig =
+                    SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
+                P2GamepadParser = new GameControlParser(loadedP2GamepadConfig);
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.StackTrace);
+                P2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -176,6 +221,7 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
+
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -194,9 +240,8 @@ namespace SolStandard
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
 
 
-            KeyboardParser = new GameControlParser(new KeyboardController());
-            P1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
-            P2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
+            InitializeControllers();
+
             PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);

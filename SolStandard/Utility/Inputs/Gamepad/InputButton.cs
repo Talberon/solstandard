@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Inputs.Gamepad
 {
+    [Serializable]
     public class InputButton : GameControl
     {
         public static readonly IReadOnlyDictionary<Buttons, ButtonIcon> ButtonIcons =

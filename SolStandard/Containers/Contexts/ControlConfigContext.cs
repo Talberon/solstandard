@@ -14,32 +14,6 @@ namespace SolStandard.Containers.Contexts
 {
     public class ControlConfigContext
     {
-        /*
-         * TODO Flow:
-         * Open the controller select menu first
-         * Select one of 3 controllers: Keyboard/P1Gamepad/P2Gamepad
-         * Keyboard:
-         *     List all keyboard controller options and a Save and Cancel option
-         *     Select a config option:
-         *         Present a window that will accept a keyboard input if it matches one of the available keys
-         *         After inputting a key, add that to a temporary IController in the context
-         *         Return to the option list menu and update the icons for the options to match the meta-controller's current inputs
-         *         Maintain that IController in the keyboard options until it is Saved
-         *         When Saved, validate that all controls in the IController are unique (same key can't be used twice) and none are empty
-         *         If valid, replace the current Keyboard Controller with the new one and exit the menu
-         *
-         * Gamepad:
-         *     List all gamepad controller options and a Save and Cancel option
-         *     Select a config option:
-         *         Present a window that will accept a gamepad input ONLY from the active controller
-         *         After inputting something, add that option to a temporary IController in the context
-         *         Return to the option list menu and update the icons for the options to match the meta-controller's current inputs
-         *         Maintain that IController in the gamepad options until it is Saved
-         *         When Saved, validate that all controls in the IController are unique and none are empty
-         *         If valid, replace the current player's GamepadController with the new one and exit the menu
-         */
-
-
         public enum ControlMenuState
         {
             DeviceSelect,
@@ -53,6 +27,10 @@ namespace SolStandard.Containers.Contexts
             P1Gamepad,
             P2Gamepad
         }
+
+        public const string KeyboardConfigFileName = "KeyboardConfig";
+        public const string P1GamepadConfigFileName = "P1GamepadConfig";
+        public const string P2GamepadConfigFileName = "P2GamepadConfig";
 
         private readonly ControlConfigView view;
         private IController metakeyboard;
@@ -229,7 +207,10 @@ namespace SolStandard.Containers.Contexts
                 GlobalHudView.AddNotification("Saved control inputs.");
                 frameCooldown = CooldownInterval;
                 view.CurrentState = ControlMenuState.DeviceSelect;
-                //TODO Save to disk
+
+                GameDriver.SystemFileIO.Save(KeyboardConfigFileName, GameDriver.KeyboardParser.Controller);
+                GameDriver.SystemFileIO.Save(P1GamepadConfigFileName, GameDriver.P1GamepadParser.Controller);
+                GameDriver.SystemFileIO.Save(P2GamepadConfigFileName, GameDriver.P2GamepadParser.Controller);
             }
             else
             {

@@ -176,7 +176,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Containers\Contexts" />
     <Folder Include="Resources\Output" />
     <Folder Include="Utility\Buttons" />
   </ItemGroup>

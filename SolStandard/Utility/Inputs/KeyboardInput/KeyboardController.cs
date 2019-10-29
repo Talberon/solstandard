@@ -7,6 +7,7 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.Utility.Inputs.KeyboardInput
 {
+    [Serializable]
     public class KeyboardController : IController
     {
         public static IController From(KeyboardController controller)

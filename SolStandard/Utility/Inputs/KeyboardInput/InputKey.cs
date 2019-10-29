@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -5,6 +6,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Utility.Inputs.KeyboardInput
 {
+    [Serializable]
     public class InputKey : GameControl
     {
         public static readonly IReadOnlyDictionary<Keys, KeyboardIcon> KeyIcons = new Dictionary<Keys, KeyboardIcon>

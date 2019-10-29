@@ -526,6 +526,8 @@
     <Compile Include="Utility\PathingUtil.cs" />
     <Compile Include="Utility\RangeComparison.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
+    <Compile Include="Utility\System\IFileIO.cs" />
+    <Compile Include="Utility\System\WindowsFileIO.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />

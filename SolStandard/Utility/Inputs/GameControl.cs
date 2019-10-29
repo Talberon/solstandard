@@ -1,5 +1,8 @@
-﻿namespace SolStandard.Utility.Inputs
+﻿using System;
+
+namespace SolStandard.Utility.Inputs
 {
+    [Serializable]
     public abstract class GameControl
     {
         public int InputCounter { get; private set; }
