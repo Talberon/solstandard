@@ -342,6 +342,7 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\DeviceSelectOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\RemapInputOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\OpenControlsMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ResetControllerConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\SaveControllerOption.cs" />
     <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
     <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />

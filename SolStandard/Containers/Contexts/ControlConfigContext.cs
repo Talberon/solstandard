@@ -78,6 +78,7 @@ namespace SolStandard.Containers.Contexts
                     throw new ArgumentOutOfRangeException(nameof(device), device, null);
             }
 
+            currentListeningDevice = device;
             view.OpenInputRemapMenu(device, controller);
         }
 
@@ -122,6 +123,25 @@ namespace SolStandard.Containers.Contexts
 
         #endregion
 
+        public void ResetMetaController(Device deviceType)
+        {
+            switch (deviceType)
+            {
+                case Device.Keyboard:
+                    metakeyboard = new KeyboardController();
+                    break;
+                case Device.P1Gamepad:
+                    metaP1Gamepad = new GamepadController(PlayerIndex.One);
+                    break;
+                case Device.P2Gamepad:
+                    metaP2Gamepad = new GamepadController(PlayerIndex.Two);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            OpenRemapMenu(currentListeningDevice);
+        }
 
         public void StartListeningForInput(Device device, Input input)
         {

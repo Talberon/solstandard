@@ -63,8 +63,8 @@ namespace SolStandard.Entity.Unit
 
     public enum Team
     {
-        Blue,
         Red,
+        Blue,
         Creep
     }
 

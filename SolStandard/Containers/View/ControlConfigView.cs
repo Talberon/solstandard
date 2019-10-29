@@ -126,7 +126,7 @@ namespace SolStandard.Containers.View
 
             configOptions[0, 4] = new RemapInputOption(controller, Input.Status, device, Color.Transparent);
             configOptions[1, 4] = new RemapInputOption(controller, Input.Menu, device, Color.Transparent);
-            configOptions[2, 4] = new UnselectableOption(RenderBlank.Blank, Color.Transparent);
+            configOptions[2, 4] = new ResetControllerConfigOption("Reset Controller", device, PrimaryWindowColor);
             configOptions[3, 4] = new SaveControllerOption("Save Inputs", PrimaryWindowColor);
 
             return new TwoDimensionalMenu(configOptions, cursorSprite, windowColor,
