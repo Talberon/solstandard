@@ -7,6 +7,7 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu;
 using SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu;
+using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 
@@ -46,6 +47,7 @@ namespace SolStandard.Containers.View
             ConfigMenu = new VerticalMenu(
                 new MenuOption[]
                 {
+                    new OpenControlsMenuOption(OptionsColor), 
                     new MusicMuteOption(OptionsColor),
                     new MusicVolumeUpOption(OptionsColor),
                     new MusicVolumeDownOption(OptionsColor),
