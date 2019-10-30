@@ -89,6 +89,8 @@ namespace SolStandard.Containers.Contexts
 
         public void Cancel()
         {
+            if (frameCooldown > 0) return;
+
             AssetManager.MapUnitCancelSFX.Play();
 
             if (view.CurrentState == ControlMenuState.DeviceSelect)
@@ -190,6 +192,7 @@ namespace SolStandard.Containers.Contexts
                 UpdateKeyboardControls(inputToMap, key);
                 OpenRemapMenu(currentListeningDevice);
                 AssetManager.CoinSFX.Play();
+                frameCooldown = CooldownInterval;
                 break;
             }
         }
@@ -203,6 +206,7 @@ namespace SolStandard.Containers.Contexts
                 UpdateGamepadControls(playerIndex, inputToMap, pressedButton);
                 OpenRemapMenu(currentListeningDevice);
                 AssetManager.CoinSFX.Play();
+                frameCooldown = CooldownInterval;
                 break;
             }
         }
