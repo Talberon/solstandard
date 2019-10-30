@@ -8,6 +8,7 @@ using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.HUD.Menu
 {
@@ -19,23 +20,23 @@ namespace SolStandard.HUD.Menu
             Frame
         }
 
-        private readonly IRenderable cursorSprite;
-        private Vector2 cursorPosition;
-
-        private readonly MenuOption[,] options;
-
-        private int CurrentOptionRow { get; set; }
-        private int CurrentOptionColumn { get; set; }
-
-        public Color DefaultColor { get; set; }
+        private const int ButtonIconSize = 32;
         private const int Padding = 2;
 
         private readonly Window.Window menuWindow;
+        private readonly IRenderable cursorSprite;
+        private Vector2 cursorPosition;
+        private readonly CursorType cursorType;
+        private readonly MenuOption[,] options;
         private Vector2 optionSize;
 
-        private readonly CursorType cursorType;
-
+        private int CurrentOptionRow { get; set; }
+        private int CurrentOptionColumn { get; set; }
+        public Color DefaultColor { get; set; }
         public bool IsVisible { get; set; }
+
+        private static IRenderable ConfirmButton =>
+            InputIconProvider.GetInputIcon(Input.Confirm, ButtonIconSize);
 
         public TwoDimensionalMenu(MenuOption[,] options, IRenderable cursorSprite, Color color, CursorType cursorType)
         {
@@ -176,7 +177,29 @@ namespace SolStandard.HUD.Menu
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
+            ConfirmButton.Draw(spriteBatch,
+                position + cursorPosition +
+                (
+                    (cursorType == CursorType.Pointer)
+                        ? CenterLeftOffset(ConfirmButton, cursorSprite)
+                        : BottomRightCornerInset(ConfirmButton, cursorSprite)
+                )
+            );
         }
+
+
+        public static Vector2 CenterLeftOffset(IRenderable thingToDraw, IRenderable relativeTo)
+        {
+            return (new Vector2(-relativeTo.Width, relativeTo.Height) / 2) -
+                   (new Vector2(thingToDraw.Width, thingToDraw.Height) / 2);
+        }
+
+        private static Vector2 BottomRightCornerInset(IRenderable thingToDraw, IRenderable relativeTo)
+        {
+            return new Vector2(relativeTo.Width, relativeTo.Height) -
+                   (new Vector2(thingToDraw.Width, thingToDraw.Height) / 2);
+        }
+
 
         public IRenderable Clone()
         {

@@ -22,6 +22,10 @@ namespace SolStandard.Containers.Contexts
         private readonly MapContainer map;
         private GameUnit currentUnit;
         public Team CurrentTurn { get; private set; }
+        public bool CanPressConfirm => HoveringOverDeployTile;
+
+        private bool HoveringOverDeployTile =>
+            GameContext.GameMapContext.MapContainer.GetMapSliceAtCursor().TerrainEntity is DeployTile;
 
         public DeploymentContext(List<GameUnit> blueArmy, List<GameUnit> redArmy, MapContainer map, Team firstTurn)
         {
@@ -210,7 +214,8 @@ namespace SolStandard.Containers.Contexts
             {
                 MapSlice cursorSlice = map.GetMapSliceAtCursor();
 
-                return cursorSlice.TerrainEntity is DeployTile deployTile && !deployTile.Occupied && deployTile.DeployTeam == currentUnit.Team;
+                return cursorSlice.TerrainEntity is DeployTile deployTile && !deployTile.Occupied &&
+                       deployTile.DeployTeam == currentUnit.Team;
             }
         }
     }
