@@ -94,7 +94,7 @@ namespace SolStandard.Containers.Contexts
                     case GameState.ItemPreview:
                         return GetPlayerForTeam(ActiveTeam);
                     case GameState.ControlConfig:
-                        return PlayerIndex.One;
+                        return (InitiativeContext != null) ? GetPlayerForTeam(ActiveTeam) : PlayerIndex.One;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
