@@ -16,6 +16,7 @@ namespace SolStandard.Containers.View
 {
     public class ControlConfigView : IUserInterface
     {
+        private const int WindowPadding = 10;
         private static readonly Color PrimaryWindowColor = new Color(50, 50, 60);
         private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamColor(Team.Creep);
         private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamColor(GameContext.P1Team);
@@ -27,6 +28,7 @@ namespace SolStandard.Containers.View
         private readonly IMenu deviceSelectMenu;
         private IMenu inputRemapSelectMenu;
         private readonly IRenderable mappingInfoWindow;
+        private readonly IRenderable inputRemapInfoWindow;
 
         public ControlConfigView()
         {
@@ -39,6 +41,15 @@ namespace SolStandard.Containers.View
 
             mappingInfoWindow = new Window(
                 new RenderText(AssetManager.MainMenuFont, "Listening for input..."),
+                PrimaryWindowColor
+            );
+
+            inputRemapInfoWindow = new Window(
+                //TODO Flesh this out with instructions and icons
+                new RenderText(
+                    AssetManager.MainMenuFont,
+                    "Select an input to remap it. Press the [Item Preview] button to clear current input."
+                ),
                 PrimaryWindowColor
             );
         }
@@ -165,6 +176,14 @@ namespace SolStandard.Containers.View
             );
         }
 
+        private static Vector2 AboveTarget(Vector2 targetCoords, IRenderable target, IRenderable thingToDraw)
+        {
+            return new Vector2(
+                targetCoords.X + ((float) target.Width / 2) - ((float) thingToDraw.Width / 2),
+                targetCoords.Y - thingToDraw.Height - WindowPadding
+            );
+        }
+
         #endregion
 
         public void Draw(SpriteBatch spriteBatch)
@@ -175,7 +194,12 @@ namespace SolStandard.Containers.View
                     CurrentMenu.Draw(spriteBatch, CenterItemOnScreen(CurrentMenu));
                     break;
                 case ControlConfigContext.ControlMenuState.InputRemapSelect:
-                    CurrentMenu.Draw(spriteBatch, CenterItemOnScreen(CurrentMenu));
+                    Vector2 menuCoordinates = CenterItemOnScreen(CurrentMenu);
+                    inputRemapInfoWindow.Draw(
+                        spriteBatch,
+                        AboveTarget(menuCoordinates, CurrentMenu, inputRemapInfoWindow)
+                    );
+                    CurrentMenu.Draw(spriteBatch, menuCoordinates);
                     break;
                 case ControlConfigContext.ControlMenuState.ListeningForInput:
                     mappingInfoWindow.Draw(spriteBatch, CenterItemOnScreen(mappingInfoWindow));

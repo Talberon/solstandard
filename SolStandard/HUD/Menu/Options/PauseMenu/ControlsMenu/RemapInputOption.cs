@@ -12,13 +12,13 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
     {
         private readonly IController controller;
         private readonly ControlConfigContext.Device device;
-        private readonly Input input;
+        public Input Input { get; }
 
         public RemapInputOption(IController controller, Input input, ControlConfigContext.Device device, Color color) :
             base(GenerateLabelContent(controller, input, color), color, HorizontalAlignment.Right)
         {
             this.controller = controller;
-            this.input = input;
+            this.Input = input;
             this.device = device;
         }
 
@@ -38,12 +38,12 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.StartListeningForInput(device, input);
+            GameContext.ControlConfigContext.StartListeningForInput(device, Input);
         }
 
         public override IRenderable Clone()
         {
-            return new RemapInputOption(controller, input, device, DefaultColor);
+            return new RemapInputOption(controller, Input, device, DefaultColor);
         }
     }
 }
