@@ -1,4 +1,3 @@
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -44,7 +43,7 @@ namespace SolStandard.Containers.View
             );
             background = new SpriteAtlas(AssetManager.MainMenuBackground,
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                new Vector2(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+                new Vector2(GameDriver.ScreenSize.X, GameDriver.ScreenSize.Y));
 
             visible = true;
         }
