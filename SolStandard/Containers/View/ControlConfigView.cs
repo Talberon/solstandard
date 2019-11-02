@@ -11,6 +11,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
 {
@@ -44,15 +45,23 @@ namespace SolStandard.Containers.View
                 PrimaryWindowColor
             );
 
-            inputRemapInfoWindow = new Window(
-                //TODO Flesh this out with instructions and icons
-                new RenderText(
-                    AssetManager.MainMenuFont,
-                    "Select an input to remap it. Press the [Item Preview] button to clear current input."
-                ),
-                PrimaryWindowColor
-            );
+            inputRemapInfoWindow = new Window(GenerateHelpInfoWindowContent(), PrimaryWindowColor);
         }
+
+        private static IRenderable GenerateHelpInfoWindowContent()
+        {
+            ISpriteFont font = AssetManager.MainMenuFont;
+
+            return new WindowContentGrid(new[,]
+            {
+                {
+                    new RenderText(font, "Select an input to remap it. Press the"),
+                    InputIconProvider.GetInputIcon(Input.Cancel, (int) font.MeasureString("A").Y),
+                    new RenderText(font, " button to exit config.")
+                }
+            }, 1, HorizontalAlignment.Centered);
+        }
+
 
         public IMenu CurrentMenu
         {
