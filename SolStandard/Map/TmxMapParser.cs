@@ -32,7 +32,7 @@ namespace SolStandard.Map
 
     /**
      * TmxMapBuilder
-     * Responsible for parsing game maps to a SelectMapEntity object that we can use in the game.
+     * Responsible for converting Tiled maps into map objects in-game.
      */
     public class TmxMapParser
     {
