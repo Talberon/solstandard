@@ -115,11 +115,6 @@ namespace SolStandard.Containers.Contexts
                 GameContext.ControlConfigContext.Cancel();
             }
 
-            if (controlMapper.Press(Input.PreviewItem, PressType.Single))
-            {
-                GameContext.ControlConfigContext.Clear();
-            }
-
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Up);

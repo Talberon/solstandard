@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Utility.Assets;
@@ -38,36 +37,30 @@ namespace SolStandard.Utility.Inputs.Gamepad
             };
 
         private readonly PlayerIndex playerIndex;
-        private readonly Buttons[] buttons;
+        private readonly Buttons button;
 
-        public override bool Pressed => buttons.Any(button => GamePad.GetState(playerIndex).IsButtonDown(button));
+        public override bool Pressed => GamePad.GetState(playerIndex).IsButtonDown(button);
 
-        public InputButton(PlayerIndex playerIndex, params Buttons[] buttons)
+        public InputButton(PlayerIndex playerIndex, Buttons button)
         {
             this.playerIndex = playerIndex;
-            this.buttons = buttons;
+            this.button = button;
         }
 
         public override IRenderable GetInputIcon(int iconSize)
         {
-            return ButtonIconProvider.GetButton(ButtonIcons[buttons.First()], new Vector2(iconSize));
+            return ButtonIconProvider.GetButton(ButtonIcons[button], new Vector2(iconSize));
         }
 
         public override bool Equals(object obj)
         {
-            if (!(obj is InputButton inputButton)) return true;
-
-            if (inputButton.buttons.Length != buttons.Length) return false;
-
-            List<Buttons> theirButtons = inputButton.buttons.OrderBy(b => b).ToList();
-            List<Buttons> myButtons = buttons.OrderBy(b => b).ToList();
-
-            return !myButtons.Where((t, i) => theirButtons[i] != t).Any();
+            return obj is InputButton inputButton &&
+                   (inputButton.playerIndex == playerIndex && inputButton.button == button);
         }
 
         public override int GetHashCode()
         {
-            return buttons.Select(button => (int) button ^ 5).Sum();
+            return (int) button ^ 5;
         }
     }
 }

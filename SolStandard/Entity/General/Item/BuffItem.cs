@@ -118,8 +118,8 @@ namespace SolStandard.Entity.General.Item
 
         public IItem Duplicate()
         {
-            return new BuffItem(Name, Type, Sprite, MapCoordinates, statistic.ToString().ToUpper(), statModifier,
-                buffDuration, InteractRange, ItemPool);
+            return new BuffItem(Name, Type, Sprite, MapCoordinates, UnitStatistics.Abbreviation[statistic],
+                statModifier, buffDuration, InteractRange, ItemPool);
         }
 
         protected override IRenderable EntityInfo => buffWindow;

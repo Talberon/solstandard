@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.View;
 using SolStandard.HUD.Menu;
-using SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Inputs.Gamepad;
@@ -60,21 +59,6 @@ namespace SolStandard.Containers.Contexts
 
         #region MenuControls
 
-        private IController GetControllerForDevice(Device device)
-        {
-            switch (device)
-            {
-                case Device.Keyboard:
-                    return metakeyboard;
-                case Device.P1Gamepad:
-                    return metaP1Gamepad;
-                case Device.P2Gamepad:
-                    return metaP2Gamepad;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(device), device, null);
-            }
-        }
-
         public void OpenRemapMenu(Device device)
         {
             IController controller;
@@ -116,18 +100,6 @@ namespace SolStandard.Containers.Contexts
             else
             {
                 view.GoToPreviousMenu();
-            }
-        }
-
-        public void Clear()
-        {
-            if (view.CurrentState != ControlMenuState.InputRemapSelect) return;
-
-            if (view.CurrentMenu.CurrentOption is RemapInputOption remapInputOption)
-            {
-                ClearBindingsForInput(GetControllerForDevice(currentListeningDevice), remapInputOption.Input);
-                OpenRemapMenu(currentListeningDevice);
-                AssetManager.CoinSFX.Play();
             }
         }
 
@@ -273,8 +245,6 @@ namespace SolStandard.Containers.Contexts
 
         private bool InputsAreValid()
         {
-            //FIXME Ensure no VoidInputs for primary bindings
-            
             return AllInputsAreUnique(metakeyboard.Inputs.Values) &&
                    AllInputsAreUnique(metaP1Gamepad.Inputs.Values) &&
                    AllInputsAreUnique(metaP2Gamepad.Inputs.Values);
@@ -291,14 +261,8 @@ namespace SolStandard.Containers.Contexts
             metakeyboard.RemapControl(controlType, keyControl);
         }
 
-        private static void ClearBindingsForInput(IController controller, Input input)
-        {
-            controller.RemapControl(input, new VoidInput());
-        }
-
         private void UpdateGamepadControls(PlayerIndex playerIndex, Input controlType, Buttons buttonToMap)
         {
-            //TODO Consider multiple mappings to the same input
             GameControl gamepadControl = new InputButton(playerIndex, buttonToMap);
 
             switch (playerIndex)
