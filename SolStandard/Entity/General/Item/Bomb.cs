@@ -13,7 +13,6 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Events;
 
 namespace SolStandard.Entity.General.Item
 {

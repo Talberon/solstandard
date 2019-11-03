@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.HUD.Window.Content;
