@@ -8,8 +8,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Lidgren.Network;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
-using SolStandard.Utility.Buttons.Network;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
 
@@ -19,16 +19,7 @@ namespace SolStandard.Utility.Network
     {
         private NetServer server;
         private NetClient client;
-
-        public const string PacketTypeHeader = "PT";
         public const int NetworkPort = 1993;
-
-        public enum PacketType
-        {
-            Text,
-            ControlInput,
-            Event
-        }
 
         public bool ConnectedAsServer =>
             server != null && server.ConnectionsCount > 0 &&
@@ -111,7 +102,7 @@ namespace SolStandard.Utility.Network
             }
         }
 
-        private static void Listen(NetPeer peer)
+        private void Listen(NetPeer peer)
         {
             NetIncomingMessage received;
             while ((received = peer.ReadMessage()) != null)
@@ -150,21 +141,31 @@ namespace SolStandard.Utility.Network
                                 break;
                             case NetConnectionStatus.RespondedConnect:
                                 Trace.WriteLine("Connecting...");
+                                GlobalHudView.AddNotification("Connecting...");
                                 break;
                             case NetConnectionStatus.Connected:
                                 Trace.WriteLine("Connected!");
-                                //TODO Replace this with a unique seed
-                                GameDriver.Random = new Random(12345);
+                                GlobalHudView.AddNotification("Connected to peer!");
+
                                 GameContext.LoadMapSelect();
 
-                                GameDriver.SetControllerConfig(peer is NetClient ? Team.Red : Team.Blue);
+                                if (ConnectedAsServer)
+                                {
+                                    int newRandomSeed = GameDriver.Random.Next();
+                                    GameDriver.Random = new Random(newRandomSeed);
+                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
+                                }
+
+                                GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Trace.WriteLine("Disconnecting...");
+                                GlobalHudView.AddNotification("Disconnecting...");
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 Trace.WriteLine("Disconnected!");
                                 Trace.WriteLine(received.ReadString());
+                                GlobalHudView.AddNotification("Disconnected from peer!");
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();
@@ -178,7 +179,6 @@ namespace SolStandard.Utility.Network
                         Trace.WriteLine(received.ReadString());
                         break;
 
-                    /* .. */
                     default:
                         Trace.WriteLine("unhandled message with type: " + received.MessageType);
                         Trace.WriteLine(received.ReadString());
@@ -216,36 +216,6 @@ namespace SolStandard.Utility.Network
             NetOutgoingMessage message = server.CreateMessage();
             message.Write(textMessage);
             server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
-        }
-
-        public void SendControlMessageAsClient(NetworkController control)
-        {
-            Trace.WriteLine("Sending control message to server!");
-            NetOutgoingMessage message = client.CreateMessage();
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(memoryStream, control);
-                byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
-                message.Write(controlBytes);
-                client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
-            }
-        }
-
-        public void SendControlMessageAsServer(NetworkController control)
-        {
-            Trace.WriteLine("Sending control message to client!");
-            NetOutgoingMessage message = server.CreateMessage();
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(memoryStream, control);
-                byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
-                message.Write(controlBytes);
-                server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
-            }
         }
 
         public void SendEventMessageAsClient(NetworkEvent networkEvent)
@@ -288,7 +258,7 @@ namespace SolStandard.Utility.Network
         public void DisconnectClient()
         {
             if (client == null) return;
-            
+
             client.Disconnect("Disconnecting from host...");
             client.Shutdown("Shutting client connection down...");
             client = null;

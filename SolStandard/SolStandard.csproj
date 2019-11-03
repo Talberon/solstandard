@@ -3,7 +3,7 @@
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5401DE7F-824B-45F5-9EEF-2CAAA608908D}</ProjectGuid>
@@ -16,8 +16,8 @@
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,15 +25,17 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32bit>false</Prefer32bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32bit>false</Prefer32bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
@@ -45,6 +47,7 @@
     <Compile Include="Containers\Contexts\BattleContext.cs" />
     <Compile Include="Containers\Contexts\CodexContext.cs" />
     <Compile Include="Containers\Contexts\Combat\BonusStatistics.cs" />
+    <Compile Include="Containers\Contexts\ControlConfigContext.cs" />
     <Compile Include="Containers\Contexts\ControlContext.cs" />
     <Compile Include="Containers\Contexts\CreditsContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
@@ -73,9 +76,11 @@
     <Compile Include="Containers\View\BackgroundView.cs" />
     <Compile Include="Containers\View\BattleView.cs" />
     <Compile Include="Containers\View\CodexView.cs" />
+    <Compile Include="Containers\View\ControlConfigView.cs" />
     <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
+    <Compile Include="Containers\View\GlobalHudView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
     <Compile Include="Containers\View\NetworkMenuView.cs" />
@@ -336,10 +341,11 @@
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
     <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ControlOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\GamepadOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\KeyboardOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ViewControlsOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\DeviceSelectOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\RemapInputOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\OpenControlsMenuOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ResetControllerConfigOption.cs" />
+    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\SaveControllerOption.cs" />
     <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
     <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
     <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
@@ -370,6 +376,7 @@
     <Compile Include="HUD\Window\Content\RenderText.cs" />
     <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
     <Compile Include="HUD\Window\AnimatedRenderable.cs" />
+    <Compile Include="HUD\Window\HudNotification.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
@@ -401,35 +408,16 @@
     <Compile Include="Utility\Assets\StatusIconProvider.cs" />
     <Compile Include="Utility\Assets\TeamIconProvider.cs" />
     <Compile Include="Utility\AStarAlgorithm.cs" />
-    <Compile Include="Utility\Buttons\GameControl.cs" />
-    <Compile Include="Utility\Buttons\GameControlParser.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadA.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadB.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamePadControl.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadDown.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadController.cs" />
-    <Compile Include="Utility\Buttons\ControlMapper.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadLeftBumper.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadLeft.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadLeftTrigger.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRightBumper.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRight.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRightTrigger.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRsDown.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRsLeft.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRsRight.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadRsUp.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadSelect.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadStart.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadUp.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadX.cs" />
-    <Compile Include="Utility\Buttons\Gamepad\GamepadY.cs" />
-    <Compile Include="Utility\Buttons\IController.cs" />
-    <Compile Include="Utility\Buttons\KeyboardInput\KeyboardController.cs" />
-    <Compile Include="Utility\Buttons\KeyboardInput\InputKey.cs" />
-    <Compile Include="Utility\Buttons\MultiControlParser.cs" />
-    <Compile Include="Utility\Buttons\Network\InputNet.cs" />
-    <Compile Include="Utility\Buttons\Network\NetworkController.cs" />
+    <Compile Include="Utility\Inputs\GameControl.cs" />
+    <Compile Include="Utility\Inputs\GameControlParser.cs" />
+    <Compile Include="Utility\Inputs\Gamepad\GamepadController.cs" />
+    <Compile Include="Utility\Inputs\ControlMapper.cs" />
+    <Compile Include="Utility\Inputs\Gamepad\InputButton.cs" />
+    <Compile Include="Utility\Inputs\IController.cs" />
+    <Compile Include="Utility\Inputs\KeyboardInput\KeyboardController.cs" />
+    <Compile Include="Utility\Inputs\KeyboardInput\InputKey.cs" />
+    <Compile Include="Utility\Inputs\MultiControlParser.cs" />
+    <Compile Include="Utility\Inputs\VoidInput.cs" />
     <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
     <Compile Include="Utility\Events\AI\CreepTriggerTileEvent.cs" />
     <Compile Include="Utility\Events\AI\SpawnCreepEvent.cs" />
@@ -456,6 +444,8 @@
     <Compile Include="Utility\Events\Network\ExecuteActionEvent.cs" />
     <Compile Include="Utility\Events\Network\FinishMovingEvent.cs" />
     <Compile Include="Utility\Events\Network\IncrementCurrentAdjustableActionEvent.cs" />
+    <Compile Include="Utility\Events\Network\InitializeRandomizerNet.cs" />
+    <Compile Include="Utility\Events\Network\MapPingEvent.cs" />
     <Compile Include="Utility\Events\Network\NetworkEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
     <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
@@ -466,6 +456,7 @@
     <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
     <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
     <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />
+    <Compile Include="Utility\Events\Network\ResetGameEvent.cs" />
     <Compile Include="Utility\Events\Network\ResolveNetworkTurnEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
     <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
@@ -518,7 +509,9 @@
     <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
+    <Compile Include="Utility\Exceptions\DuplicateInputException.cs" />
     <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
+    <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
@@ -536,6 +529,8 @@
     <Compile Include="Utility\PathingUtil.cs" />
     <Compile Include="Utility\RangeComparison.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
+    <Compile Include="Utility\System\IFileIO.cs" />
+    <Compile Include="Utility\System\WindowsFileIO.cs" />
     <Compile Include="Utility\TeamUtility.cs" />
     <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
@@ -560,8 +555,8 @@
       <HintPath>..\packages\Lidgren.Network.1.0.2\lib\net451\Lidgren.Network.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.7.0.1681, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\lib\net45\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -768,12 +763,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
-  <Import Project="..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\build\MonoGame.Framework.WindowsDX.targets" Condition="Exists('..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\build\MonoGame.Framework.WindowsDX.targets')" />
+  <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\build\MonoGame.Framework.WindowsDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.WindowsDX.3.7.0.1681-develop\build\MonoGame.Framework.WindowsDX.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

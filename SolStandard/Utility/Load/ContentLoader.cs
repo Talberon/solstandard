@@ -15,7 +15,7 @@ namespace SolStandard.Utility.Load
     public static class ContentLoader
     {
         private const float SoundEffectVolume = 0.2f;
-        private const float SongSFXVolume = 1f;
+        //private const float SongSFXVolume = 1f; //For HQ Audio
 
         public static ISpriteFont LoadPromptFont(ContentManager content)
         {
@@ -265,6 +265,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverArmor"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/RecoverHealth"),
                 content.Load<Texture2D>("Graphics/Images/Icons/Misc/FallingCoins"),
+                content.Load<Texture2D>("Graphics/Images/Icons/Misc/Ping"),
             };
 
             return songTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -326,7 +327,6 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_01"),
 
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hiatok_Fortress"),
-                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Quest_Race"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Village_Center"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Arena_Tropical_01"),
@@ -339,6 +339,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Toldarian_Plains"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor_02"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -362,7 +363,15 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RB"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_RT"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Up"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Down"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Left_Stick_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Up"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Down"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Right_Stick_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Windows"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Xbox/XboxOne_Menu")
             };
@@ -391,7 +400,51 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Down"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter"),
-                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc")
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc"),
+                
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Apostrophe"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backslash"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Left"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Bracket_Right"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Comma"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Equals"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Forwardslash"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Minus"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Period"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Semicolon"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Tilde"),
+
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_T"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Y"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_U"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_I"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_O"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_P"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_F"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_G"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_H"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_J"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_K"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_L"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Z"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_X"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_C"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_V"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_B"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_N"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_M"),
+
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_1"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_2"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_3"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_4"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_5"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_6"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_7"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_8"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_9"),
+                content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_0"),
             };
 
             return buttonIconTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -691,6 +744,12 @@ namespace SolStandard.Utility.Load
         public static ISoundEffect LoadErrorSFX(ContentManager content)
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_sounds_error3");
+            return new SoundEffectWrapper(effect, 1f);
+        }
+
+        public static ISoundEffect LoadPingSFX(ContentManager content)
+        {
+            SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
             return new SoundEffectWrapper(effect, 1f);
         }
     }

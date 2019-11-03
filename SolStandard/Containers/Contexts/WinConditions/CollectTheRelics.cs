@@ -59,27 +59,30 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            if (TeamHasCollectedTargetNumberOfRelics(Team.Red))
+            get
             {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                if (TeamHasCollectedTargetNumberOfRelics(Team.Red))
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
 
-            if (TeamHasCollectedTargetNumberOfRelics(Team.Blue))
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (TeamHasCollectedTargetNumberOfRelics(Team.Blue))
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
 
-            if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
-            {
-                GameIsADraw = true;
-                return GameIsADraw;
-            }
+                if (TeamIsWipedOut(Team.Red) && TeamIsWipedOut(Team.Blue))
+                {
+                    GameIsADraw = true;
+                    return GameIsADraw;
+                }
 
-            return false;
+                return false;
+            }
         }
 
         private bool TeamHasCollectedTargetNumberOfRelics(Team team)

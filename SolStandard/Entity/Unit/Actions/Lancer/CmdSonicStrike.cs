@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void CancelAction()
         {
-            GameContext.ActiveUnit.AddCommandPoints(cmdCost);
+            if (CurrentPhase == ActionPhase.SelectLandingSpace) GameContext.ActiveUnit.AddCommandPoints(cmdCost);
             base.CancelAction();
         }
 

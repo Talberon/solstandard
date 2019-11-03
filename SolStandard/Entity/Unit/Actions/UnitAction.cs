@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.General;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
@@ -67,14 +68,15 @@ namespace SolStandard.Entity.Unit.Actions
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && targetUnit.Team == GameContext.ActiveTeam;
+                && (targetUnit.Team == GameContext.ActiveTeam || TargetIsACoOpAlly(targetUnit));
         }
 
         protected static bool TargetIsAnEnemyInRange(MapSlice targetSlice, GameUnit targetUnit)
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && GameContext.ActiveTeam != targetUnit.Team;
+                && GameContext.ActiveTeam != targetUnit.Team
+                && !TargetIsACoOpAlly(targetUnit);
         }
 
         protected static bool TargetIsSelfInRange(MapSlice targetSlice, GameUnit targetUnit)
@@ -82,6 +84,12 @@ namespace SolStandard.Entity.Unit.Actions
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
                 && GameContext.ActiveUnit == targetUnit;
+        }
+
+        protected static bool TargetIsACoOpAlly(GameUnit targetUnit)
+        {
+            return GameContext.Scenario.Objectives.ContainsKey(VictoryConditions.CollectTheRelicsCoOp) &&
+                   targetUnit.Team != Team.Creep;
         }
 
         protected static bool TargetIsABreakableObstacleInRange(MapSlice targetSlice)

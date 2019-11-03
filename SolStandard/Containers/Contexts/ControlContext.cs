@@ -5,9 +5,9 @@ using SolStandard.HUD.Menu;
 using SolStandard.Map.Camera;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -49,6 +49,9 @@ namespace SolStandard.Containers.Contexts
                     break;
                 case GameContext.GameState.ItemPreview:
                     ViewInventoryControl(controlMapper);
+                    break;
+                case GameContext.GameState.ControlConfig:
+                    InputConfigControl(controlMapper);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -94,6 +97,42 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.CodexContext.MoveMenuCursor(MenuCursorDirection.Right);
+            }
+        }
+
+        private static void InputConfigControl(ControlMapper controlMapper)
+        {
+            if (GameContext.ControlConfigContext.CurrentState ==
+                ControlConfigContext.ControlMenuState.ListeningForInput) return;
+
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.ControlConfigContext.SelectCurrentOption();
+            }
+
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.ControlConfigContext.Cancel();
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.ControlConfigContext.MoveMenuCursor(MenuCursorDirection.Right);
             }
         }
 
@@ -265,6 +304,11 @@ namespace SolStandard.Containers.Contexts
                 GlobalEventQueue.QueueSingleEvent(new SelectMapEvent());
             }
 
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new ResetGameEvent());
+            }
+
             if (controlMapper.Press(Input.TabLeft, PressType.DelayedRepeat))
             {
                 GlobalEventQueue.QueueSingleEvent(new PreviousMapEvent());
@@ -292,6 +336,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (controlMapper.Press(Input.Status, PressType.Single))
             {
+                AssetManager.MenuConfirmSFX.Play();
                 GameContext.CurrentGameState = GameContext.GameState.Results;
             }
 
@@ -464,6 +509,11 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.Confirm, PressType.Single))
             {
                 GlobalEventQueue.QueueSingleEvent(new SelectUnitEvent());
+            }
+
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GlobalEventQueue.QueueSingleEvent(new MapPingEvent());
             }
 
             if (controlMapper.Press(Input.PreviewUnit, PressType.Single))
@@ -674,6 +724,7 @@ namespace SolStandard.Containers.Contexts
                 }
                 else
                 {
+                    AssetManager.MenuConfirmSFX.Play();
                     GameContext.CurrentGameState = GameContext.GameState.InGame;
                 }
             }
@@ -687,6 +738,8 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.GoToMainMenuIfGameIsOver();
             }
+
+            CameraControl(controlMapper);
         }
     }
 }

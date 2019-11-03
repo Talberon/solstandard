@@ -13,6 +13,7 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Events.Network;
 using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 using TiledSharp;
@@ -33,13 +34,13 @@ namespace SolStandard.Containers.Contexts
             Results,
             Codex,
             ItemPreview,
-            Credits
+            Credits,
+            ControlConfig
         }
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 255, 255);
-        public static readonly Color DimColor = new Color(100, 100, 100);
 
         private const string MapDirectory = "Content/TmxMaps/";
         private const string MapSelectFile = "Map_Select_06.tmx";
@@ -57,6 +58,7 @@ namespace SolStandard.Containers.Contexts
         public static DeploymentContext DeploymentContext { get; private set; }
         public static CodexContext CodexContext { get; private set; }
         public static CreditsContext CreditsContext { get; private set; }
+        public static ControlConfigContext ControlConfigContext { get; private set; }
 
         public static Team P1Team { get; private set; }
         public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
@@ -86,11 +88,13 @@ namespace SolStandard.Containers.Contexts
                     case GameState.Codex:
                         return GetPlayerForTeam(CodexContext.CurrentTeam);
                     case GameState.Results:
-                        return PlayerIndex.Four;
+                        return GetPlayerForTeam(ActiveTeam);
                     case GameState.Credits:
                         return PlayerIndex.One;
                     case GameState.ItemPreview:
                         return GetPlayerForTeam(ActiveTeam);
+                    case GameState.ControlConfig:
+                        return (InitiativeContext != null) ? GetPlayerForTeam(ActiveTeam) : PlayerIndex.One;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -106,6 +110,7 @@ namespace SolStandard.Containers.Contexts
             DraftContext = new DraftContext();
             CodexContext = new CodexContext();
             CreditsContext = new CreditsContext(new CreditsView());
+            ControlConfigContext = new ControlConfigContext(new ControlConfigView());
             BackgroundView = new BackgroundView();
             LoadMapSelect();
             CurrentGameState = GameState.MainMenu;
@@ -116,7 +121,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (team != Team.Red && team != Team.Blue) throw new InvalidTeamException();
             P1Team = team;
-            GameDriver.SetControllerConfig(team);
+            GameDriver.InitializeControlMappers(team);
             MapSelectContext.MapSelectScreenView.UpdateTeamSelectWindow();
             AssetManager.MapUnitCancelSFX.Play();
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));
@@ -146,6 +151,10 @@ namespace SolStandard.Containers.Contexts
                         return GameMapContext.MapContainer.MapCursor;
                     case GameState.ItemPreview:
                         return GameMapContext.MapContainer.MapCursor;
+                    case GameState.Codex:
+                        return null;
+                    case GameState.Credits:
+                        return null;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -176,6 +185,10 @@ namespace SolStandard.Containers.Contexts
                         return GameMapContext.MapContainer.MapCamera;
                     case GameState.ItemPreview:
                         return GameMapContext.MapContainer.MapCamera;
+                    case GameState.Codex:
+                        return GameMapContext.MapContainer.MapCamera;
+                    case GameState.Credits:
+                        return MapSelectContext.MapContainer.MapCamera;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -251,7 +264,7 @@ namespace SolStandard.Containers.Contexts
             MapCamera.SetZoomLevel(MapCamera.ZoomLevel.Far);
 
             //Player 1 (Blue) always controls map select screen
-            LoadInitiativeContext(mapParser, Team.Blue);
+            LoadInitiativeContext(mapParser, Team.Red);
 
             CurrentGameState = GameState.MapSelect;
         }
@@ -351,14 +364,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (!Scenario.GameIsOver) return;
 
-            if (GameDriver.ConnectedAsClient || GameDriver.ConnectedAsServer)
-            {
-                GameDriver.ConnectionManager.CloseServer();
-                GameDriver.ConnectionManager.DisconnectClient();
-            }
-
-            AssetManager.MenuConfirmSFX.Play();
-            Initialize(MainMenuView, NetworkMenuView);
+            GlobalEventQueue.QueueSingleEvent(new ResetGameEvent());
         }
 
         private static PlayerIndex GetPlayerForTeam(Team team)

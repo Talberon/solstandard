@@ -38,28 +38,31 @@ namespace SolStandard.Containers.Contexts.WinConditions
             ), TeamUtility.DetermineTeamColor(playerTeam), HorizontalAlignment.Centered);
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            if (!AllCreepCommandersAreDead && !AllPlayerUnitsAreDead) return false;
-
-            if (AllPlayerUnitsAreDead)
+            get
             {
-                resultText = "DEFEAT!";
-                AllPlayersLose = true;
-                return AllPlayersLose;
-            }
+                if (!AllCreepCommandersAreDead && !AllPlayerUnitsAreDead) return false;
 
-            resultText = "ALL BOSSES DEFEATED!";
-            switch (playerTeam)
-            {
-                case Team.Blue:
-                    BlueTeamWins = true;
-                    return BlueTeamWins;
-                case Team.Red:
-                    RedTeamWins = true;
-                    return RedTeamWins;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                if (AllPlayerUnitsAreDead)
+                {
+                    resultText = "DEFEAT!";
+                    AllPlayersLose = true;
+                    return AllPlayersLose;
+                }
+
+                resultText = "ALL BOSSES DEFEATED!";
+                switch (playerTeam)
+                {
+                    case Team.Blue:
+                        BlueTeamWins = true;
+                        return BlueTeamWins;
+                    case Team.Red:
+                        RedTeamWins = true;
+                        return RedTeamWins;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 

@@ -10,7 +10,8 @@ namespace SolStandard.Utility.Assets
         Damage,
         RecoverArmor,
         RecoverHealth,
-        FallingCoins
+        FallingCoins,
+        Ping
     }
 
     public static class AnimatedIconProvider
@@ -43,6 +44,10 @@ namespace SolStandard.Utility.Assets
                 case AnimatedIconType.FallingCoins:
                     animation =
                         AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.FallingCoins, iconSize * 3, 3);
+                    return new TriggeredAnimation(animation);
+                case AnimatedIconType.Ping:
+                    animation =
+                        AnimatedSpriteProvider.GetAnimatedSprite(AnimationType.Ping, iconSize * 3, 3);
                     return new TriggeredAnimation(animation);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(iconType), iconType, null);

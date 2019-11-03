@@ -6,6 +6,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Exceptions;
 using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Entity.General
@@ -21,12 +22,13 @@ namespace SolStandard.Entity.General
         public readonly int MaxDuplicateUnits;
         private readonly IRenderable mapPreview;
         public readonly Team SoloTeam;
+        private readonly IRenderable timeEstimate;
 
         private static readonly Vector2 MaximumPreviewSize = new Vector2(300, 200);
 
         public SelectMapEntity(string name, string type, IRenderable sprite, Vector2 mapCoordinates, MapInfo mapInfo,
             string mapSongName, MapObjectives mapObjectives, bool draft, int maxBlueUnits, int maxRedUnits,
-            int maxDuplicateUnits, Team soloTeam, ITexture2D mapPreview) :
+            int maxDuplicateUnits, Team soloTeam, ITexture2D mapPreview, int timeEstimateOutOfFive) :
             base(name, type, sprite, mapCoordinates)
         {
             MapInfo = mapInfo;
@@ -37,6 +39,7 @@ namespace SolStandard.Entity.General
             MaxRedUnits = maxRedUnits;
             MaxDuplicateUnits = maxDuplicateUnits;
             SoloTeam = soloTeam;
+            timeEstimate = TimeEstimateVisual(timeEstimateOutOfFive);
             this.mapPreview = (mapPreview == null)
                 ? RenderBlank.Blank
                 : new SpriteAtlas(mapPreview, new Vector2(mapPreview.Width, mapPreview.Height),
@@ -50,6 +53,7 @@ namespace SolStandard.Entity.General
                     {new RenderText(AssetManager.HeaderFont, MapInfo.Title)},
                     {TeamUnitCountContent},
                     {MapObjectives.Preview},
+                    {timeEstimate},
                     {mapPreview}
                 },
                 3,
@@ -85,6 +89,28 @@ namespace SolStandard.Entity.General
             2,
             HorizontalAlignment.Centered
         );
+
+        private static IRenderable TimeEstimateVisual(int timeEstimateOutofFive)
+        {
+            const int maxClocks = 5;
+            if (timeEstimateOutofFive > maxClocks || timeEstimateOutofFive < 0)
+            {
+                throw new InvalidTimeEstimateException(timeEstimateOutofFive);
+            }
+
+            IRenderable[,] clocks = new IRenderable[1, 5];
+
+            IRenderable clockIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Clock, GameDriver.CellSizeVector);
+            IRenderable darkClockIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Clock, GameDriver.CellSizeVector);
+            darkClockIcon.DefaultColor = new Color(10, 10, 10, 150);
+
+            for (int i = 0; i < maxClocks; i++)
+            {
+                clocks[0, i] = (i < timeEstimateOutofFive) ? clockIcon : darkClockIcon;
+            }
+
+            return new WindowContentGrid(clocks, 1, HorizontalAlignment.Centered);
+        }
 
         private static Vector2 FitImageToSize(Vector2 maximumSize, ITexture2D sourceImage)
         {

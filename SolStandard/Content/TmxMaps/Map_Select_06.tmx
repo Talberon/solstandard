@@ -3990,6 +3990,7 @@
     <property name="modeRoutArmy" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="0"/>
     <property name="valueTaxes" type="int" value="50"/>
    </properties>
   </object>
@@ -4003,6 +4004,7 @@
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="5"/>
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
@@ -4031,6 +4033,7 @@
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
   <object id="1029" name="Debug Arena" type="SelectMap" gid="6343" x="512" y="96" width="32" height="32">
@@ -4039,6 +4042,7 @@
     <property name="mapFileName" value="Debug_02.tmx"/>
     <property name="mapSong" value="GallopTheme"/>
     <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="timeEstimateOutOfFive" type="int" value="0"/>
    </properties>
   </object>
   <object id="1030" name="King's Feast" type="SelectMap" gid="6329" x="256" y="768" width="32" height="32">
@@ -4051,6 +4055,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRelic.goal" type="int" value="3"/>
     <property name="modeRelic.vs" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="3"/>
    </properties>
   </object>
   <object id="1031" name="Tower of Arzon" type="SelectMap" gid="6321" x="544" y="256" width="32" height="32">
@@ -4063,6 +4068,7 @@
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeSeize" type="bool" value="false"/>
+    <property name="timeEstimateOutOfFive" type="int" value="5"/>
    </properties>
   </object>
   <object id="1033" name="Jirai Archipelago" type="SelectMap" gid="6323" x="704" y="768" width="32" height="32">
@@ -4076,6 +4082,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRoutArmy" type="bool" value="true"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="2"/>
    </properties>
   </object>
   <object id="1034" name="Raider's Cave" type="SelectMap" gid="6323" x="992" y="352" width="32" height="32">
@@ -4113,6 +4120,7 @@
     <property name="maxUnitsBlue" type="int" value="5"/>
     <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeSeize" type="bool" value="false"/>
+    <property name="timeEstimateOutOfFive" type="int" value="2"/>
    </properties>
   </object>
   <object id="1037" name="AI Debug" type="SelectMap" gid="6343" x="544" y="96" width="32" height="32">
@@ -4125,6 +4133,7 @@
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeSolo.team" value="Red"/>
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="0"/>
    </properties>
   </object>
   <object id="1038" name="Master Control" type="SelectMap" gid="6323" x="1120" y="352" width="32" height="32">
@@ -4136,6 +4145,7 @@
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="5"/>
     <property name="valueTaxes" type="int" value="250"/>
    </properties>
   </object>
@@ -4148,6 +4158,7 @@
     <property name="maxUnitsBlue" type="int" value="6"/>
     <property name="maxUnitsRed" type="int" value="6"/>
     <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
     <property name="valueTaxes" type="int" value="200"/>
    </properties>
   </object>
@@ -4160,6 +4171,7 @@
     <property name="maxUnitsBlue" type="int" value="3"/>
     <property name="maxUnitsRed" type="int" value="3"/>
     <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="timeEstimateOutOfFive" type="int" value="1"/>
     <property name="valueTaxes" type="int" value="125"/>
    </properties>
   </object>
@@ -4174,6 +4186,7 @@
     <property name="modeSeize" type="bool" value="false"/>
     <property name="modeSolo.team" value="Red"/>
     <property name="modeSoloDefeatBoss" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="5"/>
    </properties>
   </object>
   <object id="1042" name="Hunting Grounds VS" type="SelectMap" gid="6329" x="1056" y="480" width="32" height="32">
@@ -4186,6 +4199,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRelic.goal" type="int" value="2"/>
     <property name="modeRelic.vs" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
   <object id="1043" name="Prison Break" type="SelectMap" gid="6325" x="544" y="352" width="32" height="32">
@@ -4199,6 +4213,7 @@
     <property name="modeEscape" type="bool" value="true"/>
     <property name="modeEscape.team" value="Blue"/>
     <property name="modeRoutArmy" type="bool" value="false"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
   <object id="1044" name="Hunting Grounds Co-Op" type="SelectMap" gid="6330" x="1088" y="480" width="32" height="32">
@@ -4222,6 +4237,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRelic.goal" type="int" value="4"/>
     <property name="modeRelic.vs" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
   <object id="1047" name="Arctic Quest VS" type="SelectMap" gid="6329" x="736" y="160" width="32" height="32">
@@ -4233,6 +4249,7 @@
     <property name="modeAssassinate" type="bool" value="false"/>
     <property name="modeRelic.goal" type="int" value="1"/>
     <property name="modeRelic.vs" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
   <object id="1048" name="Island Conquest" type="SelectMap" gid="6323" x="672" y="864" width="32" height="32">
@@ -4271,6 +4288,7 @@
     <property name="modeEscape" type="bool" value="true"/>
     <property name="modeEscape.team" value="Blue"/>
     <property name="modeRoutArmy" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="5"/>
    </properties>
   </object>
   <object id="1052" name="Wokako Jungle" type="SelectMap" gid="6321" x="1056" y="864" width="32" height="32">
@@ -4847,7 +4865,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="6383"/>
    <tile/>
    <tile/>
    <tile/>

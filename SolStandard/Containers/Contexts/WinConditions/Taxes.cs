@@ -51,27 +51,30 @@ namespace SolStandard.Containers.Contexts.WinConditions
             return new Window(teamGoldWindowContentGrid, ObjectiveWindowColor);
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            if (TeamHasBankedTargetGold(Team.Blue) && TeamHasBankedTargetGold(Team.Red))
+            get
             {
-                GameIsADraw = true;
-                return GameIsADraw;
-            }
+                if (TeamHasBankedTargetGold(Team.Blue) && TeamHasBankedTargetGold(Team.Red))
+                {
+                    GameIsADraw = true;
+                    return GameIsADraw;
+                }
 
-            if (TeamHasBankedTargetGold(Team.Blue))
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (TeamHasBankedTargetGold(Team.Blue))
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
 
-            if (TeamHasBankedTargetGold(Team.Red))
-            {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                if (TeamHasBankedTargetGold(Team.Red))
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
 
-            return false;
+                return false;
+            }
         }
 
         private static int BankedGoldForTeam(Team team)

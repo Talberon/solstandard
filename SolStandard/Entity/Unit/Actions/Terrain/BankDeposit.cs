@@ -10,8 +10,8 @@ using SolStandard.Map;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Entity.Unit.Actions.Terrain
 {
@@ -46,13 +46,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static WindowContentGrid GenerateActionDescription()
         {
-            Vector2 iconSize = GameDriver.CellSizeVector;
+            const int iconSize = GameDriver.CellSize;
 
             return new WindowContentGrid(new[,]
                 {
                     {
                         new RenderText(AssetManager.WindowFont, "Deposit"),
-                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, iconSize),
+                        ObjectiveIconProvider.GetObjectiveIcon(VictoryConditions.Taxes, new Vector2(iconSize)),
                         new RenderText(AssetManager.WindowFont, Currency.CurrencyAbbreviation + " in the bank."),
                         RenderBlank.Blank
                     },

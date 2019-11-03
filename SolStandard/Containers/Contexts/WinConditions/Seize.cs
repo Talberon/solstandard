@@ -11,7 +11,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
         public bool BlueSeizedObjective { get; set; }
         private Window objectiveWindow;
 
-        protected override IRenderable VictoryLabelContent => new RenderText(AssetManager.ResultsFont, "Objective Seized!");
+        protected override IRenderable VictoryLabelContent =>
+            new RenderText(AssetManager.ResultsFont, "Objective Seized!");
 
         public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
 
@@ -37,21 +38,24 @@ namespace SolStandard.Containers.Contexts.WinConditions
             );
         }
 
-        public override bool ConditionsMet()
+        public override bool ConditionsMet
         {
-            if (RedSeizedObjective)
+            get
             {
-                RedTeamWins = true;
-                return RedTeamWins;
-            }
+                if (RedSeizedObjective)
+                {
+                    RedTeamWins = true;
+                    return RedTeamWins;
+                }
 
-            if (BlueSeizedObjective)
-            {
-                BlueTeamWins = true;
-                return BlueTeamWins;
-            }
+                if (BlueSeizedObjective)
+                {
+                    BlueTeamWins = true;
+                    return BlueTeamWins;
+                }
 
-            return false;
+                return false;
+            }
         }
     }
 }

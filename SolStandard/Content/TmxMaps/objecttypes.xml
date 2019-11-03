@@ -203,6 +203,7 @@
   <property name="modeSolo.team" type="string" default="Blue"/>
   <property name="modeSoloDefeatBoss" type="bool" default="false"/>
   <property name="modeTaxes" type="bool" default="false"/>
+  <property name="timeEstimateOutOfFive" type="int" default="3"/>
   <property name="valueTaxes" type="int" default="100"/>
  </objecttype>
  <objecttype name="SpringTrap" color="#dbde1d">

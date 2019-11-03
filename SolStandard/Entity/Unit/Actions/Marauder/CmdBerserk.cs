@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Xna.Framework;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.HUD.Window.Content;
@@ -7,8 +6,8 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Entity.Unit.Actions.Marauder
 {
@@ -34,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
         private static WindowContentGrid GenerateActionDescription(int cmdCost)
         {
-            Vector2 iconSize = GameDriver.CellSizeVector;
+            const int iconSize = GameDriver.CellSize;
 
             return new WindowContentGrid(new[,]
                 {

@@ -16,7 +16,7 @@ using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.General.Item
 {
-    public class Bomb : TerrainEntity, IItem, IEffectTile, IThreatRange
+    public class Bomb : PushBlock, IItem, IEffectTile, IThreatRange
     {
         public int[] Range { get; }
         public int Damage { get; }
@@ -90,13 +90,13 @@ namespace SolStandard.Entity.General.Item
             foreach (MapElement rangeTile in rangeTiles)
             {
                 MapSlice slice = MapContainer.GetMapSliceAtCoordinates(rangeTile.MapCoordinates);
-                GameUnit trapUnit = UnitSelector.SelectUnit(slice.UnitEntity);
+                GameUnit unitInRange = UnitSelector.SelectUnit(slice.UnitEntity);
 
-                if (trapUnit != null)
+                if (unitInRange != null)
                 {
-                    trapMessage += trapUnit.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
+                    trapMessage += unitInRange.Id + " takes [" + Damage + "] damage!" + Environment.NewLine;
 
-                    for (int i = 0; i < Damage; i++) trapUnit.DamageUnit();
+                    for (int i = 0; i < Damage; i++) unitInRange.DamageUnit();
                 }
 
                 if (EntityAtSliceCanTakeDamage(slice))

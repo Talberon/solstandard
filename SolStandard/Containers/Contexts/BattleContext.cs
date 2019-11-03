@@ -20,9 +20,9 @@ using SolStandard.Map.Camera;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -269,7 +269,7 @@ namespace SolStandard.Containers.Contexts
                     new RenderText(AssetManager.PromptFont, "["),
                     new RenderText(AssetManager.PromptFont, "Press "),
                     InputIconProvider.GetInputIcon(Input.Confirm,
-                        new Vector2(AssetManager.PromptFont.MeasureString("A").Y)),
+                        Convert.ToInt32(AssetManager.PromptFont.MeasureString("A").Y)),
                     new RenderText(AssetManager.PromptFont, "]")
                 }
             };

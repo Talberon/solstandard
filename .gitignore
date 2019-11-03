@@ -6,3 +6,4 @@ packages/
 TestResults/
 sol-standard-web/
 RELEASE/
+.DS_Store

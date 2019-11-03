@@ -6,7 +6,7 @@ using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Map.Elements.Cursor
 {
@@ -19,7 +19,7 @@ namespace SolStandard.Map.Elements.Cursor
             Red
         }
 
-        private static readonly Vector2 ButtonSizeVector = new Vector2(16);
+        private const int ButtonIconSize = 16;
         private readonly Vector2 mapSize;
         private static Vector2 _cursorSize;
         public Vector2 CenterPixelPoint => CurrentDrawCoordinates + (new Vector2(Sprite.Width, Sprite.Height) / 2);
@@ -37,16 +37,16 @@ namespace SolStandard.Map.Elements.Cursor
         }
 
         private static IRenderable ConfirmButton =>
-            InputIconProvider.GetInputIcon(Input.Confirm, ButtonSizeVector);
+            InputIconProvider.GetInputIcon(Input.Confirm, ButtonIconSize);
 
         private static IRenderable CancelButton =>
-            InputIconProvider.GetInputIcon(Input.Cancel, ButtonSizeVector);
+            InputIconProvider.GetInputIcon(Input.Cancel, ButtonIconSize);
 
         private static IRenderable ItemButton =>
-            InputIconProvider.GetInputIcon(Input.PreviewItem, ButtonSizeVector);
+            InputIconProvider.GetInputIcon(Input.PreviewItem, ButtonIconSize);
 
         private static IRenderable CodexButton =>
-            InputIconProvider.GetInputIcon(Input.PreviewUnit, ButtonSizeVector);
+            InputIconProvider.GetInputIcon(Input.PreviewUnit, ButtonIconSize);
 
         public bool CursorIntersectsWindow(IRenderable window, Vector2 windowPixelPosition)
         {
@@ -192,6 +192,7 @@ namespace SolStandard.Map.Elements.Cursor
                 case GameContext.GameState.ArmyDraft:
                     break;
                 case GameContext.GameState.Deployment:
+                    DrawDeploymentButtonPrompts(spriteBatch);
                     break;
                 case GameContext.GameState.MapSelect:
                     DrawMapSelectButtonPrompts(spriteBatch);
@@ -214,28 +215,47 @@ namespace SolStandard.Map.Elements.Cursor
             }
         }
 
+
         private void DrawMapSelectButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GameContext.MapSelectContext.CanPressConfirm)
-                ConfirmButton.Draw(spriteBatch, CurrentDrawCoordinates + _cursorSize - (ButtonSizeVector / 2));
+            if (GameContext.MapSelectContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+        }
+
+        private void DrawDeploymentButtonPrompts(SpriteBatch spriteBatch)
+        {
+            if (GameContext.DeploymentContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
         }
 
         private void DrawInGameButtonPrompts(SpriteBatch spriteBatch)
         {
-            if (GameContext.GameMapContext.CanPressConfirm)
-                ConfirmButton.Draw(spriteBatch, CurrentDrawCoordinates + _cursorSize - (ButtonSizeVector / 2));
+            if (GameContext.GameMapContext.CanPressConfirm) DrawConfirmButtonPrompt(spriteBatch);
+            if (GameContext.GameMapContext.CanPressCancel) DrawCancelButtonPrompt(spriteBatch);
+            if (GameContext.GameMapContext.CanPressPreviewUnit) DrawPreviewUnitButtonPrompt(spriteBatch);
+            if (GameContext.GameMapContext.CanPressPreviewItem) DrawPreviewItemButtonPrompt(spriteBatch);
+        }
 
-            if (GameContext.GameMapContext.CanPressCancel)
-                CancelButton.Draw(spriteBatch,
-                    CurrentDrawCoordinates + new Vector2(0, _cursorSize.Y) - (ButtonSizeVector / 2));
+        private void DrawConfirmButtonPrompt(SpriteBatch spriteBatch)
+        {
+            ConfirmButton.Draw(spriteBatch,
+                CurrentDrawCoordinates + _cursorSize - (new Vector2(ButtonIconSize) / 2));
+        }
 
-            if (GameContext.GameMapContext.CanPressPreviewUnit)
-                CodexButton.Draw(spriteBatch,
-                    CurrentDrawCoordinates - (ButtonSizeVector / 2));
+        private void DrawCancelButtonPrompt(SpriteBatch spriteBatch)
+        {
+            CancelButton.Draw(spriteBatch,
+                CurrentDrawCoordinates + new Vector2(0, _cursorSize.Y) - (new Vector2(ButtonIconSize) / 2));
+        }
 
-            if (GameContext.GameMapContext.CanPressPreviewItem)
-                ItemButton.Draw(spriteBatch,
-                    CurrentDrawCoordinates + new Vector2(_cursorSize.X, 0) - (ButtonSizeVector / 2));
+        private void DrawPreviewUnitButtonPrompt(SpriteBatch spriteBatch)
+        {
+            CodexButton.Draw(spriteBatch,
+                CurrentDrawCoordinates - (new Vector2(ButtonIconSize) / 2));
+        }
+
+        private void DrawPreviewItemButtonPrompt(SpriteBatch spriteBatch)
+        {
+            ItemButton.Draw(spriteBatch,
+                CurrentDrawCoordinates + new Vector2(_cursorSize.X, 0) - (new Vector2(ButtonIconSize) / 2));
         }
 
         public override string ToString()

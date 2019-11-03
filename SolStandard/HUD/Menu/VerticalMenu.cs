@@ -5,20 +5,27 @@ using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.HUD.Menu
 {
     public class VerticalMenu : IMenu
     {
-        private readonly IRenderable cursorSprite;
-        private Vector2 cursorPosition;
+        private const int ButtonIconSize = 32;
+        private const int Padding = 2;
+
         private readonly MenuOption[] options;
         private readonly Dictionary<MenuOption, Vector2> optionCoordinates;
+        private readonly Window.Window menuWindow;
+        private readonly IRenderable cursorSprite;
+        private Vector2 cursorPosition;
+
         private int CurrentOptionIndex { get; set; }
         public Color DefaultColor { get; set; }
-        private const int Padding = 2;
-        private readonly Window.Window menuWindow;
         public bool IsVisible { get; set; }
+
+        private static IRenderable ConfirmButton =>
+            InputIconProvider.GetInputIcon(Input.Confirm, ButtonIconSize);
 
         public VerticalMenu(MenuOption[] options, IRenderable cursorSprite, Color color)
         {
@@ -159,6 +166,12 @@ namespace SolStandard.HUD.Menu
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
             cursorSprite.Draw(spriteBatch, position + cursorPosition);
+
+            ConfirmButton.Draw(spriteBatch,
+                position +
+                cursorPosition +
+                TwoDimensionalMenu.CenterLeftOffset(ConfirmButton, cursorSprite)
+            );
         }
 
         public IRenderable Clone()

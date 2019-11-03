@@ -17,9 +17,9 @@ using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.AI;
+using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -361,7 +361,7 @@ namespace SolStandard.Containers.Contexts
                 if (GameMapView.ActionMenuContext.IsAtRootMenu)
                 {
                     MapContainer.AddNewToastAtMapCursor("Can't cancel action!", 50);
-                    
+
                     AssetManager.WarningSFX.Play();
                 }
                 else
@@ -441,7 +441,7 @@ namespace SolStandard.Containers.Contexts
                 {
                     new RenderText(AssetManager.PromptFont, promptText),
                     InputIconProvider.GetInputIcon(Input.Confirm,
-                        new Vector2(AssetManager.PromptFont.MeasureString("A").Y))
+                        Convert.ToInt32(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };
             WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);

@@ -38,7 +38,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         {
             foreach (Objective objective in Objectives.Values)
             {
-                if (objective.ConditionsMet())
+                if (objective.ConditionsMet)
                 {
                     GameIsOver = true;
                     objective.EndGame();

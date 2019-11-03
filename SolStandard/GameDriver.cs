@@ -11,12 +11,13 @@ using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
-using SolStandard.Utility.Buttons;
-using SolStandard.Utility.Buttons.Gamepad;
-using SolStandard.Utility.Buttons.KeyboardInput;
 using SolStandard.Utility.Events;
+using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Inputs.Gamepad;
+using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
+using SolStandard.Utility.System;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
@@ -29,6 +30,8 @@ namespace SolStandard
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
+
+        public static readonly IFileIO SystemFileIO = new WindowsFileIO();
 
         //Project Site
         public const string SolStandardUrl = "https://talberon.github.io/solstandard";
@@ -49,6 +52,10 @@ namespace SolStandard
         private static ControlMapper _redTeamControlMapper;
 
         private static bool _quitting;
+        public static GameControlParser KeyboardParser;
+        public static GameControlParser P1GamepadParser;
+        public static GameControlParser P2GamepadParser;
+
 
         public GameDriver()
         {
@@ -115,21 +122,17 @@ namespace SolStandard
 
         public static bool ConnectedAsClient => ConnectionManager.ConnectedAsClient;
 
-        public static void SetControllerConfig(Team playerOneTeam)
+        public static void InitializeControlMappers(Team playerOneTeam)
         {
-            GameControlParser keyboardParser = new GameControlParser(new KeyboardController());
-            GameControlParser p1GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.One));
-            GameControlParser p2GamepadParser = new GameControlParser(new GamepadController(PlayerIndex.Two));
-
             switch (playerOneTeam)
             {
                 case Team.Blue:
-                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
-                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 case Team.Red:
-                    _redTeamControlMapper = new MultiControlParser(keyboardParser, p1GamepadParser);
-                    _blueTeamControlMapper = new MultiControlParser(keyboardParser, p2GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerOneTeam), playerOneTeam, null);
@@ -168,6 +171,22 @@ namespace SolStandard
             }
         }
 
+
+        private static void InitializeControllers()
+        {
+            IController loadedKeyboardConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
+            KeyboardParser = new GameControlParser(loadedKeyboardConfig ?? new KeyboardController());
+
+            IController loadedP1GamepadConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
+            P1GamepadParser = new GameControlParser(loadedP1GamepadConfig ?? new GamepadController(PlayerIndex.One));
+
+            IController loadedP2GamepadConfig =
+                SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
+            P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -177,6 +196,7 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
+
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -184,6 +204,7 @@ namespace SolStandard
 
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
+
             AnimatedSpriteSheet mainMenuLogoSpriteSheet =
                 new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
                     false);
@@ -192,10 +213,14 @@ namespace SolStandard
                 new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
             NetworkMenuView networkMenu =
                 new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+
+
+            InitializeControllers();
+
             PauseScreenView.Initialize(this);
 
             GameContext.Initialize(mainMenu, networkMenu);
-            SetControllerConfig(GameContext.P1Team);
+            InitializeControlMappers(GameContext.P1Team);
 
             ConnectionManager = new ConnectionManager();
         }
@@ -314,6 +339,7 @@ namespace SolStandard
             switch (GameContext.CurrentGameState)
             {
                 case GameContext.GameState.MainMenu:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.NetworkMenu:
                     break;
@@ -337,8 +363,12 @@ namespace SolStandard
                 case GameContext.GameState.Credits:
                     break;
                 case GameContext.GameState.Results:
+                    GameContext.UpdateCamera();
                     break;
                 case GameContext.GameState.ItemPreview:
+                    break;
+                case GameContext.GameState.ControlConfig:
+                    GameContext.ControlConfigContext.Update();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -359,6 +389,7 @@ namespace SolStandard
             {
                 case GameContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
+                    DrawMapSelectMap();
                     DrawMainMenu();
                     break;
                 case GameContext.GameState.NetworkMenu:
@@ -395,7 +426,7 @@ namespace SolStandard
                     DrawCodexScreen();
                     break;
                 case GameContext.GameState.Results:
-                    DrawBackgroundWallpaper();
+                    DrawInGameMap();
                     DrawGameResultsScreen();
                     break;
                 case GameContext.GameState.Credits:
@@ -407,53 +438,49 @@ namespace SolStandard
                     DrawColorEntireScreen(ActionFade);
                     DrawInGameHUD();
                     break;
+                case GameContext.GameState.ControlConfig:
+                    DrawBackgroundWallpaper();
+                    DrawControlConfigScreen();
+                    break;
                 default:
-                    base.Draw(gameTime);
                     throw new ArgumentOutOfRangeException();
             }
+
+            DrawSystemHUD();
         }
 
         private void DrawBackgroundWallpaper()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.BackgroundView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawPauseMenu()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             PauseScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMainMenu()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawNetworkMenu()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMapSelectMap()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                GameContext.MapCamera.CameraMatrix);
 
             GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
 
@@ -462,27 +489,21 @@ namespace SolStandard
 
         private void DrawMapSelectHUD()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawDraftMenu()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.DraftContext.DraftView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawGameResultsScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             GameContext.StatusScreenView.Draw(spriteBatch);
 
@@ -492,9 +513,7 @@ namespace SolStandard
 
         private void DrawCreditsScreen()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             GameContext.CreditsContext.CreditsView.Draw(spriteBatch);
 
@@ -504,11 +523,7 @@ namespace SolStandard
 
         private void DrawColorEntireScreen(Color color)
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null,
-                SamplerState.PointClamp
-            );
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             spriteBatch.Draw(AssetManager.WhitePixel.MonoGameTexture,
                 new Rectangle(0, 0, (int) ScreenSize.X, (int) ScreenSize.Y), color);
             spriteBatch.End();
@@ -516,9 +531,7 @@ namespace SolStandard
 
         private void DrawDeploymentHUD()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -526,17 +539,23 @@ namespace SolStandard
         private void DrawCodexScreen()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp);
+                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             GameContext.CodexContext.CodexView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawControlConfigScreen()
+        {
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            GameContext.ControlConfigContext.View.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameMap()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
-                null, SamplerState.PointClamp, null, null, null, GameContext.MapCamera.CameraMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
+                GameContext.MapCamera.CameraMatrix);
             GameContext.GameMapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -544,7 +563,7 @@ namespace SolStandard
         private void DrawInGameHUD()
         {
             spriteBatch.Begin(
-                SpriteSortMode.Deferred, //UseAction deferred instead of texture to render in order of .Draw() calls
+                SpriteSortMode.Deferred,
                 null, SamplerState.PointClamp);
 
             if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
@@ -556,6 +575,13 @@ namespace SolStandard
                 GameMapContext.GameMapView.Draw(spriteBatch);
             }
 
+            spriteBatch.End();
+        }
+
+        private void DrawSystemHUD()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            GlobalHudView.Draw(spriteBatch);
             spriteBatch.End();
         }
     }
