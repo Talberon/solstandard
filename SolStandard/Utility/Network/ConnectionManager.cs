@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -7,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Lidgren.Network;
+using NLog;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.View;
 using SolStandard.Entity.Unit;
@@ -17,6 +17,8 @@ namespace SolStandard.Utility.Network
 {
     public class ConnectionManager
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private NetServer server;
         private NetClient client;
         public const int NetworkPort = 1993;
@@ -37,7 +39,7 @@ namespace SolStandard.Utility.Network
                 EnableUPnP = true
             };
 
-            Trace.WriteLine("Starting server!");
+            Logger.Debug("Starting server!");
             server = new NetServer(config);
 
             try
@@ -46,7 +48,7 @@ namespace SolStandard.Utility.Network
             }
             catch (Exception e)
             {
-                Trace.TraceError(e.Message);
+                Logger.Error(e.Message);
             }
 
             server.UPnP.ForwardPort(NetworkPort, "Forward Server Port for internet connections.");
@@ -70,7 +72,7 @@ namespace SolStandard.Utility.Network
 
             NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
 
-            Trace.WriteLine("Starting client!");
+            Logger.Debug("Starting client!");
             client = new NetClient(config);
             client.Start();
             client.Connect(host, port);
@@ -119,7 +121,7 @@ namespace SolStandard.Utility.Network
                         else
                         {
                             string data = received.ReadString();
-                            Trace.WriteLine("RECEIVED:" + data);
+                            Logger.Debug("RECEIVED:" + data);
                         }
 
                         break;
@@ -131,20 +133,21 @@ namespace SolStandard.Utility.Network
                             case NetConnectionStatus.None:
                                 break;
                             case NetConnectionStatus.InitiatedConnect:
-                                Trace.WriteLine("Initiating connection...");
+                                Logger.Debug("Initiating connection...");
+                                GlobalHudView.AddNotification("Initiating connection...");
                                 break;
                             case NetConnectionStatus.ReceivedInitiation:
-                                Trace.WriteLine("Received Invitation...");
+                                Logger.Debug("Received Initiation...");
                                 break;
                             case NetConnectionStatus.RespondedAwaitingApproval:
-                                Trace.WriteLine("Awaiting Approval...");
+                                Logger.Debug("Awaiting Approval...");
                                 break;
                             case NetConnectionStatus.RespondedConnect:
-                                Trace.WriteLine("Connecting...");
+                                Logger.Debug("Connecting...");
                                 GlobalHudView.AddNotification("Connecting...");
                                 break;
                             case NetConnectionStatus.Connected:
-                                Trace.WriteLine("Connected!");
+                                Logger.Debug("Connected!");
                                 GlobalHudView.AddNotification("Connected to peer!");
 
                                 GameContext.LoadMapSelect();
@@ -159,12 +162,12 @@ namespace SolStandard.Utility.Network
                                 GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
                                 break;
                             case NetConnectionStatus.Disconnecting:
-                                Trace.WriteLine("Disconnecting...");
+                                Logger.Debug("Disconnecting...");
                                 GlobalHudView.AddNotification("Disconnecting...");
                                 break;
                             case NetConnectionStatus.Disconnected:
-                                Trace.WriteLine("Disconnected!");
-                                Trace.WriteLine(received.ReadString());
+                                Logger.Debug("Disconnected!");
+                                Logger.Debug(received.ReadString());
                                 GlobalHudView.AddNotification("Disconnected from peer!");
                                 break;
                             default:
@@ -176,12 +179,12 @@ namespace SolStandard.Utility.Network
                     case NetIncomingMessageType.DebugMessage:
                         // handle debug messages
                         // (only received when compiled in DEBUG mode)
-                        Trace.WriteLine(received.ReadString());
+                        Logger.Debug(received.ReadString());
                         break;
 
                     default:
-                        Trace.WriteLine("unhandled message with type: " + received.MessageType);
-                        Trace.WriteLine(received.ReadString());
+                        Logger.Debug("unhandled message with type: " + received.MessageType);
+                        Logger.Debug(received.ReadString());
                         break;
                 }
             }
@@ -189,14 +192,14 @@ namespace SolStandard.Utility.Network
 
         private static void ReadNetworkEvent(NetBuffer received)
         {
-            Trace.WriteLine("Reading network event...");
+            Logger.Debug("Reading network event...");
             byte[] messageBytes = received.ReadBytes(received.LengthBytes);
 
             using (Stream memoryStream = new MemoryStream(messageBytes))
             {
                 IFormatter formatter = new BinaryFormatter();
                 NetworkEvent receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
-                Trace.WriteLine("Received event:" + receivedNetworkEvent);
+                Logger.Debug("Received event:" + receivedNetworkEvent);
 
                 GlobalEventQueue.QueueSingleEvent(receivedNetworkEvent);
             }
@@ -204,7 +207,7 @@ namespace SolStandard.Utility.Network
 
         public void SendTextMessageAsClient(string textMessage)
         {
-            Trace.WriteLine("Sending text message to server!");
+            Logger.Debug("Sending text message to server!");
             NetOutgoingMessage message = client.CreateMessage();
             message.Write(textMessage);
             client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
@@ -212,7 +215,7 @@ namespace SolStandard.Utility.Network
 
         public void SendTextMessageAsServer(string textMessage)
         {
-            Trace.WriteLine("Sending text message to client!");
+            Logger.Debug("Sending text message to client!");
             NetOutgoingMessage message = server.CreateMessage();
             message.Write(textMessage);
             server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
@@ -220,14 +223,14 @@ namespace SolStandard.Utility.Network
 
         public void SendEventMessageAsClient(NetworkEvent networkEvent)
         {
-            Trace.WriteLine("Sending event to server!");
+            Logger.Debug("Sending event to server!");
             NetOutgoingMessage message = client.CreateMessage();
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(memoryStream, networkEvent);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
+                Logger.Debug($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
             }
@@ -235,14 +238,14 @@ namespace SolStandard.Utility.Network
 
         public void SendEventMessageAsServer(NetworkEvent networkEvent)
         {
-            Trace.WriteLine("Sending event to client!");
+            Logger.Debug("Sending event to client!");
             NetOutgoingMessage message = server.CreateMessage();
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(memoryStream, networkEvent);
                 byte[] controlBytes = memoryStream.ToArray();
-                Trace.WriteLine($"Sending control message. Size: {memoryStream.Length}");
+                Logger.Debug($"Sending control message. Size: {memoryStream.Length}");
                 message.Write(controlBytes);
                 server.SendMessage(message, server.Connections.First(), NetDeliveryMethod.ReliableOrdered);
             }

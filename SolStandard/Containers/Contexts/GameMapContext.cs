@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
@@ -25,6 +25,8 @@ namespace SolStandard.Containers.Contexts
 {
     public class GameMapContext
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public enum TurnState
         {
             SelectUnit,
@@ -230,13 +232,13 @@ namespace SolStandard.Containers.Contexts
             if (CurrentTurnState <= TurnState.SelectUnit) return;
 
             CurrentTurnState--;
-            Trace.WriteLine("Changing state: " + CurrentTurnState);
+            Logger.Debug("Changing state: " + CurrentTurnState);
         }
 
         public void ResetTurnState()
         {
             CurrentTurnState = TurnState.SelectUnit;
-            Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
+            Logger.Debug("Resetting to initial state: " + CurrentTurnState);
         }
 
         public void FinishMoving()
@@ -385,7 +387,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
+                Logger.Debug("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
                 CurrentTurnState = TurnState.UnitMoving;
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
@@ -403,7 +405,7 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                Trace.WriteLine("No unit to select.");
+                Logger.Debug("No unit to select.");
             }
         }
 

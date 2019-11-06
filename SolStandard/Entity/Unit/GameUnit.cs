@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NLog;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.View;
@@ -70,6 +70,8 @@ namespace SolStandard.Entity.Unit
 
     public class GameUnit : GameEntity, IThreatRange
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly SpriteAtlas largePortrait;
         private readonly SpriteAtlas mediumPortrait;
         private readonly SpriteAtlas smallPortrait;
@@ -737,7 +739,7 @@ namespace SolStandard.Entity.Unit
             largePortrait.DefaultColor = DeadPortraitColor;
             mediumPortrait.DefaultColor = DeadPortraitColor;
             smallPortrait.DefaultColor = DeadPortraitColor;
-            Trace.WriteLine("Unit " + Id + " is dead!");
+            Logger.Debug("Unit " + Id + " is dead!");
             AssetManager.CombatDeathSFX.Play();
             GameContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Death, GameDriver.CellSizeVector),

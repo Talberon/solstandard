@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NLog;
 using SolStandard.Containers.Contexts.Combat;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
@@ -26,8 +26,11 @@ using SolStandard.Utility.Inputs;
 
 namespace SolStandard.Containers.Contexts
 {
+    
     public class BattleContext
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        
         public enum BattleState
         {
             Start,
@@ -368,7 +371,7 @@ namespace SolStandard.Containers.Contexts
             SelfCanContinue = false;
 
             CurrentState = state;
-            Trace.WriteLine("Changing combat state: " + CurrentState);
+            Logger.Debug("Changing combat state: " + CurrentState);
             return true;
         }
 

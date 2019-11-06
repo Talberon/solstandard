@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
@@ -22,6 +22,8 @@ namespace SolStandard.Containers.Contexts
 {
     public static class GameContext
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public enum GameState
         {
             MainMenu,
@@ -311,7 +313,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void InjectCreepIntoTile(CreepEntity randomSummon, MapElement creepDeployTile)
         {
-            Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
+            Logger.Debug($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
 
             GameUnit creepToSpawn =
                 UnitGenerator.BuildUnitFromProperties(

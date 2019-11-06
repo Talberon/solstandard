@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using NLog;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Entity.Unit;
@@ -10,6 +10,8 @@ namespace SolStandard.Utility.Events
 {
     public class SeizeObjectiveEvent : IEvent
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly Team seizingTeam;
 
         public SeizeObjectiveEvent(Team seizingTeam)
@@ -30,7 +32,7 @@ namespace SolStandard.Utility.Events
             }
             catch (KeyNotFoundException e)
             {
-                Trace.TraceError("Seize could not be found in the victory conditions {0}", e);
+                Logger.Error("Seize could not be found in the victory conditions {0}", e);
                 AssetManager.ErrorSFX.Play();
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     "Seize is not a valid victory condition!", 50);

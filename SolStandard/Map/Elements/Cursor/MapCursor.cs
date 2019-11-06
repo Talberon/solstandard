@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NLog;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility;
@@ -12,6 +12,8 @@ namespace SolStandard.Map.Elements.Cursor
 {
     public class MapCursor : MapElement
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private enum CursorColor
         {
             White,
@@ -104,7 +106,7 @@ namespace SolStandard.Map.Elements.Cursor
                                   cursorCoordinates.X < screenBounds.X &&
                                   cursorCoordinates.Y < screenBounds.Y;
 
-                Trace.WriteLine(
+                Logger.Debug(
                     $"[isOnScreen={isOnScreen}] Cursor: {cursorCoordinates}, Screen NW: {screenPosition}, Screen SE: {screenBounds}");
                 return isOnScreen;
             }

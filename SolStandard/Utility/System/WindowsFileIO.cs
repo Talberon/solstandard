@@ -5,7 +5,7 @@ namespace SolStandard.Utility.System
 {
     public class WindowsFileIO : IFileIO
     {
-        private const string GameFolder = "SolStandard";
+        public const string GameFolder = "SolStandard";
         private static readonly string SaveFolder = Path.Combine(Path.GetTempPath(), GameFolder);
 
         public void Save(string fileName, object content)
