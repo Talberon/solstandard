@@ -40,7 +40,18 @@ namespace SolStandard.Containers.Contexts
             TakeItem
         }
 
-        public TurnState CurrentTurnState { get; set; }
+        private TurnState currentTurnState;
+
+        public TurnState CurrentTurnState
+        {
+            get => currentTurnState;
+            set
+            {
+                Logger.Debug("Changing game turn state: {}", value);
+                currentTurnState = value;
+            }
+        }
+
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
@@ -149,6 +160,8 @@ namespace SolStandard.Containers.Contexts
 
                 if (!skipProcs)
                 {
+                    Logger.Trace("Resolving turn procs.");
+
                     IEnumerable<ITurnProc> activeUnitTurnProcs = GameContext.ActiveUnit.StatusEffects
                         .Where(effect => effect is ITurnProc)
                         .Cast<ITurnProc>();
@@ -167,6 +180,8 @@ namespace SolStandard.Containers.Contexts
         public void ResolveTurn()
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+
+            Logger.Trace("Resolving turn.");
 
             GameContext.Scenario.CheckForWinState();
             ConfirmPromptWindow();

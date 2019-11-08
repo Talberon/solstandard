@@ -15,33 +15,15 @@ namespace SolStandard.Utility.Events.Network
             this.direction = direction;
             this.gameState = gameState;
         }
-        
+
         public override void Continue()
         {
-            switch (gameState)
+            if (gameState == GameContext.GameState.InGame)
             {
-                case GameContext.GameState.MainMenu:
-                    break;
-                case GameContext.GameState.NetworkMenu:
-                    break;
-                case GameContext.GameState.ArmyDraft:
-                    break;
-                case GameContext.GameState.Deployment:
-                    break;
-                case GameContext.GameState.MapSelect:
-                    break;
-                case GameContext.GameState.PauseScreen:
-                    break;
-                case GameContext.GameState.InGame:
-                    GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
-                    GameContext.GameMapContext.UpdateUnitAttackRangePreview();
-                    break;
-                case GameContext.GameState.Results:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
+                GameContext.GameMapContext.UpdateUnitAttackRangePreview();
             }
-            
+
             Complete = true;
         }
     }

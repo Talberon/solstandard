@@ -34,16 +34,18 @@ namespace SolStandard
             LoggingConfiguration config = new LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            FileTarget logfile = new FileTarget("logfile")
+            FileTarget logFile = new FileTarget("logfile")
             {
                 FileName = Path.Combine(Path.GetTempPath(), WindowsFileIO.GameFolder, "logs.txt")
             };
 
-            ConsoleTarget logconsole = new ConsoleTarget("logconsole");
+            ConsoleTarget logConsole = new ConsoleTarget("logconsole");
+            DebuggerTarget logDebugger = new DebuggerTarget();
            
             // Rules for mapping loggers to targets
-            config.AddRule(LogLevel.Trace, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+            config.AddRule(LogLevel.Trace, LogLevel.Fatal, logConsole);
+            config.AddRule(LogLevel.Trace, LogLevel.Fatal, logDebugger);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logFile);
 
             // Apply config
             LogManager.Configuration = config;
