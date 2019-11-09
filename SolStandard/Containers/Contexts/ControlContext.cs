@@ -17,6 +17,9 @@ namespace SolStandard.Containers.Contexts
         {
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    EULAControls(controlMapper);
+                    break;
                 case GameContext.GameState.MainMenu:
                     MainMenuControls(controlMapper);
                     break;
@@ -55,6 +58,34 @@ namespace SolStandard.Containers.Contexts
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static void EULAControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.EULAContext.ConfirmEULAPrompt();
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Right);
             }
         }
 

@@ -23,7 +23,7 @@ namespace SolStandard.Utility.System
         {
             string fileToLoadFrom = Path.Combine(SaveFolder, fileName);
 
-            if (!Directory.Exists(SaveFolder)) return default(T);
+            if (!Directory.Exists(SaveFolder) || !File.Exists(fileToLoadFrom)) return default(T);
 
             using (Stream stream = File.OpenRead(fileToLoadFrom))
             {

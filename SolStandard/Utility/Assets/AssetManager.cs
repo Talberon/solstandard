@@ -77,6 +77,7 @@ namespace SolStandard.Utility.Assets
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
 
         public static string CreditsText { get; private set; }
+        public static string EULAText { get; private set; }
 
         public static ITexture2D EntitiesTexture
         {
@@ -197,6 +198,7 @@ namespace SolStandard.Utility.Assets
             MusicTracks = ContentLoader.LoadMusic(content);
 
             CreditsText = ContentLoader.LoadCreditsText();
+            EULAText = ContentLoader.LoadEULAText();
         }
     }
 }

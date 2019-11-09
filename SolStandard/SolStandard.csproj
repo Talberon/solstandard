@@ -53,6 +53,7 @@
     <Compile Include="Containers\Contexts\CreditsContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
+    <Compile Include="Containers\Contexts\EULAContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
+    <Compile Include="Containers\View\EULAView.cs" />
     <Compile Include="Containers\View\GlobalHudView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
@@ -663,6 +665,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\LICENSE.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">

@@ -338,6 +338,9 @@ namespace SolStandard
 
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    GameContext.UpdateCamera();
+                    break;
                 case GameContext.GameState.MainMenu:
                     GameContext.UpdateCamera();
                     break;
@@ -387,6 +390,11 @@ namespace SolStandard
 
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    DrawBackgroundWallpaper();
+                    DrawMapSelectMap();
+                    DrawEULAPrompt();
+                    break;
                 case GameContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
@@ -460,6 +468,13 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             PauseScreenView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawEULAPrompt()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            GameContext.EULAContext.EULAView.Draw(spriteBatch);
             spriteBatch.End();
         }
 

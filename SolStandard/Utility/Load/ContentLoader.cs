@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -758,6 +757,11 @@ namespace SolStandard.Utility.Load
         public static string LoadCreditsText()
         {
             return File.ReadAllText("Content/Documents/CREDITS.md");
+        }
+
+        public static string LoadEULAText()
+        {
+            return File.ReadAllText("Content/LICENSE.txt");
         }
     }
 }

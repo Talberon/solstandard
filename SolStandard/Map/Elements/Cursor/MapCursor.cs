@@ -187,6 +187,8 @@ namespace SolStandard.Map.Elements.Cursor
 
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    break;
                 case GameContext.GameState.MainMenu:
                     break;
                 case GameContext.GameState.NetworkMenu:
@@ -211,6 +213,8 @@ namespace SolStandard.Map.Elements.Cursor
                 case GameContext.GameState.ItemPreview:
                     break;
                 case GameContext.GameState.Credits:
+                    break;
+                case GameContext.GameState.ControlConfig:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

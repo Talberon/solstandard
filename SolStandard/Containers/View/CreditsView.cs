@@ -15,7 +15,6 @@ namespace SolStandard.Containers.View
     public class CreditsView : IUserInterface
     {
         private readonly ScrollableWindow creditsWindow;
-        private readonly SpriteAtlas background;
 
         public CreditsView()
         {
@@ -39,6 +38,19 @@ namespace SolStandard.Containers.View
                                 }
                             })
                         },
+                        {
+                            new WindowContentGrid(new[,]
+                            {
+                                {
+                                    new RenderText(windowFont, "Press"),
+                                    InputIconProvider.GetInputIcon(Input.CursorUp, GameDriver.CellSize),
+                                    InputIconProvider.GetInputIcon(Input.CursorLeft, GameDriver.CellSize),
+                                    InputIconProvider.GetInputIcon(Input.CursorDown, GameDriver.CellSize),
+                                    InputIconProvider.GetInputIcon(Input.CursorRight, GameDriver.CellSize),
+                                    new RenderText(windowFont, " to scroll."),
+                                }
+                            })
+                        },
                         {new RenderText(AssetManager.WindowFont, AssetManager.CreditsText)}
                     },
                     1,
@@ -47,11 +59,7 @@ namespace SolStandard.Containers.View
                 GameDriver.ScreenSize / 1.5f,
                 MainMenuView.MenuColor
             );
-            background = new SpriteAtlas(AssetManager.MainMenuBackground,
-                new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
-                new Vector2(GameDriver.ScreenSize.X, GameDriver.ScreenSize.Y));
         }
-
 
         public void ScrollContents(Direction direction)
         {
@@ -61,15 +69,7 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawBackground(spriteBatch);
             creditsWindow.Draw(spriteBatch, CreditsCenter());
-        }
-
-        private void DrawBackground(SpriteBatch spriteBatch)
-        {
-            Vector2 centerScreen = GameDriver.ScreenSize / 2;
-            Vector2 backgroundCenter = new Vector2(background.Width, background.Height) / 2;
-            background.Draw(spriteBatch, centerScreen - backgroundCenter);
         }
 
         private Vector2 CreditsCenter()
