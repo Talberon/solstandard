@@ -19,7 +19,7 @@ namespace SolStandard.HUD.Window
     {
         private static readonly Color InnerPaneColor = new Color(0, 0, 0, 50);
 
-        public IRenderable WindowContents { get; }
+        private IRenderable WindowContents { get; }
         public int InsidePadding { get; }
         public int ElementSpacing { get; }
         public Color DefaultColor { get; set; }
@@ -133,17 +133,13 @@ namespace SolStandard.HUD.Window
 
         private Vector2 GetCoordinatesBasedOnAlignment(Vector2 windowCoordinates)
         {
-            switch (HorizontalAlignment)
+            return HorizontalAlignment switch
             {
-                case HorizontalAlignment.Left:
-                    return LeftAlignedContentCoordinates(windowCoordinates);
-                case HorizontalAlignment.Centered:
-                    return CenteredContentCoordinates(windowCoordinates);
-                case HorizontalAlignment.Right:
-                    return RightAlignedContentCoordinates(windowCoordinates);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                HorizontalAlignment.Left => LeftAlignedContentCoordinates(windowCoordinates),
+                HorizontalAlignment.Centered => CenteredContentCoordinates(windowCoordinates),
+                HorizontalAlignment.Right => RightAlignedContentCoordinates(windowCoordinates),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private Vector2 LeftAlignedContentCoordinates(Vector2 windowCoordinates)

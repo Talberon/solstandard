@@ -19,7 +19,6 @@ namespace SolStandard.Containers.View
     {
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
-        private bool visible;
         private Window networkStatusWindow;
         private TwoDimensionalMenu DialMenu { get; set; }
         private TwoDimensionalMenu HostMenu { get; set; }
@@ -30,7 +29,6 @@ namespace SolStandard.Containers.View
         {
             this.title = title;
             this.logo = logo;
-            visible = true;
             networkStatusWindow = GenerateStatusWindow();
             inputIPAddress = string.Empty;
             hostIPAddress = string.Empty;
@@ -84,7 +82,7 @@ namespace SolStandard.Containers.View
             DialMenu = null;
         }
 
-        public void GenerateHostMenu(string serverIPAddress)
+        public void GenerateHostMenu()
         {
             Color menuColor = MainMenuView.MenuColor;
 
@@ -227,51 +225,43 @@ namespace SolStandard.Containers.View
             ResetIPAddress();
         }
 
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (visible)
+            (float halfScreenWidth, _) = GameDriver.ScreenSize / 2;
+
+            const int titleVertCoordinate = 15;
+            (float halfTitleWidth, _) = new Vector2(title.Width, title.Height) / 2;
+            Vector2 titlePosition = new Vector2(halfScreenWidth - halfTitleWidth, titleVertCoordinate);
+            logo.Draw(spriteBatch, titlePosition);
+            title.Draw(spriteBatch, titlePosition + new Vector2(100));
+
+            const int titlePadding = 100;
+            (float halfStatusWidth, _) = new Vector2(networkStatusWindow.Width, networkStatusWindow.Height) / 2;
+            Vector2 statusWindowPosition =
+                new Vector2(halfScreenWidth - halfStatusWidth, titlePosition.Y + title.Height + titlePadding);
+            networkStatusWindow.Draw(spriteBatch, statusWindowPosition);
+
+
+            if (DialMenu != null)
             {
-                Vector2 centerScreen = GameDriver.ScreenSize / 2;
+                const int statusPadding = 10;
+                (float halfDialWidth, _) = new Vector2(DialMenu.Width, DialMenu.Height) / 2;
+                Vector2 dialMenuPosition = new Vector2(
+                    halfScreenWidth - halfDialWidth,
+                    statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
+                );
+                DialMenu.Draw(spriteBatch, dialMenuPosition);
+            }
 
-                const int titleVertCoordinate = 15;
-                Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
-                Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
-                logo.Draw(spriteBatch, titlePosition);
-                title.Draw(spriteBatch, titlePosition + new Vector2(100));
-
-                const int titlePadding = 100;
-                Vector2 statusWindowCenter = new Vector2(networkStatusWindow.Width, networkStatusWindow.Height) / 2;
-                Vector2 statusWindowPosition =
-                    new Vector2(centerScreen.X - statusWindowCenter.X, titlePosition.Y + title.Height + titlePadding);
-                networkStatusWindow.Draw(spriteBatch, statusWindowPosition);
-
-
-                if (DialMenu != null)
-                {
-                    const int statusPadding = 10;
-                    Vector2 dialMenuCenter = new Vector2(DialMenu.Width, DialMenu.Height) / 2;
-                    Vector2 dialMenuPosition = new Vector2(
-                        centerScreen.X - dialMenuCenter.X,
-                        statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
-                    );
-                    DialMenu.Draw(spriteBatch, dialMenuPosition);
-                }
-
-                if (HostMenu != null)
-                {
-                    const int statusPadding = 10;
-                    Vector2 hostMenuCenter = new Vector2(HostMenu.Width, HostMenu.Height) / 2;
-                    Vector2 hostMenuPosition = new Vector2(
-                        centerScreen.X - hostMenuCenter.X,
-                        statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
-                    );
-                    HostMenu.Draw(spriteBatch, hostMenuPosition);
-                }
+            if (HostMenu != null)
+            {
+                const int statusPadding = 10;
+                (float halfHostWidth, _) = new Vector2(HostMenu.Width, HostMenu.Height) / 2;
+                Vector2 hostMenuPosition = new Vector2(
+                    halfScreenWidth - halfHostWidth,
+                    statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
+                );
+                HostMenu.Draw(spriteBatch, hostMenuPosition);
             }
         }
     }

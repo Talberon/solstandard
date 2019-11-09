@@ -22,19 +22,12 @@ namespace SolStandard.Map.Elements.Cursor
         }
 
         public UnitEntity UnitEntity { get; }
-
         public MapElement PreviewEntity { get; }
-
         public MapElement DynamicEntity { get; }
-
         public TerrainEntity TerrainEntity { get; }
-
         public TerrainEntity ItemEntity { get; }
-
         public MapTile CollideTile { get; }
-
         public MapTile TerrainDecorationTile { get; }
-
         public MapTile TerrainTile { get; }
 
         public Vector2 MapCoordinates { get; }
@@ -70,7 +63,8 @@ namespace SolStandard.Map.Elements.Cursor
                 hashCode += (hashCode * 397) ^ (TerrainEntity != null ? TerrainEntity.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (ItemEntity != null ? ItemEntity.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (CollideTile != null ? CollideTile.GetHashCode() : 0);
-                hashCode += (hashCode * 397) ^ (TerrainDecorationTile != null ? TerrainDecorationTile.GetHashCode() : 0);
+                hashCode += (hashCode * 397) ^
+                            (TerrainDecorationTile != null ? TerrainDecorationTile.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ (TerrainTile != null ? TerrainTile.GetHashCode() : 0);
                 hashCode += (hashCode * 397) ^ MapCoordinates.GetHashCode();
                 return hashCode;

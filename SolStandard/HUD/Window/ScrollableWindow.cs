@@ -10,7 +10,7 @@ namespace SolStandard.HUD.Window
     public class ScrollableWindow : IWindow
     {
         private const int BorderPadding = 2;
-        private static readonly RasterizerState ScizzorRasterState = new RasterizerState() {ScissorTestEnable = true};
+        private static readonly RasterizerState ScizzorRasterState = new RasterizerState {ScissorTestEnable = true};
 
         public int Height { get; }
         public int Width { get; }

@@ -103,7 +103,7 @@ namespace SolStandard
             //Start Server
             string serverIP = ConnectionManager.StartServer();
             GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
-            GameContext.NetworkMenuView.GenerateHostMenu(serverIP);
+            GameContext.NetworkMenuView.GenerateHostMenu();
             GameContext.NetworkMenuView.RemoveDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
@@ -160,15 +160,12 @@ namespace SolStandard
 
         private static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
         {
-            switch (playerIndex)
+            return playerIndex switch
             {
-                case PlayerIndex.One:
-                    return (GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
-                case PlayerIndex.Two:
-                    return (GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
-                default:
-                    return GetControlMapperForPlayer(PlayerIndex.One);
-            }
+                PlayerIndex.One => ((GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.Two => ((GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                _ => GetControlMapperForPlayer(PlayerIndex.One)
+            };
         }
 
 

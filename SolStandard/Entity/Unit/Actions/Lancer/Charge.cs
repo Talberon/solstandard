@@ -30,14 +30,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             this.chargeDistance = chargeDistance;
         }
 
-        public Charge(int chargeDistance) : this(
-            SkillIconProvider.GetSkillIcon(SkillIcon.Charge, GameDriver.CellSizeVector),
-            "Charge",
-            chargeDistance
-        )
-        {
-        }
-
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
             List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
@@ -90,69 +82,6 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
-        }
-
-        public static Queue<IEvent> MoveToTarget(Queue<IEvent> eventQueue, Vector2 origin, MapSlice targetSlice,
-            int frameDelay)
-        {
-            if (TargetIsNorth(targetSlice))
-            {
-                int distanceToTarget = Convert.ToInt32(origin.Y - targetSlice.MapCoordinates.Y);
-
-                for (int northDistance = 1; northDistance < distanceToTarget; northDistance++)
-                {
-                    Vector2 coordinatesToMove = new Vector2(origin.X, origin.Y - northDistance);
-
-                    eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, coordinatesToMove)
-                    );
-                    eventQueue.Enqueue(new WaitFramesEvent(frameDelay));
-                }
-            }
-
-            if (TargetIsSouth(targetSlice))
-            {
-                int distanceToTarget = Convert.ToInt32(targetSlice.MapCoordinates.Y - origin.Y);
-
-                for (int southDistance = 1; southDistance < distanceToTarget; southDistance++)
-                {
-                    Vector2 coordinatesToMove = new Vector2(origin.X, origin.Y + southDistance);
-                    eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, coordinatesToMove)
-                    );
-                    eventQueue.Enqueue(new WaitFramesEvent(frameDelay));
-                }
-            }
-
-            if (TargetIsEast(targetSlice))
-            {
-                int distanceToTarget = Convert.ToInt32(targetSlice.MapCoordinates.X - origin.X);
-
-                for (int eastDistance = 1; eastDistance < distanceToTarget; eastDistance++)
-                {
-                    Vector2 coordinatesToMove = new Vector2(origin.X + eastDistance, origin.Y);
-                    eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, coordinatesToMove)
-                    );
-                    eventQueue.Enqueue(new WaitFramesEvent(frameDelay));
-                }
-            }
-
-            if (TargetIsWest(targetSlice))
-            {
-                int distanceToTarget = Convert.ToInt32(origin.X - targetSlice.MapCoordinates.X);
-
-                for (int westDistance = 1; westDistance < distanceToTarget; westDistance++)
-                {
-                    Vector2 coordinatesToMove = new Vector2(origin.X - westDistance, origin.Y);
-                    eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, coordinatesToMove)
-                    );
-                    eventQueue.Enqueue(new WaitFramesEvent(frameDelay));
-                }
-            }
-
-            return eventQueue;
         }
 
 

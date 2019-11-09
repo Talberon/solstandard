@@ -84,11 +84,9 @@ namespace SolStandard.Containers.View
         private IRenderable CenterScreenContent { get; set; }
 
         private MenuType visibleMenu;
-        private bool visible;
 
         public GameMapView()
         {
-            visible = true;
             cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
         }
@@ -126,17 +124,13 @@ namespace SolStandard.Containers.View
         {
             get
             {
-                switch (VisibleMenu)
+                return VisibleMenu switch
                 {
-                    case MenuType.ActionMenu:
-                        return ActionMenuContext.CurrentMenu;
-                    case MenuType.TakeItemMenu:
-                        return TakeItemMenu;
-                    case MenuType.DraftMenu:
-                        return AdHocDraftMenu;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    MenuType.ActionMenu => ActionMenuContext.CurrentMenu,
+                    MenuType.TakeItemMenu => TakeItemMenu,
+                    MenuType.DraftMenu => AdHocDraftMenu,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
 
@@ -944,14 +938,8 @@ namespace SolStandard.Containers.View
 
         #endregion Window Positions
 
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!visible) return;
             EntityWindow?.Draw(spriteBatch, EntityWindowPosition());
             if (InitiativeWindow != null)
             {

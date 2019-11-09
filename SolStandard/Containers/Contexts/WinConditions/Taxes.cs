@@ -79,17 +79,13 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private static int BankedGoldForTeam(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return Bank.BlueMoney;
-                case Team.Red:
-                    return Bank.RedMoney;
-                case Team.Creep:
-                    return 0;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => Bank.BlueMoney,
+                Team.Red => Bank.RedMoney,
+                Team.Creep => 0,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
         }
 
         private bool TeamHasBankedTargetGold(Team team)

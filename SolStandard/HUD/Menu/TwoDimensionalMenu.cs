@@ -64,17 +64,12 @@ namespace SolStandard.HUD.Menu
             Vector2 centerLeft =
                 new Vector2(cursorSprite.Width, ((float) cursorSprite.Height / 2) - (optionSize.Y / 2));
 
-            switch (cursorType)
+            cursorPosition = cursorType switch
             {
-                case CursorType.Pointer:
-                    cursorPosition = optionPosition - centerLeft;
-                    break;
-                case CursorType.Frame:
-                    cursorPosition = optionPosition;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                CursorType.Pointer => (optionPosition - centerLeft),
+                CursorType.Frame => optionPosition,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private Window.Window BuildMenuWindow()

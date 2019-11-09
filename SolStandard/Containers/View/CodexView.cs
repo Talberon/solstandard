@@ -26,17 +26,10 @@ namespace SolStandard.Containers.View
 
         private static IRenderable _codexCursor;
 
-        private bool visible;
 
         public CodexView(IReadOnlyList<GameUnit> unitArchetypes)
         {
             UnitListMenu = BuildUnitMenu(unitArchetypes);
-            visible = true;
-        }
-
-        public void ToggleVisible()
-        {
-            visible = !visible;
         }
 
         #region Window Generation
@@ -170,12 +163,10 @@ namespace SolStandard.Containers.View
         }
 
         private static IRenderable CodexCursor =>
-            _codexCursor ?? (
-                _codexCursor = new SpriteAtlas(
-                    AssetManager.MapCursorTexture,
-                    GameDriver.CellSizeVector,
-                    new Vector2(150)
-                )
+            _codexCursor ??= new SpriteAtlas(
+                AssetManager.MapCursorTexture,
+                GameDriver.CellSizeVector,
+                new Vector2(150)
             );
 
         #endregion

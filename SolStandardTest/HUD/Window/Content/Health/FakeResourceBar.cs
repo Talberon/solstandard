@@ -33,14 +33,9 @@ namespace SolStandardTest.HUD.Window.Content.Health
 
         public List<IResourcePoint> GetArmorPips => ArmorPips;
 
-        public List<string> HealthPipValues
+        public IEnumerable<string> HealthPipValues
         {
             get { return GetHealthPips.Select(pip => pip.Active.ToString()).ToList(); }
-        }
-
-        public List<string> ArmorPipValues
-        {
-            get { return GetArmorPips.Select(pip => pip.Active.ToString()).ToList(); }
         }
     }
 }

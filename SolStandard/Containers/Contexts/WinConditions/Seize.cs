@@ -14,7 +14,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         protected override IRenderable VictoryLabelContent =>
             new RenderText(AssetManager.ResultsFont, "Objective Seized!");
 
-        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
+        public override IRenderable ObjectiveInfo => objectiveWindow ??= BuildObjectiveWindow();
 
         private static Window BuildObjectiveWindow()
         {

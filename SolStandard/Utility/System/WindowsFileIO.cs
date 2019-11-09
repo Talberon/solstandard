@@ -13,22 +13,18 @@ namespace SolStandard.Utility.System
             Directory.CreateDirectory(SaveFolder);
 
             string fileToSaveTo = Path.Combine(SaveFolder, fileName);
-            using (Stream stream = File.OpenWrite(fileToSaveTo))
-            {
-                new BinaryFormatter().Serialize(stream, content);
-            }
+            using Stream stream = File.OpenWrite(fileToSaveTo);
+            new BinaryFormatter().Serialize(stream, content);
         }
 
         public T Load<T>(string fileName)
         {
             string fileToLoadFrom = Path.Combine(SaveFolder, fileName);
 
-            if (!Directory.Exists(SaveFolder) || !File.Exists(fileToLoadFrom)) return default(T);
+            if (!Directory.Exists(SaveFolder) || !File.Exists(fileToLoadFrom)) return default;
 
-            using (Stream stream = File.OpenRead(fileToLoadFrom))
-            {
-                return (T) new BinaryFormatter().Deserialize(stream);
-            }
+            using Stream stream = File.OpenRead(fileToLoadFrom);
+            return (T) new BinaryFormatter().Deserialize(stream);
         }
     }
 }

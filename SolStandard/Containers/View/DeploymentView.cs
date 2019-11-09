@@ -18,34 +18,23 @@ namespace SolStandard.Containers.View
 {
     public class DeploymentView : IUserInterface
     {
+        private const int WindowEdgePadding = 10;
         private static readonly Color DarkBackgroundColor = new Color(50, 50, 50, 180);
         private static readonly Color HighlightColor = new Color(135, 125, 13);
 
-        private const int WindowEdgePadding = 10;
-        private bool visible;
-
+        private Window ItemDetailWindow { get; set; }
+        private Window ObjectiveWindow { get; }
         private Window BlueDeployRoster { get; set; }
         private Window RedDeployRoster { get; set; }
-
         private Window UnitPortraitWindow { get; set; }
         private Window UnitDetailWindow { get; set; }
-
-        public Window ItemDetailWindow { get; private set; }
-
-        public Window ObjectiveWindow { get; }
-
         private Window EntityWindow { get; set; }
-
         private Window HelpText { get; }
 
         public DeploymentView(List<GameUnit> blueArmy, List<GameUnit> redArmy, GameUnit currentUnit, Scenario scenario)
         {
-            visible = true;
-
             UpdateRosterLists(blueArmy, redArmy, currentUnit);
-
             ObjectiveWindow = scenario.ScenarioInfo(HorizontalAlignment.Centered);
-
             HelpText = GenerateHelpTextWindow();
         }
 
@@ -212,12 +201,6 @@ namespace SolStandard.Containers.View
             );
 
         #endregion
-
-        //Show current unit being deployed
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

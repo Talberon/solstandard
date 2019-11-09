@@ -15,13 +15,11 @@ namespace SolStandard.Containers.View
         private readonly SpriteAtlas title;
         private readonly AnimatedSpriteSheet logo;
         private readonly RenderText copyright;
-        private bool visible;
 
         public MainMenuView(SpriteAtlas title, AnimatedSpriteSheet logo)
         {
             this.title = title;
             this.logo = logo;
-            visible = true;
             MainMenu = GenerateMainMenu();
             copyright = new RenderText(AssetManager.WindowFont, "Copyright @Talberon 2019",
                 new Color(100, 100, 100, 100));
@@ -47,14 +45,9 @@ namespace SolStandard.Containers.View
             return new VerticalMenu(options, cursorSprite, MenuColor);
         }
 
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!visible) return;
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
 
             const int titleVertCoordinate = 20;

@@ -53,15 +53,12 @@ namespace SolStandard.Containers.Contexts
 
         public int GetGoldForTeam(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return blueTeamGold;
-                case Team.Red:
-                    return redTeamGold;
-                default:
-                    return 0;
-            }
+                Team.Blue => blueTeamGold,
+                Team.Red => redTeamGold,
+                _ => 0
+            };
         }
 
         public void AddGoldToTeam(int goldToAdd, Team team)
@@ -187,7 +184,7 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(new CenterScreenRenderableEvent(NewRoundBanner, 100));
             GlobalEventQueue.QueueSingleEvent(new ToastAtCoordinatesEvent(
                 cursorMapCoordinates,
-                $"Resolving Status Effects...",
+                "Resolving Status Effects...",
                 AssetManager.MenuConfirmSFX,
                 100
             ));
@@ -274,15 +271,12 @@ namespace SolStandard.Containers.Contexts
 
         private Team OpposingTeam(Team activeTeam)
         {
-            switch (activeTeam)
+            return activeTeam switch
             {
-                case Team.Blue:
-                    return Team.Red;
-                case Team.Red:
-                    return Team.Blue;
-                default:
-                    return TeamWithFewerRemainingUnits;
-            }
+                Team.Blue => Team.Red,
+                Team.Red => Team.Blue,
+                _ => TeamWithFewerRemainingUnits
+            };
         }
 
         public Team TeamWithFewerRemainingUnits

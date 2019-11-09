@@ -88,19 +88,14 @@ namespace SolStandard.Containers.Contexts
         {
             get
             {
-                switch (CurrentTurnState)
+                return CurrentTurnState switch
                 {
-                    case TurnState.UnitMoving:
-                        return true;
-                    case TurnState.UnitDecidingAction:
-                        return CanCancelAction;
-                    case TurnState.UnitTargeting:
-                        return true;
-                    case TurnState.TakeItem:
-                        return true;
-                    default:
-                        return false;
-                }
+                    TurnState.UnitMoving => true,
+                    TurnState.UnitDecidingAction => CanCancelAction,
+                    TurnState.UnitTargeting => true,
+                    TurnState.TakeItem => true,
+                    _ => false
+                };
             }
         }
 
@@ -111,14 +106,12 @@ namespace SolStandard.Containers.Contexts
                 if (CurrentTurnState != TurnState.SelectUnit) return false;
 
                 MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
-                if (cursorSlice.TerrainEntity is Vendor hoverVendor)
+                switch (cursorSlice.TerrainEntity)
                 {
-                    return hoverVendor.Items.Count(x => x != null) > 0;
-                }
-
-                if (cursorSlice.TerrainEntity is Chest hoverChest)
-                {
-                    return !string.IsNullOrEmpty(hoverChest.ItemPool);
+                    case Vendor hoverVendor:
+                        return hoverVendor.Items.Count(x => x != null) > 0;
+                    case Chest hoverChest:
+                        return !string.IsNullOrEmpty(hoverChest.ItemPool);
                 }
 
                 if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;

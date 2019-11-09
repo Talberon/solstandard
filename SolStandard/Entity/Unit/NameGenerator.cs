@@ -8,7 +8,7 @@ namespace SolStandard.Entity.Unit
         private const int MaxCachedNames = 50;
         private static List<string> _usedNames;
 
-        private static List<string> UsedNames => _usedNames ?? (_usedNames = new List<string>());
+        private static List<string> UsedNames => _usedNames ??= new List<string>();
 
         private enum NameType
         {
@@ -24,61 +24,35 @@ namespace SolStandard.Entity.Unit
 
         public static string GenerateUnitName(Role role)
         {
-            switch (role)
+            return role switch
             {
-                case Role.Silhouette:
-                    return "?";
-                case Role.Champion:
-                    return GenerateName(NameType.Male);
-                case Role.Archer:
-                    return GenerateName(NameType.Beast);
-                case Role.Mage:
-                    return GenerateName(NameType.Male);
-                case Role.Bard:
-                    return GenerateName(NameType.Female);
-                case Role.Lancer:
-                    return GenerateName(NameType.Male);
-                case Role.Pugilist:
-                    return GenerateName(NameType.Female);
-                case Role.Duelist:
-                    return GenerateName(NameType.Male);
-                case Role.Cleric:
-                    return GenerateName(NameType.Female);
-                case Role.Marauder:
-                    return GenerateName(NameType.Male);
-                case Role.Paladin:
-                    return GenerateName(NameType.Female);
-                case Role.Cavalier:
-                    return GenerateName(NameType.Male);
-                case Role.Rogue:
-                    return GenerateName(NameType.Female);
-                case Role.Slime:
-                    return GenerateName(NameType.Beast);
-                case Role.Troll:
-                    return GenerateName(NameType.Beast);
-                case Role.Orc:
-                    return GenerateName(NameType.Beast);
-                case Role.BloodOrc:
-                    return GenerateName(NameType.Beast);
-                case Role.Kobold:
-                    return GenerateName(NameType.Beast);
-                case Role.Necromancer:
-                    return GenerateName(NameType.Beast);
-                case Role.Skeleton:
-                    return GenerateName(NameType.Beast);
-                case Role.Goblin:
-                    return GenerateName(NameType.Beast);
-                case Role.Rat:
-                    return GenerateName(NameType.Beast);
-                case Role.Bat:
-                    return GenerateName(NameType.Beast);
-                case Role.Spider:
-                    return GenerateName(NameType.Beast);
-                case Role.Boar:
-                    return GenerateName(NameType.Beast);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(role), role, null);
-            }
+                Role.Silhouette => "?",
+                Role.Champion => GenerateName(NameType.Male),
+                Role.Archer => GenerateName(NameType.Beast),
+                Role.Mage => GenerateName(NameType.Male),
+                Role.Bard => GenerateName(NameType.Female),
+                Role.Lancer => GenerateName(NameType.Male),
+                Role.Pugilist => GenerateName(NameType.Female),
+                Role.Duelist => GenerateName(NameType.Male),
+                Role.Cleric => GenerateName(NameType.Female),
+                Role.Marauder => GenerateName(NameType.Male),
+                Role.Paladin => GenerateName(NameType.Female),
+                Role.Cavalier => GenerateName(NameType.Male),
+                Role.Rogue => GenerateName(NameType.Female),
+                Role.Slime => GenerateName(NameType.Beast),
+                Role.Troll => GenerateName(NameType.Beast),
+                Role.Orc => GenerateName(NameType.Beast),
+                Role.BloodOrc => GenerateName(NameType.Beast),
+                Role.Kobold => GenerateName(NameType.Beast),
+                Role.Necromancer => GenerateName(NameType.Beast),
+                Role.Skeleton => GenerateName(NameType.Beast),
+                Role.Goblin => GenerateName(NameType.Beast),
+                Role.Rat => GenerateName(NameType.Beast),
+                Role.Bat => GenerateName(NameType.Beast),
+                Role.Spider => GenerateName(NameType.Beast),
+                Role.Boar => GenerateName(NameType.Beast),
+                _ => throw new ArgumentOutOfRangeException(nameof(role), role, null)
+            };
         }
 
         private static string GenerateName(NameType nameType)
@@ -102,17 +76,13 @@ namespace SolStandard.Entity.Unit
 
         private static List<string> FetchNameList(NameType nameType)
         {
-            switch (nameType)
+            return nameType switch
             {
-                case NameType.Male:
-                    return MaleNames;
-                case NameType.Female:
-                    return FemaleNames;
-                case NameType.Beast:
-                    return BeastNames;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null);
-            }
+                NameType.Male => MaleNames,
+                NameType.Female => FemaleNames,
+                NameType.Beast => BeastNames,
+                _ => throw new ArgumentOutOfRangeException(nameof(nameType), nameType, null)
+            };
         }
 
         private static readonly List<string> MaleNames = new List<string>

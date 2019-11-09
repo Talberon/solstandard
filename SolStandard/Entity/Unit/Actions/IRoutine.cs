@@ -6,7 +6,6 @@ namespace SolStandard.Entity.Unit.Actions
     public interface IRoutine
     {
         string Name { get; }
-        IRenderable Description { get; }
         IRenderable Icon { get; }
         IRenderable MapIcon { get; }
         bool CanBeReadied(CreepUnit creep);

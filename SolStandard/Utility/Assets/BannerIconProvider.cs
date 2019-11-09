@@ -24,7 +24,7 @@ namespace SolStandard.Utility.Assets
             return GetBanner(icon, renderSize, frameDelay, Color.White);
         }
 
-        public static AnimatedSpriteSheet GetBanner(BannerType icon, Vector2 renderSize, int frameDelay,
+        private static AnimatedSpriteSheet GetBanner(BannerType icon, Vector2 renderSize, int frameDelay,
             Color color)
         {
             return new AnimatedSpriteSheet(

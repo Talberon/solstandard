@@ -131,15 +131,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                switch (GameContext.ActiveTeam)
+                return GameContext.ActiveTeam switch
                 {
-                    case Team.Red:
-                        return escapeEntity.UseableByRed;
-                    case Team.Blue:
-                        return escapeEntity.UseableByBlue;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    Team.Red => escapeEntity.UseableByRed,
+                    Team.Blue => escapeEntity.UseableByBlue,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
     }

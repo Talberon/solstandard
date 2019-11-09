@@ -180,7 +180,6 @@
     <Compile Include="Entity\Unit\Actions\Creeps\WanderRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
-    <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CorpsACorps.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\EnGarde.cs" />
@@ -213,10 +212,8 @@
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\CmdAlchemicalArmor.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\CmdTransfusion.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Terraform.cs" />
@@ -226,15 +223,12 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\CmdAngelicAssault.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\CmdSteelheart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\CmdCoursingRiver.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\StemTheTide.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\Suplex.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\CmdAssassinate.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\PickDoorLock.cs" />
@@ -257,7 +251,6 @@
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\VerseAccelerando.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Capriccio.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
@@ -292,7 +285,6 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToHealthStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Duelist\FocusStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\HealthRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
@@ -302,7 +294,6 @@
     <Compile Include="Entity\Unit\Statuses\Mage\AlchemicalArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Marauder\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Marauder\GuillotineStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\Pugilist\FlowStatus.cs" />
@@ -510,7 +501,6 @@
     <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
     <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
-    <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Exceptions\DuplicateInputException.cs" />
@@ -518,12 +508,10 @@
     <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
     <Compile Include="Utility\Model\CreepRoutineModel.cs" />
-    <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\IPlayableAudio.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
