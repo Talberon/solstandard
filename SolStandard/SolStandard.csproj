@@ -15,7 +15,7 @@
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <LangVersion>8</LangVersion>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -379,6 +379,7 @@
     <Compile Include="HUD\Window\AnimatedRenderable.cs" />
     <Compile Include="HUD\Window\HudNotification.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
+    <Compile Include="HUD\Window\ScrollableWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />

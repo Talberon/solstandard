@@ -562,9 +562,7 @@ namespace SolStandard
 
         private void DrawInGameHUD()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {

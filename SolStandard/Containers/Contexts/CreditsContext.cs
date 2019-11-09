@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using SolStandard.Containers.View;
+using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Containers.Contexts
@@ -27,6 +28,11 @@ namespace SolStandard.Containers.Contexts
         {
             AssetManager.MapUnitCancelSFX.Play();
             GameContext.CurrentGameState = previousGameState;
+        }
+
+        public void ScrollWindow(Direction direction)
+        {
+            CreditsView.ScrollContents(direction);
         }
 
         public void OpenBrowser()

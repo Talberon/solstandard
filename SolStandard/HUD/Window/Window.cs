@@ -18,14 +18,16 @@ namespace SolStandard.HUD.Window
     public class Window : IWindow
     {
         private static readonly Color InnerPaneColor = new Color(0, 0, 0, 50);
-        private readonly ITexture2D windowTexture;
-        private readonly IRenderable windowContents;
+
+        public IRenderable WindowContents { get; }
         public int InsidePadding { get; }
         public int ElementSpacing { get; }
         public Color DefaultColor { get; set; }
+        public bool Visible { get; set; }
+
+        private readonly ITexture2D windowTexture;
         private HorizontalAlignment HorizontalAlignment { get; }
         private Vector2 WindowPixelSize { get; set; }
-        public bool Visible { get; set; }
         private Vector2 lastPosition;
         private Rectangle innerPane;
         private Rectangle borderPane;
@@ -36,7 +38,7 @@ namespace SolStandard.HUD.Window
         {
             windowTexture = AssetManager.WindowTexture;
             DefaultColor = color;
-            windowContents = windowContent;
+            WindowContents = windowContent;
             InsidePadding = insidePadding;
             ElementSpacing = elementSpacing;
             WindowPixelSize = DeriveSizeFromContent(pixelSizeOverride);
@@ -85,7 +87,7 @@ namespace SolStandard.HUD.Window
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
             Vector2 calculatedSize = new Vector2();
-            (float width, float height) = new Vector2(windowContents.Width, windowContents.Height);
+            (float width, float height) = new Vector2(WindowContents.Width, WindowContents.Height);
 
             //Adjust for border
             int borderSize = InsidePadding * 2;
@@ -158,7 +160,7 @@ namespace SolStandard.HUD.Window
             Vector2 contentRenderCoordinates = windowCoordinates;
 
             contentRenderCoordinates.X +=
-                ((float) Width / 2) - (new Vector2(windowContents.Width, windowContents.Height).X / 2);
+                ((float) Width / 2) - (new Vector2(WindowContents.Width, WindowContents.Height).X / 2);
             contentRenderCoordinates.X = (float) Math.Round(contentRenderCoordinates.X);
 
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
@@ -170,7 +172,7 @@ namespace SolStandard.HUD.Window
         {
             Vector2 contentRenderCoordinates = windowCoordinates;
 
-            contentRenderCoordinates.X = windowCoordinates.X + Width - windowContents.Width - InsidePadding;
+            contentRenderCoordinates.X = windowCoordinates.X + Width - WindowContents.Width - InsidePadding;
 
             contentRenderCoordinates.Y = VerticalCenterContent(windowCoordinates);
 
@@ -181,7 +183,7 @@ namespace SolStandard.HUD.Window
         {
             float contentRenderCoordinates = windowCoordinates.Y;
             contentRenderCoordinates +=
-                ((float) Height / 2) - (new Vector2(windowContents.Width, windowContents.Height).Y / 2);
+                ((float) Height / 2) - (new Vector2(WindowContents.Width, WindowContents.Height).Y / 2);
             return (float) Math.Round(contentRenderCoordinates);
         }
 
@@ -207,12 +209,12 @@ namespace SolStandard.HUD.Window
             if (colorOverride.A != 0) spriteBatch.Draw(windowTexture.MonoGameTexture, borderPane, InnerPaneColor);
 
             spriteBatch.Draw(windowTexture.MonoGameTexture, innerPane, colorOverride);
-            windowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
+            WindowContents.Draw(spriteBatch, GetCoordinatesBasedOnAlignment(coordinates));
         }
 
         public IRenderable Clone()
         {
-            return new Window(windowContents, DefaultColor, WindowPixelSize, HorizontalAlignment);
+            return new Window(WindowContents, DefaultColor, WindowPixelSize, HorizontalAlignment);
         }
     }
 }

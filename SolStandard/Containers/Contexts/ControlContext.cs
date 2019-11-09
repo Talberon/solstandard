@@ -71,6 +71,26 @@ namespace SolStandard.Containers.Contexts
             {
                 GameContext.CreditsContext.ExitView();
             }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Right);
+            }
         }
 
         private static void CodexControls(ControlMapper controlMapper)
