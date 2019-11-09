@@ -21,17 +21,11 @@ Sol Standard 2019 Trevor Kendrick @Talberon
 >#### License
 >Credit https://worldofnoel.itch.io/
 
-### Canari Games | https://canarigames.itch.io/
->#### Work
->Tilesets - 8 Bit Canari Pack Topdown
->#### License
->Credit https://canarigames.itch.io/
-
 ### Kacper "ThKaspar" Wozniak | https://thkaspar.itch.io/
 >#### Work
 >Unit Sprites - Tiny, Tiny Heroes Armies
 >#### License
->>By buing this asset pack you are granted a non-exclusive license that allows you to use Its 
+>>By buying this asset pack you are granted a non-exclusive license that allows you to use Its 
 >>contents:
 >>  * For derived work - games, comics, animations - free and commercial
 >>  * For promotional material of derived work It was used for - screenshots, trailers, fliers >>etc.
@@ -95,32 +89,14 @@ Sol Standard 2019 Trevor Kendrick @Talberon
 >#### License
 >http://creativecommons.org/publicdomain/zero/1.0/
 
-### George_ | https://opengameart.org/users/george
->#### Work
->Rock/Forest Tile Sprites
->#### License
->https://creativecommons.org/licenses/by/4.0/
-
-### Tanya Cherkiz, Ivan Gladkikh, Denis Serikov | https://www.dafont.com/magnolia-script.font
->#### Work
->Font - Magnolia Script
->#### License
->Public Domain
-
-### Jim Wasco
->#### Works
->Font - Wasco Sans
->#### License
->Microsoft Royalty-free for XNA projects
-
-### AJ Paglia | http://ajpaglia.com/
->#### Works
->Font - Aldo the Apache (Logo Font)
->#### License
->Free
-
 ### Eeve Somepx | https://somepx.itch.io/
 >#### Works
 >In-game fonts
 >#### License
 >http://www.palmentieri.it/somepx/license.txt
+
+### Steve Matteson
+>#### Work
+>Open Sans Font
+>#### License
+>Apache License 2.0
