@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -401,7 +403,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc"),
-                
+
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Apostrophe"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backslash"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace"),
@@ -751,6 +753,11 @@ namespace SolStandard.Utility.Load
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
             return new SoundEffectWrapper(effect, 1f);
+        }
+
+        public static string LoadCreditsText()
+        {
+            return File.ReadAllText("Content/Documents/CREDITS.md");
         }
     }
 }

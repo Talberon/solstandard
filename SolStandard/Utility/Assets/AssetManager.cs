@@ -76,6 +76,8 @@ namespace SolStandard.Utility.Assets
         public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
 
+        public static string CreditsText { get; private set; }
+
         public static ITexture2D EntitiesTexture
         {
             get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/entities-32")); }
@@ -193,6 +195,8 @@ namespace SolStandard.Utility.Assets
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);
 
             MusicTracks = ContentLoader.LoadMusic(content);
+
+            CreditsText = ContentLoader.LoadCreditsText();
         }
     }
 }

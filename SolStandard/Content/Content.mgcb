@@ -13,6 +13,9 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../CREDITS.md
+/copy:../../CREDITS.md;Documents/CREDITS.md
+
 #begin Audio/Music/Game/BossTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor

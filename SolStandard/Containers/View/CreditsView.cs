@@ -6,6 +6,8 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Monogame;
 using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
 
 namespace SolStandard.Containers.View
@@ -17,37 +19,27 @@ namespace SolStandard.Containers.View
 
         public CreditsView()
         {
+            ISpriteFont windowFont = AssetManager.WindowFont;
+
             creditsWindow = new ScrollableWindow(
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
-                        {new RenderText(AssetManager.MainMenuFont, "1Full credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont, "F2ull credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Fu3ll credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont, "Ful4l credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full5 credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full 6credits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont, "Full c7redits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full cr8edits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full cre9dits are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full cred10its are available at")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credit11s are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits 12are available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits ar13e available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are 14available at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are av15ailable at")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are avai16lable at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are availa17ble at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are availabl18e at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are available 19at")},
-                        {new RenderText(AssetManager.MainMenuFont, "Full credits are available at20")},
-                        {new RenderText(AssetManager.MainMenuFont,GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {new RenderText(AssetManager.MainMenuFont,"Press confirm to continue in browser, or cancel to return.")}
+                        {new RenderText(windowFont, "Full credits are available at")},
+                        {new RenderText(windowFont, GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
+                        {
+                            new WindowContentGrid(new[,]
+                            {
+                                {
+                                    new RenderText(windowFont, "Press"),
+                                    InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
+                                    new RenderText(windowFont, " to continue in browser, or"),
+                                    InputIconProvider.GetInputIcon(Input.Cancel, GameDriver.CellSize),
+                                    new RenderText(windowFont, " to return.")
+                                }
+                            })
+                        },
+                        {new RenderText(AssetManager.WindowFont, AssetManager.CreditsText)}
                     },
                     1,
                     HorizontalAlignment.Centered
@@ -59,6 +51,7 @@ namespace SolStandard.Containers.View
                 new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                 new Vector2(GameDriver.ScreenSize.X, GameDriver.ScreenSize.Y));
         }
+
 
         public void ScrollContents(Direction direction)
         {

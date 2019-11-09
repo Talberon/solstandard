@@ -1,13 +1,13 @@
 # Asset Licensing / Credits
 
 ## Credits
-Sol Standard ©2019 Trevor Kendrick @Talberon
+Sol Standard 2019 Trevor Kendrick @Talberon
 
 ### Talberon | http://talberon.github.io/
 >#### Work
 >Portraits, spritework, sprite edits, various icons, music
 >#### License
->Copyright Trevor Kendrick © 2019
+>Copyright Trevor Kendrick 2019
 
 ### Pita | https://pita.itch.io/
 >#### Work
@@ -27,19 +27,19 @@ Sol Standard ©2019 Trevor Kendrick @Talberon
 >#### License
 >Credit https://canarigames.itch.io/
 
-### Kacper "ThKaspar" Woźniak | https://thkaspar.itch.io/
+### Kacper "ThKaspar" Wozniak | https://thkaspar.itch.io/
 >#### Work
 >Unit Sprites - Tiny, Tiny Heroes Armies
 >#### License
 >>By buing this asset pack you are granted a non-exclusive license that allows you to use Its 
 >>contents:
->>	* For derived work - games, comics, animations - free and commercial
->>	* For promotional material of derived work It was used for - screenshots, trailers, fliers >>etc.
+>>  * For derived work - games, comics, animations - free and commercial
+>>  * For promotional material of derived work It was used for - screenshots, trailers, fliers >>etc.
 >>
 >>You are however not allowed to use contents of this asset pack for the following:
->>	* Logos
->>	* Free or paid asset packs
->>	* Open-source projects - you cannot publish contents of the pack with the project
+>>  * Logos
+>>  * Free or paid asset packs
+>>  * Open-source projects - you cannot publish contents of the pack with the project
 
 ### 7Soul | https://7soul.itch.io/
 >#### Work
