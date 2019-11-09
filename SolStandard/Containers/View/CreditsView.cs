@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map.Elements;
@@ -8,49 +7,55 @@ using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Monogame;
-using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
 
 namespace SolStandard.Containers.View
 {
     public class CreditsView : IUserInterface
     {
+        private const int WindowSpacing = 10;
         private readonly ScrollableWindow creditsWindow;
+        private readonly Window controlWindow;
 
         public CreditsView()
         {
             ISpriteFont windowFont = AssetManager.WindowFont;
 
+            controlWindow = new Window(new WindowContentGrid(new IRenderable[,]
+            {
+                {
+                    new WindowContentGrid(new[,]
+                    {
+                        {
+                            new RenderText(windowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
+                            new RenderText(windowFont, " to view credits in browser."),
+                        },
+                        {
+                            new RenderText(windowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.Cancel, GameDriver.CellSize),
+                            new RenderText(windowFont, " to return to menu."),
+                        }
+                    })
+                },
+                {
+                    new WindowContentGrid(new[,]
+                    {
+                        {
+                            new RenderText(windowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.CursorUp, GameDriver.CellSize),
+                            InputIconProvider.GetInputIcon(Input.CursorLeft, GameDriver.CellSize),
+                            InputIconProvider.GetInputIcon(Input.CursorDown, GameDriver.CellSize),
+                            InputIconProvider.GetInputIcon(Input.CursorRight, GameDriver.CellSize),
+                            new RenderText(windowFont, " to scroll."),
+                        }
+                    })
+                }
+            }), MainMenuView.MenuColor);
+
             creditsWindow = new ScrollableWindow(
                 new WindowContentGrid(
                     new IRenderable[,]
                     {
-                        {new RenderText(windowFont, "Full credits are available at")},
-                        {new RenderText(windowFont, GameDriver.SolStandardUrl + CreditsContext.CreditsPath)},
-                        {
-                            new WindowContentGrid(new[,]
-                            {
-                                {
-                                    new RenderText(windowFont, "Press"),
-                                    InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
-                                    new RenderText(windowFont, " to continue in browser, or"),
-                                    InputIconProvider.GetInputIcon(Input.Cancel, GameDriver.CellSize),
-                                    new RenderText(windowFont, " to return.")
-                                }
-                            })
-                        },
-                        {
-                            new WindowContentGrid(new[,]
-                            {
-                                {
-                                    new RenderText(windowFont, "Press"),
-                                    InputIconProvider.GetInputIcon(Input.CursorUp, GameDriver.CellSize),
-                                    InputIconProvider.GetInputIcon(Input.CursorLeft, GameDriver.CellSize),
-                                    InputIconProvider.GetInputIcon(Input.CursorDown, GameDriver.CellSize),
-                                    InputIconProvider.GetInputIcon(Input.CursorRight, GameDriver.CellSize),
-                                    new RenderText(windowFont, " to scroll."),
-                                }
-                            })
-                        },
                         {new RenderText(AssetManager.WindowFont, AssetManager.CreditsText)}
                     },
                     1,
@@ -69,6 +74,7 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            controlWindow.Draw(spriteBatch, CreditsCenter() - new Vector2(0, controlWindow.Height + WindowSpacing));
             creditsWindow.Draw(spriteBatch, CreditsCenter());
         }
 
