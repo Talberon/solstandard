@@ -68,15 +68,12 @@ namespace SolStandard.Containers.View
         {
             get
             {
-                switch (_currentMenu)
+                return _currentMenu switch
                 {
-                    case PauseMenus.Primary:
-                        return PauseMenu;
-                    case PauseMenus.PauseConfig:
-                        return ConfigMenu;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    PauseMenus.Primary => PauseMenu,
+                    PauseMenus.PauseConfig => ConfigMenu,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
 

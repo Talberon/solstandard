@@ -12,17 +12,12 @@ namespace SolStandard.HUD.Window.Content.Command
     {
         private readonly List<IResourcePoint> commandPips;
         private readonly int maxCommandPoints;
-        private int currentCommandPoints;
+        private readonly int currentCommandPoints;
 
         private const int MaxPointsPerRow = 5;
         private Vector2 pipSize;
         private Vector2 barSize;
         public Color DefaultColor { get; set; }
-
-        public CommandPointBar(int maxCommandPoints, Vector2 barSize) :
-            this(maxCommandPoints, maxCommandPoints, barSize)
-        {
-        }
 
         public CommandPointBar(int maxCommandPoints, int currentCommandPoints, Vector2 barSize)
         {
@@ -35,7 +30,7 @@ namespace SolStandard.HUD.Window.Content.Command
             DefaultColor = Color.White;
         }
 
-        protected void AddCommandPoint(List<IResourcePoint> points)
+        private void AddCommandPoint(ICollection<IResourcePoint> points)
         {
             points.Add(
                 new ResourcePoint(
@@ -45,7 +40,6 @@ namespace SolStandard.HUD.Window.Content.Command
                 )
             );
         }
-
 
         private List<IResourcePoint> GenerateCommandPips(int maxPips)
         {
@@ -100,12 +94,6 @@ namespace SolStandard.HUD.Window.Content.Command
         private float PipRowCount => Convert.ToSingle(Math.Ceiling((float) commandPips.Count / MaxPointsPerRow));
         public int Height => Convert.ToInt32(barSize.Y);
         public int Width => Convert.ToInt32(barSize.X);
-
-        public void SetCommandPoints(int points)
-        {
-            currentCommandPoints = points;
-            UpdatePips(commandPips, currentCommandPoints);
-        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {

@@ -70,7 +70,8 @@ namespace SolStandard.Containers.Contexts
                 if (currentTile.Distance >= ranges.Max()) continue;
 
                 List<Vector2> visitedCoordinates = visited.Select(tile => tile.MapCoordinates).ToList();
-                IEnumerable<MapDistanceTile> neighbours = GetNeighbours(currentTile, visitedCoordinates, distanceVisible);
+                IEnumerable<MapDistanceTile> neighbours =
+                    GetNeighbours(currentTile, visitedCoordinates, distanceVisible);
 
                 foreach (MapDistanceTile neighbour in neighbours)
                 {
@@ -85,22 +86,10 @@ namespace SolStandard.Containers.Contexts
             return visited;
         }
 
-        private static List<MapDistanceTile> RemoveTilesOutOfRange(List<MapDistanceTile> visited, int[] ranges)
+        private static List<MapDistanceTile> RemoveTilesOutOfRange(IReadOnlyCollection<MapDistanceTile> visited,
+            IEnumerable<int> ranges)
         {
-            List<MapDistanceTile> tilesToKeep = new List<MapDistanceTile>();
-
-            foreach (int range in ranges)
-            {
-                foreach (MapDistanceTile tile in visited)
-                {
-                    if (tile.Distance == range)
-                    {
-                        tilesToKeep.Add(tile);
-                    }
-                }
-            }
-
-            return tilesToKeep;
+            return (from range in ranges from tile in visited where tile.Distance == range select tile).ToList();
         }
 
         private static IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
@@ -113,7 +102,7 @@ namespace SolStandard.Containers.Contexts
             Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
             Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
-            
+
             if (CanPlaceTileAtCoordinates(north, visitedCoordinates))
             {
                 neighbours.Add(

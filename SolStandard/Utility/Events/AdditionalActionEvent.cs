@@ -14,7 +14,7 @@ namespace SolStandard.Utility.Events
             }
             else
             {
-                GameMapContext.FinishTurn(skipProcs: true);
+                GameMapContext.FinishTurn(true);
             }
 
             Complete = true;

@@ -20,7 +20,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.Concerto, GameDriver.CellSizeVector),
             name: "Play - " + GroupSkillName,
             description:
-            $"Applies song effects to allies in range with reduced potency." + Environment.NewLine +
+            "Applies song effects to allies in range with reduced potency." + Environment.NewLine +
             $"Removes {ModeSolo.SoloSkillName}.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {0},

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 using SolStandard.Containers.View;
 using SolStandard.Entity;
 using SolStandard.Entity.General;
@@ -25,6 +25,8 @@ namespace SolStandard.Containers.Contexts
 {
     public class GameMapContext
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public enum TurnState
         {
             SelectUnit,
@@ -38,7 +40,18 @@ namespace SolStandard.Containers.Contexts
             TakeItem
         }
 
-        public TurnState CurrentTurnState { get; set; }
+        private TurnState currentTurnState;
+
+        public TurnState CurrentTurnState
+        {
+            get => currentTurnState;
+            set
+            {
+                Logger.Debug("Changing game turn state: {}", value);
+                currentTurnState = value;
+            }
+        }
+
         public GameUnit SelectedUnit { get; private set; }
         private Vector2 selectedUnitOriginalPosition;
         public static GameMapView GameMapView { get; private set; }
@@ -75,19 +88,14 @@ namespace SolStandard.Containers.Contexts
         {
             get
             {
-                switch (CurrentTurnState)
+                return CurrentTurnState switch
                 {
-                    case TurnState.UnitMoving:
-                        return true;
-                    case TurnState.UnitDecidingAction:
-                        return CanCancelAction;
-                    case TurnState.UnitTargeting:
-                        return true;
-                    case TurnState.TakeItem:
-                        return true;
-                    default:
-                        return false;
-                }
+                    TurnState.UnitMoving => true,
+                    TurnState.UnitDecidingAction => CanCancelAction,
+                    TurnState.UnitTargeting => true,
+                    TurnState.TakeItem => true,
+                    _ => false
+                };
             }
         }
 
@@ -98,14 +106,12 @@ namespace SolStandard.Containers.Contexts
                 if (CurrentTurnState != TurnState.SelectUnit) return false;
 
                 MapSlice cursorSlice = MapContainer.GetMapSliceAtCursor();
-                if (cursorSlice.TerrainEntity is Vendor hoverVendor)
+                switch (cursorSlice.TerrainEntity)
                 {
-                    return hoverVendor.Items.Count(x => x != null) > 0;
-                }
-
-                if (cursorSlice.TerrainEntity is Chest hoverChest)
-                {
-                    return !string.IsNullOrEmpty(hoverChest.ItemPool);
+                    case Vendor hoverVendor:
+                        return hoverVendor.Items.Count(x => x != null) > 0;
+                    case Chest hoverChest:
+                        return !string.IsNullOrEmpty(hoverChest.ItemPool);
                 }
 
                 if (cursorSlice.ItemEntity != null && !(cursorSlice.ItemEntity is Currency)) return true;
@@ -147,6 +153,8 @@ namespace SolStandard.Containers.Contexts
 
                 if (!skipProcs)
                 {
+                    Logger.Trace("Resolving turn procs.");
+
                     IEnumerable<ITurnProc> activeUnitTurnProcs = GameContext.ActiveUnit.StatusEffects
                         .Where(effect => effect is ITurnProc)
                         .Cast<ITurnProc>();
@@ -165,6 +173,8 @@ namespace SolStandard.Containers.Contexts
         public void ResolveTurn()
         {
             if (GameContext.CurrentGameState == GameContext.GameState.Results) return;
+
+            Logger.Trace("Resolving turn.");
 
             GameContext.Scenario.CheckForWinState();
             ConfirmPromptWindow();
@@ -230,13 +240,13 @@ namespace SolStandard.Containers.Contexts
             if (CurrentTurnState <= TurnState.SelectUnit) return;
 
             CurrentTurnState--;
-            Trace.WriteLine("Changing state: " + CurrentTurnState);
+            Logger.Debug("Changing state: " + CurrentTurnState);
         }
 
         public void ResetTurnState()
         {
             CurrentTurnState = TurnState.SelectUnit;
-            Trace.WriteLine("Resetting to initial state: " + CurrentTurnState);
+            Logger.Debug("Resetting to initial state: " + CurrentTurnState);
         }
 
         public void FinishMoving()
@@ -385,7 +395,7 @@ namespace SolStandard.Containers.Contexts
         {
             if (SelectedUnit != null)
             {
-                Trace.WriteLine("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
+                Logger.Debug("Selecting unit: " + SelectedUnit.Team + " " + SelectedUnit.Role);
                 CurrentTurnState = TurnState.UnitMoving;
                 GenerateMoveGrid(
                     MapContainer.MapCursor.MapCoordinates,
@@ -403,7 +413,7 @@ namespace SolStandard.Containers.Contexts
             }
             else
             {
-                Trace.WriteLine("No unit to select.");
+                Logger.Debug("No unit to select.");
             }
         }
 

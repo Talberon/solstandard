@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -9,6 +10,8 @@ namespace SolStandard.Containers.Contexts.WinConditions
 {
     public class Scenario
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public Dictionary<VictoryConditions, Objective> Objectives { get; }
         public bool GameIsOver { get; private set; }
 
@@ -40,6 +43,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             {
                 if (objective.ConditionsMet)
                 {
+                    Logger.Trace("Win condition has been met for {}!", objective);
                     GameIsOver = true;
                     objective.EndGame();
                 }

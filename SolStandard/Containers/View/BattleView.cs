@@ -48,13 +48,6 @@ namespace SolStandard.Containers.View
         private AnimatedRenderable HelpTextWindow { get; set; }
         private Window UserPromptWindow { get; set; }
 
-        private bool visible;
-
-        public BattleView()
-        {
-            visible = true;
-        }
-
         private static IRenderableAnimation RightBattlerAnimation =>
             new RenderableSlide(RenderableSlide.SlideDirection.Left, UnitSlideDistance, WindowSlideSpeed);
 
@@ -102,19 +95,12 @@ namespace SolStandard.Containers.View
 
         public void GenerateAttackerSpriteWindow(GameUnit attacker, Color spriteColor, UnitAnimationState state)
         {
-            int frameDelay;
-            switch (state)
+            int frameDelay = state switch
             {
-                case UnitAnimationState.Attack:
-                    frameDelay = CombatDelay;
-                    break;
-                case UnitAnimationState.Hit:
-                    frameDelay = CombatDelay;
-                    break;
-                default:
-                    frameDelay = RegularDelay;
-                    break;
-            }
+                UnitAnimationState.Attack => CombatDelay,
+                UnitAnimationState.Hit => CombatDelay,
+                _ => RegularDelay
+            };
 
             AttackerSpriteWindow =
                 new AnimatedRenderable(BattlerWindow(attacker, spriteColor, state, frameDelay, false),
@@ -180,20 +166,12 @@ namespace SolStandard.Containers.View
 
         public void GenerateDefenderSpriteWindow(GameUnit defender, Color spriteColor, UnitAnimationState state)
         {
-            int frameDelay;
-
-            switch (state)
+            int frameDelay = state switch
             {
-                case UnitAnimationState.Attack:
-                    frameDelay = CombatDelay;
-                    break;
-                case UnitAnimationState.Hit:
-                    frameDelay = CombatDelay;
-                    break;
-                default:
-                    frameDelay = RegularDelay;
-                    break;
-            }
+                UnitAnimationState.Attack => CombatDelay,
+                UnitAnimationState.Hit => CombatDelay,
+                _ => RegularDelay
+            };
 
             DefenderSpriteWindow =
                 new AnimatedRenderable(BattlerWindow(defender, spriteColor, state, frameDelay, true),
@@ -559,15 +537,9 @@ namespace SolStandard.Containers.View
 
         #endregion Window Positions
 
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!visible) return;
-
             if (HelpTextWindow != null)
             {
                 HelpTextWindow.Draw(spriteBatch, HelpTextWindowPosition());

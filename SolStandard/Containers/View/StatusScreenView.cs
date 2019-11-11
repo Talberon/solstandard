@@ -33,8 +33,6 @@ namespace SolStandard.Containers.View
         public string RedTeamResultText { private get; set; }
         public IRenderable ResultLabelContent { private get; set; }
 
-        private bool Visible { get; set; }
-
         public StatusScreenView()
         {
             BlueTeamResultText = " FIGHT!";
@@ -288,10 +286,6 @@ namespace SolStandard.Containers.View
 
         #endregion Positioning
 
-        public void ToggleVisible()
-        {
-            Visible = !Visible;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

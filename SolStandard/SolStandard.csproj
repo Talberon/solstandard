@@ -14,7 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8</LangVersion>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -52,6 +53,7 @@
     <Compile Include="Containers\Contexts\CreditsContext.cs" />
     <Compile Include="Containers\Contexts\DeploymentContext.cs" />
     <Compile Include="Containers\Contexts\DraftContext.cs" />
+    <Compile Include="Containers\Contexts\EULAContext.cs" />
     <Compile Include="Containers\Contexts\GameContext.cs" />
     <Compile Include="Containers\Contexts\InitiativeContext.cs" />
     <Compile Include="Containers\Contexts\MapSelectContext.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Containers\View\CreditsView.cs" />
     <Compile Include="Containers\View\DeploymentView.cs" />
     <Compile Include="Containers\View\DraftView.cs" />
+    <Compile Include="Containers\View\EULAView.cs" />
     <Compile Include="Containers\View\GlobalHudView.cs" />
     <Compile Include="Containers\View\MainMenuView.cs" />
     <Compile Include="Containers\View\GameMapView.cs" />
@@ -177,7 +180,6 @@
     <Compile Include="Entity\Unit\Actions\Creeps\WanderRoutine.cs" />
     <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
     <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
-    <Compile Include="Entity\Unit\Actions\DropGiveGoldAction.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\CorpsACorps.cs" />
     <Compile Include="Entity\Unit\Actions\Duelist\EnGarde.cs" />
@@ -210,10 +212,8 @@
     <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
     <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
     <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\CmdAlchemicalArmor.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\CmdTransfusion.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Ignite.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Terraform.cs" />
@@ -223,15 +223,12 @@
     <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
     <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\CmdAngelicAssault.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\CmdSteelheart.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\Rescue.cs" />
     <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\CmdCoursingRiver.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\StemTheTide.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\Suplex.cs" />
     <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\CmdAssassinate.cs" />
     <Compile Include="Entity\Unit\Actions\Rogue\PickDoorLock.cs" />
@@ -254,7 +251,6 @@
     <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
     <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
     <Compile Include="Entity\Unit\Actions\Bard\VerseAccelerando.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\Capriccio.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
     <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
@@ -289,7 +285,6 @@
     <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\DamageToHealthStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Duelist\FocusStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ExhaustedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\HealthRegeneration.cs" />
     <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
@@ -299,7 +294,6 @@
     <Compile Include="Entity\Unit\Statuses\Mage\AlchemicalArmorStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Marauder\EnragedStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\Marauder\GuillotineStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\MoraleBrokenStatus.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatDown.cs" />
     <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
     <Compile Include="Entity\Unit\Statuses\Pugilist\FlowStatus.cs" />
@@ -378,6 +372,7 @@
     <Compile Include="HUD\Window\AnimatedRenderable.cs" />
     <Compile Include="HUD\Window\HudNotification.cs" />
     <Compile Include="HUD\Window\IWindow.cs" />
+    <Compile Include="HUD\Window\ScrollableWindow.cs" />
     <Compile Include="HUD\Window\ToastWindow.cs" />
     <Compile Include="HUD\Window\Window.cs" />
     <Compile Include="Map\Camera\MapCamera.cs" />
@@ -506,7 +501,6 @@
     <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
     <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
     <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
-    <Compile Include="Utility\Events\ToggleLockEvent.cs" />
     <Compile Include="Utility\Events\WaitActionEvent.cs" />
     <Compile Include="Utility\Events\WaitFramesEvent.cs" />
     <Compile Include="Utility\Exceptions\DuplicateInputException.cs" />
@@ -514,12 +508,11 @@
     <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
     <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\SkillDescriptionNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
+    <Compile Include="Utility\IRotatable.cs" />
     <Compile Include="Utility\Model\CreepRoutineModel.cs" />
-    <Compile Include="Utility\Monogame\BlankTexture.cs" />
     <Compile Include="Utility\Monogame\IPlayableAudio.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
     <Compile Include="Utility\Monogame\MusicBox.cs" />
@@ -528,6 +521,7 @@
     <Compile Include="Utility\Network\ConnectionManager.cs" />
     <Compile Include="Utility\PathingUtil.cs" />
     <Compile Include="Utility\RangeComparison.cs" />
+    <Compile Include="Utility\RotatingSprite.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\System\IFileIO.cs" />
     <Compile Include="Utility\System\WindowsFileIO.cs" />
@@ -555,11 +549,16 @@
       <HintPath>..\packages\Lidgren.Network.1.0.2\lib\net451\Lidgren.Network.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Priority Queue, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\OptimizedPriorityQueue.4.2.0\lib\net45\Priority Queue.dll</HintPath>
       <Private>True</Private>
@@ -610,11 +609,15 @@
       <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
       <Private>True</Private>
@@ -632,6 +635,8 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.1\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
       <Private>True</Private>
@@ -640,6 +645,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -648,6 +654,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\TmxMaps\Debug_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

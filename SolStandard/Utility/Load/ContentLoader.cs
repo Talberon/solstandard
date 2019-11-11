@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -292,9 +293,9 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(backgroundTexture);
         }
 
-        public static ITexture2D LoadSolSpin(ContentManager content)
+        public static ITexture2D LoadSolIcon(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin-White");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolIcon");
             return new Texture2DWrapper(loadTexture);
         }
 
@@ -401,7 +402,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Arrow_Right"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Enter"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Esc"),
-                
+
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Apostrophe"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backslash"),
                 content.Load<Texture2D>("Graphics/HUD/Buttons/Keyboard/Keyboard_Black_Backspace"),
@@ -645,16 +646,9 @@ namespace SolStandard.Utility.Load
         {
             return new List<IPlayableAudio>
             {
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/MilitaryTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/PlainsTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/VoidTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/DesertTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/SnowyMountainTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/IslandTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/LavaTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/BossTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectThemeOld")),
 
                 //Original (Compressed)
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectTheme")),
@@ -664,7 +658,6 @@ namespace SolStandard.Utility.Load
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/GallopTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/RegularBattle")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/CaveTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/JazzBattle")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryJingle")),
 
 
@@ -751,6 +744,16 @@ namespace SolStandard.Utility.Load
         {
             SoundEffect effect = content.Load<SoundEffect>("Audio/SFX/Interface/sfx_wpn_laser8");
             return new SoundEffectWrapper(effect, 1f);
+        }
+
+        public static string LoadCreditsText()
+        {
+            return File.ReadAllText("Content/Documents/CREDITS.md");
+        }
+
+        public static string LoadEULAText()
+        {
+            return File.ReadAllText("Content/LICENSE.txt");
         }
     }
 }

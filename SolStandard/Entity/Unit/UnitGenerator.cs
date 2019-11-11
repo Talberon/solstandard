@@ -552,94 +552,55 @@ namespace SolStandard.Entity.Unit
 
         private static UnitStatistics GetUnitStatistics(Role unitType)
         {
-            switch (unitType)
+            return unitType switch
             {
-                case Role.Archer:
-                    return SelectArcherStats();
-                case Role.Champion:
-                    return SelectChampionStats();
-                case Role.Mage:
-                    return SelectMageStats();
-                case Role.Lancer:
-                    return SelectLancerStats();
-                case Role.Bard:
-                    return SelectBardStats();
-                case Role.Pugilist:
-                    return SelectPugilistStats();
-                case Role.Duelist:
-                    return SelectDuelistStats();
-                case Role.Cleric:
-                    return SelectClericStats();
-                case Role.Marauder:
-                    return SelectMarauderStats();
-                case Role.Paladin:
-                    return SelectPaladinStats();
-                case Role.Cavalier:
-                    return SelectCavalierStats();
-                case Role.Rogue:
-                    return SelectRogueStats();
-                case Role.Boar:
-                    return SelectBoarStats();
-                case Role.Slime:
-                    return SelectSlimeStats();
-                case Role.Troll:
-                    return SelectTrollStats();
-                case Role.Orc:
-                    return SelectOrcStats();
-                case Role.BloodOrc:
-                    return SelectBloodOrcStats();
-                case Role.Kobold:
-                    return SelectKoboldStats();
-                case Role.Necromancer:
-                    return SelectNecromancerStats();
-                case Role.Skeleton:
-                    return SelectSkeletonStats();
-                case Role.Goblin:
-                    return SelectGoblinStats();
-                case Role.Rat:
-                    return SelectRatStats();
-                case Role.Bat:
-                    return SelectBatStats();
-                case Role.Spider:
-                    return SelectSpiderStats();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
-            }
+                Role.Archer => SelectArcherStats(),
+                Role.Champion => SelectChampionStats(),
+                Role.Mage => SelectMageStats(),
+                Role.Lancer => SelectLancerStats(),
+                Role.Bard => SelectBardStats(),
+                Role.Pugilist => SelectPugilistStats(),
+                Role.Duelist => SelectDuelistStats(),
+                Role.Cleric => SelectClericStats(),
+                Role.Marauder => SelectMarauderStats(),
+                Role.Paladin => SelectPaladinStats(),
+                Role.Cavalier => SelectCavalierStats(),
+                Role.Rogue => SelectRogueStats(),
+                Role.Boar => SelectBoarStats(),
+                Role.Slime => SelectSlimeStats(),
+                Role.Troll => SelectTrollStats(),
+                Role.Orc => SelectOrcStats(),
+                Role.BloodOrc => SelectBloodOrcStats(),
+                Role.Kobold => SelectKoboldStats(),
+                Role.Necromancer => SelectNecromancerStats(),
+                Role.Skeleton => SelectSkeletonStats(),
+                Role.Goblin => SelectGoblinStats(),
+                Role.Rat => SelectRatStats(),
+                Role.Bat => SelectBatStats(),
+                Role.Spider => SelectSpiderStats(),
+                _ => throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null)
+            };
         }
 
         public static List<UnitAction> GetUnitActions(Role unitType, bool isCommander)
         {
-            switch (unitType)
+            return unitType switch
             {
-                case Role.Archer:
-                    return SelectArcherSkills(isCommander);
-                case Role.Champion:
-                    return SelectChampionSkills(isCommander);
-                case Role.Mage:
-                    return SelectMageSkills(isCommander);
-                case Role.Lancer:
-                    return SelectLancerSkills(isCommander);
-                case Role.Bard:
-                    return SelectBardSkills(isCommander);
-                case Role.Pugilist:
-                    return SelectPugilistSkills(isCommander);
-                case Role.Duelist:
-                    return SelectDuelistSkills(isCommander);
-                case Role.Cleric:
-                    return SelectClericSkills(isCommander);
-                case Role.Marauder:
-                    return SelectMarauderSkills(isCommander);
-                case Role.Paladin:
-                    return SelectPaladinSkills(isCommander);
-                case Role.Cavalier:
-                    return SelectCavalierSkills(isCommander);
-                case Role.Rogue:
-                    return SelectRogueSkills(isCommander);
-                case Role.Boar:
-                    return SelectBoarSkills(isCommander);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null);
-            }
+                Role.Archer => SelectArcherSkills(isCommander),
+                Role.Champion => SelectChampionSkills(isCommander),
+                Role.Mage => SelectMageSkills(isCommander),
+                Role.Lancer => SelectLancerSkills(isCommander),
+                Role.Bard => SelectBardSkills(isCommander),
+                Role.Pugilist => SelectPugilistSkills(isCommander),
+                Role.Duelist => SelectDuelistSkills(isCommander),
+                Role.Cleric => SelectClericSkills(isCommander),
+                Role.Marauder => SelectMarauderSkills(isCommander),
+                Role.Paladin => SelectPaladinSkills(isCommander),
+                Role.Cavalier => SelectCavalierSkills(isCommander),
+                Role.Rogue => SelectRogueSkills(isCommander),
+                Role.Boar => SelectBoarSkills(isCommander),
+                _ => throw new ArgumentOutOfRangeException(nameof(unitType), unitType, null)
+            };
         }
 
         public static UnitEntity GenerateMapEntity(string name, string type, Role role, Team team, bool isCommander,

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
 using SolStandard.Containers.Contexts;
@@ -48,30 +47,18 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
-            MapSlice targetSlice;
-
-            switch (pistonDirection)
+            MapSlice targetSlice = pistonDirection switch
             {
-                case PistonDirection.North:
-                    targetSlice =
-                        MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y - 1));
-                    break;
-                case PistonDirection.South:
-                    targetSlice =
-                        MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X, MapCoordinates.Y + 1));
-                    break;
-                case PistonDirection.East:
-                    targetSlice =
-                        MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X + 1, MapCoordinates.Y));
-                    break;
-                case PistonDirection.West:
-                    targetSlice =
-                        MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X - 1, MapCoordinates.Y));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
+                PistonDirection.North => MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X,
+                    MapCoordinates.Y - 1)),
+                PistonDirection.South => MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X,
+                    MapCoordinates.Y + 1)),
+                PistonDirection.East => MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X + 1,
+                    MapCoordinates.Y)),
+                PistonDirection.West => MapContainer.GetMapSliceAtCoordinates(new Vector2(MapCoordinates.X - 1,
+                    MapCoordinates.Y)),
+                _ => throw new ArgumentOutOfRangeException()
+            };
 
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (targetUnit != null)
@@ -108,8 +95,6 @@ namespace SolStandard.Entity.General
             return UnitMovingContext.CanEndMoveAtCoordinates(targetUnit.UnitEntity, oppositeCoordinates) &&
                    targetUnit.IsMovable;
         }
-
-        public bool CanTrigger => GameContext.Units.Any(CanPush);
 
         private void PushTarget(GameUnit target)
         {

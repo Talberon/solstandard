@@ -67,17 +67,13 @@ namespace SolStandard.Containers.View
         {
             get
             {
-                switch (CurrentState)
+                return CurrentState switch
                 {
-                    case ControlConfigContext.ControlMenuState.DeviceSelect:
-                        return deviceSelectMenu;
-                    case ControlConfigContext.ControlMenuState.InputRemapSelect:
-                        return inputRemapSelectMenu;
-                    case ControlConfigContext.ControlMenuState.ListeningForInput:
-                        return inputRemapSelectMenu;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    ControlConfigContext.ControlMenuState.DeviceSelect => deviceSelectMenu,
+                    ControlConfigContext.ControlMenuState.InputRemapSelect => inputRemapSelectMenu,
+                    ControlConfigContext.ControlMenuState.ListeningForInput => inputRemapSelectMenu,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
 
@@ -106,22 +102,13 @@ namespace SolStandard.Containers.View
             IRenderable cursorSprite
         )
         {
-            Color windowColor;
-
-            switch (device)
+            Color windowColor = device switch
             {
-                case ControlConfigContext.Device.Keyboard:
-                    windowColor = KeyboardOptionColor;
-                    break;
-                case ControlConfigContext.Device.P1Gamepad:
-                    windowColor = PlayerOneColor;
-                    break;
-                case ControlConfigContext.Device.P2Gamepad:
-                    windowColor = PlayerTwoColor;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(device), device, null);
-            }
+                ControlConfigContext.Device.Keyboard => KeyboardOptionColor,
+                ControlConfigContext.Device.P1Gamepad => PlayerOneColor,
+                ControlConfigContext.Device.P2Gamepad => PlayerTwoColor,
+                _ => throw new ArgumentOutOfRangeException(nameof(device), device, null)
+            };
 
             MenuOption[,] configOptions = new MenuOption[4, 5];
             configOptions[0, 0] = new RemapInputOption(controller, Input.CursorUp, device, Color.Transparent);

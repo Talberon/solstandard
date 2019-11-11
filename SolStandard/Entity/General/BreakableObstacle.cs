@@ -13,7 +13,7 @@ namespace SolStandard.Entity.General
 {
     public class BreakableObstacle : TerrainEntity
     {
-        public int HP { get; private set; }
+        protected int HP { get; private set; }
         public bool IsBroken { get; private set; }
         private int gold;
         private readonly List<IItem> items;

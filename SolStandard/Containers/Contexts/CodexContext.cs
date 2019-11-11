@@ -10,7 +10,7 @@ namespace SolStandard.Containers.Contexts
 {
     public class CodexContext
     {
-        public static List<GameUnit> UnitArchetypes => _unitArchetypes ?? (_unitArchetypes = GenerateUnitArchetypes());
+        public static List<GameUnit> UnitArchetypes => _unitArchetypes ??= GenerateUnitArchetypes();
         private static List<GameUnit> _unitArchetypes;
 
         public readonly CodexView CodexView;
@@ -38,32 +38,21 @@ namespace SolStandard.Containers.Contexts
         {
             get
             {
-                switch (previousGameState)
+                return previousGameState switch
                 {
-                    case GameContext.GameState.MainMenu:
-                        return GameContext.P1Team;
-                    case GameContext.GameState.ArmyDraft:
-                        return GameContext.DraftContext.CurrentTurn;
-                    case GameContext.GameState.Deployment:
-                        return GameContext.DeploymentContext.CurrentTurn;
-                    case GameContext.GameState.PauseScreen:
-                        return GameContext.InitiativeContext.CurrentActiveTeam;
-                    case GameContext.GameState.InGame:
-                        return GameContext.InitiativeContext.CurrentActiveTeam;
-                    case GameContext.GameState.NetworkMenu:
-                        return GameContext.P1Team;
-                    case GameContext.GameState.MapSelect:
-                        return GameContext.P1Team;
-                    case GameContext.GameState.Results:
-                        return GameContext.P1Team;
-                    case GameContext.GameState.ItemPreview:
-                        return GameContext.InitiativeContext.CurrentActiveTeam;
-                    case GameContext.GameState.Credits:
-                        return GameContext.P1Team;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(previousGameState),
-                            $"Should not have arrived here via {previousGameState} state!");
-                }
+                    GameContext.GameState.MainMenu => GameContext.P1Team,
+                    GameContext.GameState.ArmyDraft => GameContext.DraftContext.CurrentTurn,
+                    GameContext.GameState.Deployment => GameContext.DeploymentContext.CurrentTurn,
+                    GameContext.GameState.PauseScreen => GameContext.InitiativeContext.CurrentActiveTeam,
+                    GameContext.GameState.InGame => GameContext.InitiativeContext.CurrentActiveTeam,
+                    GameContext.GameState.NetworkMenu => GameContext.P1Team,
+                    GameContext.GameState.MapSelect => GameContext.P1Team,
+                    GameContext.GameState.Results => GameContext.P1Team,
+                    GameContext.GameState.ItemPreview => GameContext.InitiativeContext.CurrentActiveTeam,
+                    GameContext.GameState.Credits => GameContext.P1Team,
+                    _ => throw new ArgumentOutOfRangeException(nameof(previousGameState),
+                        $"Should not have arrived here via {previousGameState} state!")
+                };
             }
         }
 

@@ -5,7 +5,7 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Utility
 {
-    public class SpriteAtlas : IRenderable, IResizable
+    public class SpriteAtlas : IRenderable, IResizable, IRotatable
     {
         private readonly ITexture2D image;
         private readonly Vector2 cellSize;
@@ -13,15 +13,20 @@ namespace SolStandard.Utility
         public Color DefaultColor { get; set; }
         private Rectangle sourceRectangle;
         private int cellIndex;
+        public float RotationInDegrees { get; set; }
+        public Vector2 RotationOrigin { get; set; }
 
-        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color color)
+        public SpriteAtlas(ITexture2D image, Vector2 cellSize, Vector2 renderSize, int cellIndex, Color color,
+            float rotationInDegrees = 0.0f)
         {
             if (cellIndex < 0) throw new InvalidCellIndexException();
 
             this.image = image;
             this.cellSize = cellSize;
             this.renderSize = renderSize;
+            RotationInDegrees = rotationInDegrees;
             DefaultColor = color;
+            RotationOrigin = Vector2.Zero;
             SetCellIndex(cellIndex);
         }
 
@@ -88,8 +93,17 @@ namespace SolStandard.Utility
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            spriteBatch.Draw(image.MonoGameTexture, DestinationRectangle((int) position.X, (int) position.Y),
-                sourceRectangle, colorOverride);
+            (float x, float y) = position;
+            spriteBatch.Draw(
+                image.MonoGameTexture,
+                DestinationRectangle((int) x, (int) y),
+                sourceRectangle,
+                colorOverride,
+                RotationInDegrees,
+                RotationOrigin,
+                SpriteEffects.None,
+                1
+            );
         }
 
         public override string ToString()
@@ -99,12 +113,12 @@ namespace SolStandard.Utility
 
         public IRenderable Resize(Vector2 newSize)
         {
-            return new SpriteAtlas(image, cellSize, newSize, cellIndex, DefaultColor);
+            return new SpriteAtlas(image, cellSize, newSize, cellIndex, DefaultColor, RotationInDegrees);
         }
-        
+
         public IRenderable Clone()
         {
-            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, DefaultColor);
+            return new SpriteAtlas(image, cellSize, renderSize, cellIndex, DefaultColor, RotationInDegrees);
         }
     }
 }

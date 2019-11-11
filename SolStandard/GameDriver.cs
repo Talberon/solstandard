@@ -103,7 +103,7 @@ namespace SolStandard
             //Start Server
             string serverIP = ConnectionManager.StartServer();
             GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
-            GameContext.NetworkMenuView.GenerateHostMenu(serverIP);
+            GameContext.NetworkMenuView.GenerateHostMenu();
             GameContext.NetworkMenuView.RemoveDialMenu();
             GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
         }
@@ -160,15 +160,12 @@ namespace SolStandard
 
         private static ControlMapper GetControlMapperForPlayer(PlayerIndex playerIndex)
         {
-            switch (playerIndex)
+            return playerIndex switch
             {
-                case PlayerIndex.One:
-                    return (GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
-                case PlayerIndex.Two:
-                    return (GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper;
-                default:
-                    return GetControlMapperForPlayer(PlayerIndex.One);
-            }
+                PlayerIndex.One => ((GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.Two => ((GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                _ => GetControlMapperForPlayer(PlayerIndex.One)
+            };
         }
 
 
@@ -205,15 +202,14 @@ namespace SolStandard
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
 
-            AnimatedSpriteSheet mainMenuLogoSpriteSheet =
-                new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
-                    false);
+            SpriteAtlas solIcon = new SpriteAtlas(AssetManager.MainMenuSunTexture,
+                new Vector2(AssetManager.MainMenuSunTexture.Width, AssetManager.MainMenuSunTexture.Height));
 
-            MainMenuView mainMenu =
-                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
-            NetworkMenuView networkMenu =
-                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+            RotatingSprite rotatingSolIcon =
+                new RotatingSprite(solIcon, 0.005f, RotatingSprite.RotationDirection.Counterclockwise);
 
+            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, rotatingSolIcon);
+            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, rotatingSolIcon);
 
             InitializeControllers();
 
@@ -338,6 +334,9 @@ namespace SolStandard
 
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    GameContext.UpdateCamera();
+                    break;
                 case GameContext.GameState.MainMenu:
                     GameContext.UpdateCamera();
                     break;
@@ -387,6 +386,11 @@ namespace SolStandard
 
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    DrawBackgroundWallpaper();
+                    DrawMapSelectMap();
+                    DrawEULAPrompt();
+                    break;
                 case GameContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
@@ -460,6 +464,13 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             PauseScreenView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        private void DrawEULAPrompt()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            GameContext.EULAContext.EULAView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -562,9 +573,7 @@ namespace SolStandard
 
         private void DrawInGameHUD()
         {
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                null, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {

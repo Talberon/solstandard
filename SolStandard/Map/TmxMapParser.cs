@@ -851,13 +851,9 @@ namespace SolStandard.Map
 
         private AnimatedTileSprite GetAnimatedTile(TmxTilesetTile animatedTile, TmxLayerTile tile)
         {
-            List<int> tileIds = new List<int>();
+            List<int> tileIds = animatedTile.AnimationFrames.Select(tmxAnimationFrame => tmxAnimationFrame.Id).ToList();
 
             //Hold the id values for each frame
-            foreach (TmxAnimationFrame tmxAnimationFrame in animatedTile.AnimationFrames)
-            {
-                tileIds.Add(tmxAnimationFrame.Id);
-            }
 
             AnimatedTileSprite tileSprite = new AnimatedTileSprite(
                 FindTileSet(tile.Gid),

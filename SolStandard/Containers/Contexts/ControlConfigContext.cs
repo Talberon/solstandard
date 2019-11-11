@@ -61,22 +61,13 @@ namespace SolStandard.Containers.Contexts
 
         public void OpenRemapMenu(Device device)
         {
-            IController controller;
-
-            switch (device)
+            IController controller = device switch
             {
-                case Device.Keyboard:
-                    controller = metakeyboard;
-                    break;
-                case Device.P1Gamepad:
-                    controller = metaP1Gamepad;
-                    break;
-                case Device.P2Gamepad:
-                    controller = metaP2Gamepad;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(device), device, null);
-            }
+                Device.Keyboard => metakeyboard,
+                Device.P1Gamepad => metaP1Gamepad,
+                Device.P2Gamepad => metaP2Gamepad,
+                _ => throw new ArgumentOutOfRangeException(nameof(device), device, null)
+            };
 
             currentListeningDevice = device;
             view.OpenInputRemapMenu(device, controller);

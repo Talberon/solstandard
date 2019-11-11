@@ -89,17 +89,13 @@ namespace SolStandard.Entity.General
 
         public static int GetTeamGoldInBank(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return BlueMoney;
-                case Team.Red:
-                    return RedMoney;
-                case Team.Creep:
-                    return 0;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => BlueMoney,
+                Team.Red => RedMoney,
+                Team.Creep => 0,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
         }
 
         public static void ResetBank()

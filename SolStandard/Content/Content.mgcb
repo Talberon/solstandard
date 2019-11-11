@@ -13,6 +13,9 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../CREDITS.md
+/copy:../../CREDITS.md;Documents/CREDITS.md
+
 #begin Audio/Music/Game/BossTheme.ogg
 /importer:OggImporter
 /processor:SongProcessor
@@ -55,53 +58,17 @@
 /processorParam:Quality=Best
 /build:Audio/Music/Game/IslandTheme.ogg
 
-#begin Audio/Music/Game/JazzBattle.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/JazzBattle.wav
-
-#begin Audio/Music/Game/LavaTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/LavaTheme.ogg
-
 #begin Audio/Music/Game/MapSelectTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/MapSelectTheme.wav
 
-#begin Audio/Music/Game/MapSelectThemeOld.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/MapSelectThemeOld.ogg
-
-#begin Audio/Music/Game/MilitaryTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/MilitaryTheme.ogg
-
-#begin Audio/Music/Game/PlainsTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/PlainsTheme.ogg
-
 #begin Audio/Music/Game/RegularBattle.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/RegularBattle.wav
-
-#begin Audio/Music/Game/SnowyMountainTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/SnowyMountainTheme.ogg
 
 #begin Audio/Music/Game/TacticalTheme.wav
 /importer:WavImporter
@@ -120,12 +87,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Music/Game/VictoryTheme.wav
-
-#begin Audio/Music/Game/VoidTheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/Game/VoidTheme.ogg
 
 #begin Audio/SFX/Character/sfx_damage_hit3.wav
 /importer:WavImporter
@@ -3831,6 +3792,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/ButtonMap-Xbox.png
+
+#begin Graphics/Images/Screens/SolIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolIcon.png
 
 #begin Graphics/Images/Screens/SolSpin-White.png
 /importer:TextureImporter

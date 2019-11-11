@@ -161,14 +161,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
                 TerrainEntity targetEntity = slice.ItemEntity;
 
-                if (targetEntity is IActionTile && targetEntity is Currency)
+                if (!(targetEntity is IActionTile) || !(targetEntity is Currency entity)) continue;
+
+                if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
                 {
-                    if (UnitMovingContext.CanEndMoveAtCoordinates(element.MapCoordinates))
-                    {
-                        itemsInRange.Add(
-                            new KeyValuePair<Currency, Vector2>((Currency) targetEntity, slice.MapCoordinates)
-                        );
-                    }
+                    itemsInRange.Add(new KeyValuePair<Currency, Vector2>(entity, slice.MapCoordinates));
                 }
             }
 

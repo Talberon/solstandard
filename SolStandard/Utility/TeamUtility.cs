@@ -7,15 +7,12 @@ namespace SolStandard.Utility
     {
         public static Color DetermineTeamColor(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return new Color(40, 40, 100, 200);
-                case Team.Red:
-                    return new Color(100, 35, 35, 200);
-                default:
-                    return new Color(35, 100, 35, 200);
-            }
+                Team.Blue => new Color(40, 40, 100, 200),
+                Team.Red => new Color(100, 35, 35, 200),
+                _ => new Color(35, 100, 35, 200)
+            };
         }
     }
 }

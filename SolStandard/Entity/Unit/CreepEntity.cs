@@ -64,8 +64,6 @@ namespace SolStandard.Entity.Unit
         }
 
         private IRenderable IndependentIcon =>
-            independentIcon ?? (
-                independentIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Independent, new Vector2(IndependentIconSize))
-            );
+            independentIcon ??= MiscIconProvider.GetMiscIcon(MiscIcon.Independent, new Vector2(IndependentIconSize));
     }
 }

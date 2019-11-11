@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.4" name="overworld-32" tilewidth="32" tileheight="32" tilecount="6280" columns="40">
+<tileset version="1.2" tiledversion="1.2.5" name="overworld-32" tilewidth="32" tileheight="32" tilecount="6280" columns="40">
  <image source="../Graphics/Map/Tiles/overworld-32.png" width="1280" height="5024"/>
  <terraintypes>
   <terrain name="Trees" tile="321"/>
@@ -36,10 +36,6 @@
   <terrain name="Dungeon Floor Blue Light" tile="5352"/>
   <terrain name="Dungeon Floor Blue Dark" tile="5472"/>
   <terrain name="BlueDungeon Wall" tile="5381"/>
-  <terrain name="Dungeon Wall" tile="2881"/>
-  <terrain name="City Sidewalk" tile="3048"/>
-  <terrain name="City Grass" tile="3045"/>
-  <terrain name="City Roof Edge" tile="3334"/>
   <terrain name="Snow Forest" tile="1881"/>
   <terrain name="Snow Cliff" tile="2040"/>
   <terrain name="Snow Cliff Neutral" tile="2377"/>
@@ -1369,12 +1365,12 @@
    <frame tileid="1795" duration="200"/>
   </animation>
  </tile>
- <tile id="1800" terrain=",,,38"/>
- <tile id="1801" terrain=",,38,38"/>
- <tile id="1802" terrain=",,38,"/>
- <tile id="1803" terrain=",38,38,38"/>
- <tile id="1804" terrain="38,,38,38"/>
- <tile id="1805" terrain="38,38,38,38"/>
+ <tile id="1800" terrain=",,,34"/>
+ <tile id="1801" terrain=",,34,34"/>
+ <tile id="1802" terrain=",,34,"/>
+ <tile id="1803" terrain=",34,34,34"/>
+ <tile id="1804" terrain="34,,34,34"/>
+ <tile id="1805" terrain="34,34,34,34"/>
  <tile id="1820">
   <animation>
    <frame tileid="1820" duration="200"/>
@@ -1399,18 +1395,18 @@
    <frame tileid="1835" duration="200"/>
   </animation>
  </tile>
- <tile id="1840" terrain=",38,,38"/>
- <tile id="1841" terrain="38,38,38,38"/>
- <tile id="1842" terrain="38,,38,"/>
- <tile id="1843" terrain="38,38,,38"/>
- <tile id="1844" terrain="38,38,38,"/>
- <tile id="1845" terrain="38,38,38,38"/>
- <tile id="1880" terrain=",38,,"/>
- <tile id="1881" terrain="38,38,,"/>
- <tile id="1882" terrain="38,,,"/>
- <tile id="1883" terrain=",38,38,"/>
- <tile id="1884" terrain="38,,,38"/>
- <tile id="1940" terrain=",,,42">
+ <tile id="1840" terrain=",34,,34"/>
+ <tile id="1841" terrain="34,34,34,34"/>
+ <tile id="1842" terrain="34,,34,"/>
+ <tile id="1843" terrain="34,34,,34"/>
+ <tile id="1844" terrain="34,34,34,"/>
+ <tile id="1845" terrain="34,34,34,34"/>
+ <tile id="1880" terrain=",34,,"/>
+ <tile id="1881" terrain="34,34,,"/>
+ <tile id="1882" terrain="34,,,"/>
+ <tile id="1883" terrain=",34,34,"/>
+ <tile id="1884" terrain="34,,,34"/>
+ <tile id="1940" terrain=",,,38">
   <animation>
    <frame tileid="1940" duration="200"/>
    <frame tileid="1945" duration="200"/>
@@ -1418,7 +1414,7 @@
    <frame tileid="1955" duration="200"/>
   </animation>
  </tile>
- <tile id="1941" terrain=",,42,42">
+ <tile id="1941" terrain=",,38,38">
   <animation>
    <frame tileid="1941" duration="200"/>
    <frame tileid="1946" duration="200"/>
@@ -1426,7 +1422,7 @@
    <frame tileid="1956" duration="200"/>
   </animation>
  </tile>
- <tile id="1942" terrain=",,42,">
+ <tile id="1942" terrain=",,38,">
   <animation>
    <frame tileid="1942" duration="200"/>
    <frame tileid="1947" duration="200"/>
@@ -1434,7 +1430,7 @@
    <frame tileid="1957" duration="200"/>
   </animation>
  </tile>
- <tile id="1943" terrain=",42,42,42">
+ <tile id="1943" terrain=",38,38,38">
   <animation>
    <frame tileid="1943" duration="200"/>
    <frame tileid="1948" duration="200"/>
@@ -1442,7 +1438,7 @@
    <frame tileid="1958" duration="200"/>
   </animation>
  </tile>
- <tile id="1944" terrain="42,,42,42">
+ <tile id="1944" terrain="38,,38,38">
   <animation>
    <frame tileid="1944" duration="200"/>
    <frame tileid="1949" duration="200"/>
@@ -1450,7 +1446,7 @@
    <frame tileid="1959" duration="200"/>
   </animation>
  </tile>
- <tile id="1980" terrain=",42,,42">
+ <tile id="1980" terrain=",38,,38">
   <animation>
    <frame tileid="1980" duration="200"/>
    <frame tileid="1985" duration="200"/>
@@ -1458,8 +1454,8 @@
    <frame tileid="1995" duration="200"/>
   </animation>
  </tile>
- <tile id="1981" terrain="42,42,42,42"/>
- <tile id="1982" terrain="42,,42,">
+ <tile id="1981" terrain="38,38,38,38"/>
+ <tile id="1982" terrain="38,,38,">
   <animation>
    <frame tileid="1982" duration="200"/>
    <frame tileid="1987" duration="200"/>
@@ -1467,7 +1463,7 @@
    <frame tileid="1997" duration="200"/>
   </animation>
  </tile>
- <tile id="1983" terrain="42,42,,42">
+ <tile id="1983" terrain="38,38,,38">
   <animation>
    <frame tileid="1983" duration="200"/>
    <frame tileid="1988" duration="200"/>
@@ -1475,7 +1471,7 @@
    <frame tileid="1998" duration="200"/>
   </animation>
  </tile>
- <tile id="1984" terrain="42,42,42,">
+ <tile id="1984" terrain="38,38,38,">
   <animation>
    <frame tileid="1984" duration="200"/>
    <frame tileid="1989" duration="200"/>
@@ -1483,7 +1479,7 @@
    <frame tileid="1999" duration="200"/>
   </animation>
  </tile>
- <tile id="2020" terrain=",42,,">
+ <tile id="2020" terrain=",38,,">
   <animation>
    <frame tileid="2020" duration="200"/>
    <frame tileid="2025" duration="200"/>
@@ -1491,7 +1487,7 @@
    <frame tileid="2035" duration="200"/>
   </animation>
  </tile>
- <tile id="2021" terrain="42,42,,">
+ <tile id="2021" terrain="38,38,,">
   <animation>
    <frame tileid="2021" duration="200"/>
    <frame tileid="2026" duration="200"/>
@@ -1499,7 +1495,7 @@
    <frame tileid="2036" duration="200"/>
   </animation>
  </tile>
- <tile id="2022" terrain="42,,,">
+ <tile id="2022" terrain="38,,,">
   <animation>
    <frame tileid="2022" duration="200"/>
    <frame tileid="2027" duration="200"/>
@@ -1507,7 +1503,7 @@
    <frame tileid="2037" duration="200"/>
   </animation>
  </tile>
- <tile id="2023" terrain=",42,42,">
+ <tile id="2023" terrain=",38,38,">
   <animation>
    <frame tileid="2023" duration="200"/>
    <frame tileid="2028" duration="200"/>
@@ -1515,7 +1511,7 @@
    <frame tileid="2038" duration="200"/>
   </animation>
  </tile>
- <tile id="2024" terrain="42,,,42">
+ <tile id="2024" terrain="38,,,38">
   <animation>
    <frame tileid="2024" duration="200"/>
    <frame tileid="2029" duration="200"/>
@@ -1523,12 +1519,12 @@
    <frame tileid="2039" duration="200"/>
   </animation>
  </tile>
- <tile id="2040" terrain=",,,39"/>
- <tile id="2041" terrain=",,39,39"/>
- <tile id="2042" terrain=",,39,"/>
- <tile id="2043" terrain=",39,39,39"/>
- <tile id="2044" terrain="39,,39,39"/>
- <tile id="2060" terrain=",,,41">
+ <tile id="2040" terrain=",,,35"/>
+ <tile id="2041" terrain=",,35,35"/>
+ <tile id="2042" terrain=",,35,"/>
+ <tile id="2043" terrain=",35,35,35"/>
+ <tile id="2044" terrain="35,,35,35"/>
+ <tile id="2060" terrain=",,,37">
   <animation>
    <frame tileid="2060" duration="100"/>
    <frame tileid="2065" duration="100"/>
@@ -1536,7 +1532,7 @@
    <frame tileid="2075" duration="100"/>
   </animation>
  </tile>
- <tile id="2061" terrain=",,41,41">
+ <tile id="2061" terrain=",,37,37">
   <animation>
    <frame tileid="2061" duration="100"/>
    <frame tileid="2066" duration="100"/>
@@ -1544,7 +1540,7 @@
    <frame tileid="2076" duration="100"/>
   </animation>
  </tile>
- <tile id="2062" terrain=",,41,">
+ <tile id="2062" terrain=",,37,">
   <animation>
    <frame tileid="2062" duration="100"/>
    <frame tileid="2067" duration="100"/>
@@ -1552,7 +1548,7 @@
    <frame tileid="2077" duration="100"/>
   </animation>
  </tile>
- <tile id="2063" terrain=",41,41,41">
+ <tile id="2063" terrain=",37,37,37">
   <animation>
    <frame tileid="2063" duration="100"/>
    <frame tileid="2068" duration="100"/>
@@ -1560,7 +1556,7 @@
    <frame tileid="2078" duration="100"/>
   </animation>
  </tile>
- <tile id="2064" terrain="41,,41,41">
+ <tile id="2064" terrain="37,,37,37">
   <animation>
    <frame tileid="2064" duration="100"/>
    <frame tileid="2069" duration="100"/>
@@ -1568,12 +1564,12 @@
    <frame tileid="2079" duration="100"/>
   </animation>
  </tile>
- <tile id="2080" terrain=",39,,39"/>
- <tile id="2081" terrain="39,39,39,39"/>
- <tile id="2082" terrain="39,,39,"/>
- <tile id="2083" terrain="39,39,,39"/>
- <tile id="2084" terrain="39,39,39,"/>
- <tile id="2100" terrain=",41,,41">
+ <tile id="2080" terrain=",35,,35"/>
+ <tile id="2081" terrain="35,35,35,35"/>
+ <tile id="2082" terrain="35,,35,"/>
+ <tile id="2083" terrain="35,35,,35"/>
+ <tile id="2084" terrain="35,35,35,"/>
+ <tile id="2100" terrain=",37,,37">
   <animation>
    <frame tileid="2100" duration="100"/>
    <frame tileid="2105" duration="100"/>
@@ -1581,8 +1577,8 @@
    <frame tileid="2115" duration="100"/>
   </animation>
  </tile>
- <tile id="2101" terrain="41,41,41,41"/>
- <tile id="2102" terrain="41,,41,">
+ <tile id="2101" terrain="37,37,37,37"/>
+ <tile id="2102" terrain="37,,37,">
   <animation>
    <frame tileid="2102" duration="100"/>
    <frame tileid="2107" duration="100"/>
@@ -1590,7 +1586,7 @@
    <frame tileid="2117" duration="100"/>
   </animation>
  </tile>
- <tile id="2103" terrain="41,41,,41">
+ <tile id="2103" terrain="37,37,,37">
   <animation>
    <frame tileid="2103" duration="100"/>
    <frame tileid="2108" duration="100"/>
@@ -1598,7 +1594,7 @@
    <frame tileid="2118" duration="100"/>
   </animation>
  </tile>
- <tile id="2104" terrain="41,41,41,">
+ <tile id="2104" terrain="37,37,37,">
   <animation>
    <frame tileid="2104" duration="100"/>
    <frame tileid="2109" duration="100"/>
@@ -1606,12 +1602,12 @@
    <frame tileid="2119" duration="100"/>
   </animation>
  </tile>
- <tile id="2120" terrain=",39,,"/>
- <tile id="2121" terrain="39,39,,"/>
- <tile id="2122" terrain="39,,,"/>
- <tile id="2123" terrain=",39,39,"/>
- <tile id="2124" terrain="39,,,39"/>
- <tile id="2140" terrain=",41,,">
+ <tile id="2120" terrain=",35,,"/>
+ <tile id="2121" terrain="35,35,,"/>
+ <tile id="2122" terrain="35,,,"/>
+ <tile id="2123" terrain=",35,35,"/>
+ <tile id="2124" terrain="35,,,35"/>
+ <tile id="2140" terrain=",37,,">
   <animation>
    <frame tileid="2140" duration="100"/>
    <frame tileid="2145" duration="100"/>
@@ -1619,7 +1615,7 @@
    <frame tileid="2155" duration="100"/>
   </animation>
  </tile>
- <tile id="2141" terrain="41,41,,">
+ <tile id="2141" terrain="37,37,,">
   <animation>
    <frame tileid="2141" duration="100"/>
    <frame tileid="2146" duration="100"/>
@@ -1627,7 +1623,7 @@
    <frame tileid="2156" duration="100"/>
   </animation>
  </tile>
- <tile id="2142" terrain="41,,,">
+ <tile id="2142" terrain="37,,,">
   <animation>
    <frame tileid="2142" duration="100"/>
    <frame tileid="2147" duration="100"/>
@@ -1635,7 +1631,7 @@
    <frame tileid="2157" duration="100"/>
   </animation>
  </tile>
- <tile id="2143" terrain=",41,41,">
+ <tile id="2143" terrain=",37,37,">
   <animation>
    <frame tileid="2143" duration="100"/>
    <frame tileid="2148" duration="100"/>
@@ -1643,7 +1639,7 @@
    <frame tileid="2158" duration="100"/>
   </animation>
  </tile>
- <tile id="2144" terrain="41,,,41">
+ <tile id="2144" terrain="37,,,37">
   <animation>
    <frame tileid="2144" duration="100"/>
    <frame tileid="2149" duration="100"/>
@@ -1656,208 +1652,46 @@
  <tile id="2171" terrain=",,12,"/>
  <tile id="2172" terrain=",12,12,12"/>
  <tile id="2173" terrain="12,,12,12"/>
- <tile id="2180" terrain=",,,43"/>
- <tile id="2181" terrain=",,43,43"/>
- <tile id="2182" terrain=",,43,"/>
- <tile id="2183" terrain=",43,43,43"/>
- <tile id="2184" terrain="43,,43,43"/>
+ <tile id="2180" terrain=",,,39"/>
+ <tile id="2181" terrain=",,39,39"/>
+ <tile id="2182" terrain=",,39,"/>
+ <tile id="2183" terrain=",39,39,39"/>
+ <tile id="2184" terrain="39,,39,39"/>
  <tile id="2209" terrain=",12,,12"/>
  <tile id="2210" terrain="12,12,12,12"/>
  <tile id="2211" terrain="12,,12,"/>
  <tile id="2212" terrain="12,12,,12"/>
  <tile id="2213" terrain="12,12,12,"/>
- <tile id="2220" terrain=",43,,43"/>
- <tile id="2221" terrain="43,43,43,43"/>
- <tile id="2222" terrain="43,,43,"/>
- <tile id="2223" terrain="43,43,,43"/>
- <tile id="2224" terrain="43,43,43,"/>
+ <tile id="2220" terrain=",39,,39"/>
+ <tile id="2221" terrain="39,39,39,39"/>
+ <tile id="2222" terrain="39,,39,"/>
+ <tile id="2223" terrain="39,39,,39"/>
+ <tile id="2224" terrain="39,39,39,"/>
  <tile id="2249" terrain=",12,,"/>
  <tile id="2250" terrain="12,12,,"/>
  <tile id="2251" terrain="12,,,"/>
  <tile id="2252" terrain=",12,12,"/>
  <tile id="2253" terrain="12,,,12"/>
- <tile id="2260" terrain=",43,,"/>
- <tile id="2261" terrain="43,43,,"/>
- <tile id="2262" terrain="43,,,"/>
- <tile id="2263" terrain=",43,43,"/>
- <tile id="2264" terrain="43,,,43"/>
- <tile id="2296" terrain=",,,40"/>
- <tile id="2297" terrain=",,40,40"/>
- <tile id="2298" terrain=",,40,"/>
- <tile id="2299" terrain=",40,40,40"/>
- <tile id="2300" terrain="40,,40,40"/>
- <tile id="2336" terrain=",40,,40"/>
- <tile id="2337" terrain="40,40,40,40"/>
- <tile id="2338" terrain="40,,40,"/>
- <tile id="2339" terrain="40,40,,40"/>
- <tile id="2340" terrain="40,40,40,"/>
- <tile id="2376" terrain=",40,,"/>
- <tile id="2377" terrain="40,40,,"/>
- <tile id="2378" terrain="40,,,"/>
- <tile id="2379" terrain=",40,40,"/>
- <tile id="2380" terrain="40,,,40"/>
- <tile id="2440">
-  <animation>
-   <frame tileid="2440" duration="100"/>
-   <frame tileid="2441" duration="100"/>
-   <frame tileid="2442" duration="100"/>
-   <frame tileid="2443" duration="100"/>
-  </animation>
- </tile>
- <tile id="2480">
-  <animation>
-   <frame tileid="2480" duration="100"/>
-   <frame tileid="2481" duration="100"/>
-   <frame tileid="2482" duration="100"/>
-   <frame tileid="2483" duration="100"/>
-  </animation>
- </tile>
- <tile id="2520">
-  <animation>
-   <frame tileid="2520" duration="100"/>
-   <frame tileid="2521" duration="100"/>
-   <frame tileid="2522" duration="100"/>
-   <frame tileid="2523" duration="100"/>
-  </animation>
- </tile>
- <tile id="2560">
-  <animation>
-   <frame tileid="2560" duration="100"/>
-   <frame tileid="2561" duration="100"/>
-   <frame tileid="2562" duration="100"/>
-   <frame tileid="2563" duration="100"/>
-  </animation>
- </tile>
- <tile id="2600">
-  <animation>
-   <frame tileid="2600" duration="100"/>
-   <frame tileid="2601" duration="100"/>
-   <frame tileid="2602" duration="100"/>
-   <frame tileid="2603" duration="100"/>
-  </animation>
- </tile>
- <tile id="2640">
-  <animation>
-   <frame tileid="2640" duration="100"/>
-   <frame tileid="2641" duration="100"/>
-   <frame tileid="2642" duration="100"/>
-   <frame tileid="2643" duration="100"/>
-  </animation>
- </tile>
- <tile id="2680">
-  <animation>
-   <frame tileid="2680" duration="100"/>
-   <frame tileid="2681" duration="100"/>
-  </animation>
- </tile>
- <tile id="2720">
-  <animation>
-   <frame tileid="2720" duration="100"/>
-   <frame tileid="2721" duration="100"/>
-   <frame tileid="2722" duration="100"/>
-   <frame tileid="2723" duration="100"/>
-  </animation>
- </tile>
- <tile id="2760">
-  <animation>
-   <frame tileid="2760" duration="100"/>
-   <frame tileid="2761" duration="100"/>
-   <frame tileid="2762" duration="100"/>
-   <frame tileid="2763" duration="100"/>
-  </animation>
- </tile>
- <tile id="2800">
-  <animation>
-   <frame tileid="2800" duration="100"/>
-   <frame tileid="2801" duration="100"/>
-   <frame tileid="2802" duration="100"/>
-   <frame tileid="2803" duration="100"/>
-  </animation>
- </tile>
- <tile id="2840">
-  <animation>
-   <frame tileid="2840" duration="100"/>
-   <frame tileid="2841" duration="100"/>
-   <frame tileid="2842" duration="100"/>
-   <frame tileid="2843" duration="100"/>
-  </animation>
- </tile>
- <tile id="2880" terrain=",,,34"/>
- <tile id="2881" terrain=",,34,34"/>
- <tile id="2882" terrain=",,34,"/>
- <tile id="2883" terrain="34,34,34,"/>
- <tile id="2884" terrain="34,34,,34"/>
- <tile id="2920" terrain=",34,,34"/>
- <tile id="2922" terrain="34,,34,"/>
- <tile id="2923" terrain="34,,34,34"/>
- <tile id="2924" terrain=",34,34,34"/>
- <tile id="2936" terrain="34,34,34,34"/>
- <tile id="2960" terrain=",34,,"/>
- <tile id="2961" terrain="34,34,,"/>
- <tile id="2962" terrain="34,,,"/>
- <tile id="3040">
-  <animation>
-   <frame tileid="3040" duration="100"/>
-   <frame tileid="3041" duration="100"/>
-   <frame tileid="3042" duration="100"/>
-   <frame tileid="3043" duration="100"/>
-  </animation>
- </tile>
- <tile id="3044" terrain=",,,36"/>
- <tile id="3045" terrain=",,36,36"/>
- <tile id="3046" terrain=",,36,"/>
- <tile id="3047" terrain=",,,35"/>
- <tile id="3048" terrain=",,35,35"/>
- <tile id="3049" terrain=",,35,"/>
- <tile id="3050" terrain="35,35,35,"/>
- <tile id="3051" terrain="35,35,,35"/>
- <tile id="3080">
-  <animation>
-   <frame tileid="3080" duration="100"/>
-   <frame tileid="3081" duration="100"/>
-   <frame tileid="3082" duration="100"/>
-   <frame tileid="3083" duration="100"/>
-  </animation>
- </tile>
- <tile id="3084" terrain=",36,,36"/>
- <tile id="3085" terrain="36,36,36,36"/>
- <tile id="3086" terrain="36,,36,"/>
- <tile id="3087" terrain=",35,,35"/>
- <tile id="3088" terrain="35,35,35,35"/>
- <tile id="3089" terrain="35,,35,"/>
- <tile id="3090" terrain="35,,35,35"/>
- <tile id="3091" terrain=",35,35,35"/>
- <tile id="3120">
-  <animation>
-   <frame tileid="3120" duration="100"/>
-   <frame tileid="3121" duration="100"/>
-   <frame tileid="3122" duration="100"/>
-   <frame tileid="3123" duration="100"/>
-  </animation>
- </tile>
- <tile id="3124" terrain=",36,,"/>
- <tile id="3125" terrain="36,36,,"/>
- <tile id="3126" terrain="36,,,"/>
- <tile id="3127" terrain=",35,,"/>
- <tile id="3128" terrain="35,35,,"/>
- <tile id="3129" terrain="35,,,"/>
- <tile id="3160">
-  <animation>
-   <frame tileid="3160" duration="100"/>
-   <frame tileid="3161" duration="100"/>
-   <frame tileid="3162" duration="100"/>
-   <frame tileid="3163" duration="100"/>
-  </animation>
- </tile>
- <tile id="3253" terrain=",,,37"/>
- <tile id="3254" terrain="37,37,,"/>
- <tile id="3255" terrain=",,37,"/>
- <tile id="3256" terrain="37,37,37,37"/>
- <tile id="3293" terrain=",37,,37"/>
- <tile id="3295" terrain="37,,37,"/>
- <tile id="3333" terrain=",37,,"/>
- <tile id="3334" terrain=",,37,37"/>
- <tile id="3335" terrain="37,,,"/>
+ <tile id="2260" terrain=",39,,"/>
+ <tile id="2261" terrain="39,39,,"/>
+ <tile id="2262" terrain="39,,,"/>
+ <tile id="2263" terrain=",39,39,"/>
+ <tile id="2264" terrain="39,,,39"/>
+ <tile id="2296" terrain=",,,36"/>
+ <tile id="2297" terrain=",,36,36"/>
+ <tile id="2298" terrain=",,36,"/>
+ <tile id="2299" terrain=",36,36,36"/>
+ <tile id="2300" terrain="36,,36,36"/>
+ <tile id="2336" terrain=",36,,36"/>
+ <tile id="2337" terrain="36,36,36,36"/>
+ <tile id="2338" terrain="36,,36,"/>
+ <tile id="2339" terrain="36,36,,36"/>
+ <tile id="2340" terrain="36,36,36,"/>
+ <tile id="2376" terrain=",36,,"/>
+ <tile id="2377" terrain="36,36,,"/>
+ <tile id="2378" terrain="36,,,"/>
+ <tile id="2379" terrain=",36,36,"/>
+ <tile id="2380" terrain="36,,,36"/>
  <tile id="3480">
   <animation>
    <frame tileid="3480" duration="200"/>

@@ -31,38 +31,16 @@ namespace SolStandard.HUD.Window.Animation
         private static Vector2 SetInitialPosition(Vector2 destinationCoordinates, SlideDirection slideDirection,
             float distanceToTravel)
         {
-            Vector2 initialPosition;
             (float destX, float destY) = destinationCoordinates;
-            switch (slideDirection)
+            Vector2 initialPosition = slideDirection switch
             {
                 //Start away from destination
-                case SlideDirection.Up:
-                    initialPosition = new Vector2(
-                        destX,
-                        destY + distanceToTravel
-                    );
-                    break;
-                case SlideDirection.Down:
-                    initialPosition = new Vector2(
-                        destX,
-                        destY - distanceToTravel
-                    );
-                    break;
-                case SlideDirection.Left:
-                    initialPosition = new Vector2(
-                        destX + distanceToTravel,
-                        destY
-                    );
-                    break;
-                case SlideDirection.Right:
-                    initialPosition = new Vector2(
-                        destX - distanceToTravel,
-                        destY
-                    );
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(slideDirection), slideDirection, null);
-            }
+                SlideDirection.Up => new Vector2(destX, destY + distanceToTravel),
+                SlideDirection.Down => new Vector2(destX, destY - distanceToTravel),
+                SlideDirection.Left => new Vector2(destX + distanceToTravel, destY),
+                SlideDirection.Right => new Vector2(destX - distanceToTravel, destY),
+                _ => throw new ArgumentOutOfRangeException(nameof(slideDirection), slideDirection, null)
+            };
 
             return initialPosition;
         }

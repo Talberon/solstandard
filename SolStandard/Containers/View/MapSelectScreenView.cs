@@ -26,8 +26,6 @@ namespace SolStandard.Containers.View
         private static readonly Color MapInfoWindowColor = new Color(50, 50, 50, 200);
         private static readonly Color SelectedTeamColor = new Color(150, 135, 13, 200);
 
-        private bool visible;
-
         public MapSelectScreenView()
         {
             SetUpWindows();
@@ -134,11 +132,6 @@ namespace SolStandard.Containers.View
                 ? null
                 : new AnimatedRenderable(new Window(terrainInfo, MapInfoWindowColor, HorizontalAlignment.Right),
                     LeftSideWindowAnimation);
-        }
-
-        public void ToggleVisible()
-        {
-            visible = !visible;
         }
 
         public void Draw(SpriteBatch spriteBatch)

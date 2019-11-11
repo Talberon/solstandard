@@ -76,6 +76,9 @@ namespace SolStandard.Utility.Assets
         public static List<ITexture2D> UnitSprites { get; private set; }
         public static List<ITexture2D> SmallPortraitTextures { get; private set; }
 
+        public static string CreditsText { get; private set; }
+        public static string EULAText { get; private set; }
+
         public static ITexture2D EntitiesTexture
         {
             get { return TerrainTextures.Find(texture => texture.Name.Contains("Map/Tiles/entities-32")); }
@@ -136,7 +139,7 @@ namespace SolStandard.Utility.Assets
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);
-            MainMenuSunTexture = ContentLoader.LoadSolSpin(content);
+            MainMenuSunTexture = ContentLoader.LoadSolIcon(content);
             MainMenuBackground = ContentLoader.LoadTitleScreenBackground(content);
 
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
@@ -193,6 +196,9 @@ namespace SolStandard.Utility.Assets
             SkillBlinkSFX = ContentLoader.LoadSkillBlinkSFX(content);
 
             MusicTracks = ContentLoader.LoadMusic(content);
+
+            CreditsText = ContentLoader.LoadCreditsText();
+            EULAText = ContentLoader.LoadEULAText();
         }
     }
 }

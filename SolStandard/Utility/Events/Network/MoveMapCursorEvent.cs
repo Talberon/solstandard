@@ -15,17 +15,11 @@ namespace SolStandard.Utility.Events.Network
             this.direction = direction;
             this.gameState = gameState;
         }
-        
+
         public override void Continue()
         {
             switch (gameState)
             {
-                case GameContext.GameState.MainMenu:
-                    break;
-                case GameContext.GameState.NetworkMenu:
-                    break;
-                case GameContext.GameState.ArmyDraft:
-                    break;
                 case GameContext.GameState.Deployment:
                     GameContext.DeploymentContext.MoveCursorOnMap(direction);
                     break;
@@ -33,17 +27,11 @@ namespace SolStandard.Utility.Events.Network
                     GameContext.MapCursor.MoveCursorInDirection(direction);
                     GameContext.MapSelectContext.HoverOverEntity();
                     break;
-                case GameContext.GameState.PauseScreen:
-                    break;
                 case GameContext.GameState.InGame:
                     GameContext.GameMapContext.MoveCursorOnMap(direction);
                     break;
-                case GameContext.GameState.Results:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-            
+
             Complete = true;
         }
     }

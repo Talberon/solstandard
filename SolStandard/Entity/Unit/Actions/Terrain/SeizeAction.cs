@@ -75,15 +75,12 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                switch (GameContext.ActiveTeam)
+                return GameContext.ActiveTeam switch
                 {
-                    case Team.Red:
-                        return seizeEntity.CapturableByRed;
-                    case Team.Blue:
-                        return seizeEntity.CapturableByBlue;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                    Team.Red => seizeEntity.CapturableByRed,
+                    Team.Blue => seizeEntity.CapturableByBlue,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using NLog;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
 using SolStandard.Entity.General;
@@ -22,8 +22,11 @@ namespace SolStandard.Containers.Contexts
 {
     public static class GameContext
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public enum GameState
         {
+            EULAConfirm,
             MainMenu,
             NetworkMenu,
             ArmyDraft,
@@ -59,53 +62,39 @@ namespace SolStandard.Containers.Contexts
         public static CodexContext CodexContext { get; private set; }
         public static CreditsContext CreditsContext { get; private set; }
         public static ControlConfigContext ControlConfigContext { get; private set; }
+        public static EULAContext EULAContext { get; private set; }
 
         public static Team P1Team { get; private set; }
         public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
 
         public static GameState CurrentGameState;
 
-        public static PlayerIndex ActivePlayer
+        public static PlayerIndex ActivePlayer => CurrentGameState switch
         {
-            get
-            {
-                switch (CurrentGameState)
-                {
-                    case GameState.MainMenu:
-                        return PlayerIndex.One;
-                    case GameState.NetworkMenu:
-                        return PlayerIndex.One;
-                    case GameState.MapSelect:
-                        return PlayerIndex.One;
-                    case GameState.ArmyDraft:
-                        return GetPlayerForTeam(DraftContext.CurrentTurn);
-                    case GameState.Deployment:
-                        return GetPlayerForTeam(DeploymentContext.CurrentTurn);
-                    case GameState.PauseScreen:
-                        return GetPlayerForTeam(ActiveTeam);
-                    case GameState.InGame:
-                        return GetPlayerForTeam(ActiveTeam);
-                    case GameState.Codex:
-                        return GetPlayerForTeam(CodexContext.CurrentTeam);
-                    case GameState.Results:
-                        return GetPlayerForTeam(ActiveTeam);
-                    case GameState.Credits:
-                        return PlayerIndex.One;
-                    case GameState.ItemPreview:
-                        return GetPlayerForTeam(ActiveTeam);
-                    case GameState.ControlConfig:
-                        return (InitiativeContext != null) ? GetPlayerForTeam(ActiveTeam) : PlayerIndex.One;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+            GameState.EULAConfirm => PlayerIndex.One,
+            GameState.MainMenu => PlayerIndex.One,
+            GameState.NetworkMenu => PlayerIndex.One,
+            GameState.MapSelect => PlayerIndex.One,
+            GameState.ArmyDraft => GetPlayerForTeam(DraftContext.CurrentTurn),
+            GameState.Deployment => GetPlayerForTeam(DeploymentContext.CurrentTurn),
+            GameState.PauseScreen => GetPlayerForTeam(ActiveTeam),
+            GameState.InGame => GetPlayerForTeam(ActiveTeam),
+            GameState.Codex => GetPlayerForTeam(CodexContext.CurrentTeam),
+            GameState.Results => GetPlayerForTeam(ActiveTeam),
+            GameState.Credits => PlayerIndex.One,
+            GameState.ItemPreview => GetPlayerForTeam(ActiveTeam),
+            GameState.ControlConfig => ((InitiativeContext != null)
+                ? GetPlayerForTeam(ActiveTeam)
+                : PlayerIndex.One),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public static void Initialize(MainMenuView mainMenuView, NetworkMenuView networkMenuView)
         {
             MusicBox.PlayLoop(AssetManager.MusicTracks.Find(track => track.Name.EndsWith("MapSelectTheme")));
             MainMenuView = mainMenuView;
             NetworkMenuView = networkMenuView;
+            EULAContext = new EULAContext();
             BattleContext = new BattleContext(new BattleView());
             DraftContext = new DraftContext();
             CodexContext = new CodexContext();
@@ -113,8 +102,10 @@ namespace SolStandard.Containers.Contexts
             ControlConfigContext = new ControlConfigContext(new ControlConfigView());
             BackgroundView = new BackgroundView();
             LoadMapSelect();
-            CurrentGameState = GameState.MainMenu;
+            CurrentGameState = GameState.EULAConfirm;
             P1Team = Team.Red;
+
+            if (EULAContext.EULAConfirmed) CurrentGameState = GameState.MainMenu;
         }
 
         public static void SetP1Team(Team team)
@@ -127,73 +118,39 @@ namespace SolStandard.Containers.Contexts
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(5));
         }
 
-        public static MapCursor MapCursor
+        public static MapCursor MapCursor => CurrentGameState switch
         {
-            get
-            {
-                switch (CurrentGameState)
-                {
-                    case GameState.MainMenu:
-                        return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.NetworkMenu:
-                        return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.MapSelect:
-                        return MapSelectContext.MapContainer.MapCursor;
-                    case GameState.Deployment:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.ArmyDraft:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.PauseScreen:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.InGame:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.Results:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.ItemPreview:
-                        return GameMapContext.MapContainer.MapCursor;
-                    case GameState.Codex:
-                        return null;
-                    case GameState.Credits:
-                        return null;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+            GameState.EULAConfirm => MapSelectContext.MapContainer.MapCursor,
+            GameState.MainMenu => MapSelectContext.MapContainer.MapCursor,
+            GameState.NetworkMenu => MapSelectContext.MapContainer.MapCursor,
+            GameState.MapSelect => MapSelectContext.MapContainer.MapCursor,
+            GameState.Deployment => GameMapContext.MapContainer.MapCursor,
+            GameState.ArmyDraft => GameMapContext.MapContainer.MapCursor,
+            GameState.PauseScreen => GameMapContext.MapContainer.MapCursor,
+            GameState.InGame => GameMapContext.MapContainer.MapCursor,
+            GameState.Results => GameMapContext.MapContainer.MapCursor,
+            GameState.ItemPreview => GameMapContext.MapContainer.MapCursor,
+            GameState.Codex => null,
+            GameState.Credits => null,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
-        public static MapCamera MapCamera
+        public static MapCamera MapCamera => CurrentGameState switch
         {
-            get
-            {
-                switch (CurrentGameState)
-                {
-                    case GameState.MainMenu:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.NetworkMenu:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.MapSelect:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    case GameState.Deployment:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.ArmyDraft:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.PauseScreen:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.InGame:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.Results:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.ItemPreview:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.Codex:
-                        return GameMapContext.MapContainer.MapCamera;
-                    case GameState.Credits:
-                        return MapSelectContext.MapContainer.MapCamera;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+            GameState.EULAConfirm => MapSelectContext.MapContainer.MapCamera,
+            GameState.MainMenu => MapSelectContext.MapContainer.MapCamera,
+            GameState.NetworkMenu => MapSelectContext.MapContainer.MapCamera,
+            GameState.MapSelect => MapSelectContext.MapContainer.MapCamera,
+            GameState.Deployment => GameMapContext.MapContainer.MapCamera,
+            GameState.ArmyDraft => GameMapContext.MapContainer.MapCamera,
+            GameState.PauseScreen => GameMapContext.MapContainer.MapCamera,
+            GameState.InGame => GameMapContext.MapContainer.MapCamera,
+            GameState.Results => GameMapContext.MapContainer.MapCamera,
+            GameState.ItemPreview => GameMapContext.MapContainer.MapCamera,
+            GameState.Codex => GameMapContext.MapContainer.MapCamera,
+            GameState.Credits => MapSelectContext.MapContainer.MapCamera,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public static List<GameUnit> Units => InitiativeContext.Units;
 
@@ -311,7 +268,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void InjectCreepIntoTile(CreepEntity randomSummon, MapElement creepDeployTile)
         {
-            Trace.WriteLine($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
+            Logger.Debug($"Injecting {randomSummon.Name} at {creepDeployTile.MapCoordinates}");
 
             GameUnit creepToSpawn =
                 UnitGenerator.BuildUnitFromProperties(

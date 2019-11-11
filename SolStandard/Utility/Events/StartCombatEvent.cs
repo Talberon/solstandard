@@ -31,6 +31,7 @@ namespace SolStandard.Utility.Events
 
             AssetManager.CombatStartSFX.Play();
 
+            
             GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }

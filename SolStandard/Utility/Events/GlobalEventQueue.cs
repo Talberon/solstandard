@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
+using NLog;
 using SolStandard.Utility.Events.Network;
 
 namespace SolStandard.Utility.Events
 {
     public static class GlobalEventQueue
     {
-        /*
-         * Enqueue several events to occur one after another
-         * For example, play out a series of animations before starting combat.
-         */
-
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static readonly Queue<IEvent> EventSequence = new Queue<IEvent>();
         private static IEvent _currentEvent;
 
         private static bool AllActionsComplete =>
             EventSequence.Count == 0 && (_currentEvent == null || _currentEvent.Complete);
 
-        public static void QueueEvents(Queue<IEvent> eventSequence)
+        public static void QueueEvents(IEnumerable<IEvent> eventSequence)
         {
             foreach (IEvent queuedEvent in eventSequence)
             {
@@ -41,6 +38,7 @@ namespace SolStandard.Utility.Events
                 }
             }
 
+            Logger.Trace("Queuing new event: {}", eventToQueue);
             EventSequence.Enqueue(eventToQueue);
         }
 
@@ -53,6 +51,7 @@ namespace SolStandard.Utility.Events
             else if (EventSequence.Count > 0)
             {
                 _currentEvent = EventSequence.Dequeue();
+                Logger.Trace("Popped event from queue: {}", _currentEvent);
             }
 
             return AllActionsComplete;
@@ -61,6 +60,7 @@ namespace SolStandard.Utility.Events
         public static void ClearEventQueue()
         {
             _currentEvent = null;
+            Logger.Trace("Clearing event queue.");
             EventSequence.Clear();
         }
     }

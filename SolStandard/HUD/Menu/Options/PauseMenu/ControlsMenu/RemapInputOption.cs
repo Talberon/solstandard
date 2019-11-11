@@ -12,13 +12,13 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
     {
         private readonly IController controller;
         private readonly ControlConfigContext.Device device;
-        public Input Input { get; }
+        private Input Input { get; }
 
         public RemapInputOption(IController controller, Input input, ControlConfigContext.Device device, Color color) :
             base(GenerateLabelContent(controller, input, color), color, HorizontalAlignment.Right)
         {
             this.controller = controller;
-            this.Input = input;
+            Input = input;
             this.device = device;
         }
 

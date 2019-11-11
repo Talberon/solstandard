@@ -61,20 +61,13 @@ namespace SolStandard.Entity.Unit
 
         public void SetState(UnitEntityState state)
         {
-            switch (state)
+            ElementColor = state switch
             {
-                case UnitEntityState.Active:
-                    ElementColor = ActiveColor;
-                    break;
-                case UnitEntityState.Inactive:
-                    ElementColor = InactiveColor;
-                    break;
-                case UnitEntityState.Exhausted:
-                    ElementColor = ExhaustedColor;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
-            }
+                UnitEntityState.Active => ActiveColor,
+                UnitEntityState.Inactive => InactiveColor,
+                UnitEntityState.Exhausted => ExhaustedColor,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
         }
 
         public UnitSpriteSheet UnitSpriteSheet => (UnitSpriteSheet) Sprite;

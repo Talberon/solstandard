@@ -135,15 +135,12 @@ namespace SolStandard.Containers.Contexts
         {
             get
             {
-                switch (currentPhase)
+                return currentPhase switch
                 {
-                    case DraftPhase.UnitSelect:
-                        return DraftView.UnitSelect;
-                    case DraftPhase.CommanderSelect:
-                        return DraftView.CommanderSelect;
-                    default:
-                        return DraftView.UnitSelect;
-                }
+                    DraftPhase.UnitSelect => DraftView.UnitSelect,
+                    DraftPhase.CommanderSelect => DraftView.CommanderSelect,
+                    _ => DraftView.UnitSelect
+                };
             }
         }
 
@@ -254,18 +251,12 @@ namespace SolStandard.Containers.Contexts
 
         private Dictionary<Role, int> GetUnitTypeCountForTeam(Team team)
         {
-            Dictionary<Role, int> unitLimit;
-            switch (team)
+            Dictionary<Role, int> unitLimit = team switch
             {
-                case Team.Blue:
-                    unitLimit = blueUnitCount;
-                    break;
-                case Team.Red:
-                    unitLimit = redUnitCount;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => blueUnitCount,
+                Team.Red => redUnitCount,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
 
             return unitLimit;
         }
@@ -284,45 +275,32 @@ namespace SolStandard.Containers.Contexts
 
         private List<GameUnit> GetTeamUnits(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return BlueUnits;
-                case Team.Red:
-                    return RedUnits;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => BlueUnits,
+                Team.Red => RedUnits,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
         }
 
         private void PassTurnUnitSelect()
         {
-            switch (CurrentTurn)
+            CurrentTurn = CurrentTurn switch
             {
-                case Team.Blue:
-                    CurrentTurn = redUnitsSelected >= redMaxUnits ? Team.Blue : Team.Red;
-                    break;
-                case Team.Red:
-                    CurrentTurn = blueUnitsSelected >= blueMaxUnits ? Team.Red : Team.Blue;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                Team.Blue => (redUnitsSelected >= redMaxUnits ? Team.Blue : Team.Red),
+                Team.Red => (blueUnitsSelected >= blueMaxUnits ? Team.Red : Team.Blue),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private void PassTurnCommanderSelect()
         {
-            switch (CurrentTurn)
+            CurrentTurn = CurrentTurn switch
             {
-                case Team.Blue:
-                    CurrentTurn = redMaxUnits == 0 ? Team.Blue : Team.Red;
-                    break;
-                case Team.Red:
-                    CurrentTurn = blueMaxUnits == 0 ? Team.Red : Team.Blue;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                Team.Blue => (redMaxUnits == 0 ? Team.Blue : Team.Red),
+                Team.Red => (blueMaxUnits == 0 ? Team.Red : Team.Blue),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         private bool AllCommandersHaveBeenSelected

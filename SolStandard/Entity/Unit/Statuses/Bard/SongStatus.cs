@@ -32,15 +32,12 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         protected static Color GetSongColor(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return new Color(80, 80, 255, 50);
-                case Team.Red:
-                    return new Color(255, 70, 80, 50);
-                default:
-                    return new Color(35, 100, 35, 100);
-            }
+                Team.Blue => new Color(80, 80, 255, 50),
+                Team.Red => new Color(255, 70, 80, 50),
+                _ => new Color(35, 100, 35, 100)
+            };
         }
 
         public BonusStatistics ActiveBonus => IsAuraEffect ? AuraBonus : SelfBonus;

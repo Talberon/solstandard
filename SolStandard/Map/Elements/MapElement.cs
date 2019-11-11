@@ -58,7 +58,7 @@ namespace SolStandard.Map.Elements
 
         public IRenderable RenderSprite => Sprite;
 
-        public Vector2 CurrentDrawCoordinates { get; private set; }
+        protected Vector2 CurrentDrawCoordinates { get; private set; }
 
         private Vector2 MapPixelCoordinates => MapCoordinates * GameDriver.CellSize;
 

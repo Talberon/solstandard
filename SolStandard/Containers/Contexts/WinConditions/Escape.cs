@@ -67,7 +67,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
             }
         }
 
-        public override IRenderable ObjectiveInfo => objectiveWindow ?? (objectiveWindow = BuildObjectiveWindow());
+        public override IRenderable ObjectiveInfo => objectiveWindow ??= BuildObjectiveWindow();
 
         private Window BuildObjectiveWindow()
         {

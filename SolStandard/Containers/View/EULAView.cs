@@ -10,16 +10,15 @@ using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
 {
-    public class CreditsView : IUserInterface
+    public class EULAView : IUserInterface
     {
         private const int WindowSpacing = 10;
-        private readonly ScrollableWindow creditsWindow;
+        private readonly ScrollableWindow eulaWindow;
         private readonly Window controlWindow;
 
-        public CreditsView()
+        public EULAView()
         {
             ISpriteFont windowFont = AssetManager.WindowFont;
-
             controlWindow = new Window(new WindowContentGrid(new IRenderable[,]
             {
                 {
@@ -28,12 +27,7 @@ namespace SolStandard.Containers.View
                         {
                             new RenderText(windowFont, "Press"),
                             InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
-                            new RenderText(windowFont, " to view credits in browser."),
-                        },
-                        {
-                            new RenderText(windowFont, "Press"),
-                            InputIconProvider.GetInputIcon(Input.Cancel, GameDriver.CellSize),
-                            new RenderText(windowFont, " to return to menu."),
+                            new RenderText(windowFont, " to accept the agreement."),
                         }
                     })
                 },
@@ -52,15 +46,8 @@ namespace SolStandard.Containers.View
                 }
             }), MainMenuView.MenuColor);
 
-            creditsWindow = new ScrollableWindow(
-                new WindowContentGrid(
-                    new IRenderable[,]
-                    {
-                        {new RenderText(AssetManager.WindowFont, AssetManager.CreditsText)}
-                    },
-                    1,
-                    HorizontalAlignment.Centered
-                ),
+            eulaWindow = new ScrollableWindow(
+                new RenderText(AssetManager.WindowFont, AssetManager.EULAText),
                 GameDriver.ScreenSize / 1.5f,
                 MainMenuView.MenuColor
             );
@@ -69,20 +56,16 @@ namespace SolStandard.Containers.View
         public void ScrollContents(Direction direction)
         {
             const int scrollSpeed = 15;
-            creditsWindow.ScrollWindowContents(direction, scrollSpeed);
+            eulaWindow.ScrollWindowContents(direction, scrollSpeed);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            controlWindow.Draw(spriteBatch, CreditsCenter() - new Vector2(0, controlWindow.Height + WindowSpacing));
-            creditsWindow.Draw(spriteBatch, CreditsCenter());
-        }
+            Vector2 licensePosition =
+                (GameDriver.ScreenSize / 2) - (new Vector2(eulaWindow.Width, eulaWindow.Height) / 2);
 
-        private Vector2 CreditsCenter()
-        {
-            Vector2 screenCenter = GameDriver.ScreenSize / 2;
-            Vector2 halfWindowSize = new Vector2(creditsWindow.Width, creditsWindow.Height) / 2;
-            return screenCenter - halfWindowSize;
+            controlWindow.Draw(spriteBatch, licensePosition - new Vector2(0, controlWindow.Height + WindowSpacing));
+            eulaWindow.Draw(spriteBatch, licensePosition);
         }
     }
 }

@@ -16,18 +16,6 @@ namespace SolStandard.Containers.View
                     new Vector2(AssetManager.MainMenuBackground.Width, AssetManager.MainMenuBackground.Height),
                     GameDriver.ScreenSize.X));
 
-        private bool IsVisible { get; set; }
-
-        public BackgroundView()
-        {
-            IsVisible = true;
-        }
-
-        public void ToggleVisible()
-        {
-            IsVisible = !IsVisible;
-        }
-
         private static Vector2 ScaleHeightToWidth(Vector2 sourceProportions, float width)
         {
             Vector2 scaledProportions = new Vector2 {X = width, Y = sourceProportions.Y * width / sourceProportions.X};
@@ -36,7 +24,6 @@ namespace SolStandard.Containers.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!IsVisible) return;
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
             Vector2 backgroundCenter = new Vector2(Background.Width, Background.Height) / 2;
             Background.Draw(spriteBatch, centerScreen - backgroundCenter, RenderColor);

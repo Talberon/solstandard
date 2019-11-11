@@ -13,7 +13,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
 
         public PickDoorLock(int doorDamage) : base(
             icon: SkillIconProvider.GetSkillIcon(SkillIcon.PickLock, GameDriver.CellSizeVector),
-            name: $"Pick Lock - Door",
+            name: "Pick Lock - Door",
             description: $"Deal [{doorDamage}] damage to target door.",
             tileSprite: MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Action),
             range: new[] {1},

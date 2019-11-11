@@ -42,11 +42,8 @@ namespace SolStandard.Containers.View
         private static IRenderable _draftCursor;
         private static IRenderable _commanderCursor;
 
-        private bool visible;
-
         public DraftView()
         {
-            visible = true;
             UpdateCommanderPortrait(Role.Silhouette, Team.Creep);
 
             UpdateHelpWindow("SELECT A UNIT");
@@ -212,20 +209,16 @@ namespace SolStandard.Containers.View
         }
 
         public static IRenderable DraftCursor =>
-            _draftCursor ?? (
-                _draftCursor = new SpriteAtlas(
-                    AssetManager.MapCursorTexture,
-                    GameDriver.CellSizeVector,
-                    new Vector2(150)
-                )
+            _draftCursor ??= new SpriteAtlas(
+                AssetManager.MapCursorTexture,
+                GameDriver.CellSizeVector,
+                new Vector2(150)
             );
 
         private static IRenderable CommanderCursor =>
-            _commanderCursor ?? (
-                _commanderCursor = new SpriteAtlas(
-                    AssetManager.MenuCursorTexture,
-                    new Vector2(AssetManager.MenuCursorTexture.Width)
-                )
+            _commanderCursor ??= new SpriteAtlas(
+                AssetManager.MenuCursorTexture,
+                new Vector2(AssetManager.MenuCursorTexture.Width)
             );
 
         public static MenuOption[,] GetAdHocUnitOptionsForTeam(Team team, IReadOnlyDictionary<Role, bool> unitEnabled)
@@ -426,27 +419,20 @@ namespace SolStandard.Containers.View
 
         #endregion Positions
 
-        public void ToggleVisible()
-        {
-            visible = !visible;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (visible)
-            {
-                BlueTeamUnits?.Draw(spriteBatch, BlueTeamUnitsPosition);
-                RedTeamUnits?.Draw(spriteBatch, RedTeamUnitsPosition);
+            BlueTeamUnits?.Draw(spriteBatch, BlueTeamUnitsPosition);
+            RedTeamUnits?.Draw(spriteBatch, RedTeamUnitsPosition);
 
-                BlueTeamCommander?.Draw(spriteBatch, BlueTeamCommanderPosition);
-                RedTeamCommander?.Draw(spriteBatch, RedTeamCommanderPosition);
+            BlueTeamCommander?.Draw(spriteBatch, BlueTeamCommanderPosition);
+            RedTeamCommander?.Draw(spriteBatch, RedTeamCommanderPosition);
 
-                HelpText?.Draw(spriteBatch, HelpTextPosition);
-                VersusText?.Draw(spriteBatch, VersusTextPosition);
+            HelpText?.Draw(spriteBatch, HelpTextPosition);
+            VersusText?.Draw(spriteBatch, VersusTextPosition);
 
-                UnitSelect?.Draw(spriteBatch, UnitSelectPosition);
-                CommanderSelect?.Draw(spriteBatch, CommanderSelectPosition);
-            }
+            UnitSelect?.Draw(spriteBatch, UnitSelectPosition);
+            CommanderSelect?.Draw(spriteBatch, CommanderSelectPosition);
 
             ControlsText?.Draw(spriteBatch, ControlsTextPosition);
             ObjectivesWindow?.Draw(spriteBatch, ObjectivesWindowPosition);

@@ -39,24 +39,18 @@ namespace SolStandard.Entity.General
         {
             Vector2 unitCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
 
-            switch (directionToCross)
+            return directionToCross switch
             {
-                case Direction.None:
-                    return UnitAction.SourceNorthOfTarget(unitCoordinates, MapCoordinates) ^
-                           UnitAction.SourceEastOfTarget(unitCoordinates, MapCoordinates) ^
-                           UnitAction.SourceSouthOfTarget(unitCoordinates, MapCoordinates) ^
-                           UnitAction.SourceWestOfTarget(unitCoordinates, MapCoordinates);
-                case Direction.Up:
-                    return UnitAction.SourceSouthOfTarget(unitCoordinates, MapCoordinates);
-                case Direction.Right:
-                    return UnitAction.SourceWestOfTarget(unitCoordinates, MapCoordinates);
-                case Direction.Down:
-                    return UnitAction.SourceNorthOfTarget(unitCoordinates, MapCoordinates);
-                case Direction.Left:
-                    return UnitAction.SourceEastOfTarget(unitCoordinates, MapCoordinates);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(directionToCross), directionToCross, null);
-            }
+                Direction.None => (UnitAction.SourceNorthOfTarget(unitCoordinates, MapCoordinates) ^
+                                   UnitAction.SourceEastOfTarget(unitCoordinates, MapCoordinates) ^
+                                   UnitAction.SourceSouthOfTarget(unitCoordinates, MapCoordinates) ^
+                                   UnitAction.SourceWestOfTarget(unitCoordinates, MapCoordinates)),
+                Direction.Up => UnitAction.SourceSouthOfTarget(unitCoordinates, MapCoordinates),
+                Direction.Right => UnitAction.SourceWestOfTarget(unitCoordinates, MapCoordinates),
+                Direction.Down => UnitAction.SourceNorthOfTarget(unitCoordinates, MapCoordinates),
+                Direction.Left => UnitAction.SourceEastOfTarget(unitCoordinates, MapCoordinates),
+                _ => throw new ArgumentOutOfRangeException(nameof(directionToCross), directionToCross, null)
+            };
         }
     }
 }

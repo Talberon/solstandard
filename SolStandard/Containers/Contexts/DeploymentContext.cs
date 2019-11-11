@@ -184,28 +184,22 @@ namespace SolStandard.Containers.Contexts
 
         private static Team OpposingTeam(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return Team.Red;
-                case Team.Red:
-                    return Team.Blue;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => Team.Red,
+                Team.Red => Team.Blue,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
         }
 
         private List<GameUnit> GetArmy(Team team)
         {
-            switch (team)
+            return team switch
             {
-                case Team.Blue:
-                    return blueArmy;
-                case Team.Red:
-                    return redArmy;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(team), team, null);
-            }
+                Team.Blue => blueArmy,
+                Team.Red => redArmy,
+                _ => throw new ArgumentOutOfRangeException(nameof(team), team, null)
+            };
         }
 
         private bool TargetTileIsValidDeploymentTile

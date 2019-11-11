@@ -38,32 +38,24 @@ namespace SolStandard.Utility.Inputs
 
         public override bool Press(Input input, PressType pressType)
         {
-            switch (pressType)
+            return pressType switch
             {
-                case PressType.DelayedRepeat:
-                    return DelayedRepeat(buttonMap[input], true);
-                case PressType.InstantRepeat:
-                    return InstantRepeat(buttonMap[input]);
-                case PressType.Single:
-                    return SinglePress(buttonMap[input], true);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null);
-            }
+                PressType.DelayedRepeat => DelayedRepeat(buttonMap[input], true),
+                PressType.InstantRepeat => InstantRepeat(buttonMap[input]),
+                PressType.Single => SinglePress(buttonMap[input], true),
+                _ => throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null)
+            };
         }
 
         public override bool Peek(Input input, PressType pressType)
         {
-            switch (pressType)
+            return pressType switch
             {
-                case PressType.DelayedRepeat:
-                    return DelayedRepeat(buttonMap[input], false);
-                case PressType.InstantRepeat:
-                    return InstantRepeat(buttonMap[input]);
-                case PressType.Single:
-                    return SinglePress(buttonMap[input], false);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null);
-            }
+                PressType.DelayedRepeat => DelayedRepeat(buttonMap[input], false),
+                PressType.InstantRepeat => InstantRepeat(buttonMap[input]),
+                PressType.Single => SinglePress(buttonMap[input], false),
+                _ => throw new ArgumentOutOfRangeException(nameof(pressType), pressType, null)
+            };
         }
 
 

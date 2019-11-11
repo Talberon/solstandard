@@ -17,6 +17,9 @@ namespace SolStandard.Containers.Contexts
         {
             switch (GameContext.CurrentGameState)
             {
+                case GameContext.GameState.EULAConfirm:
+                    EULAControls(controlMapper);
+                    break;
                 case GameContext.GameState.MainMenu:
                     MainMenuControls(controlMapper);
                     break;
@@ -58,6 +61,34 @@ namespace SolStandard.Containers.Contexts
             }
         }
 
+        private static void EULAControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.EULAContext.ConfirmEULAPrompt();
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.EULAContext.ScrollWindow(Direction.Right);
+            }
+        }
+
         private static void CreditsControls(ControlMapper controlMapper)
         {
             if (controlMapper.Press(Input.Confirm, PressType.Single))
@@ -70,6 +101,26 @@ namespace SolStandard.Containers.Contexts
                 controlMapper.Press(Input.Menu, PressType.Single))
             {
                 GameContext.CreditsContext.ExitView();
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.CreditsContext.ScrollWindow(Direction.Right);
             }
         }
 
