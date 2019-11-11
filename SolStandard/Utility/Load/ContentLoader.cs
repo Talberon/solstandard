@@ -646,16 +646,9 @@ namespace SolStandard.Utility.Load
         {
             return new List<IPlayableAudio>
             {
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/MilitaryTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/PlainsTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/VoidTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/DesertTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/SnowyMountainTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/IslandTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/LavaTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/BossTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectThemeOld")),
 
                 //Original (Compressed)
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/MapSelectTheme")),
@@ -665,7 +658,6 @@ namespace SolStandard.Utility.Load
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/GallopTheme")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/RegularBattle")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/CaveTheme")),
-                new SongWrapper(content.Load<Song>("Audio/Music/Game/JazzBattle")),
                 new SongWrapper(content.Load<Song>("Audio/Music/Game/VictoryJingle")),
 
 
