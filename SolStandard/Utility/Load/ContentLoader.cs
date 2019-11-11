@@ -293,9 +293,9 @@ namespace SolStandard.Utility.Load
             return new Texture2DWrapper(backgroundTexture);
         }
 
-        public static ITexture2D LoadSolSpin(ContentManager content)
+        public static ITexture2D LoadSolIcon(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolSpin-White");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolIcon");
             return new Texture2DWrapper(loadTexture);
         }
 

@@ -17,15 +17,15 @@ namespace SolStandard.Containers.View
 {
     public class NetworkMenuView : IUserInterface
     {
-        private readonly SpriteAtlas title;
-        private readonly AnimatedSpriteSheet logo;
+        private readonly IRenderable title;
+        private readonly IRenderable logo;
         private Window networkStatusWindow;
         private TwoDimensionalMenu DialMenu { get; set; }
         private TwoDimensionalMenu HostMenu { get; set; }
         private string inputIPAddress;
         private string hostIPAddress;
 
-        public NetworkMenuView(SpriteAtlas title, AnimatedSpriteSheet logo)
+        public NetworkMenuView(IRenderable title, IRenderable logo)
         {
             this.title = title;
             this.logo = logo;

@@ -511,6 +511,7 @@
     <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
     <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
     <Compile Include="Utility\IResizable.cs" />
+    <Compile Include="Utility\IRotatable.cs" />
     <Compile Include="Utility\Model\CreepRoutineModel.cs" />
     <Compile Include="Utility\Monogame\IPlayableAudio.cs" />
     <Compile Include="Utility\Monogame\ISoundEffect.cs" />
@@ -520,6 +521,7 @@
     <Compile Include="Utility\Network\ConnectionManager.cs" />
     <Compile Include="Utility\PathingUtil.cs" />
     <Compile Include="Utility\RangeComparison.cs" />
+    <Compile Include="Utility\RotatingSprite.cs" />
     <Compile Include="Utility\SpriteResizer.cs" />
     <Compile Include="Utility\System\IFileIO.cs" />
     <Compile Include="Utility\System\WindowsFileIO.cs" />

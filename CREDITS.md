@@ -89,6 +89,12 @@ Sol Standard 2019 Trevor Kendrick @Talberon
 >#### License
 >http://creativecommons.org/publicdomain/zero/1.0/
 
+### AJ Paglia | http://ajpaglia.com/
+>#### Works
+>Font - Aldo the Apache (Logo Font)
+>#### License
+>Free
+
 ### Eeve Somepx | https://somepx.itch.io/
 >#### Works
 >In-game fonts

@@ -202,15 +202,14 @@ namespace SolStandard
             SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
                 new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
 
-            AnimatedSpriteSheet mainMenuLogoSpriteSheet =
-                new AnimatedSpriteSheet(AssetManager.MainMenuSunTexture, AssetManager.MainMenuSunTexture.Height, 5,
-                    false);
+            SpriteAtlas solIcon = new SpriteAtlas(AssetManager.MainMenuSunTexture,
+                new Vector2(AssetManager.MainMenuSunTexture.Width, AssetManager.MainMenuSunTexture.Height));
 
-            MainMenuView mainMenu =
-                new MainMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
-            NetworkMenuView networkMenu =
-                new NetworkMenuView(mainMenuTitleSprite, mainMenuLogoSpriteSheet);
+            RotatingSprite rotatingSolIcon =
+                new RotatingSprite(solIcon, 0.005f, RotatingSprite.RotationDirection.Counterclockwise);
 
+            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, rotatingSolIcon);
+            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, rotatingSolIcon);
 
             InitializeControllers();
 

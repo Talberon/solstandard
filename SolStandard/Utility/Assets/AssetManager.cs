@@ -139,7 +139,7 @@ namespace SolStandard.Utility.Assets
 
             MainMenuFont = ContentLoader.LoadMainMenuFont(content);
             MainMenuLogoTexture = ContentLoader.LoadGameLogo(content);
-            MainMenuSunTexture = ContentLoader.LoadSolSpin(content);
+            MainMenuSunTexture = ContentLoader.LoadSolIcon(content);
             MainMenuBackground = ContentLoader.LoadTitleScreenBackground(content);
 
             SmallPortraitTextures = ContentLoader.LoadSmallPortraits(content);
