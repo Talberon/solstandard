@@ -46,7 +46,7 @@ namespace SolStandard.Utility
             {
                 RotationDirection.Clockwise => rotationSpeedInDegreesPerFrame,
                 RotationDirection.Counterclockwise => -rotationSpeedInDegreesPerFrame,
-                _ => throw new ArgumentOutOfRangeException("direction", direction, "Direction not supported")
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "Direction not supported")
             };
 
             sprite.Draw(spriteBatch, drawOffset + position, colorOverride);
