@@ -43,6 +43,7 @@ namespace SolStandard.Entity.Unit
                 Role.Troll => GenerateName(NameType.Beast),
                 Role.Orc => GenerateName(NameType.Beast),
                 Role.BloodOrc => GenerateName(NameType.Beast),
+                Role.Dragon => GenerateName(NameType.Beast),
                 Role.Kobold => GenerateName(NameType.Beast),
                 Role.Necromancer => GenerateName(NameType.Beast),
                 Role.Skeleton => GenerateName(NameType.Beast),

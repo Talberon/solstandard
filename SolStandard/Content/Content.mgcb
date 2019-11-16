@@ -3469,6 +3469,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Portraits/Creep/BloodOrc.png
 
+#begin Graphics/Images/Portraits/Creep/Dragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Portraits/Creep/Dragon.png
+
 #begin Graphics/Images/Portraits/Creep/Goblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4644,6 +4656,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Map/Units/Creep/CreepBloodOrc.png
+
+#begin Graphics/Map/Units/Creep/CreepDragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Map/Units/Creep/CreepDragon.png
 
 #begin Graphics/Map/Units/Creep/CreepGoblin.png
 /importer:TextureImporter
