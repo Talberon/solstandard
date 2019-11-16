@@ -28,8 +28,8 @@ namespace SolStandard.Containers.View
 
         private readonly IMenu deviceSelectMenu;
         private IMenu inputRemapSelectMenu;
+        private IRenderable inputRemapInfoWindow;
         private readonly IRenderable mappingInfoWindow;
-        private readonly IRenderable inputRemapInfoWindow;
 
         public ControlConfigView()
         {
@@ -44,8 +44,6 @@ namespace SolStandard.Containers.View
                 new RenderText(AssetManager.MainMenuFont, "Listening for input..."),
                 PrimaryWindowColor
             );
-
-            inputRemapInfoWindow = new Window(GenerateHelpInfoWindowContent(), PrimaryWindowColor);
         }
 
         private static IRenderable GenerateHelpInfoWindowContent()
@@ -85,6 +83,7 @@ namespace SolStandard.Containers.View
         public void OpenInputRemapMenu(ControlConfigContext.Device device, IController controller)
         {
             inputRemapSelectMenu = GenerateConfigMenuForDevice(device, controller, cursorSprite);
+            inputRemapInfoWindow = new Window(GenerateHelpInfoWindowContent(), PrimaryWindowColor);
             CurrentState = ControlConfigContext.ControlMenuState.InputRemapSelect;
         }
 
