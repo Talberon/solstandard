@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolStandard", "SolStandard\SolStandard.csproj", "{5401DE7F-824B-45F5-9EEF-2CAAA608908D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolStandardTest", "SolStandardTest\SolStandardTest.csproj", "{12F9D5D4-AF29-4720-AB1A-064A5106C732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolStandard", "SolStandard\SolStandard.csproj", "{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,7 +23,14 @@ Global
 		{12F9D5D4-AF29-4720-AB1A-064A5106C732}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12F9D5D4-AF29-4720-AB1A-064A5106C732}.Release|x86.ActiveCfg = Release|Any CPU
 		{12F9D5D4-AF29-4720-AB1A-064A5106C732}.Release|x86.Build.0 = Release|Any CPU
-		{5401DE7F-824B-45F5-9EEF-2CAAA608908D}.Release|Any CPU.ActiveCfg = Release|x64
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Debug|x86.Build.0 = Debug|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Release|x86.ActiveCfg = Release|Any CPU
+		{3CAC3B44-8765-4DC6-A32E-0ABBBC58C605}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

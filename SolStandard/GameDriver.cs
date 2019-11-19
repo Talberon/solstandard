@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -78,9 +77,8 @@ namespace SolStandard
 
         public void UseBorderlessFullscreen()
         {
-            Screen currentScreen = Screen.FromPoint(new System.Drawing.Point(Window.Position.X, Window.Position.Y));
-            graphics.PreferredBackBufferWidth = currentScreen.Bounds.Width;
-            graphics.PreferredBackBufferHeight = currentScreen.Bounds.Height;
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 

@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -11,7 +10,7 @@ using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 using SolStandard.Utility.Network;
-using HorizontalAlignment = SolStandard.HUD.Window.HorizontalAlignment;
+using TextCopy;
 
 namespace SolStandard.Containers.View
 {
@@ -114,7 +113,7 @@ namespace SolStandard.Containers.View
 
         public void PasteIPAddressFromClipboard()
         {
-            string clipboardContents = Clipboard.GetText(TextDataFormat.Text);
+            string clipboardContents = Clipboard.GetText();
             const string ipAddressPattern = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";
             bool clipboardHasIP = Regex.IsMatch(clipboardContents, ipAddressPattern);
 
