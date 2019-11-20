@@ -78,6 +78,7 @@ namespace SolStandard.Utility.Assets
 
         public static string CreditsText { get; private set; }
         public static string EULAText { get; private set; }
+        public static string HowToPlayText { get; private set; }
 
         public static ITexture2D EntitiesTexture
         {
@@ -199,6 +200,7 @@ namespace SolStandard.Utility.Assets
 
             CreditsText = ContentLoader.LoadCreditsText();
             EULAText = ContentLoader.LoadEULAText();
+            HowToPlayText = ContentLoader.LoadHowToPlayText();
         }
     }
 }

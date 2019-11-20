@@ -7,7 +7,7 @@ namespace SolStandard.Containers.Contexts
     public class EULAContext
     {
         private const string EULAFileName = "EULA_Confirmed";
-        public EULAView EULAView { get; }
+        public ScrollingTextPaneView EULAView { get; }
 
         public bool EULAConfirmed { get; private set; }
 

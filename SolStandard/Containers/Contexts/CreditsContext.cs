@@ -1,4 +1,6 @@
+using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using SolStandard.Containers.View;
 using SolStandard.Map.Elements;
 using SolStandard.Utility.Assets;
@@ -7,11 +9,11 @@ namespace SolStandard.Containers.Contexts
 {
     public class CreditsContext
     {
-        public readonly CreditsView CreditsView;
+        public readonly ScrollingTextPaneView CreditsView;
         private GameContext.GameState previousGameState;
         public const string CreditsPath = "/credits";
 
-        public CreditsContext(CreditsView creditsView)
+        public CreditsContext(ScrollingTextPaneView creditsView)
         {
             CreditsView = creditsView;
         }
@@ -38,7 +40,29 @@ namespace SolStandard.Containers.Contexts
         public void OpenBrowser()
         {
             AssetManager.MenuConfirmSFX.Play();
-            Process.Start(GameDriver.SolStandardUrl + CreditsPath);
+            OpenBrowser(GameDriver.SolStandardUrl + CreditsPath);
+        }
+
+        private static void OpenBrowser(string url)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}"));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+            else
+            {
+                throw new PlatformNotSupportedException(
+                    "This operating system is not supported. Use Windows/Linux/OSX to use this feature."
+                );
+            }
         }
     }
 }

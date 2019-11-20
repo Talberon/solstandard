@@ -216,6 +216,8 @@ namespace SolStandard.Map.Elements.Cursor
                     break;
                 case GameContext.GameState.ControlConfig:
                     break;
+                case GameContext.GameState.HowToPlay:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

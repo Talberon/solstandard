@@ -757,5 +757,10 @@ namespace SolStandard.Utility.Load
         {
             return File.ReadAllText("Content/LICENSE.txt");
         }
+
+        public static string LoadHowToPlayText()
+        {
+            return File.ReadAllText("HowToPlay.md");
+        }
     }
 }
