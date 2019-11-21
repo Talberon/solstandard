@@ -343,6 +343,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Dragons_Lair"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
