@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1011">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1019">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -1978,35 +1978,6 @@
     <property name="triggersId" value="Switch Door"/>
    </properties>
   </object>
-  <object id="987" name="Boss Spawn" type="CreepDeploy" gid="6326" x="768" y="224" width="32" height="32">
-   <properties>
-    <property name="creepPool" value="Bosses"/>
-   </properties>
-  </object>
-  <object id="985" name="Animal Spawn" type="CreepDeploy" gid="6367" x="832" y="224" width="32" height="32">
-   <properties>
-    <property name="copyCreep" type="bool" value="true"/>
-    <property name="creepPool" value="Animals"/>
-   </properties>
-  </object>
-  <object id="986" name="Animal Spawn" type="CreepDeploy" gid="6367" x="800" y="224" width="32" height="32">
-   <properties>
-    <property name="copyCreep" type="bool" value="true"/>
-    <property name="creepPool" value="Animals"/>
-   </properties>
-  </object>
-  <object id="983" name="Monster Spawn" type="CreepDeploy" gid="6375" x="704" y="224" width="32" height="32">
-   <properties>
-    <property name="copyCreep" type="bool" value="true"/>
-    <property name="creepPool" value="Monsters"/>
-   </properties>
-  </object>
-  <object id="991" name="Monster Spawn" type="CreepDeploy" gid="6375" x="736" y="224" width="32" height="32">
-   <properties>
-    <property name="copyCreep" type="bool" value="true"/>
-    <property name="creepPool" value="Monsters"/>
-   </properties>
-  </object>
   <object id="1004" name="Recall Charm" type="RecallCharm" gid="6836" x="512" y="448" width="32" height="32">
    <properties>
     <property name="recallId" value="Recall Point"/>
@@ -2145,6 +2116,21 @@
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="1018" name="Dragon" type="Creep" gid="39" x="736" y="96" width="32" height="32">
+   <properties>
+    <property name="Class" value="Dragon"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Bosses"/>
+    <property name="fallback_routine" value="routine_wait"/>
+    <property name="gold" type="int" value="35"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Kobold"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
   <object id="926" name="Free Contract" type="Contract" gid="6480" x="576" y="416" width="32" height="32">
@@ -2213,7 +2199,7 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="Units">
-  <object id="909" name="Charlotte" type="Unit" gid="23" x="800" y="416" width="32" height="32">
+  <object id="909" name="Charlotte" type="Unit" gid="23" x="768" y="384" width="32" height="32">
    <properties>
     <property name="Class" value="Paladin"/>
     <property name="Commander" type="bool" value="true"/>
@@ -2227,55 +2213,155 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="907" name="Maria" type="Unit" gid="19" x="768" y="416" width="32" height="32">
+  <object id="907" name="Maria" type="Unit" gid="19" x="800" y="416" width="32" height="32">
    <properties>
     <property name="Class" value="Pugilist"/>
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="1007" name="Blood Orc" type="Creep" gid="37" x="736" y="320" width="32" height="32">
+  <object id="1013" name="Dragon" type="Creep" gid="39" x="864" y="288" width="32" height="32">
    <properties>
-    <property name="Class" value="BloodOrc"/>
+    <property name="Class" value="Dragon"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Bosses"/>
+    <property name="gold" type="int" value="20"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_stationaryAttack" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Kobold"/>
+   </properties>
+  </object>
+  <object id="1014" name="Dragon" type="Creep" gid="39" x="672" y="288" width="32" height="32">
+   <properties>
+    <property name="Class" value="Dragon"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Bosses"/>
+    <property name="gold" type="int" value="20"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_stationaryAttack" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Kobold"/>
+   </properties>
+  </object>
+  <object id="1015" name="Dragon" type="Creep" gid="39" x="768" y="288" width="32" height="32">
+   <properties>
+    <property name="Class" value="Dragon"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Bosses"/>
+    <property name="gold" type="int" value="20"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_stationaryAttack" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Kobold"/>
+   </properties>
+  </object>
+  <object id="1016" name="Kobold" type="Creep" gid="38" x="704" y="320" width="32" height="32">
+   <properties>
+    <property name="Class" value="Kobold"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="12"/>
     <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="false"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="1008" name="Blood Orc" type="Creep" gid="37" x="800" y="320" width="32" height="32">
+  <object id="1017" name="Kobold" type="Creep" gid="38" x="832" y="320" width="32" height="32">
    <properties>
-    <property name="Class" value="BloodOrc"/>
+    <property name="Class" value="Kobold"/>
     <property name="Independent" type="bool" value="true"/>
     <property name="creepPool" value="Monsters"/>
+    <property name="gold" type="int" value="12"/>
     <property name="routine_defender" type="bool" value="true"/>
-    <property name="routine_glutton" type="bool" value="true"/>
-    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="false"/>
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="9" name="Disabled" opacity="0.24">
-  <object id="904" name="Qorf" type="Unit" gid="1" x="864" y="512.5" width="32" height="32">
+  <object id="904" name="Qorf" type="Unit" gid="1" x="768" y="480.5" width="32" height="32">
    <properties>
     <property name="Class" value="Archer"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="902" name="Gaius" type="Unit" gid="3" x="832" y="512.5" width="32" height="32">
+  <object id="902" name="Gaius" type="Unit" gid="3" x="736" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Champion"/>
     <property name="Commander" type="bool" value="true"/>
     <property name="Team" value="Blue"/>
    </properties>
   </object>
-  <object id="903" name="Ethan" type="Unit" gid="5" x="896" y="512" width="32" height="32">
+  <object id="903" name="Ethan" type="Unit" gid="5" x="800" y="480" width="32" height="32">
    <properties>
     <property name="Class" value="Lancer"/>
     <property name="Team" value="Blue"/>
+   </properties>
+  </object>
+  <object id="987" name="Boss Spawn" type="CreepDeploy" gid="6326" x="768" y="160" width="32" height="32">
+   <properties>
+    <property name="creepPool" value="Bosses"/>
+   </properties>
+  </object>
+  <object id="985" name="Animal Spawn" type="CreepDeploy" gid="6367" x="832" y="160" width="32" height="32">
+   <properties>
+    <property name="copyCreep" type="bool" value="true"/>
+    <property name="creepPool" value="Animals"/>
+   </properties>
+  </object>
+  <object id="986" name="Animal Spawn" type="CreepDeploy" gid="6367" x="800" y="160" width="32" height="32">
+   <properties>
+    <property name="copyCreep" type="bool" value="true"/>
+    <property name="creepPool" value="Animals"/>
+   </properties>
+  </object>
+  <object id="983" name="Monster Spawn" type="CreepDeploy" gid="6375" x="704" y="160" width="32" height="32">
+   <properties>
+    <property name="copyCreep" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+   </properties>
+  </object>
+  <object id="991" name="Monster Spawn" type="CreepDeploy" gid="6375" x="736" y="160" width="32" height="32">
+   <properties>
+    <property name="copyCreep" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+   </properties>
+  </object>
+  <object id="1007" name="Blood Orc" type="Creep" gid="37" x="736" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1008" name="Blood Orc" type="Creep" gid="37" x="800" y="192" width="32" height="32">
+   <properties>
+    <property name="Class" value="BloodOrc"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Monsters"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="true"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_treasureHunter" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

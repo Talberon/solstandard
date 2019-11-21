@@ -153,6 +153,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepOrc"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepBloodOrc"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepKobold"),
+                content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepDragon"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepMerchant"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepNecromancer"),
                 content.Load<Texture2D>("Graphics/Map/Units/Creep/CreepSkeleton"),
@@ -206,6 +207,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Troll"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Orc"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/BloodOrc"),
+                content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Dragon"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Kobold"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Necromancer"),
                 content.Load<Texture2D>("Graphics/Images/Portraits/Creep/Skeleton"),
@@ -341,6 +343,7 @@ namespace SolStandard.Utility.Load
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Wokako_Jungle"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Hunt_Overworld_02"),
                 content.Load<Texture2D>("Graphics/Map/MapPreviews/Draft_Factory_Floor_02"),
+                content.Load<Texture2D>("Graphics/Map/MapPreviews/Solo_Dragons_Lair"),
             };
 
             return mapPreviewTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();
@@ -754,6 +757,11 @@ namespace SolStandard.Utility.Load
         public static string LoadEULAText()
         {
             return File.ReadAllText("Content/LICENSE.txt");
+        }
+
+        public static string LoadHowToPlayText()
+        {
+            return File.ReadAllText("HowToPlay.md");
         }
     }
 }

@@ -38,7 +38,8 @@ namespace SolStandard.Containers.Contexts
             Codex,
             ItemPreview,
             Credits,
-            ControlConfig
+            ControlConfig,
+            HowToPlay
         }
 
         public static readonly Color PositiveColor = new Color(30, 200, 30);
@@ -63,6 +64,7 @@ namespace SolStandard.Containers.Contexts
         public static CreditsContext CreditsContext { get; private set; }
         public static ControlConfigContext ControlConfigContext { get; private set; }
         public static EULAContext EULAContext { get; private set; }
+        public static HowToPlayContext HowToPlayContext { get; private set; }
 
         public static Team P1Team { get; private set; }
         public static Team P2Team => (P1Team == Team.Blue) ? Team.Red : Team.Blue;
@@ -86,6 +88,7 @@ namespace SolStandard.Containers.Contexts
             GameState.ControlConfig => ((InitiativeContext != null)
                 ? GetPlayerForTeam(ActiveTeam)
                 : PlayerIndex.One),
+            GameState.HowToPlay => GetPlayerForTeam(ActiveTeam),
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -101,6 +104,7 @@ namespace SolStandard.Containers.Contexts
             CreditsContext = new CreditsContext(new CreditsView());
             ControlConfigContext = new ControlConfigContext(new ControlConfigView());
             BackgroundView = new BackgroundView();
+            HowToPlayContext = new HowToPlayContext();
             LoadMapSelect();
             CurrentGameState = GameState.EULAConfirm;
             P1Team = Team.Red;
@@ -132,6 +136,7 @@ namespace SolStandard.Containers.Contexts
             GameState.ItemPreview => GameMapContext.MapContainer.MapCursor,
             GameState.Codex => null,
             GameState.Credits => null,
+            GameState.HowToPlay => MapSelectContext.MapContainer.MapCursor,
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -149,6 +154,7 @@ namespace SolStandard.Containers.Contexts
             GameState.ItemPreview => GameMapContext.MapContainer.MapCamera,
             GameState.Codex => GameMapContext.MapContainer.MapCamera,
             GameState.Credits => MapSelectContext.MapContainer.MapCamera,
+            GameState.HowToPlay => MapSelectContext.MapContainer.MapCamera,
             _ => throw new ArgumentOutOfRangeException()
         };
 

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Containers.Contexts;
@@ -78,9 +77,8 @@ namespace SolStandard
 
         public void UseBorderlessFullscreen()
         {
-            Screen currentScreen = Screen.FromPoint(new System.Drawing.Point(Window.Position.X, Window.Position.Y));
-            graphics.PreferredBackBufferWidth = currentScreen.Bounds.Width;
-            graphics.PreferredBackBufferHeight = currentScreen.Bounds.Height;
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 
@@ -369,6 +367,9 @@ namespace SolStandard
                 case GameContext.GameState.ControlConfig:
                     GameContext.ControlConfigContext.Update();
                     break;
+                case GameContext.GameState.HowToPlay:
+                    GameContext.UpdateCamera();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -446,6 +447,10 @@ namespace SolStandard
                     DrawBackgroundWallpaper();
                     DrawControlConfigScreen();
                     break;
+                case GameContext.GameState.HowToPlay:
+                    DrawBackgroundWallpaper();
+                    DrawHowToPlayScreen();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -521,7 +526,6 @@ namespace SolStandard
             spriteBatch.End();
         }
 
-
         private void DrawCreditsScreen()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
@@ -531,6 +535,14 @@ namespace SolStandard
             spriteBatch.End();
         }
 
+        private void DrawHowToPlayScreen()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
+            GameContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
 
         private void DrawColorEntireScreen(Color color)
         {

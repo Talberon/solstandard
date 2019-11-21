@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit
             Vector2 centerCoordinates = tileCoordinates * GameDriver.CellSize;
             centerCoordinates.X += (float) GameDriver.CellSize / 2;
             centerCoordinates.X -= iconSize / 2;
-            centerCoordinates.Y -= iconSize / 2;
+            centerCoordinates.Y -= iconSize;
             return centerCoordinates;
         }
 

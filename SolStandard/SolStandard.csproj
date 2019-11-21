@@ -1,789 +1,181 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5401DE7F-824B-45F5-9EEF-2CAAA608908D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolStandard</RootNamespace>
-    <AssemblyName>SolStandard</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <StartupObject>SolStandard.Program</StartupObject>
     <LangVersion>8</LangVersion>
-    <Nullable>disable</Nullable>
+    <AssemblyName>SolStandard</AssemblyName>
+    <RootNamespace>SolStandard</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32bit>false</Prefer32bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32bit>false</Prefer32bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="Containers\Contexts\BattleContext.cs" />
-    <Compile Include="Containers\Contexts\CodexContext.cs" />
-    <Compile Include="Containers\Contexts\Combat\BonusStatistics.cs" />
-    <Compile Include="Containers\Contexts\ControlConfigContext.cs" />
-    <Compile Include="Containers\Contexts\ControlContext.cs" />
-    <Compile Include="Containers\Contexts\CreditsContext.cs" />
-    <Compile Include="Containers\Contexts\DeploymentContext.cs" />
-    <Compile Include="Containers\Contexts\DraftContext.cs" />
-    <Compile Include="Containers\Contexts\EULAContext.cs" />
-    <Compile Include="Containers\Contexts\GameContext.cs" />
-    <Compile Include="Containers\Contexts\InitiativeContext.cs" />
-    <Compile Include="Containers\Contexts\MapSelectContext.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Assassinate.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\CollectTheRelics.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\CoOpCollectTheRelics.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Escape.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\MapObjectives.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\SoloDefeatBoss.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\RoutArmy.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Scenario.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Seize.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Taxes.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Objective.cs" />
-    <Compile Include="Containers\Contexts\WinConditions\Surrender.cs" />
-    <Compile Include="Containers\Contexts\UnitContextualActionMenuContext.cs" />
-    <Compile Include="Containers\Contexts\UnitMovingContext.cs" />
-    <Compile Include="Containers\Contexts\UnitTargetingContext.cs" />
-    <Compile Include="Containers\IUserInterface.cs" />
-    <Compile Include="Containers\MapContainer.cs" />
-    <Compile Include="Containers\Contexts\GameMapContext.cs" />
-    <Compile Include="Containers\View\BackgroundView.cs" />
-    <Compile Include="Containers\View\BattleView.cs" />
-    <Compile Include="Containers\View\CodexView.cs" />
-    <Compile Include="Containers\View\ControlConfigView.cs" />
-    <Compile Include="Containers\View\CreditsView.cs" />
-    <Compile Include="Containers\View\DeploymentView.cs" />
-    <Compile Include="Containers\View\DraftView.cs" />
-    <Compile Include="Containers\View\EULAView.cs" />
-    <Compile Include="Containers\View\GlobalHudView.cs" />
-    <Compile Include="Containers\View\MainMenuView.cs" />
-    <Compile Include="Containers\View\GameMapView.cs" />
-    <Compile Include="Containers\View\NetworkMenuView.cs" />
-    <Compile Include="Containers\View\PauseScreenView.cs" />
-    <Compile Include="Containers\View\StatusScreenView.cs" />
-    <Compile Include="Containers\View\MapSelectScreenView.cs" />
-    <Compile Include="Entity\GameEntity.cs" />
-    <Compile Include="Entity\General\Bank.cs" />
-    <Compile Include="Entity\General\BreakableObstacle.cs" />
-    <Compile Include="Entity\General\BuffTile.cs" />
-    <Compile Include="Entity\General\Chest.cs" />
-    <Compile Include="Entity\General\CreepDeployTile.cs" />
-    <Compile Include="Entity\General\Crossing.cs" />
-    <Compile Include="Entity\General\Decoration.cs" />
-    <Compile Include="Entity\General\DeployTile.cs" />
-    <Compile Include="Entity\General\Door.cs" />
-    <Compile Include="Entity\General\Drawbridge.cs" />
-    <Compile Include="Entity\General\EscapeEntity.cs" />
-    <Compile Include="Entity\General\Item\Barricade.cs" />
-    <Compile Include="Entity\General\Item\BlinkItem.cs" />
-    <Compile Include="Entity\General\Item\Bomb.cs" />
-    <Compile Include="Entity\General\Item\BuffItem.cs" />
-    <Compile Include="Entity\General\Item\Contract.cs" />
-    <Compile Include="Entity\General\Item\HealthPotion.cs" />
-    <Compile Include="Entity\General\Item\IConsumable.cs" />
-    <Compile Include="Entity\General\Item\LadderBridge.cs" />
-    <Compile Include="Entity\General\Item\Magnet.cs" />
-    <Compile Include="Entity\General\Item\RecallCharm.cs" />
-    <Compile Include="Entity\General\Item\Relic.cs" />
-    <Compile Include="Entity\General\Item\Weapon.cs" />
-    <Compile Include="Entity\General\Item\Currency.cs" />
-    <Compile Include="Entity\General\Item\Key.cs" />
-    <Compile Include="Entity\General\Item\Spoils.cs" />
-    <Compile Include="Entity\General\Item\WeaponStatistics.cs" />
-    <Compile Include="Entity\General\Launchpad.cs" />
-    <Compile Include="Entity\General\Movable.cs" />
-    <Compile Include="Entity\General\Piston.cs" />
-    <Compile Include="Entity\General\Portal.cs" />
-    <Compile Include="Entity\General\PressurePlate.cs" />
-    <Compile Include="Entity\General\PushBlock.cs" />
-    <Compile Include="Entity\General\Railgun.cs" />
-    <Compile Include="Entity\General\RecallPoint.cs" />
-    <Compile Include="Entity\General\RecoveryTile.cs" />
-    <Compile Include="Entity\General\SeizeEntity.cs" />
-    <Compile Include="Entity\General\SelectMapEntity.cs" />
-    <Compile Include="Entity\General\SpringTrap.cs" />
-    <Compile Include="Entity\General\Switch.cs" />
-    <Compile Include="Entity\General\TerrainEntity.cs" />
-    <Compile Include="Entity\General\Artillery.cs" />
-    <Compile Include="Entity\General\TrapEntity.cs" />
-    <Compile Include="Entity\General\Vendor.cs" />
-    <Compile Include="Entity\IActionTile.cs" />
-    <Compile Include="Entity\IEffectTile.cs" />
-    <Compile Include="Entity\IItem.cs" />
-    <Compile Include="Entity\ILockable.cs" />
-    <Compile Include="Entity\IOpenable.cs" />
-    <Compile Include="Entity\IRemotelyTriggerable.cs" />
-    <Compile Include="Entity\IThreatRange.cs" />
-    <Compile Include="Entity\ITriggerable.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\CmdHuntingCompanion.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\HuntingTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\PoisonArrow.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\CmdSongBattleHymn.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\ModeConcerto.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\ModeSolo.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\SongAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\SongAnthem.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\SongFreestyle.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\SongTempest.cs" />
-    <Compile Include="Entity\Unit\Actions\Cavalier\CmdDoubleTime.cs" />
-    <Compile Include="Entity\Unit\Actions\Cavalier\Inspire.cs" />
-    <Compile Include="Entity\Unit\Actions\Cavalier\Gallop.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Challenge.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\CmdWarmaster.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Fortify.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Intervention.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Shove.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Bloodthirst.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\Atrophy.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\Bulwark.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\Cleanse.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\CmdGodsbreath.cs" />
-    <Compile Include="Entity\Unit\Actions\Cleric\Recover.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\StationaryAttackRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\PreyRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\BasicAttackRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\GluttonRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\DefenderRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\KingslayerRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\SummoningRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\TreasureHunterRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\TriggerHappyRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\WaitRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Creeps\WanderRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\DamageOverTimeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\DraftNewUnitAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\CmdPerfectFocus.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\CorpsACorps.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\EnGarde.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\FadeStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\Fleche.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\Focus.cs" />
-    <Compile Include="Entity\Unit\Actions\Duelist\PhaseStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Guard.cs" />
-    <Compile Include="Entity\Unit\Actions\ICombatProc.cs" />
-    <Compile Include="Entity\Unit\Actions\ICommandAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\DeployBarricadeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\DeployBombAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\DeployLadderBridgeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\DeployRecallPointAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\DropGiveItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\MagneticPullAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\ReturnToRecallPointAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\TakeItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\TradeItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\ITurnProc.cs" />
-    <Compile Include="Entity\Unit\Actions\IIncrementableAction.cs" />
-    <Compile Include="Entity\Unit\Actions\IRoutine.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\ConsumeBuffItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\ConsumeRecoveryItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Item\WeaponAttack.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\BetwixtPlate.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\CmdSonicStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\Venom.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\Charge.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\Execute.cs" />
-    <Compile Include="Entity\Unit\Actions\Lancer\LeapStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\LayTrap.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\CmdTransfusion.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Frostbite.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Inferno.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Replace.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Terraform.cs" />
-    <Compile Include="Entity\Unit\Actions\Marauder\Brace.cs" />
-    <Compile Include="Entity\Unit\Actions\Marauder\CmdBerserk.cs" />
-    <Compile Include="Entity\Unit\Actions\Marauder\Grapple.cs" />
-    <Compile Include="Entity\Unit\Actions\Marauder\Guillotine.cs" />
-    <Compile Include="Entity\Unit\Actions\Marauder\Rage.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\CmdAngelicAssault.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\Rampart.cs" />
-    <Compile Include="Entity\Unit\Actions\Paladin\Stun.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\CmdCoursingRiver.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\StemTheTide.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\FlowStrike.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\Meditate.cs" />
-    <Compile Include="Entity\Unit\Actions\Pugilist\Uppercut.cs" />
-    <Compile Include="Entity\Unit\Actions\Rogue\CmdAssassinate.cs" />
-    <Compile Include="Entity\Unit\Actions\Rogue\PickDoorLock.cs" />
-    <Compile Include="Entity\Unit\Actions\Rogue\Rend.cs" />
-    <Compile Include="Entity\Unit\Actions\Rogue\Rob.cs" />
-    <Compile Include="Entity\Unit\Actions\Rogue\ThrowingKnife.cs" />
-    <Compile Include="Entity\Unit\Actions\SpawnUnitAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\BankDeposit.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\BankWithdraw.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\CrossAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\EscapeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Sprint.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\LaunchpadAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\VendorPurchase.cs" />
-    <Compile Include="Entity\Unit\CreepEntity.cs" />
-    <Compile Include="Entity\Unit\CreepUnit.cs" />
-    <Compile Include="Entity\Unit\GameUnit.cs" />
-    <Compile Include="Entity\Unit\Actions\Archer\Draw.cs" />
-    <Compile Include="Entity\Unit\Actions\BasicAttack.cs" />
-    <Compile Include="Entity\Unit\Actions\Champion\Tackle.cs" />
-    <Compile Include="Entity\Unit\Actions\Mage\Blink.cs" />
-    <Compile Include="Entity\Unit\Actions\Bard\VerseAccelerando.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\ArtilleryAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\PickUpCurrencyAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\PickUpItemAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\PushBlockAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\RailgunAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\SeizeAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\TakeSpoilsAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\ToggleLockAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\ToggleSwitchAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\OpenChestAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\UseDoorAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Terrain\Transport.cs" />
-    <Compile Include="Entity\Unit\Actions\UnitAction.cs" />
-    <Compile Include="Entity\Unit\Actions\Wait.cs" />
-    <Compile Include="Entity\Unit\NameGenerator.cs" />
-    <Compile Include="Entity\Unit\Statuses\AtkRangeStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\AtkStatDown.cs" />
-    <Compile Include="Entity\Unit\Statuses\AtkStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\AnthemStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\ConcertoStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\BattleHymnStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\FreestyleStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\SongStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\SoloStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Bard\TempestStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\BlkStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\Champion\FortifiedStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Creep\IndependentStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Creep\NextRoutineStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\DamageOverTimeStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ArmorRegeneration.cs" />
-    <Compile Include="Entity\Unit\Statuses\DamageToArmorStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\DamageToHealthStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Duelist\FocusStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\HealthRegeneration.cs" />
-    <Compile Include="Entity\Unit\Statuses\IgnoreArmorCombatStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ImmobilizedStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\ImmovableStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Lancer\ExecutionerStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\LuckStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\Mage\AlchemicalArmorStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Marauder\EnragedStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\Marauder\GuillotineStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\MoveStatDown.cs" />
-    <Compile Include="Entity\Unit\Statuses\MoveStatModifier.cs" />
-    <Compile Include="Entity\Unit\Statuses\Pugilist\FlowStatus.cs" />
-    <Compile Include="Entity\Unit\Statuses\RetributionStatDown.cs" />
-    <Compile Include="Entity\Unit\Statuses\RetributionStatUp.cs" />
-    <Compile Include="Entity\Unit\Statuses\StatusEffect.cs" />
-    <Compile Include="Entity\Unit\Statuses\TempCombatStatus.cs" />
-    <Compile Include="Entity\Unit\UnitGenerator.cs" />
-    <Compile Include="Entity\Unit\UnitEntity.cs" />
-    <Compile Include="Entity\Unit\UnitSpriteSheet.cs" />
-    <Compile Include="Entity\Unit\UnitStatistics.cs" />
-    <Compile Include="GameDriver.cs" />
-    <Compile Include="HUD\Menu\IMenu.cs" />
-    <Compile Include="HUD\Menu\IOptionDescription.cs" />
-    <Compile Include="HUD\Menu\MenuContext.cs" />
-    <Compile Include="HUD\Menu\Options\ActionMenu\ActionOption.cs" />
-    <Compile Include="HUD\Menu\Options\ActionMenu\ItemActionOption.cs" />
-    <Compile Include="HUD\Menu\Options\CodexMenu\UnitCodexOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\BackspaceOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\CharacterOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\ConnectOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\CopyIPAddressOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\MainMenuOption.cs" />
-    <Compile Include="HUD\Menu\Options\DialMenu\PasteIPAddressOption.cs" />
-    <Compile Include="HUD\Menu\Options\DraftMenu\AdHocDraftOption.cs" />
-    <Compile Include="HUD\Menu\Options\DraftMenu\DraftUnitOption.cs" />
-    <Compile Include="HUD\Menu\Options\DraftMenu\SelectCommanderOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\CreditsOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\HostGameOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\JoinGameOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\MainMenuConfigOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\OpenCodexOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConcedeOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicMuteOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeDownOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\MusicVolumeUpOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ReturnToPauseMenuOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\SoundEffectMuteOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigMenu\ToggleFullscreenOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ConfigOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ContinueOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\DeviceSelectOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\RemapInputOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\OpenControlsMenuOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\ResetControllerConfigOption.cs" />
-    <Compile Include="HUD\Menu\Options\PauseMenu\ControlsMenu\SaveControllerOption.cs" />
-    <Compile Include="HUD\Menu\Options\StealMenu\TakeItemOption.cs" />
-    <Compile Include="HUD\Menu\Options\SubmenuOption.cs" />
-    <Compile Include="HUD\Menu\Options\UnselectableOption.cs" />
-    <Compile Include="HUD\Menu\TwoDimensionalMenu.cs" />
-    <Compile Include="HUD\Menu\VerticalMenu.cs" />
-    <Compile Include="HUD\Menu\Options\MenuOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\NewGameOption.cs" />
-    <Compile Include="HUD\Menu\Options\MainMenu\QuitGameOption.cs" />
-    <Compile Include="HUD\Window\Animation\IRenderableAnimation.cs" />
-    <Compile Include="HUD\Window\Animation\RenderableShake.cs" />
-    <Compile Include="HUD\Window\Animation\RenderableSlide.cs" />
-    <Compile Include="HUD\Window\Animation\RenderableStatic.cs" />
-    <Compile Include="HUD\Window\Content\Combat\AttackPoint.cs" />
-    <Compile Include="HUD\Window\Content\Combat\BlockPoint.cs" />
-    <Compile Include="HUD\Window\Content\Combat\CombatDamage.cs" />
-    <Compile Include="HUD\Window\Content\Combat\CombatDice.cs" />
-    <Compile Include="HUD\Window\Content\Combat\Die.cs" />
-    <Compile Include="HUD\Window\Content\Combat\ICombatPoint.cs" />
-    <Compile Include="HUD\Window\Content\Command\CommandPointBar.cs" />
-    <Compile Include="HUD\Window\Content\Command\MiniCommandPointBar.cs" />
-    <Compile Include="HUD\Window\Content\Health\HealthBar.cs" />
-    <Compile Include="HUD\Window\Content\Health\BarPoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\IHealthBar.cs" />
-    <Compile Include="HUD\Window\Content\Health\IResourcePoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\ResourcePoint.cs" />
-    <Compile Include="HUD\Window\Content\Health\MiniHealthBar.cs" />
-    <Compile Include="HUD\Window\Content\RenderBlank.cs" />
-    <Compile Include="HUD\Window\Content\RenderText.cs" />
-    <Compile Include="HUD\Window\Content\WindowContentGrid.cs" />
-    <Compile Include="HUD\Window\AnimatedRenderable.cs" />
-    <Compile Include="HUD\Window\HudNotification.cs" />
-    <Compile Include="HUD\Window\IWindow.cs" />
-    <Compile Include="HUD\Window\ScrollableWindow.cs" />
-    <Compile Include="HUD\Window\ToastWindow.cs" />
-    <Compile Include="HUD\Window\Window.cs" />
-    <Compile Include="Map\Camera\MapCamera.cs" />
-    <Compile Include="Map\Elements\Cursor\MapCursor.cs" />
-    <Compile Include="Map\Elements\Cursor\MapSlice.cs" />
-    <Compile Include="Map\Elements\Direction.cs" />
-    <Compile Include="Map\Elements\MapDistanceTile.cs" />
-    <Compile Include="Map\Elements\MapEntity.cs" />
-    <Compile Include="Map\Elements\MapTile.cs" />
-    <Compile Include="Map\Elements\MapElement.cs" />
-    <Compile Include="Map\MapInfo.cs" />
-    <Compile Include="Map\TmxMapParser.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\AnimatedSpriteSheet.cs" />
-    <Compile Include="Utility\AnimatedTileSprite.cs" />
-    <Compile Include="Utility\ArrayDeepCopier.cs" />
-    <Compile Include="Utility\Assets\AssetManager.cs" />
-    <Compile Include="Utility\Assets\BannerIconProvider.cs" />
-    <Compile Include="Utility\Assets\ButtonIconProvider.cs" />
-    <Compile Include="Utility\Assets\InputIconProvider.cs" />
-    <Compile Include="Utility\Assets\KeyboardIconProvider.cs" />
-    <Compile Include="Utility\Assets\AnimatedIconProvider.cs" />
-    <Compile Include="Utility\Assets\MiscIconProvider.cs" />
-    <Compile Include="Utility\Assets\ObjectiveIconProvider.cs" />
-    <Compile Include="Utility\Assets\SkillIconProvider.cs" />
-    <Compile Include="Utility\Assets\AnimatedSpriteProvider.cs" />
-    <Compile Include="Utility\Assets\StatusIconProvider.cs" />
-    <Compile Include="Utility\Assets\TeamIconProvider.cs" />
-    <Compile Include="Utility\AStarAlgorithm.cs" />
-    <Compile Include="Utility\Inputs\GameControl.cs" />
-    <Compile Include="Utility\Inputs\GameControlParser.cs" />
-    <Compile Include="Utility\Inputs\Gamepad\GamepadController.cs" />
-    <Compile Include="Utility\Inputs\ControlMapper.cs" />
-    <Compile Include="Utility\Inputs\Gamepad\InputButton.cs" />
-    <Compile Include="Utility\Inputs\IController.cs" />
-    <Compile Include="Utility\Inputs\KeyboardInput\KeyboardController.cs" />
-    <Compile Include="Utility\Inputs\KeyboardInput\InputKey.cs" />
-    <Compile Include="Utility\Inputs\MultiControlParser.cs" />
-    <Compile Include="Utility\Inputs\VoidInput.cs" />
-    <Compile Include="Utility\Events\AdditionalActionEvent.cs" />
-    <Compile Include="Utility\Events\AI\CreepTriggerTileEvent.cs" />
-    <Compile Include="Utility\Events\AI\SpawnCreepEvent.cs" />
-    <Compile Include="Utility\Events\BankDepositEvent.cs" />
-    <Compile Include="Utility\Events\BankWithdrawEvent.cs" />
-    <Compile Include="Utility\Events\CameraCursorPositionEvent.cs" />
-    <Compile Include="Utility\Events\DecreaseTeamGoldEvent.cs" />
-    <Compile Include="Utility\Events\EscapeObjectiveEvent.cs" />
-    <Compile Include="Utility\Events\Network\AdhocDraftEvent.cs" />
-    <Compile Include="Utility\Events\Network\CancelActionTargetingEvent.cs" />
-    <Compile Include="Utility\Events\Network\CancelActionMenuEvent.cs" />
-    <Compile Include="Utility\Events\Network\CancelMoveEvent.cs" />
-    <Compile Include="Utility\Events\Network\ChangePlayerTeamsEvent.cs" />
-    <Compile Include="Utility\Events\Network\CloseAdHocDraftMenuEvent.cs" />
-    <Compile Include="Utility\Events\Network\CombatNotifyStateCompleteEvent.cs" />
-    <Compile Include="Utility\Events\Network\ConcedeEvent.cs" />
-    <Compile Include="Utility\Events\Network\ContinueCombatEvent.cs" />
-    <Compile Include="Utility\Events\Network\DecrementCurrentAdjustableActionEvent.cs" />
-    <Compile Include="Utility\Events\Network\DeployUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\DraftConfirmSelectionEvent.cs" />
-    <Compile Include="Utility\Events\Network\DraftMenuMoveEvent.cs" />
-    <Compile Include="Utility\Events\Network\DeploySelectNextUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\DeploySelectPreviousUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ExecuteActionEvent.cs" />
-    <Compile Include="Utility\Events\Network\FinishMovingEvent.cs" />
-    <Compile Include="Utility\Events\Network\IncrementCurrentAdjustableActionEvent.cs" />
-    <Compile Include="Utility\Events\Network\InitializeRandomizerNet.cs" />
-    <Compile Include="Utility\Events\Network\MapPingEvent.cs" />
-    <Compile Include="Utility\Events\Network\NetworkEvent.cs" />
-    <Compile Include="Utility\Events\Network\MoveActionMenuEvent.cs" />
-    <Compile Include="Utility\Events\Network\MoveMapCursorAndUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\MoveMapCursorEvent.cs" />
-    <Compile Include="Utility\Events\Network\NextMapEvent.cs" />
-    <Compile Include="Utility\Events\Network\PreviousMapEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResetCursorToActiveUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResetCursorToNextUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\DeployResetToNextDeploymentTileEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResetCursorToPreviousUnitEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResetGameEvent.cs" />
-    <Compile Include="Utility\Events\Network\ResolveNetworkTurnEvent.cs" />
-    <Compile Include="Utility\Events\Network\SelectActionMenuOptionEvent.cs" />
-    <Compile Include="Utility\Events\Network\SelectMapEvent.cs" />
-    <Compile Include="Utility\Events\Network\SelectUnitEvent.cs" />
-    <Compile Include="Utility\Events\PlayAnimationAtCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\PlayEntityAnimationOnceEvent.cs" />
-    <Compile Include="Utility\Events\PlaySoundEffectEvent.cs" />
-    <Compile Include="Utility\Events\PreviewUnitSkillsEvent.cs" />
-    <Compile Include="Utility\Events\ReadyAIRoutineEvent.cs" />
-    <Compile Include="Utility\Events\RemoveEntityFromMapEvent.cs" />
-    <Compile Include="Utility\Events\RemoveExpiredEffectTilesEvent.cs" />
-    <Compile Include="Utility\Events\RemoveStatusEffectEvent.cs" />
-    <Compile Include="Utility\Events\EffectTilesStartOfRoundEvent.cs" />
-    <Compile Include="Utility\Events\SpawnUnitEvent.cs" />
-    <Compile Include="Utility\Events\FirstTurnOfNewRoundEvent.cs" />
-    <Compile Include="Utility\Events\ToastAtCursorEvent.cs" />
-    <Compile Include="Utility\Events\TriggerSingleEffectTileEvent.cs" />
-    <Compile Include="Utility\Events\ToastAtCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\CenterScreenRenderableEvent.cs" />
-    <Compile Include="Utility\Events\UpdateStatusEffectEvent.cs" />
-    <Compile Include="Utility\Events\AddItemToUnitInventoryEvent.cs" />
-    <Compile Include="Utility\Events\AI\CreepEndTurnEvent.cs" />
-    <Compile Include="Utility\Events\AI\CreepMoveEvent.cs" />
-    <Compile Include="Utility\Events\BlinkCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\CastStatusEffectEvent.cs" />
-    <Compile Include="Utility\Events\DeleteItemEvent.cs" />
-    <Compile Include="Utility\Events\DropItemEvent.cs" />
-    <Compile Include="Utility\Events\EndTurnEvent.cs" />
-    <Compile Include="Utility\Events\HideUnitEvent.cs" />
-    <Compile Include="Utility\Events\IEvent.cs" />
-    <Compile Include="Utility\Events\GlobalEventQueue.cs" />
-    <Compile Include="Utility\Events\IncreaseTeamGoldEvent.cs" />
-    <Compile Include="Utility\Events\PickUpCurrencyEvent.cs" />
-    <Compile Include="Utility\Events\PickUpItemEvent.cs" />
-    <Compile Include="Utility\Events\PlaceEntityOnMapEvent.cs" />
-    <Compile Include="Utility\Events\PullEvent.cs" />
-    <Compile Include="Utility\Events\PushBlockEvent.cs" />
-    <Compile Include="Utility\Events\RegenerateArmorEvent.cs" />
-    <Compile Include="Utility\Events\RegenerateHealthEvent.cs" />
-    <Compile Include="Utility\Events\SeizeObjectiveEvent.cs" />
-    <Compile Include="Utility\Events\ShoveEvent.cs" />
-    <Compile Include="Utility\Events\StartCombatEvent.cs" />
-    <Compile Include="Utility\Events\MoveEntityToCoordinatesEvent.cs" />
-    <Compile Include="Utility\Events\TakeSpoilsEvent.cs" />
-    <Compile Include="Utility\Events\ToggleOpenEvent.cs" />
-    <Compile Include="Utility\Events\TransferUnitGoldEvent.cs" />
-    <Compile Include="Utility\Events\TransferUnitItemEvent.cs" />
-    <Compile Include="Utility\Events\TriggerEntityEvent.cs" />
-    <Compile Include="Utility\Events\UnhideUnitEvent.cs" />
-    <Compile Include="Utility\Events\WaitActionEvent.cs" />
-    <Compile Include="Utility\Events\WaitFramesEvent.cs" />
-    <Compile Include="Utility\Exceptions\DuplicateInputException.cs" />
-    <Compile Include="Utility\Exceptions\InvalidTeamException.cs" />
-    <Compile Include="Utility\Exceptions\InvalidTimeEstimateException.cs" />
-    <Compile Include="Utility\Exceptions\ItemNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\ScenarioNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\TileNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\VendorMisconfiguredException.cs" />
-    <Compile Include="Utility\IResizable.cs" />
-    <Compile Include="Utility\IRotatable.cs" />
-    <Compile Include="Utility\Model\CreepRoutineModel.cs" />
-    <Compile Include="Utility\Monogame\IPlayableAudio.cs" />
-    <Compile Include="Utility\Monogame\ISoundEffect.cs" />
-    <Compile Include="Utility\Monogame\MusicBox.cs" />
-    <Compile Include="Utility\Monogame\SongWrapper.cs" />
-    <Compile Include="Utility\Monogame\SoundEffectWrapper.cs" />
-    <Compile Include="Utility\Network\ConnectionManager.cs" />
-    <Compile Include="Utility\PathingUtil.cs" />
-    <Compile Include="Utility\RangeComparison.cs" />
-    <Compile Include="Utility\RotatingSprite.cs" />
-    <Compile Include="Utility\SpriteResizer.cs" />
-    <Compile Include="Utility\System\IFileIO.cs" />
-    <Compile Include="Utility\System\WindowsFileIO.cs" />
-    <Compile Include="Utility\TeamUtility.cs" />
-    <Compile Include="Utility\Exceptions\CellNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\InvalidCellIndexException.cs" />
-    <Compile Include="Utility\Exceptions\TeamNotFoundException.cs" />
-    <Compile Include="Utility\Exceptions\UnitClassNotFoundException.cs" />
-    <Compile Include="Utility\IRenderable.cs" />
-    <Compile Include="Utility\Load\ContentLoader.cs" />
-    <Compile Include="Utility\Monogame\ISpriteFont.cs" />
-    <Compile Include="Utility\Monogame\ITexture2D.cs" />
-    <Compile Include="Utility\Monogame\SpriteFontWrapper.cs" />
-    <Compile Include="Utility\Monogame\Texture2DWrapper.cs" />
-    <Compile Include="Utility\Parsing\ObjectTypesXmlParser.cs" />
-    <Compile Include="Utility\Randomizer.cs" />
-    <Compile Include="Utility\SpriteAtlas.cs" />
-    <Compile Include="Utility\ArrayToList.cs" />
-    <Compile Include="Utility\AdHocThreatRange.cs" />
-    <Compile Include="Utility\TriggeredAnimation.cs" />
-    <Compile Include="Utility\UnitSelector.cs" />
+    <MonoGameContentReference Include="**\*.mgcb" />
+    <MonoGameContentReference Remove="Content\Audio\**" />
+    <MonoGameContentReference Remove="Content\bin\**" />
+    <MonoGameContentReference Remove="Content\Fonts\**" />
+    <MonoGameContentReference Remove="Content\Graphics\**" />
+    <MonoGameContentReference Remove="Content\obj\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="Lidgren.Network, Version=2012.1.7.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Lidgren.Network.1.0.2\lib\net451\Lidgren.Network.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
-      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Priority Queue, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\OptimizedPriorityQueue.4.2.0\lib\net45\Priority Queue.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct2D1.4.0.1\lib\net45\SharpDX.Direct2D1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct3D11.4.0.1\lib\net45\SharpDX.Direct3D11.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D9, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct3D9.4.0.1\lib\net45\SharpDX.Direct3D9.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.DXGI.4.0.1\lib\net45\SharpDX.DXGI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Mathematics, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Mathematics.4.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.MediaFoundation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.MediaFoundation.4.0.1\lib\net45\SharpDX.MediaFoundation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.XAudio2, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.XAudio2.4.0.1\lib\net45\SharpDX.XAudio2.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.XInput, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.XInput.4.0.1\lib\net45\SharpDX.XInput.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Collections" />
-    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.1\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="TiledSharp, Version=0.15.5889.20321, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Lidgren.Network" Version="1.0.2" />
+    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.9" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
+    <PackageReference Include="NLog" Version="4.6.8" />
+    <PackageReference Include="OptimizedPriorityQueue" Version="4.2.0" />
+    <PackageReference Include="TextCopy" Version="1.7.1" />
+    <PackageReference Include="TiledSharp" Version="0.15.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="Content\LICENSE.txt">
+    <None Update="Content\TmxMaps\00_DRAFT_TEMPLATE.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Debug_01.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Debug_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Debug_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Debug_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Debug_03_AI.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Debug_03_AI.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Dungeon_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Arena_Dungeon_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Tower_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Arena_Tower_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Arena_Tropical_01.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Arena_Tropical_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Bellriver_Tavern_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Bellriver_Tavern_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Collosseum_01.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Collosseum_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Dusk_Temple.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Dusk_Temple.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Escape_Prison.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Escape_Prison.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Factory_Floor.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Factory_Floor.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Factory_Floor_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Factory_Floor_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Fortress_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Fortress_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Grassland_01.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Grassland_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Grassland_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Grassland_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Hiatok_Fortress.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Hiatok_Fortress.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_01.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Hunt_Overworld_01.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Hunt_Overworld_02.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Hunt_Overworld_02.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Island_Coast.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Island_Coast.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Jirai_Archipelago.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Jirai_Archipelago.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Master_Control.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Master_Control.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Quest_Race.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Prototype.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Quest_Race.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Toldarian_Plains.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Raid_Dungeon.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Verdant_Forest.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Toldarian_Plains.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Village_Center.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Verdant_Forest.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Draft_Wokako_Jungle.tmx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Village_Center.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\entities-32.tsx">
+    </None>
+    <None Update="Content\TmxMaps\Draft_Wokako_Jungle.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Map_Select_06.tmx">
+    </None>
+    <None Update="Content\TmxMaps\entities-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\objecttypes.xml">
+    </None>
+    <None Update="Content\TmxMaps\Map_Select_06.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\overworld-32.tsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Solo_Alpha_Dungeon.tmx">
+    </None>
+    <None Update="Content\TmxMaps\objecttypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\TmxMaps\Solo_Island_Boss.tmx">
+    </None>
+    <None Update="Content\TmxMaps\overworld-32.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Icon.ico" />
+    </None>
+    <None Update="Content\TmxMaps\Solo_Alpha_Dungeon.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TmxMaps\Solo_Island_Boss.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TmxMaps\Solo_Prison_Break.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TmxMaps\units-32.tsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TmxMaps\WEB_BACKGROUND.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CREDITS.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Remove="Content\Audio\**" />
+    <None Remove="Content\bin\**" />
+    <None Remove="Content\Fonts\**" />
+    <None Remove="Content\Graphics\**" />
+    <None Remove="Content\obj\**" />
+    <None Update="HowToPlay.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\TmxMaps\Solo_Dragons_Lair.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
-    <None Include="app.manifest" />
-    <None Include="packages.config" />
+    <Compile Remove="Content\Audio\**" />
+    <Compile Remove="Content\bin\**" />
+    <Compile Remove="Content\Fonts\**" />
+    <Compile Remove="Content\Graphics\**" />
+    <Compile Remove="Content\obj\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.2-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.2-beta2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+    <EmbeddedResource Remove="Content\Audio\**" />
+    <EmbeddedResource Remove="Content\bin\**" />
+    <EmbeddedResource Remove="Content\Fonts\**" />
+    <EmbeddedResource Remove="Content\Graphics\**" />
+    <EmbeddedResource Remove="Content\obj\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entity\Unit\Statuses\Paladin" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
-  <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -7,17 +7,10 @@ using SolStandard.Utility.System;
 
 namespace SolStandard
 {
-#if WINDOWS || LINUX
-    /// <summary>
-    /// The main class.
-    /// </summary>
     public static class Program
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         private static void Main()
         {
@@ -41,7 +34,7 @@ namespace SolStandard
 
             ConsoleTarget logConsole = new ConsoleTarget("logconsole");
             DebuggerTarget logDebugger = new DebuggerTarget();
-           
+
             // Rules for mapping loggers to targets
             config.AddRule(LogLevel.Trace, LogLevel.Fatal, logConsole);
             config.AddRule(LogLevel.Trace, LogLevel.Fatal, logDebugger);
@@ -59,5 +52,4 @@ namespace SolStandard
             Logger.Error(e);
         }
     }
-#endif
 }
