@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using NLog;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
@@ -13,11 +15,11 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Inputs.Gamepad;
+using SolStandard.Utility.Inputs.Joystick;
 using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
 using SolStandard.Utility.System;
-using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
 {
@@ -26,6 +28,8 @@ namespace SolStandard
     /// </summary>
     public class GameDriver : Game
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         // ReSharper disable once NotAccessedField.Local
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
@@ -54,6 +58,7 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
+        public static GameControlParser P1JoystickParser;
 
 
         public GameDriver()
@@ -125,11 +130,11 @@ namespace SolStandard
             switch (playerOneTeam)
             {
                 case Team.Blue:
-                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser, P1JoystickParser);
                     _redTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 case Team.Red:
-                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser);
+                    _redTeamControlMapper = new MultiControlParser(KeyboardParser, P1GamepadParser, P1JoystickParser);
                     _blueTeamControlMapper = new MultiControlParser(KeyboardParser, P2GamepadParser);
                     break;
                 default:
@@ -180,6 +185,9 @@ namespace SolStandard
             IController loadedP2GamepadConfig =
                 SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
             P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
+            
+            IController p1JoystickConfig = new JoystickController(PlayerIndex.One);
+            P1JoystickParser = new GameControlParser(p1JoystickConfig);
         }
 
         /// <summary>
@@ -239,6 +247,9 @@ namespace SolStandard
         {
         }
 
+        private static ButtonState[] _buttonStates;
+        private static int _updateCount;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -248,6 +259,41 @@ namespace SolStandard
         {
             ConnectionManager.Listen();
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
+
+            #region DebugJoystick
+
+            _updateCount++;
+            if (_updateCount % 30 == 0)
+            {
+                if (_buttonStates != Joystick.GetState(0).Buttons)
+                {
+                    _buttonStates = Joystick.GetState(0).Buttons;
+
+                    string buttonStateReport = string.Empty;
+                    for (int index = 0; index < _buttonStates.Length; index++)
+                    {
+                        buttonStateReport += $"Button {index} Pressed: {_buttonStates[index] == ButtonState.Pressed}\n";
+                    }
+
+                    Logger.Trace(buttonStateReport);
+                }
+
+                for (int index = 0; index < Joystick.GetState(0).Axes.Length; index++)
+                {
+                    Logger.Trace($"Axes [{index}]: {Joystick.GetState(0).Axes[index]}");
+                }
+
+                for (int i = 0; i < Joystick.GetState(0).Hats.Length; i++)
+                {
+                    Logger.Trace($"DPad [{i}]: {Joystick.GetState(0).Hats[i].Up == ButtonState.Pressed}");
+                    Logger.Trace($"DPad [{i}]: {Joystick.GetState(0).Hats[i].Down == ButtonState.Pressed}");
+                    Logger.Trace($"DPad [{i}]: {Joystick.GetState(0).Hats[i].Left == ButtonState.Pressed}");
+                    Logger.Trace($"DPad [{i}]: {Joystick.GetState(0).Hats[i].Right == ButtonState.Pressed}");
+                }
+            }
+
+            #endregion DebugJoystick
 
             if (_quitting)
             {
