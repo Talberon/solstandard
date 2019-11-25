@@ -366,6 +366,9 @@ namespace SolStandard
                 case GameContext.GameState.ControlConfig:
                     GameContext.ControlConfigContext.Update();
                     break;
+                case GameContext.GameState.HowToPlay:
+                    GameContext.UpdateCamera();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -443,6 +446,10 @@ namespace SolStandard
                     DrawBackgroundWallpaper();
                     DrawControlConfigScreen();
                     break;
+                case GameContext.GameState.HowToPlay:
+                    DrawBackgroundWallpaper();
+                    DrawHowToPlayScreen();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -518,7 +525,6 @@ namespace SolStandard
             spriteBatch.End();
         }
 
-
         private void DrawCreditsScreen()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
@@ -528,6 +534,14 @@ namespace SolStandard
             spriteBatch.End();
         }
 
+        private void DrawHowToPlayScreen()
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
+            GameContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
 
         private void DrawColorEntireScreen(Color color)
         {

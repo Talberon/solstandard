@@ -56,6 +56,9 @@ namespace SolStandard.Containers.Contexts
                 case GameContext.GameState.ControlConfig:
                     InputConfigControl(controlMapper);
                     break;
+                case GameContext.GameState.HowToPlay:
+                    HowToPlayControls(controlMapper);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -86,6 +89,34 @@ namespace SolStandard.Containers.Contexts
             if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
             {
                 GameContext.EULAContext.ScrollWindow(Direction.Right);
+            }
+        }
+
+        private static void HowToPlayControls(ControlMapper controlMapper)
+        {
+            if (controlMapper.Press(Input.Cancel, PressType.Single))
+            {
+                GameContext.HowToPlayContext.ExitView();
+            }
+
+            if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
+            {
+                GameContext.HowToPlayContext.ScrollWindow(Direction.Up);
+            }
+
+            if (controlMapper.Press(Input.CursorDown, PressType.DelayedRepeat))
+            {
+                GameContext.HowToPlayContext.ScrollWindow(Direction.Down);
+            }
+
+            if (controlMapper.Press(Input.CursorLeft, PressType.DelayedRepeat))
+            {
+                GameContext.HowToPlayContext.ScrollWindow(Direction.Left);
+            }
+
+            if (controlMapper.Press(Input.CursorRight, PressType.DelayedRepeat))
+            {
+                GameContext.HowToPlayContext.ScrollWindow(Direction.Right);
             }
         }
 

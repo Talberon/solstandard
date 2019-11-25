@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1142">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="1143">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -2580,7 +2580,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="11" name="Summons" visible="0" opacity="0.69">
+ <objectgroup id="11" name="Summons" opacity="0.69">
   <object id="1031" name="Slime" type="Creep" gid="27" x="32" y="32" width="32" height="32">
    <properties>
     <property name="Class" value="Slime"/>
@@ -2682,6 +2682,21 @@
     <property name="routine_prey" type="bool" value="true"/>
     <property name="routine_summon" type="bool" value="true"/>
     <property name="routine_summon.class" value="Skeleton"/>
+   </properties>
+  </object>
+  <object id="1142" name="Dragon" type="Creep" gid="39" x="96" y="32" width="32" height="32">
+   <properties>
+    <property name="Class" value="Dragon"/>
+    <property name="Commander" type="bool" value="true"/>
+    <property name="Independent" type="bool" value="true"/>
+    <property name="creepPool" value="Bosses"/>
+    <property name="fallback_routine" value="routine_wait"/>
+    <property name="gold" type="int" value="35"/>
+    <property name="routine_defender" type="bool" value="true"/>
+    <property name="routine_glutton" type="bool" value="false"/>
+    <property name="routine_kingslayer" type="bool" value="true"/>
+    <property name="routine_prey" type="bool" value="true"/>
+    <property name="routine_summon.class" value="Kobold"/>
    </properties>
   </object>
  </objectgroup>

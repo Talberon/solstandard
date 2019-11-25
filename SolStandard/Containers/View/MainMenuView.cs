@@ -38,6 +38,7 @@ namespace SolStandard.Containers.View
                 new OpenCodexOption(MenuColor),
                 new MainMenuConfigOption(MenuColor),
                 new CreditsOption(MenuColor),
+                new HowToPlayOption(MenuColor),
                 new QuitGameOption(MenuColor)
             };
             IRenderable cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
