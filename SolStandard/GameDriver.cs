@@ -196,17 +196,16 @@ namespace SolStandard
             //Compensate for TiledSharp's inability to parse tiles without a gid value
             CleanTmxFiles();
 
-            SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
-                new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
+            const int solTextHeight = 460;
+            ITexture2D logoTextTexture = AssetManager.MainMenuLogoTexture;
+            IRenderable mainMenuTitleSprite = new SpriteAtlas(
+                logoTextTexture,
+                new Vector2(logoTextTexture.Width, logoTextTexture.Height),
+                new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
+            );
 
-            SpriteAtlas solIcon = new SpriteAtlas(AssetManager.MainMenuSunTexture,
-                new Vector2(AssetManager.MainMenuSunTexture.Width, AssetManager.MainMenuSunTexture.Height));
-
-            RotatingSprite rotatingSolIcon =
-                new RotatingSprite(solIcon, 0.005f, RotatingSprite.RotationDirection.Counterclockwise);
-
-            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, rotatingSolIcon);
-            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, rotatingSolIcon);
+            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
+            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
 
             InitializeControllers();
 

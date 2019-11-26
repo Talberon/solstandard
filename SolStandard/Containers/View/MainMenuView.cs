@@ -13,13 +13,11 @@ namespace SolStandard.Containers.View
     {
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
         private readonly IRenderable title;
-        private readonly IRenderable logo;
         private readonly IRenderable copyright;
 
-        public MainMenuView(IRenderable title, IRenderable logo)
+        public MainMenuView(IRenderable title)
         {
             this.title = title;
-            this.logo = logo;
             MainMenu = GenerateMainMenu();
 
             copyright = new RenderText(AssetManager.WindowFont, "Copyright @Talberon 2019",
@@ -52,11 +50,10 @@ namespace SolStandard.Containers.View
         {
             Vector2 centerScreen = GameDriver.ScreenSize / 2;
 
-            const int titleVertCoordinate = 20;
+            const int titleVertCoordinate = 60;
             Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
             Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
-            logo.Draw(spriteBatch, titlePosition);
-            title.Draw(spriteBatch, titlePosition + new Vector2(100));
+            title.Draw(spriteBatch, titlePosition);
 
             DrawMenu(spriteBatch, centerScreen, titlePosition);
 
@@ -65,7 +62,7 @@ namespace SolStandard.Containers.View
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
         {
-            const int titlePadding = 110;
+            const int titlePadding = -50;
             Vector2 mainMenuCenter = new Vector2(MainMenu.Width, MainMenu.Height) / 2;
             Vector2 mainMenuPosition =
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);

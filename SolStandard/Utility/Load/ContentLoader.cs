@@ -291,13 +291,13 @@ namespace SolStandard.Utility.Load
         public static ITexture2D LoadGameLogo(ContentManager content)
         {
             Texture2D backgroundTexture =
-                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-LogoText_350_v2");
+                content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Logo-Large");
             return new Texture2DWrapper(backgroundTexture);
         }
 
         public static ITexture2D LoadSolIcon(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolIcon");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Screens/SolStandard-Pixel-Sol");
             return new Texture2DWrapper(loadTexture);
         }
 

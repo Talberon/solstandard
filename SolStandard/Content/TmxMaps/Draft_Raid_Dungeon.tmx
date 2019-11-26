@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="29" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="931">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="29" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="931">
  <tileset firstgid="1" name="units-32" tilewidth="32" tileheight="32" tilecount="39" columns="13">
   <image source="../Graphics/Map/Tiles/Units3.png" width="416" height="96"/>
  </tileset>
@@ -800,9 +800,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2322"/>
-   <tile gid="2323"/>
-   <tile gid="2324"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
    <tile/>
    <tile/>
    <tile/>
@@ -835,18 +835,18 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2322"/>
-   <tile gid="2323"/>
-   <tile gid="2323"/>
-   <tile gid="2323"/>
-   <tile gid="2323"/>
-   <tile gid="2323"/>
-   <tile gid="2323"/>
-   <tile gid="2324"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
    <tile/>
    <tile/>
-   <tile gid="2322"/>
-   <tile gid="2324"/>
+   <tile gid="6683"/>
+   <tile gid="6683"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1644,12 +1644,12 @@
     <property name="Team" value="Red"/>
    </properties>
   </object>
-  <object id="859" name="NE Stairs" type="Portal" gid="5437" x="800" y="160" width="32" height="32">
+  <object id="859" name="NE Stairs" type="Portal" gid="6672" x="800" y="160" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="860" name="SW Stairs" type="Portal" gid="5438" x="96" y="448" width="32" height="32">
+  <object id="860" name="SW Stairs" type="Portal" gid="6680" x="96" y="448" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
@@ -1746,22 +1746,22 @@
     <property name="quantities" value="2|2|2|2|2"/>
    </properties>
   </object>
-  <object id="909" name="NE Stairs" type="Portal" gid="5437" x="800" y="192" width="32" height="32">
+  <object id="909" name="NE Stairs" type="Portal" gid="6672" x="800" y="192" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="910" name="NE Stairs" type="Portal" gid="5437" x="800" y="128" width="32" height="32">
+  <object id="910" name="NE Stairs" type="Portal" gid="6672" x="800" y="128" width="32" height="32">
    <properties>
     <property name="destinationId" value="SW Stairs"/>
    </properties>
   </object>
-  <object id="911" name="SW Stairs" type="Portal" gid="5438" x="96" y="416" width="32" height="32">
+  <object id="911" name="SW Stairs" type="Portal" gid="6680" x="96" y="416" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>
   </object>
-  <object id="912" name="SW Stairs" type="Portal" gid="5438" x="96" y="480" width="32" height="32">
+  <object id="912" name="SW Stairs" type="Portal" gid="6680" x="96" y="480" width="32" height="32">
    <properties>
     <property name="destinationId" value="NE Stairs"/>
    </properties>

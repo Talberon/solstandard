@@ -3853,6 +3853,54 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
 
+#begin Graphics/Images/Screens/SolStandard-Pixel-Logo-Large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Logo-Large.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Logo-Small.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Logo-Small.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Sol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Sol.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Text.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Text.png
+
 #begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
 /importer:TextureImporter
 /processor:TextureProcessor
