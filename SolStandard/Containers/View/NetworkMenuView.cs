@@ -68,7 +68,7 @@ namespace SolStandard.Containers.View
                         new PasteIPAddressOption(menuColor, this),
                     }
                 },
-                new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
+                new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
                 menuColor,
                 TwoDimensionalMenu.CursorType.Pointer
             );
@@ -93,7 +93,7 @@ namespace SolStandard.Containers.View
                         new MainMenuOption(AssetManager.MainMenuFont, menuColor, this),
                     }
                 },
-                new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
+                new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
                 menuColor,
                 TwoDimensionalMenu.CursorType.Pointer
             );

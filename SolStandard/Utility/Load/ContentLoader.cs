@@ -101,7 +101,7 @@ namespace SolStandard.Utility.Load
             List<Texture2D> loadCursorTextures = new List<Texture2D>
             {
                 content.Load<Texture2D>("Graphics/Map/Cursor/Cursors"),
-                content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorArrow_32")
+                content.Load<Texture2D>("Graphics/HUD/Cursor/MenuCursorPointer_32")
             };
 
             return loadCursorTextures.Select(texture => new Texture2DWrapper(texture)).Cast<ITexture2D>().ToList();

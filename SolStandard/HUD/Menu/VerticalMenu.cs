@@ -170,7 +170,7 @@ namespace SolStandard.HUD.Menu
             ConfirmButton.Draw(spriteBatch,
                 position +
                 cursorPosition +
-                TwoDimensionalMenu.CenterLeftOffset(ConfirmButton, cursorSprite)
+                TwoDimensionalMenu.CenterLeftOffset(ConfirmButton, cursorSprite) + TwoDimensionalMenu.IconOffsetHack
             );
         }
 
