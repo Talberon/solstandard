@@ -94,8 +94,9 @@ A defensive stat that will cancel out one point of damage dealt by an opponent d
 ### Luck (`LCK`)
 
 Each point of this stat will give a combatant a single die to roll. A die may land on one of 6 results, as detailed below:
+
 | Value | Die Face | Description |
-| --- | --- | -- |
+| --- | --- | --- |
 | 1 | Blank | No effect; ignored during damage calculation. |
 | 2 | Shield | Counts as 1 point of `BLK` during damage resolution. |
 | 3 | Shield | Counts as 1 point of `BLK` during damage resolution. |
