@@ -17,17 +17,15 @@ namespace SolStandard.Containers.View
     public class NetworkMenuView : IUserInterface
     {
         private readonly IRenderable title;
-        private readonly IRenderable logo;
         private Window networkStatusWindow;
         private TwoDimensionalMenu DialMenu { get; set; }
         private TwoDimensionalMenu HostMenu { get; set; }
         private string inputIPAddress;
         private string hostIPAddress;
 
-        public NetworkMenuView(IRenderable title, IRenderable logo)
+        public NetworkMenuView(IRenderable title)
         {
             this.title = title;
-            this.logo = logo;
             networkStatusWindow = GenerateStatusWindow();
             inputIPAddress = string.Empty;
             hostIPAddress = string.Empty;
@@ -70,7 +68,7 @@ namespace SolStandard.Containers.View
                         new PasteIPAddressOption(menuColor, this),
                     }
                 },
-                new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
+                new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
                 menuColor,
                 TwoDimensionalMenu.CursorType.Pointer
             );
@@ -95,7 +93,7 @@ namespace SolStandard.Containers.View
                         new MainMenuOption(AssetManager.MainMenuFont, menuColor, this),
                     }
                 },
-                new SpriteAtlas(AssetManager.MenuCursorTexture, GameDriver.CellSizeVector),
+                new SpriteAtlas(AssetManager.MenuCursorTexture, new Vector2(AssetManager.MenuCursorTexture.Width)),
                 menuColor,
                 TwoDimensionalMenu.CursorType.Pointer
             );
@@ -231,10 +229,9 @@ namespace SolStandard.Containers.View
             const int titleVertCoordinate = 15;
             (float halfTitleWidth, _) = new Vector2(title.Width, title.Height) / 2;
             Vector2 titlePosition = new Vector2(halfScreenWidth - halfTitleWidth, titleVertCoordinate);
-            logo.Draw(spriteBatch, titlePosition);
-            title.Draw(spriteBatch, titlePosition + new Vector2(100));
+            title.Draw(spriteBatch, titlePosition);
 
-            const int titlePadding = 100;
+            const int titlePadding = 0;
             (float halfStatusWidth, _) = new Vector2(networkStatusWindow.Width, networkStatusWindow.Height) / 2;
             Vector2 statusWindowPosition =
                 new Vector2(halfScreenWidth - halfStatusWidth, titlePosition.Y + title.Height + titlePadding);

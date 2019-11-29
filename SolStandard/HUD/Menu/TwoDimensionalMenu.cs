@@ -176,12 +176,13 @@ namespace SolStandard.HUD.Menu
                 position + cursorPosition +
                 (
                     (cursorType == CursorType.Pointer)
-                        ? CenterLeftOffset(ConfirmButton, cursorSprite)
+                        ? CenterLeftOffset(ConfirmButton, cursorSprite) + IconOffsetHack
                         : BottomRightCornerInset(ConfirmButton, cursorSprite)
                 )
             );
         }
 
+        public static Vector2 IconOffsetHack => new Vector2(-5, 3);
 
         public static Vector2 CenterLeftOffset(IRenderable thingToDraw, IRenderable relativeTo)
         {

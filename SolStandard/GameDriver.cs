@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
@@ -17,7 +18,6 @@ using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
 using SolStandard.Utility.System;
-using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace SolStandard
 {
@@ -54,7 +54,6 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
-
 
         public GameDriver()
         {
@@ -197,17 +196,16 @@ namespace SolStandard
             //Compensate for TiledSharp's inability to parse tiles without a gid value
             CleanTmxFiles();
 
-            SpriteAtlas mainMenuTitleSprite = new SpriteAtlas(AssetManager.MainMenuLogoTexture,
-                new Vector2(AssetManager.MainMenuLogoTexture.Width, AssetManager.MainMenuLogoTexture.Height));
+            const int solTextHeight = 460;
+            ITexture2D logoTextTexture = AssetManager.MainMenuLogoTexture;
+            IRenderable mainMenuTitleSprite = new SpriteAtlas(
+                logoTextTexture,
+                new Vector2(logoTextTexture.Width, logoTextTexture.Height),
+                new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
+            );
 
-            SpriteAtlas solIcon = new SpriteAtlas(AssetManager.MainMenuSunTexture,
-                new Vector2(AssetManager.MainMenuSunTexture.Width, AssetManager.MainMenuSunTexture.Height));
-
-            RotatingSprite rotatingSolIcon =
-                new RotatingSprite(solIcon, 0.005f, RotatingSprite.RotationDirection.Counterclockwise);
-
-            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite, rotatingSolIcon);
-            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite, rotatingSolIcon);
+            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
+            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
 
             InitializeControllers();
 

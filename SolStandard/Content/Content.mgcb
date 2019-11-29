@@ -1861,7 +1861,7 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/HUD/Buttons/Xbox/XboxOne_Y.png
 
-#begin Graphics/HUD/Cursor/MenuCursorArrow_32.png
+#begin Graphics/HUD/Cursor/MenuCursorPointer_32.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1871,19 +1871,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/HUD/Cursor/MenuCursorArrow_32.png
-
-#begin Graphics/HUD/Cursor/MenuCursorArrow_64.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Graphics/HUD/Cursor/MenuCursorArrow_64.png
+/build:Graphics/HUD/Cursor/MenuCursorPointer_32.png
 
 #begin Graphics/HUD/Window/GreyWindow.png
 /importer:TextureImporter
@@ -3852,6 +3840,54 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Graphics/Images/Screens/SolStandard-LogoText_350_v2.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Logo-Large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Logo-Large.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Logo-Small.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Logo-Small.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Sol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Sol.png
+
+#begin Graphics/Images/Screens/SolStandard-Pixel-Text.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Images/Screens/SolStandard-Pixel-Text.png
 
 #begin Graphics/Images/Screens/TitleBackground_BannerFlag.png
 /importer:TextureImporter

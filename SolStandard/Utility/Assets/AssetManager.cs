@@ -104,7 +104,7 @@ namespace SolStandard.Utility.Assets
             get
             {
                 return GuiTextures.Find(texture =>
-                    texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorArrow_32"));
+                    texture.MonoGameTexture.Name.Contains("HUD/Cursor/MenuCursorPointer_32"));
             }
         }
 
