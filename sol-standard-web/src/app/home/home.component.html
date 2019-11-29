@@ -1,6 +1,23 @@
 <app-title-banner [bannerSize]="bannerSize"></app-title-banner>
 
 <div class="container">
+  <div class="content-zone">
+    <app-media></app-media>
+  </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Sol Standard</h1>
+    <p>
+      Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
+      There are several classes of units available, as well as computer-controlled monsters.
+      Plenty of items and interactable tiles allow for different gameplay experiences on different battle maps.
+    </p>
+  </div>
+</div>
+
+<div class="container">
   <div class="row">
     <div class="col">
       <div class="content-zone">
@@ -14,15 +31,6 @@
     </div>
   </div>
 
-  <div class="jumbotron">
-    <h1>Sol Standard</h1>
-    <p>
-      Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
-      There are several classes of units available, as well as computer-controlled monsters.
-      Plenty of items and interactable tiles allow for different gameplay experiences on different battle maps.
-    </p>
-  </div>
-
   <app-features-list></app-features-list>
 
   <div class="content-zone">
@@ -34,9 +42,5 @@
         <app-unit-detail [unitId]="selectedUnitId"></app-unit-detail>
       </div>
     </div>
-  </div>
-
-  <div class="content-zone">
-    <app-tiles></app-tiles>
   </div>
 </div>

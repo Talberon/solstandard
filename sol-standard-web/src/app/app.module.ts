@@ -1,8 +1,10 @@
+import { CreditsComponent } from './credits/credits/credits.component';
+import { HowToPlayModule } from './how-to-play/how-to-play.module';
+import { HowToPlayComponent } from './how-to-play/how-to-play/how-to-play.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { MarkdownModule } from 'ngx-markdown';
 import { AppComponent } from './app.component';
 import { CreditsRoutingModule } from './credits/credits-routing.module';
@@ -13,7 +15,6 @@ import { GithubRoutingModule } from './github/github-routing.module';
 import { GithubModule } from './github/github.module';
 import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
-import { MediaComponent } from './media/media.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UiModule } from './ui/ui.module';
 
@@ -21,15 +22,15 @@ import { UiModule } from './ui/ui.module';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'how-to-play', component: HowToPlayComponent },
+  { path: 'credits', component: CreditsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'media', component: MediaComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MediaComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -37,7 +38,6 @@ const appRoutes: Routes = [
     UiModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    CarouselModule.forRoot(),
     EasterEggModule,
     EasterEggRoutingModule,
     GithubModule,
@@ -45,7 +45,8 @@ const appRoutes: Routes = [
     MarkdownModule.forRoot(),
     CreditsModule,
     CreditsRoutingModule,
-    HomeModule
+    HomeModule,
+    HowToPlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

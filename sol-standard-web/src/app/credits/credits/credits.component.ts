@@ -1,4 +1,4 @@
-import { GithubService } from './../../github/github.service';
+import { GithubService } from 'src/app/github/github.service';
 import { Component, OnInit } from '@angular/core';
 import { BannerSize } from 'src/app/model/banner-size';
 

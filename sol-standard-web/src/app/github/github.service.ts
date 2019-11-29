@@ -2,7 +2,7 @@ import { ReleaseInfo } from './github.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, map } from 'rxjs/operators';
+import { shareReplay, map, take } from 'rxjs/operators';
 
 export interface PullRequest {
   title: string;
@@ -29,6 +29,7 @@ export class GithubService {
   readmeCache: Observable<string>;
   pullRequestsCache: Observable<PullRequest[]>;
   creditsCache: Observable<string>;
+  howToPlayCache: Observable<string>;
   releaseCache: Observable<ReleaseInfo>;
 
   constructor(private http: HttpClient) { }
@@ -67,6 +68,18 @@ export class GithubService {
     }
 
     return this.creditsCache;
+  }
+
+  getHowToPlay(): Observable<string> {
+    if (!this.howToPlayCache) {
+      this.howToPlayCache = this.http.get(`${this.githubURL}/repos/${this.ownerName}/${this.repoName}/contents/SolStandard/HowToPlay.md`,
+        { headers: this.markdownHeaders, responseType: 'text' }
+      ).pipe(
+        shareReplay()
+      );
+    }
+
+    return this.howToPlayCache;
   }
 
   getLatestRelease(): Observable<ReleaseInfo> {

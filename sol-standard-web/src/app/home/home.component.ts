@@ -9,7 +9,7 @@ import { BannerSize } from './../model/banner-size';
 export class HomeComponent implements OnInit {
 
   readme: string;
-  bannerSize = BannerSize.LARGE;
+  bannerSize = BannerSize.MEDIUM;
   selectedUnitId: number = 1;
 
   constructor() { }

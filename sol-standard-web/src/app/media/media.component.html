@@ -1,17 +1,13 @@
-<app-title-banner [bannerSize]="bannerSize"></app-title-banner>
+<h1>Media</h1>
 
-<div class="container main">
-  <h1>Media</h1>
-
-  <carousel>
-    <slide *ngFor="let image of images">
-      <img class="media-image" [src]="image.source" />
-      <div class="carousel-caption d-none d-md-block">
-        <div class="carousel-text">
-          <h3>{{image.title}}</h3>
-          <p>{{image.description}}</p>
-        </div>
+<carousel>
+  <slide *ngFor="let image of images">
+    <img class="media-image" [src]="image.source" />
+    <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-text">
+        <h3>{{image.title}}</h3>
+        <p>{{image.description}}</p>
       </div>
-    </slide>
-  </carousel>
-</div>
+    </div>
+  </slide>
+</carousel>
