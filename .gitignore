@@ -8,3 +8,4 @@ SolStandard/
 SolStandardTest/
 RELEASE/
 .DS_Store
+deploy.sh
