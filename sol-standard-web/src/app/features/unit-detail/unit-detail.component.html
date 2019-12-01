@@ -13,7 +13,7 @@
     <slide *ngFor="let gif of unit.getGifs(); let index=index">
       <img class="carousel-gif media-image centered" src="{{gif}}" />
       <div class="carousel-caption d-none d-md-block">
-        <h4 class="">{{unit.name}} Abilities - {{index+1}}</h4>
+        <h4 class="text-outline">{{unit.name}} - {{index+1}}</h4>
       </div>
     </slide>
   </carousel>

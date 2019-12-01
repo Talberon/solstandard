@@ -17,9 +17,8 @@ export class Unit {
 
     getGifs(): string[] {
         return [
-            `assets/images/media/units/gifs/${this.name.toLowerCase()}_01.gif`,
-            `assets/images/media/units/gifs/${this.name.toLowerCase()}_02.gif`,
-            `assets/images/media/units/gifs/${this.name.toLowerCase()}_03.gif`,
+            `assets/images/media/units/gifs/${this.name.toLowerCase()}/01.gif`,
+            `assets/images/media/units/gifs/${this.name.toLowerCase()}/02.gif`,
         ];
     }
 }

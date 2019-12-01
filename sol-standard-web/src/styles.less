@@ -5,6 +5,7 @@
 @panel-highlight   : rgb(100, 100, 100);
 @content-background: rgb(29, 31, 35);
 @corner-rounding   : 0.3rem;
+@text-border-size  : 2px;
 
 body {
     color: rgb(217, 215, 211);
@@ -56,4 +57,12 @@ body {
 
 .primary-background {
     background-color: rgb(43, 50, 56);
+}
+
+.text-outline {
+    text-shadow:
+        -@text-border-size -@text-border-size 0 #000,
+        @text-border-size -@text-border-size 0 #000,
+        -@text-border-size @text-border-size 0 #000,
+        @text-border-size @text-border-size 0 #000;
 }
