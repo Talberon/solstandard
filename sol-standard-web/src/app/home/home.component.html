@@ -7,17 +7,6 @@
 </div>
 
 <div class="container">
-  <div class="jumbotron">
-    <h1>Sol Standard</h1>
-    <p>
-      Sol Standard is a tactical strategy game that pits two players against each other in the pursuit of victory!
-      There are several classes of units available, as well as computer-controlled monsters.
-      Plenty of items and interactable tiles allow for different gameplay experiences on different battle maps.
-    </p>
-  </div>
-</div>
-
-<div class="container">
   <div class="row">
     <div class="col">
       <div class="content-zone">
@@ -31,16 +20,23 @@
     </div>
   </div>
 
-  <app-features-list></app-features-list>
-
-  <div class="content-zone">
-    <div class="row">
-      <div class="col-xl-auto">
-        <app-unit-list (selectedUnitEvent)="selectUnit($event)"></app-unit-list>
-      </div>
-      <div class="col-xl">
-        <app-unit-detail [unitId]="selectedUnitId"></app-unit-detail>
-      </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Sol Standard</h1>
+      <p>
+        Sol Standard is a PVP-focused turn-based tactics game that pits two players against each other in the pursuit of
+        tactical supremacy!
+        There are 12 distinct unit classes with their own unique abilities available, as well as computer-controlled
+        monsters that add a wrinkle to the scenario.
+        Plenty of items and interactable environments allow for different gameplay experiences on different battle maps,
+        and many maps have randomized elements to keep maps replayable.
+      </p>
+      <p>
+        Single player maps are also included so that you can play on your own, and practice for playing against your
+        friends!
+      </p>
     </div>
   </div>
+
+  <app-features-list></app-features-list>
 </div>

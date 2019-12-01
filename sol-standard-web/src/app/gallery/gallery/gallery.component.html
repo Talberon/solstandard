@@ -1,0 +1,23 @@
+<app-title-banner [bannerSize]="bannerSize"></app-title-banner>
+
+<div class="container">
+  <div class="content-zone">
+    <h1>Screenshots</h1>
+
+    <div class="image-list" *ngFor="let image of screenshots">
+      <div class="row">
+
+        <div class="col-xl">
+          <div class="card">
+            <img id="{{image.fileName}}" class="img-fluid" src="{{image.getImage()}}" />
+            <div class="card-body">
+              <h5 class="card-title">{{image.caption}}</h5>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,3 +1,5 @@
+@text-border-size: 2px;
+
 .titlebar {
     margin-top           : -2em;
     background           : rgb(99, 99, 99);
@@ -14,8 +16,11 @@
 .tagline {
     padding-bottom           : 0.2em;
     font-weight              : bold;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    text-shadow:
+    -@text-border-size -@text-border-size 0 #000,  
+     @text-border-size -@text-border-size 0 #000,
+    -@text-border-size  @text-border-size 0 #000,
+     @text-border-size  @text-border-size 0 #000;
 }
 
 .centered {

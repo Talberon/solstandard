@@ -1,0 +1,16 @@
+<app-title-banner [bannerSize]="bannerSize"></app-title-banner>
+
+<div class="container">
+  <div class="content-zone">
+    <div class="content-zone">
+      <div class="row">
+        <div class="col-xl-auto">
+          <app-unit-list (selectedUnitEvent)="selectUnit($event)"></app-unit-list>
+        </div>
+        <div class="col-xl">
+          <app-unit-detail [unitId]="selectedUnitId"></app-unit-detail>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

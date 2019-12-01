@@ -10,14 +10,9 @@ export class HomeComponent implements OnInit {
 
   readme: string;
   bannerSize = BannerSize.MEDIUM;
-  selectedUnitId: number = 1;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  selectUnit(unitId: number) {
-    this.selectedUnitId = unitId;
   }
 }

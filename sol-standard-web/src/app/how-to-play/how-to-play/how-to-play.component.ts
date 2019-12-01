@@ -10,7 +10,7 @@ import { GithubService } from 'src/app/github/github.service';
 export class HowToPlayComponent implements OnInit {
 
   howToPlay: string;
-  bannerSize = BannerSize.MEDIUM;
+  bannerSize = BannerSize.SMALL;
 
   constructor(private githubService: GithubService) { }
 

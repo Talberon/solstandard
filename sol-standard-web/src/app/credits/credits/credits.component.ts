@@ -10,7 +10,7 @@ import { BannerSize } from 'src/app/model/banner-size';
 export class CreditsComponent implements OnInit {
 
   credits: string;
-  bannerSize = BannerSize.MEDIUM;
+  bannerSize = BannerSize.SMALL;
 
   constructor(private githubService: GithubService) { }
 

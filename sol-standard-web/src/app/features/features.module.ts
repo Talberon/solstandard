@@ -1,16 +1,12 @@
-import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UnitListComponent } from './unit-list/unit-list.component';
-import { UnitDetailComponent } from './unit-detail/unit-detail.component';
-import { TilesComponent } from './tiles/tiles.component';
-import { FeaturesRoutingModule } from './features-routing.module';
+import { NgModule } from '@angular/core';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FeaturesListComponent } from './features-list/features-list.component';
+import { FeaturesRoutingModule } from './features-routing.module';
+import { TilesComponent } from './tiles/tiles.component';
 
 @NgModule({
   declarations: [
-    UnitListComponent,
-    UnitDetailComponent,
     TilesComponent,
     FeaturesListComponent
   ],
@@ -20,10 +16,8 @@ import { FeaturesListComponent } from './features-list/features-list.component';
     CarouselModule
   ],
   exports: [
-    UnitListComponent,
     TilesComponent,
     FeaturesListComponent,
-    UnitDetailComponent
   ]
 })
 export class FeaturesModule { }

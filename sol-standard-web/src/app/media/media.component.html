@@ -2,7 +2,7 @@
 
 <carousel>
   <slide *ngFor="let image of images">
-    <img class="media-image" [src]="image.source" />
+    <img class="media-image media-content" [src]="image.source" />
     <div class="carousel-caption d-none d-md-block">
       <div class="carousel-text">
         <h3>{{image.title}}</h3>
