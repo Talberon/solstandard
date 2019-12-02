@@ -33,7 +33,7 @@ namespace SolStandard
         public static readonly IFileIO SystemFileIO = new WindowsFileIO();
 
         //Project Site
-        public const string SolStandardUrl = "https://talberon.github.io/solstandard";
+        public const string SolStandardUrl = "https://solstandard.talberon.com";
 
         //Tile Size of Sprites
         public const int CellSize = 32;

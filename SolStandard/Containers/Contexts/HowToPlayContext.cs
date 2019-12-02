@@ -8,10 +8,11 @@ namespace SolStandard.Containers.Contexts
     {
         public ScrollingTextPaneView HowToPlayView { get; }
         private GameContext.GameState previousGameState;
+        private const string HowToPlayPath = "/how-to-play";
 
         public HowToPlayContext()
         {
-            HowToPlayView = new ScrollingTextPaneView(AssetManager.WindowFont, AssetManager.HowToPlayText);
+            HowToPlayView = new HowToPlayView();
         }
 
         public void OpenView()
@@ -31,6 +32,12 @@ namespace SolStandard.Containers.Contexts
         public void ScrollWindow(Direction direction)
         {
             HowToPlayView.ScrollContents(direction);
+        }
+
+        public void OpenBrowser()
+        {
+            AssetManager.MenuConfirmSFX.Play();
+            CreditsContext.OpenBrowser(GameDriver.SolStandardUrl + HowToPlayPath);
         }
     }
 }

@@ -99,6 +99,11 @@ namespace SolStandard.Containers.Contexts
                 GameContext.HowToPlayContext.ExitView();
             }
 
+            if (controlMapper.Press(Input.Confirm, PressType.Single))
+            {
+                GameContext.HowToPlayContext.OpenBrowser();
+            }
+
             if (controlMapper.Press(Input.CursorUp, PressType.DelayedRepeat))
             {
                 GameContext.HowToPlayContext.ScrollWindow(Direction.Up);
