@@ -204,10 +204,11 @@ namespace SolStandard
                 new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
             );
 
+            InitializeControllers();
+
             MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
             NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
 
-            InitializeControllers();
 
             PauseScreenView.Initialize(this);
 
