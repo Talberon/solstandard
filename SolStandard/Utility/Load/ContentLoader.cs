@@ -247,7 +247,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadOpenAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Open");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/open");
             return new Texture2DWrapper(loadTexture);
         }
 
@@ -688,7 +688,7 @@ namespace SolStandard.Utility.Load
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")),
-                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Gold")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook")),
