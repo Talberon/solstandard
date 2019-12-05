@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Audio;
@@ -751,17 +752,20 @@ namespace SolStandard.Utility.Load
 
         public static string LoadCreditsText()
         {
-            return File.ReadAllText("Content/Documents/CREDITS.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/Documents/CREDITS.md");
+            return File.ReadAllText(filePath);
         }
 
         public static string LoadEULAText()
         {
-            return File.ReadAllText("Content/LICENSE.txt");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/LICENSE.txt");
+            return File.ReadAllText(filePath);
         }
 
         public static string LoadHowToPlayText()
         {
-            return File.ReadAllText("HowToPlay.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"HowToPlay.md");
+            return File.ReadAllText(filePath);
         }
     }
 }
