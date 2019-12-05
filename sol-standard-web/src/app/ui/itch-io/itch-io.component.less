@@ -1,0 +1,17 @@
+@text-border-size : 1.3px;
+@text-border-color: rgb(29, 29, 29);
+
+.itch-text {
+    color      : white;
+    font-weight: bold;
+    text-shadow:
+        -@text-border-size -@text-border-size 0 @text-border-color,
+        @text-border-size -@text-border-size 0 @text-border-color,
+        -@text-border-size @text-border-size 0 @text-border-color,
+        @text-border-size @text-border-size 0 @text-border-color;
+}
+
+.itch-link {
+    background   : rgb(250, 92, 92);
+    border-radius: 3px;
+}

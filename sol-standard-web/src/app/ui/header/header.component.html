@@ -13,17 +13,22 @@
         <a class="nav-item nav-link" routerLink="/gallery" routerLinkActive="active">Screenshots</a>
         <a class="nav-item nav-link" routerLink="/how-to-play" routerLinkActive="active">How To Play</a>
         <a class="nav-item nav-link" routerLink="/credits" routerLinkActive="active">Credits</a>
-        <a class="nav-item nav-link" routerLink="/download" routerLinkActive="active">Download</a>
+        <a class="nav-item nav-link btn btn-dark" routerLink="/download" routerLinkActive="active">
+          <span class="fa fa-download"></span> Download
+        </a>
         <a class="nav-item nav-link secret" routerLink="/secret" routerLinkActive="active"
           *ngIf="secretIsActivated()">Secret!</a>
       </div>
     </div>
     <div class="navbar-expand ml-auto navbar-nav">
       <div class="navbar-nav">
-        <app-egg class="nav-item nav-link"></app-egg>
-        <a class="nav-item nav-link" href="https://github.com/Talberon" target="_blank">
-          <span class="fa fa-github"></span>
+        <a class="nav-item nav-link" href="https://talberon.itch.io/" target="_blank">
+          <span class="fab fa-itch-io"></span>
         </a>
+        <a class="nav-item nav-link" href="https://github.com/Talberon" target="_blank">
+          <span class="fab fa-github"></span>
+        </a>
+        <app-egg class="nav-item nav-link"></app-egg>
       </div>
     </div>
   </div>
