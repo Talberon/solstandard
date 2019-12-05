@@ -1,5 +1,5 @@
 # Use the following
-# ~ ./deploy.sh WINDOWS10|MOJAVE|UBUNTU|REDHAT
+# ~ ./deploy.sh windows|mojave|linux
 PLATFORM=$1
 
 echo "Platform: $PLATFORM";
