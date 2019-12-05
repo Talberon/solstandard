@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NLog;
@@ -46,8 +47,8 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 255, 255);
 
-        private const string MapDirectory = "Content/TmxMaps/";
-        private const string MapSelectFile = "Map_Select_06.tmx";
+        private const string MapDirectory = @"Content/TmxMaps/";
+        private const string MapSelectFile = @"Map_Select_06.tmx";
 
         public static BattleContext BattleContext { get; private set; }
         public static Scenario Scenario { get; private set; }
@@ -210,7 +211,7 @@ namespace SolStandard.Containers.Contexts
             MapContainer.ClearToasts();
             Bank.ResetBank();
 
-            const string mapPath = MapDirectory + MapSelectFile;
+            string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, MapDirectory, MapSelectFile);
 
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
