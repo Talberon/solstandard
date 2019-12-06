@@ -7,6 +7,12 @@
     <LangVersion>8</LangVersion>
     <AssemblyName>SolStandard</AssemblyName>
     <RootNamespace>SolStandard</RootNamespace>
+    <ApplicationIcon>solstandard.ico</ApplicationIcon>
+    <IsPackable>false</IsPackable>
+    <Company>Talberon</Company>
+    <Product>Sol Standard</Product>
+    <AssemblyVersion>1.0</AssemblyVersion>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
@@ -158,6 +164,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\TmxMaps\Solo_Dragons_Lair.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="README.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

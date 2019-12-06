@@ -16,7 +16,7 @@ namespace SolStandard.Containers.View
         private readonly ScrollableWindow textWindow;
         private readonly Window controlWindow;
 
-        public ScrollingTextPaneView(ISpriteFont windowFont, string bigTextContent, IRenderable controlInfo = null)
+        protected ScrollingTextPaneView(ISpriteFont windowFont, string bigTextContent, IRenderable controlInfo = null)
         {
             controlWindow = new Window(controlInfo ?? new WindowContentGrid(new IRenderable[,]
             {

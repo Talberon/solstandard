@@ -33,12 +33,12 @@ namespace SolStandard
         public static readonly IFileIO SystemFileIO = new WindowsFileIO();
 
         //Project Site
-        public const string SolStandardUrl = "https://talberon.github.io/solstandard";
+        public const string SolStandardUrl = "https://solstandard.talberon.com";
 
         //Tile Size of Sprites
         public const int CellSize = 32;
         public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
-        public const string TmxObjectTypeDefaults = "Content/TmxMaps/objecttypes.xml";
+        public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/TmxMaps/objecttypes.xml");
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
@@ -144,9 +144,8 @@ namespace SolStandard
 
         private static void CleanTmxFiles()
         {
-            const string tmxPath = "Content/TmxMaps/";
+            string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/TmxMaps/");
             Regex tmxName = new Regex("([\\w])+.tmx");
-
             foreach (string tmxFile in Directory.GetFiles(tmxPath).Where(filename => tmxName.IsMatch(filename)))
             {
                 string text = File.ReadAllText(tmxFile);
@@ -204,10 +203,11 @@ namespace SolStandard
                 new Vector2((float) logoTextTexture.Width * solTextHeight / logoTextTexture.Height, solTextHeight)
             );
 
+            InitializeControllers();
+
             MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
             NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
 
-            InitializeControllers();
 
             PauseScreenView.Initialize(this);
 

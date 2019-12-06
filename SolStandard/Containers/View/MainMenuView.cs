@@ -3,17 +3,23 @@ using Microsoft.Xna.Framework.Graphics;
 using SolStandard.HUD.Menu;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Menu.Options.MainMenu;
+using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
+using SolStandard.Utility.Inputs;
+using SolStandard.Utility.Monogame;
 
 namespace SolStandard.Containers.View
 {
     public class MainMenuView : IUserInterface
     {
+        private const int WindowPadding = 10;
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
+        public static readonly Color ControlsColor = new Color(10, 35, 50, 200);
         private readonly IRenderable title;
         private readonly IRenderable copyright;
+        private readonly IRenderable controls;
 
         public MainMenuView(IRenderable title)
         {
@@ -22,6 +28,8 @@ namespace SolStandard.Containers.View
 
             copyright = new RenderText(AssetManager.WindowFont, "Copyright @Talberon 2019",
                 new Color(100, 100, 100, 100));
+
+            controls = GenerateInputInstructions();
         }
 
         public VerticalMenu MainMenu { get; }
@@ -45,6 +53,39 @@ namespace SolStandard.Containers.View
             return new VerticalMenu(options, cursorSprite, MenuColor);
         }
 
+        private static Window GenerateInputInstructions()
+        {
+            ISpriteFont windowFont = AssetManager.WindowFont;
+
+            IRenderable[,] promptTextContent =
+            {
+                {
+                    new WindowContentGrid(new[,]
+                    {
+                        {
+                            new RenderText(windowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.CursorUp, GameDriver.CellSize),
+                            InputIconProvider.GetInputIcon(Input.CursorDown, GameDriver.CellSize),
+                            new RenderText(windowFont, " to move cursor.")
+                        }
+                    })
+                },
+                {
+                    new WindowContentGrid(new[,]
+                    {
+                        {
+                            new RenderText(windowFont, "Press"),
+                            InputIconProvider.GetInputIcon(Input.Confirm, GameDriver.CellSize),
+                            new RenderText(windowFont, " to confirm selection.")
+                        }
+                    })
+                }
+            };
+            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+
+            return new Window(promptWindowContentGrid, ControlsColor);
+        }
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -58,6 +99,11 @@ namespace SolStandard.Containers.View
             DrawMenu(spriteBatch, centerScreen, titlePosition);
 
             copyright.Draw(spriteBatch, GameDriver.ScreenSize - new Vector2(copyright.Width, copyright.Height));
+
+            controls.Draw(
+                spriteBatch,
+                new Vector2(WindowPadding, GameDriver.ScreenSize.Y - WindowPadding - controls.Height)
+            );
         }
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)

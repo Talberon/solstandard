@@ -11,7 +11,7 @@ namespace SolStandard.Containers.Contexts
     {
         public readonly ScrollingTextPaneView CreditsView;
         private GameContext.GameState previousGameState;
-        public const string CreditsPath = "/credits";
+        private const string CreditsPath = "/credits";
 
         public CreditsContext(ScrollingTextPaneView creditsView)
         {
@@ -43,7 +43,7 @@ namespace SolStandard.Containers.Contexts
             OpenBrowser(GameDriver.SolStandardUrl + CreditsPath);
         }
 
-        private static void OpenBrowser(string url)
+        public static void OpenBrowser(string url)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Audio;
@@ -247,7 +248,7 @@ namespace SolStandard.Utility.Load
 
         public static ITexture2D LoadOpenAtlas(ContentManager content)
         {
-            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/Open");
+            Texture2D loadTexture = content.Load<Texture2D>("Graphics/Images/Icons/Misc/open");
             return new Texture2DWrapper(loadTexture);
         }
 
@@ -688,7 +689,7 @@ namespace SolStandard.Utility.Load
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/CommanderCrown")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Context")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/durability")),
-                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/Gold")),
+                new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/gold")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/hand")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/spoils")),
                 new Texture2DWrapper(content.Load<Texture2D>("Graphics/Images/Icons/Misc/SkillBook")),
@@ -751,17 +752,20 @@ namespace SolStandard.Utility.Load
 
         public static string LoadCreditsText()
         {
-            return File.ReadAllText("Content/Documents/CREDITS.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/Documents/CREDITS.md");
+            return File.ReadAllText(filePath);
         }
 
         public static string LoadEULAText()
         {
-            return File.ReadAllText("Content/LICENSE.txt");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/LICENSE.txt");
+            return File.ReadAllText(filePath);
         }
 
         public static string LoadHowToPlayText()
         {
-            return File.ReadAllText("HowToPlay.md");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"HowToPlay.md");
+            return File.ReadAllText(filePath);
         }
     }
 }

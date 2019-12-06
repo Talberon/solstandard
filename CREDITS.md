@@ -3,9 +3,9 @@
 ## Credits
 Sol Standard 2019 Trevor Kendrick @Talberon
 
-### Talberon | http://talberon.github.io/
+### Talberon | https://talberon.com/
 >#### Work
->Portraits, spritework, sprite edits, various icons, music
+>Design, Programming, Portraits, Spritework, Sprite Edits, Various Icons, Music
 >#### License
 >Copyright Trevor Kendrick 2019
 

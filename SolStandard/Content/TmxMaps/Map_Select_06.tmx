@@ -3978,22 +3978,6 @@
   </data>
  </layer>
  <objectgroup id="45" name="Entities">
-  <object id="1025" name="Debug Dungeon" type="SelectMap" gid="6343" x="480" y="96" width="32" height="32">
-   <properties>
-    <property name="draftUnits" type="bool" value="false"/>
-    <property name="mapFileName" value="Debug_01.tmx"/>
-    <property name="mapSong" value="DungeonTheme"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeEscape" type="bool" value="false"/>
-    <property name="modeRelic.coop" type="bool" value="true"/>
-    <property name="modeRelic.goal" type="int" value="3"/>
-    <property name="modeRoutArmy" type="bool" value="false"/>
-    <property name="modeSeize" type="bool" value="false"/>
-    <property name="modeTaxes" type="bool" value="true"/>
-    <property name="timeEstimateOutOfFive" type="int" value="0"/>
-    <property name="valueTaxes" type="int" value="50"/>
-   </properties>
-  </object>
   <object id="1026" name="Bellriver Tavern" type="SelectMap" gid="6323" x="864" y="544" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="true"/>
@@ -4036,7 +4020,7 @@
     <property name="timeEstimateOutOfFive" type="int" value="4"/>
    </properties>
   </object>
-  <object id="1029" name="Debug Arena" type="SelectMap" gid="6343" x="512" y="96" width="32" height="32">
+  <object id="1029" name="Unit Playground" type="SelectMap" gid="6343" x="288" y="96" width="32" height="32">
    <properties>
     <property name="draftUnits" type="bool" value="false"/>
     <property name="mapFileName" value="Debug_02.tmx"/>
@@ -4121,19 +4105,6 @@
     <property name="maxUnitsRed" type="int" value="5"/>
     <property name="modeSeize" type="bool" value="false"/>
     <property name="timeEstimateOutOfFive" type="int" value="2"/>
-   </properties>
-  </object>
-  <object id="1037" name="AI Debug" type="SelectMap" gid="6343" x="544" y="96" width="32" height="32">
-   <properties>
-    <property name="draftUnits" type="bool" value="false"/>
-    <property name="mapFileName" value="Debug_03_AI.tmx"/>
-    <property name="mapSong" value="BossTheme"/>
-    <property name="modeAssassinate" type="bool" value="false"/>
-    <property name="modeRoutArmy" type="bool" value="false"/>
-    <property name="modeSeize" type="bool" value="false"/>
-    <property name="modeSolo.team" value="Red"/>
-    <property name="modeSoloDefeatBoss" type="bool" value="true"/>
-    <property name="timeEstimateOutOfFive" type="int" value="0"/>
    </properties>
   </object>
   <object id="1038" name="Master Control" type="SelectMap" gid="6323" x="1120" y="352" width="32" height="32">
@@ -4355,7 +4326,37 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="50" name="Disabled" opacity="0.24"/>
+ <objectgroup id="50" name="Disabled" opacity="0.24">
+  <object id="1025" name="Debug Dungeon" type="SelectMap" gid="6343" x="256" y="96" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="false"/>
+    <property name="mapFileName" value="Debug_01.tmx"/>
+    <property name="mapSong" value="DungeonTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeEscape" type="bool" value="false"/>
+    <property name="modeRelic.coop" type="bool" value="true"/>
+    <property name="modeRelic.goal" type="int" value="3"/>
+    <property name="modeRoutArmy" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeTaxes" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="0"/>
+    <property name="valueTaxes" type="int" value="50"/>
+   </properties>
+  </object>
+  <object id="1037" name="AI Debug" type="SelectMap" gid="6343" x="320" y="96" width="32" height="32">
+   <properties>
+    <property name="draftUnits" type="bool" value="false"/>
+    <property name="mapFileName" value="Debug_03_AI.tmx"/>
+    <property name="mapSong" value="BossTheme"/>
+    <property name="modeAssassinate" type="bool" value="false"/>
+    <property name="modeRoutArmy" type="bool" value="false"/>
+    <property name="modeSeize" type="bool" value="false"/>
+    <property name="modeSolo.team" value="Red"/>
+    <property name="modeSoloDefeatBoss" type="bool" value="true"/>
+    <property name="timeEstimateOutOfFive" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="55" name="Overlay" width="40" height="33">
   <data>
    <tile gid="863"/>
@@ -4413,9 +4414,9 @@
    <tile gid="1922"/>
    <tile gid="1886"/>
    <tile/>
-   <tile gid="6383"/>
-   <tile gid="6383"/>
-   <tile gid="6383"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

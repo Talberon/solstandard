@@ -41,7 +41,7 @@ namespace SolStandard.Utility.Assets
             ITexture2D crown = miscIconTextures.Find(texture => texture.Name.EndsWith("CommanderCrown"));
             ITexture2D context = miscIconTextures.Find(texture => texture.Name.EndsWith("Context"));
             ITexture2D durability = miscIconTextures.Find(texture => texture.Name.EndsWith("durability"));
-            ITexture2D gold = miscIconTextures.Find(texture => texture.Name.EndsWith("Gold"));
+            ITexture2D gold = miscIconTextures.Find(texture => texture.Name.EndsWith("gold"));
             ITexture2D hand = miscIconTextures.Find(texture => texture.Name.EndsWith("hand"));
             ITexture2D spoils = miscIconTextures.Find(texture => texture.Name.EndsWith("spoils"));
             ITexture2D skillBook = miscIconTextures.Find(texture => texture.Name.EndsWith("SkillBook"));
