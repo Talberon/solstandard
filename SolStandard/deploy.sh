@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Use the following
 # ~ ./deploy.sh windows|mojave|linux
 PLATFORM=$1
