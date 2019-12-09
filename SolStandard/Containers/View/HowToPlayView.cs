@@ -7,7 +7,7 @@ namespace SolStandard.Containers.View
 {
     public class HowToPlayView : ScrollingTextPaneView
     {
-        public HowToPlayView() : base(AssetManager.WindowFont, AssetManager.CreditsText, new WindowContentGrid(
+        public HowToPlayView() : base(AssetManager.WindowFont, AssetManager.HowToPlayText, new WindowContentGrid(
             new IRenderable[,]
             {
                 {
