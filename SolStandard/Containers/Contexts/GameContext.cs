@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts
         public static readonly Color NegativeColor = new Color(250, 10, 10);
         public static readonly Color NeutralColor = new Color(255, 255, 255);
 
-        private const string MapDirectory = @"Content/TmxMaps/";
+        private static readonly string MapDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/TmxMaps/");
         private const string MapSelectFile = @"Map_Select_06.tmx";
 
         public static BattleContext BattleContext { get; private set; }
@@ -235,7 +235,7 @@ namespace SolStandard.Containers.Contexts
 
         private static void LoadMap(string mapFile, Team firstTeam)
         {
-            string mapPath = MapDirectory + mapFile;
+            string mapPath = MapDirectory + @mapFile;
 
             TmxMapParser mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
