@@ -333,7 +333,7 @@ namespace SolStandard.Containers.Contexts
                 attackerBonus.LuckBonus,
                 AttackPointSize
             );
-            Color attackerWindowColor = TeamUtility.DetermineTeamColor(attacker.Team);
+            Color attackerWindowColor = TeamUtility.DetermineTeamWindowColor(attacker.Team);
 
             battleView.GenerateAttackerUnitCard(attackerWindowColor, attacker);
             battleView.GenerateAttackerHpWindow(attackerWindowColor, attacker);
@@ -357,7 +357,7 @@ namespace SolStandard.Containers.Contexts
                 defenderBonus.LuckBonus,
                 AttackPointSize
             );
-            Color defenderWindowColor = TeamUtility.DetermineTeamColor(defender.Team);
+            Color defenderWindowColor = TeamUtility.DetermineTeamWindowColor(defender.Team);
 
             battleView.GenerateDefenderUnitCard(defenderWindowColor, defender);
             battleView.GenerateDefenderHpWindow(defenderWindowColor, defender);
@@ -526,7 +526,7 @@ namespace SolStandard.Containers.Contexts
                 battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Attack);
                 battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Hit);
                 battleView.GenerateDefenderHpWindow(
-                    TeamUtility.DetermineTeamColor(defender.Team),
+                    TeamUtility.DetermineTeamWindowColor(defender.Team),
                     defender,
                     new RenderableShake(maxDamageShakeOffset, damageShakeDurationInFrames)
                 );
@@ -543,7 +543,7 @@ namespace SolStandard.Containers.Contexts
                 battleView.GenerateAttackerSpriteWindow(attacker, Color.White, UnitAnimationState.Hit);
                 battleView.GenerateDefenderSpriteWindow(defender, Color.White, UnitAnimationState.Attack);
                 battleView.GenerateAttackerHpWindow(
-                    TeamUtility.DetermineTeamColor(attacker.Team),
+                    TeamUtility.DetermineTeamWindowColor(attacker.Team),
                     attacker,
                     new RenderableShake(maxDamageShakeOffset, damageShakeDurationInFrames)
                 );
@@ -616,8 +616,8 @@ namespace SolStandard.Containers.Contexts
             else if (currentlyResolvingDamage)
             {
                 ResolveDamage();
-                battleView.GenerateAttackerUnitCard(TeamUtility.DetermineTeamColor(attacker.Team), attacker, false);
-                battleView.GenerateDefenderUnitCard(TeamUtility.DetermineTeamColor(defender.Team), defender, false);
+                battleView.GenerateAttackerUnitCard(TeamUtility.DetermineTeamWindowColor(attacker.Team), attacker, false);
+                battleView.GenerateDefenderUnitCard(TeamUtility.DetermineTeamWindowColor(defender.Team), defender, false);
             }
         }
 

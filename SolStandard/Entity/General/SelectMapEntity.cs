@@ -72,7 +72,7 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, $" Blue: {MaxBlueUnits}")
                             }
                         },
-                        TeamUtility.DetermineTeamColor(Team.Blue)
+                        TeamUtility.DetermineTeamWindowColor(Team.Blue)
                     ),
                     new Window(
                         new IRenderable[,]
@@ -82,7 +82,7 @@ namespace SolStandard.Entity.General
                                 new RenderText(AssetManager.WindowFont, $" Red: {MaxRedUnits}")
                             }
                         },
-                        TeamUtility.DetermineTeamColor(Team.Red)
+                        TeamUtility.DetermineTeamWindowColor(Team.Red)
                     )
                 }
             },

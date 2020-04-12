@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Utility;
@@ -165,7 +166,9 @@ namespace SolStandard.HUD.Menu
         {
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
-            cursorSprite.Draw(spriteBatch, position + cursorPosition);
+            
+            Color cursorColor = TeamUtility.DetermineTeamCursorColor(GameContext.ActiveTeam);
+            cursorSprite.Draw(spriteBatch, position + cursorPosition, cursorColor);
 
             ConfirmButton.Draw(spriteBatch,
                 position +

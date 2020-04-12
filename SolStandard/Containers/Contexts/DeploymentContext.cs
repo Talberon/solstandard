@@ -130,7 +130,7 @@ namespace SolStandard.Containers.Contexts
             GameUnit hoverUnit = UnitSelector.SelectUnit(hoverSlice.UnitEntity);
             if (hoverUnit != null)
             {
-                windowColor = TeamUtility.DetermineTeamColor(hoverUnit.Team);
+                windowColor = TeamUtility.DetermineTeamWindowColor(hoverUnit.Team);
             }
 
             if (items.Count > 0)

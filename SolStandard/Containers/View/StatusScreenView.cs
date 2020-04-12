@@ -72,7 +72,7 @@ namespace SolStandard.Containers.View
 
             BlueTeamLeaderPortrait = new Window(
                 new WindowContentGrid(blueLeaderContent),
-                TeamUtility.DetermineTeamColor(Team.Blue)
+                TeamUtility.DetermineTeamWindowColor(Team.Blue)
             );
         }
 
@@ -95,7 +95,7 @@ namespace SolStandard.Containers.View
                         }
                     }
                 ),
-                TeamUtility.DetermineTeamColor(Team.Blue)
+                TeamUtility.DetermineTeamWindowColor(Team.Blue)
             );
         }
 
@@ -105,7 +105,7 @@ namespace SolStandard.Containers.View
 
             RedTeamLeaderPortrait = new Window(
                 new WindowContentGrid(redLeaderContent),
-                TeamUtility.DetermineTeamColor(Team.Red)
+                TeamUtility.DetermineTeamWindowColor(Team.Red)
             );
         }
 
@@ -128,7 +128,7 @@ namespace SolStandard.Containers.View
                         }
                     }
                 ),
-                TeamUtility.DetermineTeamColor(Team.Red)
+                TeamUtility.DetermineTeamWindowColor(Team.Red)
             );
         }
 
@@ -194,14 +194,14 @@ namespace SolStandard.Containers.View
                                     }
                                 }
                             ),
-                            TeamUtility.DetermineTeamColor(unit.Team)
+                            TeamUtility.DetermineTeamWindowColor(unit.Team)
                         )
                     }
                 };
 
                 IRenderable singleUnitContent = new Window(
                     new WindowContentGrid(unitContent, 2, HorizontalAlignment.Centered),
-                    TeamUtility.DetermineTeamColor(unit.Team)
+                    TeamUtility.DetermineTeamWindowColor(unit.Team)
                 );
 
                 unitRosterGrid[0, listPosition] = singleUnitContent;

@@ -26,11 +26,11 @@ namespace SolStandard.Containers.Contexts.WinConditions
         {
             Window blueGoldWindow = new Window(
                 new RenderText(font, "Blue: " + BankedGoldForTeam(Team.Blue) + "/" + targetGold + "G"),
-                TeamUtility.DetermineTeamColor(Team.Blue));
+                TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
             Window redGoldWindow = new Window(
                 new RenderText(font, "Red: " + BankedGoldForTeam(Team.Red) + "/" + targetGold + "G"),
-                TeamUtility.DetermineTeamColor(Team.Red));
+                TeamUtility.DetermineTeamWindowColor(Team.Red));
 
             WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
                 new IRenderable[,]

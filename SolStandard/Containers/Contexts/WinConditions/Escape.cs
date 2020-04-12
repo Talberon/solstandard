@@ -77,12 +77,12 @@ namespace SolStandard.Containers.Contexts.WinConditions
                     {
                         {
                             new Window(new RenderText(AssetManager.WindowFont, "Escape [" + escapeTeam + "]"),
-                                TeamUtility.DetermineTeamColor(escapeTeam)),
+                                TeamUtility.DetermineTeamWindowColor(escapeTeam)),
                             ObjectiveIconProvider.GetObjectiveIcon(
                                 VictoryConditions.Escape, GameDriver.CellSizeVector
                             ),
                             new Window(new RenderText(AssetManager.WindowFont, "Rout [" + hunterTeam + "]"),
-                                TeamUtility.DetermineTeamColor(hunterTeam))
+                                TeamUtility.DetermineTeamWindowColor(hunterTeam))
                         }
                     },
                     2,

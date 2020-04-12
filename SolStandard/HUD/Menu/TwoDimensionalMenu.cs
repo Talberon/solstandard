@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.Containers.Contexts;
 using SolStandard.HUD.Menu.Options;
 using SolStandard.HUD.Window;
 using SolStandard.HUD.Window.Content;
@@ -19,7 +20,7 @@ namespace SolStandard.HUD.Menu
             Pointer,
             Frame
         }
-
+        
         private const int ButtonIconSize = 32;
         private const int Padding = 2;
 
@@ -171,7 +172,10 @@ namespace SolStandard.HUD.Menu
         {
             if (!IsVisible) return;
             menuWindow.Draw(spriteBatch, position, colorOverride);
-            cursorSprite.Draw(spriteBatch, position + cursorPosition);
+
+            Color cursorColor = TeamUtility.DetermineTeamCursorColor(GameContext.ActiveTeam);
+            cursorSprite.Draw(spriteBatch, position + cursorPosition, cursorColor);
+            
             ConfirmButton.Draw(spriteBatch,
                 position + cursorPosition +
                 (

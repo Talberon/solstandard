@@ -21,7 +21,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         public AdHocDraftOption(Role role, Team team, bool enabled)
             : base(
                 DraftUnitLabelContent(role, team, enabled),
-                TeamUtility.DetermineTeamColor(team),
+                TeamUtility.DetermineTeamWindowColor(team),
                 HorizontalAlignment.Centered
             )
         {
