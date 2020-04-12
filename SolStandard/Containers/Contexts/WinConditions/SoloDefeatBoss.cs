@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
                         new RenderText(AssetManager.WindowFont, "Solo Defeat Boss [" + playerTeam + "]")
                     }
                 }, 2, HorizontalAlignment.Centered
-            ), TeamUtility.DetermineTeamColor(playerTeam), HorizontalAlignment.Centered);
+            ), TeamUtility.DetermineTeamWindowColor(playerTeam), HorizontalAlignment.Centered);
         }
 
         public override bool ConditionsMet

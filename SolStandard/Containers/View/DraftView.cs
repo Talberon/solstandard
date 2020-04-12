@@ -123,7 +123,7 @@ namespace SolStandard.Containers.View
         {
             MenuOption[,] commanderOptions = GetCommanderOptionsForUnits(units);
             CommanderSelect = new TwoDimensionalMenu(commanderOptions, CommanderCursor,
-                TeamUtility.DetermineTeamColor(team), TwoDimensionalMenu.CursorType.Pointer);
+                TeamUtility.DetermineTeamWindowColor(team), TwoDimensionalMenu.CursorType.Pointer);
         }
 
 
@@ -181,7 +181,7 @@ namespace SolStandard.Containers.View
         public void UpdateUnitSelectMenu(Team team, Dictionary<Role, bool> unitsExhausted)
         {
             UnitSelect = new TwoDimensionalMenu(GetUnitOptionsForTeam(team, unitsExhausted), DraftCursor,
-                TeamUtility.DetermineTeamColor(team), TwoDimensionalMenu.CursorType.Frame);
+                TeamUtility.DetermineTeamWindowColor(team), TwoDimensionalMenu.CursorType.Frame);
         }
 
         public void UpdateCommanderPortrait(Role role, Team team)
@@ -194,14 +194,14 @@ namespace SolStandard.Containers.View
             switch (team)
             {
                 case Team.Blue:
-                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(team));
+                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamWindowColor(team));
                     break;
                 case Team.Red:
-                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(team));
+                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamWindowColor(team));
                     break;
                 case Team.Creep:
-                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(Team.Red));
-                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamColor(Team.Blue));
+                    RedTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamWindowColor(Team.Red));
+                    BlueTeamCommander = new Window(commanderPortrait, TeamUtility.DetermineTeamWindowColor(Team.Blue));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(team), team, null);
@@ -317,7 +317,7 @@ namespace SolStandard.Containers.View
 
             WindowContentGrid unitGrid = new WindowContentGrid(unitCells, 1, HorizontalAlignment.Centered);
 
-            return new Window(unitGrid, TeamUtility.DetermineTeamColor(team), HorizontalAlignment.Centered);
+            return new Window(unitGrid, TeamUtility.DetermineTeamWindowColor(team), HorizontalAlignment.Centered);
         }
 
 

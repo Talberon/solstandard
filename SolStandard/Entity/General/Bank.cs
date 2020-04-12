@@ -121,7 +121,7 @@ namespace SolStandard.Entity.General
                                         "Blue Gold: " + BlueMoney + Currency.CurrencyAbbreviation)
                                 }
                             },
-                            TeamUtility.DetermineTeamColor(Team.Blue)
+                            TeamUtility.DetermineTeamWindowColor(Team.Blue)
                         )
                     },
                     {
@@ -137,7 +137,7 @@ namespace SolStandard.Entity.General
                                         "Red Gold: " + RedMoney + Currency.CurrencyAbbreviation)
                                 }
                             },
-                            TeamUtility.DetermineTeamColor(Team.Red)
+                            TeamUtility.DetermineTeamWindowColor(Team.Red)
                         )
                     },
                 },

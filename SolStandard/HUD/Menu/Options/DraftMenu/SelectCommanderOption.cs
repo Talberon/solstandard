@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         private readonly UnitAction commandAction;
 
         public SelectCommanderOption(GameUnit unit, UnitAction commandAction)
-            : base(WindowContent(unit, commandAction), TeamUtility.DetermineTeamColor(unit.Team),
+            : base(WindowContent(unit, commandAction), TeamUtility.DetermineTeamWindowColor(unit.Team),
                 HorizontalAlignment.Centered)
         {
             this.unit = unit;

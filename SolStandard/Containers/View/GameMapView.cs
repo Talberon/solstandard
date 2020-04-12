@@ -210,7 +210,7 @@ namespace SolStandard.Containers.View
             AdHocDraftMenu = new TwoDimensionalMenu(
                 DraftView.GetAdHocUnitOptionsForTeam(team, new Dictionary<Role, bool>()),
                 DraftView.DraftCursor,
-                TeamUtility.DetermineTeamColor(team),
+                TeamUtility.DetermineTeamWindowColor(team),
                 TwoDimensionalMenu.CursorType.Frame
             );
             VisibleMenu = MenuType.DraftMenu;
@@ -285,11 +285,11 @@ namespace SolStandard.Containers.View
 
             Window blueGoldWindow = new Window(
                 new RenderText(font, $"Blue: {GameContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
-                TeamUtility.DetermineTeamColor(Team.Blue));
+                TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
             Window redGoldWindow = new Window(
                 new RenderText(font, $"Red: {GameContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
-                TeamUtility.DetermineTeamColor(Team.Red));
+                TeamUtility.DetermineTeamWindowColor(Team.Red));
 
 
             bool blueIsFirst = GameContext.InitiativeContext.TeamWithFewerRemainingUnits == Team.Blue;
@@ -319,7 +319,7 @@ namespace SolStandard.Containers.View
 
         public void GenerateActionMenus()
         {
-            Color windowColor = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(GameContext.ActiveTeam);
 
             IMenu contextMenu = BuildContextMenu(windowColor);
 
@@ -445,7 +445,7 @@ namespace SolStandard.Containers.View
 
         public void GenerateCurrentMenuDescription()
         {
-            Color windowColor = TeamUtility.DetermineTeamColor(GameContext.ActiveTeam);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(GameContext.ActiveTeam);
 
             if (VisibleMenu == MenuType.ActionMenu)
             {
@@ -644,7 +644,7 @@ namespace SolStandard.Containers.View
 
             IRenderable singleUnitContent = new Window(
                 new WindowContentGrid(unitContent, 3, HorizontalAlignment.Centered),
-                windowColorOverride ?? TeamUtility.DetermineTeamColor(unit.Team)
+                windowColorOverride ?? TeamUtility.DetermineTeamWindowColor(unit.Team)
             );
             return singleUnitContent;
         }
@@ -663,7 +663,7 @@ namespace SolStandard.Containers.View
             {
                 if (!hoverMapUnit.IsDifferentFrom(LeftHoverUnit)) return;
                 LeftHoverUnit = hoverMapUnit.GetHashCode();
-                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                Color windowColor = TeamUtility.DetermineTeamWindowColor(hoverMapUnit.Team);
                 Window leftUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 Window leftUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
                 Window leftUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);
@@ -695,7 +695,7 @@ namespace SolStandard.Containers.View
             {
                 if (!hoverMapUnit.IsDifferentFrom(RightHoverUnit)) return;
                 RightHoverUnit = hoverMapUnit.GetHashCode();
-                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                Color windowColor = TeamUtility.DetermineTeamWindowColor(hoverMapUnit.Team);
                 Window rightUnitPortraitWindow = GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 Window rightUnitDetailWindow = GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
                 Window rightUnitStatusWindow = GenerateUnitStatusWindow(hoverMapUnit.StatusEffects, windowColor);

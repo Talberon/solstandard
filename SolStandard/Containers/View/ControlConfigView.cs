@@ -19,9 +19,9 @@ namespace SolStandard.Containers.View
     {
         private const int WindowPadding = 10;
         private static readonly Color PrimaryWindowColor = new Color(50, 50, 60);
-        private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamColor(Team.Creep);
-        private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamColor(GameContext.P1Team);
-        private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamColor(GameContext.P2Team);
+        private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamWindowColor(Team.Creep);
+        private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamWindowColor(GameContext.P1Team);
+        private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamWindowColor(GameContext.P2Team);
 
         public ControlConfigContext.ControlMenuState CurrentState { get; set; }
         private readonly IRenderable cursorSprite;

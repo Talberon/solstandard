@@ -42,7 +42,7 @@ namespace SolStandard.Entity.General
                         (CapturableByBlue)
                             ? new Window(
                                 new RenderText(AssetManager.WindowFont, "Capturable by Blue"),
-                                TeamUtility.DetermineTeamColor(Team.Blue)
+                                TeamUtility.DetermineTeamWindowColor(Team.Blue)
                             )
                             : RenderBlank.Blank
                     },
@@ -50,7 +50,7 @@ namespace SolStandard.Entity.General
                         (CapturableByRed)
                             ? new Window(
                                 new RenderText(AssetManager.WindowFont, "Capturable by Red"),
-                                TeamUtility.DetermineTeamColor(Team.Red)
+                                TeamUtility.DetermineTeamWindowColor(Team.Red)
                             )
                             : RenderBlank.Blank
                     },

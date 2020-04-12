@@ -81,7 +81,7 @@ namespace SolStandard.Containers.View
                                     new Window(
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Red) ? "P1" : "P2"),
-                                        TeamUtility.DetermineTeamColor(Team.Red)
+                                        TeamUtility.DetermineTeamWindowColor(Team.Red)
                                     )
                                 },
                                 {
@@ -91,7 +91,7 @@ namespace SolStandard.Containers.View
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Red Team"),
-                                        TeamUtility.DetermineTeamColor(Team.Red)
+                                        TeamUtility.DetermineTeamWindowColor(Team.Red)
                                     )
                                 }
                             }, 1, HorizontalAlignment.Centered), solWindowColor
@@ -103,7 +103,7 @@ namespace SolStandard.Containers.View
                                     new Window(
                                         new RenderText(AssetManager.WindowFont,
                                             (GameContext.P1Team == Team.Blue) ? "P1" : "P2"),
-                                        TeamUtility.DetermineTeamColor(Team.Blue)
+                                        TeamUtility.DetermineTeamWindowColor(Team.Blue)
                                     )
                                 },
                                 {
@@ -113,7 +113,7 @@ namespace SolStandard.Containers.View
                                 },
                                 {
                                     new Window(new RenderText(AssetManager.WindowFont, "Blue Team"),
-                                        TeamUtility.DetermineTeamColor(Team.Blue)
+                                        TeamUtility.DetermineTeamWindowColor(Team.Blue)
                                     )
                                 }
                             }, 1, HorizontalAlignment.Centered), lunaWindowColor

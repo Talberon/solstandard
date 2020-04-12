@@ -52,7 +52,7 @@ namespace SolStandard.Containers.View
             }
             else
             {
-                Color windowColor = TeamUtility.DetermineTeamColor(hoverMapUnit.Team);
+                Color windowColor = TeamUtility.DetermineTeamWindowColor(hoverMapUnit.Team);
                 UnitPortraitWindow = GameMapView.GenerateUnitPortraitWindow(hoverMapUnit.UnitPortraitPane, windowColor);
                 UnitDetailWindow = GameMapView.GenerateUnitDetailWindow(hoverMapUnit.DetailPane, windowColor);
             }
@@ -135,7 +135,7 @@ namespace SolStandard.Containers.View
 
 
             IRenderable unitContentGrid = new WindowContentGrid(units, 1, HorizontalAlignment.Centered);
-            Color windowColor = TeamUtility.DetermineTeamColor(unitList.First().Team);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(unitList.First().Team);
             return new Window(unitContentGrid, windowColor);
         }
 

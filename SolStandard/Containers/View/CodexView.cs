@@ -36,7 +36,7 @@ namespace SolStandard.Containers.View
 
         public void ShowUnitDetails(GameUnit unit)
         {
-            Color windowColor = TeamUtility.DetermineTeamColor(unit.Team);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(unit.Team);
             unitActionListWindow = GenerateActionWindow(unit.Actions, windowColor);
             unitDetailWindow = GenerateUnitDetailWindow(unit);
         }
@@ -139,7 +139,7 @@ namespace SolStandard.Containers.View
                 }
             };
 
-            Color windowColor = TeamUtility.DetermineTeamColor(unit.Team);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(unit.Team);
 
             return new Window(new WindowContentGrid(windowContent, 2), windowColor);
         }
