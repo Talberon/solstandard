@@ -17,6 +17,7 @@ namespace SolStandard.Containers.View
     public class NetworkMenuView : IUserInterface
     {
         private readonly IRenderable title;
+        private readonly IRenderable versionNumber;
         private Window networkStatusWindow;
         private TwoDimensionalMenu DialMenu { get; set; }
         private TwoDimensionalMenu HostMenu { get; set; }
@@ -26,6 +27,7 @@ namespace SolStandard.Containers.View
         public NetworkMenuView(IRenderable title)
         {
             this.title = title;
+            versionNumber = new RenderText(AssetManager.WindowFont, $"v{GameDriver.VersionNumber}");
             networkStatusWindow = GenerateStatusWindow();
             inputIPAddress = string.Empty;
             hostIPAddress = string.Empty;
@@ -141,9 +143,8 @@ namespace SolStandard.Containers.View
             string tipText1 = (serverIpFound)
                 ? ""
                 : "You can get your public IP address by searching online for \"What is my IP?\"";
-            string tipText2 =
-                "If your peer cannot connect, check to make sure you have port forwarding enabled on your router for port " +
-                ConnectionManager.NetworkPort + ".";
+            string tipText2 = "If your peer cannot connect, make sure you are both running the same major/minor version of the game.";
+            string tipText3 = $"Check to make sure you have port forwarding enabled on your router for port {ConnectionManager.NetworkPort}.";
 
             return new Window(
                 new WindowContentGrid(
@@ -152,6 +153,7 @@ namespace SolStandard.Containers.View
                         {new RenderText(AssetManager.MainMenuFont, displayIpAddress)},
                         {new RenderText(AssetManager.WindowFont, tipText1)},
                         {new RenderText(AssetManager.WindowFont, tipText2)},
+                        {new RenderText(AssetManager.WindowFont, tipText3)},
                         {new RenderText(AssetManager.MainMenuFont, statusMessage)}
                     },
                     2,
@@ -259,6 +261,12 @@ namespace SolStandard.Containers.View
                 );
                 HostMenu.Draw(spriteBatch, hostMenuPosition);
             }
+
+            const int windowPadding = 10;
+            versionNumber.Draw(
+                spriteBatch,
+                new Vector2(GameDriver.ScreenSize.X - versionNumber.Width - windowPadding, windowPadding)
+            );
         }
     }
 }

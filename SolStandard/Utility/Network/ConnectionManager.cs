@@ -21,6 +21,13 @@ namespace SolStandard.Utility.Network
 
         private NetServer server;
         private NetClient client;
+        private readonly string appIdentifier;
+
+        public ConnectionManager()
+        {
+            appIdentifier = $"Sol Standard {GameDriver.VersionNumber}";
+        }
+
         public const int NetworkPort = 1993;
 
         public bool ConnectedAsServer =>
@@ -33,7 +40,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard")
+            NetPeerConfiguration config = new NetPeerConfiguration(appIdentifier)
             {
                 Port = NetworkPort,
                 EnableUPnP = true
@@ -68,7 +75,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration("Sol Standard");
+            NetPeerConfiguration config = new NetPeerConfiguration(appIdentifier);
 
             Logger.Debug("Starting client!");
             client = new NetClient(config);
@@ -147,17 +154,7 @@ namespace SolStandard.Utility.Network
                             case NetConnectionStatus.Connected:
                                 Logger.Debug("Connected!");
                                 GlobalHudView.AddNotification("Connected to peer!");
-
-                                GameContext.LoadMapSelect();
-
-                                if (ConnectedAsServer)
-                                {
-                                    int newRandomSeed = GameDriver.Random.Next();
-                                    GameDriver.Random = new Random(newRandomSeed);
-                                    GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
-                                }
-
-                                GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
+                                ConnectionEstablished(peer);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                                 Logger.Debug("Disconnecting...");
@@ -186,6 +183,20 @@ namespace SolStandard.Utility.Network
                         break;
                 }
             }
+        }
+
+        private void ConnectionEstablished(NetPeer peer)
+        {
+            GameContext.LoadMapSelect();
+
+            if (ConnectedAsServer)
+            {
+                int newRandomSeed = GameDriver.Random.Next();
+                GameDriver.Random = new Random(newRandomSeed);
+                GlobalEventQueue.QueueSingleEvent(new InitializeRandomizerNet(newRandomSeed));
+            }
+
+            GameDriver.InitializeControlMappers(peer is NetClient ? Team.Red : Team.Blue);
         }
 
         private static void ReadNetworkEvent(NetBuffer received)

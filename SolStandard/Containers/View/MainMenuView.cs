@@ -18,6 +18,7 @@ namespace SolStandard.Containers.View
         public static readonly Color MenuColor = new Color(10, 35, 50, 100);
         public static readonly Color ControlsColor = new Color(10, 35, 50, 200);
         private readonly IRenderable title;
+        private readonly IRenderable versionNumber;
         private readonly IRenderable copyright;
         private readonly IRenderable controls;
 
@@ -30,6 +31,8 @@ namespace SolStandard.Containers.View
                 new Color(100, 100, 100, 100));
 
             controls = GenerateInputInstructions();
+
+            versionNumber = new RenderText(AssetManager.WindowFont, $"v{GameDriver.VersionNumber}");
         }
 
         public VerticalMenu MainMenu { get; }
@@ -104,6 +107,11 @@ namespace SolStandard.Containers.View
                 spriteBatch,
                 new Vector2(WindowPadding, GameDriver.ScreenSize.Y - WindowPadding - controls.Height)
             );
+
+            versionNumber.Draw(
+                    spriteBatch,
+                new Vector2(GameDriver.ScreenSize.X - versionNumber.Width - WindowPadding, WindowPadding)
+                );
         }
 
         private void DrawMenu(SpriteBatch spriteBatch, Vector2 centerScreen, Vector2 titlePosition)
