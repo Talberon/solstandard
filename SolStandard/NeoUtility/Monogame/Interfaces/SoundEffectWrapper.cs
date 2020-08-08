@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended;
-using SolStandard;
 using SolStandard.Utility.Exceptions;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public class SoundEffectWrapper : ISoundEffect
     {

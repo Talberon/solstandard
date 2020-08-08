@@ -1,6 +1,6 @@
-using Steelbreakers.Utility.GUI.HUD;
+using SolStandard.NeoGFX.GUI;
 
-namespace Steelbreakers.Utility.Juice
+namespace SolStandard.NeoGFX.Juice
 {
     public static class JuiceBoxUtils
     {

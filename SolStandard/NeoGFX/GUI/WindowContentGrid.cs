@@ -4,10 +4,9 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using SolStandard;
-using Steelbreakers.Utility.General;
+using SolStandard.NeoUtility.General;
 
-namespace Steelbreakers.Utility.GUI.HUD
+namespace SolStandard.NeoGFX.GUI
 {
     public class WindowContentGrid : IWindowContent
     {

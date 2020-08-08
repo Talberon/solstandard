@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SolStandard;
-using Steelbreakers.Utility.Directions;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.GUI.HUD.Menus.Implementations;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoGFX.GUI.Menus.Implementations;
+using SolStandard.NeoUtility.Directions;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus
+namespace SolStandard.NeoGFX.GUI.Menus
 {
     public class MenuContainer : IPositionedRenderable
     {

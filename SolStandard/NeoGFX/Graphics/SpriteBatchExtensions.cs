@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Map;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public static class SpriteBatchExtensions
     {

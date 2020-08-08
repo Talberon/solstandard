@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public static class CollectionExtensions
     {

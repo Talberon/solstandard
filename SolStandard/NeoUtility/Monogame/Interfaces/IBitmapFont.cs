@@ -1,6 +1,6 @@
 using MonoGame.Extended.BitmapFonts;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public interface IBitmapFont
     {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Steelbreakers.Contexts.Components.Views;
-using Steelbreakers.Utility.GUI.HUD.Menus;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoGFX.GUI.Menus;
 
 namespace SolStandard.Containers.Contexts
 {

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.Graphics;
+using SolStandard.NeoGFX.Graphics;
 
-namespace Steelbreakers.Utility.GUI.HUD
+namespace SolStandard.NeoGFX.GUI
 {
     public interface IWindow : IRenderable
     {

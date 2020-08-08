@@ -2,13 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using SolStandard;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.Juice;
-using Steelbreakers.Utility.Monogame.Assets;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoGFX.Juice;
+using SolStandard.NeoUtility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.GUI.HUD
+namespace SolStandard.NeoGFX.GUI
 {
     public enum HorizontalAlignment
     {

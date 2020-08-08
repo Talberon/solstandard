@@ -9,7 +9,7 @@ using MonoGame.Extended.Particles.Profiles;
 using MonoGame.Extended.TextureAtlases;
 using SolStandard.Map;
 
-namespace Steelbreakers.Utility.Graphics.Particles
+namespace SolStandard.NeoGFX.Graphics.Particles
 {
     public class SpriteParticle : AbstractParticleEffect
     {

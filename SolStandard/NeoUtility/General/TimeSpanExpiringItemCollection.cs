@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public class TimeSpanExpiringItemCollection<T> : IUpdate
     {

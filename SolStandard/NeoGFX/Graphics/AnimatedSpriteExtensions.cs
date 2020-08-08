@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public static class AnimatedSpriteExtensions
     {

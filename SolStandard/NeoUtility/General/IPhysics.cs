@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public interface IPhysics
     {

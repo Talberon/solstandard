@@ -1,5 +1,5 @@
 using System;
-using Steelbreakers.Utility.Controls.Inputs;
+using SolStandard.NeoUtility.Controls.Inputs;
 
 namespace SolStandard.Utility.Exceptions
 {

@@ -1,4 +1,4 @@
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public class FrameTimedInverter<T>
     {

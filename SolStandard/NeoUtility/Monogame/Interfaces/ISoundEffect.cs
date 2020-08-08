@@ -1,6 +1,6 @@
 ﻿﻿using Microsoft.Xna.Framework.Audio;
 
- namespace Steelbreakers.Utility.Monogame.Interfaces
+ namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public interface ISoundEffect : IPlayableAudio
     {

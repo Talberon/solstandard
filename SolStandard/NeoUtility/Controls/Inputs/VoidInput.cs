@@ -1,6 +1,6 @@
 using System;
 
-namespace Steelbreakers.Utility.Controls.Inputs
+namespace SolStandard.NeoUtility.Controls.Inputs
 {
     [Serializable]
     public class VoidInput : GameControl

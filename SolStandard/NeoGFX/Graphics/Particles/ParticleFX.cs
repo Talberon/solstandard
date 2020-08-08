@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Particles;
 
-namespace Steelbreakers.Utility.Graphics.Particles
+namespace SolStandard.NeoGFX.Graphics.Particles
 {
     public class ParticleFx : IRenderable
     {

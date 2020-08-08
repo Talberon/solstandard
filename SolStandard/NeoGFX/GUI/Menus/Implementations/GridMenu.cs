@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus.Implementations
+namespace SolStandard.NeoGFX.GUI.Menus.Implementations
 {
     public class GridMenu : Menu
     {

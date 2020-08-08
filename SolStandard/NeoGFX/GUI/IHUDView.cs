@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.GUI.HUD;
+using SolStandard.NeoGFX.Graphics;
 
-namespace Steelbreakers.Contexts.Components.Views
+namespace SolStandard.NeoGFX.GUI
 {
     public interface IHUDView : IRenderable
     {

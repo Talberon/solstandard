@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using MonoGame.Aseprite;
 using SolStandard.Map;
-using Steelbreakers.Utility.Graphics;
+using SolStandard.NeoGFX.Graphics;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public class StatefulAsepriteWrapper : AsepriteWrapper
     {

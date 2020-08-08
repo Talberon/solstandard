@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.Directions;
+using SolStandard.NeoUtility.Directions;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public static class GamePhysics
     {

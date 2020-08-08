@@ -4,13 +4,13 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using Steelbreakers.Utility.Directions;
-using Steelbreakers.Utility.General;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.Juice;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoGFX.Juice;
+using SolStandard.NeoUtility.Directions;
+using SolStandard.NeoUtility.General;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus
+namespace SolStandard.NeoGFX.GUI.Menus
 {
     public abstract class Menu : IPositionedRenderable
     {

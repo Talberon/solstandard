@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SolStandard.Map;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.GUI.HUD
+namespace SolStandard.NeoGFX.GUI
 {
     public class RenderText : IWindowContent
     {

@@ -1,11 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Steelbreakers.Utility.Directions;
-using Steelbreakers.Utility.General;
-using Steelbreakers.Utility.Juice;
+using SolStandard.NeoGFX.Juice;
+using SolStandard.NeoUtility.Directions;
+using SolStandard.NeoUtility.General;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public class ScrollingBackground : IPositionedRenderable
     {

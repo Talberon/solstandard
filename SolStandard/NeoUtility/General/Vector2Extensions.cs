@@ -1,10 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using SolStandard;
-using Steelbreakers.Utility.Directions;
+using SolStandard.NeoUtility.Directions;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public static class Vector2Extensions
     {

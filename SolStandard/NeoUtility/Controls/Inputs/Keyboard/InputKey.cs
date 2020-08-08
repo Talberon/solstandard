@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.Controls.Inputs.Keyboard
+namespace SolStandard.NeoUtility.Controls.Inputs.Keyboard
 {
     [Serializable]
     public class InputKey : GameControl

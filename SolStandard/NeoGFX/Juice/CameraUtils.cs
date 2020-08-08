@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard;
-using Steelbreakers.Utility.General;
+using SolStandard.NeoUtility.General;
 
-namespace Steelbreakers.Utility.Juice
+namespace SolStandard.NeoGFX.Juice
 {
     public static class CameraUtils
     {
