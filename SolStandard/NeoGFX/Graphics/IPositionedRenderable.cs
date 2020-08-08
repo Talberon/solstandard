@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public interface IPositionedRenderable : IRenderable
     {

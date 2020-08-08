@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using SolStandard.Utility.Exceptions;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public static class ShapeExtensions
     {

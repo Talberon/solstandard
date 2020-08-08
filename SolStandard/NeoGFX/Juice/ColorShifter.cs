@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.General;
+using SolStandard.NeoUtility.General;
 
-namespace Steelbreakers.Utility.Juice
+namespace SolStandard.NeoGFX.Juice
 {
     public class ColorShifter
     {

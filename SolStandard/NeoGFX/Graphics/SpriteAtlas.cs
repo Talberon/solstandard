@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 using SolStandard.Utility.Exceptions;
-using Steelbreakers.Utility.GUI.HUD;
-using Steelbreakers.Utility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public class SpriteAtlas : IPositionedRenderable, IWindowContent
     {

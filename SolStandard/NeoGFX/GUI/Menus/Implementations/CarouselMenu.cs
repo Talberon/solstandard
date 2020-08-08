@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.Directions;
-using Steelbreakers.Utility.General;
+using SolStandard.NeoUtility.Directions;
+using SolStandard.NeoUtility.General;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus.Implementations
+namespace SolStandard.NeoGFX.GUI.Menus.Implementations
 {
     public class CarouselMenu : GridMenu
     {

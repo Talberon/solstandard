@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using SolStandard;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
 // ReSharper disable NotNullMemberIsNotInitialized
 
-namespace Steelbreakers.Utility.Monogame.Assets
+namespace SolStandard.NeoUtility.Monogame.Assets
 {
     public static class SoundBox
     {

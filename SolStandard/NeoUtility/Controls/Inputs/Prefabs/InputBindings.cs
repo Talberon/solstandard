@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SolStandard;
 using SolStandard.Containers.Contexts;
 using SolStandard.Entity.Unit;
-using Steelbreakers.Utility.Controls.Inputs.Gamepad;
-using Steelbreakers.Utility.Controls.Inputs.Keyboard;
+using SolStandard.NeoUtility.Controls.Inputs.Gamepad;
+using SolStandard.NeoUtility.Controls.Inputs.Keyboard;
 
-namespace Steelbreakers.Utility.Controls.Inputs.Prefabs
+namespace SolStandard.NeoUtility.Controls.Inputs.Prefabs
 {
     public enum InputDevice
     {

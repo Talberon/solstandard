@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended.Particles;
 using SolStandard.Map;
 
-namespace Steelbreakers.Utility.Graphics.Particles
+namespace SolStandard.NeoGFX.Graphics.Particles
 {
     public abstract class AbstractParticleEffect
     {

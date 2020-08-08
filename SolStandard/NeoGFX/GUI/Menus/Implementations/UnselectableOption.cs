@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus.Implementations
+namespace SolStandard.NeoGFX.GUI.Menus.Implementations
 {
     public class UnselectableOption : MenuOption
     {

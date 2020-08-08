@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Steelbreakers.Utility.Controls.Inputs
+namespace SolStandard.NeoUtility.Controls.Inputs
 {
     public class MultiControlParser : ControlMapper
     {

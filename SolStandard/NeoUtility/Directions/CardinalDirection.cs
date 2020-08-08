@@ -1,4 +1,4 @@
-namespace Steelbreakers.Utility.Directions
+namespace SolStandard.NeoUtility.Directions
 {
     //4-Directional
     public enum CardinalDirection

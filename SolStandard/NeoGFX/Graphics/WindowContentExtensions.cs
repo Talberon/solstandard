@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.GUI.HUD;
+using SolStandard.NeoGFX.GUI;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public static class WindowContentExtensions
     {

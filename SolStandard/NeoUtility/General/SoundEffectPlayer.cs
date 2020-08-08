@@ -2,9 +2,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public class SoundEffectPlayer : IUpdate, ISoundEffect
     {

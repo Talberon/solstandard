@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.Monogame.Assets
+namespace SolStandard.NeoUtility.Monogame.Assets
 {
     public static class ContentLoader
     {

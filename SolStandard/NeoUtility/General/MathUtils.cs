@@ -1,6 +1,6 @@
 using System;
 
-namespace Steelbreakers.Utility.General
+namespace SolStandard.NeoUtility.General
 {
     public static class MathUtils
     {

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Media;
-using SolStandard;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public static class MusicBox
     {

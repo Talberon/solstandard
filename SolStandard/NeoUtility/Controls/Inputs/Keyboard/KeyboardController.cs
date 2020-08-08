@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoUtility.Controls.Inputs.Prefabs;
+using SolStandard.NeoUtility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 using SolStandard.Utility.Exceptions;
-using Steelbreakers.Utility.Controls.Inputs.Prefabs;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.Monogame.Assets;
-using Steelbreakers.Utility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.Controls.Inputs.Keyboard
+namespace SolStandard.NeoUtility.Controls.Inputs.Keyboard
 {
     public enum KeyboardIndex
     {

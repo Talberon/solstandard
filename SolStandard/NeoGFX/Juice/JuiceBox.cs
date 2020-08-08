@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using SolStandard.Utility.Exceptions;
 
-namespace Steelbreakers.Utility.Juice
+namespace SolStandard.NeoGFX.Juice
 {
     public class JuiceBox
     {

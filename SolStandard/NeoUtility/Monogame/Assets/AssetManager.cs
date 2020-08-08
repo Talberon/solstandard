@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
 // ReSharper disable NotNullMemberIsNotInitialized
 
-namespace Steelbreakers.Utility.Monogame.Assets
+namespace SolStandard.NeoUtility.Monogame.Assets
 {
     public static class AssetManager
     {

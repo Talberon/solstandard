@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Steelbreakers.Utility.Controls.Inputs
+namespace SolStandard.NeoUtility.Controls.Inputs
 {
     public class GameControlParser : ControlMapper
     {

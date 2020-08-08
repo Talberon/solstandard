@@ -1,4 +1,4 @@
-namespace Steelbreakers.Utility.Controls.Inputs
+namespace SolStandard.NeoUtility.Controls.Inputs
 {
     public enum ControlType
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public interface ITexture2D
     {

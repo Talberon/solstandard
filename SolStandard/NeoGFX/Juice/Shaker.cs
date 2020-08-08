@@ -1,9 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using SolStandard;
 
-namespace Steelbreakers.Utility.Juice
+namespace SolStandard.NeoGFX.Juice
 {
     public class Shaker
     {

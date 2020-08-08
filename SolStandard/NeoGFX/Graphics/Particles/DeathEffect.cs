@@ -9,11 +9,10 @@ using MonoGame.Extended.Particles.Modifiers.Containers;
 using MonoGame.Extended.Particles.Modifiers.Interpolators;
 using MonoGame.Extended.Particles.Profiles;
 using MonoGame.Extended.TextureAtlases;
-using SolStandard;
 using SolStandard.Map;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.Graphics.Particles
+namespace SolStandard.NeoGFX.Graphics.Particles
 {
     public class DeathEffect : AbstractParticleEffect
     {

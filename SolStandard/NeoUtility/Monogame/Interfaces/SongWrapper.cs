@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Media;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public class SongWrapper : IPlayableAudio
     {

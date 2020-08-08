@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
+using SolStandard.NeoUtility.Monogame.Assets;
 using SolStandard.Utility.Events;
 using SolStandard.Utility.Events.Network;
-using Steelbreakers.Utility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.GUI.HUD.Menus
+namespace SolStandard.NeoGFX.GUI.Menus
 {
     public static class MenuOptionEffects
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.Monogame.Interfaces;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoUtility.Monogame.Interfaces;
 
-namespace Steelbreakers.Utility.Monogame.Assets
+namespace SolStandard.NeoUtility.Monogame.Assets
 {
     public enum KeyboardIcon
     {

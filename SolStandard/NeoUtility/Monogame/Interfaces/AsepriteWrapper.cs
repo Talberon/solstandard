@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
 using SolStandard.Map;
-using Steelbreakers.Utility.General;
-using Steelbreakers.Utility.Graphics;
-using Steelbreakers.Utility.GUI.HUD;
-using Steelbreakers.Utility.Monogame.Assets;
+using SolStandard.NeoGFX.Graphics;
+using SolStandard.NeoGFX.GUI;
+using SolStandard.NeoUtility.General;
+using SolStandard.NeoUtility.Monogame.Assets;
 
-namespace Steelbreakers.Utility.Monogame.Interfaces
+namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
     public class AsepriteWrapper : IWindowContent, IPositionedRenderable
     {

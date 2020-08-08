@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Steelbreakers.Utility.GUI.HUD;
+using SolStandard.NeoGFX.GUI;
 
-namespace Steelbreakers.Utility.Graphics
+namespace SolStandard.NeoGFX.Graphics
 {
     public class RenderBlank : IPositionedRenderable, IWindowContent
     {
