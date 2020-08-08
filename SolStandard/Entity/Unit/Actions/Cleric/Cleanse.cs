@@ -57,7 +57,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
         {
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
+            var eventQueue = new Queue<IEvent>();
 
             foreach (StatusEffect effect in targetUnit.StatusEffects.Where(effect => effect.CanCleanse).ToList())
             {

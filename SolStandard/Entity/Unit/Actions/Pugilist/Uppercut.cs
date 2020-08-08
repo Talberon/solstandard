@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new StartCombatEvent(targetUnit));

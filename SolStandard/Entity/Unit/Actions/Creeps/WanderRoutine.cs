@@ -49,11 +49,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public static void Roam(GameUnit roamer)
         {
-            Queue<IEvent> roamEventQueue = new Queue<IEvent>();
+            var roamEventQueue = new Queue<IEvent>();
             //Move randomly up to max movement
             for (int i = 0; i < roamer.Stats.Mv; i++)
             {
-                Direction randomDirection =
+                var randomDirection =
                     (Direction) GameDriver.Random.Next(1, Enum.GetValues(typeof(Direction)).Length);
 
                 roamEventQueue.Enqueue(new CreepMoveEvent(roamer, randomDirection));

@@ -263,7 +263,7 @@ namespace SolStandard.Containers.Contexts
 
         private static Dictionary<Role, bool> GetRolesEnabled(Dictionary<Role, int> roleCount, int limit)
         {
-            Dictionary<Role, bool> enabledRoles = new Dictionary<Role, bool>();
+            var enabledRoles = new Dictionary<Role, bool>();
 
             foreach (KeyValuePair<Role, int> pair in roleCount)
             {

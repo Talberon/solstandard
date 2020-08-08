@@ -147,8 +147,8 @@ namespace SolStandard
 
         private static void CleanTmxFiles()
         {
-            string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content/TmxMaps/");
-            Regex tmxName = new Regex("([\\w])+.tmx");
+            string tmxPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, @"Content/TmxMaps/");
+            var tmxName = new Regex("([\\w])+.tmx");
             foreach (string tmxFile in Directory.GetFiles(tmxPath).Where(filename => tmxName.IsMatch(filename)))
             {
                 string text = File.ReadAllText(tmxFile);
@@ -170,15 +170,15 @@ namespace SolStandard
 
         private static void InitializeControllers()
         {
-            IController loadedKeyboardConfig =
+            var loadedKeyboardConfig =
                 SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
             KeyboardParser = new GameControlParser(loadedKeyboardConfig ?? new KeyboardController());
 
-            IController loadedP1GamepadConfig =
+            var loadedP1GamepadConfig =
                 SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
             P1GamepadParser = new GameControlParser(loadedP1GamepadConfig ?? new GamepadController(PlayerIndex.One));
 
-            IController loadedP2GamepadConfig =
+            var loadedP2GamepadConfig =
                 SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
             P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
         }
@@ -208,8 +208,8 @@ namespace SolStandard
 
             InitializeControllers();
 
-            MainMenuView mainMenu = new MainMenuView(mainMenuTitleSprite);
-            NetworkMenuView networkMenu = new NetworkMenuView(mainMenuTitleSprite);
+            var mainMenu = new MainMenuView(mainMenuTitleSprite);
+            var networkMenu = new NetworkMenuView(mainMenuTitleSprite);
 
 
             PauseScreenView.Initialize(this);

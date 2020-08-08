@@ -13,7 +13,7 @@ namespace SolStandard.Containers.Contexts
 
         public EULAContext()
         {
-            bool? savedEula = GameDriver.SystemFileIO.Load<bool?>(EULAFileName);
+            var savedEula = GameDriver.SystemFileIO.Load<bool?>(EULAFileName);
             EULAConfirmed = savedEula != null && savedEula == true;
             EULAView = new EULAView();
         }

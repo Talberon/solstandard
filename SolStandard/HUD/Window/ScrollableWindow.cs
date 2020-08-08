@@ -62,7 +62,7 @@ namespace SolStandard.HUD.Window
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            Rectangle borderPane = new Rectangle(
+            var borderPane = new Rectangle(
                 Convert.ToInt32(position.X) - BorderPadding,
                 Convert.ToInt32(position.Y) - BorderPadding,
                 Width + (BorderPadding * 2),
@@ -77,7 +77,7 @@ namespace SolStandard.HUD.Window
             Rectangle originalScizzorRect = spriteBatch.GraphicsDevice.ScissorRectangle;
 
 
-            Rectangle innerClipPane = new Rectangle(
+            var innerClipPane = new Rectangle(
                 Convert.ToInt32(position.X),
                 Convert.ToInt32(position.Y),
                 Width,

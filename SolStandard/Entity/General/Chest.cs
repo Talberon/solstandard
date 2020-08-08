@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             if (!IsOpen) actions.Add(new OpenChestAction(this, MapCoordinates));
 

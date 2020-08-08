@@ -81,7 +81,7 @@ namespace SolStandard.Entity.General
 
         private IRenderable GenerateItemList()
         {
-            IRenderable[,] itemDetailList = new IRenderable[purchaseActions.Count, 5];
+            var itemDetailList = new IRenderable[purchaseActions.Count, 5];
 
             List<VendorPurchase> purchaseActionsList = purchaseActions.Keys.Cast<VendorPurchase>().ToList();
 

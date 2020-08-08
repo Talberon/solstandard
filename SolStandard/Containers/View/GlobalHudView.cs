@@ -22,8 +22,8 @@ namespace SolStandard.Containers.View
 
         private static Vector2 BottomRightOfScreen(IRenderable contentToPosition, float verticalOffset)
         {
-            Vector2 extraOffset = new Vector2(0, verticalOffset);
-            Vector2 screenEdgePadding = new Vector2(10, 20);
+            var extraOffset = new Vector2(0, verticalOffset);
+            var screenEdgePadding = new Vector2(10, 20);
             
             return GameDriver.ScreenSize
                    - new Vector2(contentToPosition.Width, contentToPosition.Height)

@@ -122,7 +122,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
-            List<KeyValuePair<IItem, Vector2>> itemsInRange = new List<KeyValuePair<IItem, Vector2>>();
+            var itemsInRange = new List<KeyValuePair<IItem, Vector2>>();
 
             foreach (MapElement element in movementTiles)
             {
@@ -153,7 +153,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             new UnitMovingContext(TileSprite).GenerateMoveGrid(origin, mvRange, Team.Creep);
             List<MapElement> movementTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
 
-            List<KeyValuePair<Currency, Vector2>> itemsInRange = new List<KeyValuePair<Currency, Vector2>>();
+            var itemsInRange = new List<KeyValuePair<Currency, Vector2>>();
 
             foreach (MapElement element in movementTiles)
             {

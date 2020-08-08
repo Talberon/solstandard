@@ -45,7 +45,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private List<IResourcePoint> GenerateArmorPips(int maxValue)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxValue; i++)
             {
@@ -57,7 +57,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private List<IResourcePoint> GenerateHpPips(int maxValue)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxValue; i++)
             {
@@ -117,7 +117,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            Vector2 pipOffset = new Vector2(position.X, position.Y);
+            var pipOffset = new Vector2(position.X, position.Y);
 
             foreach (IResourcePoint pip in armorPips)
             {

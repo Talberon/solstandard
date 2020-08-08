@@ -24,15 +24,15 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private Window BuildObjectiveWindow(ISpriteFont font)
         {
-            Window blueGoldWindow = new Window(
+            var blueGoldWindow = new Window(
                 new RenderText(font, "Blue: " + BankedGoldForTeam(Team.Blue) + "/" + targetGold + "G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
-            Window redGoldWindow = new Window(
+            var redGoldWindow = new Window(
                 new RenderText(font, "Red: " + BankedGoldForTeam(Team.Red) + "/" + targetGold + "G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Red));
 
-            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
+            var teamGoldWindowContentGrid = new WindowContentGrid(
                 new IRenderable[,]
                 {
                     {

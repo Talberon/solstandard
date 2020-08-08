@@ -43,7 +43,7 @@ namespace SolStandard.HUD.Window.Content.Command
 
         private List<IResourcePoint> GenerateCommandPips(int maxValue)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxValue; i++)
             {
@@ -78,7 +78,7 @@ namespace SolStandard.HUD.Window.Content.Command
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color colorOverride)
         {
-            Vector2 pipOffset = new Vector2(position.X, position.Y);
+            var pipOffset = new Vector2(position.X, position.Y);
 
             foreach (IResourcePoint pip in commandPips)
             {

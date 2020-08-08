@@ -30,14 +30,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUntargetableSpaces(mapLayer);
         }
 
         private static void RemoveActionTilesOnUntargetableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
+            var tilesToRemove = new List<MapElement>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) mapLayer])
             {
@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new HideUnitEvent(caster));
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, caster.MapCoordinates)

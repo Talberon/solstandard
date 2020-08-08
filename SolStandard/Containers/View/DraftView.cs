@@ -93,7 +93,7 @@ namespace SolStandard.Containers.View
                     InputIconProvider.GetInputIcon(Input.CameraRight, iconSize)
                 }
             };
-            WindowContentGrid promptWindowContentGrid =
+            var promptWindowContentGrid =
                 new WindowContentGrid(promptTextContent, 2, HorizontalAlignment.Right);
 
             ControlsText = new Window(promptWindowContentGrid, DarkBackgroundColor);
@@ -133,7 +133,7 @@ namespace SolStandard.Containers.View
 
             int totalRows = (int) Math.Ceiling((float) units.Count / unitsPerRow);
 
-            MenuOption[,] commanderOptions = new MenuOption[totalRows, unitsPerRow];
+            var commanderOptions = new MenuOption[totalRows, unitsPerRow];
 
             int unitIndex = 0;
             for (int row = 0; row < totalRows; row++)
@@ -187,7 +187,7 @@ namespace SolStandard.Containers.View
         public void UpdateCommanderPortrait(Role role, Team team)
         {
             ITexture2D unitPortrait = UnitGenerator.GetUnitPortrait(role, team);
-            SpriteAtlas commanderPortrait =
+            var commanderPortrait =
                 new SpriteAtlas(unitPortrait, new Vector2(unitPortrait.Width, unitPortrait.Height),
                     new Vector2(PortraitSize));
 
@@ -228,7 +228,7 @@ namespace SolStandard.Containers.View
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
 
-            MenuOption[,] options = new MenuOption[totalRows, unitsPerRow];
+            var options = new MenuOption[totalRows, unitsPerRow];
 
             int unitIndex = 0;
             for (int row = 0; row < totalRows; row++)
@@ -262,7 +262,7 @@ namespace SolStandard.Containers.View
 
             int totalRows = (int) Math.Ceiling((float) availableRoles.Count / unitsPerRow);
 
-            MenuOption[,] options = new MenuOption[totalRows, unitsPerRow];
+            var options = new MenuOption[totalRows, unitsPerRow];
 
             int unitIndex = 0;
             for (int row = 0; row < totalRows; row++)
@@ -294,7 +294,7 @@ namespace SolStandard.Containers.View
 
             int totalRows = (int) Math.Ceiling((float) unitSprites.Count / unitsPerRow);
 
-            IRenderable[,] unitCells = new IRenderable[totalRows, unitsPerRow];
+            var unitCells = new IRenderable[totalRows, unitsPerRow];
 
             int unitIndex = 0;
 
@@ -315,7 +315,7 @@ namespace SolStandard.Containers.View
                 }
             }
 
-            WindowContentGrid unitGrid = new WindowContentGrid(unitCells, 1, HorizontalAlignment.Centered);
+            var unitGrid = new WindowContentGrid(unitCells, 1, HorizontalAlignment.Centered);
 
             return new Window(unitGrid, TeamUtility.DetermineTeamWindowColor(team), HorizontalAlignment.Centered);
         }

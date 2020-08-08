@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Statuses.Lancer
         {
             if (defender.Stats.CurrentHP <= 0)
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(5));
                 eventQueue.Enqueue(new RegenerateArmorEvent(attacker, attacker.Stats.MaxArmor));
                 eventQueue.Enqueue(new WaitFramesEvent(10));

@@ -79,14 +79,14 @@ namespace SolStandard.Containers.View
 
         public void GenerateHelpTextWindow(WindowContentGrid helpTextContent)
         {
-            Color helpTextWindowColor = new Color(20, 20, 20, 200);
+            var helpTextWindowColor = new Color(20, 20, 20, 200);
             HelpTextWindow =
                 new AnimatedRenderable(new Window(helpTextContent, helpTextWindowColor), TopRenderableAnimation);
         }
 
         public void GenerateUserPromptWindow(WindowContentGrid promptTextContent, Vector2 sizeOverride)
         {
-            Color promptWindowColor = new Color(40, 30, 40, 200);
+            var promptWindowColor = new Color(40, 30, 40, 200);
             UserPromptWindow = new Window(promptTextContent, promptWindowColor,
                 sizeOverride);
         }
@@ -256,7 +256,7 @@ namespace SolStandard.Containers.View
                 }
             };
 
-            WindowContentGrid defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent);
+            var defenderRangeContentGrid = new WindowContentGrid(defenderRangeContent);
             return new Window(defenderRangeContentGrid, windowColor);
         }
 
@@ -273,7 +273,7 @@ namespace SolStandard.Containers.View
                     new RenderText(AssetManager.WindowFont, "Bonus")
                 }
             };
-            WindowContentGrid attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);
+            var attackerBonusContentGrid = new WindowContentGrid(attackerBonusContent, 0);
             return new Window(attackerBonusContentGrid, attackerWindowColor);
         }
 
@@ -316,7 +316,7 @@ namespace SolStandard.Containers.View
                     break;
             }
 
-            WindowContentGrid atkContentGrid = new WindowContentGrid(
+            var atkContentGrid = new WindowContentGrid(
                 new IRenderable[,]
                 {
                     {

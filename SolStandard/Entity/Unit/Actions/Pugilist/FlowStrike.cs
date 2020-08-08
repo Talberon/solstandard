@@ -46,16 +46,16 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
                 GameUnit attacker = GameContext.ActiveUnit;
-                FlowStatus currentFlow =
+                var currentFlow =
                     attacker.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
                 int atkDamage = Execute.ApplyPercentageRoundedUp(attacker.Stats.Atk, percent);
-                WeaponStatistics flowStrikeFist =
+                var flowStrikeFist =
                     new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(
                         attacker,

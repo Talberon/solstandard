@@ -195,7 +195,7 @@ namespace SolStandard.Containers.View
         private static MenuOption[,] GenerateTakeOptions(GameUnit targetToTakeFrom, bool freeAction)
         {
             List<IItem> unitInventory = targetToTakeFrom.Inventory;
-            MenuOption[,] menu = new MenuOption[unitInventory.Count, 1];
+            var menu = new MenuOption[unitInventory.Count, 1];
 
             for (int i = 0; i < unitInventory.Count; i++)
             {
@@ -223,7 +223,7 @@ namespace SolStandard.Containers.View
 
         public static Window GenerateItemsWindow(IReadOnlyList<IItem> items, Color windowColor)
         {
-            IRenderable[,] actionElements = new IRenderable[items.Count, 3];
+            var actionElements = new IRenderable[items.Count, 3];
 
             const int iconIndex = 0;
             const int nameIndex = 1;
@@ -262,7 +262,7 @@ namespace SolStandard.Containers.View
                 ((Window) actionElements[i, descriptionIndex]).Width = largestDescriptionWidth;
             }
 
-            Window itemTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
+            var itemTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
 
 
             return new Window(new WindowContentGrid(new IRenderable[,]
@@ -283,11 +283,11 @@ namespace SolStandard.Containers.View
         {
             ISpriteFont font = AssetManager.WindowFont;
 
-            Window blueGoldWindow = new Window(
+            var blueGoldWindow = new Window(
                 new RenderText(font, $"Blue: {GameContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
-            Window redGoldWindow = new Window(
+            var redGoldWindow = new Window(
                 new RenderText(font, $"Red: {GameContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Red));
 
@@ -296,7 +296,7 @@ namespace SolStandard.Containers.View
             IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
             IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
 
-            WindowContentGrid teamGoldWindowContentGrid = new WindowContentGrid(
+            var teamGoldWindowContentGrid = new WindowContentGrid(
                 new[,]
                 {
                     {
@@ -351,7 +351,7 @@ namespace SolStandard.Containers.View
         private IMenu BuildActionMenu(IMenu contextMenu, Color windowColor, MenuOption basicAttackOption,
             IMenu skillMenu, IMenu inventoryMenu, MenuOption roleOption, MenuOption guardOption, MenuOption waitOption)
         {
-            List<MenuOption> topLevelOptions = new List<MenuOption>();
+            var topLevelOptions = new List<MenuOption>();
 
             if (contextMenu != null)
             {
@@ -509,7 +509,7 @@ namespace SolStandard.Containers.View
             {
                 bool canMove = UnitMovingContext.CanEndMoveAtCoordinates(hoverSlice.MapCoordinates);
 
-                WindowContentGrid noEntityContent = new WindowContentGrid(
+                var noEntityContent = new WindowContentGrid(
                     new[,]
                     {
                         {
@@ -572,7 +572,7 @@ namespace SolStandard.Containers.View
 
             int rows = Convert.ToInt32(Math.Ceiling((float) unitList.Count / unitsPerRow));
 
-            IRenderable[,] unitListGrid = new IRenderable[rows, unitsPerRow];
+            var unitListGrid = new IRenderable[rows, unitsPerRow];
 
             int unitIndex = 0;
 
@@ -594,7 +594,7 @@ namespace SolStandard.Containers.View
                 }
             }
 
-            WindowContentGrid unitListContentGrid =
+            var unitListContentGrid =
                 new WindowContentGrid(unitListGrid, 0, HorizontalAlignment.Centered);
 
             switch (team)
@@ -728,7 +728,7 @@ namespace SolStandard.Containers.View
             if (statusEffects.Count < 1) return null;
 
 
-            IRenderable[,] selectedUnitStatuses = new IRenderable[statusEffects.Count, 1];
+            var selectedUnitStatuses = new IRenderable[statusEffects.Count, 1];
 
             for (int i = 0; i < statusEffects.Count; i++)
             {

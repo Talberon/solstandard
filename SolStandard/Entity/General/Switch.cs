@@ -43,11 +43,11 @@ namespace SolStandard.Entity.General
 
         private List<IRemotelyTriggerable> FindRemotelyTriggerables()
         {
-            List<IRemotelyTriggerable> remotelyTriggerables = new List<IRemotelyTriggerable>();
+            var remotelyTriggerables = new List<IRemotelyTriggerable>();
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                MapEntity entity = (MapEntity) mapElement;
+                var entity = (MapEntity) mapElement;
                 if (mapElement is IRemotelyTriggerable lockable)
                 {
                     if (entity.Name == TriggersId)

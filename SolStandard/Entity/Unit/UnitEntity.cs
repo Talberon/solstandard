@@ -95,7 +95,7 @@ namespace SolStandard.Entity.Unit
 
             if (HasItemsInInventory)
             {
-                Vector2 topRightOfTile = new Vector2(
+                var topRightOfTile = new Vector2(
                     MapCoordinates.X * GameDriver.CellSize + GameDriver.CellSize - SpoilsIcon.Width,
                     MapCoordinates.Y * GameDriver.CellSize
                 );

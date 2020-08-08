@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         private static IRenderable ItemDescription(Stats statistic, int statModifier, int buffDuration)
         {
             ISpriteFont descriptionFont = AssetManager.WindowFont;
-            Vector2 iconSize = new Vector2(descriptionFont.MeasureString("A").Y);
+            var iconSize = new Vector2(descriptionFont.MeasureString("A").Y);
             return new WindowContentGrid(new IRenderable[,]
                 {
                     {
@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                 item.Consume(targetUnit);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

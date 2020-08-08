@@ -30,7 +30,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Entities])
             {
-                MapEntity entity = (MapEntity) mapElement;
+                var entity = (MapEntity) mapElement;
                 if (entity != null && entity.Name == targetLabel)
                 {
                     MapContainer
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new BlinkCoordinatesEvent(

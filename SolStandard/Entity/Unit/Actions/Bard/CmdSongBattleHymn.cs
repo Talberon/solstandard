@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new BattleHymnStatus(auraBonus, selfBonus, auraRange))
                 );

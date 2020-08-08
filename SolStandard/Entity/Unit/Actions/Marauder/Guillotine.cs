@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(GameContext.ActiveUnit, new GuillotineStatus(Icon, 0, healPercentage))
                 );

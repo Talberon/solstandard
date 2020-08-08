@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

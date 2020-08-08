@@ -77,7 +77,7 @@ namespace SolStandard.Entity.General.Item
             GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
             GameContext.MapCamera.SnapCameraCenterToCursor();
 
-            UnitTargetingContext bombTargetContext =
+            var bombTargetContext =
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Attack));
 
             MapContainer.ClearDynamicAndPreviewGrids();
@@ -101,7 +101,7 @@ namespace SolStandard.Entity.General.Item
 
                 if (EntityAtSliceCanTakeDamage(slice))
                 {
-                    BreakableObstacle breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
+                    var breakableObstacle = (BreakableObstacle) slice.TerrainEntity;
                     breakableObstacle.DealDamage(Damage);
                 }
             }

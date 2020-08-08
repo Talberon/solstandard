@@ -59,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     vendor.RemoveBuyActionForItem(Item);
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );

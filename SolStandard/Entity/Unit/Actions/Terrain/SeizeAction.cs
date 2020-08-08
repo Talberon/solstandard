@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 {
                     MapContainer.ClearDynamicAndPreviewGrids();
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(new SeizeObjectiveEvent(GameContext.ActiveTeam));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new EndTurnEvent());

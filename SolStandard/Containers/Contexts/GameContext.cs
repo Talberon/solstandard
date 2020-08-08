@@ -219,7 +219,7 @@ namespace SolStandard.Containers.Contexts
 
             string mapPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, MapDirectory, MapSelectFile);
 
-            TmxMapParser mapParser = new TmxMapParser(
+            var mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
                 AssetManager.OverworldTexture,
                 AssetManager.EntitiesTexture,
@@ -243,7 +243,7 @@ namespace SolStandard.Containers.Contexts
         {
             string mapPath = MapDirectory + @mapFile;
 
-            TmxMapParser mapParser = new TmxMapParser(
+            var mapParser = new TmxMapParser(
                 new TmxMap(mapPath),
                 AssetManager.OverworldTexture,
                 AssetManager.EntitiesTexture,

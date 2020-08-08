@@ -32,7 +32,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
         {
             ITexture2D unitPortraitTexture = UnitGenerator.GetUnitPortrait(role, team);
 
-            SpriteAtlas unitPortraitSprite = new SpriteAtlas(
+            var unitPortraitSprite = new SpriteAtlas(
                 unitPortraitTexture,
                 new Vector2(unitPortraitTexture.Width, unitPortraitTexture.Height),
                 new Vector2(PortraitSize),
@@ -54,7 +54,7 @@ namespace SolStandard.HUD.Menu.Options.DraftMenu
                 }
             };
 
-            WindowContentGrid unitInfoGrid = new WindowContentGrid(unitInfoContent, 1, HorizontalAlignment.Centered);
+            var unitInfoGrid = new WindowContentGrid(unitInfoContent, 1, HorizontalAlignment.Centered);
 
             return unitInfoGrid;
         }

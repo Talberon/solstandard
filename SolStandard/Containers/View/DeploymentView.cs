@@ -102,7 +102,7 @@ namespace SolStandard.Containers.View
                     new RenderText(windowFont, " to cycle between units.")
                 }
             };
-            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+            var promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
 
             return new Window(promptWindowContentGrid, DarkBackgroundColor);
         }
@@ -115,7 +115,7 @@ namespace SolStandard.Containers.View
 
         private static Window BuildRosterList(IReadOnlyList<GameUnit> unitList, GameUnit currentUnit)
         {
-            IRenderable[,] units = new IRenderable[1, unitList.Count];
+            var units = new IRenderable[1, unitList.Count];
 
             for (int i = 0; i < unitList.Count; i++)
             {

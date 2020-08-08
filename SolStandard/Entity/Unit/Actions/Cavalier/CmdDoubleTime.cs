@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 .Select(tile => MapContainer.GetMapSliceAtCoordinates(tile.MapCoordinates));
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
+            var eventQueue = new Queue<IEvent>();
 
             foreach (MapSlice position in slicesInRange)
             {

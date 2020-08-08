@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 AssetManager.DoorSFX.Play();
 
                 MapContainer.ClearDynamicAndPreviewGrids();
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );

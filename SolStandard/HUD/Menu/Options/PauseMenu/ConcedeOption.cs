@@ -16,7 +16,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 
         public override void Execute()
         {
-            Queue<IEvent> eventsToQueue = new Queue<IEvent>();
+            var eventsToQueue = new Queue<IEvent>();
             eventsToQueue.Enqueue(new ConcedeEvent());
             eventsToQueue.Enqueue(new EndTurnEvent());
             GlobalEventQueue.QueueEvents(eventsToQueue);

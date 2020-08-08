@@ -86,7 +86,7 @@ namespace SolStandard.HUD.Window
 
         private Vector2 DeriveSizeFromContent(Vector2 sizeOverride)
         {
-            Vector2 calculatedSize = new Vector2();
+            var calculatedSize = new Vector2();
             (float width, float height) = new Vector2(WindowContents.Width, WindowContents.Height);
 
             //Adjust for border

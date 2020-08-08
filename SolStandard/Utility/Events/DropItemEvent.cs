@@ -58,7 +58,7 @@ namespace SolStandard.Utility.Events
                 MapContainer.GameGrid[(int) Layer.Items][(int) dropCoordinates.X, (int) dropCoordinates.Y];
 
 
-            IItem newItemToDrop = itemTile as IItem;
+            var newItemToDrop = itemTile as IItem;
             List<IItem> itemsToDrop;
             int goldToDrop;
 
@@ -87,7 +87,7 @@ namespace SolStandard.Utility.Events
                     break;
             }
 
-            Spoils spoilsToDrop = new Spoils(
+            var spoilsToDrop = new Spoils(
                 "Item Bag",
                 "Spoils",
                 MiscIconProvider.GetMiscIcon(MiscIcon.Spoils, GameDriver.CellSizeVector),

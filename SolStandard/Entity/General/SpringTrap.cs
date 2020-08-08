@@ -37,7 +37,7 @@ namespace SolStandard.Entity.General
         public static AnimatedSpriteSheet BuildSpringSprite(SpringType springType)
         {
             const int springCellSize = 48;
-            AnimatedSpriteSheet sprite = new AnimatedSpriteSheet(AssetManager.SpringTexture, springCellSize,
+            var sprite = new AnimatedSpriteSheet(AssetManager.SpringTexture, springCellSize,
                 GameDriver.CellSizeVector * 3, 6, false, Color.White);
             sprite.SetSpriteCell(0, (int) springType);
             sprite.Pause();

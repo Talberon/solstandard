@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToArmorStatus(Icon, damageThreshold))
                 );

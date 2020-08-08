@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToHealthStatus(Icon, 1))
                 );

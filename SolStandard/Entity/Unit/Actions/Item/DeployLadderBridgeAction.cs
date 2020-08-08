@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 ladderBridge.SnapToCoordinates(targetSlice.MapCoordinates);
                 GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(ladderBridge.Duplicate() as LadderBridge, Layer.Entities,
                     AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));

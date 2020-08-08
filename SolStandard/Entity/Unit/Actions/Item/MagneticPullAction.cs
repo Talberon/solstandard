@@ -32,14 +32,14 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             foreach (int skillRange in Range)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - skillRange);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + skillRange);
-                Vector2 eastTile = new Vector2(origin.X + skillRange, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - skillRange, origin.Y);
+                var northTile = new Vector2(origin.X, origin.Y - skillRange);
+                var southTile = new Vector2(origin.X, origin.Y + skillRange);
+                var eastTile = new Vector2(origin.X + skillRange, origin.Y);
+                var westTile = new Vector2(origin.X - skillRange, origin.Y);
 
                 AddTileWithinMapBounds(attackTiles, northTile, skillRange);
                 AddTileWithinMapBounds(attackTiles, southTile, skillRange);
@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
                         MapContainer.ClearDynamicAndPreviewGrids();
 
-                        Queue<IEvent> eventQueue = new Queue<IEvent>();
+                        var eventQueue = new Queue<IEvent>();
                         eventQueue.Enqueue(new PullEvent(targetUnit));
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new AdditionalActionEvent());

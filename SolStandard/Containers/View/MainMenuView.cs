@@ -84,7 +84,7 @@ namespace SolStandard.Containers.View
                     })
                 }
             };
-            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+            var promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
 
             return new Window(promptWindowContentGrid, ControlsColor);
         }
@@ -96,7 +96,7 @@ namespace SolStandard.Containers.View
 
             const int titleVertCoordinate = 60;
             Vector2 titleCenter = new Vector2(title.Width, title.Height) / 2;
-            Vector2 titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
+            var titlePosition = new Vector2(centerScreen.X - titleCenter.X, titleVertCoordinate);
             title.Draw(spriteBatch, titlePosition);
 
             DrawMenu(spriteBatch, centerScreen, titlePosition);
@@ -118,7 +118,7 @@ namespace SolStandard.Containers.View
         {
             const int titlePadding = -50;
             Vector2 mainMenuCenter = new Vector2(MainMenu.Width, MainMenu.Height) / 2;
-            Vector2 mainMenuPosition =
+            var mainMenuPosition =
                 new Vector2(centerScreen.X - mainMenuCenter.X, titlePosition.Y + title.Height + titlePadding);
             MainMenu.Draw(spriteBatch, mainMenuPosition);
         }

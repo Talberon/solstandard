@@ -105,7 +105,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             if (TargetIsUnoccupiedTileInRange(targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
@@ -146,7 +146,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private List<MapElement> GetTilesInRange(Vector2 origin)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range);
             return MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
         }

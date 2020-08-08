@@ -63,8 +63,8 @@ namespace SolStandard.Containers
 
         private static MapCursor BuildMapCursor(ITexture2D cursorTexture)
         {
-            SpriteAtlas cursorSprite = new SpriteAtlas(cursorTexture, GameDriver.CellSizeVector);
-            Vector2 cursorStartPosition = new Vector2(0);
+            var cursorSprite = new SpriteAtlas(cursorTexture, GameDriver.CellSizeVector);
+            var cursorStartPosition = new Vector2(0);
             return new MapCursor(cursorSprite, cursorStartPosition, MapGridSize);
         }
 
@@ -160,7 +160,7 @@ namespace SolStandard.Containers
 
         public static IEnumerable<MapEntity> GetMapEntities()
         {
-            List<MapEntity> entities = new List<MapEntity>();
+            var entities = new List<MapEntity>();
 
             int mapHeight = (int) MapGridSize.Y;
             int mapWidth = (int) MapGridSize.X;
@@ -181,7 +181,7 @@ namespace SolStandard.Containers
 
         public static List<MapElement> GetMapElementsFromLayer(Layer layer)
         {
-            List<MapElement> elements = new List<MapElement>();
+            var elements = new List<MapElement>();
 
             int mapHeight = (int) MapGridSize.Y;
             int mapWidth = (int) MapGridSize.X;
@@ -209,11 +209,11 @@ namespace SolStandard.Containers
                 UnitEntity unit = UnitSelector.FindOtherUnitEntityAtCoordinates(coordinates, null);
                 MapElement dynamic = _gameGrid[(int) Layer.Dynamic][column, row];
                 MapElement preview = _gameGrid[(int) Layer.Preview][column, row];
-                TerrainEntity entity = (TerrainEntity) _gameGrid[(int) Layer.Entities][column, row];
-                TerrainEntity item = (TerrainEntity) _gameGrid[(int) Layer.Items][column, row];
-                MapTile collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
-                MapTile terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
-                MapTile terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
+                var entity = (TerrainEntity) _gameGrid[(int) Layer.Entities][column, row];
+                var item = (TerrainEntity) _gameGrid[(int) Layer.Items][column, row];
+                var collide = (MapTile) _gameGrid[(int) Layer.Collide][column, row];
+                var terrainDecoration = (MapTile) _gameGrid[(int) Layer.TerrainDecoration][column, row];
+                var terrain = (MapTile) _gameGrid[(int) Layer.Terrain][column, row];
 
                 return new MapSlice(coordinates, unit, preview, dynamic, entity, item, collide, terrainDecoration,
                     terrain);

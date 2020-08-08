@@ -29,7 +29,7 @@ namespace SolStandard.Containers.View
 
         public static void Initialize(GameDriver gameDriver)
         {
-            SpriteAtlas cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
+            var cursorSprite = new SpriteAtlas(AssetManager.MenuCursorTexture,
                 new Vector2(AssetManager.MenuCursorTexture.Width, AssetManager.MenuCursorTexture.Height));
 
             PauseMenu = new VerticalMenu(

@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 barricade.SnapToCoordinates(targetSlice.MapCoordinates);
                 GameContext.ActiveUnit.RemoveItemFromInventory(barricade);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(barricade, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());

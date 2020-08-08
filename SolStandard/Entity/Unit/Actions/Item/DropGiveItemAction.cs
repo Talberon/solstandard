@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            TerrainEntity itemTile = item as TerrainEntity;
+            var itemTile = item as TerrainEntity;
             GameUnit actingUnit = GameContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else if (CanPlaceItemAtSlice(itemTile, targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new DropItemEvent(itemTile, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new AdditionalActionEvent());

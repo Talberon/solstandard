@@ -47,7 +47,7 @@ namespace SolStandard.Containers.View
                 .Where(action => !(action is BasicAttack) && !(action is Wait))
                 .ToList();
 
-            IRenderable[,] actionElements = new IRenderable[codexActions.Count, 4];
+            var actionElements = new IRenderable[codexActions.Count, 4];
 
             const int iconIndex = 0;
             const int nameIndex = 1;
@@ -106,7 +106,7 @@ namespace SolStandard.Containers.View
                 ((Window) actionElements[i, descriptionIndex]).Width = largestDescriptionWidth;
             }
 
-            Window skillTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
+            var skillTable = new Window(new WindowContentGrid(actionElements, 5), windowColor);
 
 
             return new Window(new WindowContentGrid(new IRenderable[,]
@@ -147,7 +147,7 @@ namespace SolStandard.Containers.View
 
         private static TwoDimensionalMenu BuildUnitMenu(IReadOnlyList<GameUnit> units)
         {
-            MenuOption[,] menuOptions = new MenuOption[1, units.Count];
+            var menuOptions = new MenuOption[1, units.Count];
 
             for (int i = 0; i < units.Count; i++)
             {

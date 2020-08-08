@@ -15,7 +15,7 @@ namespace SolStandard.Utility
         {
             MapContainer.ClearDynamicAndPreviewGrids();
             
-            Queue<IEvent> pathToItemQueue = new Queue<IEvent>();
+            var pathToItemQueue = new Queue<IEvent>();
             if (!movingUnit.IsAlive || movingUnit.UnitEntity == null) return pathToItemQueue;
 
             List<Direction> directionsToDestination = AStarAlgorithm.DirectionsToDestination(

@@ -30,7 +30,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             Blink.RemoveActionTilesOnUnmovableSpaces(mapLayer);
         }
@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             if (CanMoveToTargetTile(targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new PlayEntityAnimationOnceEvent(launchpad));
                 eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,

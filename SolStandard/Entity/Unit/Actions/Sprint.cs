@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             int lowerMv = sprintingUnit.Stats.Mv < maxDistance ? sprintingUnit.Stats.Mv : maxDistance;
 
-            UnitMovingContext unitMovingContext =
+            var unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Movement));
             unitMovingContext.GenerateMoveGrid(origin, lowerMv, sprintingUnit.Team);
 

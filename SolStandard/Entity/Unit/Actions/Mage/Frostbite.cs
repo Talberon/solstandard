@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
@@ -59,11 +59,11 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             {
                 if (!TargetHasEntityOrWall(targetSlice))
                 {
-                    TrapEntity trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
+                    var trapToPlace = new TrapEntity("Ice Spikes", TrapSprite.Clone(),
                         targetSlice.MapCoordinates, Damage, MaxTriggers, true, true, false, true);
 
                     MapContainer.ClearDynamicAndPreviewGrids();
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );

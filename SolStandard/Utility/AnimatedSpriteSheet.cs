@@ -174,7 +174,7 @@ namespace SolStandard.Utility
 
         private Rectangle CurrentCell()
         {
-            Rectangle rendercell = new Rectangle(CellSize * CurrentColumn, CellSize * currentRow, CellSize, CellSize);
+            var rendercell = new Rectangle(CellSize * CurrentColumn, CellSize * currentRow, CellSize, CellSize);
             return rendercell;
         }
 
