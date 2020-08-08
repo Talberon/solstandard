@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 using SolStandard.Containers.Contexts;
 using SolStandard.Containers.Contexts.WinConditions;
 using SolStandard.Containers.View;
@@ -18,6 +20,7 @@ using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
 using SolStandard.Utility.System;
+using Steelbreakers.Utility.Controls.Inputs.Prefabs;
 using static System.Reflection.Assembly;
 
 namespace SolStandard
@@ -31,8 +34,13 @@ namespace SolStandard
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private GraphicsDeviceManager graphics;
 
-        public static readonly IFileIO SystemFileIO = new WindowsFileIO();
+        public static readonly IFileIO FileIO = new TemporaryFilesIO();
 
+        // ReSharper disable once RedundantDefaultMemberInitializer
+        public const bool DeveloperMode = false;
+        // ReSharper disable once RedundantDefaultMemberInitializer
+        public static bool DebugMode = false;
+        
         //Project Site
         public const string SolStandardUrl = "https://solstandard.talberon.com";
         
@@ -40,13 +48,14 @@ namespace SolStandard
 
         //Tile Size of Sprites
         public const int CellSize = 32;
-        public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
+        public const float CellSizeFloat = CellSize;
+        public static readonly Vector2 CellSizeVector = new Vector2(CellSizeFloat);
+        
         public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Content/TmxMaps/objecttypes.xml");
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
         public static Random Random = new Random();
-        public static Vector2 ScreenSize { get; private set; }
         public static ConnectionManager ConnectionManager;
 
         private SpriteBatch spriteBatch;
@@ -57,6 +66,21 @@ namespace SolStandard
         public static GameControlParser KeyboardParser;
         public static GameControlParser P1GamepadParser;
         public static GameControlParser P2GamepadParser;
+        
+        //TODO Use this new Input Handling
+        public static InputBindings InputBindings { get; private set; }
+        
+        //Resolution
+        public static Vector2 ScreenSize { get; private set; }
+        public static Vector2 RenderResolution { get; private set; }
+        public static RectangleF VirtualBounds => new RectangleF(Point2.Zero, VirtualResolution);
+        public static Point VirtualResolution { get; private set; }
+
+        public static Vector2 CenterScreen =>
+            new Vector2((float) VirtualResolution.X / 2, (float) VirtualResolution.Y / 2);
+
+        //TODO Use this adapter
+        private static BoxingViewportAdapter BoxingViewportAdapter { get; set; }
 
         public GameDriver()
         {
@@ -64,6 +88,19 @@ namespace SolStandard
             UseDefaultResolution();
 //            UseBorderlessFullscreen();
             Content.RootDirectory = "Content";
+            
+            IsMouseVisible = true;
+            IsFixedTimeStep = true;
+            Window.AllowUserResizing = true;
+            
+            VirtualResolution = new Point(640, 360);
+            var windowResolution = new Point(1280, 720);
+            
+            graphics.PreferredBackBufferWidth = windowResolution.X;
+            graphics.PreferredBackBufferHeight = windowResolution.Y;
+            
+            BoxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, VirtualResolution.X,
+                VirtualResolution.Y);
         }
 
         public void UseDefaultResolution()
@@ -171,15 +208,15 @@ namespace SolStandard
         private static void InitializeControllers()
         {
             var loadedKeyboardConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
+                FileIO.Load<IController>(ControlConfigContext.KeyboardConfigFileName);
             KeyboardParser = new GameControlParser(loadedKeyboardConfig ?? new KeyboardController());
 
             var loadedP1GamepadConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
+                FileIO.Load<IController>(ControlConfigContext.P1GamepadConfigFileName);
             P1GamepadParser = new GameControlParser(loadedP1GamepadConfig ?? new GamepadController(PlayerIndex.One));
 
             var loadedP2GamepadConfig =
-                SystemFileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
+                FileIO.Load<IController>(ControlConfigContext.P2GamepadConfigFileName);
             P2GamepadParser = new GameControlParser(loadedP2GamepadConfig ?? new GamepadController(PlayerIndex.Two));
         }
 
@@ -192,7 +229,8 @@ namespace SolStandard
         protected override void Initialize()
         {
             base.Initialize();
-
+            
+            RenderResolution = new Vector2(BoxingViewportAdapter.VirtualWidth, BoxingViewportAdapter.VirtualHeight);
             ScreenSize = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             //Compensate for TiledSharp's inability to parse tiles without a gid value
@@ -216,6 +254,7 @@ namespace SolStandard
 
             GameContext.Initialize(mainMenu, networkMenu);
             InitializeControlMappers(GameContext.P1Team);
+            InputBindings = new InputBindings();
 
             ConnectionManager = new ConnectionManager();
         }
@@ -254,6 +293,14 @@ namespace SolStandard
             {
                 Exit();
             }
+            
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (DeveloperMode)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.D1)) DebugMode = true;
+                if (Keyboard.GetState().IsKeyDown(Keys.D2)) DebugMode = false;
+            }
+
 
             if (new InputKey(Keys.F10).Pressed)
             {
