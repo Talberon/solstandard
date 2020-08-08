@@ -18,6 +18,7 @@ using SolStandard.Utility.Inputs.KeyboardInput;
 using SolStandard.Utility.Monogame;
 using SolStandard.Utility.Network;
 using SolStandard.Utility.System;
+using static System.Reflection.Assembly;
 
 namespace SolStandard
 {
@@ -34,11 +35,13 @@ namespace SolStandard
 
         //Project Site
         public const string SolStandardUrl = "https://solstandard.talberon.com";
+        
+        public static readonly string VersionNumber = GetExecutingAssembly().GetName().Version?.ToString()!;
 
         //Tile Size of Sprites
         public const int CellSize = 32;
         public static readonly Vector2 CellSizeVector = new Vector2(CellSize);
-        public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/TmxMaps/objecttypes.xml");
+        public static readonly string TmxObjectTypeDefaults = Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "Content/TmxMaps/objecttypes.xml");
 
         private static readonly Color BackgroundColor = new Color(20, 11, 40);
         private static readonly Color ActionFade = new Color(0, 0, 0, 190);
