@@ -29,7 +29,7 @@ namespace SolStandard
             // Targets where to log to: File and Console
             var logFile = new FileTarget("logfile")
             {
-                FileName = Path.Combine(Path.GetTempPath(), WindowsFileIO.GameFolder, "logs.txt")
+                FileName = Path.Combine(Path.GetTempPath(), TemporaryFilesIO.GameFolder, "logs.txt")
             };
 
             var logConsole = new ConsoleTarget("logconsole");

@@ -9,6 +9,7 @@ using SolStandard.Utility.Assets;
 using SolStandard.Utility.Inputs;
 using SolStandard.Utility.Inputs.Gamepad;
 using SolStandard.Utility.Inputs.KeyboardInput;
+using Steelbreakers.Utility.Controls.Inputs.Prefabs;
 
 namespace SolStandard.Containers.Contexts
 {
@@ -55,6 +56,17 @@ namespace SolStandard.Containers.Contexts
             currentListeningDevice = Device.Keyboard;
             currentListeningInput = Input.None;
             frameCooldown = 0;
+        }
+        
+        public static string GetFileNameForDevice(InputDevice device)
+        {
+            return device switch
+            {
+                InputDevice.Keyboard1 => KeyboardConfigFileName,
+                InputDevice.Gamepad1 => P1GamepadConfigFileName,
+                InputDevice.Gamepad2 => P2GamepadConfigFileName,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         #region MenuControls
@@ -223,9 +235,9 @@ namespace SolStandard.Containers.Contexts
                 frameCooldown = CooldownInterval;
                 view.CurrentState = ControlMenuState.DeviceSelect;
 
-                GameDriver.SystemFileIO.Save(KeyboardConfigFileName, GameDriver.KeyboardParser.Controller);
-                GameDriver.SystemFileIO.Save(P1GamepadConfigFileName, GameDriver.P1GamepadParser.Controller);
-                GameDriver.SystemFileIO.Save(P2GamepadConfigFileName, GameDriver.P2GamepadParser.Controller);
+                GameDriver.FileIO.Save(KeyboardConfigFileName, GameDriver.KeyboardParser.Controller);
+                GameDriver.FileIO.Save(P1GamepadConfigFileName, GameDriver.P1GamepadParser.Controller);
+                GameDriver.FileIO.Save(P2GamepadConfigFileName, GameDriver.P2GamepadParser.Controller);
             }
             else
             {

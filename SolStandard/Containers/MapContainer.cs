@@ -28,7 +28,7 @@ namespace SolStandard.Containers
         private static ToastWindow ToastWindow { get; set; }
         public List<CreepEntity> MapSummons { get; }
         public List<IItem> MapLoot { get; }
-
+        
         public MapContainer(List<MapElement[,]> gameGrid, ITexture2D cursorTexture, List<CreepEntity> mapSummons,
             List<IItem> mapLoot)
         {

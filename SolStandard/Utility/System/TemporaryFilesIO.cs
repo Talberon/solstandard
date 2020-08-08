@@ -3,7 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SolStandard.Utility.System
 {
-    public class WindowsFileIO : IFileIO
+    public class TemporaryFilesIO : IFileIO
     {
         public const string GameFolder = "SolStandard";
         private static readonly string SaveFolder = Path.Combine(Path.GetTempPath(), GameFolder);
@@ -25,6 +25,12 @@ namespace SolStandard.Utility.System
 
             using Stream stream = File.OpenRead(fileToLoadFrom);
             return (T) new BinaryFormatter().Deserialize(stream);
+        }
+        
+        public bool FileExists(string fileName)
+        {
+            string fileToLoadFrom = Path.Combine(SaveFolder, fileName);
+            return Directory.Exists(SaveFolder) && File.Exists(fileToLoadFrom);
         }
     }
 }

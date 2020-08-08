@@ -4,5 +4,6 @@ namespace SolStandard.Utility.System
     {
         void Save(string fileName, object content);
         T Load<T>(string fileName);
+        bool FileExists(string fileName);
     }
 }
