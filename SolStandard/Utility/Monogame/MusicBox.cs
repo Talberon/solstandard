@@ -21,7 +21,7 @@ namespace SolStandard.Utility.Monogame
             }
             else
             {
-                Play(_currentSong, _currentVolume);
+                PlayLoop(_currentSong, _currentVolume);
             }
         }
 
