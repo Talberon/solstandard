@@ -4,3 +4,5 @@ obj/
 app.manifest/
 packages/
 Content/
+libSDL2-2.dylib
+deploy.sh
