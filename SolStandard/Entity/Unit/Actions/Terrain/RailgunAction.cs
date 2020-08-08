@@ -58,14 +58,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private void GenerateRealLinearTargetingGrid(Vector2 origin, int maxRange, Layer mapLayer)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             for (int i = 1; i <= maxRange; i++)
             {
-                Vector2 northTile = new Vector2(origin.X, origin.Y - i);
-                Vector2 southTile = new Vector2(origin.X, origin.Y + i);
-                Vector2 eastTile = new Vector2(origin.X + i, origin.Y);
-                Vector2 westTile = new Vector2(origin.X - i, origin.Y);
+                var northTile = new Vector2(origin.X, origin.Y - i);
+                var southTile = new Vector2(origin.X, origin.Y + i);
+                var eastTile = new Vector2(origin.X + i, origin.Y);
+                var westTile = new Vector2(origin.X - i, origin.Y);
 
                 AddTileWithinMapBounds(attackTiles, northTile, i);
                 AddTileWithinMapBounds(attackTiles, southTile, i);

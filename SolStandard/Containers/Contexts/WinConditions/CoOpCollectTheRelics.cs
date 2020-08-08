@@ -25,13 +25,13 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         private Window BuildObjectiveWindow()
         {
-            Window blueRelicCount = new Window(
+            var blueRelicCount = new Window(
                 new RenderText(AssetManager.WindowFont,
                     $"Blue: {CollectTheRelics.GetRelicCountForTeam(Team.Blue)}/{relicsToCollect}"),
                 TeamUtility.DetermineTeamWindowColor(Team.Blue)
             );
 
-            Window redRelicCount = new Window(
+            var redRelicCount = new Window(
                 new RenderText(AssetManager.WindowFont,
                     $"Red: {CollectTheRelics.GetRelicCountForTeam(Team.Red)}/{relicsToCollect}"),
                 TeamUtility.DetermineTeamWindowColor(Team.Red)

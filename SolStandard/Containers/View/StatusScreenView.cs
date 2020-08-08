@@ -153,7 +153,7 @@ namespace SolStandard.Containers.View
         {
             List<GameUnit> teamUnits = GameContext.Units.FindAll(unit => unit.Team == team);
 
-            IRenderable[,] unitRosterGrid = new IRenderable[1, teamUnits.Count];
+            var unitRosterGrid = new IRenderable[1, teamUnits.Count];
 
             const int unitListHealthBarHeight = 20;
             int listPosition = 0;

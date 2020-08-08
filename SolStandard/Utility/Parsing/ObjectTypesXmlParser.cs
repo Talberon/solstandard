@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Parsing
     {
         public static Dictionary<string, Dictionary<string, string>> ParseObjectTypesXml(string filePath)
         {
-            XmlReader xmlReader = XmlReader.Create(filePath);
+            var xmlReader = XmlReader.Create(filePath);
 
             while (xmlReader.NodeType != XmlNodeType.Element)
             {
@@ -17,12 +17,12 @@ namespace SolStandard.Utility.Parsing
 
             XElement objectTypes = XElement.Load(xmlReader);
 
-            Dictionary<string, Dictionary<string, string>> objectTypesInFile =
+            var objectTypesInFile =
                 new Dictionary<string, Dictionary<string, string>>();
 
             foreach (XElement objectType in objectTypes.Elements())
             {
-                Dictionary<string, string> objectTypeProperties = new Dictionary<string, string>();
+                var objectTypeProperties = new Dictionary<string, string>();
 
                 foreach (XElement property in objectType.Elements())
                 {

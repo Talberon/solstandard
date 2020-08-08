@@ -95,11 +95,11 @@ namespace SolStandard.Entity.General
         {
             get
             {
-                List<IRemotelyTriggerable> fetchedTiles = new List<IRemotelyTriggerable>();
+                var fetchedTiles = new List<IRemotelyTriggerable>();
 
                 foreach (MapElement element in MapContainer.GameGrid[(int) Layer.Entities])
                 {
-                    MapEntity entity = element as MapEntity;
+                    var entity = element as MapEntity;
 
                     if (entity is IRemotelyTriggerable triggerTile && entity.Name == triggersId)
                     {

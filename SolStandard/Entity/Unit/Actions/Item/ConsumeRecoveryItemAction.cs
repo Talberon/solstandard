@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             {
                 potion.Consume(targetUnit);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

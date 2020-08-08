@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PickUpCurrencyEvent(currency));
                 eventQueue.Enqueue(new WaitFramesEvent(50));
                 eventQueue.Enqueue(new AdditionalActionEvent());

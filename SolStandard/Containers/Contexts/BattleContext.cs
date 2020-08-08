@@ -281,9 +281,9 @@ namespace SolStandard.Containers.Contexts
                     new RenderText(AssetManager.PromptFont, "]")
                 }
             };
-            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+            var promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
 
-            Vector2 threeBarsHighOrTaller = new Vector2(0, battleView.AttackerBonusWindow.Height * 3);
+            var threeBarsHighOrTaller = new Vector2(0, battleView.AttackerBonusWindow.Height * 3);
             if (threeBarsHighOrTaller.Y < promptWindowContentGrid.Height)
             {
                 threeBarsHighOrTaller.Y = 0;
@@ -315,7 +315,7 @@ namespace SolStandard.Containers.Contexts
                     new RenderText(AssetManager.WindowFont, "[Ignored]", Color.Gray)
                 }
             };
-            WindowContentGrid helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);
+            var helpTextWindowContentGrid = new WindowContentGrid(textToRender, 2);
             battleView.GenerateHelpTextWindow(helpTextWindowContentGrid);
         }
 
@@ -388,9 +388,9 @@ namespace SolStandard.Containers.Contexts
 
         private static BonusStatistics DetermineAuraBonusForUnit(GameUnit auraAffectedUnit)
         {
-            BonusStatistics totalBonus = new BonusStatistics(0, 0, 0, 0);
+            var totalBonus = new BonusStatistics(0, 0, 0, 0);
 
-            List<SongStatus> songsInPlay = new List<SongStatus>();
+            var songsInPlay = new List<SongStatus>();
             foreach (GameUnit livingUnit in GameContext.Units.Where(unit => unit.IsAlive))
             {
                 songsInPlay.AddRange(livingUnit.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>()

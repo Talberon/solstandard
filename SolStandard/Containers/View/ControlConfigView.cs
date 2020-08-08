@@ -109,7 +109,7 @@ namespace SolStandard.Containers.View
                 _ => throw new ArgumentOutOfRangeException(nameof(device), device, null)
             };
 
-            MenuOption[,] configOptions = new MenuOption[4, 5];
+            var configOptions = new MenuOption[4, 5];
             configOptions[0, 0] = new RemapInputOption(controller, Input.CursorUp, device, Color.Transparent);
             configOptions[1, 0] = new RemapInputOption(controller, Input.CursorDown, device, Color.Transparent);
             configOptions[2, 0] = new RemapInputOption(controller, Input.CursorLeft, device, Color.Transparent);
@@ -141,7 +141,7 @@ namespace SolStandard.Containers.View
 
         private static IMenu GenerateDeviceMenu(IRenderable cursorSprite, Color windowColor)
         {
-            TwoDimensionalMenu menu = new TwoDimensionalMenu(
+            var menu = new TwoDimensionalMenu(
                 new MenuOption[,]
                 {
                     {

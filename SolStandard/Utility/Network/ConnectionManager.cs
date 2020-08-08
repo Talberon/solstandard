@@ -40,7 +40,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration(appIdentifier)
+            var config = new NetPeerConfiguration(appIdentifier)
             {
                 Port = NetworkPort,
                 EnableUPnP = true
@@ -66,7 +66,7 @@ namespace SolStandard.Utility.Network
         private static string GetExternalIP()
         {
             const string apiUrl = "https://ipinfo.io/ip";
-            using HttpClient httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
             Task<string> responseString = httpClient.GetStringAsync(apiUrl);
             return responseString.Result.Trim();
         }
@@ -75,7 +75,7 @@ namespace SolStandard.Utility.Network
         {
             StopClientAndServer();
 
-            NetPeerConfiguration config = new NetPeerConfiguration(appIdentifier);
+            var config = new NetPeerConfiguration(appIdentifier);
 
             Logger.Debug("Starting client!");
             client = new NetClient(config);
@@ -206,7 +206,7 @@ namespace SolStandard.Utility.Network
 
             using Stream memoryStream = new MemoryStream(messageBytes);
             IFormatter formatter = new BinaryFormatter();
-            NetworkEvent receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
+            var receivedNetworkEvent = (NetworkEvent) formatter.Deserialize(memoryStream);
             Logger.Debug("Received event:" + receivedNetworkEvent);
 
             GlobalEventQueue.QueueSingleEvent(receivedNetworkEvent);
@@ -217,7 +217,7 @@ namespace SolStandard.Utility.Network
             Logger.Debug("Sending event to server!");
             NetOutgoingMessage message = client.CreateMessage();
 
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             new BinaryFormatter().Serialize(memoryStream, networkEvent);
             byte[] controlBytes = memoryStream.ToArray();
             Logger.Debug($"Sending control message. Size: {memoryStream.Length}");
@@ -230,7 +230,7 @@ namespace SolStandard.Utility.Network
             Logger.Debug("Sending event to client!");
             NetOutgoingMessage message = server.CreateMessage();
 
-            using MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             new BinaryFormatter().Serialize(memoryStream, networkEvent);
             byte[] controlBytes = memoryStream.ToArray();
             Logger.Debug($"Sending control message. Size: {memoryStream.Length}");

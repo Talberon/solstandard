@@ -51,7 +51,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
                 otherSongs.ForEach(song => targetUnit.StatusEffects.Remove(song));
 
                 MapContainer.ClearDynamicAndPreviewGrids();
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new AnthemStatus(auraBonus, selfBonus, auraRange))
                 );

@@ -47,7 +47,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private static List<AttackPoint> InitializeAtkPoints(int atk, int bonusAtk, int pointSize)
         {
-            List<AttackPoint> points = new List<AttackPoint>();
+            var points = new List<AttackPoint>();
             for (int i = 0; i < atk; i++)
             {
                 points.Add(new AttackPoint(pointSize, Color.White));
@@ -63,7 +63,7 @@ namespace SolStandard.HUD.Window.Content.Combat
 
         private static List<BlockPoint> InitializeBlockPoints(int block, int bonusBlock, int pointSize)
         {
-            List<BlockPoint> points = new List<BlockPoint>();
+            var points = new List<BlockPoint>();
             for (int i = 0; i < block; i++)
             {
                 points.Add(new BlockPoint(pointSize, Color.White));
@@ -189,7 +189,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             int rows = Convert.ToInt32(Math.Ceiling((float) atkPoints.Count / MaxRowSize));
             int columns = (MaxRowSize > atkPoints.Count) ? atkPoints.Count : MaxRowSize;
 
-            IRenderable[,] damagePoints = new IRenderable[rows, columns];
+            var damagePoints = new IRenderable[rows, columns];
 
             int pointCounter = 0;
             bool allPointsCounted = false;
@@ -216,7 +216,7 @@ namespace SolStandard.HUD.Window.Content.Combat
                 }
             }
 
-            WindowContentGrid atkPointGrid = new WindowContentGrid(
+            var atkPointGrid = new WindowContentGrid(
                 damagePoints,
                 2,
                 HorizontalAlignment.Centered
@@ -229,7 +229,7 @@ namespace SolStandard.HUD.Window.Content.Combat
             int rows = Convert.ToInt32(Math.Ceiling((float) blockPoints.Count / MaxRowSize));
             int columns = (MaxRowSize > blockPoints.Count) ? blockPoints.Count : MaxRowSize;
 
-            IRenderable[,] damagePoints = new IRenderable[rows, columns];
+            var damagePoints = new IRenderable[rows, columns];
 
             int pointCounter = 0;
             bool allPointsCounted = false;
@@ -256,7 +256,7 @@ namespace SolStandard.HUD.Window.Content.Combat
                 }
             }
 
-            WindowContentGrid blockPointGrid = new WindowContentGrid(
+            var blockPointGrid = new WindowContentGrid(
                 damagePoints,
                 2,
                 HorizontalAlignment.Centered

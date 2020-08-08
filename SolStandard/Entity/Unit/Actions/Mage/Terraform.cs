@@ -26,14 +26,14 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             RemoveActionTilesOnUnplaceableSpaces(mapLayer);
         }
 
         private static void RemoveActionTilesOnUnplaceableSpaces(Layer mapLayer)
         {
-            List<MapElement> tilesToRemove = new List<MapElement>();
+            var tilesToRemove = new List<MapElement>();
             List<MapElement> targetTiles = MapContainer.GetMapElementsFromLayer(mapLayer);
 
             foreach (MapElement element in targetTiles)
@@ -59,7 +59,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
                 BreakableObstacle rubble = GenerateObstacle(targetSlice.MapCoordinates);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );

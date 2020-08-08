@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 AssetManager.SkillBuffSFX.Play();
                 int halfOfUnitsBaseMv = targetUnit.Stats.BaseMv / 2;
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(targetUnit, new MoveStatDown(duration, halfOfUnitsBaseMv))
                 );

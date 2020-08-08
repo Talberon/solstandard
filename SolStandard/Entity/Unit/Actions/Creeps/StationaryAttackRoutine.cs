@@ -64,7 +64,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                     actor.AtkRange);
 
             List<MapElement> targetingTiles = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
-            List<GameUnit> enemiesInRange = new List<GameUnit>();
+            var enemiesInRange = new List<GameUnit>();
             foreach (MapElement tile in targetingTiles)
             {
                 MapSlice slice = MapContainer.GetMapSliceAtCoordinates(tile.MapCoordinates);

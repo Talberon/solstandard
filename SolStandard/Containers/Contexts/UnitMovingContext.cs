@@ -21,9 +21,9 @@ namespace SolStandard.Containers.Contexts
         public void GenerateMoveGrid(Vector2 origin, int maxDistance, Team team, bool showNumbers = false)
         {
             //Breadth First Search Algorithm (with limit)
-            Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
+            var frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin);
+            var startTile = new MapDistanceTile(spriteAtlas, origin);
             frontier.Enqueue(startTile);
 
             List<MapDistanceTile> visited =
@@ -35,7 +35,7 @@ namespace SolStandard.Containers.Contexts
         private List<MapDistanceTile> DetermineMovableTiles(int maximumDistance, MapDistanceTile startTile,
             Queue<MapDistanceTile> frontier, Team team, bool distanceVisible)
         {
-            List<MapDistanceTile> visited = new List<MapDistanceTile> {startTile};
+            var visited = new List<MapDistanceTile> {startTile};
 
             while (frontier.Count > 0)
             {
@@ -61,12 +61,12 @@ namespace SolStandard.Containers.Contexts
         private IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
             List<MapDistanceTile> visitedTiles, Team team, bool distanceVisible)
         {
-            List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
+            var neighbours = new List<MapDistanceTile>();
 
-            Vector2 north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
-            Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
+            var north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
+            var south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
+            var east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
+            var west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
             if (CanPlaceMoveTileAtCoordinates(north, visitedTiles, team))
             {

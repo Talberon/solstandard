@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Contexts
 
         public static List<ActionOption> ActiveUnitSkillOptions(Color windowColor)
         {
-            List<ActionOption> options = new List<ActionOption>();
+            var options = new List<ActionOption>();
             foreach (UnitAction skillAction in GameContext.ActiveUnit.Actions)
             {
                 options.Add(new ActionOption(windowColor, skillAction));
@@ -47,7 +47,7 @@ namespace SolStandard.Containers.Contexts
         {
             const int columns = 2;
             List<IItem> activeUnitInventory = GameContext.ActiveUnit.Inventory;
-            MenuOption[,] options = new MenuOption[activeUnitInventory.Count, columns];
+            var options = new MenuOption[activeUnitInventory.Count, columns];
 
             for (int i = 0; i < activeUnitInventory.Count; i++)
             {
@@ -66,7 +66,7 @@ namespace SolStandard.Containers.Contexts
                 .Cast<IActionTile>()
                 .ToList();
 
-            List<UnitAction> contextActions = new List<UnitAction>();
+            var contextActions = new List<UnitAction>();
 
             foreach (IActionTile actionTile in mapActionTiles.Where(actionTile =>
                 RangeComparison.TargetIsWithinRangeOfOrigin(

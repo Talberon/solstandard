@@ -143,7 +143,7 @@ namespace SolStandard.Containers.View
             string tipText1 = (serverIpFound)
                 ? ""
                 : "You can get your public IP address by searching online for \"What is my IP?\"";
-            string tipText2 = "If your peer cannot connect, make sure you are both running the same major/minor version of the game.";
+            const string tipText2 = "If your peer cannot connect, make sure you are both running the same major/minor version of the game.";
             string tipText3 = $"Check to make sure you have port forwarding enabled on your router for port {ConnectionManager.NetworkPort}.";
 
             return new Window(
@@ -166,7 +166,7 @@ namespace SolStandard.Containers.View
 
         public void EnterCharacter(char character)
         {
-            Regex matcher = new Regex("[0-9]|.");
+            var matcher = new Regex("[0-9]|.");
 
             if (matcher.IsMatch(character.ToString()) && inputIPAddress.Length < 15)
             {
@@ -203,7 +203,7 @@ namespace SolStandard.Containers.View
 
         public void AttemptConnection()
         {
-            Regex ipAddressRegex =
+            var ipAddressRegex =
                 new Regex(
                     "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
 
@@ -230,12 +230,12 @@ namespace SolStandard.Containers.View
 
             const int titleVertCoordinate = 15;
             (float halfTitleWidth, _) = new Vector2(title.Width, title.Height) / 2;
-            Vector2 titlePosition = new Vector2(halfScreenWidth - halfTitleWidth, titleVertCoordinate);
+            var titlePosition = new Vector2(halfScreenWidth - halfTitleWidth, titleVertCoordinate);
             title.Draw(spriteBatch, titlePosition);
 
             const int titlePadding = 0;
             (float halfStatusWidth, _) = new Vector2(networkStatusWindow.Width, networkStatusWindow.Height) / 2;
-            Vector2 statusWindowPosition =
+            var statusWindowPosition =
                 new Vector2(halfScreenWidth - halfStatusWidth, titlePosition.Y + title.Height + titlePadding);
             networkStatusWindow.Draw(spriteBatch, statusWindowPosition);
 
@@ -244,7 +244,7 @@ namespace SolStandard.Containers.View
             {
                 const int statusPadding = 10;
                 (float halfDialWidth, _) = new Vector2(DialMenu.Width, DialMenu.Height) / 2;
-                Vector2 dialMenuPosition = new Vector2(
+                var dialMenuPosition = new Vector2(
                     halfScreenWidth - halfDialWidth,
                     statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
                 );
@@ -255,7 +255,7 @@ namespace SolStandard.Containers.View
             {
                 const int statusPadding = 10;
                 (float halfHostWidth, _) = new Vector2(HostMenu.Width, HostMenu.Height) / 2;
-                Vector2 hostMenuPosition = new Vector2(
+                var hostMenuPosition = new Vector2(
                     halfScreenWidth - halfHostWidth,
                     statusWindowPosition.Y + networkStatusWindow.Height + statusPadding
                 );

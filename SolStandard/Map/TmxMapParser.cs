@@ -60,7 +60,7 @@ namespace SolStandard.Map
 
         private List<KeyValuePair<ITexture2D, int>> SortTilesetsByFirstGid()
         {
-            List<KeyValuePair<ITexture2D, int>> tilesetGids = new List<KeyValuePair<ITexture2D, int>>();
+            var tilesetGids = new List<KeyValuePair<ITexture2D, int>>();
             foreach (TmxTileset tileset in tmxMap.Tilesets)
             {
                 if (worldTileSetSprite.Name.Contains(tileset.Name))
@@ -158,7 +158,7 @@ namespace SolStandard.Map
 
         private MapElement[,] ObtainTilesFromLayer(Layer tileLayer)
         {
-            MapElement[,] tileGrid = new MapElement[tmxMap.Width, tmxMap.Height];
+            var tileGrid = new MapElement[tmxMap.Width, tmxMap.Height];
 
             int tileCounter = 0;
 
@@ -203,7 +203,7 @@ namespace SolStandard.Map
 
         private TerrainEntity[,] ObtainEntitiesFromLayer(string objectGroupName, List<IItem> mapLoot)
         {
-            TerrainEntity[,] entityGrid = new TerrainEntity[tmxMap.Width, tmxMap.Height];
+            var entityGrid = new TerrainEntity[tmxMap.Width, tmxMap.Height];
 
             //Handle the Entities Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
@@ -240,7 +240,7 @@ namespace SolStandard.Map
                                     tileSprite = GetAnimatedTile(animatedTile, currentObject.Tile);
                                 }
 
-                                EntityTypes tileEntityType =
+                                var tileEntityType =
                                     (EntityTypes) Enum.Parse(typeof(EntityTypes), currentObject.Type);
 
                                 switch (tileEntityType)
@@ -402,7 +402,7 @@ namespace SolStandard.Map
                                         break;
                                     case EntityTypes.SelectMap:
                                         string mapFileName = currentProperties["mapFileName"];
-                                        MapInfo derivedMapInfo = new MapInfo(currentObject.Name, mapFileName);
+                                        var derivedMapInfo = new MapInfo(currentObject.Name, mapFileName);
 
                                         entityGrid[col, row] = new SelectMapEntity(
                                             currentObject.Name,
@@ -749,7 +749,7 @@ namespace SolStandard.Map
 
         private UnitEntity[,] ObtainUnitsFromLayer(string objectGroupName)
         {
-            UnitEntity[,] unitGrid = new UnitEntity[tmxMap.Width, tmxMap.Height];
+            var unitGrid = new UnitEntity[tmxMap.Width, tmxMap.Height];
 
             //Handle the Units Layer
             foreach (TmxObject currentObject in tmxMap.ObjectGroups[objectGroupName].Objects)
@@ -787,7 +787,7 @@ namespace SolStandard.Map
 
         private Dictionary<string, string> GetDefaultPropertiesAndOverrides(TmxObject tmxObject)
         {
-            Dictionary<string, string> combinedProperties = new Dictionary<string, string>(tmxObject.Properties);
+            var combinedProperties = new Dictionary<string, string>(tmxObject.Properties);
 
             foreach (KeyValuePair<string, string> property in GetDefaultPropertiesForType(tmxObject.Type))
             {
@@ -855,7 +855,7 @@ namespace SolStandard.Map
 
             //Hold the id values for each frame
 
-            AnimatedTileSprite tileSprite = new AnimatedTileSprite(
+            var tileSprite = new AnimatedTileSprite(
                 FindTileSet(tile.Gid),
                 tileIds,
                 GameDriver.CellSizeVector

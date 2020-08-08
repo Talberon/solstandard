@@ -49,10 +49,10 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 GameUnit activeUnit = GameContext.ActiveUnit;
-                FlowStatus currentFlow =
+                var currentFlow =
                     activeUnit.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(
                         activeUnit,

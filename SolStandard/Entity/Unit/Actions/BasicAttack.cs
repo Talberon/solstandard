@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public static void DamageTerrain(MapSlice targetSlice)
         {
-            BreakableObstacle targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
+            var targetObstacle = (BreakableObstacle) targetSlice.TerrainEntity;
             targetObstacle.DealDamage(1);
 
             if (targetObstacle.IsBroken)

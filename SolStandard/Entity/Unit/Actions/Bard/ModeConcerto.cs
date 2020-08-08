@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Bard
 
                 targetUnit.StatusEffects.RemoveAll(status => status is SoloStatus);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new ConcertoStatus()));
                 eventQueue.Enqueue(new ToastAtCursorEvent("Song range extended at reduced potency!"));
                 eventQueue.Enqueue(new WaitFramesEvent(50));

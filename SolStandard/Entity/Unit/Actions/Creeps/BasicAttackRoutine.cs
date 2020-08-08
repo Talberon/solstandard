@@ -84,15 +84,15 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             MapContainer.ClearDynamicAndPreviewGrids();
 
             //Check movement range
-            UnitMovingContext unitMovingContext =
+            var unitMovingContext =
                 new UnitMovingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
             unitMovingContext.GenerateMoveGrid(creep.UnitEntity.MapCoordinates, creep.MvRange, creep.Team);
 
             //Generate a range ring around each unit on the map using this creep's AtkRange
             //Keep a tally of KV-Pairs tracking the tiles that overlap with the move range and the unit associated with the check
 
-            List<KeyValuePair<GameUnit, Vector2>> attackPositionsInRange = new List<KeyValuePair<GameUnit, Vector2>>();
-            UnitTargetingContext unitTargetingContext =
+            var attackPositionsInRange = new List<KeyValuePair<GameUnit, Vector2>>();
+            var unitTargetingContext =
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
 
             foreach (GameUnit targetUnit in GameContext.Units)

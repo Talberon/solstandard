@@ -53,7 +53,7 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
             {
                 actor.RemoveCommandPoints(cmdCost);
 
-                List<GameUnit> alliesInRange = new List<GameUnit>();
+                var alliesInRange = new List<GameUnit>();
 
                 List<MapElement> tilesInRange = MapContainer.GetMapElementsFromLayer(Layer.Dynamic);
                 foreach (MapElement tileInRange in tilesInRange)
@@ -66,10 +66,10 @@ namespace SolStandard.Entity.Unit.Actions.Cleric
                     }
                 }
 
-                Queue<IEvent> events = new Queue<IEvent>();
+                var events = new Queue<IEvent>();
                 foreach (GameUnit ally in alliesInRange)
                 {
-                    HealthRegeneration hpRegen = new HealthRegeneration(buffTurnDuration, amountToHeal);
+                    var hpRegen = new HealthRegeneration(buffTurnDuration, amountToHeal);
                     events.Enqueue(new CastStatusEffectEvent(ally, hpRegen));
                     events.Enqueue(new ToastAtCoordinatesEvent(ally.UnitEntity.MapCoordinates, hpRegen.Name,
                         AssetManager.SkillBuffSFX));

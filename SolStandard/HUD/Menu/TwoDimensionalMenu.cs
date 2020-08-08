@@ -57,12 +57,12 @@ namespace SolStandard.HUD.Menu
 
         private void SetCursorPosition(int row, int column)
         {
-            Vector2 optionPosition = new Vector2(
+            var optionPosition = new Vector2(
                 (column * (optionSize.X + ((menuWindow.ElementSpacing + menuWindow.InsidePadding * 2)))) +
                 menuWindow.ElementSpacing,
                 row * optionSize.Y
             );
-            Vector2 centerLeft =
+            var centerLeft =
                 new Vector2(cursorSprite.Width, ((float) cursorSprite.Height / 2) - (optionSize.Y / 2));
 
             cursorPosition = cursorType switch
@@ -78,7 +78,7 @@ namespace SolStandard.HUD.Menu
             EqualizeOptionSizes(options);
 
             // ReSharper disable once CoVariantArrayConversion
-            WindowContentGrid menuContent = new WindowContentGrid(options, Padding, HorizontalAlignment.Centered);
+            var menuContent = new WindowContentGrid(options, Padding, HorizontalAlignment.Centered);
 
             return new Window.Window(menuContent, DefaultColor);
         }

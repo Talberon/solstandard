@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions
 
         public virtual void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(TileSprite);
+            var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
             GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }

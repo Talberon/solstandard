@@ -54,7 +54,7 @@ namespace SolStandard.Containers.Contexts
             if (!CursorAtMapSelectFeature(cursorSlice)) return;
             if (cursorSlice.TerrainEntity.GetType() != typeof(SelectMapEntity)) return;
 
-            SelectMapEntity selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
+            var selectMapEntity = (SelectMapEntity) cursorSlice.TerrainEntity;
 
             if (MapObjectives.IsMultiplayerGame(selectMapEntity.MapObjectives.Scenario))
             {

@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Archer
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit, new AtkRangeStatUp(duration, statModifier)));
                 eventQueue.Enqueue(new EndTurnEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);

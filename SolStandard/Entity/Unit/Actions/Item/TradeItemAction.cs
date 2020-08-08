@@ -36,7 +36,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
             if (CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new TransferUnitItemEvent(actingUnit, targetUnit, item));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new AdditionalActionEvent());

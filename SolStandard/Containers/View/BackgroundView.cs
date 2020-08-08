@@ -18,7 +18,7 @@ namespace SolStandard.Containers.View
 
         private static Vector2 ScaleHeightToWidth(Vector2 sourceProportions, float width)
         {
-            Vector2 scaledProportions = new Vector2 {X = width, Y = sourceProportions.Y * width / sourceProportions.X};
+            var scaledProportions = new Vector2 {X = width, Y = sourceProportions.Y * width / sourceProportions.X};
             return scaledProportions;
         }
 

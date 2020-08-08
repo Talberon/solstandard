@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
         {
             if (TargetIsADoorInRange(targetSlice))
             {
-                Door targetDoor = targetSlice.TerrainEntity as Door;
+                var targetDoor = targetSlice.TerrainEntity as Door;
                 targetDoor?.DealDamage(doorDamage);
                 GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Door takes [{doorDamage}] damage!",
                     50);

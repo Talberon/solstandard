@@ -37,7 +37,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new CastStatusEffectEvent(targetUnit,
                     new FortifiedStatus(turnDuration, pointsToTrade)));
                 eventQueue.Enqueue(new WaitFramesEvent(30));

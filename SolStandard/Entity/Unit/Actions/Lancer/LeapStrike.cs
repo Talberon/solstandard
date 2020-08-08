@@ -50,7 +50,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             IRenderable tileSprite)
         {
             int[] adjustedRange = actionRange.Where(range => range <= GameContext.ActiveUnit.Stats.Mv).ToArray();
-            UnitTargetingContext unitTargetingContext = new UnitTargetingContext(tileSprite);
+            var unitTargetingContext = new UnitTargetingContext(tileSprite);
 
             if (adjustedRange.Length > 0) unitTargetingContext.GenerateTargetingGrid(origin, adjustedRange, mapLayer);
 
@@ -110,7 +110,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             {
                 MapContainer.ClearDynamicAndPreviewGrids();
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity,
                     targetSlice.MapCoordinates));
@@ -137,7 +137,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool EastOfTargetIsObstructed(Vector2 targetCoordinates)
         {
-            Vector2 rightOfTarget = new Vector2(
+            var rightOfTarget = new Vector2(
                 targetCoordinates.X + 1,
                 targetCoordinates.Y
             );
@@ -147,7 +147,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool WestOfTargetIsObstructed(Vector2 targetCoordinates)
         {
-            Vector2 leftOfTarget = new Vector2(
+            var leftOfTarget = new Vector2(
                 targetCoordinates.X - 1,
                 targetCoordinates.Y
             );
@@ -157,7 +157,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool NorthOfTargetIsObstructed(Vector2 targetCoordinates)
         {
-            Vector2 aboveTarget = new Vector2(
+            var aboveTarget = new Vector2(
                 targetCoordinates.X,
                 targetCoordinates.Y - 1
             );
@@ -167,7 +167,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         private static bool SouthOfTargetIsObstructed(Vector2 targetCoordinates)
         {
-            Vector2 belowTarget = new Vector2(
+            var belowTarget = new Vector2(
                 targetCoordinates.X,
                 targetCoordinates.Y + 1
             );
@@ -183,14 +183,14 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public static void CreateLandingSpacesAroundTarget(MapDistanceTile.TileType tileType, Vector2 targetCoordinates)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             const int distanceFromTarget = 1;
 
-            Vector2 northTile = new Vector2(targetCoordinates.X, targetCoordinates.Y - distanceFromTarget);
-            Vector2 southTile = new Vector2(targetCoordinates.X, targetCoordinates.Y + distanceFromTarget);
-            Vector2 eastTile = new Vector2(targetCoordinates.X + distanceFromTarget, targetCoordinates.Y);
-            Vector2 westTile = new Vector2(targetCoordinates.X - distanceFromTarget, targetCoordinates.Y);
+            var northTile = new Vector2(targetCoordinates.X, targetCoordinates.Y - distanceFromTarget);
+            var southTile = new Vector2(targetCoordinates.X, targetCoordinates.Y + distanceFromTarget);
+            var eastTile = new Vector2(targetCoordinates.X + distanceFromTarget, targetCoordinates.Y);
+            var westTile = new Vector2(targetCoordinates.X - distanceFromTarget, targetCoordinates.Y);
 
             if (!NorthOfTargetIsObstructed(targetCoordinates))
                 AddTileWithinMapBounds(tileType, attackTiles, northTile, distanceFromTarget);

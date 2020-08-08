@@ -62,7 +62,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private List<IResourcePoint> GenerateArmorPips(int maxPips)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxPips; i++)
             {
@@ -74,7 +74,7 @@ namespace SolStandard.HUD.Window.Content.Health
 
         private List<IResourcePoint> GenerateHpPips(int maxPips)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxPips; i++)
             {

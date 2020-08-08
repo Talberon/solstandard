@@ -83,7 +83,7 @@ namespace SolStandard.Map.Elements
         {
             get
             {
-                Vector2 spriteSize = new Vector2(Sprite.Width, Sprite.Height);
+                var spriteSize = new Vector2(Sprite.Width, Sprite.Height);
 
                 if (spriteSize == GameDriver.CellSizeVector) return Vector2.Zero;
 

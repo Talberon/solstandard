@@ -25,7 +25,7 @@ namespace SolStandard.Entity.General
 
         public List<UnitAction> TileActions()
         {
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             if (UnitOnOppositeCrossDirection(crossDirection))
             {

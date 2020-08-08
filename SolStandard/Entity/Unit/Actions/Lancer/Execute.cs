@@ -46,12 +46,12 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             int atkDamage = ApplyPercentageRoundedUp(attacker.Stats.Atk, damagePercent);
-            WeaponStatistics executionersKnife =
+            var executionersKnife =
                 new WeaponStatistics(atkDamage, 0, attacker.Stats.CurrentAtkRange, 1);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
                     new CastStatusEffectEvent(attacker, new ExecutionerStatus(Icon, 0, buffDuration, atkModifier))
                 );

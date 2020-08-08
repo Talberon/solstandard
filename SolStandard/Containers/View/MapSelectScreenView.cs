@@ -38,7 +38,7 @@ namespace SolStandard.Containers.View
         {
             int iconSize = Convert.ToInt32(AssetManager.WindowFont.MeasureString("A").Y);
 
-            WindowContentGrid instructionContentGrid = new WindowContentGrid(
+            var instructionContentGrid = new WindowContentGrid(
                 new[,]
                 {
                     {
@@ -70,7 +70,7 @@ namespace SolStandard.Containers.View
             Color solWindowColor = (GameContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
             Color lunaWindowColor = (GameContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
 
-            WindowContentGrid teamSelectContent = new WindowContentGrid(new[,]
+            var teamSelectContent = new WindowContentGrid(new[,]
                 {
                     {
                         InputIconProvider.GetInputIcon(Input.PreviewUnit, iconSize),

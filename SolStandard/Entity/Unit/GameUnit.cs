@@ -184,7 +184,7 @@ namespace SolStandard.Entity.Unit
         {
             get
             {
-                Color panelColor = new Color(10, 10, 10, 100);
+                var panelColor = new Color(10, 10, 10, 100);
                 const int hoverWindowHealthBarHeight = 32;
                 int windowBordersSize = AssetManager.WindowTexture.Width * 2 / 3;
                 IRenderable[,] selectedUnitPortrait =
@@ -232,7 +232,7 @@ namespace SolStandard.Entity.Unit
             {
                 if (Inventory.Count <= 0) return null;
 
-                IRenderable[,] content = new IRenderable[1, Inventory.Count + 1];
+                var content = new IRenderable[1, Inventory.Count + 1];
 
                 content[0, 0] = new Window(
                     new RenderText(AssetManager.StatFont, " ITEMS"),
@@ -253,11 +253,11 @@ namespace SolStandard.Entity.Unit
             get
             {
                 ISpriteFont statfont = AssetManager.StatFont;
-                Color statPanelColor = new Color(10, 10, 10, 100);
+                var statPanelColor = new Color(10, 10, 10, 100);
                 const float panelWidth = 410;
                 const float panelHeight = 33;
-                Vector2 twoColumnPanel = new Vector2(panelWidth / 2, panelHeight);
-                Vector2 threeColumnPanel = new Vector2(panelWidth / 3 - 1, panelHeight);
+                var twoColumnPanel = new Vector2(panelWidth / 2, panelHeight);
+                var threeColumnPanel = new Vector2(panelWidth / 3 - 1, panelHeight);
 
                 const int crownIconSize = 24;
                 return new WindowContentGrid(
@@ -683,7 +683,7 @@ namespace SolStandard.Entity.Unit
 
         private void UpdateStatusEffects()
         {
-            Queue<IEvent> statusEffectEvents = new Queue<IEvent>();
+            var statusEffectEvents = new Queue<IEvent>();
 
             foreach (StatusEffect effect in StatusEffects)
             {
@@ -865,7 +865,7 @@ namespace SolStandard.Entity.Unit
 
             foreach (SongStatus song in songs)
             {
-                UnitTargetingContext targetingContext = new UnitTargetingContext(song.SongSprite);
+                var targetingContext = new UnitTargetingContext(song.SongSprite);
                 List<MapDistanceTile> auraTiles =
                     targetingContext.GetTargetingTiles(UnitEntity.MapCoordinates, song.AuraRange);
 

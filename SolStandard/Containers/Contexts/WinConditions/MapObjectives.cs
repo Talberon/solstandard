@@ -43,7 +43,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
         {
             get
             {
-                Dictionary<VictoryConditions, Objective> objectives =
+                var objectives =
                     new Dictionary<VictoryConditions, Objective> {{VictoryConditions.Surrender, new Surrender()}};
 
                 if (modeCollectTheRelicsVs)

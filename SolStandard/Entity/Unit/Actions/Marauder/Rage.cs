@@ -54,7 +54,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                         (int) Math.Floor((float) (targetUnit.Stats.MaxHP - targetUnit.Stats.CurrentHP) /
                                          missingHpPerPoint);
 
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new CastStatusEffectEvent(targetUnit, new EnragedStatus(duration, halfMissingHP)));
                     eventQueue.Enqueue(new WaitFramesEvent(50));

@@ -23,7 +23,7 @@ namespace SolStandard.Containers.Contexts.WinConditions
 
         public Window ScenarioInfo(HorizontalAlignment alignment = HorizontalAlignment.Left)
         {
-            IRenderable[,] objectives = new IRenderable[Objectives.Count, 1];
+            var objectives = new IRenderable[Objectives.Count, 1];
 
             for (int i = 0; i < Objectives.Count; i++)
             {

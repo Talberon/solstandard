@@ -454,7 +454,7 @@ namespace SolStandard.Containers.Contexts
                         Convert.ToInt32(AssetManager.PromptFont.MeasureString("A").Y))
                 }
             };
-            WindowContentGrid promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
+            var promptWindowContentGrid = new WindowContentGrid(promptTextContent, 2);
             GameMapView.GenerateUserPromptWindow(promptWindowContentGrid, new Vector2(0, 150));
         }
 
@@ -476,7 +476,7 @@ namespace SolStandard.Containers.Contexts
         private void GenerateMoveGrid(Vector2 origin, GameUnit selectedUnit, SpriteAtlas spriteAtlas)
         {
             selectedUnitOriginalPosition = origin;
-            UnitMovingContext unitMovingContext = new UnitMovingContext(spriteAtlas);
+            var unitMovingContext = new UnitMovingContext(spriteAtlas);
             unitMovingContext.GenerateMoveGrid(origin, selectedUnit.Stats.Mv, selectedUnit.Team);
         }
 
@@ -660,7 +660,7 @@ namespace SolStandard.Containers.Contexts
                 return false;
             }
 
-            Queue<IEvent> effectTileEvents = new Queue<IEvent>();
+            var effectTileEvents = new Queue<IEvent>();
             effectTileEvents.Enqueue(new WaitFramesEvent(10));
             effectTileEvents.Enqueue(
                 new ToastAtCursorEvent(
@@ -815,7 +815,7 @@ namespace SolStandard.Containers.Contexts
 
         public static List<IItem> CollectItemsFromSlice(MapSlice currentSlice)
         {
-            List<IItem> items = new List<IItem>();
+            var items = new List<IItem>();
 
             switch (currentSlice.ItemEntity)
             {

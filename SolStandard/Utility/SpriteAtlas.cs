@@ -65,7 +65,7 @@ namespace SolStandard.Utility
                 {
                     if (cellSearcher == cellIndex)
                     {
-                        Rectangle rendercell = new Rectangle((int) (cellSize.X * col), (int) (cellSize.Y * row),
+                        var rendercell = new Rectangle((int) (cellSize.X * col), (int) (cellSize.Y * row),
                             (int) cellSize.X, (int) cellSize.Y);
                         return rendercell;
                     }

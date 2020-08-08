@@ -43,7 +43,7 @@ namespace SolStandard.HUD.Window.Content.Command
 
         private List<IResourcePoint> GenerateCommandPips(int maxPips)
         {
-            List<IResourcePoint> pips = new List<IResourcePoint>();
+            var pips = new List<IResourcePoint>();
 
             for (int i = 0; i < maxPips; i++)
             {

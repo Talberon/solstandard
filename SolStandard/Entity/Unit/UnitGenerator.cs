@@ -28,7 +28,7 @@ namespace SolStandard.Entity.Unit
 
         public static List<GameUnit> GenerateUnitsFromMap(IEnumerable<UnitEntity> units)
         {
-            List<GameUnit> unitsFromMap = new List<GameUnit>();
+            var unitsFromMap = new List<GameUnit>();
 
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (UnitEntity unit in units)
@@ -240,7 +240,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectArcherSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Draw(3, 1),
@@ -258,7 +258,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectChampionSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Bloodthirst(1),
@@ -277,7 +277,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectMageSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Inferno(3, 2),
@@ -296,7 +296,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectLancerSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new LeapStrike(),
@@ -314,7 +314,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectBardSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new ModeSolo(),
@@ -337,7 +337,7 @@ namespace SolStandard.Entity.Unit
         {
             const int flowStackDuration = 4;
 
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new FlowStrike(75, flowStackDuration),
@@ -357,7 +357,7 @@ namespace SolStandard.Entity.Unit
         private static List<UnitAction> SelectDuelistSkills(bool isCommander)
         {
             const int maxFocusPoints = 1;
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new EnGarde(1),
@@ -377,7 +377,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectClericSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Recover(3),
@@ -396,7 +396,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectMarauderSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Guillotine(50),
@@ -414,7 +414,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectPaladinSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Stun(1),
@@ -432,7 +432,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectCavalierSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Bloodthirst(2),
@@ -451,7 +451,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectRogueSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new ThrowingKnife(),
@@ -471,7 +471,7 @@ namespace SolStandard.Entity.Unit
 
         private static List<UnitAction> SelectBoarSkills(bool isCommander)
         {
-            List<UnitAction> skills = new List<UnitAction>
+            var skills = new List<UnitAction>
             {
                 new BasicAttack(),
                 new Guard(3),
@@ -549,7 +549,7 @@ namespace SolStandard.Entity.Unit
             UnitStatistics unitStatistics = GetUnitStatistics(role);
             List<UnitAction> unitActions = GetUnitActions(role, isCommander);
 
-            GameUnit generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions,
+            var generatedUnit = new GameUnit(unitName, team, role, entity, unitStatistics, portrait, unitActions,
                 isCommander);
             AssignStartingBounty(generatedUnit, InitialUnitBounty, 0);
 
@@ -627,7 +627,7 @@ namespace SolStandard.Entity.Unit
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
             CreepRoutineModel creepRoutineModel = CreepRoutineModel.GetModelForCreep(creepProperties);
-            CreepEntity creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
+            var creepEntity = new CreepEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
                 isCommander, creepRoutineModel, initialInventory);
 
             return creepEntity;
@@ -638,7 +638,7 @@ namespace SolStandard.Entity.Unit
         {
             UnitSpriteSheet animatedSpriteSheet = GenerateUnitSpriteSheet(role, team, unitSprites);
 
-            UnitEntity unitEntity = new UnitEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
+            var unitEntity = new UnitEntity(name, type, animatedSpriteSheet, mapCoordinates, team, role,
                 isCommander, initialInventory);
 
             return unitEntity;
@@ -652,7 +652,7 @@ namespace SolStandard.Entity.Unit
             const int unitAnimationFrames = 4;
             const int unitAnimationDelay = 12;
 
-            UnitSpriteSheet animatedSpriteSheet = new UnitSpriteSheet(
+            var animatedSpriteSheet = new UnitSpriteSheet(
                 unitSprite,
                 unitSprite.Width / unitAnimationFrames,
                 unitScale,

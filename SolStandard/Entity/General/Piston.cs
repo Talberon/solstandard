@@ -33,7 +33,7 @@ namespace SolStandard.Entity.General
         private static AnimatedSpriteSheet BuildPistonSprite(PistonDirection pistonDirection)
         {
             const int pistonCellSize = 48;
-            AnimatedSpriteSheet sprite = new AnimatedSpriteSheet(AssetManager.PistonTexture, pistonCellSize,
+            var sprite = new AnimatedSpriteSheet(AssetManager.PistonTexture, pistonCellSize,
                 GameDriver.CellSizeVector * 3, 6, false, Color.White);
             sprite.SetSpriteCell(0, (int) pistonDirection);
             sprite.Pause();

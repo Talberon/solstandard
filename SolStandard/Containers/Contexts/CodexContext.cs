@@ -24,7 +24,7 @@ namespace SolStandard.Containers.Contexts
 
         private static List<GameUnit> GenerateUnitArchetypes()
         {
-            List<GameUnit> units = new List<GameUnit>();
+            var units = new List<GameUnit>();
 
             foreach (Role role in DraftContext.AvailableRoles)
             {

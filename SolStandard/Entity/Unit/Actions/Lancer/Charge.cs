@@ -32,17 +32,17 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
         public override void GenerateActionGrid(Vector2 origin, Layer mapLayer = Layer.Dynamic)
         {
-            List<MapDistanceTile> attackTiles = new List<MapDistanceTile>();
+            var attackTiles = new List<MapDistanceTile>();
 
             int limitedGallopDistance = Math.Min(chargeDistance, GameContext.ActiveUnit.Stats.Mv);
 
             for (int i = limitedGallopDistance; i > 1; i--)
             {
                 (float originX, float originY) = origin;
-                Vector2 northTile = new Vector2(originX, originY - i);
-                Vector2 southTile = new Vector2(originX, originY + i);
-                Vector2 eastTile = new Vector2(originX + i, originY);
-                Vector2 westTile = new Vector2(originX - i, originY);
+                var northTile = new Vector2(originX, originY - i);
+                var southTile = new Vector2(originX, originY + i);
+                var eastTile = new Vector2(originX + i, originY);
+                var westTile = new Vector2(originX - i, originY);
                 AddTileWithinMapBounds(attackTiles, northTile, i, TileSprite);
                 AddTileWithinMapBounds(attackTiles, southTile, i, TileSprite);
                 AddTileWithinMapBounds(attackTiles, eastTile, i, TileSprite);
@@ -95,7 +95,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 for (int northDistance = 1; northDistance < distanceToTarget; northDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
+                    var coordinatesToCheck = new Vector2(
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y - northDistance
                     );
@@ -114,7 +114,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 for (int southDistance = 1; southDistance < distanceToTarget; southDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
+                    var coordinatesToCheck = new Vector2(
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.X,
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y + southDistance
                     );
@@ -133,7 +133,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 for (int eastDistance = 1; eastDistance < distanceToTarget; eastDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
+                    var coordinatesToCheck = new Vector2(
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.X + eastDistance,
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );
@@ -152,7 +152,7 @@ namespace SolStandard.Entity.Unit.Actions.Lancer
 
                 for (int westDistance = 1; westDistance < distanceToTarget; westDistance++)
                 {
-                    Vector2 coordinatesToCheck = new Vector2(
+                    var coordinatesToCheck = new Vector2(
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.X - westDistance,
                         GameContext.ActiveUnit.UnitEntity.MapCoordinates.Y
                     );

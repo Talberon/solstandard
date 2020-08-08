@@ -40,7 +40,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
                 {
                     if (UnitIsMissingArmor(targetUnit))
                     {
-                        FlowStatus statusToRemove =
+                        var statusToRemove =
                             (FlowStatus) targetUnit.StatusEffects.First(status => status is FlowStatus);
                         int currentFlowStacks = statusToRemove.FlowStacks;
 

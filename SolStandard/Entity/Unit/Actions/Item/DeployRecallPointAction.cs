@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 recallSource.DeployRecall();
                 RecallPoint recallPoint = GenerateRecallPoint(recallSource.RecallId, targetSlice);
 
-                Queue<IEvent> eventQueue = new Queue<IEvent>();
+                var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(recallPoint, Layer.Entities, AssetManager.CombatBlockSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(new EndTurnEvent());

@@ -77,7 +77,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             moveTiles.AddRange(MapContainer.GetMapElementsFromLayer(Layer.Preview));
             MapContainer.ClearDynamicAndPreviewGrids();
 
-            List<ITriggerable> triggerables = new List<ITriggerable>();
+            var triggerables = new List<ITriggerable>();
 
             foreach (MapElement moveTile in moveTiles)
             {

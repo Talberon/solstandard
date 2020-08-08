@@ -107,13 +107,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         public override void ExecuteAction(MapSlice targetSlice)
         {
             GameUnit actingUnit = GameContext.ActiveUnit;
-            Bank selectedBank = targetSlice.TerrainEntity as Bank;
+            var selectedBank = targetSlice.TerrainEntity as Bank;
 
             if (Value > 0)
             {
                 if (SelectedBankIsThisBank(selectedBank))
                 {
-                    Queue<IEvent> eventQueue = new Queue<IEvent>();
+                    var eventQueue = new Queue<IEvent>();
                     eventQueue.Enqueue(
                         new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                     );

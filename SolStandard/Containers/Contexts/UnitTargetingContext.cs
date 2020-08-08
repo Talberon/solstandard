@@ -34,7 +34,7 @@ namespace SolStandard.Containers.Contexts
 
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
-                MapDistanceTile tile = (MapDistanceTile) mapElement;
+                var tile = (MapDistanceTile) mapElement;
                 if (tile == null) continue;
 
                 //Generate attack tiles for the perimeter of the grid
@@ -44,7 +44,7 @@ namespace SolStandard.Containers.Contexts
             //Clean up overlapping tiles
             foreach (MapElement mapElement in MapContainer.GameGrid[(int) Layer.Dynamic])
             {
-                MapDistanceTile tile = (MapDistanceTile) mapElement;
+                var tile = (MapDistanceTile) mapElement;
                 if (tile != null)
                 {
                     MapContainer.GameGrid[(int) Layer.Preview][(int) tile.MapCoordinates.X, (int) tile.MapCoordinates.Y]
@@ -56,12 +56,12 @@ namespace SolStandard.Containers.Contexts
         public List<MapDistanceTile> GetTargetingTiles(Vector2 origin, int[] ranges, bool distanceVisible = false)
         {
             //Breadth First Search Algorithm (with limit)
-            Queue<MapDistanceTile> frontier = new Queue<MapDistanceTile>();
+            var frontier = new Queue<MapDistanceTile>();
 
-            MapDistanceTile startTile = new MapDistanceTile(spriteAtlas, origin, 0, distanceVisible);
+            var startTile = new MapDistanceTile(spriteAtlas, origin, 0, distanceVisible);
             frontier.Enqueue(startTile);
 
-            List<MapDistanceTile> visited = new List<MapDistanceTile> {startTile};
+            var visited = new List<MapDistanceTile> {startTile};
 
             while (frontier.Count > 0)
             {
@@ -95,12 +95,12 @@ namespace SolStandard.Containers.Contexts
         private static IEnumerable<MapDistanceTile> GetNeighbours(MapDistanceTile currentTile,
             IReadOnlyCollection<Vector2> visitedCoordinates, bool distanceVisible)
         {
-            List<MapDistanceTile> neighbours = new List<MapDistanceTile>();
+            var neighbours = new List<MapDistanceTile>();
 
-            Vector2 north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
-            Vector2 south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
-            Vector2 east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
-            Vector2 west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
+            var north = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y - 1);
+            var south = new Vector2(currentTile.MapCoordinates.X, currentTile.MapCoordinates.Y + 1);
+            var east = new Vector2(currentTile.MapCoordinates.X + 1, currentTile.MapCoordinates.Y);
+            var west = new Vector2(currentTile.MapCoordinates.X - 1, currentTile.MapCoordinates.Y);
 
 
             if (CanPlaceTileAtCoordinates(north, visitedCoordinates))

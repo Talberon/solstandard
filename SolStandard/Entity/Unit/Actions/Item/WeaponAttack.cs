@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            Queue<IEvent> eventQueue = new Queue<IEvent>();
+            var eventQueue = new Queue<IEvent>();
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (!stats.IsBroken)

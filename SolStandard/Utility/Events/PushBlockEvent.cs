@@ -31,7 +31,7 @@ namespace SolStandard.Utility.Events
 
         private static void MoveTerrainEntityToPosition(Layer mapLayer, Vector2 startPosition, Vector2 destination)
         {
-            TerrainEntity entityToMove =
+            var entityToMove =
                 MapContainer.GameGrid[(int) mapLayer][(int) startPosition.X, (int) startPosition.Y] as TerrainEntity;
 
             entityToMove?.SlideToCoordinates(destination);

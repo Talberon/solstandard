@@ -114,7 +114,7 @@ namespace SolStandard.Utility.Model
                 where Convert.ToBoolean(valuePair.Value)
                 select valuePair.Key).ToList();
 
-            List<UnitAction> actions = new List<UnitAction>();
+            var actions = new List<UnitAction>();
 
             foreach (string routineName in enabledRoutines)
             {
