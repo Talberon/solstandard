@@ -1,7 +1,6 @@
 using System.Linq;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.Combat;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Utility.Assets;
 
 namespace SolStandard.Entity.Unit.Statuses.Bard

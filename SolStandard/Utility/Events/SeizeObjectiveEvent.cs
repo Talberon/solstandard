@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NLog;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
+using SolStandard.Containers.Scenario.Objectives;
 using SolStandard.Entity.Unit;
 using SolStandard.Utility.Assets;
 

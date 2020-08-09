@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Components.World.SubContext;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.General;
 using SolStandard.HUD.Window.Content;
 using SolStandard.Map;

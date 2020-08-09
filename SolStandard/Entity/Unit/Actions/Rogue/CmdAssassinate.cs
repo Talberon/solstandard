@@ -1,6 +1,6 @@
 using System;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Map.Elements;
 using SolStandard.Map.Elements.Cursor;
 using SolStandard.Utility;

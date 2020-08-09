@@ -1,7 +1,6 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.Combat;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Utility;
 using SolStandard.Utility.Assets;
 

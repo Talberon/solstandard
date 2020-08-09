@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 
 namespace SolStandard.Map.Camera
 {

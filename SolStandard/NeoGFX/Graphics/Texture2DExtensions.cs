@@ -169,7 +169,7 @@ namespace SolStandard.NeoGFX.Graphics
             return GetSize(me) / 2;
         }
 
-        public static Vector2 GetCoordinatesToCenterOnPoint(this IRenderable me, Vector2 pointToCenterOn)
+        public static Vector2 GetCoordinatesToCenterOnPoint(this INeoRenderable me, Vector2 pointToCenterOn)
         {
             return pointToCenterOn - new Vector2(me.Width, me.Height);
         }

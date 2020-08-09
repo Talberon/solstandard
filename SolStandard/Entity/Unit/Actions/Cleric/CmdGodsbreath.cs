@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Components.Global;
+using SolStandard.Containers.Scenario;
 using SolStandard.Entity.Unit.Statuses;
 using SolStandard.Map;
 using SolStandard.Map.Elements;

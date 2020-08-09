@@ -6,7 +6,7 @@ using SolStandard.Utility.Exceptions;
 
 namespace SolStandard.NeoGFX.Graphics
 {
-    public class SpriteAtlas : IPositionedRenderable, IWindowContent
+    public class SpriteAtlas : IPositionedNeoRenderable, IWindowContent
     {
         public readonly ITexture2D Texture;
         private readonly Vector2 cellSize;

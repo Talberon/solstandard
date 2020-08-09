@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using SolStandard.Containers.Contexts.WinConditions;
+using SolStandard.Containers.Scenario;
 
 namespace SolStandard.Utility.Assets
 {

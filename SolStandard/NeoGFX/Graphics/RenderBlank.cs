@@ -4,7 +4,7 @@ using SolStandard.NeoGFX.GUI;
 
 namespace SolStandard.NeoGFX.Graphics
 {
-    public class RenderBlank : IPositionedRenderable, IWindowContent
+    public class RenderBlank : IPositionedNeoRenderable, IWindowContent
     {
         public static RenderBlank Blank => new RenderBlank(0, 0);
 

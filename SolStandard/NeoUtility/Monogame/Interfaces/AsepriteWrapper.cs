@@ -9,7 +9,7 @@ using SolStandard.NeoUtility.Monogame.Assets;
 
 namespace SolStandard.NeoUtility.Monogame.Interfaces
 {
-    public class AsepriteWrapper : IWindowContent, IPositionedRenderable
+    public class AsepriteWrapper : IWindowContent, IPositionedNeoRenderable
     {
         public float Width => Sprite.Size().X;
         public float Height => Sprite.Size().Y;

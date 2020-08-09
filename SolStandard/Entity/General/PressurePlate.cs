@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using SolStandard.Containers;
-using SolStandard.Containers.Contexts;
+using SolStandard.Containers.Components.Global;
 using SolStandard.Entity.Unit;
 using SolStandard.Entity.Unit.Actions.Terrain;
 using SolStandard.HUD.Window;
