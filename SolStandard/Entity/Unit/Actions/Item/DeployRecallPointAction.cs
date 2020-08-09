@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     "Invalid target! Place on movable tile without terrain entity in range.",
                     50
                 );

@@ -39,7 +39,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit consumer = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit consumer = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return HasConsumableItemInInventory(consumer);
             }
         }
@@ -51,9 +51,9 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (HasConsumableItemInInventory(GameContext.ActiveUnit))
+            if (HasConsumableItemInInventory(GlobalContext.ActiveUnit))
             {
-                GameUnit consumer = GameContext.ActiveUnit;
+                GameUnit consumer = GlobalContext.ActiveUnit;
                 List<IConsumable> consumables =
                     consumer.Inventory.Where(item => item is IConsumable).Cast<IConsumable>().ToList();
                 consumables.Shuffle();
@@ -67,7 +67,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No consumables in inventory!",
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No consumables in inventory!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }

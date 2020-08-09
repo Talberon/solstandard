@@ -28,7 +28,7 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            if (GameContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
+            if (GlobalContext.ActiveUnit.RemoveItemFromInventory(itemTile as IItem))
             {
                 DropItemAtCoordinates();
 
@@ -42,7 +42,7 @@ namespace SolStandard.Utility.Events
                         }
                     }
                 );
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
                 AssetManager.DropItemSFX.Play();
             }
 

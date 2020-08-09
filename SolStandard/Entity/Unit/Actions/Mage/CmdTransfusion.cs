@@ -32,9 +32,9 @@ namespace SolStandard.Entity.Unit.Actions.Mage
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -43,18 +43,18 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(
-                    new CastStatusEffectEvent(GameContext.ActiveUnit, new DamageToHealthStatus(Icon, 1))
+                    new CastStatusEffectEvent(GlobalContext.ActiveUnit, new DamageToHealthStatus(Icon, 1))
                 );
                 eventQueue.Enqueue(new StartCombatEvent(targetUnit));
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't attack here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -30,7 +30,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
         public override void ExecuteAction(MapSlice targetSlice)
         {
             var itemTile = item as TerrainEntity;
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (TradeItemAction.CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

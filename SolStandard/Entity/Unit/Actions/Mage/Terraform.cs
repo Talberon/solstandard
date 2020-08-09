@@ -71,7 +71,7 @@ namespace SolStandard.Entity.Unit.Actions.Mage
             }
             else
             {
-                GameContext.GameMapContext.MapContainer
+                GlobalContext.GameMapContext.MapContainer
                     .AddNewToastAtMapCursor("Must target unoccupied tile in range!", 50);
                 AssetManager.WarningSFX.Play();
             }

@@ -19,7 +19,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.SaveControlMappings();
+            GlobalContext.ControlConfigContext.SaveControlMappings();
         }
 
         public override IRenderable Clone()

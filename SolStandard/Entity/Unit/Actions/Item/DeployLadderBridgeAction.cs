@@ -33,7 +33,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceLadderBridgeAtTarget(targetSlice))
             {
                 ladderBridge.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(ladderBridge);
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(ladderBridge.Duplicate() as LadderBridge, Layer.Entities,
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on immovable empty space!",
                     50
                 );

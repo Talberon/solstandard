@@ -68,16 +68,16 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     MapContainer.ClearDynamicAndPreviewGrids();
                     selectedUnitEntity = targetUnit.UnitEntity;
                     AssetManager.MenuConfirmSFX.Play();
-                    GeneratePlacementTiles(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+                    GeneratePlacementTiles(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is immovable!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -98,7 +98,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

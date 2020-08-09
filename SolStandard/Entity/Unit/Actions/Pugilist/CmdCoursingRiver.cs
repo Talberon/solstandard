@@ -38,9 +38,9 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -48,7 +48,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsSelfInRange(targetSlice, targetUnit))
             {
-                GameUnit activeUnit = GameContext.ActiveUnit;
+                GameUnit activeUnit = GlobalContext.ActiveUnit;
                 var currentFlow =
                     activeUnit.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
@@ -72,7 +72,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

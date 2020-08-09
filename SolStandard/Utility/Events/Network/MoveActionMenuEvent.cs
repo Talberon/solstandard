@@ -16,7 +16,7 @@ namespace SolStandard.Utility.Events.Network
         
         public override void Continue()
         {
-            GameContext.GameMapContext.MoveActionMenuCursor(direction);
+            GlobalContext.GameMapContext.MoveActionMenuCursor(direction);
             
             Complete = true;
         }

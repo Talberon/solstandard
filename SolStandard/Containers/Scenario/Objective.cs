@@ -36,47 +36,47 @@ namespace SolStandard.Containers.Scenario
 
         public void EndGame()
         {
-            GameContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
+            GlobalContext.StatusScreenView.ResultLabelContent = VictoryLabelContent;
 
             if (RedTeamWins)
             {
-                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
-                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
+                GlobalContext.StatusScreenView.RedTeamResultText = "RED TEAM WINS!";
+                GlobalContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (BlueTeamWins)
             {
-                GameContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
-                GameContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
+                GlobalContext.StatusScreenView.BlueTeamResultText = "BLUE TEAM WINS!";
+                GlobalContext.StatusScreenView.RedTeamResultText = "RED TEAM IS DEFEATED...";
                 TransferToResultsScreen();
             }
 
             if (GameIsADraw)
             {
-                GameContext.StatusScreenView.BlueTeamResultText = "DRAW...";
-                GameContext.StatusScreenView.RedTeamResultText = "DRAW...";
+                GlobalContext.StatusScreenView.BlueTeamResultText = "DRAW...";
+                GlobalContext.StatusScreenView.RedTeamResultText = "DRAW...";
                 TransferToResultsScreen();
             }
 
             if (CoOpVictory)
             {
-                GameContext.StatusScreenView.BlueTeamResultText = "CO-OP VICTORY!";
-                GameContext.StatusScreenView.RedTeamResultText = "CO-OP VICTORY!";
+                GlobalContext.StatusScreenView.BlueTeamResultText = "CO-OP VICTORY!";
+                GlobalContext.StatusScreenView.RedTeamResultText = "CO-OP VICTORY!";
                 TransferToResultsScreen();
             }
 
             if (AllPlayersLose)
             {
-                GameContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
-                GameContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";
+                GlobalContext.StatusScreenView.BlueTeamResultText = "YOU LOSE...";
+                GlobalContext.StatusScreenView.RedTeamResultText = "YOU LOSE...";
                 TransferToResultsScreen();
             }
         }
 
         private static void TransferToResultsScreen()
         {
-            GameContext.CurrentGameState = GameContext.GameState.Results;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.Results;
             MusicBox.Play(AssetManager.MusicTracks.Find(song => song.Name.EndsWith("VictoryJingle")));
         }
     }

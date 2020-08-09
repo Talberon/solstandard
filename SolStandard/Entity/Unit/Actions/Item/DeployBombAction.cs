@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             if (CanPlaceBombAtTarget(targetSlice))
             {
                 bombToDeploy.SnapToCoordinates(targetSlice.MapCoordinates);
-                GameContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(bombToDeploy);
 
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new PlaceEntityOnMapEvent(bombToDeploy.Duplicate() as Bomb, Layer.Entities,
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     "Must place item on unoccupied space!",
                     50
                 );

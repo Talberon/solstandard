@@ -21,7 +21,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         public override void ApplyEffect(GameUnit target)
         {
-            GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(this));
+            GameUnit singer = GlobalContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(this));
             if (singer == null || !singer.IsAlive) return;
 
             List<SongStatus> songs = singer.StatusEffects.Where(status => status is SongStatus).Cast<SongStatus>()

@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.CancelUnitTargeting();
+            GlobalContext.GameMapContext.CancelUnitTargeting();
             Complete = true;
         }
     }

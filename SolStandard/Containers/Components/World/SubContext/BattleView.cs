@@ -251,7 +251,7 @@ namespace SolStandard.Containers.Components.World.SubContext
                     UnitStatistics.GetSpriteAtlas(Stats.AtkRange),
                     new RenderText(AssetManager.WindowFont, "In Range: "),
                     new RenderText(AssetManager.WindowFont, inRange.ToString(),
-                        (inRange) ? GameContext.PositiveColor : GameContext.NegativeColor)
+                        (inRange) ? GlobalContext.PositiveColor : GlobalContext.NegativeColor)
                 }
             };
 

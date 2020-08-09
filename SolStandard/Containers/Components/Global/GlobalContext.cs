@@ -31,7 +31,7 @@ using TiledSharp;
 
 namespace SolStandard.Containers.Components.Global
 {
-    public static class GameContext
+    public static class GlobalContext
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 

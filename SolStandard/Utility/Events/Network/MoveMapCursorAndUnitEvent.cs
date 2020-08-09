@@ -8,9 +8,9 @@ namespace SolStandard.Utility.Events.Network
     public class MoveMapCursorAndUnitEvent : NetworkEvent
     {
         private readonly Direction direction;
-        private readonly GameContext.GameState gameState;
+        private readonly GlobalContext.GameState gameState;
 
-        public MoveMapCursorAndUnitEvent(Direction direction, GameContext.GameState gameState)
+        public MoveMapCursorAndUnitEvent(Direction direction, GlobalContext.GameState gameState)
         {
             this.direction = direction;
             this.gameState = gameState;
@@ -18,10 +18,10 @@ namespace SolStandard.Utility.Events.Network
 
         public override void Continue()
         {
-            if (gameState == GameContext.GameState.InGame)
+            if (gameState == GlobalContext.GameState.InGame)
             {
-                GameContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
-                GameContext.GameMapContext.UpdateUnitAttackRangePreview();
+                GlobalContext.GameMapContext.MoveCursorAndSelectedUnitWithinMoveGrid(direction);
+                GlobalContext.GameMapContext.UpdateUnitAttackRangePreview();
             }
 
             Complete = true;

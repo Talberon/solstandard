@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) bankCoordinates.X, (int) bankCoordinates.Y] =
                 new MapDistanceTile(TileSprite, bankCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(bankCoordinates);
         }
 
         private static WindowContentGrid GenerateActionDescription()
@@ -74,7 +74,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public void Increment(int amountToIncrement)
         {
-            int maxGold = GameContext.InitiativeContext.GetGoldForTeam(GameContext.ActiveTeam);
+            int maxGold = GlobalContext.InitiativeContext.GetGoldForTeam(GlobalContext.ActiveTeam);
 
             if (Value + amountToIncrement > maxGold)
             {
@@ -106,7 +106,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             var selectedBank = targetSlice.TerrainEntity as Bank;
 
             if (Value > 0)
@@ -124,13 +124,13 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot deposit Gold here!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot deposit Gold here!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("No Gold specified!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -146,7 +146,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             Name = DescriptionTag + Value + Currency.CurrencyAbbreviation;
             Description = GenerateActionDescription();
 
-            GameContext.GameMapContext.RefreshCurrentActionMenuOption();
+            GlobalContext.GameMapContext.RefreshCurrentActionMenuOption();
         }
     }
 }

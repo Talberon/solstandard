@@ -43,7 +43,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 MapContainer.GameGrid[(int) mapLayer][(int) recall.MapCoordinates.X, (int) recall.MapCoordinates.Y] =
                     new MapDistanceTile(TileSprite, recall.MapCoordinates);
 
-                GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(recall.MapCoordinates);
+                GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(recall.MapCoordinates);
             }
         }
 
@@ -51,8 +51,8 @@ namespace SolStandard.Entity.Unit.Actions.Item
         {
             if (CanMoveToTargetTile(targetSlice))
             {
-                UnitEntity targetEntity = GameContext.ActiveUnit.UnitEntity;
-                GameContext.ActiveUnit.RemoveItemFromInventory(recallSource);
+                UnitEntity targetEntity = GlobalContext.ActiveUnit.UnitEntity;
+                GlobalContext.ActiveUnit.RemoveItemFromInventory(recallSource);
 
                 MapContainer.ClearDynamicAndPreviewGrids();
 
@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
                 eventQueue.Enqueue(new HideUnitEvent(targetEntity));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(
-                    new BlinkCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
+                    new BlinkCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
                 );
                 eventQueue.Enqueue(new RemoveEntityFromMapEvent(Layer.Entities, targetSlice.MapCoordinates));
                 eventQueue.Enqueue(new UnhideUnitEvent(targetEntity));
@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Can't transport here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

@@ -286,15 +286,15 @@ namespace SolStandard.Containers.Components.World
             ISpriteFont font = AssetManager.WindowFont;
 
             var blueGoldWindow = new Window(
-                new RenderText(font, $"Blue: {GameContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
+                new RenderText(font, $"Blue: {GlobalContext.InitiativeContext.GetGoldForTeam(Team.Blue)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Blue));
 
             var redGoldWindow = new Window(
-                new RenderText(font, $"Red: {GameContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
+                new RenderText(font, $"Red: {GlobalContext.InitiativeContext.GetGoldForTeam(Team.Red)}G"),
                 TeamUtility.DetermineTeamWindowColor(Team.Red));
 
 
-            bool blueIsFirst = GameContext.InitiativeContext.TeamWithFewerRemainingUnits == Team.Blue;
+            bool blueIsFirst = GlobalContext.InitiativeContext.TeamWithFewerRemainingUnits == Team.Blue;
             IRenderable firstIcon = MiscIconProvider.GetMiscIcon(MiscIcon.First, GameDriver.CellSizeVector);
             IRenderable secondIcon = MiscIconProvider.GetMiscIcon(MiscIcon.Second, GameDriver.CellSizeVector);
 
@@ -321,7 +321,7 @@ namespace SolStandard.Containers.Components.World
 
         public void GenerateActionMenus()
         {
-            Color windowColor = TeamUtility.DetermineTeamWindowColor(GameContext.ActiveTeam);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(GlobalContext.ActiveTeam);
 
             IMenu contextMenu = BuildContextMenu(windowColor);
 
@@ -447,7 +447,7 @@ namespace SolStandard.Containers.Components.World
 
         public void GenerateCurrentMenuDescription()
         {
-            Color windowColor = TeamUtility.DetermineTeamWindowColor(GameContext.ActiveTeam);
+            Color windowColor = TeamUtility.DetermineTeamWindowColor(GlobalContext.ActiveTeam);
 
             if (VisibleMenu == MenuType.ActionMenu)
             {
@@ -516,7 +516,7 @@ namespace SolStandard.Containers.Components.World
                     {
                         {
                             new RenderText(AssetManager.WindowFont,
-                                $"[ X: {GameContext.MapCursor.MapCoordinates.X}, Y: {GameContext.MapCursor.MapCoordinates.Y} ]"),
+                                $"[ X: {GlobalContext.MapCursor.MapCoordinates.X}, Y: {GlobalContext.MapCursor.MapCoordinates.Y} ]"),
                             RenderBlank.Blank
                         },
                         {
@@ -550,7 +550,7 @@ namespace SolStandard.Containers.Components.World
 
         public void GenerateObjectiveWindow()
         {
-            ObjectiveWindow = GameContext.Scenario.ScenarioInfo();
+            ObjectiveWindow = GlobalContext.Scenario.ScenarioInfo();
         }
 
         public void GenerateInitiativeWindow()
@@ -570,7 +570,7 @@ namespace SolStandard.Containers.Components.World
             const int unitsPerRow = 10;
             const int initiativeHealthBarHeight = 10;
 
-            List<GameUnit> unitList = GameContext.Units.FindAll(unit => unit.Team == team);
+            List<GameUnit> unitList = GlobalContext.Units.FindAll(unit => unit.Team == team);
 
             int rows = Convert.ToInt32(Math.Ceiling((float) unitList.Count / unitsPerRow));
 

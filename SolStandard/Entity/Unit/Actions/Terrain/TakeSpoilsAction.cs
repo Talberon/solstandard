@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) spoils.MapCoordinates.X, (int) spoils.MapCoordinates.Y] =
                 new MapDistanceTile(TileSprite, spoils.MapCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(spoils.MapCoordinates);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(spoils.MapCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -45,14 +45,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 eventQueue.Enqueue(
                     new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                 );
-                eventQueue.Enqueue(new TakeSpoilsEvent(spoils, GameContext.ActiveUnit));
+                eventQueue.Enqueue(new TakeSpoilsEvent(spoils, GlobalContext.ActiveUnit));
                 eventQueue.Enqueue(new WaitFramesEvent(30));
                 eventQueue.Enqueue(new AdditionalActionEvent());
                 GlobalEventQueue.QueueEvents(eventQueue);
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

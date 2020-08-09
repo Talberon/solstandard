@@ -42,14 +42,14 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit triggerer = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit triggerer = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return FindTriggerableInRange(triggerer) != null;
             }
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit activeUnit = GameContext.ActiveUnit;
+            GameUnit activeUnit = GlobalContext.ActiveUnit;
             ITriggerable targetTriggerable = FindTriggerableInRange(activeUnit);
 
             if (targetTriggerable != null)
@@ -58,7 +58,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                     activeUnit.UnitEntity,
                     "No targets in range to trigger!",
                     50

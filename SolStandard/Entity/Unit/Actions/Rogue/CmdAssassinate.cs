@@ -33,9 +33,9 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -46,14 +46,14 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                 int targetCurrentHP = targetUnit.Stats.CurrentHP;
                 if (targetCurrentHP <= damageThreshold)
                 {
-                    GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                    GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
 
                     for (int i = 0; i < targetCurrentHP; i++)
                     {
                         targetUnit.DamageUnit(true);
                     }
 
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                         $"Assassinated {targetUnit.Id}!", 50
                     );
 
@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                         $"Target must have [{damageThreshold}] {UnitStatistics.Abbreviation[Stats.Hp]} or fewer!", 50
                     );
                     AssetManager.WarningSFX.Play();
@@ -70,7 +70,7 @@ namespace SolStandard.Entity.Unit.Actions.Rogue
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

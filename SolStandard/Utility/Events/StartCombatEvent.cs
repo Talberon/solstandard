@@ -19,21 +19,21 @@ namespace SolStandard.Utility.Events
             this.targetUnit = targetUnit;
             this.freeAction = freeAction;
 
-            this.attackerStatsOverride = attackerStatsOverride ?? GameContext.ActiveUnit.Stats;
+            this.attackerStatsOverride = attackerStatsOverride ?? GlobalContext.ActiveUnit.Stats;
         }
 
         public void Continue()
         {
-            GameUnit attackingUnit = GameContext.ActiveUnit;
+            GameUnit attackingUnit = GlobalContext.ActiveUnit;
             GameUnit defendingUnit = targetUnit;
 
-            GameContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
+            GlobalContext.BattleContext.StartNewCombat(attackingUnit, defendingUnit, attackerStatsOverride,
                 defendingUnit.Stats, freeAction);
 
             AssetManager.CombatStartSFX.Play();
 
             
-            GameContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
+            GlobalContext.GameMapContext.CurrentTurnState = GameMapContext.TurnState.UnitActing;
             Complete = true;
         }
     }

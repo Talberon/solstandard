@@ -164,7 +164,7 @@ namespace SolStandard.Containers.Components.Draft
         private void FinishDraftPhase()
         {
             AssetManager.MenuConfirmSFX.Play();
-            GameContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn);
+            GlobalContext.StartNewDeployment(BlueUnits, RedUnits, CurrentTurn);
         }
 
         public void SelectCommander(GameUnit unit)

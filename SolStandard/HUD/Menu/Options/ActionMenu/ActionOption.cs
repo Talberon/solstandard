@@ -32,7 +32,7 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
                     {
                         icon,
                         new RenderText(AssetManager.WindowFont, name,
-                            freeAction ? GameContext.PositiveColor : Color.White)
+                            freeAction ? GlobalContext.PositiveColor : Color.White)
                     }
                 }
             );
@@ -46,8 +46,8 @@ namespace SolStandard.HUD.Menu.Options.ActionMenu
 
         public override void Execute()
         {
-            Action.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
-            GameContext.ActiveUnit.ArmUnitSkill(Action);
+            Action.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
+            GlobalContext.ActiveUnit.ArmUnitSkill(Action);
         }
 
         public override IRenderable Clone()

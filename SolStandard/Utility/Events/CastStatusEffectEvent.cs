@@ -22,7 +22,7 @@ namespace SolStandard.Utility.Events
         public void Continue()
         {
             targetUnit.AddStatusEffect(statusEffect);
-            GameContext.GameMapContext.PlayAnimationAtCoordinates(
+            GlobalContext.GameMapContext.PlayAnimationAtCoordinates(
                 AnimatedIconProvider.GetAnimatedIcon(AnimatedIconType.Interact, GameDriver.CellSizeVector),
                 targetUnit.UnitEntity?.MapCoordinates ?? Vector2.Zero
             );

@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
         {
             var attackTiles = new List<MapDistanceTile>();
 
-            int limitedGallopDistance = Math.Min(gallopDistance, GameContext.ActiveUnit.Stats.Mv);
+            int limitedGallopDistance = Math.Min(gallopDistance, GlobalContext.ActiveUnit.Stats.Mv);
 
             for (int i = limitedGallopDistance; i > 1; i--)
             {
@@ -60,7 +60,7 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 if (!Charge.PathIsObstructed(targetSlice, targetUnit))
                 {
                     Queue<IEvent> eventQueue = PathingUtil.MoveToCoordinates(
-                        GameContext.ActiveUnit,
+                        GlobalContext.ActiveUnit,
                         targetUnit.UnitEntity.MapCoordinates,
                         true,
                         false,
@@ -72,13 +72,13 @@ namespace SolStandard.Entity.Unit.Actions.Cavalier
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a unit in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

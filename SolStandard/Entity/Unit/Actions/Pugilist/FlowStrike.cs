@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
             {
-                GameUnit attacker = GameContext.ActiveUnit;
+                GameUnit attacker = GlobalContext.ActiveUnit;
                 var currentFlow =
                     attacker.StatusEffects.SingleOrDefault(status => status is FlowStatus) as FlowStatus;
 
@@ -76,7 +76,7 @@ namespace SolStandard.Entity.Unit.Actions.Pugilist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

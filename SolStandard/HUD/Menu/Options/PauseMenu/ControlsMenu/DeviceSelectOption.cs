@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.OpenRemapMenu(device);
+            GlobalContext.ControlConfigContext.OpenRemapMenu(device);
         }
 
         public override IRenderable Clone()

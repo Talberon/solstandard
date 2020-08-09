@@ -20,8 +20,8 @@ namespace SolStandard.Containers.Components.InputRemapping
         private const int WindowPadding = 10;
         private static readonly Color PrimaryWindowColor = new Color(50, 50, 60);
         private static readonly Color KeyboardOptionColor = TeamUtility.DetermineTeamWindowColor(Team.Creep);
-        private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamWindowColor(GameContext.P1Team);
-        private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamWindowColor(GameContext.P2Team);
+        private static readonly Color PlayerOneColor = TeamUtility.DetermineTeamWindowColor(GlobalContext.P1Team);
+        private static readonly Color PlayerTwoColor = TeamUtility.DetermineTeamWindowColor(GlobalContext.P2Team);
 
         public ControlConfigContext.ControlMenuState CurrentState { get; set; }
         private readonly IRenderable cursorSprite;

@@ -220,7 +220,7 @@ namespace SolStandard.Containers.Components.Network
 
         public void Exit()
         {
-            GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
             AssetManager.MapUnitCancelSFX.Play();
             ResetIPAddress();
         }

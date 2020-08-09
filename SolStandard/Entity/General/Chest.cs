@@ -75,11 +75,11 @@ namespace SolStandard.Entity.General
         {
             if (SpecificItem == null)
             {
-                SpecificItem = GameContext.GameMapContext.MapContainer.GetRandomItemFromPool(ItemPool);
+                SpecificItem = GlobalContext.GameMapContext.MapContainer.GetRandomItemFromPool(ItemPool);
             }
 
             if (SpecificItem == null) return;
-            GlobalEventQueue.QueueSingleEvent(new AddItemToUnitInventoryEvent(GameContext.ActiveUnit, SpecificItem));
+            GlobalEventQueue.QueueSingleEvent(new AddItemToUnitInventoryEvent(GlobalContext.ActiveUnit, SpecificItem));
             GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(30));
         }
 
@@ -95,7 +95,7 @@ namespace SolStandard.Entity.General
             if (!CanTrigger) return;
 
             UnitAction toggleAction = new OpenChestAction(this, MapCoordinates, false);
-            toggleAction.GenerateActionGrid(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            toggleAction.GenerateActionGrid(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             toggleAction.ExecuteAction(MapContainer.GetMapSliceAtCoordinates(MapCoordinates));
             GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
             MapContainer.ClearDynamicAndPreviewGrids();

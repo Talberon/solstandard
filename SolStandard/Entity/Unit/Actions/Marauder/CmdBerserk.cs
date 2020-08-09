@@ -60,12 +60,12 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actor = GameContext.ActiveUnit;
+            GameUnit actor = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (!CanAffordCommandCost(actor, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -73,7 +73,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
 
             if (Value < 1)
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     "Must specify at least 1 point of damage!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -88,7 +88,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
                     actor.DamageUnit();
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Dealt {Value} damage to self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor($"Dealt {Value} damage to self!", 50);
                 AssetManager.CombatDamageSFX.Play();
 
                 GlobalEventQueue.QueueSingleEvent(new WaitFramesEvent(50));
@@ -96,14 +96,14 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         public void Increment(int amountToIncrement)
         {
-            int maxDamage = GameContext.ActiveUnit.Stats.CurrentHP - 1;
+            int maxDamage = GlobalContext.ActiveUnit.Stats.CurrentHP - 1;
 
             if (Value + amountToIncrement > maxDamage)
             {
@@ -136,7 +136,7 @@ namespace SolStandard.Entity.Unit.Actions.Marauder
         private void UpdateSkillName()
         {
             Name = $"[{cmdCost}{UnitStatistics.Abbreviation[Stats.CommandPoints]}] {SkillName}: {Value} {UnitStatistics.Abbreviation[Stats.Hp]}";
-            GameContext.GameMapContext.RefreshCurrentActionMenuOption();
+            GlobalContext.GameMapContext.RefreshCurrentActionMenuOption();
         }
     }
 }

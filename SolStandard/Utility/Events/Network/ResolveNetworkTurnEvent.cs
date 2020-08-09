@@ -9,7 +9,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.GameMapContext.ResolveTurn();
+            GlobalContext.GameMapContext.ResolveTurn();
             AssetManager.MapUnitSelectSFX.Play();
             Complete = true;
         }

@@ -45,7 +45,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             get
             {
-                GameUnit summoner = GameContext.Units.Find(creep => creep.Actions.Contains(this));
+                GameUnit summoner = GlobalContext.Units.Find(creep => creep.Actions.Contains(this));
                 return CanPlaceUnitOnAdjacentTile(summoner);
             }
         }
@@ -56,7 +56,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
                 new ToastAtCoordinatesEvent(targetSlice.MapCoordinates, "Summoning " + creepModel.CreepClass + "!", 50)
             );
 
-            if (CanPlaceUnitOnAdjacentTile(GameContext.ActiveUnit))
+            if (CanPlaceUnitOnAdjacentTile(GlobalContext.ActiveUnit))
             {
                 PlaceUnitOnRandomValidAdjacentTile();
                 GlobalEventQueue.QueueSingleEvent(new CreepEndTurnEvent());
@@ -85,7 +85,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         private void PlaceUnitOnRandomValidAdjacentTile()
         {
-            List<MapElement> shuffledTilesInRange = GetTilesInRange(GameContext.ActiveUnit.UnitEntity.MapCoordinates);
+            List<MapElement> shuffledTilesInRange = GetTilesInRange(GlobalContext.ActiveUnit.UnitEntity.MapCoordinates);
             shuffledTilesInRange.Shuffle();
 
             foreach (MapElement element in shuffledTilesInRange)
@@ -122,7 +122,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid target!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
@@ -134,8 +134,8 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             creepToSpawn.UnitEntity.SnapToCoordinates(mapCoordinates);
             creepToSpawn.ExhaustAndDisableUnit();
             creepToSpawn.ReadyNextRoutine();
-            GameContext.Units.Add(creepToSpawn);
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
+            GlobalContext.Units.Add(creepToSpawn);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Spawned new " + role + "!", 50);
             AssetManager.SkillBuffSFX.Play();
         }
 
@@ -156,7 +156,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
         {
             GlobalEventQueue.QueueSingleEvent(
                 new ToastAtCoordinatesEvent(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates,
                     message,
                     AssetManager.WarningSFX
                 )

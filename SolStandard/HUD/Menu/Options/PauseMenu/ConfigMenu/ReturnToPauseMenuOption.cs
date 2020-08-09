@@ -23,7 +23,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ConfigMenu
             if (FromMainMenu)
             {
                 AssetManager.MapUnitSelectSFX.Play();
-                GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+                GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
             }
             else
             {

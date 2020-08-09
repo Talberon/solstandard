@@ -15,15 +15,15 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(targetCameraPosition);
 
-            if (GameContext.GameMapContext.MapContainer.MapCursor.IsOnScreen)
+            if (GlobalContext.GameMapContext.MapContainer.MapCursor.IsOnScreen)
             {
-                GameContext.GameMapContext.MapContainer.MapCamera.CenterCameraToCursor();
+                GlobalContext.GameMapContext.MapContainer.MapCamera.CenterCameraToCursor();
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
+                GlobalContext.GameMapContext.MapContainer.MapCamera.SnapCameraCenterToCursor();
             }
 
             Complete = true;

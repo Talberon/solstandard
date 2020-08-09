@@ -38,7 +38,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             MapContainer.GameGrid[(int) mapLayer][(int) tileCoordinates.X, (int) tileCoordinates.Y] =
                 new MapDistanceTile(TileSprite, tileCoordinates);
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(tileCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -57,14 +57,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                         eventQueue.Enqueue(
                             new PlayAnimationAtCoordinatesEvent(AnimatedIconType.Interact, targetSlice.MapCoordinates)
                         );
-                        eventQueue.Enqueue(new EscapeObjectiveEvent(GameContext.ActiveUnit));
+                        eventQueue.Enqueue(new EscapeObjectiveEvent(GlobalContext.ActiveUnit));
                         eventQueue.Enqueue(new WaitFramesEvent(10));
                         eventQueue.Enqueue(new EndTurnEvent());
                         GlobalEventQueue.QueueEvents(eventQueue);
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                             "Not allowed to escape; Commander must escape last!",
                             50
                         );
@@ -73,21 +73,21 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be used by this team!",
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot be used by this team!",
                         50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Invalid selection!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         public static void EscapeWithUnit(GameUnit escapingUnit)
         {
-            ((Escape) GameContext.Scenario.Objectives.Single(obj => obj.Key == VictoryConditions.Escape).Value)
+            ((Escape) GlobalContext.Scenario.Objectives.Single(obj => obj.Key == VictoryConditions.Escape).Value)
                 .AddUnitToEscapeeList(escapingUnit);
             escapingUnit.Escape();
             AssetManager.SkillBlinkSFX.Play();
@@ -95,7 +95,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static bool UnitIsAllowedToEscape(GameUnit targetUnit)
         {
-            if (targetUnit == GameContext.ActiveUnit && !targetUnit.IsCommander)
+            if (targetUnit == GlobalContext.ActiveUnit && !targetUnit.IsCommander)
             {
                 return true;
             }
@@ -113,10 +113,10 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
 
         private static bool AnyUnitTeamMembersAliveAndNotEscaped(GameUnit targetUnit)
         {
-            return GameContext.Units.Where(unit => unit.Team == targetUnit.Team && unit != targetUnit)
+            return GlobalContext.Units.Where(unit => unit.Team == targetUnit.Team && unit != targetUnit)
                 .Any(
                     unit => unit.IsAlive &&
-                            !((Escape) GameContext.Scenario.Objectives
+                            !((Escape) GlobalContext.Scenario.Objectives
                                 .Single(obj => obj.Key == VictoryConditions.Escape)
                                 .Value).EscapedUnits.Contains(unit)
                 );
@@ -132,7 +132,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
         {
             get
             {
-                return GameContext.ActiveTeam switch
+                return GlobalContext.ActiveTeam switch
                 {
                     Team.Red => escapeEntity.UseableByRed,
                     Team.Blue => escapeEntity.UseableByBlue,

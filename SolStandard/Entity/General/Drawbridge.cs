@@ -76,9 +76,9 @@ namespace SolStandard.Entity.General
 
         public void RemoteTrigger()
         {
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
-            GameContext.MapCamera.SnapCameraCenterToCursor();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(MapCoordinates);
+            GlobalContext.MapCamera.SnapCameraCenterToCursor();
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(Name + " triggered!", 50);
 
             ToggleOpen();
         }

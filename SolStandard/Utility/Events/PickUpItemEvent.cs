@@ -24,12 +24,12 @@ namespace SolStandard.Utility.Events
 
         public void Continue()
         {
-            GameContext.ActiveUnit.AddItemToInventory(item);
+            GlobalContext.ActiveUnit.AddItemToInventory(item);
             RemoveItemFromMap(item, itemCoordinates);
             AssetManager.MenuConfirmSFX.Play();
             GameMapContext.GameMapView.GenerateObjectiveWindow();
 
-            AddItemToUnitInventoryEvent.ItemToast(GameContext.ActiveUnit, item);
+            AddItemToUnitInventoryEvent.ItemToast(GlobalContext.ActiveUnit, item);
 
             Complete = true;
         }

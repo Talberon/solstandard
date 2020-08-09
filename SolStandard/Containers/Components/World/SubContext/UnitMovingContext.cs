@@ -137,7 +137,7 @@ namespace SolStandard.Containers.Components.World.SubContext
 
         public static bool CanEndMoveAtCoordinates(Vector2 coordinates)
         {
-            return CanEndMoveAtCoordinates(GameContext.ActiveUnit?.UnitEntity, coordinates);
+            return CanEndMoveAtCoordinates(GlobalContext.ActiveUnit?.UnitEntity, coordinates);
         }
 
         public static bool CanEndMoveAtCoordinates(UnitEntity unitEntityEndingMove, Vector2 coordinates)
@@ -147,7 +147,7 @@ namespace SolStandard.Containers.Components.World.SubContext
             MapSlice slice = MapContainer.GetMapSliceAtCoordinates(coordinates);
 
             if (slice.UnitEntity != null &&
-                (GameContext.ActiveUnit == null || slice.UnitEntity != unitEntityEndingMove)) return false;
+                (GlobalContext.ActiveUnit == null || slice.UnitEntity != unitEntityEndingMove)) return false;
 
             if (slice.TerrainEntity != null)
             {

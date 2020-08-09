@@ -34,9 +34,9 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
         {
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
-            if (!CanAffordCommandCost(GameContext.ActiveUnit, cmdCost))
+            if (!CanAffordCommandCost(GlobalContext.ActiveUnit, cmdCost))
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                     $"This action requires {cmdCost} {UnitStatistics.Abbreviation[Stats.CommandPoints]}!", 50);
                 AssetManager.WarningSFX.Play();
                 return;
@@ -49,7 +49,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 {
                     if (currentFocus.FocusPoints < maxActions)
                     {
-                        GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                        GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                         AssetManager.SkillBuffSFX.Play();
                         AssetManager.MenuConfirmSFX.Play();
                         GlobalEventQueue.QueueSingleEvent(
@@ -59,13 +59,13 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
+                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Max focus points reached!", 50);
                         AssetManager.WarningSFX.Play();
                     }
                 }
                 else
                 {
-                    GameContext.ActiveUnit.RemoveCommandPoints(cmdCost);
+                    GlobalContext.ActiveUnit.RemoveCommandPoints(cmdCost);
                     GlobalEventQueue.QueueSingleEvent(
                         new CastStatusEffectEvent(
                             targetUnit,
@@ -78,7 +78,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target self!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

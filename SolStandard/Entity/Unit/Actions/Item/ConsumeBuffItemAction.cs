@@ -66,7 +66,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
 
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not a friendly unit in range!", 50);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace SolStandard.Entity.Unit.Statuses
             AssetManager.SkillBuffSFX.Play();
             target.Stats.LuckModifier += luckModifier;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

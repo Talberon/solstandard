@@ -47,7 +47,7 @@ namespace SolStandard.Entity.Unit.Actions
         {
             var unitTargetingContext = new UnitTargetingContext(TileSprite);
             unitTargetingContext.GenerateTargetingGrid(origin, Range, mapLayer);
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(origin);
         }
 
         public abstract void ExecuteAction(MapSlice targetSlice);
@@ -69,14 +69,14 @@ namespace SolStandard.Entity.Unit.Actions
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && (targetUnit.Team == GameContext.ActiveTeam || TargetIsACoOpAlly(targetUnit));
+                && (targetUnit.Team == GlobalContext.ActiveTeam || TargetIsACoOpAlly(targetUnit));
         }
 
         protected static bool TargetIsAnEnemyInRange(MapSlice targetSlice, GameUnit targetUnit)
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && GameContext.ActiveTeam != targetUnit.Team
+                && GlobalContext.ActiveTeam != targetUnit.Team
                 && !TargetIsACoOpAlly(targetUnit);
         }
 
@@ -84,12 +84,12 @@ namespace SolStandard.Entity.Unit.Actions
         {
             return
                 TargetIsUnitInRange(targetSlice, targetUnit)
-                && GameContext.ActiveUnit == targetUnit;
+                && GlobalContext.ActiveUnit == targetUnit;
         }
 
         protected static bool TargetIsACoOpAlly(GameUnit targetUnit)
         {
-            return GameContext.Scenario.Objectives.ContainsKey(VictoryConditions.CollectTheRelicsCoOp) &&
+            return GlobalContext.Scenario.Objectives.ContainsKey(VictoryConditions.CollectTheRelicsCoOp) &&
                    targetUnit.Team != Team.Creep;
         }
 

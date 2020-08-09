@@ -117,7 +117,7 @@ namespace SolStandard.Entity.General
             .Any(item => item.MapCoordinates == MapCoordinates);
 
         private bool UnitIsStandingOnPressurePlate =>
-            GameContext.Units.Any(unit => unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
+            GlobalContext.Units.Any(unit => unit.UnitEntity != null && unit.UnitEntity.MapCoordinates == MapCoordinates);
 
         protected override IRenderable EntityInfo =>
             new WindowContentGrid(

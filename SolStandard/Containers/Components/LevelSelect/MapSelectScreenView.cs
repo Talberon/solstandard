@@ -67,8 +67,8 @@ namespace SolStandard.Containers.Components.LevelSelect
         public void UpdateTeamSelectWindow()
         {
             const int iconSize = 48;
-            Color solWindowColor = (GameContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
-            Color lunaWindowColor = (GameContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
+            Color solWindowColor = (GlobalContext.P1Team == Team.Red) ? SelectedTeamColor : MapInfoWindowColor;
+            Color lunaWindowColor = (GlobalContext.P1Team == Team.Blue) ? SelectedTeamColor : MapInfoWindowColor;
 
             var teamSelectContent = new WindowContentGrid(new[,]
                 {
@@ -80,7 +80,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                                 {
                                     new Window(
                                         new RenderText(AssetManager.WindowFont,
-                                            (GameContext.P1Team == Team.Red) ? "P1" : "P2"),
+                                            (GlobalContext.P1Team == Team.Red) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamWindowColor(Team.Red)
                                     )
                                 },
@@ -102,7 +102,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                                 {
                                     new Window(
                                         new RenderText(AssetManager.WindowFont,
-                                            (GameContext.P1Team == Team.Blue) ? "P1" : "P2"),
+                                            (GlobalContext.P1Team == Team.Blue) ? "P1" : "P2"),
                                         TeamUtility.DetermineTeamWindowColor(Team.Blue)
                                     )
                                 },

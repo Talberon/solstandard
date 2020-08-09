@@ -131,27 +131,27 @@ namespace SolStandard
 
         public static void NewGame(string mapName, Scenario scenario, Team firstTeam)
         {
-            GameContext.StartGame(mapName, scenario, firstTeam);
+            GlobalContext.StartGame(mapName, scenario, firstTeam);
         }
 
         public static void HostGame()
         {
             //Start Server
             string serverIP = ConnectionManager.StartServer();
-            GameContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
-            GameContext.NetworkMenuView.GenerateHostMenu();
-            GameContext.NetworkMenuView.RemoveDialMenu();
-            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+            GlobalContext.NetworkMenuView.UpdateStatus(serverIP, true, serverIP != null);
+            GlobalContext.NetworkMenuView.GenerateHostMenu();
+            GlobalContext.NetworkMenuView.RemoveDialMenu();
+            GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
         public static void JoinGame(string serverIPAddress = "127.0.0.1")
         {
             //Start Client
             ConnectionManager.StartClient(serverIPAddress, ConnectionManager.NetworkPort);
-            GameContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
-            GameContext.NetworkMenuView.GenerateDialMenu();
-            GameContext.NetworkMenuView.RemoveHostMenu();
-            GameContext.CurrentGameState = GameContext.GameState.NetworkMenu;
+            GlobalContext.NetworkMenuView.UpdateStatus(serverIPAddress, false);
+            GlobalContext.NetworkMenuView.GenerateDialMenu();
+            GlobalContext.NetworkMenuView.RemoveHostMenu();
+            GlobalContext.CurrentGameState = GlobalContext.GameState.NetworkMenu;
         }
 
         public static bool ConnectedAsServer => ConnectionManager.ConnectedAsServer;
@@ -195,8 +195,8 @@ namespace SolStandard
         {
             return playerIndex switch
             {
-                PlayerIndex.One => ((GameContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
-                PlayerIndex.Two => ((GameContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.One => ((GlobalContext.P1Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
+                PlayerIndex.Two => ((GlobalContext.P2Team == Team.Blue) ? _blueTeamControlMapper : _redTeamControlMapper),
                 _ => GetControlMapperForPlayer(PlayerIndex.One)
             };
         }
@@ -248,8 +248,8 @@ namespace SolStandard
 
             PauseScreenView.Initialize(this);
 
-            GameContext.Initialize(mainMenu, networkMenu);
-            InitializeControlMappers(GameContext.P1Team);
+            GlobalContext.Initialize(mainMenu, networkMenu);
+            InitializeControlMappers(GlobalContext.P1Team);
             InputBindings = new InputBindings();
 
             ConnectionManager = new ConnectionManager();
@@ -314,8 +314,8 @@ namespace SolStandard
 
             if (GlobalEventQueue.UpdateEventsEveryFrame())
             {
-                ControlMapper activeController = GetControlMapperForPlayer(GameContext.ActivePlayer);
-                switch (GameContext.ActivePlayer)
+                ControlMapper activeController = GetControlMapperForPlayer(GlobalContext.ActivePlayer);
+                switch (GlobalContext.ActivePlayer)
                 {
                     case PlayerIndex.One:
                         if (ConnectionManager.ConnectedAsServer)
@@ -373,45 +373,45 @@ namespace SolStandard
                 }
             }
 
-            switch (GameContext.CurrentGameState)
+            switch (GlobalContext.CurrentGameState)
             {
-                case GameContext.GameState.EULAConfirm:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.EULAConfirm:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.MainMenu:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.MainMenu:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.NetworkMenu:
+                case GlobalContext.GameState.NetworkMenu:
                     break;
-                case GameContext.GameState.ArmyDraft:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.ArmyDraft:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.Deployment:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.Deployment:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.MapSelect:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.MapSelect:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.PauseScreen:
+                case GlobalContext.GameState.PauseScreen:
                     break;
-                case GameContext.GameState.InGame:
-                    GameContext.GameMapContext.UpdateHoverContextWindows();
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.InGame:
+                    GlobalContext.GameMapContext.UpdateHoverContextWindows();
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.Codex:
+                case GlobalContext.GameState.Codex:
                     break;
-                case GameContext.GameState.Credits:
+                case GlobalContext.GameState.Credits:
                     break;
-                case GameContext.GameState.Results:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.Results:
+                    GlobalContext.UpdateCamera();
                     break;
-                case GameContext.GameState.ItemPreview:
+                case GlobalContext.GameState.ItemPreview:
                     break;
-                case GameContext.GameState.ControlConfig:
-                    GameContext.ControlConfigContext.Update();
+                case GlobalContext.GameState.ControlConfig:
+                    GlobalContext.ControlConfigContext.Update();
                     break;
-                case GameContext.GameState.HowToPlay:
-                    GameContext.UpdateCamera();
+                case GlobalContext.GameState.HowToPlay:
+                    GlobalContext.UpdateCamera();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -428,69 +428,69 @@ namespace SolStandard
         {
             GraphicsDevice.Clear(BackgroundColor);
 
-            switch (GameContext.CurrentGameState)
+            switch (GlobalContext.CurrentGameState)
             {
-                case GameContext.GameState.EULAConfirm:
+                case GlobalContext.GameState.EULAConfirm:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
                     DrawEULAPrompt();
                     break;
-                case GameContext.GameState.MainMenu:
+                case GlobalContext.GameState.MainMenu:
                     DrawBackgroundWallpaper();
                     DrawMapSelectMap();
                     DrawMainMenu();
                     break;
-                case GameContext.GameState.NetworkMenu:
+                case GlobalContext.GameState.NetworkMenu:
                     DrawBackgroundWallpaper();
                     DrawNetworkMenu();
                     break;
-                case GameContext.GameState.Deployment:
+                case GlobalContext.GameState.Deployment:
                     DrawInGameMap();
                     DrawDeploymentHUD();
                     break;
-                case GameContext.GameState.ArmyDraft:
+                case GlobalContext.GameState.ArmyDraft:
                     DrawInGameMap();
                     DrawDraftMenu();
                     break;
-                case GameContext.GameState.MapSelect:
+                case GlobalContext.GameState.MapSelect:
                     DrawMapSelectMap();
                     DrawMapSelectHUD();
                     break;
-                case GameContext.GameState.PauseScreen:
+                case GlobalContext.GameState.PauseScreen:
                     DrawBackgroundWallpaper();
                     DrawPauseMenu();
                     break;
-                case GameContext.GameState.InGame:
+                case GlobalContext.GameState.InGame:
                     DrawInGameMap();
-                    if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+                    if (GlobalContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
                     {
                         DrawColorEntireScreen(ActionFade);
                     }
 
                     DrawInGameHUD();
                     break;
-                case GameContext.GameState.Codex:
+                case GlobalContext.GameState.Codex:
                     DrawBackgroundWallpaper();
                     DrawCodexScreen();
                     break;
-                case GameContext.GameState.Results:
+                case GlobalContext.GameState.Results:
                     DrawInGameMap();
                     DrawGameResultsScreen();
                     break;
-                case GameContext.GameState.Credits:
+                case GlobalContext.GameState.Credits:
                     DrawBackgroundWallpaper();
                     DrawCreditsScreen();
                     break;
-                case GameContext.GameState.ItemPreview:
+                case GlobalContext.GameState.ItemPreview:
                     DrawInGameMap();
                     DrawColorEntireScreen(ActionFade);
                     DrawInGameHUD();
                     break;
-                case GameContext.GameState.ControlConfig:
+                case GlobalContext.GameState.ControlConfig:
                     DrawBackgroundWallpaper();
                     DrawControlConfigScreen();
                     break;
-                case GameContext.GameState.HowToPlay:
+                case GlobalContext.GameState.HowToPlay:
                     DrawBackgroundWallpaper();
                     DrawHowToPlayScreen();
                     break;
@@ -504,7 +504,7 @@ namespace SolStandard
         private void DrawBackgroundWallpaper()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.StaticBackgroundView.Draw(spriteBatch);
+            GlobalContext.StaticBackgroundView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -518,30 +518,30 @@ namespace SolStandard
         private void DrawEULAPrompt()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.EULAContext.EULAView.Draw(spriteBatch);
+            GlobalContext.EULAContext.EULAView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMainMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.MainMenuView.Draw(spriteBatch);
+            GlobalContext.MainMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawNetworkMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.NetworkMenuView.Draw(spriteBatch);
+            GlobalContext.NetworkMenuView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawMapSelectMap()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GameContext.MapCamera.CameraMatrix);
+                GlobalContext.MapCamera.CameraMatrix);
 
-            GameContext.MapSelectContext.MapContainer.Draw(spriteBatch);
+            GlobalContext.MapSelectContext.MapContainer.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -549,14 +549,14 @@ namespace SolStandard
         private void DrawMapSelectHUD()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
+            GlobalContext.MapSelectContext.MapSelectScreenView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawDraftMenu()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.DraftContext.DraftView.Draw(spriteBatch);
+            GlobalContext.DraftContext.DraftView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -564,7 +564,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GameContext.StatusScreenView.Draw(spriteBatch);
+            GlobalContext.StatusScreenView.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -573,7 +573,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GameContext.CreditsContext.CreditsView.Draw(spriteBatch);
+            GlobalContext.CreditsContext.CreditsView.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -582,7 +582,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            GameContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
+            GlobalContext.HowToPlayContext.HowToPlayView.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -598,7 +598,7 @@ namespace SolStandard
         private void DrawDeploymentHUD()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
+            GlobalContext.DeploymentContext.DeploymentView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -606,7 +606,7 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.CodexContext.CodexView.Draw(spriteBatch);
+            GlobalContext.CodexContext.CodexView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -614,15 +614,15 @@ namespace SolStandard
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            GameContext.ControlConfigContext.View.Draw(spriteBatch);
+            GlobalContext.ControlConfigContext.View.Draw(spriteBatch);
             spriteBatch.End();
         }
 
         private void DrawInGameMap()
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null,
-                GameContext.MapCamera.CameraMatrix);
-            GameContext.GameMapContext.MapContainer.Draw(spriteBatch);
+                GlobalContext.MapCamera.CameraMatrix);
+            GlobalContext.GameMapContext.MapContainer.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -630,9 +630,9 @@ namespace SolStandard
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            if (GameContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
+            if (GlobalContext.GameMapContext.CurrentTurnState == GameMapContext.TurnState.UnitActing)
             {
-                GameContext.BattleContext.Draw(spriteBatch);
+                GlobalContext.BattleContext.Draw(spriteBatch);
             }
             else
             {

@@ -23,7 +23,7 @@ namespace SolStandard.Entity.Unit.Statuses
         public override void ApplyEffect(GameUnit target)
         {
             AssetManager.SkillBuffSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50
@@ -34,7 +34,7 @@ namespace SolStandard.Entity.Unit.Statuses
         {
             target.RecoverHP(healthModifier);
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 target.Id + " regenerates [" + healthModifier + "] " + UnitStatistics.Abbreviation[Stats.Hp] + "!",
                 50

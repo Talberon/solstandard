@@ -40,11 +40,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             return true;
         }
 
-        public bool CanExecute => TilesWithinThreatRangeForUnit(GameContext.ActiveUnit, Independent).Count > 0;
+        public bool CanExecute => TilesWithinThreatRangeForUnit(GlobalContext.ActiveUnit, Independent).Count > 0;
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> targetsInRange = TilesWithinThreatRangeForUnit(attacker, Independent);
 
@@ -55,7 +55,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates("No valid targets in range!",
                     targetSlice.MapCoordinates, 50);
                 AssetManager.WarningSFX.Play();
             }
@@ -96,11 +96,11 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
             var unitTargetingContext =
                 new UnitTargetingContext(MapDistanceTile.GetTileSprite(MapDistanceTile.TileType.Dark));
 
-            foreach (GameUnit targetUnit in GameContext.Units)
+            foreach (GameUnit targetUnit in GlobalContext.Units)
             {
                 if (targetUnit.UnitEntity == null) continue;
-                if (targetUnit.UnitEntity == GameContext.ActiveUnit.UnitEntity) continue;
-                if (!isIndependent && targetUnit.Team == GameContext.ActiveTeam) continue;
+                if (targetUnit.UnitEntity == GlobalContext.ActiveUnit.UnitEntity) continue;
+                if (!isIndependent && targetUnit.Team == GlobalContext.ActiveTeam) continue;
 
                 unitTargetingContext.GenerateTargetingGrid(targetUnit.UnitEntity.MapCoordinates, creep.AtkRange,
                     Layer.Preview);

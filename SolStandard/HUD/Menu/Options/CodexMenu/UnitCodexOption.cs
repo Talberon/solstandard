@@ -52,7 +52,7 @@ namespace SolStandard.HUD.Menu.Options.CodexMenu
 
         public override void Execute()
         {
-            GameContext.CodexContext.ShowUnitDetails(unit);
+            GlobalContext.CodexContext.ShowUnitDetails(unit);
         }
 
         public override IRenderable Clone()

@@ -42,7 +42,7 @@ namespace SolStandard.Entity.General
 
         public static void Deposit(GameUnit depositer, int goldToDeposit)
         {
-            GameContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
+            GlobalContext.InitiativeContext.DeductGoldFromTeam(goldToDeposit, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -57,7 +57,7 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} deposits {goldToDeposit}{Currency.CurrencyAbbreviation} to the bank!",
                 50
             );
@@ -66,7 +66,7 @@ namespace SolStandard.Entity.General
 
         public static void Withdraw(GameUnit depositer, int goldToWithdraw)
         {
-            GameContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
+            GlobalContext.InitiativeContext.AddGoldToTeam(goldToWithdraw, depositer.Team);
 
             switch (depositer.Team)
             {
@@ -81,7 +81,7 @@ namespace SolStandard.Entity.General
             }
 
             AssetManager.CoinSFX.Play();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(
                 $"{depositer.Id} withdraws {goldToWithdraw}{Currency.CurrencyAbbreviation} from the bank!",
                 50
             );

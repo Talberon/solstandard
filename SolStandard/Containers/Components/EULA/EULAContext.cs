@@ -23,7 +23,7 @@ namespace SolStandard.Containers.Components.EULA
             AssetManager.MenuConfirmSFX.Play();
             GameDriver.FileIO.Save(EULAFileName, true);
             EULAConfirmed = true;
-            GameContext.CurrentGameState = GameContext.GameState.MainMenu;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.MainMenu;
         }
 
         public void ScrollWindow(Direction direction)

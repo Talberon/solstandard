@@ -29,7 +29,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (TargetIsAnEnemyInRange(targetSlice, targetUnit))
@@ -53,13 +53,13 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Rear tile is obstructed!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Rear tile is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

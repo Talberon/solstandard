@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.BattleContext.ContinueCombat();
+            GlobalContext.BattleContext.ContinueCombat();
             Complete = true;
         }
     }

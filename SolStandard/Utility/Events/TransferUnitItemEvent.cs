@@ -44,7 +44,7 @@ namespace SolStandard.Utility.Events
             );
 
             GameMapContext.GameMapView.GenerateObjectiveWindow();
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor(toastContent, 50);
             AssetManager.MenuConfirmSFX.Play();
 
             Complete = true;

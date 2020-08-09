@@ -35,7 +35,7 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             MapContainer.GameGrid[(int) mapLayer][(int) targetCoordinates.X, (int) targetCoordinates.Y] =
                 new MapDistanceTile(TileSprite, targetCoordinates);
 
-            GameContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
+            GlobalContext.GameMapContext.MapContainer.MapCursor.SnapCameraAndCursorToCoordinates(targetCoordinates);
         }
 
         public override void ExecuteAction(MapSlice targetSlice)
@@ -73,21 +73,21 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
                     }
                     else
                     {
-                        GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
+                        GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Chest is locked!", 50);
                         AssetManager.LockedSFX.Play();
                     }
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot open chest here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private static Key ActiveUnitMatchingKey(MapSlice targetSlice)
         {
-            return GameContext.ActiveUnit.Inventory.Where(item => item is Key).Cast<Key>()
+            return GlobalContext.ActiveUnit.Inventory.Where(item => item is Key).Cast<Key>()
                 .FirstOrDefault(key => key.UsedWith == targetSlice.TerrainEntity.Name);
         }
 

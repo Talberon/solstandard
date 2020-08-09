@@ -14,7 +14,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu
 
         public override void Execute()
         {
-            GameContext.CurrentGameState = GameContext.GameState.InGame;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.InGame;
         }
 
         public override IRenderable Clone()

@@ -27,7 +27,7 @@ namespace SolStandard.Entity.Unit.Actions.Creeps
 
         public override void ExecuteAction(MapSlice targetSlice)
         {
-            GameUnit attacker = GameContext.ActiveUnit;
+            GameUnit attacker = GlobalContext.ActiveUnit;
 
             List<KeyValuePair<GameUnit, Vector2>> commandersInRange =
                 CommandersInRange(TilesWithinThreatRangeForUnit(attacker, Independent));

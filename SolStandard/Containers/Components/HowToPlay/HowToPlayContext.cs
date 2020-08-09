@@ -8,7 +8,7 @@ namespace SolStandard.Containers.Components.HowToPlay
     public class HowToPlayContext
     {
         public ScrollingTextPaneView HowToPlayView { get; }
-        private GameContext.GameState previousGameState;
+        private GlobalContext.GameState previousGameState;
         private const string HowToPlayPath = "/how-to-play";
 
         public HowToPlayContext()
@@ -18,16 +18,16 @@ namespace SolStandard.Containers.Components.HowToPlay
 
         public void OpenView()
         {
-            if (GameContext.CurrentGameState == GameContext.GameState.HowToPlay) return;
+            if (GlobalContext.CurrentGameState == GlobalContext.GameState.HowToPlay) return;
 
-            previousGameState = GameContext.CurrentGameState;
-            GameContext.CurrentGameState = GameContext.GameState.HowToPlay;
+            previousGameState = GlobalContext.CurrentGameState;
+            GlobalContext.CurrentGameState = GlobalContext.GameState.HowToPlay;
         }
 
         public void ExitView()
         {
             AssetManager.MapUnitCancelSFX.Play();
-            GameContext.CurrentGameState = previousGameState;
+            GlobalContext.CurrentGameState = previousGameState;
         }
 
         public void ScrollWindow(Direction direction)

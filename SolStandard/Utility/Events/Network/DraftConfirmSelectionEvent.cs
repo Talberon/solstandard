@@ -8,7 +8,7 @@ namespace SolStandard.Utility.Events.Network
     {
         public override void Continue()
         {
-            GameContext.DraftContext.ConfirmSelection();
+            GlobalContext.DraftContext.ConfirmSelection();
             Complete = true;
         }
     }

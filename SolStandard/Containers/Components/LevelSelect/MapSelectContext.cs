@@ -63,13 +63,13 @@ namespace SolStandard.Containers.Components.LevelSelect
 
                 if (selectMapEntity.Draft)
                 {
-                    GameContext.LoadMapAndScenario(
+                    GlobalContext.LoadMapAndScenario(
                         selectMapEntity.MapInfo.FileName,
                         selectMapEntity.MapObjectives.Scenario,
                         firstTurn
                     );
 
-                    GameContext.DraftContext.StartNewDraft(
+                    GlobalContext.DraftContext.StartNewDraft(
                         selectMapEntity.MaxBlueUnits,
                         selectMapEntity.MaxRedUnits,
                         selectMapEntity.MaxDuplicateUnits,
@@ -77,7 +77,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                         selectMapEntity.MapObjectives.Scenario
                     );
                     
-                    GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                    GlobalContext.CurrentGameState = GlobalContext.GameState.ArmyDraft;
                 }
                 else
                 {
@@ -90,13 +90,13 @@ namespace SolStandard.Containers.Components.LevelSelect
 
                 if (selectMapEntity.Draft)
                 {
-                    GameContext.LoadMapAndScenario(
+                    GlobalContext.LoadMapAndScenario(
                         selectMapEntity.MapInfo.FileName,
                         selectMapEntity.MapObjectives.Scenario,
                         firstTurn
                     );
 
-                    GameContext.DraftContext.StartNewSoloDraft(
+                    GlobalContext.DraftContext.StartNewSoloDraft(
                         firstTurn == Team.Blue
                             ? selectMapEntity.MaxBlueUnits
                             : selectMapEntity.MaxRedUnits,
@@ -105,7 +105,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                         selectMapEntity.MapObjectives.Scenario
                     );
                     
-                    GameContext.CurrentGameState = GameContext.GameState.ArmyDraft;
+                    GlobalContext.CurrentGameState = GlobalContext.GameState.ArmyDraft;
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                 }
             }
 
-            GameContext.CenterCursorAndCamera();
+            GlobalContext.CenterCursorAndCamera();
             PlayMapSong(selectMapEntity);
         }
 
@@ -136,7 +136,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                 ? mapSelectEntities[0]
                 : mapSelectEntities[currentItemIndex + 1];
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
             HoverOverEntity();
             AssetManager.MapUnitCancelSFX.Play();
         }
@@ -149,7 +149,7 @@ namespace SolStandard.Containers.Components.LevelSelect
                 ? mapSelectEntities.Last()
                 : mapSelectEntities[currentItemIndex - 1];
 
-            GameContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
+            GlobalContext.MapCursor.SnapCameraAndCursorToCoordinates(currentMapEntity.MapCoordinates);
             HoverOverEntity();
             AssetManager.MapUnitCancelSFX.Play();
         }

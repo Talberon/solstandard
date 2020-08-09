@@ -22,7 +22,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.ResetMetaController(deviceType);
+            GlobalContext.ControlConfigContext.ResetMetaController(deviceType);
         }
 
         public override IRenderable Clone()

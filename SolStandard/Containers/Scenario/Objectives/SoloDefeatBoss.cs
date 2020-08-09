@@ -72,7 +72,7 @@ namespace SolStandard.Containers.Scenario.Objectives
             get
             {
                 List<GameUnit> creepCommanders =
-                    GameContext.Units.FindAll(unit => unit.Team == Team.Creep && unit.IsCommander);
+                    GlobalContext.Units.FindAll(unit => unit.Team == Team.Creep && unit.IsCommander);
 
                 return !creepCommanders.Any(boss => boss.IsAlive);
             }
@@ -80,7 +80,7 @@ namespace SolStandard.Containers.Scenario.Objectives
 
         private bool AllPlayerUnitsAreDead
         {
-            get { return GameContext.Units.FindAll(unit => unit.Team == playerTeam).TrueForAll(unit => !unit.IsAlive); }
+            get { return GlobalContext.Units.FindAll(unit => unit.Team == playerTeam).TrueForAll(unit => !unit.IsAlive); }
         }
     }
 }

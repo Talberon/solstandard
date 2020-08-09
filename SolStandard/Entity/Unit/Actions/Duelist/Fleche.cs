@@ -62,7 +62,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
 
             if (TargetIsUnitInRange(targetSlice, targetUnit))
             {
-                bool unitCanMove = GameContext.ActiveUnit.Stats.Mv > 1;
+                bool unitCanMove = GlobalContext.ActiveUnit.Stats.Mv > 1;
 
                 if (unitCanMove)
                 {
@@ -72,12 +72,12 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                     return true;
                 }
 
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot move!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot move!", 50);
                 AssetManager.WarningSFX.Play();
                 return false;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must target unit in range!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }
@@ -91,7 +91,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 var eventQueue = new Queue<IEvent>();
                 eventQueue.Enqueue(new WaitFramesEvent(10));
                 eventQueue.Enqueue(
-                    new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
+                    new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity, targetSlice.MapCoordinates)
                 );
                 eventQueue.Enqueue(new PlaySoundEffectEvent(AssetManager.CombatDamageSFX));
                 eventQueue.Enqueue(new WaitFramesEvent(10));
@@ -100,7 +100,7 @@ namespace SolStandard.Entity.Unit.Actions.Duelist
                 return true;
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Must place unit in unoccupied space!", 50);
             AssetManager.WarningSFX.Play();
             return false;
         }

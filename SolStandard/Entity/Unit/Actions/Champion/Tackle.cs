@@ -41,7 +41,7 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                     eventQueue.Enqueue(new ShoveEvent(targetUnit));
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(
-                        new MoveEntityToCoordinatesEvent(GameContext.ActiveUnit.UnitEntity, targetOriginalPosition)
+                        new MoveEntityToCoordinatesEvent(GlobalContext.ActiveUnit.UnitEntity, targetOriginalPosition)
                     );
                     eventQueue.Enqueue(new WaitFramesEvent(10));
                     eventQueue.Enqueue(new StartCombatEvent(targetUnit));
@@ -50,13 +50,13 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Target is obstructed!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }

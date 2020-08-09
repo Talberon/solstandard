@@ -32,7 +32,7 @@ namespace SolStandard.Entity.Unit.Statuses
                 target.Stats.CurrentAtkRange = atkRange.Concat(new[] {extraRange}).ToArray();
             }
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(
                 target.UnitEntity,
                 Name,
                 50

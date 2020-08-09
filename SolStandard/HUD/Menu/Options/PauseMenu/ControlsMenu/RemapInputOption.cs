@@ -39,7 +39,7 @@ namespace SolStandard.HUD.Menu.Options.PauseMenu.ControlsMenu
 
         public override void Execute()
         {
-            GameContext.ControlConfigContext.StartListeningForInput(device, Input);
+            GlobalContext.ControlConfigContext.StartListeningForInput(device, Input);
         }
 
         public override IRenderable Clone()

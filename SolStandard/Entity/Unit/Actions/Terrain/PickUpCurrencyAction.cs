@@ -40,14 +40,14 @@ namespace SolStandard.Entity.Unit.Actions.Terrain
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot pick up money here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         private bool SelectingItemAtUnitLocation(MapSlice targetSlice)
         {
-            return currency.MapCoordinates == GameContext.ActiveUnit.UnitEntity.MapCoordinates &&
+            return currency.MapCoordinates == GlobalContext.ActiveUnit.UnitEntity.MapCoordinates &&
                    targetSlice.DynamicEntity != null;
         }
     }

@@ -27,7 +27,7 @@ namespace SolStandard.Utility.Events
             MapContainer.GameGrid[(int) mapLayer][(int) entityToPlace.MapCoordinates.X,
                 (int) entityToPlace.MapCoordinates.Y] = entityToPlace;
 
-            GameContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCellCoordinates(
                 "Placed " + entityToPlace.Name + "!",
                 entityToPlace.MapCoordinates,
                 50

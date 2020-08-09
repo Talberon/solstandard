@@ -44,8 +44,8 @@ namespace SolStandard.Containers.Scenario.Objectives
         {
             get
             {
-                List<GameUnit> blueTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Blue);
-                List<GameUnit> redTeam = GameContext.Units.FindAll(unit => unit.Team == Team.Red);
+                List<GameUnit> blueTeam = GlobalContext.Units.FindAll(unit => unit.Team == Team.Blue);
+                List<GameUnit> redTeam = GlobalContext.Units.FindAll(unit => unit.Team == Team.Red);
 
                 if (TeamCommandersAreAllDead(blueTeam) && TeamCommandersAreAllDead(redTeam))
                 {

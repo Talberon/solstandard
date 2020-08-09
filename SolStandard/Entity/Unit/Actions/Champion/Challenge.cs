@@ -65,20 +65,20 @@ namespace SolStandard.Entity.Unit.Actions.Champion
                 }
                 else
                 {
-                    GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
+                    GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Obstructed/Immovable!", 50);
                     AssetManager.WarningSFX.Play();
                 }
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Not an enemy in range!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
 
         public static bool CanPull(MapSlice targetSlice, GameUnit targetUnit)
         {
-            Vector2 actorCoordinates = GameContext.ActiveUnit.UnitEntity.MapCoordinates;
+            Vector2 actorCoordinates = GlobalContext.ActiveUnit.UnitEntity.MapCoordinates;
             Vector2 targetCoordinates = targetUnit.UnitEntity.MapCoordinates;
             Vector2 pullTileCoordinates = DeterminePullPosition(actorCoordinates, targetCoordinates);
 

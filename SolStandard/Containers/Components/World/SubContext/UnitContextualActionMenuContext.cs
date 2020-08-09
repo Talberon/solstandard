@@ -27,7 +27,7 @@ namespace SolStandard.Containers.Components.World.SubContext
         public static List<ActionOption> ActiveUnitSkillOptions(Color windowColor)
         {
             var options = new List<ActionOption>();
-            foreach (UnitAction skillAction in GameContext.ActiveUnit.Actions)
+            foreach (UnitAction skillAction in GlobalContext.ActiveUnit.Actions)
             {
                 options.Add(new ActionOption(windowColor, skillAction));
             }
@@ -48,7 +48,7 @@ namespace SolStandard.Containers.Components.World.SubContext
         public static MenuOption[,] GenerateInventoryMenuOptions(Color windowColor)
         {
             const int columns = 2;
-            List<IItem> activeUnitInventory = GameContext.ActiveUnit.Inventory;
+            List<IItem> activeUnitInventory = GlobalContext.ActiveUnit.Inventory;
             var options = new MenuOption[activeUnitInventory.Count, columns];
 
             for (int i = 0; i < activeUnitInventory.Count; i++)
@@ -74,7 +74,7 @@ namespace SolStandard.Containers.Components.World.SubContext
                 RangeComparison.TargetIsWithinRangeOfOrigin(
                     actionTile.MapCoordinates,
                     actionTile.InteractRange,
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates
                 ))
             )
             {
@@ -91,10 +91,10 @@ namespace SolStandard.Containers.Components.World.SubContext
         {
             int[] meleeRange = {1};
 
-            List<GameUnit> alliesInRange = GameContext.Units
-                .Where(unit => unit.Team == GameContext.ActiveTeam && unit.IsAlive)
+            List<GameUnit> alliesInRange = GlobalContext.Units
+                .Where(unit => unit.Team == GlobalContext.ActiveTeam && unit.IsAlive)
                 .Where(ally => RangeComparison.TargetIsWithinRangeOfOrigin(
-                    GameContext.ActiveUnit.UnitEntity.MapCoordinates,
+                    GlobalContext.ActiveUnit.UnitEntity.MapCoordinates,
                     meleeRange,
                     ally.UnitEntity.MapCoordinates
                 ))

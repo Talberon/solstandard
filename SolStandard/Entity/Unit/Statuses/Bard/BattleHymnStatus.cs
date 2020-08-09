@@ -24,13 +24,13 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
                 AnimationType.SongHymn,
                 GameDriver.CellSizeVector,
                 SongAnimationFrameDelay,
-                GetSongColor(GameContext.ActiveTeam)
+                GetSongColor(GlobalContext.ActiveTeam)
             );
         }
 
         public override void ApplyEffect(GameUnit target)
         {
-            GameContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
+            GlobalContext.GameMapContext.MapContainer.AddNewToastAtUnit(target.UnitEntity, Name, 50);
             base.ApplyEffect(target);
         }
 
@@ -46,7 +46,7 @@ namespace SolStandard.Entity.Unit.Statuses.Bard
 
         public override bool UnitIsAffectedBySong(GameUnit unitAffected)
         {
-            GameUnit singer = GameContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(this));
+            GameUnit singer = GlobalContext.Units.FirstOrDefault(unit => unit.StatusEffects.Contains(this));
             return singer != null &&
                    (unitAffected.Team == singer.Team && UnitIsAffectedBySong(unitAffected, this));
         }

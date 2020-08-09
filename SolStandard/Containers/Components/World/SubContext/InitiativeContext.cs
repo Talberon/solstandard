@@ -127,7 +127,7 @@ namespace SolStandard.Containers.Components.World.SubContext
 
         public void PassTurnToNextUnit()
         {
-            if (GameContext.Scenario.GameIsOver) return;
+            if (GlobalContext.Scenario.GameIsOver) return;
             
             Team opposingTeam = OpposingTeam(CurrentActiveTeam);
 
@@ -160,7 +160,7 @@ namespace SolStandard.Containers.Components.World.SubContext
         {
             StartNewRound();
 
-            IEnumerable<CreepUnit> creepUnits = GameContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>();
+            IEnumerable<CreepUnit> creepUnits = GlobalContext.Units.Where(unit => unit is CreepUnit).Cast<CreepUnit>();
             foreach (CreepUnit creepUnit in creepUnits)
             {
                 creepUnit.ReadyNextRoutine();
@@ -174,10 +174,10 @@ namespace SolStandard.Containers.Components.World.SubContext
         {
             CurrentActiveTeam = TeamWithFewerRemainingUnits;
             CurrentActiveUnit = Units.FirstOrDefault(unit => unit.Team == CurrentActiveTeam && unit.IsAlive);
-            GameContext.GameMapContext.ResetCursorToActiveUnit();
+            GlobalContext.GameMapContext.ResetCursorToActiveUnit();
 
-            Vector2 cursorMapCoordinates = GameContext.MapCursor.MapCoordinates;
-            GameContext.StatusScreenView.UpdateWindows();
+            Vector2 cursorMapCoordinates = GlobalContext.MapCursor.MapCoordinates;
+            GlobalContext.StatusScreenView.UpdateWindows();
 
             //Events
 

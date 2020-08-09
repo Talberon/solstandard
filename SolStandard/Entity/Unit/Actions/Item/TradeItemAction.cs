@@ -31,7 +31,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
 
         private void GiveItemToAlly(MapSlice targetSlice)
         {
-            GameUnit actingUnit = GameContext.ActiveUnit;
+            GameUnit actingUnit = GlobalContext.ActiveUnit;
             GameUnit targetUnit = UnitSelector.SelectUnit(targetSlice.UnitEntity);
 
             if (CanGiveItemToAlly(targetUnit, actingUnit, targetSlice))
@@ -44,7 +44,7 @@ namespace SolStandard.Entity.Unit.Actions.Item
             }
             else
             {
-                GameContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
+                GlobalContext.GameMapContext.MapContainer.AddNewToastAtMapCursor("Cannot drop/give item here!", 50);
                 AssetManager.WarningSFX.Play();
             }
         }
